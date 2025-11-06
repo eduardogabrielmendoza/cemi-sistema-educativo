@@ -121,6 +121,25 @@ router.post("/login",
 
     const rol = user.rol;
 
+    // Buscar id_usuario en la tabla usuarios
+    let id_usuario = null;
+    try {
+      const [usuarioRows] = await pool.query(
+        `SELECT id_usuario FROM usuarios WHERE tipo_usuario = ? AND (id_alumno = ? OR id_profesor = ? OR id_administrador = ?) LIMIT 1`,
+        [
+          rol === 'admin' ? 'administrador' : rol,
+          user.id_alumno || null,
+          user.id_profesor || null,
+          user.id_administrador || null
+        ]
+      );
+      if (usuarioRows.length > 0) {
+        id_usuario = usuarioRows[0].id_usuario;
+      }
+    } catch (err) {
+      console.warn("⚠️ No se pudo obtener id_usuario:", err.message);
+    }
+
     // Preparar respuesta según el rol
     const response = {
       success: true,
@@ -128,7 +147,8 @@ router.post("/login",
       rol,
       nombre: `${user.nombre} ${user.apellido}`.trim(),
       username: user.usuario,
-      id_persona: user.id_persona
+      id_persona: user.id_persona,
+      id_usuario // AGREGADO: Necesario para el chat
     };
 
     if (rol === 'admin') {
