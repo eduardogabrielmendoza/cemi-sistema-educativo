@@ -9,10 +9,10 @@ router.get("/", async (req, res) => {
     const [rows] = await pool.query(`
       SELECT i.id_inscripcion, CONCAT(p.nombre, ' ', p.apellido) AS alumno, 
              c.nombre_curso, i.fecha_inscripcion, i.estado
-      FROM Inscripciones i
-      JOIN Alumnos a ON i.id_alumno = a.id_alumno
-      JOIN Personas p ON a.id_alumno = p.id_persona
-      JOIN Cursos c ON i.id_curso = c.id_curso
+      FROM inscripciones i
+      JOIN alumnos a ON i.id_alumno = a.id_alumno
+      JOIN personas p ON a.id_alumno = p.id_persona
+      JOIN cursos c ON i.id_curso = c.id_curso
     `);
     res.json(rows);
   } catch (error) {
@@ -34,10 +34,10 @@ router.get("/curso/:id", async (req, res) => {
         c.parcial1,
         c.parcial2,
         c.final
-      FROM Inscripciones i
-      JOIN Alumnos a ON i.id_alumno = a.id_alumno
-      JOIN Personas p ON a.id_persona = p.id_persona
-      LEFT JOIN Calificaciones c ON (c.id_alumno = a.id_alumno AND c.id_curso = i.id_curso)
+      FROM inscripciones i
+      JOIN alumnos a ON i.id_alumno = a.id_alumno
+      JOIN personas p ON a.id_persona = p.id_persona
+      LEFT JOIN calificaciones c ON (c.id_alumno = a.id_alumno AND c.id_curso = i.id_curso)
       WHERE i.id_curso = ? 
       AND i.estado = 'activo'
     `;
@@ -46,7 +46,7 @@ router.get("/curso/:id", async (req, res) => {
     
     // Si es un profesor, verificar que el curso le pertenezca
     if (id_profesor) {
-      query += ` AND EXISTS (SELECT 1 FROM Cursos cu WHERE cu.id_curso = i.id_curso AND cu.id_profesor = ?)`;
+      query += ` AND EXISTS (SELECT 1 FROM cursos cu WHERE cu.id_curso = i.id_curso AND cu.id_profesor = ?)`;
       params.push(id_profesor);
     }
     
@@ -76,7 +76,7 @@ router.post("/", async (req, res) => {
     const values = lista.map(id_alumno => [id_alumno, id_curso, new Date(), 'activo']);
 
     const [result] = await pool.query(
-      `INSERT INTO Inscripciones (id_alumno, id_curso, fecha_inscripcion, estado) VALUES ?`,
+      `INSERT INTO inscripciones (id_alumno, id_curso, fecha_inscripcion, estado) VALUES ?`,
       [values]
     );
 
@@ -119,7 +119,7 @@ router.post("/", async (req, res) => {
       }
     }
 
-    res.status(201).json({ message: 'Inscripciones creadas', inserted: result.affectedRows });
+    res.status(201).json({ message: 'inscripciones creadas', inserted: result.affectedRows });
   } catch (error) {
     console.error('Error al crear inscripciones:', error);
     res.status(500).json({ message: 'Error al crear inscripciones' });
@@ -132,7 +132,7 @@ router.delete("/:id_curso/:id_alumno", async (req, res) => {
     const { id_curso, id_alumno } = req.params;
 
     const [result] = await pool.query(
-      `UPDATE Inscripciones 
+      `UPDATE inscripciones 
        SET estado = 'inactivo' 
        WHERE id_curso = ? AND id_alumno = ?`,
       [id_curso, id_alumno]
@@ -150,3 +150,4 @@ router.delete("/:id_curso/:id_alumno", async (req, res) => {
 });
 
 export default router;
+

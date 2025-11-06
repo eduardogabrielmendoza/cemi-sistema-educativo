@@ -198,7 +198,7 @@ router.post("/register",
     try {
       // Verificar si el usuario ya existe
       const [existingUser] = await pool.query(
-        "SELECT id_usuario FROM Usuarios WHERE username = ?",
+        "SELECT id_usuario FROM usuarios WHERE username = ?",
         [username.trim()]
       );
 
@@ -211,7 +211,7 @@ router.post("/register",
 
       // Verificar si el email ya existe (campo 'mail' en la tabla)
       const [existingEmail] = await pool.query(
-        "SELECT id_persona FROM Personas WHERE mail = ?",
+        "SELECT id_persona FROM personas WHERE mail = ?",
         [email.trim()]
       );
 
@@ -228,7 +228,7 @@ router.post("/register",
 
       // Obtener ID del perfil "alumno"
       const [perfiles] = await pool.query(
-        "SELECT id_perfil FROM Perfiles WHERE nombre_perfil = 'alumno'"
+        "SELECT id_perfil FROM perfiles WHERE nombre_perfil = 'alumno'"
       );
 
       if (perfiles.length === 0) {
@@ -245,25 +245,25 @@ router.post("/register",
       await connection.beginTransaction();
 
       try {
-        // Insertar en Personas (con todos los campos después de ejecutar el script SQL)
+        // Insertar en personas (con todos los campos después de ejecutar el script SQL)
         const [personaResult] = await connection.query(
-          `INSERT INTO Personas (nombre, apellido, mail, telefono, dni, fecha_creacion)
+          `INSERT INTO personas (nombre, apellido, mail, telefono, dni, fecha_creacion)
            VALUES (?, ?, ?, ?, ?, NOW())`,
           [nombre.trim(), apellido.trim(), email.trim(), telefono?.trim() || null, dni?.trim() || null]
         );
 
         const id_persona = personaResult.insertId;
 
-        // Insertar en Usuarios
+        // Insertar en usuarios
         await connection.query(
-          `INSERT INTO Usuarios (id_persona, id_perfil, username, password_hash, fecha_creacion)
+          `INSERT INTO usuarios (id_persona, id_perfil, username, password_hash, fecha_creacion)
            VALUES (?, ?, ?, ?, NOW())`,
           [id_persona, id_perfil_alumno, username.trim(), passwordHash]
         );
 
         // Generar legajo automático (A001, A002, A003...)
         const [ultimoLegajo] = await connection.query(
-          `SELECT legajo FROM Alumnos WHERE legajo LIKE 'A%' ORDER BY legajo DESC LIMIT 1`
+          `SELECT legajo FROM alumnos WHERE legajo LIKE 'A%' ORDER BY legajo DESC LIMIT 1`
         );
         
         let nuevoLegajo = 'A001';
@@ -273,9 +273,9 @@ router.post("/register",
           nuevoLegajo = 'A' + String(nuevoNumero).padStart(3, '0');
         }
 
-        // Insertar en Alumnos (id_alumno debe ser igual a id_persona, con legajo y teléfono)
+        // Insertar en alumnos (id_alumno debe ser igual a id_persona, con legajo y teléfono)
         await connection.query(
-          `INSERT INTO Alumnos (id_alumno, id_persona, legajo, telefono, fecha_registro, estado)
+          `INSERT INTO alumnos (id_alumno, id_persona, legajo, telefono, fecha_registro, estado)
            VALUES (?, ?, ?, ?, NOW(), 'activo')`,
           [id_persona, id_persona, nuevoLegajo, telefono?.trim() || null]
         );
@@ -839,3 +839,4 @@ router.post("/classroom-login", async (req, res) => {
 });
 
 export default router;
+

@@ -333,7 +333,7 @@
                     </thead>
                     <tbody>
                       ${cursos.map(curso => {
-                        const promedio = curso.promedio || 0;
+                        const promedio = parseFloat(curso.promedio) || 0;
                         let estadoClase = 'estado-pendiente';
                         let estadoTexto = 'Pendiente';
                         

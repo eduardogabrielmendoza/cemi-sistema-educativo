@@ -29,12 +29,12 @@ router.get("/", async (req, res) => {
           WHEN pa.fecha_pago IS NOT NULL THEN 'pagado'
           ELSE 'al_dia'
         END AS estado_visual
-      FROM Pagos pa
-      JOIN Alumnos a ON pa.id_alumno = a.id_alumno
-      JOIN Personas p ON a.id_persona = p.id_persona
-      JOIN Conceptos_Pago cp ON pa.id_concepto = cp.id_concepto
-      JOIN Medios_Pago mp ON pa.id_medio_pago = mp.id_medio_pago
-      LEFT JOIN Administrativos ad ON pa.id_administrativo = ad.id_administrativo
+      FROM pagos pa
+      JOIN alumnos a ON pa.id_alumno = a.id_alumno
+      JOIN personas p ON a.id_persona = p.id_persona
+      JOIN conceptos_pago cp ON pa.id_concepto = cp.id_concepto
+      JOIN medios_pago mp ON pa.id_medio_pago = mp.id_medio_pago
+      LEFT JOIN administrativos ad ON pa.id_administrativo = ad.id_administrativo
       ORDER BY pa.fecha_pago DESC, pa.fecha_vencimiento DESC
     `);
 
@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
         COUNT(CASE WHEN periodo = ? AND fecha_pago IS NULL THEN 1 END) AS cuotas_pendientes,
         COUNT(CASE WHEN fecha_pago IS NULL AND fecha_vencimiento < CURDATE() THEN 1 END) AS alumnos_mora,
         COALESCE(AVG(monto), 0) AS promedio_pago
-      FROM Pagos
+      FROM pagos
     `, [mesActual, mesActual, mesActual]);
 
     res.json({
@@ -66,7 +66,7 @@ router.get("/alumno/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    console.log(`[PAGOS] Consultando pagos para alumno ID: ${id}`);
+    console.log(`[pagos] Consultando pagos para alumno ID: ${id}`);
 
     // Verificar primero si las columnas existen
     const [columnas] = await pool.query(`
@@ -78,7 +78,7 @@ router.get("/alumno/:id", async (req, res) => {
     `);
 
     const tieneNuevasCols = columnas.length >= 2;
-    console.log(`[PAGOS] Tiene columnas nuevas: ${tieneNuevasCols}, columnas encontradas: ${columnas.length}`);
+    console.log(`[pagos] Tiene columnas nuevas: ${tieneNuevasCols}, columnas encontradas: ${columnas.length}`);
 
     // Obtener pagos realizados
     let pagosRealizados = [];
@@ -122,7 +122,7 @@ router.get("/alumno/:id", async (req, res) => {
       pagosRealizados = rows;
     }
 
-    console.log(`[PAGOS] Pagos realizados encontrados: ${pagosRealizados.length}`);
+    console.log(`[pagos] pagos realizados encontrados: ${pagosRealizados.length}`);
 
     // Generar períodos pendientes (últimos 3 meses + próximos 3 meses)
     const periodosPendientes = [];
@@ -296,13 +296,13 @@ router.delete("/:id",
   try {
     const { id } = req.params;
 
-    console.log(`[PAGOS] Intentando eliminar pago ID: ${id}`);
+    console.log(`[pagos] Intentando eliminar pago ID: ${id}`);
 
     // Verificar que el pago existe
     const [pago] = await pool.query('SELECT * FROM pagos WHERE id_pago = ?', [id]);
     
     if (pago.length === 0) {
-      console.log(`[PAGOS] Pago ${id} no encontrado`);
+      console.log(`[pagos] Pago ${id} no encontrado`);
       return res.status(404).json({ 
         success: false,
         message: "Pago no encontrado" 
@@ -312,7 +312,7 @@ router.delete("/:id",
     // Eliminar el pago
     await pool.query('DELETE FROM pagos WHERE id_pago = ?', [id]);
 
-    console.log(`[PAGOS] Pago ${id} eliminado exitosamente`);
+    console.log(`[pagos] Pago ${id} eliminado exitosamente`);
     res.json({ 
       success: true, 
       message: "Pago eliminado correctamente" 
@@ -328,4 +328,5 @@ router.delete("/:id",
 });
 
 export default router;
+
 
