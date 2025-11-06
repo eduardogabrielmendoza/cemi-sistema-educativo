@@ -127,8 +127,15 @@ class UserChatManager {
   
   loadUserInfo() {
     const idKey = this.userType === 'profesor' ? 'id_profesor' : 'id_alumno';
+    
+    // Obtener id_usuario y asegurar que no sea string 'null'
+    let id_usuario = localStorage.getItem('id_usuario');
+    if (id_usuario === 'null' || id_usuario === 'undefined' || !id_usuario) {
+      id_usuario = null;
+    }
+    
     this.userInfo = {
-      id_usuario: localStorage.getItem('id_usuario'), // ID de la tabla Usuarios
+      id_usuario: id_usuario, // ID de la tabla Usuarios
       id_especifico: localStorage.getItem(idKey), // id_profesor o id_alumno
       nombre: localStorage.getItem('nombre') || 'Usuario',
       avatar: localStorage.getItem('avatar') || null, // Avatar del usuario
@@ -136,7 +143,7 @@ class UserChatManager {
     };
     
     if (!this.userInfo.id_usuario) {
-      console.error('No se encontró id_usuario en localStorage');
+      console.warn('⚠️ No se encontró id_usuario en localStorage - Por favor cierra sesión y vuelve a iniciar sesión');
     }
     if (!this.userInfo.id_especifico) {
       console.error(`No se encontró ${idKey} en localStorage`);

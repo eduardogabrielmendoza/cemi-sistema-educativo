@@ -13,7 +13,12 @@ const router = express.Router();
 
 router.post("/iniciar", async (req, res) => {
   try {
-    const { tipo_usuario, id_usuario, nombre, mensaje_inicial } = req.body;
+    let { tipo_usuario, id_usuario, nombre, mensaje_inicial } = req.body;
+    
+    // Convertir string 'null' o 'undefined' a null real
+    if (id_usuario === 'null' || id_usuario === 'undefined' || id_usuario === '') {
+      id_usuario = null;
+    }
     
     // Validaciones
     if (!tipo_usuario || !nombre || !mensaje_inicial) {
