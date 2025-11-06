@@ -275,11 +275,13 @@ router.post("/register",
         const id_persona = personaResult.insertId;
 
         // Insertar en usuarios
-        await connection.query(
+        const [usuarioResult] = await connection.query(
           `INSERT INTO usuarios (id_persona, id_perfil, username, password_hash, fecha_creacion)
            VALUES (?, ?, ?, ?, NOW())`,
           [id_persona, id_perfil_alumno, username.trim(), passwordHash]
         );
+        
+        const id_usuario = usuarioResult.insertId;
 
         // Generar legajo automático (A001, A002, A003...)
         const [ultimoLegajo] = await connection.query(
@@ -293,11 +295,19 @@ router.post("/register",
           nuevoLegajo = 'A' + String(nuevoNumero).padStart(3, '0');
         }
 
-        // Insertar en alumnos (id_alumno debe ser igual a id_persona, con legajo y teléfono)
+        // Insertar en alumnos (con usuario y password_hash para login)
+        const [alumnoResult] = await connection.query(
+          `INSERT INTO alumnos (id_alumno, id_persona, legajo, telefono, usuario, password_hash, fecha_registro, estado)
+           VALUES (?, ?, ?, ?, ?, ?, NOW(), 'activo')`,
+          [id_persona, id_persona, nuevoLegajo, telefono?.trim() || null, username.trim(), passwordHash]
+        );
+        
+        const id_alumno = alumnoResult.insertId;
+        
+        // Actualizar usuarios con id_alumno
         await connection.query(
-          `INSERT INTO alumnos (id_alumno, id_persona, legajo, telefono, fecha_registro, estado)
-           VALUES (?, ?, ?, ?, NOW(), 'activo')`,
-          [id_persona, id_persona, nuevoLegajo, telefono?.trim() || null]
+          `UPDATE usuarios SET id_alumno = ? WHERE id_usuario = ?`,
+          [id_alumno, id_usuario]
         );
 
         await connection.commit();
