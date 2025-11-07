@@ -2616,8 +2616,10 @@ async function abrirModalCredencialesProfesor(idProfesor) {
         toggleBtn.addEventListener('click', () => {
           const isPassword = inputPassword.type === 'password';
           inputPassword.type = isPassword ? 'text' : 'password';
-          const icon = toggleBtn.querySelector('i');
-          icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
+          
+          // Cambiar el ícono actualizando el HTML del botón
+          const iconHtml = isPassword ? '<i data-lucide="eye-off" style="width: 20px; height: 20px; color: #6b7280;"></i>' : '<i data-lucide="eye" style="width: 20px; height: 20px; color: #6b7280;"></i>';
+          toggleBtn.innerHTML = iconHtml;
           lucide.createIcons();
         });
       },
@@ -4083,8 +4085,10 @@ async function abrirModalCredencialesAlumno(idAlumno) {
         toggleBtn.addEventListener('click', () => {
           const isPassword = inputPassword.type === 'password';
           inputPassword.type = isPassword ? 'text' : 'password';
-          const icon = toggleBtn.querySelector('i');
-          icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
+          
+          // Cambiar el ícono actualizando el HTML del botón
+          const iconHtml = isPassword ? '<i data-lucide="eye-off" style="width: 20px; height: 20px; color: #6b7280;"></i>' : '<i data-lucide="eye" style="width: 20px; height: 20px; color: #6b7280;"></i>';
+          toggleBtn.innerHTML = iconHtml;
           lucide.createIcons();
         });
       },
