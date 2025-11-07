@@ -278,11 +278,11 @@ router.post("/register",
           nuevoLegajo = 'A' + String(nuevoNumero).padStart(3, '0');
         }
 
-        // Insertar en alumnos (CLASSROOM) con el MISMO usuario y password
+        // Insertar en alumnos (solo datos académicos, SIN credenciales)
         const [alumnoResult] = await connection.query(
-          `INSERT INTO alumnos (id_alumno, id_persona, legajo, telefono, usuario, password_hash, fecha_registro, estado)
-           VALUES (?, ?, ?, ?, ?, ?, NOW(), 'activo')`,
-          [id_persona, id_persona, nuevoLegajo, telefono?.trim() || null, username.trim(), passwordHash]
+          `INSERT INTO alumnos (id_alumno, id_persona, legajo, fecha_registro, estado)
+           VALUES (?, ?, ?, NOW(), 'activo')`,
+          [id_persona, id_persona, nuevoLegajo]
         );
         
         const id_alumno = alumnoResult.insertId;
