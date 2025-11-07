@@ -121,25 +121,6 @@ router.post("/login",
 
     const rol = user.rol;
 
-    // Buscar id_usuario en la tabla usuarios
-    let id_usuario = null;
-    try {
-      const [usuarioRows] = await pool.query(
-        `SELECT id_usuario FROM usuarios WHERE tipo_usuario = ? AND (id_alumno = ? OR id_profesor = ? OR id_administrador = ?) LIMIT 1`,
-        [
-          rol === 'admin' ? 'administrador' : rol,
-          user.id_alumno || null,
-          user.id_profesor || null,
-          user.id_administrador || null
-        ]
-      );
-      if (usuarioRows.length > 0) {
-        id_usuario = usuarioRows[0].id_usuario;
-      }
-    } catch (err) {
-      console.warn("⚠️ No se pudo obtener id_usuario:", err.message);
-    }
-
     // Preparar respuesta según el rol
     const response = {
       success: true,
@@ -147,17 +128,19 @@ router.post("/login",
       rol,
       nombre: `${user.nombre} ${user.apellido}`.trim(),
       username: user.usuario,
-      id_persona: user.id_persona,
-      id_usuario // AGREGADO: Necesario para el chat
+      id_persona: user.id_persona
     };
 
     if (rol === 'admin') {
       response.id_administrador = user.id_administrador;
+      response.id_usuario = user.id_administrador; // Para compatibilidad
       response.nivel_acceso = user.nivel_acceso;
     } else if (rol === 'profesor') {
       response.id_profesor = user.id_profesor;
+      response.id_usuario = user.id_profesor; // Para compatibilidad
     } else if (rol === 'alumno') {
       response.id_alumno = user.id_alumno;
+      response.id_usuario = user.id_alumno; // Para compatibilidad
     }
 
     return res.json(response);
@@ -216,9 +199,9 @@ router.post("/register",
     const { username, email, password, nombre, apellido, telefono, dni } = req.body;
 
     try {
-      // Verificar si el usuario ya existe
+      // Verificar si el usuario ya existe en alumnos
       const [existingUser] = await pool.query(
-        "SELECT id_usuario FROM usuarios WHERE username = ?",
+        "SELECT id_alumno FROM alumnos WHERE usuario = ?",
         [username.trim()]
       );
 
@@ -265,7 +248,7 @@ router.post("/register",
       await connection.beginTransaction();
 
       try {
-        // Insertar en personas (con todos los campos después de ejecutar el script SQL)
+        // Insertar en personas
         const [personaResult] = await connection.query(
           `INSERT INTO personas (nombre, apellido, mail, telefono, dni, fecha_creacion)
            VALUES (?, ?, ?, ?, ?, NOW())`,
@@ -274,7 +257,7 @@ router.post("/register",
 
         const id_persona = personaResult.insertId;
 
-        // Insertar en usuarios
+        // Insertar en usuarios (DASHBOARD)
         const [usuarioResult] = await connection.query(
           `INSERT INTO usuarios (id_persona, id_perfil, username, password_hash, fecha_creacion)
            VALUES (?, ?, ?, ?, NOW())`,
@@ -295,7 +278,7 @@ router.post("/register",
           nuevoLegajo = 'A' + String(nuevoNumero).padStart(3, '0');
         }
 
-        // Insertar en alumnos (con usuario y password_hash para login)
+        // Insertar en alumnos (CLASSROOM) con el MISMO usuario y password
         const [alumnoResult] = await connection.query(
           `INSERT INTO alumnos (id_alumno, id_persona, legajo, telefono, usuario, password_hash, fecha_registro, estado)
            VALUES (?, ?, ?, ?, ?, ?, NOW(), 'activo')`,
@@ -303,12 +286,6 @@ router.post("/register",
         );
         
         const id_alumno = alumnoResult.insertId;
-        
-        // Actualizar usuarios con id_alumno
-        await connection.query(
-          `UPDATE usuarios SET id_alumno = ? WHERE id_usuario = ?`,
-          [id_alumno, id_usuario]
-        );
 
         await connection.commit();
         connection.release();
@@ -662,13 +639,13 @@ router.get("/usuario-classroom/:id_persona", async (req, res) => {
 
 // -------------------------
 // POST /api/auth/admin-cambiar-password-classroom
-// Cambiar contraseña y/o usuario del Classroom (solo para admins)
+// Asignar/cambiar SOLO la contraseña de Classroom (NO cambia el usuario)
 // -------------------------
 router.post("/admin-cambiar-password-classroom",
   [
-    body('id_persona').isInt().withMessage('ID de persona inválido'),
-    body('username').optional().trim().notEmpty().withMessage('El usuario no puede estar vacío'),
-    body('password').optional().isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres')
+    body('id_usuario').isInt().withMessage('ID de usuario inválido'),
+    body('tipo_usuario').isIn(['alumno', 'profesor']).withMessage('Tipo de usuario inválido'),
+    body('nueva_password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -680,100 +657,48 @@ router.post("/admin-cambiar-password-classroom",
       });
     }
 
-    const { id_persona, username, password } = req.body;
+    const { id_usuario, tipo_usuario, nueva_password } = req.body;
 
     try {
-      console.log(`🔑 Admin actualizando credenciales de Classroom para id_persona: ${id_persona}`);
+      console.log(`🔑 Admin actualizando password de Classroom para ${tipo_usuario} ID: ${id_usuario}`);
+
+      const tabla = tipo_usuario === 'alumno' ? 'alumnos' : 'profesores';
+      const idColumn = tipo_usuario === 'alumno' ? 'id_alumno' : 'id_profesor';
 
       // Verificar que existe el usuario
       const [rows] = await pool.query(
-        'SELECT id_usuario, username FROM usuarios WHERE id_persona = ?',
-        [id_persona]
+        `SELECT ${idColumn}, usuario, password_classroom FROM ${tabla} WHERE ${idColumn} = ?`,
+        [id_usuario]
       );
 
       if (rows.length === 0) {
-        // Si no existe, crear el usuario
-        if (!username || !password) {
-          return res.status(400).json({
-            success: false,
-            message: 'Para crear un usuario nuevo se requiere username y password'
-          });
-        }
-
-        // Verificar que el username no esté en uso
-        const [existente] = await pool.query(
-          'SELECT id_usuario FROM usuarios WHERE username = ?',
-          [username]
-        );
-
-        if (existente.length > 0) {
-          return res.status(400).json({
-            success: false,
-            message: 'Este nombre de usuario ya está en uso'
-          });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await pool.query(
-          'INSERT INTO usuarios (id_persona, username, password_hash, rol) VALUES (?, ?, ?, ?)',
-          [id_persona, username, hashedPassword, 'estudiante']
-        );
-
-        console.log(`✅ Usuario de Classroom creado: ${username}`);
-        return res.json({
-          success: true,
-          message: 'Usuario de Classroom creado correctamente'
+        return res.status(404).json({
+          success: false,
+          message: 'Usuario no encontrado'
         });
       }
 
-      // Si existe, actualizar lo que se haya enviado
-      const updates = [];
-      const values = [];
+      // Hashear la nueva contraseña
+      const hashedPassword = await bcrypt.hash(nueva_password, 10);
 
-      if (username && username !== rows[0].username) {
-        // Verificar que el nuevo username no esté en uso
-        const [existente] = await pool.query(
-          'SELECT id_usuario FROM usuarios WHERE username = ? AND id_persona != ?',
-          [username, id_persona]
-        );
+      // Actualizar SOLO password_classroom
+      await pool.query(
+        `UPDATE ${tabla} SET password_classroom = ? WHERE ${idColumn} = ?`,
+        [hashedPassword, id_usuario]
+      );
 
-        if (existente.length > 0) {
-          return res.status(400).json({
-            success: false,
-            message: 'Este nombre de usuario ya está en uso'
-          });
-        }
-
-        updates.push('username = ?');
-        values.push(username);
-      }
-
-      if (password) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        updates.push('password_hash = ?');
-        values.push(hashedPassword);
-      }
-
-      if (updates.length > 0) {
-        values.push(id_persona);
-        await pool.query(
-          `UPDATE usuarios SET ${updates.join(', ')} WHERE id_persona = ?`,
-          values
-        );
-
-        console.log(`✅ Credenciales de Classroom actualizadas para: ${username || rows[0].username}`);
-      }
+      console.log(`✅ Password de Classroom actualizada para ${tipo_usuario}: ${rows[0].usuario}`);
 
       return res.json({
         success: true,
-        message: 'Credenciales del Classroom actualizadas correctamente'
+        message: 'Contraseña de Classroom actualizada correctamente'
       });
 
     } catch (error) {
       console.error("💥 /auth/admin-cambiar-password-classroom error:", error);
       return res.status(500).json({
         success: false,
-        message: 'Error al actualizar las credenciales del Classroom'
+        message: 'Error al actualizar la contraseña del Classroom'
       });
     }
   }
@@ -869,41 +794,143 @@ router.post("/classroom-login", async (req, res) => {
 });
 
 // -------------------------
-// POST /api/auth/verify
-// Verificar y obtener id_usuario sin re-login
+// POST /api/auth/admin-cambiar-password-classroom
+// Admin asigna/cambia password de Classroom para alumno o profesor
 // -------------------------
-router.post("/verify", async (req, res) => {
+router.post("/admin-cambiar-password-classroom",
+  [
+    body('id_usuario').isInt().withMessage('ID de usuario inválido'),
+    body('tipo_usuario').isIn(['alumno', 'profesor']).withMessage('Tipo de usuario inválido'),
+    body('nueva_password').notEmpty().withMessage('La nueva contraseña es requerida')
+      .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres')
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: errors.array()[0].msg,
+        errors: errors.array()
+      });
+    }
+
+    const { id_usuario, tipo_usuario, nueva_password } = req.body;
+
+    try {
+      // Hash de la nueva contraseña
+      const salt = bcrypt.genSaltSync(10);
+      const passwordHash = bcrypt.hashSync(nueva_password.trim(), salt);
+
+      let query, params;
+      
+      if (tipo_usuario === 'alumno') {
+        query = `UPDATE alumnos SET password_classroom = ? WHERE id_alumno = ?`;
+        params = [passwordHash, id_usuario];
+      } else if (tipo_usuario === 'profesor') {
+        query = `UPDATE profesores SET password_classroom = ? WHERE id_profesor = ?`;
+        params = [passwordHash, id_usuario];
+      }
+
+      const [result] = await pool.query(query, params);
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Usuario no encontrado'
+        });
+      }
+
+      return res.json({
+        success: true,
+        message: 'Contraseña de Classroom actualizada exitosamente'
+      });
+
+    } catch (error) {
+      console.error("💥 /auth/admin-cambiar-password-classroom error:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Error al actualizar la contraseña"
+      });
+    }
+  }
+);
+
+// -------------------------
+// GET /api/auth/usuario-classroom/:id
+// Obtener información de credenciales Classroom de un usuario
+// -------------------------
+router.get("/usuario-classroom/:id", async (req, res) => {
+  const { id } = req.params;
+  const { tipo } = req.query; // 'alumno' o 'profesor'
+
   try {
-    const { username } = req.body;
-    
-    if (!username) {
-      return res.status(400).json({ success: false, message: "Username requerido" });
+    let query, tienePasswordClassroom;
+
+    if (tipo === 'alumno') {
+      const [rows] = await pool.query(
+        `SELECT a.id_alumno, a.usuario, a.password_classroom,
+                p.nombre, p.apellido
+         FROM alumnos a
+         JOIN personas p ON a.id_persona = p.id_persona
+         WHERE a.id_alumno = ?`,
+        [id]
+      );
+
+      if (rows.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Alumno no encontrado'
+        });
+      }
+
+      tienePasswordClassroom = rows[0].password_classroom !== null;
+
+      return res.json({
+        success: true,
+        usuario: rows[0].usuario,
+        nombre: `${rows[0].nombre} ${rows[0].apellido}`,
+        tiene_password_classroom: tienePasswordClassroom
+      });
+
+    } else if (tipo === 'profesor') {
+      const [rows] = await pool.query(
+        `SELECT p.id_profesor, p.usuario, p.password_classroom,
+                per.nombre, per.apellido
+         FROM profesores p
+         JOIN personas per ON p.id_persona = per.id_persona
+         WHERE p.id_profesor = ?`,
+        [id]
+      );
+
+      if (rows.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Profesor no encontrado'
+        });
+      }
+
+      tienePasswordClassroom = rows[0].password_classroom !== null;
+
+      return res.json({
+        success: true,
+        usuario: rows[0].usuario,
+        nombre: `${rows[0].nombre} ${rows[0].apellido}`,
+        tiene_password_classroom: tienePasswordClassroom
+      });
     }
-    
-    // Buscar el usuario en cualquiera de las tablas
-    let [rows] = await pool.query(`
-      SELECT u.id_usuario, p.nombre, p.apellido
-      FROM usuarios u
-      JOIN personas p ON u.id_persona = p.id_persona
-      WHERE u.username = ?
-      LIMIT 1
-    `, [username]);
-    
-    if (rows.length === 0) {
-      return res.status(404).json({ success: false, message: "Usuario no encontrado" });
-    }
-    
-    res.json({
-      success: true,
-      id_usuario: rows[0].id_usuario,
-      nombre: `${rows[0].nombre} ${rows[0].apellido}`.trim()
+
+    return res.status(400).json({
+      success: false,
+      message: 'Tipo de usuario no especificado'
     });
-    
+
   } catch (error) {
-    console.error("Error en /auth/verify:", error);
-    res.status(500).json({ success: false, message: "Error del servidor" });
+    console.error("💥 /auth/usuario-classroom error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener información del usuario"
+    });
   }
 });
 
 export default router;
-

@@ -1,4 +1,4 @@
-﻿-- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
 --
 -- Host: localhost    Database: proyecto_final
 -- ------------------------------------------------------
@@ -93,6 +93,7 @@ CREATE TABLE `alumnos` (
   `fecha_registro` date DEFAULT curdate(),
   `usuario` varchar(50) DEFAULT NULL,
   `password_hash` varchar(255) DEFAULT NULL,
+  `password_classroom` varchar(255) DEFAULT NULL COMMENT 'Password para Classroom (asignado por admin)',
   PRIMARY KEY (`id_alumno`),
   UNIQUE KEY `legajo` (`legajo`),
   UNIQUE KEY `usuario` (`usuario`),
@@ -111,7 +112,7 @@ CREATE TABLE `alumnos` (
 
 LOCK TABLES `alumnos` WRITE;
 /*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
-INSERT INTO `alumnos` VALUES (4,'A001',4,'11-1439-3159','Av. Corrientes 1234, CABA','1998-05-15','activo','2025-10-13','alumnamica','$2b$10$l03kEKBP5XppeFwfASgO/ON2f1tubg8UNGBz2bLGkh.z1c1olCSXS'),(5,'A002',5,'11-5925-6186','Av. Santa Fe 4567, CABA','1995-08-22','activo','2025-08-06','alumno5','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(6,'A003',6,'11-5212-6600','Av. Rivadavia 890, CABA','2000-03-10','activo','2025-02-16','alumno6','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(15,'A004',15,'+54 3B1 4463243',NULL,NULL,'activo','2025-11-01','alumno15','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(16,'A005',16,'+54 381 8865633',NULL,NULL,'activo','2025-11-01','alumno16','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(21,'A006',21,'+54 381 555444888','Sarmiento 200',NULL,'activo','2025-11-02','alumnomatias','$2b$10$gL4p14BytrOqmNbd0Z8xz.CI/Flzh4BCFvmAzyiXNdrYA/n01CF4u');
+INSERT INTO `alumnos` VALUES (4,'A001',4,'11-1439-3159','Av. Corrientes 1234, CABA','1998-05-15','activo','2025-10-13','alumnamica','$2b$10$l03kEKBP5XppeFwfASgO/ON2f1tubg8UNGBz2bLGkh.z1c1olCSXS','$2b$10$l03kEKBP5XppeFwfASgO/ON2f1tubg8UNGBz2bLGkh.z1c1olCSXS'),(5,'A002',5,'11-5925-6186','Av. Santa Fe 4567, CABA','1995-08-22','activo','2025-08-06','alumno5','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(6,'A003',6,'11-5212-6600','Av. Rivadavia 890, CABA','2000-03-10','activo','2025-02-16','alumno6','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(15,'A004',15,'+54 3B1 4463243',NULL,NULL,'activo','2025-11-01','alumno15','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(16,'A005',16,'+54 381 8865633',NULL,NULL,'activo','2025-11-01','alumno16','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy','$2b$10$JjfezYLYCQ63UnP4mD0gIOAQFhzUGgrNqIBwnf9u8RxhmWurLJdoy'),(21,'A006',21,'+54 381 555444888','Sarmiento 200',NULL,'activo','2025-11-02','alumnomatias','$2b$10$gL4p14BytrOqmNbd0Z8xz.CI/Flzh4BCFvmAzyiXNdrYA/n01CF4u','$2b$10$gL4p14BytrOqmNbd0Z8xz.CI/Flzh4BCFvmAzyiXNdrYA/n01CF4u'),(29,'A007',29,'38122255566',NULL,NULL,'activo','2025-11-06','alumnoroberto','$2b$10$ORAZyEK.FSVFSYJ8WbdgAuMV0cUHnXPcxdIc2qBNctwriNZWe70WW','$2b$10$ORAZyEK.FSVFSYJ8WbdgAuMV0cUHnXPcxdIc2qBNctwriNZWe70WW'),(32,'A008',32,'38144455698',NULL,NULL,'activo','2025-11-06','alumnogerardo','$2b$10$SVpSTcqLrcc8fjPpviHDHeTPZpk8qUstgLfALrKjRgTvU5cBb9dAy','$2b$10$SVpSTcqLrcc8fjPpviHDHeTPZpk8qUstgLfALrKjRgTvU5cBb9dAy'),(49,'A009',49,'-',NULL,NULL,'activo','2025-11-06','alumnoivan','$2b$10$DISDvPIx5/Fy6Qg5WputPOPde/oOLvW9y23vg2MW.rY3evtXEnVPe','$2b$10$DISDvPIx5/Fy6Qg5WputPOPde/oOLvW9y23vg2MW.rY3evtXEnVPe'),(50,'A010',50,'-',NULL,NULL,'activo','2025-11-06','alumnamaria','$2b$10$6kG0IH2jd6vVSzLU3RiwyOaCnBmsG0jK6bvNO9.F3Ii8OigOKUyNy','$2b$10$BGgEaLceMqDOJj8/vhW0c.G725bK02An1E5UOsvyDMApr5ezP8xlq'),(51,'A011',51,'-',NULL,NULL,'activo','2025-11-06','alumnaisabella','$2b$10$e8wqKOdJT3s25c3JcsbuMuq0s5SGurG32DQlkHOBuxl9GJHrLlzSa',NULL);
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,8 +265,8 @@ CREATE TABLE `chat_conversaciones` (
   `fecha_inicio` timestamp NOT NULL DEFAULT current_timestamp(),
   `fecha_cierre` timestamp NULL DEFAULT NULL,
   `atendido_por` int(11) DEFAULT NULL COMMENT 'id_usuario del admin que atiende',
-  `mensajes_no_leidos_admin` int(11) DEFAULT 0 COMMENT 'Contador de mensajes no leÃ­dos por el admin',
-  `mensajes_no_leidos_usuario` int(11) DEFAULT 0 COMMENT 'Contador de mensajes no leÃ­dos por el usuario',
+  `mensajes_no_leidos_admin` int(11) DEFAULT 0 COMMENT 'Contador de mensajes no leídos por el admin',
+  `mensajes_no_leidos_usuario` int(11) DEFAULT 0 COMMENT 'Contador de mensajes no leídos por el usuario',
   `ultima_actividad` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id_conversacion`),
   KEY `idx_estado` (`estado`),
@@ -273,7 +274,7 @@ CREATE TABLE `chat_conversaciones` (
   KEY `idx_tipo_usuario` (`tipo_usuario`),
   KEY `idx_ultima_actividad` (`ultima_actividad`),
   CONSTRAINT `chat_conversaciones_ibfk_1` FOREIGN KEY (`atendido_por`) REFERENCES `usuarios` (`id_usuario`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Conversaciones de chat de soporte';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Conversaciones de chat de soporte';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,7 +283,7 @@ CREATE TABLE `chat_conversaciones` (
 
 LOCK TABLES `chat_conversaciones` WRITE;
 /*!40000 ALTER TABLE `chat_conversaciones` DISABLE KEYS */;
-INSERT INTO `chat_conversaciones` VALUES (15,'profesor',10,NULL,'activa','2025-11-04 00:45:23',NULL,NULL,0,0,'2025-11-04 00:45:49'),(17,'alumno',4,NULL,'activa','2025-11-04 01:02:09',NULL,NULL,0,1,'2025-11-06 06:07:20'),(19,'profesor',12,NULL,'activa','2025-11-04 01:03:50',NULL,NULL,0,0,'2025-11-04 01:12:42'),(20,'profesor',13,NULL,'activa','2025-11-04 01:26:32',NULL,NULL,0,0,'2025-11-04 16:01:59');
+INSERT INTO `chat_conversaciones` VALUES (15,'profesor',10,NULL,'activa','2025-11-04 00:45:23',NULL,NULL,0,0,'2025-11-04 00:45:49'),(17,'alumno',4,NULL,'activa','2025-11-04 01:02:09',NULL,NULL,0,1,'2025-11-06 06:07:20'),(19,'profesor',12,NULL,'activa','2025-11-04 01:03:50',NULL,NULL,0,0,'2025-11-04 01:12:42'),(20,'profesor',13,NULL,'activa','2025-11-04 01:26:32',NULL,NULL,0,0,'2025-11-04 16:01:59'),(25,'profesor',2,NULL,'pendiente','2025-11-06 12:08:09',NULL,NULL,0,0,'2025-11-06 12:08:23'),(26,'alumno',20,NULL,'pendiente','2025-11-06 12:08:55',NULL,NULL,0,0,'2025-11-06 12:09:06');
 /*!40000 ALTER TABLE `chat_conversaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,18 +298,18 @@ CREATE TABLE `chat_estadisticas` (
   `id_estadistica` int(11) NOT NULL AUTO_INCREMENT,
   `id_conversacion` int(11) NOT NULL,
   `tiempo_primera_respuesta` int(11) DEFAULT NULL COMMENT 'Tiempo en segundos hasta primera respuesta del admin',
-  `tiempo_total_conversacion` int(11) DEFAULT NULL COMMENT 'DuraciÃ³n total en segundos',
+  `tiempo_total_conversacion` int(11) DEFAULT NULL COMMENT 'Duración total en segundos',
   `total_mensajes` int(11) DEFAULT 0,
   `mensajes_usuario` int(11) DEFAULT 0,
   `mensajes_admin` int(11) DEFAULT 0,
-  `calificacion` tinyint(1) DEFAULT NULL COMMENT 'CalificaciÃ³n de 1-5 estrellas',
+  `calificacion` tinyint(1) DEFAULT NULL COMMENT 'Calificación de 1-5 estrellas',
   `comentario_calificacion` text DEFAULT NULL,
   `fecha_calificacion` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_estadistica`),
   KEY `id_conversacion` (`id_conversacion`),
   KEY `idx_calificacion` (`calificacion`),
   CONSTRAINT `chat_estadisticas_ibfk_1` FOREIGN KEY (`id_conversacion`) REFERENCES `chat_conversaciones` (`id_conversacion`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='EstadÃ­sticas y mÃ©tricas del chat';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Estadísticas y métricas del chat';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +318,7 @@ CREATE TABLE `chat_estadisticas` (
 
 LOCK TABLES `chat_estadisticas` WRITE;
 /*!40000 ALTER TABLE `chat_estadisticas` DISABLE KEYS */;
-INSERT INTO `chat_estadisticas` VALUES (15,15,NULL,NULL,0,0,0,NULL,NULL,NULL),(17,17,NULL,NULL,0,0,0,NULL,NULL,NULL),(19,19,NULL,NULL,0,0,0,NULL,NULL,NULL),(20,20,NULL,NULL,0,0,0,NULL,NULL,NULL);
+INSERT INTO `chat_estadisticas` VALUES (15,15,NULL,NULL,0,0,0,NULL,NULL,NULL),(17,17,NULL,NULL,0,0,0,NULL,NULL,NULL),(19,19,NULL,NULL,0,0,0,NULL,NULL,NULL),(20,20,NULL,NULL,0,0,0,NULL,NULL,NULL),(25,25,NULL,NULL,0,0,0,NULL,NULL,NULL),(26,26,NULL,NULL,0,0,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `chat_estadisticas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,7 +346,7 @@ CREATE TABLE `chat_mensajes` (
   KEY `idx_fecha_envio` (`fecha_envio`),
   KEY `idx_tipo_remitente` (`tipo_remitente`),
   CONSTRAINT `chat_mensajes_ibfk_1` FOREIGN KEY (`id_conversacion`) REFERENCES `chat_conversaciones` (`id_conversacion`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Mensajes del chat de soporte';
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Mensajes del chat de soporte';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +355,7 @@ CREATE TABLE `chat_mensajes` (
 
 LOCK TABLES `chat_mensajes` WRITE;
 /*!40000 ALTER TABLE `chat_mensajes` DISABLE KEYS */;
-INSERT INTO `chat_mensajes` VALUES (212,15,'profesor',10,'Pablo Garcia','hola soporte','2025-11-04 00:45:23',1,1,0),(213,15,'profesor',10,'Pablo Garcia','necesito ayuda','2025-11-04 00:45:26',1,1,0),(214,15,'profesor',10,'Pablo Garcia','en algo','2025-11-04 00:45:29',1,1,0),(215,15,'profesor',10,'Pablo Garcia','hola','2025-11-04 00:45:37',1,1,0),(216,15,'admin',NULL,'Eduardo Mendoza','digame garcia','2025-11-04 00:45:47',1,0,1),(220,17,'alumno',4,'Micaela Gomez','hola soporte','2025-11-04 01:02:09',1,1,0),(221,17,'admin',1,'Eduardo Mendoza','digame micaela','2025-11-04 01:02:18',1,0,1),(222,17,'alumno',4,'Micaela Gomez','hola soporte','2025-11-04 01:02:26',1,1,0),(225,19,'profesor',12,'Irina Lopez','hola soporte','2025-11-04 01:03:50',1,1,0),(226,19,'admin',1,'Eduardo Mendoza','hola irina','2025-11-04 01:04:03',1,0,1),(227,19,'profesor',12,'Irina Lopez','hola soporte','2025-11-04 01:12:35',1,1,0),(230,20,'profesor',13,'Javier Monteros','hola soy el profesor javier necesito soporte','2025-11-04 01:26:32',1,1,0),(231,20,'admin',1,'Eduardo Mendoza','hola javier','2025-11-04 01:26:43',1,0,1),(249,20,'admin',1,'Eduardo Mendoza','digame javier, que necesita','2025-11-04 16:01:47',1,0,1),(251,17,'alumno',4,'Micaela Gomez','hola','2025-11-06 06:07:04',1,1,0),(252,17,'alumno',4,'Micaela Gomez','si','2025-11-06 06:07:08',1,1,0),(253,17,'admin',1,'Eduardo Mendoza','si','2025-11-06 06:07:20',0,0,0);
+INSERT INTO `chat_mensajes` VALUES (212,15,'profesor',10,'Pablo Garcia','hola soporte','2025-11-04 00:45:23',1,1,0),(213,15,'profesor',10,'Pablo Garcia','necesito ayuda','2025-11-04 00:45:26',1,1,0),(214,15,'profesor',10,'Pablo Garcia','en algo','2025-11-04 00:45:29',1,1,0),(215,15,'profesor',10,'Pablo Garcia','hola','2025-11-04 00:45:37',1,1,0),(216,15,'admin',NULL,'Eduardo Mendoza','digame garcia','2025-11-04 00:45:47',1,0,1),(220,17,'alumno',4,'Micaela Gomez','hola soporte','2025-11-04 01:02:09',1,1,0),(221,17,'admin',1,'Eduardo Mendoza','digame micaela','2025-11-04 01:02:18',1,0,1),(222,17,'alumno',4,'Micaela Gomez','hola soporte','2025-11-04 01:02:26',1,1,0),(225,19,'profesor',12,'Irina Lopez','hola soporte','2025-11-04 01:03:50',1,1,0),(226,19,'admin',1,'Eduardo Mendoza','hola irina','2025-11-04 01:04:03',1,0,1),(227,19,'profesor',12,'Irina Lopez','hola soporte','2025-11-04 01:12:35',1,1,0),(230,20,'profesor',13,'Javier Monteros','hola soy el profesor javier necesito soporte','2025-11-04 01:26:32',1,1,0),(231,20,'admin',1,'Eduardo Mendoza','hola javier','2025-11-04 01:26:43',1,0,1),(249,20,'admin',1,'Eduardo Mendoza','digame javier, que necesita','2025-11-04 16:01:47',1,0,1),(251,17,'alumno',4,'Micaela Gomez','hola','2025-11-06 06:07:04',1,1,0),(252,17,'alumno',4,'Micaela Gomez','si','2025-11-06 06:07:08',1,1,0),(253,17,'admin',1,'Eduardo Mendoza','si','2025-11-06 06:07:20',0,0,0),(256,25,'profesor',2,'Bautista Bareiro','hola','2025-11-06 12:08:09',1,1,0),(257,26,'alumno',20,'Gerardo Kustin','probando','2025-11-06 12:08:55',1,1,0);
 /*!40000 ALTER TABLE `chat_mensajes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,7 +419,7 @@ CREATE TABLE `classroom_estadisticas` (
   PRIMARY KEY (`id_estadistica`),
   UNIQUE KEY `unique_curso` (`id_curso`),
   CONSTRAINT `classroom_estadisticas_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='EstadÃ­sticas del sistema de chat de Classroom por curso';
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Estadísticas del sistema de chat de Classroom por curso';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,8 +442,8 @@ DROP TABLE IF EXISTS `classroom_mensajes`;
 CREATE TABLE `classroom_mensajes` (
   `id_mensaje` int(11) NOT NULL AUTO_INCREMENT,
   `id_conversacion` int(11) NOT NULL,
-  `id_usuario_remitente` int(11) NOT NULL COMMENT 'id_usuario del que envÃ­a (alumno o profesor)',
-  `tipo_remitente` enum('alumno','profesor') NOT NULL COMMENT 'Tipo de usuario que envÃ­a',
+  `id_usuario_remitente` int(11) NOT NULL COMMENT 'id_usuario del que envía (alumno o profesor)',
+  `tipo_remitente` enum('alumno','profesor') NOT NULL COMMENT 'Tipo de usuario que envía',
   `mensaje` text NOT NULL,
   `tiene_archivo` tinyint(1) DEFAULT 0,
   `nombre_archivo` varchar(255) DEFAULT NULL,
@@ -523,7 +524,7 @@ CREATE TABLE `conceptos_pago` (
 
 LOCK TABLES `conceptos_pago` WRITE;
 /*!40000 ALTER TABLE `conceptos_pago` DISABLE KEYS */;
-INSERT INTO `conceptos_pago` VALUES (1,'MatrÃ­cula',5000.00),(2,'Cuota Mensual',10000.00);
+INSERT INTO `conceptos_pago` VALUES (1,'Matrícula',5000.00),(2,'Cuota Mensual',10000.00);
 /*!40000 ALTER TABLE `conceptos_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -564,7 +565,7 @@ CREATE TABLE `cursos` (
 
 LOCK TABLES `cursos` WRITE;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
-INSERT INTO `cursos` VALUES (1,'InglÃ©s Base ',1,1,2,'19:40',50,2,'2025-11-01 21:31:38','2025-11-01 21:31:38'),(2,'FrancÃ©s Base',2,3,3,'20:00',40,1,'2025-11-01 21:31:38','2025-11-01 21:31:38'),(3,'Aleman Base',3,4,10,'21:30',30,NULL,'2025-11-01 21:31:38','2025-11-01 21:31:38'),(4,'Japones Basico',5,1,24,'20:30',30,4,'2025-11-02 05:36:25','2025-11-02 15:00:38'),(5,'Ingles Intermedio',1,4,2,'18:30',15,4,'2025-11-02 17:48:21','2025-11-02 17:48:21'),(6,'Italiano Base',6,3,2,'20:30',20,1,'2025-11-03 05:20:52','2025-11-03 05:20:52'),(7,'Japones Intermedio',5,4,25,'17:40',20,1,'2025-11-04 01:27:23','2025-11-04 01:27:23');
+INSERT INTO `cursos` VALUES (1,'Inglés Base ',1,1,2,'19:40',50,2,'2025-11-01 21:31:38','2025-11-01 21:31:38'),(2,'Francés Base',2,3,3,'20:00',40,1,'2025-11-01 21:31:38','2025-11-01 21:31:38'),(3,'Aleman Base',3,4,10,'21:30',30,NULL,'2025-11-01 21:31:38','2025-11-01 21:31:38'),(4,'Japones Basico',5,1,24,'20:30',30,4,'2025-11-02 05:36:25','2025-11-02 15:00:38'),(5,'Ingles Intermedio',1,4,2,'18:30',15,4,'2025-11-02 17:48:21','2025-11-02 17:48:21'),(6,'Italiano Base',6,3,2,'20:30',20,1,'2025-11-03 05:20:52','2025-11-03 05:20:52'),(7,'Japones Intermedio',5,4,25,'17:40',20,1,'2025-11-04 01:27:23','2025-11-04 01:27:23');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -592,7 +593,7 @@ CREATE TABLE `encuestas` (
 
 LOCK TABLES `encuestas` WRITE;
 /*!40000 ALTER TABLE `encuestas` DISABLE KEYS */;
-INSERT INTO `encuestas` VALUES (1,3,'Clases maÃ±ana','2025-11-02 14:51:03'),(2,6,'Clases maÃ±ana','2025-11-02 14:52:16'),(3,7,'Clases maÃ±ana si o si','2025-11-02 17:11:13'),(4,8,'si','2025-11-02 17:15:07');
+INSERT INTO `encuestas` VALUES (1,3,'Clases mañana','2025-11-02 14:51:03'),(2,6,'Clases mañana','2025-11-02 14:52:16'),(3,7,'Clases mañana si o si','2025-11-02 17:11:13'),(4,8,'si','2025-11-02 17:15:07');
 /*!40000 ALTER TABLE `encuestas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -749,7 +750,7 @@ CREATE TABLE `medios_pago` (
 
 LOCK TABLES `medios_pago` WRITE;
 /*!40000 ALTER TABLE `medios_pago` DISABLE KEYS */;
-INSERT INTO `medios_pago` VALUES (1,'Efectivo'),(3,'Tarjeta de CrÃ©dito'),(2,'Transferencia');
+INSERT INTO `medios_pago` VALUES (1,'Efectivo'),(3,'Tarjeta de Crédito'),(2,'Transferencia');
 /*!40000 ALTER TABLE `medios_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -827,7 +828,7 @@ CREATE TABLE `notificaciones` (
   `mensaje` text NOT NULL,
   `link` varchar(500) DEFAULT NULL,
   `leida` tinyint(1) DEFAULT 0,
-  `id_referencia` int(11) DEFAULT NULL COMMENT 'ID de la tarea, inscripciÃ³n, etc.',
+  `id_referencia` int(11) DEFAULT NULL COMMENT 'ID de la tarea, inscripción, etc.',
   `fecha_creacion` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id_notificacion`),
   KEY `idx_usuario` (`id_usuario`,`tipo_usuario`),
@@ -842,7 +843,7 @@ CREATE TABLE `notificaciones` (
 
 LOCK TABLES `notificaciones` WRITE;
 /*!40000 ALTER TABLE `notificaciones` DISABLE KEYS */;
-INSERT INTO `notificaciones` VALUES (1,2,'profesor','entrega_tarea','Nueva entrega recibida','Juan PÃ©rez ha entregado la tarea Prueba de tarea',NULL,1,1,'2025-11-02 16:22:29'),(2,2,'profesor','nueva_inscripcion','Nueva inscripciÃ³n','MarÃ­a GarcÃ­a se inscribiÃ³ en InglÃ©s Base 1',NULL,1,1,'2025-11-02 16:22:29'),(3,2,'profesor','anuncio_importante','Anuncio importante publicado','Se publicÃ³ el anuncio: Cambio de horario en InglÃ©s Intermedio',NULL,1,1,'2025-11-02 16:30:18'),(4,2,'profesor','comentario','Nuevo comentario','Micaela Gomez comentÃ³ en \"Anuncio de prueba Ingles Base con Enlace\"',NULL,1,2,'2025-11-02 16:56:51'),(5,16,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - InglÃ©s Base ','/tareas/4',0,4,'2025-11-02 17:15:29'),(6,15,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - InglÃ©s Base ','/tareas/4',1,4,'2025-11-02 17:15:29'),(7,6,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - InglÃ©s Base ','/tareas/4',0,4,'2025-11-02 17:15:29'),(8,5,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - InglÃ©s Base ','/tareas/4',0,4,'2025-11-02 17:15:29'),(9,4,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - InglÃ©s Base ','/tareas/4',1,4,'2025-11-02 17:15:29'),(10,2,'profesor','comentario','Nuevo comentario','Micaela Gomez comentÃ³ en \"anuncio para los alumnos de ingles base\"',NULL,1,8,'2025-11-02 17:16:13'),(11,16,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - InglÃ©s Base ','/anuncios/9',0,9,'2025-11-02 17:17:35'),(12,15,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - InglÃ©s Base ','/anuncios/9',1,9,'2025-11-02 17:17:35'),(13,6,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - InglÃ©s Base ','/anuncios/9',0,9,'2025-11-02 17:17:35'),(14,5,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - InglÃ©s Base ','/anuncios/9',0,9,'2025-11-02 17:17:35'),(15,4,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - InglÃ©s Base ','/anuncios/9',1,9,'2025-11-02 17:17:35'),(16,2,'profesor','entrega_tarea','Nueva entrega recibida','Micaela Gomez ha entregado la tarea \"tarea para ingles base\" del curso InglÃ©s Base ','/entregas/4',1,4,'2025-11-02 17:27:19'),(17,4,'alumno','calificacion','Nueva calificaciÃ³n','Tu entrega de \"tarea para ingles base\" ha sido calificada: 8','/tareas/4',1,4,'2025-11-02 17:49:24'),(18,25,'profesor','nueva_inscripcion','Nueva inscripciÃ³n','Matias Rodriguez se inscribiÃ³ en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(19,25,'profesor','nueva_inscripcion','Nueva inscripciÃ³n','Gabriela Jimenez se inscribiÃ³ en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(20,25,'profesor','nueva_inscripcion','Nueva inscripciÃ³n','Hernan Toledo se inscribiÃ³ en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(21,25,'profesor','nueva_inscripcion','Nueva inscripciÃ³n','Paula Martinez se inscribiÃ³ en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(22,25,'profesor','nueva_inscripcion','Nueva inscripciÃ³n','Jorge Sanchez se inscribiÃ³ en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(23,25,'profesor','nueva_inscripcion','Nueva inscripciÃ³n','Micaela Gomez se inscribiÃ³ en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(24,21,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',1,10,'2025-11-03 22:52:39'),(25,16,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',0,10,'2025-11-03 22:52:39'),(26,15,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',1,10,'2025-11-03 22:52:39'),(27,6,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',0,10,'2025-11-03 22:52:39'),(28,5,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',0,10,'2025-11-03 22:52:39'),(29,4,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',1,10,'2025-11-03 22:52:39'),(30,25,'profesor','comentario','Nuevo comentario','Hernan Toledo comentÃ³ en \"anuncio nipon intermedio\"',NULL,1,10,'2025-11-03 22:53:45'),(31,2,'profesor','entrega_tarea','Nueva entrega recibida','Hernan Toledo ha entregado la tarea \"tarea para ingles base\" del curso InglÃ©s Base ','/entregas/4',1,4,'2025-11-03 22:54:02'),(32,2,'profesor','comentario','Nuevo comentario','Micaela Gomez comentÃ³ en \"nueva prueba de notificacion anuncio\"',NULL,1,9,'2025-11-06 01:25:48'),(33,16,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(34,15,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(35,6,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(36,5,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(37,4,'alumno','anuncio_importante','âš ï¸ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(38,24,'profesor','comentario','Nuevo comentario','Hernan Toledo comentÃ³ en \"anuncio japones !\"',NULL,0,11,'2025-11-06 02:22:17');
+INSERT INTO `notificaciones` VALUES (1,2,'profesor','entrega_tarea','Nueva entrega recibida','Juan Pérez ha entregado la tarea Prueba de tarea',NULL,1,1,'2025-11-02 16:22:29'),(2,2,'profesor','nueva_inscripcion','Nueva inscripción','María García se inscribió en Inglés Base 1',NULL,1,1,'2025-11-02 16:22:29'),(3,2,'profesor','anuncio_importante','Anuncio importante publicado','Se publicó el anuncio: Cambio de horario en Inglés Intermedio',NULL,1,1,'2025-11-02 16:30:18'),(4,2,'profesor','comentario','Nuevo comentario','Micaela Gomez comentó en \"Anuncio de prueba Ingles Base con Enlace\"',NULL,1,2,'2025-11-02 16:56:51'),(5,16,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - Inglés Base ','/tareas/4',0,4,'2025-11-02 17:15:29'),(6,15,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - Inglés Base ','/tareas/4',1,4,'2025-11-02 17:15:29'),(7,6,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - Inglés Base ','/tareas/4',0,4,'2025-11-02 17:15:29'),(8,5,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - Inglés Base ','/tareas/4',0,4,'2025-11-02 17:15:29'),(9,4,'alumno','nueva_tarea','Nueva tarea asignada','tarea para ingles base - Inglés Base ','/tareas/4',1,4,'2025-11-02 17:15:29'),(10,2,'profesor','comentario','Nuevo comentario','Micaela Gomez comentó en \"anuncio para los alumnos de ingles base\"',NULL,1,8,'2025-11-02 17:16:13'),(11,16,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - Inglés Base ','/anuncios/9',0,9,'2025-11-02 17:17:35'),(12,15,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - Inglés Base ','/anuncios/9',1,9,'2025-11-02 17:17:35'),(13,6,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - Inglés Base ','/anuncios/9',0,9,'2025-11-02 17:17:35'),(14,5,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - Inglés Base ','/anuncios/9',0,9,'2025-11-02 17:17:35'),(15,4,'alumno','anuncio','Nuevo anuncio','nueva prueba de notificacion anuncio - Inglés Base ','/anuncios/9',1,9,'2025-11-02 17:17:35'),(16,2,'profesor','entrega_tarea','Nueva entrega recibida','Micaela Gomez ha entregado la tarea \"tarea para ingles base\" del curso Inglés Base ','/entregas/4',1,4,'2025-11-02 17:27:19'),(17,4,'alumno','calificacion','Nueva calificación','Tu entrega de \"tarea para ingles base\" ha sido calificada: 8','/tareas/4',1,4,'2025-11-02 17:49:24'),(18,25,'profesor','nueva_inscripcion','Nueva inscripción','Matias Rodriguez se inscribió en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(19,25,'profesor','nueva_inscripcion','Nueva inscripción','Gabriela Jimenez se inscribió en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(20,25,'profesor','nueva_inscripcion','Nueva inscripción','Hernan Toledo se inscribió en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(21,25,'profesor','nueva_inscripcion','Nueva inscripción','Paula Martinez se inscribió en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(22,25,'profesor','nueva_inscripcion','Nueva inscripción','Jorge Sanchez se inscribió en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(23,25,'profesor','nueva_inscripcion','Nueva inscripción','Micaela Gomez se inscribió en Japones Intermedio','/cursos/7',1,7,'2025-11-03 22:27:47'),(24,21,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',1,10,'2025-11-03 22:52:39'),(25,16,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',0,10,'2025-11-03 22:52:39'),(26,15,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',1,10,'2025-11-03 22:52:39'),(27,6,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',0,10,'2025-11-03 22:52:39'),(28,5,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',0,10,'2025-11-03 22:52:39'),(29,4,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio nipon intermedio - Japones Intermedio','/anuncios/10',1,10,'2025-11-03 22:52:39'),(30,25,'profesor','comentario','Nuevo comentario','Hernan Toledo comentó en \"anuncio nipon intermedio\"',NULL,1,10,'2025-11-03 22:53:45'),(31,2,'profesor','entrega_tarea','Nueva entrega recibida','Hernan Toledo ha entregado la tarea \"tarea para ingles base\" del curso Inglés Base ','/entregas/4',1,4,'2025-11-03 22:54:02'),(32,2,'profesor','comentario','Nuevo comentario','Micaela Gomez comentó en \"nueva prueba de notificacion anuncio\"',NULL,1,9,'2025-11-06 01:25:48'),(33,16,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(34,15,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(35,6,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(36,5,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(37,4,'alumno','anuncio_importante','⚠️ Anuncio Importante','anuncio japones ! - Japones Basico','/anuncios/11',0,11,'2025-11-06 02:21:45'),(38,24,'profesor','comentario','Nuevo comentario','Hernan Toledo comentó en \"anuncio japones !\"',NULL,0,11,'2025-11-06 02:22:17');
 /*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -965,7 +966,7 @@ CREATE TABLE `personas` (
   PRIMARY KEY (`id_persona`),
   UNIQUE KEY `mail` (`mail`),
   KEY `idx_dni` (`dni`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -974,7 +975,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'Eduardo','Mendoza','eduardo.mendoza@cemi.com','+543814463243','42445058','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(2,'Bautista','Bareiro','bautista.bareiro@cemi.com','11-4567-8901','35123789','2025-11-01 21:40:39','1999-06-05','Buenos Aires','Hola alumnos.','/uploads/avatars/avatar-2-1762402329670-519210788.png'),(3,'Carlos','Lucena','carlos.lucena@cemi.com','11-4567-8902','33987456','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(4,'Micaela','Gomez','micaela.gomez@cemi.com','11-1439-3159','40123456','2025-11-01 21:40:39',NULL,NULL,'Hola soy micaela estudiante de idiomas.','/uploads/avatars/avatar-4-1762403115086-984387695.jpg'),(5,'Jorge','Sanchez','jorge.sanchez@cemi.com','11-5925-6186','38987654','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(6,'Paula','Martinez','paula.martinez@cemi.com','11-5212-6600','42555777','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(7,'Sofia','LÃ³pez','sofia.lopez@cemi.com',NULL,NULL,'2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(8,'Mario','Gonzalez','mario.gonzalez@cemi.com','11-4567-8903','37555888','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(9,'Fernanda','Cruz','fernanda.cruz@cemi.com','11-4567-8904','36444777','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(10,'Pablo','Garcia','pablo.garcia@cemi.com','11-4567-8905','34222333','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(15,'Hernan','Toledo','hernantoledo@gmail.com','+54 381 4463243','42444059','2025-11-01 21:45:50',NULL,NULL,NULL,NULL),(16,'Gabriela','Jimenez','gabrielajimenez@hotmail.com','+54 381 8865633','41010583','2025-11-01 21:50:34',NULL,NULL,NULL,NULL),(21,'Matias','Rodriguez','matiasrodriguez@yahoo.com.ar','+54 381 555444888','40889654','2025-11-02 10:54:10',NULL,NULL,NULL,NULL),(24,'Irina','Lopez','irinalopezcemi@cemi.com',NULL,'32889456','2025-11-02 11:45:48',NULL,NULL,NULL,'/uploads/avatars/avatar-12-1762406487943-430033344.webp'),(25,'Javier','Monteros','javiermonteros@educacion.com',NULL,'24014506','2025-11-03 22:21:19',NULL,NULL,NULL,NULL),(26,'Administrador','Cero','admincero@prueba.com','+543814463243','42445059','2025-11-04 00:30:22',NULL,NULL,NULL,NULL),(27,'Juan','Perez','juanperezadmin@cemi.com','+543816658975','501232321','2025-11-04 13:01:23',NULL,NULL,NULL,NULL),(28,'Eduardo','Mendez','administracioncemi@cemi.com','-','45668998','2025-11-06 04:47:37',NULL,NULL,NULL,NULL);
+INSERT INTO `personas` VALUES (1,'Eduardo','Mendoza','eduardo.mendoza@cemi.com','+543814463243','42445058','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(2,'Bautista','Bareiro','bautista.bareiro@cemi.com','11-4567-8901','35123789','2025-11-01 21:40:39','1999-06-05','Buenos Aires','Hola alumnos.','/uploads/avatars/avatar-2-1762402329670-519210788.png'),(3,'Carlos','Lucena','carlos.lucena@cemi.com','11-4567-8902','33987456','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(4,'Micaela','Gomez','micaela.gomez@cemi.com','11-1439-3159','40123456','2025-11-01 21:40:39',NULL,NULL,'Hola soy micaela estudiante de idiomas.','/uploads/avatars/avatar-4-1762403115086-984387695.jpg'),(5,'Jorge','Sanchez','jorge.sanchez@cemi.com','11-5925-6186','38987654','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(6,'Paula','Martinez','paula.martinez@cemi.com','11-5212-6600','42555777','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(7,'Sofia','López','sofia.lopez@cemi.com',NULL,NULL,'2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(8,'Mario','Gonzalez','mario.gonzalez@cemi.com','11-4567-8903','37555888','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(9,'Fernanda','Cruz','fernanda.cruz@cemi.com','11-4567-8904','36444777','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(10,'Pablo','Garcia','pablo.garcia@cemi.com','11-4567-8905','34222333','2025-11-01 21:40:39',NULL,NULL,NULL,NULL),(15,'Hernan','Toledo','hernantoledo@gmail.com','+54 381 4463243','42444059','2025-11-01 21:45:50',NULL,NULL,NULL,NULL),(16,'Gabriela','Jimenez','gabrielajimenez@hotmail.com','+54 381 8865633','41010583','2025-11-01 21:50:34',NULL,NULL,NULL,NULL),(21,'Matias','Rodriguez','matiasrodriguez@yahoo.com.ar','+54 381 555444888','40889654','2025-11-02 10:54:10',NULL,NULL,NULL,NULL),(24,'Irina','Lopez','irinalopezcemi@cemi.com',NULL,'32889456','2025-11-02 11:45:48',NULL,NULL,NULL,'/uploads/avatars/avatar-12-1762406487943-430033344.webp'),(25,'Javier','Monteros','javiermonteros@educacion.com',NULL,'24014506','2025-11-03 22:21:19',NULL,NULL,NULL,NULL),(26,'Administrador','Cero','admincero@prueba.com','+543814463243','42445059','2025-11-04 00:30:22',NULL,NULL,NULL,NULL),(27,'Juan','Perez','juanperezadmin@cemi.com','+543816658975','501232321','2025-11-04 13:01:23',NULL,NULL,NULL,NULL),(28,'Eduardo','Mendez','administracioncemi@cemi.com','-','45668998','2025-11-06 04:47:37',NULL,NULL,NULL,NULL),(29,'Roberto','Basualdo','robertobasualdo@yandex.ru','38122255566','56889452','2025-11-06 08:48:33',NULL,NULL,NULL,NULL),(32,'Gerardo','Kustin','gerardokustin@yahoo.com.ar','38144455698','54668987','2025-11-06 08:58:28',NULL,NULL,NULL,NULL),(36,'Test','Usuario','test_1762439162197@test.com',NULL,'39162197','2025-11-06 11:26:02',NULL,NULL,NULL,NULL),(37,'Admin','Test','admin_test_1762439162271@test.com',NULL,'39162271','2025-11-06 11:26:02',NULL,NULL,NULL,NULL),(38,'Test','Usuario','test_1762439170836@test.com',NULL,'39170836','2025-11-06 11:26:10',NULL,NULL,NULL,NULL),(39,'Admin','Test','admin_test_1762439170909@test.com',NULL,'39170909','2025-11-06 11:26:10',NULL,NULL,NULL,NULL),(40,'Test','Usuario','test_1762439214667@test.com',NULL,'39214667','2025-11-06 11:26:54',NULL,NULL,NULL,NULL),(41,'Admin','Test','admin_test_1762439214738@test.com',NULL,'39214738','2025-11-06 11:26:54',NULL,NULL,NULL,NULL),(49,'Ivan','Pineda','ivanpineda@yahoo.com.ar',NULL,'246578764','2025-11-06 11:45:27',NULL,NULL,NULL,NULL),(50,'Maria','Fernandez','mariafernandez@cemi.com','-','15684547','2025-11-06 11:54:31',NULL,NULL,NULL,NULL),(51,'Isabella','Zepeda','isabellazepeda@mx.com','-','42846884','2025-11-06 12:15:14',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -994,6 +995,7 @@ CREATE TABLE `profesores` (
   `estado` enum('activo','inactivo','licencia') DEFAULT 'activo',
   `usuario` varchar(50) DEFAULT NULL,
   `password_hash` varchar(255) DEFAULT NULL,
+  `password_classroom` varchar(255) DEFAULT NULL COMMENT 'Password para Classroom (asignado por admin)',
   PRIMARY KEY (`id_profesor`),
   UNIQUE KEY `usuario` (`usuario`),
   KEY `id_persona` (`id_persona`),
@@ -1011,7 +1013,7 @@ CREATE TABLE `profesores` (
 
 LOCK TABLES `profesores` WRITE;
 /*!40000 ALTER TABLE `profesores` DISABLE KEYS */;
-INSERT INTO `profesores` VALUES (2,'InglÃ©s',2,'11-4567-8901','2022-07-01','activo','profbareiro','$2b$10$vYeRz7zgLr9cfZl.rWsV9uoCG2IJjkmkl8Wbg0epqKsPElXag/OD2'),(3,'FrancÃ©s',3,'11-7890-1234','2024-09-26','activo','proflucena','$2b$10$aCfHm7kK5QjvaoPQ4AM3Xud8sPn80HKV10KcIDo86i1pTdK1/W.Ze'),(10,'Aleman',10,'11-3456-7890','2025-05-12','activo','profgarcia','$2b$10$6GZ7eXPU2biB88JU000XbOy8dlK/g.YV/62hzdpHkk0dtK7MlBmtS'),(24,'Japones',24,'+54 381 9955443','2025-11-02','activo','profirina','$2b$10$iKGWbBGdROMnN5IBAcyQFu7BInXF0J02mND.VviWu.CXS2rp43WRS'),(25,'Japones Intermedio',25,'+543816658975','2025-11-03','activo','profjavier','$2b$10$hg7C1K/EwXr9LkhSnIf0GexWhjtl0JitxpyLo96/0NR4wbP3utSTu');
+INSERT INTO `profesores` VALUES (2,'Inglés',2,'11-4567-8901','2022-07-01','activo','profbareiro','$2b$10$vYeRz7zgLr9cfZl.rWsV9uoCG2IJjkmkl8Wbg0epqKsPElXag/OD2','$2b$10$vYeRz7zgLr9cfZl.rWsV9uoCG2IJjkmkl8Wbg0epqKsPElXag/OD2'),(3,'Francés',3,'11-7890-1234','2024-09-26','activo','proflucena','$2b$10$aCfHm7kK5QjvaoPQ4AM3Xud8sPn80HKV10KcIDo86i1pTdK1/W.Ze','$2b$10$aCfHm7kK5QjvaoPQ4AM3Xud8sPn80HKV10KcIDo86i1pTdK1/W.Ze'),(10,'Aleman',10,'11-3456-7890','2025-05-12','activo','profgarcia','$2b$10$6GZ7eXPU2biB88JU000XbOy8dlK/g.YV/62hzdpHkk0dtK7MlBmtS','$2b$10$6GZ7eXPU2biB88JU000XbOy8dlK/g.YV/62hzdpHkk0dtK7MlBmtS'),(24,'Japones',24,'+54 381 9955443','2025-11-02','activo','profirina','$2b$10$iKGWbBGdROMnN5IBAcyQFu7BInXF0J02mND.VviWu.CXS2rp43WRS','$2b$10$iKGWbBGdROMnN5IBAcyQFu7BInXF0J02mND.VviWu.CXS2rp43WRS'),(25,'Japones Intermedio',25,'+543816658975','2025-11-03','activo','profjavier','$2b$10$hg7C1K/EwXr9LkhSnIf0GexWhjtl0JitxpyLo96/0NR4wbP3utSTu','$2b$10$hg7C1K/EwXr9LkhSnIf0GexWhjtl0JitxpyLo96/0NR4wbP3utSTu');
 /*!40000 ALTER TABLE `profesores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1094,13 +1096,16 @@ CREATE TABLE `usuarios` (
   `id_persona` int(11) DEFAULT NULL,
   `id_perfil` int(11) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT current_timestamp(),
+  `id_alumno` int(11) DEFAULT NULL,
+  `id_profesor` int(11) DEFAULT NULL,
+  `id_administrador` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `username` (`username`),
   KEY `id_persona` (`id_persona`),
   KEY `id_perfil` (`id_perfil`),
   CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`),
   CONSTRAINT `usuarios_ibfk_2` FOREIGN KEY (`id_perfil`) REFERENCES `perfiles` (`id_perfil`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1109,7 +1114,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'administracion','$2b$10$TkKMPUwwFjX1bVtjBrKjGeHuqoXdxJj4gK9VEUiAFqmnxwLw07nWy',1,1,'2025-11-01 21:44:52'),(2,'profbareiro','$2b$10$RIAvUynNqo7VGvWmgPb2FezJsKtFiPy75Y9zsY3XH75dwl598qtbK',2,2,'2025-11-01 21:44:52'),(3,'proflucena','$2b$10$ZQLdEWn88.TbU.0xPhZxS.n15hwC2IeBG/ib96rrlBwhonue0MnDG',3,2,'2025-11-01 21:44:52'),(4,'alumnamica','$2b$10$ppnYPeZHqJOaEcbbB6/frO1PKarhxan/TftSEaxOiYa2ULvTHX3Hq',4,3,'2025-11-01 21:44:52'),(5,'alumnojorge','alumnojorgecemi',5,3,'2025-11-01 21:44:52'),(6,'alumnapaula','alumnapaulacemi',6,3,'2025-11-01 21:44:52'),(7,'profgarcia','$2b$10$H8DXA.GeC.qmmqa8pR1bVeCa1zUFgAE2kw9G4sZKKenpSFkTqkSSi',10,2,'2025-11-01 21:44:52'),(8,'alumnohernan','$2b$10$QtUxpXATLCPc9Po42lN5oevMtU6IYBW6PfcBS63IbWxh6oOjC1bVm',15,3,'2025-11-01 21:45:50'),(9,'alumnagabriela','$2b$10$o6mewQLiLP0LirRVsfF3aOYayelpWL1BL1q/QqtX4zQn0GNXUf2zO',16,3,'2025-11-01 21:50:34'),(10,'alumnomatias','$2b$10$.zKHS8o5VBT9SgGOZ3SZBOaSdbwCRafVvn/6YL4OgRpAuh/Rfa01u',21,3,'2025-11-02 10:54:10'),(12,'profirina','$2b$10$SPyLwuPFlrUjgfYWLXZRUeDyDGXB6ZKwkooVyzH9mzKPnUpJ6dPNC',24,2,'2025-11-02 11:46:05'),(13,'profjavier','$2b$10$37KHmPjx40dB7XQj9SaWqeW7LmtO6JrUZura1QtMWqsYe5qTbbW.y',25,2,'2025-11-03 22:21:37'),(14,'admincero','$2b$10$UgKaUuD7ZUUNQErMo/nXbe9vP678Vqze.W43jo9LQqDr0H9bc6riy',26,1,'2025-11-04 00:30:22'),(15,'adminjuan','$2b$10$.mlQpOdxPJN57GL.Q4gdYuijSdlBghU/YX8jsepGv0B/MHpTzaRuO',27,1,'2025-11-04 13:01:23'),(16,'administrador','$2b$10$Qey5quvJe.XbSfVIUmyM7.2hIFe/SrSdPjQCZD2c27zqcdbRFjzJO',28,1,'2025-11-06 04:47:37');
+INSERT INTO `usuarios` VALUES (1,'administracion','$2b$10$TkKMPUwwFjX1bVtjBrKjGeHuqoXdxJj4gK9VEUiAFqmnxwLw07nWy',1,1,'2025-11-01 21:44:52',NULL,NULL,1),(2,'profbareiro','$2b$10$RIAvUynNqo7VGvWmgPb2FezJsKtFiPy75Y9zsY3XH75dwl598qtbK',2,2,'2025-11-01 21:44:52',NULL,2,NULL),(3,'proflucena','$2b$10$ZQLdEWn88.TbU.0xPhZxS.n15hwC2IeBG/ib96rrlBwhonue0MnDG',3,2,'2025-11-01 21:44:52',NULL,3,NULL),(4,'alumnamica','$2b$10$ppnYPeZHqJOaEcbbB6/frO1PKarhxan/TftSEaxOiYa2ULvTHX3Hq',4,3,'2025-11-01 21:44:52',4,NULL,NULL),(5,'alumnojorge','alumnojorgecemi',5,3,'2025-11-01 21:44:52',5,NULL,NULL),(6,'alumnapaula','alumnapaulacemi',6,3,'2025-11-01 21:44:52',6,NULL,NULL),(7,'profgarcia','$2b$10$H8DXA.GeC.qmmqa8pR1bVeCa1zUFgAE2kw9G4sZKKenpSFkTqkSSi',10,2,'2025-11-01 21:44:52',NULL,10,NULL),(8,'alumnohernan','$2b$10$QtUxpXATLCPc9Po42lN5oevMtU6IYBW6PfcBS63IbWxh6oOjC1bVm',15,3,'2025-11-01 21:45:50',15,NULL,NULL),(9,'alumnagabriela','$2b$10$o6mewQLiLP0LirRVsfF3aOYayelpWL1BL1q/QqtX4zQn0GNXUf2zO',16,3,'2025-11-01 21:50:34',16,NULL,NULL),(10,'alumnomatias','$2b$10$.zKHS8o5VBT9SgGOZ3SZBOaSdbwCRafVvn/6YL4OgRpAuh/Rfa01u',21,3,'2025-11-02 10:54:10',21,NULL,NULL),(12,'profirina','$2b$10$SPyLwuPFlrUjgfYWLXZRUeDyDGXB6ZKwkooVyzH9mzKPnUpJ6dPNC',24,2,'2025-11-02 11:46:05',NULL,24,NULL),(13,'profjavier','$2b$10$37KHmPjx40dB7XQj9SaWqeW7LmtO6JrUZura1QtMWqsYe5qTbbW.y',25,2,'2025-11-03 22:21:37',NULL,25,NULL),(14,'admincero','$2b$10$UgKaUuD7ZUUNQErMo/nXbe9vP678Vqze.W43jo9LQqDr0H9bc6riy',26,1,'2025-11-04 00:30:22',NULL,NULL,2),(15,'adminjuan','$2b$10$.mlQpOdxPJN57GL.Q4gdYuijSdlBghU/YX8jsepGv0B/MHpTzaRuO',27,1,'2025-11-04 13:01:23',NULL,NULL,3),(16,'administrador','$2b$10$Qey5quvJe.XbSfVIUmyM7.2hIFe/SrSdPjQCZD2c27zqcdbRFjzJO',28,1,'2025-11-06 04:47:37',NULL,NULL,4),(17,'alumnoroberto','$2b$10$ORAZyEK.FSVFSYJ8WbdgAuMV0cUHnXPcxdIc2qBNctwriNZWe70WW',29,3,'2025-11-06 08:48:33',29,NULL,NULL),(20,'alumnogerardo','$2b$10$SVpSTcqLrcc8fjPpviHDHeTPZpk8qUstgLfALrKjRgTvU5cBb9dAy',32,3,'2025-11-06 08:58:28',0,NULL,NULL),(22,'alumnoivan','$2b$10$FR3TvpkkbebK4py8Z2bfJOyHi241OMvXCM/DTp.3va430kPigEcta',49,3,'2025-11-06 11:45:59',NULL,NULL,NULL),(23,'alumnaisabella','$2b$10$e8wqKOdJT3s25c3JcsbuMuq0s5SGurG32DQlkHOBuxl9GJHrLlzSa',51,3,'2025-11-06 12:15:14',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1266,7 +1271,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vista_classroom_conversaciones` AS select `cc`.`id_conversacion` AS `id_conversacion`,`cc`.`id_curso` AS `id_curso`,`c`.`nombre_curso` AS `nombre_curso`,`cc`.`id_alumno_usuario` AS `id_alumno_usuario`,`ua`.`username` AS `alumno_username`,concat(`pa`.`nombre`,' ',`pa`.`apellido`) AS `alumno_nombre_completo`,`cc`.`id_profesor_usuario` AS `id_profesor_usuario`,`up`.`username` AS `profesor_username`,concat(`pp`.`nombre`,' ',`pp`.`apellido`) AS `profesor_nombre_completo`,`cc`.`ultimo_mensaje` AS `ultimo_mensaje`,`cc`.`fecha_ultimo_mensaje` AS `fecha_ultimo_mensaje`,`cc`.`mensajes_no_leidos_alumno` AS `mensajes_no_leidos_alumno`,`cc`.`mensajes_no_leidos_profesor` AS `mensajes_no_leidos_profesor`,`cc`.`fecha_creacion` AS `fecha_creacion` from (((((`classroom_conversaciones` `cc` join `cursos` `c` on(`cc`.`id_curso` = `c`.`id_curso`)) join `usuarios` `ua` on(`cc`.`id_alumno_usuario` = `ua`.`id_usuario`)) join `personas` `pa` on(`ua`.`id_persona` = `pa`.`id_persona`)) join `usuarios` `up` on(`cc`.`id_profesor_usuario` = `up`.`id_usuario`)) join `personas` `pp` on(`up`.`id_persona` = `pp`.`id_persona`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1284,7 +1289,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_unicode_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vista_classroom_mensajes_recientes` AS select `cm`.`id_mensaje` AS `id_mensaje`,`cm`.`id_conversacion` AS `id_conversacion`,`cc`.`id_curso` AS `id_curso`,`c`.`nombre_curso` AS `nombre_curso`,`cm`.`id_usuario_remitente` AS `id_usuario_remitente`,`u`.`username` AS `remitente_username`,concat(`p`.`nombre`,' ',`p`.`apellido`) AS `remitente_nombre`,`cm`.`tipo_remitente` AS `tipo_remitente`,`cm`.`mensaje` AS `mensaje`,`cm`.`leido` AS `leido`,`cm`.`fecha_envio` AS `fecha_envio` from ((((`classroom_mensajes` `cm` join `classroom_conversaciones` `cc` on(`cm`.`id_conversacion` = `cc`.`id_conversacion`)) join `cursos` `c` on(`cc`.`id_curso` = `c`.`id_curso`)) join `usuarios` `u` on(`cm`.`id_usuario_remitente` = `u`.`id_usuario`)) join `personas` `p` on(`u`.`id_persona` = `p`.`id_persona`)) order by `cm`.`fecha_envio` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1302,7 +1307,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vista_inscripciones` AS select `i`.`id_inscripcion` AS `id_inscripcion`,`i`.`id_alumno` AS `id_alumno`,concat(`p`.`nombre`,' ',`p`.`apellido`) AS `alumno`,`a`.`legajo` AS `legajo`,`i`.`id_curso` AS `id_curso`,`c`.`nombre_curso` AS `nombre_curso`,`id`.`nombre_idioma` AS `idioma`,`n`.`descripcion` AS `nivel`,`i`.`fecha_inscripcion` AS `fecha_inscripcion`,`i`.`estado` AS `estado`,concat(`pp`.`nombre`,' ',`pp`.`apellido`) AS `profesor` from (((((((`inscripciones` `i` join `alumnos` `a` on(`a`.`id_alumno` = `i`.`id_alumno`)) join `personas` `p` on(`p`.`id_persona` = `a`.`id_persona`)) join `cursos` `c` on(`c`.`id_curso` = `i`.`id_curso`)) left join `idiomas` `id` on(`id`.`id_idioma` = `c`.`id_idioma`)) left join `niveles` `n` on(`n`.`id_nivel` = `c`.`id_nivel`)) left join `profesores` `prof` on(`prof`.`id_profesor` = `c`.`id_profesor`)) left join `personas` `pp` on(`pp`.`id_persona` = `prof`.`id_persona`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1320,7 +1325,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vista_pagos` AS select `p`.`id_pago` AS `id_pago`,`p`.`id_alumno` AS `id_alumno`,concat(`per`.`nombre`,' ',`per`.`apellido`) AS `alumno`,`a`.`legajo` AS `legajo`,`c`.`descripcion` AS `concepto`,`p`.`monto` AS `monto`,`p`.`fecha_pago` AS `fecha_pago`,`p`.`periodo` AS `periodo`,`p`.`fecha_vencimiento` AS `fecha_vencimiento`,`p`.`estado_pago` AS `estado_pago`,`m`.`descripcion` AS `medio_pago`,`ad`.`cargo` AS `administrativo`,case when `p`.`fecha_pago` is null and `p`.`fecha_vencimiento` < curdate() then 'mora' when `p`.`fecha_pago` is null and to_days(`p`.`fecha_vencimiento`) - to_days(curdate()) <= 5 then 'proximo_vencimiento' when `p`.`fecha_pago` is not null then 'pagado' else 'al_dia' end AS `estado_visual` from (((((`pagos` `p` join `alumnos` `a` on(`a`.`id_alumno` = `p`.`id_alumno`)) join `personas` `per` on(`per`.`id_persona` = `a`.`id_persona`)) join `conceptos_pago` `c` on(`c`.`id_concepto` = `p`.`id_concepto`)) join `medios_pago` `m` on(`m`.`id_medio_pago` = `p`.`id_medio_pago`)) left join `administrativos` `ad` on(`ad`.`id_administrativo` = `p`.`id_administrativo`)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1338,7 +1343,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `vista_profesores` AS select `p`.`id_profesor` AS `id_profesor`,concat(`per`.`nombre`,' ',`per`.`apellido`) AS `nombre_completo`,`p`.`especialidad` AS `especialidad`,group_concat(`i`.`nombre_idioma` separator ', ') AS `idiomas` from (((`profesores` `p` join `personas` `per` on(`per`.`id_persona` = `p`.`id_profesor`)) left join `profesores_idiomas` `pi` on(`p`.`id_profesor` = `pi`.`id_profesor`)) left join `idiomas` `i` on(`pi`.`id_idioma` = `i`.`id_idioma`)) group by `p`.`id_profesor` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -1353,4 +1358,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-06  5:44:05
+-- Dump completed on 2025-11-06 12:21:16

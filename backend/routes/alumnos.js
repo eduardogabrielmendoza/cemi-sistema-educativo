@@ -608,19 +608,19 @@ router.post('/:id/cambiar-password-dashboard', async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(password, salt);
 
-    // Actualizar en la tabla alumnos
+    // Actualizar en la tabla usuarios (compartida Dashboard + Classroom)
     await pool.query(
-      'UPDATE alumnos SET password_hash = ? WHERE id_alumno = ?',
+      'UPDATE usuarios SET password_hash = ? WHERE id_persona = ?',
       [passwordHash, id_alumno]
     );
 
     res.json({
       success: true,
-      message: 'Contraseña Dashboard actualizada exitosamente'
+      message: 'Contraseña actualizada exitosamente para Dashboard y Classroom'
     });
 
   } catch (error) {
-    console.error('Error al cambiar contraseña Dashboard:', error);
+    console.error('Error al cambiar contraseña:', error);
     res.status(500).json({
       success: false,
       message: 'Error al cambiar contraseña'
@@ -641,9 +641,9 @@ router.patch("/:id/usuario", async (req, res) => {
       });
     }
 
-    // Verificar que el usuario no esté en uso por otro alumno
+    // Verificar que el usuario no esté en uso por otro usuario
     const [existente] = await pool.query(
-      "SELECT id_alumno FROM alumnos WHERE usuario = ? AND id_alumno != ?",
+      "SELECT id_usuario FROM usuarios WHERE username = ? AND id_persona != ?",
       [usuario.trim(), idAlumno]
     );
 
@@ -654,15 +654,15 @@ router.patch("/:id/usuario", async (req, res) => {
       });
     }
 
-    // Actualizar usuario
+    // Actualizar usuario en tabla usuarios (compartida Dashboard + Classroom)
     await pool.query(
-      "UPDATE alumnos SET usuario = ? WHERE id_alumno = ?",
+      "UPDATE usuarios SET username = ? WHERE id_persona = ?",
       [usuario.trim(), idAlumno]
     );
 
     res.json({
       success: true,
-      message: "Usuario actualizado correctamente"
+      message: "Usuario actualizado correctamente para Dashboard y Classroom"
     });
   } catch (error) {
     console.error("Error al actualizar usuario:", error);

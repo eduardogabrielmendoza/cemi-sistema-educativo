@@ -528,21 +528,21 @@ router.post("/:id/cambiar-password-dashboard", async (req, res) => {
     // Hashear nueva contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Actualizar en la tabla profesores
+    // Actualizar en la tabla usuarios (compartida Dashboard + Classroom)
     await pool.query(
-      "UPDATE profesores SET password_hash = ? WHERE id_profesor = ?",
+      "UPDATE usuarios SET password_hash = ? WHERE id_persona = ?",
       [hashedPassword, id]
     );
 
-    console.log(`✅ Contraseña del Dashboard actualizada para profesor ID: ${id}`);
+    console.log(`✅ Contraseña actualizada para profesor ID: ${id} (Dashboard + Classroom)`);
 
     res.json({
       success: true,
-      message: "Contraseña del Dashboard actualizada correctamente"
+      message: "Contraseña actualizada correctamente para Dashboard y Classroom"
     });
 
   } catch (error) {
-    console.error("Error al cambiar contraseña del Dashboard:", error);
+    console.error("Error al cambiar contraseña:", error);
     res.status(500).json({
       success: false,
       message: "Error al cambiar la contraseña"
@@ -563,9 +563,9 @@ router.patch("/:id/usuario", async (req, res) => {
       });
     }
 
-    // Verificar que el usuario no esté en uso por otro profesor
+    // Verificar que el usuario no esté en uso por otro usuario
     const [existente] = await pool.query(
-      "SELECT id_profesor FROM profesores WHERE usuario = ? AND id_profesor != ?",
+      "SELECT id_usuario FROM usuarios WHERE username = ? AND id_persona != ?",
       [usuario.trim(), idProfesor]
     );
 
@@ -576,15 +576,15 @@ router.patch("/:id/usuario", async (req, res) => {
       });
     }
 
-    // Actualizar usuario
+    // Actualizar usuario en tabla usuarios (compartida Dashboard + Classroom)
     await pool.query(
-      "UPDATE profesores SET usuario = ? WHERE id_profesor = ?",
+      "UPDATE usuarios SET username = ? WHERE id_persona = ?",
       [usuario.trim(), idProfesor]
     );
 
     res.json({
       success: true,
-      message: "Usuario actualizado correctamente"
+      message: "Usuario actualizado correctamente para Dashboard y Classroom"
     });
   } catch (error) {
     console.error("Error al actualizar usuario:", error);
