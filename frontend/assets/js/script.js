@@ -2449,9 +2449,15 @@ function ensureEditarProfesorModal() {
               </div>
             </div>
             
-            <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end;">
-              <button type="button" class="close-modal">Cancelar</button>
-              <button type="submit" class="btn-primary">Guardar Cambios</button>
+            <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: space-between;">
+              <button type="button" id="btnEditarCredencialesProfesor" class="btn-secondary" style="display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="key" style="width: 16px; height: 16px;"></i>
+                Editar Credenciales
+              </button>
+              <div style="display: flex; gap: 10px;">
+                <button type="button" class="close-modal">Cancelar</button>
+                <button type="submit" class="btn-primary">Guardar Cambios</button>
+              </div>
             </div>
           </form>
         </div>
@@ -2465,6 +2471,13 @@ function ensureEditarProfesorModal() {
   // Cerrar modal
   modal.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => modal.classList.remove('active')));
   modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
+
+  // Botón Editar Credenciales
+  const btnCredenciales = document.getElementById('btnEditarCredencialesProfesor');
+  btnCredenciales.addEventListener('click', () => {
+    const idProfesor = document.getElementById('editProfesorId').value;
+    abrirModalCredencialesProfesor(idProfesor);
+  });
 
   // Form submit
   document.getElementById('formEditarProfesor').addEventListener('submit', async (e) => {
@@ -2537,88 +2550,59 @@ async function openEditarProfesorModal(idProfesor) {
   }
 }
 
-// Modal de credenciales del profesor
+// Modal de credenciales del profesor (unificadas Dashboard y Classroom)
 async function abrirModalCredencialesProfesor(idProfesor) {
   try {
     const resp = await fetch(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resp.json();
     
-    // Obtener usuario Classroom
-    let usuarioClassroom = 'No configurado';
+    // Obtener usuario desde la tabla usuarios
+    let usuarioActual = '';
+    let tienePassword = false;
     try {
       const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${profesor.id_persona}`);
       if (respUsuario.ok) {
         const usuario = await respUsuario.json();
-        usuarioClassroom = usuario.username || 'No configurado';
+        usuarioActual = usuario.usuario || '';
+        tienePassword = usuario.tiene_password || false;
       }
     } catch (error) {
-      console.error('Error al cargar usuario classroom:', error);
+      console.error('Error al cargar usuario:', error);
     }
 
     const result = await Swal.fire({
-      title: 'Credenciales de Acceso',
+      title: 'Editar Credenciales',
       html: `
         <div style="text-align: left;">
           <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
             <p style="margin: 0; font-size: 13px; color: #1e40af;">
-              <strong>${profesor.nombre} ${profesor.apellido}</strong> tiene dos sistemas de credenciales independientes
+              Estas credenciales se usan para <strong>Dashboard y Classroom</strong>
             </p>
           </div>
 
-          <!-- Dashboard -->
-          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
-            <h4 style="margin: 0 0 12px 0; color: #1e3c72; font-size: 15px;">
-              <i data-lucide="layout-dashboard" style="width: 16px; height: 16px;"></i> Dashboard (Sistema Administrativo)
-            </h4>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">Usuario</label>
-              <input type="text" id="usuarioDashboard" value="${profesor.usuario || ''}" 
-                     style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; font-family: 'Courier New', monospace;">
-            </div>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">
-                Contraseña ${profesor.password_hash ? '(configurada, editar para cambiar)' : '(no configurada)'}
-              </label>
-              <div style="position: relative;">
-                <input type="password" id="passwordDashboard" 
-                       placeholder="${profesor.password_hash ? '●●●●●●●●' : 'Ingrese una contraseña'}" 
-                       style="width: 100%; padding: 8px 40px 8px 8px; border: 1px solid #d1d5db; border-radius: 4px; box-sizing: border-box;">
-                <button type="button" id="togglePasswordDashboard" 
-                        style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
-                  <i data-lucide="eye" style="width: 18px; height: 18px; color: #6b7280;"></i>
-                </button>
-              </div>
-            </div>
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Usuario</label>
+            <input type="text" id="usuarioProfesor" value="${usuarioActual}" 
+                   style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 14px;">
           </div>
-
-          <!-- Classroom -->
-          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px;">
-            <h4 style="margin: 0 0 12px 0; color: #2575fc; font-size: 15px;">
-              <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> Classroom (Plataforma Educativa)
-            </h4>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">Usuario</label>
-              <input type="text" id="usuarioClassroom" value="${usuarioClassroom !== 'No configurado' ? usuarioClassroom : ''}" 
-                     style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; font-family: 'Courier New', monospace;">
-            </div>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">
-                Contraseña ${usuarioClassroom !== 'No configurado' ? '(configurada, editar para cambiar)' : '(no configurada)'}
-              </label>
-              <div style="position: relative;">
-                <input type="password" id="passwordClassroom" 
-                       placeholder="${usuarioClassroom !== 'No configurado' ? '●●●●●●●●' : 'Ingrese una contraseña'}" 
-                       style="width: 100%; padding: 8px 40px 8px 8px; border: 1px solid #d1d5db; border-radius: 4px; box-sizing: border-box;">
-                <button type="button" id="togglePasswordClassroom" 
-                        style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
-                  <i data-lucide="eye" style="width: 18px; height: 18px; color: #6b7280;"></i>
-                </button>
-              </div>
+          
+          <div style="margin-bottom: 8px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">
+              Contraseña ${tienePassword ? '(configurada - dejar vacío para no cambiar)' : '(sin configurar)'}
+            </label>
+            <div style="position: relative;">
+              <input type="password" id="passwordProfesor" 
+                     placeholder="${tienePassword ? 'Dejar vacío para mantener actual' : 'Ingrese una contraseña'}" 
+                     style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; font-size: 14px;">
+              <button type="button" id="togglePasswordProfesor" 
+                      style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
+                <i data-lucide="eye" style="width: 20px; height: 20px; color: #6b7280;"></i>
+              </button>
             </div>
           </div>
         </div>
       `,
-      width: '550px',
+      width: '500px',
       showCancelButton: true,
       confirmButtonText: 'Guardar Cambios',
       cancelButtonText: 'Cancelar',
@@ -2626,130 +2610,62 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       didOpen: () => {
         lucide.createIcons();
         
-        // Toggle password visibility Dashboard
-        const toggleDash = document.getElementById('togglePasswordDashboard');
-        const inputDash = document.getElementById('passwordDashboard');
-        toggleDash.addEventListener('click', () => {
-          const isPassword = inputDash.type === 'password';
-          inputDash.type = isPassword ? 'text' : 'password';
-          const icon = toggleDash.querySelector('i');
-          icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
-          lucide.createIcons();
-        });
-        
-        // Toggle password visibility Classroom
-        const toggleClass = document.getElementById('togglePasswordClassroom');
-        const inputClass = document.getElementById('passwordClassroom');
-        toggleClass.addEventListener('click', () => {
-          const isPassword = inputClass.type === 'password';
-          inputClass.type = isPassword ? 'text' : 'password';
-          const icon = toggleClass.querySelector('i');
+        // Toggle password visibility
+        const toggleBtn = document.getElementById('togglePasswordProfesor');
+        const inputPassword = document.getElementById('passwordProfesor');
+        toggleBtn.addEventListener('click', () => {
+          const isPassword = inputPassword.type === 'password';
+          inputPassword.type = isPassword ? 'text' : 'password';
+          const icon = toggleBtn.querySelector('i');
           icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
           lucide.createIcons();
         });
       },
       preConfirm: async () => {
-        const usuarioDash = document.getElementById('usuarioDashboard').value.trim();
-        const passwordDash = document.getElementById('passwordDashboard').value;
-        const usuarioClass = document.getElementById('usuarioClassroom').value.trim();
-        const passwordClass = document.getElementById('passwordClassroom').value;
+        const usuario = document.getElementById('usuarioProfesor').value.trim();
+        const password = document.getElementById('passwordProfesor').value;
         
-        if (!usuarioDash) {
-          Swal.showValidationMessage('El usuario de Dashboard es obligatorio');
+        if (!usuario) {
+          Swal.showValidationMessage('El usuario es obligatorio');
           return false;
         }
         
-        return { usuarioDash, passwordDash, usuarioClass, passwordClass };
+        return { usuario, password };
       }
     });
 
     // Si confirmó, procesar los cambios
     if (result.isConfirmed && result.value) {
-      const { usuarioDash, passwordDash, usuarioClass, passwordClass } = result.value;
-      let errores = [];
-      let exitos = [];
+      const { usuario, password } = result.value;
 
-      // Actualizar usuario Dashboard
       try {
-        const respUsuario = await fetch(`${API_URL}/profesores/${idProfesor}/usuario`, {
-          method: 'PATCH',
+        // Preparar el body con usuario y opcionalmente contraseña
+        const bodyData = {
+          id_persona: profesor.id_persona,
+          username: usuario
+        };
+        
+        // Solo incluir password si se ingresó algo
+        if (password && password.trim().length > 0) {
+          bodyData.password = password;
+        }
+        
+        const response = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ usuario: usuarioDash })
+          body: JSON.stringify(bodyData)
         });
         
-        if (respUsuario.ok) {
-          exitos.push('Usuario Dashboard actualizado');
+        if (response.ok) {
+          const mensaje = password ? 'Usuario y contraseña actualizados correctamente' : 'Usuario actualizado correctamente';
+          Swal.fire('¡Actualizado!', mensaje, 'success');
         } else {
-          const data = await respUsuario.json();
-          errores.push(`Dashboard usuario: ${data.message || 'Error desconocido'}`);
+          const data = await response.json();
+          Swal.fire('Error', data.message || 'Error al actualizar credenciales', 'error');
         }
       } catch (error) {
-        errores.push('Dashboard usuario: Error de conexión');
-      }
-
-      // Actualizar contraseña Dashboard si se ingresó
-      if (passwordDash) {
-        try {
-          const respPassword = await fetch(`${API_URL}/profesores/${idProfesor}/cambiar-password-dashboard`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: passwordDash })
-          });
-          
-          if (respPassword.ok) {
-            exitos.push('Contraseña Dashboard actualizada');
-          } else {
-            const data = await respPassword.json();
-            errores.push(`Dashboard password: ${data.message || 'Error desconocido'}`);
-          }
-        } catch (error) {
-          errores.push('Dashboard password: Error de conexión');
-        }
-      }
-
-      // Actualizar usuario y contraseña Classroom si se ingresó
-      if (usuarioClass) {
-        try {
-          const bodyData = {
-            id_persona: profesor.id_persona,
-            username: usuarioClass
-          };
-          
-          // Solo incluir password si se ingresó algo
-          if (passwordClass && passwordClass.trim().length > 0) {
-            bodyData.password = passwordClass;
-          }
-          
-          const respClassroom = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bodyData)
-          });
-          
-          if (respClassroom.ok) {
-            if (passwordClass && passwordClass.trim().length > 0) {
-              exitos.push('Usuario y contraseña Classroom actualizados');
-            } else {
-              exitos.push('Usuario Classroom actualizado');
-            }
-          } else {
-            const data = await respClassroom.json();
-            errores.push(`Classroom: ${data.message || 'Error desconocido'}`);
-          }
-        } catch (error) {
-          errores.push('Classroom: Error de conexión');
-        }
-      }
-
-      // Mostrar resultado
-      if (errores.length > 0 && exitos.length === 0) {
-        Swal.fire('Error', errores.join('<br>'), 'error');
-      } else if (errores.length > 0) {
-        Swal.fire('Parcialmente actualizado', 
-          `<strong>Éxitos:</strong><br>${exitos.join('<br>')}<br><br><strong>Errores:</strong><br>${errores.join('<br>')}`, 
-          'warning');
-      } else {
-        Swal.fire('¡Actualizado!', exitos.join('<br>'), 'success');
+        console.error('Error:', error);
+        Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
       }
     }
   } catch (error) {
@@ -3976,9 +3892,15 @@ function ensureEditarAlumnoModal() {
             </select>
           </div>
           
-          <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end;">
-            <button type="button" class="close-modal">Cancelar</button>
-            <button type="submit" class="btn-primary">Guardar Cambios</button>
+          <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: space-between; align-items: center;">
+            <button type="button" id="btnEditarCredencialesAlumno" class="btn-secondary" style="display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="key" style="width: 16px; height: 16px;"></i>
+              Editar Credenciales
+            </button>
+            <div style="display: flex; gap: 10px;">
+              <button type="button" class="close-modal">Cancelar</button>
+              <button type="submit" class="btn-primary">Guardar Cambios</button>
+            </div>
           </div>
         </form>
       </div>
@@ -3994,6 +3916,16 @@ function ensureEditarAlumnoModal() {
     if (e.target === modal) {
       modal.classList.remove('active');
     }
+  });
+
+  // Event listener para botón Editar Credenciales
+  const btnCredencialesAlumno = document.getElementById('btnEditarCredencialesAlumno');
+  btnCredencialesAlumno.addEventListener('click', () => {
+    const idAlumno = document.getElementById('editAlumnoId').value;
+    modal.classList.remove('active');
+    setTimeout(() => {
+      abrirModalCredencialesAlumno(idAlumno);
+    }, 150);
   });
 
   // Event listener para submit del formulario
@@ -4085,88 +4017,59 @@ async function editarAlumno(id) {
   }
 }
 
-// Modal de credenciales del alumno
+// Modal de credenciales del alumno (unificadas Dashboard y Classroom)
 async function abrirModalCredencialesAlumno(idAlumno) {
   try {
     const resp = await fetch(`${API_URL}/alumnos/${idAlumno}`);
     const alumno = await resp.json();
     
-    // Obtener usuario Classroom
-    let usuarioClassroom = 'No configurado';
+    // Obtener usuario desde la tabla usuarios
+    let usuarioActual = '';
+    let tienePassword = false;
     try {
       const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${alumno.id_persona}`);
       if (respUsuario.ok) {
         const usuario = await respUsuario.json();
-        usuarioClassroom = usuario.username || 'No configurado';
+        usuarioActual = usuario.usuario || '';
+        tienePassword = usuario.tiene_password || false;
       }
     } catch (error) {
-      console.error('Error al cargar usuario classroom:', error);
+      console.error('Error al cargar usuario:', error);
     }
 
     const result = await Swal.fire({
-      title: 'Credenciales de Acceso',
+      title: 'Editar Credenciales',
       html: `
         <div style="text-align: left;">
           <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
             <p style="margin: 0; font-size: 13px; color: #1e40af;">
-              <strong>${alumno.nombre} ${alumno.apellido}</strong> tiene dos sistemas de credenciales independientes
+              Estas credenciales se usan para <strong>Dashboard y Classroom</strong>
             </p>
           </div>
 
-          <!-- Dashboard -->
-          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
-            <h4 style="margin: 0 0 12px 0; color: #1e3c72; font-size: 15px;">
-              <i data-lucide="layout-dashboard" style="width: 16px; height: 16px;"></i> Dashboard (Sistema Administrativo)
-            </h4>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">Usuario</label>
-              <input type="text" id="usuarioDashboardAlumno" value="${alumno.usuario || ''}" 
-                     style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; font-family: 'Courier New', monospace;">
-            </div>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">
-                Contraseña ${alumno.password_hash ? '(configurada, editar para cambiar)' : '(no configurada)'}
-              </label>
-              <div style="position: relative;">
-                <input type="password" id="passwordDashboardAlumno" 
-                       placeholder="${alumno.password_hash ? '●●●●●●●●' : 'Ingrese una contraseña'}" 
-                       style="width: 100%; padding: 8px 40px 8px 8px; border: 1px solid #d1d5db; border-radius: 4px; box-sizing: border-box;">
-                <button type="button" id="togglePasswordDashboardAlumno" 
-                        style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
-                  <i data-lucide="eye" style="width: 18px; height: 18px; color: #6b7280;"></i>
-                </button>
-              </div>
-            </div>
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">Usuario</label>
+            <input type="text" id="usuarioAlumno" value="${usuarioActual}" 
+                   style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 14px;">
           </div>
-
-          <!-- Classroom -->
-          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px;">
-            <h4 style="margin: 0 0 12px 0; color: #2575fc; font-size: 15px;">
-              <i data-lucide="graduation-cap" style="width: 16px; height: 16px;"></i> Classroom (Plataforma Educativa)
-            </h4>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">Usuario</label>
-              <input type="text" id="usuarioClassroomAlumno" value="${usuarioClassroom !== 'No configurado' ? usuarioClassroom : ''}" 
-                     style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 4px; font-family: 'Courier New', monospace;">
-            </div>
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 11px; color: #6b7280; margin-bottom: 4px;">
-                Contraseña ${usuarioClassroom !== 'No configurado' ? '(configurada, editar para cambiar)' : '(no configurada)'}
-              </label>
-              <div style="position: relative;">
-                <input type="password" id="passwordClassroomAlumno" 
-                       placeholder="${usuarioClassroom !== 'No configurado' ? '●●●●●●●●' : 'Ingrese una contraseña'}" 
-                       style="width: 100%; padding: 8px 40px 8px 8px; border: 1px solid #d1d5db; border-radius: 4px; box-sizing: border-box;">
-                <button type="button" id="togglePasswordClassroomAlumno" 
-                        style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
-                  <i data-lucide="eye" style="width: 18px; height: 18px; color: #6b7280;"></i>
-                </button>
-              </div>
+          
+          <div style="margin-bottom: 8px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">
+              Contraseña ${tienePassword ? '(configurada - dejar vacío para no cambiar)' : '(sin configurar)'}
+            </label>
+            <div style="position: relative;">
+              <input type="password" id="passwordAlumno" 
+                     placeholder="${tienePassword ? 'Dejar vacío para mantener actual' : 'Ingrese una contraseña'}" 
+                     style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; font-size: 14px;">
+              <button type="button" id="togglePasswordAlumno" 
+                      style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px;">
+                <i data-lucide="eye" style="width: 20px; height: 20px; color: #6b7280;"></i>
+              </button>
             </div>
           </div>
         </div>
       `,
-      width: '550px',
+      width: '500px',
       showCancelButton: true,
       confirmButtonText: 'Guardar Cambios',
       cancelButtonText: 'Cancelar',
@@ -4174,130 +4077,62 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       didOpen: () => {
         lucide.createIcons();
         
-        // Toggle password visibility Dashboard
-        const toggleDash = document.getElementById('togglePasswordDashboardAlumno');
-        const inputDash = document.getElementById('passwordDashboardAlumno');
-        toggleDash.addEventListener('click', () => {
-          const isPassword = inputDash.type === 'password';
-          inputDash.type = isPassword ? 'text' : 'password';
-          const icon = toggleDash.querySelector('i');
-          icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
-          lucide.createIcons();
-        });
-        
-        // Toggle password visibility Classroom
-        const toggleClass = document.getElementById('togglePasswordClassroomAlumno');
-        const inputClass = document.getElementById('passwordClassroomAlumno');
-        toggleClass.addEventListener('click', () => {
-          const isPassword = inputClass.type === 'password';
-          inputClass.type = isPassword ? 'text' : 'password';
-          const icon = toggleClass.querySelector('i');
+        // Toggle password visibility
+        const toggleBtn = document.getElementById('togglePasswordAlumno');
+        const inputPassword = document.getElementById('passwordAlumno');
+        toggleBtn.addEventListener('click', () => {
+          const isPassword = inputPassword.type === 'password';
+          inputPassword.type = isPassword ? 'text' : 'password';
+          const icon = toggleBtn.querySelector('i');
           icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
           lucide.createIcons();
         });
       },
       preConfirm: async () => {
-        const usuarioDash = document.getElementById('usuarioDashboardAlumno').value.trim();
-        const passwordDash = document.getElementById('passwordDashboardAlumno').value;
-        const usuarioClass = document.getElementById('usuarioClassroomAlumno').value.trim();
-        const passwordClass = document.getElementById('passwordClassroomAlumno').value;
+        const usuario = document.getElementById('usuarioAlumno').value.trim();
+        const password = document.getElementById('passwordAlumno').value;
         
-        if (!usuarioDash) {
-          Swal.showValidationMessage('El usuario de Dashboard es obligatorio');
+        if (!usuario) {
+          Swal.showValidationMessage('El usuario es obligatorio');
           return false;
         }
         
-        return { usuarioDash, passwordDash, usuarioClass, passwordClass };
+        return { usuario, password };
       }
     });
 
     // Si confirmó, procesar los cambios
     if (result.isConfirmed && result.value) {
-      const { usuarioDash, passwordDash, usuarioClass, passwordClass } = result.value;
-      let errores = [];
-      let exitos = [];
+      const { usuario, password } = result.value;
 
-      // Actualizar usuario Dashboard
       try {
-        const respUsuario = await fetch(`${API_URL}/alumnos/${idAlumno}/usuario`, {
-          method: 'PATCH',
+        // Preparar el body con usuario y opcionalmente contraseña
+        const bodyData = {
+          id_persona: alumno.id_persona,
+          username: usuario
+        };
+        
+        // Solo incluir password si se ingresó algo
+        if (password && password.trim().length > 0) {
+          bodyData.password = password;
+        }
+        
+        const response = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ usuario: usuarioDash })
+          body: JSON.stringify(bodyData)
         });
         
-        if (respUsuario.ok) {
-          exitos.push('Usuario Dashboard actualizado');
+        if (response.ok) {
+          const mensaje = password ? 'Usuario y contraseña actualizados correctamente' : 'Usuario actualizado correctamente';
+          Swal.fire('¡Actualizado!', mensaje, 'success');
         } else {
-          const data = await respUsuario.json();
-          errores.push(`Dashboard usuario: ${data.message || 'Error desconocido'}`);
+          const data = await response.json();
+          Swal.fire('Error', data.message || 'Error al actualizar credenciales', 'error');
         }
       } catch (error) {
-        errores.push('Dashboard usuario: Error de conexión');
-      }
-
-      // Actualizar contraseña Dashboard si se ingresó
-      if (passwordDash) {
-        try {
-          const respPassword = await fetch(`${API_URL}/alumnos/${idAlumno}/cambiar-password-dashboard`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: passwordDash })
-          });
-          
-          if (respPassword.ok) {
-            exitos.push('Contraseña Dashboard actualizada');
-          } else {
-            const data = await respPassword.json();
-            errores.push(`Dashboard password: ${data.message || 'Error desconocido'}`);
-          }
-        } catch (error) {
-          errores.push('Dashboard password: Error de conexión');
-        }
-      }
-
-      // Actualizar usuario y contraseña Classroom si se ingresó
-      if (usuarioClass) {
-        try {
-          const bodyData = {
-            id_persona: alumno.id_persona,
-            username: usuarioClass
-          };
-          
-          // Solo incluir password si se ingresó algo
-          if (passwordClass && passwordClass.trim().length > 0) {
-            bodyData.password = passwordClass;
-          }
-          
-          const respClassroom = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bodyData)
-          });
-          
-          if (respClassroom.ok) {
-            if (passwordClass && passwordClass.trim().length > 0) {
-              exitos.push('Usuario y contraseña Classroom actualizados');
-            } else {
-              exitos.push('Usuario Classroom actualizado');
-            }
-          } else {
-            const data = await respClassroom.json();
-            errores.push(`Classroom: ${data.message || 'Error desconocido'}`);
-          }
-        } catch (error) {
-          errores.push('Classroom: Error de conexión');
-        }
-      }
-
-      // Mostrar resultado
-      if (errores.length > 0 && exitos.length === 0) {
-        Swal.fire('Error', errores.join('<br>'), 'error');
-      } else if (errores.length > 0) {
-        Swal.fire('Parcialmente actualizado', 
-          `<strong>Éxitos:</strong><br>${exitos.join('<br>')}<br><br><strong>Errores:</strong><br>${errores.join('<br>')}`, 
-          'warning');
-      } else {
-        Swal.fire('¡Actualizado!', exitos.join('<br>'), 'success');
+        console.error('Error:', error);
+        Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
       }
     }
   } catch (error) {
