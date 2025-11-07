@@ -2449,15 +2449,9 @@ function ensureEditarProfesorModal() {
               </div>
             </div>
             
-            <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: space-between;">
-              <button type="button" id="btnEditarCredencialesProfesor" class="btn-secondary" style="display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="key" style="width: 16px; height: 16px;"></i>
-                Editar Credenciales
-              </button>
-              <div style="display: flex; gap: 10px;">
-                <button type="button" class="close-modal">Cancelar</button>
-                <button type="submit" class="btn-primary">Guardar Cambios</button>
-              </div>
+            <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end;">
+              <button type="button" class="close-modal">Cancelar</button>
+              <button type="submit" class="btn-primary">Guardar Cambios</button>
             </div>
           </form>
         </div>
@@ -2471,15 +2465,6 @@ function ensureEditarProfesorModal() {
   // Cerrar modal
   modal.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => modal.classList.remove('active')));
   modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
-
-  // Botón Editar Credenciales abre modal de credenciales
-  const btnCredenciales = document.getElementById('btnEditarCredencialesProfesor');
-  console.log('🔵 Botón de credenciales encontrado:', btnCredenciales);
-  btnCredenciales.addEventListener('click', () => {
-    const idProfesor = document.getElementById('editProfesorId').value;
-    console.log('🟡 Abriendo credenciales para profesor:', idProfesor);
-    abrirModalCredencialesProfesor(idProfesor);
-  });
 
   // Form submit
   document.getElementById('formEditarProfesor').addEventListener('submit', async (e) => {
@@ -3991,15 +3976,9 @@ function ensureEditarAlumnoModal() {
             </select>
           </div>
           
-          <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: space-between; align-items: center;">
-            <button type="button" id="btnEditarCredencialesAlumno" class="btn-secondary" style="display: flex; align-items: center; gap: 8px;">
-              <i data-lucide="key" style="width: 16px; height: 16px;"></i>
-              Editar Credenciales
-            </button>
-            <div style="display: flex; gap: 10px;">
-              <button type="button" class="close-modal">Cancelar</button>
-              <button type="submit" class="btn-primary">Guardar Cambios</button>
-            </div>
+          <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end;">
+            <button type="button" class="close-modal">Cancelar</button>
+            <button type="submit" class="btn-primary">Guardar Cambios</button>
           </div>
         </form>
       </div>
@@ -4015,23 +3994,6 @@ function ensureEditarAlumnoModal() {
     if (e.target === modal) {
       modal.classList.remove('active');
     }
-  });
-
-  // Event listener para botón Editar Credenciales
-  const btnCredencialesAlumno = document.getElementById('btnEditarCredencialesAlumno');
-  console.log('🔵 Botón de credenciales alumno encontrado:', btnCredencialesAlumno);
-  btnCredencialesAlumno.addEventListener('click', () => {
-    const idAlumno = document.getElementById('editAlumnoId').value;
-    console.log('🟡 Abriendo credenciales para alumno:', idAlumno);
-    
-    // Cerrar el modal de edición completamente
-    modal.classList.remove('active');
-    modal.style.display = 'none';
-    
-    // Esperar un momento para que se cierre el modal antes de abrir el SweetAlert2
-    setTimeout(() => {
-      abrirModalCredencialesAlumno(idAlumno);
-    }, 150);
   });
 
   // Event listener para submit del formulario
