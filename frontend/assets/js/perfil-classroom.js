@@ -190,13 +190,24 @@ async function cargarPerfilCompleto() {
     if (response.ok && data.success) {
       userData = data.perfil;
       console.log('✅ Datos del perfil cargados:', userData);
+      
+      // Guardar id_alumno o id_profesor si vienen en la respuesta
+      if (userData.id_alumno) {
+        localStorage.setItem('id_alumno', userData.id_alumno);
+        console.log('✓ id_alumno guardado:', userData.id_alumno);
+      }
+      if (userData.id_profesor) {
+        localStorage.setItem('id_profesor', userData.id_profesor);
+        console.log('✓ id_profesor guardado:', userData.id_profesor);
+      }
+      
       mostrarDatosEnUI(userData);
       
       // Cargar datos académicos según el rol
-      if (userRol === 'alumno') {
-        cargarDatosAcademicosAlumno();
-      } else if (userRol === 'profesor') {
-        cargarDatosAcademicosProfesor();
+      if (userRol === 'alumno' || userData.id_alumno) {
+        cargarDatosAcademicosAlumno(userData.id_alumno);
+      } else if (userRol === 'profesor' || userData.id_profesor) {
+        cargarDatosAcademicosProfesor(userData.id_profesor);
       }
     } else {
       throw new Error(data.message || 'Error al cargar el perfil');
@@ -340,20 +351,28 @@ async function cargarDatosAcademicosAlumno() {
 
 function mostrarCursosAlumno(inscripciones) {
   const container = document.getElementById('cursosAlumno');
+  
+  if (!container) {
+    console.warn('⚠️ No se encontró el contenedor cursosAlumno');
+    return;
+  }
+  
   container.innerHTML = '';
   
   if (inscripciones.length === 0) {
-    container.innerHTML = '<p style="color: var(--text-secondary)">No estás inscrito en ningún curso</p>';
+    container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 20px;">No estás inscrito en ningún curso</p>';
     return;
   }
+  
+  console.log(`✓ Mostrando ${inscripciones.length} cursos`);
   
   inscripciones.forEach(insc => {
     const card = document.createElement('div');
     card.className = 'course-card';
     card.innerHTML = `
       <div class="course-header">
-        <div class="course-title">${insc.nombre_idioma} - ${insc.nombre_nivel}</div>
-        <div class="course-badge">${insc.nombre_curso}</div>
+        <div class="course-title">${insc.nombre_idioma || 'Idioma'} - ${insc.nombre_nivel || 'Nivel'}</div>
+        <div class="course-badge">${insc.nombre_curso || 'Curso'}</div>
       </div>
       <div class="course-info">
         <strong>Profesor:</strong> ${insc.nombre_profesor || 'No asignado'}
@@ -370,24 +389,37 @@ function mostrarCursosAlumno(inscripciones) {
 }
 
 async function cargarTareasAlumno(idAlumno) {
+  console.log(`📝 Cargando tareas para alumno: ${idAlumno}`);
+  
   try {
     const response = await fetch(`${API_URL}/classroom/tareas-lista/alumno/${idAlumno}`);
     const data = await response.json();
+    
+    console.log('📦 Tareas recibidas:', data);
     
     if (response.ok && data.success) {
       const tareas = data.tareas || [];
       const completadas = tareas.filter(t => t.estado === 'entregada').length;
       document.getElementById('tareasCompletadas').textContent = `${completadas}/${tareas.length}`;
+      console.log(`✓ Tareas completadas: ${completadas}/${tareas.length}`);
+    } else {
+      console.warn('⚠️ No se pudieron cargar las tareas:', data.message);
+      document.getElementById('tareasCompletadas').textContent = '0/0';
     }
   } catch (error) {
-    console.error('Error al cargar tareas:', error);
+    console.error('❌ Error al cargar tareas:', error);
+    document.getElementById('tareasCompletadas').textContent = '0/0';
   }
 }
 
 async function cargarAsistenciaAlumno(idAlumno) {
+  console.log(`📅 Cargando asistencias para alumno: ${idAlumno}`);
+  
   try {
     const response = await fetch(`${API_URL}/asistencias/alumno/${idAlumno}`);
     const data = await response.json();
+    
+    console.log('📦 Asistencias recibidas:', data);
     
     if (response.ok && data.success) {
       const asistencias = data.asistencias || [];
@@ -396,9 +428,14 @@ async function cargarAsistenciaAlumno(idAlumno) {
         ? Math.round((presentes / asistencias.length) * 100) 
         : 0;
       document.getElementById('asistenciaGeneral').textContent = `${porcentaje}%`;
+      console.log(`✓ Asistencia: ${porcentaje}% (${presentes}/${asistencias.length})`);
+    } else {
+      console.warn('⚠️ No se pudieron cargar las asistencias:', data.message);
+      document.getElementById('asistenciaGeneral').textContent = '0%';
     }
   } catch (error) {
-    console.error('Error al cargar asistencia:', error);
+    console.error('❌ Error al cargar asistencias:', error);
+    document.getElementById('asistenciaGeneral').textContent = '0%';
   }
 }
 
@@ -406,15 +443,33 @@ async function cargarAsistenciaAlumno(idAlumno) {
 // DATOS ACADÉMICOS - PROFESOR
 // =====================================================
 
-async function cargarDatosAcademicosProfesor() {
+// =====================================================
+// CARGAR DATOS ACADÉMICOS DE PROFESOR
+// =====================================================
+
+async function cargarDatosAcademicosProfesor(idProfesor = null) {
   document.getElementById('alumnoAcademico').style.display = 'none';
   document.getElementById('profesorAcademico').style.display = 'block';
   document.getElementById('academicSubtitle').textContent = 'Cursos que impartes';
   
+  // Usar el idProfesor pasado como parámetro o intentar obtenerlo del localStorage
+  const id = idProfesor || localStorage.getItem('id_profesor');
+  
+  if (!id) {
+    console.error('❌ No se pudo obtener id_profesor');
+    document.getElementById('totalCursosProf').textContent = '0';
+    document.getElementById('totalAlumnos').textContent = '0';
+    document.getElementById('especialidad').textContent = '-';
+    return;
+  }
+  
+  console.log(`👨‍🏫 Cargando datos académicos para profesor: ${id}`);
+  
   try {
-    const idProfesor = localStorage.getItem('id_profesor');
-    const response = await fetch(`${API_URL}/cursos/profesor/${idProfesor}`);
+    const response = await fetch(`${API_URL}/cursos/profesor/${id}`);
     const data = await response.json();
+    
+    console.log('📦 Cursos del profesor recibidos:', data);
     
     if (response.ok && data.success) {
       const cursos = data.cursos || [];
@@ -430,35 +485,55 @@ async function cargarDatosAcademicosProfesor() {
       // Especialidad (primer idioma de los cursos)
       if (cursos.length > 0) {
         document.getElementById('especialidad').textContent = cursos[0].nombre_idioma || '-';
+      } else {
+        document.getElementById('especialidad').textContent = '-';
       }
+      
+      console.log(`✓ Total cursos: ${cursos.length}, Total alumnos: ${totalAlumnos}`);
       
       // Mostrar cursos
       mostrarCursosProfesor(cursos);
+    } else {
+      console.warn('⚠️ No se pudieron cargar los cursos:', data.message);
+      document.getElementById('totalCursosProf').textContent = '0';
+      document.getElementById('totalAlumnos').textContent = '0';
+      document.getElementById('especialidad').textContent = '-';
     }
   } catch (error) {
-    console.error('Error al cargar datos del profesor:', error);
+    console.error('❌ Error al cargar datos del profesor:', error);
+    document.getElementById('totalCursosProf').textContent = '0';
+    document.getElementById('totalAlumnos').textContent = '0';
+    document.getElementById('especialidad').textContent = '-';
   }
 }
 
 function mostrarCursosProfesor(cursos) {
   const container = document.getElementById('cursosProfesor');
+  
+  if (!container) {
+    console.warn('⚠️ No se encontró el contenedor cursosProfesor');
+    return;
+  }
+  
   container.innerHTML = '';
   
   if (cursos.length === 0) {
-    container.innerHTML = '<p style="color: var(--text-secondary)">No tienes cursos asignados</p>';
+    container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 20px;">No tienes cursos asignados</p>';
     return;
   }
+  
+  console.log(`✓ Mostrando ${cursos.length} cursos del profesor`);
   
   cursos.forEach(curso => {
     const card = document.createElement('div');
     card.className = 'course-card';
     card.innerHTML = `
       <div class="course-header">
-        <div class="course-title">${curso.nombre_curso}</div>
-        <div class="course-badge">${curso.nombre_nivel}</div>
+        <div class="course-title">${curso.nombre_curso || 'Curso'}</div>
+        <div class="course-badge">${curso.nombre_nivel || 'Nivel'}</div>
       </div>
       <div class="course-info">
-        <strong>Idioma:</strong> ${curso.nombre_idioma}
+        <strong>Idioma:</strong> ${curso.nombre_idioma || 'No especificado'}
       </div>
       <div class="course-info">
         <strong>Alumnos:</strong> ${curso.total_inscritos || 0}

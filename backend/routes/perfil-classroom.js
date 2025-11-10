@@ -72,7 +72,9 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
                 p.direccion, p.biografia, p.avatar,
-                per.nombre_perfil as rol
+                per.nombre_perfil as rol,
+                alum.id_alumno,
+                NULL as id_profesor
          FROM alumnos alum
          JOIN personas p ON alum.id_persona = p.id_persona
          JOIN usuarios u ON p.id_persona = u.id_persona
@@ -88,7 +90,9 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
                 p.direccion, p.biografia, p.avatar,
-                per.nombre_perfil as rol
+                per.nombre_perfil as rol,
+                NULL as id_alumno,
+                prof.id_profesor
          FROM profesores prof
          JOIN personas p ON prof.id_persona = p.id_persona
          JOIN usuarios u ON p.id_persona = u.id_persona
@@ -107,10 +111,14 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
                 p.direccion, p.biografia, p.avatar,
-                per.nombre_perfil as rol
+                per.nombre_perfil as rol,
+                alum.id_alumno,
+                prof.id_profesor
          FROM usuarios u
          JOIN personas p ON u.id_persona = p.id_persona
          JOIN perfiles per ON u.id_perfil = per.id_perfil
+         LEFT JOIN alumnos alum ON p.id_persona = alum.id_persona
+         LEFT JOIN profesores prof ON p.id_persona = prof.id_persona
          WHERE u.id_usuario = ?`,
         [userId]
       );
@@ -125,10 +133,14 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
                 p.direccion, p.biografia, p.avatar,
-                per.nombre_perfil as rol
+                per.nombre_perfil as rol,
+                alum.id_alumno,
+                prof.id_profesor
          FROM usuarios u
          JOIN personas p ON u.id_persona = p.id_persona
          JOIN perfiles per ON u.id_perfil = per.id_perfil
+         LEFT JOIN alumnos alum ON p.id_persona = alum.id_persona
+         LEFT JOIN profesores prof ON p.id_persona = prof.id_persona
          WHERE p.id_persona = ?`,
         [userId]
       );
@@ -143,7 +155,9 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
                 p.direccion, p.biografia, p.avatar,
-                per.nombre_perfil as rol
+                per.nombre_perfil as rol,
+                NULL as id_alumno,
+                prof.id_profesor
          FROM profesores prof
          JOIN personas p ON prof.id_persona = p.id_persona
          JOIN usuarios u ON p.id_persona = u.id_persona
@@ -162,7 +176,9 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
                 p.direccion, p.biografia, p.avatar,
-                per.nombre_perfil as rol
+                per.nombre_perfil as rol,
+                alum.id_alumno,
+                NULL as id_profesor
          FROM alumnos alum
          JOIN personas p ON alum.id_persona = p.id_persona
          JOIN usuarios u ON p.id_persona = u.id_persona
@@ -184,6 +200,8 @@ router.get("/perfil/:userId", async (req, res) => {
     console.log('  ✅ Perfil encontrado:', {
       id_usuario: perfil.id_usuario,
       id_persona: perfil.id_persona,
+      id_alumno: perfil.id_alumno,
+      id_profesor: perfil.id_profesor,
       nombre: perfil.nombre,
       apellido: perfil.apellido,
       rol: perfil.rol
@@ -194,6 +212,8 @@ router.get("/perfil/:userId", async (req, res) => {
       perfil: {
         id_usuario: perfil.id_usuario,
         id_persona: perfil.id_persona,
+        id_alumno: perfil.id_alumno,
+        id_profesor: perfil.id_profesor,
         username: perfil.username,
         nombre: perfil.nombre,
         apellido: perfil.apellido,
