@@ -605,7 +605,7 @@ function actualizarFiltroCursos(cursos) {
 async function loadFeed() {
   try {
     const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
-    let anuncios;
+    let anuncios = [];
     
     console.log('🔍 Cargando feed... isAdmin:', isAdminClassroom, 'cursoActivo:', cursoActivo);
     
@@ -614,12 +614,14 @@ async function loadFeed() {
       if (cursoActivo !== null) {
         // Si hay un curso activo, filtrar por ese curso
         const res = await fetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
-        anuncios = await res.json();
+        const data = await res.json();
+        anuncios = Array.isArray(data) ? data : (data.anuncios || []);
         console.log(`📢 Admin: ${anuncios.length} anuncios del curso ${cursoActivo}`);
       } else {
         // Cargar todos los anuncios del sistema
         const res = await fetch(`${API_URL}/classroom/admin/todos-anuncios`);
-        anuncios = await res.json();
+        const data = await res.json();
+        anuncios = Array.isArray(data) ? data : (data.anuncios || []);
         console.log(`📢 Admin: ${anuncios.length} anuncios del sistema cargados`);
       }
     } else {
@@ -627,10 +629,12 @@ async function loadFeed() {
       const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
       if (cursoActivo !== null) {
         const res = await fetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
-        anuncios = await res.json();
+        const data = await res.json();
+        anuncios = Array.isArray(data) ? data : (data.anuncios || []);
       } else {
         const res = await fetch(`${API_URL}/classroom/anuncios/${tipo}/${userId}`);
-        anuncios = await res.json();
+        const data = await res.json();
+        anuncios = Array.isArray(data) ? data : (data.anuncios || []);
       }
     }
     
@@ -639,6 +643,7 @@ async function loadFeed() {
     return anuncios;
   } catch (error) {
     console.error('❌ Error al cargar anuncios:', error);
+    renderAnuncios([]);
     return [];
   }
 }
@@ -646,6 +651,12 @@ async function loadFeed() {
 function renderAnuncios(anuncios) {
   const container = document.getElementById('activityContainer');
   const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
+  
+  // Asegurar que anuncios sea un array
+  if (!Array.isArray(anuncios)) {
+    console.warn('⚠️ anuncios no es un array, convirtiendo a array vacío');
+    anuncios = [];
+  }
   
   console.log('🎨 Renderizando anuncios:', anuncios.length, 'isAdmin:', isAdminClassroom);
   
