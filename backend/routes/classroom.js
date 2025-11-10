@@ -416,6 +416,47 @@ router.post("/anuncios", async (req, res) => {
 });
 
 // =====================================================
+// OBTENER ANUNCIOS POR CURSO (debe ir antes de /anuncios/:tipo/:id)
+// =====================================================
+router.get("/anuncios/curso/:idCurso", async (req, res) => {
+  try {
+    const { idCurso } = req.params;
+    
+    console.log(`📢 GET /anuncios/curso/${idCurso}`);
+    
+    const query = `
+      SELECT 
+        a.id_anuncio,
+        a.titulo,
+        a.contenido AS contenido,
+        a.link_url AS enlace,
+        a.importante,
+        a.fecha_creacion,
+        c.nombre_curso,
+        CONCAT(p.nombre, ' ', p.apellido) AS nombre_profesor,
+        pers.avatar AS profesor_avatar
+      FROM anuncios a
+      INNER JOIN cursos c ON a.id_curso = c.id_curso
+      INNER JOIN profesores prof ON a.id_profesor = prof.id_profesor
+      INNER JOIN personas p ON prof.id_persona = p.id_persona
+      LEFT JOIN personas pers ON prof.id_persona = pers.id_persona
+      WHERE a.id_curso = ?
+      ORDER BY a.importante DESC, a.fecha_creacion DESC
+    `;
+    
+    const [anuncios] = await pool.query(query, [idCurso]);
+    console.log(`✅ ${anuncios.length} anuncios encontrados para curso ${idCurso}`);
+    
+    // Devolver array directamente para consistencia
+    res.json(anuncios);
+  } catch (error) {
+    console.error("❌ Error al obtener anuncios del curso:", error);
+    // Devolver array vacío en caso de error para evitar problemas en frontend
+    res.status(500).json([]);
+  }
+});
+
+// =====================================================
 // OBTENER ANUNCIOS (por profesor o por alumno)
 // =====================================================
 router.get("/anuncios/:tipo/:id", async (req, res) => {
@@ -609,47 +650,6 @@ router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
   } catch (error) {
     console.error("Error al obtener anuncio:", error);
     res.status(500).json({ message: "Error al obtener anuncio" });
-  }
-});
-
-// =====================================================
-// OBTENER ANUNCIOS POR CURSO
-// =====================================================
-router.get("/anuncios/curso/:idCurso", async (req, res) => {
-  try {
-    const { idCurso } = req.params;
-    
-    console.log(`📢 GET /anuncios/curso/${idCurso}`);
-    
-    const query = `
-      SELECT 
-        a.id_anuncio,
-        a.titulo,
-        a.contenido AS contenido,
-        a.link_url AS enlace,
-        a.importante,
-        a.fecha_creacion,
-        c.nombre_curso,
-        CONCAT(p.nombre, ' ', p.apellido) AS nombre_profesor,
-        pers.avatar AS profesor_avatar
-      FROM anuncios a
-      INNER JOIN cursos c ON a.id_curso = c.id_curso
-      INNER JOIN profesores prof ON a.id_profesor = prof.id_profesor
-      INNER JOIN personas p ON prof.id_persona = p.id_persona
-      LEFT JOIN personas pers ON prof.id_persona = pers.id_persona
-      WHERE a.id_curso = ?
-      ORDER BY a.importante DESC, a.fecha_creacion DESC
-    `;
-    
-    const [anuncios] = await pool.query(query, [idCurso]);
-    console.log(`✅ ${anuncios.length} anuncios encontrados para curso ${idCurso}`);
-    
-    // Devolver array directamente para consistencia
-    res.json(anuncios);
-  } catch (error) {
-    console.error("❌ Error al obtener anuncios del curso:", error);
-    // Devolver array vacío en caso de error para evitar problemas en frontend
-    res.status(500).json([]);
   }
 });
 
