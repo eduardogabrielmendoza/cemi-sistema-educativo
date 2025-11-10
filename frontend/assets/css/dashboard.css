@@ -132,6 +132,7 @@
   border-radius: 12px;
   position: relative;
   overflow: hidden;
+  will-change: transform, background-color;
 }
 
 .sidebar-menu button::before {
@@ -144,12 +145,13 @@
   background: linear-gradient(135deg, rgba(66, 99, 140, 0.08) 0%, rgba(66, 99, 140, 0.03) 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
+  transform: translateX(-100%);
 }
 
 .sidebar-menu button:hover {
   background: rgba(66, 99, 140, 0.08);
   transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(66, 99, 140, 0.1);
+  box-shadow: 0 2px 8px rgba(66, 99, 140, 0.15);
   color: #2d3748;
 }
 
@@ -360,9 +362,14 @@
   vertical-align: middle;
 }
 
+#mainContent tbody tr {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 #mainContent tr:hover {
-  background: rgba(91, 155, 213, 0.05);
-  transition: background 0.2s ease;
+  background: rgba(91, 155, 213, 0.08);
+  transform: scale(1.005);
+  box-shadow: 0 2px 8px rgba(91, 155, 213, 0.1);
 }
 
 #mainContent h2 {
@@ -393,13 +400,34 @@
   gap: 8px;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 8px rgba(91, 155, 213, 0.3);
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:active::after {
+  width: 300px;
+  height: 300px;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(91, 155, 213, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(91, 155, 213, 0.45);
   background: linear-gradient(135deg, #4a8bc2, #6da5d5);
 }
 
@@ -412,15 +440,19 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
 }
 
 .btn-secondary:hover {
   background-color: #5a6268;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
 }
 
 /* Botones de acción (iconos) */
@@ -696,7 +728,7 @@
   border: 1px solid #ced4da;
   border-radius: 4px;
   font-size: 14px;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: white;
   box-sizing: border-box;
 }
@@ -705,7 +737,8 @@
 .form-group input:focus {
   outline: none;
   border-color: #1976d2;
-  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+  transform: translateY(-1px);
 }
 
 .form-row {
@@ -1134,12 +1167,31 @@
   border-left: 4px solid #1e3c72;
   text-align: center;
   box-shadow: 0 2px 12px rgba(30, 60, 114, 0.08);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(91, 155, 213, 0.03), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(30, 60, 114, 0.18);
+}
+
+.stat-card:hover::before {
+  opacity: 1;
 }
 
 .stat-card.success {

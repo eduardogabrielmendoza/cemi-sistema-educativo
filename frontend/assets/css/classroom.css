@@ -1471,28 +1471,56 @@ body {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 10px;
   border-left: none;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, background-color;
+}
+
+.nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(66, 99, 140, 0.08) 0%, rgba(66, 99, 140, 0.03) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translateX(-100%);
 }
 
 .nav-item:hover {
   background: rgba(66, 99, 140, 0.08);
   color: var(--primary-color);
-  transform: translateX(2px);
+  transform: translateX(4px);
+  box-shadow: 0 2px 6px rgba(66, 99, 140, 0.1);
+}
+
+.nav-item:hover::before {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .nav-item.active {
   background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
   color: white;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(66, 99, 140, 0.25);
+  box-shadow: 0 2px 10px rgba(66, 99, 140, 0.3);
+  transform: translateX(4px);
 }
 
 .nav-item i {
   width: 20px;
   height: 20px;
   color: #4a5568;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover i {
+  transform: scale(1.15);
 }
 
 .nav-divider {
@@ -2060,13 +2088,32 @@ body {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  position: relative;
+  will-change: transform, box-shadow;
+}
+
+.class-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(91, 155, 213, 0.03), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .class-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px) scale(1.01);
+}
+
+.class-card:hover::before {
+  opacity: 1;
 }
 
 .class-card-header {
