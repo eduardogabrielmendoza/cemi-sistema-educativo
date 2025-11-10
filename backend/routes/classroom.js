@@ -428,24 +428,65 @@ router.get("/anuncios/curso/:idCurso", async (req, res) => {
       SELECT 
         a.id_anuncio,
         a.titulo,
-        a.contenido AS contenido,
-        a.link_url AS enlace,
+        a.contenido,
+        a.link_url,
         a.importante,
         a.fecha_creacion,
         c.nombre_curso,
-        CONCAT(p.nombre, ' ', p.apellido) AS nombre_profesor,
-        pers.avatar AS profesor_avatar
+        c.id_curso,
+        prof.id_profesor,
+        CONCAT(p.nombre, ' ', p.apellido) AS profesor_nombre,
+        p.avatar AS profesor_avatar
       FROM anuncios a
       INNER JOIN cursos c ON a.id_curso = c.id_curso
       INNER JOIN profesores prof ON a.id_profesor = prof.id_profesor
       INNER JOIN personas p ON prof.id_persona = p.id_persona
-      LEFT JOIN personas pers ON prof.id_persona = pers.id_persona
       WHERE a.id_curso = ?
       ORDER BY a.importante DESC, a.fecha_creacion DESC
     `;
     
     const [anuncios] = await pool.query(query, [idCurso]);
     console.log(`✅ ${anuncios.length} anuncios encontrados para curso ${idCurso}`);
+    
+    // Para cada anuncio, obtener la encuesta si existe y contador de comentarios
+    for (let anuncio of anuncios) {
+      // Obtener cantidad de comentarios
+      const [countComentarios] = await pool.query(
+        `SELECT COUNT(*) as total FROM comentarios_anuncios WHERE id_anuncio = ?`,
+        [anuncio.id_anuncio]
+      );
+      anuncio.total_comentarios = countComentarios[0].total;
+      
+      const [encuestas] = await pool.query(
+        `SELECT e.id_encuesta, e.pregunta,
+          (SELECT COUNT(*) FROM votos_encuesta WHERE id_encuesta = e.id_encuesta) as total_votos
+         FROM encuestas e
+         WHERE e.id_anuncio = ?`,
+        [anuncio.id_anuncio]
+      );
+      
+      if (encuestas.length > 0) {
+        const encuesta = encuestas[0];
+        
+        // Obtener opciones de la encuesta
+        const [opciones] = await pool.query(
+          `SELECT o.id_opcion, o.texto, o.votos,
+            (SELECT COUNT(*) FROM votos_encuesta WHERE id_opcion = o.id_opcion) as votos_reales
+           FROM opciones_encuesta o
+           WHERE o.id_encuesta = ?
+           ORDER BY o.id_opcion`,
+          [encuesta.id_encuesta]
+        );
+        
+        encuesta.opciones = opciones;
+        anuncio.encuesta = encuesta;
+        
+        // Nota: No podemos verificar si ya votó aquí porque no tenemos el id_alumno
+        // Eso se manejará en el frontend si es necesario
+        anuncio.encuesta.ya_voto = false;
+        anuncio.encuesta.id_opcion_votada = null;
+      }
+    }
     
     // Devolver array directamente para consistencia
     res.json(anuncios);
