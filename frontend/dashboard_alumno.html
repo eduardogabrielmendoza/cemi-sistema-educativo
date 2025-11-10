@@ -22,8 +22,16 @@
 </head>
 <body class="dashboard-body">
 
+  <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" id="mobileMenuToggle">
+    <i data-lucide="menu"></i>
+  </button>
+
+  <!-- Sidebar Overlay (para cerrar en mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <img src="images/logo.png" alt="Logo CEMI">
       <h2>CEMI</h2>
@@ -1824,6 +1832,58 @@
     }
   }
 </style>
+
+<!-- Mobile Menu Script -->
+<script>
+  // Funcionalidad del menú mobile
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    
+    if (mobileMenuToggle && sidebar && sidebarOverlay) {
+      // Abrir/cerrar sidebar
+      mobileMenuToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('mobile-open');
+        sidebarOverlay.classList.toggle('active');
+        
+        // Cambiar icono
+        const icon = this.querySelector('i');
+        if (sidebar.classList.contains('mobile-open')) {
+          icon.setAttribute('data-lucide', 'x');
+        } else {
+          icon.setAttribute('data-lucide', 'menu');
+        }
+        lucide.createIcons();
+      });
+      
+      // Cerrar sidebar al hacer clic en overlay
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.remove('mobile-open');
+        sidebarOverlay.classList.remove('active');
+        
+        const icon = mobileMenuToggle.querySelector('i');
+        icon.setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+      });
+      
+      // Cerrar sidebar al hacer clic en un botón del menú (solo en mobile)
+      const menuButtons = sidebar.querySelectorAll('.sidebar-menu button');
+      menuButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            sidebar.classList.remove('mobile-open');
+            sidebarOverlay.classList.remove('active');
+            
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.setAttribute('data-lucide', 'menu');
+            lucide.createIcons();
+          }
+        });
+      });
+    }
+  });
+</script>
 
 <!-- UserChatManager se carga desde assets/js/user-chat-manager.js -->
 

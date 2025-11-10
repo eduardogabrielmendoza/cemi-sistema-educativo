@@ -99,6 +99,14 @@
 
   <!-- Main Container -->
   <div class="classroom-container">
+    <!-- Mobile Sidebar Toggle -->
+    <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+      <i data-lucide="menu"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay-classroom" id="sidebarOverlayClassroom"></div>
+
     <!-- Sidebar -->
     <aside class="classroom-sidebar" id="sidebar">
       <nav class="sidebar-nav">
@@ -468,6 +476,63 @@
   <!-- Config JS - MUST be first -->
   <script src="assets/js/config.js"></script>
   <script src="assets/js/classroom.js"></script>
+  
+  <!-- Mobile Menu Script -->
+  <script>
+    // Funcionalidad del menú mobile para Classroom
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlayClassroom');
+      
+      if (mobileSidebarToggle && sidebar && sidebarOverlay) {
+        // Abrir/cerrar sidebar
+        mobileSidebarToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('show');
+          sidebarOverlay.classList.toggle('active');
+          
+          // Cambiar icono
+          const icon = this.querySelector('i');
+          if (sidebar.classList.contains('show')) {
+            icon.setAttribute('data-lucide', 'x');
+            sidebarOverlay.style.display = 'block';
+          } else {
+            icon.setAttribute('data-lucide', 'menu');
+            sidebarOverlay.style.display = 'none';
+          }
+          lucide.createIcons();
+        });
+        
+        // Cerrar sidebar al hacer clic en overlay
+        sidebarOverlay.addEventListener('click', function() {
+          sidebar.classList.remove('show');
+          sidebarOverlay.classList.remove('active');
+          sidebarOverlay.style.display = 'none';
+          
+          const icon = mobileSidebarToggle.querySelector('i');
+          icon.setAttribute('data-lucide', 'menu');
+          lucide.createIcons();
+        });
+        
+        // Cerrar sidebar al hacer clic en un link del menú (solo en mobile)
+        const navItems = sidebar.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+          item.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+              sidebar.classList.remove('show');
+              sidebarOverlay.classList.remove('active');
+              sidebarOverlay.style.display = 'none';
+              
+              const icon = mobileSidebarToggle.querySelector('i');
+              icon.setAttribute('data-lucide', 'menu');
+              lucide.createIcons();
+            }
+          });
+        });
+      }
+    });
+  </script>
+  
   <script>
     lucide.createIcons();
   </script>

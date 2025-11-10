@@ -4121,3 +4121,417 @@ body.dark-mode .toggle-password-btn:hover {
   border-radius: 16px !important;
   padding: 32px !important;
 }
+
+/* ========================================
+   MEJORAS RESPONSIVE CLASSROOM - MOBILE
+   ======================================== */
+
+/* Mobile Menu Toggle Button */
+.mobile-sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.mobile-sidebar-toggle:hover {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-sidebar-toggle i {
+  width: 24px;
+  height: 24px;
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay-classroom {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay-classroom.active {
+  opacity: 1;
+}
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  .classroom-header {
+    padding: 16px 24px;
+  }
+
+  .classroom-main-content {
+    padding: 20px;
+  }
+
+  .task-card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+/* Mobile - Tablets pequeñas (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Mostrar botón hamburguesa */
+  .mobile-sidebar-toggle {
+    display: flex;
+  }
+
+  /* Sidebar mobile con animación */
+  .classroom-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    width: 280px;
+  }
+
+  .classroom-sidebar.show {
+    transform: translateX(0);
+  }
+
+  /* Main content sin margen izquierdo */
+  .classroom-main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .classroom-main-content {
+    padding: 80px 16px 20px 16px;
+  }
+
+  /* Header responsive */
+  .classroom-header {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+  }
+
+  .classroom-header h1 {
+    font-size: 20px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .header-actions .btn-secondary,
+  .header-actions .btn-primary {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  /* Cards grid */
+  .classes-grid,
+  .task-card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .class-card,
+  .task-card {
+    padding: 16px;
+  }
+
+  /* Modales full screen en mobile */
+  .task-modal,
+  .class-modal,
+  .grade-modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    padding: 16px;
+  }
+
+  .modal-body {
+    padding: 16px;
+    max-height: calc(100vh - 140px);
+  }
+
+  .modal-footer {
+    padding: 16px;
+  }
+
+  /* Tabs mobile */
+  .tabs-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-button {
+    padding: 10px 16px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* Task list mobile */
+  .task-item {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .task-info {
+    width: 100%;
+  }
+
+  .task-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* Calendar mobile */
+  .calendar-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .calendar-nav {
+    gap: 8px;
+  }
+
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .calendar-day {
+    min-height: 60px;
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  /* Grades table mobile */
+  .grades-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .grades-table {
+    font-size: 13px;
+  }
+
+  .grades-table th,
+  .grades-table td {
+    padding: 10px 8px;
+  }
+
+  /* View filters mobile */
+  .view-filters {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filter-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Attachments mobile */
+  .attachment-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .attachment-actions {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
+/* Mobile pequeño (max-width: 480px) */
+@media (max-width: 480px) {
+  .mobile-sidebar-toggle {
+    width: 44px;
+    height: 44px;
+    top: 15px;
+    left: 15px;
+  }
+
+  .classroom-sidebar {
+    width: 85%;
+    max-width: 280px;
+  }
+
+  .classroom-main-content {
+    padding: 70px 12px 16px 12px;
+  }
+
+  /* Header más compacto */
+  .classroom-header {
+    padding: 10px 12px;
+  }
+
+  .classroom-header h1 {
+    font-size: 18px;
+  }
+
+  .header-actions .btn-secondary,
+  .header-actions .btn-primary {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .header-actions .btn-icon {
+    padding: 6px;
+  }
+
+  /* Cards más compactos */
+  .class-card,
+  .task-card {
+    padding: 12px;
+  }
+
+  .class-card-header h3,
+  .task-card-title {
+    font-size: 16px;
+  }
+
+  .class-card-meta,
+  .task-card-meta {
+    font-size: 12px;
+  }
+
+  /* Botones más pequeños */
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .btn-primary-small,
+  .btn-secondary-small {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* Modal más ajustado */
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Calendar más compacto */
+  .calendar-day {
+    min-height: 50px;
+    font-size: 11px;
+    padding: 3px;
+  }
+
+  .calendar-day-number {
+    font-size: 12px;
+  }
+
+  .calendar-event {
+    font-size: 9px;
+    padding: 2px 4px;
+  }
+
+  /* Task list compacto */
+  .task-item {
+    padding: 10px;
+  }
+
+  .task-title {
+    font-size: 14px;
+  }
+
+  .task-meta {
+    font-size: 11px;
+  }
+
+  /* Stats cards */
+  .stat-card {
+    padding: 12px;
+  }
+
+  .stat-card h3 {
+    font-size: 20px;
+  }
+
+  .stat-card p {
+    font-size: 12px;
+  }
+
+  /* Tabs más pequeños */
+  .tab-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  /* Sidebar mobile más estrecho */
+  .classroom-sidebar {
+    width: 80%;
+  }
+
+  .logo-section {
+    padding: 12px;
+  }
+
+  .logo-section h1 {
+    font-size: 16px;
+  }
+
+  .sidebar-nav a {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .sidebar-nav a i {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Landscape mobile (altura pequeña) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .classroom-sidebar {
+    overflow-y: auto;
+  }
+
+  .classroom-main-content {
+    padding-top: 60px;
+  }
+
+  .modal-body {
+    max-height: 60vh;
+  }
+
+  .calendar-day {
+    min-height: 45px;
+  }
+}
