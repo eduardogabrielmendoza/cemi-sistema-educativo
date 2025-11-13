@@ -98,7 +98,9 @@ router.get('/catalogo', async (req, res) => {
             });
         }
 
-        // Query base: obtener todos los cursos con información completa
+        console.log('[CATALOGO] Iniciando consulta para alumno:', id_alumno);
+
+        // Query simplificada y robusta
         let query = `
             SELECT 
                 c.id_curso,
@@ -107,43 +109,21 @@ router.get('/catalogo', async (req, res) => {
                 c.cupo_maximo,
                 c.id_idioma,
                 c.id_nivel,
-                
-                -- Datos del idioma
-                i.nombre_idioma,
-                
-                -- Datos del nivel
-                n.descripcion as nivel_descripcion,
-                
-                -- Datos del profesor
                 c.id_profesor,
-                CONCAT(pp.nombre, ' ', pp.apellido) as nombre_profesor,
-                prof.especialidad as especialidad_profesor,
-                pp.avatar as avatar_profesor,
-                
-                -- Datos del aula
-                a.nombre_aula,
-                a.ubicacion as ubicacion_aula,
-                
-                -- Cantidad de inscriptos actuales
-                (SELECT COUNT(*) 
-                 FROM inscripciones 
-                 WHERE id_curso = c.id_curso 
-                 AND estado = 'activo') as inscriptos_actuales,
-                
-                -- Verificar si el alumno ya está inscrito
-                EXISTS(
-                    SELECT 1 
-                    FROM inscripciones 
-                    WHERE id_curso = c.id_curso 
-                    AND id_alumno = ? 
-                    AND estado = 'activo'
-                ) as ya_inscrito
-                
+                i.nombre_idioma,
+                n.descripcion as nivel_descripcion,
+                CONCAT(COALESCE(pp.nombre, ''), ' ', COALESCE(pp.apellido, '')) as nombre_profesor,
+                COALESCE(prof.especialidad, '') as especialidad_profesor,
+                COALESCE(pp.avatar, '') as avatar_profesor,
+                COALESCE(a.nombre_aula, '') as nombre_aula,
+                COALESCE(a.ubicacion, '') as ubicacion_aula,
+                (SELECT COUNT(*) FROM inscripciones WHERE id_curso = c.id_curso AND estado = 'activo') as inscriptos_actuales,
+                (SELECT COUNT(*) FROM inscripciones WHERE id_curso = c.id_curso AND id_alumno = ? AND estado = 'activo') as ya_inscrito
             FROM cursos c
             INNER JOIN idiomas i ON c.id_idioma = i.id_idioma
             INNER JOIN niveles n ON c.id_nivel = n.id_nivel
-            INNER JOIN profesores prof ON c.id_profesor = prof.id_profesor
-            INNER JOIN personas pp ON prof.id_persona = pp.id_persona
+            LEFT JOIN profesores prof ON c.id_profesor = prof.id_profesor
+            LEFT JOIN personas pp ON prof.id_persona = pp.id_persona
             LEFT JOIN aulas a ON c.id_aula = a.id_aula
             WHERE 1=1
         `;
@@ -168,10 +148,13 @@ router.get('/catalogo', async (req, res) => {
 
         query += ' ORDER BY i.nombre_idioma, n.descripcion, c.nombre_curso';
 
+        console.log('[CATALOGO] Ejecutando query con params:', params);
         const [cursos] = await pool.query(query, params);
+        console.log('[CATALOGO] Cursos encontrados:', cursos.length);
 
         // Filtrar SOLO cursos en los que NO está inscrito
-        const cursosDisponibles = cursos.filter(curso => !curso.ya_inscrito);
+        const cursosDisponibles = cursos.filter(curso => curso.ya_inscrito === 0);
+        console.log('[CATALOGO] Cursos disponibles (sin inscripción):', cursosDisponibles.length);
 
         // Calcular estado de cada curso
         const cursosConEstado = cursosDisponibles.map(curso => {
@@ -218,6 +201,7 @@ router.get('/catalogo', async (req, res) => {
             };
         });
 
+        console.log('[CATALOGO] Enviando respuesta con', cursosConEstado.length, 'cursos');
         res.json({
             success: true,
             total: cursosConEstado.length,
@@ -225,11 +209,12 @@ router.get('/catalogo', async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error al obtener catálogo de cursos:', error);
+        console.error('[CATALOGO ERROR]:', error);
         res.status(500).json({ 
             success: false,
             error: 'Error al cargar el catálogo de cursos',
-            details: error.message 
+            details: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
         });
     }
 });
