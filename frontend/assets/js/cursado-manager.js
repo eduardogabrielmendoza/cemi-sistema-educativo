@@ -127,20 +127,52 @@ class CursadoManager {
             return;
         }
 
-        container.innerHTML = this.misCursos.map(curso => `
-            <div class="curso-inscrito-card">
-                <div class="curso-inscrito-header">
-                    <h4>${curso.nombre_curso}</h4>
-                    <span class="badge badge-success">Cursando</span>
+        container.innerHTML = this.misCursos.map(curso => {
+            const avatarProfesor = curso.profesor?.avatar || '/images/default-avatar.png';
+            
+            return `
+                <div class="curso-card">
+                    <div class="curso-card-header">
+                        <div class="curso-icon">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <div class="curso-card-title">
+                            <h3>${curso.nombre_curso}</h3>
+                            <div class="idioma">${curso.idioma || 'Curso'}</div>
+                            <span class="curso-badge">${curso.nivel || 'N/A'}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="curso-card-info">
+                        <div class="info-row">
+                            <i data-lucide="clock"></i>
+                            <span>${curso.horario || 'Por confirmar'}</span>
+                        </div>
+                        ${curso.aula ? `
+                        <div class="info-row">
+                            <i data-lucide="door-open"></i>
+                            <span>${curso.aula}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="curso-card-footer">
+                        <div class="profesor-mini">
+                            <img src="${avatarProfesor}" alt="${curso.profesor?.nombre || 'Profesor'}" class="profesor-avatar-small">
+                            <span>${curso.profesor?.nombre || 'Sin profesor'}</span>
+                        </div>
+                        <button class="btn-view-course" onclick="window.location.href='/frontend/classroom.html?curso=${curso.id_curso}'">
+                            <i data-lucide="eye"></i> Ver Curso
+                        </button>
+                    </div>
                 </div>
-                <div class="curso-inscrito-info">
-                    <div><i class="fas fa-language"></i> ${curso.idioma} ${curso.nivel}</div>
-                    <div><i class="fas fa-chalkboard-teacher"></i> ${curso.profesor.nombre}</div>
-                    <div><i class="fas fa-clock"></i> ${curso.horario}</div>
-                    ${curso.aula ? `<div><i class="fas fa-door-open"></i> ${curso.aula}</div>` : ''}
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
+
+        // Inicializar iconos lucide
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     }
 
     /**
