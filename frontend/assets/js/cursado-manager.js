@@ -87,11 +87,6 @@ class CursadoManager {
                 id_alumno: this.idAlumno
             });
 
-            // Agregar filtros activos
-            if (this.filtrosActivos.idioma) params.append('idioma', this.filtrosActivos.idioma);
-            if (this.filtrosActivos.nivel) params.append('nivel', this.filtrosActivos.nivel);
-            if (this.filtrosActivos.profesor) params.append('profesor', this.filtrosActivos.profesor);
-
             const response = await fetch(`${API_BASE_URL}/cursos/catalogo?${params}`);
             const data = await response.json();
 
@@ -113,38 +108,7 @@ class CursadoManager {
      * Renderizar filtros en el DOM
      */
     renderizarFiltros() {
-        // Filtro de idiomas
-        const selectIdioma = document.getElementById('filtro-idioma');
-        if (selectIdioma) {
-            selectIdioma.innerHTML = '<option value="">Todos los idiomas</option>';
-            this.filtros.idiomas.forEach(idioma => {
-                selectIdioma.innerHTML += `
-                    <option value="${idioma.id_idioma}">${idioma.nombre_idioma}</option>
-                `;
-            });
-        }
-
-        // Filtro de niveles
-        const selectNivel = document.getElementById('filtro-nivel');
-        if (selectNivel) {
-            selectNivel.innerHTML = '<option value="">Todos los niveles</option>';
-            this.filtros.niveles.forEach(nivel => {
-                selectNivel.innerHTML += `
-                    <option value="${nivel.id_nivel}">${nivel.nombre_idioma} - ${nivel.descripcion}</option>
-                `;
-            });
-        }
-
-        // Filtro de profesores
-        const selectProfesor = document.getElementById('filtro-profesor');
-        if (selectProfesor) {
-            selectProfesor.innerHTML = '<option value="">Todos los profesores</option>';
-            this.filtros.profesores.forEach(profesor => {
-                selectProfesor.innerHTML += `
-                    <option value="${profesor.id_profesor}">${profesor.nombre_completo}</option>
-                `;
-            });
-        }
+        // Filtros eliminados - solo búsqueda por texto
     }
 
     /**
@@ -440,66 +404,23 @@ class CursadoManager {
      * Setup event listeners
      */
     setupEventListeners() {
-        // Filtros
-        const filtroIdioma = document.getElementById('filtro-idioma');
-        const filtroNivel = document.getElementById('filtro-nivel');
-        const filtroProfesor = document.getElementById('filtro-profesor');
+        // Solo búsqueda por texto
         const inputBusqueda = document.getElementById('busqueda-curso');
-
-        if (filtroIdioma) {
-            filtroIdioma.addEventListener('change', (e) => {
-                this.filtrosActivos.idioma = e.target.value || null;
-                this.cargarCatalogoCursos();
-            });
-        }
-
-        if (filtroNivel) {
-            filtroNivel.addEventListener('change', (e) => {
-                this.filtrosActivos.nivel = e.target.value || null;
-                this.cargarCatalogoCursos();
-            });
-        }
-
-        if (filtroProfesor) {
-            filtroProfesor.addEventListener('change', (e) => {
-                this.filtrosActivos.profesor = e.target.value || null;
-                this.cargarCatalogoCursos();
-            });
-        }
-
         if (inputBusqueda) {
             inputBusqueda.addEventListener('input', (e) => {
                 this.filtrosActivos.busqueda = e.target.value;
                 this.aplicarFiltroBusqueda();
             });
         }
-
-        // Limpiar filtros
-        const btnLimpiar = document.getElementById('limpiar-filtros');
-        if (btnLimpiar) {
-            btnLimpiar.addEventListener('click', () => {
-                this.limpiarFiltros();
-            });
-        }
     }
 
     /**
-     * Limpiar todos los filtros
+     * Limpiar búsqueda
      */
     limpiarFiltros() {
-        this.filtrosActivos = {
-            idioma: null,
-            nivel: null,
-            profesor: null,
-            busqueda: ''
-        };
-
-        document.getElementById('filtro-idioma')?.selectedIndex = 0;
-        document.getElementById('filtro-nivel')?.selectedIndex = 0;
-        document.getElementById('filtro-profesor')?.selectedIndex = 0;
+        this.filtrosActivos.busqueda = '';
         const inputBusqueda = document.getElementById('busqueda-curso');
         if (inputBusqueda) inputBusqueda.value = '';
-
         this.cargarCatalogoCursos();
     }
 
@@ -592,10 +513,7 @@ class CursadoManager {
     }
 }
 
-// Inicializar cuando el DOM esté listo
-let cursadoManager;
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('cursado-section')) {
-        cursadoManager = new CursadoManager();
-    }
-});
+// Inicializar cuando se cargue el script (se llama desde el dashboard)
+if (typeof cursadoManager === 'undefined') {
+    window.cursadoManager = new CursadoManager();
+}
