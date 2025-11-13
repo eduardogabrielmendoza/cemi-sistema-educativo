@@ -116,7 +116,7 @@ router.get('/catalogo', async (req, res) => {
                 COALESCE(prof.especialidad, '') as especialidad_profesor,
                 COALESCE(pp.avatar, '') as avatar_profesor,
                 COALESCE(a.nombre_aula, '') as nombre_aula,
-                COALESCE(a.ubicacion, '') as ubicacion_aula,
+                COALESCE(a.capacidad, 0) as capacidad_aula,
                 (SELECT COUNT(*) FROM inscripciones WHERE id_curso = c.id_curso AND estado = 'activo') as inscriptos_actuales,
                 (SELECT COUNT(*) FROM inscripciones WHERE id_curso = c.id_curso AND id_alumno = ? AND estado = 'activo') as ya_inscrito
             FROM cursos c
@@ -196,7 +196,7 @@ router.get('/catalogo', async (req, res) => {
                 
                 aula: curso.nombre_aula ? {
                     nombre: curso.nombre_aula,
-                    ubicacion: curso.ubicacion_aula
+                    capacidad: curso.capacidad_aula
                 } : null
             };
         });
