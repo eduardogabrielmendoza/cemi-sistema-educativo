@@ -288,12 +288,21 @@ router.put("/perfil/:userId", async (req, res) => {
       values.push(apellido);
     }
     if (email !== undefined) {
+      // Normalizar emails para comparación (trim y lowercase)
+      const emailNormalizado = email ? email.trim().toLowerCase() : '';
+      const emailActualNormalizado = emailActual ? emailActual.trim().toLowerCase() : '';
+      
+      console.log(`  → Comparando emails: "${emailNormalizado}" vs "${emailActualNormalizado}"`);
+      
       // Solo actualizar email si es diferente al actual
-      if (email !== emailActual && columnasExistentes.includes('mail')) {
+      if (emailNormalizado !== emailActualNormalizado && columnasExistentes.includes('mail')) {
+        console.log('  ✏️ Email cambió, agregando a UPDATE');
         updates.push('mail = ?');
         values.push(email);
-      } else if (email === emailActual) {
+      } else if (emailNormalizado === emailActualNormalizado) {
         console.log('  ℹ️ Email no cambió, omitiendo actualización');
+      } else {
+        console.log('  ⚠️ Columna mail no existe en la tabla');
       }
     }
     if (telefono !== undefined && columnasExistentes.includes('telefono')) {
