@@ -255,8 +255,8 @@ router.put("/perfil/:userId", async (req, res) => {
     
     console.log('  → Buscando id_persona...');
     const [checkUsuario] = await pool.query(
-      'SELECT u.id_persona, p.mail FROM usuarios u LEFT JOIN personas p ON u.id_persona = p.id_persona WHERE u.id_usuario = ? OR u.id_persona = ?',
-      [userId, userId]
+      'SELECT u.id_persona, p.mail FROM usuarios u LEFT JOIN personas p ON u.id_persona = p.id_persona WHERE u.id_usuario = ?',
+      [userId]
     );
 
     let emailActual = null;
@@ -266,7 +266,20 @@ router.put("/perfil/:userId", async (req, res) => {
       console.log(`  ✓ id_persona encontrado: ${id_persona}`);
       console.log(`  ✓ Email actual: ${emailActual}`);
     } else {
-      console.log(`  ⚠️ No se encontró usuario, asumiendo userId=${userId} es id_persona`);
+      // Si no se encontró por id_usuario, asumir que userId es directamente id_persona
+      console.log(`  ⚠️ No se encontró usuario con id_usuario=${userId}, asumiendo que userId es id_persona`);
+      id_persona = userId;
+      
+      // Intentar obtener el email de la persona directamente
+      const [personaDirecta] = await pool.query(
+        'SELECT mail FROM personas WHERE id_persona = ?',
+        [userId]
+      );
+      
+      if (personaDirecta.length > 0) {
+        emailActual = personaDirecta[0].mail;
+        console.log(`  ✓ Email obtenido directamente de personas: ${emailActual}`);
+      }
     }
 
     // Verificar qué columnas existen en la tabla personas
@@ -419,15 +432,15 @@ router.post("/perfil/:userId/avatar", (req, res) => {
       
       console.log('  → Buscando id_persona para userId:', userId);
       const [checkUsuario] = await pool.query(
-        'SELECT id_persona FROM usuarios WHERE id_usuario = ? OR id_persona = ?',
-        [userId, userId]
+        'SELECT id_persona FROM usuarios WHERE id_usuario = ?',
+        [userId]
       );
 
       if (checkUsuario.length > 0) {
         id_persona = checkUsuario[0].id_persona;
         console.log(`  ✓ id_persona encontrado: ${id_persona}`);
       } else {
-        console.log(`  ⚠️ No se encontró usuario en tabla usuarios, asumiendo userId=${userId} es id_persona`);
+        console.log(`  ⚠️ No se encontró usuario en tabla usuarios con id_usuario=${userId}, asumiendo userId es id_persona`);
       }
 
       const avatarPath = `/uploads/avatars/${req.file.filename}`;
