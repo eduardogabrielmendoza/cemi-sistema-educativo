@@ -1245,6 +1245,8 @@
   let medioPagoSeleccionado = null;
 
   window.seleccionarMetodo = function(elemento, metodo) {
+    console.log('🔍 seleccionarMetodo llamado con:', metodo);
+    
     // Remover selección anterior
     document.querySelectorAll('.metodo-option').forEach(el => el.classList.remove('selected'));
     
@@ -1254,6 +1256,7 @@
     
     // Si es efectivo, mostrar ticket
     if (metodo === 'Efectivo') {
+      console.log('✅ Detectado pago en efectivo, llamando a mostrarTicketEfectivo()');
       mostrarTicketEfectivo();
       return;
     }
@@ -1269,8 +1272,13 @@
 
   // Función para generar y mostrar ticket de efectivo
   window.mostrarTicketEfectivo = function() {
+    console.log('🎫 Generando ticket de efectivo...');
+    
     // Generar número de ticket aleatorio (12 dígitos)
     const numeroTicket = Math.floor(100000000000 + Math.random() * 900000000000);
+    
+    console.log('📋 Número de ticket generado:', numeroTicket);
+    console.log('🔍 SweetAlert disponible?', typeof Swal !== 'undefined');
     
     Swal.fire({
       title: 'Pago en Efectivo',
@@ -1294,6 +1302,8 @@
       confirmButtonText: 'Entendido',
       confirmButtonColor: '#1e3c72',
       width: '500px'
+    }).then(() => {
+      console.log('✅ Modal cerrado');
     });
   };
 
