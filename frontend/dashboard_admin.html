@@ -579,9 +579,6 @@
         <i data-lucide="message-circle"></i> Chat Soporte
         <span id="chatNotificationBadge" class="notification-badge" style="display: none;"></span>
       </button>
-      <button id="btnClassroom" onclick="abrirClassroomAdmin()">
-        <i data-lucide="school"></i> Classroom Administrador
-      </button>
       <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesión</button>
     </nav>
   </aside>
@@ -1242,16 +1239,6 @@
         return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' });
       }
     */
-  </script>
-  
-  <script>
-    // Función para abrir Classroom como Administrador
-    function abrirClassroomAdmin() {
-      // Establecer bandera de administrador en localStorage
-      localStorage.setItem('admin_classroom', 'true');
-      // Redirigir directamente a classroom (sin login)
-      window.location.href = 'classroom.html';
-    }
   </script>
   
   <!-- Mobile Menu Script -->
