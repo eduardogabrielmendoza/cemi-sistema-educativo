@@ -3137,8 +3137,15 @@ function renderPagosTable(pagos) {
         </button>
       `;
     } else if (estado === 'anulado' && archivado === 1) {
-      // Pagos archivados no tienen botones de acción
-      botonesAccion = `<span style="color: #999; font-size: 12px;">Archivado</span>`;
+      // Pagos archivados muestran botón de desarchivar
+      botonesAccion = `
+        <button 
+          class="btn-unarchive-pago" 
+          onclick="event.stopPropagation(); desarchivarPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          title="Devolver a pagos activos">
+          <i data-lucide="archive-restore"></i>
+        </button>
+      `;
     }
 
     return `
@@ -3456,6 +3463,37 @@ async function archivarPago(idPago, nombreAlumno, concepto) {
   } catch (error) {
     console.error('Error al archivar pago:', error);
     showToast('Error al archivar pago', 'error');
+  }
+}
+
+// Desarchivar pago (devolver a pagos activos)
+async function desarchivarPago(idPago, nombreAlumno, concepto) {
+  const confirmed = await showConfirm(
+    '¿Devolver a pagos activos?',
+    `¿Estás seguro de devolver el pago de <strong>${nombreAlumno}</strong> a pagos activos?<br>Concepto: ${concepto}<br><br>Mantendrá su estado de <strong>ANULADO</strong>.`,
+    'archive',
+    false
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const resp = await fetch(`${API_URL}/pagos/${idPago}/desarchivar`, {
+      method: 'PUT'
+    });
+
+    const result = await resp.json();
+
+    if (resp.ok && result.success) {
+      showToast('Pago devuelto a pagos activos', 'success');
+      // Recargar los datos con el filtro de archivo
+      await loadPagosData('?archivo=true');
+    } else {
+      showToast(result.message || 'Error al desarchivar pago', 'error');
+    }
+  } catch (error) {
+    console.error('Error al desarchivar pago:', error);
+    showToast('Error al desarchivar pago', 'error');
   }
 }
 

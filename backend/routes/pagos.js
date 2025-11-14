@@ -8,12 +8,17 @@ const router = express.Router();
 // GET /pagos - Lista de pagos con estadísticas y filtros
 router.get("/", async (req, res) => {
   try {
-    const { archivo } = req.query; // archivo=true para pagos anulados
+    const { archivo } = req.query; // archivo=true para pagos archivados
     
-    // Filtro de estado según parámetro
-    const filtroEstado = archivo === 'true' 
-      ? "AND pa.estado_pago = 'anulado'" 
-      : "AND pa.estado_pago != 'anulado'";
+    // Filtro de archivo según parámetro
+    const filtroArchivo = archivo === 'true' 
+      ? "AND pa.archivado = 1" 
+      : "AND pa.archivado = 0";
+    
+    // Filtro de estado: si es archivo, solo anulados; si no, excluir anulados archivados
+    const filtroEstado = archivo === 'true'
+      ? "AND pa.estado_pago = 'anulado'"
+      : "";
     
     // Obtener lista de pagos con información completa
     const [rows] = await pool.query(`
@@ -29,6 +34,7 @@ router.get("/", async (req, res) => {
         pa.periodo,
         pa.fecha_vencimiento,
         pa.estado_pago,
+        pa.archivado,
         ad.cargo AS administrativo,
         CASE
           WHEN pa.fecha_pago IS NULL AND pa.fecha_vencimiento < CURDATE() THEN 'mora'
@@ -42,7 +48,7 @@ router.get("/", async (req, res) => {
       JOIN conceptos_pago cp ON pa.id_concepto = cp.id_concepto
       JOIN medios_pago mp ON pa.id_medio_pago = mp.id_medio_pago
       LEFT JOIN administrativos ad ON pa.id_administrativo = ad.id_administrativo
-      WHERE 1=1 ${filtroEstado}
+      WHERE 1=1 ${filtroArchivo} ${filtroEstado}
       ORDER BY pa.fecha_pago DESC, pa.fecha_vencimiento DESC
     `);
 
@@ -447,6 +453,118 @@ router.put("/:id/confirmar",
       res.status(500).json({ 
         success: false,
         message: "Error al confirmar pago",
+        error: error.message 
+      });
+    }
+});
+
+// PUT /pagos/:id/archivar - Archivar un pago anulado
+router.put("/:id/archivar", 
+  param("id").isInt().withMessage("ID inválido"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ 
+        success: false,
+        errors: errors.array() 
+      });
+    }
+
+    try {
+      const { id } = req.params;
+
+      // Verificar que el pago existe y está anulado
+      const [pago] = await pool.query(
+        'SELECT id_pago, estado_pago FROM pagos WHERE id_pago = ?',
+        [id]
+      );
+
+      if (pago.length === 0) {
+        return res.status(404).json({ 
+          success: false,
+          message: "Pago no encontrado" 
+        });
+      }
+
+      if (pago[0].estado_pago !== 'anulado') {
+        return res.status(400).json({ 
+          success: false,
+          message: "Solo se pueden archivar pagos anulados" 
+        });
+      }
+
+      // Archivar el pago
+      await pool.query(
+        'UPDATE pagos SET archivado = 1 WHERE id_pago = ?', 
+        [id]
+      );
+
+      console.log(`[pagos] Pago ${id} archivado exitosamente`);
+      res.json({ 
+        success: true, 
+        message: "Pago archivado correctamente" 
+      });
+    } catch (error) {
+      console.error("Error al archivar pago:", error);
+      res.status(500).json({ 
+        success: false,
+        message: "Error al archivar pago",
+        error: error.message 
+      });
+    }
+});
+
+// PUT /pagos/:id/desarchivar - Devolver un pago archivado a pagos activos
+router.put("/:id/desarchivar", 
+  param("id").isInt().withMessage("ID inválido"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ 
+        success: false,
+        errors: errors.array() 
+      });
+    }
+
+    try {
+      const { id } = req.params;
+
+      // Verificar que el pago existe y está archivado
+      const [pago] = await pool.query(
+        'SELECT id_pago, archivado FROM pagos WHERE id_pago = ?',
+        [id]
+      );
+
+      if (pago.length === 0) {
+        return res.status(404).json({ 
+          success: false,
+          message: "Pago no encontrado" 
+        });
+      }
+
+      if (pago[0].archivado !== 1) {
+        return res.status(400).json({ 
+          success: false,
+          message: "Solo se pueden desarchivar pagos archivados" 
+        });
+      }
+
+      // Desarchivar el pago (volver a pagos activos, mantiene estado anulado)
+      await pool.query(
+        'UPDATE pagos SET archivado = 0 WHERE id_pago = ?', 
+        [id]
+      );
+
+      console.log(`[pagos] Pago ${id} desarchivado exitosamente`);
+      res.json({ 
+        success: true, 
+        message: "Pago devuelto a pagos activos correctamente" 
+      });
+    } catch (error) {
+      console.error("Error al desarchivar pago:", error);
+      res.status(500).json({ 
+        success: false,
+        message: "Error al desarchivar pago",
         error: error.message 
       });
     }
