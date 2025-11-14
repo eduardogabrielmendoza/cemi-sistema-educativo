@@ -4315,7 +4315,14 @@ function ensureEditarAlumnoModal() {
       };
       
       if (!formData.nombre || !formData.apellido || !formData.mail || !formData.dni || !formData.legajo || !formData.telefono) {
-        Swal.fire('Error', 'Todos los campos son obligatorios', 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Todos los campos son obligatorios',
+          customClass: {
+            container: 'swal-high-zindex'
+          }
+        });
         return;
       }
       
