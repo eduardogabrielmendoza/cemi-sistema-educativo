@@ -26,7 +26,13 @@
           <a href="#" class="dropdown-trigger" id="moreInfoBtn">Más Información</a>
         </li>
       </ul>
-      <button class="login-btn" onclick="window.location.href='login-selector.html'">Iniciar Sesión</button>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <button class="login-btn-admin" onclick="window.location.href='login-admin.html'" title="Acceso para Administradores">
+          <i data-lucide="shield" style="width: 16px; height: 16px;"></i>
+          Acceso Administrativo
+        </button>
+        <button class="login-btn" onclick="window.location.href='login-selector.html'">Iniciar Sesión</button>
+      </div>
     </div>
   </nav>
 

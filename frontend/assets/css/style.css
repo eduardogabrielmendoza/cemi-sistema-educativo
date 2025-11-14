@@ -3376,3 +3376,104 @@ footer i {
 .swal-high-zindex {
   z-index: 9999 !important;
 }
+
+/* ===== BOTÓN ACCESO ADMINISTRATIVO ===== */
+.login-btn-admin {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 980px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.login-btn-admin:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.login-btn-admin:active {
+  transform: scale(0.98);
+}
+
+/* ===== PANEL ADMINISTRATIVO ===== */
+.admin-panel {
+  background-image: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), 
+                    url('../../images/STOCK3.webp');
+}
+
+.admin-panel::before {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.admin-panel:hover::before {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.admin-icon {
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  animation: pulse-admin 2s infinite;
+}
+
+@keyframes pulse-admin {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+}
+
+.admin-warning {
+  background: rgba(255, 193, 7, 0.15);
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.admin-warning i {
+  color: #ffc107;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.admin-warning p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: white;
+}
+
+.admin-submit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.admin-submit:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: left;
+}
