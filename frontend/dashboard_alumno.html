@@ -69,6 +69,12 @@
   </main>
 
   <script>
+  // ========================================
+  // VERSION: TICKET EFECTIVO v3.0 - 2025-11-14 04:09
+  // ========================================
+  console.log('%c🎫 DASHBOARD ALUMNO - VERSION TICKET EFECTIVO v3.0', 'background: #1e3c72; color: white; padding: 10px; font-size: 16px; font-weight: bold;');
+  console.log('✅ Script cargado correctamente');
+  
   lucide.createIcons();
 
   const API_URL = window.API_URL || "http://localhost:3000/api";
@@ -1300,43 +1306,61 @@
   // Función para generar y mostrar ticket de efectivo
   window.mostrarTicketEfectivo = function() {
     console.log('🎫 INICIO mostrarTicketEfectivo');
-    console.log('🔍 Swal existe?', typeof Swal !== 'undefined');
-    console.log('🔍 Swal.fire existe?', typeof Swal?.fire === 'function');
     
-    try {
-      // Generar número de ticket aleatorio (12 dígitos)
-      const numeroTicket = Math.floor(100000000000 + Math.random() * 900000000000);
-      console.log('💯 Ticket generado:', numeroTicket);
-      
-      Swal.fire({
-        title: 'Pago en Efectivo',
-        html: `
-          <div style="text-align: center; padding: 20px;">
-            <div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-              <p style="margin: 0 0 10px 0; font-size: 14px; opacity: 0.9;">Tu número de ticket es</p>
-              <p style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: 2px;">
-                Nº ${numeroTicket}
-              </p>
-            </div>
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #1e3c72;">
-              <p style="margin: 0; color: #333; line-height: 1.6;">
-                <strong>Acercate a una de nuestras oficinas</strong><br>
-                <span style="color: #666;">Lunes a Viernes de 7:00 a 14:00 hs</span>
-              </p>
-            </div>
+    // Generar número de ticket aleatorio (12 dígitos)
+    const numeroTicket = Math.floor(100000000000 + Math.random() * 900000000000);
+    console.log('💯 Ticket generado:', numeroTicket);
+    
+    // Crear modal HTML nativo
+    const modalTicket = document.createElement('div');
+    modalTicket.className = 'modal-pago-overlay active';
+    modalTicket.id = 'modalTicket';
+    modalTicket.style.zIndex = '10000';
+    
+    modalTicket.innerHTML = `
+      <div class="modal-pago-content" style="max-width: 500px;">
+        <div class="modal-pago-header" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+          <h2 style="color: white;"><i data-lucide="banknote"></i> Pago en Efectivo</h2>
+          <button class="btn-cerrar-modal" onclick="cerrarModalTicket()" style="color: white;">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        
+        <div class="modal-pago-body" style="text-align: center; padding: 30px;">
+          <div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px;">
+            <p style="margin: 0 0 15px 0; font-size: 16px; opacity: 0.9; font-weight: 500;">
+              Tu número de ticket es
+            </p>
+            <p style="margin: 0; font-size: 36px; font-weight: 700; letter-spacing: 3px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+              Nº ${numeroTicket}
+            </p>
           </div>
-        `,
-        icon: 'info',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#1e3c72',
-        width: '500px'
-      });
-      
-      console.log('✅ Swal.fire ejecutado correctamente');
-      
-    } catch (error) {
-      console.error('❌ Error en mostrarTicketEfectivo:', error);
-      alert('Error al mostrar el ticket. Por favor intenta nuevamente.');
+          
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #1e3c72; margin-bottom: 20px;">
+            <p style="margin: 0; color: #333; line-height: 1.8; font-size: 15px;">
+              <strong style="color: #1e3c72;">📍 Acercate a una de nuestras oficinas</strong><br>
+              <span style="color: #666;">Lunes a Viernes de 7:00 a 14:00 hs</span>
+            </p>
+          </div>
+          
+          <button onclick="cerrarModalTicket()" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s;">
+            Entendido
+          </button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modalTicket);
+    lucide.createIcons();
+    
+    console.log('✅ Modal de ticket creado y mostrado');
+  };
+  
+  window.cerrarModalTicket = function() {
+    const modal = document.getElementById('modalTicket');
+    if (modal) {
+      modal.remove();
+      console.log('🗑️ Modal de ticket cerrado');
     }
   };
 
