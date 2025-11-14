@@ -2489,18 +2489,29 @@ function ensureEditarProfesorModal() {
     
     const idProfesor = document.getElementById('editProfesorId').value;
     const data = {
-      nombre: document.getElementById('editProfesorNombre').value,
-      apellido: document.getElementById('editProfesorApellido').value,
-      mail: document.getElementById('editProfesorMail').value,
-      dni: document.getElementById('editProfesorDNI').value,
-      especialidad: document.getElementById('editProfesorEspecialidad').value,
-      telefono: document.getElementById('editProfesorTelefono').value,
+      nombre: document.getElementById('editProfesorNombre').value.trim(),
+      apellido: document.getElementById('editProfesorApellido').value.trim(),
+      mail: document.getElementById('editProfesorMail').value.trim(),
+      dni: document.getElementById('editProfesorDNI').value.trim(),
+      especialidad: document.getElementById('editProfesorEspecialidad').value.trim(),
+      telefono: document.getElementById('editProfesorTelefono').value.trim(),
       estado: document.getElementById('editProfesorEstado').value
     };
 
     // Validar campos requeridos
-    if (!data.nombre || !data.apellido || !data.mail || !data.especialidad) {
-      Swal.fire('Error', 'Nombre, apellido, mail y especialidad son obligatorios', 'error');
+    if (!data.nombre || !data.apellido || !data.mail || !data.dni || !data.especialidad || !data.telefono) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Todos los campos son obligatorios',
+        heightAuto: false,
+        didOpen: () => {
+          const swalContainer = document.querySelector('.swal2-container');
+          if (swalContainer) {
+            swalContainer.style.zIndex = '99999';
+          }
+        }
+      });
       return;
     }
 
@@ -4763,7 +4774,7 @@ async function openNuevoProfesorModal() {
           <input id="especialidad" class="swal2-input" placeholder="Ej: Inglés Avanzado" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono (opcional)</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
       </div>
@@ -4800,6 +4811,10 @@ async function openNuevoProfesorModal() {
       }
       if (!especialidad) {
         Swal.showValidationMessage('La especialidad es obligatoria');
+        return false;
+      }
+      if (!telefono) {
+        Swal.showValidationMessage('El teléfono es obligatorio');
         return false;
       }
       return { nombre, apellido, dni, mail, especialidad, telefono };

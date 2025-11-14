@@ -46,6 +46,7 @@ router.get("/:id", async (req, res) => {
         per.nombre,
         per.apellido,
         per.mail,
+        per.dni,
         per.telefono,
         p.especialidad,
         p.estado,
