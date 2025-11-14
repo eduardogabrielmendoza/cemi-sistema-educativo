@@ -308,14 +308,14 @@ router.post("/realizar",
 
     console.log(`[PAGO] Registrando - mes_cuota: "${mes_cuota}", concepto ID: ${id_concepto}, detalle: "${detalle_pago}"`);
 
-    // Registrar el pago
+    // Registrar el pago con estado 'en_proceso'
     const [result] = await pool.query(`
       INSERT INTO pagos 
-      (id_alumno, id_curso, id_concepto, id_medio_pago, monto, fecha_pago, periodo, detalle_pago, mes_cuota, estado_pago)
-      VALUES (?, ?, ?, ?, ?, CURDATE(), ?, ?, ?, 'pagado')
+      (id_alumno, id_curso, id_concepto, id_medio_pago, monto, periodo, detalle_pago, mes_cuota, estado_pago)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'en_proceso')
     `, [id_alumno, id_curso, id_concepto, id_medio_pago, monto, periodo, detalle_pago, mes_cuota]);
 
-    console.log(`[PAGO] Guardado exitosamente - ID: ${result.insertId}`);
+    console.log(`[PAGO] Guardado exitosamente con estado 'en_proceso' - ID: ${result.insertId}`);
 
     res.json({
       success: true,
@@ -340,6 +340,7 @@ router.post("/realizar",
 });
 
 // DELETE /pagos/:id - Eliminar un pago
+// DELETE /pagos/:id - Anular pago (no elimina, cambia estado a 'anulado')
 router.delete("/:id",
   // Validación
   [
@@ -359,7 +360,7 @@ router.delete("/:id",
   try {
     const { id } = req.params;
 
-    console.log(`[pagos] Intentando eliminar pago ID: ${id}`);
+    console.log(`[pagos] Intentando anular pago ID: ${id}`);
 
     // Verificar que el pago existe
     const [pago] = await pool.query('SELECT * FROM pagos WHERE id_pago = ?', [id]);
@@ -372,22 +373,75 @@ router.delete("/:id",
       });
     }
 
-    // Eliminar el pago
-    await pool.query('DELETE FROM pagos WHERE id_pago = ?', [id]);
+    // Anular el pago (cambiar estado a 'anulado')
+    await pool.query('UPDATE pagos SET estado_pago = ? WHERE id_pago = ?', ['anulado', id]);
 
-    console.log(`[pagos] Pago ${id} eliminado exitosamente`);
+    console.log(`[pagos] Pago ${id} anulado exitosamente`);
     res.json({ 
       success: true, 
-      message: "Pago eliminado correctamente" 
+      message: "Pago anulado correctamente" 
     });
   } catch (error) {
-    console.error("Error al eliminar pago:", error);
+    console.error("Error al anular pago:", error);
     res.status(500).json({ 
       success: false,
-      message: "Error al eliminar pago",
+      message: "Error al anular pago",
       error: error.message 
     });
   }
+});
+
+// PUT /pagos/:id/confirmar - Confirmar pago (cambiar estado a 'pagado')
+router.put("/:id/confirmar",
+  [
+    param('id')
+      .isInt({ min: 1 }).withMessage('ID de pago inválido')
+      .toInt()
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ 
+        success: false, 
+        message: errors.array()[0].msg 
+      });
+    }
+
+    try {
+      const { id } = req.params;
+
+      console.log(`[pagos] Confirmando pago ID: ${id}`);
+
+      // Verificar que el pago existe
+      const [pago] = await pool.query('SELECT * FROM pagos WHERE id_pago = ?', [id]);
+      
+      if (pago.length === 0) {
+        console.log(`[pagos] Pago ${id} no encontrado`);
+        return res.status(404).json({ 
+          success: false,
+          message: "Pago no encontrado" 
+        });
+      }
+
+      // Confirmar el pago (cambiar estado a 'pagado')
+      await pool.query(
+        'UPDATE pagos SET estado_pago = ?, fecha_pago = CURDATE() WHERE id_pago = ?', 
+        ['pagado', id]
+      );
+
+      console.log(`[pagos] Pago ${id} confirmado exitosamente`);
+      res.json({ 
+        success: true, 
+        message: "Pago confirmado correctamente" 
+      });
+    } catch (error) {
+      console.error("Error al confirmar pago:", error);
+      res.status(500).json({ 
+        success: false,
+        message: "Error al confirmar pago",
+        error: error.message 
+      });
+    }
 });
 
 export default router;
