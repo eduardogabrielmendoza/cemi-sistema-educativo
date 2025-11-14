@@ -4319,8 +4319,12 @@ function ensureEditarAlumnoModal() {
           icon: 'error',
           title: 'Error',
           text: 'Todos los campos son obligatorios',
-          customClass: {
-            container: 'swal-high-zindex'
+          heightAuto: false,
+          didOpen: () => {
+            const swalContainer = document.querySelector('.swal2-container');
+            if (swalContainer) {
+              swalContainer.style.zIndex = '99999';
+            }
           }
         });
         return;
