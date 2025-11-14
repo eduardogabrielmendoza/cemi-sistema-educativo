@@ -237,12 +237,10 @@ class CursadoManager {
                         <span>${curso.profesor.nombre}</span>
                     </div>
 
-                    ${curso.aula ? `
                     <div class="info-row">
                         <i data-lucide="door-open"></i>
-                        <span>${curso.aula.nombre}</span>
+                        <span>${curso.aula ? curso.aula.nombre : 'Aula por confirmar'}</span>
                     </div>
-                    ` : ''}
                 </div>
 
                 <div class="curso-card-footer">
