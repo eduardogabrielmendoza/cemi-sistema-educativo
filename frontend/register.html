@@ -105,14 +105,14 @@
         <div class="form-row">
           <div class="form-group">
             <div class="input-wrapper">
-              <input type="text" id="dni" placeholder="DNI (opcional)" maxlength="8">
+              <input type="text" id="dni" placeholder="DNI" maxlength="8" required pattern="[0-9]*" inputmode="numeric">
               <i data-lucide="credit-card" class="input-icon"></i>
             </div>
           </div>
 
           <div class="form-group">
             <div class="input-wrapper">
-              <input type="tel" id="telefono" placeholder="Teléfono (opcional)">
+              <input type="tel" id="telefono" placeholder="Teléfono" required pattern="[0-9]*" inputmode="numeric">
               <i data-lucide="phone" class="input-icon"></i>
             </div>
           </div>
@@ -198,6 +198,18 @@
 
     const API_URL = window.API_URL || "http://localhost:3000/api";
     
+    // Validación: solo números en DNI y Teléfono
+    const dniInput = document.getElementById('dni');
+    const telefonoInput = document.getElementById('telefono');
+    
+    dniInput.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    });
+    
+    telefonoInput.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    });
+    
     // Indicador de fortaleza de contraseña
     const passwordInput = document.getElementById('newPass');
     const strengthFill = document.getElementById('strengthFill');
@@ -250,12 +262,102 @@
       const password = document.getElementById('newPass').value.trim();
       const confirmPassword = document.getElementById('confirmPass').value.trim();
 
-      // Validaciones
-      if (password !== confirmPassword) {
+      // Validaciones de campos obligatorios
+      if (!nombre) {
         Swal.fire({
           icon: 'error',
-          title: 'Error',
-          text: 'Las contraseñas no coinciden',
+          title: 'Campo obligatorio',
+          text: 'El nombre es obligatorio',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (!apellido) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Campo obligatorio',
+          text: 'El apellido es obligatorio',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (!dni) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Campo obligatorio',
+          text: 'El DNI es obligatorio',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (dni.length < 7 || dni.length > 8) {
+        Swal.fire({
+          icon: 'error',
+          title: 'DNI inválido',
+          text: 'El DNI debe tener 7 u 8 dígitos',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (!telefono) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Campo obligatorio',
+          text: 'El teléfono es obligatorio',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (telefono.length < 10) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Teléfono inválido',
+          text: 'El teléfono debe tener al menos 10 dígitos',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (!email) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Campo obligatorio',
+          text: 'El email es obligatorio',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (!username) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Campo obligatorio',
+          text: 'El usuario es obligatorio',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (username.length < 3) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Usuario inválido',
+          text: 'El usuario debe tener al menos 3 caracteres',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (!password) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Campo obligatorio',
+          text: 'La contraseña es obligatoria',
           confirmButtonColor: '#1e3c72'
         });
         return;
@@ -271,11 +373,21 @@
         return;
       }
 
-      if (username.length < 3) {
+      if (!confirmPassword) {
         Swal.fire({
           icon: 'error',
-          title: 'Usuario inválido',
-          text: 'El usuario debe tener al menos 3 caracteres',
+          title: 'Campo obligatorio',
+          text: 'Debe confirmar la contraseña',
+          confirmButtonColor: '#1e3c72'
+        });
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Las contraseñas no coinciden',
           confirmButtonColor: '#1e3c72'
         });
         return;
