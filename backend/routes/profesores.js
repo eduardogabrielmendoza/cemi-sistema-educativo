@@ -141,7 +141,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, apellido, mail, especialidad, telefono, estado } = req.body;
+    const { nombre, apellido, mail, dni, especialidad, telefono, estado } = req.body;
 
     // Validar campos requeridos
     if (!nombre || !apellido || !mail || !especialidad) {
@@ -151,10 +151,10 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    // Actualizar tabla personas (id_profesor = id_persona, incluye telefono)
+    // Actualizar tabla personas (id_profesor = id_persona, incluye telefono y dni)
     await pool.query(
-      'UPDATE personas SET nombre = ?, apellido = ?, mail = ?, telefono = ? WHERE id_persona = ?',
-      [nombre, apellido, mail, telefono || null, id]
+      'UPDATE personas SET nombre = ?, apellido = ?, mail = ?, dni = ?, telefono = ? WHERE id_persona = ?',
+      [nombre, apellido, mail, dni || null, telefono || null, id]
     );
 
     // Actualizar tabla profesores (solo campos propios de profesor)

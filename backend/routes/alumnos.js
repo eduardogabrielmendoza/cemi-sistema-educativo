@@ -352,7 +352,7 @@ router.post("/:id/credenciales", async (req, res) => {
 // Actualizar alumno
 router.put("/:id", async (req, res) => {
   try {
-    const { nombre, apellido, mail, telefono, legajo, estado } = req.body;
+    const { nombre, apellido, mail, dni, telefono, legajo, estado } = req.body;
     const id_alumno = req.params.id;
 
     // Validar campos requeridos
@@ -376,10 +376,10 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    // Actualizar persona (incluye telefono)
+    // Actualizar persona (incluye telefono y dni)
     await pool.query(
-      'UPDATE personas SET nombre = ?, apellido = ?, mail = ?, telefono = ? WHERE id_persona = ?',
-      [nombre, apellido, mail, telefono || null, id_alumno]
+      'UPDATE personas SET nombre = ?, apellido = ?, mail = ?, dni = ?, telefono = ? WHERE id_persona = ?',
+      [nombre, apellido, mail, dni || null, telefono || null, id_alumno]
     );
 
     // Actualizar alumno (solo campos propios de alumno)

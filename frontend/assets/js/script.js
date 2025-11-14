@@ -2425,9 +2425,16 @@ function ensureEditarProfesorModal() {
               <input type="email" id="editProfesorMail" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
             </div>
             
-            <div style="margin-bottom: 16px;">
-              <label for="editProfesorEspecialidad">Especialidad:</label>
-              <input type="text" id="editProfesorEspecialidad" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+              <div>
+                <label for="editProfesorDNI">DNI:</label>
+                <input type="text" id="editProfesorDNI" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+              </div>
+              
+              <div>
+                <label for="editProfesorEspecialidad">Especialidad:</label>
+                <input type="text" id="editProfesorEspecialidad" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+              </div>
             </div>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
@@ -2485,6 +2492,7 @@ function ensureEditarProfesorModal() {
       nombre: document.getElementById('editProfesorNombre').value,
       apellido: document.getElementById('editProfesorApellido').value,
       mail: document.getElementById('editProfesorMail').value,
+      dni: document.getElementById('editProfesorDNI').value,
       especialidad: document.getElementById('editProfesorEspecialidad').value,
       telefono: document.getElementById('editProfesorTelefono').value,
       estado: document.getElementById('editProfesorEstado').value
@@ -2535,6 +2543,7 @@ async function openEditarProfesorModal(idProfesor) {
     document.getElementById('editProfesorNombre').value = profesor.nombre;
     document.getElementById('editProfesorApellido').value = profesor.apellido;
     document.getElementById('editProfesorMail').value = profesor.mail;
+    document.getElementById('editProfesorDNI').value = profesor.dni || '';
     document.getElementById('editProfesorEspecialidad').value = profesor.especialidad || '';
     document.getElementById('editProfesorTelefono').value = profesor.telefono || '';
     document.getElementById('editProfesorEstado').value = profesor.estado || 'activo';
@@ -4221,21 +4230,27 @@ function ensureEditarAlumnoModal() {
           
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
             <div>
-              <label for="editAlumnoLegajo">Legajo:</label>
-              <input type="text" id="editAlumnoLegajo" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+              <label for="editAlumnoDNI">DNI:</label>
+              <input type="text" id="editAlumnoDNI" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
             </div>
+            <div>
+              <label for="editAlumnoLegajo">Legajo:</label>
+              <input type="text" id="editAlumnoLegajo" required oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
             <div>
               <label for="editAlumnoTelefono">Teléfono:</label>
               <input type="tel" id="editAlumnoTelefono" oninput="this.value=this.value.replace(/[^0-9+\- ]/g,'')" pattern="[0-9+\- ]*" inputmode="tel" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
             </div>
-          </div>
-          
-          <div style="margin-bottom: 16px;">
-            <label for="editAlumnoEstado">Estado:</label>
-            <select id="editAlumnoEstado" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
-            </select>
+            <div>
+              <label for="editAlumnoEstado">Estado:</label>
+              <select id="editAlumnoEstado" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+              </select>
+            </div>
           </div>
           
           <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: space-between; align-items: center;">
@@ -4283,6 +4298,7 @@ function ensureEditarAlumnoModal() {
         nombre: document.getElementById('editAlumnoNombre').value,
         apellido: document.getElementById('editAlumnoApellido').value,
         mail: document.getElementById('editAlumnoMail').value,
+        dni: document.getElementById('editAlumnoDNI').value,
         legajo: document.getElementById('editAlumnoLegajo').value,
         telefono: document.getElementById('editAlumnoTelefono').value,
         estado: document.getElementById('editAlumnoEstado').value
@@ -4343,6 +4359,7 @@ async function editarAlumno(id) {
     document.getElementById('editAlumnoNombre').value = alumno.nombre || '';
     document.getElementById('editAlumnoApellido').value = alumno.apellido || '';
     document.getElementById('editAlumnoMail').value = alumno.mail || '';
+    document.getElementById('editAlumnoDNI').value = alumno.dni || '';
     document.getElementById('editAlumnoLegajo').value = alumno.legajo || '';
     document.getElementById('editAlumnoTelefono').value = alumno.telefono || '';
     document.getElementById('editAlumnoEstado').value = alumno.estado || 'activo';
