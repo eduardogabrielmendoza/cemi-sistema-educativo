@@ -3067,17 +3067,60 @@ function renderPagosTable(pagos) {
   const tbody = document.getElementById('pagosTableBody');
   
   if (pagos.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 40px; color: #999;">No hay pagos para mostrar</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 40px; color: #999;">No hay pagos para mostrar</td></tr>`;
     return;
   }
 
   tbody.innerHTML = pagos.map(p => {
-    const estadoMap = {
-      'pagado': 'Pagado',
-      'mora': 'En Mora',
-      'proximo_vencimiento': 'Próx. Venc.',
-      'al_dia': 'Al Día'
+    // Mapeo de estados del sistema
+    const estadoBadgeClass = {
+      'en_proceso': 'warning',
+      'pagado': 'success',
+      'anulado': 'danger'
     };
+
+    const estadoTexto = {
+      'en_proceso': 'En Proceso',
+      'pagado': 'Pagado',
+      'anulado': 'Anulado'
+    };
+
+    const estado = p.estado_pago || 'en_proceso';
+    const badgeClass = estadoBadgeClass[estado] || 'warning';
+    const textoEstado = estadoTexto[estado] || estado;
+
+    // Botones de acción según el estado
+    let botonesAccion = '';
+    
+    if (estado === 'en_proceso') {
+      botonesAccion = `
+        <button 
+          class="btn-confirm-pago" 
+          onclick="event.stopPropagation(); confirmarPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          title="Confirmar pago">
+          <i data-lucide="check"></i>
+        </button>
+        <button 
+          class="btn-delete-pago" 
+          onclick="event.stopPropagation(); anularPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          title="Anular pago">
+          <i data-lucide="trash-2"></i>
+        </button>
+      `;
+    } else if (estado === 'pagado') {
+      botonesAccion = `
+        <button 
+          class="btn-delete-pago" 
+          onclick="event.stopPropagation(); anularPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          title="Anular pago">
+          <i data-lucide="trash-2"></i>
+        </button>
+      `;
+    } else if (estado === 'anulado') {
+      botonesAccion = `
+        <span style="color: #999; font-size: 12px;">Anulado</span>
+      `;
+    }
 
     return `
       <tr>
@@ -3091,17 +3134,12 @@ function renderPagosTable(pagos) {
         <td onclick="openPagoPanel(${p.id_alumno})" style="cursor: pointer;">${p.fecha_pago ? new Date(p.fecha_pago).toLocaleDateString('es-AR') : '-'}</td>
         <td onclick="openPagoPanel(${p.id_alumno})" style="cursor: pointer;">${p.medio_pago}</td>
         <td onclick="openPagoPanel(${p.id_alumno})" style="cursor: pointer;">
-          <span class="estado-badge ${p.estado_visual}">
-            ${estadoMap[p.estado_visual] || 'Desconocido'}
+          <span class="badge-estado ${badgeClass}">
+            ${textoEstado}
           </span>
         </td>
         <td style="text-align: center;">
-          <button 
-            class="btn-delete-pago" 
-            onclick="event.stopPropagation(); eliminarPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
-            title="Eliminar pago">
-            <i data-lucide="trash-2"></i>
-          </button>
+          ${botonesAccion}
         </td>
       </tr>
     `;
@@ -3286,10 +3324,42 @@ async function openPagoPanel(idAlumno) {
 }
 
 // Eliminar pago
-async function eliminarPago(idPago, nombreAlumno, concepto) {
+// Confirmar pago (cambiar de en_proceso a pagado)
+async function confirmarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¿Eliminar pago?',
-    `¿Estás seguro de eliminar el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}`,
+    '¿Confirmar pago?',
+    `¿Estás seguro de confirmar el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiará a <strong>PAGADO</strong> y se registrará la fecha actual.`,
+    'check',
+    false
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const resp = await fetch(`${API_URL}/pagos/${idPago}/confirmar`, {
+      method: 'PUT'
+    });
+
+    const result = await resp.json();
+
+    if (resp.ok && result.success) {
+      showToast('Pago confirmado correctamente', 'success');
+      // Recargar los datos de pagos
+      await loadPagosData();
+    } else {
+      showToast(result.message || 'Error al confirmar pago', 'error');
+    }
+  } catch (error) {
+    console.error('Error al confirmar pago:', error);
+    showToast('Error al confirmar pago', 'error');
+  }
+}
+
+// Anular pago (cambiar estado a anulado)
+async function anularPago(idPago, nombreAlumno, concepto) {
+  const confirmed = await showConfirm(
+    '¿Anular pago?',
+    `¿Estás seguro de anular el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiará a <strong>ANULADO</strong> y se conservará en el registro.`,
     'trash-2',
     true
   );
@@ -3304,17 +3374,18 @@ async function eliminarPago(idPago, nombreAlumno, concepto) {
     const result = await resp.json();
 
     if (resp.ok && result.success) {
-      showToast('Pago eliminado correctamente', 'success');
+      showToast('Pago anulado correctamente', 'success');
       // Recargar los datos de pagos
       await loadPagosData();
     } else {
-      showToast(result.message || 'Error al eliminar pago', 'error');
+      showToast(result.message || 'Error al anular pago', 'error');
     }
   } catch (error) {
-    console.error('Error al eliminar pago:', error);
-    showToast('Error al eliminar pago', 'error');
+    console.error('Error al anular pago:', error);
+    showToast('Error al anular pago', 'error');
   }
 }
+
 
 // Modal de registrar pago
 async function openRegistrarPagoModal() {

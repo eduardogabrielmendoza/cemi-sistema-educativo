@@ -2727,6 +2727,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  margin: 0 2px;
 }
 
 .btn-delete-pago:hover {
@@ -2738,6 +2739,59 @@
   width: 18px;
   height: 18px;
 }
+
+/* Botón de confirmar pago */
+.btn-confirm-pago {
+  background: transparent;
+  border: none;
+  color: #4caf50;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin: 0 2px;
+}
+
+.btn-confirm-pago:hover {
+  background: #e8f5e9;
+  transform: scale(1.1);
+}
+
+.btn-confirm-pago i {
+  width: 18px;
+  height: 18px;
+}
+
+/* Badges de estado de pago */
+.badge-estado {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.badge-estado.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge-estado.warning {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.badge-estado.danger {
+  background: #ffebee;
+  color: #c62828;
+}
+
 
 /* Panel lateral de historial de pagos */
 .pago-panel {
