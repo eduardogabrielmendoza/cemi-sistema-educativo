@@ -1261,19 +1261,32 @@
   window.seleccionarMetodo = function(elemento, metodo) {
     console.log('🔍 seleccionarMetodo llamado con:', metodo);
     
+    // Si es efectivo, cerrar modal de pago y mostrar ticket inmediatamente
+    if (metodo === 'Efectivo') {
+      console.log('✅ Detectado pago en efectivo');
+      
+      // Cerrar el modal de pago primero
+      const modal = document.getElementById('modalPago');
+      if (modal) {
+        modal.remove();
+        console.log('🗑️ Modal de pago cerrado');
+      }
+      
+      // Pequeño delay para asegurar que el modal se cerró completamente
+      setTimeout(() => {
+        console.log('🎫 Mostrando ticket de efectivo...');
+        window.mostrarTicketEfectivo();
+      }, 100);
+      
+      return;
+    }
+    
     // Remover selección anterior
     document.querySelectorAll('.metodo-option').forEach(el => el.classList.remove('selected'));
     
     // Marcar como seleccionado
     elemento.classList.add('selected');
     medioPagoSeleccionado = metodo;
-    
-    // Si es efectivo, mostrar ticket
-    if (metodo === 'Efectivo') {
-      console.log('✅ Detectado pago en efectivo, llamando a mostrarTicketEfectivo()');
-      window.mostrarTicketEfectivo();
-      return;
-    }
     
     // Mostrar/ocultar formulario de tarjeta
     const formulario = document.getElementById('formularioTarjeta');
@@ -1286,39 +1299,45 @@
 
   // Función para generar y mostrar ticket de efectivo
   window.mostrarTicketEfectivo = function() {
-    console.log('🎫 Generando ticket de efectivo...');
+    console.log('🎫 INICIO mostrarTicketEfectivo');
+    console.log('🔍 Swal existe?', typeof Swal !== 'undefined');
+    console.log('🔍 Swal.fire existe?', typeof Swal?.fire === 'function');
     
-    // Generar número de ticket aleatorio (12 dígitos)
-    const numeroTicket = Math.floor(100000000000 + Math.random() * 900000000000);
-    
-    console.log('📋 Número de ticket generado:', numeroTicket);
-    console.log('🔍 SweetAlert disponible?', typeof Swal !== 'undefined');
-    
-    Swal.fire({
-      title: 'Pago en Efectivo',
-      html: `
-        <div style="text-align: center; padding: 20px;">
-          <div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-            <p style="margin: 0 0 10px 0; font-size: 14px; opacity: 0.9;">Tu número de ticket es</p>
-            <p style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: 2px;">
-              Nº ${numeroTicket}
-            </p>
+    try {
+      // Generar número de ticket aleatorio (12 dígitos)
+      const numeroTicket = Math.floor(100000000000 + Math.random() * 900000000000);
+      console.log('💯 Ticket generado:', numeroTicket);
+      
+      Swal.fire({
+        title: 'Pago en Efectivo',
+        html: `
+          <div style="text-align: center; padding: 20px;">
+            <div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+              <p style="margin: 0 0 10px 0; font-size: 14px; opacity: 0.9;">Tu número de ticket es</p>
+              <p style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: 2px;">
+                Nº ${numeroTicket}
+              </p>
+            </div>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #1e3c72;">
+              <p style="margin: 0; color: #333; line-height: 1.6;">
+                <strong>Acercate a una de nuestras oficinas</strong><br>
+                <span style="color: #666;">Lunes a Viernes de 7:00 a 14:00 hs</span>
+              </p>
+            </div>
           </div>
-          <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #1e3c72;">
-            <p style="margin: 0; color: #333; line-height: 1.6;">
-              <strong>Acercate a una de nuestras oficinas</strong><br>
-              <span style="color: #666;">Lunes a Viernes de 7:00 a 14:00 hs</span>
-            </p>
-          </div>
-        </div>
-      `,
-      icon: 'info',
-      confirmButtonText: 'Entendido',
-      confirmButtonColor: '#1e3c72',
-      width: '500px'
-    }).then(() => {
-      console.log('✅ Modal cerrado');
-    });
+        `,
+        icon: 'info',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#1e3c72',
+        width: '500px'
+      });
+      
+      console.log('✅ Swal.fire ejecutado correctamente');
+      
+    } catch (error) {
+      console.error('❌ Error en mostrarTicketEfectivo:', error);
+      alert('Error al mostrar el ticket. Por favor intenta nuevamente.');
+    }
   };
 
   window.formatearNumeroTarjeta = function(input) {
