@@ -1252,6 +1252,12 @@
     elemento.classList.add('selected');
     medioPagoSeleccionado = metodo;
     
+    // Si es efectivo, mostrar ticket
+    if (metodo === 'Efectivo') {
+      mostrarTicketEfectivo();
+      return;
+    }
+    
     // Mostrar/ocultar formulario de tarjeta
     const formulario = document.getElementById('formularioTarjeta');
     if (metodo.includes('Tarjeta')) {
@@ -1259,6 +1265,36 @@
     } else {
       formulario.style.display = 'none';
     }
+  };
+
+  // Función para generar y mostrar ticket de efectivo
+  window.mostrarTicketEfectivo = function() {
+    // Generar número de ticket aleatorio (12 dígitos)
+    const numeroTicket = Math.floor(100000000000 + Math.random() * 900000000000);
+    
+    Swal.fire({
+      title: 'Pago en Efectivo',
+      html: `
+        <div style="text-align: center; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <p style="margin: 0 0 10px 0; font-size: 14px; opacity: 0.9;">Tu número de ticket es</p>
+            <p style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: 2px;">
+              Nº ${numeroTicket}
+            </p>
+          </div>
+          <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #1e3c72;">
+            <p style="margin: 0; color: #333; line-height: 1.6;">
+              <strong>Acercate a una de nuestras oficinas</strong><br>
+              <span style="color: #666;">Lunes a Viernes de 7:00 a 14:00 hs</span>
+            </p>
+          </div>
+        </div>
+      `,
+      icon: 'info',
+      confirmButtonText: 'Entendido',
+      confirmButtonColor: '#1e3c72',
+      width: '500px'
+    });
   };
 
   window.formatearNumeroTarjeta = function(input) {
