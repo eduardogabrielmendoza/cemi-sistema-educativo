@@ -3097,8 +3097,9 @@ function renderPagosTable(pagos) {
     const estado = p.estado_pago || 'en_proceso';
     const badgeClass = estadoBadgeClass[estado] || 'warning';
     const textoEstado = estadoTexto[estado] || estado;
+    const archivado = p.archivado || 0;
 
-    // Botones de acción según el estado
+    // Botones de acción según el estado y si está archivado
     let botonesAccion = '';
     
     if (estado === 'en_proceso') {
@@ -3125,7 +3126,8 @@ function renderPagosTable(pagos) {
           <i data-lucide="trash-2"></i>
         </button>
       `;
-    } else if (estado === 'anulado') {
+    } else if (estado === 'anulado' && archivado === 0) {
+      // Solo mostrar botón de archivo si NO está archivado
       botonesAccion = `
         <button 
           class="btn-archive-pago" 
@@ -3134,6 +3136,9 @@ function renderPagosTable(pagos) {
           <i data-lucide="archive"></i>
         </button>
       `;
+    } else if (estado === 'anulado' && archivado === 1) {
+      // Pagos archivados no tienen botones de acción
+      botonesAccion = `<span style="color: #999; font-size: 12px;">Archivado</span>`;
     }
 
     return `
