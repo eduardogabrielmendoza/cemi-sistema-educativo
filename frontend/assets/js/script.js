@@ -4217,172 +4217,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
   }
 }
 
-// Asegurar que existe el modal de editar alumno
-function ensureEditarAlumnoModal() {
-  // Eliminar modal existente si existe
-  const existingModal = document.getElementById('modalEditarAlumno');
-  if (existingModal) {
-    console.log('🔴 Removiendo modal viejo de alumno');
-    existingModal.remove();
-  }
-
-  console.log('🟢 Creando nuevo modal de alumno con botón de credenciales');
-
-  const modal = document.createElement('div');
-  modal.id = 'modalEditarAlumno';
-  modal.className = 'modal';
-  modal.style.zIndex = '3000';
-  modal.innerHTML = `
-    <div class="modal-content" style="max-width: 600px;">
-      <div class="modal-header">
-        <h2>Editar Alumno</h2>
-        <button class="close-modal">&times;</button>
-      </div>
-      
-      <div style="padding: 24px;">
-        <form id="formEditarAlumno">
-          <input type="hidden" id="editAlumnoId">
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-            <div>
-              <label for="editAlumnoNombre">Nombre:</label>
-              <input type="text" id="editAlumnoNombre" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            <div>
-              <label for="editAlumnoApellido">Apellido:</label>
-              <input type="text" id="editAlumnoApellido" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-          </div>
-          
-          <div style="margin-bottom: 16px;">
-            <label for="editAlumnoMail">Email:</label>
-            <input type="email" id="editAlumnoMail" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-          </div>
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-            <div>
-              <label for="editAlumnoDNI">DNI:</label>
-              <input type="text" id="editAlumnoDNI" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            <div>
-              <label for="editAlumnoLegajo">Legajo:</label>
-              <input type="text" id="editAlumnoLegajo" required oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-          </div>
-          
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-            <div>
-              <label for="editAlumnoTelefono">Teléfono:</label>
-              <input type="tel" id="editAlumnoTelefono" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            <div>
-              <label for="editAlumnoEstado">Estado:</label>
-              <select id="editAlumnoEstado" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                <option value="activo">Activo</option>
-                <option value="inactivo">Inactivo</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: space-between; align-items: center;">
-            <button type="button" id="btnEditarCredencialesAlumno" class="btn-secondary" style="display: flex; align-items: center; gap: 8px;">
-              <i data-lucide="key" style="width: 16px; height: 16px;"></i>
-              Editar Credenciales
-            </button>
-            <div style="display: flex; gap: 10px;">
-              <button type="button" class="close-modal">Cancelar</button>
-              <button type="submit" class="btn-primary">Guardar Cambios</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  // Cerrar modal
-  modal.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => {
-    modal.classList.remove('active');
-  }));
-  modal.addEventListener('click', e => { 
-    if (e.target === modal) {
-      modal.classList.remove('active');
-    }
-  });
-
-  // Event listener para botón Editar Credenciales
-  const btnCredencialesAlumno = document.getElementById('btnEditarCredencialesAlumno');
-  btnCredencialesAlumno.addEventListener('click', () => {
-    const idAlumno = document.getElementById('editAlumnoId').value;
-    modal.classList.remove('active');
-    setTimeout(() => {
-      abrirModalCredencialesAlumno(idAlumno);
-    }, 150);
-  });
-
-  // Event listener para submit del formulario
-    document.getElementById('formEditarAlumno').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const idAlumno = document.getElementById('editAlumnoId').value;
-      
-      const formData = {
-        nombre: document.getElementById('editAlumnoNombre').value.trim(),
-        apellido: document.getElementById('editAlumnoApellido').value.trim(),
-        mail: document.getElementById('editAlumnoMail').value.trim(),
-        dni: document.getElementById('editAlumnoDNI').value.trim(),
-        legajo: document.getElementById('editAlumnoLegajo').value.trim(),
-        telefono: document.getElementById('editAlumnoTelefono').value.trim(),
-        estado: document.getElementById('editAlumnoEstado').value
-      };
-      
-      if (!formData.nombre || !formData.apellido || !formData.mail || !formData.dni || !formData.legajo || !formData.telefono) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Todos los campos son obligatorios',
-          heightAuto: false,
-          didOpen: () => {
-            const swalContainer = document.querySelector('.swal2-container');
-            if (swalContainer) {
-              swalContainer.style.zIndex = '99999';
-            }
-          }
-        });
-        return;
-      }
-      
-      try {
-        const updateRes = await fetch(`${API_URL}/alumnos/${idAlumno}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        
-        const data = await updateRes.json();
-        
-        if (updateRes.ok && data.success) {
-          cerrarModalEditarAlumno();
-          Swal.fire('¡Actualizado!', 'Alumno actualizado exitosamente', 'success');
-          document.getElementById('btnAlumnos').click();
-        } else {
-          Swal.fire('Error', data.message || 'Error al actualizar alumno', 'error');
-        }
-      } catch (error) {
-        console.error(error);
-        Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
-      }
-    });
-
-  return modal;
-}
-
-// Función para cerrar el modal de editar alumno
-function cerrarModalEditarAlumno() {
-  const modal = document.getElementById('modalEditarAlumno');
-  if (modal) {
-    modal.classList.remove('active');
-  }
-}
+// Funciones ensureEditarAlumnoModal y cerrarModalEditarAlumno eliminadas - ahora se usa SweetAlert2
 
 async function editarAlumno(id) {
   try {
@@ -4390,32 +4225,97 @@ async function editarAlumno(id) {
     const res = await fetch(`${API_URL}/alumnos/${id}`);
     const alumno = await res.json();
     
-    // Asegurar que el modal existe
-    ensureEditarAlumnoModal();
-    const modal = document.getElementById('modalEditarAlumno');
-    
-    // Guardar ID
-    document.getElementById('editAlumnoId').value = id;
-    
-    // Llenar datos personales
-    document.getElementById('editAlumnoNombre').value = alumno.nombre || '';
-    document.getElementById('editAlumnoApellido').value = alumno.apellido || '';
-    document.getElementById('editAlumnoMail').value = alumno.mail || '';
-    document.getElementById('editAlumnoDNI').value = alumno.dni || '';
-    document.getElementById('editAlumnoLegajo').value = alumno.legajo || '';
-    document.getElementById('editAlumnoTelefono').value = alumno.telefono || '';
-    document.getElementById('editAlumnoEstado').value = alumno.estado || 'activo';
-    
-    // Mostrar modal
-    modal.classList.add('active');
-    
-    // Refrescar iconos Lucide
-    setTimeout(() => {
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
+    const { value: formValues, isDenied } = await Swal.fire({
+      title: 'Editar Alumno',
+      html: `
+        <div style="text-align: left;">
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nombre</label>
+            <input id="nombre" class="swal2-input" value="${alumno.nombre}" style="width: 100%; margin: 0;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Apellido</label>
+            <input id="apellido" class="swal2-input" value="${alumno.apellido}" style="width: 100%; margin: 0;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
+            <input id="mail" type="email" class="swal2-input" value="${alumno.mail}" style="width: 100%; margin: 0;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">DNI</label>
+            <input id="dni" class="swal2-input" placeholder="Ej: 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${alumno.dni || ''}" style="width: 100%; margin: 0;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Legajo</label>
+            <input id="legajo" class="swal2-input" placeholder="Ej: A0001" oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" value="${alumno.legajo}" style="width: 100%; margin: 0;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
+            <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${alumno.telefono || ''}" style="width: 100%; margin: 0;">
+          </div>
+          <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Estado</label>
+            <select id="estado" class="swal2-input" style="width: 100%; margin: 0;">
+              <option value="activo" ${alumno.estado === 'activo' ? 'selected' : ''}>Activo</option>
+              <option value="inactivo" ${alumno.estado === 'inactivo' ? 'selected' : ''}>Inactivo</option>
+            </select>
+          </div>
+        </div>
+      `,
+      width: '500px',
+      focusConfirm: false,
+      showCancelButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: '<i data-lucide="key"></i> Editar Credenciales',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#1e3c72',
+      denyButtonColor: '#6b7280',
+      didOpen: () => {
+        // Renderizar iconos de Lucide
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      },
+      preConfirm: () => {
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        const mail = document.getElementById('mail').value.trim();
+        const dni = document.getElementById('dni').value.trim();
+        const legajo = document.getElementById('legajo').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const estado = document.getElementById('estado').value;
+        
+        if (!nombre || !apellido || !mail || !dni || !legajo || !telefono) {
+          Swal.showValidationMessage('Todos los campos son obligatorios');
+          return false;
+        }
+        return { nombre, apellido, mail, dni, legajo, telefono, estado };
       }
-    }, 10);
-    
+    });
+
+    // Si presionó "Editar Credenciales"
+    if (isDenied) {
+      await abrirModalCredencialesAlumno(id);
+      return;
+    }
+
+    if (formValues) {
+      const updateRes = await fetch(`${API_URL}/alumnos/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formValues)
+      });
+      
+      const data = await updateRes.json();
+      
+      if (updateRes.ok && data.success) {
+        await Swal.fire('¡Listo!', 'Alumno actualizado correctamente', 'success');
+        obtenerAlumnos();
+      } else {
+        Swal.fire('Error', data.message || 'Error al actualizar alumno', 'error');
+      }
+    }
   } catch (error) {
     console.error(error);
     Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
