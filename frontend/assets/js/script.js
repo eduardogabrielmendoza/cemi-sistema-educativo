@@ -390,6 +390,11 @@ function generateTable(section, data) {
                   <i data-lucide="mail"></i>
                   <span>${a.mail}</span>
                 </div>
+                ${a.dni ? `
+                <div class="info-row">
+                  <i data-lucide="credit-card"></i>
+                  <span>DNI: ${a.dni}</span>
+                </div>` : ''}
                 ${a.telefono ? `
                 <div class="info-row">
                   <i data-lucide="phone"></i>
@@ -470,6 +475,11 @@ function generateTable(section, data) {
                   <i data-lucide="mail"></i>
                   <span>${p.mail}</span>
                 </div>
+                ${p.dni ? `
+                <div class="info-row">
+                  <i data-lucide="credit-card"></i>
+                  <span>DNI: ${p.dni}</span>
+                </div>` : ''}
                 ${p.telefono ? `
                 <div class="info-row">
                   <i data-lucide="phone"></i>
@@ -2423,7 +2433,7 @@ function ensureEditarProfesorModal() {
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <label for="editProfesorTelefono">Teléfono:</label>
-                <input type="text" id="editProfesorTelefono" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <input type="tel" id="editProfesorTelefono" oninput="this.value=this.value.replace(/[^0-9+\- ]/g,'')" pattern="[0-9+\- ]*" inputmode="tel" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
               </div>
               
               <div>
@@ -3982,7 +3992,7 @@ async function openNuevoAlumnoModal() {
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">DNI</label>
-          <input id="dni" class="swal2-input" placeholder="Ej: 12345678" style="width: 100%; margin: 0;">
+          <input id="dni" class="swal2-input" placeholder="Ej: 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
@@ -3990,11 +4000,11 @@ async function openNuevoAlumnoModal() {
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Legajo</label>
-          <input id="legajo" class="swal2-input" placeholder="Ej: 12345" style="width: 100%; margin: 0;">
+          <input id="legajo" class="swal2-input" placeholder="Ej: 12345" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono (opcional)</label>
-          <input id="telefono" class="swal2-input" placeholder="Ej: 1234567890" style="width: 100%; margin: 0;">
+          <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9+\- ]/g,'')" pattern="[0-9+\- ]*" inputmode="tel" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
@@ -4216,7 +4226,7 @@ function ensureEditarAlumnoModal() {
             </div>
             <div>
               <label for="editAlumnoTelefono">Teléfono:</label>
-              <input type="text" id="editAlumnoTelefono" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+              <input type="tel" id="editAlumnoTelefono" oninput="this.value=this.value.replace(/[^0-9+\- ]/g,'')" pattern="[0-9+\- ]*" inputmode="tel" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
             </div>
           </div>
           
@@ -4704,7 +4714,7 @@ async function openNuevoProfesorModal() {
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">DNI</label>
-          <input id="dni" class="swal2-input" placeholder="Ej: 12345678" style="width: 100%; margin: 0;">
+          <input id="dni" class="swal2-input" placeholder="Ej: 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
@@ -4716,7 +4726,7 @@ async function openNuevoProfesorModal() {
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono (opcional)</label>
-          <input id="telefono" class="swal2-input" placeholder="Ej: 1234567890" style="width: 100%; margin: 0;">
+          <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9+\- ]/g,'')" pattern="[0-9+\- ]*" inputmode="tel" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
