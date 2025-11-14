@@ -584,6 +584,15 @@ function generateTable(section, data) {
 
 case "pagos":
   return `
+    <div class="pagos-tabs" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb;">
+      <button class="pagos-tab active" data-tab="activos" onclick="switchPagosTab('activos')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid #667eea; color: #667eea; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+        <i data-lucide="list"></i> Pagos Activos
+      </button>
+      <button class="pagos-tab" data-tab="archivo" onclick="switchPagosTab('archivo')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+        <i data-lucide="archive"></i> Archivo
+      </button>
+    </div>
+
     <div class="pagos-metrics">
       <div class="metric-card">
         <div class="metric-card-header">
@@ -3021,10 +3030,10 @@ function showConfirm(title, message, icon = 'alert-circle', isDanger = false) {
 let allPagos = [];
 let pagosStats = {};
 
-async function loadPagosData() {
+async function loadPagosData(queryParams = '') {
   try {
-    console.log('Cargando datos de pagos...');
-    const resp = await fetch(`${API_URL}/pagos`);
+    console.log('Cargando datos de pagos con query:', queryParams);
+    const resp = await fetch(`${API_URL}/pagos${queryParams}`);
     console.log('Response status:', resp.status);
     
     const data = await resp.json();
@@ -3118,7 +3127,12 @@ function renderPagosTable(pagos) {
       `;
     } else if (estado === 'anulado') {
       botonesAccion = `
-        <span style="color: #999; font-size: 12px;">Anulado</span>
+        <button 
+          class="btn-archive-pago" 
+          onclick="event.stopPropagation(); archivarPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          title="Archivar pago">
+          <i data-lucide="archive"></i>
+        </button>
       `;
     }
 
@@ -3146,6 +3160,29 @@ function renderPagosTable(pagos) {
   }).join('');
 
   if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// Switch between active and archived pagos tabs
+function switchPagosTab(tab) {
+  // Update tab UI
+  document.querySelectorAll('.pagos-tab').forEach(t => {
+    if (t.dataset.tab === tab) {
+      t.classList.add('active');
+      t.style.borderBottomColor = '#667eea';
+      t.style.color = '#667eea';
+    } else {
+      t.classList.remove('active');
+      t.style.borderBottomColor = 'transparent';
+      t.style.color = '#666';
+    }
+  });
+
+  // Load data based on tab
+  if (tab === 'archivo') {
+    loadPagosData('?archivo=true');
+  } else {
+    loadPagosData();
+  }
 }
 
 function setupPagosFilters() {
@@ -3386,6 +3423,36 @@ async function anularPago(idPago, nombreAlumno, concepto) {
   }
 }
 
+// Archivar pago anulado
+async function archivarPago(idPago, nombreAlumno, concepto) {
+  const confirmed = await showConfirm(
+    '¿Archivar pago?',
+    `¿Estás seguro de archivar el pago anulado de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>Se moverá a la pestaña de <strong>ARCHIVO</strong>.`,
+    'archive',
+    false
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const resp = await fetch(`${API_URL}/pagos/${idPago}/archivar`, {
+      method: 'PUT'
+    });
+
+    const result = await resp.json();
+
+    if (resp.ok && result.success) {
+      showToast('Pago archivado correctamente', 'success');
+      // Recargar los datos de pagos
+      await loadPagosData();
+    } else {
+      showToast(result.message || 'Error al archivar pago', 'error');
+    }
+  } catch (error) {
+    console.error('Error al archivar pago:', error);
+    showToast('Error al archivar pago', 'error');
+  }
+}
 
 // Modal de registrar pago
 async function openRegistrarPagoModal() {
