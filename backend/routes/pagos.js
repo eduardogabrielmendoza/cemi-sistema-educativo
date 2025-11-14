@@ -108,7 +108,7 @@ router.get("/alumno/:id", async (req, res) => {
           pa.fecha_pago,
           pa.detalle_pago
         FROM pagos pa
-        WHERE pa.id_alumno = ? AND pa.id_curso = ?
+        WHERE pa.id_alumno = ? AND pa.id_curso = ? AND pa.estado_pago != 'anulado'
         ORDER BY pa.fecha_pago DESC
       `, [id, curso.id_curso]);
 
