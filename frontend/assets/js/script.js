@@ -2711,14 +2711,15 @@ async function openEditarProfesorModal(idProfesor) {
     document.getElementById('editProfesorEspecialidad').value = profesor.especialidad || '';
     document.getElementById('editProfesorTelefono').value = profesor.telefono || '';
     document.getElementById('editProfesorEstado').value = profesor.estado || 'activo';
-    
-    // Inicializar selector de idiomas ANTES de mostrar el modal
-    console.log('Inicializando selector de idiomas...');
-    await initIdiomasMultiSelect('edit', profesor.idiomas_ids || []);
 
     modal.classList.add('active');
     
-    setTimeout(() => lucide.createIcons(), 10);
+    // Inicializar selector de idiomas DESPUÉS de mostrar el modal y con un pequeño delay
+    setTimeout(async () => {
+      console.log('Inicializando selector de idiomas...');
+      await initIdiomasMultiSelect('edit', profesor.idiomas_ids || []);
+      lucide.createIcons();
+    }, 100);
   } catch (error) {
     console.error('Error al cargar datos del profesor:', error);
     showToast('Error al cargar datos', 'error');
