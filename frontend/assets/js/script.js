@@ -2683,6 +2683,9 @@ async function openEditarProfesorModal(idProfesor) {
   try {
     const resp = await fetch(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resp.json();
+    
+    console.log('Datos del profesor:', profesor);
+    console.log('Idiomas IDs:', profesor.idiomas_ids);
 
     document.getElementById('editProfesorId').value = idProfesor;
     document.getElementById('editProfesorNombre').value = profesor.nombre;
@@ -2696,6 +2699,7 @@ async function openEditarProfesorModal(idProfesor) {
     modal.classList.add('active');
     
     // Inicializar selector de idiomas
+    console.log('Inicializando selector de idiomas...');
     await initIdiomasMultiSelect('edit', profesor.idiomas_ids || []);
     
     setTimeout(() => lucide.createIcons(), 10);
