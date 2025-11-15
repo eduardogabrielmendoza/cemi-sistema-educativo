@@ -18,9 +18,9 @@ router.get("/", async (req, res) => {
         p.estado,
         p.fecha_ingreso,
         (SELECT GROUP_CONCAT(DISTINCT i.nombre_idioma SEPARATOR ', ')
-         FROM cursos c
-         JOIN idiomas i ON c.id_idioma = i.id_idioma
-         WHERE c.id_profesor = p.id_profesor) as idiomas,
+         FROM profesores_idiomas pi
+         JOIN idiomas i ON pi.id_idioma = i.id_idioma
+         WHERE pi.id_profesor = p.id_profesor) as idiomas,
         (SELECT COUNT(*)
          FROM cursos c
          WHERE c.id_profesor = p.id_profesor) as total_cursos
