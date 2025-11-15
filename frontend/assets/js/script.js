@@ -2420,7 +2420,7 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
         <input type="checkbox" value="${idioma.id_idioma}" 
                ${selectedIdiomas.has(idioma.id_idioma) ? 'checked' : ''}
                style="margin-right: 8px; cursor: pointer;">
-        <span style="font-size: 14px;">${idioma.nombre}</span>
+        <span style="font-size: 14px;">${idioma.nombre_idioma}</span>
       </label>
     `).join('');
     
@@ -2470,7 +2470,7 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
             const tag = document.createElement('span');
             tag.style.cssText = 'background: #1e3c72; color: white; padding: 4px 10px; border-radius: 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;';
             tag.innerHTML = `
-              ${idioma.nombre}
+              ${idioma.nombre_idioma}
               <button type="button" onclick="event.stopPropagation(); this.parentElement.remove(); document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').checked = false; document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').dispatchEvent(new Event('change'));" 
                       style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; line-height: 1; padding: 0; margin: 0;">×</button>
             `;
@@ -5008,7 +5008,7 @@ async function openNuevoProfesorModal() {
                  onmouseout="this.style.background='transparent'">
             <input type="checkbox" value="${idioma.id_idioma}" class="idioma-checkbox" 
                    style="margin-right: 8px; cursor: pointer; width: 16px; height: 16px;">
-            <span style="font-size: 14px; color: #374151;">${idioma.nombre}</span>
+            <span style="font-size: 14px; color: #374151;">${idioma.nombre_idioma}</span>
           </label>
         `).join('');
       } catch (error) {
