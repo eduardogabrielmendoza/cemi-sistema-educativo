@@ -2566,19 +2566,6 @@ function ensureEditarProfesorModal() {
               </div>
             </div>
             
-            <div style="margin-bottom: 16px;">
-              <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que enseña:</label>
-              <div id="idiomasMultiSelect" style="position: relative;">
-                <div id="idiomasSelectedDisplay" style="min-height: 42px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; background: white; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
-                  <span style="color: #999; font-size: 14px;" id="idiomasPlaceholder">Seleccionar idiomas...</span>
-                </div>
-                <div id="idiomasDropdown" style="display: none; position: absolute; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; background: white; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                  <!-- Se llenarán los idiomas dinámicamente -->
-                </div>
-              </div>
-              <input type="hidden" id="editProfesorIdiomas" value="">
-            </div>
-            
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <label for="editProfesorTelefono">Teléfono:</label>
@@ -2593,6 +2580,19 @@ function ensureEditarProfesorModal() {
                   <option value="licencia">En Licencia</option>
                 </select>
               </div>
+            </div>
+            
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que enseña:</label>
+              <div id="idiomasMultiSelect" style="position: relative;">
+                <div id="idiomasSelectedDisplay" style="min-height: 42px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; background: white; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+                  <span style="color: #999; font-size: 14px;" id="idiomasPlaceholder">Seleccionar idiomas...</span>
+                </div>
+                <div id="idiomasDropdown" style="display: none; position: absolute; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; background: white; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                  <!-- Se llenarán los idiomas dinámicamente -->
+                </div>
+              </div>
+              <input type="hidden" id="editProfesorIdiomas" value="">
             </div>
             
             <div class="form-actions" style="margin-top: 24px; display: flex; gap: 10px; justify-content: space-between;">
