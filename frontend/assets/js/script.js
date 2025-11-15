@@ -5218,6 +5218,10 @@ async function editarProfesor(id) {
     const res = await fetch(`${API_URL}/profesores/${id}`);
     const profesor = await res.json();
     
+    // Obtener todos los idiomas disponibles
+    const idiomasRes = await fetch(`${API_URL}/idiomas`);
+    const idiomas = await idiomasRes.json();
+    
     const { value: formValues, isDenied } = await Swal.fire({
       title: 'Editar Profesor',
       html: `
@@ -5243,6 +5247,17 @@ async function editarProfesor(id) {
             <input id="especialidad" class="swal2-input" value="${profesor.especialidad || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Idiomas que enseña</label>
+            <div id="idiomasContainerEditar" style="max-height: 150px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; background: #f9f9f9;">
+              ${idiomas.map(idioma => `
+                <label style="display: block; margin-bottom: 8px; cursor: pointer;">
+                  <input type="checkbox" value="${idioma.id_idioma}" ${(profesor.idiomas_ids || []).includes(idioma.id_idioma) ? 'checked' : ''} style="margin-right: 8px;">
+                  ${idioma.nombre_idioma}
+                </label>
+              `).join('')}
+            </div>
+          </div>
+          <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
             <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${profesor.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
@@ -5256,7 +5271,7 @@ async function editarProfesor(id) {
           </div>
         </div>
       `,
-      width: '500px',
+      width: '550px',
       focusConfirm: false,
       showCancelButton: true,
       showDenyButton: true,
@@ -5280,11 +5295,16 @@ async function editarProfesor(id) {
         const telefono = document.getElementById('telefono').value.trim();
         const estado = document.getElementById('estado').value;
         
+        // Obtener idiomas seleccionados
+        const idiomasSeleccionados = Array.from(
+          document.querySelectorAll('#idiomasContainerEditar input[type="checkbox"]:checked')
+        ).map(cb => parseInt(cb.value));
+        
         if (!nombre || !apellido || !mail || !dni || !especialidad || !telefono) {
           Swal.showValidationMessage('Todos los campos son obligatorios');
           return false;
         }
-        return { nombre, apellido, mail, dni, especialidad, telefono, estado };
+        return { nombre, apellido, mail, dni, especialidad, telefono, estado, idiomas: idiomasSeleccionados };
       }
     });
 
