@@ -112,12 +112,12 @@ router.get("/:id", async (req, res) => {
         AND (cal.parcial1 IS NOT NULL OR cal.parcial2 IS NOT NULL OR cal.final IS NOT NULL)
     `, [req.params.id]);
 
-    // Idiomas que enseña
+    // Idiomas que enseña (desde tabla profesor_idiomas)
     const [idiomasRows] = await pool.query(`
-      SELECT DISTINCT i.nombre_idioma
-      FROM cursos c
-      JOIN idiomas i ON c.id_idioma = i.id_idioma
-      WHERE c.id_profesor = ?
+      SELECT i.id_idioma, i.nombre_idioma
+      FROM profesor_idiomas pi
+      JOIN idiomas i ON pi.id_idioma = i.id_idioma
+      WHERE pi.id_profesor = ?
     `, [req.params.id]);
 
     // Construir respuesta completa
@@ -128,6 +128,7 @@ router.get("/:id", async (req, res) => {
       total_alumnos: alumnosRows[0]?.total_alumnos || 0,
       promedio_general: promedioRows[0]?.promedio_general ? parseFloat(promedioRows[0].promedio_general).toFixed(2) : null,
       idiomas: idiomasRows.map(i => i.nombre_idioma),
+      idiomas_ids: idiomasRows.map(i => i.id_idioma),
       antiguedad_anos: profesor.fecha_ingreso ? Math.floor((new Date() - new Date(profesor.fecha_ingreso)) / (365.25 * 24 * 60 * 60 * 1000)) : 0
     };
 
@@ -142,7 +143,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, apellido, mail, dni, especialidad, telefono, estado } = req.body;
+    const { nombre, apellido, mail, dni, especialidad, telefono, estado, idiomas } = req.body;
 
     // Validar campos requeridos
     if (!nombre || !apellido || !mail || !especialidad) {
@@ -169,6 +170,21 @@ router.put("/:id", async (req, res) => {
         success: false,
         message: "Profesor no encontrado" 
       });
+    }
+
+    // Actualizar idiomas del profesor
+    if (idiomas && Array.isArray(idiomas)) {
+      // Eliminar idiomas anteriores
+      await pool.query('DELETE FROM profesor_idiomas WHERE id_profesor = ?', [id]);
+      
+      // Insertar nuevos idiomas
+      if (idiomas.length > 0) {
+        const values = idiomas.map(id_idioma => [id, id_idioma]);
+        await pool.query(
+          'INSERT INTO profesor_idiomas (id_profesor, id_idioma) VALUES ?',
+          [values]
+        );
+      }
     }
 
     res.json({ message: "Profesor actualizado correctamente", success: true });
@@ -272,9 +288,19 @@ router.post("/", async (req, res) => {
       if (perfilRows.length > 0) {
         await pool.query(
           'INSERT INTO usuarios (username, password_hash, password_plain, id_persona, id_perfil) VALUES (?, ?, ?, ?, ?)',
-          [username, password, username, id_persona, perfilRows[0].id_perfil]
+          [username, password, password, username, id_persona, perfilRows[0].id_perfil]
         );
       }
+    }
+
+    // Guardar idiomas del profesor si se proporcionaron
+    const { idiomas } = req.body;
+    if (idiomas && Array.isArray(idiomas) && idiomas.length > 0) {
+      const values = idiomas.map(id_idioma => [id_persona, id_idioma]);
+      await pool.query(
+        'INSERT INTO profesor_idiomas (id_profesor, id_idioma) VALUES ?',
+        [values]
+      );
     }
 
     res.json({ 

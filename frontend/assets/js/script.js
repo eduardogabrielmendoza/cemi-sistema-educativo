@@ -2394,6 +2394,100 @@ function filterProfesores() {
 // 7️⃣ FUNCIONES ADMINISTRATIVAS DE PROFESORES
 // =====================================================
 
+// Función para inicializar el selector múltiple de idiomas
+async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
+  const prefix = mode === 'edit' ? '' : 'Nuevo';
+  const display = document.getElementById(`idiomasSelectedDisplay${prefix}`);
+  const dropdown = document.getElementById(`idiomasDropdown${prefix}`);
+  const placeholder = document.getElementById(`idiomasPlaceholder${prefix}`);
+  const hiddenInput = document.getElementById(mode === 'edit' ? 'editProfesorIdiomas' : 'idiomasSeleccionados');
+  
+  if (!display || !dropdown) return;
+  
+  let selectedIdiomas = new Set(selectedIds);
+  
+  // Obtener todos los idiomas
+  try {
+    const resp = await fetch(`${API_URL}/idiomas`);
+    const idiomas = await resp.json();
+    
+    // Renderizar opciones
+    dropdown.innerHTML = idiomas.map(idioma => `
+      <label style="display: flex; align-items: center; padding: 10px; cursor: pointer; transition: background 0.2s;" 
+             onmouseover="this.style.background='#f3f4f6'" 
+             onmouseout="this.style.background='white'"
+             data-idioma-id="${idioma.id_idioma}">
+        <input type="checkbox" value="${idioma.id_idioma}" 
+               ${selectedIdiomas.has(idioma.id_idioma) ? 'checked' : ''}
+               style="margin-right: 8px; cursor: pointer;">
+        <span style="font-size: 14px;">${idioma.nombre}</span>
+      </label>
+    `).join('');
+    
+    // Actualizar display inicial
+    updateIdiomasDisplay();
+    
+    // Toggle dropdown
+    display.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    });
+    
+    // Cerrar al hacer click fuera
+    document.addEventListener('click', (e) => {
+      if (!display.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+    
+    // Manejar cambios en checkboxes
+    dropdown.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      checkbox.addEventListener('change', (e) => {
+        const id = parseInt(e.target.value);
+        if (e.target.checked) {
+          selectedIdiomas.add(id);
+        } else {
+          selectedIdiomas.delete(id);
+        }
+        updateIdiomasDisplay();
+      });
+    });
+    
+    function updateIdiomasDisplay() {
+      display.innerHTML = '';
+      
+      if (selectedIdiomas.size === 0) {
+        const placeholderSpan = document.createElement('span');
+        placeholderSpan.id = `idiomasPlaceholder${prefix}`;
+        placeholderSpan.style.color = '#999';
+        placeholderSpan.style.fontSize = '14px';
+        placeholderSpan.textContent = 'Seleccionar idiomas...';
+        display.appendChild(placeholderSpan);
+      } else {
+        selectedIdiomas.forEach(id => {
+          const idioma = idiomas.find(i => i.id_idioma === id);
+          if (idioma) {
+            const tag = document.createElement('span');
+            tag.style.cssText = 'background: #1e3c72; color: white; padding: 4px 10px; border-radius: 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;';
+            tag.innerHTML = `
+              ${idioma.nombre}
+              <button type="button" onclick="event.stopPropagation(); this.parentElement.remove(); document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').checked = false; document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').dispatchEvent(new Event('change'));" 
+                      style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; line-height: 1; padding: 0; margin: 0;">×</button>
+            `;
+            display.appendChild(tag);
+          }
+        });
+      }
+      
+      // Actualizar hidden input
+      hiddenInput.value = Array.from(selectedIdiomas).join(',');
+    }
+    
+  } catch (error) {
+    console.error('Error al cargar idiomas:', error);
+  }
+}
+
 // Modal para editar profesor
 function ensureEditarProfesorModal() {
   // ELIMINACIÓN AGRESIVA - Eliminar TODOS los modales de profesor existentes
@@ -2456,6 +2550,19 @@ function ensureEditarProfesorModal() {
               </div>
             </div>
             
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que enseña:</label>
+              <div id="idiomasMultiSelect" style="position: relative;">
+                <div id="idiomasSelectedDisplay" style="min-height: 42px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; background: white; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+                  <span style="color: #999; font-size: 14px;" id="idiomasPlaceholder">Seleccionar idiomas...</span>
+                </div>
+                <div id="idiomasDropdown" style="display: none; position: absolute; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; background: white; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                  <!-- Se llenarán los idiomas dinámicamente -->
+                </div>
+              </div>
+              <input type="hidden" id="editProfesorIdiomas" value="">
+            </div>
+            
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <label for="editProfesorTelefono">Teléfono:</label>
@@ -2507,6 +2614,7 @@ function ensureEditarProfesorModal() {
     e.preventDefault();
     
     const idProfesor = document.getElementById('editProfesorId').value;
+    const idiomasValue = document.getElementById('editProfesorIdiomas').value;
     const data = {
       nombre: document.getElementById('editProfesorNombre').value.trim(),
       apellido: document.getElementById('editProfesorApellido').value.trim(),
@@ -2514,7 +2622,8 @@ function ensureEditarProfesorModal() {
       dni: document.getElementById('editProfesorDNI').value.trim(),
       especialidad: document.getElementById('editProfesorEspecialidad').value.trim(),
       telefono: document.getElementById('editProfesorTelefono').value.trim(),
-      estado: document.getElementById('editProfesorEstado').value
+      estado: document.getElementById('editProfesorEstado').value,
+      idiomas: idiomasValue ? idiomasValue.split(',').map(id => parseInt(id)) : []
     };
 
     // Validar campos requeridos
@@ -2585,6 +2694,10 @@ async function openEditarProfesorModal(idProfesor) {
     document.getElementById('editProfesorEstado').value = profesor.estado || 'activo';
 
     modal.classList.add('active');
+    
+    // Inicializar selector de idiomas
+    await initIdiomasMultiSelect('edit', profesor.idiomas_ids || []);
+    
     setTimeout(() => lucide.createIcons(), 10);
   } catch (error) {
     console.error('Error al cargar datos del profesor:', error);
@@ -4868,6 +4981,12 @@ async function openNuevoProfesorModal() {
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que enseña</label>
+          <div id="idiomasContainerNuevo" style="border: 1px solid #d0d5dd; border-radius: 8px; padding: 12px; max-height: 150px; overflow-y: auto; background: #f9fafb;">
+            <div style="color: #666; font-size: 13px; text-align: center;">Cargando idiomas...</div>
+          </div>
+        </div>
       </div>
     `,
     width: '500px',
@@ -4876,6 +4995,27 @@ async function openNuevoProfesorModal() {
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#1e3c72',
+    didOpen: async () => {
+      // Cargar idiomas cuando se abre el modal
+      try {
+        const resp = await fetch(`${API_URL}/idiomas`);
+        const idiomas = await resp.json();
+        
+        const container = document.getElementById('idiomasContainerNuevo');
+        container.innerHTML = idiomas.map(idioma => `
+          <label style="display: flex; align-items: center; padding: 8px; cursor: pointer; border-radius: 4px; transition: background 0.2s;" 
+                 onmouseover="this.style.background='#e5e7eb'" 
+                 onmouseout="this.style.background='transparent'">
+            <input type="checkbox" value="${idioma.id_idioma}" class="idioma-checkbox" 
+                   style="margin-right: 8px; cursor: pointer; width: 16px; height: 16px;">
+            <span style="font-size: 14px; color: #374151;">${idioma.nombre}</span>
+          </label>
+        `).join('');
+      } catch (error) {
+        console.error('Error al cargar idiomas:', error);
+        document.getElementById('idiomasContainerNuevo').innerHTML = '<div style="color: #ef4444; font-size: 13px; text-align: center;">Error al cargar idiomas</div>';
+      }
+    },
     preConfirm: () => {
       const nombre = document.getElementById('nombre').value;
       const apellido = document.getElementById('apellido').value;
@@ -4883,6 +5023,10 @@ async function openNuevoProfesorModal() {
       const mail = document.getElementById('mail').value;
       const especialidad = document.getElementById('especialidad').value;
       const telefono = document.getElementById('telefono').value;
+      
+      // Obtener idiomas seleccionados
+      const idiomasSeleccionados = Array.from(document.querySelectorAll('.idioma-checkbox:checked'))
+        .map(cb => parseInt(cb.value));
       
       if (!nombre) {
         Swal.showValidationMessage('El nombre es obligatorio');
@@ -4908,7 +5052,7 @@ async function openNuevoProfesorModal() {
         Swal.showValidationMessage('El teléfono es obligatorio');
         return false;
       }
-      return { nombre, apellido, dni, mail, especialidad, telefono };
+      return { nombre, apellido, dni, mail, especialidad, telefono, idiomas: idiomasSeleccionados };
     }
   });
 
