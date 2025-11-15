@@ -2399,10 +2399,22 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
   const prefix = mode === 'edit' ? '' : 'Nuevo';
   const display = document.getElementById(`idiomasSelectedDisplay${prefix}`);
   const dropdown = document.getElementById(`idiomasDropdown${prefix}`);
-  const placeholder = document.getElementById(`idiomasPlaceholder${prefix}`);
   const hiddenInput = document.getElementById(mode === 'edit' ? 'editProfesorIdiomas' : 'idiomasSeleccionados');
   
-  if (!display || !dropdown) return;
+  console.log('🔍 Buscando elementos:', {
+    mode,
+    prefix,
+    displayId: `idiomasSelectedDisplay${prefix}`,
+    dropdownId: `idiomasDropdown${prefix}`,
+    displayFound: !!display,
+    dropdownFound: !!dropdown,
+    hiddenInputFound: !!hiddenInput
+  });
+  
+  if (!display || !dropdown) {
+    console.error('❌ No se encontraron los elementos del selector de idiomas');
+    return;
+  }
   
   let selectedIdiomas = new Set(selectedIds);
   
@@ -2410,6 +2422,8 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
   try {
     const resp = await fetch(`${API_URL}/idiomas`);
     const idiomas = await resp.json();
+    
+    console.log('✅ Idiomas cargados:', idiomas.length);
     
     // Renderizar opciones
     dropdown.innerHTML = idiomas.map(idioma => `
@@ -2480,7 +2494,9 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
       }
       
       // Actualizar hidden input
-      hiddenInput.value = Array.from(selectedIdiomas).join(',');
+      if (hiddenInput) {
+        hiddenInput.value = Array.from(selectedIdiomas).join(',');
+      }
     }
     
   } catch (error) {
@@ -2695,12 +2711,12 @@ async function openEditarProfesorModal(idProfesor) {
     document.getElementById('editProfesorEspecialidad').value = profesor.especialidad || '';
     document.getElementById('editProfesorTelefono').value = profesor.telefono || '';
     document.getElementById('editProfesorEstado').value = profesor.estado || 'activo';
-
-    modal.classList.add('active');
     
-    // Inicializar selector de idiomas
+    // Inicializar selector de idiomas ANTES de mostrar el modal
     console.log('Inicializando selector de idiomas...');
     await initIdiomasMultiSelect('edit', profesor.idiomas_ids || []);
+
+    modal.classList.add('active');
     
     setTimeout(() => lucide.createIcons(), 10);
   } catch (error) {
