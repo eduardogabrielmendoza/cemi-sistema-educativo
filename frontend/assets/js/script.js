@@ -6626,6 +6626,63 @@ async function loadCuotasGestion() {
 
 async function gestionarCuotasCurso(idCurso, nombreCurso) {
   try {
+    // Primero solicitar la clave de cobranzas
+    const passwordResponse = await fetch(`${API_URL}/config/cobranzas-password`);
+    const passwordData = await passwordResponse.json();
+    const claveCorrecta = passwordData.password || 'tesoreria';
+
+    const { value: claveIngresada } = await Swal.fire({
+      title: '<div style="display: flex; align-items: center; gap: 12px;"><i class="lucide-shield-check" style="width: 28px; height: 28px; color: #1976d2;"></i> COBRANZAS</div>',
+      html: `
+        <div style="text-align: left; padding: 10px;">
+          <p style="margin-bottom: 20px; color: #6b7280; text-align: center;">
+            Ingrese la clave asignada para ingresar
+          </p>
+          <input id="swal-password" type="password" class="swal2-input" placeholder="Clave de acceso" style="width: 100%; margin: 0; text-align: center; font-size: 16px;" autocomplete="off">
+        </div>
+      `,
+      width: '450px',
+      showCancelButton: true,
+      confirmButtonText: '<i class="lucide-unlock" style="width: 16px; height: 16px;"></i> Acceder',
+      cancelButtonText: '<i class="lucide-x" style="width: 16px; height: 16px;"></i> Cancelar',
+      confirmButtonColor: '#1976d2',
+      cancelButtonColor: '#757575',
+      focusConfirm: false,
+      didOpen: () => {
+        // Inicializar Lucide icons
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+        // Focus en el input
+        document.getElementById('swal-password').focus();
+      },
+      preConfirm: () => {
+        const password = document.getElementById('swal-password').value;
+        if (!password) {
+          Swal.showValidationMessage('Debe ingresar la clave');
+          return false;
+        }
+        return password;
+      }
+    });
+
+    // Si canceló o no ingresó nada, salir
+    if (!claveIngresada) {
+      return;
+    }
+
+    // Validar la clave
+    if (claveIngresada !== claveCorrecta) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Acceso Denegado',
+        text: 'La clave ingresada es incorrecta',
+        confirmButtonColor: '#1976d2'
+      });
+      return;
+    }
+
+    // Clave correcta - mostrar gestión de cuotas
     // Obtener cuotas actuales del curso
     const response = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`);
     const data = await response.json();
