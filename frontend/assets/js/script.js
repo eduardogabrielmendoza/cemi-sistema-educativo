@@ -6497,15 +6497,9 @@ async function loadCuotasGestion() {
   container.innerHTML = `
     <div style="max-width: 1400px; margin: 0 auto;">
       <div style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
-          <div>
-            <h2 style="margin: 0; color: #1f2937; font-size: 28px;">🔓 Gestión de Cuotas Disponibles</h2>
-            <p style="margin: 8px 0 0 0; color: #6b7280;">Controla qué cuotas pueden pagar los alumnos en cada curso</p>
-          </div>
-          <button onclick="liberarCuotasTodasLosCursos()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="unlock"></i>
-            Liberar para Todos los Cursos
-          </button>
+        <div style="margin-bottom: 32px;">
+          <h2 style="margin: 0; color: #1f2937; font-size: 28px;">🔓 Gestión de Cuotas Disponibles</h2>
+          <p style="margin: 8px 0 0 0; color: #6b7280;">Controla qué cuotas pueden pagar los alumnos en cada curso</p>
         </div>
 
         <div id="cursosListaCuotas" style="display: grid; gap: 20px;">
