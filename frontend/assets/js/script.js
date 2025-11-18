@@ -161,7 +161,7 @@ function initAdminSPA() {
               <h2 style="margin: 0;">Listado de Alumnos</h2>
               <button onclick="descargarPDFAlumnos()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar PDF
+                Descargar Información
               </button>
             </div>
           `;
@@ -173,7 +173,7 @@ function initAdminSPA() {
               <h2 style="margin: 0;">Listado de Profesores</h2>
               <button onclick="descargarPDFProfesores()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar PDF
+                Descargar Información
               </button>
             </div>
           `;
@@ -7119,12 +7119,12 @@ async function descargarPDFProfesores() {
         fillColor: [245, 247, 250]
       },
       columnStyles: {
-        0: { cellWidth: 35 },
-        1: { cellWidth: 45 },
-        2: { cellWidth: 25 },
-        3: { cellWidth: 30 },
-        4: { cellWidth: 45 },
-        5: { cellWidth: 18 }
+        0: { cellWidth: 38 },
+        1: { cellWidth: 48 },
+        2: { cellWidth: 28 },
+        3: { cellWidth: 32 },
+        4: { cellWidth: 35 },
+        5: { cellWidth: 17 }
       },
       margin: { left: 14, right: 14 }
     });
