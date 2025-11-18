@@ -6699,13 +6699,18 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
         }
         
         // Contraseña correcta - animación de apertura suave
-        setTimeout(() => {
-          lockIcon.textContent = '🔓';
-          lockIcon.classList.add('unlock-animation');
-          lockIcon.style.color = '#10b981';
-        }, 200);
-        
-        return password;
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            lockIcon.textContent = '🔓';
+            lockIcon.classList.add('unlock-animation');
+            lockIcon.style.color = '#10b981';
+            
+            // Esperar a que termine la animación (600ms) antes de cerrar
+            setTimeout(() => {
+              resolve(password);
+            }, 700);
+          }, 200);
+        });
       }
     });
 
