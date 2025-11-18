@@ -6948,7 +6948,9 @@ async function descargarPDFAlumnos() {
       if (!inscripcionesPorAlumno[insc.id_alumno]) {
         inscripcionesPorAlumno[insc.id_alumno] = [];
       }
-      inscripcionesPorAlumno[insc.id_alumno].push(`${insc.idioma} ${insc.nivel}`);
+      if (insc.estado === 'activo') {
+        inscripcionesPorAlumno[insc.id_alumno].push(insc.nombre_curso);
+      }
     });
     
     // Agregar logo
@@ -6973,14 +6975,19 @@ async function descargarPDFAlumnos() {
     doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')}`, 14, 32);
     
     // Preparar datos para la tabla
-    const tableData = alumnos.map(alumno => [
-      alumno.nombre_completo || '-',
-      alumno.email || '-',
-      alumno.telefono || '-',
-      alumno.dni || '-',
-      inscripcionesPorAlumno[alumno.id_alumno]?.join(', ') || 'Sin cursos',
-      alumno.estado || '-'
-    ]);
+    const tableData = alumnos.map(alumno => {
+      const nombreCompleto = `${alumno.nombre || ''} ${alumno.apellido || ''}`.trim() || '-';
+      const cursos = inscripcionesPorAlumno[alumno.id_alumno]?.join(', ') || 'Sin cursos';
+      
+      return [
+        nombreCompleto,
+        alumno.mail || '-',
+        alumno.telefono || '-',
+        alumno.dni || '-',
+        cursos,
+        alumno.estado || '-'
+      ];
+    });
     
     // Crear tabla
     doc.autoTable({
@@ -7054,7 +7061,7 @@ async function descargarPDFProfesores() {
       if (!cursosPorProfesor[curso.id_profesor]) {
         cursosPorProfesor[curso.id_profesor] = [];
       }
-      cursosPorProfesor[curso.id_profesor].push(`${curso.idioma} ${curso.nivel}`);
+      cursosPorProfesor[curso.id_profesor].push(curso.nombre_curso);
     });
     
     // Agregar logo
@@ -7079,14 +7086,19 @@ async function descargarPDFProfesores() {
     doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')}`, 14, 32);
     
     // Preparar datos para la tabla
-    const tableData = profesores.map(profesor => [
-      profesor.nombre_completo || '-',
-      profesor.email || '-',
-      profesor.telefono || '-',
-      profesor.especialidad || '-',
-      cursosPorProfesor[profesor.id_profesor]?.join(', ') || 'Sin cursos asignados',
-      profesor.estado || '-'
-    ]);
+    const tableData = profesores.map(profesor => {
+      const nombreCompleto = `${profesor.nombre || ''} ${profesor.apellido || ''}`.trim() || '-';
+      const cursos = cursosPorProfesor[profesor.id_profesor]?.join(', ') || 'Sin cursos asignados';
+      
+      return [
+        nombreCompleto,
+        profesor.mail || '-',
+        profesor.telefono || '-',
+        profesor.especialidad || '-',
+        cursos,
+        profesor.estado || '-'
+      ];
+    });
     
     // Crear tabla
     doc.autoTable({
