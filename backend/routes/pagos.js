@@ -122,9 +122,26 @@ router.get("/alumno/:id", async (req, res) => {
     const cursosPagos = await Promise.all(cursosActivos.map(async (curso) => {
       
       // 🔑 FILTRAR CUOTAS SEGÚN CONFIGURACIÓN DEL CURSO
-      const cuotasHabilitadas = curso.cuotas_habilitadas 
-        ? JSON.parse(curso.cuotas_habilitadas)
-        : todosMesesAcademicos; // Si es NULL, todas están habilitadas
+      let cuotasHabilitadas;
+      const rawCuotas = curso.cuotas_habilitadas;
+      
+      if (rawCuotas === null || rawCuotas === undefined) {
+        cuotasHabilitadas = todosMesesAcademicos;
+      } else if (typeof rawCuotas === 'object' && Array.isArray(rawCuotas)) {
+        cuotasHabilitadas = rawCuotas;
+      } else {
+        try {
+          cuotasHabilitadas = JSON.parse(rawCuotas);
+        } catch (error) {
+          try {
+            const jsonString = rawCuotas.replace(/'/g, '"');
+            cuotasHabilitadas = JSON.parse(jsonString);
+          } catch (error2) {
+            console.error('[pagos] Error parseando cuotas_habilitadas:', rawCuotas);
+            cuotasHabilitadas = todosMesesAcademicos;
+          }
+        }
+      }
 
       console.log(`[pagos] Curso ${curso.id_curso} - Cuotas habilitadas:`, cuotasHabilitadas);
 

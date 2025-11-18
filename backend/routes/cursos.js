@@ -737,7 +737,7 @@ router.put("/:id/cuotas", async (req, res) => {
     const placeholders = cuotas.map(() => '?').join(', ');
     const jsonArraySQL = cuotas.length > 0 
       ? `CAST(JSON_ARRAY(${placeholders}) AS JSON)`
-      : 'NULL';
+      : `CAST('[]' AS JSON)`; // Array vacío en lugar de NULL
     
     await pool.query(
       `UPDATE cursos SET cuotas_habilitadas = ${jsonArraySQL} WHERE id_curso = ?`,
