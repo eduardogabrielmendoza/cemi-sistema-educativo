@@ -6577,7 +6577,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
     const data = await response.json();
 
     const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
-    const cuotasActuales = data.todas_habilitadas ? todasLasCuotas : (data.cuotas_habilitadas || []);
+    const cuotasActuales = data.cuotasHabilitadas || [];
 
     const result = await Swal.fire({
       title: `🔓 Gestionar Cuotas`,

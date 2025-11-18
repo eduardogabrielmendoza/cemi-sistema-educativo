@@ -812,9 +812,16 @@ router.get("/:id/cuotas", async (req, res) => {
       });
     }
 
-    const cuotasHabilitadas = curso[0].cuotas_habilitadas 
-      ? JSON.parse(curso[0].cuotas_habilitadas)
-      : null; // null = todas habilitadas
+    const rawCuotas = curso[0].cuotas_habilitadas;
+    let cuotasHabilitadas;
+    
+    if (rawCuotas === null) {
+      // null = todas habilitadas
+      cuotasHabilitadas = null;
+    } else {
+      // Parsear JSON (puede ser [] o ["Marzo", "Abril", ...])
+      cuotasHabilitadas = JSON.parse(rawCuotas);
+    }
 
     const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
                             'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
@@ -822,9 +829,7 @@ router.get("/:id/cuotas", async (req, res) => {
     res.json({ 
       success: true,
       curso: curso[0].nombre_curso,
-      cuotas_habilitadas: cuotasHabilitadas || todasLasCuotas,
-      todas_habilitadas: cuotasHabilitadas === null,
-      todas_las_cuotas: todasLasCuotas
+      cuotasHabilitadas: cuotasHabilitadas !== null ? cuotasHabilitadas : todasLasCuotas
     });
     
   } catch (error) {
