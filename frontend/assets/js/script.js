@@ -6535,15 +6535,23 @@ async function loadCuotasGestion() {
         const dataCuotas = await resC.json();
         const preview = document.getElementById(`cuotasPreview_${curso.id_curso}`);
         
-        if (dataCuotas.todas_habilitadas) {
+        const cuotas = dataCuotas.cuotasHabilitadas || [];
+        
+        if (cuotas.length === 10) {
           preview.innerHTML = `
             <div style="display: flex; align-items: center; gap: 8px; color: #059669;">
               <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
               <span><strong>Todas las cuotas habilitadas</strong> (sin restricciones)</span>
             </div>
           `;
+        } else if (cuotas.length === 0) {
+          preview.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px; color: #dc2626;">
+              <i data-lucide="x-circle" style="width: 16px; height: 16px;"></i>
+              <span><strong>Ninguna cuota habilitada</strong></span>
+            </div>
+          `;
         } else {
-          const cuotas = dataCuotas.cuotas_habilitadas || [];
           preview.innerHTML = `
             <div style="display: flex; align-items: center; gap: 8px;">
               <i data-lucide="lock" style="width: 16px; height: 16px;"></i>
