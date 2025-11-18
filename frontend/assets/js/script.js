@@ -4010,6 +4010,12 @@ async function openRegistrarPagoModal() {
 
           // Recargar tabla de pagos
           await loadPagosData();
+          
+          // Si el panel de pagos está abierto para este alumno, actualizarlo
+          const panel = document.getElementById('pagoPanel');
+          if (panel && panel.classList.contains('active')) {
+            await openPagoPanel(formValues.id_alumno);
+          }
         } else {
           throw new Error(data.message || 'Error al registrar el pago');
         }
