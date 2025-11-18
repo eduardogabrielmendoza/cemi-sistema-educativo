@@ -110,6 +110,14 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// 🔤 Forzar UTF-8 en todas las respuestas de la API
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/')) {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  }
+  next();
+});
+
 // 📁 Servir archivos estáticos (uploads)
 app.use('/uploads', express.static('uploads'));
 

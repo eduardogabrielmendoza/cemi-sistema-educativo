@@ -93,6 +93,7 @@ router.get("/alumno/:id", async (req, res) => {
       SELECT 
         c.id_curso,
         c.nombre_curso,
+        c.cuotas_habilitadas,
         i.nombre_idioma,
         n.descripcion AS nivel,
         CONCAT(prof_p.nombre, ' ', prof_p.apellido) AS profesor,
@@ -111,7 +112,7 @@ router.get("/alumno/:id", async (req, res) => {
     console.log(`[pagos] Cursos activos encontrados: ${cursosActivos.length}`);
 
     // Meses academicos (Matricula + Marzo-Noviembre)
-    const mesesAcademicos = [
+    const todosMesesAcademicos = [
       'Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
       'Julio', 'Agosto', 'Septiembre', 
       'Octubre', 'Noviembre'
@@ -119,6 +120,21 @@ router.get("/alumno/:id", async (req, res) => {
 
     // Para cada curso, obtener estado de pagos de cada mes
     const cursosPagos = await Promise.all(cursosActivos.map(async (curso) => {
+      
+      // 🔑 FILTRAR CUOTAS SEGÚN CONFIGURACIÓN DEL CURSO
+      const cuotasHabilitadas = curso.cuotas_habilitadas 
+        ? JSON.parse(curso.cuotas_habilitadas)
+        : todosMesesAcademicos; // Si es NULL, todas están habilitadas
+
+      console.log(`[pagos] Curso ${curso.id_curso} - Cuotas habilitadas:`, cuotasHabilitadas);
+
+      // Solo trabajar con los meses habilitados para este curso
+      const mesesAcademicos = todosMesesAcademicos.filter(mes => 
+        cuotasHabilitadas.includes(mes)
+      );
+
+      console.log(`[pagos] Meses disponibles para alumno:`, mesesAcademicos);
+      
       // Obtener pagos realizados para este curso
       const [pagosRealizados] = await pool.query(`
         SELECT 

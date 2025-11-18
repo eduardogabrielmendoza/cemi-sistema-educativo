@@ -674,4 +674,164 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// =====================================================
+// GESTIÓN DE CUOTAS HABILITADAS
+// =====================================================
+
+// Actualizar cuotas habilitadas para un curso específico
+router.put("/:id/cuotas", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { cuotas } = req.body; // Array: ['Matricula', 'Marzo', 'Abril', ...]
+    
+    // Validar que cuotas sea un array
+    if (!Array.isArray(cuotas)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "El campo 'cuotas' debe ser un array" 
+      });
+    }
+
+    // Validar que el curso existe
+    const [curso] = await pool.query(
+      'SELECT id_curso, nombre_curso FROM cursos WHERE id_curso = ?',
+      [id]
+    );
+
+    if (curso.length === 0) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Curso no encontrado" 
+      });
+    }
+
+    // Cuotas válidas
+    const cuotasValidas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                           'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
+    
+    // Validar que todas las cuotas sean válidas
+    const cuotasInvalidas = cuotas.filter(c => !cuotasValidas.includes(c));
+    if (cuotasInvalidas.length > 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: `Cuotas inválidas: ${cuotasInvalidas.join(', ')}` 
+      });
+    }
+
+    // Actualizar cuotas habilitadas
+    // Si el array está vacío, establecer NULL (todas habilitadas)
+    const valor = cuotas.length > 0 ? JSON.stringify(cuotas) : null;
+    
+    await pool.query(
+      'UPDATE cursos SET cuotas_habilitadas = ? WHERE id_curso = ?',
+      [valor, id]
+    );
+    
+    res.json({ 
+      success: true, 
+      message: `Cuotas actualizadas para el curso "${curso[0].nombre_curso}"`,
+      cuotas_habilitadas: cuotas.length > 0 ? cuotas : 'Todas las cuotas'
+    });
+    
+  } catch (error) {
+    console.error("Error al actualizar cuotas del curso:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al actualizar cuotas del curso" 
+    });
+  }
+});
+
+// Actualizar cuotas habilitadas para TODOS los cursos
+router.put("/cuotas/todos", async (req, res) => {
+  try {
+    const { cuotas } = req.body; // Array: ['Matricula', 'Marzo', 'Abril', ...]
+    
+    // Validar que cuotas sea un array
+    if (!Array.isArray(cuotas)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "El campo 'cuotas' debe ser un array" 
+      });
+    }
+
+    // Cuotas válidas
+    const cuotasValidas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                           'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
+    
+    // Validar que todas las cuotas sean válidas
+    const cuotasInvalidas = cuotas.filter(c => !cuotasValidas.includes(c));
+    if (cuotasInvalidas.length > 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: `Cuotas inválidas: ${cuotasInvalidas.join(', ')}` 
+      });
+    }
+
+    // Si el array está vacío, establecer NULL (todas habilitadas)
+    const valor = cuotas.length > 0 ? JSON.stringify(cuotas) : null;
+    
+    // Actualizar todos los cursos
+    const [result] = await pool.query(
+      'UPDATE cursos SET cuotas_habilitadas = ?',
+      [valor]
+    );
+    
+    res.json({ 
+      success: true, 
+      message: `Cuotas actualizadas para ${result.affectedRows} cursos`,
+      cuotas_habilitadas: cuotas.length > 0 ? cuotas : 'Todas las cuotas',
+      cursos_actualizados: result.affectedRows
+    });
+    
+  } catch (error) {
+    console.error("Error al actualizar cuotas de todos los cursos:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al actualizar cuotas de todos los cursos" 
+    });
+  }
+});
+
+// Obtener cuotas habilitadas de un curso
+router.get("/:id/cuotas", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const [curso] = await pool.query(
+      'SELECT id_curso, nombre_curso, cuotas_habilitadas FROM cursos WHERE id_curso = ?',
+      [id]
+    );
+
+    if (curso.length === 0) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "Curso no encontrado" 
+      });
+    }
+
+    const cuotasHabilitadas = curso[0].cuotas_habilitadas 
+      ? JSON.parse(curso[0].cuotas_habilitadas)
+      : null; // null = todas habilitadas
+
+    const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
+
+    res.json({ 
+      success: true,
+      curso: curso[0].nombre_curso,
+      cuotas_habilitadas: cuotasHabilitadas || todasLasCuotas,
+      todas_habilitadas: cuotasHabilitadas === null,
+      todas_las_cuotas: todasLasCuotas
+    });
+    
+  } catch (error) {
+    console.error("Error al obtener cuotas del curso:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al obtener cuotas del curso" 
+    });
+  }
+});
+
 export default router;

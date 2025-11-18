@@ -591,9 +591,12 @@ case "pagos":
       <button class="pagos-tab" data-tab="archivo" onclick="switchPagosTab('archivo')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 600; cursor: pointer; transition: all 0.3s;">
         <i data-lucide="archive"></i> Archivo
       </button>
+      <button class="pagos-tab" data-tab="cuotas" onclick="switchPagosTab('cuotas')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+        <i data-lucide="unlock"></i> Gestionar Cuotas
+      </button>
     </div>
 
-    <div class="pagos-metrics">
+    <div class="pagos-metrics" id="pagosMetrics">
       <div class="metric-card">
         <div class="metric-card-header">
           <div class="metric-card-title">Total Recaudado (Mes)</div>
@@ -639,7 +642,7 @@ case "pagos":
       </div>
     </div>
 
-    <div class="pagos-filters">
+    <div class="pagos-filters" id="pagosFilters">
       <div class="filter-group">
         <label>Buscar alumno</label>
         <input type="text" id="pagoSearchAlumno" placeholder="Nombre, legajo o email...">
@@ -658,7 +661,7 @@ case "pagos":
       </div>
     </div>
 
-    <div class="pagos-table-container">
+    <div class="pagos-table-container" id="pagosTableContainer">
       <table class="pagos-table">
         <thead>
           <tr>
@@ -676,6 +679,10 @@ case "pagos":
           <tr><td colspan="8" style="text-align: center; padding: 40px; color: #999;">Cargando pagos...</td></tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="cuotas-gestion-container" id="cuotasGestionContainer" style="display: none;">
+      <!-- Contenedor para la gestión de cuotas -->
     </div>
   `;
   
@@ -3323,12 +3330,38 @@ function switchPagosTab(tab) {
     }
   });
 
-  // Load data based on tab
-  if (tab === 'archivo') {
-    loadPagosData('?archivo=true');
+  // Show/hide containers based on tab
+  const metricsContainer = document.getElementById('pagosMetrics');
+  const filtersContainer = document.getElementById('pagosFilters');
+  const tableContainer = document.getElementById('pagosTableContainer');
+  const cuotasContainer = document.getElementById('cuotasGestionContainer');
+
+  if (tab === 'cuotas') {
+    // Hide pagos UI, show cuotas UI
+    if (metricsContainer) metricsContainer.style.display = 'none';
+    if (filtersContainer) filtersContainer.style.display = 'none';
+    if (tableContainer) tableContainer.style.display = 'none';
+    if (cuotasContainer) {
+      cuotasContainer.style.display = 'block';
+      loadCuotasGestion();
+    }
   } else {
-    loadPagosData();
+    // Show pagos UI, hide cuotas UI
+    if (metricsContainer) metricsContainer.style.display = 'grid';
+    if (filtersContainer) filtersContainer.style.display = 'flex';
+    if (tableContainer) tableContainer.style.display = 'block';
+    if (cuotasContainer) cuotasContainer.style.display = 'none';
+
+    // Load data based on tab
+    if (tab === 'archivo') {
+      loadPagosData('?archivo=true');
+    } else {
+      loadPagosData();
+    }
   }
+
+  // Reinicializar iconos de Lucide
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function setupPagosFilters() {
@@ -6406,6 +6439,303 @@ const buttons = document.querySelectorAll('.cta-btn, .cta-btn-secondary, .login-
 buttons.forEach(button => {
   button.addEventListener('click', createRipple);
 });
+
+// =====================================================
+// GESTIÓN DE CUOTAS HABILITADAS
+// =====================================================
+
+async function loadCuotasGestion() {
+  const container = document.getElementById('cuotasGestionContainer');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div style="max-width: 1400px; margin: 0 auto;">
+      <div style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+          <div>
+            <h2 style="margin: 0; color: #1f2937; font-size: 28px;">🔓 Gestión de Cuotas Disponibles</h2>
+            <p style="margin: 8px 0 0 0; color: #6b7280;">Controla qué cuotas pueden pagar los alumnos en cada curso</p>
+          </div>
+          <button onclick="liberarCuotasTodasLosCursos()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="unlock"></i>
+            Liberar para Todos los Cursos
+          </button>
+        </div>
+
+        <div id="cursosListaCuotas" style="display: grid; gap: 20px;">
+          <div style="text-align: center; padding: 60px; color: #9ca3af;">
+            <i data-lucide="loader" style="width: 48px; height: 48px; animation: spin 1s linear infinite;"></i>
+            <p style="margin-top: 16px;">Cargando cursos...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+
+  // Cargar cursos
+  try {
+    const response = await fetch(`${API_URL}/cursos`);
+    const cursos = await response.json();
+
+    const listaCursos = document.getElementById('cursosListaCuotas');
+    if (cursos.length === 0) {
+      listaCursos.innerHTML = `
+        <div style="text-align: center; padding: 60px; color: #9ca3af;">
+          <i data-lucide="inbox" style="width: 48px; height: 48px;"></i>
+          <p style="margin-top: 16px;">No hay cursos disponibles</p>
+        </div>
+      `;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      return;
+    }
+
+    listaCursos.innerHTML = cursos.map(curso => `
+      <div style="background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 12px; padding: 24px; transition: all 0.3s;">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+              <div style="background: #667eea; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
+              </div>
+              <div>
+                <h3 style="margin: 0; color: #111827; font-size: 20px;">${curso.nombre_curso}</h3>
+                <p style="margin: 4px 0 0 0; color: #6b7280; font-size: 14px;">${curso.nombre_idioma} - ${curso.nivel || 'Sin nivel'}</p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 24px; margin-top: 12px; font-size: 14px; color: #6b7280;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                <span>${curso.profesor || 'Sin profesor'}</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                <span>${curso.alumnos_inscritos || 0} alumnos</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="gestionarCuotasCurso(${curso.id_curso}, '${curso.nombre_curso.replace(/'/g, "\\'")}')" class="btn-primary" style="white-space: nowrap;">
+            <i data-lucide="settings"></i>
+            Gestionar Cuotas
+          </button>
+        </div>
+        <div id="cuotasPreview_${curso.id_curso}" style="padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280;">
+          Cargando...
+        </div>
+      </div>
+    `).join('');
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    // Cargar preview de cuotas para cada curso
+    cursos.forEach(async (curso) => {
+      try {
+        const resC = await fetch(`${API_URL}/cursos/${curso.id_curso}/cuotas`);
+        const dataCuotas = await resC.json();
+        const preview = document.getElementById(`cuotasPreview_${curso.id_curso}`);
+        
+        if (dataCuotas.todas_habilitadas) {
+          preview.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px; color: #059669;">
+              <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+              <span><strong>Todas las cuotas habilitadas</strong> (sin restricciones)</span>
+            </div>
+          `;
+        } else {
+          const cuotas = dataCuotas.cuotas_habilitadas || [];
+          preview.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="lock" style="width: 16px; height: 16px;"></i>
+              <span><strong>${cuotas.length} cuotas habilitadas:</strong> ${cuotas.join(', ')}</span>
+            </div>
+          `;
+        }
+        
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      } catch (error) {
+        console.error('Error al cargar preview de cuotas:', error);
+      }
+    });
+
+  } catch (error) {
+    console.error('Error al cargar cursos:', error);
+    listaCursos.innerHTML = `
+      <div style="text-align: center; padding: 60px; color: #ef4444;">
+        <i data-lucide="alert-circle" style="width: 48px; height: 48px;"></i>
+        <p style="margin-top: 16px;">Error al cargar los cursos</p>
+      </div>
+    `;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+}
+
+async function gestionarCuotasCurso(idCurso, nombreCurso) {
+  try {
+    // Obtener cuotas actuales del curso
+    const response = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`);
+    const data = await response.json();
+
+    const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
+    const cuotasActuales = data.todas_habilitadas ? todasLasCuotas : (data.cuotas_habilitadas || []);
+
+    const result = await Swal.fire({
+      title: `🔓 Gestionar Cuotas`,
+      html: `
+        <div style="text-align: left;">
+          <p style="margin-bottom: 20px; color: #6b7280;">
+            <strong style="color: #111827;">${nombreCurso}</strong><br>
+            Selecciona las cuotas que los alumnos PUEDEN pagar en este curso
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+            ${todasLasCuotas.map(cuota => `
+              <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                <input type="checkbox" value="${cuota}" ${cuotasActuales.includes(cuota) ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;">
+                <span style="font-weight: 500; color: #374151;">${cuota}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div style="margin-top: 20px; padding: 16px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px;">
+            <p style="margin: 0; font-size: 14px; color: #1e40af;">
+              💡 <strong>Tip:</strong> Los alumnos solo verán y podrán pagar las cuotas seleccionadas.
+            </p>
+          </div>
+        </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar Cambios',
+      cancelButtonText: 'Cancelar',
+      width: '600px',
+      customClass: {
+        confirmButton: 'swal2-confirm swal2-styled',
+        cancelButton: 'swal2-cancel swal2-styled'
+      },
+      preConfirm: () => {
+        const checkboxes = Swal.getPopup().querySelectorAll('input[type="checkbox"]:checked');
+        return Array.from(checkboxes).map(cb => cb.value);
+      }
+    });
+
+    if (result.isConfirmed) {
+      const cuotasSeleccionadas = result.value;
+
+      // Guardar cuotas
+      const saveResponse = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cuotas: cuotasSeleccionadas })
+      });
+
+      const saveData = await saveResponse.json();
+
+      if (saveData.success) {
+        await Swal.fire({
+          icon: 'success',
+          title: '✅ Cuotas Actualizadas',
+          text: `Las cuotas han sido actualizadas para ${nombreCurso}`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+
+        // Recargar la vista de cuotas
+        loadCuotasGestion();
+      } else {
+        throw new Error(saveData.message || 'Error al guardar');
+      }
+    }
+
+  } catch (error) {
+    console.error('Error al gestionar cuotas:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudieron actualizar las cuotas del curso'
+    });
+  }
+}
+
+async function liberarCuotasTodasLosCursos() {
+  const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
+
+  const result = await Swal.fire({
+    title: '🌍 Liberar Cuotas para TODOS los Cursos',
+    html: `
+      <div style="text-align: left;">
+        <p style="margin-bottom: 20px; color: #6b7280;">
+          Selecciona las cuotas que estarán disponibles para <strong style="color: #111827;">TODOS los cursos</strong>
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+          ${todasLasCuotas.map(cuota => `
+            <label style="display: flex; align-items: center; gap: 10px; padding: 12px; background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+              <input type="checkbox" value="${cuota}" style="width: 18px; height: 18px; cursor: pointer;">
+              <span style="font-weight: 500; color: #374151;">${cuota}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div style="margin-top: 20px; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
+          <p style="margin: 0; font-size: 14px; color: #92400e;">
+            ⚠️ <strong>Atención:</strong> Esto sobrescribirá la configuración de TODOS los cursos.
+          </p>
+        </div>
+      </div>
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Aplicar a Todos',
+    cancelButtonText: 'Cancelar',
+    width: '600px',
+    confirmButtonColor: '#dc2626',
+    preConfirm: () => {
+      const checkboxes = Swal.getPopup().querySelectorAll('input[type="checkbox"]:checked');
+      return Array.from(checkboxes).map(cb => cb.value);
+    }
+  });
+
+  if (result.isConfirmed) {
+    const cuotasSeleccionadas = result.value;
+
+    if (cuotasSeleccionadas.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atención',
+        text: 'Debes seleccionar al menos una cuota'
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/cursos/cuotas/todos`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cuotas: cuotasSeleccionadas })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        await Swal.fire({
+          icon: 'success',
+          title: '✅ Cuotas Actualizadas',
+          text: `Las cuotas han sido actualizadas para ${data.cursos_actualizados} cursos`,
+          timer: 2500,
+          showConfirmButton: false
+        });
+
+        // Recargar la vista
+        loadCuotasGestion();
+      } else {
+        throw new Error(data.message || 'Error al guardar');
+      }
+
+    } catch (error) {
+      console.error('Error al liberar cuotas:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudieron actualizar las cuotas'
+      });
+    }
+  }
+}
 
 // CSS para ripple effect
 const rippleStyle = document.createElement('style');
