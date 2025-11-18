@@ -822,12 +822,18 @@ router.get("/:id/cuotas", async (req, res) => {
     const rawCuotas = curso[0].cuotas_habilitadas;
     let cuotasHabilitadas;
     
-    if (rawCuotas === null) {
+    if (rawCuotas === null || rawCuotas === undefined) {
       // null = todas habilitadas
       cuotasHabilitadas = null;
     } else {
       // Parsear JSON (puede ser [] o ["Marzo", "Abril", ...])
-      cuotasHabilitadas = JSON.parse(rawCuotas);
+      try {
+        cuotasHabilitadas = JSON.parse(rawCuotas);
+      } catch (error) {
+        console.error('Error parseando cuotas_habilitadas:', rawCuotas);
+        // Si no es JSON válido, asumir que todas están habilitadas
+        cuotasHabilitadas = null;
+      }
     }
 
     const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
