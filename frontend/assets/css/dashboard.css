@@ -4848,23 +4848,27 @@
 .section-header-alumno .header-title {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 20px 30px;
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
-  border-radius: 12px;
-  color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
 .section-header-alumno .header-title i {
   width: 32px;
   height: 32px;
+  color: #1e3c72;
 }
 
 .section-header-alumno h2 {
   margin: 0;
-  font-size: 26px;
+  color: #1e3c72;
+  font-size: 28px;
   font-weight: 600;
+}
+
+.section-header-alumno .section-subtitle {
+  color: #666;
+  margin: 0;
+  font-size: 15px;
 }
 
 /* Stats cards del alumno */
