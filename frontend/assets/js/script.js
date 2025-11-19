@@ -637,17 +637,6 @@ case "pagos":
 
       <div class="metric-card">
         <div class="metric-card-header">
-          <div class="metric-card-title">Alumnos en Mora</div>
-          <div class="metric-card-icon danger">
-            <i data-lucide="alert-triangle"></i>
-          </div>
-        </div>
-        <div class="metric-card-value" id="metricMora">0</div>
-        <div class="metric-card-subtitle">Requieren seguimiento</div>
-      </div>
-
-      <div class="metric-card">
-        <div class="metric-card-header">
           <div class="metric-card-title">Promedio por Pago</div>
           <div class="metric-card-icon warning">
             <i data-lucide="trending-up"></i>
@@ -3205,7 +3194,6 @@ async function loadPagosData(queryParams = '') {
     document.getElementById('metricTotalMes').textContent = parseFloat(pagosStats.total_mes || 0).toLocaleString('es-AR', {minimumFractionDigits: 2});
     document.getElementById('metricCobradas').textContent = pagosStats.cuotas_cobradas || 0;
     document.getElementById('metricPendientes').textContent = pagosStats.cuotas_pendientes || 0;
-    document.getElementById('metricMora').textContent = pagosStats.alumnos_mora || 0;
     document.getElementById('metricPromedio').textContent = parseFloat(pagosStats.promedio_pago || 0).toLocaleString('es-AR', {minimumFractionDigits: 0});
 
     // Poblar filtro de medios de pago

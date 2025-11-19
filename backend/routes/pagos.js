@@ -81,18 +81,6 @@ router.get("/", async (req, res) => {
         AND archivado = 0
     `);
 
-    // Alumnos con 5 o más cuotas pendientes (simplificado)
-    const [alumnosMora] = await pool.query(`
-      SELECT COUNT(*) as total FROM (
-        SELECT pa.id_alumno
-        FROM pagos pa
-        WHERE pa.estado_pago = 'en_proceso'
-          AND pa.archivado = 0
-        GROUP BY pa.id_alumno
-        HAVING COUNT(*) >= 5
-      ) as alumnos_con_deuda
-    `);
-
     // Promedio histórico de todos los pagos confirmados
     const [promedio] = await pool.query(`
       SELECT COALESCE(AVG(monto), 0) AS promedio
@@ -105,7 +93,6 @@ router.get("/", async (req, res) => {
       total_mes: totalMes[0].total,
       cuotas_cobradas: cuotasCobradas[0].total,
       cuotas_pendientes: cuotasPendientes[0].total,
-      alumnos_mora: alumnosMora[0].total,
       promedio_pago: promedio[0].promedio
     };
 

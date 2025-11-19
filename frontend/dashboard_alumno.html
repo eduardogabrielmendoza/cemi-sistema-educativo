@@ -658,8 +658,9 @@
                           
                           return `
                             <div class="mes-item ${estadoClass}" 
-                                 onclick="${mes.estado === 'pendiente' || mes.estado === 'impago' ? `window.abrirModalSeleccionMes(${curso.id_curso}, '${curso.nombre_curso}', '${mes.mes}', ${mes.monto})` : ''}"
-                                 style="${mes.estado === 'pendiente' || mes.estado === 'impago' ? 'cursor: pointer;' : ''}">
+                                 onclick="${mes.estado === 'pagado' ? `generarComprobantePago(${mes.id_pago})` : (mes.estado === 'pendiente' || mes.estado === 'impago' ? `window.abrirModalSeleccionMes(${curso.id_curso}, '${curso.nombre_curso}', '${mes.mes}', ${mes.monto})` : '')}"
+                                 style="${mes.estado === 'pagado' || mes.estado === 'pendiente' || mes.estado === 'impago' ? 'cursor: pointer;' : ''}"
+                                 ${mes.estado === 'pagado' ? 'title="Descargar comprobante"' : ''}>
                               <i data-lucide="${estadoIcon}"></i>
                               <span class="mes-nombre">${mes.mes === 'Matricula' ? 'Mat' : mes.mes.substring(0, 3)}</span>
                               ${mes.estado === 'pagado' ? `<span class="mes-fecha">${new Date(mes.fecha_pago).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit'})}</span>` : ''}
