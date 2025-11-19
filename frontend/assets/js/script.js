@@ -7232,74 +7232,81 @@ async function generarComprobantePago(idPago) {
     yPos += 7;
     
     // Información del alumno
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.text('DATOS DEL ALUMNO', 40, yPos, { align: 'center' });
-    yPos += 6;
+    yPos += 5;
     
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
+    doc.setFontSize(8);
     doc.text('Alumno:', 12, yPos);
     doc.setFont('helvetica', 'bold');
-    doc.text(pago.alumno || '-', 68, yPos, { align: 'right' });
-    yPos += 5;
+    const nombreLines = doc.splitTextToSize(pago.alumno || '-', 46);
+    doc.text(nombreLines, 68, yPos, { align: 'right' });
+    yPos += nombreLines.length * 3.5 + 1;
     
     doc.setFont('helvetica', 'normal');
     doc.text('Legajo:', 12, yPos);
     doc.setFont('helvetica', 'bold');
     doc.text(pago.legajo || '-', 68, yPos, { align: 'right' });
-    yPos += 5;
+    yPos += 4;
     
     doc.setFont('helvetica', 'normal');
     doc.text('DNI:', 12, yPos);
     doc.setFont('helvetica', 'bold');
-    doc.text(pago.dni || '-', 68, yPos, { align: 'right' });
-    yPos += 8;
+    doc.text(String(pago.dni) || '-', 68, yPos, { align: 'right' });
+    yPos += 6;
     
     // Línea separadora
     doc.line(10, yPos, 70, yPos);
-    yPos += 7;
+    yPos += 5;
     
     // Detalles del pago
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.text('DETALLES DEL PAGO', 40, yPos, { align: 'center' });
-    yPos += 6;
+    yPos += 5;
     
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
+    doc.setFontSize(8);
     doc.text('Concepto:', 12, yPos);
-    yPos += 4;
     doc.setFont('helvetica', 'bold');
-    const conceptoLines = doc.splitTextToSize(pago.concepto || '-', 56);
-    doc.text(conceptoLines, 12, yPos);
-    yPos += conceptoLines.length * 4 + 2;
+    doc.text(pago.concepto || '-', 68, yPos, { align: 'right' });
+    yPos += 4;
+    
+    if (pago.mes_cuota) {
+      doc.setFont('helvetica', 'normal');
+      doc.text('Cuota:', 12, yPos);
+      doc.setFont('helvetica', 'bold');
+      doc.text(pago.mes_cuota, 68, yPos, { align: 'right' });
+      yPos += 4;
+    }
     
     if (pago.periodo) {
       doc.setFont('helvetica', 'normal');
       doc.text('Período:', 12, yPos);
       doc.setFont('helvetica', 'bold');
       doc.text(pago.periodo, 68, yPos, { align: 'right' });
-      yPos += 5;
+      yPos += 4;
     }
     
     doc.setFont('helvetica', 'normal');
     doc.text('Medio de Pago:', 12, yPos);
     doc.setFont('helvetica', 'bold');
     doc.text(pago.medio_pago || '-', 68, yPos, { align: 'right' });
-    yPos += 8;
+    yPos += 6;
     
     // Monto destacado
     doc.setFillColor(25, 118, 210);
-    doc.rect(10, yPos, 60, 12, 'F');
+    doc.rect(10, yPos, 60, 10, 'F');
     doc.setTextColor(255);
-    doc.setFontSize(11);
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.text('TOTAL PAGADO', 15, yPos + 5);
-    doc.setFontSize(14);
-    doc.text(`$${parseFloat(pago.monto).toLocaleString('es-AR', {minimumFractionDigits: 2})}`, 65, yPos + 8, { align: 'right' });
+    doc.text('TOTAL PAGADO', 15, yPos + 4);
+    doc.setFontSize(12);
+    doc.text(`$${parseFloat(pago.monto).toLocaleString('es-AR', {minimumFractionDigits: 2})}`, 65, yPos + 6.5, { align: 'right' });
     doc.setTextColor(0);
-    yPos += 18;
+    yPos += 14;
     
     // Estado
     doc.setFontSize(8);
@@ -7307,12 +7314,12 @@ async function generarComprobantePago(idPago) {
     doc.setTextColor(76, 175, 80);
     doc.text('✓ PAGO CONFIRMADO', 40, yPos, { align: 'center' });
     doc.setTextColor(0);
-    yPos += 10;
+    yPos += 7;
     
     // Línea separadora
     doc.setDrawColor(200);
     doc.line(10, yPos, 70, yPos);
-    yPos += 7;
+    yPos += 5;
     
     // Información adicional
     doc.setFontSize(7);
@@ -7321,9 +7328,9 @@ async function generarComprobantePago(idPago) {
     doc.text('Centro de Enseñanza de', 40, yPos, { align: 'center' });
     yPos += 3;
     doc.text('Mandarín e Idiomas - CEMI', 40, yPos, { align: 'center' });
-    yPos += 5;
-    doc.text(`Comprobante generado el ${new Date().toLocaleDateString('es-ES')}`, 40, yPos, { align: 'center' });
     yPos += 4;
+    doc.text(`Comprobante generado el ${new Date().toLocaleDateString('es-ES')}`, 40, yPos, { align: 'center' });
+    yPos += 3;
     doc.setFontSize(6);
     doc.text('Este documento es un comprobante válido de pago', 40, yPos, { align: 'center' });
     
