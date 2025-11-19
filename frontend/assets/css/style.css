@@ -394,21 +394,6 @@ html {
   box-shadow: 0 8px 24px rgba(61, 220, 132, 0.5);
 }
 
-/* Ocultar botón APK en dispositivos no-Android */
-@supports not (-webkit-touch-callout: none) {
-  /* Si no es móvil, ocultarlo por defecto */
-  .cta-btn-apk {
-    display: none !important;
-  }
-}
-
-/* En escritorio definitivamente ocultar */
-@media (min-width: 768px) {
-  .cta-btn-apk {
-    display: none !important;
-  }
-}
-
 .cta-btn-secondary {
   background: transparent;
   color: var(--color-accent);
@@ -786,6 +771,13 @@ html {
   
   .hero-buttons {
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn,
+  .cta-btn-apk {
+    padding: 12px 24px;
+    font-size: 1rem;
   }
   
   .section-content h2 {
@@ -2628,18 +2620,219 @@ footer i {
   }
 }
 
-@media (max-width: 480px) {
-  .register-box {
-    padding: 30px 25px;
+/* Media query para móviles medianos (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
   }
 
-  .form-group input {
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .cta-btn,
+  .cta-btn-apk {
+    flex: 0 0 auto;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Register y Login */
+  .register-box,
+  .login-box {
+    padding: 24px 20px;
+    margin: 15px;
+    width: calc(100% - 30px);
+  }
+
+  .register-box h2,
+  .login-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
     padding: 10px 14px;
     font-size: 14px;
   }
 
   .form-group label {
     font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .submit-btn,
+  .btn-primary,
+  .btn-secondary {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .login-footer,
+  .register-footer {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .login-footer a,
+  .register-footer a {
+    font-size: 13px;
+  }
+
+  /* Hero responsive para móviles */
+  .hero-main {
+    padding: 60px 20px;
+    min-height: auto;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .cta-btn,
+  .cta-btn-apk {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    justify-content: center;
+  }
+
+  .link-arrow {
+    font-size: 0.9rem;
+  }
+
+  .hero-logo-side {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Navbar responsive */
+  .nav-container {
+    padding: 10px 15px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    position: relative;
+    left: 0;
+    transform: none;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 0;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .logo span {
+    font-size: 1.2em;
+  }
+
+  .nav-buttons {
+    order: 2;
+    gap: 8px;
+  }
+
+  .login-btn,
+  .login-btn-admin {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  /* Contenedores generales */
+  .section-content {
+    padding: 40px 20px;
+  }
+
+  .section-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Cards */
+  .card,
+  .feature-card {
+    padding: 20px 16px;
+  }
+
+  /* Modales */
+  .modal-content {
+    padding: 20px 16px;
+    margin: 15px;
+    width: calc(100% - 30px);
+  }
+}
+
+/* Móviles muy pequeños (320px - 380px) */
+@media (max-width: 380px) {
+  .register-box,
+  .login-box {
+    padding: 20px 16px;
+    margin: 10px;
+  }
+
+  .register-box h2,
+  .login-box h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  .submit-btn {
+    font-size: 13px;
+    padding: 11px 18px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.7rem;
+  }
+
+  .cta-btn,
+  .cta-btn-apk {
+    max-width: 240px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
   }
 }
 

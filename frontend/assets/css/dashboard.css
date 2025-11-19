@@ -7910,6 +7910,80 @@
   .curso-stats-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Tablas responsive */
+  .data-table {
+    font-size: 12px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 8px 6px;
+  }
+
+  /* Modales más pequeños */
+  .modal-content {
+    padding: 16px;
+    margin: 10px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  /* Botones más compactos */
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger,
+  .btn-success {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  /* Forms más compactos */
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+/* Media query específica para móviles muy pequeños (320px - 380px) */
+@media (max-width: 380px) {
+  .dashboard-header h1 {
+    font-size: 18px;
+  }
+
+  .stat-card h3,
+  .stat-pago-card h3 {
+    font-size: 11px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .meses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .curso-card-title h3 {
+    font-size: 14px;
+  }
 }
 
 /* Landscape mobile (max-height: 500px) */
