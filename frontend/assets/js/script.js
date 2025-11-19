@@ -3300,13 +3300,19 @@ function renderPagosTable(pagos) {
         </button>
       `;
     } else if (estado === 'anulado' && archivado === 1) {
-      // Pagos archivados muestran botón de desarchivar
+      // Pagos archivados muestran botón de desarchivar y eliminar
       botonesAccion = `
         <button 
           class="btn-unarchive-pago" 
           onclick="event.stopPropagation(); desarchivarPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
           title="Devolver a pagos activos">
           <i data-lucide="archive-restore"></i>
+        </button>
+        <button 
+          class="btn-delete-permanent" 
+          onclick="event.stopPropagation(); eliminarPagoDefinitivamente(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          title="Eliminar permanentemente">
+          <i data-lucide="x"></i>
         </button>
       `;
     }
@@ -3683,6 +3689,60 @@ async function desarchivarPago(idPago, nombreAlumno, concepto) {
   } catch (error) {
     console.error('Error al desarchivar pago:', error);
     showToast('Error al desarchivar pago', 'error');
+  }
+}
+
+// Eliminar pago definitivamente
+async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
+  const result = await Swal.fire({
+    title: '⚠️ ELIMINAR PERMANENTEMENTE',
+    html: `
+      <div style="text-align: left; margin: 20px 0;">
+        <p style="font-size: 15px; margin-bottom: 15px;">
+          Estás a punto de <strong style="color: #f44336;">eliminar permanentemente</strong> el siguiente registro:
+        </p>
+        <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0;">
+          <p style="margin: 5px 0;"><strong>Alumno:</strong> ${nombreAlumno}</p>
+          <p style="margin: 5px 0;"><strong>Concepto:</strong> ${concepto}</p>
+        </div>
+        <p style="color: #f44336; font-weight: 600; margin-top: 15px;">
+          ⚠️ Esta acción NO se puede deshacer
+        </p>
+        <p style="font-size: 14px; color: #666; margin-top: 10px;">
+          El registro será eliminado completamente de la base de datos.
+        </p>
+      </div>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#f44336',
+    cancelButtonColor: '#999',
+    confirmButtonText: 'Sí, eliminar permanentemente',
+    cancelButtonText: 'Cancelar',
+    reverseButtons: true,
+    customClass: {
+      popup: 'swal2-popup-large'
+    }
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    const resp = await fetch(`${API_URL}/pagos/${idPago}`, {
+      method: 'DELETE'
+    });
+
+    const data = await resp.json();
+
+    if (resp.ok && data.success) {
+      showToast('Pago eliminado permanentemente', 'success');
+      await loadPagosData('?archivo=true');
+    } else {
+      showToast(data.message || 'Error al eliminar pago', 'error');
+    }
+  } catch (error) {
+    console.error('Error al eliminar pago:', error);
+    showToast('Error al eliminar pago', 'error');
   }
 }
 
