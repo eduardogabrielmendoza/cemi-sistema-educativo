@@ -93,9 +93,14 @@ html {
   justify-content: center;
   margin: 0;
   padding: 0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+}
+
+@media (min-width: 769px) {
+  .nav-links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .nav-links a {
@@ -747,9 +752,36 @@ html {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  /* Navbar responsive */
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-links {
+    width: 100%;
+    order: 3;
+    justify-content: center;
+    gap: 16px;
+    padding: 8px 0;
+  }
+
+  .nav-buttons {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .login-btn,
+  .login-btn-admin {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+
+  /* Hero */
   .hero-main {
     flex-direction: column;
     gap: 40px;
+    padding: 60px 20px;
   }
   
   .hero-logo-animate {
@@ -762,11 +794,11 @@ html {
   }
   
   .hero-content h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
   
   .hero-content p {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
   
   .hero-buttons {
@@ -2696,81 +2728,79 @@ footer i {
 
   /* Hero responsive para móviles */
   .hero-main {
-    padding: 60px 20px;
-    min-height: auto;
+    padding: 40px 15px;
+    min-height: 70vh;
+  }
+
+  .hero-logo-side {
+    width: 150px;
+    height: 150px;
   }
 
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.2;
   }
 
   .hero-content p {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .hero-buttons {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
+    align-items: center;
   }
 
   .cta-btn,
   .cta-btn-apk {
     width: 100%;
-    max-width: 280px;
-    padding: 14px 24px;
-    font-size: 0.95rem;
+    max-width: 260px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
     justify-content: center;
   }
 
   .link-arrow {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin-top: 8px;
   }
 
-  .hero-logo-side {
-    width: 200px;
-    height: 200px;
-  }
-
-  /* Navbar responsive */
+  /* Navbar móvil */
   .nav-container {
     padding: 10px 15px;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    order: 1;
   }
 
   .nav-links {
-    order: 3;
-    width: 100%;
-    position: relative;
-    left: 0;
-    transform: none;
-    flex-direction: column;
-    gap: 8px;
-    padding: 12px 0;
     display: none;
   }
 
-  .nav-links.active {
-    display: flex;
+  .logo {
+    width: auto;
   }
 
   .logo span {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
 
   .nav-buttons {
-    order: 2;
-    gap: 8px;
+    gap: 6px;
+    width: auto;
+    flex: 1;
+    justify-content: flex-end;
   }
 
   .login-btn,
   .login-btn-admin {
-    padding: 8px 16px;
-    font-size: 0.85rem;
+    padding: 7px 12px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .login-btn-admin i,
+  .login-btn i {
+    display: none;
   }
 
   /* Contenedores generales */
