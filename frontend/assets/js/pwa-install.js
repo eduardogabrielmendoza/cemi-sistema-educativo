@@ -91,7 +91,7 @@ function showInstallBanner() {
         <span style="font-size: 13px; opacity: 0.9;">Accede más rápido instalando la app</span>
       </div>
       ${isAndroidDevice ? `
-        <a href="/downloads/cemi-app.apk" download style="
+        <a href="/downloads/cemi-app-v2.apk" download="CEMI-v2.apk" style="
           background: white;
           color: #1e3c72;
           border: none;
@@ -102,7 +102,7 @@ function showInstallBanner() {
           transition: transform 0.2s;
           text-decoration: none;
           display: inline-block;
-        ">Descargar APK</a>
+        ">Descargar APK v2</a>
       ` : `
         <button id="pwa-install-btn" style="
           background: white;
