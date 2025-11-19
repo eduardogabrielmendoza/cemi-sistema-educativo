@@ -81,14 +81,13 @@ router.get("/", async (req, res) => {
         AND archivado = 0
     `);
 
-    // Alumnos con más de 5 cuotas sin pagar (en mora grave)
+    // Alumnos con más de 5 cuotas sin pagar (pendientes o vencidas)
     const [alumnosMora] = await pool.query(`
       SELECT COUNT(DISTINCT id_alumno) AS total
       FROM (
         SELECT id_alumno, COUNT(*) as cuotas_pendientes
         FROM pagos
         WHERE estado_pago = 'en_proceso'
-          AND fecha_vencimiento < CURDATE()
           AND archivado = 0
         GROUP BY id_alumno
         HAVING cuotas_pendientes >= 5
