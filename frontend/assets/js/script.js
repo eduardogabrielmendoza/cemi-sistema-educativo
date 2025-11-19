@@ -3301,16 +3301,19 @@ function renderPagosTable(pagos) {
       `;
     } else if (estado === 'anulado' && archivado === 1) {
       // Pagos archivados muestran botón de desarchivar y eliminar
+      const alumnoEscaped = p.alumno.replace(/'/g, "\\'");
+      const conceptoEscaped = p.concepto.replace(/'/g, "\\'");
+      
       botonesAccion = `
         <button 
           class="btn-unarchive-pago" 
-          onclick="event.stopPropagation(); desarchivarPago(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          onclick="event.stopPropagation(); desarchivarPago(${p.id_pago}, '${alumnoEscaped}', '${conceptoEscaped}')"
           title="Devolver a pagos activos">
           <i data-lucide="archive-restore"></i>
         </button>
         <button 
           class="btn-delete-permanent" 
-          onclick="event.stopPropagation(); eliminarPagoDefinitivamente(${p.id_pago}, '${p.alumno}', '${p.concepto}')"
+          onclick="event.stopPropagation(); eliminarPagoDefinitivamente(${p.id_pago}, '${alumnoEscaped}', '${conceptoEscaped}')"
           title="Eliminar permanentemente">
           <i data-lucide="x"></i>
         </button>
@@ -3728,11 +3731,14 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
   if (!result.isConfirmed) return;
 
   try {
+    console.log('Eliminando pago ID:', idPago);
     const resp = await fetch(`${API_URL}/pagos/${idPago}`, {
       method: 'DELETE'
     });
 
+    console.log('DELETE Response status:', resp.status);
     const data = await resp.json();
+    console.log('DELETE Response data:', data);
 
     if (resp.ok && data.success) {
       showToast('Pago eliminado permanentemente', 'success');
