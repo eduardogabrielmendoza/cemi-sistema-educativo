@@ -2771,6 +2771,32 @@
   height: 18px;
 }
 
+/* Botón de imprimir comprobante */
+.btn-print-ticket {
+  background: transparent;
+  border: none;
+  color: #2196F3;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin: 0 2px;
+}
+
+.btn-print-ticket:hover {
+  background: #e3f2fd;
+  transform: scale(1.1);
+}
+
+.btn-print-ticket i {
+  width: 18px;
+  height: 18px;
+}
+
 /* Botón de archivar pago */
 .btn-archive-pago {
   background: transparent;
