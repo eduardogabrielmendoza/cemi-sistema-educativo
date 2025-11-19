@@ -52,22 +52,69 @@ router.get("/", async (req, res) => {
       ORDER BY pa.fecha_pago DESC, pa.fecha_vencimiento DESC
     `);
 
-    // Calcular estadísticas del mes actual
+    // Calcular estadísticas
     const mesActual = new Date().toISOString().slice(0, 7); // Formato: YYYY-MM
     
-    const [stats] = await pool.query(`
-      SELECT 
-        COALESCE(SUM(CASE WHEN periodo = ? THEN monto ELSE 0 END), 0) AS total_mes,
-        COUNT(CASE WHEN periodo = ? AND fecha_pago IS NOT NULL THEN 1 END) AS cuotas_cobradas,
-        COUNT(CASE WHEN periodo = ? AND fecha_pago IS NULL THEN 1 END) AS cuotas_pendientes,
-        COUNT(CASE WHEN fecha_pago IS NULL AND fecha_vencimiento < CURDATE() THEN 1 END) AS alumnos_mora,
-        COALESCE(AVG(monto), 0) AS promedio_pago
+    // Total recaudado del mes actual (solo pagos confirmados)
+    const [totalMes] = await pool.query(`
+      SELECT COALESCE(SUM(monto), 0) AS total
       FROM pagos
-    `, [mesActual, mesActual, mesActual]);
+      WHERE periodo = ? 
+        AND estado_pago = 'pagado'
+        AND archivado = 0
+    `, [mesActual]);
+
+    // Cuotas cobradas en el mes actual
+    const [cuotasCobradas] = await pool.query(`
+      SELECT COUNT(*) AS total
+      FROM pagos
+      WHERE periodo = ? 
+        AND estado_pago = 'pagado'
+        AND archivado = 0
+    `, [mesActual]);
+
+    // Cuotas pendientes del mes actual
+    const [cuotasPendientes] = await pool.query(`
+      SELECT COUNT(*) AS total
+      FROM pagos
+      WHERE periodo = ? 
+        AND estado_pago = 'en_proceso'
+        AND archivado = 0
+    `, [mesActual]);
+
+    // Alumnos con más de 5 cuotas sin pagar (en mora grave)
+    const [alumnosMora] = await pool.query(`
+      SELECT COUNT(DISTINCT id_alumno) AS total
+      FROM (
+        SELECT id_alumno, COUNT(*) as cuotas_pendientes
+        FROM pagos
+        WHERE estado_pago = 'en_proceso'
+          AND fecha_vencimiento < CURDATE()
+          AND archivado = 0
+        GROUP BY id_alumno
+        HAVING cuotas_pendientes >= 5
+      ) AS alumnos_morosos
+    `);
+
+    // Promedio histórico de todos los pagos confirmados
+    const [promedio] = await pool.query(`
+      SELECT COALESCE(AVG(monto), 0) AS promedio
+      FROM pagos
+      WHERE estado_pago = 'pagado'
+        AND archivado = 0
+    `);
+
+    const stats = {
+      total_mes: totalMes[0].total,
+      cuotas_cobradas: cuotasCobradas[0].total,
+      cuotas_pendientes: cuotasPendientes[0].total,
+      alumnos_mora: alumnosMora[0].total,
+      promedio_pago: promedio[0].promedio
+    };
 
     res.json({
       pagos: rows,
-      estadisticas: stats[0]
+      estadisticas: stats
     });
   } catch (error) {
     console.error("Error al obtener pagos:", error);
