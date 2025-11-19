@@ -11,6 +11,14 @@ import fs from 'fs';
 
 const router = express.Router();
 
+// Variable para almacenar la instancia del chatServer
+let chatServerInstance = null;
+
+// Función para establecer la instancia del chatServer
+export function setChatServer(chatServer) {
+  chatServerInstance = chatServer;
+}
+
 // Configuración de __dirname para ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -789,6 +797,38 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
     }
     
     console.log(`📎 Archivo subido: ${req.file.originalname} (${tipoArchivo}) en conversación ${id_conversacion}`);
+    
+    // Notificar a través de WebSocket si está disponible
+    if (chatServerInstance) {
+      const mensajeWS = {
+        id_mensaje: result.insertId,
+        id_conversacion: parseInt(id_conversacion),
+        tipo_remitente,
+        id_remitente: id_remitente || null,
+        nombre_remitente,
+        mensaje: `[Archivo adjunto: ${req.file.originalname}]`,
+        archivo_adjunto: rutaArchivo,
+        tipo_archivo: tipoArchivo,
+        fecha_envio: new Date().toISOString()
+      };
+      
+      // Enviar a todos los clientes de esta conversación
+      chatServerInstance.broadcastToConversation(id_conversacion, {
+        type: 'message',
+        data: mensajeWS
+      });
+      
+      // Notificar a admins si el mensaje es de un usuario
+      if (!isAdmin) {
+        chatServerInstance.notifyAdmins({
+          type: 'new_message',
+          data: {
+            id_conversacion: parseInt(id_conversacion),
+            from: nombre_remitente
+          }
+        });
+      }
+    }
     
     res.json({
       success: true,

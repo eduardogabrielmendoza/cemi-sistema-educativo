@@ -28,7 +28,7 @@ import statsRoutes from "./backend/routes/stats.js";
 import classroomRoutes from "./backend/routes/classroom.js";
 import perfilClassroomRoutes from "./backend/routes/perfil-classroom.js";
 import notificacionesRoutes from "./backend/routes/notificaciones.js";
-import chatRoutes from "./backend/routes/chat.js";
+import chatRoutes, { setChatServer } from "./backend/routes/chat.js";
 import configRoutes from "./backend/routes/config.js";
 import ChatServer from "./backend/utils/chat-server.js";
 import http from "http";
@@ -200,6 +200,9 @@ const server = http.createServer(app);
 
 // Inicializar servidor de chat WebSocket
 const chatServer = new ChatServer(server);
+
+// Conectar el chatServer con las rutas de chat
+setChatServer(chatServer);
 
 server.listen(PORT, () => {
   console.log(`🚀 Servidor HTTP activo en http://localhost:${PORT}`);
