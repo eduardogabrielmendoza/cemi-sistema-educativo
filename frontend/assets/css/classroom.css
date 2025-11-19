@@ -3526,7 +3526,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 }
 
 .modal-config-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   padding: 28px 36px;
   display: flex;
   align-items: center;
@@ -3613,15 +3613,15 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 }
 
 .config-tab-btn:hover {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
-  color: #667eea;
+  background: linear-gradient(90deg, rgba(30, 60, 114, 0.1) 0%, transparent 100%);
+  color: #1e3c72;
   padding-left: 28px;
 }
 
 .config-tab-btn.active {
-  background: linear-gradient(90deg, rgba(102, 126, 234, 0.15) 0%, rgba(102, 126, 234, 0.05) 100%);
-  color: #667eea;
-  border-left-color: #667eea;
+  background: linear-gradient(90deg, rgba(30, 60, 114, 0.15) 0%, rgba(30, 60, 114, 0.05) 100%);
+  color: #1e3c72;
+  border-left-color: #1e3c72;
   font-weight: 700;
 }
 
@@ -3633,7 +3633,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
   transform: translateY(-50%);
   width: 4px;
   height: 60%;
-  background: #667eea;
+  background: #1e3c72;
   border-radius: 4px 0 0 4px;
 }
 
@@ -3685,7 +3685,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 .config-section-title i {
   width: 24px;
   height: 24px;
-  color: #667eea;
+  color: #1e3c72;
 }
 
 .config-option {
@@ -3707,13 +3707,13 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 }
 
 .config-select:hover {
-  border-color: #667eea;
+  border-color: #1e3c72;
 }
 
 .config-select:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+  border-color: #1e3c72;
+  box-shadow: 0 0 0 4px rgba(30, 60, 114, 0.15);
 }
 
 .config-hint {
@@ -3763,11 +3763,11 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 }
 
 .btn-config-action:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-color: #1e3c72;
   color: white;
   transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 10px 30px rgba(30, 60, 114, 0.3);
 }
 
 .btn-config-action i {
@@ -3803,7 +3803,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 .toggle-icon {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -3872,7 +3872,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 }
 
 input:checked + .toggle-slider {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
 }
 
 input:checked + .toggle-slider:before {
@@ -3902,16 +3902,16 @@ input:checked + .toggle-slider:before {
 }
 
 .theme-card:hover {
-  border-color: #667eea;
+  border-color: #1e3c72;
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 12px 30px rgba(30, 60, 114, 0.2);
 }
 
 .theme-card.active {
-  border-color: #667eea;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  color: #667eea;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+  border-color: #1e3c72;
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.1) 0%, rgba(42, 82, 152, 0.1) 100%);
+  color: #1e3c72;
+  box-shadow: 0 8px 20px rgba(30, 60, 114, 0.25);
 }
 
 .theme-card i {
@@ -3942,16 +3942,16 @@ input:checked + .toggle-slider:before {
 }
 
 .font-size-btn:hover {
-  border-color: #667eea;
+  border-color: #1e3c72;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.15);
 }
 
 .font-size-btn.active {
-  border-color: #667eea;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #1e3c72;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3);
 }
 
 .font-size-btn small {
