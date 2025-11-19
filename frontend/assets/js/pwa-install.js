@@ -65,12 +65,12 @@ function isAndroid() {
 // Función para descargar APK con cache busting
 function downloadAPK() {
   const timestamp = new Date().getTime();
-  const apkUrl = `/downloads/cemi-app-v2.apk?v=${timestamp}`;
+  const apkUrl = `/downloads/cemi-app-v3.apk?v=${timestamp}`;
   
   // Crear un link temporal y forzar la descarga
   const link = document.createElement('a');
   link.href = apkUrl;
-  link.download = `CEMI-v2-${timestamp}.apk`;
+  link.download = `CEMI-v3-${timestamp}.apk`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -79,7 +79,7 @@ function downloadAPK() {
   if (window.Swal) {
     Swal.fire({
       title: 'Descargando APK',
-      html: '<strong>Versión 2</strong><br>Desinstala la versión anterior antes de instalar',
+      html: '<strong>Versión 3.0</strong><br>Desinstala la versión anterior antes de instalar',
       icon: 'info',
       timer: 4000,
       showConfirmButton: false
@@ -125,7 +125,7 @@ function showInstallBanner() {
           font-weight: 600;
           cursor: pointer;
           transition: transform 0.2s;
-        ">APK v2</button>
+        ">APK v3.0</button>
       ` : `
         <button id="pwa-install-btn" style="
           background: white;
