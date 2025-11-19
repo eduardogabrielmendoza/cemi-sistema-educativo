@@ -70,7 +70,7 @@
       <p>Una nueva forma de enseñar y aprender.</p>
       <div class="hero-buttons">
         <button class="cta-btn" onclick="window.location.href='guia.html'">Empezar ahora</button>
-        <a href="https://cemi-sistema-educativo-production.up.railway.app/downloads/cemi-app-v3.apk" class="cta-btn-apk" id="apkDownloadBtn" style="display: none;">
+        <a href="https://cemi-sistema-educativo-production.up.railway.app/downloads/cemi-app-v3.apk" class="cta-btn-apk" id="apkDownloadBtn">
           <i data-lucide="download" style="width: 18px; height: 18px;"></i>
           Descarga la App Android
         </a>
@@ -793,21 +793,26 @@
     }
 
     // Mostrar botón de descarga APK solo en Android
-    document.addEventListener('DOMContentLoaded', function() {
+    (function() {
       if (/Android/i.test(navigator.userAgent)) {
         const apkBtn = document.getElementById('apkDownloadBtn');
         if (apkBtn) {
           apkBtn.style.display = 'inline-flex';
-          console.log('✅ Botón APK mostrado para Android');
+          apkBtn.style.visibility = 'visible';
+          console.log('✅ Botón APK visible para Android');
           // Reinicializar íconos de Lucide
-          setTimeout(() => lucide.createIcons(), 100);
-        } else {
-          console.log('❌ Botón APK no encontrado');
+          if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+          }
         }
       } else {
-        console.log('ℹ️ No es Android, botón APK oculto');
+        // Ocultar en otros dispositivos
+        const apkBtn = document.getElementById('apkDownloadBtn');
+        if (apkBtn) {
+          apkBtn.style.display = 'none';
+        }
       }
-    });
+    })();
   </script>
   
   <!-- PWA Installation Script -->
