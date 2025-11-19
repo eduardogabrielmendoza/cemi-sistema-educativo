@@ -2522,13 +2522,36 @@ async function entregarTarea(idTarea, comentario, archivo) {
   try {
     showLoader();
     
-    // Por ahora, sin upload de archivos real, solo guardamos el comentario
-    // En producción, aquí subirías el archivo a un servidor
+    // Subir archivo si existe
     let urlArchivo = null;
     
     if (archivo) {
-      // Simulación: en producción usarías FormData y subirías a un endpoint
-      urlArchivo = `uploads/${archivo.name}`;
+      try {
+        const formData = new FormData();
+        formData.append('archivo', archivo);
+        
+        const uploadResponse = await fetch(`${API_URL}/classroom/upload-archivo`, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const uploadResult = await uploadResponse.json();
+        
+        if (!uploadResponse.ok) {
+          throw new Error(uploadResult.message || 'Error al subir archivo');
+        }
+        
+        urlArchivo = uploadResult.url;
+      } catch (uploadError) {
+        hideLoader();
+        Swal.fire({
+          title: 'Error al subir archivo',
+          text: uploadError.message || 'No se pudo subir el archivo adjunto',
+          icon: 'error',
+          confirmButtonColor: '#667eea'
+        });
+        return;
+      }
     }
     
     const response = await fetch(`${API_URL}/classroom/entregas`, {
