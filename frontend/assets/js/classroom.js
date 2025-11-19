@@ -5631,48 +5631,54 @@ async function exportarTareasPDF() {
     // Esperar a que cargue el logo
     await new Promise((resolve) => {
       logoImg.onload = resolve;
-      logoImg.onerror = resolve; // Continuar aunque falle
+      logoImg.onerror = resolve;
     });
     
-    // Encabezado elegante con logo
+    // Fondo del encabezado
+    doc.setFillColor(30, 60, 114); // #1e3c72
+    doc.rect(0, 0, 210, 50, 'F');
+    
+    // Logo CEMI en esquina superior derecha con fondo blanco
     try {
-      doc.addImage(logoImg, 'PNG', 15, 10, 25, 25);
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(168, 8, 28, 28, 2, 2, 'F');
+      doc.addImage(logoImg, 'PNG', 170, 10, 24, 24);
     } catch (e) {
       console.warn('No se pudo cargar el logo');
     }
     
-    // Fondo del encabezado
-    doc.setFillColor(30, 60, 114); // #1e3c72
-    doc.rect(0, 0, 210, 45, 'F');
-    
     // Título principal
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(20);
+    doc.setFontSize(22);
     doc.setFont(undefined, 'bold');
-    doc.text('REPORTE DE TAREAS', 105, 20, { align: 'center' });
+    doc.text('REPORTE DE TAREAS', 20, 22);
     
-    doc.setFontSize(12);
+    doc.setFontSize(10);
     doc.setFont(undefined, 'normal');
-    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 105, 28, { align: 'center' });
+    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 20, 32);
     
-    // Línea decorativa
-    doc.setDrawColor(103, 126, 234); // #677eea
-    doc.setLineWidth(1.5);
-    doc.line(15, 38, 195, 38);
+    // Línea decorativa azul
+    doc.setDrawColor(103, 126, 234);
+    doc.setLineWidth(2);
+    doc.line(20, 42, 190, 42);
     
-    // Información del estudiante - Caja con fondo
+    // Información del estudiante - Diseño limpio
     doc.setFillColor(248, 249, 250);
-    doc.roundedRect(15, 50, 180, 24, 3, 3, 'F');
+    doc.roundedRect(20, 58, 170, 22, 2, 2, 'F');
+    
+    doc.setDrawColor(220, 220, 220);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(20, 58, 170, 22, 2, 2, 'D');
     
     doc.setTextColor(0, 0, 0);
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setFont(undefined, 'bold');
-    doc.text('Estudiante:', 20, 58);
+    doc.text('Estudiante:', 25, 66);
     doc.setFont(undefined, 'normal');
-    doc.text(userName, 45, 58);
+    doc.text(userName, 50, 66);
     
     doc.setFont(undefined, 'bold');
-    doc.text('Fecha:', 20, 66);
+    doc.text('Fecha:', 25, 74);
     doc.setFont(undefined, 'normal');
     doc.text(new Date().toLocaleDateString('es-ES', { 
       day: '2-digit', 
@@ -5680,116 +5686,149 @@ async function exportarTareasPDF() {
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
-    }), 45, 66);
+    }), 50, 74);
     
-    let y = 86;
+    let y = 92;
     const pageHeight = doc.internal.pageSize.height;
     
-    // Agregar cada tarea con diseño mejorado
+    // Agregar cada tarea con diseño limpio y ordenado
     tareas.forEach((tarea, index) => {
       // Verificar si necesitamos nueva página
-      if (y > pageHeight - 50) {
+      if (y > pageHeight - 60) {
         doc.addPage();
         
-        // Repetir header en nueva página
+        // Repetir header simplificado en nueva página
         doc.setFillColor(30, 60, 114);
-        doc.rect(0, 0, 210, 20, 'F');
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(12);
-        doc.text('REPORTE DE TAREAS - CEMI', 105, 12, { align: 'center' });
+        doc.rect(0, 0, 210, 25, 'F');
         
-        y = 30;
+        try {
+          doc.setFillColor(255, 255, 255);
+          doc.roundedRect(168, 5, 28, 15, 2, 2, 'F');
+          doc.addImage(logoImg, 'PNG', 170, 6, 24, 13);
+        } catch (e) {}
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(14);
+        doc.setFont(undefined, 'bold');
+        doc.text('REPORTE DE TAREAS - CEMI', 20, 15);
+        
+        y = 35;
       }
       
-      // Caja de tarea
-      doc.setDrawColor(200, 200, 200);
-      doc.setLineWidth(0.5);
-      doc.roundedRect(15, y - 5, 180, 5, 2, 2, 'D');
+      // Tarjeta de tarea con borde y sombra
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(20, y - 3, 170, 5, 3, 3, 'F');
       
-      // Número y título
-      doc.setFontSize(11);
+      doc.setDrawColor(200, 210, 220);
+      doc.setLineWidth(0.8);
+      doc.roundedRect(20, y - 3, 170, 5, 3, 3, 'D');
+      
+      // Número y título de la tarea
+      doc.setFontSize(10);
       doc.setFont(undefined, 'bold');
       doc.setTextColor(30, 60, 114);
-      doc.text(`${index + 1}. ${tarea.titulo}`, 20, y);
+      doc.text(`${index + 1}. ${tarea.titulo}`, 25, y + 2);
       
-      doc.setFont(undefined, 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(0, 0, 0);
-      y += 7;
+      y += 8;
       
-      // Curso con icono
+      // Curso y Profesor en línea horizontal
+      doc.setFontSize(8);
+      doc.setFont(undefined, 'bold');
       doc.setTextColor(103, 126, 234);
-      doc.text('◆', 22, y);
+      doc.text('◆', 25, y);
+      doc.setTextColor(60, 60, 60);
+      doc.text('Curso:', 28, y);
+      doc.setFont(undefined, 'normal');
       doc.setTextColor(0, 0, 0);
-      doc.text(`Curso: ${tarea.nombre_curso}`, 27, y);
-      y += 5;
+      doc.text(tarea.nombre_curso, 40, y);
       
-      // Profesor
       if (tarea.profesor_nombre) {
+        doc.setFont(undefined, 'bold');
         doc.setTextColor(103, 126, 234);
-        doc.text('◆', 22, y);
+        doc.text('◆', 110, y);
+        doc.setTextColor(60, 60, 60);
+        doc.text('Profesor:', 113, y);
+        doc.setFont(undefined, 'normal');
         doc.setTextColor(0, 0, 0);
-        doc.text(`Profesor: ${tarea.profesor_nombre}`, 27, y);
-        y += 5;
+        doc.text(tarea.profesor_nombre, 130, y);
       }
       
-      // Descripción
-      const descripcion = tarea.descripcion || 'Sin descripción';
-      doc.setTextColor(80, 80, 80);
-      const descripcionLines = doc.splitTextToSize(descripcion, 165);
-      doc.text(descripcionLines, 27, y);
-      y += (descripcionLines.length * 4) + 3;
-      doc.setTextColor(0, 0, 0);
+      y += 6;
       
-      // Información en columnas
-      const col1X = 27;
-      const col2X = 110;
+      // Descripción de la tarea
+      if (tarea.descripcion && tarea.descripcion !== 'Sin descripción') {
+        doc.setFontSize(8);
+        doc.setTextColor(70, 70, 70);
+        const descripcionLines = doc.splitTextToSize(tarea.descripcion, 160);
+        doc.text(descripcionLines, 28, y);
+        y += (descripcionLines.length * 3.5) + 3;
+      }
       
-      // Fecha límite
+      // Separador sutil
+      doc.setDrawColor(230, 230, 230);
+      doc.setLineWidth(0.3);
+      doc.line(28, y, 185, y);
+      y += 4;
+      
+      // Información estructurada en columnas
+      doc.setFontSize(8);
+      
+      // Columna 1: Fecha límite
       if (tarea.fecha_limite) {
         doc.setFont(undefined, 'bold');
-        doc.text('Vence:', col1X, y);
+        doc.setTextColor(60, 60, 60);
+        doc.text('Vence:', 28, y);
         doc.setFont(undefined, 'normal');
+        doc.setTextColor(0, 0, 0);
         doc.text(new Date(tarea.fecha_limite).toLocaleDateString('es-ES', {
           day: '2-digit',
           month: 'short',
           year: 'numeric'
-        }), col1X + 15, y);
+        }), 43, y);
       }
       
-      // Estado con color
+      // Columna 2: Puntos
       doc.setFont(undefined, 'bold');
-      doc.text('Estado:', col2X, y);
+      doc.setTextColor(60, 60, 60);
+      doc.text('Puntos:', 90, y);
+      doc.setFont(undefined, 'normal');
+      doc.setTextColor(0, 0, 0);
+      doc.text(String(tarea.puntos || 0), 105, y);
+      
+      // Columna 3: Estado
+      doc.setFont(undefined, 'bold');
+      doc.setTextColor(60, 60, 60);
+      doc.text('Estado:', 125, y);
       doc.setFont(undefined, 'normal');
       
       const estado = tarea.estado || 'Pendiente';
       if (estado === 'entregada') {
-        doc.setTextColor(16, 185, 129); // Verde
+        doc.setTextColor(16, 185, 129);
       } else if (estado === 'vencida') {
-        doc.setTextColor(239, 68, 68); // Rojo
+        doc.setTextColor(239, 68, 68);
       } else {
-        doc.setTextColor(251, 146, 60); // Naranja
+        doc.setTextColor(251, 146, 60);
       }
-      doc.text(estado.charAt(0).toUpperCase() + estado.slice(1), col2X + 15, y);
+      doc.text(estado.charAt(0).toUpperCase() + estado.slice(1), 142, y);
       doc.setTextColor(0, 0, 0);
+      
       y += 5;
       
-      // Puntos y Calificación
-      doc.setFont(undefined, 'bold');
-      doc.text('Puntos:', col1X, y);
-      doc.setFont(undefined, 'normal');
-      doc.text(String(tarea.puntos || 0), col1X + 15, y);
-      
+      // Calificación si existe
       if (tarea.calificacion !== null && tarea.calificacion !== undefined) {
         doc.setFont(undefined, 'bold');
-        doc.text('Calificación:', col2X, y);
-        doc.setFont(undefined, 'normal');
+        doc.setTextColor(60, 60, 60);
+        doc.text('Calificación:', 28, y);
+        doc.setFont(undefined, 'bold');
         doc.setTextColor(16, 185, 129);
-        doc.text(String(tarea.calificacion), col2X + 25, y);
+        doc.setFontSize(9);
+        doc.text(String(tarea.calificacion), 52, y);
         doc.setTextColor(0, 0, 0);
+        doc.setFontSize(8);
+        y += 5;
       }
       
-      y += 10;
+      y += 8;
     });
     
     // Pie de página en la última página
@@ -5891,45 +5930,51 @@ async function exportarCalificacionesPDF() {
       logoImg.onerror = resolve;
     });
     
-    // Encabezado elegante con logo
-    try {
-      doc.addImage(logoImg, 'PNG', 15, 10, 25, 25);
-    } catch (e) {
-      console.warn('No se pudo cargar el logo');
-    }
-    
     // Fondo del encabezado
     doc.setFillColor(30, 60, 114); // #1e3c72
     doc.rect(0, 0, 210, 50, 'F');
     
+    // Logo CEMI en esquina superior derecha con fondo blanco
+    try {
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(168, 8, 28, 28, 2, 2, 'F');
+      doc.addImage(logoImg, 'PNG', 170, 10, 24, 24);
+    } catch (e) {
+      console.warn('No se pudo cargar el logo');
+    }
+    
     // Título principal
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(20);
+    doc.setFontSize(22);
     doc.setFont(undefined, 'bold');
-    doc.text('REPORTE DE CALIFICACIONES', 105, 20, { align: 'center' });
+    doc.text('REPORTE DE CALIFICACIONES', 20, 22);
     
-    doc.setFontSize(12);
+    doc.setFontSize(10);
     doc.setFont(undefined, 'normal');
-    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 105, 28, { align: 'center' });
+    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 20, 32);
     
-    // Línea decorativa
-    doc.setDrawColor(103, 126, 234); // #677eea
-    doc.setLineWidth(1.5);
-    doc.line(15, 43, 195, 43);
+    // Línea decorativa azul
+    doc.setDrawColor(103, 126, 234);
+    doc.setLineWidth(2);
+    doc.line(20, 42, 190, 42);
     
-    // Información del estudiante - Caja con fondo
+    // Información del estudiante - Diseño limpio
     doc.setFillColor(248, 249, 250);
-    doc.roundedRect(15, 55, 180, 30, 3, 3, 'F');
+    doc.roundedRect(20, 58, 170, 28, 2, 2, 'F');
+    
+    doc.setDrawColor(220, 220, 220);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(20, 58, 170, 28, 2, 2, 'D');
     
     doc.setTextColor(0, 0, 0);
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setFont(undefined, 'bold');
-    doc.text('Estudiante:', 20, 63);
+    doc.text('Estudiante:', 25, 66);
     doc.setFont(undefined, 'normal');
-    doc.text(userName, 45, 63);
+    doc.text(userName, 50, 66);
     
     doc.setFont(undefined, 'bold');
-    doc.text('Fecha:', 20, 71);
+    doc.text('Fecha:', 25, 74);
     doc.setFont(undefined, 'normal');
     doc.text(new Date().toLocaleDateString('es-ES', { 
       day: '2-digit', 
@@ -5937,122 +5982,141 @@ async function exportarCalificacionesPDF() {
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
-    }), 45, 71);
+    }), 50, 74);
     
     // Estadísticas si están disponibles
     if (data.estadisticas) {
       doc.setFont(undefined, 'bold');
-      doc.text('Promedio General:', 110, 63);
-      doc.setFont(undefined, 'normal');
+      doc.text('Promedio General:', 25, 82);
+      doc.setFont(undefined, 'bold');
       doc.setTextColor(16, 185, 129);
-      doc.setFontSize(12);
-      doc.text(String(data.estadisticas.promedio_general), 155, 63);
+      doc.setFontSize(11);
+      doc.text(String(data.estadisticas.promedio_general), 60, 82);
       doc.setTextColor(0, 0, 0);
-      doc.setFontSize(10);
+      doc.setFontSize(9);
       
       doc.setFont(undefined, 'bold');
-      doc.text('Evaluaciones:', 110, 71);
+      doc.text('Evaluaciones:', 110, 82);
       doc.setFont(undefined, 'normal');
-      doc.text(String(data.estadisticas.tareas_completadas), 140, 71);
+      doc.text(String(data.estadisticas.tareas_completadas), 138, 82);
     }
     
-    let y = 97;
+    let y = 98;
     const pageHeight = doc.internal.pageSize.height;
     
-    // Agregar cada curso con diseño mejorado
+    // Agregar cada curso con diseño limpio y organizado
     calificaciones.forEach((cal, index) => {
       // Verificar si necesitamos nueva página
-      if (y > pageHeight - 55) {
+      if (y > pageHeight - 60) {
         doc.addPage();
         
-        // Repetir header en nueva página
+        // Repetir header simplificado en nueva página
         doc.setFillColor(30, 60, 114);
-        doc.rect(0, 0, 210, 20, 'F');
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(12);
-        doc.text('REPORTE DE CALIFICACIONES - CEMI', 105, 12, { align: 'center' });
+        doc.rect(0, 0, 210, 25, 'F');
         
-        y = 30;
+        try {
+          doc.setFillColor(255, 255, 255);
+          doc.roundedRect(168, 5, 28, 15, 2, 2, 'F');
+          doc.addImage(logoImg, 'PNG', 170, 6, 24, 13);
+        } catch (e) {}
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(14);
+        doc.setFont(undefined, 'bold');
+        doc.text('REPORTE DE CALIFICACIONES - CEMI', 20, 15);
+        
+        y = 35;
       }
       
-      // Caja del curso con borde
-      doc.setFillColor(245, 247, 250);
-      doc.roundedRect(15, y - 5, 180, 5, 3, 3, 'F');
+      // Tarjeta del curso
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(20, y - 3, 170, 5, 3, 3, 'F');
       
-      doc.setDrawColor(200, 210, 230);
+      doc.setDrawColor(200, 210, 220);
       doc.setLineWidth(0.8);
-      doc.roundedRect(15, y - 5, 180, 5, 3, 3, 'D');
+      doc.roundedRect(20, y - 3, 170, 5, 3, 3, 'D');
       
       // Título del curso
-      doc.setFontSize(12);
+      doc.setFontSize(10);
       doc.setFont(undefined, 'bold');
       doc.setTextColor(30, 60, 114);
-      doc.text(`${index + 1}. ${cal.nombre_curso}`, 20, y);
+      doc.text(`${index + 1}. ${cal.nombre_curso}`, 25, y + 2);
       
-      doc.setFont(undefined, 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(0, 0, 0);
-      y += 7;
+      y += 8;
       
       // Idioma y nivel
       const idiomaNivel = `${cal.nombre_idioma || ''}${cal.nivel ? ' - Nivel ' + cal.nivel : ''}`;
       if (idiomaNivel.trim()) {
+        doc.setFontSize(8);
         doc.setTextColor(103, 126, 234);
-        doc.text('◆', 22, y);
-        doc.setTextColor(80, 80, 80);
-        doc.text(idiomaNivel, 27, y);
+        doc.text('◆', 25, y);
+        doc.setTextColor(70, 70, 70);
+        doc.text(idiomaNivel, 28, y);
         doc.setTextColor(0, 0, 0);
         y += 6;
       }
       
-      // Tabla de calificaciones
-      const startY = y;
-      const colWidth = 40;
-      const rowHeight = 8;
+      // Tabla de calificaciones - Diseño limpio
+      const tableX = 25;
+      const colWidth = 36;
+      const rowHeight = 7;
       
       // Encabezado de tabla
       doc.setFillColor(103, 126, 234);
-      doc.rect(25, y - 2, colWidth * 4, rowHeight, 'F');
+      doc.rect(tableX, y, colWidth * 4, rowHeight, 'F');
+      
+      doc.setDrawColor(103, 126, 234);
+      doc.setLineWidth(0.5);
+      doc.rect(tableX, y, colWidth * 4, rowHeight, 'D');
       
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(8);
       doc.setFont(undefined, 'bold');
-      doc.text('Parcial 1', 27, y + 3);
-      doc.text('Parcial 2', 27 + colWidth, y + 3);
-      doc.text('Examen Final', 27 + colWidth * 2, y + 3);
-      doc.text('Promedio', 27 + colWidth * 3, y + 3);
+      doc.text('Parcial 1', tableX + (colWidth / 2), y + 4.5, { align: 'center' });
+      doc.text('Parcial 2', tableX + colWidth + (colWidth / 2), y + 4.5, { align: 'center' });
+      doc.text('Examen Final', tableX + (colWidth * 2) + (colWidth / 2), y + 4.5, { align: 'center' });
+      doc.text('Promedio', tableX + (colWidth * 3) + (colWidth / 2), y + 4.5, { align: 'center' });
       
       y += rowHeight;
       
       // Valores de calificaciones
       doc.setFillColor(255, 255, 255);
-      doc.rect(25, y - 2, colWidth * 4, rowHeight, 'FD');
+      doc.rect(tableX, y, colWidth * 4, rowHeight + 1, 'F');
+      
+      doc.setDrawColor(220, 220, 220);
+      doc.setLineWidth(0.5);
+      doc.rect(tableX, y, colWidth * 4, rowHeight + 1, 'D');
+      
+      // Líneas verticales de separación
+      for (let i = 1; i < 4; i++) {
+        doc.line(tableX + (colWidth * i), y, tableX + (colWidth * i), y + rowHeight + 1);
+      }
       
       doc.setTextColor(0, 0, 0);
       doc.setFont(undefined, 'normal');
-      doc.setFontSize(10);
+      doc.setFontSize(9);
       
       const p1 = cal.parcial1 !== null && cal.parcial1 !== undefined ? String(cal.parcial1) : '-';
       const p2 = cal.parcial2 !== null && cal.parcial2 !== undefined ? String(cal.parcial2) : '-';
       const final = cal.final !== null && cal.final !== undefined ? String(cal.final) : '-';
       const promedio = cal.promedio !== null && cal.promedio !== undefined && cal.promedio > 0 ? String(cal.promedio) : '-';
       
-      doc.text(p1, 45, y + 3, { align: 'center' });
-      doc.text(p2, 45 + colWidth, y + 3, { align: 'center' });
-      doc.text(final, 45 + colWidth * 2, y + 3, { align: 'center' });
+      doc.text(p1, tableX + (colWidth / 2), y + 5, { align: 'center' });
+      doc.text(p2, tableX + colWidth + (colWidth / 2), y + 5, { align: 'center' });
+      doc.text(final, tableX + (colWidth * 2) + (colWidth / 2), y + 5, { align: 'center' });
       
       // Promedio con color y destacado
       if (promedio !== '-') {
         doc.setFont(undefined, 'bold');
         doc.setTextColor(16, 185, 129);
-        doc.setFontSize(11);
+        doc.setFontSize(10);
       }
-      doc.text(promedio, 45 + colWidth * 3, y + 3, { align: 'center' });
+      doc.text(promedio, tableX + (colWidth * 3) + (colWidth / 2), y + 5, { align: 'center' });
       doc.setFont(undefined, 'normal');
       doc.setTextColor(0, 0, 0);
-      doc.setFontSize(9);
+      doc.setFontSize(8);
       
-      y += rowHeight + 3;
+      y += rowHeight + 4;
       
       // Fecha de actualización
       if (cal.fecha_actualizacion) {
@@ -6062,12 +6126,13 @@ async function exportarCalificacionesPDF() {
           day: '2-digit',
           month: 'short',
           year: 'numeric'
-        })}`, 27, y);
+        })}`, 28, y);
         doc.setTextColor(0, 0, 0);
-        doc.setFontSize(9);
+        doc.setFontSize(8);
+        y += 3;
       }
       
-      y += 10;
+      y += 9;
     });
     
     // Pie de página en todas las páginas
