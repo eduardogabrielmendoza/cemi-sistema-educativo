@@ -614,33 +614,6 @@
             </div>
           `;
 
-          // Manejar submit del formulario
-          document.getElementById('formEditarPerfilProfesor').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const telefono = document.getElementById('telefonoProfesorEdit').value;
-
-            try {
-              const response = await fetch(`${API_URL}/profesores/${id_profesor}/perfil`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ telefono })
-              });
-
-              const result = await response.json();
-
-              if (result.success) {
-                showNotification('Perfil actualizado correctamente', 'success');
-              } else {
-                showNotification('Error al actualizar perfil', 'error');
-              }
-
-            } catch (error) {
-              console.error('Error:', error);
-              showNotification('Error al actualizar perfil', 'error');
-            }
-          });
-
           lucide.createIcons();
           loader.classList.add("hidden");
           setTimeout(() => mainContent.classList.add("active"), 100);
