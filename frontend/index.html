@@ -793,12 +793,21 @@
     }
 
     // Mostrar botón de descarga APK solo en Android
-    if (/Android/i.test(navigator.userAgent)) {
-      const apkBtn = document.getElementById('apkDownloadBtn');
-      if (apkBtn) {
-        apkBtn.style.display = 'inline-flex';
+    document.addEventListener('DOMContentLoaded', function() {
+      if (/Android/i.test(navigator.userAgent)) {
+        const apkBtn = document.getElementById('apkDownloadBtn');
+        if (apkBtn) {
+          apkBtn.style.display = 'inline-flex';
+          console.log('✅ Botón APK mostrado para Android');
+          // Reinicializar íconos de Lucide
+          setTimeout(() => lucide.createIcons(), 100);
+        } else {
+          console.log('❌ Botón APK no encontrado');
+        }
+      } else {
+        console.log('ℹ️ No es Android, botón APK oculto');
       }
-    }
+    });
   </script>
   
   <!-- PWA Installation Script -->
