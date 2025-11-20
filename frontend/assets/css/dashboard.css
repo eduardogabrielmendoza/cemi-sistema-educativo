@@ -7478,7 +7478,7 @@
 
 /* Hamburger Menu Button */
 .mobile-menu-toggle {
-  display: none;
+  display: flex;
   position: fixed;
   top: 20px;
   left: 20px;
