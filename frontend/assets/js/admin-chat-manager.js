@@ -689,7 +689,7 @@ class AdminChatManager {
         });
         
         // Recargar mensajes para mostrar el archivo
-        await this.loadConversationMessages(this.activeConversation.id_conversacion);
+        await this.loadMessages(this.activeConversation.id_conversacion);
       } else {
         throw new Error(result.message || 'Error al subir archivo');
       }
