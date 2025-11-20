@@ -3656,6 +3656,7 @@ footer i {
 .floating-btn-main .icon-close {
   width: 24px;
   height: 24px;
+  font-size: 24px;
   position: absolute;
   transition: all 0.3s ease;
 }
@@ -3723,6 +3724,7 @@ footer i {
 .floating-btn-sub svg {
   width: 20px;
   height: 20px;
+  font-size: 20px;
 }
 
 /* Animación de aparición vertical hacia arriba */
