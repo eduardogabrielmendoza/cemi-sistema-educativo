@@ -50,11 +50,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Sidebar colapsado por defecto en resoluciones pequeñas */
-.sidebar.collapsed {
-  transform: translateX(-260px);
-}
-
 /* Botón toggle del sidebar */
 .sidebar-toggle {
   position: fixed;
@@ -120,7 +115,7 @@
 }
 
 .dashboard-main {
-  margin-left: 0;
+  margin-left: 260px;
   flex: 1;
   padding: 25px 40px 40px 40px;
   min-height: 100vh;
@@ -128,10 +123,6 @@
   background: transparent;
   z-index: 2;
   transition: margin-left 0.3s ease;
-}
-
-.dashboard-main.sidebar-open {
-  margin-left: 260px;
 }
 
 .dashboard-header {
@@ -5460,7 +5451,7 @@
 }
 
 /* Responsive para panel lateral */
-@media (max-width: 0px) {
+@media (max-width: 768px) {
   .curso-detalle-panel-alumno {
     width: 100%;
     right: -100%;
@@ -5728,7 +5719,7 @@
 }
 
 /* Responsive para calificaciones */
-@media (max-width: 0px) {
+@media (max-width: 768px) {
   .tabla-calificaciones-alumno {
     font-size: 12px;
   }
@@ -6509,7 +6500,7 @@
 }
 
 /* Responsive para pagos */
-@media (max-width: 0px) {
+@media (max-width: 768px) {
   .pagos-pendientes-grid {
     grid-template-columns: 1fr;
   }
@@ -7476,22 +7467,24 @@
    RESPONSIVE DESIGN - MOBILE FIRST
    ======================================== */
 
-/* Hamburger Menu Button */
+/* Hamburger Menu Button - Oculto en escritorio */
 .mobile-menu-toggle {
-  display: flex;
+  display: none;
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 1001;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(66, 99, 140, 0.2);
-  border-radius: 12px;
-  width: 50px;
-  height: 50px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(66, 99, 140, 0.15);
+  border-radius: 10px;
+  width: 38px;
+  height: 38px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
 
@@ -7549,7 +7542,7 @@
 }
 
 /* Mobile - Tablets pequeñas (max-width: 768px) */
-@media (max-width: 0px) {
+@media (max-width: 768px) {
   /* Mostrar botón hamburguesa */
   .mobile-menu-toggle {
     display: flex;
@@ -7561,6 +7554,10 @@
     transition: transform 0.3s ease;
     width: 280px;
     z-index: 2000;
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(-260px);
   }
 
   .sidebar.mobile-open {
@@ -7584,6 +7581,10 @@
   .dashboard-main {
     margin-left: 0;
     padding: 80px 16px 20px 16px;
+  }
+
+  .dashboard-main.sidebar-open {
+    margin-left: 0;
   }
 
   /* Dashboard Header */

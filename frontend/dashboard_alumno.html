@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=820, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1e3c72">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -2161,19 +2161,19 @@
   }
 </style>
 
-<!-- Mobile Menu Script -->
-<script>
-  // Funcionalidad del menú mobile
-  document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
-    const dashboardMain = document.querySelector('.dashboard-main');
-    
-    // Iniciar con sidebar colapsado
-    sidebar.classList.add('collapsed');
-    
-    if (mobileMenuToggle && sidebar && sidebarOverlay) {
+  <!-- Mobile Menu Script -->
+  <script>
+    // Funcionalidad del menú mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const dashboardMain = document.querySelector('.dashboard-main');
+      
+      // Solo colapsar sidebar en móviles (<=768px)
+      if (window.innerWidth <= 768) {
+        sidebar.classList.add('collapsed');
+      }    if (mobileMenuToggle && sidebar && sidebarOverlay) {
       // Abrir/cerrar sidebar
       mobileMenuToggle.addEventListener('click', function() {
         sidebar.classList.toggle('collapsed');
