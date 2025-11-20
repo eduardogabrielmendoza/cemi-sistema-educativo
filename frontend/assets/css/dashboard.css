@@ -5418,7 +5418,7 @@
 }
 
 /* Responsive para panel lateral */
-@media (max-width: 768px) {
+@media (max-width: 0px) {
   .curso-detalle-panel-alumno {
     width: 100%;
     right: -100%;
@@ -5686,7 +5686,7 @@
 }
 
 /* Responsive para calificaciones */
-@media (max-width: 768px) {
+@media (max-width: 0px) {
   .tabla-calificaciones-alumno {
     font-size: 12px;
   }
@@ -6467,7 +6467,7 @@
 }
 
 /* Responsive para pagos */
-@media (max-width: 768px) {
+@media (max-width: 0px) {
   .pagos-pendientes-grid {
     grid-template-columns: 1fr;
   }
@@ -7507,7 +7507,7 @@
 }
 
 /* Mobile - Tablets pequeñas (max-width: 768px) */
-@media (max-width: 768px) {
+@media (max-width: 0px) {
   /* Mostrar botón hamburguesa */
   .mobile-menu-toggle {
     display: flex;
