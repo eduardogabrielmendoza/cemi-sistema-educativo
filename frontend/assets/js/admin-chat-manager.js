@@ -130,6 +130,13 @@ class AdminChatManager {
   }
   
   connectSockJS() {
+    // Verificar que SockJS esté disponible
+    if (typeof SockJS === 'undefined') {
+      console.warn('[AdminChat] SockJS no está listo, reintentando en 500ms...');
+      setTimeout(() => this.connectSockJS(), 500);
+      return;
+    }
+    
     console.log('[AdminChat] Conectando con SockJS...');
     
     // SockJS se conecta al endpoint /chat

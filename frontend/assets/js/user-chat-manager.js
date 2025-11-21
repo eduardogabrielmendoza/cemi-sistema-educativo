@@ -216,6 +216,13 @@ class UserChatManager {
   }
   
   connectSockJS() {
+    // Verificar que SockJS esté disponible
+    if (typeof SockJS === 'undefined') {
+      console.warn('[UserChat] SockJS no está listo, reintentando en 500ms...');
+      setTimeout(() => this.connectSockJS(), 500);
+      return;
+    }
+    
     console.log('[UserChat] Conectando con SockJS...');
     
     const sockUrl = `${this.BASE_URL.replace('/api', '')}/chat`;
