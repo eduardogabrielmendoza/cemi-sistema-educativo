@@ -1,6 +1,8 @@
 class UserChatManager {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
+    this.BASE_URL = window.BASE_URL || 'http://localhost:3000';
+    this.API_URL = window.API_URL || `${this.BASE_URL}/api`;
     this.ws = null;
     this.isConnected = false;
     this.conversations = [];
