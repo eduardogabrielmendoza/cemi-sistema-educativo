@@ -1,8 +1,3 @@
-/**
- * Cursado Manager - Gestión del catálogo de cursos para alumnos
- * Permite explorar cursos disponibles y solicitar inscripción vía chat
- * @version 1.0
- */
 
 class CursadoManager {
     constructor() {
@@ -20,25 +15,22 @@ class CursadoManager {
         this.idAlumno = null;
         this.initialized = false;
         
-        // Inicializar después de un pequeño delay para asegurar que el DOM esté listo
         setTimeout(() => this.init(), 100);
     }
 
     async init() {
-        console.log('📚 Inicializando Cursado Manager...');
+        console.log(' Inicializando Cursado Manager...');
         
-        // Obtener ID del alumno del localStorage (igual que en el dashboard)
         this.idAlumno = localStorage.getItem('id_alumno');
 
         if (!this.idAlumno) {
-            console.error('❌ No se encontró ID de alumno');
+            console.error(' No se encontró ID de alumno');
             this.mostrarError('No se pudo cargar tu información de alumno');
             return;
         }
 
-        console.log('✅ ID Alumno:', this.idAlumno);
+        console.log(' ID Alumno:', this.idAlumno);
         
-        // Limpiar listeners previos si ya fue inicializado
         if (this.initialized) {
             const searchInput = document.getElementById('busqueda-curso');
             if (searchInput) {
@@ -55,9 +47,6 @@ class CursadoManager {
         this.initialized = true;
     }
 
-    /**
-     * Cargar opciones para filtros
-     */
     async cargarOpcionesFiltros() {
         try {
             const response = await fetch(`${this.API_URL}/cursos/filtros/opciones`);
@@ -72,9 +61,6 @@ class CursadoManager {
         }
     }
 
-    /**
-     * Cargar cursos en los que el alumno ya está inscrito
-     */
     async cargarMisCursos() {
         try {
             const response = await fetch(`${this.API_URL}/cursos/mis-cursos/${this.idAlumno}`);
@@ -89,9 +75,6 @@ class CursadoManager {
         }
     }
 
-    /**
-     * Cargar catálogo de cursos disponibles
-     */
     async cargarCatalogoCursos() {
         try {
             this.mostrarCargando(true);
@@ -117,16 +100,9 @@ class CursadoManager {
         }
     }
 
-    /**
-     * Renderizar filtros en el DOM
-     */
     renderizarFiltros() {
-        // Filtros eliminados - solo búsqueda por texto
     }
 
-    /**
-     * Renderizar mis cursos actuales (versión mini)
-     */
     renderizarMisCursos() {
         const container = document.getElementById('mis-cursos-container');
         if (!container) return;
@@ -140,7 +116,6 @@ class CursadoManager {
             return;
         }
 
-        // Versión mini: badges compactos en lugar de cards masivas
         container.innerHTML = this.misCursos.map(curso => {
             return `
                 <div class="curso-mini-badge" title="${curso.nombre_curso}">
@@ -160,15 +135,11 @@ class CursadoManager {
             `;
         }).join('');
 
-        // Inicializar iconos lucide
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
     }
 
-    /**
-     * Renderizar catálogo de cursos
-     */
     renderizarCatalogo() {
         const container = document.getElementById('catalogo-cursos-container');
         const contador = document.getElementById('total-cursos-count');
@@ -190,19 +161,14 @@ class CursadoManager {
 
         container.innerHTML = this.cursosDisponibles.map(curso => this.crearCursoCard(curso)).join('');
         
-        // Inicializar iconos lucide
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
     }
 
-    /**
-     * Crear HTML de card de curso
-     */
     crearCursoCard(curso) {
         const estadoBadge = this.getEstadoBadge(curso.estado);
         
-        // Calcular porcentaje de disponibilidad (barra verde = cupos libres)
         const porcentajeOcupacion = curso.porcentaje_ocupacion || 0;
         const porcentajeDisponible = curso.porcentaje_disponible !== undefined 
             ? curso.porcentaje_disponible 
@@ -255,9 +221,6 @@ class CursadoManager {
         `;
     }
 
-    /**
-     * Mostrar modal con detalle del curso
-     */
     mostrarModalDetalle(curso) {
         const avatarProfesor = curso.profesor.avatar || '/images/default-avatar.png';
         const estadoBadge = this.getEstadoBadge(curso.estado);
@@ -345,21 +308,16 @@ class CursadoManager {
         document.body.insertAdjacentHTML('beforeend', modalHtml);
     }
 
-    /**
-     * Solicitar inscripción al curso vía chat
-     */
     solicitarInscripcion(idCurso, nombreCurso, nombreProfesor, horario) {
         this.cerrarModal();
 
         const mensajePrecargado = `Hola, me gustaría inscribirme al curso "${nombreCurso}" con el profesor ${nombreProfesor}. Horario: ${horario}`;
 
-        // Cambiar a la sección de chat
         const chatTab = document.querySelector('[data-section="chat"]');
         if (chatTab) {
             chatTab.click();
         }
 
-        // Esperar un momento para que el chat se cargue
         setTimeout(() => {
             const chatInput = document.getElementById('messageInput');
             if (chatInput) {
@@ -367,14 +325,10 @@ class CursadoManager {
                 chatInput.focus();
             }
 
-            // Mostrar notificación
             this.mostrarNotificacion('Mensaje pre-cargado en el chat. Envíalo para solicitar tu inscripción.', 'success');
         }, 300);
     }
 
-    /**
-     * Cerrar modal
-     */
     cerrarModal() {
         const modal = document.getElementById('modal-detalle-curso');
         if (modal) {
@@ -382,9 +336,6 @@ class CursadoManager {
         }
     }
 
-    /**
-     * Aplicar filtro de búsqueda
-     */
     aplicarFiltroBusqueda() {
         let cursosFiltrados = [...this.cursosDisponibles];
 
@@ -401,11 +352,7 @@ class CursadoManager {
         this.renderizarCatalogo();
     }
 
-    /**
-     * Setup event listeners
-     */
     setupEventListeners() {
-        // Solo búsqueda por texto
         const inputBusqueda = document.getElementById('busqueda-curso');
         if (inputBusqueda) {
             inputBusqueda.addEventListener('input', (e) => {
@@ -415,9 +362,6 @@ class CursadoManager {
         }
     }
 
-    /**
-     * Limpiar búsqueda
-     */
     limpiarFiltros() {
         this.filtrosActivos.busqueda = '';
         const inputBusqueda = document.getElementById('busqueda-curso');
@@ -425,9 +369,6 @@ class CursadoManager {
         this.cargarCatalogoCursos();
     }
 
-    /**
-     * Obtener badge de estado
-     */
     getEstadoBadge(estado) {
         const badges = {
             'disponible': '<span class="badge badge-success"><i class="fas fa-check-circle"></i> Disponible</span>',
@@ -437,33 +378,24 @@ class CursadoManager {
         return badges[estado] || badges.disponible;
     }
 
-    /**
-     * Obtener color de barra según porcentaje
-     */
     getBarraColor(porcentaje) {
         if (porcentaje >= 100) return '#dc3545'; // Rojo
         if (porcentaje >= 80) return '#ffc107';  // Amarillo
         return '#28a745'; // Verde
     }
 
-    /**
-     * Obtener ícono de idioma
-     */
     getIdiomaIcon(idioma) {
         const iconos = {
-            'Ingles': '🇬🇧',
-            'Frances': '🇫🇷',
-            'Aleman': '🇩🇪',
-            'Japones': '🇯🇵',
-            'Portugues': '🇵🇹',
-            'Italiano': '🇮🇹'
+            'Ingles': '',
+            'Frances': '',
+            'Aleman': '',
+            'Japones': '',
+            'Portugues': '',
+            'Italiano': ''
         };
-        return iconos[idioma] || '🌍';
+        return iconos[idioma] || '';
     }
 
-    /**
-     * Mostrar indicador de carga
-     */
     mostrarCargando(mostrar) {
         const container = document.getElementById('catalogo-cursos-container');
         if (!container) return;
@@ -480,9 +412,6 @@ class CursadoManager {
         }
     }
 
-    /**
-     * Mostrar error
-     */
     mostrarError(mensaje) {
         const container = document.getElementById('catalogo-cursos-container');
         if (container) {
@@ -494,9 +423,6 @@ class CursadoManager {
         }
     }
 
-    /**
-     * Mostrar notificación temporal
-     */
     mostrarNotificacion(mensaje, tipo = 'info') {
         const notif = document.createElement('div');
         notif.className = `notificacion notificacion-${tipo}`;
@@ -514,7 +440,6 @@ class CursadoManager {
     }
 }
 
-// Inicializar cuando se cargue el script (se llama desde el dashboard)
 if (typeof cursadoManager === 'undefined') {
     window.cursadoManager = new CursadoManager();
 }

@@ -1,4 +1,3 @@
-// User Chat Manager - Para Profesores y Alumnos
 class UserChatManager {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
@@ -17,7 +16,6 @@ class UserChatManager {
     this.loadUserInfo();
     this.connectWebSocket();
     
-    // Inicializar AudioContext con el primer clic del usuario
     document.addEventListener('click', () => {
       this.initAudioContext();
     }, { once: true });
@@ -33,7 +31,7 @@ class UserChatManager {
       try {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.audioInitialized = true;
-        console.log('✅ AudioContext inicializado');
+        console.log(' AudioContext inicializado');
       } catch (error) {
         console.error('Error al inicializar AudioContext:', error);
       }
@@ -41,7 +39,6 @@ class UserChatManager {
   }
   
   playMessageSound() {
-    // Inicializar AudioContext la primera vez
     if (!this.audioInitialized) {
       this.initAudioContext();
     }
@@ -70,13 +67,11 @@ class UserChatManager {
   }
   
   showNotification(title, message) {
-    // Verificar si el navegador soporta notificaciones
     if (!('Notification' in window)) {
       console.log('Este navegador no soporta notificaciones de escritorio');
       return;
     }
     
-    // Si ya tenemos permiso, mostrar notificación
     if (Notification.permission === 'granted') {
       new Notification(title, {
         body: message.substring(0, 100),
@@ -86,7 +81,6 @@ class UserChatManager {
         requireInteraction: false
       });
     }
-    // Si no hemos pedido permiso, pedirlo
     else if (Notification.permission !== 'denied') {
       Notification.requestPermission().then(permission => {
         if (permission === 'granted') {
@@ -105,19 +99,19 @@ class UserChatManager {
   updateNotificationBadge(count) {
     const badge = document.getElementById('chatNotificationBadge');
     if (!badge) {
-      console.error('❌ No se encontró el elemento chatNotificationBadge');
+      console.error(' No se encontró el elemento chatNotificationBadge');
       return;
     }
     
-    console.log('🔔 updateNotificationBadge llamado con count:', count);
+    console.log(' updateNotificationBadge llamado con count:', count);
     
     if (count > 0) {
       badge.textContent = count > 99 ? '99+' : count;
       badge.style.display = 'flex';
-      console.log('✅ Badge mostrado con:', badge.textContent);
+      console.log(' Badge mostrado con:', badge.textContent);
     } else {
       badge.style.display = 'none';
-      console.log('✅ Badge ocultado');
+      console.log(' Badge ocultado');
     }
   }
   
@@ -128,19 +122,16 @@ class UserChatManager {
   loadUserInfo() {
     const idKey = this.userType === 'profesor' ? 'id_profesor' : 'id_alumno';
     
-    // Obtener id_usuario y asegurar que no sea string 'null'
     let id_usuario = localStorage.getItem('id_usuario');
     
-    // Convertir a null si es string 'null', 'undefined', vacío, o realmente null/undefined
     if (!id_usuario || id_usuario === 'null' || id_usuario === 'undefined') {
-      console.warn('⚠️ id_usuario no encontrado o inválido en localStorage');
+      console.warn(' id_usuario no encontrado o inválido en localStorage');
       id_usuario = null;
       this.actualizarIdUsuario();
     } else {
-      // Asegurarse de que sea un número válido
       const numericId = parseInt(id_usuario, 10);
       if (isNaN(numericId)) {
-        console.warn('⚠️ id_usuario no es un número válido:', id_usuario);
+        console.warn(' id_usuario no es un número válido:', id_usuario);
         id_usuario = null;
         this.actualizarIdUsuario();
       } else {
@@ -160,7 +151,7 @@ class UserChatManager {
       console.error(`No se encontró ${idKey} en localStorage`);
     }
     
-    console.log('👤 Usuario cargado:', this.userInfo);
+    console.log(' Usuario cargado:', this.userInfo);
   }
   
   async actualizarIdUsuario() {
@@ -169,13 +160,12 @@ class UserChatManager {
       const nombre = localStorage.getItem('nombre');
       
       if (!username && !nombre) {
-        console.error('❌ No hay username ni nombre en localStorage');
+        console.error(' No hay username ni nombre en localStorage');
         return;
       }
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
       
-      // Intentar con el endpoint verify primero
       try {
         const response = await fetch(`${API_URL}/auth/verify`, {
           method: 'POST',
@@ -188,9 +178,8 @@ class UserChatManager {
           if (data.id_usuario) {
             localStorage.setItem('id_usuario', data.id_usuario);
             this.userInfo.id_usuario = parseInt(data.id_usuario, 10);
-            console.log('✅ id_usuario actualizado desde /auth/verify:', data.id_usuario);
+            console.log(' id_usuario actualizado desde /auth/verify:', data.id_usuario);
             
-            // Re-autenticar con el nuevo id_usuario
             if (this.ws && this.ws.readyState === WebSocket.OPEN) {
               this.authenticate();
             }
@@ -198,47 +187,42 @@ class UserChatManager {
           }
         }
       } catch (verifyError) {
-        console.warn('⚠️ Endpoint /auth/verify no disponible, intentando método alternativo');
+        console.warn(' Endpoint /auth/verify no disponible, intentando método alternativo');
       }
       
-      // Método alternativo: buscar por nombre a través del chat API
       try {
         const idKey = this.userType === 'profesor' ? 'id_profesor' : 'id_alumno';
         const idValue = localStorage.getItem(idKey);
         
         if (idValue) {
-          // Cargar la conversación del usuario para obtener su id_usuario
           const response = await fetch(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
           if (response.ok) {
             const result = await response.json();
-            // El backend debería resolver el id_usuario
-            console.log('✅ Conversación cargada, id_usuario debería estar disponible en el contexto');
+            console.log(' Conversación cargada, id_usuario debería estar disponible en el contexto');
           }
         }
       } catch (altError) {
-        console.error('❌ Error en método alternativo:', altError);
+        console.error(' Error en método alternativo:', altError);
       }
       
     } catch (err) {
-      console.error('❌ Error actualizando id_usuario:', err);
+      console.error(' Error actualizando id_usuario:', err);
     }
   }
   
   connectWebSocket() {
-    // Evitar múltiples conexiones
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
-      console.log('⚠️ WebSocket ya está conectado o conectándose');
+      console.log(' WebSocket ya está conectado o conectándose');
       return;
     }
     
-    console.log('🔌 Conectando WebSocket del chat...');
+    console.log(' Conectando WebSocket del chat...');
     this.ws = new WebSocket(`${this.WS_URL}/chat`);
     
     this.ws.onopen = () => {
-      console.log('✅ User Chat WebSocket conectado');
+      console.log(' User Chat WebSocket conectado');
       this.isConnected = true;
       this.authenticate();
-      // Cargar conversaciones inicialmente para tener badge desde BD
       this.loadConversations();
     };
     
@@ -248,13 +232,13 @@ class UserChatManager {
     };
     
     this.ws.onclose = () => {
-      console.log('🔴 User Chat WebSocket desconectado');
+      console.log(' User Chat WebSocket desconectado');
       this.isConnected = false;
       setTimeout(() => this.connectWebSocket(), 3000);
     };
     
     this.ws.onerror = (error) => {
-      console.error('❌ Error en WebSocket:', error);
+      console.error(' Error en WebSocket:', error);
     };
   }
   
@@ -277,7 +261,7 @@ class UserChatManager {
     
     switch (type) {
       case 'authenticated':
-        console.log('✅ Usuario autenticado');
+        console.log(' Usuario autenticado');
         break;
         
       case 'new_message':
@@ -294,37 +278,32 @@ class UserChatManager {
         break;
         
       case 'joined_conversation':
-        console.log('✅ Confirmación de unión a conversación:', data);
+        console.log(' Confirmación de unión a conversación:', data);
         break;
     }
   }
   
   handleNewMessage(data) {
-    console.log('📨 Nuevo mensaje recibido:', data);
+    console.log(' Nuevo mensaje recibido:', data);
     
-    // Verificar si el mensaje NO es del usuario actual
     const esMensajePropio = data.tipo_remitente === this.userType && data.id_remitente == this.userInfo.id_usuario;
     
-    // Reproducir sonido y notificación SIEMPRE para mensajes recibidos (no propios)
     if (!esMensajePropio) {
       this.playMessageSound();
       this.showNotification('Nuevo mensaje de Soporte', data.mensaje);
     }
     
-    // Verificar si el chat está visible en pantalla
     const chatContainer = document.getElementById('userChatContainer');
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
-    console.log('🖥️ Chat visible:', isChatVisible);
-    console.log('📝 Conversación activa:', this.activeConversation?.id_conversacion);
+    console.log(' Chat visible:', isChatVisible);
+    console.log(' Conversación activa:', this.activeConversation?.id_conversacion);
     
-    // Si el chat está visible Y es la conversación activa, actualizar UI
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-      console.log('✅ Agregando mensaje a conversación activa');
+      console.log(' Agregando mensaje a conversación activa');
       this.addMessageToUI(data);
       this.scrollToBottom();
       
-      // Actualizar el preview en la lista de conversaciones
       const conv = this.conversations.find(c => c.id_conversacion === data.id_conversacion);
       if (conv) {
         conv.ultimo_mensaje = data.mensaje;
@@ -332,15 +311,12 @@ class UserChatManager {
         this.renderConversationsList();
       }
       
-      // Si estamos viendo el chat, marcar como leído automáticamente
       if (!esMensajePropio) {
         this.markAsRead(data.id_conversacion);
       }
     } else {
-      // Si el chat NO está visible o no hay conversación activa
-      console.log('🔔 Mensaje recibido (chat no visible), actualizando badge desde BD');
+      console.log(' Mensaje recibido (chat no visible), actualizando badge desde BD');
       
-      // Recargar conversaciones para actualizar badge desde BD
       this.loadConversations();
     }
   }
@@ -366,39 +342,37 @@ class UserChatManager {
     try {
       const idValue = this.userInfo.id_usuario; // Usar id_usuario de la tabla Usuarios
       
-      console.log('🔍 Cargando conversaciones para:', this.userType, 'id_usuario:', idValue);
+      console.log(' Cargando conversaciones para:', this.userType, 'id_usuario:', idValue);
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
       const response = await fetch(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
       
       if (response.ok) {
         const result = await response.json();
-        console.log('📦 Respuesta del servidor:', result);
+        console.log(' Respuesta del servidor:', result);
         
         if (result.success && result.data && result.data.conversacion) {
           const conversacion = result.data.conversacion;
           conversacion.mensajes = result.data.mensajes || [];
           this.conversations = [conversacion];
           
-          console.log('✅ Conversación cargada:', conversacion);
+          console.log(' Conversación cargada:', conversacion);
           
-          // SIEMPRE actualizar badge desde la BD (fuente única de verdad)
           const mensajesNoLeidos = conversacion.mensajes_no_leidos_usuario || 0;
-          console.log('📊 Mensajes no leídos desde BD:', mensajesNoLeidos);
+          console.log(' Mensajes no leídos desde BD:', mensajesNoLeidos);
           this.updateNotificationBadge(mensajesNoLeidos);
           
-          // Unirse automáticamente a la conversación vía WebSocket para recibir notificaciones
           if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-            console.log('🔌 Uniéndose automáticamente a conversación:', conversacion.id_conversacion);
+            console.log(' Uniéndose automáticamente a conversación:', conversacion.id_conversacion);
             this.ws.send(JSON.stringify({
               type: 'join_conversation',
               data: { id_conversacion: conversacion.id_conversacion }
             }));
           } else {
-            console.warn('⚠️ WebSocket no está listo, reintentando en 500ms...');
+            console.warn(' WebSocket no está listo, reintentando en 500ms...');
             setTimeout(() => {
               if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-                console.log('🔌 Reintento: Uniéndose a conversación:', conversacion.id_conversacion);
+                console.log(' Reintento: Uniéndose a conversación:', conversacion.id_conversacion);
                 this.ws.send(JSON.stringify({
                   type: 'join_conversation',
                   data: { id_conversacion: conversacion.id_conversacion }
@@ -407,14 +381,11 @@ class UserChatManager {
             }, 500);
           }
           
-          // No seleccionar conversación automáticamente
-          // El usuario debe hacer clic en la conversación para abrirla
         } else {
-          console.log('ℹ️ No hay conversaciones activas');
+          console.log(' No hay conversaciones activas');
           this.conversations = [];
           this.updateNotificationBadge(0);
           
-          // Si no hay conversaciones, mostrar el input para crear la primera
           const header = document.getElementById('userChatHeader');
           const inputArea = document.getElementById('userChatInputArea');
           if (header) header.style.display = 'flex';
@@ -442,7 +413,6 @@ class UserChatManager {
       `;
       lucide.createIcons();
       
-      // Actualizar mensaje del panel derecho
       const emptyMessage = document.getElementById('userChatEmptyMessage');
       if (emptyMessage) {
         emptyMessage.querySelector('p').textContent = 'Escribe un mensaje para iniciar una conversación con Soporte';
@@ -476,43 +446,39 @@ class UserChatManager {
   }
   
   async selectConversation(id) {
-    console.log('📍 Seleccionando conversación:', id);
+    console.log(' Seleccionando conversación:', id);
     const conv = this.conversations.find(c => c.id_conversacion === id);
     if (!conv) {
-      console.error('❌ No se encontró conversación con ID:', id);
+      console.error(' No se encontró conversación con ID:', id);
       return;
     }
     
     this.activeConversation = conv;
     this.renderConversationsList();
     
-    // Mostrar header y área de input cuando se selecciona una conversación
     const header = document.getElementById('userChatHeader');
     const inputArea = document.getElementById('userChatInputArea');
     if (header) header.style.display = 'flex';
     if (inputArea) inputArea.style.display = 'flex';
     
-    // Actualizar mensaje vacío
     const emptyMessage = document.getElementById('userChatEmptyMessage');
     if (emptyMessage) {
       emptyMessage.querySelector('p').textContent = 'Selecciona una conversación para comenzar a chatear';
     }
     
-    // Unirse a la conversación vía WebSocket
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      console.log('🔌 Uniéndose a conversación vía WebSocket:', id);
+      console.log(' Uniéndose a conversación vía WebSocket:', id);
       this.ws.send(JSON.stringify({
         type: 'join_conversation',
         data: { id_conversacion: id }
       }));
     }
     
-    // Si ya tiene mensajes cargados, renderizarlos directamente
     if (this.activeConversation.mensajes && this.activeConversation.mensajes.length > 0) {
-      console.log('✅ Usando mensajes ya cargados:', this.activeConversation.mensajes.length);
+      console.log(' Usando mensajes ya cargados:', this.activeConversation.mensajes.length);
       this.renderMessages();
     } else {
-      console.log('🔄 Cargando mensajes desde servidor...');
+      console.log(' Cargando mensajes desde servidor...');
       await this.loadMessages();
     }
     
@@ -566,14 +532,12 @@ class UserChatManager {
     }
     
     container.innerHTML = mensajes.map(msg => {
-      // Determinar si es admin basándose en tipo_remitente o es_admin
       const isAdmin = msg.es_admin === 1 || msg.tipo_remitente === 'admin';
       const time = new Date(msg.fecha_envio).toLocaleTimeString('es-ES', { 
         hour: '2-digit', 
         minute: '2-digit' 
       });
       
-      // Determinar nombre y tipo
       let nombreMostrar = '';
       let tipoLabel = '';
       let avatarParaMostrar = null;
@@ -586,34 +550,29 @@ class UserChatManager {
         nombreMostrar = msg.nombre_remitente || this.userInfo.nombre;
         tipoLabel = msg.tipo_remitente === 'profesor' ? 'Profesor' : 'Alumno';
         
-        // Si es mi propio mensaje, usar MI avatar del localStorage
         const esMiMensaje = msg.tipo_remitente === this.userType && 
                             msg.id_remitente == this.userInfo.id_especifico;
         
         if (esMiMensaje) {
           avatarParaMostrar = this.userInfo.avatar; // Mi avatar del localStorage
-          console.log('📸 Mi mensaje - usando avatar de localStorage:', avatarParaMostrar);
+          console.log(' Mi mensaje - usando avatar de localStorage:', avatarParaMostrar);
         } else {
           avatarParaMostrar = msg.avatar_remitente; // Avatar del otro usuario desde BD
-          console.log('📸 Mensaje de otro usuario - usando avatar de BD:', avatarParaMostrar);
+          console.log(' Mensaje de otro usuario - usando avatar de BD:', avatarParaMostrar);
         }
       }
       
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
       
-      // Renderizar contenido del mensaje (texto o archivo)
       let mensajeContent = '';
       if (msg.archivo_adjunto) {
-        // Es un archivo adjunto
         if (msg.tipo_archivo === 'image') {
-          // Mostrar imagen
           mensajeContent = `
             <div class="chat-file-attachment">
               <img src="${msg.archivo_adjunto}" alt="Imagen adjunta" class="chat-image-preview" onclick="window.open('${msg.archivo_adjunto}', '_blank')" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
-          // Mostrar enlace a PDF
           const nombreArchivo = msg.archivo_adjunto.split('/').pop();
           mensajeContent = `
             <div class="chat-file-attachment pdf">
@@ -631,7 +590,6 @@ class UserChatManager {
           `;
         }
       } else {
-        // Mensaje de texto normal
         mensajeContent = `<div class="user-chat-message-bubble">${this.escapeHtml(msg.mensaje)}</div>`;
       }
       
@@ -660,11 +618,9 @@ class UserChatManager {
     
     this.activeConversation.mensajes.push(messageData);
     
-    // Actualizar el preview del último mensaje en la conversación activa
     this.activeConversation.ultimo_mensaje = messageData.mensaje;
     this.activeConversation.fecha_ultimo_mensaje = messageData.fecha_envio || new Date().toISOString();
     
-    // Actualizar también en la lista de conversaciones
     const conv = this.conversations.find(c => c.id_conversacion === this.activeConversation.id_conversacion);
     if (conv) {
       conv.ultimo_mensaje = messageData.mensaje;
@@ -681,19 +637,15 @@ class UserChatManager {
     
     if (!mensaje) return;
     
-    // Si no hay conversación activa, cargar y seleccionar la conversación del usuario
     if (!this.activeConversation) {
-      console.log('⚠️ No hay conversación activa, cargando conversación del usuario...');
+      console.log(' No hay conversación activa, cargando conversación del usuario...');
       
-      // Recargar conversaciones
       await this.loadConversations();
       
-      // Si hay conversación, seleccionarla
       if (this.conversations && this.conversations.length > 0) {
-        console.log('✅ Conversación encontrada, seleccionando automáticamente...');
+        console.log(' Conversación encontrada, seleccionando automáticamente...');
         await this.selectConversation(this.conversations[0].id_conversacion);
         
-        // Ahora enviar el mensaje
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
           this.ws.send(JSON.stringify({
             type: 'message',
@@ -706,14 +658,12 @@ class UserChatManager {
           return;
         }
       } else {
-        // Si no existe conversación, crearla con el mensaje inicial
-        console.log('📝 No existe conversación, creando una nueva con el mensaje...');
+        console.log(' No existe conversación, creando una nueva con el mensaje...');
         await this.startNewConversation(mensaje);
         return;
       }
     }
     
-    // Enviar mensaje a conversación existente activa
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       this.ws.send(JSON.stringify({
         type: 'message',
@@ -724,9 +674,9 @@ class UserChatManager {
       }));
       
       input.value = '';
-      console.log('✅ Mensaje enviado a conversación:', this.activeConversation.id_conversacion);
+      console.log(' Mensaje enviado a conversación:', this.activeConversation.id_conversacion);
     } else {
-      console.error('❌ WebSocket no conectado');
+      console.error(' WebSocket no conectado');
       Swal.fire({
         icon: 'error',
         title: 'Error de conexión',
@@ -735,12 +685,10 @@ class UserChatManager {
     }
   }
   
-  // Manejar selección de archivo
   async handleFileSelect(event) {
     const file = event.target.files[0];
     if (!file) return;
     
-    // Validar tamaño (5MB máximo)
     if (file.size > 5 * 1024 * 1024) {
       Swal.fire({
         icon: 'error',
@@ -751,7 +699,6 @@ class UserChatManager {
       return;
     }
     
-    // Validar tipo
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf'];
     if (!validTypes.includes(file.type)) {
       Swal.fire({
@@ -763,7 +710,6 @@ class UserChatManager {
       return;
     }
     
-    // Mostrar loading
     Swal.fire({
       title: 'Subiendo archivo...',
       text: file.name,
@@ -773,27 +719,20 @@ class UserChatManager {
       }
     });
     
-    // Subir archivo
     await this.uploadFile(file);
     
-    // Limpiar input
     event.target.value = '';
   }
   
-  // Subir archivo al servidor
   async uploadFile(file) {
     try {
-      // Verificar que haya conversación activa
       if (!this.activeConversation) {
-        // Intentar cargar conversación
         await this.loadConversations();
         
         if (this.conversations && this.conversations.length > 0) {
           await this.selectConversation(this.conversations[0].id_conversacion);
         } else {
-          // Crear conversación antes de subir archivo
           await this.startNewConversation('[Archivo adjunto]');
-          // Esperar un momento a que se cree la conversación
           await new Promise(resolve => setTimeout(resolve, 500));
           await this.loadConversations();
           if (this.conversations.length > 0) {
@@ -830,14 +769,13 @@ class UserChatManager {
           showConfirmButton: false
         });
         
-        // Recargar mensajes para mostrar el archivo
         await this.loadMessages(this.activeConversation.id_conversacion);
       } else {
         throw new Error(result.message || 'Error al subir archivo');
       }
       
     } catch (error) {
-      console.error('❌ Error al subir archivo:', error);
+      console.error(' Error al subir archivo:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -863,22 +801,20 @@ class UserChatManager {
       });
       
       const result = await response.json();
-      console.log('📝 Resultado de iniciar conversación:', result);
+      console.log(' Resultado de iniciar conversación:', result);
       
       if (result.success && result.data) {
         const id_conversacion = result.data.id_conversacion;
-        console.log('✅ Conversación creada con ID:', id_conversacion);
+        console.log(' Conversación creada con ID:', id_conversacion);
         
         document.getElementById('userChatMessageInput').value = '';
         await this.loadConversations();
         
-        // Seleccionar la nueva conversación
         if (this.conversations.length > 0) {
-          console.log('📋 Seleccionando conversación:', id_conversacion);
+          console.log(' Seleccionando conversación:', id_conversacion);
           await this.selectConversation(id_conversacion);
         }
         
-        // Re-autenticar con la nueva conversación
         this.authenticate();
       } else {
         throw new Error(result.message || 'Error al iniciar conversación');
@@ -956,9 +892,8 @@ class UserChatManager {
         body: JSON.stringify({ tipo_lector: 'usuario' })
       });
       
-      // Recargar conversaciones para actualizar badge desde BD
       await this.loadConversations();
-      console.log('✅ Mensajes marcados como leídos, badge actualizado desde BD');
+      console.log(' Mensajes marcados como leídos, badge actualizado desde BD');
     } catch (error) {
       console.error('Error al marcar como leído:', error);
     }
@@ -994,19 +929,16 @@ class UserChatManager {
     return div.innerHTML;
   }
   
-  // Renderizar avatar o iniciales
   renderAvatar(avatar, nombre) {
     const iniciales = nombre ? nombre.charAt(0).toUpperCase() : 'U';
     
     if (avatar && avatar.trim()) {
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      // Si el avatar ya incluye la ruta completa (/uploads/...), usar directamente el servidor
-      // Si no, es solo el nombre del archivo, agregar la ruta completa
       const avatarUrl = avatar.startsWith('/uploads/') 
         ? `${BASE_URL}${avatar}` 
         : `${BASE_URL}/uploads/avatars/${avatar}`;
       
-      console.log(`🖼️ Renderizando avatar:`, { 
+      console.log(` Renderizando avatar:`, { 
         avatar, 
         avatarUrl, 
         nombre,
@@ -1016,7 +948,7 @@ class UserChatManager {
       return `<img src="${avatarUrl}" 
                    alt="${nombre}" 
                    style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;"
-                   onerror="console.error('❌ Error cargando avatar:', '${avatarUrl}'); this.style.display='none'; this.parentElement.textContent='${iniciales}'">`;
+                   onerror="console.error(' Error cargando avatar:', '${avatarUrl}'); this.style.display='none'; this.parentElement.textContent='${iniciales}'">`;
     }
     return iniciales;
   }
@@ -1089,7 +1021,6 @@ class UserChatManager {
     `;
     lucide.createIcons();
     
-    // Cargar conversaciones después de renderizar la vista
     this.loadConversations();
   }
 }

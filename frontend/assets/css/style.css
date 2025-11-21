@@ -1,4 +1,3 @@
-/* ===== BASE - MINIMAL STYLE ===== */
 :root {
   --color-primary: #000000;
   --color-secondary: #1d1d1f;
@@ -35,7 +34,6 @@ body {
   position: relative;
 }
 
-/* Prevenir scroll horizontal global */
 html {
   overflow-x: hidden;
   width: 100%;
@@ -52,7 +50,6 @@ img {
   height: auto;
 }
 
-/* Smooth scroll */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -60,7 +57,6 @@ html {
   max-width: 100vw;
 }
 
-/* ===== NAVBAR MINIMAL ===== */
 .navbar {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: saturate(180%) blur(20px);
@@ -165,7 +161,6 @@ html {
   transform: scale(1.02);
 }
 
-/* ===== DROPDOWN MENU (APPLE STYLE) ===== */
 .nav-item-dropdown {
   position: relative;
 }
@@ -293,7 +288,6 @@ html {
   color: var(--color-text);
 }
 
-/* ===== HERO SECTION MINIMAL ===== */
 .hero {
   min-height: calc(100vh - 64px);
   display: flex;
@@ -487,14 +481,12 @@ html {
   right: -24px;
 }
 
-/* ===== PRODUCT SECTIONS (APPLE STYLE) ===== */
 .product-section {
   padding: 100px 6%;
   text-align: center;
   background: white;
 }
 
-/* ===== HERO PRINCIPAL (APPLE STYLE) ===== */
 .hero-main {
   min-height: calc(100vh - 64px);
   display: flex;
@@ -665,7 +657,6 @@ html {
   flex-wrap: wrap;
 }
 
-/* ===== FEATURES GRID (APPLE STYLE) ===== */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -736,7 +727,6 @@ html {
   line-height: 1.5;
 }
 
-/* ===== FOOTER (APPLE STYLE) ===== */
 .footer {
   background: var(--color-bg-secondary);
   padding: 40px 6%;
@@ -773,9 +763,7 @@ html {
   font-size: 0.875rem;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  /* Navbar responsive */
   .nav-container {
     flex-wrap: wrap;
     gap: 12px;
@@ -800,7 +788,6 @@ html {
     font-size: 0.8rem;
   }
 
-  /* Hero */
   .hero-main {
     flex-direction: column;
     gap: 40px;
@@ -848,7 +835,6 @@ html {
   }
 }
 
-/* ===== OLD STYLES (HIDDEN) ===== */
 .hero {
   display: none;
 }
@@ -874,7 +860,6 @@ html {
   }
 }
 
-/* Animación del logo con efecto de entrada */
 .hero-logo {
   width: 100%;
   max-width: 500px;
@@ -900,7 +885,6 @@ html {
   }
 }
 
-/* Animación de flotación continua */
 @keyframes logoFloat {
   0%, 100% {
     transform: translateY(0) scale(1);
@@ -910,7 +894,6 @@ html {
   }
 }
 
-/* ===== SECCIÓN ROLES CON CARDS MODERNAS ===== */
 .roles {
   text-align: center;
   padding: 100px 8%;
@@ -1023,7 +1006,6 @@ html {
   font-size: 0.95em;
 }
 
-/* ===== MÓDULOS CON DISEÑO MODERNO ===== */
 .modules {
   text-align: center;
   padding: 100px 8%;
@@ -1157,9 +1139,7 @@ html {
   z-index: 1;
 }
 
-/* ===== SECCIÓN NOSOTROS ===== */
 
-/* ===== SECCIÓN NOSOTROS ===== */
 .about-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1262,7 +1242,6 @@ html {
   font-size: 0.9em;
 }
 
-/* ===== FOOTER MEJORADO ===== */
 footer {
   background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
   color: white;
@@ -1333,7 +1312,6 @@ footer i {
   transform: scale(1.2);
 }
 
-/* ===== MODAL DE MAPA ===== */
 .mapa-modal {
   display: none;
   position: fixed;
@@ -1470,7 +1448,6 @@ footer i {
   }
 }
 
-/* ===== RESPONSIVE MEJORADO ===== */
 @media (max-width: 900px) {
   .hero {
     flex-direction: column;
@@ -1504,7 +1481,6 @@ footer i {
   }
 }
 
-/* ===== ANIMACIONES SUAVES ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1537,8 +1513,6 @@ footer i {
 .team-card:nth-child(3) { animation-delay: 0.3s; }
 .team-card:nth-child(4) { animation-delay: 0.4s; }
 
-/* ===== LOGIN 2.0 ===== */
-/* ===== LOGIN PAGE - APPLE MINIMAL STYLE ===== */
 .login-body {
   min-height: 100vh;
   width: 100%;
@@ -1552,7 +1526,6 @@ footer i {
   box-sizing: border-box;
 }
 
-/* Fondo animado con iconos flotantes */
 .login-background {
   position: absolute;
   top: 0;
@@ -1662,7 +1635,6 @@ footer i {
   }
 }
 
-/* Panel lateral de bienvenida */
 .login-side-panel {
   flex: 1;
   background-image: url('../../images/STOCK3.webp');
@@ -1740,7 +1712,6 @@ footer i {
   position: relative;
 }
 
-/* Efecto de pulso/ondulación */
 .side-panel-icon::before,
 .side-panel-icon::after {
   content: '';
@@ -1949,7 +1920,6 @@ footer i {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Formulario de login */
 .login-box {
   background: var(--color-card);
   border-radius: var(--radius-lg);
@@ -2011,7 +1981,6 @@ footer i {
   animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
 }
 
-/* Formulario */
 #loginForm {
   display: flex;
   flex-direction: column;
@@ -2103,7 +2072,6 @@ footer i {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Animación del ojo abierto/cerrado */
 .toggle-password.eye-closing i,
 .toggle-password.eye-closing svg {
   animation: eyeClose 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2317,7 +2285,6 @@ footer i {
   height: 16px;
 }
 
-/* Responsive */
 @media (min-width: 1024px) {
   .login-side-panel {
     display: block;
@@ -2340,7 +2307,6 @@ footer i {
   }
 }
 
-/* ===== SECCIÓN HERO NOSOTROS ===== */
 .about-hero {
   display: flex;
   flex-wrap: wrap;
@@ -2373,7 +2339,6 @@ footer i {
   max-width: 800px;
 }
 
-/* ===== ABOUT GRID ===== */
 .about-section {
   padding: 50px 20px;
 }
@@ -2414,7 +2379,6 @@ footer i {
   line-height: 1.5;
 }
 
-/* ===== TEAM GRID ===== */
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -2450,7 +2414,6 @@ footer i {
   color: #555;
 }
 
-/* ===== REGISTER PAGE ===== */
 .register-box {
   background: var(--color-card);
   padding: 40px 45px;
@@ -2590,7 +2553,6 @@ footer i {
   height: 20px;
 }
 
-/* Estilos específicos para Register Panel */
 .register-panel {
   background-image: url('../../images/STOCK2.jpg');
   background-size: cover;
@@ -2679,7 +2641,6 @@ footer i {
   }
 }
 
-/* Media query para móviles medianos (481px - 767px) */
 @media (min-width: 481px) and (max-width: 767px) {
   .hero-content h1 {
     font-size: 2.5rem;
@@ -2704,13 +2665,11 @@ footer i {
 }
 
 @media (max-width: 480px) {
-  /* Prevenir desbordamiento */
   html, body {
     overflow-x: hidden;
     width: 100%;
   }
 
-  /* Contenedores principales */
   .container,
   .main-container,
   .content-wrapper {
@@ -2719,7 +2678,6 @@ footer i {
     max-width: 100%;
   }
 
-  /* Register y Login */
   .register-box,
   .login-box {
     padding: 20px 15px;
@@ -2776,7 +2734,6 @@ footer i {
     font-size: 13px;
   }
 
-  /* Hero responsive para móviles */
   .hero-main {
     padding: 80px 15px 40px 15px;
     min-height: auto;
@@ -2818,7 +2775,6 @@ footer i {
     margin-top: 8px;
   }
 
-  /* Navbar móvil */
   .nav-container {
     padding: 10px 15px;
   }
@@ -2854,7 +2810,6 @@ footer i {
     display: none;
   }
 
-  /* Contenedores generales */
   .section-content,
   .product-section {
     padding: 30px 15px;
@@ -2869,7 +2824,6 @@ footer i {
     font-size: 0.9rem;
   }
 
-  /* Cards y features */
   .card,
   .feature-card,
   .info-card,
@@ -2881,7 +2835,6 @@ footer i {
     box-sizing: border-box;
   }
 
-  /* Cards con imagen de fondo */
   .platform-card h3,
   .platform-card p,
   .selector-card h3,
@@ -2902,7 +2855,6 @@ footer i {
     filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
   }
 
-  /* Grids responsive */
   .grid,
   .features-grid,
   .cards-grid {
@@ -2910,7 +2862,6 @@ footer i {
     gap: 15px;
   }
 
-  /* Tablas responsive */
   .table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -2927,7 +2878,6 @@ footer i {
     white-space: nowrap;
   }
 
-  /* Modales */
   .modal-content,
   .modal,
   .popup {
@@ -2943,7 +2893,6 @@ footer i {
     font-size: 1.2rem;
   }
 
-  /* Botones en general */
   button,
   .btn {
     padding: 10px 16px;
@@ -2951,7 +2900,6 @@ footer i {
   }
 }
 
-/* Móviles muy pequeños (320px - 380px) */
 @media (max-width: 380px) {
   .register-box,
   .login-box {
@@ -2998,11 +2946,7 @@ footer i {
   }
 }
 
-/* ============================================
-   NUEVAS SECCIONES PROFESIONALES
-   ============================================ */
 
-/* Sección de Estadísticas */
 .stats-section {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   padding: 80px 20px;
@@ -3136,7 +3080,6 @@ footer i {
   font-weight: 500;
 }
 
-/* Sección de Características */
 .features-section {
   padding: 80px 20px;
   background: white;
@@ -3210,7 +3153,6 @@ footer i {
   margin: 0;
 }
 
-/* Sección de Tecnologías */
 .tech-section {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   padding: 80px 20px;
@@ -3329,7 +3271,6 @@ footer i {
   font-size: 0.95rem;
 }
 
-/* Sección FAQ */
 .faq-section {
   padding: 80px 20px;
   background: #f8f9fa;
@@ -3421,7 +3362,6 @@ footer i {
   margin: 0;
 }
 
-/* Footer Profesional */
 .professional-footer {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   color: white;
@@ -3598,7 +3538,6 @@ footer i {
   gap: 5px;
 }
 
-/* Botón Flotante */
 .floating-btn {
   position: fixed;
   bottom: 30px;
@@ -3632,9 +3571,6 @@ footer i {
   height: 20px;
 }
 
-/* ========================================
-   MENÚ FLOTANTE EXPANDIBLE
-   ======================================== */
 .floating-menu-container {
   position: fixed;
   bottom: 30px;
@@ -3646,7 +3582,6 @@ footer i {
   z-index: 999;
 }
 
-/* Botón Principal */
 .floating-btn-main {
   width: 56px;
   height: 56px;
@@ -3694,7 +3629,6 @@ footer i {
   transform: rotate(0deg);
 }
 
-/* Botones secundarios */
 .floating-btn-sub {
   width: 40px;
   height: 40px;
@@ -3718,7 +3652,6 @@ footer i {
   font-size: 16px;
 }
 
-/* Mostrar botones cuando está activo */
 .floating-menu-container.active .floating-btn-sub {
   opacity: 1;
   transform: scale(1);
@@ -3737,7 +3670,6 @@ footer i {
   transition-delay: 0.05s;
 }
 
-/* Colores específicos */
 .floating-btn-help {
   color: #ff9800;
 }
@@ -3768,7 +3700,6 @@ footer i {
   box-shadow: 0 12px 40px rgba(84, 113, 148, 0.3);
 }
 
-/* Responsive para nuevas secciones */
 @media (max-width: 768px) {
   .stats-section h2,
   .features-section h2,
@@ -3801,7 +3732,6 @@ footer i {
     height: 18px;
   }
 
-  /* Menú flotante en mobile */
   .floating-menu-container {
     bottom: 20px;
     left: 20px;
@@ -3823,12 +3753,10 @@ footer i {
   }
 }
 
-/* SweetAlert2 - High z-index para aparecer sobre modales */
 .swal-high-zindex {
   z-index: 9999 !important;
 }
 
-/* ===== BOTÓN ACCESO ADMINISTRATIVO ===== */
 .login-btn-admin {
   background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
   color: white;
@@ -3855,7 +3783,6 @@ footer i {
   transform: scale(0.98);
 }
 
-/* ===== PANEL ADMINISTRATIVO ===== */
 .admin-panel {
   background-image: linear-gradient(135deg, rgba(0, 113, 227, 0.9), rgba(0, 91, 181, 0.9)), 
                     url('../../images/STOCK3.webp');

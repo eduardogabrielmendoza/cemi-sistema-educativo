@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="assets/css/user-chat-manager.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
   
-  <!-- Config JS - MUST be first script -->
   <script src="assets/js/config.js?v=1.1"></script>
   
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -25,15 +24,12 @@
 </head>
 <body class="dashboard-body">
 
-  <!-- Mobile Menu Toggle -->
   <button class="mobile-menu-toggle" id="mobileMenuToggle">
     <i data-lucide="menu"></i>
   </button>
 
-  <!-- Sidebar Overlay (para cerrar en mobile) -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <img src="images/logo.png" alt="Logo CEMI" />
@@ -53,7 +49,6 @@
     </nav>
   </aside>
 
-  <!-- Main -->
   <main class="dashboard-main">
     <header class="dashboard-header">
       <h1>Panel del Profesor</h1>
@@ -62,14 +57,11 @@
       </div>
     </header>
 
-    <!-- Loader -->
     <div id="loader" class="loader hidden"></div>
 
-    <!-- Contenido dinámico SPA -->
     <section id="mainContent" class="dashboard-content spa-animate active"></section>
   </main>
 
-  <!-- Script principal -->
   <script>
     // Cargar "Mis Cursos" después de que todo esté listo
     window.addEventListener("load", () => {
@@ -97,23 +89,23 @@
   const chatScript = document.createElement('script');
   chatScript.src = `assets/js/user-chat-manager.js?v=${Date.now()}`; // Cache busting
   chatScript.onload = () => {
-    console.log('✅ user-chat-manager.js cargado correctamente');
+    console.log(' user-chat-manager.js cargado correctamente');
     if (typeof UserChatManager !== 'undefined') {
       window.userChatManager = new UserChatManager('profesor');
       // Inicializar WebSocket inmediatamente para recibir notificaciones
       window.userChatManager.init();
     } else {
-      console.error('❌ UserChatManager no está definido');
+      console.error(' UserChatManager no está definido');
     }
   };
   chatScript.onerror = () => {
-    console.error('❌ Error al cargar user-chat-manager.js');
+    console.error(' Error al cargar user-chat-manager.js');
   };
   document.head.appendChild(chatScript);    // =====================================================
     // Mostrar saludo dinámico con nombre guardado
     // =====================================================
     const nombreProfesor = localStorage.getItem("nombre") || "Profesor";
-    welcomeMessage.textContent = `Bienvenido, ${nombreProfesor} 👋`;
+    welcomeMessage.textContent = `Bienvenido, ${nombreProfesor} `;
 
     // =====================================================
     // Secciones dinámicas
@@ -123,7 +115,7 @@
   loader.classList.remove("hidden");
   try {
     const id_profesor = localStorage.getItem("id_profesor");
-    console.log("📤 Enviando request:", `${API_URL}/cursos?id_profesor=${id_profesor}`);
+    console.log(" Enviando request:", `${API_URL}/cursos?id_profesor=${id_profesor}`);
     
     const res = await fetch(`${API_URL}/cursos?id_profesor=${id_profesor}`);
     const data = await res.json();
@@ -172,7 +164,6 @@
           </div>
         </div>
         
-        <!-- Estadísticas Mejoradas -->
         <div class="profesor-stats-enhanced">
           <div class="profesor-stat-card-enhanced primary">
             <div class="stat-icon-wrapper">
@@ -211,7 +202,6 @@
           </div>
         </div>
 
-        <!-- Grid de Cursos -->
         <div class="cursos-grid">
           ${data.map(curso => {
             const porcentajeCupo = ((curso.alumnos_inscritos / curso.cupo_maximo) * 100).toFixed(0);
@@ -298,7 +288,6 @@
                 </div>
               </div>
               
-              <!-- Selector de Curso Mejorado -->
               <div class="calificaciones-curso-selector">
                 <h3 style="color: #1e3c72; margin: 0 0 20px 0; font-size: 18px;">
                   <i data-lucide="target" style="width: 20px; height: 20px; vertical-align: middle;"></i>
@@ -362,9 +351,7 @@
                 </div>
               </div>
 
-              <!-- Contenedor de Calificaciones (inicialmente oculto) -->
               <div id="calificacionesContent" class="calificaciones-content" style="display: none;">
-                <!-- Aquí se cargará dinámicamente el contenido -->
               </div>
             </div>
           `;
@@ -408,7 +395,6 @@
                 </div>
               </div>
               
-              <!-- Selector de Curso Mejorado -->
               <div class="asistencias-selector-cursos">
                 <h3 style="color: #1e3c72; margin: 0 0 20px 0; font-size: 18px;">
                   <i data-lucide="target" style="width: 20px; height: 20px; vertical-align: middle;"></i>
@@ -472,9 +458,7 @@
                 </div>
               </div>
 
-              <!-- Contenedor de Asistencias (inicialmente oculto) -->
               <div id="asistenciasContent" class="asistencias-content" style="display: none;">
-                <!-- Aquí se cargará dinámicamente el contenido -->
               </div>
             </div>
           `;
@@ -515,7 +499,6 @@
                 <p class="section-subtitle">Información personal y profesional</p>
               </div>
 
-              <!-- Información personal -->
               <div class="perfil-content">
                 <div class="perfil-section">
                   <div class="perfil-section-header">
@@ -523,7 +506,6 @@
                     <h3>Datos Personales</h3>
                   </div>
                   
-                  <!-- Banner sutil de solo lectura -->
                   <div style="background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
                     <i data-lucide="lock" style="color: #f59e0b; width: 16px; height: 16px; flex-shrink: 0;"></i>
                     <span style="color: #666; font-size: 13px;">No podés editar esta información</span>
@@ -571,7 +553,6 @@
                   </div>
                 </div>
 
-                <!-- Información Profesional -->
                 <div class="perfil-section">
                   <div class="perfil-section-header">
                     <i data-lucide="briefcase"></i>
@@ -910,7 +891,6 @@
           </div>
 
           <div class="curso-detalle-content">
-            <!-- Información del Curso -->
             <div class="curso-info-cards">
               <div class="curso-info-card primary">
                 <div class="info-card-icon">
@@ -927,7 +907,6 @@
               </div>
             </div>
 
-            <!-- Estadísticas Mejoradas -->
             <div class="curso-stats-grid-enhanced">
               <div class="curso-stat-box-enhanced primary">
                 <div class="stat-icon">
@@ -976,7 +955,6 @@
               </div>
             </div>
 
-            <!-- Lista de Alumnos con Búsqueda -->
             <div class="curso-alumnos-section">
               <div class="alumnos-section-header">
                 <h3>
@@ -1128,7 +1106,6 @@
               </button>
             </div>
 
-            <!-- Estadísticas -->
             <div class="calificaciones-stats-row">
               <div class="calif-stat-mini">
                 <h4>${estadisticas.total_alumnos}</h4>
@@ -1152,7 +1129,6 @@
               </div>
             </div>
 
-            <!-- Filtros y acciones MEJORADOS -->
             <div class="calificaciones-filtros-enhanced">
               <div class="filtros-busqueda">
                 <div class="filtro-item">
@@ -1222,7 +1198,6 @@
             </div>
           </div>
 
-          <!-- Tabla de calificaciones -->
           <div class="calificaciones-table-container">
             <table class="calificaciones-table-profesor">
               <thead>
@@ -1534,7 +1509,6 @@
               </button>
             </div>
 
-            <!-- Estadísticas generales -->
             <div class="asistencias-stats-mini">
               <div class="asist-stat-card info">
                 <h4>${generales.total_clases_dictadas || 0}</h4>
@@ -1558,7 +1532,6 @@
               </div>
             </div>
 
-            <!-- Controles de fecha y acciones MEJORADOS -->
             <div class="asistencias-controles-enhanced">
               <div class="asistencias-controles-principal">
                 <div class="fecha-selector">
@@ -1574,7 +1547,6 @@
                   />
                 </div>
                 
-                <!-- NUEVOS: Botones de Registro Rápido -->
                 <div class="registro-rapido-grupo">
                   <label style="font-size: 14px; color: #666; margin-right: 10px;">
                     <i data-lucide="zap"></i>
@@ -1614,7 +1586,6 @@
             </div>
           </div>
 
-          <!-- Tabla de asistencias -->
           <div class="asistencias-table-container">
             <table class="asistencias-table" id="tablaAsistencias">
               <thead>
@@ -1889,7 +1860,7 @@
         loader.classList.add('hidden');
 
       } catch (error) {
-        console.error('❌ Error al cargar estadísticas:', error);
+        console.error(' Error al cargar estadísticas:', error);
         loader.classList.add('hidden');
         Swal.fire({
           icon: 'error',
@@ -1925,7 +1896,6 @@
               </button>
             </div>
             <div class="estadisticas-modal-body">
-              <!-- Estadísticas generales -->
               <div class="estadisticas-generales">
                 <div class="asist-stat-card info">
                   <h4>${generales.total_clases_dictadas || 0}</h4>
@@ -1947,7 +1917,6 @@
 
               <h4 style="margin: 20px 0;">Detalle por Alumno</h4>
 
-              <!-- Tabla de estadísticas por alumno -->
               <table class="estadisticas-alumnos-table">
                 <thead>
                   <tr>
@@ -2014,7 +1983,7 @@
     window.limpiarAsistenciasCurso = async function(idCurso, nombreCurso) {
       // Mostrar confirmación
       const confirmacion = confirm(
-        `⚠️ ATENCIÓN\n\n` +
+        ` ATENCIÓN\n\n` +
         `Estás a punto de ELIMINAR TODAS las asistencias registradas del curso:\n` +
         `"${nombreCurso}"\n\n` +
         `Esta acción NO se puede deshacer.\n\n` +
@@ -2025,7 +1994,7 @@
 
       // Segunda confirmación
       const segundaConfirmacion = confirm(
-        `⚠️ ÚLTIMA CONFIRMACIÓN\n\n` +
+        ` ÚLTIMA CONFIRMACIÓN\n\n` +
         `Se eliminarán PERMANENTEMENTE todos los registros de asistencia.\n\n` +
         `¿Confirmas la eliminación?`
       );
@@ -2045,7 +2014,7 @@
 
         loader.classList.add('hidden');
         showNotification(
-          `✓ Eliminados ${data.registros_eliminados} registros de asistencia`,
+          ` Eliminados ${data.registros_eliminados} registros de asistencia`,
           'success'
         );
 
@@ -2079,7 +2048,6 @@
     });
   </script>
 
-  <!-- Mobile Menu Script -->
   <script>
     // Funcionalidad del menú mobile
     document.addEventListener('DOMContentLoaded', function() {
@@ -2128,8 +2096,6 @@
     });
   </script>
 
-  <!-- Chat de Usuario CSS -->
   <link rel="stylesheet" href="assets/css/user-chat-manager.css">
-  <!-- El JS se carga dinámicamente en líneas 77-83 -->
 </body>
 </html>

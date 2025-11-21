@@ -1,6 +1,3 @@
-// =====================================================
-// SERVIDOR WEBSOCKET PARA CHAT EN TIEMPO REAL - CEMI
-// =====================================================
 
 import { WebSocketServer } from 'ws';
 import pool from './db.js';
@@ -13,36 +10,32 @@ class ChatServer {
       clientTracking: true 
     });
     
-    // Mapas para rastrear conexiones
-    this.clients = new Map(); // userId -> { ws, tipo, nombre, id_conversacion }
-    this.adminClients = new Set(); // Set de conexiones de admins
-    this.conversationClients = new Map(); // id_conversacion -> Set of ws connections
+    this.clients = new Map(); 
+    this.adminClients = new Set(); 
+    this.conversationClients = new Map(); 
     
     this.init();
   }
   
   init() {
-    console.log('🔌 Servidor WebSocket de Chat iniciado en /chat');
+    console.log(' Servidor WebSocket de Chat iniciado en /chat');
     
     this.wss.on('connection', (ws, req) => {
-      console.log('🟢 Nueva conexión WebSocket');
+      console.log(' Nueva conexión WebSocket');
       
-      // Estado inicial del cliente
       ws.isAlive = true;
       ws.userInfo = null;
       
-      // Heartbeat para detectar conexiones muertas
       ws.on('pong', () => {
         ws.isAlive = true;
       });
       
-      // Manejar mensajes
       ws.on('message', async (data) => {
         try {
           const message = JSON.parse(data.toString());
           await this.handleMessage(ws, message);
         } catch (error) {
-          console.error('❌ Error al procesar mensaje:', error);
+          console.error(' Error al procesar mensaje:', error);
           this.sendToClient(ws, {
             type: 'error',
             message: 'Error al procesar el mensaje'
@@ -50,30 +43,23 @@ class ChatServer {
         }
       });
       
-      // Manejar cierre de conexión
       ws.on('close', () => {
         this.handleDisconnect(ws);
       });
       
-      // Manejar errores
       ws.on('error', (error) => {
-        console.error('❌ Error en WebSocket:', error);
+        console.error(' Error en WebSocket:', error);
       });
       
-      // Enviar confirmación de conexión
       this.sendToClient(ws, {
         type: 'connected',
         message: 'Conexión establecida con el servidor de chat'
       });
     });
     
-    // Iniciar heartbeat interval
     this.startHeartbeat();
   }
   
-  // =====================================================
-  // MANEJO DE MENSAJES
-  // =====================================================
   
   async handleMessage(ws, message) {
     const { type, data } = message;
@@ -112,24 +98,19 @@ class ChatServer {
         break;
         
       default:
-        console.warn('⚠️  Tipo de mensaje desconocido:', type);
+        console.warn('  Tipo de mensaje desconocido:', type);
     }
   }
   
-  // =====================================================
-  // AUTENTICACIÓN
-  // =====================================================
   
   async handleAuth(ws, data) {
     let { tipo, id_usuario, nombre, id_conversacion } = data;
     
-    // FIX: Si no tiene id_usuario pero tiene nombre, buscarlo en la BD
     if ((!id_usuario || id_usuario === 'null' || id_usuario === 'undefined') && nombre && tipo !== 'invitado') {
       try {
         let query, params;
         
         if (tipo === 'admin') {
-          // Buscar en tabla de administradores
           query = `
             SELECT u.id_usuario
             FROM usuarios u
@@ -140,7 +121,6 @@ class ChatServer {
           `;
           params = [nombre];
         } else if (tipo === 'profesor') {
-          // Buscar en tabla de profesores
           query = `
             SELECT u.id_usuario
             FROM usuarios u
@@ -151,7 +131,6 @@ class ChatServer {
           `;
           params = [nombre];
         } else if (tipo === 'alumno') {
-          // Buscar en tabla de alumnos
           query = `
             SELECT u.id_usuario
             FROM usuarios u
@@ -162,7 +141,6 @@ class ChatServer {
           `;
           params = [nombre];
         } else {
-          // Búsqueda genérica como fallback
           query = `
             SELECT u.id_usuario
             FROM usuarios u
@@ -177,41 +155,36 @@ class ChatServer {
         
         if (usuarioBuscado.length > 0) {
           id_usuario = usuarioBuscado[0].id_usuario;
-          console.log(`✅ id_usuario encontrado automáticamente en auth: ${id_usuario} para ${nombre} (${tipo})`);
+          console.log(` id_usuario encontrado automáticamente en auth: ${id_usuario} para ${nombre} (${tipo})`);
         } else {
-          console.warn(`⚠️ No se encontró id_usuario para ${nombre} (${tipo})`);
+          console.warn(` No se encontró id_usuario para ${nombre} (${tipo})`);
         }
       } catch (err) {
-        console.warn('⚠️ Error al buscar id_usuario en auth:', err.message);
+        console.warn(' Error al buscar id_usuario en auth:', err.message);
       }
     }
     
-    // Limpiar id_usuario para asegurar que no sea string 'null' o 'undefined'
     if (id_usuario === 'null' || id_usuario === 'undefined' || id_usuario === '') {
       id_usuario = null;
     } else if (id_usuario !== null && id_usuario !== undefined) {
-      // Convertir a número si es posible
       const numericId = parseInt(id_usuario, 10);
       id_usuario = isNaN(numericId) ? null : numericId;
     }
     
     ws.userInfo = {
-      tipo, // 'admin', 'alumno', 'profesor', 'invitado'
+      tipo, 
       id_usuario,
       nombre,
       id_conversacion
     };
     
-    // Registrar la conexión
     const userId = `${tipo}_${id_usuario || id_conversacion}`;
     this.clients.set(userId, ws);
     
-    // Si es admin, agregarlo al conjunto de admins
     if (tipo === 'admin') {
       this.adminClients.add(ws);
     }
     
-    // Si tiene conversación, agregarlo al mapa de conversaciones
     if (id_conversacion) {
       if (!this.conversationClients.has(id_conversacion)) {
         this.conversationClients.set(id_conversacion, new Set());
@@ -219,16 +192,14 @@ class ChatServer {
       this.conversationClients.get(id_conversacion).add(ws);
     }
     
-    console.log(`✅ Usuario autenticado: ${tipo} - ${nombre} (${userId})`);
+    console.log(` Usuario autenticado: ${tipo} - ${nombre} (${userId})`);
     
-    // Enviar confirmación
     this.sendToClient(ws, {
       type: 'authenticated',
       message: 'Autenticación exitosa',
       userInfo: ws.userInfo
     });
     
-    // Si es admin, enviar conteo de conversaciones pendientes
     if (tipo === 'admin') {
       await this.sendPendingConversationsCount(ws);
     }
@@ -238,32 +209,26 @@ class ChatServer {
     const { id_conversacion } = data;
     
     if (!ws.userInfo) {
-      console.error('❌ Usuario no autenticado intentando unirse a conversación');
+      console.error(' Usuario no autenticado intentando unirse a conversación');
       return;
     }
     
-    // Agregar cliente al mapa de conversaciones
     if (!this.conversationClients.has(id_conversacion)) {
       this.conversationClients.set(id_conversacion, new Set());
     }
     this.conversationClients.get(id_conversacion).add(ws);
     
-    // Actualizar userInfo con el id_conversacion actual
     ws.userInfo.id_conversacion = id_conversacion;
     
-    console.log(`✅ Usuario ${ws.userInfo.nombre} (${ws.userInfo.tipo}) se unió a conversación ${id_conversacion}`);
-    console.log(`📊 Clientes en conversación ${id_conversacion}:`, this.conversationClients.get(id_conversacion).size);
+    console.log(` Usuario ${ws.userInfo.nombre} (${ws.userInfo.tipo}) se unió a conversación ${id_conversacion}`);
+    console.log(` Clientes en conversación ${id_conversacion}:`, this.conversationClients.get(id_conversacion).size);
     
-    // Enviar confirmación
     this.sendToClient(ws, {
       type: 'joined_conversation',
       data: { id_conversacion }
     });
   }
   
-  // =====================================================
-  // MENSAJES DE CHAT
-  // =====================================================
   
   async handleChatMessage(ws, data) {
     const { id_conversacion, mensaje } = data;
@@ -278,11 +243,8 @@ class ChatServer {
     }
     
     try {
-      // Guardar mensaje en la base de datos
-      // Validar y limpiar id_remitente antes de insertar
       let id_remitente = userInfo.id_usuario;
       
-      // Convertir string 'null', 'undefined' o valores inválidos a NULL real
       if (id_remitente === null || 
           id_remitente === undefined || 
           id_remitente === 'null' || 
@@ -290,14 +252,13 @@ class ChatServer {
           id_remitente === '') {
         id_remitente = null;
       } else {
-        // Si tiene valor, convertir a número entero
         id_remitente = parseInt(id_remitente, 10);
         if (isNaN(id_remitente)) {
           id_remitente = null;
         }
       }
       
-      console.log(`💾 Insertando mensaje: conversacion=${id_conversacion}, tipo=${userInfo.tipo}, id_remitente=${id_remitente}, nombre=${userInfo.nombre}`);
+      console.log(` Insertando mensaje: conversacion=${id_conversacion}, tipo=${userInfo.tipo}, id_remitente=${id_remitente}, nombre=${userInfo.nombre}`);
       
       const [result] = await pool.query(`
         INSERT INTO chat_mensajes (
@@ -317,9 +278,7 @@ class ChatServer {
       
       const id_mensaje = result.insertId;
       
-      // Actualizar última actividad y contador de mensajes no leídos
       if (userInfo.tipo === 'admin') {
-        // Si el admin envía mensaje, incrementar contador para el usuario
         await pool.query(`
           UPDATE chat_conversaciones 
           SET ultima_actividad = CURRENT_TIMESTAMP,
@@ -328,7 +287,6 @@ class ChatServer {
           WHERE id_conversacion = ?
         `, [id_conversacion]);
       } else {
-        // Si el usuario envía mensaje, incrementar contador para el admin
         await pool.query(`
           UPDATE chat_conversaciones 
           SET ultima_actividad = CURRENT_TIMESTAMP,
@@ -338,7 +296,6 @@ class ChatServer {
         `, [id_conversacion]);
       }
       
-      // Preparar objeto de mensaje para broadcast
       const messageObj = {
         type: 'new_message',
         data: {
@@ -353,10 +310,8 @@ class ChatServer {
         }
       };
       
-      // Enviar a todos los participantes de la conversación
       await this.broadcastToConversation(id_conversacion, messageObj);
       
-      // Si no es un admin, notificar a todos los admins
       if (userInfo.tipo !== 'admin') {
         await this.notifyAdmins({
           type: 'new_message_notification',
@@ -369,10 +324,10 @@ class ChatServer {
         });
       }
       
-      console.log(`💬 Mensaje enviado en conversación ${id_conversacion}`);
+      console.log(` Mensaje enviado en conversación ${id_conversacion}`);
       
     } catch (error) {
-      console.error('❌ Error al enviar mensaje:', error);
+      console.error(' Error al enviar mensaje:', error);
       this.sendToClient(ws, {
         type: 'error',
         message: 'Error al enviar el mensaje'
@@ -380,9 +335,6 @@ class ChatServer {
     }
   }
   
-  // =====================================================
-  // INDICADOR DE ESCRITURA
-  // =====================================================
   
   async handleTyping(ws, data) {
     const { id_conversacion, isTyping } = data;
@@ -390,7 +342,6 @@ class ChatServer {
     
     if (!userInfo || !id_conversacion) return;
     
-    // Broadcast a otros participantes de la conversación
     await this.broadcastToConversation(id_conversacion, {
       type: 'typing',
       data: {
@@ -399,12 +350,9 @@ class ChatServer {
         tipo: userInfo.tipo,
         isTyping
       }
-    }, ws); // Excluir al remitente
+    }, ws); 
   }
   
-  // =====================================================
-  // MARCAR COMO LEÍDO
-  // =====================================================
   
   async handleMarkAsRead(ws, data) {
     const { id_conversacion } = data;
@@ -415,7 +363,6 @@ class ChatServer {
     try {
       const tipoLector = userInfo.tipo === 'admin' ? 'admin' : 'usuario';
       
-      // Actualizar mensajes como leídos
       if (tipoLector === 'admin') {
         await pool.query(`
           UPDATE chat_mensajes 
@@ -446,20 +393,16 @@ class ChatServer {
         `, [id_conversacion]);
       }
       
-      // Notificar a otros participantes
       await this.broadcastToConversation(id_conversacion, {
         type: 'messages_read',
         data: { id_conversacion, lector_tipo: tipoLector }
       }, ws);
       
     } catch (error) {
-      console.error('❌ Error al marcar como leído:', error);
+      console.error(' Error al marcar como leído:', error);
     }
   }
   
-  // =====================================================
-  // OBTENER CONVERSACIONES (ADMIN)
-  // =====================================================
   
   async handleGetConversations(ws, data) {
     const userInfo = ws.userInfo;
@@ -496,7 +439,7 @@ class ChatServer {
       });
       
     } catch (error) {
-      console.error('❌ Error al obtener conversaciones:', error);
+      console.error(' Error al obtener conversaciones:', error);
       this.sendToClient(ws, {
         type: 'error',
         message: 'Error al cargar conversaciones'
@@ -504,9 +447,6 @@ class ChatServer {
     }
   }
   
-  // =====================================================
-  // TOMAR CONVERSACIÓN (ADMIN)
-  // =====================================================
   
   async handleTakeConversation(ws, data) {
     const { id_conversacion } = data;
@@ -521,7 +461,6 @@ class ChatServer {
         WHERE id_conversacion = ?
       `, [userInfo.id_usuario, id_conversacion]);
       
-      // Notificar a todos los admins
       await this.notifyAdmins({
         type: 'conversation_taken',
         data: {
@@ -531,27 +470,23 @@ class ChatServer {
       });
       
     } catch (error) {
-      console.error('❌ Error al tomar conversación:', error);
+      console.error(' Error al tomar conversación:', error);
     }
   }
   
-  // =====================================================
-  // CERRAR CONVERSACIÓN
-  // =====================================================
   
   async handleCloseConversation(ws, data) {
     const { id_conversacion, tipo_usuario, id_usuario } = data;
     const userInfo = ws.userInfo;
     
     if (!userInfo || userInfo.tipo !== 'admin') {
-      console.error('❌ Solo administradores pueden cerrar conversaciones');
+      console.error(' Solo administradores pueden cerrar conversaciones');
       return;
     }
     
     try {
-      console.log(`🗑️ Admin cerrando conversación ${id_conversacion}`);
+      console.log(` Admin cerrando conversación ${id_conversacion}`);
       
-      // Notificar a todos los participantes de la conversación antes de eliminar
       await this.broadcastToConversation(id_conversacion, {
         type: 'conversation_closed',
         data: { 
@@ -560,7 +495,6 @@ class ChatServer {
         }
       });
       
-      // Si es un usuario específico (no invitado), notificarle directamente
       if (tipo_usuario && id_usuario) {
         const userId = `${tipo_usuario}_${id_usuario}`;
         const userWs = this.clients.get(userId);
@@ -573,23 +507,19 @@ class ChatServer {
               message: 'El administrador ha cerrado esta conversación'
             }
           });
-          console.log(`📤 Notificación enviada a usuario ${userId}`);
+          console.log(` Notificación enviada a usuario ${userId}`);
         }
       }
       
-      // Limpiar del mapa de conversaciones
       this.conversationClients.delete(id_conversacion);
       
-      console.log(`✅ Conversación ${id_conversacion} cerrada y notificaciones enviadas`);
+      console.log(` Conversación ${id_conversacion} cerrada y notificaciones enviadas`);
       
     } catch (error) {
-      console.error('❌ Error al cerrar conversación:', error);
+      console.error(' Error al cerrar conversación:', error);
     }
   }
   
-  // =====================================================
-  // UTILIDADES DE BROADCAST
-  // =====================================================
   
   broadcastToConversation(id_conversacion, message, exclude = null) {
     const clients = this.conversationClients.get(id_conversacion);
@@ -629,13 +559,10 @@ class ChatServer {
         data: { count: result[0].count }
       });
     } catch (error) {
-      console.error('❌ Error al obtener conteo:', error);
+      console.error(' Error al obtener conteo:', error);
     }
   }
   
-  // =====================================================
-  // MANEJO DE DESCONEXIÓN
-  // =====================================================
   
   handleDisconnect(ws) {
     const userInfo = ws.userInfo;
@@ -658,15 +585,12 @@ class ChatServer {
         }
       }
       
-      console.log(`🔴 Usuario desconectado: ${userInfo.tipo} - ${userInfo.nombre}`);
+      console.log(` Usuario desconectado: ${userInfo.tipo} - ${userInfo.nombre}`);
     } else {
-      console.log('🔴 Conexión cerrada (no autenticada)');
+      console.log(' Conexión cerrada (no autenticada)');
     }
   }
   
-  // =====================================================
-  // HEARTBEAT PARA DETECTAR CONEXIONES MUERTAS
-  // =====================================================
   
   startHeartbeat() {
     setInterval(() => {
@@ -678,12 +602,9 @@ class ChatServer {
         ws.isAlive = false;
         ws.ping();
       });
-    }, 30000); // Cada 30 segundos
+    }, 30000); 
   }
   
-  // =====================================================
-  // ESTADÍSTICAS DEL SERVIDOR
-  // =====================================================
   
   getStats() {
     return {

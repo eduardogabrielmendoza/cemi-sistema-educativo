@@ -1,4 +1,3 @@
-// Admin Chat Manager - Basado en UserChatManager
 class AdminChatManager {
   constructor() {
     this.ws = null;
@@ -17,7 +16,6 @@ class AdminChatManager {
     this.loadAdminInfo();
     this.connectWebSocket();
     
-    // Inicializar AudioContext con el primer clic del usuario
     document.addEventListener('click', () => {
       this.initAudioContext();
     }, { once: true });
@@ -33,7 +31,7 @@ class AdminChatManager {
       try {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.audioInitialized = true;
-        console.log('✅ AudioContext inicializado (Admin)');
+        console.log(' AudioContext inicializado (Admin)');
       } catch (error) {
         console.error('Error al inicializar AudioContext:', error);
       }
@@ -100,11 +98,11 @@ class AdminChatManager {
   updateNotificationBadge(count) {
     const badge = document.getElementById('chatNotificationBadge');
     if (!badge) {
-      console.error('❌ No se encontró el elemento chatNotificationBadge');
+      console.error(' No se encontró el elemento chatNotificationBadge');
       return;
     }
     
-    console.log('🔔 Admin badge actualizado con count:', count);
+    console.log(' Admin badge actualizado con count:', count);
     
     if (count > 0) {
       badge.textContent = count > 99 ? '99+' : count;
@@ -128,15 +126,15 @@ class AdminChatManager {
   
   connectWebSocket() {
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
-      console.log('⚠️ WebSocket ya está conectado o conectándose');
+      console.log(' WebSocket ya está conectado o conectándose');
       return;
     }
     
-    console.log('🔌 Conectando WebSocket del admin chat...');
+    console.log(' Conectando WebSocket del admin chat...');
     this.ws = new WebSocket(`${this.WS_URL}/chat`);
     
     this.ws.onopen = () => {
-      console.log('✅ Admin Chat WebSocket conectado');
+      console.log(' Admin Chat WebSocket conectado');
       this.isConnected = true;
       this.authenticate();
       this.loadConversations();
@@ -148,13 +146,13 @@ class AdminChatManager {
     };
     
     this.ws.onclose = () => {
-      console.log('🔴 Admin Chat WebSocket desconectado');
+      console.log(' Admin Chat WebSocket desconectado');
       this.isConnected = false;
       setTimeout(() => this.connectWebSocket(), 3000);
     };
     
     this.ws.onerror = (error) => {
-      console.error('❌ Error en WebSocket:', error);
+      console.error(' Error en WebSocket:', error);
     };
   }
   
@@ -177,7 +175,7 @@ class AdminChatManager {
     
     switch (type) {
       case 'authenticated':
-        console.log('✅ Admin autenticado');
+        console.log(' Admin autenticado');
         break;
         
       case 'new_message':
@@ -193,45 +191,39 @@ class AdminChatManager {
         break;
         
       case 'joined_conversation':
-        console.log('✅ Admin confirmó unión a conversación:', data);
+        console.log(' Admin confirmó unión a conversación:', data);
         break;
         
       default:
-        console.log('📨 Mensaje no manejado:', type, data);
+        console.log(' Mensaje no manejado:', type, data);
     }
   }
   
   handleNewMessage(data) {
-    console.log('📨 Admin recibió mensaje:', data);
+    console.log(' Admin recibió mensaje:', data);
     
-    // Verificar si es mensaje propio del admin
     const esMensajePropio = data.tipo_remitente === 'admin';
     
-    // Si es mensaje propio, NO hacer nada (ya se agregó con optimistic update)
     if (esMensajePropio) {
-      console.log('⏭️ Mensaje propio, ignorando (ya está en UI)');
+      console.log(' Mensaje propio, ignorando (ya está en UI)');
       return;
     }
     
-    // Reproducir sonido y notificación para mensajes recibidos
     this.playMessageSound();
     const nombreRemitente = data.nombre_remitente || data.nombre_usuario || 'Usuario';
     this.showNotification(`Nuevo mensaje de ${nombreRemitente}`, data.mensaje);
     
-    // Verificar si el chat está visible en pantalla
     const chatContainer = document.getElementById('adminChatContainer');
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
-    console.log('🖥️ Chat visible:', isChatVisible);
-    console.log('📝 Conversación activa:', this.activeConversation?.id_conversacion);
+    console.log(' Chat visible:', isChatVisible);
+    console.log(' Conversación activa:', this.activeConversation?.id_conversacion);
     
-    // Si el chat está visible Y es la conversación activa, actualizar UI
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-      console.log('✅ Agregando mensaje a conversación activa');
+      console.log(' Agregando mensaje a conversación activa');
       this.addMessageToUI(data);
       this.scrollToBottom();
       
-      // Actualizar el preview en la lista de conversaciones
       const conv = this.conversations.find(c => c.id_conversacion === data.id_conversacion);
       if (conv) {
         conv.ultimo_mensaje = data.mensaje;
@@ -239,15 +231,12 @@ class AdminChatManager {
         this.renderConversationsList();
       }
       
-      // Si estamos viendo el chat, marcar como leído automáticamente
       if (!esMensajePropio) {
         this.markAsRead(data.id_conversacion);
       }
     } else {
-      // Si el chat NO está visible o no hay conversación activa
-      console.log('🔔 Mensaje recibido (chat no visible), actualizando badge desde BD');
+      console.log(' Mensaje recibido (chat no visible), actualizando badge desde BD');
       
-      // Recargar conversaciones para actualizar badge desde BD
       this.loadConversations();
     }
   }
@@ -278,20 +267,18 @@ class AdminChatManager {
       if (result.success) {
         this.conversations = result.data;
         
-        console.log('✅ Conversaciones cargadas:', this.conversations.length);
+        console.log(' Conversaciones cargadas:', this.conversations.length);
         
-        // Calcular total de mensajes no leídos por el admin
         const totalNoLeidos = this.conversations.reduce((sum, conv) => {
           return sum + (conv.mensajes_no_leidos_admin || 0);
         }, 0);
         
-        console.log('📊 Total mensajes no leídos por admin:', totalNoLeidos);
+        console.log(' Total mensajes no leídos por admin:', totalNoLeidos);
         this.updateNotificationBadge(totalNoLeidos);
         
-        // Unirse a TODAS las conversaciones automáticamente para recibir notificaciones
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
           this.conversations.forEach(conv => {
-            console.log('🔌 Admin uniéndose a conversación:', conv.id_conversacion);
+            console.log(' Admin uniéndose a conversación:', conv.id_conversacion);
             this.ws.send(JSON.stringify({
               type: 'join_conversation',
               data: { id_conversacion: conv.id_conversacion }
@@ -301,7 +288,7 @@ class AdminChatManager {
         
         this.renderConversationsList();
       } else {
-        console.log('ℹ️ No hay conversaciones');
+        console.log(' No hay conversaciones');
         this.conversations = [];
         this.updateNotificationBadge(0);
         this.renderConversationsList();
@@ -357,47 +344,41 @@ class AdminChatManager {
   }
   
   async selectConversation(id) {
-    console.log('📍 Admin seleccionando conversación:', id, 'tipo:', typeof id);
+    console.log(' Admin seleccionando conversación:', id, 'tipo:', typeof id);
     
-    // Convertir id a número para comparación
     const idNum = parseInt(id);
     const conv = this.conversations.find(c => c.id_conversacion == idNum); // usar == para comparación flexible
     
     if (!conv) {
-      console.error('❌ No se encontró conversación con ID:', id);
-      console.error('📋 Conversaciones disponibles:', this.conversations.map(c => ({id: c.id_conversacion, nombre: c.nombre_completo_usuario})));
+      console.error(' No se encontró conversación con ID:', id);
+      console.error(' Conversaciones disponibles:', this.conversations.map(c => ({id: c.id_conversacion, nombre: c.nombre_completo_usuario})));
       return;
     }
     
-    console.log('✅ Conversación encontrada:', conv.nombre_completo_usuario || conv.nombre_invitado);
+    console.log(' Conversación encontrada:', conv.nombre_completo_usuario || conv.nombre_invitado);
     this.activeConversation = conv;
     this.renderConversationsList();
     
-    // Mostrar header y área de input cuando se selecciona una conversación
     const header = document.getElementById('adminChatHeader');
     const inputArea = document.getElementById('adminChatInputArea');
     if (header) {
       header.style.display = 'flex';
-      // Actualizar el nombre en el header
       const headerTitle = header.querySelector('h3');
       if (headerTitle) {
         headerTitle.textContent = conv.nombre_completo_usuario || conv.nombre_invitado || 'Usuario';
       }
-      // Recrear los iconos de Lucide después de actualizar
       lucide.createIcons();
     }
     if (inputArea) inputArea.style.display = 'flex';
     
-    // Unirse a la conversación vía WebSocket
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      console.log('🔌 Admin uniéndose a conversación vía WebSocket:', id);
+      console.log(' Admin uniéndose a conversación vía WebSocket:', id);
       this.ws.send(JSON.stringify({
         type: 'join_conversation',
         data: { id_conversacion: id }
       }));
     }
     
-    // Cargar mensajes
     await this.loadMessages(id);
     this.markAsRead(id);
   }
@@ -411,7 +392,7 @@ class AdminChatManager {
       if (result.success) {
         if (this.activeConversation) {
           this.activeConversation.mensajes = result.data?.mensajes || [];
-          console.log(`📨 Mensajes cargados para conversación ${id}:`, this.activeConversation.mensajes.length);
+          console.log(` Mensajes cargados para conversación ${id}:`, this.activeConversation.mensajes.length);
           this.renderMessages();
         }
       }
@@ -463,7 +444,6 @@ class AdminChatManager {
         tipoUsuario = '';
       } else {
         nombreMostrar = msg.nombre_remitente || 'Usuario';
-        // Determinar tipo de usuario desde la conversación activa o del mensaje
         const tipo = msg.tipo_remitente || this.activeConversation?.tipo_usuario || '';
         if (tipo === 'profesor') {
           tipoUsuario = ' (Profesor)';
@@ -474,19 +454,15 @@ class AdminChatManager {
       
       const inicial = nombreMostrar.charAt(0).toUpperCase();
       
-      // Renderizar contenido del mensaje (texto o archivo)
       let mensajeContent = '';
       if (msg.archivo_adjunto) {
-        // Es un archivo adjunto
         if (msg.tipo_archivo === 'image') {
-          // Mostrar imagen
           mensajeContent = `
             <div class="chat-file-attachment">
               <img src="${msg.archivo_adjunto}" alt="Imagen adjunta" class="chat-image-preview" onclick="window.open('${msg.archivo_adjunto}', '_blank')" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
-          // Mostrar enlace a PDF
           const nombreArchivo = msg.archivo_adjunto.split('/').pop();
           mensajeContent = `
             <div class="chat-file-attachment pdf">
@@ -504,7 +480,6 @@ class AdminChatManager {
           `;
         }
       } else {
-        // Mensaje de texto normal
         mensajeContent = `<div class="user-chat-message-bubble">${this.escapeHtml(msg.mensaje)}</div>`;
       }
       
@@ -543,7 +518,6 @@ class AdminChatManager {
       tipoUsuario = '';
     } else {
       nombreMostrar = data.nombre_remitente || 'Usuario';
-      // Determinar tipo de usuario
       const tipo = data.tipo_remitente || this.activeConversation?.tipo_usuario || '';
       if (tipo === 'profesor') {
         tipoUsuario = ' (Profesor)';
@@ -577,7 +551,6 @@ class AdminChatManager {
     
     if (!mensaje || !this.activeConversation) return;
     
-    // Enviar via WebSocket para actualización en tiempo real
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       this.ws.send(JSON.stringify({
         type: 'message',
@@ -588,9 +561,8 @@ class AdminChatManager {
       }));
       
       input.value = '';
-      console.log('✅ Mensaje enviado via WebSocket');
+      console.log(' Mensaje enviado via WebSocket');
       
-      // Agregar mensaje inmediatamente a la UI (optimistic update)
       const messageData = {
         id_conversacion: this.activeConversation.id_conversacion,
         mensaje: mensaje,
@@ -603,7 +575,7 @@ class AdminChatManager {
       this.addMessageToUI(messageData);
       
     } else {
-      console.error('❌ WebSocket no conectado');
+      console.error(' WebSocket no conectado');
       Swal.fire({
         icon: 'error',
         title: 'Error de conexión',
@@ -612,12 +584,10 @@ class AdminChatManager {
     }
   }
   
-  // Manejar selección de archivo
   async handleFileSelect(event) {
     const file = event.target.files[0];
     if (!file) return;
     
-    // Validar tamaño (5MB máximo)
     if (file.size > 5 * 1024 * 1024) {
       Swal.fire({
         icon: 'error',
@@ -628,7 +598,6 @@ class AdminChatManager {
       return;
     }
     
-    // Validar tipo
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf'];
     if (!validTypes.includes(file.type)) {
       Swal.fire({
@@ -640,7 +609,6 @@ class AdminChatManager {
       return;
     }
     
-    // Mostrar loading
     Swal.fire({
       title: 'Subiendo archivo...',
       text: file.name,
@@ -650,14 +618,11 @@ class AdminChatManager {
       }
     });
     
-    // Subir archivo
     await this.uploadFile(file);
     
-    // Limpiar input
     event.target.value = '';
   }
   
-  // Subir archivo al servidor
   async uploadFile(file) {
     try {
       if (!this.activeConversation) {
@@ -688,14 +653,13 @@ class AdminChatManager {
           showConfirmButton: false
         });
         
-        // Recargar mensajes para mostrar el archivo
         await this.loadMessages(this.activeConversation.id_conversacion);
       } else {
         throw new Error(result.message || 'Error al subir archivo');
       }
       
     } catch (error) {
-      console.error('❌ Error al subir archivo:', error);
+      console.error(' Error al subir archivo:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -713,9 +677,8 @@ class AdminChatManager {
         body: JSON.stringify({ tipo_lector: 'admin' })
       });
       
-      // Recargar conversaciones para actualizar badge desde BD
       await this.loadConversations();
-      console.log('✅ Mensajes marcados como leídos, badge actualizado desde BD');
+      console.log(' Mensajes marcados como leídos, badge actualizado desde BD');
     } catch (error) {
       console.error('Error al marcar como leído:', error);
     }
@@ -735,13 +698,12 @@ class AdminChatManager {
                          this.activeConversation.nombre_invitado || 
                          'Usuario';
     
-    // Solicitar confirmación
     const result = await Swal.fire({
       title: '¿Cerrar conversación?',
       html: `
         <p>¿Estás seguro de cerrar la conversación con <strong>${nombreUsuario}</strong>?</p>
         <p class="text-warning" style="font-size: 0.9em; margin-top: 10px;">
-          ⚠️ Esta acción eliminará la conversación permanentemente para ambos usuarios.
+           Esta acción eliminará la conversación permanentemente para ambos usuarios.
         </p>
       `,
       icon: 'warning',
@@ -759,7 +721,6 @@ class AdminChatManager {
       const tipoUsuario = this.activeConversation.tipo_usuario;
       const idUsuario = this.activeConversation.id_usuario;
       
-      // Llamar al endpoint para eliminar
       const API_URL = window.API_URL || 'http://localhost:3000/api';
       const response = await fetch(`${API_URL}/chat/conversacion/${idConversacion}`, {
         method: 'DELETE',
@@ -772,7 +733,6 @@ class AdminChatManager {
       const result = await response.json();
       
       if (result.success) {
-        // Notificar al usuario vía WebSocket
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
           this.ws.send(JSON.stringify({
             type: 'close_conversation',
@@ -792,7 +752,6 @@ class AdminChatManager {
           showConfirmButton: false
         });
         
-        // Limpiar conversación activa y recargar lista
         this.activeConversation = null;
         const header = document.getElementById('adminChatHeader');
         const inputArea = document.getElementById('adminChatInputArea');
@@ -807,7 +766,7 @@ class AdminChatManager {
       }
       
     } catch (error) {
-      console.error('❌ Error al cerrar conversación:', error);
+      console.error(' Error al cerrar conversación:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -946,7 +905,6 @@ class AdminChatManager {
     `;
     lucide.createIcons();
     
-    // Cargar conversaciones después de renderizar la vista
     this.loadConversations();
   }
 }

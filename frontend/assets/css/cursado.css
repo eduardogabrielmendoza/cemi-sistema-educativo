@@ -1,12 +1,4 @@
-/**
- * Cursado.css - Estilos para la sección de Catálogo de Cursos  
- * Dashboard Alumno - CEMI Sistema Educativo
- * LIMPIO - Solo estilos del localhost
- */
 
-/* ========================================
-   CONTENEDOR PRINCIPAL
-   ======================================== */
 
 .cursado-container {
   padding: 20px;
@@ -24,9 +16,6 @@
   }
 }
 
-/* ========================================
-   SECTION DIVIDER
-   ======================================== */
 
 .section-divider {
   border: none;
@@ -34,9 +23,6 @@
   margin: 30px 0;
 }
 
-/* ========================================
-   MIS CURSOS ACTUALES
-   ======================================== */
 
 .mis-cursos-actuales {
   margin-bottom: 30px;
@@ -55,9 +41,6 @@
   color: #667eea;
 }
 
-/* ========================================
-   GRIDS
-   ======================================== */
 
 .cursos-grid,
 .mis-cursos-grid,
@@ -69,9 +52,6 @@
   width: 100%;
 }
 
-/* ========================================
-   CURSO CARDS - LOCALHOST STYLE
-   ======================================== */
 
 .curso-card {
   background: white;
@@ -246,9 +226,6 @@
   transform: translateY(-2px);
 }
 
-/* ========================================
-   FILTROS
-   ======================================== */
 
 .filtros-section {
   background: #f7fafc;
@@ -312,9 +289,6 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* ========================================
-   BADGES DE ESTADO
-   ======================================== */
 
 .badge {
   padding: 6px 12px;
@@ -345,9 +319,6 @@
   font-size: 1rem;
 }
 
-/* ========================================
-   ESTADOS Y ALERTAS
-   ======================================== */
 
 .alert {
   padding: 16px 20px;
@@ -392,9 +363,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
 
 @media (max-width: 768px) {
   .cursos-grid,
@@ -413,9 +381,6 @@
   }
 }
 
-/* ========================================
-   VERSIÓN MINI - MIS CURSOS ACTUALES
-   ======================================== */
 
 .mis-cursos-actuales-mini {
   margin-bottom: 32px;
@@ -557,7 +522,6 @@
   transform: translateX(4px);
 }
 
-/* Responsivo para mini badges */
 @media (max-width: 768px) {
   .curso-mini-badge {
     flex-wrap: wrap;

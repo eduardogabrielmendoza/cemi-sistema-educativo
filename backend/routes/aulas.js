@@ -1,10 +1,8 @@
-// backend/routes/aulas.js
 import express from "express";
 import pool from "../utils/db.js";
 
 const router = express.Router();
 
-// Obtener todas las aulas
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM aulas ORDER BY nombre_aula");
@@ -15,7 +13,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Crear nueva aula
 router.post("/", async (req, res) => {
   try {
     const { nombre_aula, capacidad } = req.body;
@@ -39,7 +36,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Actualizar aula
 router.put("/:id", async (req, res) => {
   try {
     const { nombre_aula, capacidad } = req.body;
@@ -62,7 +58,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Eliminar aula
 router.delete("/:id", async (req, res) => {
   try {
     await pool.query("DELETE FROM Aulas WHERE id_aula = ?", [req.params.id]);

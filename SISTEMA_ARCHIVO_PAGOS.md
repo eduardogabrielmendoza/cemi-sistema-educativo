@@ -1,29 +1,29 @@
 # Sistema de Archivo de Pagos - CEMI
 
-## ✅ Estado Actual (Completado)
+##  Estado Actual (Completado)
 
 ### Backend
-- ✅ Campo `archivado TINYINT(1) DEFAULT 0` agregado a la tabla `pagos`
-- ✅ Índice `idx_archivado` creado para optimizar consultas
-- ✅ Endpoint `PUT /api/pagos/:id/archivar` implementado
+-  Campo `archivado TINYINT(1) DEFAULT 0` agregado a la tabla `pagos`
+-  Índice `idx_archivado` creado para optimizar consultas
+-  Endpoint `PUT /api/pagos/:id/archivar` implementado
   - Valida que solo pagos anulados puedan archivarse
   - Marca `archivado = 1` en la base de datos
-- ✅ Endpoint `GET /api/pagos` modificado con filtro de archivo
+-  Endpoint `GET /api/pagos` modificado con filtro de archivo
   - `?archivo=true` → Muestra solo pagos archivados (archivado=1, estado_pago='anulado')
   - Sin parámetro → Muestra pagos activos (archivado=0)
 
 ### Frontend
-- ✅ Botón de archivo (naranja) agregado a pagos anulados
-- ✅ Función `archivarPago()` implementada con confirmación
-- ✅ Estilos CSS para `.btn-archive-pago` agregados
-- ✅ Tabs "Pagos Activos" y "Archivo" agregados a la UI
-- ✅ Función `switchPagosTab()` implementada para cambiar entre vistas
-- ✅ Función `loadPagosData()` modificada para aceptar query params
+-  Botón de archivo (naranja) agregado a pagos anulados
+-  Función `archivarPago()` implementada con confirmación
+-  Estilos CSS para `.btn-archive-pago` agregados
+-  Tabs "Pagos Activos" y "Archivo" agregados a la UI
+-  Función `switchPagosTab()` implementada para cambiar entre vistas
+-  Función `loadPagosData()` modificada para aceptar query params
 
 ### SQL
-- ✅ Script de migración `agregar_campo_archivado.sql` creado
+-  Script de migración `agregar_campo_archivado.sql` creado
 
-## ⏳ Pasos Pendientes
+##  Pasos Pendientes
 
 ### 1. Ejecutar Migración en Base de Datos
 ```sql
@@ -49,7 +49,7 @@ SHOW COLUMNS FROM pagos LIKE 'archivado';
 - Railway debería redesplegar automáticamente
 - Verificar logs de despliegue en Railway dashboard
 
-## 🔧 Flujo de Trabajo del Sistema
+##  Flujo de Trabajo del Sistema
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -61,21 +61,21 @@ SHOW COLUMNS FROM pagos LIKE 'archivado';
                      archivado = 0
    
 2. CONFIRMACIÓN (Opcional)
-   Botón Verde (✓) → estado_pago = 'pagado'
+   Botón Verde () → estado_pago = 'pagado'
                       archivado = 0
    
 3. ANULACIÓN
-   Botón Basura (🗑) → estado_pago = 'anulado'
+   Botón Basura () → estado_pago = 'anulado'
                         archivado = 0
                         [Aparece en "Pagos Activos"]
    
 4. ARCHIVO
-   Botón Archivo (📦) → estado_pago = 'anulado'
+   Botón Archivo () → estado_pago = 'anulado'
                          archivado = 1
                          [Aparece solo en "Archivo"]
 ```
 
-## 📊 Vistas del Sistema
+##  Vistas del Sistema
 
 ### Vista "Pagos Activos" (Default)
 - Muestra: `WHERE archivado = 0`
@@ -90,7 +90,7 @@ SHOW COLUMNS FROM pagos LIKE 'archivado';
   - Solo pagos anulados que fueron archivados
   - Historial limpio separado de la vista principal
 
-## 🎨 UI/UX
+##  UI/UX
 
 ### Tabs
 ```
@@ -101,13 +101,13 @@ SHOW COLUMNS FROM pagos LIKE 'archivado';
 ```
 
 ### Botones por Estado
-| Estado      | Botón Verde (✓) | Botón Rojo (🗑) | Botón Naranja (📦) |
+| Estado      | Botón Verde () | Botón Rojo () | Botón Naranja () |
 |-------------|-----------------|-----------------|-------------------|
-| En Proceso  | ✅ Confirmar    | ✅ Anular       | ❌                |
-| Pagado      | ❌              | ✅ Anular       | ❌                |
-| Anulado     | ❌              | ❌              | ✅ Archivar       |
+| En Proceso  |  Confirmar    |  Anular       |                 |
+| Pagado      |               |  Anular       |                 |
+| Anulado     |               |               |  Archivar       |
 
-## 🔍 Validaciones Backend
+##  Validaciones Backend
 
 ```javascript
 // Solo pagos anulados pueden archivarse
@@ -118,12 +118,12 @@ if (pago.estado_pago !== 'anulado') {
 }
 ```
 
-## 📝 Commits Relacionados
+##  Commits Relacionados
 
 - `98b85e0` - Backend: validación re-pago anulados + endpoint archivar
 - `818a380` - Frontend: tabs archivo + función switchPagosTab
 
-## 🚀 Deployment
+##  Deployment
 
 ### Railway
 ```bash
@@ -139,7 +139,7 @@ git push
 3. Confirmar que no hay errores
 4. Probar en https://tu-app.railway.app
 
-## 💡 Notas Técnicas
+##  Notas Técnicas
 
 - El campo `archivado` permite separar lógicamente los registros sin duplicar la tabla
 - Los pagos archivados NO se eliminan, solo se ocultan de la vista principal
@@ -147,7 +147,7 @@ git push
 - La validación para re-pagar meses anulados funciona independientemente del archivo
 - Los Lucide icons se reinicializan después de cambiar de tab para renderizar correctamente
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### El tab de archivo no aparece
 - Verificar que `lucide.createIcons()` se llama después de cargar pagos

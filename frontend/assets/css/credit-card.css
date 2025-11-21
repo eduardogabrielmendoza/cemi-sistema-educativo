@@ -1,4 +1,3 @@
-/* CodePen Credit Card Form CSS - Original */
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 @import url('https://fonts.googleapis.com/css?family=Rock+Salt');
 
@@ -75,7 +74,6 @@ body {
   float: right;
 }
 
-/* CHANGEABLE CARD ELEMENTS */
 .creditcard .lightcolor,
 .creditcard .darkcolor {
   -webkit-transition: fill .5s;
@@ -154,7 +152,6 @@ body {
   fill: #616161;
 }
 
-/* FRONT OF CARD */
 #svgname {
   text-transform: uppercase;
 }
@@ -207,7 +204,6 @@ body {
   fill: #4C4C4C;
 }
 
-/* BACK OF CARD */
 #cardback .st0 {
   fill: none;
   stroke: #0F0F0F;
@@ -263,7 +259,6 @@ body {
   font-size: 37.769px;
 }
 
-/* FLIP ANIMATION */
 .container {
   perspective: 1000px;
   position: relative;
@@ -314,7 +309,6 @@ body {
   transform: rotateY(180deg);
 }
 
-/* FORM STYLES */
 .form-container {
   max-width: 400px;
   margin: auto;
@@ -383,7 +377,6 @@ body {
   pointer-events: none;
 }
 
-/* CREDIT CARD IMAGE STYLING */
 .preload * {
   -webkit-transition: none !important;
   -moz-transition: none !important;
@@ -399,7 +392,6 @@ body {
   padding: 20px;
 }
 
-/* Payment Method Modal Styles */
 .payment-method-modal-overlay {
   display: none;
   position: fixed;
@@ -614,7 +606,6 @@ body {
   font-weight: 500;
 }
 
-/* Credit Card Modal Styles */
 .credit-card-modal-overlay {
   display: none;
   position: fixed;
@@ -686,7 +677,6 @@ body {
   transform: scale(1.1);
 }
 
-/* Transfer Modal Styles */
 .transfer-modal-overlay {
   display: none;
   position: fixed;
@@ -892,7 +882,6 @@ body {
   }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .payment-content-wrapper {
     flex-direction: column;

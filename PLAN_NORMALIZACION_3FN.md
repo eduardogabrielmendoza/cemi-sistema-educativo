@@ -1,32 +1,32 @@
-# 🎯 PLAN DE NORMALIZACIÓN 3FN - RAILWAY
+#  PLAN DE NORMALIZACIÓN 3FN - RAILWAY
 ## Sistema Educativo CEMI
 
 **Fecha:** 7 de Noviembre 2025  
 **Objetivo:** Normalizar base de datos a Tercera Forma Normal  
-**Backup:** ✅ Completado
+**Backup:**  Completado
 
 ---
 
-## 📋 ORDEN DE EJECUCIÓN
+##  ORDEN DE EJECUCIÓN
 
-### ⏱️ **TIEMPO TOTAL ESTIMADO: 2-3 horas**
+###  **TIEMPO TOTAL ESTIMADO: 2-3 horas**
 
 ---
 
-## 🔴 **FASE 1: PREPARACIÓN** (15 min)
+##  **FASE 1: PREPARACIÓN** (15 min)
 
-### ✅ Completado:
+###  Completado:
 - [x] Backup completo de BD y archivos
 - [x] Script SQL de normalización creado
 
-### ⏳ Por hacer:
+###  Por hacer:
 - [ ] Revisar usuarios activos en Railway
 - [ ] Notificar mantenimiento (si hay usuarios reales)
 - [ ] Programar ventana de 3 horas sin interrupciones
 
 ---
 
-## 🟡 **FASE 2: ACTUALIZACIÓN DE CÓDIGO BACKEND** (60-90 min)
+##  **FASE 2: ACTUALIZACIÓN DE CÓDIGO BACKEND** (60-90 min)
 
 **Orden de modificación:**
 
@@ -70,9 +70,9 @@
 
 ---
 
-## 🟢 **FASE 3: MIGRACIÓN DE BASE DE DATOS** (30 min)
+##  **FASE 3: MIGRACIÓN DE BASE DE DATOS** (30 min)
 
-**⚠️ IMPORTANTE: Ejecutar SQL SOLO después de actualizar código**
+** IMPORTANTE: Ejecutar SQL SOLO después de actualizar código**
 
 ### Orden de ejecución del SQL:
 
@@ -114,7 +114,7 @@
 
 ---
 
-## 🔵 **FASE 4: PRUEBAS Y VALIDACIÓN** (30 min)
+##  **FASE 4: PRUEBAS Y VALIDACIÓN** (30 min)
 
 ### Checklist de pruebas:
 
@@ -148,7 +148,7 @@
 
 ---
 
-## 🚨 **PLAN DE ROLLBACK** (Si algo falla)
+##  **PLAN DE ROLLBACK** (Si algo falla)
 
 ### Opción 1: Rollback Rápido (15 min)
 ```sql
@@ -178,14 +178,14 @@ git push -f
 
 ---
 
-## 📊 **CHECKLIST GENERAL**
+##  **CHECKLIST GENERAL**
 
 ### Antes de empezar:
 - [ ] Backup verificado y guardado
 - [ ] Ventana de tiempo reservada (3 horas)
 - [ ] Conexión estable a Railway
 - [ ] Terminal y editor listos
-- [ ] Café preparado ☕
+- [ ] Café preparado 
 
 ### Durante:
 - [ ] NO apresurarse
@@ -202,18 +202,18 @@ git push -f
 
 ---
 
-## 🎯 **CRITERIOS DE ÉXITO**
+##  **CRITERIOS DE ÉXITO**
 
-✅ Sistema normalizado a 3FN  
-✅ Cero downtime (o < 5 minutos)  
-✅ Todos los logins funcionan  
-✅ Credenciales centralizadas en `usuarios`  
-✅ Sin columnas redundantes  
-✅ Base de datos más eficiente
+ Sistema normalizado a 3FN  
+ Cero downtime (o < 5 minutos)  
+ Todos los logins funcionan  
+ Credenciales centralizadas en `usuarios`  
+ Sin columnas redundantes  
+ Base de datos más eficiente
 
 ---
 
-## 📞 **CONTACTO DE EMERGENCIA**
+##  **CONTACTO DE EMERGENCIA**
 
 Si algo sale mal:
 1. DETENER todo inmediatamente
@@ -223,6 +223,6 @@ Si algo sale mal:
 
 ---
 
-**¿LISTO PARA EMPEZAR?** 🚀
+**¿LISTO PARA EMPEZAR?** 
 
 Próximo paso: Actualizar archivos backend siguiendo el orden establecido.

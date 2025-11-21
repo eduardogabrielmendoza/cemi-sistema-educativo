@@ -69,7 +69,7 @@
     <script src="assets/js/config.js"></script>
 </head>
 <body>
-    <h1>🧪 Test de Endpoints - Cursado CEMI</h1>
+    <h1> Test de Endpoints - Cursado CEMI</h1>
     
     <div class="test-section">
         <h2>Configuración</h2>
@@ -81,20 +81,20 @@
 
     <div class="test-section">
         <h2>1. GET /api/cursos/filtros/opciones</h2>
-        <button onclick="testFiltrosOpciones()">🧪 Probar Endpoint</button>
+        <button onclick="testFiltrosOpciones()"> Probar Endpoint</button>
         <div id="result1"></div>
     </div>
 
     <div class="test-section">
         <h2>2. GET /api/cursos/mis-cursos/:id_alumno</h2>
-        <button onclick="testMisCursos()">🧪 Probar Endpoint</button>
+        <button onclick="testMisCursos()"> Probar Endpoint</button>
         <div id="result2"></div>
     </div>
 
     <div class="test-section">
         <h2>3. GET /api/cursos/catalogo?id_alumno=X</h2>
-        <button onclick="testCatalogo()">🧪 Probar Endpoint</button>
-        <button onclick="testCatalogoConFiltros()">🧪 Con Filtros (Inglés)</button>
+        <button onclick="testCatalogo()"> Probar Endpoint</button>
+        <button onclick="testCatalogoConFiltros()"> Con Filtros (Inglés)</button>
         <div id="result3"></div>
     </div>
 
@@ -102,13 +102,13 @@
         <h2>4. GET /api/cursos/:id/detalle?id_alumno=X</h2>
         <label>ID Curso:</label>
         <input type="number" id="idCurso" value="1" min="1">
-        <button onclick="testDetalleCurso()">🧪 Probar Endpoint</button>
+        <button onclick="testDetalleCurso()"> Probar Endpoint</button>
         <div id="result4"></div>
     </div>
 
     <div class="test-section">
         <h2>5. Verificar Filtrado de Inscritos</h2>
-        <button onclick="verificarFiltrado()">🔍 Verificar Lógica</button>
+        <button onclick="verificarFiltrado()"> Verificar Lógica</button>
         <div id="result5"></div>
     </div>
 
@@ -123,7 +123,7 @@
 
         async function testFiltrosOpciones() {
             const resultDiv = document.getElementById('result1');
-            resultDiv.innerHTML = '<p>⏳ Cargando...</p>';
+            resultDiv.innerHTML = '<p> Cargando...</p>';
 
             try {
                 const response = await fetch(`${API_BASE_URL}/cursos/filtros/opciones`);
@@ -131,23 +131,23 @@
 
                 if (data.success) {
                     resultDiv.innerHTML = `
-                        <p class="success">✅ Success: ${data.success}</p>
+                        <p class="success"> Success: ${data.success}</p>
                         <p><strong>Idiomas encontrados:</strong> ${data.filtros.idiomas.length}</p>
                         <p><strong>Niveles encontrados:</strong> ${data.filtros.niveles.length}</p>
                         <p><strong>Profesores encontrados:</strong> ${data.filtros.profesores.length}</p>
                         <pre>${JSON.stringify(data, null, 2)}</pre>
                     `;
                 } else {
-                    resultDiv.innerHTML = `<p class="error">❌ Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    resultDiv.innerHTML = `<p class="error"> Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
                 }
             } catch (error) {
-                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                resultDiv.innerHTML = `<p class="error"> Error: ${error.message}</p>`;
             }
         }
 
         async function testMisCursos() {
             const resultDiv = document.getElementById('result2');
-            resultDiv.innerHTML = '<p>⏳ Cargando...</p>';
+            resultDiv.innerHTML = '<p> Cargando...</p>';
 
             try {
                 const response = await fetch(`${API_BASE_URL}/cursos/mis-cursos/${currentAlumnoId}`);
@@ -155,21 +155,21 @@
 
                 if (data.success) {
                     resultDiv.innerHTML = `
-                        <p class="success">✅ Success: ${data.success}</p>
+                        <p class="success"> Success: ${data.success}</p>
                         <p><strong>Total de cursos inscritos:</strong> ${data.total}</p>
                         <pre>${JSON.stringify(data, null, 2)}</pre>
                     `;
                 } else {
-                    resultDiv.innerHTML = `<p class="error">❌ Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    resultDiv.innerHTML = `<p class="error"> Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
                 }
             } catch (error) {
-                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                resultDiv.innerHTML = `<p class="error"> Error: ${error.message}</p>`;
             }
         }
 
         async function testCatalogo() {
             const resultDiv = document.getElementById('result3');
-            resultDiv.innerHTML = '<p>⏳ Cargando...</p>';
+            resultDiv.innerHTML = '<p> Cargando...</p>';
 
             try {
                 const response = await fetch(`${API_BASE_URL}/cursos/catalogo?id_alumno=${currentAlumnoId}`);
@@ -180,24 +180,24 @@
                     const cursosDisponibles = data.cursos.filter(c => !c.ya_inscrito);
 
                     resultDiv.innerHTML = `
-                        <p class="success">✅ Success: ${data.success}</p>
+                        <p class="success"> Success: ${data.success}</p>
                         <p><strong>Total de cursos:</strong> ${data.total}</p>
                         <p><strong>Cursos donde YA está inscrito:</strong> ${cursosInscritos.length}</p>
                         <p><strong>Cursos disponibles (NO inscrito):</strong> ${cursosDisponibles.length}</p>
-                        <p class="info">💡 La lógica de filtrado debe mostrar solo los ${cursosDisponibles.length} cursos disponibles</p>
+                        <p class="info"> La lógica de filtrado debe mostrar solo los ${cursosDisponibles.length} cursos disponibles</p>
                         <pre>${JSON.stringify(data, null, 2)}</pre>
                     `;
                 } else {
-                    resultDiv.innerHTML = `<p class="error">❌ Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    resultDiv.innerHTML = `<p class="error"> Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
                 }
             } catch (error) {
-                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                resultDiv.innerHTML = `<p class="error"> Error: ${error.message}</p>`;
             }
         }
 
         async function testCatalogoConFiltros() {
             const resultDiv = document.getElementById('result3');
-            resultDiv.innerHTML = '<p>⏳ Cargando con filtro idioma=1 (Inglés)...</p>';
+            resultDiv.innerHTML = '<p> Cargando con filtro idioma=1 (Inglés)...</p>';
 
             try {
                 const response = await fetch(`${API_BASE_URL}/cursos/catalogo?id_alumno=${currentAlumnoId}&idioma=1`);
@@ -205,22 +205,22 @@
 
                 if (data.success) {
                     resultDiv.innerHTML = `
-                        <p class="success">✅ Success con filtro de Inglés</p>
+                        <p class="success"> Success con filtro de Inglés</p>
                         <p><strong>Total de cursos de Inglés:</strong> ${data.total}</p>
                         <pre>${JSON.stringify(data, null, 2)}</pre>
                     `;
                 } else {
-                    resultDiv.innerHTML = `<p class="error">❌ Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    resultDiv.innerHTML = `<p class="error"> Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
                 }
             } catch (error) {
-                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                resultDiv.innerHTML = `<p class="error"> Error: ${error.message}</p>`;
             }
         }
 
         async function testDetalleCurso() {
             const resultDiv = document.getElementById('result4');
             const idCurso = document.getElementById('idCurso').value;
-            resultDiv.innerHTML = '<p>⏳ Cargando...</p>';
+            resultDiv.innerHTML = '<p> Cargando...</p>';
 
             try {
                 const response = await fetch(`${API_BASE_URL}/cursos/${idCurso}/detalle?id_alumno=${currentAlumnoId}`);
@@ -228,24 +228,24 @@
 
                 if (data.success) {
                     resultDiv.innerHTML = `
-                        <p class="success">✅ Success: ${data.success}</p>
+                        <p class="success"> Success: ${data.success}</p>
                         <p><strong>Curso:</strong> ${data.curso.nombre_curso}</p>
                         <p><strong>Profesor:</strong> ${data.curso.profesor.nombre}</p>
-                        <p><strong>Ya inscrito:</strong> ${data.curso.ya_inscrito ? '✅ SÍ' : '❌ NO'}</p>
+                        <p><strong>Ya inscrito:</strong> ${data.curso.ya_inscrito ? ' SÍ' : ' NO'}</p>
                         <p><strong>Estado:</strong> ${data.curso.estado}</p>
                         <pre>${JSON.stringify(data, null, 2)}</pre>
                     `;
                 } else {
-                    resultDiv.innerHTML = `<p class="error">❌ Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    resultDiv.innerHTML = `<p class="error"> Error en respuesta</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
                 }
             } catch (error) {
-                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                resultDiv.innerHTML = `<p class="error"> Error: ${error.message}</p>`;
             }
         }
 
         async function verificarFiltrado() {
             const resultDiv = document.getElementById('result5');
-            resultDiv.innerHTML = '<p>⏳ Verificando lógica de filtrado...</p>';
+            resultDiv.innerHTML = '<p> Verificando lógica de filtrado...</p>';
 
             try {
                 // 1. Obtener mis cursos
@@ -262,7 +262,7 @@
                 const cursosDisponibles = catalogoCompleto.filter(c => !c.ya_inscrito);
 
                 let html = `
-                    <p class="success">✅ Verificación completada</p>
+                    <p class="success"> Verificación completada</p>
                     <h3>Resumen:</h3>
                     <ul>
                         <li><strong>Cursos en los que estoy inscrito:</strong> ${misCursosData.total}</li>
@@ -272,9 +272,9 @@
                 `;
 
                 if (misCursosData.total === cursosInscritos.length) {
-                    html += '<p class="success">✅ La lógica es correcta: el backend marca correctamente los cursos inscritos</p>';
+                    html += '<p class="success"> La lógica es correcta: el backend marca correctamente los cursos inscritos</p>';
                 } else {
-                    html += '<p class="error">⚠️ Advertencia: Hay discrepancia en el conteo</p>';
+                    html += '<p class="error"> Advertencia: Hay discrepancia en el conteo</p>';
                 }
 
                 html += '<h3>IDs de mis cursos:</h3>';
@@ -290,7 +290,7 @@
                 resultDiv.innerHTML = html;
 
             } catch (error) {
-                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+                resultDiv.innerHTML = `<p class="error"> Error: ${error.message}</p>`;
             }
         }
 

@@ -1,10 +1,8 @@
-// backend/routes/idiomas.js
 import express from "express";
 import pool from "../utils/db.js";
 
 const router = express.Router();
 
-// Obtener todos los idiomas
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM idiomas ORDER BY nombre_idioma");
@@ -15,7 +13,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Crear nuevo idioma
 router.post("/", async (req, res) => {
   try {
     const { nombre_idioma } = req.body;
@@ -39,7 +36,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Actualizar idioma
 router.put("/:id", async (req, res) => {
   try {
     const { nombre_idioma } = req.body;
@@ -62,7 +58,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Eliminar idioma
 router.delete("/:id", async (req, res) => {
   try {
     await pool.query("DELETE FROM Idiomas WHERE id_idioma = ?", [req.params.id]);

@@ -1,26 +1,21 @@
-// backend/routes/pagos.js
 import express from "express";
 import pool from "../utils/db.js";
 import { body, param, validationResult } from "express-validator";
 
 const router = express.Router();
 
-// GET /pagos - Lista de pagos con estadísticas y filtros
 router.get("/", async (req, res) => {
   try {
     const { archivo } = req.query; // archivo=true para pagos archivados
     
-    // Filtro de archivo según parámetro
     const filtroArchivo = archivo === 'true' 
       ? "AND pa.archivado = 1" 
       : "AND pa.archivado = 0";
     
-    // Filtro de estado: si es archivo, solo anulados; si no, excluir anulados archivados
     const filtroEstado = archivo === 'true'
       ? "AND pa.estado_pago = 'anulado'"
       : "";
     
-    // Obtener lista de pagos con información completa
     const [rows] = await pool.query(`
       SELECT 
         pa.id_pago,
@@ -52,10 +47,8 @@ router.get("/", async (req, res) => {
       ORDER BY pa.fecha_pago DESC, pa.fecha_vencimiento DESC
     `);
 
-    // Calcular estadísticas
     const mesActual = new Date().toISOString().slice(0, 7); // Formato: YYYY-MM
     
-    // Total recaudado del mes actual (solo pagos confirmados por fecha_pago)
     const [totalMes] = await pool.query(`
       SELECT COALESCE(SUM(monto), 0) AS total
       FROM pagos
@@ -64,7 +57,6 @@ router.get("/", async (req, res) => {
         AND archivado = 0
     `, [mesActual]);
 
-    // Cuotas cobradas en el mes actual (por fecha_pago)
     const [cuotasCobradas] = await pool.query(`
       SELECT COUNT(*) AS total
       FROM pagos
@@ -73,7 +65,6 @@ router.get("/", async (req, res) => {
         AND archivado = 0
     `, [mesActual]);
 
-    // Cuotas pendientes de todos los periodos
     const [cuotasPendientes] = await pool.query(`
       SELECT COUNT(*) AS total
       FROM pagos
@@ -81,7 +72,6 @@ router.get("/", async (req, res) => {
         AND archivado = 0
     `);
 
-    // Promedio histórico de todos los pagos confirmados
     const [promedio] = await pool.query(`
       SELECT COALESCE(AVG(monto), 0) AS promedio
       FROM pagos
@@ -112,14 +102,12 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /pagos/alumno/:id - Obtener pagos de un alumno agrupados por curso
 router.get("/alumno/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
     console.log(`[pagos] Consultando pagos para alumno ID: ${id}`);
 
-    // Obtener cursos activos del alumno
     const [cursosActivos] = await pool.query(`
       SELECT 
         c.id_curso,
@@ -142,17 +130,14 @@ router.get("/alumno/:id", async (req, res) => {
 
     console.log(`[pagos] Cursos activos encontrados: ${cursosActivos.length}`);
 
-    // Meses academicos (Matricula + Marzo-Noviembre)
     const todosMesesAcademicos = [
       'Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
       'Julio', 'Agosto', 'Septiembre', 
       'Octubre', 'Noviembre'
     ];
 
-    // Para cada curso, obtener estado de pagos de cada mes
     const cursosPagos = await Promise.all(cursosActivos.map(async (curso) => {
       
-      // 🔑 FILTRAR CUOTAS SEGÚN CONFIGURACIÓN DEL CURSO
       let cuotasHabilitadas;
       const rawCuotas = curso.cuotas_habilitadas;
       
@@ -176,14 +161,12 @@ router.get("/alumno/:id", async (req, res) => {
 
       console.log(`[pagos] Curso ${curso.id_curso} - Cuotas habilitadas:`, cuotasHabilitadas);
 
-      // Solo trabajar con los meses habilitados para este curso
       const mesesAcademicos = todosMesesAcademicos.filter(mes => 
         cuotasHabilitadas.includes(mes)
       );
 
       console.log(`[pagos] Meses disponibles para alumno:`, mesesAcademicos);
       
-      // Obtener pagos realizados para este curso
       const [pagosRealizados] = await pool.query(`
         SELECT 
           pa.id_pago,
@@ -198,7 +181,6 @@ router.get("/alumno/:id", async (req, res) => {
 
       console.log(`[GET PAGOS] Curso ${curso.id_curso} - Pagos encontrados:`, pagosRealizados.map(p => ({mes: p.mes_cuota, id: p.id_pago})));
 
-      // Generar estado de cada mes académico
       const estadoMeses = mesesAcademicos.map((mes, index) => {
         const pago = pagosRealizados.find(p => p.mes_cuota === mes);
         
@@ -212,11 +194,9 @@ router.get("/alumno/:id", async (req, res) => {
             id_pago: pago.id_pago
           };
         } else {
-          // Determinar estado según el mes actual
           const hoy = new Date();
           const mesActual = hoy.getMonth(); // 0-11
           
-          // Matricula (index 0) siempre se considera impaga si no esta pagada
           if (index === 0 && mes === 'Matricula') {
             return {
               mes,
@@ -227,7 +207,6 @@ router.get("/alumno/:id", async (req, res) => {
             };
           }
           
-          // Para los demás meses (Marzo=index 1, Abril=index 2, etc.)
           const mesAcademicoActual = mesActual - 2; // Marzo = 0, Abril = 1, etc.
           const indexMesReal = index - 1; // Ajustar por Matricula
           
@@ -250,7 +229,6 @@ router.get("/alumno/:id", async (req, res) => {
         }
       });
 
-      // Calcular estadísticas del curso
       const cuotasPagadas = estadoMeses.filter(m => m.estado === 'pagado').length;
       const cuotasImpagas = estadoMeses.filter(m => m.estado === 'impago').length;
       const cuotasPendientes = estadoMeses.filter(m => m.estado === 'pendiente').length;
@@ -272,7 +250,6 @@ router.get("/alumno/:id", async (req, res) => {
       };
     }));
 
-    // Estadísticas globales
     const totalGlobalPagado = cursosPagos.reduce((sum, c) => sum + c.estadisticas.total_pagado, 0);
     const totalGlobalPendiente = cursosPagos.reduce((sum, c) => sum + c.estadisticas.total_pendiente, 0);
     const totalCuotasImpagas = cursosPagos.reduce((sum, c) => sum + c.estadisticas.cuotas_impagas, 0);
@@ -295,12 +272,10 @@ router.get("/alumno/:id", async (req, res) => {
   }
 });
 
-// GET /pagos/alumno/:id/historial - Obtener historial de pagos con estadísticas
 router.get("/alumno/:id/historial", async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Obtener historial de pagos realizados
     const [pagosRealizados] = await pool.query(`
       SELECT 
         pa.id_pago,
@@ -317,11 +292,9 @@ router.get("/alumno/:id/historial", async (req, res) => {
       ORDER BY pa.fecha_pago DESC
     `, [id]);
 
-    // Calcular estadísticas
     const totalPagado = pagosRealizados.reduce((sum, p) => sum + parseFloat(p.monto || 0), 0);
     const cantidadPagos = pagosRealizados.length;
 
-    // Obtener pagos pendientes/vencidos
     const [pagosPendientes] = await pool.query(`
       SELECT COUNT(*) as count
       FROM inscripciones insc
@@ -346,7 +319,6 @@ router.get("/alumno/:id/historial", async (req, res) => {
   }
 });
 
-// GET /pagos/:id - Obtener detalles de un pago específico
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -394,9 +366,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST /pagos/realizar - Registrar un nuevo pago
 router.post("/realizar",
-  // Validaciones
   [
     body('id_alumno')
       .isInt({ min: 1 }).withMessage('ID de alumno inválido')
@@ -414,7 +384,6 @@ router.post("/realizar",
       .isString().withMessage('Medio de pago inválido')
   ],
   async (req, res) => {
-  // Verificar errores de validación
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ 
@@ -426,7 +395,6 @@ router.post("/realizar",
   try {
     const { id_alumno, id_curso, mes_cuota, monto, medio_pago } = req.body;
 
-    // Verificar que no exista ya un pago activo (no anulado) para este curso y mes
     const [pagoExistente] = await pool.query(
       'SELECT id_pago FROM pagos WHERE id_alumno = ? AND id_curso = ? AND mes_cuota = ? AND estado_pago != ?',
       [id_alumno, id_curso, mes_cuota, 'anulado']
@@ -439,7 +407,6 @@ router.post("/realizar",
       });
     }
 
-    // Obtener información del curso
     const [cursoInfo] = await pool.query(`
       SELECT c.nombre_curso, i.nombre_idioma AS idioma, n.descripcion AS nivel
       FROM cursos c
@@ -455,7 +422,6 @@ router.post("/realizar",
       });
     }
 
-    // Obtener id del medio de pago
     const [medios] = await pool.query(
       'SELECT id_medio_pago FROM medios_pago WHERE descripcion = ?',
       [medio_pago]
@@ -470,16 +436,12 @@ router.post("/realizar",
 
     const id_medio_pago = medios[0].id_medio_pago;
 
-    // Obtener id del concepto
-    // Matricula = 1, Cuota Mensual = 2
     const id_concepto = mes_cuota === 'Matricula' ? 1 : 2;
 
-    // Generar detalle del pago
     const detalle_pago = mes_cuota === 'Matricula' 
       ? `Matricula - ${cursoInfo[0].idioma} ${cursoInfo[0].nivel}`
       : `Cuota ${mes_cuota} - ${cursoInfo[0].idioma} ${cursoInfo[0].nivel}`;
 
-    // Calcular periodo en formato YYYY-MM
     const mesesMap = {
       'Matricula': '02', // Febrero para matricula
       'Marzo': '03', 'Abril': '04', 'Mayo': '05', 'Junio': '06',
@@ -491,7 +453,6 @@ router.post("/realizar",
 
     console.log(`[PAGO] Registrando - mes_cuota: "${mes_cuota}", concepto ID: ${id_concepto}, detalle: "${detalle_pago}"`);
 
-    // Registrar el pago con estado 'en_proceso'
     const [result] = await pool.query(`
       INSERT INTO pagos 
       (id_alumno, id_curso, id_concepto, id_medio_pago, monto, periodo, detalle_pago, mes_cuota, estado_pago)
@@ -522,18 +483,13 @@ router.post("/realizar",
   }
 });
 
-// DELETE /pagos/:id - Eliminar un pago
-// DELETE /pagos/:id - Anular pago (no elimina, cambia estado a 'anulado')
-// PUT /pagos/:id/anular - Anular un pago (cambiar estado a anulado)
 router.put("/:id/anular",
-  // Validación
   [
     param('id')
       .isInt({ min: 1 }).withMessage('ID de pago inválido')
       .toInt()
   ],
   async (req, res) => {
-  // Verificar errores de validación
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ 
@@ -546,7 +502,6 @@ router.put("/:id/anular",
 
     console.log(`[pagos] Intentando anular pago ID: ${id}`);
 
-    // Verificar que el pago existe
     const [pago] = await pool.query('SELECT * FROM pagos WHERE id_pago = ?', [id]);
     
     if (pago.length === 0) {
@@ -557,7 +512,6 @@ router.put("/:id/anular",
       });
     }
 
-    // Anular el pago (cambiar estado a 'anulado')
     await pool.query('UPDATE pagos SET estado_pago = ? WHERE id_pago = ?', ['anulado', id]);
 
     console.log(`[pagos] Pago ${id} anulado exitosamente`);
@@ -575,7 +529,6 @@ router.put("/:id/anular",
   }
 });
 
-// PUT /pagos/:id/confirmar - Confirmar pago (cambiar estado a 'pagado')
 router.put("/:id/confirmar",
   [
     param('id')
@@ -596,7 +549,6 @@ router.put("/:id/confirmar",
 
       console.log(`[pagos] Confirmando pago ID: ${id}`);
 
-      // Verificar que el pago existe
       const [pago] = await pool.query('SELECT * FROM pagos WHERE id_pago = ?', [id]);
       
       if (pago.length === 0) {
@@ -607,7 +559,6 @@ router.put("/:id/confirmar",
         });
       }
 
-      // Confirmar el pago (cambiar estado a 'pagado')
       await pool.query(
         'UPDATE pagos SET estado_pago = ?, fecha_pago = CURDATE() WHERE id_pago = ?', 
         ['pagado', id]
@@ -628,7 +579,6 @@ router.put("/:id/confirmar",
     }
 });
 
-// PUT /pagos/:id/archivar - Archivar un pago anulado
 router.put("/:id/archivar", 
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
@@ -643,7 +593,6 @@ router.put("/:id/archivar",
     try {
       const { id } = req.params;
 
-      // Verificar que el pago existe y está anulado
       const [pago] = await pool.query(
         'SELECT id_pago, estado_pago FROM pagos WHERE id_pago = ?',
         [id]
@@ -663,7 +612,6 @@ router.put("/:id/archivar",
         });
       }
 
-      // Archivar el pago
       await pool.query(
         'UPDATE pagos SET archivado = 1 WHERE id_pago = ?', 
         [id]
@@ -684,7 +632,6 @@ router.put("/:id/archivar",
     }
 });
 
-// PUT /pagos/:id/desarchivar - Devolver un pago archivado a pagos activos
 router.put("/:id/desarchivar", 
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
@@ -699,7 +646,6 @@ router.put("/:id/desarchivar",
     try {
       const { id } = req.params;
 
-      // Verificar que el pago existe y está archivado
       const [pago] = await pool.query(
         'SELECT id_pago, archivado FROM pagos WHERE id_pago = ?',
         [id]
@@ -719,7 +665,6 @@ router.put("/:id/desarchivar",
         });
       }
 
-      // Desarchivar el pago (volver a pagos activos, mantiene estado anulado)
       await pool.query(
         'UPDATE pagos SET archivado = 0 WHERE id_pago = ?', 
         [id]
@@ -740,7 +685,6 @@ router.put("/:id/desarchivar",
     }
 });
 
-// DELETE /pagos/:id - Eliminar permanentemente un pago
 router.delete("/:id", 
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
@@ -755,7 +699,6 @@ router.delete("/:id",
     try {
       const { id } = req.params;
 
-      // Verificar que el pago existe
       const [pago] = await pool.query(
         'SELECT id_pago FROM pagos WHERE id_pago = ?',
         [id]
@@ -768,7 +711,6 @@ router.delete("/:id",
         });
       }
 
-      // Eliminar el pago permanentemente
       const [result] = await pool.query('DELETE FROM pagos WHERE id_pago = ?', [id]);
 
       console.log(`[pagos] Pago ${id} eliminado permanentemente. Rows affected:`, result.affectedRows);

@@ -1,6 +1,4 @@
-// CodePen Credit Card Form JavaScript - Original with Modal Integration
 
-// Card type icons using Font Awesome classes and colors
 const cardTypes = [
   { pattern: /^4/, type: 'visa', color: 'lightblue', icon: 'fab fa-cc-visa', name: 'VISA' },
   { pattern: /^(5[1-5]|22[2-9]|2[3-7])/, type: 'mastercard', color: 'red', icon: 'fab fa-cc-mastercard', name: 'MASTERCARD' },
@@ -32,7 +30,6 @@ function swapColor(baseColor) {
   ccIcon.innerHTML = '';
 }
 
-// Test card numbers
 const testCards = [
   '4532015112830366',
   '5425233430109903',
@@ -49,18 +46,14 @@ function randomCard() {
   return testCards[randomIndex];
 }
 
-// IMask initialization
 let cardNumberMask, expirationMask, securityCodeMask;
 
-// Modal functions
 function openPaymentMethodModal(paymentData) {
-  // Si se pasan datos de pago, guardarlos
   if (paymentData) {
     document.getElementById('methodPaymentConcepto').textContent = paymentData.concepto || 'Cuota Mensual';
     document.getElementById('methodPaymentPeriodo').textContent = paymentData.periodo || '-';
     document.getElementById('methodPaymentAmount').textContent = `$${paymentData.amount ? paymentData.amount.toFixed(2) : '0.00'}`;
     
-    // Guardar datos ocultos para el modal de tarjeta
     document.getElementById('paymentIdPago').value = paymentData.id_pago || '';
     document.getElementById('paymentConcepto').value = paymentData.concepto || '';
     document.getElementById('paymentPeriodo').value = paymentData.periodo || '';
@@ -88,7 +81,6 @@ function backToPaymentMethod() {
   openPaymentMethodModal();
 }
 
-// Transfer modal functions
 function openTransferModal() {
   closePaymentMethodModal();
   document.getElementById('transferModal').classList.add('active');
@@ -98,22 +90,18 @@ function closeTransferModal() {
   document.getElementById('transferModal').classList.remove('active');
 }
 
-// Copy to clipboard function
 function copyToClipboard(text, button) {
   navigator.clipboard.writeText(text).then(() => {
-    // Change button appearance
     const icon = button.querySelector('i');
     const originalIcon = icon.getAttribute('data-lucide');
     
     icon.setAttribute('data-lucide', 'check');
     button.classList.add('copied');
     
-    // Refresh lucide icons
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
     
-    // Reset after 2 seconds
     setTimeout(() => {
       icon.setAttribute('data-lucide', 'copy');
       button.classList.remove('copied');
@@ -127,22 +115,18 @@ function copyToClipboard(text, button) {
   });
 }
 
-// Exponer funciones globalmente para compatibilidad con código existente
 window.creditCardForm = {
   openModal: openPaymentMethodModal
 };
 
 window.copyToClipboard = copyToClipboard;
 
-// Initialize on window load
 window.onload = function() {
-  // Remove preload class
   const container = document.querySelector('.container');
   if (container) {
     container.classList.remove('preload');
   }
   
-  // Initialize IMask for card number
   const cardNumberInput = document.getElementById('cardnumber');
   if (cardNumberInput && typeof IMask !== 'undefined') {
     cardNumberMask = IMask(cardNumberInput, {
@@ -158,7 +142,6 @@ window.onload = function() {
           if (cardTypes[i].pattern.test(number)) {
             swapColor(cardTypes[i].color);
             
-            // Update card icon usando Font Awesome
             const ccSingle = document.getElementById('ccsingle');
             const ccIcon = document.getElementById('ccicon');
             
@@ -172,7 +155,6 @@ window.onload = function() {
           }
         }
         
-        // Default to grey if no match
         if (!matchFound) {
           swapColor('grey');
           document.getElementById('ccsingle').innerHTML = '';
@@ -187,7 +169,6 @@ window.onload = function() {
     });
   }
   
-  // Initialize IMask for expiration date
   const expirationInput = document.getElementById('expirationdate');
   if (expirationInput && typeof IMask !== 'undefined') {
     expirationMask = IMask(expirationInput, {
@@ -207,7 +188,6 @@ window.onload = function() {
     });
   }
   
-  // Initialize IMask for security code
   const securityCodeInput = document.getElementById('securitycode');
   if (securityCodeInput && typeof IMask !== 'undefined') {
     securityCodeMask = IMask(securityCodeInput, {
@@ -215,7 +195,6 @@ window.onload = function() {
     });
   }
   
-  // Event listeners for updating SVG text
   const nameInput = document.getElementById('name');
   if (nameInput) {
     nameInput.addEventListener('input', function() {
@@ -252,7 +231,6 @@ window.onload = function() {
       }
     });
     
-    // Flip card when focusing security code
     securityCodeInput.addEventListener('focus', function() {
       const creditcard = document.querySelector('.creditcard');
       if (creditcard) creditcard.classList.add('flipped');
@@ -264,7 +242,6 @@ window.onload = function() {
     });
   }
   
-  // Generate random card
   const generateCardBtn = document.getElementById('generatecard');
   if (generateCardBtn && cardNumberInput) {
     generateCardBtn.addEventListener('click', function() {
@@ -281,12 +258,10 @@ window.onload = function() {
         svgNumber.textContent = formatted;
       }
       
-      // Trigger input event to update card type
       cardNumberInput.dispatchEvent(new Event('input'));
     });
   }
   
-  // Card flip on click
   const creditcard = document.querySelector('.creditcard');
   if (creditcard) {
     creditcard.addEventListener('click', function() {
@@ -294,7 +269,6 @@ window.onload = function() {
     });
   }
   
-  // Modal event listeners
   const btnCardPayment = document.getElementById('btnCardPayment');
   if (btnCardPayment) {
     btnCardPayment.addEventListener('click', openCreditCardModal);
@@ -305,19 +279,18 @@ window.onload = function() {
     btnTransferPayment.addEventListener('click', openTransferModal);
   }
   
-  // Botón de pago en efectivo
   const btnCashPayment = document.getElementById('btnCashPayment');
   if (btnCashPayment) {
     btnCashPayment.addEventListener('click', function() {
-      console.log('👍 Click en botón Efectivo detectado');
+      console.log(' Click en botón Efectivo detectado');
       closePaymentMethodModal();
       
       setTimeout(() => {
         if (typeof window.mostrarTicketEfectivo === 'function') {
-          console.log('✅ Llamando a window.mostrarTicketEfectivo()');
+          console.log(' Llamando a window.mostrarTicketEfectivo()');
           window.mostrarTicketEfectivo();
         } else {
-          console.error('❌ window.mostrarTicketEfectivo no está definida');
+          console.error(' window.mostrarTicketEfectivo no está definida');
         }
       }, 100);
     });

@@ -1,18 +1,18 @@
-# ✅ PROGRESO DE NORMALIZACIÓN 3FN - RAILWAY
+#  PROGRESO DE NORMALIZACIÓN 3FN - RAILWAY
 
-## 📊 ESTADO ACTUAL
+##  ESTADO ACTUAL
 
 **Fecha de inicio:** 7 de Noviembre 2025  
 **Hora:** En progreso  
-**Backup:** ✅ Completado
+**Backup:**  Completado
 
 ---
 
-## ✅ FASE 1: CÓDIGO BACKEND - COMPLETADO
+##  FASE 1: CÓDIGO BACKEND - COMPLETADO
 
 ### Archivos Actualizados:
 
-✅ **backend/routes/auth.js**
+ **backend/routes/auth.js**
 - Copiado desde LocalHost (normalizado)
 - Usa tabla `usuarios` para todas las credenciales
 - Endpoints actualizados:
@@ -20,7 +20,7 @@
   - POST /api/auth/login  
   - POST /api/auth/classroom-login
 
-✅ **backend/routes/alumnos.js**
+ **backend/routes/alumnos.js**
 - Copiado desde LocalHost (normalizado)
 - Ya NO usa `alumnos.usuario`, `alumnos.password_hash`
 - Usa tabla `usuarios` centralizada
@@ -29,7 +29,7 @@
   - POST /:id/cambiar-password-dashboard
   - PATCH /:id/usuario
 
-✅ **backend/routes/profesores.js**
+ **backend/routes/profesores.js**
 - Copiado desde LocalHost (normalizado)
 - Ya NO usa `profesores.usuario`, `profesores.password_hash`
 - Usa tabla `usuarios` centralizada
@@ -40,11 +40,11 @@
 
 ---
 
-## ⏳ PRÓXIMOS PASOS
+##  PRÓXIMOS PASOS
 
 ### 1. EJECUTAR SQL EN RAILWAY (30 min)
 
-**⚠️ CRÍTICO: Seguir orden exacto**
+** CRÍTICO: Seguir orden exacto**
 
 Abrir HeidiSQL/MySQL Workbench y conectar a Railway:
 ```
@@ -57,12 +57,12 @@ Database: railway
 Ejecutar el archivo: `backend/sql/NORMALIZACION_3FN.sql`
 
 **Orden de ejecución:**
-1. ✅ PASO 1: Verificación Pre-Migración
-2. ✅ PASO 2: Migrar Datos a Usuarios
-3. ✅ PASO 3: Verificación Post-Migración
-4. ⚠️ PASO 4: Eliminar Columnas Redundantes (PUNTO DE NO RETORNO)
-5. ✅ PASO 5: Optimizar FKs
-6. ✅ PASO 6: Verificación Final
+1.  PASO 1: Verificación Pre-Migración
+2.  PASO 2: Migrar Datos a Usuarios
+3.  PASO 3: Verificación Post-Migración
+4.  PASO 4: Eliminar Columnas Redundantes (PUNTO DE NO RETORNO)
+5.  PASO 5: Optimizar FKs
+6.  PASO 6: Verificación Final
 
 ---
 
@@ -106,7 +106,7 @@ Verificar que todo funciona en Railway:
 
 ---
 
-## 📝 NOTAS IMPORTANTES
+##  NOTAS IMPORTANTES
 
 ### Diferencias entre LocalHost y Railway:
 
@@ -122,14 +122,14 @@ Verificar que todo funciona en Railway:
 
 ### Archivos NO modificados (no es necesario):
 
-- ✅ `backend/routes/perfil-classroom.js` - Ya usa `usuarios`
-- ✅ `backend/routes/stats.js` - No usa credenciales
-- ✅ `backend/routes/administradores.js` - No crítico
-- ✅ `frontend/**/*` - No tiene cambios backend
+-  `backend/routes/perfil-classroom.js` - Ya usa `usuarios`
+-  `backend/routes/stats.js` - No usa credenciales
+-  `backend/routes/administradores.js` - No crítico
+-  `frontend/**/*` - No tiene cambios backend
 
 ---
 
-## 🚨 PLAN B: ROLLBACK
+##  PLAN B: ROLLBACK
 
 Si algo falla después del SQL:
 
@@ -147,9 +147,9 @@ mysql -h mainline.proxy.rlwy.net -P 25836 -u root -p railway < backup_railway_20
 
 ---
 
-## ✅ CUANDO TODO ESTÉ LISTO
+##  CUANDO TODO ESTÉ LISTO
 
-Marcar con ✅ cuando completes:
+Marcar con  cuando completes:
 
 - [ ] SQL ejecutado sin errores
 - [ ] Git push completado  
@@ -160,5 +160,5 @@ Marcar con ✅ cuando completes:
 
 ---
 
-**ESTADO:** 🟡 Código actualizado - Pendiente SQL y Deploy
+**ESTADO:**  Código actualizado - Pendiente SQL y Deploy
 

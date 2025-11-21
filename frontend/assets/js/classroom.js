@@ -1,10 +1,6 @@
-// =====================================================
-// CEMI CLASSROOM - JavaScript Principal
-// =====================================================
 
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
-// Variables globales
 let userRol = '';
 let userId = '';
 let userName = '';
@@ -13,7 +9,6 @@ let cursosDisponibles = [];
 let vistaCalendarioActual = 'mes'; // mes, semana, dia
 let perfilUsuario = null; // Almacenar datos del perfil del usuario
 
-// Elementos del DOM
 const sidebar = document.getElementById('sidebar');
 const menuToggle = document.getElementById('menuToggle');
 const userMenuBtn = document.getElementById('userMenuBtn');
@@ -22,21 +17,17 @@ const navItems = document.querySelectorAll('.nav-item');
 const contentViews = document.querySelectorAll('.content-view');
 const logoutBtn = document.getElementById('logoutClassroom');
 
-// =====================================================
-// FUNCIÓN: CARGAR AVATAR DEL USUARIO
-// =====================================================
 
 async function cargarAvatarUsuario() {
   try {
-    // Obtener ID del usuario según el rol
     const idUsuario = localStorage.getItem('id_usuario') || userId;
     
     if (!idUsuario) {
-      console.log('⚠️ No se pudo obtener ID de usuario para cargar avatar');
+      console.log(' No se pudo obtener ID de usuario para cargar avatar');
       return;
     }
     
-    console.log(`🖼️ Cargando avatar para usuario: ${idUsuario}`);
+    console.log(` Cargando avatar para usuario: ${idUsuario}`);
     
     const response = await fetch(`${API_URL}/classroom/perfil/${idUsuario}`);
     const data = await response.json();
@@ -50,24 +41,19 @@ async function cargarAvatarUsuario() {
           const BASE_URL = window.BASE_URL || 'http://localhost:3000';
           const avatarUrl = `${BASE_URL}${data.perfil.avatar}`;
           userInitialsElement.innerHTML = `<img src="${avatarUrl}" alt="Avatar">`;
-          console.log('✅ Avatar cargado en header:', avatarUrl);
+          console.log(' Avatar cargado en header:', avatarUrl);
         } else {
-          // Si no tiene avatar, mostrar iniciales
           const iniciales = obtenerIniciales(data.perfil.nombre, data.perfil.apellido);
           userInitialsElement.textContent = iniciales;
-          console.log('ℹ️ Usuario sin avatar, mostrando iniciales');
+          console.log(' Usuario sin avatar, mostrando iniciales');
         }
       }
     }
   } catch (error) {
-    console.error('❌ Error al cargar avatar:', error);
-    // Si hay error, simplemente dejamos las iniciales
+    console.error(' Error al cargar avatar:', error);
   }
 }
 
-// =====================================================
-// FUNCIÓN: RENDERIZAR AVATAR O INICIALES
-// =====================================================
 
 function renderAvatarHTML(avatar, nombre, apellido = '', gradiente = 'linear-gradient(135deg, #667eea, #764ba2)') {
   if (avatar) {
@@ -88,12 +74,8 @@ function renderAvatarHTML(avatar, nombre, apellido = '', gradiente = 'linear-gra
   }
 }
 
-// =====================================================
-// INICIALIZACIÓN
-// =====================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Verificar autenticación
   if (!verificarAutenticacion()) {
     return;
   }
@@ -124,20 +106,17 @@ function verificarAutenticacion() {
 }
 
 function initClassroom() {
-  // Obtener datos del usuario desde localStorage
   userName = localStorage.getItem('nombre') || 'Usuario';
   userRol = localStorage.getItem('rol') || 'alumno';
   const idProfesor = localStorage.getItem('id_profesor');
   const idAlumno = localStorage.getItem('id_alumno');
   const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
 
-  // Si es admin desde el dashboard, configurar como administrador
   if (isAdminClassroom) {
     userRol = 'administrador';
     userId = localStorage.getItem('id_usuario') || '1'; // ID del admin
-    console.log('🔐 Modo Administrador activado - Vista completa del sistema');
+    console.log(' Modo Administrador activado - Vista completa del sistema');
   } else {
-    // Determinar el ID según el rol
     if (userRol.toLowerCase() === 'profesor') {
       userId = idProfesor;
     } else if (userRol.toLowerCase() === 'alumno') {
@@ -145,37 +124,29 @@ function initClassroom() {
     }
   }
 
-  // Actualizar UI con datos del usuario
   document.getElementById('userName').textContent = userName;
   
-  // Mostrar rol especial para admin
   const rolDisplay = isAdminClassroom ? 'Administrador del Sistema' : userRol.charAt(0).toUpperCase() + userRol.slice(1);
   document.getElementById('userRole').textContent = rolDisplay;
   
-  // Generar iniciales
   const iniciales = userName.split(' ').map(n => n.charAt(0)).join('').substring(0, 2).toUpperCase();
   const userInitialsElement = document.getElementById('userInitials');
   userInitialsElement.textContent = iniciales;
   
-  // Cargar avatar del usuario si existe
   cargarAvatarUsuario();
 
-  // Mostrar menús según el rol
   if (userRol.toLowerCase() === 'profesor') {
     document.getElementById('profesorMenu').style.display = 'block';
     const btnCrearTarea = document.getElementById('btnCrearTarea');
     if (btnCrearTarea) btnCrearTarea.style.display = 'inline-flex';
     
-    // Mostrar todos los elementos exclusivos de profesor
     document.querySelectorAll('.profesor-only').forEach(el => {
       el.style.display = el.classList.contains('btn-primary') ? 'inline-flex' : 'block';
     });
   } else if (userRol.toLowerCase() === 'admin' || userRol.toLowerCase() === 'administrador' || userRol.toLowerCase() === 'administrativo') {
     
     if (isAdminClassroom) {
-      // MODO ADMINISTRADOR: Ocultar todos los menús excepto Inicio
       
-      // Ocultar menús que no necesita el admin
       const menusOcultar = [
         'a[data-view="classes"]',      // Mis Clases
         'a[data-view="tasks"]',         // Tareas
@@ -191,44 +162,35 @@ function initClassroom() {
         if (elemento) elemento.style.display = 'none';
       });
       
-      // Ocultar también el contenedor del menú admin
       const adminMenu = document.getElementById('adminMenu');
       if (adminMenu) adminMenu.style.display = 'none';
       
-      console.log('🔒 Modo Administrador: Solo vista de Inicio activa');
+      console.log(' Modo Administrador: Solo vista de Inicio activa');
     } else {
-      // Admin normal (no desde dashboard)
       document.getElementById('adminMenu').style.display = 'block';
       document.getElementById('profesorMenu').style.display = 'block';
       
-      // Mostrar todos los elementos exclusivos de profesor para admins también
       document.querySelectorAll('.profesor-only').forEach(el => {
         el.style.display = el.classList.contains('btn-primary') ? 'inline-flex' : 'block';
       });
     }
   }
 
-  // Inicializar selector de cursos
   initCourseSelector();
 
-  // Inicializar notificaciones
   initNotifications();
 
-  // Mostrar banner de administrador si corresponde
   if (isAdminClassroom) {
     mostrarBannerAdministrador();
   }
 
-  // Cargar datos iniciales
   loadDashboardData();
 }
 
-// Función para mostrar banner de administrador
 function mostrarBannerAdministrador() {
   const header = document.querySelector('.classroom-header .header-content');
   if (!header) return;
   
-  // Crear banner
   const banner = document.createElement('div');
   banner.style.cssText = `
     position: fixed;
@@ -258,41 +220,33 @@ function mostrarBannerAdministrador() {
   document.body.insertBefore(banner, document.body.firstChild);
   lucide.createIcons();
   
-  // Ajustar padding del contenido principal
   const container = document.querySelector('.classroom-container');
   if (container) {
     container.style.marginTop = '50px';
   }
 }
 
-// =====================================================
-// SELECTOR DE CURSOS
-// =====================================================
 
 async function initCourseSelector() {
   try {
     const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
     
     if (isAdminClassroom) {
-      // Cargar TODOS los cursos del sistema para el admin
       const res = await fetch(`${API_URL}/classroom/admin/todos-cursos`);
       cursosDisponibles = await res.json();
-      console.log(`📚 Admin: ${cursosDisponibles.length} cursos cargados del sistema`);
+      console.log(` Admin: ${cursosDisponibles.length} cursos cargados del sistema`);
     } else {
-      // Cargar cursos del usuario
       const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
       const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
       cursosDisponibles = await res.json();
     }
     
     if (cursosDisponibles.length > 0) {
-      // Mostrar el selector
       const selectorContainer = document.getElementById('courseSelectorContainer');
       if (selectorContainer) {
         selectorContainer.style.display = 'block';
       }
       
-      // Configurar el dropdown
       setupCourseSelector();
     }
   } catch (error) {
@@ -306,7 +260,6 @@ function setupCourseSelector() {
   
   if (!btnSelector || !dropdown) return;
   
-  // Click en el botón abre/cierra el dropdown
   btnSelector.onclick = (e) => {
     e.stopPropagation();
     const isVisible = dropdown.style.display === 'block';
@@ -317,7 +270,6 @@ function setupCourseSelector() {
     }
   };
   
-  // Click fuera cierra el dropdown
   document.addEventListener('click', (e) => {
     if (!dropdown.contains(e.target) && e.target !== btnSelector) {
       dropdown.style.display = 'none';
@@ -341,7 +293,7 @@ function renderCourseDropdown() {
     <div onclick="seleccionarCurso(null)" style="padding: 16px; cursor: pointer; transition: all 0.2s; border-bottom: 1px solid #f0f0f0; ${cursoActivo === null ? 'background: #f8f9ff;' : ''}">
       <div style="display: flex; align-items: center; gap: 12px;">
         <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px;">
-          📚
+          
         </div>
         <div style="flex: 1;">
           <div style="font-weight: 600; color: #2c3e50; font-size: 14px;">Todos los cursos</div>
@@ -373,7 +325,6 @@ function renderCourseDropdown() {
   dropdown.innerHTML = html;
   lucide.createIcons();
   
-  // Agregar hover effects
   const items = dropdown.querySelectorAll('div[onclick]');
   items.forEach(item => {
     item.addEventListener('mouseenter', function() {
@@ -392,7 +343,6 @@ function renderCourseDropdown() {
 async function seleccionarCurso(idCurso) {
   cursoActivo = idCurso;
   
-  // Actualizar el texto del botón
   const btnText = document.getElementById('currentCourseName');
   if (btnText) {
     if (idCurso === null) {
@@ -405,13 +355,11 @@ async function seleccionarCurso(idCurso) {
     }
   }
   
-  // Cerrar dropdown
   const dropdown = document.getElementById('courseDropdown');
   if (dropdown) {
     dropdown.style.display = 'none';
   }
   
-  // Recargar datos de la vista actual
   const vistaActiva = document.querySelector('.nav-item.active');
   if (vistaActiva) {
     const vista = vistaActiva.getAttribute('data-view');
@@ -424,12 +372,8 @@ async function seleccionarCurso(idCurso) {
   );
 }
 
-// =====================================================
-// EVENT LISTENERS
-// =====================================================
 
 function setupEventListeners() {
-  // Botón volver al dashboard en sidebar
   const btnBackToDashboard = document.getElementById('btnBackToDashboard');
   if (btnBackToDashboard) {
     btnBackToDashboard.addEventListener('click', (e) => {
@@ -447,35 +391,29 @@ function setupEventListeners() {
     });
   }
 
-  // Toggle sidebar en móvil
   menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('show');
     sidebar.classList.toggle('collapsed');
   });
 
-  // Toggle menú de usuario
   userMenuBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     userDropdown.classList.toggle('show');
   });
 
-  // Cerrar menú al hacer click fuera
   document.addEventListener('click', () => {
     userDropdown.classList.remove('show');
   });
 
-  // Navegación entre vistas
   navItems.forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
       const view = item.getAttribute('data-view');
       switchView(view);
       
-      // Actualizar clase activa
       navItems.forEach(nav => nav.classList.remove('active'));
       item.classList.add('active');
 
-      // Cerrar sidebar en móvil
       if (window.innerWidth <= 768) {
         sidebar.classList.add('collapsed');
         sidebar.classList.remove('show');
@@ -483,7 +421,6 @@ function setupEventListeners() {
     });
   });
 
-  // Logout
   if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -491,7 +428,6 @@ function setupEventListeners() {
     });
   }
 
-  // Filtros de tareas
   const filterBtns = document.querySelectorAll('.filter-btn');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -502,43 +438,35 @@ function setupEventListeners() {
     });
   });
 
-  // Filtro de cursos en el feed
   const filterCurso = document.getElementById('filterCurso');
   if (filterCurso) {
     filterCurso.addEventListener('change', async (e) => {
       const selectedValue = e.target.value;
       cursoActivo = selectedValue ? parseInt(selectedValue) : null;
-      console.log('🔽 Filtro de curso cambiado:', cursoActivo || 'Todas las clases');
+      console.log(' Filtro de curso cambiado:', cursoActivo || 'Todas las clases');
       await loadFeed();
     });
-    console.log('✅ Event listener de filtro de cursos agregado');
+    console.log(' Event listener de filtro de cursos agregado');
   }
 }
 
-// =====================================================
-// NAVEGACIÓN DE VISTAS
-// =====================================================
 
 function switchView(viewName) {
-  // Caso especial: "Crear Tarea" abre el modal directamente
   if (viewName === 'create-task') {
     mostrarFormularioTarea();
     return;
   }
 
-  // Ocultar todas las vistas
   contentViews.forEach(view => {
     view.style.display = 'none';
   });
 
-  // Mostrar la vista seleccionada
   const targetView = document.getElementById(`view${capitalizeFirst(viewName)}`);
   if (targetView) {
     targetView.style.display = 'block';
     lucide.createIcons();
   }
 
-  // Cargar datos específicos de la vista
   loadViewData(viewName);
 }
 
@@ -548,15 +476,11 @@ function capitalizeFirst(str) {
   ).join('');
 }
 
-// =====================================================
-// CARGA DE DATOS
-// =====================================================
 
 async function loadDashboardData() {
   showLoader();
   
   try {
-    // Cargar datos iniciales según el rol
     await Promise.all([
       loadClases(),
       loadFeed()
@@ -576,21 +500,17 @@ async function loadClases() {
     let clases;
     
     if (isAdminClassroom) {
-      // Admin: cargar TODOS los cursos del sistema
       const res = await fetch(`${API_URL}/classroom/admin/todos-cursos`);
       clases = await res.json();
-      console.log(`📊 Admin: ${clases.length} cursos del sistema cargados`);
+      console.log(` Admin: ${clases.length} cursos del sistema cargados`);
     } else {
-      // Usuario normal: cargar solo sus cursos
       const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
       const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
       clases = await res.json();
     }
     
-    // Actualizar vista de clases
     renderClases(clases);
     
-    // Actualizar filtro de cursos
     actualizarFiltroCursos(clases);
     
     return clases;
@@ -619,25 +539,21 @@ async function loadFeed() {
     const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
     let anuncios = [];
     
-    console.log('🔍 Cargando feed... isAdmin:', isAdminClassroom, 'cursoActivo:', cursoActivo);
+    console.log(' Cargando feed... isAdmin:', isAdminClassroom, 'cursoActivo:', cursoActivo);
     
     if (isAdminClassroom) {
-      // Admin: cargar TODOS los anuncios del sistema
       if (cursoActivo !== null) {
-        // Si hay un curso activo, filtrar por ese curso
         const res = await fetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
         const data = await res.json();
         anuncios = Array.isArray(data) ? data : (data.anuncios || []);
-        console.log(`📢 Admin: ${anuncios.length} anuncios del curso ${cursoActivo}`);
+        console.log(` Admin: ${anuncios.length} anuncios del curso ${cursoActivo}`);
       } else {
-        // Cargar todos los anuncios del sistema
         const res = await fetch(`${API_URL}/classroom/admin/todos-anuncios`);
         const data = await res.json();
         anuncios = Array.isArray(data) ? data : (data.anuncios || []);
-        console.log(`📢 Admin: ${anuncios.length} anuncios del sistema cargados`);
+        console.log(` Admin: ${anuncios.length} anuncios del sistema cargados`);
       }
     } else {
-      // Usuario normal: cargar solo anuncios de sus cursos
       const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
       if (cursoActivo !== null) {
         const res = await fetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
@@ -650,11 +566,11 @@ async function loadFeed() {
       }
     }
     
-    console.log('✅ Anuncios obtenidos:', anuncios);
+    console.log(' Anuncios obtenidos:', anuncios);
     renderAnuncios(anuncios);
     return anuncios;
   } catch (error) {
-    console.error('❌ Error al cargar anuncios:', error);
+    console.error(' Error al cargar anuncios:', error);
     renderAnuncios([]);
     return [];
   }
@@ -664,16 +580,15 @@ function renderAnuncios(anuncios) {
   const container = document.getElementById('activityContainer');
   const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
   
-  // Asegurar que anuncios sea un array
   if (!Array.isArray(anuncios)) {
-    console.warn('⚠️ anuncios no es un array, convirtiendo a array vacío');
+    console.warn(' anuncios no es un array, convirtiendo a array vacío');
     anuncios = [];
   }
   
-  console.log('🎨 Renderizando anuncios:', anuncios.length, 'isAdmin:', isAdminClassroom);
+  console.log(' Renderizando anuncios:', anuncios.length, 'isAdmin:', isAdminClassroom);
   
   if (!container) {
-    console.error('❌ No se encontró el contenedor activityContainer');
+    console.error(' No se encontró el contenedor activityContainer');
     return;
   }
   
@@ -687,7 +602,6 @@ function renderAnuncios(anuncios) {
     const tiempoTranscurrido = calcularTiempoTranscurrido(fecha);
     const importante = anuncio.importante;
     
-    // Generar avatar o iniciales
     const avatarHTML = renderAvatarHTML(
       anuncio.profesor_avatar, 
       anuncio.profesor_nombre, 
@@ -695,7 +609,6 @@ function renderAnuncios(anuncios) {
       importante ? 'linear-gradient(135deg, #f59e0b, #dc2626)' : 'linear-gradient(135deg, #667eea, #764ba2)'
     );
     
-    // Botón de eliminar solo para admin
     const botonEliminar = isAdminClassroom ? `
       <button class="btn-delete-admin" onclick="event.stopPropagation(); eliminarAnuncioAdmin(${anuncio.id_anuncio})" title="Eliminar anuncio">
         <i data-lucide="trash-2" style="width: 18px; height: 18px;"></i>
@@ -769,7 +682,6 @@ function renderPoll(encuesta, idAnuncio) {
           const esVotoActual = yaVoto && votoActual === opcion.id_opcion;
           
           if (!esAlumno) {
-            // Profesores solo ven resultados
             return `
               <div style="position: relative; padding: 12px; background: white; border: 2px solid #e0e0e0; border-radius: 6px; overflow: hidden;">
                 <div style="position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, #667eea15, #764ba215); width: ${porcentaje}%; transition: width 0.3s;"></div>
@@ -780,7 +692,6 @@ function renderPoll(encuesta, idAnuncio) {
               </div>
             `;
           } else {
-            // Alumnos pueden votar/cambiar voto
             return `
               <button onclick="votarEncuesta(${encuesta.id_encuesta}, ${opcion.id_opcion}, ${idAnuncio})" 
                 style="position: relative; padding: 12px; background: ${esVotoActual ? '#667eea' : 'white'}; border: 2px solid ${esVotoActual ? '#667eea' : '#e0e0e0'}; border-radius: 6px; cursor: pointer; text-align: left; font-size: 14px; color: ${esVotoActual ? 'white' : '#2c3e50'}; transition: all 0.2s; overflow: hidden;"
@@ -789,7 +700,7 @@ function renderPoll(encuesta, idAnuncio) {
                 <div style="position: absolute; top: 0; left: 0; height: 100%; background: ${esVotoActual ? 'rgba(255,255,255,0.2)' : 'rgba(102, 126, 234, 0.1)'}; width: ${porcentaje}%; transition: width 0.3s;"></div>
                 <div style="position: relative; display: flex; justify-content: space-between; align-items: center;">
                   <div style="display: flex; align-items: center; gap: 8px;">
-                    ${esVotoActual ? '<span style="font-size: 16px;">✓</span>' : ''}
+                    ${esVotoActual ? '<span style="font-size: 16px;"></span>' : ''}
                     <span>${opcion.texto}</span>
                   </div>
                   <span style="font-weight: 600; font-size: 13px; opacity: 0.8;">${porcentaje}%</span>
@@ -818,22 +729,6 @@ function obtenerIniciales(nombreCompleto) {
     .toUpperCase();
 }
 
-function calcularTiempoTranscurrido(fecha) {
-  const ahora = new Date();
-  const diferencia = ahora - fecha;
-  
-  const minutos = Math.floor(diferencia / 60000);
-  const horas = Math.floor(diferencia / 3600000);
-  const dias = Math.floor(diferencia / 86400000);
-  
-  if (minutos < 60) return `Hace ${minutos} minuto${minutos !== 1 ? 's' : ''}`;
-  if (horas < 24) return `Hace ${horas} hora${horas !== 1 ? 's' : ''}`;
-  if (dias === 1) return 'Ayer';
-  if (dias < 7) return `Hace ${dias} días`;
-  
-  return fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
-}
-
 async function loadTareas() {
   try {
     const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
@@ -841,19 +736,15 @@ async function loadTareas() {
     let tareas;
     
     if (isAdminClassroom) {
-      // Admin: cargar TODAS las tareas del sistema
       if (cursoActivo !== null) {
-        // Si hay un curso activo, filtrar por ese curso
         const res = await fetch(`${API_URL}/classroom/tareas/curso/${cursoActivo}/${tipo}/${userId}`);
         tareas = await res.json();
       } else {
-        // Cargar todas las tareas del sistema
         const res = await fetch(`${API_URL}/classroom/admin/todas-tareas`);
         tareas = await res.json();
-        console.log(`📝 Admin: ${tareas.length} tareas del sistema cargadas`);
+        console.log(` Admin: ${tareas.length} tareas del sistema cargadas`);
       }
     } else {
-      // Usuario normal: cargar solo tareas de sus cursos
       if (cursoActivo !== null) {
         const res = await fetch(`${API_URL}/classroom/tareas/curso/${cursoActivo}/${tipo}/${userId}`);
         tareas = await res.json();
@@ -898,12 +789,10 @@ function renderTareas(tareas) {
     let statusClass = '';
     
     if (esProfesor || isAdminClassroom) {
-      // Vista para profesor o admin
       const porcentajeEntregas = tarea.total_alumnos > 0 
         ? Math.round((tarea.total_entregas / tarea.total_alumnos) * 100) 
         : 0;
       
-      // Botón de eliminar
       const botonEliminarAdmin = isAdminClassroom ? `
         <button class="btn-delete-admin-task" onclick="eliminarTareaAdmin(${tarea.id_tarea}, '${tarea.titulo.replace(/'/g, "\\'")}', '${tarea.nombre_curso}')" title="Eliminar tarea">
           <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
@@ -974,7 +863,6 @@ function renderTareas(tareas) {
         </div>
       `;
     } else {
-      // Vista para alumno
       if (tarea.estado === 'entregada') {
         badge = `<span class="task-badge completed">Entregada</span>`;
         statusClass = 'completed';
@@ -1061,7 +949,6 @@ async function loadCalificaciones() {
     const res = await fetch(`${API_URL}/classroom/calificaciones/alumno/${userId}`);
     const data = await res.json();
     
-    // Si hay un curso activo, filtrar las calificaciones
     const dataFiltrada = cursoActivo !== null 
       ? data.filter(cal => cal.id_curso === cursoActivo)
       : data;
@@ -1113,7 +1000,6 @@ async function loadViewData(viewName) {
         await initCalendario();
         break;
       case 'students':
-        // Cargar vista de alumnos para profesores
         break;
       default:
         console.log('Vista:', viewName);
@@ -1125,9 +1011,6 @@ async function loadViewData(viewName) {
   }
 }
 
-// =====================================================
-// FILTROS
-// =====================================================
 
 function filterTasks(filter) {
   const taskItems = document.querySelectorAll('.task-item');
@@ -1153,9 +1036,6 @@ function filterTasks(filter) {
   });
 }
 
-// =====================================================
-// UTILIDADES
-// =====================================================
 
 function handleLogout() {
   Swal.fire({
@@ -1186,14 +1066,9 @@ function showNotification(title, message, type = 'info') {
   });
 }
 
-// =====================================================
-// FUNCIONES PARA FUTURAS IMPLEMENTACIONES
-// =====================================================
 
-// Estado del Course Room activo
 let activeCourseRoom = null;
 
-// Renderizar clases con cards clickeables
 function renderClases(clases) {
   const container = document.getElementById('classesGrid');
   if (!container) return;
@@ -1253,7 +1128,6 @@ function renderClases(clases) {
     </div>
   `).join('');
   
-  // Agregar efectos hover
   const cards = container.querySelectorAll('.class-card');
   cards.forEach(card => {
     card.addEventListener('mouseenter', function() {
@@ -1269,14 +1143,12 @@ function renderClases(clases) {
   lucide.createIcons();
 }
 
-// Ver detalle completo del curso en panel lateral
 async function verDetalleCurso(idCurso) {
   showLoader();
   
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
     
-    // Obtener información completa del curso
     const [resCurso, resAlumnos, resTareas] = await Promise.all([
       fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`),
       fetch(`${API_URL}/cursos/${idCurso}/alumnos`),
@@ -1292,14 +1164,11 @@ async function verDetalleCurso(idCurso) {
       throw new Error('Curso no encontrado');
     }
     
-    // Renderizar el panel
     renderPanelCurso(curso, alumnos, tareas);
     
-    // Abrir el panel
     const panel = document.getElementById('courseSidePanel');
     panel.classList.add('active');
     
-    // Prevenir scroll del body
     document.body.style.overflow = 'hidden';
     
   } catch (error) {
@@ -1406,7 +1275,6 @@ function renderPanelCurso(curso, alumnos, tareas) {
               'linear-gradient(135deg, #fa709a, #fee140)'
             ];
             
-            // Generar avatar o iniciales para alumnos
             let avatarAlumno = '';
             if (alumno.avatar) {
               const BASE_URL = window.BASE_URL || 'http://localhost:3000';
@@ -1454,52 +1322,34 @@ function cerrarPanelCurso() {
   document.body.style.overflow = '';
 }
 
-// =====================================================
-// FUNCIÓN: VER PERFIL DE ALUMNO
-// =====================================================
 window.verPerfilAlumno = function(idAlumno) {
-  // Obtener el ID del usuario actual según el rol
   const idAlumnoActual = localStorage.getItem('id_alumno');
   const idProfesorActual = localStorage.getItem('id_profesor');
   const rolActual = localStorage.getItem('rol');
   
-  // Si el usuario es alumno y es el mismo que clickeó, ir a su perfil
   if (rolActual === 'alumno' && idAlumnoActual && parseInt(idAlumnoActual) === parseInt(idAlumno)) {
-    // Ir a Mi Perfil
     window.location.href = '/perfil-classroom.html';
   } else {
-    // Ver perfil como espectador (redirigir a página de perfil espectador)
     window.location.href = `/perfil-espectador.html?id=${idAlumno}&tipo=alumno`;
   }
 };
 
-// =====================================================
-// FUNCIÓN: VER PERFIL DE PROFESOR
-// =====================================================
 window.verPerfilProfesor = function(idProfesor) {
-  // Obtener el ID del usuario actual según el rol
   const idProfesorActual = localStorage.getItem('id_profesor');
   const rolActual = localStorage.getItem('rol');
   
-  // Si el usuario es profesor y es el mismo, ir a su perfil
   if (rolActual === 'profesor' && idProfesorActual && parseInt(idProfesorActual) === parseInt(idProfesor)) {
-    // Ir a Mi Perfil
     window.location.href = '/perfil-classroom.html';
   } else {
-    // Ver perfil como espectador
     window.location.href = `/perfil-espectador.html?id=${idProfesor}&tipo=profesor`;
   }
 };
 
-// =====================================================
-// FUNCIÓN: VER PERFIL DESDE COMENTARIO
-// =====================================================
 window.verPerfilComentario = function(idUsuario, tipoUsuario) {
   const rolActual = localStorage.getItem('rol');
   
   if (tipoUsuario === 'profesor') {
     const idProfesorActual = localStorage.getItem('id_profesor');
-    // Si es el mismo profesor, ir a su perfil
     if (rolActual === 'profesor' && idProfesorActual && parseInt(idProfesorActual) === parseInt(idUsuario)) {
       window.location.href = '/perfil-classroom.html';
     } else {
@@ -1507,7 +1357,6 @@ window.verPerfilComentario = function(idUsuario, tipoUsuario) {
     }
   } else if (tipoUsuario === 'alumno') {
     const idAlumnoActual = localStorage.getItem('id_alumno');
-    // Si es el mismo alumno, ir a su perfil
     if (rolActual === 'alumno' && idAlumnoActual && parseInt(idAlumnoActual) === parseInt(idUsuario)) {
       window.location.href = '/perfil-classroom.html';
     } else {
@@ -1516,12 +1365,8 @@ window.verPerfilComentario = function(idUsuario, tipoUsuario) {
   }
 };
 
-// =====================================================
-// FUNCIÓN: ABRIR PERFIL COMO ESPECTADOR
-// =====================================================
 async function abrirPerfilEspectador(idPersona, tipoUsuario) {
   try {
-    // Obtener datos del perfil
     const response = await fetch(`${API_URL}/classroom/perfil/${idPersona}`);
     const data = await response.json();
     
@@ -1532,7 +1377,6 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
     const perfil = data.perfil;
     const iniciales = obtenerIniciales(perfil.nombre, perfil.apellido);
     
-    // Generar avatar o iniciales
     let avatarHTML = '';
     if (perfil.avatar) {
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
@@ -1550,7 +1394,6 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
       `;
     }
     
-    // Crear HTML del modal
     const perfilHTML = `
       <div style="text-align: center;">
         ${avatarHTML}
@@ -1586,7 +1429,6 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
       </div>
     `;
     
-    // Mostrar en SweetAlert2
     Swal.fire({
       html: perfilHTML,
       width: '600px',
@@ -1610,15 +1452,11 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
   }
 }
 
-// Abrir Course Room (versión simplificada - solo cambia filtro y vista)
 async function abrirCourseRoom(idCurso) {
-  // Seleccionar el curso
   await seleccionarCurso(idCurso);
   
-  // Cambiar a la vista de inicio para ver los anuncios del curso
   switchView('home');
   
-  // Activar el nav item de inicio
   navItems.forEach(item => {
     if (item.getAttribute('data-view') === 'home') {
       item.classList.add('active');
@@ -1628,47 +1466,6 @@ async function abrirCourseRoom(idCurso) {
   });
 }
 
-// Ver alumnos del curso
-async function verAlumnosCurso(idCurso) {
-  try {
-    const res = await fetch(`${API_URL}/classroom/curso/${idCurso}/alumnos`);
-    const alumnos = await res.json();
-    
-    const htmlAlumnos = alumnos.length === 0 ? 
-      '<p style="text-align: center; color: #999; padding: 20px;">No hay alumnos inscritos</p>' :
-      `
-        <div style="display: grid; gap: 12px; max-height: 400px; overflow-y: auto;">
-          ${alumnos.map(alumno => `
-            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px;">
-              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
-                ${alumno.nombre.charAt(0)}${alumno.apellido.charAt(0)}
-              </div>
-              <div style="flex: 1;">
-                <div style="font-weight: 600; color: #2c3e50;">${alumno.nombre} ${alumno.apellido}</div>
-                <div style="font-size: 13px; color: #777;">${alumno.email || 'Sin email'}</div>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    
-    Swal.fire({
-      title: `<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="users" style="width: 24px; height: 24px; color: #667eea;"></i><span>Alumnos del Curso</span></div>`,
-      html: htmlAlumnos,
-      showCloseButton: true,
-      showConfirmButton: false,
-      width: '600px',
-      didOpen: () => {
-        lucide.createIcons();
-      }
-    });
-  } catch (error) {
-    console.error('Error al cargar alumnos:', error);
-    showNotification('Error al cargar los alumnos', 'error');
-  }
-}
-
-// Ver estadísticas del curso
 async function verEstadisticasCurso(idCurso) {
   Swal.fire({
     title: 'Estadísticas del Curso',
@@ -1678,7 +1475,6 @@ async function verEstadisticasCurso(idCurso) {
   });
 }
 
-// Renderizar calificaciones
 function renderCalificaciones(data) {
   const container = document.querySelector('#viewGrades .grades-container');
   if (!container) return;
@@ -1694,7 +1490,6 @@ function renderCalificaciones(data) {
   
   const { calificaciones, estadisticas } = data;
   
-  // Actualizar estadísticas
   const summaryHTML = `
     <div class="grades-summary">
       <div class="summary-card">
@@ -1727,7 +1522,6 @@ function renderCalificaciones(data) {
     </div>
   `;
   
-  // Generar tablas por curso
   const gradientes = [
     'linear-gradient(135deg, #667eea, #764ba2)',
     'linear-gradient(135deg, #f093fb, #f5576c)',
@@ -1796,7 +1590,6 @@ function getGradeClass(nota) {
   return 'poor';
 }
 
-// Ver alumnos de un curso (profesores)
 async function verAlumnosCurso(idCurso) {
   try {
     const res = await fetch(`${API_URL}/classroom/curso/${idCurso}/alumnos`);
@@ -1858,7 +1651,6 @@ function showClassMenu(idCurso) {
   console.log('Menú de clase:', idCurso);
 }
 
-// Loader helpers
 function showLoader() {
   document.getElementById('loader').classList.remove('hidden');
 }
@@ -1867,11 +1659,7 @@ function hideLoader() {
   document.getElementById('loader').classList.add('hidden');
 }
 
-// =====================================================
-// FUNCIONES PARA FUTURAS IMPLEMENTACIONES
-// =====================================================
 
-// Crear nueva clase (solo profesores)
 function createClass() {
   Swal.fire({
     title: 'Crear Nueva Clase',
@@ -1905,17 +1693,12 @@ function createClass() {
   }).then((result) => {
     if (result.isConfirmed) {
       showNotification('¡Clase creada!', 'La clase se creó correctamente', 'success');
-      // Aquí harías la llamada al backend
     }
   });
 }
 
-// =====================================================
-// FUNCIONES PARA TAREAS
-// =====================================================
 
 async function mostrarFormularioTarea() {
-  // Primero cargar los cursos del profesor
   const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
   const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
   const cursos = await res.json();
@@ -1934,7 +1717,6 @@ async function mostrarFormularioTarea() {
     `<option value="${c.id_curso}" style="color: #2c3e50; background: white;">${c.nombre_curso}</option>`
   ).join('');
   
-  // Obtener fecha mínima (hoy)
   const hoy = new Date().toISOString().split('T')[0];
   
   Swal.fire({
@@ -2131,10 +1913,8 @@ async function mostrarFormularioTarea() {
       confirmButton: 'animated-button'
     },
     didOpen: () => {
-      // Recrear iconos de Lucide
       lucide.createIcons();
       
-      // Event listener para enlace
       const linkCheckbox = document.getElementById('swal-link-tarea');
       const linkContainer = document.getElementById('link-tarea-container');
       const linkInput = document.getElementById('swal-link-url-tarea');
@@ -2155,7 +1935,6 @@ async function mostrarFormularioTarea() {
         }
       });
       
-      // Event listener para archivo adjunto
       const archivoCheckbox = document.getElementById('swal-archivo-tarea');
       const archivoContainer = document.getElementById('archivo-tarea-container');
       const archivoUrlInput = document.getElementById('swal-archivo-url-tarea');
@@ -2175,14 +1954,12 @@ async function mostrarFormularioTarea() {
         }
       });
       
-      // Event listeners para radio buttons (URL vs Upload)
       const radioButtons = document.querySelectorAll('input[name="tipo-archivo"]');
       const urlSection = document.getElementById('archivo-url-section');
       const uploadSection = document.getElementById('archivo-upload-section');
       
       radioButtons.forEach(radio => {
         radio.addEventListener('change', function() {
-          // Actualizar estilos de los labels
           const labels = document.querySelectorAll('label:has(input[name="tipo-archivo"])');
           labels.forEach(label => {
             const input = label.querySelector('input');
@@ -2195,7 +1972,6 @@ async function mostrarFormularioTarea() {
             }
           });
           
-          // Mostrar/ocultar secciones
           if (this.value === 'url') {
             urlSection.style.display = 'block';
             uploadSection.style.display = 'none';
@@ -2206,7 +1982,6 @@ async function mostrarFormularioTarea() {
             archivoUrlInput.value = '';
           }
           
-          // Recrear iconos
           lucide.createIcons();
         });
       });
@@ -2222,7 +1997,6 @@ async function mostrarFormularioTarea() {
       const linkUrl = document.getElementById('swal-link-tarea').checked ? document.getElementById('swal-link-url-tarea').value : '';
       const notificar = document.getElementById('swal-notificar-tarea').checked;
       
-      // Validaciones básicas
       if (!curso || !titulo || !descripcion || !fecha || !hora) {
         Swal.showValidationMessage('El curso, título, descripción, fecha y hora son requeridos');
         return false;
@@ -2233,7 +2007,6 @@ async function mostrarFormularioTarea() {
         return false;
       }
       
-      // Manejar archivo adjunto
       let archivoUrl = '';
       const archivoCheckbox = document.getElementById('swal-archivo-tarea');
       
@@ -2241,14 +2014,12 @@ async function mostrarFormularioTarea() {
         const tipoArchivo = document.querySelector('input[name="tipo-archivo"]:checked').value;
         
         if (tipoArchivo === 'url') {
-          // Archivo por URL
           archivoUrl = document.getElementById('swal-archivo-url-tarea').value;
           if (archivoUrl && !archivoUrl.match(/^https?:\/\/.+/)) {
             Swal.showValidationMessage('El archivo adjunto debe ser una URL válida (http:// o https://)');
             return false;
           }
         } else {
-          // Subir archivo
           const fileInput = document.getElementById('swal-archivo-file-tarea');
           const file = fileInput.files[0];
           
@@ -2257,13 +2028,11 @@ async function mostrarFormularioTarea() {
             return false;
           }
           
-          // Validar tamaño (50MB)
           if (file.size > 50 * 1024 * 1024) {
             Swal.showValidationMessage('El archivo es demasiado grande (máximo 50MB)');
             return false;
           }
           
-          // Mostrar progreso
           const progressDiv = document.getElementById('upload-progress');
           const progressBar = document.getElementById('upload-progress-bar');
           const statusText = document.getElementById('upload-status');
@@ -2272,7 +2041,6 @@ async function mostrarFormularioTarea() {
           statusText.textContent = 'Subiendo archivo...';
           
           try {
-            // Subir archivo
             const formData = new FormData();
             formData.append('archivo', file);
             
@@ -2289,7 +2057,7 @@ async function mostrarFormularioTarea() {
             
             archivoUrl = uploadResult.url;
             progressBar.style.width = '100%';
-            statusText.textContent = '✓ Archivo subido exitosamente';
+            statusText.textContent = ' Archivo subido exitosamente';
             
           } catch (error) {
             progressDiv.style.display = 'none';
@@ -2310,7 +2078,6 @@ async function mostrarFormularioTarea() {
 
 async function crearTarea(datos) {
   try {
-    // Convertir fecha y hora a formato MySQL datetime
     const fechaLimite = `${datos.fecha} ${datos.hora}:00`;
     
     const response = await fetch(`${API_URL}/classroom/tareas`, {
@@ -2349,13 +2116,10 @@ async function crearTarea(datos) {
         }
       });
       
-      // Si estamos en la vista de tareas, cambiar al curso de la tarea recién creada y recargar
       const currentView = document.querySelector('.nav-item.active')?.getAttribute('data-view');
       if (currentView === 'tasks') {
-        // Seleccionar el curso de la tarea creada
         await seleccionarCurso(parseInt(datos.curso));
       } else {
-        // Si no estamos en la vista de tareas, solo desactivar el filtro para que aparezcan todas
         cursoActivo = null;
         const btnCourseSelector = document.getElementById('btnCourseSelector');
         const currentCourseName = document.getElementById('currentCourseName');
@@ -2413,7 +2177,6 @@ async function eliminarTarea(idTarea, titulo) {
           timer: 2000
         });
 
-        // Recargar las tareas
         if (cursoActivo !== null) {
           seleccionarCurso(cursoActivo);
         } else {
@@ -2434,9 +2197,6 @@ async function eliminarTarea(idTarea, titulo) {
   }
 }
 
-// =====================================================
-// ENTREGAR TAREA (ALUMNO)
-// =====================================================
 
 async function mostrarFormularioEntrega(idTarea, tituloTarea) {
   const { value: formValues } = await Swal.fire({
@@ -2522,7 +2282,6 @@ async function entregarTarea(idTarea, comentario, archivo) {
   try {
     showLoader();
     
-    // Subir archivo si existe
     let urlArchivo = null;
     
     if (archivo) {
@@ -2578,7 +2337,6 @@ async function entregarTarea(idTarea, comentario, archivo) {
         timer: 2000
       });
 
-      // Recargar las tareas
       if (cursoActivo !== null) {
         seleccionarCurso(cursoActivo);
       } else {
@@ -2738,7 +2496,6 @@ async function verDetalleEntrega(idTarea, idAlumno) {
   }
 }
 
-// Ver entregas de una tarea (Profesor)
 async function verEntregasTarea(idTarea) {
   try {
     showLoader();
@@ -2760,7 +2517,6 @@ async function verEntregasTarea(idTarea) {
       return;
     }
     
-    // Construir lista de entregas
     const entregasHTML = entregas.map(entrega => {
       const fechaEntrega = new Date(entrega.fecha_entrega);
       const fechaFormateada = fechaEntrega.toLocaleDateString('es-ES', { 
@@ -2861,12 +2617,10 @@ async function verEntregasTarea(idTarea) {
   }
 }
 
-// Calificar entrega (Profesor)
 window.calificarEntrega = async function(idEntrega) {
   try {
     showLoader();
     
-    // Obtener detalles completos de la entrega
     const response = await fetch(`${API_URL}/classroom/entrega/${idEntrega}`);
 
     if (!response.ok) {
@@ -2876,7 +2630,6 @@ window.calificarEntrega = async function(idEntrega) {
     const entrega = await response.json();
     hideLoader();
 
-    // Formatear fecha de entrega
     const fechaEntrega = new Date(entrega.fecha_entrega);
     const fechaFormateada = fechaEntrega.toLocaleDateString('es-ES', {
       day: '2-digit',
@@ -3063,7 +2816,6 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
         timer: 2000
       });
 
-      // Recargar las tareas
       if (cursoActivo !== null) {
         seleccionarCurso(cursoActivo);
       } else {
@@ -3085,12 +2837,8 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
   }
 }
 
-// =====================================================
-// FUNCIONES PARA ANUNCIOS
-// =====================================================
 
 async function mostrarFormularioAnuncio() {
-  // Primero cargar los cursos del profesor
   const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
   const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
   const cursos = await res.json();
@@ -3256,10 +3004,8 @@ async function mostrarFormularioAnuncio() {
       confirmButton: 'animated-button'
     },
     didOpen: () => {
-      // Recrear iconos de Lucide
       lucide.createIcons();
       
-      // Event listener para enlace
       const linkCheckbox = document.getElementById('swal-link');
       const linkContainer = document.getElementById('link-container');
       const linkInput = document.getElementById('swal-link-url');
@@ -3280,7 +3026,6 @@ async function mostrarFormularioAnuncio() {
         }
       });
       
-      // Event listener para encuesta
       const pollCheckbox = document.getElementById('swal-poll');
       const pollContainer = document.getElementById('poll-container');
       const pollQuestion = document.getElementById('poll-question');
@@ -3298,7 +3043,6 @@ async function mostrarFormularioAnuncio() {
           pollContainer.style.opacity = '0';
           pollContainer.style.marginTop = '0';
           pollQuestion.value = '';
-          // Reset opciones
           const options = pollContainer.querySelectorAll('.poll-option');
           options.forEach(opt => opt.value = '');
         }
@@ -3312,7 +3056,6 @@ async function mostrarFormularioAnuncio() {
       const importante = document.getElementById('swal-importante').checked;
       const notificar = document.getElementById('swal-notificar').checked;
       
-      // Poll data
       const hasPoll = document.getElementById('swal-poll').checked;
       let pollData = null;
       
@@ -3352,7 +3095,6 @@ async function mostrarFormularioAnuncio() {
   });
 }
 
-// Función global para agregar opciones a la encuesta
 window.agregarOpcionPoll = function() {
   const container = document.getElementById('poll-options-container');
   const optionCount = container.querySelectorAll('.poll-option').length + 1;
@@ -3362,7 +3104,6 @@ window.agregarOpcionPoll = function() {
     return;
   }
   
-  // Crear contenedor con numeración
   const optionWrapper = document.createElement('div');
   optionWrapper.style.cssText = 'display: flex; align-items: center; gap: 6px; margin-bottom: 6px;';
   
@@ -3388,7 +3129,6 @@ window.agregarOpcionPoll = function() {
   optionWrapper.appendChild(newOption);
   container.appendChild(optionWrapper);
   
-  // Animar entrada
   optionWrapper.style.opacity = '0';
   optionWrapper.style.transform = 'translateX(-10px)';
   setTimeout(() => {
@@ -3399,13 +3139,11 @@ window.agregarOpcionPoll = function() {
   
   newOption.focus();
   
-  // Recrear iconos de Lucide
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
 }
 
-// Función global para votar en encuestas
 window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
   try {
     const response = await fetch(`${API_URL}/classroom/encuestas/votar`, {
@@ -3423,19 +3161,15 @@ window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
     const result = await response.json();
 
     if (response.ok) {
-      // Obtener los datos actualizados de la encuesta
       const resEncuesta = await fetch(`${API_URL}/classroom/encuestas/${idEncuesta}/${userId}`);
       const encuestaActualizada = await resEncuesta.json();
       
-      // Actualizar solo el contenedor de la poll
       const pollContainer = document.getElementById(`poll-${idEncuesta}`);
       
       if (pollContainer) {
-        // Actualizar el contenido usando outerHTML para reemplazar completamente el elemento
         const nuevoHTML = renderPoll(encuestaActualizada, idAnuncio);
         pollContainer.outerHTML = nuevoHTML;
         
-        // Reinicializar los iconos de lucide
         setTimeout(() => {
           lucide.createIcons();
         }, 100);
@@ -3443,7 +3177,6 @@ window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
         console.warn('No se encontró el contenedor de la poll con ID:', `poll-${idEncuesta}`);
       }
       
-      // Mostrar mensaje de éxito breve
       const Toast = Swal.mixin({
         toast: true,
         position: 'bottom-end',
@@ -3501,7 +3234,6 @@ async function crearAnuncio(datos) {
         confirmButtonColor: '#667eea'
       });
       
-      // Recargar los anuncios según la vista activa
       const vistaActiva = document.querySelector('.content-view:not([style*="display: none"])');
       if (vistaActiva && vistaActiva.id === 'viewAnnouncements') {
         await loadAnunciosProfesor();
@@ -3547,7 +3279,6 @@ function renderAnunciosProfesor(anuncios) {
     const tiempoTranscurrido = calcularTiempoTranscurrido(fecha);
     const importante = anuncio.importante;
     
-    // Generar avatar o iniciales
     const avatarHTML = renderAvatarHTML(
       anuncio.profesor_avatar, 
       anuncio.profesor_nombre, 
@@ -3602,23 +3333,17 @@ function renderAnunciosProfesor(anuncios) {
   lucide.createIcons();
 }
 
-// =====================================================
-// ABRIR ANUNCIO COMPLETO CON COMENTARIOS
-// =====================================================
 window.abrirAnuncio = async function(idAnuncio) {
   try {
-    // Obtener datos completos del anuncio
     const resAnuncio = await fetch(`${API_URL}/classroom/anuncio/${idAnuncio}/${userId}`);
     const anuncio = await resAnuncio.json();
     
-    console.log('📋 Datos del anuncio:', anuncio);
-    console.log('👨‍🏫 ID Profesor:', anuncio.id_profesor);
+    console.log(' Datos del anuncio:', anuncio);
+    console.log('‍ ID Profesor:', anuncio.id_profesor);
     
-    // Obtener comentarios
     const resComentarios = await fetch(`${API_URL}/classroom/comentarios/${idAnuncio}`);
     const comentarios = await resComentarios.json();
     
-    // Construir HTML del anuncio
     const fecha = new Date(anuncio.fecha_creacion);
     const fechaFormateada = fecha.toLocaleDateString('es-ES', { 
       day: 'numeric', 
@@ -3628,7 +3353,6 @@ window.abrirAnuncio = async function(idAnuncio) {
       minute: '2-digit'
     });
     
-    // Generar avatar o iniciales para el modal
     let avatarElement = '';
     if (anuncio.profesor_avatar) {
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
@@ -3698,7 +3422,6 @@ window.abrirAnuncio = async function(idAnuncio) {
               const fechaCom = new Date(com.fecha_creacion);
               const tiempo = calcularTiempoTranscurrido(fechaCom);
               
-              // Generar avatar o iniciales para comentarios
               let avatarComentario = '';
               if (com.avatar_usuario) {
                 const BASE_URL = window.BASE_URL || 'http://localhost:3000';
@@ -3791,14 +3514,12 @@ window.abrirAnuncio = async function(idAnuncio) {
             const result = await response.json();
             
             if (result.success) {
-              // Actualizar contador en el feed
               const countElement = document.getElementById(`count-${idAnuncio}`);
               if (countElement) {
                 const currentCount = parseInt(countElement.textContent) || 0;
                 countElement.textContent = currentCount + 1;
               }
               
-              // Actualizar el título de comentarios
               const tituloComentarios = document.querySelector('h4');
               if (tituloComentarios && tituloComentarios.textContent.includes('Comentarios')) {
                 const nuevoTotal = comentarios.length + 1;
@@ -3809,7 +3530,6 @@ window.abrirAnuncio = async function(idAnuncio) {
                 lucide.createIcons();
               }
               
-              // Agregar el nuevo comentario al contenedor
               const container = document.getElementById('comentarios-container');
               const iniciales = obtenerIniciales(result.comentario.nombre_usuario);
               
@@ -3831,7 +3551,6 @@ window.abrirAnuncio = async function(idAnuncio) {
                 </div>
               `;
               
-              // Si no había comentarios, limpiar el mensaje
               if (container.innerHTML.includes('Aún no hay comentarios')) {
                 container.innerHTML = '';
               }
@@ -3839,10 +3558,8 @@ window.abrirAnuncio = async function(idAnuncio) {
               container.insertAdjacentHTML('beforeend', nuevoComentarioHTML);
               container.scrollTop = container.scrollHeight;
               
-              // Limpiar textarea
               textarea.value = '';
               
-              // Mostrar toast de éxito
               const Toast = Swal.mixin({
                 toast: true,
                 position: 'bottom-end',
@@ -3865,7 +3582,6 @@ window.abrirAnuncio = async function(idAnuncio) {
           }
         };
         
-        // Permitir enviar con Ctrl+Enter
         textarea.addEventListener('keydown', (e) => {
           if (e.ctrlKey && e.key === 'Enter') {
             btnEnviar.click();
@@ -3885,15 +3601,11 @@ window.abrirAnuncio = async function(idAnuncio) {
   }
 }
 
-// Event listener para botón de crear clase
 const btnCreateClass = document.getElementById('btnCreateClass');
 if (btnCreateClass) {
   btnCreateClass.addEventListener('click', createClass);
 }
 
-// =====================================================
-// CALENDARIO
-// =====================================================
 
 let calendarioActual = {
   mes: new Date().getMonth() + 1,
@@ -3905,18 +3617,15 @@ let tareasDelMes = [];
 let notasDelMes = [];
 
 async function initCalendario() {
-  // Cargar vista guardada
   const vistaGuardada = localStorage.getItem('vistaCalendario') || 'mes';
   vistaCalendarioActual = vistaGuardada;
   
-  // Mostrar botón de crear evento solo para profesores
   const btnCrearEvento = document.getElementById('btnCrearEvento');
   if (btnCrearEvento && userRol.toLowerCase() === 'profesor') {
     btnCrearEvento.style.display = 'flex';
     btnCrearEvento.onclick = mostrarFormularioEvento;
   }
   
-  // Event listeners para botones de vista
   document.querySelectorAll('.view-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       const vista = this.getAttribute('data-calendar-view');
@@ -3924,10 +3633,8 @@ async function initCalendario() {
     });
   });
   
-  // Aplicar vista guardada a los botones
   actualizarBotonesVista();
   
-  // Event listeners para navegación
   const btnMesAnterior = document.getElementById('btnMesAnterior');
   const btnMesSiguiente = document.getElementById('btnMesSiguiente');
   const btnHoy = document.getElementById('btnHoy');
@@ -3949,7 +3656,6 @@ async function initCalendario() {
     };
   }
   
-  // Cargar calendario del mes actual
   await cargarCalendario();
 }
 
@@ -3971,11 +3677,9 @@ async function cargarCalendario() {
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
     
-    // Cargar eventos y tareas
     const resCalendario = await fetch(`${API_URL}/classroom/calendario/${tipo}/${userId}/${calendarioActual.año}/${calendarioActual.mes}`);
     const dataCalendario = await resCalendario.json();
     
-    // Filtrar por curso activo si está seleccionado
     eventosDelMes = cursoActivo !== null
       ? (dataCalendario.eventos || []).filter(evento => evento.id_curso === cursoActivo)
       : (dataCalendario.eventos || []);
@@ -3984,7 +3688,6 @@ async function cargarCalendario() {
       ? (dataCalendario.tareas || []).filter(tarea => tarea.id_curso === cursoActivo)
       : (dataCalendario.tareas || []);
     
-    // Cargar notas personales
     const resNotas = await fetch(`${API_URL}/classroom/notas/${tipo}/${userId}/${calendarioActual.año}/${calendarioActual.mes}`);
     notasDelMes = await resNotas.json();
     
@@ -3994,7 +3697,6 @@ async function cargarCalendario() {
   }
 }
 
-// Obtener colores según el modo oscuro
 function getCalendarColors() {
   const isDark = document.body.classList.contains('dark-mode');
   return {
@@ -4014,7 +3716,6 @@ function getCalendarColors() {
 }
 
 function renderizarCalendario() {
-  // Actualizar título del mes
   const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   const mesActualEl = document.getElementById('mesActual');
@@ -4022,22 +3723,18 @@ function renderizarCalendario() {
     mesActualEl.textContent = `${meses[calendarioActual.mes - 1]} ${calendarioActual.año}`;
   }
   
-  // Generar cuadrícula de días
   const grid = document.getElementById('calendarGrid');
   if (!grid) return;
   
   grid.innerHTML = '';
   
-  // Obtener colores según modo oscuro
   const colors = getCalendarColors();
   
-  // Calcular primer día del mes y días totales
   const primerDia = new Date(calendarioActual.año, calendarioActual.mes - 1, 1);
   const ultimoDia = new Date(calendarioActual.año, calendarioActual.mes, 0);
   const diasEnMes = ultimoDia.getDate();
   const primerDiaSemana = primerDia.getDay();
   
-  // Fecha de hoy
   const hoy = new Date();
   const esHoy = (dia) => {
     return dia === hoy.getDate() && 
@@ -4045,18 +3742,15 @@ function renderizarCalendario() {
            calendarioActual.año === hoy.getFullYear();
   };
   
-  // Agregar días vacíos al inicio
   for (let i = 0; i < primerDiaSemana; i++) {
     const diaVacio = document.createElement('div');
     diaVacio.style.cssText = `background: ${colors.bgEmpty}; min-height: 120px;`;
     grid.appendChild(diaVacio);
   }
   
-  // Agregar días del mes
   for (let dia = 1; dia <= diasEnMes; dia++) {
     const fechaActual = `${calendarioActual.año}-${String(calendarioActual.mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
     
-    // Buscar datos de este día
     const eventosDelDia = eventosDelMes.filter(e => e.fecha_inicio.startsWith(fechaActual));
     const tareasDelDia = tareasDelMes.filter(t => t.fecha_limite.startsWith(fechaActual));
     const notasDelDia = notasDelMes.filter(n => n.fecha.startsWith(fechaActual));
@@ -4064,7 +3758,6 @@ function renderizarCalendario() {
     const tieneItems = eventosDelDia.length > 0 || tareasDelDia.length > 0 || notasDelDia.length > 0;
     const esHoyDia = esHoy(dia);
     
-    // Crear celda del día
     const diaElement = document.createElement('div');
     const esProfesor = userRol.toLowerCase() === 'profesor';
     
@@ -4082,7 +3775,6 @@ function renderizarCalendario() {
       box-shadow: ${esHoyDia ? colors.shadowToday : colors.shadowNormal};
     `;
     
-    // Solo permitir interacción a profesores
     if (esProfesor) {
       diaElement.onmouseenter = function() {
         this.style.transform = 'translateY(-2px)';
@@ -4095,7 +3787,6 @@ function renderizarCalendario() {
       diaElement.onclick = () => mostrarDetallesDia(dia, fechaActual, eventosDelDia, tareasDelDia, notasDelDia);
     }
     
-    // Número del día
     const numeroDiv = document.createElement('div');
     numeroDiv.style.cssText = `
       font-weight: ${esHoyDia ? '700' : '600'};
@@ -4108,11 +3799,10 @@ function renderizarCalendario() {
     `;
     numeroDiv.innerHTML = `
       <span>${dia}</span>
-      ${tieneItems ? `<span style="color: ${colors.accent}; font-size: 12px;">📌</span>` : ''}
+      ${tieneItems ? `<span style="color: ${colors.accent}; font-size: 12px;"></span>` : ''}
     `;
     diaElement.appendChild(numeroDiv);
     
-    // Contenedor de items (máximo 3 visibles)
     const itemsContainer = document.createElement('div');
     itemsContainer.style.cssText = 'display: flex; flex-direction: column; gap: 4px; flex: 1; overflow: hidden;';
     
@@ -4138,17 +3828,16 @@ function renderizarCalendario() {
       `;
       
       if (item.tipo === 'nota') {
-        itemDiv.textContent = `📝 ${item.titulo || 'Nota'}`;
+        itemDiv.textContent = ` ${item.titulo || 'Nota'}`;
       } else if (item.tipo === 'evento') {
-        itemDiv.textContent = `🎯 ${item.titulo}`;
+        itemDiv.textContent = ` ${item.titulo}`;
       } else {
-        itemDiv.textContent = `📋 ${item.titulo}`;
+        itemDiv.textContent = ` ${item.titulo}`;
       }
       
       itemsContainer.appendChild(itemDiv);
     });
     
-    // Indicador de más items
     const totalItems = notasDelDia.length + eventosDelDia.length + tareasDelDia.length;
     if (totalItems > 3) {
       const masDiv = document.createElement('div');
@@ -4170,16 +3859,13 @@ function renderizarCalendario() {
   lucide.createIcons();
 }
 
-// Cambiar vista del calendario
 function cambiarVistaCalendario(vista) {
   console.log('Cambiando vista del calendario a:', vista);
   vistaCalendarioActual = vista;
   localStorage.setItem('vistaCalendario', vista);
   
-  // Actualizar botones
   actualizarBotonesVista();
   
-  // Renderizar según la vista
   switch(vista) {
     case 'mes':
       renderizarCalendarioMes();
@@ -4203,7 +3889,6 @@ function cambiarVistaCalendario(vista) {
   });
 }
 
-// Actualizar estilos de los botones de vista
 function actualizarBotonesVista() {
   document.querySelectorAll('.view-btn').forEach(btn => {
     const vista = btn.getAttribute('data-calendar-view');
@@ -4217,30 +3902,25 @@ function actualizarBotonesVista() {
   });
 }
 
-// Renderizar vista de mes (la actual)
 function renderizarCalendarioMes() {
   renderizarCalendario();
 }
 
-// Renderizar vista de semana
 function renderizarCalendarioSemana() {
   const grid = document.getElementById('calendarGrid');
   if (!grid) return;
   
   grid.innerHTML = '';
   
-  // Obtener la semana actual
   const hoy = new Date(calendarioActual.año, calendarioActual.mes - 1, 1);
   const primerDiaSemana = hoy.getDate() - hoy.getDay();
   
-  // Cambiar a layout de semana
   grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
   grid.style.gap = '8px';
   
   const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   
-  // Generar 7 días de la semana
   for (let i = 0; i < 7; i++) {
     const fecha = new Date(calendarioActual.año, calendarioActual.mes - 1, primerDiaSemana + i);
     const dia = fecha.getDate();
@@ -4249,7 +3929,6 @@ function renderizarCalendarioSemana() {
     
     const fechaStr = `${año}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
     
-    // Buscar eventos del día
     const eventosDelDia = eventosDelMes.filter(e => e.fecha_inicio.startsWith(fechaStr));
     const tareasDelDia = tareasDelMes.filter(t => t.fecha_limite.startsWith(fechaStr));
     const notasDelDia = notasDelMes.filter(n => n.fecha.startsWith(fechaStr));
@@ -4276,17 +3955,17 @@ function renderizarCalendarioSemana() {
       <div style="display: flex; flex-direction: column; gap: 6px;">
         ${eventosDelDia.map(e => `
           <div style="background: #e3f2fd; padding: 8px; border-radius: 6px; font-size: 13px; color: #1976d2; border-left: 3px solid #1976d2;">
-            📅 ${e.titulo}
+             ${e.titulo}
           </div>
         `).join('')}
         ${tareasDelDia.map(t => `
           <div style="background: #fff3e0; padding: 8px; border-radius: 6px; font-size: 13px; color: #f57c00; border-left: 3px solid #f57c00;">
-            📝 ${t.titulo}
+             ${t.titulo}
           </div>
         `).join('')}
         ${notasDelDia.map(n => `
           <div style="background: #f3e5f5; padding: 8px; border-radius: 6px; font-size: 13px; color: #7b1fa2; border-left: 3px solid #7b1fa2;">
-            📌 ${n.titulo}
+             ${n.titulo}
           </div>
         `).join('')}
       </div>
@@ -4298,14 +3977,12 @@ function renderizarCalendarioSemana() {
   lucide.createIcons();
 }
 
-// Renderizar vista de día
 function renderizarCalendarioDia() {
   const grid = document.getElementById('calendarGrid');
   if (!grid) return;
   
   grid.innerHTML = '';
   
-  // Cambiar a layout de día
   grid.style.gridTemplateColumns = '1fr';
   grid.style.gap = '16px';
   
@@ -4319,7 +3996,6 @@ function renderizarCalendarioDia() {
   
   const fechaStr = `${año}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
   
-  // Buscar eventos del día
   const eventosDelDia = eventosDelMes.filter(e => e.fecha_inicio.startsWith(fechaStr));
   const tareasDelDia = tareasDelMes.filter(t => t.fecha_limite.startsWith(fechaStr));
   const notasDelDia = notasDelMes.filter(n => n.fecha.startsWith(fechaStr));
@@ -4420,16 +4096,15 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
         </h3>
         ${esProfesor ? `
           <button id="btnAgregarNota" style="padding: 8px 16px; background: #FFD700; color: #2c3e50; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 16px;">📌</span>
+            <span style="font-size: 16px;"></span>
             Agregar Pin
           </button>
         ` : ''}
       </div>
   `;
   
-  // Mostrar notas personales
   if (notas.length > 0) {
-    htmlContent += '<div style="margin-bottom: 20px;"><h4 style="color: #2c3e50; font-size: 15px; margin: 0 0 12px 0; font-weight: 700;">📝 Mis Notas</h4>';
+    htmlContent += '<div style="margin-bottom: 20px;"><h4 style="color: #2c3e50; font-size: 15px; margin: 0 0 12px 0; font-weight: 700;"> Mis Notas</h4>';
     notas.forEach(nota => {
       htmlContent += `
         <div style="padding: 12px; background: ${nota.color}30; border-left: 4px solid ${nota.color}; border-radius: 8px; margin-bottom: 10px; position: relative;">
@@ -4440,8 +4115,8 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
             </div>
             ${esProfesor ? `
               <div style="display: flex; gap: 6px; margin-left: 12px;">
-                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #667eea; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">✏️</button>
-                <button onclick="eliminarNota(${nota.id_nota})" style="background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">🗑️</button>
+                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #667eea; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;"></button>
+                <button onclick="eliminarNota(${nota.id_nota})" style="background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;"></button>
               </div>
             ` : ''}
           </div>
@@ -4451,9 +4126,8 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
     htmlContent += '</div>';
   }
   
-  // Mostrar eventos
   if (eventos.length > 0) {
-    htmlContent += '<div style="margin-bottom: 20px;"><h4 style="color: #2c3e50; font-size: 15px; margin: 0 0 12px 0; font-weight: 700;">🎯 Eventos</h4>';
+    htmlContent += '<div style="margin-bottom: 20px;"><h4 style="color: #2c3e50; font-size: 15px; margin: 0 0 12px 0; font-weight: 700;"> Eventos</h4>';
     eventos.forEach(evento => {
       const hora = new Date(evento.fecha_inicio).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
       
@@ -4471,9 +4145,8 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
     htmlContent += '</div>';
   }
   
-  // Mostrar tareas
   if (tareas.length > 0) {
-    htmlContent += '<div><h4 style="color: #2c3e50; font-size: 15px; margin: 0 0 12px 0; font-weight: 700;">📋 Tareas</h4>';
+    htmlContent += '<div><h4 style="color: #2c3e50; font-size: 15px; margin: 0 0 12px 0; font-weight: 700;"> Tareas</h4>';
     tareas.forEach(tarea => {
       const hora = new Date(tarea.fecha_limite).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
       
@@ -4493,7 +4166,7 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
   if (eventos.length === 0 && tareas.length === 0 && notas.length === 0) {
     htmlContent += `
       <div style="text-align: center; padding: 40px 20px; color: #999;">
-        <div style="font-size: 48px; margin-bottom: 12px;">📌</div>
+        <div style="font-size: 48px; margin-bottom: 12px;"></div>
         <p style="margin: 0; font-size: 14px;">No hay nada programado para este día</p>
         ${esProfesor ? '<p style="margin: 8px 0 0 0; font-size: 13px;">Haz clic en "Agregar Pin" para crear una nota</p>' : ''}
       </div>
@@ -4525,7 +4198,7 @@ async function mostrarFormularioNota(fecha = null) {
   const fechaDefault = fecha || new Date().toISOString().split('T')[0];
   
   Swal.fire({
-    title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;">📌</span><span>Crear Pin / Nota</span></div>',
+    title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;"></span><span>Crear Pin / Nota</span></div>',
     html: `
       <div style="text-align: left; padding: 0 8px;">
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Fecha</label>
@@ -4553,7 +4226,7 @@ async function mostrarFormularioNota(fecha = null) {
       </div>
     `,
     showCancelButton: true,
-    confirmButtonText: '📌 Crear Pin',
+    confirmButtonText: ' Crear Pin',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#667eea',
     width: '550px',
@@ -4615,7 +4288,6 @@ async function crearNota(datos) {
     console.log('Response data:', result);
     
     if (response.ok) {
-      // Recargar calendario inmediatamente
       await cargarCalendario();
       
       Swal.fire({
@@ -4632,7 +4304,6 @@ async function crearNota(datos) {
   } catch (error) {
     console.error('Error completo:', error);
     
-    // Mensaje más específico según el tipo de error
     let mensajeError = 'No se pudo crear la nota';
     if (error.message.includes('Failed to fetch')) {
       mensajeError = 'No se puede conectar con el servidor. Asegúrate de que el servidor esté corriendo.';
@@ -4651,12 +4322,11 @@ async function crearNota(datos) {
 
 async function editarNota(idNota, fecha) {
   try {
-    // Obtener datos actuales de la nota
     const notaActual = notasDelMes.find(n => n.id_nota === idNota);
     if (!notaActual) return;
     
     Swal.fire({
-      title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;">✏️</span><span>Editar Pin</span></div>',
+      title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;"></span><span>Editar Pin</span></div>',
       html: `
         <div style="text-align: left; padding: 0 8px;">
           <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Título</label>
@@ -4680,7 +4350,7 @@ async function editarNota(idNota, fecha) {
         </div>
       `,
       showCancelButton: true,
-      confirmButtonText: '💾 Guardar',
+      confirmButtonText: ' Guardar',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#667eea',
       width: '550px',
@@ -4762,7 +4432,6 @@ async function eliminarNota(idNota) {
 }
 
 async function mostrarFormularioEvento() {
-  // Cargar cursos del profesor
   const res = await fetch(`${API_URL}/classroom/clases/profesor/${userId}`);
   const cursos = await res.json();
   
@@ -4802,11 +4471,11 @@ async function mostrarFormularioEvento() {
         
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Tipo de Evento</label>
         <select id="swal-tipo-evento" style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; color: #2c3e50;">
-          <option value="examen" style="color: #2c3e50; background: white;">📝 Examen</option>
-          <option value="clase_especial" style="color: #2c3e50; background: white;">🎓 Clase Especial</option>
-          <option value="reunion" style="color: #2c3e50; background: white;">👥 Reunión</option>
-          <option value="feriado" style="color: #2c3e50; background: white;">🎉 Feriado</option>
-          <option value="otro" style="color: #2c3e50; background: white;">📅 Otro</option>
+          <option value="examen" style="color: #2c3e50; background: white;"> Examen</option>
+          <option value="clase_especial" style="color: #2c3e50; background: white;"> Clase Especial</option>
+          <option value="reunion" style="color: #2c3e50; background: white;"> Reunión</option>
+          <option value="feriado" style="color: #2c3e50; background: white;"> Feriado</option>
+          <option value="otro" style="color: #2c3e50; background: white;"> Otro</option>
         </select>
         
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
@@ -4889,7 +4558,6 @@ async function crearEvento(datos) {
         confirmButtonColor: '#667eea'
       });
       
-      // Recargar calendario
       await cargarCalendario();
     } else {
       throw new Error(result.message || 'Error al crear evento');
@@ -4905,9 +4573,6 @@ async function crearEvento(datos) {
   }
 }
 
-// =====================================================
-// SISTEMA DE NOTIFICACIONES
-// =====================================================
 
 let notificacionesInterval;
 
@@ -4918,7 +4583,6 @@ async function initNotifications() {
   
   if (!btnNotifications || !dropdown) return;
   
-  // Toggle del dropdown
   btnNotifications.addEventListener('click', (e) => {
     e.stopPropagation();
     const isActive = dropdown.classList.contains('active');
@@ -4929,25 +4593,21 @@ async function initNotifications() {
     }
   });
   
-  // Cerrar al hacer clic fuera
   document.addEventListener('click', (e) => {
     if (!dropdown.contains(e.target) && e.target !== btnNotifications) {
       dropdown.classList.remove('active');
     }
   });
   
-  // Marcar todas como leídas
   if (btnMarkAllRead) {
     btnMarkAllRead.addEventListener('click', async () => {
       await marcarTodasLeidas();
     });
   }
   
-  // Cargar notificaciones inicialmente
   await cargarNotificaciones();
   await actualizarContador();
   
-  // Polling cada 30 segundos
   notificacionesInterval = setInterval(async () => {
     await actualizarContador();
   }, 30000);
@@ -5034,25 +4694,19 @@ async function actualizarContador() {
 
 async function clickNotificacion(idNotificacion, tipoNotificacion, idReferencia) {
   try {
-    // Marcar como leída
     await fetch(`${API_URL}/notificaciones/${idNotificacion}/marcar-leida`, {
       method: 'PUT'
     });
     
-    // Actualizar UI
     await cargarNotificaciones();
     
-    // Cerrar dropdown
     document.getElementById('notificationsDropdown').classList.remove('active');
     
-    // Navegar según el tipo de notificación
     if (idReferencia) {
       switch(tipoNotificacion) {
         case 'comentario':
         case 'anuncio_importante':
         case 'anuncio':
-          // Para alumnos, ir al home y abrir el anuncio
-          // Para profesores, ir a la vista de anuncios
           if (userRol.toLowerCase() === 'alumno') {
             switchView('home');
           } else {
@@ -5066,11 +4720,8 @@ async function clickNotificacion(idNotificacion, tipoNotificacion, idReferencia)
         case 'nueva_tarea':
         case 'entrega_tarea':
         case 'calificacion':
-          // Cambiar a la vista de tareas
           switchView('tasks');
-          // Aquí podrías agregar lógica para resaltar la tarea específica
           setTimeout(() => {
-            // Scroll hacia la tarea si existe
             const tareaElement = document.querySelector(`[data-tarea-id="${idReferencia}"]`);
             if (tareaElement) {
               tareaElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -5080,7 +4731,6 @@ async function clickNotificacion(idNotificacion, tipoNotificacion, idReferencia)
           break;
         
         case 'nueva_inscripcion':
-          // Solo para profesores: ir a la vista de cursos
           if (userRol.toLowerCase() === 'profesor') {
             switchView('courses');
           }
@@ -5114,7 +4764,6 @@ async function marcarTodasLeidas() {
   }
 }
 
-// Función auxiliar para calcular tiempo transcurrido (ya existe, pero la mejoro)
 function calcularTiempoTranscurrido(fecha) {
   const ahora = new Date();
   const diff = ahora - fecha;
@@ -5129,9 +4778,6 @@ function calcularTiempoTranscurrido(fecha) {
   return fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
 }
 
-// =====================================================
-// FUNCIONES DE ELIMINACIÓN PARA ADMINISTRADOR
-// =====================================================
 
 async function eliminarAnuncioAdmin(idAnuncio) {
   const result = await Swal.fire({
@@ -5139,7 +4785,7 @@ async function eliminarAnuncioAdmin(idAnuncio) {
     html: `
       <p>Esta acción eliminará permanentemente el anuncio.</p>
       <p class="text-warning" style="font-size: 0.9em; margin-top: 10px; color: #f59e0b;">
-        ⚠️ Será eliminado para todos los usuarios (profesores y alumnos).
+         Será eliminado para todos los usuarios (profesores y alumnos).
       </p>
     `,
     icon: 'warning',
@@ -5166,7 +4812,6 @@ async function eliminarAnuncioAdmin(idAnuncio) {
         showConfirmButton: false
       });
       
-      // Recargar feed
       await loadFeed();
     } else {
       throw new Error('Error al eliminar');
@@ -5188,7 +4833,7 @@ async function eliminarTareaAdmin(idTarea, titulo, nombreCurso) {
       <p><strong>${titulo}</strong></p>
       <p style="color: #666; font-size: 0.9em;">Curso: ${nombreCurso}</p>
       <p class="text-warning" style="font-size: 0.9em; margin-top: 10px; color: #f59e0b;">
-        ⚠️ Se eliminarán también todas las entregas de los alumnos.
+         Se eliminarán también todas las entregas de los alumnos.
       </p>
     `,
     icon: 'warning',
@@ -5215,7 +4860,6 @@ async function eliminarTareaAdmin(idTarea, titulo, nombreCurso) {
         showConfirmButton: false
       });
       
-      // Recargar tareas
       await loadTareas();
     } else {
       throw new Error('Error al eliminar');
@@ -5230,18 +4874,13 @@ async function eliminarTareaAdmin(idTarea, titulo, nombreCurso) {
   }
 }
 
-// ===================================
-// PANEL DE CONFIGURACIÓN - FUNCIONES
-// ===================================
 
-// Abrir modal de configuración
 function abrirConfiguracion() {
   const modal = document.getElementById('modalConfiguracion');
   if (modal) {
     modal.classList.add('active');
     cargarConfiguracionesGuardadas();
     
-    // Mostrar sección de exportar solo para alumnos
     const seccionExportar = document.getElementById('seccionExportar');
     if (seccionExportar && userRol && userRol.toLowerCase() === 'alumno') {
       seccionExportar.style.display = 'block';
@@ -5249,20 +4888,15 @@ function abrirConfiguracion() {
       seccionExportar.style.display = 'none';
     }
     
-    // Asegurar que los event listeners estén activos
     agregarEventListenersConfiguracion();
   }
 }
 
-// Agregar event listeners a los elementos de configuración
 function agregarEventListenersConfiguracion() {
-  // Botones de tamaño de fuente
   document.querySelectorAll('.font-size-btn').forEach(btn => {
-    // Remover listener anterior si existe para evitar duplicados
     btn.replaceWith(btn.cloneNode(true));
   });
   
-  // Volver a seleccionar después de reemplazar
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
@@ -5272,7 +4906,6 @@ function agregarEventListenersConfiguracion() {
   });
 }
 
-// Cerrar modal de configuración
 function cerrarConfiguracion() {
   const modal = document.getElementById('modalConfiguracion');
   if (modal) {
@@ -5280,9 +4913,7 @@ function cerrarConfiguracion() {
   }
 }
 
-// Cargar configuraciones guardadas desde localStorage
 function cargarConfiguracionesGuardadas() {
-  // Cargar notificaciones
   const notificaciones = ['tareas', 'anuncios', 'eventos', 'chat'];
   notificaciones.forEach(tipo => {
     const saved = localStorage.getItem(`notif_${tipo}`);
@@ -5292,14 +4923,12 @@ function cargarConfiguracionesGuardadas() {
     }
   });
 
-  // Cargar vista de calendario
   const vistaCalendario = localStorage.getItem('vistaCalendario') || 'mes';
   const selectVista = document.getElementById('config-vista-calendario');
   if (selectVista) {
     selectVista.value = vistaCalendario;
   }
 
-  // Cargar tamaño de fuente
   const tamañoFuente = localStorage.getItem('tamañoFuente') || 'normal';
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.classList.remove('active');
@@ -5308,7 +4937,6 @@ function cargarConfiguracionesGuardadas() {
     }
   });
 
-  // Cargar tema guardado
   const temaGuardado = localStorage.getItem('tema') || 'light';
   document.querySelectorAll('.theme-card').forEach(card => {
     card.classList.remove('active');
@@ -5317,7 +4945,6 @@ function cargarConfiguracionesGuardadas() {
     }
   });
 
-  // Cargar privacidad
   const estadoOnline = localStorage.getItem('estadoOnline') !== 'false';
   const perfilPublico = localStorage.getItem('perfilPublico') !== 'false';
   const checkboxEstado = document.getElementById('estadoOnline');
@@ -5326,11 +4953,9 @@ function cargarConfiguracionesGuardadas() {
   if (checkboxPerfil) checkboxPerfil.checked = perfilPublico;
 }
 
-// Cambiar tab activa
 function cambiarTab(tabName) {
   console.log('Cambiando a tab:', tabName);
   
-  // Desactivar todos los tabs
   document.querySelectorAll('.config-tab-btn').forEach(btn => {
     btn.classList.remove('active');
   });
@@ -5338,7 +4963,6 @@ function cambiarTab(tabName) {
     content.classList.remove('active');
   });
 
-  // Activar tab seleccionada usando data-tab
   const btnActivo = document.querySelector(`.config-tab-btn[data-tab="${tabName}"]`);
   if (btnActivo) {
     btnActivo.classList.add('active');
@@ -5350,8 +4974,6 @@ function cambiarTab(tabName) {
   }
 }
 
-// Cambiar tema
-// Aplicar tema (SIN notificación - usado al cargar la página)
 function aplicarTema(tema) {
   const body = document.body;
   
@@ -5360,7 +4982,6 @@ function aplicarTema(tema) {
   } else if (tema === 'light') {
     body.classList.remove('dark-mode');
   } else if (tema === 'auto') {
-    // Detectar preferencia del sistema
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (prefersDark) {
       body.classList.add('dark-mode');
@@ -5370,28 +4991,22 @@ function aplicarTema(tema) {
   }
 }
 
-// Cambiar tema (CON notificación - usado cuando el usuario hace click)
 function cambiarTema(tema) {
   console.log('Cambiando tema a:', tema);
   
-  // Remover active de todos
   document.querySelectorAll('.theme-card').forEach(card => {
     card.classList.remove('active');
   });
 
-  // Activar el seleccionado usando data-theme
   const cardSeleccionado = document.querySelector(`.theme-card[data-theme="${tema}"]`);
   if (cardSeleccionado) {
     cardSeleccionado.classList.add('active');
   }
 
-  // Guardar en localStorage
   localStorage.setItem('tema', tema);
 
-  // Aplicar tema usando la función sin notificación
   aplicarTema(tema);
   
-  // Mostrar notificación solo cuando el usuario cambia manualmente
   if (tema === 'dark') {
     Swal.fire({
       icon: 'success',
@@ -5427,16 +5042,13 @@ function cambiarTema(tema) {
   }
 }
 
-// Cambiar tamaño de fuente
 function cambiarTamañoFuente(tamaño) {
   console.log('Cambiando tamaño de fuente a:', tamaño);
   
-  // Remover active de todos
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.classList.remove('active');
   });
 
-  // Activar el seleccionado
   const btnSeleccionado = document.querySelector(`[data-size="${tamaño}"]`);
   if (btnSeleccionado) {
     btnSeleccionado.classList.add('active');
@@ -5445,10 +5057,8 @@ function cambiarTamañoFuente(tamaño) {
     console.log('No se encontró botón con data-size:', tamaño);
   }
 
-  // Aplicar el tamaño usando la función auxiliar
   aplicarTamañoFuente(tamaño);
 
-  // Guardar en localStorage
   localStorage.setItem('tamañoFuente', tamaño);
 
   Swal.fire({
@@ -5462,7 +5072,6 @@ function cambiarTamañoFuente(tamaño) {
   });
 }
 
-// Toggle visibilidad de contraseña
 function togglePasswordVisibility(inputId) {
   const input = document.getElementById(inputId);
   const button = input.parentElement.querySelector('.toggle-password-btn');
@@ -5475,11 +5084,9 @@ function togglePasswordVisibility(inputId) {
     button.innerHTML = '<i data-lucide="eye"></i>';
   }
   
-  // Reinicializar el icono de Lucide
   lucide.createIcons();
 }
 
-// Cambiar contraseña
 async function cambiarPasswordClassroom(event) {
   event.preventDefault();
   
@@ -5487,7 +5094,6 @@ async function cambiarPasswordClassroom(event) {
   const passwordNueva = document.getElementById('password-nueva').value;
   const passwordConfirmar = document.getElementById('password-confirmar').value;
 
-  // Validaciones
   if (!passwordActual || !passwordNueva || !passwordConfirmar) {
     Swal.fire({
       icon: 'warning',
@@ -5539,7 +5145,6 @@ async function cambiarPasswordClassroom(event) {
         timer: 2000
       });
 
-      // Limpiar formulario
       event.target.reset();
     } else {
       Swal.fire({
@@ -5558,7 +5163,6 @@ async function cambiarPasswordClassroom(event) {
   }
 }
 
-// Toggle estado online
 function toggleEstadoOnline() {
   const checkbox = document.getElementById('estadoOnline');
   if (checkbox) {
@@ -5576,7 +5180,6 @@ function toggleEstadoOnline() {
   }
 }
 
-// Toggle perfil público
 function togglePerfilPublico() {
   const checkbox = document.getElementById('perfilPublico');
   if (checkbox) {
@@ -5594,10 +5197,7 @@ function togglePerfilPublico() {
   }
 }
 
-// Exportar tareas a PDF
-// Exportar tareas a PDF (SOLO ALUMNOS)
 async function exportarTareasPDF() {
-  // Verificar que el usuario sea alumno
   if (!userRol || userRol.toLowerCase() !== 'alumno') {
     Swal.fire({
       icon: 'warning',
@@ -5608,7 +5208,6 @@ async function exportarTareasPDF() {
   }
 
   try {
-    // Obtener el ID del alumno directamente del localStorage
     const idAlumno = localStorage.getItem('id_alumno');
     
     if (!idAlumno) {
@@ -5617,12 +5216,10 @@ async function exportarTareasPDF() {
     
     console.log('Exportando tareas para idAlumno:', idAlumno);
     
-    // Usar el puerto correcto del backend (3000) en lugar del dev-server (8080)
     const API_URL = window.API_URL || 'http://localhost:3000/api';
     const apiUrl = `${API_URL}/classroom/tareas-lista/alumno/${idAlumno}`;
     console.log('URL completa:', apiUrl);
     
-    // Usar la ruta correcta para obtener tareas del alumno
     const response = await fetch(apiUrl);
     
     console.log('Response status:', response.status);
@@ -5646,25 +5243,20 @@ async function exportarTareasPDF() {
       return;
     }
 
-    // Crear el PDF con jsPDF
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // Cargar y agregar logo CEMI
     const logoImg = new Image();
     logoImg.src = 'images/logo.png';
     
-    // Esperar a que cargue el logo
     await new Promise((resolve) => {
       logoImg.onload = resolve;
       logoImg.onerror = resolve;
     });
     
-    // Fondo del encabezado
     doc.setFillColor(30, 60, 114); // #1e3c72
     doc.rect(0, 0, 210, 50, 'F');
     
-    // Logo CEMI en esquina superior derecha con fondo blanco
     try {
       doc.setFillColor(255, 255, 255);
       doc.roundedRect(168, 8, 28, 28, 2, 2, 'F');
@@ -5673,7 +5265,6 @@ async function exportarTareasPDF() {
       console.warn('No se pudo cargar el logo');
     }
     
-    // Título principal
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(22);
     doc.setFont(undefined, 'bold');
@@ -5683,12 +5274,10 @@ async function exportarTareasPDF() {
     doc.setFont(undefined, 'normal');
     doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 20, 32);
     
-    // Línea decorativa azul
     doc.setDrawColor(103, 126, 234);
     doc.setLineWidth(2);
     doc.line(20, 42, 190, 42);
     
-    // Información del estudiante - Diseño limpio
     doc.setFillColor(248, 249, 250);
     doc.roundedRect(20, 58, 170, 22, 2, 2, 'F');
     
@@ -5717,13 +5306,10 @@ async function exportarTareasPDF() {
     let y = 92;
     const pageHeight = doc.internal.pageSize.height;
     
-    // Agregar cada tarea con diseño limpio y ordenado
     tareas.forEach((tarea, index) => {
-      // Verificar si necesitamos nueva página
       if (y > pageHeight - 60) {
         doc.addPage();
         
-        // Repetir header simplificado en nueva página
         doc.setFillColor(30, 60, 114);
         doc.rect(0, 0, 210, 25, 'F');
         
@@ -5741,7 +5327,6 @@ async function exportarTareasPDF() {
         y = 35;
       }
       
-      // Tarjeta de tarea con borde
       doc.setFillColor(255, 255, 255);
       doc.roundedRect(20, y, 170, 10, 3, 3, 'F');
       
@@ -5749,7 +5334,6 @@ async function exportarTareasPDF() {
       doc.setLineWidth(0.8);
       doc.roundedRect(20, y, 170, 10, 3, 3, 'D');
       
-      // Número y título de la tarea (centrado verticalmente)
       doc.setFontSize(10);
       doc.setFont(undefined, 'bold');
       doc.setTextColor(30, 60, 114);
@@ -5757,7 +5341,6 @@ async function exportarTareasPDF() {
       
       y += 12;
       
-      // Curso y Profesor en línea horizontal
       doc.setFontSize(8);
       doc.setFont(undefined, 'bold');
       doc.setTextColor(60, 60, 60);
@@ -5777,7 +5360,6 @@ async function exportarTareasPDF() {
       
       y += 6;
       
-      // Descripción de la tarea
       if (tarea.descripcion && tarea.descripcion !== 'Sin descripción') {
         doc.setFontSize(8);
         doc.setTextColor(70, 70, 70);
@@ -5786,16 +5368,13 @@ async function exportarTareasPDF() {
         y += (descripcionLines.length * 3.5) + 3;
       }
       
-      // Separador sutil
       doc.setDrawColor(230, 230, 230);
       doc.setLineWidth(0.3);
       doc.line(28, y, 185, y);
       y += 4;
       
-      // Información estructurada en columnas
       doc.setFontSize(8);
       
-      // Columna 1: Fecha límite
       if (tarea.fecha_limite) {
         doc.setFont(undefined, 'bold');
         doc.setTextColor(60, 60, 60);
@@ -5809,7 +5388,6 @@ async function exportarTareasPDF() {
         }), 43, y);
       }
       
-      // Columna 2: Puntos
       doc.setFont(undefined, 'bold');
       doc.setTextColor(60, 60, 60);
       doc.text('Puntos:', 90, y);
@@ -5817,7 +5395,6 @@ async function exportarTareasPDF() {
       doc.setTextColor(0, 0, 0);
       doc.text(String(tarea.puntos || 0), 105, y);
       
-      // Columna 3: Estado
       doc.setFont(undefined, 'bold');
       doc.setTextColor(60, 60, 60);
       doc.text('Estado:', 125, y);
@@ -5836,7 +5413,6 @@ async function exportarTareasPDF() {
       
       y += 5;
       
-      // Calificación si existe
       if (tarea.calificacion !== null && tarea.calificacion !== undefined) {
         doc.setFont(undefined, 'bold');
         doc.setTextColor(60, 60, 60);
@@ -5853,7 +5429,6 @@ async function exportarTareasPDF() {
       y += 8;
     });
     
-    // Pie de página en la última página
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
@@ -5863,7 +5438,6 @@ async function exportarTareasPDF() {
       doc.text('Documento generado por CEMI Classroom', 105, pageHeight - 5, { align: 'center' });
     }
     
-    // Guardar el PDF
     const nombreArchivo = `Tareas_${userName.replace(/\s+/g, '_')}_${new Date().toLocaleDateString('es-ES').replace(/\//g, '-')}.pdf`;
     doc.save(nombreArchivo);
     
@@ -5884,9 +5458,7 @@ async function exportarTareasPDF() {
   }
 }
 
-// Exportar calificaciones a PDF (SOLO ALUMNOS)
 async function exportarCalificacionesPDF() {
-  // Verificar que el usuario sea alumno
   if (!userRol || userRol.toLowerCase() !== 'alumno') {
     Swal.fire({
       icon: 'warning',
@@ -5897,7 +5469,6 @@ async function exportarCalificacionesPDF() {
   }
 
   try {
-    // Obtener el ID del alumno directamente del localStorage
     const idAlumno = localStorage.getItem('id_alumno');
     
     if (!idAlumno) {
@@ -5906,12 +5477,10 @@ async function exportarCalificacionesPDF() {
     
     console.log('Exportando calificaciones para idAlumno:', idAlumno);
     
-    // Usar el puerto correcto del backend (3000) en lugar del dev-server (8080)
     const API_URL = window.API_URL || 'http://localhost:3000/api';
     const apiUrl = `${API_URL}/classroom/calificaciones/alumno/${idAlumno}`;
     console.log('URL completa:', apiUrl);
     
-    // Usar la ruta correcta para obtener calificaciones del alumno
     const response = await fetch(apiUrl);
     
     console.log('Response status:', response.status);
@@ -5938,25 +5507,20 @@ async function exportarCalificacionesPDF() {
       return;
     }
 
-    // Crear el PDF con jsPDF
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // Cargar y agregar logo CEMI
     const logoImg = new Image();
     logoImg.src = 'images/logo.png';
     
-    // Esperar a que cargue el logo
     await new Promise((resolve) => {
       logoImg.onload = resolve;
       logoImg.onerror = resolve;
     });
     
-    // Fondo del encabezado
     doc.setFillColor(30, 60, 114); // #1e3c72
     doc.rect(0, 0, 210, 50, 'F');
     
-    // Logo CEMI en esquina superior derecha con fondo blanco
     try {
       doc.setFillColor(255, 255, 255);
       doc.roundedRect(168, 8, 28, 28, 2, 2, 'F');
@@ -5965,7 +5529,6 @@ async function exportarCalificacionesPDF() {
       console.warn('No se pudo cargar el logo');
     }
     
-    // Título principal
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(22);
     doc.setFont(undefined, 'bold');
@@ -5975,12 +5538,10 @@ async function exportarCalificacionesPDF() {
     doc.setFont(undefined, 'normal');
     doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 20, 32);
     
-    // Línea decorativa azul
     doc.setDrawColor(103, 126, 234);
     doc.setLineWidth(2);
     doc.line(20, 42, 190, 42);
     
-    // Información del estudiante - Diseño limpio
     doc.setFillColor(248, 249, 250);
     doc.roundedRect(20, 58, 170, 28, 2, 2, 'F');
     
@@ -6006,7 +5567,6 @@ async function exportarCalificacionesPDF() {
       minute: '2-digit'
     }), 50, 74);
     
-    // Estadísticas si están disponibles
     if (data.estadisticas) {
       doc.setFont(undefined, 'bold');
       doc.text('Promedio General:', 25, 82);
@@ -6026,13 +5586,10 @@ async function exportarCalificacionesPDF() {
     let y = 98;
     const pageHeight = doc.internal.pageSize.height;
     
-    // Agregar cada curso con diseño limpio y organizado
     calificaciones.forEach((cal, index) => {
-      // Verificar si necesitamos nueva página
       if (y > pageHeight - 60) {
         doc.addPage();
         
-        // Repetir header simplificado en nueva página
         doc.setFillColor(30, 60, 114);
         doc.rect(0, 0, 210, 25, 'F');
         
@@ -6050,7 +5607,6 @@ async function exportarCalificacionesPDF() {
         y = 35;
       }
       
-      // Tarjeta del curso
       doc.setFillColor(255, 255, 255);
       doc.roundedRect(20, y, 170, 10, 3, 3, 'F');
       
@@ -6058,7 +5614,6 @@ async function exportarCalificacionesPDF() {
       doc.setLineWidth(0.8);
       doc.roundedRect(20, y, 170, 10, 3, 3, 'D');
       
-      // Título del curso (centrado verticalmente)
       doc.setFontSize(10);
       doc.setFont(undefined, 'bold');
       doc.setTextColor(30, 60, 114);
@@ -6066,7 +5621,6 @@ async function exportarCalificacionesPDF() {
       
       y += 12;
       
-      // Idioma y nivel
       const idiomaNivel = `${cal.nombre_idioma || ''}${cal.nivel ? ' - Nivel ' + cal.nivel : ''}`;
       if (idiomaNivel.trim()) {
         doc.setFontSize(8);
@@ -6080,12 +5634,10 @@ async function exportarCalificacionesPDF() {
         y += 6;
       }
       
-      // Tabla de calificaciones - Diseño limpio
       const tableX = 25;
       const colWidth = 36;
       const rowHeight = 7;
       
-      // Encabezado de tabla
       doc.setFillColor(103, 126, 234);
       doc.rect(tableX, y, colWidth * 4, rowHeight, 'F');
       
@@ -6103,7 +5655,6 @@ async function exportarCalificacionesPDF() {
       
       y += rowHeight;
       
-      // Valores de calificaciones
       doc.setFillColor(255, 255, 255);
       doc.rect(tableX, y, colWidth * 4, rowHeight + 1, 'F');
       
@@ -6111,7 +5662,6 @@ async function exportarCalificacionesPDF() {
       doc.setLineWidth(0.5);
       doc.rect(tableX, y, colWidth * 4, rowHeight + 1, 'D');
       
-      // Líneas verticales de separación
       for (let i = 1; i < 4; i++) {
         doc.line(tableX + (colWidth * i), y, tableX + (colWidth * i), y + rowHeight + 1);
       }
@@ -6129,7 +5679,6 @@ async function exportarCalificacionesPDF() {
       doc.text(p2, tableX + colWidth + (colWidth / 2), y + 5, { align: 'center' });
       doc.text(final, tableX + (colWidth * 2) + (colWidth / 2), y + 5, { align: 'center' });
       
-      // Promedio con color y destacado
       if (promedio !== '-') {
         doc.setFont(undefined, 'bold');
         doc.setTextColor(16, 185, 129);
@@ -6142,7 +5691,6 @@ async function exportarCalificacionesPDF() {
       
       y += rowHeight + 4;
       
-      // Fecha de actualización
       if (cal.fecha_actualizacion) {
         doc.setFontSize(7);
         doc.setTextColor(120, 120, 120);
@@ -6159,7 +5707,6 @@ async function exportarCalificacionesPDF() {
       y += 9;
     });
     
-    // Pie de página en todas las páginas
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
@@ -6169,7 +5716,6 @@ async function exportarCalificacionesPDF() {
       doc.text('Documento generado por CEMI Classroom', 105, pageHeight - 5, { align: 'center' });
     }
     
-    // Guardar el PDF
     const nombreArchivo = `Calificaciones_${userName.replace(/\s+/g, '_')}_${new Date().toLocaleDateString('es-ES').replace(/\//g, '-')}.pdf`;
     doc.save(nombreArchivo);
     
@@ -6191,7 +5737,6 @@ async function exportarCalificacionesPDF() {
 }
 
 
-// Guardar vista de calendario
 function guardarVistaCalendario() {
   const select = document.getElementById('config-vista-calendario');
   if (select) {
@@ -6199,7 +5744,6 @@ function guardarVistaCalendario() {
     localStorage.setItem('vistaCalendario', vista);
     vistaCalendarioActual = vista;
     
-    // Si estamos en la vista de calendario, aplicar el cambio
     const viewCalendar = document.getElementById('viewCalendar');
     if (viewCalendar && viewCalendar.style.display !== 'none') {
       cambiarVistaCalendario(vista);
@@ -6217,10 +5761,7 @@ function guardarVistaCalendario() {
   }
 }
 
-// Guardar todas las configuraciones
 function guardarTodasConfiguraciones() {
-  // Ya se van guardando automáticamente en localStorage
-  // Esta función es para confirmar al usuario
   
   Swal.fire({
     icon: 'success',
@@ -6232,21 +5773,17 @@ function guardarTodasConfiguraciones() {
   cerrarConfiguracion();
 }
 
-// Event listeners cuando carga la página
 document.addEventListener('DOMContentLoaded', function() {
-  // Botón abrir configuración
   const btnConfig = document.getElementById('openConfiguracion');
   if (btnConfig) {
     btnConfig.addEventListener('click', abrirConfiguracion);
   }
 
-  // Botón cerrar configuración
   const btnCerrar = document.querySelector('.btn-close-config');
   if (btnCerrar) {
     btnCerrar.addEventListener('click', cerrarConfiguracion);
   }
 
-  // Cerrar al hacer click fuera del modal
   const modalOverlay = document.getElementById('modalConfiguracion');
   if (modalOverlay) {
     modalOverlay.addEventListener('click', function(e) {
@@ -6256,31 +5793,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Tabs - Ya tienen onclick en HTML, no agregar event listeners duplicados
 
-  // Botones de tamaño de fuente
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       cambiarTamañoFuente(this.dataset.size);
     });
   });
 
-  // Botones de tema - Ya tienen onclick en HTML, así que no agregamos event listener duplicado
-  // Solo aseguramos que los botones funcionen con data-theme
   
-  // Formulario cambiar contraseña
   const formPassword = document.getElementById('formCambiarPassword');
   if (formPassword) {
     formPassword.addEventListener('submit', cambiarPasswordClassroom);
   }
 
-  // Select vista calendario
   const selectVista = document.getElementById('config-vista-calendario');
   if (selectVista) {
     selectVista.addEventListener('change', guardarVistaCalendario);
   }
 
-  // Botones guardar/cancelar
   const btnGuardar = document.getElementById('btnGuardarConfig');
   const btnCancelar = document.getElementById('btnCancelarConfig');
   
@@ -6292,34 +5822,26 @@ document.addEventListener('DOMContentLoaded', function() {
     btnCancelar.addEventListener('click', cerrarConfiguracion);
   }
 
-  // Aplicar configuraciones guardadas al cargar
   const tamañoGuardado = localStorage.getItem('tamañoFuente');
   if (tamañoGuardado) {
-    // Solo aplicar el tamaño sin buscar botones (que están en el modal)
     aplicarTamañoFuente(tamañoGuardado);
   }
 
-  // Aplicar tema guardado SIN mostrar notificación
   const temaGuardado = localStorage.getItem('tema');
   if (temaGuardado) {
     aplicarTema(temaGuardado); // Usar aplicarTema en lugar de cambiarTema
   } else {
-    // Si no hay tema guardado, usar modo claro por defecto
     aplicarTema('light'); // Usar aplicarTema en lugar de cambiarTema
   }
 });
 
-// Función auxiliar para solo aplicar el tamaño sin tocar botones
 function aplicarTamañoFuente(tamaño) {
   const body = document.body;
   
-  // Remover clases anteriores
   body.classList.remove('font-pequeño', 'font-normal', 'font-grande');
   
-  // Agregar nueva clase
   body.classList.add(`font-${tamaño}`);
   
-  // También aplicar directamente
   switch (tamaño) {
     case 'pequeño':
       body.style.fontSize = '14px';

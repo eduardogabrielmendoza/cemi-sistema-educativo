@@ -1,25 +1,16 @@
-/* =====================================================
-   PERFIL CLASSROOM - ESTILOS
-   Paleta: Azul
-   Modo: Light & Dark
-   ===================================================== */
 
-/* ===== Variables CSS ===== */
 :root {
-  /* Colores Azul */
   --primary-blue: #1976d2;
   --primary-blue-dark: #1565c0;
   --primary-blue-light: #42a5f5;
   --secondary-blue: #0288d1;
   --accent-blue: #03a9f4;
   
-  /* Colores complementarios */
   --green: #4caf50;
   --orange: #ff9800;
   --purple: #9c27b0;
   --red: #f44336;
   
-  /* Neutrales Light */
   --bg-primary: #f5f7fa;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
@@ -29,21 +20,18 @@
   --border-color: #e2e8f0;
   --shadow: rgba(0, 0, 0, 0.1);
   
-  /* Espaciado */
   --spacing-xs: 8px;
   --spacing-sm: 12px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
   
-  /* Bordes */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-full: 50%;
 }
 
-/* Dark Mode Variables */
 body.dark-mode {
   --bg-primary: #0f1419;
   --bg-secondary: #1a1f2e;
@@ -55,7 +43,6 @@ body.dark-mode {
   --shadow: rgba(0, 0, 0, 0.3);
 }
 
-/* ===== Reset & Base ===== */
 * {
   margin: 0;
   padding: 0;
@@ -70,7 +57,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ===== Header ===== */
 .perfil-header {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
@@ -135,7 +121,6 @@ body {
   color: white;
 }
 
-/* ===== Container Principal ===== */
 .perfil-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -145,7 +130,6 @@ body {
   gap: var(--spacing-lg);
 }
 
-/* ===== Sidebar ===== */
 .perfil-sidebar {
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
@@ -193,7 +177,6 @@ body {
   height: 20px;
 }
 
-/* ===== Contenido ===== */
 .perfil-content {
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
@@ -221,7 +204,6 @@ body {
   }
 }
 
-/* ===== Profile Header Card ===== */
 .profile-header-card {
   display: flex;
   align-items: center;
@@ -330,7 +312,6 @@ body {
   opacity: 0.8;
 }
 
-/* ===== Info Cards Grid ===== */
 .info-cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -377,7 +358,6 @@ body {
   font-weight: 600;
 }
 
-/* ===== Biografía ===== */
 .biografia-section {
   background: var(--bg-card);
   border-radius: var(--radius-md);
@@ -417,7 +397,6 @@ body {
   white-space: pre-wrap;
 }
 
-/* ===== Section Header ===== */
 .section-header {
   margin-bottom: var(--spacing-xl);
 }
@@ -440,7 +419,6 @@ body {
   font-size: 15px;
 }
 
-/* ===== Formularios ===== */
 .perfil-form {
   display: flex;
   flex-direction: column;
@@ -496,7 +474,6 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
-/* ===== Botones ===== */
 .btn-primary,
 .btn-secondary {
   display: inline-flex;
@@ -538,7 +515,6 @@ body {
   font-size: 14px;
 }
 
-/* ===== Academic Stats ===== */
 .academic-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -599,7 +575,6 @@ body {
   color: var(--text-tertiary);
 }
 
-/* ===== Courses Section ===== */
 .courses-section {
   margin-top: var(--spacing-xl);
 }
@@ -657,7 +632,6 @@ body {
   margin-bottom: var(--spacing-xs);
 }
 
-/* ===== Stats Grid ===== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -701,7 +675,6 @@ body {
   color: var(--text-tertiary);
 }
 
-/* ===== Config Card ===== */
 .config-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -722,7 +695,6 @@ body {
   margin-bottom: var(--spacing-md);
 }
 
-/* ===== Quick Actions ===== */
 .quick-actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -758,7 +730,6 @@ body {
   color: var(--primary-blue);
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .perfil-container {
     grid-template-columns: 1fr;
@@ -801,9 +772,6 @@ body {
   }
 }
 
-/* ===================================
-   ESTILOS PARA PERFIL ESPECTADOR (SOLO LECTURA)
-   =================================== */
 
 .data-display-grid {
   display: grid;
@@ -994,7 +962,6 @@ body {
   margin: 0;
 }
 
-/* Modo Oscuro */
 body.dark-mode .data-display-item,
 body.dark-mode .curso-card-readonly,
 body.dark-mode .stat-card,
@@ -1010,7 +977,6 @@ body.dark-mode .progress-card h3 {
   color: var(--text-primary);
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
   .data-display-grid,
   .cursos-grid,

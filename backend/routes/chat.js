@@ -1,6 +1,3 @@
-// =====================================================
-// RUTAS REST API PARA CHAT - CEMI
-// =====================================================
 
 import express from "express";
 import pool from "../utils/db.js";
@@ -11,24 +8,19 @@ import fs from 'fs';
 
 const router = express.Router();
 
-// Variable para almacenar la instancia del chatServer
 let chatServerInstance = null;
 
-// Función para establecer la instancia del chatServer
 export function setChatServer(chatServer) {
   chatServerInstance = chatServer;
 }
 
-// Configuración de __dirname para ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configurar multer para archivos del chat
 const chatStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadPath = path.join(__dirname, '../../uploads/chat-files');
     
-    // Crear directorio si no existe
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
     }
@@ -36,7 +28,6 @@ const chatStorage = multer.diskStorage({
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
-    // Generar nombre único: timestamp-random-nombreoriginal
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     const ext = path.extname(file.originalname);
     const nameWithoutExt = path.basename(file.originalname, ext);
@@ -44,7 +35,6 @@ const chatStorage = multer.diskStorage({
   }
 });
 
-// Filtro para aceptar solo imágenes y PDFs
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png|webp|pdf/;
   const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
@@ -65,20 +55,15 @@ const uploadChatFile = multer({
   }
 });
 
-// =====================================================
-// INICIAR NUEVA CONVERSACIÓN
-// =====================================================
 
 router.post("/iniciar", async (req, res) => {
   try {
     let { tipo_usuario, id_usuario, nombre, mensaje_inicial } = req.body;
     
-    // Convertir string 'null' o 'undefined' a null real
     if (id_usuario === 'null' || id_usuario === 'undefined' || id_usuario === '') {
       id_usuario = null;
     }
     
-    // FIX: Si no tiene id_usuario pero tiene nombre, intentar buscarlo en la BD
     if (!id_usuario && nombre && tipo_usuario !== 'invitado') {
       try {
         const [usuarioBuscado] = await pool.query(`
@@ -91,14 +76,13 @@ router.post("/iniciar", async (req, res) => {
         
         if (usuarioBuscado.length > 0) {
           id_usuario = usuarioBuscado[0].id_usuario;
-          console.log(`✅ id_usuario encontrado automáticamente: ${id_usuario} para ${nombre}`);
+          console.log(` id_usuario encontrado automáticamente: ${id_usuario} para ${nombre}`);
         }
       } catch (err) {
-        console.warn('⚠️ No se pudo buscar id_usuario automáticamente:', err.message);
+        console.warn(' No se pudo buscar id_usuario automáticamente:', err.message);
       }
     }
     
-    // Validaciones
     if (!tipo_usuario || !nombre || !mensaje_inicial) {
       return res.status(400).json({ 
         success: false, 
@@ -108,7 +92,6 @@ router.post("/iniciar", async (req, res) => {
     
     let id_conversacion;
     
-    // BUSCAR SI YA EXISTE UNA CONVERSACIÓN ACTIVA/PENDIENTE PARA ESTE USUARIO
     if (tipo_usuario !== 'invitado' && id_usuario) {
       const [existentes] = await pool.query(`
         SELECT id_conversacion 
@@ -118,13 +101,11 @@ router.post("/iniciar", async (req, res) => {
       `, [tipo_usuario, id_usuario]);
       
       if (existentes.length > 0) {
-        // Ya existe una conversación, usar esa
         id_conversacion = existentes[0].id_conversacion;
-        console.log(`✅ Conversación existente encontrada: ${id_conversacion} para ${nombre}`);
+        console.log(` Conversación existente encontrada: ${id_conversacion} para ${nombre}`);
       }
     }
     
-    // Si no existe conversación, crear una nueva
     if (!id_conversacion) {
       const [conversacion] = await pool.query(`
         INSERT INTO chat_conversaciones (tipo_usuario, id_usuario, nombre_invitado, estado)
@@ -136,16 +117,14 @@ router.post("/iniciar", async (req, res) => {
       ]);
       
       id_conversacion = conversacion.insertId;
-      console.log(`📝 Nueva conversación creada: ${id_conversacion} para ${nombre}`);
+      console.log(` Nueva conversación creada: ${id_conversacion} para ${nombre}`);
       
-      // Crear registro de estadísticas solo para conversaciones nuevas
       await pool.query(`
         INSERT INTO chat_estadisticas (id_conversacion, total_mensajes, mensajes_usuario)
         VALUES (?, 0, 0)
       `, [id_conversacion]);
     }
     
-    // Insertar mensaje inicial
     await pool.query(`
       INSERT INTO chat_mensajes (
         id_conversacion, 
@@ -162,7 +141,6 @@ router.post("/iniciar", async (req, res) => {
       mensaje_inicial
     ]);
     
-    // Actualizar contador de mensajes no leídos para admin
     await pool.query(`
       UPDATE chat_conversaciones
       SET mensajes_no_leidos_admin = mensajes_no_leidos_admin + 1,
@@ -170,7 +148,7 @@ router.post("/iniciar", async (req, res) => {
       WHERE id_conversacion = ?
     `, [id_conversacion]);
     
-    console.log(`💬 Mensaje agregado a conversación: ${id_conversacion} por ${nombre}`);
+    console.log(` Mensaje agregado a conversación: ${id_conversacion} por ${nombre}`);
     
     res.json({
       success: true,
@@ -191,15 +169,11 @@ router.post("/iniciar", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER MENSAJES DE UNA CONVERSACIÓN
-// =====================================================
 
 router.get("/conversacion/:id", async (req, res) => {
   try {
     const { id } = req.params;
     
-    // Obtener información de la conversación
     const [conversaciones] = await pool.query(`
       SELECT c.*, 
              CASE 
@@ -221,7 +195,6 @@ router.get("/conversacion/:id", async (req, res) => {
     
     const conversacion = conversaciones[0];
     
-    // Obtener mensajes con avatar del remitente usando LEFT JOINs
     const [mensajes] = await pool.query(`
       SELECT 
         cm.*,
@@ -235,15 +208,13 @@ router.get("/conversacion/:id", async (req, res) => {
       ORDER BY cm.fecha_envio ASC
     `, [id]);
     
-    // Log para verificar avatares
-    console.log(`📸 Conversación ${id} - Mensajes con avatares:`, mensajes.map(m => ({
+    console.log(` Conversación ${id} - Mensajes con avatares:`, mensajes.map(m => ({
       id: m.id_mensaje,
       tipo: m.tipo_remitente,
       id_rem: m.id_remitente,
       avatar: m.avatar_remitente
     })));
     
-    // Desactivar caché para esta respuesta
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
@@ -265,9 +236,6 @@ router.get("/conversacion/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER CONVERSACIONES (PARA ADMIN)
-// =====================================================
 
 router.get("/conversaciones", async (req, res) => {
   try {
@@ -333,9 +301,6 @@ router.get("/conversaciones", async (req, res) => {
   }
 });
 
-// =====================================================
-// TOMAR CONVERSACIÓN (ADMIN)
-// =====================================================
 
 router.put("/conversacion/:id/tomar", async (req, res) => {
   try {
@@ -369,22 +334,17 @@ router.put("/conversacion/:id/tomar", async (req, res) => {
   }
 });
 
-// =====================================================
-// CERRAR CONVERSACIÓN
-// =====================================================
 
 router.put("/conversacion/:id/cerrar", async (req, res) => {
   try {
     const { id } = req.params;
     
-    // Actualizar conversación
     await pool.query(`
       UPDATE chat_conversaciones
       SET estado = 'cerrada', fecha_cierre = CURRENT_TIMESTAMP
       WHERE id_conversacion = ?
     `, [id]);
     
-    // Calcular estadísticas finales
     const [stats] = await pool.query(`
       SELECT 
         MIN(fecha_envio) as fecha_inicio,
@@ -419,15 +379,11 @@ router.put("/conversacion/:id/cerrar", async (req, res) => {
   }
 });
 
-// =====================================================
-// ENVIAR MENSAJE (REST API - Alternativa a WebSocket)
-// =====================================================
 
 router.post("/mensaje", async (req, res) => {
   try {
     const { id_conversacion, tipo_remitente, id_remitente, nombre_remitente, mensaje } = req.body;
     
-    // Validaciones
     if (!id_conversacion || !tipo_remitente || !nombre_remitente || !mensaje) {
       return res.status(400).json({
         success: false,
@@ -435,7 +391,6 @@ router.post("/mensaje", async (req, res) => {
       });
     }
     
-    // Insertar mensaje
     const [result] = await pool.query(`
       INSERT INTO chat_mensajes (
         id_conversacion, 
@@ -446,7 +401,6 @@ router.post("/mensaje", async (req, res) => {
       ) VALUES (?, ?, ?, ?, ?)
     `, [id_conversacion, tipo_remitente, id_remitente, nombre_remitente, mensaje]);
     
-    // Actualizar última actividad
     await pool.query(`
       UPDATE chat_conversaciones 
       SET ultima_actividad = CURRENT_TIMESTAMP
@@ -470,9 +424,6 @@ router.post("/mensaje", async (req, res) => {
   }
 });
 
-// =====================================================
-// MARCAR MENSAJES COMO LEÍDOS
-// =====================================================
 
 router.put("/conversacion/:id/leer", async (req, res) => {
   try {
@@ -523,9 +474,6 @@ router.put("/conversacion/:id/leer", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER ESTADÍSTICAS DE CHAT
-// =====================================================
 
 router.get("/estadisticas", async (req, res) => {
   try {
@@ -566,9 +514,6 @@ router.get("/estadisticas", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER CONVERSACIÓN DE UN USUARIO LOGGEADO
-// =====================================================
 
 router.get("/mi-conversacion", async (req, res) => {
   try {
@@ -581,7 +526,6 @@ router.get("/mi-conversacion", async (req, res) => {
       });
     }
     
-    // Buscar conversación activa o pendiente del usuario
     const [conversaciones] = await pool.query(`
       SELECT 
         c.*,
@@ -608,7 +552,6 @@ router.get("/mi-conversacion", async (req, res) => {
     
     const conversacion = conversaciones[0];
     
-    // Obtener mensajes con avatar del remitente
     const [mensajes] = await pool.query(`
       SELECT 
         cm.*,
@@ -622,15 +565,13 @@ router.get("/mi-conversacion", async (req, res) => {
       ORDER BY cm.fecha_envio ASC
     `, [conversacion.id_conversacion]);
     
-    // Log para verificar avatares
-    console.log(`📸 Mi conversación - Mensajes con avatares:`, mensajes.map(m => ({
+    console.log(` Mi conversación - Mensajes con avatares:`, mensajes.map(m => ({
       id: m.id_mensaje,
       tipo: m.tipo_remitente,
       id_rem: m.id_remitente,
       avatar: m.avatar_remitente
     })));
     
-    // Desactivar caché para esta respuesta
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
@@ -652,18 +593,14 @@ router.get("/mi-conversacion", async (req, res) => {
   }
 });
 
-// =====================================================
-// ELIMINAR CONVERSACIÓN (SOLO ADMIN)
-// =====================================================
 
 router.delete("/conversacion/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { id_admin } = req.body; // ID del administrador que elimina
     
-    console.log(`🗑️ Admin ${id_admin} eliminando conversación ${id}`);
+    console.log(` Admin ${id_admin} eliminando conversación ${id}`);
     
-    // Verificar que la conversación existe
     const [conversacion] = await pool.query(`
       SELECT * FROM chat_conversaciones WHERE id_conversacion = ?
     `, [id]);
@@ -675,12 +612,11 @@ router.delete("/conversacion/:id", async (req, res) => {
       });
     }
     
-    // Eliminar la conversación (CASCADE eliminará mensajes y estadísticas)
     await pool.query(`
       DELETE FROM chat_conversaciones WHERE id_conversacion = ?
     `, [id]);
     
-    console.log(`✅ Conversación ${id} eliminada exitosamente`);
+    console.log(` Conversación ${id} eliminada exitosamente`);
     
     res.json({
       success: true,
@@ -701,9 +637,6 @@ router.delete("/conversacion/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// SUBIR ARCHIVO (IMAGEN O PDF)
-// =====================================================
 
 router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
   try {
@@ -717,7 +650,6 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
     const { id_conversacion, tipo_remitente, id_remitente, nombre_remitente } = req.body;
     
     if (!id_conversacion || !tipo_remitente || !nombre_remitente) {
-      // Eliminar archivo subido si falta información
       try {
         fs.unlinkSync(req.file.path);
       } catch (err) {
@@ -729,7 +661,6 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
       });
     }
     
-    // Determinar tipo de archivo
     const ext = path.extname(req.file.originalname).toLowerCase();
     let tipoArchivo = 'file';
     if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
@@ -738,26 +669,22 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
       tipoArchivo = 'pdf';
     }
     
-    // Ruta relativa del archivo (para guardar en BD y servir)
     const rutaArchivo = `/uploads/chat-files/${req.file.filename}`;
     
-    // Verificar si las columnas existen
     const [columns] = await pool.query(`
       SHOW COLUMNS FROM chat_mensajes LIKE 'archivo_adjunto'
     `);
     
     if (columns.length === 0) {
-      // Las columnas no existen, crear primero
-      console.log('⚠️ Creando columnas archivo_adjunto y tipo_archivo...');
+      console.log(' Creando columnas archivo_adjunto y tipo_archivo...');
       await pool.query(`
         ALTER TABLE chat_mensajes 
         ADD COLUMN archivo_adjunto VARCHAR(500) NULL,
         ADD COLUMN tipo_archivo VARCHAR(50) NULL
       `);
-      console.log('✅ Columnas creadas exitosamente');
+      console.log(' Columnas creadas exitosamente');
     }
     
-    // Insertar mensaje en la base de datos
     const [result] = await pool.query(`
       INSERT INTO chat_mensajes (
         id_conversacion,
@@ -778,7 +705,6 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
       tipoArchivo
     ]);
     
-    // Actualizar timestamp y contador de mensajes no leídos
     const isAdmin = tipo_remitente === 'admin';
     if (!isAdmin) {
       await pool.query(`
@@ -796,9 +722,8 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
       `, [id_conversacion]);
     }
     
-    console.log(`📎 Archivo subido: ${req.file.originalname} (${tipoArchivo}) en conversación ${id_conversacion}`);
+    console.log(` Archivo subido: ${req.file.originalname} (${tipoArchivo}) en conversación ${id_conversacion}`);
     
-    // Notificar a través de WebSocket si está disponible
     if (chatServerInstance) {
       const mensajeWS = {
         id_mensaje: result.insertId,
@@ -812,13 +737,11 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
         fecha_envio: new Date().toISOString()
       };
       
-      // Enviar a todos los clientes de esta conversación
       chatServerInstance.broadcastToConversation(id_conversacion, {
         type: 'message',
         data: mensajeWS
       });
       
-      // Notificar a admins si el mensaje es de un usuario
       if (!isAdmin) {
         chatServerInstance.notifyAdmins({
           type: 'new_message',
@@ -845,7 +768,6 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
   } catch (error) {
     console.error("Error al subir archivo:", error);
     
-    // Eliminar archivo si hubo error
     if (req.file && fs.existsSync(req.file.path)) {
       fs.unlinkSync(req.file.path);
     }

@@ -3,7 +3,6 @@ import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
 const router = express.Router();
 
-// Obtener todos los profesores con estadísticas básicas
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -35,10 +34,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Obtener profesor por ID con estadísticas completas
 router.get("/:id", async (req, res) => {
   try {
-    // Datos básicos del profesor
     const [profesorRows] = await pool.query(`
       SELECT 
         p.id_profesor,
@@ -65,7 +62,6 @@ router.get("/:id", async (req, res) => {
 
     const profesor = profesorRows[0];
 
-    // Cursos que dicta con estadísticas
     const [cursosRows] = await pool.query(`
       SELECT 
         c.id_curso,
@@ -92,7 +88,6 @@ router.get("/:id", async (req, res) => {
       WHERE c.id_profesor = ?
     `, [req.params.id]);
 
-    // Total de alumnos bajo supervisión
     const [alumnosRows] = await pool.query(`
       SELECT COUNT(DISTINCT ins.id_alumno) as total_alumnos
       FROM inscripciones ins
@@ -100,7 +95,6 @@ router.get("/:id", async (req, res) => {
       WHERE c.id_profesor = ? AND ins.estado = 'activo'
     `, [req.params.id]);
 
-    // Promedio general de calificaciones de sus alumnos
     const [promedioRows] = await pool.query(`
       SELECT AVG((COALESCE(cal.parcial1, 0) + COALESCE(cal.parcial2, 0) + COALESCE(cal.final, 0)) / 
                  (CASE WHEN cal.parcial1 IS NOT NULL THEN 1 ELSE 0 END + 
@@ -112,7 +106,6 @@ router.get("/:id", async (req, res) => {
         AND (cal.parcial1 IS NOT NULL OR cal.parcial2 IS NOT NULL OR cal.final IS NOT NULL)
     `, [req.params.id]);
 
-    // Idiomas que enseña (desde tabla profesores_idiomas)
     const [idiomasRows] = await pool.query(`
       SELECT i.id_idioma, i.nombre_idioma
       FROM profesores_idiomas pi
@@ -120,7 +113,6 @@ router.get("/:id", async (req, res) => {
       WHERE pi.id_profesor = ?
     `, [req.params.id]);
 
-    // Construir respuesta completa
     const response = {
       ...profesor,
       cursos: cursosRows,
@@ -139,13 +131,11 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Actualizar profesor
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre, apellido, mail, dni, especialidad, telefono, estado, idiomas } = req.body;
 
-    // Validar campos requeridos
     if (!nombre || !apellido || !mail || !especialidad) {
       return res.status(400).json({ 
         success: false, 
@@ -153,13 +143,11 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    // Actualizar tabla personas (id_profesor = id_persona, incluye telefono y dni)
     await pool.query(
       'UPDATE personas SET nombre = ?, apellido = ?, mail = ?, dni = ?, telefono = ? WHERE id_persona = ?',
       [nombre, apellido, mail, dni || null, telefono || null, id]
     );
 
-    // Actualizar tabla profesores (solo campos propios de profesor)
     const [result] = await pool.query(
       'UPDATE profesores SET especialidad = ?, estado = ? WHERE id_profesor = ?',
       [especialidad, estado || 'activo', id]
@@ -172,12 +160,9 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    // Actualizar idiomas del profesor
     if (idiomas && Array.isArray(idiomas)) {
-      // Eliminar idiomas anteriores
       await pool.query('DELETE FROM profesores_idiomas WHERE id_profesor = ?', [id]);
       
-      // Insertar nuevos idiomas
       if (idiomas.length > 0) {
         const values = idiomas.map(id_idioma => [id, id_idioma]);
         await pool.query(
@@ -197,7 +182,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Cambiar estado del profesor
 router.patch("/:id/estado", async (req, res) => {
   try {
     const { id } = req.params;
@@ -223,12 +207,10 @@ router.patch("/:id/estado", async (req, res) => {
   }
 });
 
-// Crear nuevo profesor
 router.post("/", async (req, res) => {
   try {
     const { nombre, apellido, dni, mail, especialidad, telefono, username, password } = req.body;
 
-    // Validar campos requeridos
     if (!nombre || !apellido || !mail || !especialidad) {
       return res.status(400).json({ 
         success: false, 
@@ -236,7 +218,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Verificar si el email ya existe
     const [existingMail] = await pool.query(
       'SELECT id_persona FROM personas WHERE mail = ?',
       [mail]
@@ -249,7 +230,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Verificar si el DNI ya existe (si se proporcionó)
     if (dni) {
       const [existingDNI] = await pool.query(
         'SELECT id_persona FROM personas WHERE dni = ?',
@@ -264,7 +244,6 @@ router.post("/", async (req, res) => {
       }
     }
 
-    // Primero crear persona (incluyendo telefono)
     const [personaResult] = await pool.query(
       'INSERT INTO personas (nombre, apellido, mail, dni, telefono) VALUES (?, ?, ?, ?, ?)',
       [nombre, apellido, mail, dni || null, telefono || null]
@@ -272,13 +251,11 @@ router.post("/", async (req, res) => {
 
     const id_persona = personaResult.insertId;
 
-    // Crear profesor (solo datos académicos, sin telefono - id_profesor debe ser igual a id_persona según el constraint)
     await pool.query(
       'INSERT INTO profesores (id_profesor, id_persona, especialidad, estado, fecha_ingreso) VALUES (?, ?, ?, ?, CURRENT_DATE)',
       [id_persona, id_persona, especialidad, 'activo']
     );
 
-    // Crear usuario si se proporcionó username y password
     if (username && password) {
       const [perfilRows] = await pool.query(
         'SELECT id_perfil FROM perfiles WHERE nombre_perfil = ?',
@@ -293,7 +270,6 @@ router.post("/", async (req, res) => {
       }
     }
 
-    // Guardar idiomas del profesor si se proporcionaron
     const { idiomas } = req.body;
     if (idiomas && Array.isArray(idiomas) && idiomas.length > 0) {
       const values = idiomas.map(id_idioma => [id_persona, id_idioma]);
@@ -311,7 +287,6 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.error("Error al crear profesor:", error);
     
-    // Manejar errores específicos de MySQL
     if (error.code === 'ER_DUP_ENTRY') {
       return res.status(400).json({ 
         success: false,
@@ -326,7 +301,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Crear credenciales de acceso para un profesor
 router.post("/:id/credenciales", async (req, res) => {
   try {
     const { id } = req.params;
@@ -339,7 +313,6 @@ router.post("/:id/credenciales", async (req, res) => {
       });
     }
 
-    // Verificar que el profesor existe
     const [profesor] = await pool.query(
       'SELECT id_profesor FROM profesores WHERE id_profesor = ?',
       [id]
@@ -352,7 +325,6 @@ router.post("/:id/credenciales", async (req, res) => {
       });
     }
 
-    // Verificar si ya tiene usuario
     const [usuarioExistente] = await pool.query(
       'SELECT id_usuario FROM usuarios WHERE id_persona = ?',
       [id]
@@ -365,7 +337,6 @@ router.post("/:id/credenciales", async (req, res) => {
       });
     }
 
-    // Verificar si el username ya existe
     const [usernameExistente] = await pool.query(
       'SELECT id_usuario FROM usuarios WHERE username = ?',
       [username]
@@ -378,7 +349,6 @@ router.post("/:id/credenciales", async (req, res) => {
       });
     }
 
-    // Obtener el id del perfil "profesor"
     const [perfilRows] = await pool.query(
       'SELECT id_perfil FROM perfiles WHERE nombre_perfil = ?',
       ['profesor']
@@ -391,11 +361,9 @@ router.post("/:id/credenciales", async (req, res) => {
       });
     }
 
-    // Hashear la contraseña
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(password, salt);
 
-    // Crear el usuario
     await pool.query(
       'INSERT INTO usuarios (username, password_hash, password_plain, id_persona, id_perfil) VALUES (?, ?, ?, ?, ?)',
       [username, passwordHash, password, id, perfilRows[0].id_perfil]
@@ -415,12 +383,10 @@ router.post("/:id/credenciales", async (req, res) => {
   }
 });
 
-// Eliminar profesor
 router.delete("/:id", async (req, res) => {
   try {
     const id_profesor = req.params.id;
 
-    // Verificar si tiene cursos asignados
     const [cursos] = await pool.query(
       'SELECT COUNT(*) as total FROM cursos WHERE id_profesor = ?',
       [id_profesor]
@@ -433,16 +399,12 @@ router.delete("/:id", async (req, res) => {
       });
     }
 
-    // Eliminar registros relacionados (UPDATE cursos para dejar sin profesor)
     await pool.query('UPDATE cursos SET id_profesor = NULL WHERE id_profesor = ?', [id_profesor]);
     
-    // Eliminar usuario si existe
     await pool.query('DELETE FROM usuarios WHERE id_persona = ?', [id_profesor]);
     
-    // Eliminar profesor
     await pool.query('DELETE FROM profesores WHERE id_profesor = ?', [id_profesor]);
     
-    // Eliminar persona
     const [result] = await pool.query('DELETE FROM personas WHERE id_persona = ?', [id_profesor]);
 
     if (result.affectedRows === 0) {
@@ -465,9 +427,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// Obtener datos del perfil del profesor
-// =====================================================
 router.get("/:id/perfil", async (req, res) => {
   try {
     const { id } = req.params;
@@ -512,9 +471,6 @@ router.get("/:id/perfil", async (req, res) => {
   }
 });
 
-// =====================================================
-// Actualizar perfil del profesor
-// =====================================================
 router.put("/:id/perfil", async (req, res) => {
   try {
     const { id } = req.params;
@@ -540,7 +496,6 @@ router.put("/:id/perfil", async (req, res) => {
   }
 });
 
-// Cambiar contraseña del Dashboard - Profesor
 router.post("/:id/cambiar-password-dashboard", async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
@@ -553,16 +508,14 @@ router.post("/:id/cambiar-password-dashboard", async (req, res) => {
   }
 
   try {
-    // Hashear nueva contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Actualizar en la tabla usuarios (compartida Dashboard + Classroom)
     await pool.query(
       "UPDATE usuarios SET password_hash = ?, password_plain = ? WHERE id_persona = ?",
       [hashedPassword, password, id]
     );
 
-    console.log(`✅ Contraseña actualizada para profesor ID: ${id} (Dashboard + Classroom)`);
+    console.log(` Contraseña actualizada para profesor ID: ${id} (Dashboard + Classroom)`);
 
     res.json({
       success: true,
@@ -578,7 +531,6 @@ router.post("/:id/cambiar-password-dashboard", async (req, res) => {
   }
 });
 
-// Actualizar usuario del Dashboard
 router.patch("/:id/usuario", async (req, res) => {
   try {
     const { usuario } = req.body;
@@ -591,7 +543,6 @@ router.patch("/:id/usuario", async (req, res) => {
       });
     }
 
-    // Verificar que el usuario no esté en uso por otro usuario
     const [existente] = await pool.query(
       "SELECT id_usuario FROM usuarios WHERE username = ? AND id_persona != ?",
       [usuario.trim(), idProfesor]
@@ -604,7 +555,6 @@ router.patch("/:id/usuario", async (req, res) => {
       });
     }
 
-    // Actualizar usuario en tabla usuarios (compartida Dashboard + Classroom)
     await pool.query(
       "UPDATE usuarios SET username = ? WHERE id_persona = ?",
       [usuario.trim(), idProfesor]

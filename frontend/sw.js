@@ -10,7 +10,6 @@ const urlsToCache = [
   '/images/logo.png'
 ];
 
-// Instalación del Service Worker
 self.addEventListener('install', event => {
   console.log('[Service Worker] Instalando...');
   event.waitUntil(
@@ -26,7 +25,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activación del Service Worker
 self.addEventListener('activate', event => {
   console.log('[Service Worker] Activando...');
   event.waitUntil(
@@ -44,25 +42,20 @@ self.addEventListener('activate', event => {
   return self.clients.claim();
 });
 
-// Estrategia: Network First, luego Cache (para contenido dinámico)
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Ignorar peticiones a APIs externas
   if (url.origin !== location.origin) {
     return;
   }
 
-  // Para peticiones a tu API backend
   if (request.url.includes('/api/')) {
     event.respondWith(
       fetch(request)
         .then(response => {
-          // Clonar la respuesta porque solo puede usarse una vez
           const responseClone = response.clone();
           
-          // Guardar en cache si es exitosa
           if (response.status === 200) {
             caches.open(CACHE_NAME).then(cache => {
               cache.put(request, responseClone);
@@ -72,26 +65,21 @@ self.addEventListener('fetch', event => {
           return response;
         })
         .catch(() => {
-          // Si falla la red, intentar desde cache
           return caches.match(request);
         })
     );
     return;
   }
 
-  // Para archivos estáticos (HTML, CSS, JS, imágenes)
   event.respondWith(
     caches.match(request)
       .then(cachedResponse => {
         if (cachedResponse) {
-          // Si está en cache, devolverlo
           return cachedResponse;
         }
 
-        // Si no, hacer fetch y guardar en cache
         return fetch(request)
           .then(response => {
-            // Solo cachear respuestas exitosas
             if (!response || response.status !== 200) {
               return response;
             }
@@ -108,7 +96,6 @@ self.addEventListener('fetch', event => {
           .catch(err => {
             console.error('[Service Worker] Fetch falló:', err);
             
-            // Página offline personalizada (opcional)
             if (request.destination === 'document') {
               return caches.match('/offline.html');
             }
@@ -117,7 +104,6 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Escuchar mensajes desde la app
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();

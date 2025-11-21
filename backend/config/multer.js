@@ -6,14 +6,11 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Configuración de almacenamiento
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // Guardar en la carpeta uploads/tareas
     cb(null, path.join(__dirname, '../../uploads/tareas'));
   },
   filename: function (req, file, cb) {
-    // Generar nombre único: timestamp-nombre_original
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     const ext = path.extname(file.originalname);
     const name = path.basename(file.originalname, ext).replace(/\s+/g, '_');
@@ -21,9 +18,7 @@ const storage = multer.diskStorage({
   }
 });
 
-// Filtro de tipos de archivos permitidos
 const fileFilter = (req, file, cb) => {
-  // Permitir documentos, imágenes y archivos comprimidos
   const allowedMimes = [
     'application/pdf',
     'application/msword',
@@ -48,7 +43,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Configurar multer
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,

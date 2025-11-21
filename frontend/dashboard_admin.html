@@ -16,10 +16,8 @@
   <link rel="stylesheet" href="assets/css/user-chat-manager.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
   
-  <!-- SweetAlert2 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   
-  <!-- Config JS - MUST be first script -->
   <script src="assets/js/config.js"></script>
   
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -558,15 +556,12 @@
 </head>
 <body class="dashboard-body admin">
 
-  <!-- Mobile Menu Toggle -->
   <button class="mobile-menu-toggle" id="mobileMenuToggle">
     <i data-lucide="menu"></i>
   </button>
 
-  <!-- Sidebar Overlay (para cerrar en mobile) -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <img src="images/logo.png" alt="Logo CEMI">
@@ -588,7 +583,6 @@
     </nav>
   </aside>
 
-  <!-- Main -->
   <main class="dashboard-main">
     <header class="dashboard-header">
       <h1>Panel de Administración</h1>
@@ -597,20 +591,15 @@
       </div>
     </header>
 
-    <!-- Loader -->
     <div id="loader" class="loader hidden"></div>
 
-    <!-- Contenedor dinámico SPA -->
     <section id="mainContent" class="dashboard-content spa-animate"></section>
     
-    <!-- Contenedor del Chat (oculto por defecto) -->
     <div id="adminChatContainer" style="display: none;"></div>
   </main>
 
-  <!-- SweetAlert2 JS -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
-  <!-- jsPDF y jsPDF-AutoTable para generación de PDFs -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   
@@ -622,7 +611,7 @@
     const adminChatManager = new AdminChatManager();
     
     // Inicializar WebSocket automáticamente
-    console.log('🚀 Inicializando admin chat manager automáticamente...');
+    console.log(' Inicializando admin chat manager automáticamente...');
     adminChatManager.init();
     
     // Solicitar permisos de notificación
@@ -665,7 +654,7 @@
           try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             this.audioInitialized = true;
-            console.log('✅ AudioContext inicializado (Admin)');
+            console.log(' AudioContext inicializado (Admin)');
           } catch (error) {
             console.error('Error al inicializar AudioContext:', error);
           }
@@ -732,11 +721,11 @@
       updateNotificationBadge(count) {
         const badge = document.getElementById('chatNotificationBadge');
         if (!badge) {
-          console.error('❌ No se encontró el elemento chatNotificationBadge');
+          console.error(' No se encontró el elemento chatNotificationBadge');
           return;
         }
         
-        console.log('🔔 Admin badge actualizado con count:', count);
+        console.log(' Admin badge actualizado con count:', count);
         
         if (count > 0) {
           badge.textContent = count > 99 ? '99+' : count;
@@ -763,7 +752,7 @@
         this.ws = new WebSocket(`${WS_URL}/chat`);
         
         this.ws.onopen = () => {
-          console.log('✅ Admin Chat WebSocket conectado');
+          console.log(' Admin Chat WebSocket conectado');
           this.isConnected = true;
           this.authenticate();
           this.loadConversations();
@@ -775,13 +764,13 @@
         };
         
         this.ws.onclose = () => {
-          console.log('🔴 Admin Chat WebSocket desconectado');
+          console.log(' Admin Chat WebSocket desconectado');
           this.isConnected = false;
           setTimeout(() => this.connectWebSocket(), 3000);
         };
         
         this.ws.onerror = (error) => {
-          console.error('❌ Error en WebSocket:', error);
+          console.error(' Error en WebSocket:', error);
         };
       }
       
@@ -804,7 +793,7 @@
         
         switch (type) {
           case 'authenticated':
-            console.log('✅ Admin autenticado');
+            console.log(' Admin autenticado');
             break;
             
           case 'new_message':
@@ -830,13 +819,13 @@
       }
       
       handleNewMessage(data) {
-        console.log('📨 Admin recibió mensaje:', data);
+        console.log(' Admin recibió mensaje:', data);
         
         // Verificar si es mensaje propio del admin
         const esMensajePropio = data.tipo_remitente === 'admin';
         
         if (esMensajePropio) {
-          console.log('⚠️ Es mi propio mensaje (admin), ignorando notificación');
+          console.log(' Es mi propio mensaje (admin), ignorando notificación');
           return;
         }
         
@@ -844,17 +833,17 @@
         const chatContainer = document.getElementById('chatContainer');
         const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
         
-        console.log('🖥️ Chat visible:', isChatVisible);
+        console.log(' Chat visible:', isChatVisible);
         
         // Si el chat está visible Y es la conversación activa
         if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-          console.log('✅ Agregando mensaje a conversación activa');
+          console.log(' Agregando mensaje a conversación activa');
           this.addMessageToUI(data);
           this.scrollToBottom();
           this.markAsRead(data.id_conversacion);
         } else {
           // Chat NO visible o conversación diferente: notificar
-          console.log('🔔 Mostrando notificación y actualizando badge');
+          console.log(' Mostrando notificación y actualizando badge');
           this.playMessageSound();
           const nombreRemitente = data.nombre_remitente || data.nombre_usuario || 'Usuario';
           this.showNotification(`Nuevo mensaje de ${nombreRemitente}`, data.mensaje);
@@ -887,13 +876,13 @@
               return sum + (conv.mensajes_no_leidos_admin || 0);
             }, 0);
             
-            console.log('📊 Total mensajes no leídos por admin:', totalNoLeidos);
+            console.log(' Total mensajes no leídos por admin:', totalNoLeidos);
             this.updateNotificationBadge(totalNoLeidos);
             
             // Unirse a TODAS las conversaciones automáticamente para recibir notificaciones
             if (this.ws && this.ws.readyState === WebSocket.OPEN) {
               this.conversations.forEach(conv => {
-                console.log('🔌 Admin uniéndose a conversación:', conv.id_conversacion);
+                console.log(' Admin uniéndose a conversación:', conv.id_conversacion);
                 this.ws.send(JSON.stringify({
                   type: 'join_conversation',
                   data: { id_conversacion: conv.id_conversacion }
@@ -1141,7 +1130,7 @@
           
           // Recargar conversaciones para actualizar badge desde BD
           await this.loadConversations();
-          console.log('✅ Mensajes marcados como leídos, badge actualizado desde BD');
+          console.log(' Mensajes marcados como leídos, badge actualizado desde BD');
           
           if (this.ws && this.ws.readyState === WebSocket.OPEN) {
             this.ws.send(JSON.stringify({
@@ -1250,7 +1239,6 @@
     */
   </script>
   
-  <!-- Mobile Menu Script -->
   <script>
     // Funcionalidad del menú mobile
     document.addEventListener('DOMContentLoaded', function() {
