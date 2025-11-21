@@ -1,5 +1,6 @@
 // backend/utils/chat-server.js - Socket.IO Chat Server
 import { Server } from 'socket.io';
+import pool from './db.js';
 
 class ChatServer {
   constructor() {
@@ -65,18 +66,53 @@ class ChatServer {
       });
 
       // Mensaje nuevo
-      socket.on('message', (data) => {
+      socket.on('message', async (data) => {
         try {
-          const { id_conversacion, mensaje, id_remitente, tipo_remitente } = data;
-          console.log(`[ChatServer] Mensaje de ${tipo_remitente} ${id_remitente} en conversación ${id_conversacion}`);
+          const { id_conversacion, mensaje } = data;
+          const clientData = this.clients.get(socket.id);
           
-          this.broadcastToConversation(id_conversacion, 'new_message', {
-            ...data,
-            timestamp: new Date().toISOString()
-          }, socket.id);
+          if (!clientData || !clientData.userInfo) {
+            console.error('[ChatServer] Cliente no autenticado intentando enviar mensaje');
+            return;
+          }
+          
+          const { tipo, id_usuario, nombre, avatar } = clientData.userInfo;
+          
+          console.log(`[ChatServer] Guardando mensaje de ${tipo} ${nombre} en conversación ${id_conversacion}`);
+          
+          // Guardar mensaje en BD
+          const [result] = await pool.query(
+            `INSERT INTO Mensajes_Chat (id_conversacion, tipo_remitente, id_remitente, mensaje, fecha_envio, leido_usuario, leido_admin)
+             VALUES (?, ?, ?, ?, NOW(), 0, ?)`,
+            [id_conversacion, tipo, id_usuario, mensaje, tipo === 'admin' ? 1 : 0]
+          );
+          
+          const id_mensaje = result.insertId;
+          
+          // Obtener el mensaje completo con datos del remitente
+          const [[mensajeCompleto]] = await pool.query(
+            `SELECT 
+              m.*,
+              u.nombre as nombre_remitente,
+              u.avatar as avatar_remitente,
+              CASE 
+                WHEN m.tipo_remitente = 'admin' THEN 1
+                ELSE 0
+              END as es_admin
+            FROM Mensajes_Chat m
+            LEFT JOIN Usuarios u ON u.id_usuario = m.id_remitente
+            WHERE m.id_mensaje = ?`,
+            [id_mensaje]
+          );
+          
+          console.log(`[ChatServer] ✓ Mensaje guardado con ID ${id_mensaje}, haciendo broadcast...`);
+          
+          // Broadcast a todos en la conversación (incluyendo al remitente)
+          this.broadcastToConversation(id_conversacion, 'new_message', mensajeCompleto);
           
         } catch (error) {
           console.error('[ChatServer] Error en message:', error);
+          socket.emit('error', { message: 'Error al enviar mensaje' });
         }
       });
 
