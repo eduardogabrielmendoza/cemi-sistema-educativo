@@ -88,29 +88,30 @@
     window.location.href = "login.html";
   }
 
-  // Cargar user chat con Socket.IO - Esperar a que Socket.IO esté disponible
-  function loadUserChat() {
+  // Cargar user chat manager con Socket.IO - Esperar a que Socket.IO esté disponible
+  function loadUserChatManager() {
     if (typeof io !== 'undefined') {
       const chatScript = document.createElement('script');
-      chatScript.src = `assets/js/user-chat.js?v=${Date.now()}`;
+      chatScript.src = `assets/js/user-chat-manager.js?v=${Date.now()}`;
       chatScript.onload = () => {
-        console.log('✅ user-chat.js cargado');
-        if (typeof UserChat !== 'undefined') {
-          window.userChat = new UserChat('alumno');
+        console.log('✅ user-chat-manager.js cargado');
+        if (typeof UserChatManager !== 'undefined') {
+          window.userChatManager = new UserChatManager('alumno');
+          window.userChatManager.init();
         } else {
-          console.error('❌ UserChat no está definido');
+          console.error('❌ UserChatManager no está definido');
         }
       };
       chatScript.onerror = () => {
-        console.error('❌ Error al cargar user-chat.js');
+        console.error('❌ Error al cargar user-chat-manager.js');
       };
       document.head.appendChild(chatScript);
     } else {
       console.log('⏳ Esperando Socket.IO...');
-      setTimeout(loadUserChat, 100);
+      setTimeout(loadUserChatManager, 100);
     }
   }
-  loadUserChat();
+  loadUserChatManager();
 
   // Mostrar saludo dinámico con nombre guardado
   const nombreAlumno = localStorage.getItem("nombre") || "Alumno";
@@ -828,8 +829,8 @@
       mainContent.classList.remove("active");
       mainContent.innerHTML = `<div id="userChatContainer"></div>`;
       setTimeout(() => {
-        if (window.userChat) {
-          window.userChat.initializeUI();
+        if (window.userChatManager) {
+          window.userChatManager.renderChatView();
         }
         mainContent.classList.add("active");
         lucide.createIcons();

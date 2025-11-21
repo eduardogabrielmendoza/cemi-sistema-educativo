@@ -1,3 +1,4 @@
+/* User Chat Manager Styles - Para Profesores y Alumnos */
 
 .user-chat-full-container {
   display: flex;
@@ -8,6 +9,7 @@
   overflow: hidden;
 }
 
+/* Panel de Conversaciones (Izquierda) */
 .user-chat-conversations-panel {
   width: 350px;
   border-right: 1px solid #e5e7eb;
@@ -120,6 +122,7 @@
   text-align: center;
 }
 
+/* Panel de Mensajes (Derecha) */
 .user-chat-messages-panel {
   flex: 1;
   display: flex;
@@ -397,6 +400,7 @@
   }
 }
 
+/* Botón de cerrar conversación */
 .chat-close-conversation-btn {
   margin-left: auto;
   display: flex;
@@ -435,6 +439,7 @@
   transform: rotate(90deg);
 }
 
+/* Scrollbar personalizado */
 .user-chat-conversations-list::-webkit-scrollbar,
 .user-chat-messages::-webkit-scrollbar {
   width: 6px;
@@ -456,6 +461,7 @@
   background: #9ca3af;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .user-chat-full-container {
     flex-direction: column;
@@ -473,7 +479,11 @@
   }
 }
 
+/* ===================================================== */
+/* ARCHIVOS ADJUNTOS EN CHAT */
+/* ===================================================== */
 
+/* Botón de adjuntar archivos */
 .user-chat-attach-btn {
   background: #f3f4f6;
   border: none;
@@ -498,11 +508,13 @@
   transform: scale(0.95);
 }
 
+/* Contenedor de archivo adjunto */
 .chat-file-attachment {
   margin-top: 8px;
   margin-bottom: 4px;
 }
 
+/* Imagen adjunta */
 .chat-image-preview {
   max-width: 300px;
   max-height: 400px;
@@ -518,6 +530,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+/* PDF adjunto */
 .chat-file-attachment.pdf {
   display: flex;
   align-items: center;
@@ -590,6 +603,7 @@
   transform: scale(0.95);
 }
 
+/* Ajustes para mensajes con archivos */
 .user-chat-message.sent .chat-image-preview {
   border: 2px solid rgba(25, 118, 210, 0.2);
 }
