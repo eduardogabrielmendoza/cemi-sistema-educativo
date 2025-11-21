@@ -773,24 +773,6 @@
     }
 
     // El botón APK ahora es visible para todos los dispositivos
-
-    // Toggle del menú flotante
-    const floatingMenuToggle = document.getElementById('floatingMenuToggle');
-    const floatingMenu = document.getElementById('floatingMenu');
-    
-    if (floatingMenuToggle) {
-      floatingMenuToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        floatingMenu.classList.toggle('active');
-      });
-      
-      // Cerrar menú al hacer clic fuera
-      document.addEventListener('click', function(e) {
-        if (!floatingMenu.contains(e.target)) {
-          floatingMenu.classList.remove('active');
-        }
-      });
-    }
   </script>
   
   <script src="assets/js/pwa-install.js?v=3.0"></script>
