@@ -24,9 +24,9 @@ import statsRoutes from "./backend/routes/stats.js";
 import classroomRoutes from "./backend/routes/classroom.js";
 import perfilClassroomRoutes from "./backend/routes/perfil-classroom.js";
 import notificacionesRoutes from "./backend/routes/notificaciones.js";
-import chatRoutes, { setChatServer } from "./backend/routes/chat.js";
+import chatRoutes from "./backend/routes/chat.js";
 import configRoutes from "./backend/routes/config.js";
-import ChatServer from "./backend/utils/chat-server.js";
+import chatServer from "./backend/utils/chat-server.js";
 import http from "http";
 
 dotenv.config();
@@ -167,12 +167,10 @@ app.get("/", (req, res) => {
 
 const server = http.createServer(app);
 
-const chatServer = new ChatServer(server);
-
-setChatServer(chatServer);
+// Inicializar Socket.IO Chat Server
+chatServer.init(server);
 
 server.listen(PORT, () => {
   console.log(` Servidor HTTP activo en http://localhost:${PORT}`);
-  console.log(` Servidor WebSocket de Chat activo en ws://localhost:${PORT}/chat`);
-  console.log(` Estado del chat:`, chatServer.getStats());
+  console.log(` Socket.IO Chat Server activo en /socket.io/`);
 });

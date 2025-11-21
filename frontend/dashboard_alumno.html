@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="assets/css/dashboard_alumno_extras.css" />
   <link rel="stylesheet" href="assets/css/credit-card.css" />
   <link rel="stylesheet" href="assets/css/user-chat-manager.css" />
+  <link rel="stylesheet" href="assets/css/chat.css" />
   <link rel="stylesheet" href="assets/css/cursado.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -24,7 +25,7 @@
   
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
 </head>
 <body class="dashboard-body">
 
@@ -87,33 +88,21 @@
     window.location.href = "login.html";
   }
 
-  // Cargar SockJS primero, luego el chat manager
-  const sockjsScript = document.createElement('script');
-  sockjsScript.src = 'https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js';
-  sockjsScript.onload = () => {
-    console.log('✅ SockJS library loaded, typeof SockJS:', typeof SockJS);
-    
-    // Ahora cargar el chat manager
-    const chatScript = document.createElement('script');
-    chatScript.src = `assets/js/user-chat-manager.js?v=${Date.now()}`; // Cache busting
-    chatScript.onload = () => {
-      console.log(' user-chat-manager.js cargado correctamente');
-      if (typeof UserChatManager !== 'undefined') {
-        window.userChatManager = new UserChatManager('alumno');
-        window.userChatManager.init();
-      } else {
-        console.error(' UserChatManager no está definido');
-      }
-    };
-    chatScript.onerror = () => {
-      console.error(' Error al cargar user-chat-manager.js');
-    };
-    document.head.appendChild(chatScript);
+  // Cargar user chat con Socket.IO
+  const chatScript = document.createElement('script');
+  chatScript.src = `assets/js/user-chat.js?v=${Date.now()}`;
+  chatScript.onload = () => {
+    console.log('✅ user-chat.js cargado');
+    if (typeof UserChat !== 'undefined') {
+      window.userChat = new UserChat('alumno');
+    } else {
+      console.error('❌ UserChat no está definido');
+    }
   };
-  sockjsScript.onerror = () => {
-    console.error('❌ Error al cargar SockJS desde CDN');
+  chatScript.onerror = () => {
+    console.error('❌ Error al cargar user-chat.js');
   };
-  document.head.appendChild(sockjsScript);
+  document.head.appendChild(chatScript);
 
   // Mostrar saludo dinámico con nombre guardado
   const nombreAlumno = localStorage.getItem("nombre") || "Alumno";

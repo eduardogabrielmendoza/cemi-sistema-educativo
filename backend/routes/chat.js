@@ -8,12 +8,6 @@ import fs from 'fs';
 
 const router = express.Router();
 
-let chatServerInstance = null;
-
-export function setChatServer(chatServer) {
-  chatServerInstance = chatServer;
-}
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
