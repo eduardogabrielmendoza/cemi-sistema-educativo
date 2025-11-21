@@ -8,6 +8,10 @@ import rateLimit from "express-rate-limit";
 import morgan from "morgan";
 import pool from "./backend/utils/db.js";
 
+console.log('[Server] 🚀 Iniciando servidor...');
+console.log('[Server] Node version:', process.version);
+console.log('[Server] ENV:', process.env.NODE_ENV || 'development');
+
 import authRoutes from "./backend/routes/auth.js";
 import alumnosRoutes from "./backend/routes/alumnos.js";
 import profesoresRoutes from "./backend/routes/profesores.js";
@@ -26,12 +30,19 @@ import perfilClassroomRoutes from "./backend/routes/perfil-classroom.js";
 import notificacionesRoutes from "./backend/routes/notificaciones.js";
 import chatRoutes from "./backend/routes/chat.js";
 import configRoutes from "./backend/routes/config.js";
+
+console.log('[Server] ✅ Todas las rutas importadas');
+
 import chatServer from "./backend/utils/chat-server.js";
 import http from "http";
+
+console.log('[Server] ✅ Chat server importado');
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+console.log('[Server] ✅ Express app creado, PORT:', PORT);
 
 
 app.use(helmet({
@@ -165,12 +176,37 @@ app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "frontend" });
 });
 
+console.log('[Server] ✅ Rutas configuradas');
+
 const server = http.createServer(app);
+
+console.log('[Server] ✅ HTTP server creado');
 
 // Inicializar Socket.IO Chat Server
 chatServer.init(server);
 
+console.log('[Server] ✅ Socket.IO Chat Server inicializado');
+
 server.listen(PORT, () => {
   console.log(` Servidor HTTP activo en http://localhost:${PORT}`);
   console.log(` Socket.IO Chat Server activo en /socket.io/`);
+});
+
+// Manejo de errores no capturados
+process.on('uncaughtException', (error) => {
+  console.error('❌ Uncaught Exception:', error);
+  console.error('Stack:', error.stack);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise);
+  console.error('Reason:', reason);
+});
+
+server.on('error', (error) => {
+  console.error('❌ Server error:', error);
+  if (error.code === 'EADDRINUSE') {
+    console.error(`Puerto ${PORT} ya está en uso`);
+    process.exit(1);
+  }
 });
