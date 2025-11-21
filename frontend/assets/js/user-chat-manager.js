@@ -209,71 +209,62 @@ class UserChatManager {
       console.error(' Error actualizando id_usuario:', err);
     }
     
-    // Sistema de polling en lugar de WebSocket
-    this.pollingInterval = null;
-    this.lastMessageId = 0;
-    this.startPolling();
+    // SockJS en lugar de polling
+    this.sock = null;
+    this.isConnected = false;
+    this.connectSockJS();
   }
   
-  startPolling() {
-    // Cargar conversaciones inicialmente
-    this.loadConversations();
+  connectSockJS() {
+    console.log('[UserChat] Conectando con SockJS...');
     
-    // Poll cada 3 segundos
-    this.pollingInterval = setInterval(() => {
-      if (this.activeConversation) {
-        this.checkNewMessages();
-      }
-      // También actualizar lista de conversaciones cada 10 segundos
-      if (Math.random() > 0.7) {
-        this.loadConversations();
-      }
-    }, 3000);
-  }
-  
-  stopPolling() {
-    if (this.pollingInterval) {
-      clearInterval(this.pollingInterval);
-      this.pollingInterval = null;
-    }
-  }
-  
-  async checkNewMessages() {
-    if (!this.activeConversation) return;
+    const sockUrl = `${this.BASE_URL.replace('/api', '')}/chat`;
+    this.sock = new SockJS(sockUrl);
     
-    try {
-      const response = await fetch(
-        `${this.BASE_URL}/api/chat/poll/${this.activeConversation.id_conversacion}/${this.lastMessageId}`
-      );
-      
-      if (!response.ok) return;
-      
-      const result = await response.json();
-      
-      if (result.success && result.nuevos_mensajes && result.nuevos_mensajes.length > 0) {
-        result.nuevos_mensajes.forEach(mensaje => {
-          this.addMessageToUI(mensaje);
-          this.lastMessageId = Math.max(this.lastMessageId, mensaje.id_mensaje);
-        });
+    this.sock.onopen = () => {
+      console.log('[UserChat] ✓ Conectado con SockJS');
+      this.isConnected = true;
+      this.authenticate();
+      this.loadConversations();
+    };
+    
+    this.sock.onmessage = (e) => {
+      try {
+        const message = JSON.parse(e.data);
+        this.handleMessage(message);
+      } catch (error) {
+        console.error('[UserChat] Error al parsear mensaje:', error);
       }
-    } catch (error) {
-      console.error('Error en polling:', error);
-    }
-  }
-  
-  connectWebSocket() {
-    // Ya no se usa WebSocket, solo polling
-    console.log('✓ Usando polling en lugar de WebSocket');
-    this.isConnected = true;
-    this.loadConversations();
+    };
+    
+    this.sock.onclose = () => {
+      console.log('[UserChat] Desconectado de SockJS');
+      this.isConnected = false;
+      setTimeout(() => this.connectSockJS(), 3000);
+    };
   }
   
   authenticate() {
-    // No necesario con polling
+    if (!this.sock || !this.isConnected) return;
+    
+    this.send({
+      type: 'auth',
+      data: {
+        tipo: this.userType,
+        id_usuario: this.userInfo.id_usuario,
+        nombre: this.userInfo.nombre,
+        id_conversacion: this.activeConversation ? this.activeConversation.id_conversacion : null
+      }
+    });
   }
   
-  handleWebSocketMessage(message) {
-    // Mantenido por compatibilidad pero no se usa
+  send(message) {
+    if (this.sock && this.isConnected) {
+      this.sock.send(JSON.stringify(message));
+    }
+  }
+  
+  handleMessage(message) {
     const { type, data } = message;
     
     switch (type) {
@@ -675,45 +666,45 @@ class UserChatManager {
     if (!mensaje) return;
     
     if (!this.activeConversation) {
-      console.log(' No hay conversación activa, cargando conversación del usuario...');
+      console.log('[UserChat] No hay conversación activa, cargando...');
       
       await this.loadConversations();
       
       if (this.conversations && this.conversations.length > 0) {
-        console.log(' Conversación encontrada, seleccionando automáticamente...');
+        console.log('[UserChat] Conversación encontrada');
         await this.selectConversation(this.conversations[0].id_conversacion);
         
-        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-          this.ws.send(JSON.stringify({
+        if (this.sock && this.isConnected) {
+          this.send({
             type: 'message',
             data: {
               id_conversacion: this.activeConversation.id_conversacion,
               mensaje: mensaje
             }
-          }));
+          });
           input.value = '';
           return;
         }
       } else {
-        console.log(' No existe conversación, creando una nueva con el mensaje...');
+        console.log('[UserChat] Creando nueva conversación...');
         await this.startNewConversation(mensaje);
         return;
       }
     }
     
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify({
+    if (this.sock && this.isConnected) {
+      this.send({
         type: 'message',
         data: {
           id_conversacion: this.activeConversation.id_conversacion,
           mensaje: mensaje
         }
-      }));
+      });
       
       input.value = '';
-      console.log(' Mensaje enviado a conversación:', this.activeConversation.id_conversacion);
+      console.log('[UserChat] Mensaje enviado');
     } else {
-      console.error(' WebSocket no conectado');
+      console.error('[UserChat] SockJS no conectado');
       Swal.fire({
         icon: 'error',
         title: 'Error de conexión',

@@ -123,68 +123,64 @@ class AdminChatManager {
       tipo: 'admin'
     };
     
-    // Polling en lugar de WebSocket
-    this.pollingInterval = null;
-    this.lastMessageId = 0;
-    this.startPolling();
+    // SockJS en lugar de polling
+    this.sock = null;
+    this.isConnected = false;
+    this.connectSockJS();
   }
   
-  startPolling() {
-    // Cargar conversaciones inicialmente
-    this.loadConversations();
+  connectSockJS() {
+    console.log('[AdminChat] Conectando con SockJS...');
     
-    // Poll cada 3 segundos para mensajes nuevos
-    this.pollingInterval = setInterval(() => {
-      if (this.currentConversation) {
-        this.checkNewMessages();
-      }
-    }, 3000);
-  }
-  
-  stopPolling() {
-    if (this.pollingInterval) {
-      clearInterval(this.pollingInterval);
-      this.pollingInterval = null;
-    }
-  }
-  
-  async checkNewMessages() {
-    if (!this.currentConversation) return;
+    // SockJS se conecta al endpoint /chat
+    const sockUrl = `${this.BASE_URL.replace('/api', '')}/chat`;
+    this.sock = new SockJS(sockUrl);
     
-    try {
-      const response = await fetch(
-        `${this.BASE_URL}/api/chat/poll/${this.currentConversation}/${this.lastMessageId}`
-      );
-      
-      if (!response.ok) return;
-      
-      const result = await response.json();
-      
-      if (result.success && result.nuevos_mensajes && result.nuevos_mensajes.length > 0) {
-        result.nuevos_mensajes.forEach(mensaje => {
-          this.addMessageToUI(mensaje);
-          this.lastMessageId = Math.max(this.lastMessageId, mensaje.id_mensaje);
-        });
-        
-        // Actualizar lista de conversaciones para mostrar último mensaje
-        this.loadConversations();
+    this.sock.onopen = () => {
+      console.log('[AdminChat] ✓ Conectado con SockJS');
+      this.isConnected = true;
+      this.authenticate();
+      this.loadConversations();
+    };
+    
+    this.sock.onmessage = (e) => {
+      try {
+        const message = JSON.parse(e.data);
+        this.handleMessage(message);
+      } catch (error) {
+        console.error('[AdminChat] Error al parsear mensaje:', error);
       }
-    } catch (error) {
-      console.error('Error en polling:', error);
-    }
-  }
-  
-  // Método antiguo de WebSocket - ya no se usa
-  connectWebSocket() {
-    console.log('✓ Usando polling en lugar de WebSocket');
+    };
+    
+    this.sock.onclose = () => {
+      console.log('[AdminChat] Desconectado de SockJS');
+      this.isConnected = false;
+      // Reconectar después de 3 segundos
+      setTimeout(() => this.connectSockJS(), 3000);
+    };
   }
   
   authenticate() {
-    // No necesario con polling
+    if (!this.sock || !this.isConnected) return;
+    
+    this.send({
+      type: 'auth',
+      data: {
+        tipo: 'admin',
+        id_usuario: this.adminInfo.id_usuario,
+        nombre: this.adminInfo.nombre,
+        id_conversacion: null
+      }
+    });
   }
   
-  handleWebSocketMessage(message) {
-    // Mantenemos por compatibilidad pero no se usa
+  send(message) {
+    if (this.sock && this.isConnected) {
+      this.sock.send(JSON.stringify(message));
+    }
+  }
+  
+  handleMessage(message) {
     const { type, data } = message;
     
     switch (type) {
@@ -585,18 +581,19 @@ class AdminChatManager {
     
     if (!mensaje || !this.activeConversation) return;
     
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify({
+    if (this.sock && this.isConnected) {
+      this.send({
         type: 'message',
         data: {
           id_conversacion: this.activeConversation.id_conversacion,
           mensaje: mensaje
         }
-      }));
+      });
       
       input.value = '';
-      console.log(' Mensaje enviado via WebSocket');
+      console.log('[AdminChat] Mensaje enviado');
       
+      // Agregar mensaje optimistamente a la UI
       const messageData = {
         id_conversacion: this.activeConversation.id_conversacion,
         mensaje: mensaje,
@@ -609,7 +606,7 @@ class AdminChatManager {
       this.addMessageToUI(messageData);
       
     } else {
-      console.error(' WebSocket no conectado');
+      console.error('[AdminChat] SockJS no conectado');
       Swal.fire({
         icon: 'error',
         title: 'Error de conexión',

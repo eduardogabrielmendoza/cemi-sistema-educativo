@@ -1,617 +1,426 @@
 
-import { WebSocketServer } from 'ws';
+import sockjs from 'sockjs';
 import pool from './db.js';
 
 class ChatServer {
   constructor(server) {
-    this.wss = new WebSocketServer({ 
-      server, 
-      path: '/chat',
-      clientTracking: true 
+    console.log('[ChatServer] Inicializando SockJS...');
+    
+    // Crear servidor SockJS
+    const sockjsServer = sockjs.createServer({
+      sockjs_url: 'https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js',
+      log: (severity, message) => {
+        if (severity === 'error') console.error('[SockJS]', message);
+      }
     });
     
-    this.clients = new Map(); 
-    this.adminClients = new Set(); 
-    this.conversationClients = new Map(); 
+    this.clients = new Map(); // socket.id -> { conn, userInfo }
+    this.adminSockets = new Set(); // Set de socket.ids de admins
+    this.conversationSockets = new Map(); // id_conversacion -> Set de socket.ids
     
-    this.init();
-  }
-  
-  init() {
-    console.log(' Servidor WebSocket de Chat iniciado en /chat');
-    
-    this.wss.on('connection', (ws, req) => {
-      console.log(' Nueva conexión WebSocket');
+    // Manejar conexiones
+    sockjsServer.on('connection', (conn) => {
+      const socketId = conn.id;
+      console.log(`[ChatServer] Nueva conexión: ${socketId}`);
       
-      ws.isAlive = true;
-      ws.userInfo = null;
+      this.clients.set(socketId, { conn, userInfo: null });
       
-      ws.on('pong', () => {
-        ws.isAlive = true;
-      });
-      
-      ws.on('message', async (data) => {
+      conn.on('data', (message) => {
         try {
-          const message = JSON.parse(data.toString());
-          await this.handleMessage(ws, message);
+          const data = JSON.parse(message);
+          this.handleMessage(socketId, data);
         } catch (error) {
-          console.error(' Error al procesar mensaje:', error);
-          this.sendToClient(ws, {
-            type: 'error',
-            message: 'Error al procesar el mensaje'
-          });
+          console.error('[ChatServer] Error al parsear mensaje:', error);
         }
       });
       
-      ws.on('close', () => {
-        this.handleDisconnect(ws);
+      conn.on('close', () => {
+        this.handleDisconnect(socketId);
       });
       
-      ws.on('error', (error) => {
-        console.error(' Error en WebSocket:', error);
-      });
-      
-      this.sendToClient(ws, {
+      // Enviar confirmación de conexión
+      this.sendToClient(socketId, {
         type: 'connected',
-        message: 'Conexión establecida con el servidor de chat'
+        message: 'Conectado al servidor de chat'
       });
     });
     
-    this.startHeartbeat();
+    // Instalar SockJS en el servidor HTTP
+    sockjsServer.installHandlers(server, { prefix: '/chat' });
+    console.log('[ChatServer] ✓ SockJS instalado en /chat');
   }
   
-  
-  async handleMessage(ws, message) {
+  handleMessage(socketId, message) {
     const { type, data } = message;
     
     switch (type) {
       case 'auth':
-        await this.handleAuth(ws, data);
+        this.handleAuth(socketId, data);
         break;
-        
       case 'message':
-        await this.handleChatMessage(ws, data);
+        this.handleChatMessage(socketId, data);
         break;
-        
       case 'typing':
-        await this.handleTyping(ws, data);
+        this.handleTyping(socketId, data);
         break;
-        
       case 'read':
-        await this.handleMarkAsRead(ws, data);
+        this.handleMarkAsRead(socketId, data);
         break;
-        
       case 'join_conversation':
-        await this.handleJoinConversation(ws, data);
+        this.handleJoinConversation(socketId, data);
         break;
-        
       case 'get_conversations':
-        await this.handleGetConversations(ws, data);
+        this.handleGetConversations(socketId, data);
         break;
-        
       case 'take_conversation':
-        await this.handleTakeConversation(ws, data);
+        this.handleTakeConversation(socketId, data);
         break;
-        
       case 'close_conversation':
-        await this.handleCloseConversation(ws, data);
+        this.handleCloseConversation(socketId, data);
         break;
-        
       default:
-        console.warn('  Tipo de mensaje desconocido:', type);
+        console.warn(`[ChatServer] Tipo de mensaje desconocido: ${type}`);
     }
   }
   
-  
-  async handleAuth(ws, data) {
-    let { tipo, id_usuario, nombre, id_conversacion } = data;
+  async handleAuth(socketId, data) {
+    const { tipo, id_usuario, nombre, id_conversacion } = data;
     
-    if ((!id_usuario || id_usuario === 'null' || id_usuario === 'undefined') && nombre && tipo !== 'invitado') {
-      try {
-        let query, params;
-        
-        if (tipo === 'admin') {
-          query = `
-            SELECT u.id_usuario
-            FROM usuarios u
-            JOIN administradores adm ON u.id_administrador = adm.id_administrador
-            JOIN personas p ON adm.id_persona = p.id_persona
-            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.tipo_usuario = 'administrador'
-            LIMIT 1
-          `;
-          params = [nombre];
-        } else if (tipo === 'profesor') {
-          query = `
-            SELECT u.id_usuario
-            FROM usuarios u
-            JOIN profesores prof ON u.id_profesor = prof.id_profesor
-            JOIN personas p ON prof.id_persona = p.id_persona
-            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.tipo_usuario = 'profesor'
-            LIMIT 1
-          `;
-          params = [nombre];
-        } else if (tipo === 'alumno') {
-          query = `
-            SELECT u.id_usuario
-            FROM usuarios u
-            JOIN alumnos al ON u.id_alumno = al.id_alumno
-            JOIN personas p ON al.id_persona = p.id_persona
-            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.tipo_usuario = 'alumno'
-            LIMIT 1
-          `;
-          params = [nombre];
-        } else {
-          query = `
-            SELECT u.id_usuario
-            FROM usuarios u
-            JOIN personas p ON u.id_persona = p.id_persona
-            WHERE CONCAT(p.nombre, ' ', p.apellido) = ?
-            LIMIT 1
-          `;
-          params = [nombre];
-        }
-        
-        const [usuarioBuscado] = await pool.query(query, params);
-        
-        if (usuarioBuscado.length > 0) {
-          id_usuario = usuarioBuscado[0].id_usuario;
-          console.log(` id_usuario encontrado automáticamente en auth: ${id_usuario} para ${nombre} (${tipo})`);
-        } else {
-          console.warn(` No se encontró id_usuario para ${nombre} (${tipo})`);
-        }
-      } catch (err) {
-        console.warn(' Error al buscar id_usuario en auth:', err.message);
-      }
+    const client = this.clients.get(socketId);
+    if (!client) return;
+    
+    client.userInfo = { tipo, id_usuario, nombre, id_conversacion };
+    
+    console.log(`[ChatServer] Usuario autenticado: ${tipo} - ${nombre}`);
+    
+    // Si es admin, agregar a set de admins
+    if (tipo === 'admin' || tipo === 'administrador') {
+      this.adminSockets.add(socketId);
     }
     
-    if (id_usuario === 'null' || id_usuario === 'undefined' || id_usuario === '') {
-      id_usuario = null;
-    } else if (id_usuario !== null && id_usuario !== undefined) {
-      const numericId = parseInt(id_usuario, 10);
-      id_usuario = isNaN(numericId) ? null : numericId;
-    }
-    
-    ws.userInfo = {
-      tipo, 
-      id_usuario,
-      nombre,
-      id_conversacion
-    };
-    
-    const userId = `${tipo}_${id_usuario || id_conversacion}`;
-    this.clients.set(userId, ws);
-    
-    if (tipo === 'admin') {
-      this.adminClients.add(ws);
-    }
-    
+    // Si tiene conversación, unirse a ella
     if (id_conversacion) {
-      if (!this.conversationClients.has(id_conversacion)) {
-        this.conversationClients.set(id_conversacion, new Set());
-      }
-      this.conversationClients.get(id_conversacion).add(ws);
+      this.joinConversation(socketId, id_conversacion);
     }
     
-    console.log(` Usuario autenticado: ${tipo} - ${nombre} (${userId})`);
-    
-    this.sendToClient(ws, {
+    this.sendToClient(socketId, {
       type: 'authenticated',
-      message: 'Autenticación exitosa',
-      userInfo: ws.userInfo
+      data: { id_usuario, tipo, nombre }
     });
     
-    if (tipo === 'admin') {
-      await this.sendPendingConversationsCount(ws);
+    // Si es admin, enviar conteo de conversaciones pendientes
+    if (tipo === 'admin' || tipo === 'administrador') {
+      await this.sendPendingConversationsCount(socketId);
     }
   }
-
-  async handleJoinConversation(ws, data) {
+  
+  joinConversation(socketId, conversacion_id) {
+    if (!this.conversationSockets.has(conversacion_id)) {
+      this.conversationSockets.set(conversacion_id, new Set());
+    }
+    this.conversationSockets.get(conversacion_id).add(socketId);
+    console.log(`[ChatServer] Socket ${socketId} unido a conversación ${conversacion_id}`);
+  }
+  
+  leaveConversation(socketId, conversacion_id) {
+    const room = this.conversationSockets.get(conversacion_id);
+    if (room) {
+      room.delete(socketId);
+      if (room.size === 0) {
+        this.conversationSockets.delete(conversacion_id);
+      }
+    }
+  }
+  
+  async handleJoinConversation(socketId, data) {
     const { id_conversacion } = data;
+    const client = this.clients.get(socketId);
     
-    if (!ws.userInfo) {
-      console.error(' Usuario no autenticado intentando unirse a conversación');
-      return;
+    if (!client || !client.userInfo) return;
+    
+    // Salir de conversación anterior si existe
+    if (client.userInfo.id_conversacion) {
+      this.leaveConversation(socketId, client.userInfo.id_conversacion);
     }
     
-    if (!this.conversationClients.has(id_conversacion)) {
-      this.conversationClients.set(id_conversacion, new Set());
-    }
-    this.conversationClients.get(id_conversacion).add(ws);
+    // Unirse a nueva conversación
+    client.userInfo.id_conversacion = id_conversacion;
+    this.joinConversation(socketId, id_conversacion);
     
-    ws.userInfo.id_conversacion = id_conversacion;
-    
-    console.log(` Usuario ${ws.userInfo.nombre} (${ws.userInfo.tipo}) se unió a conversación ${id_conversacion}`);
-    console.log(` Clientes en conversación ${id_conversacion}:`, this.conversationClients.get(id_conversacion).size);
-    
-    this.sendToClient(ws, {
+    this.sendToClient(socketId, {
       type: 'joined_conversation',
       data: { id_conversacion }
     });
   }
   
-  
-  async handleChatMessage(ws, data) {
-    const { id_conversacion, mensaje } = data;
-    const userInfo = ws.userInfo;
-    
-    if (!userInfo) {
-      this.sendToClient(ws, {
-        type: 'error',
-        message: 'Usuario no autenticado'
-      });
-      return;
-    }
-    
+  async handleChatMessage(socketId, data) {
     try {
-      let id_remitente = userInfo.id_usuario;
+      const client = this.clients.get(socketId);
+      if (!client || !client.userInfo) return;
       
-      if (id_remitente === null || 
-          id_remitente === undefined || 
-          id_remitente === 'null' || 
-          id_remitente === 'undefined' || 
-          id_remitente === '') {
-        id_remitente = null;
-      } else {
-        id_remitente = parseInt(id_remitente, 10);
-        if (isNaN(id_remitente)) {
-          id_remitente = null;
-        }
-      }
+      const { id_conversacion, mensaje } = data;
+      const { tipo, id_usuario, nombre } = client.userInfo;
       
-      console.log(` Insertando mensaje: conversacion=${id_conversacion}, tipo=${userInfo.tipo}, id_remitente=${id_remitente}, nombre=${userInfo.nombre}`);
+      // Guardar mensaje en BD
+      const [result] = await pool.query(
+        `INSERT INTO mensajes_chat 
+        (id_conversacion, tipo_remitente, id_remitente, mensaje, fecha_envio, leido) 
+        VALUES (?, ?, ?, ?, NOW(), 0)`,
+        [id_conversacion, tipo, id_usuario, mensaje]
+      );
       
-      const [result] = await pool.query(`
-        INSERT INTO chat_mensajes (
-          id_conversacion, 
-          tipo_remitente, 
-          id_remitente, 
-          nombre_remitente, 
-          mensaje
-        ) VALUES (?, ?, ?, ?, ?)
-      `, [
+      const nuevoMensaje = {
+        id_mensaje: result.insertId,
         id_conversacion,
-        userInfo.tipo,
-        id_remitente,
-        userInfo.nombre,
-        mensaje
-      ]);
-      
-      const id_mensaje = result.insertId;
-      
-      if (userInfo.tipo === 'admin') {
-        await pool.query(`
-          UPDATE chat_conversaciones 
-          SET ultima_actividad = CURRENT_TIMESTAMP,
-              estado = 'activa',
-              mensajes_no_leidos_usuario = mensajes_no_leidos_usuario + 1
-          WHERE id_conversacion = ?
-        `, [id_conversacion]);
-      } else {
-        await pool.query(`
-          UPDATE chat_conversaciones 
-          SET ultima_actividad = CURRENT_TIMESTAMP,
-              estado = 'activa',
-              mensajes_no_leidos_admin = mensajes_no_leidos_admin + 1
-          WHERE id_conversacion = ?
-        `, [id_conversacion]);
-      }
-      
-      const messageObj = {
-        type: 'new_message',
-        data: {
-          id_mensaje,
-          id_conversacion,
-          tipo_remitente: userInfo.tipo,
-          nombre_remitente: userInfo.nombre,
-          mensaje,
-          fecha_envio: new Date(),
-          leido: false,
-          es_admin: userInfo.tipo === 'admin' ? 1 : 0
-        }
+        tipo_remitente: tipo,
+        id_remitente: id_usuario,
+        nombre_remitente: nombre,
+        mensaje,
+        fecha_envio: new Date().toISOString(),
+        leido: 0,
+        archivo_adjunto: null,
+        tipo_archivo: null
       };
       
-      await this.broadcastToConversation(id_conversacion, messageObj);
+      // Enviar a todos en la conversación
+      this.broadcastToConversation(id_conversacion, {
+        type: 'new_message',
+        data: nuevoMensaje
+      });
       
-      if (userInfo.tipo !== 'admin') {
-        await this.notifyAdmins({
-          type: 'new_message_notification',
-          data: {
-            id_conversacion,
-            nombre_usuario: userInfo.nombre,
-            tipo_usuario: userInfo.tipo,
-            mensaje: mensaje.substring(0, 50) + (mensaje.length > 50 ? '...' : '')
-          }
+      // Notificar a admins si el mensaje no es de un admin
+      if (tipo !== 'admin' && tipo !== 'administrador') {
+        this.notifyAdmins('new_message', {
+          id_conversacion,
+          ultimo_mensaje: mensaje,
+          nombre_remitente: nombre
         });
       }
       
-      console.log(` Mensaje enviado en conversación ${id_conversacion}`);
-      
     } catch (error) {
-      console.error(' Error al enviar mensaje:', error);
-      this.sendToClient(ws, {
+      console.error('[ChatServer] Error al enviar mensaje:', error);
+      this.sendToClient(socketId, {
         type: 'error',
-        message: 'Error al enviar el mensaje'
+        message: 'Error al enviar mensaje'
       });
     }
   }
   
-  
-  async handleTyping(ws, data) {
-    const { id_conversacion, isTyping } = data;
-    const userInfo = ws.userInfo;
+  async handleTyping(socketId, data) {
+    const client = this.clients.get(socketId);
+    if (!client || !client.userInfo) return;
     
-    if (!userInfo || !id_conversacion) return;
+    const { id_conversacion, typing } = data;
+    const { nombre } = client.userInfo;
     
-    await this.broadcastToConversation(id_conversacion, {
+    // Enviar a otros en la conversación (excepto al que escribe)
+    this.broadcastToConversation(id_conversacion, {
       type: 'typing',
-      data: {
-        id_conversacion,
-        nombre: userInfo.nombre,
-        tipo: userInfo.tipo,
-        isTyping
-      }
-    }, ws); 
+      data: { nombre, typing }
+    }, socketId);
   }
   
-  
-  async handleMarkAsRead(ws, data) {
-    const { id_conversacion } = data;
-    const userInfo = ws.userInfo;
-    
-    if (!userInfo) return;
-    
+  async handleMarkAsRead(socketId, data) {
     try {
-      const tipoLector = userInfo.tipo === 'admin' ? 'admin' : 'usuario';
+      const { id_conversacion } = data;
+      const client = this.clients.get(socketId);
       
-      if (tipoLector === 'admin') {
-        await pool.query(`
-          UPDATE chat_mensajes 
-          SET leido_por_admin = 1, leido = 1
-          WHERE id_conversacion = ? 
-            AND tipo_remitente != 'admin'
-            AND leido_por_admin = 0
-        `, [id_conversacion]);
-        
-        await pool.query(`
-          UPDATE chat_conversaciones
-          SET mensajes_no_leidos_admin = 0
-          WHERE id_conversacion = ?
-        `, [id_conversacion]);
-      } else {
-        await pool.query(`
-          UPDATE chat_mensajes 
-          SET leido_por_usuario = 1, leido = 1
-          WHERE id_conversacion = ? 
-            AND tipo_remitente = 'admin'
-            AND leido_por_usuario = 0
-        `, [id_conversacion]);
-        
-        await pool.query(`
-          UPDATE chat_conversaciones
-          SET mensajes_no_leidos_usuario = 0
-          WHERE id_conversacion = ?
-        `, [id_conversacion]);
-      }
+      if (!client || !client.userInfo) return;
       
-      await this.broadcastToConversation(id_conversacion, {
+      const { tipo, id_usuario } = client.userInfo;
+      
+      // Marcar como leídos los mensajes que NO fueron enviados por este usuario
+      await pool.query(
+        `UPDATE mensajes_chat 
+         SET leido = 1 
+         WHERE id_conversacion = ? 
+         AND NOT (tipo_remitente = ? AND id_remitente = ?)
+         AND leido = 0`,
+        [id_conversacion, tipo, id_usuario]
+      );
+      
+      this.sendToClient(socketId, {
         type: 'messages_read',
-        data: { id_conversacion, lector_tipo: tipoLector }
-      }, ws);
+        data: { id_conversacion }
+      });
       
     } catch (error) {
-      console.error(' Error al marcar como leído:', error);
+      console.error('[ChatServer] Error al marcar mensajes como leídos:', error);
     }
   }
   
-  
-  async handleGetConversations(ws, data) {
-    const userInfo = ws.userInfo;
-    
-    if (!userInfo || userInfo.tipo !== 'admin') {
-      this.sendToClient(ws, {
-        type: 'error',
-        message: 'No autorizado'
-      });
-      return;
-    }
-    
+  async handleGetConversations(socketId, data) {
     try {
-      const [conversaciones] = await pool.query(`
-        SELECT 
-          c.*,
-          COUNT(m.id_mensaje) as total_mensajes,
-          (SELECT mensaje FROM chat_mensajes 
-           WHERE id_conversacion = c.id_conversacion 
-           ORDER BY fecha_envio DESC LIMIT 1) as ultimo_mensaje,
-          (SELECT fecha_envio FROM chat_mensajes 
-           WHERE id_conversacion = c.id_conversacion 
-           ORDER BY fecha_envio DESC LIMIT 1) as fecha_ultimo_mensaje
-        FROM chat_conversaciones c
-        LEFT JOIN chat_mensajes m ON c.id_conversacion = m.id_conversacion
-        WHERE c.estado != 'cerrada'
-        GROUP BY c.id_conversacion
-        ORDER BY c.ultima_actividad DESC
-      `);
+      const client = this.clients.get(socketId);
+      if (!client || !client.userInfo) return;
       
-      this.sendToClient(ws, {
+      const { tipo } = data;
+      let query, params;
+      
+      if (tipo === 'admin') {
+        // Admins ven todas las conversaciones
+        query = `
+          SELECT 
+            c.*,
+            CASE 
+              WHEN c.tipo_usuario = 'alumno' THEN a.nombre
+              WHEN c.tipo_usuario = 'profesor' THEN p.nombre
+            END as nombre_usuario,
+            CASE 
+              WHEN c.tipo_usuario = 'alumno' THEN a.avatar
+              WHEN c.tipo_usuario = 'profesor' THEN p.avatar
+            END as avatar_usuario,
+            (SELECT COUNT(*) FROM mensajes_chat m 
+             WHERE m.id_conversacion = c.id_conversacion 
+             AND m.tipo_remitente != 'admin' 
+             AND m.leido = 0) as mensajes_no_leidos
+          FROM conversaciones_chat c
+          LEFT JOIN alumnos a ON c.id_usuario = a.id_alumno AND c.tipo_usuario = 'alumno'
+          LEFT JOIN profesores p ON c.id_usuario = p.id_profesor AND c.tipo_usuario = 'profesor'
+          WHERE c.estado = 'activa'
+          ORDER BY c.fecha_creacion DESC`;
+        params = [];
+      } else {
+        // Usuarios normales ven solo sus conversaciones
+        const { tipo: tipoUsuario, id_usuario } = client.userInfo;
+        query = `
+          SELECT 
+            c.*,
+            (SELECT COUNT(*) FROM mensajes_chat m 
+             WHERE m.id_conversacion = c.id_conversacion 
+             AND m.tipo_remitente = 'admin'
+             AND m.leido = 0) as mensajes_no_leidos
+          FROM conversaciones_chat c
+          WHERE c.tipo_usuario = ? AND c.id_usuario = ?
+          ORDER BY c.fecha_creacion DESC`;
+        params = [tipoUsuario, id_usuario];
+      }
+      
+      const [conversaciones] = await pool.query(query, params);
+      
+      this.sendToClient(socketId, {
         type: 'conversations_list',
         data: conversaciones
       });
       
     } catch (error) {
-      console.error(' Error al obtener conversaciones:', error);
-      this.sendToClient(ws, {
+      console.error('[ChatServer] Error al obtener conversaciones:', error);
+      this.sendToClient(socketId, {
         type: 'error',
         message: 'Error al cargar conversaciones'
       });
     }
   }
   
-  
-  async handleTakeConversation(ws, data) {
-    const { id_conversacion } = data;
-    const userInfo = ws.userInfo;
-    
-    if (!userInfo || userInfo.tipo !== 'admin') return;
-    
+  async handleTakeConversation(socketId, data) {
     try {
-      await pool.query(`
-        UPDATE chat_conversaciones
-        SET atendido_por = ?, estado = 'activa'
-        WHERE id_conversacion = ?
-      `, [userInfo.id_usuario, id_conversacion]);
+      const { id_conversacion } = data;
       
-      await this.notifyAdmins({
+      await pool.query(
+        `UPDATE conversaciones_chat SET id_admin = 1 WHERE id_conversacion = ?`,
+        [id_conversacion]
+      );
+      
+      this.sendToClient(socketId, {
         type: 'conversation_taken',
-        data: {
-          id_conversacion,
-          atendido_por: userInfo.nombre
-        }
+        data: { id_conversacion }
       });
       
+      this.notifyAdmins('conversation_taken', { id_conversacion });
+      
     } catch (error) {
-      console.error(' Error al tomar conversación:', error);
+      console.error('[ChatServer] Error al tomar conversación:', error);
     }
   }
   
-  
-  async handleCloseConversation(ws, data) {
-    const { id_conversacion, tipo_usuario, id_usuario } = data;
-    const userInfo = ws.userInfo;
-    
-    if (!userInfo || userInfo.tipo !== 'admin') {
-      console.error(' Solo administradores pueden cerrar conversaciones');
-      return;
-    }
-    
+  async handleCloseConversation(socketId, data) {
     try {
-      console.log(` Admin cerrando conversación ${id_conversacion}`);
+      const { id_conversacion } = data;
       
-      await this.broadcastToConversation(id_conversacion, {
+      await pool.query(
+        `UPDATE conversaciones_chat SET estado = 'cerrada' WHERE id_conversacion = ?`,
+        [id_conversacion]
+      );
+      
+      // Notificar a todos en la conversación
+      this.broadcastToConversation(id_conversacion, {
         type: 'conversation_closed',
-        data: { 
-          id_conversacion,
-          message: 'Esta conversación ha sido cerrada por un administrador'
-        }
+        data: { id_conversacion }
       });
       
-      if (tipo_usuario && id_usuario) {
-        const userId = `${tipo_usuario}_${id_usuario}`;
-        const userWs = this.clients.get(userId);
-        
-        if (userWs && userWs.readyState === 1) {
-          this.sendToClient(userWs, {
-            type: 'conversation_deleted',
-            data: { 
-              id_conversacion,
-              message: 'El administrador ha cerrado esta conversación'
-            }
-          });
-          console.log(` Notificación enviada a usuario ${userId}`);
-        }
-      }
-      
-      this.conversationClients.delete(id_conversacion);
-      
-      console.log(` Conversación ${id_conversacion} cerrada y notificaciones enviadas`);
-      
     } catch (error) {
-      console.error(' Error al cerrar conversación:', error);
+      console.error('[ChatServer] Error al cerrar conversación:', error);
     }
   }
   
-  
-  broadcastToConversation(id_conversacion, message, exclude = null) {
-    const clients = this.conversationClients.get(id_conversacion);
-    if (!clients) return;
-    
-    clients.forEach(client => {
-      if (client !== exclude && client.readyState === 1) {
-        this.sendToClient(client, message);
-      }
+  notifyAdmins(event, data) {
+    this.adminSockets.forEach(socketId => {
+      this.sendToClient(socketId, { type: event, data });
     });
   }
   
-  async notifyAdmins(message) {
-    this.adminClients.forEach(admin => {
-      if (admin.readyState === 1) {
-        this.sendToClient(admin, message);
-      }
-    });
-  }
-  
-  sendToClient(ws, message) {
-    if (ws.readyState === 1) {
-      ws.send(JSON.stringify(message));
-    }
-  }
-  
-  async sendPendingConversationsCount(ws) {
+  async sendPendingConversationsCount(socketId) {
     try {
-      const [result] = await pool.query(`
-        SELECT COUNT(*) as count
-        FROM chat_conversaciones
-        WHERE estado = 'pendiente'
-      `);
+      const [result] = await pool.query(
+        `SELECT COUNT(*) as count FROM conversaciones_chat 
+         WHERE estado = 'activa' AND id_admin IS NULL`
+      );
       
-      this.sendToClient(ws, {
-        type: 'pending_count',
+      this.sendToClient(socketId, {
+        type: 'pending_conversations_count',
         data: { count: result[0].count }
       });
     } catch (error) {
-      console.error(' Error al obtener conteo:', error);
+      console.error('[ChatServer] Error al obtener conteo de conversaciones:', error);
     }
   }
   
-  
-  handleDisconnect(ws) {
-    const userInfo = ws.userInfo;
+  handleDisconnect(socketId) {
+    const client = this.clients.get(socketId);
     
-    if (userInfo) {
-      const userId = `${userInfo.tipo}_${userInfo.id_usuario || userInfo.id_conversacion}`;
-      this.clients.delete(userId);
+    if (client && client.userInfo) {
+      const { nombre, id_conversacion } = client.userInfo;
+      console.log(`[ChatServer] Desconectado: ${nombre}`);
       
-      if (userInfo.tipo === 'admin') {
-        this.adminClients.delete(ws);
+      // Remover de conversación
+      if (id_conversacion) {
+        this.leaveConversation(socketId, id_conversacion);
       }
       
-      if (userInfo.id_conversacion) {
-        const clients = this.conversationClients.get(userInfo.id_conversacion);
-        if (clients) {
-          clients.delete(ws);
-          if (clients.size === 0) {
-            this.conversationClients.delete(userInfo.id_conversacion);
-          }
-        }
+      // Remover de admins si lo era
+      this.adminSockets.delete(socketId);
+    }
+    
+    this.clients.delete(socketId);
+  }
+  
+  sendToClient(socketId, message) {
+    const client = this.clients.get(socketId);
+    if (client && client.conn) {
+      try {
+        client.conn.write(JSON.stringify(message));
+      } catch (error) {
+        console.error(`[ChatServer] Error al enviar a ${socketId}:`, error);
       }
-      
-      console.log(` Usuario desconectado: ${userInfo.tipo} - ${userInfo.nombre}`);
-    } else {
-      console.log(' Conexión cerrada (no autenticada)');
     }
   }
   
-  
-  startHeartbeat() {
-    setInterval(() => {
-      this.wss.clients.forEach(ws => {
-        if (ws.isAlive === false) {
-          return ws.terminate();
-        }
-        
-        ws.isAlive = false;
-        ws.ping();
-      });
-    }, 30000); 
+  broadcastToConversation(conversacion_id, message, excludeSocketId = null) {
+    const room = this.conversationSockets.get(conversacion_id);
+    if (!room) return;
+    
+    room.forEach(socketId => {
+      if (socketId !== excludeSocketId) {
+        this.sendToClient(socketId, message);
+      }
+    });
   }
-  
   
   getStats() {
     return {
-      totalConnections: this.wss.clients.size,
-      adminConnections: this.adminClients.size,
-      activeConversations: this.conversationClients.size,
-      registeredClients: this.clients.size
+      total_connections: this.clients.size,
+      admin_connections: this.adminSockets.size,
+      active_conversations: this.conversationSockets.size
     };
   }
 }
