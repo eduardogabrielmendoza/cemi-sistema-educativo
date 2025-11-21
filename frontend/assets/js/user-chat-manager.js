@@ -219,13 +219,17 @@ class UserChatManager {
     // Verificar que SockJS esté disponible
     if (typeof SockJS === 'undefined') {
       console.warn('[UserChat] SockJS no está listo, reintentando en 500ms...');
+      console.log('[UserChat] window.SockJS:', window.SockJS);
+      console.log('[UserChat] Todas las propiedades globales:', Object.keys(window).filter(k => k.includes('Sock')));
       setTimeout(() => this.connectSockJS(), 500);
       return;
     }
     
-    console.log('[UserChat] Conectando con SockJS...');
+    console.log('[UserChat] ✓ SockJS disponible, conectando...');
+    console.log('[UserChat] SockJS version:', SockJS.version || 'unknown');
     
     const sockUrl = `${this.BASE_URL.replace('/api', '')}/chat`;
+    console.log('[UserChat] URL de conexión:', sockUrl);
     this.sock = new SockJS(sockUrl);
     
     this.sock.onopen = () => {
