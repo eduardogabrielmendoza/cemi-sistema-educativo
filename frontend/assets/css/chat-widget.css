@@ -1,8 +1,4 @@
-/* =====================================================
-   WIDGET DE CHAT FLOTANTE - ESTILOS
-   ===================================================== */
 
-/* Botón flotante del chat */
 .chat-float-button {
   position: fixed;
   bottom: 24px;
@@ -38,7 +34,6 @@
   color: white;
 }
 
-/* Badge de notificaciones */
 .chat-notification-badge {
   position: absolute;
   top: -4px;
@@ -66,7 +61,6 @@
   }
 }
 
-/* Contenedor principal del widget */
 .chat-widget-container {
   position: fixed;
   bottom: 100px;
@@ -92,7 +86,6 @@
   opacity: 1;
 }
 
-/* Header del chat */
 .chat-widget-header {
   background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
   color: white;
@@ -169,7 +162,6 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Formulario inicial (para invitados) */
 .chat-initial-form {
   padding: 24px;
   flex: 1;
@@ -256,7 +248,6 @@
   cursor: not-allowed;
 }
 
-/* Área de mensajes */
 .chat-messages-container {
   flex: 1;
   overflow-y: auto;
@@ -352,7 +343,6 @@
   justify-content: flex-end;
 }
 
-/* Indicador de escritura */
 .chat-typing-indicator {
   display: flex;
   align-items: center;
@@ -401,7 +391,6 @@
   }
 }
 
-/* Input de mensaje */
 .chat-input-container {
   padding: 16px;
   background: white;
@@ -459,7 +448,6 @@
   cursor: not-allowed;
 }
 
-/* Estado de conexión */
 .chat-connection-status {
   padding: 8px 16px;
   background: #fef3c7;
@@ -483,7 +471,6 @@
   color: #065f46;
 }
 
-/* Mensaje vacío */
 .chat-empty-state {
   flex: 1;
   display: flex;
@@ -507,7 +494,6 @@
   font-size: 14px;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .chat-widget-container {
     width: calc(100vw - 32px);
@@ -522,7 +508,6 @@
   }
 }
 
-/* Scrollbar personalizado */
 .chat-messages-container::-webkit-scrollbar {
   width: 6px;
 }

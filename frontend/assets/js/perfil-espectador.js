@@ -1,18 +1,11 @@
-// =====================================================
-// PERFIL ESPECTADOR - CLASSROOM
-// =====================================================
 
 const API_URL = window.API_URL || 'http://localhost:3000/api';
 let perfilData = null;
 let userId = null;
 let userType = null;
 
-// =====================================================
-// INICIALIZACIÓN
-// =====================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Obtener parámetros de la URL
   const urlParams = new URLSearchParams(window.location.search);
   userId = urlParams.get('id');
   userType = urlParams.get('tipo'); // 'alumno' o 'profesor'
@@ -28,23 +21,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
   
-  // Cargar perfil
   await cargarPerfil();
   
-  // Inicializar iconos
   lucide.createIcons();
   
-  // Cargar tema guardado
   cargarTema();
 });
 
-// =====================================================
-// CARGAR PERFIL
-// =====================================================
 
 async function cargarPerfil() {
   try {
-    // Pasar el parámetro tipo en la query string
     const response = await fetch(`${API_URL}/classroom/perfil/${userId}?tipo=${userType}`);
     const data = await response.json();
     
@@ -67,19 +53,14 @@ async function cargarPerfil() {
   }
 }
 
-// =====================================================
-// MOSTRAR DATOS EN UI
-// =====================================================
 
 function mostrarDatosEnUI() {
   if (!perfilData) return;
   
-  // Header del perfil
   const iniciales = obtenerIniciales(perfilData.nombre, perfilData.apellido);
   const avatarContainer = document.getElementById('profileAvatar');
   const avatarInitials = document.getElementById('avatarInitials');
   
-  // Mostrar avatar o iniciales
   if (perfilData.avatar) {
     const BASE_URL = window.BASE_URL || 'http://localhost:3000';
     const avatarUrl = `${BASE_URL}${perfilData.avatar}`;
@@ -108,14 +89,12 @@ function mostrarDatosEnUI() {
   const fechaRegistro = perfilData.fecha_creacion ? new Date(perfilData.fecha_creacion).getFullYear() : '2025';
   updateElement('profileMemberSince', `Miembro desde ${fechaRegistro}`);
   
-  // Info Cards
   updateElement('infoEmail', perfilData.email || 'No especificado');
   updateElement('infoTelefono', perfilData.telefono || 'No especificado');
   updateElement('infoFechaNacimiento', formatearFecha(perfilData.fecha_nacimiento) || 'No especificado');
   updateElement('infoDireccion', perfilData.direccion || 'No especificado');
   updateElement('biografiaDisplay', perfilData.biografia || 'Sin biografía');
   
-  // Datos Personales
   updateElement('dataNombreCompleto', `${perfilData.nombre} ${perfilData.apellido}`);
   updateElement('dataEmail', perfilData.email || 'No especificado');
   updateElement('dataTelefono', perfilData.telefono || 'No especificado');
@@ -126,24 +105,18 @@ function mostrarDatosEnUI() {
   lucide.createIcons();
 }
 
-// =====================================================
-// NAVEGACIÓN
-// =====================================================
 
 function cambiarSeccion(seccionId) {
-  // Ocultar todas las secciones
   const secciones = document.querySelectorAll('.perfil-section');
   secciones.forEach(seccion => {
     seccion.classList.remove('active');
   });
   
-  // Mostrar la sección seleccionada
   const seccionActual = document.getElementById(seccionId);
   if (seccionActual) {
     seccionActual.classList.add('active');
   }
   
-  // Actualizar botones de navegación
   const navItems = document.querySelectorAll('.nav-item');
   navItems.forEach(item => {
     item.classList.remove('active');
@@ -153,9 +126,6 @@ function cambiarSeccion(seccionId) {
   });
 }
 
-// =====================================================
-// UTILIDADES
-// =====================================================
 
 function updateElement(id, value) {
   const element = document.getElementById(id);
@@ -184,9 +154,6 @@ function volverAlClassroom() {
   window.location.href = '/classroom.html';
 }
 
-// =====================================================
-// TEMA
-// =====================================================
 
 function toggleTheme() {
   document.body.classList.toggle('dark-mode');

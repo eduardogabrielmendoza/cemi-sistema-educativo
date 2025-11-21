@@ -1,10 +1,6 @@
-// =====================================================
-// CLASSROOM LOGIN - JavaScript
-// =====================================================
 
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
-// Elementos del DOM
 const loginForm = document.getElementById('classroomLoginForm');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
@@ -12,40 +8,28 @@ const loginMessage = document.getElementById('loginMessage');
 const loader = document.getElementById('loader');
 const togglePasswordBtn = document.getElementById('togglePassword');
 
-// =====================================================
-// EVENT LISTENERS
-// =====================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Verificar si ya hay sesión activa
   verificarSesionActiva();
   
-  // Submit del formulario
   loginForm.addEventListener('submit', handleLogin);
   
-  // Toggle mostrar/ocultar contraseña
   togglePasswordBtn.addEventListener('click', togglePassword);
   
-  // Enter en los inputs
   usernameInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') passwordInput.focus();
   });
   
-  // Limpiar mensaje al escribir
   usernameInput.addEventListener('input', clearMessage);
   passwordInput.addEventListener('input', clearMessage);
 });
 
-// =====================================================
-// VERIFICAR SESIÓN ACTIVA
-// =====================================================
 
 function verificarSesionActiva() {
   const nombre = localStorage.getItem('nombre');
   const rol = localStorage.getItem('rol');
   
   if (nombre && rol) {
-    // Ya hay una sesión activa
     Swal.fire({
       title: '¡Sesión Activa!',
       text: `Ya has iniciado sesión como ${nombre}`,
@@ -66,9 +50,6 @@ function verificarSesionActiva() {
   }
 }
 
-// =====================================================
-// HANDLE LOGIN
-// =====================================================
 
 async function handleLogin(e) {
   e.preventDefault();
@@ -76,13 +57,11 @@ async function handleLogin(e) {
   const username = usernameInput.value.trim();
   const password = passwordInput.value.trim();
   
-  // Validaciones
   if (!username || !password) {
     showMessage('Por favor completa todos los campos', 'error');
     return;
   }
   
-  // Mostrar loader
   showLoader();
   showMessage('Verificando credenciales...', 'info');
   
@@ -98,10 +77,8 @@ async function handleLogin(e) {
     const data = await response.json();
     
     if (response.ok && data.success) {
-      // Login exitoso
       showMessage('¡Acceso concedido!', 'success');
       
-      // Guardar datos en localStorage
       localStorage.setItem('id_usuario', data.id_usuario);
       localStorage.setItem('rol', data.rol);
       localStorage.setItem('nombre', data.nombre);
@@ -114,20 +91,16 @@ async function handleLogin(e) {
         localStorage.setItem('id_alumno', data.id_alumno);
       }
       
-      // Animación de éxito
       await mostrarAnimacionExito(data.nombre, data.rol);
       
-      // Redirigir a classroom
       setTimeout(() => {
         window.location.href = 'classroom.html';
       }, 1500);
       
     } else {
-      // Login fallido
       hideLoader();
       showMessage(data.message || 'Usuario o contraseña incorrectos', 'error');
       
-      // Vibrar los campos
       vibrarCampos();
     }
     
@@ -139,9 +112,6 @@ async function handleLogin(e) {
   }
 }
 
-// =====================================================
-// FUNCIONES DE UI
-// =====================================================
 
 function showMessage(message, type = 'info') {
   loginMessage.textContent = message;
@@ -165,14 +135,12 @@ function togglePassword() {
   const type = passwordInput.type === 'password' ? 'text' : 'password';
   passwordInput.type = type;
   
-  // Agregar animación de parpadeo
   togglePasswordBtn.classList.add('eye-closing');
   
   setTimeout(() => {
     togglePasswordBtn.classList.remove('eye-closing');
     togglePasswordBtn.classList.add('eye-opening');
     
-    // Cambiar el ícono manualmente sin reinicializar Lucide
     const iconName = type === 'password' ? 'eye' : 'eye-off';
     const newSvg = type === 'password' 
       ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>'
@@ -195,7 +163,6 @@ function vibrarCampos() {
     passwordInput.style.animation = '';
   }, 500);
   
-  // Agregar el keyframe si no existe
   if (!document.getElementById('shake-animation')) {
     const style = document.createElement('style');
     style.id = 'shake-animation';
@@ -215,7 +182,7 @@ async function mostrarAnimacionExito(nombre, rol) {
     title: '¡Bienvenido!',
     html: `
       <div style="text-align: center;">
-        <div style="font-size: 64px; margin-bottom: 16px;">👋</div>
+        <div style="font-size: 64px; margin-bottom: 16px;"></div>
         <p style="font-size: 18px; margin-bottom: 8px;">${nombre}</p>
         <p style="font-size: 14px; color: #757575;">${rol.charAt(0).toUpperCase() + rol.slice(1)}</p>
       </div>
@@ -230,11 +197,7 @@ async function mostrarAnimacionExito(nombre, rol) {
   });
 }
 
-// =====================================================
-// GESTIÓN DE "RECORDARME"
-// =====================================================
 
-// Cargar credenciales guardadas si existen
 const rememberMeCheckbox = document.getElementById('rememberMe');
 const savedUsername = localStorage.getItem('rememberedUsername');
 
@@ -243,7 +206,6 @@ if (savedUsername) {
   rememberMeCheckbox.checked = true;
 }
 
-// Guardar o eliminar credenciales según checkbox
 rememberMeCheckbox.addEventListener('change', (e) => {
   if (!e.target.checked) {
     localStorage.removeItem('rememberedUsername');
@@ -258,9 +220,6 @@ loginForm.addEventListener('submit', () => {
   }
 });
 
-// =====================================================
-// FORGOT PASSWORD
-// =====================================================
 
 document.querySelector('.forgot-password').addEventListener('click', (e) => {
   e.preventDefault();
@@ -300,11 +259,7 @@ document.querySelector('.forgot-password').addEventListener('click', (e) => {
   });
 });
 
-// =====================================================
-// AUTO-FOCUS
-// =====================================================
 
-// Focus automático en el primer campo
 setTimeout(() => {
   usernameInput.focus();
 }, 300);

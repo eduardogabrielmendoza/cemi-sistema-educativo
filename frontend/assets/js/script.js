@@ -1,12 +1,6 @@
-// =====================================================
-// script.js — Sistema CEMI conectado al backend Node.js
-// =====================================================
 
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
-// =====================================================
-// 1️⃣ LOGIN
-// =====================================================
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
@@ -18,48 +12,43 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", handleLogout);
   }
 
-  // Si hay mensaje de bienvenida
   const welcomeMsg = document.getElementById("welcomeMessage");
   if (welcomeMsg && localStorage.getItem("nombre")) {
-    welcomeMsg.textContent = `Bienvenido, ${localStorage.getItem("nombre")} 👋`;
+    welcomeMsg.textContent = `Bienvenido, ${localStorage.getItem("nombre")} `;
   }
 
-  // Detectar qué dashboard estamos y cargar datos
   if (document.body.classList.contains("admin")) initAdminDashboard();
   if (document.body.classList.contains("profesor")) initProfesorDashboard();
   if (document.body.classList.contains("alumno")) initAlumnoDashboard();
 });
 
-// -----------------------------------------------------
-// Función: Login
-// -----------------------------------------------------
 async function handleLogin(e) {
   e.preventDefault();
-  console.log("🔐 Iniciando proceso de login...");
+  console.log(" Iniciando proceso de login...");
 
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
   const message = document.getElementById("loginMessage");
 
-  console.log("👤 Usuario:", username);
+  console.log(" Usuario:", username);
 
   message.style.color = "gray";
   message.textContent = "Accediendo...";
 
   try {
-    console.log("📡 Enviando petición a:", `${API_URL}/auth/login`);
+    console.log(" Enviando petición a:", `${API_URL}/auth/login`);
     const resp = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
     });
     
-    console.log("📥 Respuesta recibida - Status:", resp.status);
+    console.log(" Respuesta recibida - Status:", resp.status);
     const data = await resp.json();
-    console.log("📦 Datos recibidos:", data);
+    console.log(" Datos recibidos:", data);
 
     if (resp.ok && data.success) {
-        console.log("✅ Login exitoso, guardando datos...");
+        console.log(" Login exitoso, guardando datos...");
         localStorage.setItem("rol", data.rol);
         localStorage.setItem("id_usuario", data.id_usuario);
         localStorage.setItem("nombre", data.nombre);
@@ -71,37 +60,34 @@ async function handleLogin(e) {
       message.textContent = "Inicio de sesión exitoso";
 
       const rol = data.rol.toLowerCase();
-      console.log("🎯 Rol detectado:", rol);
-      console.log("🔄 Redirigiendo...");
+      console.log(" Rol detectado:", rol);
+      console.log(" Redirigiendo...");
       
       if (rol === "admin" || rol === "administrador") {
-        console.log("➡️ Redirigiendo a dashboard_admin.html");
+        console.log("️ Redirigiendo a dashboard_admin.html");
         window.location.href = "dashboard_admin.html";
       } else if (rol === "profesor") {
-        console.log("➡️ Redirigiendo a dashboard_profesor.html");
+        console.log("️ Redirigiendo a dashboard_profesor.html");
         window.location.href = "dashboard_profesor.html";
       } else if (rol === "alumno") {
-        console.log("➡️ Redirigiendo a dashboard_alumno.html");
+        console.log("️ Redirigiendo a dashboard_alumno.html");
         window.location.href = "dashboard_alumno.html";
       } else {
-        console.log("➡️ Redirigiendo a index.html");
+        console.log("️ Redirigiendo a index.html");
         window.location.href = "index.html";
       }
     } else {
-      console.error("❌ Login fallido:", data.message);
+      console.error(" Login fallido:", data.message);
       message.style.color = "red";
       message.textContent = data.message || "Usuario o contraseña incorrectos.";
     }
   } catch (err) {
-    console.error("💥 Error al conectar:", err);
+    console.error(" Error al conectar:", err);
     message.style.color = "red";
     message.textContent = "No se pudo conectar con el servidor.";
   }
 }
 
-// -----------------------------------------------------
-// Función: Logout
-// -----------------------------------------------------
 function handleLogout() {
   localStorage.clear();
   window.location.href = "login.html";
@@ -120,7 +106,6 @@ function initAdminSPA() {
   const mainContent = document.getElementById("mainContent");
   const loader = document.getElementById("loader");
 
-  // Asignar eventos a los botones del sidebar
   buttons.forEach(btn => {
     btn.addEventListener("click", async () => {
       buttons.forEach(b => b.classList.remove("active"));
@@ -131,11 +116,9 @@ function initAdminSPA() {
     });
   });
 
-  // Cargar la primera sección (Cursos) por defecto
   loadSection("cursos");
 
   async function loadSection(section) {
-    // Ocultar el chat container si está visible
     const chatContainer = document.getElementById('adminChatContainer');
     if (chatContainer) {
       chatContainer.style.display = 'none';
@@ -195,12 +178,10 @@ function initAdminSPA() {
           html = `<h2>Listado de Idiomas</h2>`;
           break;
         case "chatsoporte":
-          // Ocultar el mainContent y mostrar el adminChatContainer
           loader.classList.add("hidden");
           mainContent.innerHTML = "";
           mainContent.classList.add("active");
           
-          // Mostrar el contenedor del chat
           const chatContainer = document.getElementById('adminChatContainer');
           if (chatContainer) {
             chatContainer.style.display = 'block';
@@ -219,7 +200,6 @@ function initAdminSPA() {
         const res = await fetch(endpoint);
         const data = await res.json();
 
-        // Para pagos, la respuesta tiene estructura diferente
         if (section === 'pagos') {
           html += generateTable(section, data);
         } else if (section === 'aulas' || section === 'idiomas') {
@@ -234,12 +214,9 @@ function initAdminSPA() {
       setTimeout(() => {
         loader.classList.add("hidden");
         mainContent.innerHTML = html;
-        // Si estamos en la sección cursos, hacemos las tarjetas clicables
         if (section === 'cursos') {
-          // Reinicializar iconos de Lucide
           lucide.createIcons();
           
-          // Hacer las tarjetas clickables
           document.querySelectorAll('.curso-card:not(.alumno-card):not(.profesor-card)').forEach(card => {
             card.addEventListener('click', () => {
               const idCurso = card.getAttribute('data-id');
@@ -247,27 +224,22 @@ function initAdminSPA() {
             });
           });
         }
-        // Si estamos en la sección alumnos, configurar filtros y búsqueda
         if (section === 'alumnos') {
           lucide.createIcons();
           setupAlumnoFilters();
         }
-        // Si estamos en la sección profesores, configurar filtros y búsqueda
         if (section === 'profesores') {
           lucide.createIcons();
           setupProfesorFilters();
         }
-        // Si estamos en la sección administradores, configurar filtros y búsqueda
         if (section === 'administradores') {
           lucide.createIcons();
           setupAdministradorFilters();
         }
-        // Si estamos en la sección pagos, cargar datos y configurar filtros
         if (section === 'pagos') {
           lucide.createIcons();
           loadPagosData();
         }
-        // Si estamos en aulas o idiomas, inicializar iconos
         if (section === 'aulas' || section === 'idiomas') {
           lucide.createIcons();
         }
@@ -282,7 +254,6 @@ function initAdminSPA() {
   }
 }
 
-// Función helper para recargar la sección activa
 function recargarSeccionActiva() {
   const activeBtn = document.querySelector('.sidebar-menu button.active');
   if (activeBtn) {
@@ -785,7 +756,6 @@ case "pagos":
       `;
     
     case "idiomas":
-      // Calcular estadísticas de idiomas
       const idiomasStats = {
         total: data.length,
         populares: ['Inglés', 'Francés', 'Alemán', 'Italiano', 'Portugués']
@@ -804,7 +774,6 @@ case "pagos":
         </div>
         <div class="idiomas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map((idioma, index) => {
-            // Colores variados para cada idioma
             const colors = [
               { bg: '#1976d2', light: '#42a5f5', icon: 'globe-2' },
               { bg: '#7b1fa2', light: '#ba68c8', icon: 'book-open' },
@@ -850,7 +819,6 @@ case "pagos":
 // ===== DASHBOARD HOME ===== //
 async function generateDashboardHome() {
   try {
-    // Cargar estadísticas generales
     const [statsRes, registrosRes, pagosRes] = await Promise.all([
       fetch(`${API_URL}/stats/general`),
       fetch(`${API_URL}/stats/ultimos-registros`),
@@ -980,9 +948,6 @@ async function generateDashboardHome() {
   }
 }
 
-// ----------------------------
-// Modal: inscribir alumnos
-// ----------------------------
 function ensureInscribirModal() {
   if (document.getElementById('modalInscribir')) return;
 
@@ -1032,33 +997,27 @@ function ensureInscribirModal() {
 
   const modal = document.getElementById('modalInscribir');
 
-  // Cerrar modal
   modal.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => {
     modal.classList.remove('active');
-    // Recargar la sección activa después de cerrar el modal
     recargarSeccionActiva();
   }));
   modal.addEventListener('click', e => { 
     if (e.target === modal) {
       modal.classList.remove('active');
-      // Recargar la sección activa después de cerrar el modal
       recargarSeccionActiva();
     }
   });
 
-  // Manejo de tabs
   modal.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const tabId = btn.dataset.tab;
       
-      // Cambiar tabs activas
       modal.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       modal.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       
       btn.classList.add('active');
       document.getElementById(`tab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`).classList.add('active');
       
-      // Mostrar/ocultar footer según tab
       document.getElementById('footerInscribir').style.display = tabId === 'inscribir' ? 'flex' : 'none';
       
       lucide.createIcons();
@@ -1073,7 +1032,6 @@ async function openInscribirModal(idCurso, nombre) {
   modal.dataset.idCurso = idCurso;
   modal.classList.add('active');
 
-  // Cargar ambas listas
   await Promise.all([
     cargarAlumnosInscritos(idCurso),
     cargarAlumnosDisponibles(idCurso)
@@ -1082,7 +1040,6 @@ async function openInscribirModal(idCurso, nombre) {
   lucide.createIcons();
 }
 
-// Función para cargar alumnos inscritos
 async function cargarAlumnosInscritos(idCurso) {
   const container = document.getElementById('alumnosInscritosList');
   container.innerHTML = '<p style="text-align:center;padding:20px;">Cargando...</p>';
@@ -1133,7 +1090,6 @@ async function cargarAlumnosInscritos(idCurso) {
   }
 }
 
-// Función para cargar alumnos disponibles (no inscritos)
 async function cargarAlumnosDisponibles(idCurso) {
   const container = document.getElementById('alumnosDisponiblesList');
   container.innerHTML = '<p style="text-align:center;padding:20px;">Cargando...</p>';
@@ -1147,7 +1103,6 @@ async function cargarAlumnosDisponibles(idCurso) {
     const todosAlumnos = await resAlumnos.json();
     const inscritos = await resInscritos.json();
 
-    // Filtrar solo los NO inscritos
     const inscritosIds = inscritos.map(i => i.id_alumno);
     const disponibles = todosAlumnos.filter(a => !inscritosIds.includes(a.id_alumno));
 
@@ -1185,7 +1140,6 @@ async function cargarAlumnosDisponibles(idCurso) {
 
     lucide.createIcons();
 
-    // Configurar búsqueda
     document.getElementById('searchAlumnos').oninput = (e) => {
       const search = e.target.value.toLowerCase();
       document.querySelectorAll('#alumnosGridDisponibles .alumno-card').forEach(card => {
@@ -1194,7 +1148,6 @@ async function cargarAlumnosDisponibles(idCurso) {
       });
     };
 
-    // Configurar botón de inscribir
     document.getElementById('btnConfirmInscribir').onclick = async () => {
       const seleccionados = Array.from(document.querySelectorAll('#alumnosGridDisponibles .alumno-card.selected'))
         .map(card => card.dataset.alumnoId);
@@ -1215,12 +1168,10 @@ async function cargarAlumnosDisponibles(idCurso) {
 
         if (resp.ok) {
           showToast(`${seleccionados.length} alumno(s) inscrito(s) correctamente`, 'success');
-          // Recargar ambas listas
           await Promise.all([
             cargarAlumnosInscritos(idCurso),
             cargarAlumnosDisponibles(idCurso)
           ]);
-          // Reiniciar contador
           updateSelectedCount();
         } else {
           showToast(data.message || 'Error al inscribir', 'error');
@@ -1237,7 +1188,6 @@ async function cargarAlumnosDisponibles(idCurso) {
   }
 }
 
-// Función para seleccionar/deseleccionar alumno
 function toggleSelectAlumno(card) {
   card.classList.toggle('selected');
   const checkbox = card.querySelector('.checkbox-card');
@@ -1245,13 +1195,11 @@ function toggleSelectAlumno(card) {
   updateSelectedCount();
 }
 
-// Actualizar contador de seleccionados
 function updateSelectedCount() {
   const count = document.querySelectorAll('#alumnosGridDisponibles .alumno-card.selected').length;
   document.getElementById('selectedCount').textContent = `${count} alumno(s) seleccionado(s)`;
 }
 
-// Función para dar de baja un alumno
 async function darDeBajaAlumno(idCurso, idAlumno, nombreAlumno) {
   if (!confirm(`¿Estás seguro de dar de baja a ${nombreAlumno}?`)) return;
 
@@ -1264,10 +1212,8 @@ async function darDeBajaAlumno(idCurso, idAlumno, nombreAlumno) {
 
     if (resp.ok && data.success) {
       showToast(`${nombreAlumno} dado de baja correctamente`, 'success');
-      // Obtener el ID del curso del modal
       const modal = document.getElementById('modalInscribir');
       const cursoId = modal.dataset.idCurso;
-      // Recargar ambas listas
       await Promise.all([
         cargarAlumnosInscritos(cursoId),
         cargarAlumnosDisponibles(cursoId)
@@ -1281,7 +1227,6 @@ async function darDeBajaAlumno(idCurso, idAlumno, nombreAlumno) {
   }
 }
 
-// Función para mostrar toast
 function showToast(message, type = 'success') {
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
@@ -1293,9 +1238,6 @@ function showToast(message, type = 'success') {
   }, 3000);
 }
 
-// ----------------------------
-// Panel lateral: detalle de curso
-// ----------------------------
 function ensureCursoPanel() {
   if (document.getElementById('cursoPanelOverlay')) return;
 
@@ -1337,7 +1279,6 @@ function ensureCursoPanel() {
   const panel = document.getElementById('cursoPanel');
   const overlay = document.getElementById('cursoPanelOverlay');
 
-  // Cerrar panel
   const closePanel = () => {
     panel.classList.remove('active');
     overlay.classList.remove('active');
@@ -1356,7 +1297,6 @@ async function openCursoPanel(idCurso) {
   panel.classList.add('active');
   overlay.classList.add('active');
 
-  // Cargar datos del curso
   try {
     const [resCurso, resInscritos] = await Promise.all([
       fetch(`${API_URL}/cursos/${idCurso}`),
@@ -1366,10 +1306,8 @@ async function openCursoPanel(idCurso) {
     const curso = await resCurso.json();
     const inscritos = await resInscritos.json();
 
-    // Actualizar título
     document.getElementById('cursoPanelTitle').textContent = curso.nombre_curso || 'Detalle del Curso';
 
-    // Información del curso (datos reales)
     const cuposMax = curso.cupo_maximo || 30;
     const cuposDisponibles = cuposMax - inscritos.length;
 
@@ -1400,7 +1338,6 @@ async function openCursoPanel(idCurso) {
       </div>
     `;
 
-    // Lista de alumnos inscritos
     if (inscritos.length === 0) {
       document.getElementById('alumnosInscritos').innerHTML = `
         <div class="empty-state">
@@ -1421,24 +1358,20 @@ async function openCursoPanel(idCurso) {
       }).join('');
     }
 
-    // Reinicializar iconos
     lucide.createIcons();
 
-    // Botón inscribir desde el panel
     document.getElementById('btnInscribirPanel').onclick = () => {
       panel.classList.remove('active');
       overlay.classList.remove('active');
       openInscribirModal(idCurso, curso.nombre_curso);
     };
 
-    // Botón editar (placeholder por ahora)
     document.getElementById('btnEditarCurso').onclick = () => {
       panel.classList.remove('active');
       overlay.classList.remove('active');
       openEditarCursoModal(curso);
     };
 
-    // Botón eliminar (placeholder por ahora)
     document.getElementById('btnEliminarCurso').onclick = () => {
       if (confirm(`¿Estás seguro de eliminar el curso "${curso.nombre_curso}"?`)) {
         alert('Funcionalidad de eliminar curso próximamente');
@@ -1452,9 +1385,6 @@ async function openCursoPanel(idCurso) {
   }
 }
 
-// ----------------------------
-// Modal: editar curso
-// ----------------------------
 function ensureEditarCursoModal() {
   if (document.getElementById('modalEditarCurso')) return;
 
@@ -1535,11 +1465,9 @@ async function openEditarCursoModal(curso) {
   const modal = document.getElementById('modalEditarCurso');
 
   try {
-    // Obtener datos completos del curso
     const resCursoCompleto = await fetch(`${API_URL}/cursos/${curso.id_curso}`);
     const cursoCompleto = await resCursoCompleto.json();
 
-    // Cargar opciones para los selects
     const [resIdiomas, resProfesores] = await Promise.all([
       fetch(`${API_URL}/idiomas`),
       fetch(`${API_URL}/profesores`)
@@ -1548,13 +1476,11 @@ async function openEditarCursoModal(curso) {
     const idiomas = await resIdiomas.json();
     const profesores = await resProfesores.json();
 
-    // Llenar select de idiomas
     document.getElementById('editIdioma').innerHTML = `
       <option value="">Seleccione...</option>
       ${idiomas.map(i => `<option value="${i.id_idioma}" ${i.id_idioma === cursoCompleto.id_idioma ? 'selected' : ''}>${i.nombre_idioma}</option>`).join('')}
     `;
 
-    // Llenar select de niveles
     document.getElementById('editNivel').innerHTML = `
       <option value="">Seleccione...</option>
       <option value="1" ${cursoCompleto.id_nivel === 1 ? 'selected' : ''}>A1</option>
@@ -1565,27 +1491,23 @@ async function openEditarCursoModal(curso) {
       <option value="6" ${cursoCompleto.id_nivel === 6 ? 'selected' : ''}>C2</option>
     `;
 
-    // Llenar select de profesores
     document.getElementById('editProfesor').innerHTML = `
       <option value="">Seleccione...</option>
       ${profesores.map(p => `<option value="${p.id_profesor}" ${p.id_profesor === cursoCompleto.id_profesor ? 'selected' : ''}>${p.nombre_completo}</option>`).join('')}
     `;
 
-    // Llenar select de aulas
     document.getElementById('editAula').innerHTML = `
       <option value="">Sin aula</option>
       <option value="1" ${cursoCompleto.id_aula === 1 ? 'selected' : ''}>Aula 101</option>
       <option value="2" ${cursoCompleto.id_aula === 2 ? 'selected' : ''}>Aula 102</option>
     `;
 
-    // Llenar el formulario con los datos actuales
     document.getElementById('editNombreCurso').value = cursoCompleto.nombre_curso || '';
     document.getElementById('editHorario').value = cursoCompleto.horario || '';
     document.getElementById('editCupo').value = cursoCompleto.cupo_maximo || 30;
 
     modal.classList.add('active');
 
-    // Manejar submit del formulario
     document.getElementById('formEditarCurso').onsubmit = async (e) => {
       e.preventDefault();
 
@@ -1611,7 +1533,6 @@ async function openEditarCursoModal(curso) {
         if (resp.ok && data.success) {
           alert('Curso actualizado correctamente');
           modal.classList.remove('active');
-          // Recargar la sección de cursos
           document.getElementById('btnCursos').click();
         } else {
           alert(data.message || 'Error al actualizar el curso');
@@ -1629,32 +1550,22 @@ async function openEditarCursoModal(curso) {
 }
 
 
-// =====================================================
-// 2️⃣ DASHBOARD ADMIN
-// =====================================================
 async function initAdminDashboard() {
-  console.log("👑 Dashboard ADMIN cargado");
-  // El dashboard admin ya está implementado en dashboard_admin.html
-  // Esta función es solo para evitar el error de referencia
+  console.log(" Dashboard ADMIN cargado");
 }
 
 
-// =====================================================
-// 3️⃣ DASHBOARD PROFESOR
-// =====================================================
 async function initProfesorDashboard() {
-  console.log("🧑‍🏫 Dashboard PROFESOR cargado");
+  console.log("‍ Dashboard PROFESOR cargado");
 
   const loader = document.getElementById("loader");
   const mainContent = document.getElementById("mainContent");
   const botones = document.querySelectorAll(".sidebar-menu button");
 
-  // Mostrar saludo con nombre (temporal)
   const nombreProfesor = localStorage.getItem("nombre") || "Profesor";
   const idProfesor = localStorage.getItem("id_profesor");
-  document.getElementById("welcomeMessage").textContent = `Bienvenido, ${nombreProfesor} 👋`;
+  document.getElementById("welcomeMessage").textContent = `Bienvenido, ${nombreProfesor} `;
 
-  // Secciones SPA dinámicas
   const sections = {
     btnCursos: async () => {
       loader.classList.remove("hidden");
@@ -1735,7 +1646,6 @@ async function initProfesorDashboard() {
           </div>
         `;
 
-        // Evento para cambio de curso en la tabla principal
         document.getElementById('selectCurso').addEventListener('change', async (e) => {
           const cursoId = e.target.value;
           if (!cursoId) {
@@ -1806,7 +1716,6 @@ async function initProfesorDashboard() {
     }
   };
 
-  // Control SPA de botones con transición y loader
   botones.forEach(btn => {
     btn.addEventListener("click", async () => {
       botones.forEach(b => b.classList.remove("active"));
@@ -1822,15 +1731,11 @@ async function initProfesorDashboard() {
     });
   });
 
-  // Cargar sección por defecto (Mis Cursos)
   document.getElementById("btnCursos").click();
 }
 
-// =====================================================
-// 4️⃣ DASHBOARD ALUMNO
-// =====================================================
 async function initAlumnoDashboard() {
-  console.log("🎓 Dashboard ALUMNO cargado");
+  console.log(" Dashboard ALUMNO cargado");
   document.getElementById("btnMisInscripciones")?.addEventListener("click", verMisInscripciones);
   document.getElementById("btnMisPagos")?.addEventListener("click", verMisPagos);
 }
@@ -1882,9 +1787,6 @@ async function verMisPagos() {
   }
 }
 
-// =====================================================
-// 5️⃣ PANEL DE ALUMNO
-// =====================================================
 function ensureAlumnoPanel() {
   if (document.getElementById('alumnoPanel')) return;
 
@@ -1915,7 +1817,6 @@ function ensureAlumnoPanel() {
 
   document.body.insertAdjacentHTML('beforeend', panelHtml);
   
-  // Configurar cierre
   const panel = document.getElementById('alumnoPanel');
   const overlay = document.getElementById('alumnoPanelOverlay');
   
@@ -1927,14 +1828,12 @@ function ensureAlumnoPanel() {
   panel.querySelector('.close-panel').addEventListener('click', closePanel);
   overlay.addEventListener('click', closePanel);
   
-  // Cerrar al hacer click fuera del panel
   document.addEventListener('click', (e) => {
     if (panel.classList.contains('active') && !panel.contains(e.target) && !e.target.closest('.alumno-card')) {
       closePanel();
     }
   });
   
-  // Cerrar al quitar el mouse del panel
   let mouseLeaveTimeout;
   panel.addEventListener('mouseleave', () => {
     mouseLeaveTimeout = setTimeout(() => {
@@ -1956,11 +1855,9 @@ async function openAlumnoPanel(idAlumno) {
   overlay.classList.add('active');
 
   try {
-    // Obtener datos del alumno con estadísticas
     const resAlumno = await fetch(`${API_URL}/alumnos/${idAlumno}`);
     const alumno = await resAlumno.json();
 
-    // Actualizar encabezado
     const iniciales = `${alumno.nombre.charAt(0)}${alumno.apellido.charAt(0)}`.toUpperCase();
     document.getElementById('panelAlumnoAvatar').textContent = iniciales;
     document.getElementById('panelAlumnoNombre').textContent = `${alumno.nombre} ${alumno.apellido}`;
@@ -1970,7 +1867,6 @@ async function openAlumnoPanel(idAlumno) {
     estadoBadge.textContent = (alumno.estado || 'activo').charAt(0).toUpperCase() + (alumno.estado || 'activo').slice(1);
     estadoBadge.className = `alumno-estado-badge ${alumno.estado || 'activo'}`;
 
-    // Construir contenido del panel
     const content = document.getElementById('panelAlumnoContent');
     content.innerHTML = `
       <!-- Información Personal -->
@@ -2061,7 +1957,6 @@ async function openAlumnoPanel(idAlumno) {
       </div>
     `;
 
-    // Reinicializar iconos de Lucide
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
@@ -2076,7 +1971,6 @@ async function openAlumnoPanel(idAlumno) {
   }
 }
 
-// Filtros y búsqueda para alumnos
 function setupAlumnoFilters() {
   const searchInput = document.getElementById('alumnosSearch');
   const estadoFilter = document.getElementById('alumnosEstadoFilter');
@@ -2111,9 +2005,6 @@ function filterAlumnos() {
   });
 }
 
-// =====================================================
-// 6️⃣ PANEL DE PROFESOR
-// =====================================================
 function ensureProfesorPanel() {
   if (document.getElementById('profesorPanel')) return;
 
@@ -2145,7 +2036,6 @@ function ensureProfesorPanel() {
 
   document.body.insertAdjacentHTML('beforeend', panelHtml);
   
-  // Configurar cierre
   const panel = document.getElementById('profesorPanel');
   const overlay = document.getElementById('profesorPanelOverlay');
   
@@ -2157,14 +2047,12 @@ function ensureProfesorPanel() {
   panel.querySelector('.close-panel').addEventListener('click', closePanel);
   overlay.addEventListener('click', closePanel);
   
-  // Cerrar al hacer click fuera del panel
   document.addEventListener('click', (e) => {
     if (panel.classList.contains('active') && !panel.contains(e.target) && !e.target.closest('.profesor-card')) {
       closePanel();
     }
   });
   
-  // Cerrar al quitar el mouse del panel
   let mouseLeaveTimeout;
   panel.addEventListener('mouseleave', () => {
     mouseLeaveTimeout = setTimeout(() => {
@@ -2189,7 +2077,6 @@ async function openProfesorPanel(idProfesor) {
     const resProfesor = await fetch(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resProfesor.json();
 
-    // Actualizar encabezado
     const iniciales = `${profesor.nombre.charAt(0)}${profesor.apellido.charAt(0)}`.toUpperCase();
     document.getElementById('panelProfesorAvatar').textContent = iniciales;
     document.getElementById('panelProfesorNombre').textContent = `${profesor.nombre} ${profesor.apellido}`;
@@ -2199,7 +2086,6 @@ async function openProfesorPanel(idProfesor) {
     estadoBadge.textContent = (profesor.estado || 'activo').charAt(0).toUpperCase() + (profesor.estado || 'activo').slice(1);
     estadoBadge.className = `profesor-estado-badge ${profesor.estado || 'activo'}`;
 
-    // Calcular carga horaria
     const horasPorCurso = 3; // Estimación promedio
     const horasTotales = profesor.total_cursos * horasPorCurso;
     const horasMaximas = 40;
@@ -2208,7 +2094,6 @@ async function openProfesorPanel(idProfesor) {
     if (porcentajeCarga >= 80) claseCarga = 'alta';
     else if (porcentajeCarga >= 50) claseCarga = 'media';
 
-    // Construir contenido del panel
     const content = document.getElementById('panelProfesorContent');
     content.innerHTML = `
       <!-- Información Personal -->
@@ -2331,7 +2216,6 @@ async function openProfesorPanel(idProfesor) {
       </div>
     `;
 
-    // Reinicializar iconos de Lucide
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
@@ -2346,13 +2230,11 @@ async function openProfesorPanel(idProfesor) {
   }
 }
 
-// Filtros y búsqueda para profesores
 function setupProfesorFilters() {
   const searchInput = document.getElementById('profesoresSearch');
   const estadoFilter = document.getElementById('profesoresEstadoFilter');
   const idiomaFilter = document.getElementById('profesoresIdiomaFilter');
 
-  // Poblar filtro de idiomas
   const cards = document.querySelectorAll('.profesor-card');
   const idiomasSet = new Set();
   cards.forEach(card => {
@@ -2402,18 +2284,14 @@ function filterProfesores() {
   });
 }
 
-// =====================================================
-// 7️⃣ FUNCIONES ADMINISTRATIVAS DE PROFESORES
-// =====================================================
 
-// Función para inicializar el selector múltiple de idiomas
 async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
   const prefix = mode === 'edit' ? '' : 'Nuevo';
   const display = document.getElementById(`idiomasSelectedDisplay${prefix}`);
   const dropdown = document.getElementById(`idiomasDropdown${prefix}`);
   const hiddenInput = document.getElementById(mode === 'edit' ? 'editProfesorIdiomas' : 'idiomasSeleccionados');
   
-  console.log('🔍 Buscando elementos:', {
+  console.log(' Buscando elementos:', {
     mode,
     prefix,
     displayId: `idiomasSelectedDisplay${prefix}`,
@@ -2424,20 +2302,18 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
   });
   
   if (!display || !dropdown) {
-    console.error('❌ No se encontraron los elementos del selector de idiomas');
+    console.error(' No se encontraron los elementos del selector de idiomas');
     return;
   }
   
   let selectedIdiomas = new Set(selectedIds);
   
-  // Obtener todos los idiomas
   try {
     const resp = await fetch(`${API_URL}/idiomas`);
     const idiomas = await resp.json();
     
-    console.log('✅ Idiomas cargados:', idiomas.length);
+    console.log(' Idiomas cargados:', idiomas.length);
     
-    // Renderizar opciones
     dropdown.innerHTML = idiomas.map(idioma => `
       <label style="display: flex; align-items: center; padding: 10px; cursor: pointer; transition: background 0.2s;" 
              onmouseover="this.style.background='#f3f4f6'" 
@@ -2450,23 +2326,19 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
       </label>
     `).join('');
     
-    // Actualizar display inicial
     updateIdiomasDisplay();
     
-    // Toggle dropdown
     display.addEventListener('click', (e) => {
       e.stopPropagation();
       dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
     });
     
-    // Cerrar al hacer click fuera
     document.addEventListener('click', (e) => {
       if (!display.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.style.display = 'none';
       }
     });
     
-    // Manejar cambios en checkboxes
     dropdown.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
       checkbox.addEventListener('change', (e) => {
         const id = parseInt(e.target.value);
@@ -2505,7 +2377,6 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
         });
       }
       
-      // Actualizar hidden input
       if (hiddenInput) {
         hiddenInput.value = Array.from(selectedIdiomas).join(',');
       }
@@ -2516,26 +2387,23 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
   }
 }
 
-// Modal para editar profesor
 function ensureEditarProfesorModal() {
-  // ELIMINACIÓN AGRESIVA - Eliminar TODOS los modales de profesor existentes
   document.querySelectorAll('#modalEditarProfesor').forEach(m => {
-    console.log('🗑️ Eliminando modal viejo por ID');
+    console.log('️ Eliminando modal viejo por ID');
     m.remove();
   });
   
-  // Eliminar también por clase modal (por si quedó alguno sin ID)
   document.querySelectorAll('.modal').forEach(m => {
     if (m.innerHTML && m.innerHTML.includes('Editar Profesor')) {
-      console.log('🗑️ Eliminando modal viejo por contenido');
+      console.log('️ Eliminando modal viejo por contenido');
       m.remove();
     }
   });
 
   const timestamp = Date.now();
-  console.log(`🟢 CREANDO MODAL PROFESOR - Timestamp: ${timestamp}`);
-  console.log('⚠️ Si NO ves el campo DNI después de esto, el problema es CACHE del navegador');
-  console.log('📍 Verificar en Elements: buscar id="editProfesorDNI"');
+  console.log(` CREANDO MODAL PROFESOR - Timestamp: ${timestamp}`);
+  console.log('️ Si NO ves el campo DNI después de esto, el problema es CACHE del navegador');
+  console.log(' Verificar en Elements: buscar id="editProfesorDNI"');
 
   const modalHtml = `
     <div id="modalEditarProfesor" class="modal" style="z-index: 3000;">
@@ -2595,7 +2463,7 @@ function ensureEditarProfesorModal() {
             </div>
             
             <div style="margin-bottom: 16px; background: #fff3cd; padding: 15px; border: 2px solid #ff0000; border-radius: 8px;">
-              <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #000;">🔴 IDIOMAS QUE ENSEÑA (CAMPO DE PRUEBA):</label>
+              <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #000;"> IDIOMAS QUE ENSEÑA (CAMPO DE PRUEBA):</label>
               <div id="idiomasMultiSelect" style="position: relative;">
                 <div id="idiomasSelectedDisplay" style="min-height: 42px; padding: 8px; border: 2px solid #ff0000; border-radius: 4px; cursor: pointer; background: white; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
                   <span style="color: #ff0000; font-size: 14px; font-weight: bold;" id="idiomasPlaceholder">Seleccionar idiomas...</span>
@@ -2626,18 +2494,15 @@ function ensureEditarProfesorModal() {
 
   const modal = document.getElementById('modalEditarProfesor');
   
-  // Cerrar modal
   modal.querySelectorAll('.close-modal').forEach(btn => btn.addEventListener('click', () => modal.classList.remove('active')));
   modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
 
-  // Botón Editar Credenciales
   const btnCredenciales = document.getElementById('btnEditarCredencialesProfesor');
   btnCredenciales.addEventListener('click', () => {
     const idProfesor = document.getElementById('editProfesorId').value;
     abrirModalCredencialesProfesor(idProfesor);
   });
 
-  // Form submit
   document.getElementById('formEditarProfesor').addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -2654,7 +2519,6 @@ function ensureEditarProfesorModal() {
       idiomas: idiomasValue ? idiomasValue.split(',').map(id => parseInt(id)) : []
     };
 
-    // Validar campos requeridos
     if (!data.nombre || !data.apellido || !data.mail || !data.dni || !data.especialidad || !data.telefono) {
       Swal.fire({
         icon: 'error',
@@ -2684,13 +2548,11 @@ function ensureEditarProfesorModal() {
         showToast('Profesor actualizado correctamente', 'success');
         modal.classList.remove('active');
         
-        // Recargar datos
         const section = document.querySelector('.sidebar-menu button.active').id.replace('btn', '').toLowerCase();
         if (section === 'profesores') {
           document.getElementById('btnProfesores').click();
         }
         
-        // Recargar panel si está abierto
         if (document.getElementById('profesorPanel').classList.contains('active')) {
           openProfesorPanel(idProfesor);
         }
@@ -2726,7 +2588,6 @@ async function openEditarProfesorModal(idProfesor) {
 
     modal.classList.add('active');
     
-    // Inicializar selector de idiomas DESPUÉS de mostrar el modal y con un pequeño delay
     setTimeout(async () => {
       console.log('Inicializando selector de idiomas...');
       await initIdiomasMultiSelect('edit', profesor.idiomas_ids || []);
@@ -2738,13 +2599,11 @@ async function openEditarProfesorModal(idProfesor) {
   }
 }
 
-// Modal de credenciales del profesor (unificadas Dashboard y Classroom)
 async function abrirModalCredencialesProfesor(idProfesor) {
   try {
     const resp = await fetch(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resp.json();
     
-    // Obtener usuario desde la tabla usuarios
     let usuarioActual = '';
     let passwordActual = '';
     let tienePassword = false;
@@ -2806,7 +2665,6 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       didOpen: () => {
         lucide.createIcons();
         
-        // Efecto de placeholder al hacer focus/blur en usuario
         const inputUsuario = document.getElementById('usuarioProfesor');
         inputUsuario.addEventListener('blur', () => {
           if (inputUsuario.value.trim() === '') {
@@ -2817,7 +2675,6 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           }
         });
         
-        // Efecto de placeholder al hacer focus/blur en password
         const inputPassword = document.getElementById('passwordProfesor');
         inputPassword.addEventListener('blur', () => {
           if (inputPassword.value.trim() === '') {
@@ -2828,13 +2685,11 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           }
         });
         
-        // Toggle password visibility
         const toggleBtn = document.getElementById('togglePasswordProfesor');
         toggleBtn.addEventListener('click', () => {
           const isPassword = inputPassword.type === 'password';
           inputPassword.type = isPassword ? 'text' : 'password';
           
-          // Cambiar el ícono actualizando el HTML del botón
           const iconHtml = isPassword ? '<i data-lucide="eye-off" style="width: 20px; height: 20px; color: #6b7280;"></i>' : '<i data-lucide="eye" style="width: 20px; height: 20px; color: #6b7280;"></i>';
           toggleBtn.innerHTML = iconHtml;
           lucide.createIcons();
@@ -2844,10 +2699,8 @@ async function abrirModalCredencialesProfesor(idProfesor) {
         const usuario = document.getElementById('usuarioProfesor').value.trim();
         const password = document.getElementById('passwordProfesor').value.trim();
         
-        // Si el usuario está vacío o es el mismo que el actual, usar el actual
         const nuevoUsuario = (usuario === '' || usuario === '${usuarioActual}') ? '${usuarioActual}' : usuario;
         
-        // Si el password está vacío o es el mismo que el actual, no actualizar
         const nuevoPassword = (password === '' || password === '${passwordActual}') ? '' : password;
         
         if (!nuevoUsuario) {
@@ -2859,18 +2712,15 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       }
     });
 
-    // Si confirmó, procesar los cambios
     if (result.isConfirmed && result.value) {
       const { usuario, password } = result.value;
 
       try {
-        // Preparar el body con usuario y opcionalmente contraseña
         const bodyData = {
           id_persona: profesor.id_persona,
           username: usuario
         };
         
-        // Solo incluir password si se ingresó algo
         if (password && password.trim().length > 0) {
           bodyData.password = password;
         }
@@ -2899,7 +2749,6 @@ async function abrirModalCredencialesProfesor(idProfesor) {
   }
 }
 
-// Cambiar estado del profesor
 async function cambiarEstadoProfesor(idProfesor, estadoActual) {
   const estados = {
     'activo': { siguiente: 'licencia', label: 'En Licencia', icon: 'pause-circle', color: 'warning' },
@@ -2930,10 +2779,8 @@ async function cambiarEstadoProfesor(idProfesor, estadoActual) {
     if (resp.ok) {
       showToast(`Estado cambiado a ${cambio.label}`, 'success');
       
-      // Recargar lista
       document.getElementById('btnProfesores').click();
       
-      // Recargar panel
       if (document.getElementById('profesorPanel').classList.contains('active')) {
         openProfesorPanel(idProfesor);
       }
@@ -2946,7 +2793,6 @@ async function cambiarEstadoProfesor(idProfesor, estadoActual) {
   }
 }
 
-// Cambiar contraseña del Dashboard - Profesor
 async function cambiarPasswordProfesorDashboard(idProfesor) {
   const { value: formValues } = await Swal.fire({
     title: 'Cambiar Contraseña del Dashboard',
@@ -3008,9 +2854,7 @@ async function cambiarPasswordProfesorDashboard(idProfesor) {
   }
 }
 
-// Cambiar contraseña del Classroom - Profesor
 async function cambiarPasswordProfesorClassroom(idProfesor) {
-  // Primero obtener el id_persona del profesor
   let idPersona;
   try {
     const resp = await fetch(`${API_URL}/profesores/${idProfesor}`);
@@ -3084,7 +2928,6 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
   }
 }
 
-// Dar de baja profesor
 async function darDeBajaProfesor(idProfesor, nombre) {
   const confirmed = await showConfirm(
     '¿Dar de baja al profesor?',
@@ -3107,10 +2950,8 @@ async function darDeBajaProfesor(idProfesor, nombre) {
     if (resp.ok) {
       showToast('Profesor dado de baja correctamente', 'success');
       
-      // Cerrar panel
       document.getElementById('profesorPanel').classList.remove('active');
       
-      // Recargar lista
       document.getElementById('btnProfesores').click();
     } else {
       showToast(result.message || 'Error al dar de baja', 'error');
@@ -3121,10 +2962,8 @@ async function darDeBajaProfesor(idProfesor, nombre) {
   }
 }
 
-// Modal de confirmación genérico
 function showConfirm(title, message, icon = 'alert-circle', isDanger = false) {
   return new Promise((resolve) => {
-    // Eliminar modal anterior si existe
     const existingModal = document.getElementById('confirmModal');
     if (existingModal) existingModal.remove();
 
@@ -3169,9 +3008,6 @@ function showConfirm(title, message, icon = 'alert-circle', isDanger = false) {
   });
 }
 
-// =====================================================
-// 7️⃣ GESTIÓN DE PAGOS
-// =====================================================
 
 let allPagos = [];
 let pagosStats = {};
@@ -3190,22 +3026,18 @@ async function loadPagosData(queryParams = '') {
 
     console.log('Pagos:', allPagos.length, 'Stats:', pagosStats);
 
-    // Actualizar métricas
     document.getElementById('metricTotalMes').textContent = parseFloat(pagosStats.total_mes || 0).toLocaleString('es-AR', {minimumFractionDigits: 2});
     document.getElementById('metricCobradas').textContent = pagosStats.cuotas_cobradas || 0;
     document.getElementById('metricPendientes').textContent = pagosStats.cuotas_pendientes || 0;
     document.getElementById('metricPromedio').textContent = parseFloat(pagosStats.promedio_pago || 0).toLocaleString('es-AR', {minimumFractionDigits: 0});
 
-    // Poblar filtro de medios de pago
     const mediosPago = [...new Set(allPagos.map(p => p.medio_pago))];
     const selectMedio = document.getElementById('pagoFilterMedio');
     selectMedio.innerHTML = '<option value="">Todos</option>' + 
       mediosPago.map(m => `<option value="${m}">${m}</option>`).join('');
 
-    // Renderizar tabla
     renderPagosTable(allPagos);
 
-    // Configurar filtros
     setupPagosFilters();
 
   } catch (error) {
@@ -3226,7 +3058,6 @@ function renderPagosTable(pagos) {
   }
 
   tbody.innerHTML = pagos.map(p => {
-    // Mapeo de estados del sistema
     const estadoBadgeClass = {
       'en_proceso': 'warning',
       'pagado': 'success',
@@ -3244,7 +3075,6 @@ function renderPagosTable(pagos) {
     const textoEstado = estadoTexto[estado] || estado;
     const archivado = p.archivado || 0;
 
-    // Botones de acción según el estado y si está archivado
     let botonesAccion = '';
     
     if (estado === 'en_proceso') {
@@ -3278,7 +3108,6 @@ function renderPagosTable(pagos) {
         </button>
       `;
     } else if (estado === 'anulado' && archivado === 0) {
-      // Solo mostrar botón de archivo si NO está archivado
       botonesAccion = `
         <button 
           class="btn-archive-pago" 
@@ -3334,9 +3163,7 @@ function renderPagosTable(pagos) {
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-// Switch between active and archived pagos tabs
 function switchPagosTab(tab) {
-  // Update tab UI
   document.querySelectorAll('.pagos-tab').forEach(t => {
     if (t.dataset.tab === tab) {
       t.classList.add('active');
@@ -3349,14 +3176,12 @@ function switchPagosTab(tab) {
     }
   });
 
-  // Show/hide containers based on tab
   const metricsContainer = document.getElementById('pagosMetrics');
   const filtersContainer = document.getElementById('pagosFilters');
   const tableContainer = document.getElementById('pagosTableContainer');
   const cuotasContainer = document.getElementById('cuotasGestionContainer');
 
   if (tab === 'cuotas') {
-    // Hide pagos UI, show cuotas UI
     if (metricsContainer) metricsContainer.style.display = 'none';
     if (filtersContainer) filtersContainer.style.display = 'none';
     if (tableContainer) tableContainer.style.display = 'none';
@@ -3365,13 +3190,11 @@ function switchPagosTab(tab) {
       loadCuotasGestion();
     }
   } else {
-    // Show pagos UI, hide cuotas UI
     if (metricsContainer) metricsContainer.style.display = 'grid';
     if (filtersContainer) filtersContainer.style.display = 'flex';
     if (tableContainer) tableContainer.style.display = 'block';
     if (cuotasContainer) cuotasContainer.style.display = 'none';
 
-    // Load data based on tab
     if (tab === 'archivo') {
       loadPagosData('?archivo=true');
     } else {
@@ -3379,7 +3202,6 @@ function switchPagosTab(tab) {
     }
   }
 
-  // Reinicializar iconos de Lucide
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
@@ -3409,7 +3231,6 @@ function filterPagos() {
   renderPagosTable(filtered);
 }
 
-// Panel lateral de historial de pagos
 function ensurePagoPanel() {
   if (document.getElementById('pagoPanel')) return;
 
@@ -3434,7 +3255,6 @@ function ensurePagoPanel() {
 
   document.body.insertAdjacentHTML('beforeend', panelHtml);
 
-  // Configurar cierre automático
   const panel = document.getElementById('pagoPanel');
   
   document.addEventListener('click', (e) => {
@@ -3461,7 +3281,6 @@ async function openPagoPanel(idAlumno) {
   panel.classList.add('active');
 
   try {
-    // Obtener info del alumno y pagos en paralelo
     const [alumnoResp, pagosResp] = await Promise.all([
       fetch(`${API_URL}/alumnos/${idAlumno}`),
       fetch(`${API_URL}/pagos/alumno/${idAlumno}/historial`)
@@ -3470,7 +3289,6 @@ async function openPagoPanel(idAlumno) {
     const alumno = await alumnoResp.json();
     const pagosData = await pagosResp.json();
 
-    // Adaptar estructura de datos
     const historial = pagosData.pagos_realizados || [];
     const estado_cuenta = {
       total_pagado: pagosData.estadisticas?.total_pagado || 0,
@@ -3479,14 +3297,12 @@ async function openPagoPanel(idAlumno) {
       ultimo_pago: historial.length > 0 ? historial[0].fecha_pago : null
     };
 
-    // Actualizar header
     const nombreCompleto = `${alumno.nombre} ${alumno.apellido}`;
     const iniciales = nombreCompleto.split(' ').map(n => n.charAt(0)).join('').substring(0, 2).toUpperCase();
     document.getElementById('pagoPanelAvatar').textContent = iniciales;
     document.getElementById('pagoPanelNombre').textContent = nombreCompleto;
     document.getElementById('pagoPanelLegajo').textContent = `Legajo: ${alumno.legajo} • ${alumno.mail}`;
 
-    // Renderizar contenido
     const content = document.getElementById('pagoPanelContent');
     content.innerHTML = `
       <!-- Estado de Cuenta -->
@@ -3558,8 +3374,6 @@ async function openPagoPanel(idAlumno) {
   }
 }
 
-// Eliminar pago
-// Confirmar pago (cambiar de en_proceso a pagado)
 async function confirmarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
     '¿Confirmar pago?',
@@ -3579,7 +3393,6 @@ async function confirmarPago(idPago, nombreAlumno, concepto) {
 
     if (resp.ok && result.success) {
       showToast('Pago confirmado correctamente', 'success');
-      // Recargar los datos de pagos
       await loadPagosData();
     } else {
       showToast(result.message || 'Error al confirmar pago', 'error');
@@ -3590,7 +3403,6 @@ async function confirmarPago(idPago, nombreAlumno, concepto) {
   }
 }
 
-// Anular pago (cambiar estado a anulado)
 async function anularPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
     '¿Anular pago?',
@@ -3610,7 +3422,6 @@ async function anularPago(idPago, nombreAlumno, concepto) {
 
     if (resp.ok && result.success) {
       showToast('Pago anulado correctamente', 'success');
-      // Recargar los datos de pagos
       await loadPagosData();
     } else {
       showToast(result.message || 'Error al anular pago', 'error');
@@ -3641,7 +3452,6 @@ async function archivarPago(idPago, nombreAlumno, concepto) {
 
     if (resp.ok && result.success) {
       showToast('Pago archivado correctamente', 'success');
-      // Recargar los datos de pagos
       await loadPagosData();
     } else {
       showToast(result.message || 'Error al archivar pago', 'error');
@@ -3672,7 +3482,6 @@ async function desarchivarPago(idPago, nombreAlumno, concepto) {
 
     if (resp.ok && result.success) {
       showToast('Pago devuelto a pagos activos', 'success');
-      // Recargar los datos con el filtro de archivo
       await loadPagosData('?archivo=true');
     } else {
       showToast(result.message || 'Error al desarchivar pago', 'error');
@@ -3683,10 +3492,9 @@ async function desarchivarPago(idPago, nombreAlumno, concepto) {
   }
 }
 
-// Eliminar pago definitivamente
 async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
   const result = await Swal.fire({
-    title: '⚠️ ELIMINAR PERMANENTEMENTE',
+    title: '️ ELIMINAR PERMANENTEMENTE',
     html: `
       <div style="text-align: left; margin: 20px 0;">
         <p style="font-size: 15px; margin-bottom: 15px;">
@@ -3697,7 +3505,7 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
           <p style="margin: 5px 0;"><strong>Concepto:</strong> ${concepto}</p>
         </div>
         <p style="color: #f44336; font-weight: 600; margin-top: 15px;">
-          ⚠️ Esta acción NO se puede deshacer
+          ️ Esta acción NO se puede deshacer
         </p>
         <p style="font-size: 14px; color: #666; margin-top: 10px;">
           El registro será eliminado completamente de la base de datos.
@@ -3730,10 +3538,8 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
 
     if (resp.ok && data.success) {
       showToast('Pago eliminado permanentemente', 'success');
-      // Forzar recarga completa
       window.currentPagosTab = 'archivo';
       await loadPagosData('?archivo=true');
-      // Asegurar que estamos en la vista de archivo
       switchPagosTab('archivo');
     } else {
       showToast(data.message || 'Error al eliminar pago', 'error');
@@ -3744,10 +3550,8 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
   }
 }
 
-// Modal de registrar pago
 async function openRegistrarPagoModal() {
   try {
-    // Obtener lista de alumnos con inscripciones activas
     const responseInscripciones = await fetch(`${API_URL}/inscripciones`);
     const todasInscripciones = await responseInscripciones.json();
     
@@ -3756,7 +3560,6 @@ async function openRegistrarPagoModal() {
       return;
     }
 
-    // Filtrar alumnos únicos con inscripciones activas
     const alumnosConCursos = [...new Map(
       todasInscripciones
         .filter(insc => insc.estado === 'activo')
@@ -3768,7 +3571,6 @@ async function openRegistrarPagoModal() {
       return;
     }
 
-    // Crear opciones de alumnos (solo los que tienen cursos)
     const alumnosOptions = alumnosConCursos.map(alumno => 
       `<option value="${alumno.id_alumno}">${alumno.nombre_completo}</option>`
     ).join('');
@@ -3841,7 +3643,6 @@ async function openRegistrarPagoModal() {
       confirmButtonColor: '#1976d2',
       cancelButtonColor: '#757575',
       didOpen: () => {
-        // Inicializar Lucide icons en el modal
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
         }
@@ -3854,7 +3655,6 @@ async function openRegistrarPagoModal() {
 
         let pagosPorCurso = {}; // Guardar pagos ya realizados por curso
 
-        // Evento cuando cambia el alumno
         alumnoSelect.addEventListener('change', async (e) => {
           const idAlumno = e.target.value;
           
@@ -3872,7 +3672,6 @@ async function openRegistrarPagoModal() {
             cursoSelect.innerHTML = '<option value="">Cargando cursos...</option>';
             cursoSelect.disabled = true;
 
-            // Obtener cursos del alumno (solo sus inscripciones activas)
             const response = await fetch(`${API_URL}/inscripciones/alumno/${idAlumno}`);
             const inscripciones = await response.json();
 
@@ -3882,7 +3681,6 @@ async function openRegistrarPagoModal() {
               return;
             }
 
-            // Filtrar solo cursos activos
             const cursosActivos = inscripciones.filter(i => i.estado === 'activo');
 
             if (cursosActivos.length === 0) {
@@ -3891,11 +3689,9 @@ async function openRegistrarPagoModal() {
               return;
             }
 
-            // Obtener pagos del alumno para verificar cuotas pagadas
             const responsePagos = await fetch(`${API_URL}/pagos/alumno/${idAlumno}`);
             const datosPagos = await responsePagos.json();
 
-            // Organizar pagos por curso
             pagosPorCurso = {};
             if (datosPagos.cursos) {
               datosPagos.cursos.forEach(curso => {
@@ -3921,7 +3717,6 @@ async function openRegistrarPagoModal() {
           }
         });
 
-        // Evento cuando cambia el curso
         cursoSelect.addEventListener('change', async (e) => {
           const idCurso = e.target.value;
           const selectedOption = e.target.options[e.target.selectedIndex];
@@ -3935,7 +3730,6 @@ async function openRegistrarPagoModal() {
             return;
           }
 
-          // Obtener cuotas habilitadas para este curso
           let cuotasHabilitadas = [];
           try {
             const respCuotas = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`);
@@ -3944,18 +3738,14 @@ async function openRegistrarPagoModal() {
             console.log(`Cuotas habilitadas para curso ${idCurso}:`, cuotasHabilitadas);
           } catch (error) {
             console.error('Error al obtener cuotas habilitadas:', error);
-            // Si hay error, asumir todas habilitadas
             cuotasHabilitadas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
           }
 
-          // Obtener meses ya pagados para este curso
           const mesesPagados = pagosPorCurso[idCurso] || [];
           console.log(`Curso seleccionado: ${idCurso}, Meses pagados:`, mesesPagados);
           
-          // Todos los meses academicos (incluyendo Matricula)
           const todosMeses = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
           
-          // Crear opciones de meses - TODOS, pero algunos deshabilitados
           const mesesNoHabilitados = todosMeses.filter(mes => !cuotasHabilitadas.includes(mes));
           const hayAlgunMesDisponible = todosMeses.some(mes => cuotasHabilitadas.includes(mes) && !mesesPagados.includes(mes));
           
@@ -3964,14 +3754,13 @@ async function openRegistrarPagoModal() {
             mesSelect.disabled = true;
             
             if (mesesPagados.length === todosMeses.length) {
-              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i> ✓ Todas las cuotas de este curso están pagadas</div>';
+              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i>  Todas las cuotas de este curso están pagadas</div>';
             } else if (cuotasHabilitadas.length === 0) {
               mesesPagadosInfo.innerHTML = '<div style="color: #f57c00; background: #fff3e0; padding: 8px; border-radius: 4px;"><i class="lucide-alert-circle" style="width: 14px; height: 14px;"></i> Este curso no tiene cuotas habilitadas</div>';
             } else {
               mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i> Todas las cuotas habilitadas están pagadas</div>';
             }
           } else {
-            // Generar opciones - mostrar TODAS pero deshabilitar las no disponibles
             const opciones = todosMeses.map(mes => {
               const yaPagado = mesesPagados.includes(mes);
               const noHabilitado = !cuotasHabilitadas.includes(mes);
@@ -3987,7 +3776,6 @@ async function openRegistrarPagoModal() {
             mesSelect.innerHTML = '<option value="">Seleccionar mes...</option>' + opciones;
             mesSelect.disabled = false;
             
-            // Mostrar información detallada
             const infoParts = [];
             if (mesesPagados.length > 0) {
               infoParts.push(`<div style="color: #1565c0; background: #e3f2fd; padding: 8px; border-radius: 4px; margin-bottom: 4px;">
@@ -4005,12 +3793,10 @@ async function openRegistrarPagoModal() {
             mesesPagadosInfo.innerHTML = infoParts.join('');
           }
 
-          // Auto-completar monto
           if (monto) {
             montoInput.value = monto;
           }
 
-          // Re-inicializar iconos
           if (typeof lucide !== 'undefined') {
             lucide.createIcons();
           }
@@ -4056,7 +3842,6 @@ async function openRegistrarPagoModal() {
 
     if (formValues) {
       try {
-        // Mostrar loader
         Swal.fire({
           title: 'Registrando pago...',
           html: '<i class="lucide-loader" style="width: 48px; height: 48px; animation: spin 1s linear infinite;"></i>',
@@ -4088,10 +3873,8 @@ async function openRegistrarPagoModal() {
             confirmButtonColor: '#1976d2'
           });
 
-          // Recargar tabla de pagos
           await loadPagosData();
           
-          // Si el panel de pagos está abierto para este alumno, actualizarlo
           const panel = document.getElementById('pagoPanel');
           if (panel && panel.classList.contains('active')) {
             await openPagoPanel(formValues.id_alumno);
@@ -4383,7 +4166,6 @@ async function eliminarIdioma(id, nombre) {
 
 // ===== GESTIÓN DE INSCRIPCIONES ===== //
 async function openNuevaInscripcionModal() {
-  // Cargar alumnos y cursos
   try {
     const [alumnosRes, cursosRes] = await Promise.all([
       fetch(`${API_URL}/alumnos`),
@@ -4571,7 +4353,6 @@ async function openNuevoAlumnoModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        // Alumno creado exitosamente, ahora solicitar credenciales
         const idAlumno = data.id_alumno;
         const nombreCompleto = `${formValues.nombre} ${formValues.apellido}`;
         
@@ -4583,7 +4364,6 @@ async function openNuevoAlumnoModal() {
           showConfirmButton: false
         });
 
-        // Abrir modal para crear credenciales
         await crearCredencialesAlumno(idAlumno, nombreCompleto);
         
         document.getElementById('btnAlumnos').click();
@@ -4597,7 +4377,6 @@ async function openNuevoAlumnoModal() {
   }
 }
 
-// Función para crear credenciales de acceso para alumno
 async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
   const { value: credenciales } = await Swal.fire({
     title: 'Crear Credenciales de Acceso',
@@ -4656,7 +4435,6 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
 
   if (credenciales) {
     try {
-      // Crear usuario
       const res = await fetch(`${API_URL}/alumnos/${idAlumno}/credenciales`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -4676,7 +4454,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
               <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              ⚠️ Guarda estas credenciales de forma segura
+              ️ Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#1e3c72'
@@ -4691,11 +4469,9 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
   }
 }
 
-// Funciones ensureEditarAlumnoModal y cerrarModalEditarAlumno eliminadas - ahora se usa SweetAlert2
 
 async function editarAlumno(id) {
   try {
-    // Obtener datos del alumno
     const res = await fetch(`${API_URL}/alumnos/${id}`);
     const alumno = await res.json();
     
@@ -4746,7 +4522,6 @@ async function editarAlumno(id) {
       confirmButtonColor: '#1e3c72',
       denyButtonColor: '#6b7280',
       didOpen: () => {
-        // Renderizar iconos de Lucide
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
         }
@@ -4768,7 +4543,6 @@ async function editarAlumno(id) {
       }
     });
 
-    // Si presionó "Editar Credenciales"
     if (isDenied) {
       await abrirModalCredencialesAlumno(id);
       return;
@@ -4796,13 +4570,11 @@ async function editarAlumno(id) {
   }
 }
 
-// Modal de credenciales del alumno (unificadas Dashboard y Classroom)
 async function abrirModalCredencialesAlumno(idAlumno) {
   try {
     const resp = await fetch(`${API_URL}/alumnos/${idAlumno}`);
     const alumno = await resp.json();
     
-    // Obtener usuario desde la tabla usuarios
     let usuarioActual = '';
     let passwordActual = '';
     let tienePassword = false;
@@ -4864,7 +4636,6 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       didOpen: () => {
         lucide.createIcons();
         
-        // Efecto de placeholder al hacer focus/blur en usuario
         const inputUsuario = document.getElementById('usuarioAlumno');
         inputUsuario.addEventListener('blur', () => {
           if (inputUsuario.value.trim() === '') {
@@ -4875,7 +4646,6 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           }
         });
         
-        // Efecto de placeholder al hacer focus/blur en password
         const inputPassword = document.getElementById('passwordAlumno');
         inputPassword.addEventListener('blur', () => {
           if (inputPassword.value.trim() === '') {
@@ -4886,13 +4656,11 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           }
         });
         
-        // Toggle password visibility
         const toggleBtn = document.getElementById('togglePasswordAlumno');
         toggleBtn.addEventListener('click', () => {
           const isPassword = inputPassword.type === 'password';
           inputPassword.type = isPassword ? 'text' : 'password';
           
-          // Cambiar el ícono actualizando el HTML del botón
           const iconHtml = isPassword ? '<i data-lucide="eye-off" style="width: 20px; height: 20px; color: #6b7280;"></i>' : '<i data-lucide="eye" style="width: 20px; height: 20px; color: #6b7280;"></i>';
           toggleBtn.innerHTML = iconHtml;
           lucide.createIcons();
@@ -4902,10 +4670,8 @@ async function abrirModalCredencialesAlumno(idAlumno) {
         const usuario = document.getElementById('usuarioAlumno').value.trim();
         const password = document.getElementById('passwordAlumno').value.trim();
         
-        // Si el usuario está vacío o es el mismo que el actual, usar el actual
         const nuevoUsuario = (usuario === '' || usuario === '${usuarioActual}') ? '${usuarioActual}' : usuario;
         
-        // Si el password está vacío o es el mismo que el actual, no actualizar
         const nuevoPassword = (password === '' || password === '${passwordActual}') ? '' : password;
         
         if (!nuevoUsuario) {
@@ -4917,18 +4683,15 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       }
     });
 
-    // Si confirmó, procesar los cambios
     if (result.isConfirmed && result.value) {
       const { usuario, password } = result.value;
 
       try {
-        // Preparar el body con usuario y opcionalmente contraseña
         const bodyData = {
           id_persona: alumno.id_persona,
           username: usuario
         };
         
-        // Solo incluir password si se ingresó algo
         if (password && password.trim().length > 0) {
           bodyData.password = password;
         }
@@ -4988,7 +4751,6 @@ async function eliminarAlumno(id, nombre) {
   }
 }
 
-// Función para cambiar password Dashboard del alumno
 async function cambiarPasswordAlumnoDashboard(idAlumno) {
   const { value: formValues } = await Swal.fire({
     title: 'Cambiar Contraseña Dashboard',
@@ -5056,7 +4818,6 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
   }
 }
 
-// Función para cambiar password Classroom del alumno
 async function cambiarPasswordAlumnoClassroom(idAlumno) {
   const { value: formValues } = await Swal.fire({
     title: 'Cambiar Contraseña Classroom',
@@ -5104,7 +4865,6 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
 
   if (formValues) {
     try {
-      // Primero obtener id_persona del alumno
       const alumnoRes = await fetch(`${API_URL}/alumnos/${idAlumno}`);
       const alumno = await alumnoRes.json();
       
@@ -5176,7 +4936,6 @@ async function openNuevoProfesorModal() {
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#1e3c72',
     didOpen: async () => {
-      // Cargar idiomas cuando se abre el modal
       try {
         const resp = await fetch(`${API_URL}/idiomas`);
         const idiomas = await resp.json();
@@ -5204,7 +4963,6 @@ async function openNuevoProfesorModal() {
       const especialidad = document.getElementById('especialidad').value;
       const telefono = document.getElementById('telefono').value;
       
-      // Obtener idiomas seleccionados
       const idiomasSeleccionados = Array.from(document.querySelectorAll('.idioma-checkbox:checked'))
         .map(cb => parseInt(cb.value));
       
@@ -5250,7 +5008,6 @@ async function openNuevoProfesorModal() {
       console.log('Datos recibidos:', data);
       
       if (res.ok && data.success) {
-        // Profesor creado exitosamente, ahora solicitar credenciales
         const idProfesor = data.id_profesor;
         const nombreCompleto = `${formValues.nombre} ${formValues.apellido}`;
         
@@ -5262,7 +5019,6 @@ async function openNuevoProfesorModal() {
           showConfirmButton: false
         });
 
-        // Abrir modal para crear credenciales
         await crearCredencialesProfesor(idProfesor, nombreCompleto);
         
         document.getElementById('btnProfesores').click();
@@ -5277,7 +5033,6 @@ async function openNuevoProfesorModal() {
   }
 }
 
-// Función para crear credenciales de acceso para profesor
 async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
   const { value: credenciales } = await Swal.fire({
     title: 'Crear Credenciales de Acceso',
@@ -5336,7 +5091,6 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
 
   if (credenciales) {
     try {
-      // Crear usuario
       const res = await fetch(`${API_URL}/profesores/${idProfesor}/credenciales`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -5356,7 +5110,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
               <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              ⚠️ Guarda estas credenciales de forma segura
+              ️ Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#1e3c72'
@@ -5373,11 +5127,9 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
 
 async function editarProfesor(id) {
   try {
-    // Obtener datos del profesor
     const res = await fetch(`${API_URL}/profesores/${id}`);
     const profesor = await res.json();
     
-    // Obtener todos los idiomas disponibles
     const idiomasRes = await fetch(`${API_URL}/idiomas`);
     const idiomas = await idiomasRes.json();
     
@@ -5440,7 +5192,6 @@ async function editarProfesor(id) {
       confirmButtonColor: '#1e3c72',
       denyButtonColor: '#6b7280',
       didOpen: () => {
-        // Renderizar iconos de Lucide
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
         }
@@ -5454,7 +5205,6 @@ async function editarProfesor(id) {
         const telefono = document.getElementById('telefono').value.trim();
         const estado = document.getElementById('estado').value;
         
-        // Obtener idiomas seleccionados
         const idiomasSeleccionados = Array.from(
           document.querySelectorAll('#idiomasContainerEditar input[type="checkbox"]:checked')
         ).map(cb => parseInt(cb.value));
@@ -5467,7 +5217,6 @@ async function editarProfesor(id) {
       }
     });
 
-    // Si presionó "Editar Credenciales"
     if (isDenied) {
       await abrirModalCredencialesProfesor(id);
       return;
@@ -5530,9 +5279,6 @@ async function eliminarProfesor(id, nombre) {
   }
 }
 
-// =====================================================
-// 8️⃣ FUNCIONES ADMINISTRATIVAS DE ADMINISTRADORES
-// =====================================================
 
 function setupAdministradorFilters() {
   const searchInput = document.getElementById('administradoresSearch');
@@ -5663,7 +5409,6 @@ async function openNuevoAdministradorModal() {
 
 async function editarAdministrador(id) {
   try {
-    // Cargar datos del administrador
     const res = await fetch(`${API_URL}/administradores/${id}`);
     const admin = await res.json();
 
@@ -5704,7 +5449,6 @@ async function editarAdministrador(id) {
       confirmButtonColor: '#000',
       denyButtonColor: '#6b7280',
       didOpen: () => {
-        // Renderizar iconos de Lucide
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
         }
@@ -5725,7 +5469,6 @@ async function editarAdministrador(id) {
       }
     });
 
-    // Si presionó "Editar Credenciales"
     if (isDenied) {
       await abrirModalCredencialesAdministrador(id);
       return;
@@ -5755,12 +5498,10 @@ async function editarAdministrador(id) {
 
 async function abrirModalCredencialesAdministrador(idAdmin) {
   try {
-    // Cargar datos del administrador
     const response = await fetch(`${API_URL}/administradores/${idAdmin}`);
     if (!response.ok) throw new Error('Error al cargar datos del administrador');
     const admin = await response.json();
 
-    // Obtener password_plain desde tabla usuarios
     let passwordActual = '';
     try {
       const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${admin.id_persona}`);
@@ -5816,7 +5557,6 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#000',
       didOpen: () => {
-        // Renderizar iconos de Lucide
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
         }
@@ -5824,7 +5564,6 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
         const usuarioActualAdmin = "${admin.usuario || ''}";
         const passwordActualAdmin = "${passwordActual}";
 
-        // Efecto de placeholder al hacer focus/blur en usuario
         const inputUsuario = document.getElementById('usuarioDashboard');
         inputUsuario.addEventListener('blur', () => {
           if (inputUsuario.value.trim() === '') {
@@ -5835,7 +5574,6 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
           }
         });
 
-        // Efecto de placeholder al hacer focus/blur en password
         const inputDash = document.getElementById('passwordDashboard');
         inputDash.addEventListener('blur', () => {
           if (inputDash.value.trim() === '') {
@@ -5846,7 +5584,6 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
           }
         });
 
-        // Toggle password visibility - Dashboard
         const toggleDash = document.getElementById('togglePasswordDashboard');
         
         toggleDash.addEventListener('click', () => {
@@ -5864,10 +5601,8 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
         const usuarioActualAdmin = "${admin.usuario || ''}";
         const passwordActualAdmin = "${passwordActual}";
 
-        // Si el usuario está vacío o es el mismo que el actual, usar el actual
         const nuevoUsuario = (usuarioDash === '' || usuarioDash === usuarioActualAdmin) ? usuarioActualAdmin : usuarioDash;
         
-        // Si el password está vacío o es el mismo que el actual, no actualizar
         const nuevoPassword = (passwordDash === '' || passwordDash === passwordActualAdmin) ? '' : passwordDash;
 
         if (!nuevoUsuario) {
@@ -5885,7 +5620,6 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
     if (formValues) {
       const { usuarioDashboard, passwordDashboard } = formValues;
 
-      // 1. Actualizar usuario del Dashboard
       try {
         const responseUsuario = await fetch(`${API_URL}/administradores/${idAdmin}/usuario`, {
           method: 'PATCH',
@@ -5905,7 +5639,6 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
         return;
       }
 
-      // 2. Actualizar contraseña del Dashboard (solo si se ingresó algo)
       if (passwordDashboard && passwordDashboard.length > 0) {
         try {
           const responsePassword = await fetch(`${API_URL}/administradores/${idAdmin}/cambiar-password`, {
@@ -6032,7 +5765,6 @@ async function eliminarAdministrador(id, nombre) {
 // ===== GESTIÓN DE CURSOS ===== //
 async function openNuevoCursoModal() {
   try {
-    // Cargar idiomas, niveles, profesores y aulas
     const [idiomasRes, nivelesRes, profesoresRes, aulasRes] = await Promise.all([
       fetch(`${API_URL}/idiomas`),
       fetch(`${API_URL}/niveles`),
@@ -6146,7 +5878,6 @@ async function openNuevoCursoModal() {
 
 async function editarCurso(id) {
   try {
-    // Cargar datos del curso y opciones
     const [cursoRes, idiomasRes, nivelesRes, profesoresRes, aulasRes] = await Promise.all([
       fetch(`${API_URL}/cursos/${id}`),
       fetch(`${API_URL}/idiomas`),
@@ -6281,12 +6012,8 @@ async function eliminarCurso(id, nombre) {
   }
 }
 
-// =====================================================
-// ASIGNAR PROFESOR A CURSO
-// =====================================================
 async function asignarProfesorACurso(idCurso, nombreCurso) {
   try {
-    // Cargar lista de profesores activos
     const res = await fetch(`${API_URL}/profesores`);
     const profesores = await res.json();
     
@@ -6295,7 +6022,6 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
       return;
     }
 
-    // Filtrar solo profesores activos
     const profesoresActivos = profesores.filter(p => p.estado === 'activo');
     
     if (profesoresActivos.length === 0) {
@@ -6303,7 +6029,6 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
       return;
     }
 
-    // Crear opciones para el select
     const opcionesHTML = profesoresActivos.map(p => 
       `<option value="${p.id_profesor}">${p.nombre} ${p.apellido} - ${p.especialidad || 'Sin especialidad'}</option>`
     ).join('');
@@ -6335,7 +6060,6 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
     });
 
     if (idProfesor) {
-      // Realizar la asignación
       const updateRes = await fetch(`${API_URL}/cursos/${idCurso}/profesor`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -6352,7 +6076,6 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
           timer: 2000,
           showConfirmButton: false
         });
-        // Recargar la lista de cursos
         document.getElementById('btnCursos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al asignar profesor', 'error');
@@ -6364,14 +6087,9 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
   }
 }
 
-// =====================================================
-// 🎨 ANIMACIONES PARA INDEX.HTML
-// =====================================================
 
-// Intersection Observer para animaciones on scroll
 if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
   document.addEventListener('DOMContentLoaded', () => {
-    // Observer para elementos que aparecen al hacer scroll (estilo Apple - se repiten)
     const observerOptions = {
       threshold: 0.15,
       rootMargin: '0px 0px -50px 0px'
@@ -6402,7 +6120,6 @@ if (window.location.pathname.includes('index.html') || window.location.pathname 
       observer.observe(card);
     });
 
-    // Observer para imágenes con fade-in (se repiten)
     const imageObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -6424,7 +6141,6 @@ if (window.location.pathname.includes('index.html') || window.location.pathname 
       imageObserver.observe(img);
     });
 
-    // Efecto parallax suave (solo en el hero principal)
     let ticking = false;
     window.addEventListener('scroll', () => {
       if (!ticking) {
@@ -6440,7 +6156,6 @@ if (window.location.pathname.includes('index.html') || window.location.pathname 
       }
     });
 
-    // Animación de números en stats
     const animateNumber = (element, target) => {
       const duration = 2000;
       const start = 0;
@@ -6458,7 +6173,6 @@ if (window.location.pathname.includes('index.html') || window.location.pathname 
       }, 16);
     };
 
-    // Observer para stats (se repiten cada vez)
     const statsObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -6485,7 +6199,6 @@ if (window.location.pathname.includes('index.html') || window.location.pathname 
   });
 }
 
-// CSS para elementos visibles (animaciones repetibles estilo Apple)
 const style = document.createElement('style');
 style.textContent = `
   .scroll-animate {
@@ -6523,9 +6236,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// =====================================================
-// 🎯 SMOOTH SCROLL MEJORADO
-// =====================================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
@@ -6539,9 +6249,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// =====================================================
-// ✨ RIPPLE EFFECT EN BOTONES
-// =====================================================
 function createRipple(event) {
   const button = event.currentTarget;
   const ripple = document.createElement('span');
@@ -6566,9 +6273,6 @@ buttons.forEach(button => {
   button.addEventListener('click', createRipple);
 });
 
-// =====================================================
-// GESTIÓN DE CUOTAS HABILITADAS
-// =====================================================
 
 async function loadCuotasGestion() {
   const container = document.getElementById('cuotasGestionContainer');
@@ -6578,7 +6282,7 @@ async function loadCuotasGestion() {
     <div style="max-width: 1400px; margin: 0 auto;">
       <div style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 32px;">
-          <h2 style="margin: 0; color: #1f2937; font-size: 28px;">🔓 Gestión de Cuotas Disponibles</h2>
+          <h2 style="margin: 0; color: #1f2937; font-size: 28px;"> Gestión de Cuotas Disponibles</h2>
           <p style="margin: 8px 0 0 0; color: #6b7280;">Controla qué cuotas pueden pagar los alumnos en cada curso</p>
         </div>
 
@@ -6594,7 +6298,6 @@ async function loadCuotasGestion() {
 
   if (typeof lucide !== 'undefined') lucide.createIcons();
 
-  // Cargar cursos
   try {
     const response = await fetch(`${API_URL}/cursos`);
     const cursos = await response.json();
@@ -6648,7 +6351,6 @@ async function loadCuotasGestion() {
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
 
-    // Cargar preview de cuotas para cada curso
     cursos.forEach(async (curso) => {
       try {
         const resC = await fetch(`${API_URL}/cursos/${curso.id_curso}/cuotas`);
@@ -6700,7 +6402,6 @@ async function loadCuotasGestion() {
 
 async function gestionarCuotasCurso(idCurso, nombreCurso) {
   try {
-    // Primero solicitar la clave de cobranzas
     const passwordResponse = await fetch(`${API_URL}/config/cobranzas-password`);
     const passwordData = await passwordResponse.json();
     const claveCorrecta = passwordData.password || 'tesoreria';
@@ -6728,7 +6429,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
           .unlock-animation { animation: unlock 0.6s ease; }
         </style>
         <div style="text-align: center; padding: 20px;">
-          <div id="lock-icon" class="lock-icon">🔒</div>
+          <div id="lock-icon" class="lock-icon"></div>
           <p style="margin-bottom: 24px; color: #6b7280; font-size: 15px;">
             Ingrese la clave asignada para ingresar
           </p>
@@ -6743,11 +6444,9 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
       cancelButtonColor: '#757575',
       focusConfirm: false,
       didOpen: () => {
-        // Inicializar Lucide icons
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
         }
-        // Focus en el input
         document.getElementById('swal-password').focus();
       },
       preConfirm: () => {
@@ -6765,27 +6464,24 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
           return false;
         }
         
-        // Validar contraseña
         if (password !== claveCorrecta) {
-          lockIcon.textContent = '🔒';
+          lockIcon.textContent = '';
           lockIcon.classList.add('shake');
           lockIcon.style.color = '#ef4444';
           setTimeout(() => {
             lockIcon.classList.remove('shake');
             lockIcon.style.color = '';
           }, 500);
-          Swal.showValidationMessage('❌ Clave incorrecta');
+          Swal.showValidationMessage(' Clave incorrecta');
           return false;
         }
         
-        // Contraseña correcta - animación de apertura suave
         return new Promise((resolve) => {
           setTimeout(() => {
-            lockIcon.textContent = '🔓';
+            lockIcon.textContent = '';
             lockIcon.classList.add('unlock-animation');
             lockIcon.style.color = '#10b981';
             
-            // Esperar a que termine la animación (600ms) antes de cerrar
             setTimeout(() => {
               resolve(password);
             }, 700);
@@ -6794,13 +6490,10 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
       }
     });
 
-    // Si canceló o no ingresó nada, salir
     if (!claveIngresada) {
       return;
     }
 
-    // Clave correcta - mostrar gestión de cuotas
-    // Obtener cuotas actuales del curso
     const response = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`);
     const data = await response.json();
 
@@ -6808,7 +6501,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
     const cuotasActuales = data.cuotasHabilitadas || [];
 
     const result = await Swal.fire({
-      title: `🔓 Gestionar Cuotas`,
+      title: ` Gestionar Cuotas`,
       html: `
         <div style="text-align: left;">
           <p style="margin-bottom: 20px; color: #6b7280;">
@@ -6825,7 +6518,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
           </div>
           <div style="margin-top: 20px; padding: 16px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px;">
             <p style="margin: 0; font-size: 14px; color: #1e40af;">
-              💡 <strong>Tip:</strong> Los alumnos solo verán y podrán pagar las cuotas seleccionadas.
+               <strong>Tip:</strong> Los alumnos solo verán y podrán pagar las cuotas seleccionadas.
             </p>
           </div>
         </div>
@@ -6847,7 +6540,6 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
     if (result.isConfirmed) {
       const cuotasSeleccionadas = result.value || [];
 
-      // Guardar cuotas
       const saveResponse = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -6859,13 +6551,12 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
       if (saveData.success) {
         await Swal.fire({
           icon: 'success',
-          title: '✅ Cuotas Actualizadas',
+          title: ' Cuotas Actualizadas',
           text: `Las cuotas han sido actualizadas para ${nombreCurso}`,
           timer: 2000,
           showConfirmButton: false
         });
 
-        // Recargar la vista de cuotas
         loadCuotasGestion();
       } else {
         throw new Error(saveData.message || 'Error al guardar');
@@ -6886,7 +6577,7 @@ async function liberarCuotasTodasLosCursos() {
   const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
 
   const result = await Swal.fire({
-    title: '🌍 Liberar Cuotas para TODOS los Cursos',
+    title: ' Liberar Cuotas para TODOS los Cursos',
     html: `
       <div style="text-align: left;">
         <p style="margin-bottom: 20px; color: #6b7280;">
@@ -6902,7 +6593,7 @@ async function liberarCuotasTodasLosCursos() {
         </div>
         <div style="margin-top: 20px; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
           <p style="margin: 0; font-size: 14px; color: #92400e;">
-            ⚠️ <strong>Atención:</strong> Esto sobrescribirá la configuración de TODOS los cursos.
+            ️ <strong>Atención:</strong> Esto sobrescribirá la configuración de TODOS los cursos.
           </p>
         </div>
       </div>
@@ -6942,13 +6633,12 @@ async function liberarCuotasTodasLosCursos() {
       if (data.success) {
         await Swal.fire({
           icon: 'success',
-          title: '✅ Cuotas Actualizadas',
+          title: ' Cuotas Actualizadas',
           text: `Las cuotas han sido actualizadas para ${data.cursos_actualizados} cursos`,
           timer: 2500,
           showConfirmButton: false
         });
 
-        // Recargar la vista
         loadCuotasGestion();
       } else {
         throw new Error(data.message || 'Error al guardar');
@@ -6965,7 +6655,6 @@ async function liberarCuotasTodasLosCursos() {
   }
 }
 
-// CSS para ripple effect
 const rippleStyle = document.createElement('style');
 rippleStyle.textContent = `
   button {
@@ -6993,20 +6682,17 @@ document.head.appendChild(rippleStyle);
 
 // ===== GENERACIÓN DE PDFs ===== //
 
-// Función para descargar PDF de Alumnos
 async function descargarPDFAlumnos() {
   try {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // Obtener datos de alumnos con sus inscripciones
     const responseAlumnos = await fetch(`${API_URL}/alumnos`);
     const alumnos = await responseAlumnos.json();
     
     const responseInscripciones = await fetch(`${API_URL}/inscripciones`);
     const inscripciones = await responseInscripciones.json();
     
-    // Agrupar inscripciones por alumno
     const inscripcionesPorAlumno = {};
     inscripciones.forEach(insc => {
       if (!inscripcionesPorAlumno[insc.id_alumno]) {
@@ -7017,7 +6703,6 @@ async function descargarPDFAlumnos() {
       }
     });
     
-    // Agregar logo
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
@@ -7028,17 +6713,14 @@ async function descargarPDFAlumnos() {
       img.onerror = resolve; // Continuar si falla la carga del logo
     });
     
-    // Título
     doc.setFontSize(20);
     doc.setTextColor(25, 118, 210); // Azul del sistema
     doc.text('CEMI - Listado de Alumnos', 14, 25);
     
-    // Fecha
     doc.setFontSize(10);
     doc.setTextColor(100);
     doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')}`, 14, 32);
     
-    // Preparar datos para la tabla
     const tableData = alumnos.map(alumno => {
       const nombreCompleto = `${alumno.nombre || ''} ${alumno.apellido || ''}`.trim() || '-';
       const cursos = inscripcionesPorAlumno[alumno.id_alumno]?.join(', ') || 'Sin cursos';
@@ -7053,7 +6735,6 @@ async function descargarPDFAlumnos() {
       ];
     });
     
-    // Crear tabla
     doc.autoTable({
       startY: 45,
       head: [['Nombre Completo', 'Email', 'Teléfono', 'DNI', 'Cursos Inscritos', 'Estado']],
@@ -7082,7 +6763,6 @@ async function descargarPDFAlumnos() {
       margin: { left: 14, right: 14 }
     });
     
-    // Footer
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
@@ -7096,7 +6776,6 @@ async function descargarPDFAlumnos() {
       );
     }
     
-    // Descargar
     doc.save(`CEMI_Alumnos_${new Date().toISOString().split('T')[0]}.pdf`);
     
     showToast('PDF descargado exitosamente', 'success');
@@ -7106,20 +6785,17 @@ async function descargarPDFAlumnos() {
   }
 }
 
-// Función para descargar PDF de Profesores
 async function descargarPDFProfesores() {
   try {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // Obtener datos de profesores con sus cursos
     const responseProfesores = await fetch(`${API_URL}/profesores`);
     const profesores = await responseProfesores.json();
     
     const responseCursos = await fetch(`${API_URL}/cursos`);
     const cursos = await responseCursos.json();
     
-    // Agrupar cursos por profesor
     const cursosPorProfesor = {};
     cursos.forEach(curso => {
       if (!cursosPorProfesor[curso.id_profesor]) {
@@ -7128,7 +6804,6 @@ async function descargarPDFProfesores() {
       cursosPorProfesor[curso.id_profesor].push(curso.nombre_curso);
     });
     
-    // Agregar logo
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
@@ -7139,17 +6814,14 @@ async function descargarPDFProfesores() {
       img.onerror = resolve;
     });
     
-    // Título
     doc.setFontSize(20);
     doc.setTextColor(25, 118, 210);
     doc.text('CEMI - Listado de Profesores', 14, 25);
     
-    // Fecha
     doc.setFontSize(10);
     doc.setTextColor(100);
     doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')}`, 14, 32);
     
-    // Preparar datos para la tabla
     const tableData = profesores.map(profesor => {
       const nombreCompleto = `${profesor.nombre || ''} ${profesor.apellido || ''}`.trim() || '-';
       const cursos = cursosPorProfesor[profesor.id_profesor]?.join(', ') || 'Sin cursos asignados';
@@ -7164,7 +6836,6 @@ async function descargarPDFProfesores() {
       ];
     });
     
-    // Crear tabla
     doc.autoTable({
       startY: 45,
       head: [['Nombre Completo', 'Email', 'Teléfono', 'Especialidad', 'Cursos que Dicta', 'Estado']],
@@ -7193,7 +6864,6 @@ async function descargarPDFProfesores() {
       margin: { left: 14, right: 14 }
     });
     
-    // Footer
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
@@ -7207,7 +6877,6 @@ async function descargarPDFProfesores() {
       );
     }
     
-    // Descargar
     doc.save(`CEMI_Profesores_${new Date().toISOString().split('T')[0]}.pdf`);
     
     showToast('PDF descargado exitosamente', 'success');
@@ -7223,7 +6892,6 @@ async function generarComprobantePago(idPago) {
   try {
     const { jsPDF } = window.jspdf;
     
-    // Obtener datos del pago
     const response = await fetch(`${API_URL}/pagos/${idPago}`);
     const pago = await response.json();
     
@@ -7231,7 +6899,6 @@ async function generarComprobantePago(idPago) {
       throw new Error('No se encontró el pago');
     }
     
-    // Crear PDF en formato ticket (más angosto)
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -7240,7 +6907,6 @@ async function generarComprobantePago(idPago) {
     
     let yPos = 15;
     
-    // Logo (más pequeño para ticket)
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
@@ -7253,18 +6919,15 @@ async function generarComprobantePago(idPago) {
     
     yPos += 35;
     
-    // Título
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
     doc.text('COMPROBANTE DE PAGO', 40, yPos, { align: 'center' });
     yPos += 8;
     
-    // Línea separadora
     doc.setDrawColor(200);
     doc.line(10, yPos, 70, yPos);
     yPos += 8;
     
-    // Número de comprobante
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
     doc.text('N° Comprobante:', 40, yPos, { align: 'center' });
@@ -7275,7 +6938,6 @@ async function generarComprobantePago(idPago) {
     doc.setTextColor(0);
     yPos += 10;
     
-    // Fecha
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.text(`Fecha: ${new Date(pago.fecha_pago).toLocaleDateString('es-ES', {
@@ -7285,11 +6947,9 @@ async function generarComprobantePago(idPago) {
     })}`, 40, yPos, { align: 'center' });
     yPos += 10;
     
-    // Línea separadora
     doc.line(10, yPos, 70, yPos);
     yPos += 7;
     
-    // Información del alumno
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.text('DATOS DEL ALUMNO', 40, yPos, { align: 'center' });
@@ -7315,11 +6975,9 @@ async function generarComprobantePago(idPago) {
     doc.text(String(pago.dni) || '-', 68, yPos, { align: 'right' });
     yPos += 6;
     
-    // Línea separadora
     doc.line(10, yPos, 70, yPos);
     yPos += 5;
     
-    // Detalles del pago
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.text('DETALLES DEL PAGO', 40, yPos, { align: 'center' });
@@ -7354,7 +7012,6 @@ async function generarComprobantePago(idPago) {
     doc.text(pago.medio_pago || '-', 68, yPos, { align: 'right' });
     yPos += 6;
     
-    // Monto destacado
     doc.setFillColor(25, 118, 210);
     doc.rect(10, yPos, 60, 10, 'F');
     doc.setTextColor(255);
@@ -7366,20 +7023,17 @@ async function generarComprobantePago(idPago) {
     doc.setTextColor(0);
     yPos += 14;
     
-    // Estado
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(76, 175, 80);
-    doc.text('✓ PAGO CONFIRMADO', 40, yPos, { align: 'center' });
+    doc.text(' PAGO CONFIRMADO', 40, yPos, { align: 'center' });
     doc.setTextColor(0);
     yPos += 7;
     
-    // Línea separadora
     doc.setDrawColor(200);
     doc.line(10, yPos, 70, yPos);
     yPos += 5;
     
-    // Información adicional
     doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(100);
@@ -7390,7 +7044,6 @@ async function generarComprobantePago(idPago) {
     doc.setFontSize(6);
     doc.text('Este documento es un comprobante válido de pago', 40, yPos, { align: 'center' });
     
-    // Descargar
     const nombreArchivo = `Comprobante_${String(pago.id_pago).padStart(6, '0')}_${pago.alumno.replace(/\s+/g, '_')}.pdf`;
     doc.save(nombreArchivo);
     

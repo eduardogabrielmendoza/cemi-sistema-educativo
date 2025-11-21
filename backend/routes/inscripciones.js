@@ -1,4 +1,3 @@
-// backend/routes/inscripciones.js
 import express from "express";
 import pool from "../utils/db.js";
 
@@ -27,7 +26,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Obtener inscripciones de un alumno específico
 router.get("/alumno/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -60,7 +58,6 @@ router.get("/alumno/:id", async (req, res) => {
   }
 });
 
-// Obtener alumnos inscritos en un curso específico
 router.get("/curso/:id", async (req, res) => {
   try {
     const id_profesor = req.query.id_profesor;
@@ -84,7 +81,6 @@ router.get("/curso/:id", async (req, res) => {
     
     const params = [req.params.id];
     
-    // Si es un profesor, verificar que el curso le pertenezca
     if (id_profesor) {
       query += ` AND EXISTS (SELECT 1 FROM cursos cu WHERE cu.id_curso = i.id_curso AND cu.id_profesor = ?)`;
       params.push(id_profesor);
@@ -99,7 +95,6 @@ router.get("/curso/:id", async (req, res) => {
   }
 });
 
-// Crear inscripciones (admitir un alumno o un array de alumnos)
 router.post("/", async (req, res) => {
   try {
     const { id_curso, alumnos } = req.body;
@@ -109,10 +104,8 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "Debe enviar al menos un alumno" });
     }
 
-    // Normalizar a array
     const lista = Array.isArray(alumnos) ? alumnos : [alumnos];
 
-    // Inserción en bloque. Usamos valores con fecha actual y estado 'activo'
     const values = lista.map(id_alumno => [id_alumno, id_curso, new Date(), 'activo']);
 
     const [result] = await pool.query(
@@ -120,7 +113,6 @@ router.post("/", async (req, res) => {
       [values]
     );
 
-    // Obtener información del curso y profesor para notificaciones
     const [cursoInfo] = await pool.query(
       `SELECT c.nombre_curso, c.id_profesor
        FROM cursos c
@@ -131,7 +123,6 @@ router.post("/", async (req, res) => {
     if (cursoInfo.length > 0) {
       const curso = cursoInfo[0];
       
-      // Crear notificación para cada alumno inscrito
       for (const id_alumno of lista) {
         const [alumnoInfo] = await pool.query(
           `SELECT CONCAT(p.nombre, ' ', p.apellido) AS nombre
@@ -142,7 +133,6 @@ router.post("/", async (req, res) => {
         );
 
         if (alumnoInfo.length > 0) {
-          // Notificación para el profesor
           await pool.query(
             `INSERT INTO notificaciones 
              (id_usuario, tipo_usuario, tipo_notificacion, titulo, mensaje, link, id_referencia) 
@@ -166,7 +156,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Dar de baja una inscripción (cambiar estado a 'inactivo')
 router.delete("/:id_curso/:id_alumno", async (req, res) => {
   try {
     const { id_curso, id_alumno } = req.params;

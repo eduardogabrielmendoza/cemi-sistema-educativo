@@ -1,22 +1,16 @@
-// backend/routes/stats.js
 import express from "express";
 import pool from "../utils/db.js";
 
 const router = express.Router();
 
-// Estadísticas generales para el dashboard
 router.get("/general", async (req, res) => {
   try {
-    // Total de alumnos
     const [alumnos] = await pool.query("SELECT COUNT(*) as total FROM Alumnos WHERE estado = 'activo'");
     
-    // Total de profesores
     const [profesores] = await pool.query("SELECT COUNT(*) as total FROM Profesores WHERE estado = 'activo'");
     
-    // Total de cursos
     const [cursos] = await pool.query("SELECT COUNT(*) as total FROM Cursos");
     
-    // Ingresos del mes actual
     const [pagos] = await pool.query(`
       SELECT COALESCE(SUM(monto), 0) as total 
       FROM Pagos 
@@ -37,7 +31,6 @@ router.get("/general", async (req, res) => {
   }
 });
 
-// Últimos registros (alumnos y profesores)
 router.get("/ultimos-registros", async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -72,7 +65,6 @@ router.get("/ultimos-registros", async (req, res) => {
   }
 });
 
-// Últimos pagos
 router.get("/ultimos-pagos", async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -96,7 +88,6 @@ router.get("/ultimos-pagos", async (req, res) => {
   }
 });
 
-// Ingresos por mes (últimos 6 meses)
 router.get("/ingresos-mensuales", async (req, res) => {
   try {
     const [rows] = await pool.query(`

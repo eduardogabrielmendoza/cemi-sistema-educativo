@@ -1,10 +1,8 @@
-// backend/routes/niveles.js
 import express from "express";
 import pool from "../utils/db.js";
 
 const router = express.Router();
 
-// Obtener todos los niveles
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM niveles ORDER BY id_nivel');

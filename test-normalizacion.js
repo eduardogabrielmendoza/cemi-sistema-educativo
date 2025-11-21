@@ -9,10 +9,9 @@ async function testNormalizacion() {
     database: 'railway'
   });
 
-  console.log('✅ Conectado a Railway\n');
+  console.log(' Conectado a Railway\n');
 
-  // Test 1: Obtener admin activo
-  console.log('🔍 TEST 1: Obtener administrador activo');
+  console.log(' TEST 1: Obtener administrador activo');
   const [admins] = await conn.query(`
     SELECT 
       u.username,
@@ -29,8 +28,7 @@ async function testNormalizacion() {
   console.log('Admin encontrado:', admins[0]);
   console.log('');
 
-  // Test 2: Obtener profesor activo
-  console.log('🔍 TEST 2: Obtener profesor activo');
+  console.log(' TEST 2: Obtener profesor activo');
   const [profesores] = await conn.query(`
     SELECT 
       u.username,
@@ -46,8 +44,7 @@ async function testNormalizacion() {
   console.log('Profesor encontrado:', profesores[0]);
   console.log('');
 
-  // Test 3: Obtener alumno activo
-  console.log('🔍 TEST 3: Obtener alumno activo');
+  console.log(' TEST 3: Obtener alumno activo');
   const [alumnos] = await conn.query(`
     SELECT 
       u.username,
@@ -63,18 +60,17 @@ async function testNormalizacion() {
   console.log('Alumno encontrado:', alumnos[0]);
   console.log('');
 
-  // Test 4: Verificar que NO existen columnas antiguas
-  console.log('🔍 TEST 4: Verificar que columnas redundantes fueron eliminadas');
+  console.log(' TEST 4: Verificar que columnas redundantes fueron eliminadas');
   const [alumnosColumns] = await conn.query(`SHOW COLUMNS FROM alumnos`);
   const tieneUsuario = alumnosColumns.some(col => col.Field === 'usuario');
   const tienePassword = alumnosColumns.some(col => col.Field === 'password_hash');
   
-  console.log('Tabla alumnos tiene columna "usuario":', tieneUsuario ? '❌ ERROR' : '✅ CORRECTO');
-  console.log('Tabla alumnos tiene columna "password_hash":', tienePassword ? '❌ ERROR' : '✅ CORRECTO');
+  console.log('Tabla alumnos tiene columna "usuario":', tieneUsuario ? ' ERROR' : ' CORRECTO');
+  console.log('Tabla alumnos tiene columna "password_hash":', tienePassword ? ' ERROR' : ' CORRECTO');
   console.log('');
 
   await conn.end();
-  console.log('✅ Todas las verificaciones completadas');
+  console.log(' Todas las verificaciones completadas');
 }
 
 testNormalizacion().catch(console.error);

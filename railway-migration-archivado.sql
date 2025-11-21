@@ -1,8 +1,4 @@
--- Railway Database Migration Script
--- Se ejecuta automáticamente al desplegar en Railway
--- Para ejecutar manualmente: Conectarse a la base de datos de Railway y ejecutar este script
 
--- Verificar y agregar columna archivado si no existe
 SET @dbname = DATABASE();
 SET @tablename = 'pagos';
 SET @columnname = 'archivado';
@@ -22,7 +18,6 @@ PREPARE alterIfNotExists FROM @preparedStatement;
 EXECUTE alterIfNotExists;
 DEALLOCATE PREPARE alterIfNotExists;
 
--- Crear índice si no existe
 SET @indexname = 'idx_archivado';
 SET @preparedStatement = (SELECT IF(
   (

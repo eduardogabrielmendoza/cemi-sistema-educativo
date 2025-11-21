@@ -11,7 +11,6 @@
 <body class="login-body">
 
   <div class="login-wrapper">
-    <!-- Sección de bienvenida lateral -->
     <div class="login-side-panel admin-panel">
       <div class="side-panel-content">
         <div class="side-panel-icon admin-icon">
@@ -42,7 +41,6 @@
       </div>
     </div>
 
-    <!-- Formulario de login administrativo -->
     <div class="login-box">
       <div class="login-header">
         <img src="images/logo.png" alt="Logo CEMI" class="login-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
@@ -94,7 +92,6 @@
     </div>
   </div>
 
-  <!-- Config JS - MUST be first -->
   <script src="assets/js/config.js"></script>
   
   <script>
@@ -204,8 +201,8 @@
         const data = await response.json();
         
         if (response.ok && data.success) {
-          console.log('🔍 Rol recibido del backend:', data.rol);
-          console.log('📦 Data completa:', data);
+          console.log(' Rol recibido del backend:', data.rol);
+          console.log(' Data completa:', data);
           
           // Verificar que sea administrador (normalizar comparación)
           const rolNormalizado = (data.rol || '').toLowerCase().trim();

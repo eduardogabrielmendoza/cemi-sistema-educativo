@@ -1,6 +1,3 @@
-/* ====================================================
-   LOGIN SELECTOR - ESTILO GLASSMORPHISM
-   ==================================================== */
 
 :root {
   --primary-color: #667eea;
@@ -37,9 +34,6 @@ html {
   max-width: 100vw;
 }
 
-/* ====================================================
-   BACKGROUND Y ANIMACIÓN
-   ==================================================== */
 
 .selector-body {
   min-height: 100vh;
@@ -55,9 +49,6 @@ html {
   box-sizing: border-box;
 }
 
-/* ====================================================
-   FONDO ANIMADO CON ICONOS FLOTANTES
-   ==================================================== */
 
 .selector-background {
   position: absolute;
@@ -126,9 +117,6 @@ html {
   }
 }
 
-/* ====================================================
-   BOTÓN BACK
-   ==================================================== */
 
 .back-button {
   position: fixed;
@@ -185,9 +173,6 @@ html {
   66% { transform: translate(-30px, 50px) rotate(-5deg); }
 }
 
-/* ====================================================
-   WRAPPER PRINCIPAL
-   ==================================================== */
 
 .selector-wrapper {
   position: relative;
@@ -209,9 +194,6 @@ html {
   }
 }
 
-/* ====================================================
-   HEADER CON LOGO
-   ==================================================== */
 
 .selector-header {
   display: none; /* Oculto para optimizar espacio vertical */
@@ -257,9 +239,6 @@ html {
   font-weight: 400;
 }
 
-/* ====================================================
-   TÍTULO DE SELECCIÓN
-   ==================================================== */
 
 .selector-title {
   text-align: center;
@@ -284,9 +263,6 @@ html {
   color: #6b7c8f;
 }
 
-/* ====================================================
-   CARDS DE SELECCIÓN - GLASSMORPHISM
-   ==================================================== */
 
 .selector-cards {
   display: grid;
@@ -316,7 +292,6 @@ html {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Background con glassmorphism */
 .card-background {
   position: absolute;
   top: 0;
@@ -330,7 +305,6 @@ html {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Efecto de blur al hover */
 .card-background::before {
   content: '';
   position: absolute;
@@ -349,12 +323,10 @@ html {
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Background específico para Classroom */
 .classroom-bg {
   background-image: url('../../images/STOCK4.jpg');
 }
 
-/* Contenido de la card */
 .card-content {
   position: relative;
   z-index: 3;
@@ -368,7 +340,6 @@ html {
   transform: translateY(-8px);
 }
 
-/* Icono de la card */
 .card-icon {
   width: 72px;
   height: 72px;
@@ -386,7 +357,6 @@ html {
   position: relative;
 }
 
-/* Efecto de pulso/ondulación */
 .card-icon::before,
 .card-icon::after {
   content: '';
@@ -454,7 +424,6 @@ html {
   50% { transform: translateY(-8px); }
 }
 
-/* Título y descripción */
 .card-content h3 {
   font-size: 28px;
   font-weight: 700;
@@ -472,7 +441,6 @@ html {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Features list */
 .card-features {
   list-style: none;
   margin-bottom: 32px;
@@ -501,7 +469,6 @@ html {
   stroke-width: 2.5;
 }
 
-/* Botón de acción */
 .card-action {
   display: flex;
   align-items: center;
@@ -534,9 +501,6 @@ html {
   transform: translateX(6px);
 }
 
-/* ====================================================
-   FOOTER CON BOTÓN VOLVER
-   ==================================================== */
 
 .selector-footer {
   text-align: center;
@@ -578,9 +542,6 @@ html {
   transform: translateX(-4px);
 }
 
-/* ====================================================
-   RESPONSIVE
-   ==================================================== */
 
 @media (max-width: 768px) {
   .selector-header h1 {

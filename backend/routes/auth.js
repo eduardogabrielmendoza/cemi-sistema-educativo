@@ -1,4 +1,3 @@
-// backend/routes/auth.js
 import express from "express";
 import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
@@ -14,11 +13,7 @@ const ALLOW_PLAINTEXT = process.env.ALLOW_PLAINTEXT_LOGIN === "true";
 const isProd = NODE_ENV === "production";
 const isBcrypt = (h) => typeof h === "string" && h.startsWith("$2");
 
-// -------------------------
-// POST /api/auth/login
-// -------------------------
 router.post("/login", 
-  // Validaciones
   [
     body('username')
       .trim()
@@ -30,7 +25,6 @@ router.post("/login",
       .isLength({ min: 3 }).withMessage('Contraseña muy corta')
   ],
   async (req, res) => {
-  // Verificar errores de validación
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ 
@@ -49,7 +43,6 @@ router.post("/login",
   }
 
   try {
-    // NORMALIZADO: Buscar en tabla usuarios centralizada
     let [rows] = await pool.query(
       `SELECT 
         u.id_usuario,
@@ -74,7 +67,6 @@ router.post("/login",
     const user = rows[0];
     const stored = String(user.password_hash ?? "");
 
-    // Verificar contraseña
     let ok = false;
     if (isBcrypt(stored)) ok = bcrypt.compareSync(pw, stored);
     else if (ALLOW_PLAINTEXT && !isProd) ok = pw === stored;
@@ -85,7 +77,6 @@ router.post("/login",
 
     const rol = user.rol;
 
-    // Obtener ID específico según el rol
     let id_especifico = null;
     if (rol === 'administrador' || rol === 'admin') {
       const [admins] = await pool.query(
@@ -107,7 +98,6 @@ router.post("/login",
       id_especifico = alums[0]?.id_alumno;
     }
 
-    // Preparar respuesta según el rol
     const response = {
       success: true,
       message: "Login exitoso",
@@ -128,15 +118,11 @@ router.post("/login",
 
     return res.json(response);
   } catch (error) {
-    console.error("💥 /auth/login error:", error);
+    console.error(" /auth/login error:", error);
     return res.status(500).json({ success: false, message: "Error del servidor" });
   }
 });
 
-// -------------------------
-// POST /api/auth/register
-// Registro exclusivo para alumnos
-// -------------------------
 router.post("/register",
   [
     body('username')
@@ -182,7 +168,6 @@ router.post("/register",
     const { username, email, password, nombre, apellido, telefono, dni } = req.body;
 
     try {
-      // Verificar si el usuario ya existe en la tabla centralizada 'usuarios'
       const [existingUser] = await pool.query(
         "SELECT id_usuario FROM usuarios WHERE username = ?",
         [username.trim()]
@@ -195,7 +180,6 @@ router.post("/register",
         });
       }
 
-      // Verificar si el email ya existe (campo 'mail' en la tabla)
       const [existingEmail] = await pool.query(
         "SELECT id_persona FROM personas WHERE mail = ?",
         [email.trim()]
@@ -208,11 +192,9 @@ router.post("/register",
         });
       }
 
-      // Hash de la contraseña
       const salt = bcrypt.genSaltSync(10);
       const passwordHash = bcrypt.hashSync(password.trim(), salt);
 
-      // Obtener ID del perfil "alumno"
       const [perfiles] = await pool.query(
         "SELECT id_perfil FROM perfiles WHERE nombre_perfil = 'alumno'"
       );
@@ -226,12 +208,10 @@ router.post("/register",
 
       const id_perfil_alumno = perfiles[0].id_perfil;
 
-      // Transacción
       const connection = await pool.getConnection();
       await connection.beginTransaction();
 
       try {
-        // Insertar en personas
         const [personaResult] = await connection.query(
           `INSERT INTO personas (nombre, apellido, mail, telefono, dni, fecha_creacion)
            VALUES (?, ?, ?, ?, ?, NOW())`,
@@ -240,7 +220,6 @@ router.post("/register",
 
         const id_persona = personaResult.insertId;
 
-        // Insertar en usuarios (DASHBOARD)
         const [usuarioResult] = await connection.query(
           `INSERT INTO usuarios (id_persona, id_perfil, username, password_hash, password_plain, fecha_creacion)
            VALUES (?, ?, ?, ?, ?, NOW())`,
@@ -249,7 +228,6 @@ router.post("/register",
         
         const id_usuario = usuarioResult.insertId;
 
-        // Generar legajo automático (A001, A002, A003...)
         const [ultimoLegajo] = await connection.query(
           `SELECT legajo FROM alumnos WHERE legajo LIKE 'A%' ORDER BY legajo DESC LIMIT 1`
         );
@@ -261,7 +239,6 @@ router.post("/register",
           nuevoLegajo = 'A' + String(nuevoNumero).padStart(3, '0');
         }
 
-        // Insertar en alumnos (solo datos académicos, SIN credenciales)
         const [alumnoResult] = await connection.query(
           `INSERT INTO alumnos (id_alumno, id_persona, legajo, fecha_registro, estado)
            VALUES (?, ?, ?, NOW(), 'activo')`,
@@ -287,7 +264,7 @@ router.post("/register",
       }
 
     } catch (error) {
-      console.error("💥 /auth/register error:", error);
+      console.error(" /auth/register error:", error);
       
       if (error.code === 'ER_DUP_ENTRY') {
         return res.status(400).json({
@@ -304,10 +281,6 @@ router.post("/register",
   }
 );
 
-// -------------------------
-// POST /api/auth/cambiar-password
-// Cambiar contraseña del usuario autenticado
-// -------------------------
 router.post("/cambiar-password",
   [
     body('passwordActual')
@@ -328,8 +301,6 @@ router.post("/cambiar-password",
 
     const { passwordActual, passwordNueva } = req.body;
     
-    // Obtener usuario del token (si usas autenticación JWT)
-    // Por ahora usaremos el usuario del header o body
     const token = req.headers.authorization?.replace('Bearer ', '');
     
     if (!token) {
@@ -340,11 +311,8 @@ router.post("/cambiar-password",
     }
 
     try {
-      // Decodificar el token para obtener el ID del usuario
-      // Nota: Esto es una implementación básica, deberías usar JWT en producción
       const userId = parseInt(token); // Asumiendo que el token es el ID por ahora
 
-      // Obtener información del usuario actual
       const [usuarios] = await pool.query(
         'SELECT id_persona, password FROM personas WHERE id_persona = ?',
         [userId]
@@ -359,7 +327,6 @@ router.post("/cambiar-password",
 
       const usuario = usuarios[0];
 
-      // Verificar contraseña actual
       const passwordMatch = await bcrypt.compare(passwordActual, usuario.password);
       
       if (!passwordMatch) {
@@ -369,10 +336,8 @@ router.post("/cambiar-password",
         });
       }
 
-      // Hash de la nueva contraseña
       const hashedPassword = await bcrypt.hash(passwordNueva, 10);
 
-      // Actualizar contraseña
       await pool.query(
         'UPDATE personas SET password = ? WHERE id_persona = ?',
         [hashedPassword, userId]
@@ -384,7 +349,7 @@ router.post("/cambiar-password",
       });
 
     } catch (error) {
-      console.error("💥 /auth/cambiar-password error:", error);
+      console.error(" /auth/cambiar-password error:", error);
       return res.status(500).json({
         success: false,
         message: 'Error al cambiar la contraseña'
@@ -393,9 +358,6 @@ router.post("/cambiar-password",
   }
 );
 
-// POST /api/auth/cambiar-password-classroom
-// Cambiar contraseña del Classroom (usuarios tabla)
-// -------------------------
 router.post("/cambiar-password-classroom",
   [
     body('userId')
@@ -419,7 +381,6 @@ router.post("/cambiar-password-classroom",
     const { userId, passwordActual, passwordNueva } = req.body;
 
     try {
-      // Obtener usuario del Classroom
       const [usuarios] = await pool.query(
         'SELECT id_usuario, username, password_hash FROM usuarios WHERE id_usuario = ?',
         [userId]
@@ -435,7 +396,6 @@ router.post("/cambiar-password-classroom",
       const usuario = usuarios[0];
       const stored = String(usuario.password_hash ?? "");
 
-      // Verificar contraseña actual (soporta bcrypt y texto plano)
       let passwordMatch = false;
       if (isBcrypt(stored)) {
         passwordMatch = await bcrypt.compare(passwordActual, stored);
@@ -444,23 +404,21 @@ router.post("/cambiar-password-classroom",
       }
       
       if (!passwordMatch) {
-        console.log(`❌ Contraseña incorrecta para usuario ${usuario.username}. Tipo hash: ${isBcrypt(stored) ? 'bcrypt' : 'plaintext'}`);
+        console.log(` Contraseña incorrecta para usuario ${usuario.username}. Tipo hash: ${isBcrypt(stored) ? 'bcrypt' : 'plaintext'}`);
         return res.status(401).json({
           success: false,
           message: 'La contraseña actual del Classroom es incorrecta'
         });
       }
 
-      // Hash de la nueva contraseña
       const hashedPassword = await bcrypt.hash(passwordNueva, 10);
 
-      // Actualizar contraseña del Classroom
       await pool.query(
         'UPDATE usuarios SET password_hash = ? WHERE id_usuario = ?',
         [hashedPassword, userId]
       );
 
-      console.log(`✅ Contraseña del Classroom actualizada para usuario: ${usuario.username}`);
+      console.log(` Contraseña del Classroom actualizada para usuario: ${usuario.username}`);
 
       return res.json({
         success: true,
@@ -468,7 +426,7 @@ router.post("/cambiar-password-classroom",
       });
 
     } catch (error) {
-      console.error("💥 /auth/cambiar-password-classroom error:", error);
+      console.error(" /auth/cambiar-password-classroom error:", error);
       return res.status(500).json({
         success: false,
         message: 'Error al cambiar la contraseña del Classroom'
@@ -477,10 +435,6 @@ router.post("/cambiar-password-classroom",
   }
 );
 
-// -------------------------
-// POST /api/auth/cambiar-password-dashboard
-// Cambiar contraseña del Dashboard (separada del Classroom)
-// -------------------------
 router.post("/cambiar-password-dashboard",
   [
     body('username').trim().notEmpty().withMessage('El usuario es requerido'),
@@ -502,9 +456,8 @@ router.post("/cambiar-password-dashboard",
     const { username, passwordActual, passwordNueva } = req.body;
 
     try {
-      console.log(`🔑 Intentando cambiar contraseña del Dashboard para: ${username}`);
+      console.log(` Intentando cambiar contraseña del Dashboard para: ${username}`);
 
-      // Buscar usuario en la tabla centralizada 'usuarios'
       const [urows] = await pool.query(
         `SELECT u.id_usuario, u.username, u.password_hash, perf.nombre_perfil as tipo, p.id_persona
          FROM usuarios u
@@ -524,7 +477,6 @@ router.post("/cambiar-password-dashboard",
       const user = urows[0];
       const stored = String(user.password_hash ?? "");
 
-      // Verificar contraseña actual
       let passwordMatch = false;
       if (isBcrypt(stored)) {
         passwordMatch = await bcrypt.compare(passwordActual, stored);
@@ -533,23 +485,21 @@ router.post("/cambiar-password-dashboard",
       }
 
       if (!passwordMatch) {
-        console.log(`❌ Contraseña actual incorrecta para usuario ${user.username}`);
+        console.log(` Contraseña actual incorrecta para usuario ${user.username}`);
         return res.status(401).json({
           success: false,
           message: 'La contraseña actual del Dashboard es incorrecta'
         });
       }
 
-      // Hash de la nueva contraseña
       const hashedPassword = await bcrypt.hash(passwordNueva, 10);
 
-      // Actualizar contraseña en la tabla centralizada 'usuarios'
       await pool.query(
         'UPDATE usuarios SET password_hash = ? WHERE id_usuario = ?',
         [hashedPassword, user.id_usuario]
       );
 
-      console.log(`✅ Contraseña del Dashboard actualizada para usuario: ${user.username}`);
+      console.log(` Contraseña del Dashboard actualizada para usuario: ${user.username}`);
 
       return res.json({
         success: true,
@@ -557,7 +507,7 @@ router.post("/cambiar-password-dashboard",
       });
 
     } catch (error) {
-      console.error("💥 /auth/cambiar-password-dashboard error:", error);
+      console.error(" /auth/cambiar-password-dashboard error:", error);
       return res.status(500).json({
         success: false,
         message: 'Error al cambiar la contraseña del Dashboard'
@@ -566,10 +516,6 @@ router.post("/cambiar-password-dashboard",
   }
 );
 
-// -------------------------
-// GET /api/auth/usuario-classroom/:id_persona
-// Obtener usuario de classroom por id_persona (para admins)
-// -------------------------
 router.get("/usuario-classroom/:id_persona", async (req, res) => {
   const { id_persona } = req.params;
 
@@ -588,7 +534,7 @@ router.get("/usuario-classroom/:id_persona", async (req, res) => {
 
     res.json(rows[0]);
   } catch (error) {
-    console.error("💥 /auth/usuario-classroom error:", error);
+    console.error(" /auth/usuario-classroom error:", error);
     return res.status(500).json({
       success: false,
       message: 'Error al obtener usuario de Classroom'
@@ -596,11 +542,6 @@ router.get("/usuario-classroom/:id_persona", async (req, res) => {
   }
 });
 
-// -------------------------
-// POST /api/auth/admin-cambiar-password-classroom
-// Admin cambia usuario y/o contraseña (Dashboard y Classroom usan la misma)
-// Recibe: id_persona, username, password (opcional)
-// -------------------------
 router.post("/admin-cambiar-password-classroom",
   [
     body('id_persona').isInt().withMessage('ID de persona inválido'),
@@ -619,9 +560,8 @@ router.post("/admin-cambiar-password-classroom",
     const { id_persona, username, password } = req.body;
 
     try {
-      console.log(`🔑 Admin actualizando credenciales para id_persona: ${id_persona}`);
+      console.log(` Admin actualizando credenciales para id_persona: ${id_persona}`);
 
-      // Verificar que el usuario no esté en uso por otra persona
       const [existingUser] = await pool.query(
         `SELECT id_persona FROM usuarios WHERE username = ? AND id_persona != ?`,
         [username, id_persona]
@@ -634,7 +574,6 @@ router.post("/admin-cambiar-password-classroom",
         });
       }
 
-      // Buscar el usuario en la tabla usuarios
       const [user] = await pool.query(
         `SELECT id_usuario, username FROM usuarios WHERE id_persona = ?`,
         [id_persona]
@@ -647,15 +586,13 @@ router.post("/admin-cambiar-password-classroom",
         });
       }
 
-      // Actualizar username
       await pool.query(
         `UPDATE usuarios SET username = ? WHERE id_persona = ?`,
         [username, id_persona]
       );
 
-      console.log(`✅ Username actualizado a: ${username}`);
+      console.log(` Username actualizado a: ${username}`);
 
-      // Si se proporcionó password, actualizarlo también
       if (password && password.trim().length > 0) {
         const hashedPassword = await bcrypt.hash(password, 10);
         
@@ -664,7 +601,7 @@ router.post("/admin-cambiar-password-classroom",
           [hashedPassword, password, id_persona]
         );
 
-        console.log(`✅ Password actualizada para id_persona: ${id_persona}`);
+        console.log(` Password actualizada para id_persona: ${id_persona}`);
 
         return res.json({
           success: true,
@@ -678,7 +615,7 @@ router.post("/admin-cambiar-password-classroom",
       }
 
     } catch (error) {
-      console.error("💥 /auth/admin-cambiar-password-classroom error:", error);
+      console.error(" /auth/admin-cambiar-password-classroom error:", error);
       return res.status(500).json({
         success: false,
         message: 'Error al actualizar las credenciales'
@@ -687,10 +624,6 @@ router.post("/admin-cambiar-password-classroom",
   }
 );
 
-// -------------------------
-// POST /api/auth/classroom-login
-// Login específico para Classroom (tabla usuarios)
-// -------------------------
 router.post("/classroom-login", async (req, res) => {
   let { username, password } = req.body || {};
   username = String(username ?? "").trim();
@@ -701,7 +634,6 @@ router.post("/classroom-login", async (req, res) => {
   }
 
   try {
-    // Buscar en la tabla usuarios (Classroom)
     const [rows] = await pool.query(
       `SELECT 
         u.id_usuario,
@@ -726,19 +658,17 @@ router.post("/classroom-login", async (req, res) => {
     const user = rows[0];
     const stored = String(user.password_hash ?? "");
 
-    // Verificar contraseña
     let ok = false;
     if (isBcrypt(stored)) ok = bcrypt.compareSync(pw, stored);
     else if (ALLOW_PLAINTEXT && !isProd) ok = pw === stored;
 
     if (!ok) {
-      console.log(`❌ Classroom login fallido para ${username}. Hash tipo: ${isBcrypt(stored) ? 'bcrypt' : 'plaintext'}`);
+      console.log(` Classroom login fallido para ${username}. Hash tipo: ${isBcrypt(stored) ? 'bcrypt' : 'plaintext'}`);
       return res.status(401).json({ success: false, message: "Contraseña incorrecta" });
     }
 
-    console.log(`✅ Classroom login exitoso para ${username} (${user.rol})`);
+    console.log(` Classroom login exitoso para ${username} (${user.rol})`);
 
-    // Determinar el rol y datos adicionales
     let rolFinal = user.rol;
     let id_profesor = null;
     let id_alumno = null;
@@ -755,7 +685,6 @@ router.post("/classroom-login", async (req, res) => {
       rolFinal = 'admin';
     }
 
-    // Respuesta
     const response = {
       success: true,
       message: "Login exitoso",
@@ -771,15 +700,11 @@ router.post("/classroom-login", async (req, res) => {
 
     return res.json(response);
   } catch (error) {
-    console.error("💥 /auth/classroom-login error:", error);
+    console.error(" /auth/classroom-login error:", error);
     return res.status(500).json({ success: false, message: "Error del servidor" });
   }
 });
 
-// -------------------------
-// GET /api/auth/usuario-classroom/:id
-// Obtener información de usuario (Dashboard y Classroom usan mismas credenciales)
-// -------------------------
 router.get("/usuario-classroom/:id", async (req, res) => {
   const { id } = req.params;
   const { tipo } = req.query; // 'alumno' o 'profesor'
@@ -850,7 +775,7 @@ router.get("/usuario-classroom/:id", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("💥 /auth/usuario-classroom error:", error);
+    console.error(" /auth/usuario-classroom error:", error);
     return res.status(500).json({
       success: false,
       message: "Error al obtener información del usuario"

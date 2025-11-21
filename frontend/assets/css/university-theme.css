@@ -1,6 +1,4 @@
-/* ===== TEMA UNIVERSITARIO FORMAL ===== */
 
-/* Tipografía Académica */
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   letter-spacing: -0.01em;
@@ -15,7 +13,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-primary);
 }
 
-/* Navbar Universitaria */
 .navbar {
   background: linear-gradient(135deg, #003366 0%, #1a4d7a 100%);
   border-bottom: 3px solid var(--color-gold);
@@ -56,7 +53,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 24px rgba(196, 162, 90, 0.4);
 }
 
-/* Hero Section Académica */
 .hero {
   background: linear-gradient(135deg, #f9fafb 0%, #ffffff 50%, #f4f6f8 100%);
   position: relative;
@@ -127,7 +123,6 @@ h1, h2, h3, h4, h5, h6 {
   left: 100%;
 }
 
-/* Cards Académicas */
 .role-card,
 .module-card {
   background: white;
@@ -196,7 +191,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-light);
 }
 
-/* Secciones con degradado sutil */
 .roles,
 .modules {
   background: linear-gradient(180deg, #ffffff 0%, var(--color-bg-secondary) 100%);
@@ -228,7 +222,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 2px;
 }
 
-/* About Section Formal */
 .about-hero {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   color: white;
@@ -261,7 +254,6 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.8;
 }
 
-/* Team Cards Formal */
 .team-card {
   background: white;
   border: 1px solid var(--color-border);
@@ -292,7 +284,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 24px rgba(0, 51, 102, 0.2);
 }
 
-/* Insignia Universitaria */
 .university-badge {
   display: inline-flex;
   align-items: center;
@@ -309,7 +300,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 2px 8px rgba(196, 162, 90, 0.3);
 }
 
-/* Decoración académica */
 .academic-divider {
   width: 100%;
   height: 2px;
@@ -317,19 +307,16 @@ h1, h2, h3, h4, h5, h6 {
   margin: 40px 0;
 }
 
-/* Bordes dorados en secciones importantes */
 .section-border {
   border-top: 3px solid var(--color-gold);
   border-bottom: 3px solid var(--color-gold);
   padding: 60px 0;
 }
 
-/* Scroll suave académico */
 html {
   scroll-behavior: smooth;
 }
 
-/* Responsive - mantener elegancia */
 @media (max-width: 768px) {
   .hero-text h2 {
     font-size: 2.2em;

@@ -1,13 +1,9 @@
-// backend/routes/classroom.js
 import express from "express";
 import pool from "../utils/db.js";
 import upload from "../config/multer.js";
 
 const router = express.Router();
 
-// =====================================================
-// OBTENER CLASES DEL USUARIO
-// =====================================================
 router.get("/clases/:tipo/:id", async (req, res) => {
   try {
     const { tipo, id } = req.params; // tipo: 'profesor' o 'alumno'
@@ -16,7 +12,6 @@ router.get("/clases/:tipo/:id", async (req, res) => {
     let params;
 
     if (tipo === 'profesor') {
-      // Obtener cursos que dicta el profesor
       query = `
         SELECT 
           c.id_curso,
@@ -39,7 +34,6 @@ router.get("/clases/:tipo/:id", async (req, res) => {
       `;
       params = [id];
     } else if (tipo === 'alumno') {
-      // Obtener cursos en los que está inscrito el alumno
       query = `
         SELECT 
           c.id_curso,
@@ -76,19 +70,13 @@ router.get("/clases/:tipo/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER ACTIVIDAD RECIENTE (FEED)
-// =====================================================
 router.get("/feed/:tipo/:id", async (req, res) => {
   try {
     const { tipo, id } = req.params;
     const feed = [];
 
-    // Por ahora retornamos datos de ejemplo
-    // Más adelante se pueden crear tablas específicas para anuncios y tareas
 
     if (tipo === 'profesor') {
-      // Feed para profesores: sus propios anuncios y tareas
       const [cursos] = await pool.query(
         'SELECT id_curso, nombre_curso FROM cursos WHERE id_profesor = ?',
         [id]
@@ -99,7 +87,6 @@ router.get("/feed/:tipo/:id", async (req, res) => {
         message: "Feed en construcción - Conectar con tabla de anuncios/tareas"
       });
     } else if (tipo === 'alumno') {
-      // Feed para alumnos: anuncios y tareas de sus cursos
       const [cursos] = await pool.query(`
         SELECT c.id_curso, c.nombre_curso 
         FROM inscripciones ins
@@ -118,15 +105,10 @@ router.get("/feed/:tipo/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER TAREAS DEL USUARIO
-// =====================================================
 router.get("/tareas/:tipo/:id", async (req, res) => {
   try {
     const { tipo, id } = req.params;
     
-    // Por ahora usamos las calificaciones como "tareas"
-    // Más adelante se puede crear una tabla específica de tareas
     
     if (tipo === 'alumno') {
       const [tareas] = await pool.query(`
@@ -153,7 +135,6 @@ router.get("/tareas/:tipo/:id", async (req, res) => {
       
       res.json(tareas);
     } else if (tipo === 'profesor') {
-      // Para profesores: todas las evaluaciones pendientes de calificar
       const [tareas] = await pool.query(`
         SELECT 
           c.id_curso,
@@ -178,9 +159,6 @@ router.get("/tareas/:tipo/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER CALIFICACIONES DEL ALUMNO
-// =====================================================
 router.get("/calificaciones/alumno/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -208,7 +186,6 @@ router.get("/calificaciones/alumno/:id", async (req, res) => {
       ORDER BY c.nombre_curso
     `, [id]);
 
-    // Calcular estadísticas
     const promedios = calificaciones.filter(c => c.promedio > 0).map(c => parseFloat(c.promedio));
     const promedioGeneral = promedios.length > 0 
       ? (promedios.reduce((a, b) => a + b, 0) / promedios.length).toFixed(2)
@@ -238,9 +215,6 @@ router.get("/calificaciones/alumno/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER ALUMNOS DE UN CURSO (PROFESOR)
-// =====================================================
 router.get("/curso/:id/alumnos", async (req, res) => {
   try {
     const { id } = req.params;
@@ -276,20 +250,15 @@ router.get("/curso/:id/alumnos", async (req, res) => {
   }
 });
 
-// =====================================================
-// ESTADÍSTICAS DEL PROFESOR
-// =====================================================
 router.get("/estadisticas/profesor/:id", async (req, res) => {
   try {
     const { id } = req.params;
     
-    // Total de cursos
     const [cursosRows] = await pool.query(
       'SELECT COUNT(*) as total FROM cursos WHERE id_profesor = ?',
       [id]
     );
     
-    // Total de alumnos
     const [alumnosRows] = await pool.query(`
       SELECT COUNT(DISTINCT ins.id_alumno) as total
       FROM inscripciones ins
@@ -297,7 +266,6 @@ router.get("/estadisticas/profesor/:id", async (req, res) => {
       WHERE c.id_profesor = ? AND ins.estado = 'activo'
     `, [id]);
     
-    // Promedio general
     const [promedioRows] = await pool.query(`
       SELECT AVG(
         (COALESCE(cal.parcial1, 0) + COALESCE(cal.parcial2, 0) + COALESCE(cal.final, 0)) / 
@@ -322,9 +290,6 @@ router.get("/estadisticas/profesor/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// CREAR ANUNCIO
-// =====================================================
 router.post("/anuncios", async (req, res) => {
   const connection = await pool.getConnection();
   try {
@@ -336,7 +301,6 @@ router.post("/anuncios", async (req, res) => {
       return res.status(400).json({ message: "Todos los campos son requeridos" });
     }
 
-    // Crear el anuncio
     const [result] = await connection.query(
       "INSERT INTO anuncios (id_curso, id_profesor, titulo, contenido, link_url, importante, notificar) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [id_curso, id_profesor, titulo, contenido, link_url, importante || false, notificar !== false]
@@ -344,7 +308,6 @@ router.post("/anuncios", async (req, res) => {
 
     const idAnuncio = result.insertId;
 
-    // Si hay encuesta, crearla
     if (poll && poll.question && poll.options && poll.options.length >= 2) {
       const [pollResult] = await connection.query(
         "INSERT INTO encuestas (id_anuncio, pregunta) VALUES (?, ?)",
@@ -353,7 +316,6 @@ router.post("/anuncios", async (req, res) => {
 
       const idEncuesta = pollResult.insertId;
 
-      // Insertar opciones de la encuesta
       for (const option of poll.options) {
         await connection.query(
           "INSERT INTO opciones_encuesta (id_encuesta, texto) VALUES (?, ?)",
@@ -364,7 +326,6 @@ router.post("/anuncios", async (req, res) => {
 
     await connection.commit();
 
-    // Crear notificaciones para los alumnos del curso si notificar es true
     if (notificar !== false) {
       const [cursoInfo] = await pool.query(
         `SELECT c.nombre_curso FROM cursos c WHERE c.id_curso = ?`,
@@ -381,7 +342,7 @@ router.post("/anuncios", async (req, res) => {
       if (cursoInfo.length > 0 && alumnos.length > 0) {
         const nombreCurso = cursoInfo[0].nombre_curso;
         const tipoNotif = importante ? 'anuncio_importante' : 'anuncio';
-        const tituloNotif = importante ? '⚠️ Anuncio Importante' : 'Nuevo anuncio';
+        const tituloNotif = importante ? '️ Anuncio Importante' : 'Nuevo anuncio';
         
         for (const alumno of alumnos) {
           await pool.query(
@@ -415,14 +376,11 @@ router.post("/anuncios", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER ANUNCIOS POR CURSO (debe ir antes de /anuncios/:tipo/:id)
-// =====================================================
 router.get("/anuncios/curso/:idCurso", async (req, res) => {
   try {
     const { idCurso } = req.params;
     
-    console.log(`📢 GET /anuncios/curso/${idCurso}`);
+    console.log(` GET /anuncios/curso/${idCurso}`);
     
     const query = `
       SELECT 
@@ -446,11 +404,9 @@ router.get("/anuncios/curso/:idCurso", async (req, res) => {
     `;
     
     const [anuncios] = await pool.query(query, [idCurso]);
-    console.log(`✅ ${anuncios.length} anuncios encontrados para curso ${idCurso}`);
+    console.log(` ${anuncios.length} anuncios encontrados para curso ${idCurso}`);
     
-    // Para cada anuncio, obtener la encuesta si existe y contador de comentarios
     for (let anuncio of anuncios) {
-      // Obtener cantidad de comentarios
       const [countComentarios] = await pool.query(
         `SELECT COUNT(*) as total FROM comentarios_anuncios WHERE id_anuncio = ?`,
         [anuncio.id_anuncio]
@@ -468,7 +424,6 @@ router.get("/anuncios/curso/:idCurso", async (req, res) => {
       if (encuestas.length > 0) {
         const encuesta = encuestas[0];
         
-        // Obtener opciones de la encuesta
         const [opciones] = await pool.query(
           `SELECT o.id_opcion, o.texto, o.votos,
             (SELECT COUNT(*) FROM votos_encuesta WHERE id_opcion = o.id_opcion) as votos_reales
@@ -481,25 +436,18 @@ router.get("/anuncios/curso/:idCurso", async (req, res) => {
         encuesta.opciones = opciones;
         anuncio.encuesta = encuesta;
         
-        // Nota: No podemos verificar si ya votó aquí porque no tenemos el id_alumno
-        // Eso se manejará en el frontend si es necesario
         anuncio.encuesta.ya_voto = false;
         anuncio.encuesta.id_opcion_votada = null;
       }
     }
     
-    // Devolver array directamente para consistencia
     res.json(anuncios);
   } catch (error) {
-    console.error("❌ Error al obtener anuncios del curso:", error);
-    // Devolver array vacío en caso de error para evitar problemas en frontend
+    console.error(" Error al obtener anuncios del curso:", error);
     res.status(500).json([]);
   }
 });
 
-// =====================================================
-// OBTENER ANUNCIOS (por profesor o por alumno)
-// =====================================================
 router.get("/anuncios/:tipo/:id", async (req, res) => {
   try {
     const { tipo, id } = req.params;
@@ -508,7 +456,6 @@ router.get("/anuncios/:tipo/:id", async (req, res) => {
     let params;
 
     if (tipo === 'profesor') {
-      // Obtener anuncios del profesor en sus cursos
       query = `
         SELECT 
           a.id_anuncio,
@@ -531,7 +478,6 @@ router.get("/anuncios/:tipo/:id", async (req, res) => {
       `;
       params = [id];
     } else if (tipo === 'alumno') {
-      // Obtener anuncios de los cursos en los que está inscrito
       query = `
         SELECT DISTINCT
           a.id_anuncio,
@@ -560,9 +506,7 @@ router.get("/anuncios/:tipo/:id", async (req, res) => {
 
     const [anuncios] = await pool.query(query, params);
     
-    // Para cada anuncio, obtener la encuesta si existe y contador de comentarios
     for (let anuncio of anuncios) {
-      // Obtener cantidad de comentarios
       const [countComentarios] = await pool.query(
         `SELECT COUNT(*) as total FROM comentarios_anuncios WHERE id_anuncio = ?`,
         [anuncio.id_anuncio]
@@ -580,7 +524,6 @@ router.get("/anuncios/:tipo/:id", async (req, res) => {
       if (encuestas.length > 0) {
         const encuesta = encuestas[0];
         
-        // Obtener opciones de la encuesta
         const [opciones] = await pool.query(
           `SELECT o.id_opcion, o.texto, o.votos,
             (SELECT COUNT(*) FROM votos_encuesta WHERE id_opcion = o.id_opcion) as votos_reales
@@ -593,7 +536,6 @@ router.get("/anuncios/:tipo/:id", async (req, res) => {
         encuesta.opciones = opciones;
         anuncio.encuesta = encuesta;
         
-        // Si es alumno, verificar si ya votó
         if (tipo === 'alumno') {
           const [yaVoto] = await pool.query(
             `SELECT id_voto, id_opcion FROM votos_encuesta WHERE id_encuesta = ? AND id_alumno = ?`,
@@ -612,14 +554,10 @@ router.get("/anuncios/:tipo/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER ANUNCIO ESPECÍFICO POR ID
-// =====================================================
 router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
   try {
     const { idAnuncio, userId } = req.params;
     
-    // Obtener datos del anuncio
     const [anuncios] = await pool.query(`
       SELECT 
         a.id_anuncio,
@@ -646,14 +584,12 @@ router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
     
     const anuncio = anuncios[0];
     
-    // Obtener cantidad de comentarios
     const [countComentarios] = await pool.query(
       `SELECT COUNT(*) as total FROM comentarios_anuncios WHERE id_anuncio = ?`,
       [idAnuncio]
     );
     anuncio.total_comentarios = countComentarios[0].total;
     
-    // Obtener encuesta si existe
     const [encuestas] = await pool.query(
       `SELECT e.id_encuesta, e.pregunta,
         (SELECT COUNT(*) FROM votos_encuesta WHERE id_encuesta = e.id_encuesta) as total_votos
@@ -665,7 +601,6 @@ router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
     if (encuestas.length > 0) {
       const encuesta = encuestas[0];
       
-      // Obtener opciones de la encuesta
       const [opciones] = await pool.query(
         `SELECT o.id_opcion, o.texto, o.votos,
           (SELECT COUNT(*) FROM votos_encuesta WHERE id_opcion = o.id_opcion) as votos_reales
@@ -678,7 +613,6 @@ router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
       encuesta.opciones = opciones;
       anuncio.encuesta = encuesta;
       
-      // Verificar si el usuario ya votó (userId siempre viene del parámetro)
       const [yaVoto] = await pool.query(
         `SELECT id_voto, id_opcion FROM votos_encuesta WHERE id_encuesta = ? AND id_alumno = ?`,
         [encuesta.id_encuesta, userId]
@@ -694,9 +628,6 @@ router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER TAREAS POR CURSO
-// =====================================================
 router.get("/tareas/curso/:idCurso/:tipo/:idUsuario", async (req, res) => {
   try {
     const { idCurso, tipo, idUsuario } = req.params;
@@ -705,7 +636,6 @@ router.get("/tareas/curso/:idCurso/:tipo/:idUsuario", async (req, res) => {
     let params;
     
     if (tipo === 'profesor') {
-      // Obtener tareas del curso para el profesor
       query = `
         SELECT 
           t.id_tarea,
@@ -729,7 +659,6 @@ router.get("/tareas/curso/:idCurso/:tipo/:idUsuario", async (req, res) => {
       `;
       params = [idCurso, idUsuario];
     } else {
-      // Obtener tareas del curso para el alumno
       query = `
         SELECT 
           t.id_tarea,
@@ -772,9 +701,6 @@ router.get("/tareas/curso/:idCurso/:tipo/:idUsuario", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER ALUMNOS DE UN CURSO
-// =====================================================
 router.get("/curso/:idCurso/alumnos", async (req, res) => {
   try {
     const { idCurso } = req.params;
@@ -803,16 +729,12 @@ router.get("/curso/:idCurso/alumnos", async (req, res) => {
   }
 });
 
-// =====================================================
-// SUBIR ARCHIVO PARA TAREA
-// =====================================================
 router.post("/upload-archivo", upload.single('archivo'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: "No se ha enviado ningún archivo" });
     }
 
-    // Retornar solo la ruta relativa para que funcione en cualquier entorno
     const fileUrl = `/uploads/tareas/${req.file.filename}`;
     
     res.json({
@@ -829,9 +751,6 @@ router.post("/upload-archivo", upload.single('archivo'), async (req, res) => {
   }
 });
 
-// =====================================================
-// CREAR TAREA
-// =====================================================
 router.post("/tareas", async (req, res) => {
   try {
     const { id_curso, id_profesor, titulo, descripcion, requerimientos, fecha_limite, puntos, link_url, archivo_adjunto, notificar } = req.body;
@@ -847,7 +766,6 @@ router.post("/tareas", async (req, res) => {
 
     const idTarea = result.insertId;
 
-    // Crear notificaciones para los alumnos del curso si notificar es true
     if (notificar !== false) {
       const [cursoInfo] = await pool.query(
         `SELECT c.nombre_curso FROM cursos c WHERE c.id_curso = ?`,
@@ -892,15 +810,12 @@ router.post("/tareas", async (req, res) => {
   }
 });
 
-// Eliminar tarea
 router.delete("/tareas/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Primero eliminar las entregas asociadas (si la base de datos no tiene CASCADE)
     await pool.query("DELETE FROM entregas_tareas WHERE id_tarea = ?", [id]);
 
-    // Luego eliminar la tarea
     await pool.query("DELETE FROM tareas WHERE id_tarea = ?", [id]);
 
     res.json({ 
@@ -913,9 +828,6 @@ router.delete("/tareas/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// OBTENER TAREAS CREADAS (por profesor o asignadas a alumno)
-// =====================================================
 router.get("/tareas-lista/:tipo/:id", async (req, res) => {
   try {
     const { tipo, id } = req.params;
@@ -924,7 +836,6 @@ router.get("/tareas-lista/:tipo/:id", async (req, res) => {
     let params;
 
     if (tipo === 'profesor') {
-      // Obtener tareas creadas por el profesor
       query = `
         SELECT 
           t.id_tarea,
@@ -948,7 +859,6 @@ router.get("/tareas-lista/:tipo/:id", async (req, res) => {
       `;
       params = [id];
     } else if (tipo === 'alumno') {
-      // Obtener tareas de los cursos del alumno
       query = `
         SELECT DISTINCT
           t.id_tarea,
@@ -993,9 +903,6 @@ router.get("/tareas-lista/:tipo/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// VOTAR EN ENCUESTA
-// =====================================================
 router.post("/encuestas/votar", async (req, res) => {
   const connection = await pool.getConnection();
   try {
@@ -1007,18 +914,15 @@ router.post("/encuestas/votar", async (req, res) => {
       return res.status(400).json({ message: "Todos los campos son requeridos" });
     }
 
-    // Verificar si ya votó
     const [yaVoto] = await connection.query(
       "SELECT id_voto, id_opcion FROM votos_encuesta WHERE id_encuesta = ? AND id_alumno = ?",
       [id_encuesta, id_alumno]
     );
 
     if (yaVoto.length > 0) {
-      // Ya votó, cambiar el voto
       const opcionAnterior = yaVoto[0].id_opcion;
       
       if (opcionAnterior === id_opcion) {
-        // Está votando la misma opción, no hacer nada
         await connection.commit();
         return res.json({ 
           success: true, 
@@ -1026,19 +930,16 @@ router.post("/encuestas/votar", async (req, res) => {
         });
       }
       
-      // Decrementar voto de la opción anterior
       await connection.query(
         "UPDATE opciones_encuesta SET votos = GREATEST(votos - 1, 0) WHERE id_opcion = ?",
         [opcionAnterior]
       );
       
-      // Actualizar el voto a la nueva opción
       await connection.query(
         "UPDATE votos_encuesta SET id_opcion = ?, fecha_voto = NOW() WHERE id_encuesta = ? AND id_alumno = ?",
         [id_opcion, id_encuesta, id_alumno]
       );
       
-      // Incrementar contador de la nueva opción
       await connection.query(
         "UPDATE opciones_encuesta SET votos = votos + 1 WHERE id_opcion = ?",
         [id_opcion]
@@ -1053,13 +954,11 @@ router.post("/encuestas/votar", async (req, res) => {
       });
     }
 
-    // Primera vez que vota, registrar el voto
     await connection.query(
       "INSERT INTO votos_encuesta (id_encuesta, id_opcion, id_alumno) VALUES (?, ?, ?)",
       [id_encuesta, id_opcion, id_alumno]
     );
 
-    // Incrementar contador de votos de la opción
     await connection.query(
       "UPDATE opciones_encuesta SET votos = votos + 1 WHERE id_opcion = ?",
       [id_opcion]
@@ -1081,14 +980,10 @@ router.post("/encuestas/votar", async (req, res) => {
   }
 });
 
-// =====================================================
-// ENCUESTAS - OBTENER ENCUESTA ESPECÍFICA ACTUALIZADA
-// =====================================================
 router.get("/encuestas/:idEncuesta/:idAlumno", async (req, res) => {
   try {
     const { idEncuesta, idAlumno } = req.params;
     
-    // Obtener datos de la encuesta
     const [encuesta] = await pool.query(
       "SELECT id_encuesta, pregunta FROM encuestas WHERE id_encuesta = ?",
       [idEncuesta]
@@ -1098,16 +993,13 @@ router.get("/encuestas/:idEncuesta/:idAlumno", async (req, res) => {
       return res.status(404).json({ message: "Encuesta no encontrada" });
     }
     
-    // Obtener opciones con sus votos
     const [opciones] = await pool.query(
       "SELECT id_opcion, texto, votos AS votos_reales FROM opciones_encuesta WHERE id_encuesta = ? ORDER BY id_opcion",
       [idEncuesta]
     );
     
-    // Calcular total de votos
     const totalVotos = opciones.reduce((sum, op) => sum + op.votos_reales, 0);
     
-    // Verificar si el alumno ya votó y cuál opción
     const [votoAlumno] = await pool.query(
       "SELECT id_opcion FROM votos_encuesta WHERE id_encuesta = ? AND id_alumno = ?",
       [idEncuesta, idAlumno]
@@ -1131,9 +1023,6 @@ router.get("/encuestas/:idEncuesta/:idAlumno", async (req, res) => {
   }
 });
 
-// =====================================================
-// COMENTARIOS - OBTENER COMENTARIOS DE UN ANUNCIO
-// =====================================================
 router.get("/comentarios/:idAnuncio", async (req, res) => {
   try {
     const { idAnuncio } = req.params;
@@ -1169,9 +1058,6 @@ router.get("/comentarios/:idAnuncio", async (req, res) => {
   }
 });
 
-// =====================================================
-// COMENTARIOS - CREAR COMENTARIO
-// =====================================================
 router.post("/comentarios", async (req, res) => {
   const connection = await pool.getConnection();
   try {
@@ -1189,7 +1075,6 @@ router.post("/comentarios", async (req, res) => {
       [id_anuncio, id_usuario, tipo_usuario, contenido]
     );
     
-    // Obtener el comentario recién creado con el nombre del usuario
     const [comentario] = await connection.query(`
       SELECT 
         c.id_comentario,
@@ -1208,7 +1093,6 @@ router.post("/comentarios", async (req, res) => {
       WHERE c.id_comentario = ?
     `, [result.insertId]);
     
-    // Obtener información del anuncio para crear la notificación
     const [anuncioInfo] = await connection.query(`
       SELECT 
         a.titulo,
@@ -1221,7 +1105,6 @@ router.post("/comentarios", async (req, res) => {
       const anuncio = anuncioInfo[0];
       const nombreComentador = comentario[0].nombre_usuario;
       
-      // Crear notificación para el profesor del anuncio (si el comentario es de un alumno)
       if (tipo_usuario === 'alumno') {
         await connection.query(`
           INSERT INTO notificaciones 
@@ -1236,7 +1119,6 @@ router.post("/comentarios", async (req, res) => {
         ]);
       }
       
-      // Si el comentario es del profesor, notificar a todos los alumnos que hayan comentado antes
       if (tipo_usuario === 'profesor') {
         const [alumnosComentadores] = await connection.query(`
           SELECT DISTINCT c.id_usuario
@@ -1277,14 +1159,10 @@ router.post("/comentarios", async (req, res) => {
   }
 });
 
-// =====================================================
-// CALENDARIO - OBTENER EVENTOS DEL MES
-// =====================================================
 router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
   try {
     const { tipo, id, year, month } = req.params;
     
-    // Calcular primer y último día del mes
     const primerDia = `${year}-${month.padStart(2, '0')}-01`;
     const ultimoDia = new Date(year, month, 0).getDate();
     const ultimaFecha = `${year}-${month.padStart(2, '0')}-${ultimoDia}`;
@@ -1293,7 +1171,6 @@ router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
     let tareas = [];
     
     if (tipo === 'profesor') {
-      // Obtener eventos creados por el profesor
       const [eventosProfesor] = await pool.query(`
         SELECT 
           e.id_evento,
@@ -1314,7 +1191,6 @@ router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
       
       eventos = eventosProfesor;
       
-      // Obtener tareas del mes
       const [tareasProfesor] = await pool.query(`
         SELECT 
           t.id_tarea,
@@ -1336,7 +1212,6 @@ router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
       tareas = tareasProfesor;
       
     } else if (tipo === 'alumno') {
-      // Obtener eventos de los cursos del alumno
       const [eventosAlumno] = await pool.query(`
         SELECT DISTINCT
           e.id_evento,
@@ -1359,7 +1234,6 @@ router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
       
       eventos = eventosAlumno;
       
-      // Obtener tareas de los cursos del alumno
       const [tareasAlumno] = await pool.query(`
         SELECT DISTINCT
           t.id_tarea,
@@ -1393,7 +1267,6 @@ router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
       tareas = tareasAlumno;
     }
     
-    // Combinar eventos y tareas
     const calendario = {
       eventos: eventos,
       tareas: tareas,
@@ -1408,9 +1281,6 @@ router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
   }
 });
 
-// =====================================================
-// CALENDARIO - CREAR EVENTO
-// =====================================================
 router.post("/calendario/eventos", async (req, res) => {
   try {
     const { id_curso, id_profesor, titulo, descripcion, tipo, fecha_inicio, fecha_fin, color, notificar } = req.body;
@@ -1437,11 +1307,7 @@ router.post("/calendario/eventos", async (req, res) => {
   }
 });
 
-// =====================================================
-// NOTAS PERSONALES DEL CALENDARIO
-// =====================================================
 
-// Obtener notas de un mes específico
 router.get('/notas/:tipo/:id/:year/:month', async (req, res) => {
   try {
     const { tipo, id, year, month } = req.params;
@@ -1466,7 +1332,6 @@ router.get('/notas/:tipo/:id/:year/:month', async (req, res) => {
   }
 });
 
-// Crear nota
 router.post('/notas', async (req, res) => {
   try {
     const { id_usuario, tipo_usuario, fecha, titulo, contenido, color } = req.body;
@@ -1492,7 +1357,6 @@ router.post('/notas', async (req, res) => {
   }
 });
 
-// Actualizar nota
 router.put('/notas/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -1515,7 +1379,6 @@ router.put('/notas/:id', async (req, res) => {
   }
 });
 
-// Eliminar nota
 router.delete('/notas/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -1532,11 +1395,7 @@ router.delete('/notas/:id', async (req, res) => {
   }
 });
 
-// =====================================================
-// ENTREGAS DE TAREAS
-// =====================================================
 
-// Entregar tarea (alumno)
 router.post('/entregas', async (req, res) => {
   try {
     const { id_tarea, id_alumno, contenido, archivo_url } = req.body;
@@ -1545,14 +1404,12 @@ router.post('/entregas', async (req, res) => {
       return res.status(400).json({ message: "Faltan datos requeridos" });
     }
 
-    // Insertar entrega
     const [result] = await pool.query(
       `INSERT INTO entregas_tareas (id_tarea, id_alumno, contenido, archivo_url) 
        VALUES (?, ?, ?, ?)`,
       [id_tarea, id_alumno, contenido, archivo_url]
     );
 
-    // Obtener información para la notificación
     const [tareaInfo] = await pool.query(
       `SELECT t.titulo, t.id_profesor, t.id_curso, c.nombre_curso,
               CONCAT(p.nombre, ' ', p.apellido) AS alumno_nombre
@@ -1567,7 +1424,6 @@ router.post('/entregas', async (req, res) => {
     if (tareaInfo.length > 0) {
       const tarea = tareaInfo[0];
       
-      // Crear notificación para el profesor
       await pool.query(
         `INSERT INTO notificaciones 
          (id_usuario, tipo_usuario, tipo_notificacion, titulo, mensaje, link, id_referencia) 
@@ -1593,7 +1449,6 @@ router.post('/entregas', async (req, res) => {
   }
 });
 
-// Obtener entregas de una tarea (profesor)
 router.get('/entregas/:idTarea', async (req, res) => {
   try {
     const { idTarea } = req.params;
@@ -1618,7 +1473,6 @@ router.get('/entregas/:idTarea', async (req, res) => {
   }
 });
 
-// Obtener entrega específica de un alumno
 router.get('/entregas/:idTarea/alumno/:idAlumno', async (req, res) => {
   try {
     const { idTarea, idAlumno } = req.params;
@@ -1648,7 +1502,6 @@ router.get('/entregas/:idTarea/alumno/:idAlumno', async (req, res) => {
   }
 });
 
-// Obtener una entrega específica por ID (profesor)
 router.get('/entrega/:idEntrega', async (req, res) => {
   try {
     const { idEntrega } = req.params;
@@ -1686,13 +1539,11 @@ router.get('/entrega/:idEntrega', async (req, res) => {
   }
 });
 
-// Calificar entrega (profesor)
 router.put('/entregas/:idEntrega/calificar', async (req, res) => {
   try {
     const { idEntrega } = req.params;
     const { calificacion, comentario_profesor } = req.body;
 
-    // Actualizar calificación
     await pool.query(
       `UPDATE entregas_tareas 
        SET calificacion = ?, comentario_profesor = ? 
@@ -1700,7 +1551,6 @@ router.put('/entregas/:idEntrega/calificar', async (req, res) => {
       [calificacion, comentario_profesor, idEntrega]
     );
 
-    // Obtener información para notificación
     const [entregaInfo] = await pool.query(
       `SELECT e.id_alumno, e.id_tarea, t.titulo, c.nombre_curso
        FROM entregas_tareas e
@@ -1713,7 +1563,6 @@ router.put('/entregas/:idEntrega/calificar', async (req, res) => {
     if (entregaInfo.length > 0) {
       const entrega = entregaInfo[0];
       
-      // Crear notificación para el alumno
       await pool.query(
         `INSERT INTO notificaciones 
          (id_usuario, tipo_usuario, tipo_notificacion, titulo, mensaje, link, id_referencia) 
@@ -1738,11 +1587,7 @@ router.put('/entregas/:idEntrega/calificar', async (req, res) => {
   }
 });
 
-// =====================================================
-// ENDPOINTS EXCLUSIVOS PARA ADMINISTRADORES
-// =====================================================
 
-// Obtener TODOS los cursos del sistema (admin)
 router.get("/admin/todos-cursos", async (req, res) => {
   try {
     const query = `
@@ -1776,7 +1621,6 @@ router.get("/admin/todos-cursos", async (req, res) => {
   }
 });
 
-// Obtener TODOS los anuncios del sistema (admin)
 router.get("/admin/todos-anuncios", async (req, res) => {
   try {
     const [anuncios] = await pool.query(`
@@ -1800,7 +1644,6 @@ router.get("/admin/todos-anuncios", async (req, res) => {
   }
 });
 
-// Obtener TODAS las tareas del sistema (admin)
 router.get("/admin/todas-tareas", async (req, res) => {
   try {
     const [tareas] = await pool.query(`
@@ -1826,7 +1669,6 @@ router.get("/admin/todas-tareas", async (req, res) => {
   }
 });
 
-// Obtener TODOS los polls del sistema (admin)
 router.get("/admin/todos-polls", async (req, res) => {
   try {
     const [polls] = await pool.query(`
@@ -1843,7 +1685,6 @@ router.get("/admin/todos-polls", async (req, res) => {
       ORDER BY po.fecha_creacion DESC
     `);
     
-    // Para cada poll, obtener sus opciones
     for (let poll of polls) {
       const [opciones] = await pool.query(`
         SELECT * FROM poll_opciones WHERE id_poll = ? ORDER BY id_opcion
@@ -1859,7 +1700,6 @@ router.get("/admin/todos-polls", async (req, res) => {
   }
 });
 
-// Obtener TODOS los comentarios del sistema (admin)
 router.get("/admin/todos-comentarios", async (req, res) => {
   try {
     const [comentarios] = await pool.query(`
@@ -1889,12 +1729,10 @@ router.get("/admin/todos-comentarios", async (req, res) => {
   }
 });
 
-// Obtener actividad reciente completa del sistema (admin)
 router.get("/admin/actividad-completa", async (req, res) => {
   try {
     const actividad = [];
     
-    // Anuncios recientes (últimos 50)
     const [anuncios] = await pool.query(`
       SELECT 
         'anuncio' AS tipo,
@@ -1915,7 +1753,6 @@ router.get("/admin/actividad-completa", async (req, res) => {
       LIMIT 50
     `);
     
-    // Tareas recientes (últimas 50)
     const [tareas] = await pool.query(`
       SELECT 
         'tarea' AS tipo,
@@ -1937,7 +1774,6 @@ router.get("/admin/actividad-completa", async (req, res) => {
       LIMIT 50
     `);
     
-    // Polls recientes (últimos 30)
     const [polls] = await pool.query(`
       SELECT 
         'poll' AS tipo,
@@ -1958,7 +1794,6 @@ router.get("/admin/actividad-completa", async (req, res) => {
       LIMIT 30
     `);
     
-    // Combinar y ordenar por fecha
     actividad.push(...anuncios, ...tareas, ...polls);
     actividad.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
     
@@ -1969,18 +1804,13 @@ router.get("/admin/actividad-completa", async (req, res) => {
   }
 });
 
-// =====================================================
-// ENDPOINTS DE ELIMINACIÓN (ADMIN)
-// =====================================================
 
-// Eliminar anuncio
 router.delete("/anuncio/:id", async (req, res) => {
   try {
     const { id } = req.params;
     
-    console.log(`🗑️ Eliminando anuncio ${id}`);
+    console.log(`️ Eliminando anuncio ${id}`);
     
-    // Eliminar anuncio (CASCADE eliminará comentarios asociados)
     await pool.query(`DELETE FROM anuncios WHERE id_anuncio = ?`, [id]);
     
     res.json({
@@ -1993,14 +1823,12 @@ router.delete("/anuncio/:id", async (req, res) => {
   }
 });
 
-// Eliminar tarea
 router.delete("/tarea/:id", async (req, res) => {
   try {
     const { id } = req.params;
     
-    console.log(`🗑️ Eliminando tarea ${id}`);
+    console.log(`️ Eliminando tarea ${id}`);
     
-    // Eliminar tarea (CASCADE eliminará entregas y comentarios asociados)
     await pool.query(`DELETE FROM tareas WHERE id_tarea = ?`, [id]);
     
     res.json({
@@ -2013,14 +1841,12 @@ router.delete("/tarea/:id", async (req, res) => {
   }
 });
 
-// Eliminar poll
 router.delete("/poll/:id", async (req, res) => {
   try {
     const { id } = req.params;
     
-    console.log(`🗑️ Eliminando poll ${id}`);
+    console.log(`️ Eliminando poll ${id}`);
     
-    // Eliminar poll (CASCADE eliminará opciones y votos asociados)
     await pool.query(`DELETE FROM polls WHERE id_poll = ?`, [id]);
     
     res.json({

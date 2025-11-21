@@ -1,7 +1,3 @@
-/* ===================================
-   CEMI CLASSROOM - ESTILOS PRINCIPALES
-   Última actualización: Mejoras visuales completas 2025
-   =================================== */
 
 * {
   margin: 0;
@@ -31,7 +27,6 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Modo Oscuro */
 body.dark-mode {
   --primary-color: #7a9bbd;
   --primary-light: #9ab8d6;
@@ -144,7 +139,6 @@ body.dark-mode .font-size-btn {
   border-color: var(--border-color);
 }
 
-/* Activity Cards en modo oscuro */
 body.dark-mode .activity-card {
   background: var(--bg-light);
   border-color: var(--border-color);
@@ -204,7 +198,6 @@ body.dark-mode .avatar-circle {
   background: rgba(122, 155, 189, 0.1) !important;
 }
 
-/* Poll/Encuesta en modo oscuro */
 body.dark-mode .poll-options {
   background: rgba(122, 155, 189, 0.05);
 }
@@ -237,7 +230,6 @@ body.dark-mode .poll-percentage {
   color: var(--text-primary);
 }
 
-/* Comentarios en modo oscuro */
 body.dark-mode .comments-section {
   background: rgba(122, 155, 189, 0.05);
   border-color: var(--border-color);
@@ -260,7 +252,6 @@ body.dark-mode .comment-time {
   color: var(--text-light);
 }
 
-/* Class Cards en modo oscuro */
 body.dark-mode .class-card {
   background: var(--bg-light);
   border-color: var(--border-color);
@@ -283,7 +274,6 @@ body.dark-mode .class-card-footer {
   background: var(--bg-light);
 }
 
-/* Task Cards en modo oscuro */
 body.dark-mode .task-card {
   background: var(--bg-light);
   border-color: var(--border-color);
@@ -301,7 +291,6 @@ body.dark-mode .task-description {
   color: var(--text-secondary);
 }
 
-/* Grade Cards en modo oscuro */
 body.dark-mode .grade-card {
   background: var(--bg-light);
   border-color: var(--border-color);
@@ -315,7 +304,6 @@ body.dark-mode .grade-label {
   color: var(--text-secondary);
 }
 
-/* Botones en modo oscuro */
 body.dark-mode .btn-primary {
   background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
   color: white;
@@ -338,7 +326,6 @@ body.dark-mode .btn-outline:hover {
   border-color: var(--primary-color);
 }
 
-/* Filtros y búsqueda en modo oscuro */
 body.dark-mode .filter-btn {
   background: var(--bg-light);
   color: var(--text-secondary);
@@ -361,7 +348,6 @@ body.dark-mode .search-bar::placeholder {
   color: var(--text-light);
 }
 
-/* Sidebar en modo oscuro */
 body.dark-mode .classroom-sidebar {
   background: var(--bg-light);
   border-right-color: var(--border-color);
@@ -390,7 +376,6 @@ body.dark-mode .menu-item.active i {
   color: var(--primary-light);
 }
 
-/* Stats/Estadísticas en modo oscuro */
 body.dark-mode .stat-card {
   background: var(--bg-light);
   border-color: var(--border-color);
@@ -404,7 +389,6 @@ body.dark-mode .stat-label {
   color: var(--text-secondary);
 }
 
-/* Tablas en modo oscuro */
 body.dark-mode table {
   background: var(--bg-light);
   color: var(--text-primary);
@@ -425,7 +409,6 @@ body.dark-mode tr:hover {
   background: rgba(122, 155, 189, 0.05);
 }
 
-/* Dropdown menu en modo oscuro */
 body.dark-mode .dropdown-menu {
   background: var(--bg-light);
   border-color: var(--border-color);
@@ -441,7 +424,6 @@ body.dark-mode .dropdown-item:hover {
   color: var(--text-primary);
 }
 
-/* Calendario en modo oscuro */
 body.dark-mode .calendar-view {
   background: var(--bg-light);
   color: var(--text-primary);
@@ -548,7 +530,6 @@ body.dark-mode .event-class-label {
   border-left-color: var(--secondary-color) !important;
 }
 
-/* Botones de vista de calendario en modo oscuro */
 body.dark-mode .calendar-view-selector,
 body.dark-mode .vista-selector {
   background: var(--bg-light);
@@ -578,7 +559,6 @@ body.dark-mode button[data-vista].active {
   border-color: var(--primary-color) !important;
 }
 
-/* Título del calendario en modo oscuro */
 body.dark-mode h2[style*="calendar"],
 body.dark-mode .calendar-title,
 body.dark-mode .view-title {
@@ -590,7 +570,6 @@ body.dark-mode .view-title i {
   color: var(--text-secondary) !important;
 }
 
-/* Navegación de calendario en modo oscuro */
 body.dark-mode .calendar-nav-btn,
 body.dark-mode .month-nav-btn {
   background: rgba(122, 155, 189, 0.15) !important;
@@ -609,7 +588,6 @@ body.dark-mode .month-nav-btn i {
   color: var(--text-primary) !important;
 }
 
-/* Botón "Hoy" en modo oscuro */
 body.dark-mode .today-btn,
 body.dark-mode .btn-hoy {
   background: rgba(122, 155, 189, 0.2) !important;
@@ -622,14 +600,12 @@ body.dark-mode .btn-hoy:hover {
   background: rgba(122, 155, 189, 0.3) !important;
 }
 
-/* Contenedor del calendario en modo oscuro */
 body.dark-mode .calendar-wrapper,
 body.dark-mode .calendario-wrapper {
   background: var(--bg-light);
   border-color: var(--border-color);
 }
 
-/* Números de días en el calendario en modo oscuro */
 body.dark-mode .calendar-day-number,
 body.dark-mode .day-number {
   color: var(--text-primary) !important;
@@ -641,7 +617,6 @@ body.dark-mode .calendar-day.other-month .calendar-day-number {
   opacity: 0.3;
 }
 
-/* Eventos dentro de los días en modo oscuro */
 body.dark-mode .calendar-day-events {
   background: transparent;
 }
@@ -729,7 +704,6 @@ body.dark-mode .event-details p {
   color: var(--text-secondary);
 }
 
-/* Modales de tareas en modo oscuro */
 body.dark-mode .modal-overlay {
   background: rgba(0, 0, 0, 0.7);
 }
@@ -797,7 +771,6 @@ body.dark-mode .file-link:hover {
   color: var(--accent-color);
 }
 
-/* Tarjetas de tareas en modo oscuro */
 body.dark-mode .task-list {
   background: var(--bg-light);
 }
@@ -840,7 +813,6 @@ body.dark-mode .task-status-badge.vencida {
   color: var(--danger-color);
 }
 
-/* Loader en modo oscuro */
 body.dark-mode .loader {
   background: rgba(26, 32, 44, 0.95);
 }
@@ -850,7 +822,6 @@ body.dark-mode .spinner {
   border-top-color: var(--primary-light);
 }
 
-/* Botones de vista en modo oscuro */
 body.dark-mode .view-selector button {
   background: var(--bg-light);
   color: var(--text-secondary);
@@ -868,7 +839,6 @@ body.dark-mode .view-selector button:hover {
   border-color: var(--primary-color);
 }
 
-/* Headers y títulos en modo oscuro */
 body.dark-mode .section-header {
   color: var(--text-primary);
 }
@@ -881,7 +851,6 @@ body.dark-mode .section-subtitle {
   color: var(--text-secondary);
 }
 
-/* Badges y etiquetas en modo oscuro */
 body.dark-mode .badge {
   background: rgba(122, 155, 189, 0.2);
   color: var(--text-primary);
@@ -907,7 +876,6 @@ body.dark-mode .badge-info {
   color: var(--secondary-color);
 }
 
-/* Inputs y formularios en modo oscuro */
 body.dark-mode input[type="text"],
 body.dark-mode input[type="email"],
 body.dark-mode input[type="password"],
@@ -944,7 +912,6 @@ body.dark-mode textarea:focus {
   background: var(--bg-light);
 }
 
-/* Select en modo oscuro */
 body.dark-mode select {
   background: var(--bg-white);
   color: var(--text-primary);
@@ -960,7 +927,6 @@ body.dark-mode option {
   color: var(--text-primary);
 }
 
-/* Checkbox y radio en modo oscuro */
 body.dark-mode input[type="checkbox"],
 body.dark-mode input[type="radio"] {
   border-color: var(--border-color);
@@ -972,7 +938,6 @@ body.dark-mode input[type="radio"]:checked {
   border-color: var(--primary-color);
 }
 
-/* Modal de detalles de entrega en modo oscuro */
 body.dark-mode .swal2-popup {
   background: var(--bg-light) !important;
   color: var(--text-primary) !important;
@@ -997,7 +962,6 @@ body.dark-mode .swal2-styled.swal2-cancel {
   border: 1px solid var(--border-color) !important;
 }
 
-/* Secciones específicas del modal de entrega */
 body.dark-mode .grade-section,
 body.dark-mode .task-section,
 body.dark-mode .comment-section {
@@ -1055,7 +1019,6 @@ body.dark-mode .file-link-btn:hover {
   background: rgba(122, 155, 189, 0.3) !important;
 }
 
-/* Botón de cerrar en modo oscuro */
 body.dark-mode .swal2-close {
   color: var(--text-light) !important;
 }
@@ -1064,7 +1027,6 @@ body.dark-mode .swal2-close:hover {
   color: var(--text-primary) !important;
 }
 
-/* Headers de secciones en modo oscuro */
 body.dark-mode .section-header-icon {
   color: var(--text-light) !important;
 }
@@ -1073,7 +1035,6 @@ body.dark-mode .section-header-text {
   color: var(--text-primary) !important;
 }
 
-/* Input dentro de modales en modo oscuro */
 body.dark-mode .swal2-input,
 body.dark-mode .swal2-textarea {
   background: var(--bg-white) !important;
@@ -1092,18 +1053,15 @@ body.dark-mode .swal2-textarea:focus {
   background: var(--bg-light) !important;
 }
 
-/* Validación de inputs en modo oscuro */
 body.dark-mode .swal2-validation-message {
   background: rgba(239, 83, 80, 0.2) !important;
   color: var(--danger-color) !important;
 }
 
-/* Footer de modal en modo oscuro */
 body.dark-mode .swal2-actions {
   background: var(--bg-light) !important;
 }
 
-/* Select en SweetAlert modo oscuro */
 body.dark-mode .swal2-select {
   background: var(--bg-white) !important;
   color: var(--text-primary) !important;
@@ -1115,7 +1073,6 @@ body.dark-mode .swal2-select option {
   color: var(--text-primary) !important;
 }
 
-/* Radio buttons en SweetAlert modo oscuro */
 body.dark-mode .swal2-radio {
   background: var(--bg-white) !important;
 }
@@ -1124,7 +1081,6 @@ body.dark-mode .swal2-radio label {
   color: var(--text-primary) !important;
 }
 
-/* Checkbox en SweetAlert modo oscuro */
 body.dark-mode .swal2-checkbox {
   background: var(--bg-white) !important;
 }
@@ -1133,7 +1089,6 @@ body.dark-mode .swal2-checkbox label {
   color: var(--text-primary) !important;
 }
 
-/* Progress bar en SweetAlert modo oscuro */
 body.dark-mode .swal2-progress-steps {
   background: var(--bg-light) !important;
 }
@@ -1146,14 +1101,12 @@ body.dark-mode .swal2-progress-step.swal2-active-progress-step {
   background: var(--primary-light) !important;
 }
 
-/* Toast notifications en modo oscuro */
 body.dark-mode .swal2-toast {
   background: var(--bg-light) !important;
   color: var(--text-primary) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Tamaños de fuente */
 body.font-pequeño,
 body.font-pequeño * {
   font-size: 14px !important;
@@ -1206,9 +1159,6 @@ body::before {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
 }
 
-/* ===================================
-   HEADER
-   =================================== */
 
 .classroom-header {
   position: fixed;
@@ -1536,9 +1486,6 @@ body::before {
   color: var(--text-secondary);
 }
 
-/* ===================================
-   LAYOUT PRINCIPAL
-   =================================== */
 
 .classroom-container {
   display: flex;
@@ -1546,9 +1493,6 @@ body::before {
   min-height: calc(100vh - 68px);
 }
 
-/* ===================================
-   SIDEBAR
-   =================================== */
 
 .classroom-sidebar {
   width: 280px;
@@ -1691,9 +1635,6 @@ body::before {
   color: var(--text-secondary);
 }
 
-/* ===================================
-   CONTENIDO PRINCIPAL
-   =================================== */
 
 .classroom-main {
   flex: 1;
@@ -1725,9 +1666,6 @@ body::before {
   }
 }
 
-/* ===================================
-   WELCOME SECTION
-   =================================== */
 
 .welcome-section {
   background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
@@ -1765,9 +1703,6 @@ body::before {
   font-weight: 400;
 }
 
-/* ===================================
-   ACTIVITY STREAM
-   =================================== */
 
 .activity-stream {
   max-width: 900px;
@@ -1813,9 +1748,6 @@ body::before {
   box-shadow: 0 0 0 4px rgba(84, 113, 148, 0.12);
 }
 
-/* ===================================
-   ACTIVITY CARDS
-   =================================== */
 
 .activity-card {
   background: rgba(255, 255, 255, 0.97);
@@ -2063,9 +1995,6 @@ body::before {
   border-top: 1px solid var(--border-color);
 }
 
-/* ===================================
-   BOTONES
-   =================================== */
 
 .btn-primary {
   background: linear-gradient(135deg, #42638c 0%, #547194 50%, #7a9bbd 100%);
@@ -2211,9 +2140,6 @@ body::before {
   color: var(--text-secondary);
 }
 
-/* ===================================
-   VISTA MIS CLASES
-   =================================== */
 
 .view-header {
   display: flex;
@@ -2365,9 +2291,6 @@ body::before {
   border-top: 1px solid var(--border-color);
 }
 
-/* ===================================
-   VISTA TAREAS
-   =================================== */
 
 .view-filters {
   display: flex;
@@ -2527,9 +2450,6 @@ body::before {
   gap: 8px;
 }
 
-/* ===================================
-   VISTA CALIFICACIONES
-   =================================== */
 
 .grades-container {
   max-width: 1100px;
@@ -2680,9 +2600,6 @@ body::before {
   color: var(--danger-color);
 }
 
-/* ===================================
-   VISTA CALENDARIO
-   =================================== */
 
 .calendar-controls {
   display: flex;
@@ -2777,9 +2694,6 @@ body::before {
   color: var(--text-secondary);
 }
 
-/* ===================================
-   LOADER
-   =================================== */
 
 .loader {
   position: fixed;
@@ -2815,9 +2729,6 @@ body::before {
   }
 }
 
-/* ===================================
-   RESPONSIVE
-   =================================== */
 
 @media (max-width: 1024px) {
   .calendar-container {
@@ -2904,9 +2815,6 @@ body::before {
   }
 }
 
-/* ===================================
-   ANIMACIONES PARA FORMULARIOS
-   =================================== */
 
 .slide-down {
   animation: slideDown 0.3s ease-out forwards;
@@ -2955,7 +2863,6 @@ body::before {
   }
 }
 
-/* Estilos para contenedores colapsables */
 .collapsible-content {
   overflow: hidden;
   transition: all 0.3s ease-out;
@@ -2969,9 +2876,6 @@ body::before {
   padding-bottom: 0 !important;
 }
 
-/* ===================================
-   PANEL LATERAL DE CURSO
-   =================================== */
 
 .course-side-panel {
   position: fixed;
@@ -3214,9 +3118,6 @@ body::before {
   }
 }
 
-/* ===================================
-   PANEL DE NOTIFICACIONES
-   =================================== */
 
 .notifications-dropdown {
   position: absolute;
@@ -3441,7 +3342,6 @@ body::before {
   opacity: 1;
 }
 
-/* Checkbox con animación */
 input[type="checkbox"] {
   transition: all 0.2s ease;
   cursor: pointer;
@@ -3455,11 +3355,7 @@ input[type="checkbox"]:checked {
   accent-color: var(--primary-color) !important;
 }
 
-/* ===================================
-   FORZAR COLORES MINIMALISTAS
-   =================================== */
 
-/* Sobrescribir colores inline - Course Selector */
 #btnCourseSelector {
   background: rgba(84, 113, 148, 0.08) !important;
   border: 2px solid rgba(84, 113, 148, 0.2) !important;
@@ -3471,20 +3367,17 @@ input[type="checkbox"]:checked {
   border-color: var(--primary-color) !important;
 }
 
-/* Sobrescribir iconos - gris oscuro visible */
 [data-lucide] {
   color: #4a5568 !important;
   stroke: #4a5568 !important;
 }
 
-/* Forzar color en SVG con estilos inline */
 svg[style*="color"],
 [data-lucide][style*="color"] {
   color: #4a5568 !important;
   stroke: #4a5568 !important;
 }
 
-/* Sobrescribir botones de calendario */
 #btnMesAnterior,
 #btnMesSiguiente {
   background: rgba(84, 113, 148, 0.08) !important;
@@ -3508,7 +3401,6 @@ svg[style*="color"],
   box-shadow: 0 4px 12px rgba(66, 99, 140, 0.3) !important;
 }
 
-/* Sobrescribir headers de calendario */
 .calendar-grid > div:first-child,
 .calendar-grid > div:nth-child(2),
 .calendar-grid > div:nth-child(3),
@@ -3519,26 +3411,22 @@ svg[style*="color"],
   color: var(--primary-color) !important;
 }
 
-/* Sobrescribir cualquier gradiente morado/azul viejo */
 [style*="667eea"],
 [style*="764ba2"] {
   background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
   color: white !important;
 }
 
-/* Forzar color uniforme en headers de cards de clases */
 .class-card-header[style],
 div.class-card-header[style*="background"] {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
 }
 
-/* Forzar estilos en elementos internos del header */
 .class-card-header h3[style],
 .class-card-header p[style] {
   color: white !important;
 }
 
-/* Eliminar backgrounds de todos los iconos SVG y forzar color gris oscuro */
 svg,
 svg[data-lucide],
 .lucide {
@@ -3548,7 +3436,6 @@ svg[data-lucide],
   stroke: currentColor !important;
 }
 
-/* Forzar color en todos los paths de SVG */
 svg path,
 svg circle,
 svg line,
@@ -3558,7 +3445,6 @@ svg rect {
   stroke: #4a5568 !important;
 }
 
-/* Iconos sin fondo */
 i,
 i[data-lucide] {
   background: none !important;
@@ -3566,13 +3452,11 @@ i[data-lucide] {
   color: #4a5568 !important;
 }
 
-/* Forzar gradiente uniforme en avatares/iniciales de cursos (40x40px) */
 div[style*="40px"][style*="background: linear-gradient"],
 div[style*="40px"][style*="background:linear-gradient"] {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
 }
 
-/* Forzar estilos en divs con gradientes de colores aleatorios */
 div[style*="linear-gradient"][style*="f093fb"],
 div[style*="linear-gradient"][style*="f5576c"],
 div[style*="linear-gradient"][style*="84fab0"],
@@ -3580,9 +3464,6 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
 }
 
-/* ===================================
-   BOTONES DE ADMINISTRADOR
-   =================================== */
 
 .btn-delete-admin {
   position: absolute;
@@ -3642,9 +3523,6 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
   transform: translateY(0);
 }
 
-/* ===================================
-   MODAL DE CONFIGURACIÓN
-   =================================== */
 
 .modal-overlay-config {
   position: fixed;
@@ -3901,7 +3779,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 }
 
 .config-hint.warning::before {
-  content: '⚠️';
+  content: '️';
 }
 
 .config-divider {
@@ -4170,7 +4048,6 @@ input:checked + .toggle-slider:before {
   color: #adb5bd;
 }
 
-/* Password input wrapper */
 .password-input-wrapper {
   position: relative;
   width: 100%;
@@ -4208,7 +4085,6 @@ input:checked + .toggle-slider:before {
   height: 20px;
 }
 
-/* Dark mode */
 body.dark-mode .toggle-password-btn {
   color: #94a3b8;
 }
@@ -4270,7 +4146,6 @@ body.dark-mode .toggle-password-btn:hover {
   height: 18px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .modal-config-container {
     width: 98%;
@@ -4322,9 +4197,6 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* ===================================
-   PERFIL MODAL (ESPECTADOR)
-   =================================== */
 
 .profile-avatar-modal {
   width: 120px;
@@ -4343,11 +4215,7 @@ body.dark-mode .toggle-password-btn:hover {
   padding: 32px !important;
 }
 
-/* ========================================
-   MEJORAS RESPONSIVE CLASSROOM - MOBILE
-   ======================================== */
 
-/* Mobile Menu Toggle Button */
 .mobile-sidebar-toggle {
   display: none;
   position: fixed;
@@ -4377,7 +4245,6 @@ body.dark-mode .toggle-password-btn:hover {
   height: 24px;
 }
 
-/* Sidebar Overlay */
 .sidebar-overlay-classroom {
   display: none;
   position: fixed;
@@ -4395,7 +4262,6 @@ body.dark-mode .toggle-password-btn:hover {
   opacity: 1;
 }
 
-/* Tablets (768px - 1024px) */
 @media (max-width: 1024px) {
   .classroom-header {
     padding: 16px 24px;
@@ -4410,14 +4276,11 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* Mobile - Tablets pequeñas (max-width: 768px) */
 @media (max-width: 768px) {
-  /* Mostrar botón hamburguesa */
   .mobile-sidebar-toggle {
     display: flex;
   }
 
-  /* Sidebar mobile con animación */
   .classroom-sidebar {
     position: fixed;
     top: 0;
@@ -4433,7 +4296,6 @@ body.dark-mode .toggle-password-btn:hover {
     transform: translateX(0);
   }
 
-  /* Main content sin margen izquierdo */
   .classroom-main {
     margin-left: 0;
     width: 100%;
@@ -4443,7 +4305,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 80px 16px 20px 16px;
   }
 
-  /* Header responsive */
   .classroom-header {
     padding: 12px 16px;
     flex-wrap: wrap;
@@ -4463,7 +4324,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 13px;
   }
 
-  /* Cards grid */
   .classes-grid,
   .task-card-grid {
     grid-template-columns: 1fr;
@@ -4475,7 +4335,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 16px;
   }
 
-  /* Modales full screen en mobile */
   .task-modal,
   .class-modal,
   .grade-modal {
@@ -4498,7 +4357,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 16px;
   }
 
-  /* Tabs mobile */
   .tabs-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -4510,7 +4368,6 @@ body.dark-mode .toggle-password-btn:hover {
     white-space: nowrap;
   }
 
-  /* Task list mobile */
   .task-item {
     flex-direction: column;
     gap: 12px;
@@ -4525,7 +4382,6 @@ body.dark-mode .toggle-password-btn:hover {
     justify-content: flex-start;
   }
 
-  /* Calendar mobile */
   .calendar-header {
     flex-wrap: wrap;
     gap: 12px;
@@ -4545,7 +4401,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 4px;
   }
 
-  /* Grades table mobile */
   .grades-table-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -4560,7 +4415,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 10px 8px;
   }
 
-  /* View filters mobile */
   .view-filters {
     flex-direction: column;
     width: 100%;
@@ -4571,7 +4425,6 @@ body.dark-mode .toggle-password-btn:hover {
     justify-content: center;
   }
 
-  /* Attachments mobile */
   .attachment-item {
     flex-direction: column;
     align-items: flex-start;
@@ -4583,9 +4436,7 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* Mobile pequeño (max-width: 480px) */
 @media (max-width: 480px) {
-  /* Prevenir scroll horizontal global */
   body, html {
     overflow-x: hidden !important;
     max-width: 100vw !important;
@@ -4630,7 +4481,6 @@ body.dark-mode .toggle-password-btn:hover {
     overflow-x: hidden !important;
   }
 
-  /* Header más compacto */
   .classroom-header {
     padding: 10px 12px;
     width: 100% !important;
@@ -4656,7 +4506,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 6px;
   }
 
-  /* Cards más compactos */
   .class-card,
   .task-card,
   .activity-card {
@@ -4678,7 +4527,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 12px;
   }
 
-  /* Grids responsive */
   .classes-grid,
   .tasks-grid,
   .stats-grid {
@@ -4686,7 +4534,6 @@ body.dark-mode .toggle-password-btn:hover {
     gap: 12px;
   }
 
-  /* Activity feed */
   .activity-feed {
     width: 100% !important;
     overflow-x: hidden !important;
@@ -4710,7 +4557,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 11px;
   }
 
-  /* Botones más pequeños */
   .btn-primary,
   .btn-secondary,
   .btn-outline {
@@ -4735,7 +4581,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 12px;
   }
 
-  /* Modal más ajustado */
   .modal-content {
     margin: 10px;
     max-width: calc(100vw - 20px) !important;
@@ -4763,7 +4608,6 @@ body.dark-mode .toggle-password-btn:hover {
     box-sizing: border-box;
   }
 
-  /* Calendar más compacto */
   .calendar-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -4788,7 +4632,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 2px 4px;
   }
 
-  /* Task list compacto */
   .task-item {
     padding: 10px;
     flex-direction: column;
@@ -4818,7 +4661,6 @@ body.dark-mode .toggle-password-btn:hover {
     justify-content: flex-start;
   }
 
-  /* Stats cards */
   .stat-card {
     padding: 12px;
   }
@@ -4831,7 +4673,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 12px;
   }
 
-  /* Tabs más pequeños */
   .tab-buttons {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -4845,7 +4686,6 @@ body.dark-mode .toggle-password-btn:hover {
     flex-shrink: 0;
   }
 
-  /* Sidebar mobile más estrecho */
   .classroom-sidebar {
     width: 80%;
   }
@@ -4868,7 +4708,6 @@ body.dark-mode .toggle-password-btn:hover {
     height: 18px;
   }
 
-  /* Tables responsive */
   .table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -4885,7 +4724,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 8px 6px;
   }
 
-  /* Attachments mobile */
   .attachment-item {
     flex-direction: column;
     align-items: flex-start;
@@ -4904,7 +4742,6 @@ body.dark-mode .toggle-password-btn:hover {
     gap: 6px;
   }
 
-  /* Chat/Messages */
   .messages-container {
     max-height: 50vh;
   }
@@ -4922,7 +4759,6 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* Landscape mobile (altura pequeña) */
 @media (max-height: 500px) and (orientation: landscape) {
   .classroom-sidebar {
     overflow-y: auto;

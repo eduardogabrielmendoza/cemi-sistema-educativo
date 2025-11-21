@@ -3,7 +3,6 @@ import pool from "../utils/db.js";
 
 const router = express.Router();
 
-// Obtener notificaciones de un usuario
 router.get('/:tipo/:id', async (req, res) => {
   try {
     const { tipo, id } = req.params;
@@ -24,7 +23,6 @@ router.get('/:tipo/:id', async (req, res) => {
   }
 });
 
-// Obtener contador de notificaciones sin leer
 router.get('/:tipo/:id/sin-leer', async (req, res) => {
   try {
     const { tipo, id } = req.params;
@@ -42,7 +40,6 @@ router.get('/:tipo/:id/sin-leer', async (req, res) => {
   }
 });
 
-// Crear notificación
 router.post('/', async (req, res) => {
   try {
     const { id_usuario, tipo_usuario, tipo_notificacion, titulo, mensaje, link, id_referencia } = req.body;
@@ -65,7 +62,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Marcar notificación como leída
 router.put('/:id/marcar-leida', async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,7 +78,6 @@ router.put('/:id/marcar-leida', async (req, res) => {
   }
 });
 
-// Marcar todas las notificaciones como leídas
 router.put('/:tipo/:id/marcar-todas-leidas', async (req, res) => {
   try {
     const { tipo, id } = req.params;
@@ -99,7 +94,6 @@ router.put('/:tipo/:id/marcar-todas-leidas', async (req, res) => {
   }
 });
 
-// Eliminar notificaciones antiguas (más de 7 días)
 router.delete('/limpiar/:tipo/:id', async (req, res) => {
   try {
     const { tipo, id } = req.params;

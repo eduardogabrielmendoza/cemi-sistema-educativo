@@ -1,8 +1,4 @@
-/* ========================================
-   TÉRMINOS DE SERVICIO - ESTILOS
-   ======================================== */
 
-/* Variables */
 :root {
   --primary-color: #547194;
   --primary-light: #7a9bbd;
@@ -18,7 +14,6 @@
   --danger-color: #f44336;
 }
 
-/* Reset y Base */
 * {
   margin: 0;
   padding: 0;
@@ -38,7 +33,6 @@ body {
   min-height: 100vh;
 }
 
-/* Contenedor Principal */
 .terms-container {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -49,9 +43,6 @@ body {
   flex: 1;
 }
 
-/* ========================================
-   SIDEBAR DE NAVEGACIÓN
-   ======================================== */
 .terms-sidebar {
   background: var(--bg-white);
   border-right: 1px solid var(--border-color);
@@ -146,9 +137,6 @@ body {
   height: 18px;
 }
 
-/* ========================================
-   CONTENIDO PRINCIPAL
-   ======================================== */
 .terms-content {
   background: var(--bg-white);
   padding: 60px 80px;
@@ -157,7 +145,6 @@ body {
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Header */
 .terms-header {
   margin-bottom: 60px;
   padding-bottom: 30px;
@@ -181,7 +168,6 @@ body {
   font-weight: 500;
 }
 
-/* Secciones */
 .term-section {
   margin-bottom: 60px;
   scroll-margin-top: 100px;
@@ -242,14 +228,10 @@ body {
   font-size: 18px;
 }
 
-/* Utilities */
 .mt-20 {
   margin-top: 20px;
 }
 
-/* ========================================
-   FEATURE GRID
-   ======================================== */
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -301,9 +283,6 @@ body {
   line-height: 1.6;
 }
 
-/* ========================================
-   INFO BOX Y WARNING BOX
-   ======================================== */
 .info-box {
   background: linear-gradient(135deg, rgba(84, 113, 148, 0.05), rgba(122, 155, 189, 0.05));
   border-left: 4px solid var(--primary-color);
@@ -353,9 +332,6 @@ body {
   color: var(--warning-color);
 }
 
-/* ========================================
-   RESPONSIBILITY LIST
-   ======================================== */
 .responsibility-list {
   display: flex;
   flex-direction: column;
@@ -404,9 +380,6 @@ body {
   line-height: 1.6;
 }
 
-/* ========================================
-   CONTACT GRID
-   ======================================== */
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -454,9 +427,6 @@ body {
   color: var(--text-light);
 }
 
-/* ========================================
-   FOOTER DEL DOCUMENTO
-   ======================================== */
 .terms-footer {
   margin-top: 80px;
   padding-top: 40px;
@@ -507,9 +477,6 @@ body {
   width: 100%;
 }
 
-/* ========================================
-   FOOTER GLOBAL
-   ======================================== */
 .footer-global {
   background: var(--text-dark);
   color: white;
@@ -557,9 +524,6 @@ body {
   opacity: 1;
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
 @media (max-width: 1200px) {
   .terms-container {
     grid-template-columns: 250px 1fr;
@@ -620,9 +584,6 @@ body {
   }
 }
 
-/* ========================================
-   SCROLLBAR PERSONALIZADO
-   ======================================== */
 .terms-sidebar::-webkit-scrollbar {
   width: 6px;
 }
@@ -640,11 +601,7 @@ body {
   background: var(--text-light);
 }
 
-/* ========================================
-   ESTILOS ESPECÍFICOS PARA AYUDA
-   ======================================== */
 
-/* Caja de búsqueda */
 .search-box {
   display: flex;
   align-items: center;
@@ -681,7 +638,6 @@ body {
   color: var(--text-light);
 }
 
-/* Lista de pasos */
 .step-list {
   display: flex;
   flex-direction: column;
@@ -737,7 +693,6 @@ body {
   line-height: 1.6;
 }
 
-/* Cajas de troubleshooting */
 .troubleshooting-box {
   background: rgba(244, 67, 54, 0.03);
   border-left: 4px solid var(--danger-color);
@@ -760,7 +715,6 @@ body {
   margin-bottom: 0;
 }
 
-/* FAQ items de ayuda */
 .faq-list {
   display: flex;
   flex-direction: column;
@@ -795,7 +749,6 @@ body {
   line-height: 1.7;
 }
 
-/* Botones de contacto en ayuda */
 .help-contact-btn {
   margin-top: 12px;
   width: 100%;

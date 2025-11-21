@@ -1,6 +1,4 @@
-/* ===== MEJORAS DASHBOARD PROFESOR ===== */
 
-/* Detalle de Curso Mejorado */
 .curso-detalle-title-section {
   flex: 1;
 }
@@ -242,7 +240,6 @@
   gap: 10px;
 }
 
-/* Filtros de Calificaciones Mejorados */
 .calificaciones-filtros-enhanced {
   background: white;
   border-radius: 12px;
@@ -327,7 +324,6 @@
   height: 16px;
 }
 
-/* Controles de Asistencia Mejorados */
 .asistencias-controles-enhanced {
   background: white;
   border-radius: 12px;
@@ -467,7 +463,6 @@
   height: 14px;
 }
 
-/* Modal de Historial */
 .historial-info-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -623,7 +618,6 @@
   color: #00acc1;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .curso-stats-grid-enhanced {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -648,7 +642,6 @@
   }
 }
 
-/* ===== PERFIL DEL PROFESOR ===== */
 
 .profesor-perfil-container {
   max-width: 1400px;
@@ -760,7 +753,6 @@
   font-weight: 500;
 }
 
-/* Estadísticas Profesionales */
 .perfil-stats-profesional {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -817,7 +809,6 @@
   font-weight: 700;
 }
 
-/* Formulario de Perfil */
 .perfil-form {
   max-width: 600px;
 }
@@ -888,7 +879,6 @@
   height: 18px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .perfil-datos-grid {
     grid-template-columns: 1fr;

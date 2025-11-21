@@ -1,6 +1,6 @@
 # Migración Campo Archivado - Railway
 
-## ⚠️ IMPORTANTE: Ejecutar esta migración antes de usar el sistema de archivo de pagos
+## ️ IMPORTANTE: Ejecutar esta migración antes de usar el sistema de archivo de pagos
 
 La columna `archivado` es necesaria para el funcionamiento del sistema de archivo de pagos.
 

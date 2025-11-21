@@ -1,22 +1,18 @@
-// backend/routes/calificaciones.js
 import express from "express";
 import pool from "../utils/db.js";
 
 const router = express.Router();
 
-// Guardar todas las calificaciones de un alumno en un curso
 router.post("/todas", async (req, res) => {
   try {
     const { id_alumno, id_curso, parcial1, parcial2, final } = req.body;
 
-    // Verificar si ya existen calificaciones para este alumno y curso
     const [existing] = await pool.query(
       "SELECT id_calificacion FROM calificaciones WHERE id_alumno = ? AND id_curso = ?",
       [id_alumno, id_curso]
     );
 
     if (existing.length > 0) {
-      // Actualizar calificaciones existentes
       await pool.query(
         `UPDATE calificaciones 
          SET parcial1 = ?, parcial2 = ?, final = ?, 
@@ -25,7 +21,6 @@ router.post("/todas", async (req, res) => {
         [parcial1, parcial2, final, id_alumno, id_curso]
       );
     } else {
-      // Insertar nuevas calificaciones
       await pool.query(
         `INSERT INTO calificaciones 
          (id_alumno, id_curso, parcial1, parcial2, final) 
@@ -45,7 +40,6 @@ router.post("/todas", async (req, res) => {
   }
 });
 
-// Obtener calificaciones por profesor
 router.get("/", async (req, res) => {
   try {
     const { id_profesor } = req.query;
@@ -74,7 +68,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Obtener calificaciones por curso
 router.get("/curso/:id_curso", async (req, res) => {
   try {
     const { id_curso } = req.params;
@@ -101,19 +94,16 @@ router.get("/curso/:id_curso", async (req, res) => {
   }
 });
 
-// Guardar una calificación individual
 router.post("/", async (req, res) => {
   try {
     const { id_alumno, id_curso, tipo, valor } = req.body;
     
-    // Validar tipo de calificación
     if (!['parcial1', 'parcial2', 'final'].includes(tipo)) {
       return res.status(400).json({ 
         message: "Tipo de calificación inválido. Debe ser parcial1, parcial2 o final" 
       });
     }
 
-    // Validar que el alumno esté inscrito en el curso
     const [inscripcion] = await pool.query(
       "SELECT id_inscripcion FROM inscripciones WHERE id_alumno = ? AND id_curso = ? AND estado = 'activo'",
       [id_alumno, id_curso]
@@ -125,14 +115,12 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Validar calificación
     if (valor && (valor < 0 || valor > 10)) {
       return res.status(400).json({ 
         message: "La calificación debe estar entre 0 y 10" 
       });
     }
 
-    // Verificar si ya existe una calificación para este alumno y curso
     const [existing] = await pool.query(
       "SELECT id_calificacion FROM calificaciones WHERE id_alumno = ? AND id_curso = ?",
       [id_alumno, id_curso]
@@ -142,11 +130,9 @@ router.post("/", async (req, res) => {
     let params;
 
     if (existing.length > 0) {
-      // Actualizar calificación existente
       query = `UPDATE calificaciones SET ${tipo} = ?, fecha_actualizacion = CURRENT_TIMESTAMP WHERE id_alumno = ? AND id_curso = ?`;
       params = [valor, id_alumno, id_curso];
     } else {
-      // Insertar nueva calificación
       query = `INSERT INTO calificaciones (id_alumno, id_curso, ${tipo}) VALUES (?, ?, ?)`;
       params = [id_alumno, id_curso, valor];
     }

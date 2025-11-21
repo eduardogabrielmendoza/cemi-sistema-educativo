@@ -1,7 +1,3 @@
-// =====================================================
-// WIDGET DE CHAT EN TIEMPO REAL - CEMI
-// Cliente WebSocket para soporte
-// =====================================================
 
 class ChatWidget {
   constructor() {
@@ -26,9 +22,6 @@ class ChatWidget {
     this.initMessageSound();
   }
   
-  // =====================================================
-  // CREAR ESTRUCTURA HTML DEL WIDGET
-  // =====================================================
   
   createWidget() {
     const widgetHTML = `
@@ -46,7 +39,7 @@ class ChatWidget {
         <!-- Header -->
         <div class="chat-widget-header">
           <div class="chat-widget-header-info">
-            <div class="chat-widget-header-avatar">💬</div>
+            <div class="chat-widget-header-avatar"></div>
             <div class="chat-widget-header-text">
               <h3>Chat de Soporte</h3>
               <p><span class="status-dot"></span> En línea</p>
@@ -65,7 +58,7 @@ class ChatWidget {
         
         <!-- Formulario inicial (para invitados) -->
         <div class="chat-initial-form" id="chatInitialForm">
-          <h4>¡Hola! 👋</h4>
+          <h4>¡Hola! </h4>
           <p>Estamos aquí para ayudarte. Cuéntanos en qué podemos asistirte.</p>
           
           <div class="chat-form-group">
@@ -118,31 +111,21 @@ class ChatWidget {
     document.body.insertAdjacentHTML('beforeend', widgetHTML);
   }
   
-  // =====================================================
-  // CONFIGURAR EVENT LISTENERS
-  // =====================================================
   
   setupEventListeners() {
-    // Abrir/cerrar widget
     document.getElementById('chatFloatButton').addEventListener('click', () => this.toggleWidget());
     document.getElementById('chatWidgetClose').addEventListener('click', () => this.closeWidget());
     
-    // Iniciar chat
     document.getElementById('chatStartButton').addEventListener('click', () => this.startChat());
     
-    // Enviar mensaje
     document.getElementById('chatSendButton').addEventListener('click', () => this.sendMessage());
     document.getElementById('chatMessageInput').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') this.sendMessage();
     });
     
-    // Indicador de escritura
     document.getElementById('chatMessageInput').addEventListener('input', () => this.handleTyping());
   }
   
-  // =====================================================
-  // CARGAR INFORMACIÓN DEL USUARIO
-  // =====================================================
   
   loadUserInfo() {
     const nombre = localStorage.getItem('nombre');
@@ -157,22 +140,16 @@ class ChatWidget {
         id_usuario: rol === 'alumno' ? id_alumno : id_profesor
       };
       
-      // Si está loggeado, saltar el formulario inicial
       document.getElementById('chatInitialForm').style.display = 'none';
       document.getElementById('chatMessagesContainer').style.display = 'flex';
       document.getElementById('chatInputContainer').style.display = 'flex';
       
-      // Verificar si tiene conversación activa
       this.checkActiveConversation();
     }
   }
   
-  // =====================================================
-  // INICIALIZAR SONIDO DE NOTIFICACIÓN
-  // =====================================================
   
   initMessageSound() {
-    // Crear un beep simple con Web Audio API
     this.messageSound = () => {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
@@ -192,9 +169,6 @@ class ChatWidget {
     };
   }
   
-  // =====================================================
-  // WEBSOCKET - CONEXIÓN
-  // =====================================================
   
   connectWebSocket() {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
@@ -207,13 +181,12 @@ class ChatWidget {
     this.ws = new WebSocket(`${this.WS_URL}/chat`);
     
     this.ws.onopen = () => {
-      console.log('✅ WebSocket conectado');
+      console.log(' WebSocket conectado');
       this.isConnected = true;
       this.reconnectAttempts = 0;
       this.showConnectionStatus('Conectado', 'success');
       setTimeout(() => this.hideConnectionStatus(), 2000);
       
-      // Autenticar
       this.authenticate();
     };
     
@@ -223,13 +196,13 @@ class ChatWidget {
     };
     
     this.ws.onclose = () => {
-      console.log('🔴 WebSocket desconectado');
+      console.log(' WebSocket desconectado');
       this.isConnected = false;
       this.attemptReconnect();
     };
     
     this.ws.onerror = (error) => {
-      console.error('❌ Error en WebSocket:', error);
+      console.error(' Error en WebSocket:', error);
       this.showConnectionStatus('Error de conexión', 'error');
     };
   }
@@ -266,9 +239,6 @@ class ChatWidget {
     }, delay);
   }
   
-  // =====================================================
-  // MANEJAR MENSAJES DEL WEBSOCKET
-  // =====================================================
   
   handleWebSocketMessage(message) {
     const { type, data } = message;
@@ -276,7 +246,7 @@ class ChatWidget {
     switch (type) {
       case 'connected':
       case 'authenticated':
-        console.log('✅', message.message);
+        console.log('', message.message);
         break;
         
       case 'new_message':
@@ -307,9 +277,6 @@ class ChatWidget {
     }
   }
   
-  // =====================================================
-  // INICIAR CHAT
-  // =====================================================
   
   async startChat() {
     const nombre = document.getElementById('chatUserName').value.trim();
@@ -346,15 +313,12 @@ class ChatWidget {
           id_usuario: null
         };
         
-        // Ocultar formulario, mostrar chat
         document.getElementById('chatInitialForm').style.display = 'none';
         document.getElementById('chatMessagesContainer').style.display = 'flex';
         document.getElementById('chatInputContainer').style.display = 'flex';
         
-        // Conectar WebSocket
         this.connectWebSocket();
         
-        // Cargar mensajes
         await this.loadMessages();
       } else {
         alert('Error al iniciar el chat');
@@ -369,9 +333,6 @@ class ChatWidget {
     }
   }
   
-  // =====================================================
-  // VERIFICAR CONVERSACIÓN ACTIVA
-  // =====================================================
   
   async checkActiveConversation() {
     if (!this.userInfo || this.userInfo.tipo === 'invitado') return;
@@ -394,9 +355,6 @@ class ChatWidget {
     }
   }
   
-  // =====================================================
-  // CARGAR MENSAJES
-  // =====================================================
   
   async loadMessages() {
     if (!this.conversationId) return;
@@ -416,7 +374,6 @@ class ChatWidget {
         
         this.scrollToBottom();
         
-        // Marcar como leídos
         this.markAsRead();
       }
     } catch (error) {
@@ -424,9 +381,6 @@ class ChatWidget {
     }
   }
   
-  // =====================================================
-  // ENVIAR MENSAJE
-  // =====================================================
   
   sendMessage() {
     const input = document.getElementById('chatMessageInput');
@@ -446,9 +400,6 @@ class ChatWidget {
     this.stopTyping();
   }
   
-  // =====================================================
-  // AGREGAR MENSAJE A LA UI
-  // =====================================================
   
   addMessageToUI(messageData, playSound = true) {
     const container = document.getElementById('chatMessagesContainer');
@@ -458,7 +409,7 @@ class ChatWidget {
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${isSent ? 'sent' : 'received'}`;
     
-    const avatar = isSent ? this.userInfo.nombre.charAt(0).toUpperCase() : '👤';
+    const avatar = isSent ? this.userInfo.nombre.charAt(0).toUpperCase() : '';
     const time = new Date(messageData.fecha_envio).toLocaleTimeString('es-ES', { 
       hour: '2-digit', 
       minute: '2-digit' 
@@ -482,9 +433,6 @@ class ChatWidget {
     }
   }
   
-  // =====================================================
-  // INDICADOR DE ESCRITURA
-  // =====================================================
   
   handleTyping() {
     if (!this.isTyping) {
@@ -526,9 +474,6 @@ class ChatWidget {
     }, 3000);
   }
   
-  // =====================================================
-  // MARCAR COMO LEÍDO
-  // =====================================================
   
   async markAsRead() {
     if (!this.conversationId || !this.isConnected) return;
@@ -540,13 +485,9 @@ class ChatWidget {
       }
     }));
     
-    // Resetear badge
     this.updateNotificationBadge(0);
   }
   
-  // =====================================================
-  // UTILIDADES
-  // =====================================================
   
   toggleWidget() {
     const container = document.getElementById('chatWidgetContainer');
@@ -570,7 +511,6 @@ class ChatWidget {
       this.markAsRead();
     }
     
-    // Focus en input si está visible
     setTimeout(() => {
       const input = document.getElementById('chatMessageInput');
       if (input.offsetParent !== null) {
@@ -635,11 +575,8 @@ class ChatWidget {
   }
 }
 
-// =====================================================
-// INICIALIZAR WIDGET AL CARGAR LA PÁGINA
-// =====================================================
 
 document.addEventListener('DOMContentLoaded', () => {
   window.chatWidget = new ChatWidget();
-  console.log('💬 Chat Widget inicializado');
+  console.log(' Chat Widget inicializado');
 });

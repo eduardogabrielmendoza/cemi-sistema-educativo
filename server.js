@@ -1,7 +1,3 @@
-// =============================
-// 🌐 CEMI - API REST BACKEND
-// =============================
-
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -11,7 +7,6 @@ import rateLimit from "express-rate-limit";
 import morgan from "morgan";
 import pool from "./backend/utils/db.js";
 
-// Importar rutas (cuando las tengas creadas)
 import authRoutes from "./backend/routes/auth.js";
 import alumnosRoutes from "./backend/routes/alumnos.js";
 import profesoresRoutes from "./backend/routes/profesores.js";
@@ -33,16 +28,10 @@ import configRoutes from "./backend/routes/config.js";
 import ChatServer from "./backend/utils/chat-server.js";
 import http from "http";
 
-// Configuración base
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// =============================
-// 🧩 MIDDLEWARES
-// =============================
-
-// 🛡️ Helmet - Seguridad HTTP (protege headers)
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -60,14 +49,12 @@ app.use(helmet({
   }
 }));
 
-// 📊 Morgan - Logger de peticiones HTTP
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev')); // Formato corto para desarrollo
 } else {
   app.use(morgan('combined')); // Formato completo para producción
 }
 
-// 🚦 Rate Limiting - Prevenir ataques de fuerza bruta y DoS
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 1000, // Aumentado a 1000 requests por IP
@@ -75,13 +62,11 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   skip: (req) => {
-    // Excluir rutas de chat del rate limiting
     return req.path.startsWith('/api/chat');
   }
 });
 app.use('/api/', limiter);
 
-// 🌐 CORS - Control de acceso desde frontend
 const allowedOrigins = [
   'http://localhost:8080',
   'http://localhost:3000',
@@ -95,7 +80,6 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Permitir requests sin origin (mobile apps, curl, etc)
     if (!origin) return callback(null, true);
     
     if (allowedOrigins.some(allowed => origin.includes(allowed))) {
@@ -109,11 +93,9 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// 📝 Body Parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// 🔤 Forzar UTF-8 en todas las respuestas de la API
 app.use((req, res, next) => {
   if (req.path.startsWith('/api/')) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -121,13 +103,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// 📁 Servir archivos estáticos (uploads)
 app.use('/uploads', express.static('uploads'));
 
-// 📁 Servir archivos estáticos del frontend
 app.use('/assets', express.static('frontend/assets'));
 
-// 📁 Servir descargas sin caché (APK)
 app.use('/downloads', express.static('frontend/downloads', {
   setHeaders: (res, path) => {
     if (path.endsWith('.apk')) {
@@ -142,24 +121,17 @@ app.use('/downloads', express.static('frontend/downloads', {
 
 app.use(express.static('frontend'));
 
-// =============================
-// 🧠 VERIFICAR CONEXIÓN A MYSQL
-// =============================
 const verificarConexion = async () => {
   try {
     const [rows] = await pool.query("SELECT 1");
-    console.log("✅ Conexión con MySQL establecida correctamente.");
+    console.log(" Conexión con MySQL establecida correctamente.");
   } catch (error) {
-    console.error("❌ Error al conectar con MySQL:", error.message);
+    console.error(" Error al conectar con MySQL:", error.message);
   }
 };
 verificarConexion();
 
-// =============================
-// 📡 RUTAS PRINCIPALES
-// =============================
 
-// Health check para Railway/Render
 app.get("/api/health", (req, res) => {
   res.status(200).json({ 
     status: "ok", 
@@ -187,27 +159,18 @@ app.use("/api/notificaciones", notificacionesRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/config", configRoutes);
 
-// =============================
-// 📄 SERVIR FRONTEND
-// =============================
-// Servir index.html para la ruta raíz
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "frontend" });
 });
 
-// =============================
-// 🚀 INICIAR SERVIDOR CON WEBSOCKET
-// =============================
 const server = http.createServer(app);
 
-// Inicializar servidor de chat WebSocket
 const chatServer = new ChatServer(server);
 
-// Conectar el chatServer con las rutas de chat
 setChatServer(chatServer);
 
 server.listen(PORT, () => {
-  console.log(`🚀 Servidor HTTP activo en http://localhost:${PORT}`);
-  console.log(`🔌 Servidor WebSocket de Chat activo en ws://localhost:${PORT}/chat`);
-  console.log(`📊 Estado del chat:`, chatServer.getStats());
+  console.log(` Servidor HTTP activo en http://localhost:${PORT}`);
+  console.log(` Servidor WebSocket de Chat activo en ws://localhost:${PORT}/chat`);
+  console.log(` Estado del chat:`, chatServer.getStats());
 });

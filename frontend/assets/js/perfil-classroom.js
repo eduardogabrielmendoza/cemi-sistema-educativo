@@ -1,75 +1,59 @@
-// =====================================================
-// PERFIL CLASSROOM - JavaScript
-// =====================================================
 
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
-// Variables globales
 let userId = null;
 let userRol = null;
 let userData = null;
 
-// =====================================================
-// INICIALIZACIÓN
-// =====================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 DOM cargado, iniciando perfil...');
+  console.log(' DOM cargado, iniciando perfil...');
   
-  // Verificar sesión
   const sesionValida = verificarSesion();
   
   if (!sesionValida) {
-    console.error('❌ Sesión no válida, redirigiendo...');
+    console.error(' Sesión no válida, redirigiendo...');
     return;
   }
   
-  // Inicializar tema
   inicializarTema();
   
-  // Event listeners con verificación
   const formDatos = document.getElementById('formDatosPersonales');
   if (formDatos) {
     formDatos.addEventListener('submit', guardarDatosPersonales);
-    console.log('✓ Event listener del formulario agregado');
+    console.log(' Event listener del formulario agregado');
   } else {
-    console.warn('⚠️ No se encontró formDatosPersonales');
+    console.warn('️ No se encontró formDatosPersonales');
   }
   
   const btnTheme = document.getElementById('toggleTheme');
   if (btnTheme) {
     btnTheme.addEventListener('click', toggleTema);
-    console.log('✓ Event listener del tema agregado');
+    console.log(' Event listener del tema agregado');
   } else {
-    console.warn('⚠️ No se encontró toggleTheme');
+    console.warn('️ No se encontró toggleTheme');
   }
   
-  // Inicializar Lucide icons
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
-    console.log('✓ Lucide icons inicializados');
+    console.log(' Lucide icons inicializados');
   }
   
-  // Cargar datos del perfil
   if (userId) {
-    console.log(`✓ Cargando perfil para userId: ${userId}`);
+    console.log(` Cargando perfil para userId: ${userId}`);
     cargarPerfilCompleto();
   } else {
-    console.error('❌ No se pudo obtener userId');
+    console.error(' No se pudo obtener userId');
   }
 });
 
-// =====================================================
-// VERIFICAR SESIÓN
-// =====================================================
 
 function verificarSesion() {
   userRol = localStorage.getItem('rol');
   
-  // SIEMPRE usar id_usuario para la API
   userId = localStorage.getItem('id_usuario');
   
-  console.log('🔍 Verificando sesión:', {
+  console.log(' Verificando sesión:', {
     userId: userId,
     userRol: userRol,
     id_alumno: localStorage.getItem('id_alumno'),
@@ -88,20 +72,17 @@ function verificarSesion() {
     return false;
   }
   
-  console.log(`📋 Perfil cargando para: userId=${userId}, rol=${userRol}`);
+  console.log(` Perfil cargando para: userId=${userId}, rol=${userRol}`);
   return true;
 }
 
-// =====================================================
-// TEMA (DARK MODE)
-// =====================================================
 
 function inicializarTema() {
   const temaGuardado = localStorage.getItem('tema') || 'light';
   const btnTheme = document.getElementById('toggleTheme');
   
   if (!btnTheme) {
-    console.warn('⚠️ Botón de tema no encontrado');
+    console.warn('️ Botón de tema no encontrado');
     return;
   }
   
@@ -119,7 +100,7 @@ function inicializarTema() {
     lucide.createIcons();
   }
   
-  console.log(`✓ Tema inicializado: ${temaGuardado}`);
+  console.log(` Tema inicializado: ${temaGuardado}`);
 }
 
 function toggleTema() {
@@ -142,17 +123,13 @@ function toggleTema() {
     lucide.createIcons();
   }
   
-  console.log(`✓ Tema cambiado a: ${isDark ? 'dark' : 'light'}`);
+  console.log(` Tema cambiado a: ${isDark ? 'dark' : 'light'}`);
 }
 
-// =====================================================
-// NAVEGACIÓN ENTRE SECCIONES
-// =====================================================
 
 function cambiarSeccion(seccionId) {
-  console.log(`🔄 Cambiando a sección: ${seccionId}`);
+  console.log(` Cambiando a sección: ${seccionId}`);
   
-  // Remover active de todas las secciones y nav items
   document.querySelectorAll('.perfil-section').forEach(sec => sec.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
   
@@ -162,42 +139,38 @@ function cambiarSeccion(seccionId) {
   
   if (seccion) {
     seccion.classList.add('active');
-    console.log(`✓ Sección activada: ${seccionId}`);
+    console.log(` Sección activada: ${seccionId}`);
   } else {
-    console.warn(`⚠️ Sección no encontrada: ${seccionId}`);
+    console.warn(`️ Sección no encontrada: ${seccionId}`);
   }
   
   if (navItem) {
     navItem.classList.add('active');
   } else {
-    console.warn(`⚠️ Nav item no encontrado para: ${seccionId}`);
+    console.warn(`️ Nav item no encontrado para: ${seccionId}`);
   }
 }
 
-// =====================================================
-// CARGAR DATOS DEL PERFIL
-// =====================================================
 
 async function cargarPerfilCompleto() {
   try {
-    console.log(`🔄 Cargando perfil para userId: ${userId}`);
+    console.log(` Cargando perfil para userId: ${userId}`);
     const response = await fetch(`${API_URL}/classroom/perfil/${userId}`);
     const data = await response.json();
     
-    console.log('📦 Respuesta del servidor:', data);
+    console.log(' Respuesta del servidor:', data);
     
     if (response.ok && data.success) {
       userData = data.perfil;
-      console.log('✅ Datos del perfil cargados:', userData);
+      console.log(' Datos del perfil cargados:', userData);
       
-      // Guardar id_alumno o id_profesor si vienen en la respuesta
       if (userData.id_alumno) {
         localStorage.setItem('id_alumno', userData.id_alumno);
-        console.log('✓ id_alumno guardado en localStorage:', userData.id_alumno);
+        console.log(' id_alumno guardado en localStorage:', userData.id_alumno);
       }
       if (userData.id_profesor) {
         localStorage.setItem('id_profesor', userData.id_profesor);
-        console.log('✓ id_profesor guardado en localStorage:', userData.id_profesor);
+        console.log(' id_profesor guardado en localStorage:', userData.id_profesor);
       }
       
       mostrarDatosEnUI(userData);
@@ -206,7 +179,7 @@ async function cargarPerfilCompleto() {
       throw new Error(data.message || 'Error al cargar el perfil');
     }
   } catch (error) {
-    console.error('❌ Error al cargar perfil:', error);
+    console.error(' Error al cargar perfil:', error);
     Swal.fire({
       icon: 'error',
       title: 'Error',
@@ -216,27 +189,23 @@ async function cargarPerfilCompleto() {
 }
 
 function mostrarDatosEnUI(perfil) {
-  console.log('🎨 Mostrando datos en UI:', perfil);
+  console.log(' Mostrando datos en UI:', perfil);
   
-  // Helper para actualizar elemento de forma segura
   const updateElement = (id, value, prop = 'textContent') => {
     const el = document.getElementById(id);
     if (el) {
       el[prop] = value;
       return true;
     }
-    console.warn(`⚠️ Elemento no encontrado: ${id}`);
+    console.warn(`️ Elemento no encontrado: ${id}`);
     return false;
   };
   
-  // Header del perfil
   const iniciales = obtenerIniciales(perfil.nombre, perfil.apellido);
   const avatarContainer = document.getElementById('profileAvatar');
   const avatarInitials = document.getElementById('avatarInitials');
   
-  // Mostrar avatar o iniciales
   if (perfil.avatar) {
-    // Si tiene avatar, mostrar la imagen
     const BASE_URL = window.BASE_URL || 'http://localhost:3000';
     const avatarUrl = `${BASE_URL}${perfil.avatar}`;
     
@@ -244,14 +213,13 @@ function mostrarDatosEnUI(perfil) {
       avatarContainer.style.backgroundImage = `url(${avatarUrl})`;
       avatarContainer.style.backgroundSize = 'cover';
       avatarContainer.style.backgroundPosition = 'center';
-      console.log('✓ Avatar cargado como background:', avatarUrl);
+      console.log(' Avatar cargado como background:', avatarUrl);
     }
     
     if (avatarInitials) {
       avatarInitials.style.display = 'none'; // Ocultar iniciales
     }
   } else {
-    // Si no tiene avatar, mostrar iniciales
     if (avatarContainer) {
       avatarContainer.style.backgroundImage = 'none';
     }
@@ -259,7 +227,7 @@ function mostrarDatosEnUI(perfil) {
     if (avatarInitials) {
       avatarInitials.style.display = 'flex';
       avatarInitials.textContent = iniciales;
-      console.log('✓ Mostrando iniciales:', iniciales);
+      console.log(' Mostrando iniciales:', iniciales);
     }
   }
   
@@ -269,20 +237,17 @@ function mostrarDatosEnUI(perfil) {
   
   const fechaRegistro = perfil.fecha_creacion ? new Date(perfil.fecha_creacion).getFullYear() : '2025';
   updateElement('profileJoined', fechaRegistro);
-  console.log('✓ Header actualizado');
+  console.log(' Header actualizado');
   
-  // Info cards
   updateElement('infoEmail', perfil.email || 'No especificado');
   updateElement('infoTelefono', perfil.telefono || 'No especificado');
   updateElement('infoFechaNac', perfil.fecha_nacimiento ? formatearFecha(perfil.fecha_nacimiento) : 'No especificado');
   updateElement('infoDireccion', perfil.direccion || 'No especificado');
-  console.log('✓ Info cards actualizadas');
+  console.log(' Info cards actualizadas');
   
-  // Biografía (mostrar en la sección de información general)
   updateElement('biografiaDisplay', perfil.biografia || 'Sin biografía');
-  console.log('✓ Biografía actualizada');
+  console.log(' Biografía actualizada');
   
-  // Formulario editable
   updateElement('inputNombre', perfil.nombre || '', 'value');
   updateElement('inputApellido', perfil.apellido || '', 'value');
   updateElement('inputEmail', perfil.email || '', 'value');
@@ -290,22 +255,18 @@ function mostrarDatosEnUI(perfil) {
   updateElement('inputFechaNac', perfil.fecha_nacimiento || '', 'value');
   updateElement('inputDireccion', perfil.direccion || '', 'value');
   updateElement('inputBiografia', perfil.biografia || '', 'value');
-  console.log('✓ Formulario actualizado');
+  console.log(' Formulario actualizado');
   
-  // Estadísticas
   updateElement('ultimaActividad', 'Hoy');
   updateElement('ultimaActividadDetalle', 'Hace pocos minutos');
   
-  console.log('✅ UI completamente actualizada');
+  console.log(' UI completamente actualizada');
 }
 
-// =====================================================
-// GUARDAR DATOS PERSONALES
-// =====================================================
 
 async function guardarDatosPersonales(e) {
   e.preventDefault();
-  console.log('💾 Guardando datos personales...');
+  console.log(' Guardando datos personales...');
   
   const datosActualizados = {
     nombre: document.getElementById('inputNombre').value.trim(),
@@ -316,11 +277,10 @@ async function guardarDatosPersonales(e) {
     direccion: document.getElementById('inputDireccion').value.trim()
   };
   
-  console.log('📤 Datos a enviar:', datosActualizados);
+  console.log(' Datos a enviar:', datosActualizados);
   
-  // Validaciones
   if (!datosActualizados.nombre || !datosActualizados.apellido) {
-    console.warn('⚠️ Validación fallida: nombre y apellido requeridos');
+    console.warn('️ Validación fallida: nombre y apellido requeridos');
     Swal.fire({
       icon: 'warning',
       title: 'Campos requeridos',
@@ -330,7 +290,7 @@ async function guardarDatosPersonales(e) {
   }
   
   try {
-    console.log(`🌐 PUT request a: ${API_URL}/classroom/perfil/${userId}`);
+    console.log(` PUT request a: ${API_URL}/classroom/perfil/${userId}`);
     const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
       method: 'PUT',
       headers: {
@@ -340,10 +300,10 @@ async function guardarDatosPersonales(e) {
     });
     
     const data = await response.json();
-    console.log('📦 Respuesta del servidor:', data);
+    console.log(' Respuesta del servidor:', data);
     
     if (response.ok && data.success) {
-      console.log('✅ Datos guardados exitosamente');
+      console.log(' Datos guardados exitosamente');
       Swal.fire({
         icon: 'success',
         title: '¡Datos actualizados!',
@@ -351,16 +311,14 @@ async function guardarDatosPersonales(e) {
         timer: 2000
       });
       
-      // Actualizar localStorage
       localStorage.setItem('nombre', `${datosActualizados.nombre} ${datosActualizados.apellido}`);
       
-      // Recargar perfil
       cargarPerfilCompleto();
     } else {
       throw new Error(data.message || 'Error al guardar');
     }
   } catch (error) {
-    console.error('❌ Error al guardar datos:', error);
+    console.error(' Error al guardar datos:', error);
     Swal.fire({
       icon: 'error',
       title: 'Error',
@@ -370,7 +328,6 @@ async function guardarDatosPersonales(e) {
 }
 
 function cancelarEdicion() {
-  // Recargar los datos originales
   if (userData) {
     document.getElementById('inputNombre').value = userData.nombre || '';
     document.getElementById('inputApellido').value = userData.apellido || '';
@@ -388,16 +345,12 @@ function cancelarEdicion() {
   });
 }
 
-// =====================================================
-// CAMBIAR AVATAR
-// =====================================================
 
 async function cambiarAvatar(event) {
   const file = event.target.files[0];
   
   if (!file) return;
   
-  // Validar tipo de archivo
   if (!file.type.startsWith('image/')) {
     Swal.fire({
       icon: 'error',
@@ -407,7 +360,6 @@ async function cambiarAvatar(event) {
     return;
   }
   
-  // Validar tamaño (max 2MB)
   if (file.size > 2 * 1024 * 1024) {
     Swal.fire({
       icon: 'error',
@@ -420,7 +372,7 @@ async function cambiarAvatar(event) {
   const formData = new FormData();
   formData.append('avatar', file);
   
-  console.log('📤 Subiendo avatar...');
+  console.log(' Subiendo avatar...');
   
   try {
     const response = await fetch(`${API_URL}/classroom/perfil/${userId}/avatar`, {
@@ -431,9 +383,8 @@ async function cambiarAvatar(event) {
     const data = await response.json();
     
     if (response.ok && data.success) {
-      console.log('✅ Avatar subido exitosamente:', data.avatar);
+      console.log(' Avatar subido exitosamente:', data.avatar);
       
-      // Actualizar el avatar en la UI inmediatamente
       const avatarContainer = document.getElementById('profileAvatar');
       const avatarInitials = document.getElementById('avatarInitials');
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
@@ -443,14 +394,13 @@ async function cambiarAvatar(event) {
         avatarContainer.style.backgroundImage = `url(${avatarUrl})`;
         avatarContainer.style.backgroundSize = 'cover';
         avatarContainer.style.backgroundPosition = 'center';
-        console.log('✓ Avatar actualizado en UI');
+        console.log(' Avatar actualizado en UI');
       }
       
       if (avatarInitials) {
         avatarInitials.style.display = 'none'; // Ocultar iniciales
       }
       
-      // Actualizar también userData para que persista
       if (userData) {
         userData.avatar = data.avatar;
       }
@@ -475,14 +425,11 @@ async function cambiarAvatar(event) {
   }
 }
 
-// =====================================================
-// GUARDAR BIOGRAFÍA
-// =====================================================
 
 async function guardarBiografia() {
   const biografia = document.getElementById('inputBiografia').value.trim();
   
-  console.log('💾 Guardando biografía...');
+  console.log(' Guardando biografía...');
   
   try {
     const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
@@ -496,13 +443,12 @@ async function guardarBiografia() {
     const data = await response.json();
     
     if (response.ok && data.success) {
-      // Actualizar también el elemento de visualización
       const biografiaDisplay = document.getElementById('biografiaDisplay');
       if (biografiaDisplay) {
         biografiaDisplay.textContent = biografia || 'Sin biografía';
       }
       
-      console.log('✅ Biografía guardada y actualizada');
+      console.log(' Biografía guardada y actualizada');
       
       Swal.fire({
         icon: 'success',
@@ -512,13 +458,12 @@ async function guardarBiografia() {
         showConfirmButton: false
       });
       
-      // Recargar perfil completo para asegurar sincronización
       cargarPerfilCompleto();
     } else {
       throw new Error(data.message);
     }
   } catch (error) {
-    console.error('❌ Error al guardar biografía:', error);
+    console.error(' Error al guardar biografía:', error);
     Swal.fire({
       icon: 'error',
       title: 'Error',
@@ -527,9 +472,6 @@ async function guardarBiografia() {
   }
 }
 
-// =====================================================
-// ACCIONES RÁPIDAS
-// =====================================================
 
 function irAlDashboard() {
   const rol = userRol.toLowerCase();
@@ -547,7 +489,6 @@ async function exportarMisDatos() {
       }
     });
     
-    // Simular exportación (aquí podrías generar un PDF o JSON)
     setTimeout(() => {
       const datosExportar = {
         perfil: userData,
@@ -579,9 +520,6 @@ async function exportarMisDatos() {
   }
 }
 
-// =====================================================
-// UTILIDADES
-// =====================================================
 
 function obtenerIniciales(nombre, apellido) {
   const n = (nombre || '').charAt(0).toUpperCase();

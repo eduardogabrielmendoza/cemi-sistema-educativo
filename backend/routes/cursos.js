@@ -1,4 +1,3 @@
-// backend/routes/cursos.js
 import express from "express";
 import pool from "../utils/db.js";
 
@@ -38,14 +37,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-// =====================================================
-// GET /profesor/:idProfesor
-// Obtener cursos de un profesor específico con información completa
-// =====================================================
 router.get("/profesor/:idProfesor", async (req, res) => {
   try {
     const { idProfesor } = req.params;
-    console.log(`📚 [GET /cursos/profesor/:id] Obteniendo cursos del profesor ${idProfesor}`);
+    console.log(` [GET /cursos/profesor/:id] Obteniendo cursos del profesor ${idProfesor}`);
 
     const query = `
       SELECT 
@@ -67,14 +62,14 @@ router.get("/profesor/:idProfesor", async (req, res) => {
 
     const [cursos] = await pool.query(query, [idProfesor]);
     
-    console.log(`  ✅ Encontrados ${cursos.length} cursos`);
+    console.log(`   Encontrados ${cursos.length} cursos`);
 
     res.json({
       success: true,
       cursos: cursos
     });
   } catch (error) {
-    console.error("💥 Error al obtener cursos del profesor:", error);
+    console.error(" Error al obtener cursos del profesor:", error);
     res.status(500).json({ 
       success: false,
       message: "Error al obtener cursos del profesor" 
@@ -82,11 +77,7 @@ router.get("/profesor/:idProfesor", async (req, res) => {
   }
 });
 
-// =====================================================
-// RUTAS ESPECÍFICAS (DEBEN IR ANTES DE /:id)
-// =====================================================
 
-// GET /catalogo - Catálogo de cursos disponibles
 router.get('/catalogo', async (req, res) => {
     try {
         const { id_alumno, idioma, nivel, profesor } = req.query;
@@ -100,7 +91,6 @@ router.get('/catalogo', async (req, res) => {
 
         console.log('[CATALOGO] Iniciando consulta para alumno:', id_alumno);
 
-        // Query simplificada y robusta
         let query = `
             SELECT 
                 c.id_curso,
@@ -130,7 +120,6 @@ router.get('/catalogo', async (req, res) => {
 
         const params = [id_alumno];
 
-        // Aplicar filtros opcionales
         if (idioma) {
             query += ' AND c.id_idioma = ?';
             params.push(idioma);
@@ -152,13 +141,10 @@ router.get('/catalogo', async (req, res) => {
         const [cursos] = await pool.query(query, params);
         console.log('[CATALOGO] Cursos encontrados:', cursos.length);
 
-        // Filtrar SOLO cursos en los que NO está inscrito
         const cursosDisponibles = cursos.filter(curso => curso.ya_inscrito === 0);
         console.log('[CATALOGO] Cursos disponibles (sin inscripción):', cursosDisponibles.length);
 
-        // Calcular estado de cada curso
         const cursosConEstado = cursosDisponibles.map(curso => {
-            // Evitar división por cero
             const porcentajeOcupacion = curso.cupo_maximo > 0 
                 ? (curso.inscriptos_actuales / curso.cupo_maximo) * 100 
                 : 0;
@@ -225,10 +211,8 @@ router.get('/catalogo', async (req, res) => {
     }
 });
 
-// GET /filtros/opciones - Opciones para filtros
 router.get('/filtros/opciones', async (req, res) => {
     try {
-        // Obtener idiomas
         const [idiomas] = await pool.query(`
             SELECT DISTINCT i.id_idioma, i.nombre_idioma
             FROM idiomas i
@@ -236,7 +220,6 @@ router.get('/filtros/opciones', async (req, res) => {
             ORDER BY i.nombre_idioma
         `);
 
-        // Obtener niveles
         const [niveles] = await pool.query(`
             SELECT DISTINCT n.id_nivel, n.descripcion, i.nombre_idioma
             FROM niveles n
@@ -245,7 +228,6 @@ router.get('/filtros/opciones', async (req, res) => {
             ORDER BY i.nombre_idioma, n.descripcion
         `);
 
-        // Obtener profesores
         const [profesores] = await pool.query(`
             SELECT DISTINCT 
                 prof.id_profesor,
@@ -276,7 +258,6 @@ router.get('/filtros/opciones', async (req, res) => {
     }
 });
 
-// GET /mis-cursos/:id_alumno - Cursos del alumno
 router.get('/mis-cursos/:id_alumno', async (req, res) => {
     try {
         const { id_alumno } = req.params;
@@ -334,11 +315,7 @@ router.get('/mis-cursos/:id_alumno', async (req, res) => {
     }
 });
 
-// =====================================================
-// RUTAS CON PARÁMETROS DINÁMICOS (DEBEN IR DESPUÉS)
-// =====================================================
 
-// Obtener un curso específico por ID
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -380,12 +357,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Obtener detalles completos del curso con alumnos y estadísticas
 router.get("/:id/detalles", async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Información del curso
     const [cursoRows] = await pool.query(`
       SELECT 
         c.id_curso,
@@ -412,7 +387,6 @@ router.get("/:id/detalles", async (req, res) => {
       return res.status(404).json({ message: "Curso no encontrado" });
     }
 
-    // Alumnos inscritos con sus calificaciones
     const [alumnosRows] = await pool.query(`
       SELECT 
         a.id_alumno,
@@ -442,7 +416,6 @@ router.get("/:id/detalles", async (req, res) => {
       ORDER BY p.apellido, p.nombre
     `, [id]);
 
-    // Calcular estadísticas
     const alumnosConPromedio = alumnosRows.filter(al => al.promedio !== null);
     const promedioGeneral = alumnosConPromedio.length > 0
       ? (alumnosConPromedio.reduce((sum, al) => sum + parseFloat(al.promedio), 0) / alumnosConPromedio.length).toFixed(2)
@@ -468,7 +441,6 @@ router.get("/:id/detalles", async (req, res) => {
   }
 });
 
-// Obtener lista de alumnos de un curso
 router.get("/:id/alumnos", async (req, res) => {
   try {
     const { id } = req.params;
@@ -495,7 +467,6 @@ router.get("/:id/alumnos", async (req, res) => {
   }
 });
 
-// Asignar/cambiar profesor de un curso
 router.put("/:id/profesor", async (req, res) => {
   try {
     const { id } = req.params;
@@ -508,7 +479,6 @@ router.put("/:id/profesor", async (req, res) => {
       });
     }
 
-    // Verificar que el profesor existe
     const [profesorRows] = await pool.query(
       'SELECT id_profesor FROM profesores WHERE id_profesor = ? AND estado = "activo"',
       [id_profesor]
@@ -521,7 +491,6 @@ router.put("/:id/profesor", async (req, res) => {
       });
     }
 
-    // Actualizar el profesor del curso
     const [result] = await pool.query(
       'UPDATE cursos SET id_profesor = ? WHERE id_curso = ?',
       [id_profesor, id]
@@ -547,7 +516,6 @@ router.put("/:id/profesor", async (req, res) => {
   }
 });
 
-// Actualizar un curso
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -587,12 +555,10 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Crear nuevo curso
 router.post("/", async (req, res) => {
   try {
     const { nombre_curso, id_idioma, id_nivel, id_profesor, horario, cupo_maximo, id_aula } = req.body;
 
-    // Validar campos requeridos
     if (!nombre_curso || !id_idioma || !id_profesor) {
       return res.status(400).json({ 
         success: false, 
@@ -628,12 +594,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Eliminar curso
 router.delete("/:id", async (req, res) => {
   try {
     const id_curso = req.params.id;
 
-    // Verificar si tiene inscripciones activas
     const [inscripciones] = await pool.query(
       'SELECT COUNT(*) as total FROM inscripciones WHERE id_curso = ? AND estado = "activo"',
       [id_curso]
@@ -646,12 +610,10 @@ router.delete("/:id", async (req, res) => {
       });
     }
 
-    // Eliminar registros relacionados
     await pool.query('DELETE FROM calificaciones WHERE id_curso = ?', [id_curso]);
     await pool.query('DELETE FROM asistencias WHERE id_curso = ?', [id_curso]);
     await pool.query('DELETE FROM inscripciones WHERE id_curso = ?', [id_curso]);
     
-    // Eliminar curso
     const [result] = await pool.query('DELETE FROM cursos WHERE id_curso = ?', [id_curso]);
 
     if (result.affectedRows === 0) {
@@ -674,11 +636,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// =====================================================
-// GESTIÓN DE CUOTAS HABILITADAS
-// =====================================================
 
-// Actualizar cuotas habilitadas para un curso específico
 router.put("/:id/cuotas", async (req, res) => {
   try {
     const { id } = req.params;
@@ -690,7 +648,6 @@ router.put("/:id/cuotas", async (req, res) => {
     console.log('Cuotas recibidas:', cuotas);
     console.log('Tipo de cuotas:', typeof cuotas, Array.isArray(cuotas));
     
-    // Validar que cuotas sea un array
     if (!Array.isArray(cuotas)) {
       console.log('ERROR: cuotas no es un array');
       return res.status(400).json({ 
@@ -699,7 +656,6 @@ router.put("/:id/cuotas", async (req, res) => {
       });
     }
 
-    // Validar que el curso existe
     const [curso] = await pool.query(
       'SELECT id_curso, nombre_curso FROM cursos WHERE id_curso = ?',
       [id]
@@ -712,11 +668,9 @@ router.put("/:id/cuotas", async (req, res) => {
       });
     }
 
-    // Cuotas válidas
     const cuotasValidas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
                            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
     
-    // Validar que todas las cuotas sean válidas
     const cuotasInvalidas = cuotas.filter(c => !cuotasValidas.includes(c));
     if (cuotasInvalidas.length > 0) {
       return res.status(400).json({ 
@@ -725,7 +679,6 @@ router.put("/:id/cuotas", async (req, res) => {
       });
     }
 
-    // Actualizar cuotas habilitadas
     // NULL = todas habilitadas (por defecto)
     // Array vacío [] = ninguna habilitada
     // Array con valores = solo esas cuotas habilitadas
@@ -733,7 +686,6 @@ router.put("/:id/cuotas", async (req, res) => {
     console.log('Cuotas a guardar:', cuotas);
     console.log('Ejecutando UPDATE...');
     
-    // Usar JSON_ARRAY de MySQL para crear JSON válido
     const placeholders = cuotas.map(() => '?').join(', ');
     const jsonArraySQL = cuotas.length > 0 
       ? `CAST(JSON_ARRAY(${placeholders}) AS JSON)`
@@ -761,12 +713,10 @@ router.put("/:id/cuotas", async (req, res) => {
   }
 });
 
-// Actualizar cuotas habilitadas para TODOS los cursos
 router.put("/cuotas/todos", async (req, res) => {
   try {
     const { cuotas } = req.body; // Array: ['Matricula', 'Marzo', 'Abril', ...]
     
-    // Validar que cuotas sea un array
     if (!Array.isArray(cuotas)) {
       return res.status(400).json({ 
         success: false, 
@@ -774,11 +724,9 @@ router.put("/cuotas/todos", async (req, res) => {
       });
     }
 
-    // Cuotas válidas
     const cuotasValidas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 
                            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
     
-    // Validar que todas las cuotas sean válidas
     const cuotasInvalidas = cuotas.filter(c => !cuotasValidas.includes(c));
     if (cuotasInvalidas.length > 0) {
       return res.status(400).json({ 
@@ -787,10 +735,8 @@ router.put("/cuotas/todos", async (req, res) => {
       });
     }
 
-    // Si el array está vacío, establecer NULL (todas habilitadas)
     const valor = cuotas.length > 0 ? JSON.stringify(cuotas) : null;
     
-    // Actualizar todos los cursos
     const [result] = await pool.query(
       'UPDATE cursos SET cuotas_habilitadas = ?',
       [valor]
@@ -812,7 +758,6 @@ router.put("/cuotas/todos", async (req, res) => {
   }
 });
 
-// Obtener cuotas habilitadas de un curso
 router.get("/:id/cuotas", async (req, res) => {
   try {
     const { id } = req.params;
@@ -836,22 +781,16 @@ router.get("/:id/cuotas", async (req, res) => {
       // null = todas habilitadas
       cuotasHabilitadas = null;
     } else if (typeof rawCuotas === 'object' && Array.isArray(rawCuotas)) {
-      // Ya es un array (MySQL lo parsea automáticamente si es JSON válido)
       cuotasHabilitadas = rawCuotas;
     } else {
-      // Es string, intentar parsearlo
       try {
-        // Primero intentar como JSON válido
         cuotasHabilitadas = JSON.parse(rawCuotas);
       } catch (error) {
-        // Si falla, puede ser formato de array de JavaScript: [ 'item1', 'item2' ]
-        // Convertirlo a JSON válido reemplazando comillas simples por dobles
         try {
           const jsonString = rawCuotas.replace(/'/g, '"');
           cuotasHabilitadas = JSON.parse(jsonString);
         } catch (error2) {
           console.error('Error parseando cuotas_habilitadas:', rawCuotas);
-          // Si todo falla, asumir que todas están habilitadas
           cuotasHabilitadas = null;
         }
       }

@@ -1,4 +1,3 @@
-/* ===== DASHBOARD ADMIN BASE ===== */
 .dashboard-body {
   display: flex;
   min-height: 100vh;
@@ -31,7 +30,6 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Sidebar con glassmorphism */
 .sidebar {
   width: 260px;
   background: rgba(255, 255, 255, 0.97);
@@ -50,7 +48,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Botón toggle del sidebar */
 .sidebar-toggle {
   position: fixed;
   left: 10px;
@@ -146,7 +143,6 @@
   letter-spacing: -0.5px;
 }
 
-/* ===== DASHBOARD SPA ADMIN ===== */
 .sidebar-menu button {
   color: #4a5568;
   background: transparent;
@@ -204,7 +200,6 @@
   opacity: 1;
 }
 
-/* Botón de logout con estilo especial */
 .sidebar-menu button.logout {
   margin-top: auto;
   margin-bottom: 20px;
@@ -220,7 +215,6 @@
   color: #c53030;
 }
 
-/* User info en header */
 .user-info {
   display: flex;
   align-items: center;
@@ -254,7 +248,6 @@
   height: 20px;
 }
 
-/* Notification Badge */
 .notification-badge {
   position: absolute;
   top: 8px;
@@ -291,7 +284,6 @@
   }
 }
 
-/* Loader moderno */
 .loader {
   width: 50px;
   height: 50px;
@@ -343,7 +335,6 @@
   display: none;
 }
 
-/* Transición SPA (slide + blur, de abajo hacia arriba) */
 .spa-animate {
   opacity: 0;
   transform: translateY(20px);
@@ -359,7 +350,6 @@
   filter: blur(0);
 }
 
-/* Contenedor principal con fondo semi-transparente */
 #mainContent {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(20px);
@@ -370,7 +360,6 @@
   box-shadow: 0 10px 40px rgba(66, 99, 140, 0.12);
 }
 
-/* Tablas SPA */
 #mainContent table {
   width: 100%;
   border-collapse: collapse;
@@ -411,7 +400,6 @@
   font-size: 1.5em;
 }
 
-/* Botones y acciones */
 .actions-header {
   display: flex;
   justify-content: space-between;
@@ -488,7 +476,6 @@
   box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
 }
 
-/* Botones de acción (iconos) */
 .btn-icon-primary {
   background: #cbd5e0;
   color: #718096;
@@ -619,7 +606,6 @@
   height: 18px;
 }
 
-/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -708,7 +694,6 @@
   color: white;
 }
 
-/* Específico: botón X en la cabecera del modal */
 .modal-header .close-modal {
   position: absolute;
   right: 16px;
@@ -722,8 +707,6 @@
   background: transparent;
 }
 
-/* Específico: botón 'Cancelar' dentro de .form-actions debe usar estilos secundarios
-   y anular reglas generales de .close-modal */
 .form-actions .close-modal {
   font-size: 14px;
   width: auto;
@@ -739,7 +722,6 @@
   border: 1px solid #ddd;
 }
 
-/* Formulario dentro del modal */
 #formCalificacion {
   padding: 24px;
   width: 100%;
@@ -786,8 +768,6 @@
   margin-bottom: 20px;
 }
 
-/* Ajustes específicos para el formulario de nueva calificación: centrar los inputs
-   de Parcial1/Parcial2/Final y evitar que sobresalgan hacia la derecha. */
 #formCalificacion .form-row {
   align-items: start;
 }
@@ -810,7 +790,6 @@
   transform: translateY(-1px);
 }
 
-/* Responsividad: en pantallas pequeñas apilar las columnas */
 @media (max-width: 520px) {
   #formCalificacion .form-row {
     grid-template-columns: 1fr;
@@ -866,7 +845,6 @@
   transform: translateY(-1px);
 }
 
-/* Notificaciones */
 .notification {
   position: fixed;
   bottom: 20px;
@@ -898,7 +876,6 @@
   }
 }
 
-/* ===== VISTA DE TARJETAS PARA CURSOS ===== */
 .cursos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -1082,7 +1059,6 @@
   box-shadow: 0 4px 12px rgba(66, 99, 140, 0.4);
 }
 
-/* ===== PANEL LATERAL ===== */
 .curso-panel {
   position: fixed;
   top: 0;
@@ -1374,7 +1350,6 @@
   opacity: 0.5;
 }
 
-/* ===== TABS PARA MODAL DE GESTIÓN DE ALUMNOS ===== */
 .tabs-container {
   display: flex;
   border-bottom: 2px solid rgba(66, 99, 140, 0.15);
@@ -1442,7 +1417,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Buscador */
 .search-box {
   position: relative;
   margin-bottom: 20px;
@@ -1471,7 +1445,6 @@
   color: #999;
 }
 
-/* Nuevo estilo para search-box-wrapper */
 .search-box-wrapper {
   position: relative;
   margin-bottom: 20px;
@@ -1509,7 +1482,6 @@
   color: #999;
 }
 
-/* Tarjetas de alumnos */
 .alumnos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1694,7 +1666,6 @@
   to { transform: translateX(0); opacity: 1; }
 }
 
-/* ===== VISTA DE ALUMNOS ===== */
 .alumnos-header {
   display: flex;
   justify-content: space-between;
@@ -1759,7 +1730,6 @@
   gap: 4px;
 }
 
-/* Panel lateral de alumno */
 .alumno-panel {
   position: fixed;
   top: 0;
@@ -2036,7 +2006,6 @@
   opacity: 0.8;
 }
 
-/* ===== VISTA DE PROFESORES ===== */
 .profesores-header {
   display: flex;
   justify-content: space-between;
@@ -2094,7 +2063,6 @@
   color: #e65100;
 }
 
-/* Panel lateral de profesor */
 .profesor-panel {
   position: fixed;
   top: 0;
@@ -2190,7 +2158,6 @@
   background: linear-gradient(180deg, rgba(240, 244, 248, 0.3) 0%, rgba(255, 255, 255, 0.5) 100%);
 }
 
-/* Mapa de disponibilidad horaria */
 .horario-grid {
   display: grid;
   grid-template-columns: 80px repeat(5, 1fr);
@@ -2237,7 +2204,6 @@
   color: #2e7d32;
 }
 
-/* Gráfico de carga horaria */
 .carga-horaria-chart {
   margin-top: 16px;
 }
@@ -2289,7 +2255,6 @@
   background: linear-gradient(90deg, #4caf50, #81c784);
 }
 
-/* Lista de cursos del profesor */
 .profesor-cursos-list {
   display: flex;
   flex-direction: column;
@@ -2335,7 +2300,6 @@
   text-transform: uppercase;
 }
 
-/* Botones de acción en panel de profesor */
 .panel-actions {
   display: flex;
   gap: 12px;
@@ -2392,7 +2356,6 @@
   box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
 }
 
-/* Botón flotante para agregar profesor */
 .fab-add {
   position: fixed;
   bottom: 30px;
@@ -2422,7 +2385,6 @@
   transform: scale(0.95);
 }
 
-/* Modal de confirmación */
 .confirm-modal {
   position: fixed;
   top: 0;
@@ -2530,11 +2492,7 @@
   background: #d32f2f;
 }
 
-/* =====================================================
-   PAGOS - Dashboard de Cuotas
-   ===================================================== */
 
-/* Métricas superiores */
 .pagos-metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -2611,7 +2569,6 @@
   color: #999;
 }
 
-/* Filtros de pagos */
 .pagos-filters {
   background: white;
   border-radius: 12px;
@@ -2675,7 +2632,6 @@
   box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
 }
 
-/* Tabla de pagos mejorada */
 .pagos-table-container {
   background: white;
   border-radius: 12px;
@@ -2719,7 +2675,6 @@
   color: #333;
 }
 
-/* Badges de estado */
 .estado-badge {
   display: inline-flex;
   align-items: center;
@@ -2752,7 +2707,6 @@
   color: #1565c0;
 }
 
-/* Botón de eliminar pago */
 .btn-delete-pago {
   background: transparent;
   border: none;
@@ -2778,7 +2732,6 @@
   height: 18px;
 }
 
-/* Botón de confirmar pago */
 .btn-confirm-pago {
   background: transparent;
   border: none;
@@ -2804,7 +2757,6 @@
   height: 18px;
 }
 
-/* Botón de imprimir comprobante */
 .btn-print-ticket {
   background: transparent;
   border: none;
@@ -2830,7 +2782,6 @@
   height: 18px;
 }
 
-/* Botón de archivar pago */
 .btn-archive-pago {
   background: transparent;
   border: none;
@@ -2856,7 +2807,6 @@
   height: 18px;
 }
 
-/* Botón de desarchivar pago */
 .btn-unarchive-pago {
   background: transparent;
   border: none;
@@ -2882,7 +2832,6 @@
   height: 18px;
 }
 
-/* Botón de eliminar permanentemente */
 .btn-delete-permanent {
   background: transparent;
   border: none;
@@ -2908,7 +2857,6 @@
   height: 18px;
 }
 
-/* Badges de estado de pago */
 .badge-estado {
   padding: 6px 12px;
   border-radius: 6px;
@@ -2935,7 +2883,6 @@
 }
 
 
-/* Panel lateral de historial de pagos */
 .pago-panel {
   position: fixed;
   top: 0;
@@ -3013,7 +2960,6 @@
   color: #1976d2;
 }
 
-/* Estado de cuenta cards */
 .estado-cuenta-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -3053,7 +2999,6 @@
   color: #1a1a1a;
 }
 
-/* Timeline de historial */
 .historial-timeline {
   position: relative;
   padding-left: 30px;
@@ -3135,7 +3080,6 @@
   height: 16px;
 }
 
-/* Modal de registrar pago */
 .modal-pago {
   display: none;
   position: fixed;
@@ -3254,12 +3198,10 @@
   box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
 }
 
-/* ===== DASHBOARD PROFESOR - MIS CURSOS ===== */
 .profesor-cursos-container {
   padding: 20px 0;
 }
 
-/* ===== PROFESOR DASHBOARD - ESTADÍSTICAS MEJORADAS ===== */
 .profesor-header-section {
   margin-bottom: 30px;
 }
@@ -3369,7 +3311,6 @@
   pointer-events: none;
 }
 
-/* Estado vacío mejorado */
 .estado-vacio-profesor {
   text-align: center;
   padding: 80px 40px;
@@ -3414,7 +3355,6 @@
   font-style: italic;
 }
 
-/* ===== SELECTORES DE CURSO MEJORADOS ===== */
 .cursos-selector-grid-enhanced {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -3537,7 +3477,6 @@
   color: white;
 }
 
-/* ===== COMPATIBILIDAD CON ESTILOS ANTERIORES ===== */
 .profesor-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -3746,7 +3685,6 @@
   box-shadow: 0 4px 16px rgba(30,60,114,0.4);
 }
 
-/* Panel lateral de detalles del curso */
 .curso-detalle-panel {
   position: fixed;
   right: -1000px;
@@ -3978,7 +3916,6 @@
   border: 1px solid rgba(239,108,0,0.2);
 }
 
-/* ===== CALIFICACIONES PROFESOR ===== */
 .calificaciones-container-profesor {
   padding: 20px 0;
 }
@@ -4085,7 +4022,6 @@
   transform: translateX(5px);
 }
 
-/* Contenedor de calificaciones */
 .calificaciones-content {
   margin-top: 30px;
   animation: fadeIn 0.3s ease;
@@ -4256,7 +4192,6 @@
   background: linear-gradient(135deg, #7e9ac8, #4a90e2);
 }
 
-/* Tabla de calificaciones */
 .calificaciones-table-container {
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(10px);
@@ -4387,7 +4322,6 @@
   justify-content: center;
 }
 
-/* ===== ASISTENCIAS PROFESOR ===== */
 .asistencias-container-profesor {
   padding: 20px 0;
 }
@@ -4584,7 +4518,6 @@
   box-shadow: 0 4px 16px rgba(42,82,152,0.4);
 }
 
-/* Tabla de asistencias */
 .asistencias-table-container {
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(10px);
@@ -4635,7 +4568,6 @@
   border-bottom: none;
 }
 
-/* Botones de estado de asistencia */
 .asistencia-botones {
   display: flex;
   gap: 8px;
@@ -4710,7 +4642,6 @@
   transform: scale(1.05);
 }
 
-/* Input de observaciones */
 .observaciones-input {
   width: 100%;
   padding: 8px;
@@ -4727,7 +4658,6 @@
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
-/* Modal de estadísticas */
 .estadisticas-modal {
   position: fixed;
   inset: 0;
@@ -4864,9 +4794,6 @@
   color: #e53935;
 }
 
-/* ============================================ */
-/* SECCIÓN CURSOS ALUMNO */
-/* ============================================ */
 
 .alumno-cursos-container {
   padding: 30px;
@@ -4904,7 +4831,6 @@
   font-size: 15px;
 }
 
-/* Stats cards del alumno */
 .alumno-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -4964,7 +4890,6 @@
   color: #212121;
 }
 
-/* Grid de cursos del alumno */
 .cursos-grid-alumno {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -5128,7 +5053,6 @@
   height: 18px;
 }
 
-/* Empty state */
 .empty-state-cursos {
   grid-column: 1 / -1;
   text-align: center;
@@ -5160,7 +5084,6 @@
   margin: 0 auto;
 }
 
-/* Error container */
 .error-container {
   text-align: center;
   padding: 80px 20px;
@@ -5188,7 +5111,6 @@
   font-size: 14px;
 }
 
-/* Notificaciones */
 .notification {
   position: fixed;
   top: 20px;
@@ -5225,7 +5147,6 @@
   }
 }
 
-/* ===== PANEL DE DETALLE DE CURSO (ALUMNO) ===== */
 .curso-detalle-overlay {
   position: fixed;
   top: 0;
@@ -5450,7 +5371,6 @@
   margin: 0;
 }
 
-/* Responsive para panel lateral */
 @media (max-width: 768px) {
   .curso-detalle-panel-alumno {
     width: 100%;
@@ -5463,7 +5383,6 @@
   }
 }
 
-/* ===== SECCIÓN CALIFICACIONES ALUMNO ===== */
 .alumno-calificaciones-container {
   padding: 0;
 }
@@ -5718,7 +5637,6 @@
   font-style: italic;
 }
 
-/* Responsive para calificaciones */
 @media (max-width: 768px) {
   .tabla-calificaciones-alumno {
     font-size: 12px;
@@ -5749,7 +5667,6 @@
   }
 }
 
-/* ===== SECCIÓN PAGOS ALUMNO ===== */
 .alumno-pagos-container {
   padding: 0;
 }
@@ -6095,7 +6012,6 @@
   font-size: 15px;
 }
 
-/* ===== MODAL DE PAGO ===== */
 .modal-pago-overlay {
   position: fixed;
   top: 0;
@@ -6373,7 +6289,6 @@
   height: 20px;
 }
 
-/* ===== MODAL COMPROBANTE ===== */
 .modal-comprobante-content {
   background: white;
   border-radius: 16px;
@@ -6499,7 +6414,6 @@
   height: 18px;
 }
 
-/* Responsive para pagos */
 @media (max-width: 768px) {
   .pagos-pendientes-grid {
     grid-template-columns: 1fr;
@@ -6523,7 +6437,6 @@
   }
 }
 
-/* ===== DASHBOARD HOME - ESTADÍSTICAS ===== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -6635,7 +6548,6 @@
   color: #f5576c;
 }
 
-/* Tablas de resumen dashboard */
 .dashboard-tables {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -6728,7 +6640,6 @@
   color: #ccc;
 }
 
-/* ===== BOLITA DE MENSAJES NO LEÍDOS EN CONVERSACIONES ===== */
 .user-chat-unread-badge {
   position: absolute;
   right: 16px;
@@ -6753,7 +6664,6 @@
   position: relative;
 }
 
-/* ===== ADMIN CHAT CONTAINER ===== */
 #adminChatContainer {
   position: absolute;
   top: 0;
@@ -6772,7 +6682,6 @@
   margin: 0 auto;
 }
 
-/* ===== HISTORIAL DE ASISTENCIAS ===== */
 .historial-info-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -6945,11 +6854,7 @@
   border: 1px solid #a5b4fc;
 }
 
-/* ========================================
-   SISTEMA DE PAGOS POR CURSO - DISEÑO AZUL
-   ======================================== */
 
-/* Actualizar estadísticas con colores azules */
 .stat-pago-card.cuotas-vencidas {
   border-left: 4px solid #ef5350;
 }
@@ -6959,7 +6864,6 @@
   color: #ef5350;
 }
 
-/* Sección de cursos con pagos */
 .cursos-pagos-section {
   background: white;
   border-radius: 16px;
@@ -6983,7 +6887,6 @@
   gap: 24px;
 }
 
-/* Tarjeta de curso individual */
 .curso-pago-card {
   background: white;
   border-radius: 16px;
@@ -6998,7 +6901,6 @@
   box-shadow: 0 8px 24px rgba(25, 118, 210, 0.15);
 }
 
-/* Header del curso con gradient azul */
 .curso-pago-header {
   background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
   padding: 24px;
@@ -7070,7 +6972,6 @@
   color: #81c784;
 }
 
-/* Grid de meses académicos */
 .meses-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(90px, 120px));
@@ -7109,7 +7010,6 @@
   opacity: 0.7;
 }
 
-/* Estados de los meses */
 .mes-item.pagado {
   background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
   border-color: #81c784;
@@ -7162,7 +7062,6 @@
   color: #bdbdbd;
 }
 
-/* Footer del curso */
 .curso-pago-footer {
   padding: 20px 24px;
   background: white;
@@ -7213,7 +7112,6 @@
   height: 18px;
 }
 
-/* No hay cursos activos */
 .no-cursos-activos {
   text-align: center;
   padding: 60px 20px;
@@ -7241,9 +7139,6 @@
   font-size: 15px;
 }
 
-/* ========================================
-   MODAL DE SELECCIÓN DE MES
-   ======================================== */
 
 .modal-seleccion-mes-overlay {
   position: fixed;
@@ -7463,11 +7358,7 @@
   height: 18px;
 }
 
-/* ========================================
-   RESPONSIVE DESIGN - MOBILE FIRST
-   ======================================== */
 
-/* Hamburger Menu Button - Oculto en escritorio */
 .mobile-menu-toggle {
   display: none;
   position: fixed;
@@ -7499,7 +7390,6 @@
   color: #42638c;
 }
 
-/* Overlay para cerrar sidebar en mobile */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -7517,7 +7407,6 @@
   opacity: 1;
 }
 
-/* Tablets y pantallas medianas (768px - 1024px) */
 @media (max-width: 1024px) {
   .dashboard-main {
     padding: 20px 25px 30px 25px;
@@ -7541,9 +7430,7 @@
   }
 }
 
-/* Mobile - Tablets pequeñas (max-width: 768px) */
 @media (max-width: 768px) {
-  /* Mostrar botón hamburguesa a la derecha */
   .mobile-menu-toggle {
     display: flex;
     right: 15px;
@@ -7551,7 +7438,6 @@
     left: auto;
   }
 
-  /* Sidebar mobile */
   .sidebar {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
@@ -7563,18 +7449,15 @@
     transform: translateX(-100%);
   }
 
-  /* Sidebar abierto en mobile - sin clase collapsed */
   .sidebar:not(.collapsed) {
     transform: translateX(0);
     box-shadow: 4px 0 12px rgba(0,0,0,0.3);
   }
 
-  /* Overlay cuando sidebar está abierto */
   .sidebar-overlay.active {
     display: block;
   }
 
-  /* Main content ocupa todo el ancho */
   .dashboard-main {
     margin-left: 0;
     padding: 80px 16px 20px 16px;
@@ -7584,7 +7467,6 @@
     margin-left: 0;
   }
 
-  /* Dashboard Header */
   .dashboard-header {
     flex-direction: column;
     gap: 16px;
@@ -7601,7 +7483,6 @@
     justify-content: center;
   }
 
-  /* Stats Grid - 1 columna en mobile */
   .stats-grid,
   .pagos-stats-grid,
   .alumno-pagos-stats {
@@ -7619,7 +7500,6 @@
     font-size: 24px;
   }
 
-  /* Tablas responsive */
   #mainContent table {
     display: block;
     overflow-x: auto;
@@ -7633,7 +7513,6 @@
     padding: 10px 8px;
   }
 
-  /* Botones de acción más pequeños */
   .btn-icon-primary,
   .btn-icon-edit,
   .btn-icon-danger,
@@ -7653,7 +7532,6 @@
     height: 16px;
   }
 
-  /* Cursos Grid */
   .cursos-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -7663,7 +7541,6 @@
     padding: 16px;
   }
 
-  /* Panel lateral */
   .curso-panel,
   .alumno-panel,
   .profesor-panel,
@@ -7679,7 +7556,6 @@
     padding: 16px;
   }
 
-  /* Modales */
   .modal-content {
     width: 95%;
     max-width: 95%;
@@ -7701,7 +7577,6 @@
     width: 100%;
   }
 
-  /* Tabs */
   .tabs-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -7713,7 +7588,6 @@
     white-space: nowrap;
   }
 
-  /* Sistema de Pagos - Mobile */
   .meses-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
@@ -7750,7 +7624,6 @@
     padding: 16px;
   }
 
-  /* Modal de selección de mes */
   .modal-seleccion-mes-content {
     width: 95%;
     max-width: 95%;
@@ -7781,7 +7654,6 @@
     order: 1;
   }
 
-  /* Filters */
   .pagos-filters,
   .alumnos-filters,
   .profesores-filters {
@@ -7804,7 +7676,6 @@
   }
 }
 
-/* Mobile pequeño (max-width: 480px) */
 @media (max-width: 480px) {
   .mobile-menu-toggle {
     width: 45px;
@@ -7831,7 +7702,6 @@
     font-size: 20px;
   }
 
-  /* Stats más compactos */
   .stat-card,
   .stat-pago-card {
     padding: 12px;
@@ -7847,7 +7717,6 @@
     font-size: 12px;
   }
 
-  /* Botones más pequeños */
   .btn-primary,
   .btn-secondary,
   .btn-add-pago {
@@ -7855,7 +7724,6 @@
     font-size: 13px;
   }
 
-  /* Curso cards */
   .curso-card-title h3 {
     font-size: 16px;
   }
@@ -7869,7 +7737,6 @@
     font-size: 13px;
   }
 
-  /* Meses grid más compacto */
   .meses-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
@@ -7888,7 +7755,6 @@
     font-size: 9px;
   }
 
-  /* Tablas scroll horizontal */
   #mainContent table {
     font-size: 12px;
   }
@@ -7898,7 +7764,6 @@
     padding: 8px 6px;
   }
 
-  /* Modal más ajustado */
   .modal-content {
     width: 98%;
     margin: 5px;
@@ -7920,7 +7785,6 @@
     font-size: 14px;
   }
 
-  /* Panel lateral full screen en mobile pequeño */
   .curso-panel,
   .alumno-panel,
   .profesor-panel,
@@ -7942,13 +7806,11 @@
     font-size: 18px;
   }
 
-  /* Search boxes */
   .search-box input {
     padding: 10px;
     font-size: 14px;
   }
 
-  /* Pagos pendientes cards */
   .pago-pendiente-card {
     padding: 12px;
   }
@@ -7959,17 +7821,14 @@
     align-items: flex-start;
   }
 
-  /* Inscripciones cards */
   .inscripcion-card {
     padding: 12px;
   }
 
-  /* Stats curso */
   .curso-stats-grid {
     grid-template-columns: 1fr;
   }
 
-  /* Tablas responsive */
   .data-table {
     font-size: 12px;
   }
@@ -7979,7 +7838,6 @@
     padding: 8px 6px;
   }
 
-  /* Modales más pequeños */
   .modal-content {
     padding: 16px;
     margin: 10px;
@@ -7989,7 +7847,6 @@
     font-size: 18px;
   }
 
-  /* Botones más compactos */
   .btn-primary,
   .btn-secondary,
   .btn-danger,
@@ -7998,7 +7855,6 @@
     font-size: 13px;
   }
 
-  /* Forms más compactos */
   .form-group {
     margin-bottom: 12px;
   }
@@ -8014,7 +7870,6 @@
     font-size: 14px;
   }
 
-  /* Cards específicas móvil */
   .curso-card,
   .alumno-card,
   .profesor-card,
@@ -8054,7 +7909,6 @@
   }
 }
 
-/* Media query específica para móviles muy pequeños (320px - 380px) */
 @media (max-width: 380px) {
   .dashboard-header h1 {
     font-size: 18px;
@@ -8083,7 +7937,6 @@
   }
 }
 
-/* Landscape mobile (max-height: 500px) */
 @media (max-height: 500px) and (orientation: landscape) {
   .sidebar {
     overflow-y: auto;
@@ -8102,9 +7955,7 @@
   }
 }
 
-/* Mejoras adicionales para móviles pequeños */
 @media (max-width: 480px) {
-  /* Prevenir scroll horizontal */
   body {
     overflow-x: hidden;
   }
@@ -8118,7 +7969,6 @@
     overflow-x: hidden;
   }
 
-  /* Paneles */
   .panel,
   .curso-panel,
   .alumno-panel {
@@ -8126,7 +7976,6 @@
     overflow-x: hidden;
   }
 
-  /* Tablas responsivas */
   .table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -8134,14 +7983,12 @@
     padding: 0 10px;
   }
 
-  /* Cards más compactos */
   .curso-card,
   .alumno-card,
   .profesor-card {
     padding: 12px;
   }
 
-  /* Formularios */
   .form-row {
     flex-direction: column;
   }
@@ -8150,7 +7997,6 @@
     width: 100% !important;
   }
 
-  /* Botones */
   .btn-group {
     flex-direction: column;
     gap: 8px;
@@ -8160,13 +8006,11 @@
     width: 100%;
   }
 
-  /* Modales más pequeños */
   .modal-content {
     max-height: 90vh;
     overflow-y: auto;
   }
 
-  /* Grids a 1 columna */
   .cursos-grid,
   .alumnos-grid,
   .profesores-grid {

@@ -18,7 +18,6 @@
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
@@ -43,7 +42,6 @@
     </div>
   </nav>
 
-  <!-- Dropdown Menu -->
   <div class="dropdown-menu" id="dropdownMenu">
     <div class="dropdown-backdrop" id="dropdownBackdrop"></div>
     <div class="dropdown-content">
@@ -61,7 +59,6 @@
     </div>
   </div>
 
-  <!-- Hero Principal -->
   <section class="hero-main">
     <div class="hero-logo-side">
       <img src="images/logo.png" alt="CEMI Logo" class="hero-logo-animate">
@@ -80,7 +77,6 @@
     </div>
   </section>
 
-  <!-- Classroom Section -->
   <section class="product-section" id="classroom">
     <div class="section-content">
       <h2>Classroom</h2>
@@ -92,7 +88,6 @@
     </div>
   </section>
 
-  <!-- Dashboard Section -->
   <section class="product-section bg-light" id="dashboard">
     <div class="section-content">
       <h2>Dashboard</h2>
@@ -104,7 +99,6 @@
     </div>
   </section>
 
-  <!-- Features Grid -->
   <section class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">
@@ -139,7 +133,6 @@
     </div>
   </section>
 
-  <!-- Soporte Section -->
   <section class="product-section" id="soporte">
     <div class="section-content">
       <h2>¿Necesitas ayuda?</h2>
@@ -210,7 +203,6 @@
 </body>
 </html>
 
-  <!-- Roles -->
   <section id="roles" class="roles">
     <h2 data-aos="fade-up">Roles del Sistema</h2>
     <div class="role-grid">
@@ -232,7 +224,6 @@
     </div>
   </section>
 
-  <!-- Estadísticas Impactantes -->
   <section class="stats-section">
     <div class="stats-container">
       <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
@@ -258,7 +249,6 @@
     </div>
   </section>
 
-  <!-- Módulos -->
   <section id="modulos" class="modules">
     <h2 data-aos="fade-up">Módulos Principales</h2>
     <div class="module-grid">
@@ -285,7 +275,6 @@
     </div>
   </section>
 
-  <!-- Características Técnicas -->
   <section id="caracteristicas" class="features-section">
     <h2 data-aos="fade-up">Características del Sistema</h2>
     <div class="features-grid">
@@ -346,7 +335,6 @@
     </div>
   </section>
 
-  <!-- Sección Nosotros -->
   <section id="nosotros" class="about-section"></section>
   <section id="historia" class="about-hero" data-aos="fade-up">
     <div class="hero-text" data-aos="fade-right">
@@ -400,7 +388,6 @@
     </div>
   </section>
 
-  <!-- Tecnologías Utilizadas -->
   <section id="tecnologias" class="tech-section">
     <h2 data-aos="fade-up">Tecnologías Utilizadas</h2>
     <p class="tech-subtitle" data-aos="fade-up" data-aos-delay="100">Stack tecnológico profesional y moderno</p>
@@ -450,7 +437,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq" class="faq-section">
     <h2 data-aos="fade-up">Preguntas Frecuentes</h2>
     <div class="faq-container">
@@ -525,7 +511,6 @@
     </div>
   </section>
 
-  <!-- Footer Profesional -->
   <footer class="professional-footer">
     <div class="footer-main">
       <div class="footer-column">
@@ -582,27 +567,24 @@
     </div>
   </footer>
 
-  <!-- Botón Flotante de Acceso Rápido -->
-  <button class="floating-btn" onclick="window.location.href='login-selector.html'" title="Acceso Rápido">
-    <i data-lucide="log-in"></i>
-  </button>
-
-  <!-- Menú Flotante Expandible -->
-  <div class="floating-menu-container" id="floatingMenu">
-    <button class="floating-btn-sub floating-btn-terms" onclick="window.location.href='terminos.html'" title="Términos de Servicio">
-      <i class="fas fa-file-alt"></i>
+  <div class="floating-menu-wrapper" id="floatingMenuWrapper">
+    <button class="floating-menu-item" onclick="window.location.href='terminos.html'" title="Términos de Servicio" data-label="Términos">
+      <i data-lucide="file-text"></i>
     </button>
     
-    <button class="floating-btn-sub floating-btn-privacy" onclick="window.location.href='privacidad.html'" title="Política de Privacidad">
-      <i class="fas fa-shield-alt"></i>
+    <button class="floating-menu-item" onclick="window.location.href='privacidad.html'" title="Política de Privacidad" data-label="Privacidad">
+      <i data-lucide="shield"></i>
     </button>
     
-    <button class="floating-btn-sub floating-btn-help" onclick="window.location.href='ayuda.html'" title="Centro de Ayuda">
-      <i class="fas fa-question-circle"></i>
+    <button class="floating-menu-item" onclick="window.location.href='ayuda.html'" title="Centro de Ayuda" data-label="Ayuda">
+      <i data-lucide="help-circle"></i>
+    </button>
+    
+    <button class="floating-menu-toggle" id="floatingMenuToggle" title="Menú de opciones">
+      <i data-lucide="menu"></i>
     </button>
   </div>
 
-  <!-- Modal de Mapa -->
   <div id="mapaModal" class="mapa-modal" onclick="cerrarMapa()">
     <div class="mapa-modal-content" onclick="event.stopPropagation()">
       <div class="mapa-modal-header">
@@ -659,13 +641,10 @@
     });
   </script>
 
-  <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
-  <!-- SweetAlert2 JS -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
-  <!-- Config JS - MUST be first -->
   <script src="assets/js/config.js"></script>
   <script src="assets/js/script.js"></script>
   <script>
@@ -680,35 +659,29 @@
       offset: 100
     });
 
-    // ===== MENÚ FLOTANTE EXPANDIBLE =====
-    const floatingMenu = document.getElementById('floatingMenu');
-    if (floatingMenu) {
-      const mainBtn = floatingMenu.querySelector('.floating-btn-main');
+    const floatingMenuWrapper = document.getElementById('floatingMenuWrapper');
+    const floatingMenuToggle = document.getElementById('floatingMenuToggle');
+    
+    if (floatingMenuWrapper && floatingMenuToggle) {
+      floatingMenuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        floatingMenuWrapper.classList.toggle('active');
+        lucide.createIcons();
+      });
       
-      if (mainBtn) {
-        // Toggle al hacer click
-        mainBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          floatingMenu.classList.toggle('active');
-        });
-      }
-      
-      // Cerrar al hacer click fuera
       document.addEventListener('click', (e) => {
-        if (!floatingMenu.contains(e.target)) {
-          floatingMenu.classList.remove('active');
+        if (!floatingMenuWrapper.contains(e.target)) {
+          floatingMenuWrapper.classList.remove('active');
         }
       });
       
-      // Cerrar al hacer click en un botón secundario
-      floatingMenu.querySelectorAll('.floating-btn-sub').forEach(btn => {
+      floatingMenuWrapper.querySelectorAll('.floating-menu-item').forEach(btn => {
         btn.addEventListener('click', () => {
-          floatingMenu.classList.remove('active');
-        });
+          floatingMenuWrapper.classList.remove('active');
+        }); 
       });
     }
 
-    // ===== ACORDEÓN FAQ =====
     document.querySelectorAll('.faq-question').forEach(question => {
       question.addEventListener('click', () => {
         const faqItem = question.parentElement;
@@ -791,11 +764,9 @@
     // El botón APK ahora es visible para todos los dispositivos
   </script>
   
-  <!-- PWA Installation Script -->
   <script src="assets/js/pwa-install.js?v=3.0"></script>
 
   
-  <!-- Widget de Chat -->
   <script src="assets/js/chat-widget.js"></script>
 </body>
 </html>

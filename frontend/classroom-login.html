@@ -6,14 +6,12 @@
   <title>CEMI Classroom - Iniciar Sesión</title>
   <link rel="stylesheet" href="assets/css/classroom-login.css">
   
-  <!-- Config JS - MUST be first script -->
   <script src="assets/js/config.js"></script>
   
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-  <!-- Partículas de fondo animadas -->
   <div class="particles-background">
     <div class="particle"></div>
     <div class="particle"></div>
@@ -27,9 +25,7 @@
     <div class="particle"></div>
   </div>
 
-  <!-- Contenedor principal -->
   <div class="classroom-login-container">
-    <!-- Panel izquierdo - Información -->
     <div class="login-left-panel">
       <div class="brand-section">
         <div class="brand-logo">
@@ -88,7 +84,6 @@
       </div>
     </div>
 
-    <!-- Panel derecho - Formulario de login -->
     <div class="login-right-panel">
       <div class="login-form-container">
         <div class="welcome-header">
@@ -97,7 +92,6 @@
         </div>
 
         <form id="classroomLoginForm" class="login-form">
-          <!-- Usuario -->
           <div class="form-group">
             <label for="username">
               <i data-lucide="user"></i>
@@ -118,7 +112,6 @@
             </div>
           </div>
 
-          <!-- Contraseña -->
           <div class="form-group">
             <label for="password">
               <i data-lucide="lock"></i>
@@ -142,7 +135,6 @@
             </div>
           </div>
 
-          <!-- Recordarme -->
           <div class="form-options">
             <label class="checkbox-container">
               <input type="checkbox" id="rememberMe">
@@ -152,10 +144,8 @@
             <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
           </div>
 
-          <!-- Mensaje de estado -->
           <div id="loginMessage" class="login-message"></div>
 
-          <!-- Botón de submit -->
           <button type="submit" class="btn-login">
             <span class="btn-text">Ingresar al Classroom</span>
             <span class="btn-icon">
@@ -164,12 +154,10 @@
           </button>
         </form>
 
-        <!-- Separador -->
         <div class="divider">
           <span>o también puedes</span>
         </div>
 
-        <!-- Botones alternativos -->
         <div class="alternative-actions">
           <a href="login.html" class="btn-secondary">
             <i data-lucide="layout-dashboard"></i>
@@ -181,7 +169,6 @@
           </a>
         </div>
 
-        <!-- Footer -->
         <div class="login-footer">
           <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
           <div class="footer-links">
@@ -196,7 +183,6 @@
     </div>
   </div>
 
-  <!-- Loader -->
   <div class="loader-overlay" id="loader">
     <div class="loader-spinner">
       <div class="spinner-circle"></div>
@@ -206,7 +192,6 @@
     <p class="loader-text">Verificando credenciales...</p>
   </div>
 
-  <!-- Config JS - MUST be first -->
   <script src="assets/js/config.js"></script>
   <script src="assets/js/classroom-login.js"></script>
   <script>

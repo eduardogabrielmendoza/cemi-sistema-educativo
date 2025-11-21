@@ -1,7 +1,6 @@
 import express from 'express';
 const router = express.Router();
 
-// GET - Obtener contraseña de cobranzas
 router.get('/cobranzas-password', (req, res) => {
   try {
     const password = process.env.COBRANZAS_PASSWORD || 'tesoreria';

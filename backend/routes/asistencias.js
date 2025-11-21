@@ -1,17 +1,12 @@
-// backend/routes/asistencias.js
 import express from "express";
 import db from "../utils/db.js";
 
 const router = express.Router();
 
-// =====================================================
-// Obtener asistencias de un curso en una fecha específica
-// =====================================================
 router.get("/curso/:id_curso/fecha/:fecha", async (req, res) => {
   try {
     const { id_curso, fecha } = req.params;
 
-    // Obtener todos los alumnos inscritos en el curso
     const [alumnos] = await db.query(`
       SELECT 
         a.id_alumno,
@@ -25,7 +20,6 @@ router.get("/curso/:id_curso/fecha/:fecha", async (req, res) => {
       ORDER BY p.apellido, p.nombre
     `, [id_curso]);
 
-    // Obtener asistencias registradas para esa fecha
     const [asistencias] = await db.query(`
       SELECT 
         id_asistencia,
@@ -36,13 +30,11 @@ router.get("/curso/:id_curso/fecha/:fecha", async (req, res) => {
       WHERE id_curso = ? AND fecha = ?
     `, [id_curso, fecha]);
 
-    // Crear un mapa de asistencias
     const asistenciasMap = {};
     asistencias.forEach(asist => {
       asistenciasMap[asist.id_alumno] = asist;
     });
 
-    // Combinar alumnos con sus asistencias
     const resultado = alumnos.map(alumno => ({
       ...alumno,
       id_asistencia: asistenciasMap[alumno.id_alumno]?.id_asistencia || null,
@@ -57,14 +49,10 @@ router.get("/curso/:id_curso/fecha/:fecha", async (req, res) => {
   }
 });
 
-// =====================================================
-// Obtener estadísticas de asistencia de un curso
-// =====================================================
 router.get("/curso/:id_curso/estadisticas", async (req, res) => {
   try {
     const { id_curso } = req.params;
 
-    // Estadísticas por alumno
     const [estadisticas] = await db.query(`
       SELECT 
         a.id_alumno,
@@ -84,7 +72,6 @@ router.get("/curso/:id_curso/estadisticas", async (req, res) => {
       ORDER BY porcentaje_asistencia DESC
     `, [id_curso]);
 
-    // Estadísticas generales del curso
     const [generales] = await db.query(`
       SELECT 
         COUNT(DISTINCT fecha) AS total_clases_dictadas,
@@ -116,21 +103,16 @@ router.get("/curso/:id_curso/estadisticas", async (req, res) => {
   }
 });
 
-// =====================================================
-// Registrar o actualizar asistencia
-// =====================================================
 router.post("/", async (req, res) => {
   try {
     const { id_curso, id_alumno, fecha, estado, observaciones } = req.body;
 
-    // Verificar si ya existe un registro
     const [existe] = await db.query(`
       SELECT id_asistencia FROM asistencias
       WHERE id_curso = ? AND id_alumno = ? AND fecha = ?
     `, [id_curso, id_alumno, fecha]);
 
     if (existe.length > 0) {
-      // Actualizar registro existente
       await db.query(`
         UPDATE asistencias
         SET estado = ?, observaciones = ?
@@ -142,7 +124,6 @@ router.post("/", async (req, res) => {
         id_asistencia: existe[0].id_asistencia
       });
     } else {
-      // Crear nuevo registro
       const [result] = await db.query(`
         INSERT INTO asistencias (id_curso, id_alumno, fecha, estado, observaciones)
         VALUES (?, ?, ?, ?, ?)
@@ -159,34 +140,27 @@ router.post("/", async (req, res) => {
   }
 });
 
-// =====================================================
-// Registrar asistencias en lote (toda una clase)
-// =====================================================
 router.post("/lote", async (req, res) => {
   try {
     const { id_curso, fecha, asistencias } = req.body;
-    // asistencias es un array de { id_alumno, estado, observaciones }
 
     const connection = await db.getConnection();
     await connection.beginTransaction();
 
     try {
       for (const asist of asistencias) {
-        // Verificar si ya existe
         const [existe] = await connection.query(`
           SELECT id_asistencia FROM asistencias
           WHERE id_curso = ? AND id_alumno = ? AND fecha = ?
         `, [id_curso, asist.id_alumno, fecha]);
 
         if (existe.length > 0) {
-          // Actualizar
           await connection.query(`
             UPDATE asistencias
             SET estado = ?, observaciones = ?
             WHERE id_asistencia = ?
           `, [asist.estado, asist.observaciones || null, existe[0].id_asistencia]);
         } else {
-          // Insertar
           await connection.query(`
             INSERT INTO asistencias (id_curso, id_alumno, fecha, estado, observaciones)
             VALUES (?, ?, ?, ?, ?)
@@ -209,9 +183,6 @@ router.post("/lote", async (req, res) => {
   }
 });
 
-// =====================================================
-// Obtener fechas con asistencias registradas para un curso
-// =====================================================
 router.get("/curso/:id_curso/fechas", async (req, res) => {
   try {
     const { id_curso } = req.params;
@@ -230,9 +201,6 @@ router.get("/curso/:id_curso/fechas", async (req, res) => {
   }
 });
 
-// =====================================================
-// Eliminar todas las asistencias de un curso
-// =====================================================
 router.delete("/curso/:id_curso", async (req, res) => {
   try {
     const { id_curso } = req.params;
@@ -252,9 +220,6 @@ router.delete("/curso/:id_curso", async (req, res) => {
   }
 });
 
-// =====================================================
-// Eliminar asistencias de un curso en una fecha específica
-// =====================================================
 router.delete("/curso/:id_curso/fecha/:fecha", async (req, res) => {
   try {
     const { id_curso, fecha } = req.params;
@@ -274,21 +239,16 @@ router.delete("/curso/:id_curso/fecha/:fecha", async (req, res) => {
   }
 });
 
-// =====================================================
-// Obtener estadísticas de asistencias de un alumno en un curso
-// =====================================================
 router.get("/alumno/:id_alumno/curso/:id_curso/estadisticas", async (req, res) => {
   try {
     const { id_alumno, id_curso } = req.params;
 
-    // Obtener asistencias del alumno
     const [asistencias] = await db.query(`
       SELECT estado
       FROM asistencias
       WHERE id_alumno = ? AND id_curso = ?
     `, [id_alumno, id_curso]);
 
-    // Calcular estadísticas
     const totalClases = asistencias.length;
     const presentes = asistencias.filter(a => a.estado === 'presente').length;
     const ausentes = asistencias.filter(a => a.estado === 'ausente').length;
@@ -316,15 +276,11 @@ router.get("/alumno/:id_alumno/curso/:id_curso/estadisticas", async (req, res) =
   }
 });
 
-// =====================================================
-// Obtener historial completo de asistencias de un alumno en un curso (DEPRECADO - mantener por compatibilidad)
-// =====================================================
 router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
   try {
     const { id_alumno, id_curso } = req.params;
-    console.log('📋 GET /historial - Params:', { id_alumno, id_curso });
+    console.log(' GET /historial - Params:', { id_alumno, id_curso });
 
-    // Obtener información del alumno
     const [alumno] = await db.query(`
       SELECT 
         a.id_alumno,
@@ -336,13 +292,12 @@ router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
       WHERE a.id_alumno = ?
     `, [id_alumno]);
     
-    console.log('👤 Alumno encontrado:', alumno.length > 0 ? alumno[0].nombre_completo : 'NO ENCONTRADO');
+    console.log(' Alumno encontrado:', alumno.length > 0 ? alumno[0].nombre_completo : 'NO ENCONTRADO');
 
     if (alumno.length === 0) {
       return res.status(404).json({ message: "Alumno no encontrado" });
     }
 
-    // Obtener información del curso
     const [curso] = await db.query(`
       SELECT 
         c.id_curso,
@@ -355,13 +310,12 @@ router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
       WHERE c.id_curso = ?
     `, [id_curso]);
     
-    console.log('📚 Curso encontrado:', curso.length > 0 ? curso[0].nombre_curso : 'NO ENCONTRADO');
+    console.log(' Curso encontrado:', curso.length > 0 ? curso[0].nombre_curso : 'NO ENCONTRADO');
 
     if (curso.length === 0) {
       return res.status(404).json({ message: "Curso no encontrado" });
     }
 
-    // Obtener historial completo de asistencias
     const [asistencias] = await db.query(`
       SELECT 
         DATE_FORMAT(fecha, '%Y-%m-%d') as fecha,
@@ -373,7 +327,6 @@ router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
       ORDER BY fecha DESC
     `, [id_alumno, id_curso]);
 
-    // Calcular estadísticas
     const totalClases = asistencias.length;
     const presentes = asistencias.filter(a => a.estado === 'presente').length;
     const ausentes = asistencias.filter(a => a.estado === 'ausente').length;
@@ -383,7 +336,7 @@ router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
       ? ((presentes + tardanzas + justificados) / totalClases * 100).toFixed(1)
       : 0;
 
-    console.log('✅ Historial completo - Total clases:', totalClases, 'Asistencias:', asistencias.length);
+    console.log(' Historial completo - Total clases:', totalClases, 'Asistencias:', asistencias.length);
     
     res.json({
       alumno: alumno[0],
@@ -400,7 +353,7 @@ router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
     });
 
   } catch (error) {
-    console.error("❌ Error al obtener historial de asistencias:");
+    console.error(" Error al obtener historial de asistencias:");
     console.error("Error completo:", error);
     console.error("Stack:", error.stack);
     res.status(500).json({ 

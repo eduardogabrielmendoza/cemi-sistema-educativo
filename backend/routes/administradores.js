@@ -3,7 +3,6 @@ import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
 const router = express.Router();
 
-// Obtener todos los administradores
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -33,7 +32,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Obtener administrador por ID
 router.get("/:id", async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -65,13 +63,11 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Actualizar administrador
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre, apellido, mail, dni, telefono } = req.body;
 
-    // Validar campos requeridos
     if (!nombre || !apellido || !mail) {
       return res.status(400).json({ 
         success: false, 
@@ -79,7 +75,6 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    // Verificar si el email ya existe en otro registro
     const [existingMail] = await pool.query(
       'SELECT id_persona FROM personas WHERE mail = ? AND id_persona != ?',
       [mail, id]
@@ -92,7 +87,6 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    // Verificar si el DNI ya existe en otro registro (si se proporcionó)
     if (dni) {
       const [existingDNI] = await pool.query(
         'SELECT id_persona FROM personas WHERE dni = ? AND id_persona != ?',
@@ -107,7 +101,6 @@ router.put("/:id", async (req, res) => {
       }
     }
 
-    // Actualizar tabla personas
     const [result] = await pool.query(
       'UPDATE personas SET nombre = ?, apellido = ?, mail = ?, dni = ?, telefono = ? WHERE id_persona = ?',
       [nombre, apellido, mail, dni || null, telefono || null, id]
@@ -130,12 +123,10 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Crear nuevo administrador
 router.post("/", async (req, res) => {
   try {
     const { nombre, apellido, dni, mail, telefono, username, password } = req.body;
 
-    // Validar campos requeridos
     if (!nombre || !apellido || !mail || !username || !password) {
       return res.status(400).json({ 
         success: false, 
@@ -143,7 +134,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Verificar si el email ya existe
     const [existingMail] = await pool.query(
       'SELECT id_persona FROM personas WHERE mail = ?',
       [mail]
@@ -156,7 +146,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Verificar si el username ya existe en usuarios (Classroom)
     const [existingUser] = await pool.query(
       'SELECT id_usuario FROM usuarios WHERE username = ?',
       [username]
@@ -169,7 +158,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Verificar si el username ya existe en administradores/dashboard (usando tabla usuarios central)
     const [existingAdmin] = await pool.query(
       'SELECT id_usuario FROM usuarios WHERE username = ?',
       [username]
@@ -182,7 +170,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Verificar si el DNI ya existe (si se proporcionó)
     if (dni) {
       const [existingDNI] = await pool.query(
         'SELECT id_persona FROM personas WHERE dni = ?',
@@ -197,7 +184,6 @@ router.post("/", async (req, res) => {
       }
     }
 
-    // Obtener el id_perfil de administrador
     const [perfilRows] = await pool.query(
       'SELECT id_perfil FROM perfiles WHERE nombre_perfil IN (?, ?)',
       ['admin', 'administrador']
@@ -212,10 +198,8 @@ router.post("/", async (req, res) => {
 
     const id_perfil = perfilRows[0].id_perfil;
 
-    // Hashear la contraseña
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    // Crear persona
     const [personaResult] = await pool.query(
       'INSERT INTO personas (nombre, apellido, mail, dni, telefono) VALUES (?, ?, ?, ?, ?)',
       [nombre, apellido, mail, dni || null, telefono || null]
@@ -223,13 +207,11 @@ router.post("/", async (req, res) => {
 
     const id_persona = personaResult.insertId;
 
-    // Crear en tabla administradores (para Dashboard login)
     await pool.query(
       'INSERT INTO administradores (id_persona, usuario, password_hash, nivel_acceso, estado) VALUES (?, ?, ?, ?, ?)',
       [id_persona, username, hashedPassword, 'admin', 'activo']
     );
 
-    // Crear usuario en tabla usuarios (para Classroom login - aunque admins no lo usen)
     await pool.query(
       'INSERT INTO usuarios (username, password_hash, password_plain, id_persona, id_perfil) VALUES (?, ?, ?, ?, ?)',
       [username, hashedPassword, password, id_persona, id_perfil]
@@ -243,7 +225,6 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.error("Error al crear administrador:", error);
     
-    // Manejar errores específicos de MySQL
     if (error.code === 'ER_DUP_ENTRY') {
       return res.status(400).json({ 
         success: false,
@@ -258,12 +239,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Eliminar administrador
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Verificar que existe
     const [checkRows] = await pool.query(
       'SELECT id_persona FROM personas WHERE id_persona = ?',
       [id]
@@ -276,10 +255,8 @@ router.delete("/:id", async (req, res) => {
       });
     }
 
-    // Eliminar usuario asociado (si existe)
     await pool.query('DELETE FROM usuarios WHERE id_persona = ?', [id]);
 
-    // Eliminar persona
     const [result] = await pool.query('DELETE FROM personas WHERE id_persona = ?', [id]);
 
     if (result.affectedRows === 0) {
@@ -302,7 +279,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// Actualizar contraseña de administrador
 router.put("/:id/password", async (req, res) => {
   try {
     const { id } = req.params;
@@ -315,10 +291,8 @@ router.put("/:id/password", async (req, res) => {
       });
     }
 
-    // Hashear la nueva contraseña
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    // Actualizar contraseña
     const [result] = await pool.query(
       'UPDATE usuarios SET password_hash = ?, password_plain = ? WHERE id_persona = ?',
       [hashedPassword, password, id]
@@ -344,7 +318,6 @@ router.put("/:id/password", async (req, res) => {
   }
 });
 
-// Actualizar usuario del administrador (Dashboard)
 router.patch("/:id/usuario", async (req, res) => {
   try {
     const { id } = req.params;
@@ -354,7 +327,6 @@ router.patch("/:id/usuario", async (req, res) => {
       return res.status(400).json({ message: "El usuario es obligatorio" });
     }
 
-    // Verificar si el usuario ya existe en tabla usuarios (Classroom)
     const [existenteUsuarios] = await pool.query(
       `SELECT u.id_usuario 
        FROM usuarios u 
@@ -369,7 +341,6 @@ router.patch("/:id/usuario", async (req, res) => {
       });
     }
 
-    // Actualizar el usuario en la tabla usuarios (Classroom + Dashboard central)
     const [result] = await pool.query(
       "UPDATE usuarios SET username = ? WHERE id_persona = ?",
       [usuario.trim(), id]
@@ -386,7 +357,6 @@ router.patch("/:id/usuario", async (req, res) => {
   }
 });
 
-// Cambiar contraseña del administrador (Dashboard)
 router.post("/:id/cambiar-password", async (req, res) => {
   try {
     const { id } = req.params;
@@ -398,16 +368,13 @@ router.post("/:id/cambiar-password", async (req, res) => {
       });
     }
 
-    // Hash de la contraseña
     const passwordHash = await bcrypt.hash(password.trim(), 10);
 
-    // Actualizar la contraseña en la tabla usuarios (Classroom)
     await pool.query(
       "UPDATE usuarios SET password_hash = ?, password_plain = ? WHERE id_persona = ?",
       [passwordHash, password.trim(), id]
     );
 
-    // Actualizar la contraseña en la tabla administradores (Dashboard)
     const [result] = await pool.query(
       "UPDATE administradores SET password_hash = ? WHERE id_persona = ?",
       [passwordHash, id]
