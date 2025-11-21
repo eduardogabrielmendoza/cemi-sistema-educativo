@@ -107,8 +107,11 @@ class UserChat {
   }
   
   initializeUI() {
-    const chatContainer = document.getElementById('chatContainer');
-    if (!chatContainer) return;
+    const chatContainer = document.getElementById('userChatContainer');
+    if (!chatContainer) {
+      console.error('[UserChat] No se encontró #userChatContainer');
+      return;
+    }
     
     chatContainer.innerHTML = `
       <div class="user-chat-wrapper">
