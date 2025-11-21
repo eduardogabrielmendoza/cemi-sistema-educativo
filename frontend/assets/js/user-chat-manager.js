@@ -14,7 +14,6 @@ class UserChatManager {
   
   init() {
     this.loadUserInfo();
-    this.connectWebSocket();
     
     document.addEventListener('click', () => {
       this.initAudioContext();
