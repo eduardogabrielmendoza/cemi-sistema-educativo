@@ -143,7 +143,6 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    // Actualizar tabla personas (id_profesor = id_persona, incluye telefono y dni)
     await pool.query(
       'UPDATE personas SET nombre = ?, apellido = ?, mail = ?, dni = ?, telefono = ? WHERE id_persona = ?',
       [nombre, apellido, mail, dni || null, telefono || null, id]

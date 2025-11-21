@@ -23,7 +23,7 @@
 ### SQL
 -  Script de migración `agregar_campo_archivado.sql` creado
 
-## ⏳ Pasos Pendientes
+##  Pasos Pendientes
 
 ### 1. Ejecutar Migración en Base de Datos
 ```sql
