@@ -80,31 +80,54 @@ class ChatServer {
           const { tipo, id_usuario, nombre } = clientData.userInfo;
           
           console.log(`[ChatServer] Guardando mensaje de ${tipo} ${nombre} (ID: ${id_usuario}) en conversación ${id_conversacion}`);
-          console.log(`[ChatServer] Datos recibidos:`, { tipo, id_usuario, nombre, mensaje: mensaje.substring(0, 50) });
           
           try {
             // Guardar mensaje en BD
             const [result] = await pool.query(
-              `INSERT INTO Mensajes_Chat (id_conversacion, tipo_remitente, id_remitente, mensaje, fecha_envio, leido_usuario, leido_admin)
-               VALUES (?, ?, ?, ?, NOW(), 0, ?)`,
-              [id_conversacion, tipo, id_usuario, mensaje, tipo === 'admin' ? 1 : 0]
+              `INSERT INTO chat_mensajes (id_conversacion, tipo_remitente, id_remitente, nombre_remitente, mensaje)
+               VALUES (?, ?, ?, ?, ?)`,
+              [id_conversacion, tipo, id_usuario, nombre, mensaje]
             );
             
             const id_mensaje = result.insertId;
             
-            // Obtener el mensaje completo con datos del remitente
+            // Actualizar última actividad y contadores de la conversación
+            const isAdmin = tipo === 'admin';
+            if (!isAdmin) {
+              await pool.query(
+                `UPDATE chat_conversaciones
+                 SET mensajes_no_leidos_admin = mensajes_no_leidos_admin + 1,
+                     ultima_actividad = CURRENT_TIMESTAMP
+                 WHERE id_conversacion = ?`,
+                [id_conversacion]
+              );
+            } else {
+              await pool.query(
+                `UPDATE chat_conversaciones
+                 SET mensajes_no_leidos_usuario = mensajes_no_leidos_usuario + 1,
+                     ultima_actividad = CURRENT_TIMESTAMP
+                 WHERE id_conversacion = ?`,
+                [id_conversacion]
+              );
+            }
+            
+            // Obtener el mensaje completo con avatar del remitente
             const [[mensajeCompleto]] = await pool.query(
               `SELECT 
-                m.*,
-                u.nombre as nombre_remitente,
-                u.avatar as avatar_remitente,
+                cm.*,
+                COALESCE(p_alumno.avatar, p_profesor.avatar, p_admin.avatar) as avatar_remitente,
                 CASE 
-                  WHEN m.tipo_remitente = 'admin' THEN 1
+                  WHEN cm.tipo_remitente = 'admin' THEN 1
                   ELSE 0
                 END as es_admin
-              FROM Mensajes_Chat m
-              LEFT JOIN Usuarios u ON u.id_usuario = m.id_remitente
-              WHERE m.id_mensaje = ?`,
+              FROM chat_mensajes cm
+              LEFT JOIN alumnos a ON cm.tipo_remitente = 'alumno' AND a.id_alumno = cm.id_remitente
+              LEFT JOIN personas p_alumno ON a.id_persona = p_alumno.id_persona
+              LEFT JOIN profesores pr ON cm.tipo_remitente = 'profesor' AND pr.id_profesor = cm.id_remitente
+              LEFT JOIN personas p_profesor ON pr.id_persona = p_profesor.id_persona
+              LEFT JOIN usuarios u_admin ON cm.tipo_remitente = 'admin' AND u_admin.id_usuario = cm.id_remitente
+              LEFT JOIN personas p_admin ON u_admin.id_persona = p_admin.id_persona
+              WHERE cm.id_mensaje = ?`,
               [id_mensaje]
             );
             

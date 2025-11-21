@@ -718,31 +718,38 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
     
     console.log(` Archivo subido: ${req.file.originalname} (${tipoArchivo}) en conversación ${id_conversacion}`);
     
+    // Notificar a través de Socket.IO con avatar
     if (chatServerInstance) {
-      const mensajeWS = {
-        id_mensaje: result.insertId,
-        id_conversacion: parseInt(id_conversacion),
-        tipo_remitente,
-        id_remitente: id_remitente || null,
-        nombre_remitente,
-        mensaje: `[Archivo adjunto: ${req.file.originalname}]`,
-        archivo_adjunto: rutaArchivo,
-        tipo_archivo: tipoArchivo,
-        fecha_envio: new Date().toISOString()
-      };
+      // Recuperar el mensaje completo con avatar
+      const [[mensajeCompleto]] = await pool.query(
+        `SELECT 
+          cm.*,
+          COALESCE(p_alumno.avatar, p_profesor.avatar, p_admin.avatar) as avatar_remitente,
+          CASE 
+            WHEN cm.tipo_remitente = 'admin' THEN 1
+            ELSE 0
+          END as es_admin
+        FROM chat_mensajes cm
+        LEFT JOIN alumnos a ON cm.tipo_remitente = 'alumno' AND a.id_alumno = cm.id_remitente
+        LEFT JOIN personas p_alumno ON a.id_persona = p_alumno.id_persona
+        LEFT JOIN profesores pr ON cm.tipo_remitente = 'profesor' AND pr.id_profesor = cm.id_remitente
+        LEFT JOIN personas p_profesor ON pr.id_persona = p_profesor.id_persona
+        LEFT JOIN usuarios u_admin ON cm.tipo_remitente = 'admin' AND u_admin.id_usuario = cm.id_remitente
+        LEFT JOIN personas p_admin ON u_admin.id_persona = p_admin.id_persona
+        WHERE cm.id_mensaje = ?`,
+        [result.insertId]
+      );
       
-      chatServerInstance.broadcastToConversation(id_conversacion, {
-        type: 'message',
-        data: mensajeWS
-      });
+      chatServerInstance.broadcastToConversation(
+        id_conversacion, 
+        'new_message', 
+        mensajeCompleto
+      );
       
       if (!isAdmin) {
-        chatServerInstance.notifyAdmins({
-          type: 'new_message',
-          data: {
-            id_conversacion: parseInt(id_conversacion),
-            from: nombre_remitente
-          }
+        chatServerInstance.notifyAdmins('new_message', {
+          id_conversacion: parseInt(id_conversacion),
+          from: nombre_remitente
         });
       }
     }
