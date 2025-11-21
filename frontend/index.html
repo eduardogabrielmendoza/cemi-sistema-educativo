@@ -572,16 +572,21 @@
   </button>
 
   <div class="floating-menu-container" id="floatingMenu">
-    <button class="floating-btn-sub floating-btn-terms" onclick="window.location.href='terminos.html'" title="Términos de Servicio">
-      <i class="fas fa-file-alt"></i>
+    <button class="floating-btn-sub floating-btn-help" onclick="window.location.href='ayuda.html'" title="Centro de Ayuda">
+      <i class="fas fa-question-circle"></i>
     </button>
     
     <button class="floating-btn-sub floating-btn-privacy" onclick="window.location.href='privacidad.html'" title="Política de Privacidad">
       <i class="fas fa-shield-alt"></i>
     </button>
     
-    <button class="floating-btn-sub floating-btn-help" onclick="window.location.href='ayuda.html'" title="Centro de Ayuda">
-      <i class="fas fa-question-circle"></i>
+    <button class="floating-btn-sub floating-btn-terms" onclick="window.location.href='terminos.html'" title="Términos de Servicio">
+      <i class="fas fa-file-alt"></i>
+    </button>
+    
+    <button class="floating-btn-main" id="floatingMenuToggle" title="Menú">
+      <i class="fas fa-ellipsis-v icon-menu"></i>
+      <i class="fas fa-times icon-close"></i>
     </button>
   </div>
 
@@ -768,6 +773,24 @@
     }
 
     // El botón APK ahora es visible para todos los dispositivos
+
+    // Toggle del menú flotante
+    const floatingMenuToggle = document.getElementById('floatingMenuToggle');
+    const floatingMenu = document.getElementById('floatingMenu');
+    
+    if (floatingMenuToggle) {
+      floatingMenuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        floatingMenu.classList.toggle('active');
+      });
+      
+      // Cerrar menú al hacer clic fuera
+      document.addEventListener('click', function(e) {
+        if (!floatingMenu.contains(e.target)) {
+          floatingMenu.classList.remove('active');
+        }
+      });
+    }
   </script>
   
   <script src="assets/js/pwa-install.js?v=3.0"></script>
