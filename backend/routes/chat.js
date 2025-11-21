@@ -779,5 +779,39 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
   }
 });
 
+// Endpoint de polling para mensajes nuevos (tiempo real simple)
+router.get("/poll/:conversacion_id/:last_message_id", async (req, res) => {
+  try {
+    const { conversacion_id, last_message_id } = req.params;
+    
+    // Obtener mensajes nuevos desde el último ID conocido
+    const [mensajes] = await pool.query(
+      `SELECT m.*, 
+              CASE 
+                WHEN m.tipo_remitente = 'alumno' THEN a.nombre
+                WHEN m.tipo_remitente = 'profesor' THEN p.nombre
+                WHEN m.tipo_remitente = 'administrador' THEN ad.nombre
+              END as nombre_remitente
+       FROM mensajes_chat m
+       LEFT JOIN alumnos a ON m.id_remitente = a.id_alumno AND m.tipo_remitente = 'alumno'
+       LEFT JOIN profesores p ON m.id_remitente = p.id_profesor AND m.tipo_remitente = 'profesor'
+       LEFT JOIN administradores ad ON m.id_remitente = ad.id_admin AND m.tipo_remitente = 'administrador'
+       WHERE m.id_conversacion = ? AND m.id_mensaje > ?
+       ORDER BY m.fecha_envio ASC`,
+      [conversacion_id, last_message_id]
+    );
+    
+    res.json({
+      success: true,
+      nuevos_mensajes: mensajes,
+      count: mensajes.length
+    });
+    
+  } catch (error) {
+    console.error("Error en polling:", error);
+    res.status(500).json({ success: false, message: "Error al obtener mensajes" });
+  }
+});
+
 export default router;
 

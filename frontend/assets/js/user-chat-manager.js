@@ -208,55 +208,72 @@ class UserChatManager {
     } catch (err) {
       console.error(' Error actualizando id_usuario:', err);
     }
+    
+    // Sistema de polling en lugar de WebSocket
+    this.pollingInterval = null;
+    this.lastMessageId = 0;
+    this.startPolling();
+  }
+  
+  startPolling() {
+    // Cargar conversaciones inicialmente
+    this.loadConversations();
+    
+    // Poll cada 3 segundos
+    this.pollingInterval = setInterval(() => {
+      if (this.activeConversation) {
+        this.checkNewMessages();
+      }
+      // También actualizar lista de conversaciones cada 10 segundos
+      if (Math.random() > 0.7) {
+        this.loadConversations();
+      }
+    }, 3000);
+  }
+  
+  stopPolling() {
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+      this.pollingInterval = null;
+    }
+  }
+  
+  async checkNewMessages() {
+    if (!this.activeConversation) return;
+    
+    try {
+      const response = await fetch(
+        `${this.BASE_URL}/api/chat/poll/${this.activeConversation.id_conversacion}/${this.lastMessageId}`
+      );
+      
+      if (!response.ok) return;
+      
+      const result = await response.json();
+      
+      if (result.success && result.nuevos_mensajes && result.nuevos_mensajes.length > 0) {
+        result.nuevos_mensajes.forEach(mensaje => {
+          this.addMessageToUI(mensaje);
+          this.lastMessageId = Math.max(this.lastMessageId, mensaje.id_mensaje);
+        });
+      }
+    } catch (error) {
+      console.error('Error en polling:', error);
+    }
   }
   
   connectWebSocket() {
-    if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
-      console.log(' WebSocket ya está conectado o conectándose');
-      return;
-    }
-    
-    console.log(' Conectando WebSocket del chat...');
-    this.ws = new WebSocket(`${this.WS_URL}/chat`);
-    
-    this.ws.onopen = () => {
-      console.log(' User Chat WebSocket conectado');
-      this.isConnected = true;
-      this.authenticate();
-      this.loadConversations();
-    };
-    
-    this.ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      this.handleWebSocketMessage(message);
-    };
-    
-    this.ws.onclose = () => {
-      console.log(' User Chat WebSocket desconectado');
-      this.isConnected = false;
-      setTimeout(() => this.connectWebSocket(), 3000);
-    };
-    
-    this.ws.onerror = (error) => {
-      console.error(' Error en WebSocket:', error);
-    };
+    // Ya no se usa WebSocket, solo polling
+    console.log('✓ Usando polling en lugar de WebSocket');
+    this.isConnected = true;
+    this.loadConversations();
   }
   
   authenticate() {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
-    
-    this.ws.send(JSON.stringify({
-      type: 'auth',
-      data: {
-        tipo: this.userType,
-        id_usuario: this.userInfo.id_usuario,
-        nombre: this.userInfo.nombre,
-        id_conversacion: this.activeConversation ? this.activeConversation.id_conversacion : null
-      }
-    }));
+    // No necesario con polling
   }
   
   handleWebSocketMessage(message) {
+    // Mantenido por compatibilidad pero no se usa
     const { type, data } = message;
     
     switch (type) {
@@ -495,11 +512,31 @@ class UserChatManager {
       
       if (result.success) {
         this.activeConversation.mensajes = result.mensajes || [];
+        
+        // Establecer el último ID de mensaje para polling
+        if (this.activeConversation.mensajes.length > 0) {
+          this.lastMessageId = Math.max(...this.activeConversation.mensajes.map(m => m.id_mensaje));
+        }
+        
         this.renderMessages();
       }
     } catch (error) {
       console.error('Error al cargar mensajes:', error);
     }
+  }
+  
+  addMessageToUI(mensaje) {
+    if (!this.activeConversation) return;
+    
+    // Evitar duplicados
+    const exists = this.activeConversation.mensajes.find(m => m.id_mensaje === mensaje.id_mensaje);
+    if (exists) return;
+    
+    // Agregar mensaje al array
+    this.activeConversation.mensajes.push(mensaje);
+    
+    // Re-render
+    this.renderMessages();
   }
   
   renderMessages() {

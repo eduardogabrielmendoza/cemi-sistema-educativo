@@ -122,55 +122,69 @@ class AdminChatManager {
       nombre: localStorage.getItem('nombre') || 'Admin',
       tipo: 'admin'
     };
+    
+    // Polling en lugar de WebSocket
+    this.pollingInterval = null;
+    this.lastMessageId = 0;
+    this.startPolling();
   }
   
-  connectWebSocket() {
-    if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
-      console.log(' WebSocket ya está conectado o conectándose');
-      return;
+  startPolling() {
+    // Cargar conversaciones inicialmente
+    this.loadConversations();
+    
+    // Poll cada 3 segundos para mensajes nuevos
+    this.pollingInterval = setInterval(() => {
+      if (this.currentConversation) {
+        this.checkNewMessages();
+      }
+    }, 3000);
+  }
+  
+  stopPolling() {
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+      this.pollingInterval = null;
     }
+  }
+  
+  async checkNewMessages() {
+    if (!this.currentConversation) return;
     
-    console.log(' Conectando WebSocket del admin chat...');
-    this.ws = new WebSocket(`${this.WS_URL}/chat`);
-    
-    this.ws.onopen = () => {
-      console.log(' Admin Chat WebSocket conectado');
-      this.isConnected = true;
-      this.authenticate();
-      this.loadConversations();
-    };
-    
-    this.ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      this.handleWebSocketMessage(message);
-    };
-    
-    this.ws.onclose = () => {
-      console.log(' Admin Chat WebSocket desconectado');
-      this.isConnected = false;
-      setTimeout(() => this.connectWebSocket(), 3000);
-    };
-    
-    this.ws.onerror = (error) => {
-      console.error(' Error en WebSocket:', error);
-    };
+    try {
+      const response = await fetch(
+        `${this.BASE_URL}/api/chat/poll/${this.currentConversation}/${this.lastMessageId}`
+      );
+      
+      if (!response.ok) return;
+      
+      const result = await response.json();
+      
+      if (result.success && result.nuevos_mensajes && result.nuevos_mensajes.length > 0) {
+        result.nuevos_mensajes.forEach(mensaje => {
+          this.addMessageToUI(mensaje);
+          this.lastMessageId = Math.max(this.lastMessageId, mensaje.id_mensaje);
+        });
+        
+        // Actualizar lista de conversaciones para mostrar último mensaje
+        this.loadConversations();
+      }
+    } catch (error) {
+      console.error('Error en polling:', error);
+    }
+  }
+  
+  // Método antiguo de WebSocket - ya no se usa
+  connectWebSocket() {
+    console.log('✓ Usando polling en lugar de WebSocket');
   }
   
   authenticate() {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
-    
-    this.ws.send(JSON.stringify({
-      type: 'auth',
-      data: {
-        tipo: 'admin',
-        id_usuario: this.adminInfo.id_usuario,
-        nombre: this.adminInfo.nombre,
-        id_conversacion: null
-      }
-    }));
+    // No necesario con polling
   }
   
   handleWebSocketMessage(message) {
+    // Mantenemos por compatibilidad pero no se usa
     const { type, data } = message;
     
     switch (type) {
@@ -392,6 +406,12 @@ class AdminChatManager {
       if (result.success) {
         if (this.activeConversation) {
           this.activeConversation.mensajes = result.data?.mensajes || [];
+          
+          // Establecer el último ID de mensaje para polling
+          if (this.activeConversation.mensajes.length > 0) {
+            this.lastMessageId = Math.max(...this.activeConversation.mensajes.map(m => m.id_mensaje));
+          }
+          
           console.log(` Mensajes cargados para conversación ${id}:`, this.activeConversation.mensajes.length);
           this.renderMessages();
         }
@@ -399,6 +419,20 @@ class AdminChatManager {
     } catch (error) {
       console.error('Error al cargar mensajes:', error);
     }
+  }
+  
+  addMessageToUI(mensaje) {
+    if (!this.activeConversation) return;
+    
+    // Evitar duplicados
+    const exists = this.activeConversation.mensajes.find(m => m.id_mensaje === mensaje.id_mensaje);
+    if (exists) return;
+    
+    // Agregar mensaje al array
+    this.activeConversation.mensajes.push(mensaje);
+    
+    // Re-render
+    this.renderMessages();
   }
   
   renderMessages() {
