@@ -87,21 +87,29 @@
     window.location.href = "login.html";
   }
 
-  // Cargar user chat con Socket.IO
-  const chatScript = document.createElement('script');
-  chatScript.src = `assets/js/user-chat.js?v=${Date.now()}`;
-  chatScript.onload = () => {
-    console.log('✅ user-chat.js cargado');
-    if (typeof UserChat !== 'undefined') {
-      window.userChat = new UserChat('profesor');
+  // Cargar user chat con Socket.IO - Esperar a que Socket.IO esté disponible
+  function loadUserChat() {
+    if (typeof io !== 'undefined') {
+      const chatScript = document.createElement('script');
+      chatScript.src = `assets/js/user-chat.js?v=${Date.now()}`;
+      chatScript.onload = () => {
+        console.log('✅ user-chat.js cargado');
+        if (typeof UserChat !== 'undefined') {
+          window.userChat = new UserChat('profesor');
+        } else {
+          console.error('❌ UserChat no está definido');
+        }
+      };
+      chatScript.onerror = () => {
+        console.error('❌ Error al cargar user-chat.js');
+      };
+      document.head.appendChild(chatScript);
     } else {
-      console.error('❌ UserChat no está definido');
+      console.log('⏳ Esperando Socket.IO...');
+      setTimeout(loadUserChat, 100);
     }
-  };
-  chatScript.onerror = () => {
-    console.error('❌ Error al cargar user-chat.js');
-  };
-  document.head.appendChild(chatScript);    // =====================================================
+  }
+  loadUserChat();    // =====================================================
     // Mostrar saludo dinámico con nombre guardado
     // =====================================================
     const nombreProfesor = localStorage.getItem("nombre") || "Profesor";

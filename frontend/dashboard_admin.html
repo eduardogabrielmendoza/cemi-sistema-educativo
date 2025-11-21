@@ -607,12 +607,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   
   <script src="assets/js/script.js"></script>
-  <script src="assets/js/admin-chat.js"></script>
   
   <script>
-    // Crear instancia global del admin chat con Socket.IO
-    console.log('✅ Inicializando admin chat con Socket.IO...');
-    window.adminChat = new AdminChat();
+    // Cargar admin chat con Socket.IO - Esperar a que Socket.IO esté disponible
+    function loadAdminChat() {
+      if (typeof io !== 'undefined') {
+        const chatScript = document.createElement('script');
+        chatScript.src = `assets/js/admin-chat.js?v=${Date.now()}`;
+        chatScript.onload = () => {
+          console.log('✅ admin-chat.js cargado');
+          if (typeof AdminChat !== 'undefined') {
+            window.adminChat = new AdminChat();
+            console.log('✅ Inicializando admin chat con Socket.IO...');
+          } else {
+            console.error('❌ AdminChat no está definido');
+          }
+        };
+        chatScript.onerror = () => {
+          console.error('❌ Error al cargar admin-chat.js');
+        };
+        document.head.appendChild(chatScript);
+      } else {
+        console.log('⏳ Esperando Socket.IO...');
+        setTimeout(loadAdminChat, 100);
+      }
+    }
+    loadAdminChat();
     
     // Solicitar permisos de notificación
     if ('Notification' in window && Notification.permission === 'default') {
