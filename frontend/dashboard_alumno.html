@@ -828,9 +828,8 @@
       mainContent.classList.remove("active");
       mainContent.innerHTML = `<div id="userChatContainer"></div>`;
       setTimeout(() => {
-        if (window.userChatManager) {
-          window.userChatManager.renderChatView();
-          // Ya NO llamamos init() aquí - se llamó automáticamente al cargar la página
+        if (window.userChat) {
+          window.userChat.initializeUI();
         }
         mainContent.classList.add("active");
         lucide.createIcons();
