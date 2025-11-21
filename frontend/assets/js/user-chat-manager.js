@@ -377,21 +377,21 @@ class UserChatManager {
           console.log(' Mensajes no leídos desde BD:', mensajesNoLeidos);
           this.updateNotificationBadge(mensajesNoLeidos);
           
-          if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+          if (this.sock) {
             console.log(' Uniéndose automáticamente a conversación:', conversacion.id_conversacion);
-            this.ws.send(JSON.stringify({
+            this.send({
               type: 'join_conversation',
               data: { id_conversacion: conversacion.id_conversacion }
-            }));
+            });
           } else {
-            console.warn(' WebSocket no está listo, reintentando en 500ms...');
+            console.warn(' SockJS no está listo, reintentando en 500ms...');
             setTimeout(() => {
-              if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+              if (this.sock) {
                 console.log(' Reintento: Uniéndose a conversación:', conversacion.id_conversacion);
-                this.ws.send(JSON.stringify({
+                this.send({
                   type: 'join_conversation',
                   data: { id_conversacion: conversacion.id_conversacion }
-                }));
+                });
               }
             }, 500);
           }
