@@ -171,6 +171,6 @@ setChatServer(chatServer);
 
 server.listen(PORT, () => {
   console.log(` Servidor HTTP activo en http://localhost:${PORT}`);
-  console.log(` Servidor WebSocket de Chat activo en ws://localhost:${PORT}/chat`);
+  console.log(` Servidor Socket.IO de Chat activo en http://localhost:${PORT}/socket.io/`);
   console.log(` Estado del chat:`, chatServer.getStats());
 });

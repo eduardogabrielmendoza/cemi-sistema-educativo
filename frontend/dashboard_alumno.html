@@ -84,23 +84,29 @@
     window.location.href = "login.html";
   }
 
-  // Cargar script del chat y crear instancia
-  const chatScript = document.createElement('script');
-  chatScript.src = `assets/js/user-chat-manager.js?v=${Date.now()}`; // Cache busting
-  chatScript.onload = () => {
-    console.log(' user-chat-manager.js cargado correctamente');
-    if (typeof UserChatManager !== 'undefined') {
-      window.userChatManager = new UserChatManager('alumno');
-      // Inicializar WebSocket inmediatamente para recibir notificaciones
-      window.userChatManager.init();
-    } else {
-      console.error(' UserChatManager no está definido');
-    }
+  // Cargar Socket.IO primero
+  const socketScript = document.createElement('script');
+  socketScript.src = 'https://cdn.socket.io/4.7.2/socket.io.min.js';
+  socketScript.onload = () => {
+    // Luego cargar script del chat y crear instancia
+    const chatScript = document.createElement('script');
+    chatScript.src = `assets/js/user-chat-manager.js?v=${Date.now()}`; // Cache busting
+    chatScript.onload = () => {
+      console.log(' user-chat-manager.js cargado correctamente');
+      if (typeof UserChatManager !== 'undefined') {
+        window.userChatManager = new UserChatManager('alumno');
+        // Inicializar Socket.IO inmediatamente para recibir notificaciones
+        window.userChatManager.init();
+      } else {
+        console.error(' UserChatManager no está definido');
+      }
+    };
+    chatScript.onerror = () => {
+      console.error(' Error al cargar user-chat-manager.js');
+    };
+    document.head.appendChild(chatScript);
   };
-  chatScript.onerror = () => {
-    console.error(' Error al cargar user-chat-manager.js');
-  };
-  document.head.appendChild(chatScript);
+  document.head.appendChild(socketScript);
 
   // Mostrar saludo dinámico con nombre guardado
   const nombreAlumno = localStorage.getItem("nombre") || "Alumno";

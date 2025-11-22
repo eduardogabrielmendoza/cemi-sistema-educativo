@@ -1,20 +1,20 @@
 class AdminChatManager {
   constructor() {
-    this.ws = null;
+    this.socket = null;
     this.isConnected = false;
     this.conversations = [];
     this.activeConversation = null;
     this.adminInfo = null;
     this.audioContext = null;
     this.audioInitialized = false;
-    this.WS_URL = window.WS_URL || 'ws://localhost:3000';
+    this.BASE_URL = window.BASE_URL || 'http://localhost:3000';
     
     this.initMessageSound();
   }
   
   init() {
     this.loadAdminInfo();
-    this.connectWebSocket();
+    this.connectSocket();
     
     document.addEventListener('click', () => {
       this.initAudioContext();
@@ -124,50 +124,68 @@ class AdminChatManager {
     };
   }
   
-  connectWebSocket() {
-    if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
-      console.log('️ WebSocket ya está conectado o conectándose');
+  connectSocket() {
+    if (this.socket && this.socket.connected) {
+      console.log('️ Socket.IO ya está conectado');
       return;
     }
     
-    console.log(' Conectando WebSocket del admin chat...');
-    this.ws = new WebSocket(`${this.WS_URL}/chat`);
+    console.log(' Conectando Socket.IO del admin chat...');
+    this.socket = io(this.BASE_URL, {
+      path: '/socket.io/',
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: Infinity
+    });
     
-    this.ws.onopen = () => {
-      console.log(' Admin Chat WebSocket conectado');
+    this.socket.on('connect', () => {
+      console.log(' Admin Chat Socket.IO conectado');
       this.isConnected = true;
       this.authenticate();
       this.loadConversations();
-    };
+    });
     
-    this.ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      this.handleWebSocketMessage(message);
-    };
+    this.socket.on('authenticated', (data) => {
+      console.log(' Admin autenticado', data);
+    });
     
-    this.ws.onclose = () => {
-      console.log(' Admin Chat WebSocket desconectado');
+    this.socket.on('new_message', (data) => {
+      this.handleNewMessage(data);
+    });
+    
+    this.socket.on('typing', (data) => {
+      this.handleTyping(data);
+    });
+    
+    this.socket.on('conversation_closed', () => {
+      this.handleConversationClosed();
+    });
+    
+    this.socket.on('joined_conversation', (data) => {
+      console.log(' Admin confirmó unión a conversación:', data);
+    });
+    
+    this.socket.on('disconnect', () => {
+      console.log(' Admin Chat Socket.IO desconectado');
       this.isConnected = false;
-      setTimeout(() => this.connectWebSocket(), 3000);
-    };
+    });
     
-    this.ws.onerror = (error) => {
-      console.error(' Error en WebSocket:', error);
-    };
+    this.socket.on('error', (error) => {
+      console.error(' Error en Socket.IO:', error);
+    });
   }
   
   authenticate() {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+    if (!this.socket || !this.socket.connected) return;
     
-    this.ws.send(JSON.stringify({
-      type: 'auth',
-      data: {
-        tipo: 'admin',
-        id_usuario: this.adminInfo.id_usuario,
-        nombre: this.adminInfo.nombre,
-        id_conversacion: null
-      }
-    }));
+    this.socket.emit('auth', {
+      tipo: 'admin',
+      id_usuario: this.adminInfo.id_usuario,
+      nombre: this.adminInfo.nombre,
+      id_conversacion: null
+    });
   }
   
   handleWebSocketMessage(message) {
@@ -276,13 +294,10 @@ class AdminChatManager {
         console.log(' Total mensajes no leídos por admin:', totalNoLeidos);
         this.updateNotificationBadge(totalNoLeidos);
         
-        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        if (this.socket && this.socket.connected) {
           this.conversations.forEach(conv => {
             console.log(' Admin uniéndose a conversación:', conv.id_conversacion);
-            this.ws.send(JSON.stringify({
-              type: 'join_conversation',
-              data: { id_conversacion: conv.id_conversacion }
-            }));
+            this.socket.emit('join_conversation', { id_conversacion: conv.id_conversacion });
           });
         }
         
@@ -371,12 +386,9 @@ class AdminChatManager {
     }
     if (inputArea) inputArea.style.display = 'flex';
     
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      console.log(' Admin uniéndose a conversación vía WebSocket:', id);
-      this.ws.send(JSON.stringify({
-        type: 'join_conversation',
-        data: { id_conversacion: id }
-      }));
+    if (this.socket && this.socket.connected) {
+      console.log(' Admin uniéndose a conversación vía Socket.IO:', id);
+      this.socket.emit('join_conversation', { id_conversacion: id });
     }
     
     await this.loadMessages(id);
@@ -551,17 +563,14 @@ class AdminChatManager {
     
     if (!mensaje || !this.activeConversation) return;
     
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify({
-        type: 'message',
-        data: {
-          id_conversacion: this.activeConversation.id_conversacion,
-          mensaje: mensaje
-        }
-      }));
+    if (this.socket && this.socket.connected) {
+      this.socket.emit('message', {
+        id_conversacion: this.activeConversation.id_conversacion,
+        mensaje: mensaje
+      });
       
       input.value = '';
-      console.log(' Mensaje enviado via WebSocket');
+      console.log(' Mensaje enviado via Socket.IO');
       
       const messageData = {
         id_conversacion: this.activeConversation.id_conversacion,
@@ -575,7 +584,7 @@ class AdminChatManager {
       this.addMessageToUI(messageData);
       
     } else {
-      console.error(' WebSocket no conectado');
+      console.error(' Socket.IO no conectado');
       Swal.fire({
         icon: 'error',
         title: 'Error de conexión',
@@ -733,15 +742,12 @@ class AdminChatManager {
       const result = await response.json();
       
       if (result.success) {
-        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-          this.ws.send(JSON.stringify({
-            type: 'close_conversation',
-            data: {
-              id_conversacion: idConversacion,
-              tipo_usuario: tipoUsuario,
-              id_usuario: idUsuario
-            }
-          }));
+        if (this.socket && this.socket.connected) {
+          this.socket.emit('close_conversation', {
+            id_conversacion: idConversacion,
+            tipo_usuario: tipoUsuario,
+            id_usuario: idUsuario
+          });
         }
         
         Swal.fire({

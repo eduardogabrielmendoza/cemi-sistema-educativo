@@ -1,15 +1,13 @@
 
 class ChatWidget {
   constructor() {
-    this.ws = null;
+    this.socket = null;
     this.isConnected = false;
     this.conversationId = null;
     this.userInfo = null;
     this.isTyping = false;
     this.typingTimeout = null;
-    this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = 5;
-    this.WS_URL = window.WS_URL || 'ws://localhost:3000';
+    this.BASE_URL = window.BASE_URL || 'http://localhost:3000';
     this.messageSound = null;
     
     this.init();
@@ -170,45 +168,80 @@ class ChatWidget {
   }
   
   
-  connectWebSocket() {
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      console.log('WebSocket ya está conectado');
+  connectSocket() {
+    if (this.socket && this.socket.connected) {
+      console.log('Socket.IO ya está conectado');
       return;
     }
     
     this.showConnectionStatus('Conectando...', 'warning');
     
-    this.ws = new WebSocket(`${this.WS_URL}/chat`);
+    this.socket = io(this.BASE_URL, {
+      path: '/socket.io/',
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 10000,
+      reconnectionAttempts: 5
+    });
     
-    this.ws.onopen = () => {
-      console.log(' WebSocket conectado');
+    this.socket.on('connect', () => {
+      console.log(' Socket.IO conectado');
       this.isConnected = true;
-      this.reconnectAttempts = 0;
       this.showConnectionStatus('Conectado', 'success');
       setTimeout(() => this.hideConnectionStatus(), 2000);
       
       this.authenticate();
-    };
+    });
     
-    this.ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      this.handleWebSocketMessage(message);
-    };
+    this.socket.on('connected', (data) => {
+      console.log('', data.message);
+    });
     
-    this.ws.onclose = () => {
-      console.log(' WebSocket desconectado');
+    this.socket.on('authenticated', (data) => {
+      console.log(' Autenticado:', data.message);
+    });
+    
+    this.socket.on('new_message', (data) => {
+      this.handleNewMessage(data);
+    });
+    
+    this.socket.on('typing', (data) => {
+      this.handleTyping(data);
+    });
+    
+    this.socket.on('conversation_closed', () => {
+      this.handleConversationClosed();
+    });
+    
+    this.socket.on('disconnect', () => {
+      console.log(' Socket.IO desconectado');
       this.isConnected = false;
-      this.attemptReconnect();
-    };
+      this.showConnectionStatus('Desconectado', 'warning');
+    });
     
-    this.ws.onerror = (error) => {
-      console.error(' Error en WebSocket:', error);
+    this.socket.on('reconnect', (attemptNumber) => {
+      console.log(` Reconectado después de ${attemptNumber} intentos`);
+      this.showConnectionStatus('Reconectado', 'success');
+      setTimeout(() => this.hideConnectionStatus(), 2000);
+    });
+    
+    this.socket.on('reconnect_attempt', (attemptNumber) => {
+      this.showConnectionStatus(`Reconectando... (${attemptNumber}/5)`, 'warning');
+    });
+    
+    this.socket.on('reconnect_failed', () => {
+      this.showConnectionStatus('No se pudo reconectar. Recarga la página.', 'error');
+    });
+    
+    this.socket.on('error', (error) => {
+      console.error(' Error en Socket.IO:', error);
       this.showConnectionStatus('Error de conexión', 'error');
-    };
+    });
   }
   
   authenticate() {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+    if (!this.socket || !this.socket.connected) return;
     
     const authData = {
       tipo: this.userInfo.tipo,
@@ -217,64 +250,25 @@ class ChatWidget {
       id_conversacion: this.conversationId
     };
     
-    this.ws.send(JSON.stringify({
-      type: 'auth',
-      data: authData
-    }));
-  }
-  
-  attemptReconnect() {
-    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-      this.showConnectionStatus('No se pudo reconectar. Recarga la página.', 'error');
-      return;
-    }
-    
-    this.reconnectAttempts++;
-    const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempts), 10000);
-    
-    this.showConnectionStatus(`Reconectando... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`, 'warning');
-    
-    setTimeout(() => {
-      this.connectWebSocket();
-    }, delay);
+    this.socket.emit('auth', authData);
   }
   
   
-  handleWebSocketMessage(message) {
-    const { type, data } = message;
-    
-    switch (type) {
-      case 'connected':
-      case 'authenticated':
-        console.log('', message.message);
-        break;
-        
-      case 'new_message':
-        this.addMessageToUI(data);
-        this.playMessageSound();
-        this.scrollToBottom();
-        break;
-        
-      case 'typing':
-        if (data.tipo === 'admin') {
-          this.showTypingIndicator();
-        }
-        break;
-        
-      case 'messages_read':
-        console.log('Mensajes marcados como leídos');
-        break;
-        
-      case 'conversation_closed':
-      case 'conversation_deleted':
-        this.showConnectionStatus('La conversación ha sido cerrada por un administrador', 'warning');
-        this.disableChat();
-        break;
-        
-      case 'error':
-        console.error('Error del servidor:', message.message);
-        break;
+  handleNewMessage(data) {
+    this.addMessageToUI(data);
+    this.playMessageSound();
+    this.scrollToBottom();
+  }
+  
+  handleTyping(data) {
+    if (data.tipo === 'admin') {
+      this.showTypingIndicator();
     }
+  }
+  
+  handleConversationClosed() {
+    this.showConnectionStatus('La conversación ha sido cerrada por un administrador', 'warning');
+    this.disableChat();
   }
   
   
@@ -317,7 +311,7 @@ class ChatWidget {
         document.getElementById('chatMessagesContainer').style.display = 'flex';
         document.getElementById('chatInputContainer').style.display = 'flex';
         
-        this.connectWebSocket();
+        this.connectSocket();
         
         await this.loadMessages();
       } else {
@@ -347,7 +341,7 @@ class ChatWidget {
       
       if (result.success && result.data) {
         this.conversationId = result.data.conversacion.id_conversacion;
-        this.connectWebSocket();
+        this.connectSocket();
         this.loadMessages();
       }
     } catch (error) {
@@ -388,13 +382,10 @@ class ChatWidget {
     
     if (!mensaje || !this.isConnected) return;
     
-    this.ws.send(JSON.stringify({
-      type: 'message',
-      data: {
-        id_conversacion: this.conversationId,
-        mensaje
-      }
-    }));
+    this.socket.emit('message', {
+      id_conversacion: this.conversationId,
+      mensaje
+    });
     
     input.value = '';
     this.stopTyping();
@@ -437,13 +428,10 @@ class ChatWidget {
   handleTyping() {
     if (!this.isTyping) {
       this.isTyping = true;
-      this.ws.send(JSON.stringify({
-        type: 'typing',
-        data: {
-          id_conversacion: this.conversationId,
-          isTyping: true
-        }
-      }));
+      this.socket.emit('typing', {
+        id_conversacion: this.conversationId,
+        isTyping: true
+      });
     }
     
     clearTimeout(this.typingTimeout);
@@ -455,13 +443,10 @@ class ChatWidget {
   stopTyping() {
     if (this.isTyping) {
       this.isTyping = false;
-      this.ws.send(JSON.stringify({
-        type: 'typing',
-        data: {
-          id_conversacion: this.conversationId,
-          isTyping: false
-        }
-      }));
+      this.socket.emit('typing', {
+        id_conversacion: this.conversationId,
+        isTyping: false
+      });
     }
   }
   
@@ -478,13 +463,10 @@ class ChatWidget {
   async markAsRead() {
     if (!this.conversationId || !this.isConnected) return;
     
-    this.ws.send(JSON.stringify({
-      type: 'read',
-      data: {
-        id_conversacion: this.conversationId
-      }
-    }));
-    
+    this.socket.emit('read', {
+      id_conversacion: this.conversationId
+    });
+  }
     this.updateNotificationBadge(0);
   }
   
@@ -504,7 +486,7 @@ class ChatWidget {
     document.getElementById('chatWidgetContainer').classList.add('active');
     
     if (this.conversationId && !this.isConnected) {
-      this.connectWebSocket();
+      this.connectSocket();
     }
     
     if (this.conversationId) {
