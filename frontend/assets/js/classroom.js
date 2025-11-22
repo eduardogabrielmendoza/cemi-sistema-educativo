@@ -39,7 +39,9 @@ async function cargarAvatarUsuario() {
       if (userInitialsElement) {
         if (data.perfil.avatar) {
           const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-          const avatarUrl = `${BASE_URL}${data.perfil.avatar}`;
+          const avatarUrl = data.perfil.avatar.startsWith('http') 
+            ? data.perfil.avatar 
+            : `${BASE_URL}${data.perfil.avatar}`;
           userInitialsElement.innerHTML = `<img src="${avatarUrl}" alt="Avatar">`;
           console.log(' Avatar cargado en header:', avatarUrl);
         } else {
@@ -58,7 +60,7 @@ async function cargarAvatarUsuario() {
 function renderAvatarHTML(avatar, nombre, apellido = '', gradiente = 'linear-gradient(135deg, #667eea, #764ba2)') {
   if (avatar) {
     const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-    const avatarUrl = `${BASE_URL}${avatar}`;
+    const avatarUrl = avatar.startsWith('http') ? avatar : `${BASE_URL}${avatar}`;
     return `
       <div class="avatar-circle" style="background: none !important; padding: 0; border: none;">
         <img src="${avatarUrl}" alt="Avatar">
