@@ -255,9 +255,24 @@ class ChatServer {
         id_remitente,
         userInfo.nombre,
         mensaje
-      ]);
-      
+      ]);      
       const id_mensaje = result.insertId;
+      
+      // Obtener avatar del remitente
+      let avatar_remitente = null;
+      if (id_remitente) {
+        const [avatarResult] = await pool.query(`
+          SELECT p.avatar
+          FROM personas p
+          WHERE p.id_persona = (
+            SELECT id_persona FROM usuarios WHERE id_usuario = ?
+          )
+        `, [id_remitente]);
+        
+        if (avatarResult.length > 0) {
+          avatar_remitente = avatarResult[0].avatar;
+        }
+      }
       
       if (userInfo.tipo === 'admin') {
         await pool.query(`
@@ -282,6 +297,7 @@ class ChatServer {
         id_conversacion,
         tipo_remitente: userInfo.tipo,
         nombre_remitente: userInfo.nombre,
+        avatar_remitente: avatar_remitente,
         mensaje,
         fecha_envio: new Date(),
         leido: false,
