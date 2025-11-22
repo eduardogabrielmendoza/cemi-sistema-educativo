@@ -1005,14 +1005,27 @@
             <h3><i data-lucide="users"></i> Compañeros de Curso</h3>
             ${data.alumnos && data.alumnos.length > 1 ? `
               <div class="companeros-list">
-                ${data.alumnos.filter(a => a.id_alumno != id_alumno).map(alumno => `
-                  <div class="companero-item">
-                    <div class="companero-avatar">
-                      <i data-lucide="user"></i>
+                ${data.alumnos.filter(a => a.id_alumno != id_alumno).map(alumno => {
+                  const iniciales = alumno.nombre_completo.split(' ').map(n => n.charAt(0)).join('').substring(0, 2).toUpperCase();
+                  let avatarHTML = '';
+                  
+                  if (alumno.avatar) {
+                    const BASE_URL = window.BASE_URL || 'http://localhost:3000';
+                    const avatarUrl = alumno.avatar.startsWith('http') ? alumno.avatar : `${BASE_URL}${alumno.avatar}`;
+                    avatarHTML = `<img src="${avatarUrl}" alt="${alumno.nombre_completo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                  } else {
+                    avatarHTML = `<i data-lucide="user"></i>`;
+                  }
+                  
+                  return `
+                    <div class="companero-item">
+                      <div class="companero-avatar">
+                        ${avatarHTML}
+                      </div>
+                      <span>${alumno.nombre_completo}</span>
                     </div>
-                    <span>${alumno.nombre_completo}</span>
-                  </div>
-                `).join('')}
+                  `;
+                }).join('')}
               </div>
             ` : '<p class="sin-datos">Eres el único alumno inscrito en este curso</p>'}
           </div>
