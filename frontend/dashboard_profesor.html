@@ -118,9 +118,16 @@
     // Cargar avatar del usuario
     async function cargarAvatarHeader() {
       try {
-        const tipoUsuario = localStorage.getItem('tipo_usuario');
-        const idKey = tipoUsuario === 'profesor' ? 'id_profesor' : 'id_alumno';
-        const idUsuario = localStorage.getItem(idKey);
+        // Detectar tipo de usuario según qué ID existe en localStorage
+        let tipoUsuario = 'profesor';
+        let idUsuario = localStorage.getItem('id_profesor');
+        
+        if (!idUsuario) {
+          idUsuario = localStorage.getItem('id_alumno');
+          if (idUsuario) {
+            tipoUsuario = 'alumno';
+          }
+        }
         
         if (!idUsuario) return;
         
