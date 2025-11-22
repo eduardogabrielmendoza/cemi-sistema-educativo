@@ -1,20 +1,20 @@
 class UserChatManager {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
-    this.ws = null;
+    this.socket = null;
     this.isConnected = false;
     this.conversations = [];
     this.activeConversation = null;
     this.userInfo = null;
     this.messageSound = null;
-    this.WS_URL = window.WS_URL || 'ws://localhost:3000';
+    this.BASE_URL = window.BASE_URL || 'http://localhost:3000';
     
     this.initMessageSound();
   }
   
   init() {
     this.loadUserInfo();
-    this.connectWebSocket();
+    this.connectSocket();
     
     document.addEventListener('click', () => {
       this.initAudioContext();
@@ -180,7 +180,7 @@ class UserChatManager {
             this.userInfo.id_usuario = parseInt(data.id_usuario, 10);
             console.log(' id_usuario actualizado desde /auth/verify:', data.id_usuario);
             
-            if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+            if (this.socket && this.socket.connected) {
               this.authenticate();
             }
             return;
@@ -210,78 +210,74 @@ class UserChatManager {
     }
   }
   
-  connectWebSocket() {
-    if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
-      console.log('️ WebSocket ya está conectado o conectándose');
+  connectSocket() {
+    if (this.socket && this.socket.connected) {
+      console.log('️ Socket.IO ya está conectado');
       return;
     }
     
-    console.log(' Conectando WebSocket del chat...');
-    this.ws = new WebSocket(`${this.WS_URL}/chat`);
+    console.log(' Conectando Socket.IO del chat...');
+    this.socket = io(this.BASE_URL, {
+      path: '/socket.io/',
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 3000
+    });
     
-    this.ws.onopen = () => {
-      console.log(' User Chat WebSocket conectado');
+    this.socket.on('connect', () => {
+      console.log(' User Chat Socket.IO conectado');
       this.isConnected = true;
       this.authenticate();
       this.loadConversations();
-    };
+    });
     
-    this.ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      this.handleWebSocketMessage(message);
-    };
+    this.socket.on('authenticated', (data) => {
+      console.log(' Usuario autenticado');
+    });
     
-    this.ws.onclose = () => {
-      console.log(' User Chat WebSocket desconectado');
+    this.socket.on('new_message', (data) => {
+      this.handleNewMessage(data);
+    });
+    
+    this.socket.on('typing', (data) => {
+      this.handleTyping(data);
+    });
+    
+    this.socket.on('conversation_closed', () => {
+      this.handleConversationClosed();
+    });
+    
+    this.socket.on('conversation_deleted', () => {
+      this.handleConversationClosed();
+    });
+    
+    this.socket.on('joined_conversation', (data) => {
+      console.log(' Confirmación de unión a conversación:', data);
+    });
+    
+    this.socket.on('disconnect', () => {
+      console.log(' User Chat Socket.IO desconectado');
       this.isConnected = false;
-      setTimeout(() => this.connectWebSocket(), 3000);
-    };
+    });
     
-    this.ws.onerror = (error) => {
-      console.error(' Error en WebSocket:', error);
-    };
+    this.socket.on('error', (error) => {
+      console.error(' Error en Socket.IO:', error);
+    });
   }
   
   authenticate() {
-    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+    if (!this.socket || !this.socket.connected) return;
     
-    this.ws.send(JSON.stringify({
-      type: 'auth',
-      data: {
-        tipo: this.userType,
-        id_usuario: this.userInfo.id_usuario,
-        nombre: this.userInfo.nombre,
-        id_conversacion: this.activeConversation ? this.activeConversation.id_conversacion : null
-      }
-    }));
+    this.socket.emit('auth', {
+      tipo: this.userType,
+      id_usuario: this.userInfo.id_usuario,
+      nombre: this.userInfo.nombre,
+      id_conversacion: this.activeConversation ? this.activeConversation.id_conversacion : null
+    });
   }
   
-  handleWebSocketMessage(message) {
-    const { type, data } = message;
-    
-    switch (type) {
-      case 'authenticated':
-        console.log(' Usuario autenticado');
-        break;
-        
-      case 'new_message':
-        this.handleNewMessage(data);
-        break;
-        
-      case 'typing':
-        this.handleTyping(data);
-        break;
-        
-      case 'conversation_closed':
-      case 'conversation_deleted':
-        this.handleConversationClosed();
-        break;
-        
-      case 'joined_conversation':
-        console.log(' Confirmación de unión a conversación:', data);
-        break;
-    }
-  }
+  // handleWebSocketMessage eliminado - ahora usamos eventos Socket.IO individuales
   
   handleNewMessage(data) {
     console.log(' Nuevo mensaje recibido:', data);
@@ -362,21 +358,19 @@ class UserChatManager {
           console.log(' Mensajes no leídos desde BD:', mensajesNoLeidos);
           this.updateNotificationBadge(mensajesNoLeidos);
           
-          if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+          if (this.socket && this.socket.connected) {
             console.log(' Uniéndose automáticamente a conversación:', conversacion.id_conversacion);
-            this.ws.send(JSON.stringify({
-              type: 'join_conversation',
-              data: { id_conversacion: conversacion.id_conversacion }
-            }));
+            this.socket.emit('join_conversation', {
+              id_conversacion: conversacion.id_conversacion
+            });
           } else {
-            console.warn('️ WebSocket no está listo, reintentando en 500ms...');
+            console.warn('️ Socket.IO no está listo, reintentando en 500ms...');
             setTimeout(() => {
-              if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+              if (this.socket && this.socket.connected) {
                 console.log(' Reintento: Uniéndose a conversación:', conversacion.id_conversacion);
-                this.ws.send(JSON.stringify({
-                  type: 'join_conversation',
-                  data: { id_conversacion: conversacion.id_conversacion }
-                }));
+                this.socket.emit('join_conversation', {
+                  id_conversacion: conversacion.id_conversacion
+                });
               }
             }, 500);
           }
@@ -466,12 +460,11 @@ class UserChatManager {
       emptyMessage.querySelector('p').textContent = 'Selecciona una conversación para comenzar a chatear';
     }
     
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      console.log(' Uniéndose a conversación vía WebSocket:', id);
-      this.ws.send(JSON.stringify({
-        type: 'join_conversation',
-        data: { id_conversacion: id }
-      }));
+    if (this.socket && this.socket.connected) {
+      console.log(' Uniéndose a conversación vía Socket.IO:', id);
+      this.socket.emit('join_conversation', {
+        id_conversacion: id
+      });
     }
     
     if (this.activeConversation.mensajes && this.activeConversation.mensajes.length > 0) {
@@ -646,14 +639,11 @@ class UserChatManager {
         console.log(' Conversación encontrada, seleccionando automáticamente...');
         await this.selectConversation(this.conversations[0].id_conversacion);
         
-        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-          this.ws.send(JSON.stringify({
-            type: 'message',
-            data: {
-              id_conversacion: this.activeConversation.id_conversacion,
-              mensaje: mensaje
-            }
-          }));
+        if (this.socket && this.socket.connected) {
+          this.socket.emit('message', {
+            id_conversacion: this.activeConversation.id_conversacion,
+            mensaje: mensaje
+          });
           input.value = '';
           return;
         }
@@ -664,19 +654,16 @@ class UserChatManager {
       }
     }
     
-    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify({
-        type: 'message',
-        data: {
-          id_conversacion: this.activeConversation.id_conversacion,
-          mensaje: mensaje
-        }
-      }));
+    if (this.socket && this.socket.connected) {
+      this.socket.emit('message', {
+        id_conversacion: this.activeConversation.id_conversacion,
+        mensaje: mensaje
+      });
       
       input.value = '';
       console.log(' Mensaje enviado a conversación:', this.activeConversation.id_conversacion);
     } else {
-      console.error(' WebSocket no conectado');
+      console.error(' Socket.IO no conectado');
       Swal.fire({
         icon: 'error',
         title: 'Error de conexión',
@@ -830,27 +817,21 @@ class UserChatManager {
   }
   
   handleTypingInput() {
-    if (!this.activeConversation || !this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+    if (!this.activeConversation || !this.socket || !this.socket.connected) return;
     
     clearTimeout(this.typingTimeout);
     
-    this.ws.send(JSON.stringify({
-      type: 'typing',
-      data: {
-        id_conversacion: this.activeConversation.id_conversacion,
-        isTyping: true
-      }
-    }));
+    this.socket.emit('typing', {
+      id_conversacion: this.activeConversation.id_conversacion,
+      isTyping: true
+    });
     
     this.typingTimeout = setTimeout(() => {
-      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-        this.ws.send(JSON.stringify({
-          type: 'typing',
-          data: {
-            id_conversacion: this.activeConversation.id_conversacion,
-            isTyping: false
-          }
-        }));
+      if (this.socket && this.socket.connected) {
+        this.socket.emit('typing', {
+          id_conversacion: this.activeConversation.id_conversacion,
+          isTyping: false
+        });
       }
     }, 1000);
   }
