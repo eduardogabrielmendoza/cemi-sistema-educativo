@@ -2,6 +2,7 @@ import express from "express";
 import pool from "../utils/db.js";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from 'url';
 
 const router = express.Router();
@@ -14,8 +15,8 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, '../../uploads/avatars'));
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, `avatar-${req.params.userId}-${uniqueSuffix}${path.extname(file.originalname)}`);
+    const ext = path.extname(file.originalname);
+    cb(null, `avatar-u${req.params.userId}${ext}`);
   }
 });
 
@@ -399,7 +400,7 @@ router.post("/perfil/:userId/avatar", (req, res) => {
       
       let id_persona = userId;
       
-      console.log('  → Buscando id_persona para userId:', userId);
+      console.log('  Buscando id_persona para userId:', userId);
       const [checkUsuario] = await pool.query(
         'SELECT id_persona FROM usuarios WHERE id_usuario = ?',
         [userId]
@@ -409,19 +410,32 @@ router.post("/perfil/:userId/avatar", (req, res) => {
         id_persona = checkUsuario[0].id_persona;
         console.log(`   id_persona encontrado: ${id_persona}`);
       } else {
-        console.log(`  ️ No se encontró usuario en tabla usuarios con id_usuario=${userId}, asumiendo userId es id_persona`);
+        console.log(`  No se encontro usuario en tabla usuarios con id_usuario=${userId}, asumiendo userId es id_persona`);
+      }
+
+      const [oldAvatar] = await pool.query(
+        'SELECT avatar FROM personas WHERE id_persona = ?',
+        [id_persona]
+      );
+
+      if (oldAvatar.length > 0 && oldAvatar[0].avatar) {
+        const oldAvatarPath = path.join(__dirname, '../..', oldAvatar[0].avatar);
+        if (fs.existsSync(oldAvatarPath)) {
+          fs.unlinkSync(oldAvatarPath);
+          console.log('  Avatar anterior eliminado:', oldAvatarPath);
+        }
       }
 
       const avatarPath = `/uploads/avatars/${req.file.filename}`;
-      console.log('  → Avatar path:', avatarPath);
+      console.log('  Avatar path:', avatarPath);
 
-      console.log('  → Actualizando avatar en BD...');
+      console.log('  Actualizando avatar en BD...');
       const [result] = await pool.query(
         'UPDATE personas SET avatar = ? WHERE id_persona = ?',
         [avatarPath, id_persona]
       );
       
-      console.log('  → Resultado UPDATE:', result);
+      console.log('  Resultado UPDATE:', result);
       console.log(`   Avatar actualizado para id_persona=${id_persona}: ${avatarPath}`);
 
       return res.json({
