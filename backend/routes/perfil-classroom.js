@@ -413,32 +413,22 @@ router.post("/perfil/:userId/avatar", (req, res) => {
         console.log(`  No se encontro usuario en tabla usuarios con id_usuario=${userId}, asumiendo userId es id_persona`);
       }
 
-      const [oldAvatar] = await pool.query(
-        'SELECT avatar FROM personas WHERE id_persona = ?',
-        [id_persona]
-      );
-
-      if (oldAvatar.length > 0 && oldAvatar[0].avatar) {
-        const oldAvatarPath = path.join(__dirname, '../..', oldAvatar[0].avatar);
-        if (fs.existsSync(oldAvatarPath)) {
-          fs.unlinkSync(oldAvatarPath);
-          console.log('  Avatar anterior eliminado:', oldAvatarPath);
-        }
-      }
-
       const avatarsDir = path.join(__dirname, '../../uploads/avatars');
       const avatarPrefix = `avatar-u${userId}`;
-      const existingFiles = fs.readdirSync(avatarsDir).filter(file => file.startsWith(avatarPrefix));
       
-      existingFiles.forEach(file => {
-        const filePath = path.join(avatarsDir, file);
-        try {
-          fs.unlinkSync(filePath);
-          console.log('  Archivo anterior eliminado:', file);
-        } catch (err) {
-          console.log('  Error eliminando archivo:', file, err.message);
-        }
-      });
+      if (fs.existsSync(avatarsDir)) {
+        const existingFiles = fs.readdirSync(avatarsDir).filter(file => file.startsWith(avatarPrefix));
+        
+        existingFiles.forEach(file => {
+          const filePath = path.join(avatarsDir, file);
+          try {
+            fs.unlinkSync(filePath);
+            console.log('  Archivo anterior eliminado:', file);
+          } catch (err) {
+            console.log('  Error eliminando archivo:', file, err.message);
+          }
+        });
+      }
 
       const avatarPath = `/uploads/avatars/${req.file.filename}`;
       console.log('  Avatar path:', avatarPath);
