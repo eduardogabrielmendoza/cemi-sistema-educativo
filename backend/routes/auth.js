@@ -52,6 +52,7 @@ router.post("/login",
         p.id_persona,
         p.nombre,
         p.apellido,
+        p.avatar,
         perf.nombre_perfil as rol
        FROM usuarios u
        JOIN personas p ON u.id_persona = p.id_persona
@@ -105,7 +106,8 @@ router.post("/login",
       nombre: `${user.nombre} ${user.apellido}`.trim(),
       username: user.username,
       id_persona: user.id_persona,
-      id_usuario: user.id_usuario
+      id_usuario: user.id_usuario,
+      avatar: user.avatar || null
     };
 
     if (rol === 'administrador' || rol === 'admin') {
