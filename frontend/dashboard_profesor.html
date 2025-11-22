@@ -138,23 +138,24 @@
         return;
       }
       
-      console.log(`🔍 Buscando perfil de ${tipoUsuario} con ID: ${idUsuario}`);
+      console.log(`Buscando perfil de ${tipoUsuario} con ID: ${idUsuario}`);
       
-      const url = `${API_URL}/${tipoUsuario}s/${idUsuario}/perfil`;
-      console.log('🌐 URL:', url);
+      const url = `${API_URL}/classroom/perfil/${idUsuario}`;
+      console.log('URL:', url);
       
       const response = await fetch(url);
       const data = await response.json();
       
       console.log('Respuesta del servidor:', { status: response.status, data });
       
-      if (response.ok && (data.id_alumno || data.id_profesor)) {
+      if (response.ok && data.success && data.perfil) {
         const avatarContainer = document.getElementById('userAvatarHeader');
         console.log('Contenedor encontrado:', !!avatarContainer);
         
-        if (avatarContainer) {
-          const avatarUrl = `${API_URL}/uploads/avatars/${tipoUsuario}_${idUsuario}.jpg`;
-          console.log('Intentando cargar avatar desde:', avatarUrl);
+        if (avatarContainer && data.perfil.avatar) {
+          const BASE_URL = window.BASE_URL || 'http://localhost:3000';
+          const avatarUrl = `${BASE_URL}${data.perfil.avatar}`;
+          console.log('Cargando avatar desde:', avatarUrl);
           
           const img = new Image();
           img.onload = function() {
@@ -166,6 +167,12 @@
             lucide.createIcons();
           };
           img.src = avatarUrl;
+        } else {
+          console.log('Sin avatar, usando icono');
+          if (avatarContainer) {
+            avatarContainer.innerHTML = '<i data-lucide="user"></i>';
+            lucide.createIcons();
+          }
         }
       } else {
         console.log('Respuesta no valida o usuario no encontrado');
