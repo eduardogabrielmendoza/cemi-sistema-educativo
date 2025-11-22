@@ -4,6 +4,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from 'url';
+import cloudinary from '../config/cloudinary.js';
 
 const router = express.Router();
 
@@ -413,47 +414,55 @@ router.post("/perfil/:userId/avatar", (req, res) => {
         console.log(`  No se encontro usuario en tabla usuarios con id_usuario=${userId}, asumiendo userId es id_persona`);
       }
 
-      const avatarsDir = path.join(__dirname, '../../uploads/avatars');
-      if (!fs.existsSync(avatarsDir)) {
-        fs.mkdirSync(avatarsDir, { recursive: true });
+      const [oldAvatar] = await pool.query(
+        'SELECT avatar FROM personas WHERE id_persona = ?',
+        [id_persona]
+      );
+
+      if (oldAvatar.length > 0 && oldAvatar[0].avatar) {
+        const oldUrl = oldAvatar[0].avatar;
+        if (oldUrl.includes('cloudinary.com')) {
+          const publicId = oldUrl.split('/').pop().split('.')[0];
+          const folder = `avatars/avatar-u${userId}`;
+          try {
+            await cloudinary.uploader.destroy(`${folder}/${publicId}`);
+            console.log('  Avatar anterior eliminado de Cloudinary');
+          } catch (err) {
+            console.log('  Error eliminando avatar anterior:', err.message);
+          }
+        }
       }
 
-      const avatarPrefix = `avatar-u${userId}`;
-      const existingFiles = fs.readdirSync(avatarsDir).filter(file => file.startsWith(avatarPrefix));
-      
-      existingFiles.forEach(file => {
-        const filePath = path.join(avatarsDir, file);
-        try {
-          fs.unlinkSync(filePath);
-          console.log('  Archivo anterior eliminado:', file);
-        } catch (err) {
-          console.log('  Error eliminando archivo:', file, err.message);
-        }
+      console.log('  Subiendo a Cloudinary...');
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'avatars',
+        public_id: `avatar-u${userId}`,
+        overwrite: true,
+        transformation: [
+          { width: 400, height: 400, crop: 'fill', gravity: 'face' },
+          { quality: 'auto:good' }
+        ]
       });
 
-      const ext = path.extname(req.file.originalname);
-      const newFilename = `avatar-u${userId}${ext}`;
-      const newPath = path.join(avatarsDir, newFilename);
-      
-      fs.renameSync(req.file.path, newPath);
-      console.log('  Archivo movido a:', newFilename);
+      const avatarUrl = result.secure_url;
+      console.log('  Avatar subido a Cloudinary:', avatarUrl);
 
-      const avatarPath = `/uploads/avatars/${newFilename}`;
-      console.log('  Avatar path:', avatarPath);
+      fs.unlinkSync(req.file.path);
+      console.log('  Archivo temporal eliminado');
 
       console.log('  Actualizando avatar en BD...');
-      const [result] = await pool.query(
+      const [updateResult] = await pool.query(
         'UPDATE personas SET avatar = ? WHERE id_persona = ?',
-        [avatarPath, id_persona]
+        [avatarUrl, id_persona]
       );
       
-      console.log('  Resultado UPDATE:', result);
-      console.log(`   Avatar actualizado para id_persona=${id_persona}: ${avatarPath}`);
+      console.log('  Resultado UPDATE:', updateResult);
+      console.log(`   Avatar actualizado para id_persona=${id_persona}`);
 
       return res.json({
         success: true,
         message: 'Avatar actualizado correctamente',
-        avatar: avatarPath
+        avatar: avatarUrl
       });
 
     } catch (error) {
