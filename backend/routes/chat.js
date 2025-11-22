@@ -739,21 +739,14 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
         fecha_envio: new Date().toISOString()
       };
       
-      // Emitir el mensaje a la conversación (Socket.IO)
+      // Emitir el mensaje a la conversación (Socket.IO) - esto ya notifica a todos en el room
       chatServerInstance.broadcastToConversation(id_conversacion, {
         type: 'message',
         data: mensajeWS
       });
       
-      // Notificar a los admins si el mensaje no es de admin
-      if (!isAdmin) {
-        chatServerInstance.notifyAdmins('new_message', {
-          id_conversacion: parseInt(id_conversacion),
-          from: nombre_remitente,
-          mensaje: mensajeWS.mensaje,
-          tipo_archivo: tipoArchivo
-        });
-      }
+      // NO notificar a admins aquí - ya reciben el mensaje via broadcastToConversation
+      // porque están en el room conversation_${id_conversacion}
     }
     
     res.json({

@@ -540,6 +540,38 @@ class AdminChatManager {
     
     const inicial = nombreMostrar.charAt(0).toUpperCase();
     
+    // Renderizar contenido según si hay archivo adjunto
+    let mensajeContent = '';
+    if (data.archivo_adjunto) {
+      if (data.tipo_archivo === 'image') {
+        mensajeContent = `
+          <div class="chat-file-attachment">
+            <img src="${data.archivo_adjunto}" alt="Imagen adjunta" class="chat-image-preview" onclick="window.open('${data.archivo_adjunto}', '_blank')" />
+          </div>
+        `;
+      } else if (data.tipo_archivo === 'pdf') {
+        const nombreArchivo = data.archivo_adjunto.split('/').pop();
+        mensajeContent = `
+          <div class="chat-file-attachment pdf">
+            <div class="chat-pdf-icon">
+              <i data-lucide="file-text" style="width: 32px; height: 32px; color: #e53935;"></i>
+            </div>
+            <div class="chat-pdf-info">
+              <div class="chat-pdf-name">${nombreArchivo}</div>
+              <div class="chat-pdf-type">Documento PDF</div>
+            </div>
+            <a href="${data.archivo_adjunto}" download class="chat-pdf-download" title="Descargar PDF">
+              <i data-lucide="download" style="width: 20px; height: 20px;"></i>
+            </a>
+          </div>
+        `;
+      } else {
+        mensajeContent = `<div class="user-chat-message-bubble">${this.escapeHtml(data.mensaje)}</div>`;
+      }
+    } else {
+      mensajeContent = `<div class="user-chat-message-bubble">${this.escapeHtml(data.mensaje)}</div>`;
+    }
+    
     const messageHTML = `
       <div class="user-chat-message ${isAdmin ? 'sent' : 'received'}">
         <div class="user-chat-message-avatar">${inicial}</div>
@@ -548,12 +580,18 @@ class AdminChatManager {
             <span class="user-chat-message-sender">${nombreMostrar}${tipoUsuario}</span>
             <span class="user-chat-message-time">${time}</span>
           </div>
-          <div class="user-chat-message-bubble">${this.escapeHtml(data.mensaje)}</div>
+          ${mensajeContent}
         </div>
       </div>
     `;
     
     container.insertAdjacentHTML('beforeend', messageHTML);
+    
+    // Inicializar íconos de Lucide si hay PDFs
+    if (data.tipo_archivo === 'pdf' && typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+    
     this.scrollToBottom();
   }
   
