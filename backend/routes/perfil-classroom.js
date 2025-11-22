@@ -426,6 +426,20 @@ router.post("/perfil/:userId/avatar", (req, res) => {
         }
       }
 
+      const avatarsDir = path.join(__dirname, '../../uploads/avatars');
+      const avatarPrefix = `avatar-u${userId}`;
+      const existingFiles = fs.readdirSync(avatarsDir).filter(file => file.startsWith(avatarPrefix));
+      
+      existingFiles.forEach(file => {
+        const filePath = path.join(avatarsDir, file);
+        try {
+          fs.unlinkSync(filePath);
+          console.log('  Archivo anterior eliminado:', file);
+        } catch (err) {
+          console.log('  Error eliminando archivo:', file, err.message);
+        }
+      });
+
       const avatarPath = `/uploads/avatars/${req.file.filename}`;
       console.log('  Avatar path:', avatarPath);
 
