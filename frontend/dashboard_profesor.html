@@ -53,7 +53,10 @@
     <header class="dashboard-header">
       <h1>Panel del Profesor</h1>
       <div class="user-info">
-        <i data-lucide="user"></i> <span id="welcomeMessage">Profesor</span>
+        <div class="user-avatar-header" id="userAvatarHeader">
+          <i data-lucide="user"></i>
+        </div>
+        <span id="welcomeMessage">Profesor</span>
       </div>
     </header>
 
@@ -111,6 +114,37 @@
     // Mostrar saludo dinámico con nombre guardado
     const nombreProfesor = localStorage.getItem("nombre") || "Profesor";
     welcomeMessage.textContent = `Bienvenido, ${nombreProfesor} `;
+
+    // Cargar avatar del usuario
+    async function cargarAvatarHeader() {
+      try {
+        const tipoUsuario = localStorage.getItem('tipo_usuario');
+        const idKey = tipoUsuario === 'profesor' ? 'id_profesor' : 'id_alumno';
+        const idUsuario = localStorage.getItem(idKey);
+        
+        if (!idUsuario) return;
+        
+        const response = await fetch(`${API_URL}/${tipoUsuario}s/${idUsuario}/perfil`);
+        const data = await response.json();
+        
+        if (response.ok && data.success && data.perfil) {
+          const avatarContainer = document.getElementById('userAvatarHeader');
+          if (data.perfil.avatar) {
+            const BASE_URL = window.BASE_URL || 'http://localhost:3000';
+            const avatarUrl = `${BASE_URL}${data.perfil.avatar}`;
+            avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+          } else {
+            // Mantener el icono por defecto si no hay avatar
+            avatarContainer.innerHTML = '<i data-lucide="user"></i>';
+            lucide.createIcons();
+          }
+        }
+      } catch (error) {
+        console.error('Error al cargar avatar:', error);
+      }
+    }
+    
+    cargarAvatarHeader();
 
     // Secciones dinámicas
     const sections = {

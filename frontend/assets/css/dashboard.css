@@ -228,6 +228,18 @@
   border: 1px solid rgba(66, 99, 140, 0.2);
 }
 
+.user-avatar-header {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(66, 99, 140, 0.15);
+  border: 2px solid rgba(66, 99, 140, 0.3);
+}
+
 .user-info i {
   width: 20px;
   height: 20px;
