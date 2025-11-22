@@ -643,6 +643,7 @@ router.post("/classroom-login", async (req, res) => {
         u.id_perfil,
         p.nombre,
         p.apellido,
+        p.avatar,
         per.nombre_perfil as rol
        FROM usuarios u
        JOIN personas p ON u.id_persona = p.id_persona
@@ -692,7 +693,8 @@ router.post("/classroom-login", async (req, res) => {
       rol: rolFinal,
       nombre: `${user.nombre} ${user.apellido}`.trim(),
       username: user.username,
-      id_persona: user.id_persona
+      id_persona: user.id_persona,
+      avatar: user.avatar || null
     };
 
     if (id_profesor) response.id_profesor = id_profesor;

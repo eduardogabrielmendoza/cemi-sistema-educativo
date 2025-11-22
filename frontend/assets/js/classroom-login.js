@@ -84,6 +84,10 @@ async function handleLogin(e) {
       localStorage.setItem('nombre', data.nombre);
       localStorage.setItem('username', data.username);
       
+      if (data.avatar) {
+        localStorage.setItem('avatar', data.avatar);
+      }
+      
       if (data.id_profesor) {
         localStorage.setItem('id_profesor', data.id_profesor);
       }
