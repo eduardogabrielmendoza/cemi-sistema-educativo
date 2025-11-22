@@ -193,7 +193,8 @@ router.get("/perfil/:userId", async (req, res) => {
       id_profesor: perfil.id_profesor,
       nombre: perfil.nombre,
       apellido: perfil.apellido,
-      rol: perfil.rol
+      rol: perfil.rol,
+      avatar: perfil.avatar
     });
 
     return res.json({
