@@ -929,14 +929,17 @@ class UserChatManager {
     
     if (avatar && avatar.trim()) {
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      const avatarUrl = avatar.startsWith('/uploads/') 
-        ? `${BASE_URL}${avatar}` 
-        : `${BASE_URL}/uploads/avatars/${avatar}`;
+      const avatarUrl = avatar.startsWith('http')
+        ? avatar
+        : avatar.startsWith('/uploads/') 
+          ? `${BASE_URL}${avatar}` 
+          : `${BASE_URL}/uploads/avatars/${avatar}`;
       
       console.log(`️ Renderizando avatar:`, { 
         avatar, 
         avatarUrl, 
         nombre,
+        isCloudinary: avatar.startsWith('http'),
         startsWithUploads: avatar.startsWith('/uploads/')
       });
       
