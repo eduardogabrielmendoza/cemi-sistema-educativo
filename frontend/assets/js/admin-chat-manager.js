@@ -475,7 +475,7 @@ class AdminChatManager {
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\"user-chat-message-bubble\" style=\"background:#fee; color:#c33;\">⚠️ Imagen no disponible: ${msg.mensaje.replace(/[\[\]]/g, '')}</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>⚠️ Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -554,7 +554,7 @@ class AdminChatManager {
                  alt="Imagen adjunta" 
                  class="chat-image-preview" 
                  onclick="window.open('${data.archivo_adjunto}', '_blank')" 
-                 onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\"user-chat-message-bubble\" style=\"background:#fee; color:#c33;\">⚠️ Imagen no disponible</div>';" />
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>⚠️ Imagen no disponible</div>';" />
           </div>
         `;
       } else if (data.tipo_archivo === 'pdf') {
