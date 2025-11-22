@@ -471,7 +471,11 @@ class AdminChatManager {
         if (msg.tipo_archivo === 'image') {
           mensajeContent = `
             <div class="chat-file-attachment">
-              <img src="${msg.archivo_adjunto}" alt="Imagen adjunta" class="chat-image-preview" onclick="window.open('${msg.archivo_adjunto}', '_blank')" />
+              <img src="${msg.archivo_adjunto}" 
+                   alt="Imagen adjunta" 
+                   class="chat-image-preview" 
+                   onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
+                   onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\"user-chat-message-bubble\" style=\"background:#fee; color:#c33;\">⚠️ Imagen no disponible: ${msg.mensaje.replace(/[\[\]]/g, '')}</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -546,7 +550,11 @@ class AdminChatManager {
       if (data.tipo_archivo === 'image') {
         mensajeContent = `
           <div class="chat-file-attachment">
-            <img src="${data.archivo_adjunto}" alt="Imagen adjunta" class="chat-image-preview" onclick="window.open('${data.archivo_adjunto}', '_blank')" />
+            <img src="${data.archivo_adjunto}" 
+                 alt="Imagen adjunta" 
+                 class="chat-image-preview" 
+                 onclick="window.open('${data.archivo_adjunto}', '_blank')" 
+                 onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\"user-chat-message-bubble\" style=\"background:#fee; color:#c33;\">⚠️ Imagen no disponible</div>';" />
           </div>
         `;
       } else if (data.tipo_archivo === 'pdf') {

@@ -208,12 +208,15 @@ router.get("/conversacion/:id", async (req, res) => {
       ORDER BY cm.fecha_envio ASC
     `, [id]);
     
-    console.log(` Conversación ${id} - Mensajes con avatares:`, mensajes.map(m => ({
-      id: m.id_mensaje,
-      tipo: m.tipo_remitente,
-      id_rem: m.id_remitente,
-      avatar: m.avatar_remitente
-    })));
+    console.log(` Conversación ${id} - Total mensajes: ${mensajes.length}`);
+    const mensajesConArchivos = mensajes.filter(m => m.archivo_adjunto);
+    if (mensajesConArchivos.length > 0) {
+      console.log(` Mensajes con archivos adjuntos:`, mensajesConArchivos.map(m => ({
+        id: m.id_mensaje,
+        archivo: m.archivo_adjunto,
+        tipo: m.tipo_archivo
+      })));
+    }
     
     // Desactivar caché para esta respuesta
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
