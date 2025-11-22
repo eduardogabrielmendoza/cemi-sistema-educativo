@@ -445,6 +445,11 @@ router.post("/perfil/:userId/avatar", (req, res) => {
       }
 
       console.log('  Subiendo a Cloudinary...');
+      console.log('  Cloudinary config:', {
+        cloud_name: cloudinary.config().cloud_name,
+        api_key: cloudinary.config().api_key ? 'Configurado' : 'NO configurado'
+      });
+      
       const result = await cloudinary.uploader.upload(req.file.path, {
         folder: 'avatars',
         public_id: `avatar-u${userId}`,
@@ -479,11 +484,16 @@ router.post("/perfil/:userId/avatar", (req, res) => {
     } catch (error) {
       console.error(" Error al subir avatar:", error);
       console.error(" Error message:", error.message);
+      console.error(" Error name:", error.name);
+      if (error.http_code) {
+        console.error(" Cloudinary HTTP code:", error.http_code);
+      }
       console.error(" Stack:", error.stack);
       return res.status(500).json({
         success: false,
         message: 'Error del servidor al subir el avatar',
-        error: error.message
+        error: error.message,
+        details: error.http_code || error.name
       });
     }
   });
