@@ -206,14 +206,13 @@ function mostrarDatosEnUI(perfil) {
   const avatarInitials = document.getElementById('avatarInitials');
   
   if (perfil.avatar) {
-    const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-    const avatarUrl = `${BASE_URL}${perfil.avatar}?t=${Date.now()}`;
+    const avatarUrl = perfil.avatar.startsWith('data:') ? perfil.avatar : `${window.BASE_URL || 'http://localhost:3000'}${perfil.avatar}?t=${Date.now()}`;
     
     if (avatarContainer) {
       avatarContainer.style.backgroundImage = `url(${avatarUrl})`;
       avatarContainer.style.backgroundSize = 'cover';
       avatarContainer.style.backgroundPosition = 'center';
-      console.log(' Avatar cargado como background:', avatarUrl);
+      console.log(' Avatar cargado como background');
     }
     
     if (avatarInitials) {
@@ -383,12 +382,11 @@ async function cambiarAvatar(event) {
     const data = await response.json();
     
     if (response.ok && data.success) {
-      console.log(' Avatar subido exitosamente:', data.avatar);
+      console.log(' Avatar subido exitosamente');
       
       const avatarContainer = document.getElementById('profileAvatar');
       const avatarInitials = document.getElementById('avatarInitials');
-      const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      const avatarUrl = `${BASE_URL}${data.avatar}?t=${Date.now()}`;
+      const avatarUrl = data.avatar;
       
       if (avatarContainer) {
         avatarContainer.style.backgroundImage = `url(${avatarUrl})`;

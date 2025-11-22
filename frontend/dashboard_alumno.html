@@ -153,9 +153,11 @@
         console.log('Contenedor encontrado:', !!avatarContainer);
         
         if (avatarContainer && data.perfil.avatar) {
-          const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-          const avatarUrl = `${BASE_URL}${data.perfil.avatar}?t=${Date.now()}`;
-          console.log('Cargando avatar desde:', avatarUrl);
+          const avatarUrl = data.perfil.avatar.startsWith('data:') 
+            ? data.perfil.avatar 
+            : `${window.BASE_URL || 'http://localhost:3000'}${data.perfil.avatar}?t=${Date.now()}`;
+          
+          console.log('Cargando avatar');
           
           const img = new Image();
           img.onload = function() {

@@ -413,39 +413,27 @@ router.post("/perfil/:userId/avatar", (req, res) => {
         console.log(`  No se encontro usuario en tabla usuarios con id_usuario=${userId}, asumiendo userId es id_persona`);
       }
 
-      const avatarsDir = path.join(__dirname, '../../uploads/avatars');
-      const avatarPrefix = `avatar-u${userId}`;
-      
-      if (fs.existsSync(avatarsDir)) {
-        const existingFiles = fs.readdirSync(avatarsDir).filter(file => file.startsWith(avatarPrefix));
-        
-        existingFiles.forEach(file => {
-          const filePath = path.join(avatarsDir, file);
-          try {
-            fs.unlinkSync(filePath);
-            console.log('  Archivo anterior eliminado:', file);
-          } catch (err) {
-            console.log('  Error eliminando archivo:', file, err.message);
-          }
-        });
-      }
+      const imageBuffer = fs.readFileSync(req.file.path);
+      const base64Image = imageBuffer.toString('base64');
+      const mimeType = req.file.mimetype;
+      const dataUrl = `data:${mimeType};base64,${base64Image}`;
 
-      const avatarPath = `/uploads/avatars/${req.file.filename}`;
-      console.log('  Avatar path:', avatarPath);
-
-      console.log('  Actualizando avatar en BD...');
+      console.log('  Actualizando avatar en BD como base64...');
       const [result] = await pool.query(
         'UPDATE personas SET avatar = ? WHERE id_persona = ?',
-        [avatarPath, id_persona]
+        [dataUrl, id_persona]
       );
       
       console.log('  Resultado UPDATE:', result);
-      console.log(`   Avatar actualizado para id_persona=${id_persona}: ${avatarPath}`);
+      console.log(`   Avatar actualizado para id_persona=${id_persona}`);
+
+      fs.unlinkSync(req.file.path);
+      console.log('  Archivo temporal eliminado');
 
       return res.json({
         success: true,
         message: 'Avatar actualizado correctamente',
-        avatar: avatarPath
+        avatar: dataUrl
       });
 
     } catch (error) {
