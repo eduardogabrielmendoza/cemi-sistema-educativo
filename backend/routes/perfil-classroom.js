@@ -375,6 +375,17 @@ router.put("/perfil/:userId", async (req, res) => {
 router.post("/perfil/:userId/avatar", (req, res) => {
   console.log(` [POST /perfil/:userId/avatar] Subiendo avatar para userId: ${req.params.userId}`);
   
+  if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+    console.error(' ERROR: Credenciales de Cloudinary no configuradas');
+    console.log('  CLOUDINARY_CLOUD_NAME:', process.env.CLOUDINARY_CLOUD_NAME ? 'Configurado' : 'NO configurado');
+    console.log('  CLOUDINARY_API_KEY:', process.env.CLOUDINARY_API_KEY ? 'Configurado' : 'NO configurado');
+    console.log('  CLOUDINARY_API_SECRET:', process.env.CLOUDINARY_API_SECRET ? 'Configurado' : 'NO configurado');
+    return res.status(500).json({
+      success: false,
+      message: 'Cloudinary no configurado. Contacta al administrador.'
+    });
+  }
+  
   upload.single('avatar')(req, res, async (err) => {
     if (err) {
       console.error(' Error en multer:', err.message);
