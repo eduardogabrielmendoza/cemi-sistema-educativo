@@ -207,7 +207,7 @@ function mostrarDatosEnUI(perfil) {
   
   if (perfil.avatar) {
     const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-    const avatarUrl = `${BASE_URL}${perfil.avatar}`;
+    const avatarUrl = `${BASE_URL}${perfil.avatar}?t=${Date.now()}`;
     
     if (avatarContainer) {
       avatarContainer.style.backgroundImage = `url(${avatarUrl})`;
@@ -217,7 +217,7 @@ function mostrarDatosEnUI(perfil) {
     }
     
     if (avatarInitials) {
-      avatarInitials.style.display = 'none'; // Ocultar iniciales
+      avatarInitials.style.display = 'none';
     }
   } else {
     if (avatarContainer) {
@@ -388,7 +388,7 @@ async function cambiarAvatar(event) {
       const avatarContainer = document.getElementById('profileAvatar');
       const avatarInitials = document.getElementById('avatarInitials');
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      const avatarUrl = `${BASE_URL}${data.avatar}`;
+      const avatarUrl = `${BASE_URL}${data.avatar}?t=${Date.now()}`;
       
       if (avatarContainer) {
         avatarContainer.style.backgroundImage = `url(${avatarUrl})`;
@@ -398,7 +398,7 @@ async function cambiarAvatar(event) {
       }
       
       if (avatarInitials) {
-        avatarInitials.style.display = 'none'; // Ocultar iniciales
+        avatarInitials.style.display = 'none';
       }
       
       if (userData) {
@@ -407,7 +407,7 @@ async function cambiarAvatar(event) {
       
       Swal.fire({
         icon: 'success',
-        title: '¡Avatar actualizado!',
+        title: 'Avatar actualizado',
         text: 'Tu foto de perfil se ha actualizado correctamente',
         timer: 2000,
         showConfirmButton: false
