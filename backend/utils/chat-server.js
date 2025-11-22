@@ -486,15 +486,18 @@ class ChatServer {
   }
   
   
-  broadcastToConversation(id_conversacion, message, exclude = null) {
-    const clients = this.conversationClients.get(id_conversacion);
-    if (!clients) return;
+  broadcastToConversation(id_conversacion, message) {
+    // Socket.IO: emitir a todos en el room excepto el emisor
+    const room = `conversation_${id_conversacion}`;
     
-    clients.forEach(client => {
-      if (client !== exclude && client.readyState === 1) {
-        this.sendToClient(client, message);
-      }
-    });
+    // Si message tiene la estructura antigua {type, data}, extraer data
+    const eventData = message.data || message;
+    const eventType = message.type === 'message' ? 'new_message' : message.type;
+    
+    // Emitir a todos en el room
+    this.io.to(room).emit(eventType, eventData);
+    
+    console.log(` Broadcast a room ${room}: ${eventType}`, eventData);
   }
   
   async notifyAdmins(event, data) {
