@@ -1296,7 +1296,7 @@ function renderPanelCurso(curso, alumnos, tareas) {
             let avatarAlumno = '';
             if (alumno.avatar) {
               const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-              const avatarUrl = `${BASE_URL}${alumno.avatar}`;
+              const avatarUrl = alumno.avatar.startsWith('http') ? alumno.avatar : `${BASE_URL}${alumno.avatar}`;
               avatarAlumno = `
                 <div class="student-avatar" style="background: none; padding: 0; overflow: hidden;">
                   <img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
@@ -1398,7 +1398,7 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
     let avatarHTML = '';
     if (perfil.avatar) {
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      const avatarUrl = `${BASE_URL}${perfil.avatar}`;
+      const avatarUrl = perfil.avatar.startsWith('http') ? perfil.avatar : `${BASE_URL}${perfil.avatar}`;
       avatarHTML = `
         <div class="profile-avatar-modal" style="background: none; padding: 0; overflow: hidden;">
           <img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
@@ -3415,7 +3415,7 @@ window.abrirAnuncio = async function(idAnuncio) {
     let avatarElement = '';
     if (anuncio.profesor_avatar) {
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      const avatarUrl = `${BASE_URL}${anuncio.profesor_avatar}`;
+      const avatarUrl = anuncio.profesor_avatar.startsWith('http') ? anuncio.profesor_avatar : `${BASE_URL}${anuncio.profesor_avatar}`;
       avatarElement = `
         <div class="avatar-circle" style="width: 48px; height: 48px; min-width: 48px; background: none; padding: 0; overflow: hidden;">
           <img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
@@ -3484,7 +3484,7 @@ window.abrirAnuncio = async function(idAnuncio) {
               let avatarComentario = '';
               if (com.avatar_usuario) {
                 const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-                const avatarUrl = `${BASE_URL}${com.avatar_usuario}`;
+                const avatarUrl = com.avatar_usuario.startsWith('http') ? com.avatar_usuario : `${BASE_URL}${com.avatar_usuario}`;
                 avatarComentario = `
                   <div class="avatar-circle" style="width: 36px; height: 36px; min-width: 36px; background: none !important; padding: 0; border: none; overflow: hidden;">
                     <img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
