@@ -154,8 +154,10 @@
         
         if (avatarContainer && data.perfil.avatar) {
           const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-          const avatarUrl = `${BASE_URL}${data.perfil.avatar}?t=${Date.now()}`;
-          console.log('Cargando avatar');
+          const avatarUrl = data.perfil.avatar.startsWith('http') 
+            ? data.perfil.avatar 
+            : `${BASE_URL}${data.perfil.avatar}?t=${Date.now()}`;
+          console.log('Cargando avatar:', avatarUrl);
           
           const img = new Image();
           img.onload = function() {
