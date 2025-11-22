@@ -118,9 +118,13 @@
   // Cargar avatar del usuario
   async function cargarAvatarHeader() {
     try {
+      console.log('🎨 Iniciando carga de avatar...');
+      
       // Detectar tipo de usuario según qué ID existe en localStorage
       let tipoUsuario = 'alumno';
       let idUsuario = localStorage.getItem('id_alumno');
+      
+      console.log('📋 id_alumno:', idUsuario);
       
       if (!idUsuario) {
         idUsuario = localStorage.getItem('id_profesor');
@@ -129,25 +133,41 @@
         }
       }
       
-      if (!idUsuario) return;
+      if (!idUsuario) {
+        console.log('❌ No se encontró ID de usuario');
+        return;
+      }
       
-      const response = await fetch(`${API_URL}/${tipoUsuario}s/${idUsuario}/perfil`);
+      console.log(`🔍 Buscando perfil de ${tipoUsuario} con ID: ${idUsuario}`);
+      
+      const url = `${API_URL}/${tipoUsuario}s/${idUsuario}/perfil`;
+      console.log('🌐 URL:', url);
+      
+      const response = await fetch(url);
       const data = await response.json();
+      
+      console.log('📦 Respuesta del servidor:', { status: response.status, data });
       
       if (response.ok && data.success && data.perfil) {
         const avatarContainer = document.getElementById('userAvatarHeader');
+        console.log('📍 Contenedor encontrado:', !!avatarContainer);
+        
         if (data.perfil.avatar) {
           const BASE_URL = window.BASE_URL || 'http://localhost:3000';
           const avatarUrl = `${BASE_URL}${data.perfil.avatar}`;
+          console.log('✅ Avatar encontrado:', avatarUrl);
           avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
         } else {
+          console.log('ℹ️ Sin avatar, usando icono por defecto');
           // Mantener el icono por defecto si no hay avatar
           avatarContainer.innerHTML = '<i data-lucide="user"></i>';
           lucide.createIcons();
         }
+      } else {
+        console.log('⚠️ Respuesta no válida o sin perfil');
       }
     } catch (error) {
-      console.error('Error al cargar avatar:', error);
+      console.error('💥 Error al cargar avatar:', error);
     }
   }
   
