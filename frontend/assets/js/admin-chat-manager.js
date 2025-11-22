@@ -696,11 +696,32 @@ class AdminChatManager {
           icon: 'success',
           title: 'Archivo enviado',
           text: 'El archivo se ha enviado correctamente',
-          timer: 2000,
+          timer: 1500,
           showConfirmButton: false
         });
         
-        await this.loadMessages(this.activeConversation.id_conversacion);
+        // Agregar el mensaje con archivo adjunto a la UI inmediatamente
+        const messageData = {
+          id_mensaje: result.data.id_mensaje,
+          id_conversacion: this.activeConversation.id_conversacion,
+          tipo_remitente: 'admin',
+          nombre_remitente: this.adminInfo.nombre,
+          mensaje: `[Archivo adjunto: ${result.data.nombre_archivo}]`,
+          archivo_adjunto: result.data.archivo_adjunto,
+          tipo_archivo: result.data.tipo_archivo,
+          fecha_envio: new Date().toISOString()
+        };
+        
+        this.addMessageToUI(messageData);
+        this.scrollToBottom();
+        
+        // Actualizar conversación en la lista
+        const conv = this.conversations.find(c => c.id_conversacion === this.activeConversation.id_conversacion);
+        if (conv) {
+          conv.ultimo_mensaje = messageData.mensaje;
+          conv.fecha_ultimo_mensaje = messageData.fecha_envio;
+          this.renderConversationsList();
+        }
       } else {
         throw new Error(result.message || 'Error al subir archivo');
       }

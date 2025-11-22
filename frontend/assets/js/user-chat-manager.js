@@ -282,7 +282,16 @@ class UserChatManager {
   handleNewMessage(data) {
     console.log(' Nuevo mensaje recibido:', data);
     
-    const esMensajePropio = data.tipo_remitente === this.userType && data.id_remitente == this.userInfo.id_usuario;
+    // Verificar si es mensaje propio comparando con id_especifico (id_alumno o id_profesor)
+    const esMensajePropio = data.tipo_remitente === this.userType && 
+                            data.id_remitente == this.userInfo.id_especifico;
+    
+    console.log(' Es mensaje propio?', esMensajePropio, {
+      data_tipo: data.tipo_remitente,
+      my_tipo: this.userType,
+      data_id: data.id_remitente,
+      my_id: this.userInfo.id_especifico
+    });
     
     if (!esMensajePropio) {
       this.playMessageSound();
@@ -752,11 +761,12 @@ class UserChatManager {
           icon: 'success',
           title: 'Archivo enviado',
           text: 'El archivo se ha enviado correctamente',
-          timer: 2000,
+          timer: 1500,
           showConfirmButton: false
         });
         
-        await this.loadMessages(this.activeConversation.id_conversacion);
+        // No recargar mensajes - el mensaje llegará via Socket.IO new_message
+        console.log(' Archivo subido exitosamente, esperando evento Socket.IO...');
       } else {
         throw new Error(result.message || 'Error al subir archivo');
       }
