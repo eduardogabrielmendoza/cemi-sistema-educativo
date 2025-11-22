@@ -392,6 +392,7 @@ router.get("/:id/detalles", async (req, res) => {
         a.id_alumno,
         CONCAT(p.nombre, ' ', p.apellido) AS nombre_completo,
         p.mail,
+        p.avatar,
         i.fecha_inscripcion,
         cal.parcial1,
         cal.parcial2,
