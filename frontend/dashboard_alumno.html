@@ -146,25 +146,29 @@
       const response = await fetch(url);
       const data = await response.json();
       
-      console.log('📦 Respuesta del servidor:', { status: response.status, data });
+      console.log('Respuesta del servidor:', { status: response.status, data });
       
-      if (response.ok && data.success && data.perfil) {
+      if (response.ok && data.id_alumno) {
         const avatarContainer = document.getElementById('userAvatarHeader');
-        console.log('📍 Contenedor encontrado:', !!avatarContainer);
+        console.log('Contenedor encontrado:', !!avatarContainer);
         
-        if (data.perfil.avatar) {
-          const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-          const avatarUrl = `${BASE_URL}${data.perfil.avatar}`;
-          console.log('✅ Avatar encontrado:', avatarUrl);
-          avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-        } else {
-          console.log('ℹ️ Sin avatar, usando icono por defecto');
-          // Mantener el icono por defecto si no hay avatar
-          avatarContainer.innerHTML = '<i data-lucide="user"></i>';
-          lucide.createIcons();
+        if (avatarContainer) {
+          const avatarUrl = `${API_URL}/uploads/avatars/${tipoUsuario}_${idUsuario}.jpg`;
+          console.log('Intentando cargar avatar desde:', avatarUrl);
+          
+          const img = new Image();
+          img.onload = function() {
+            avatarContainer.innerHTML = `<img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+          };
+          img.onerror = function() {
+            console.log('Avatar no disponible, usando icono');
+            avatarContainer.innerHTML = '<i data-lucide="user"></i>';
+            lucide.createIcons();
+          };
+          img.src = avatarUrl;
         }
       } else {
-        console.log('⚠️ Respuesta no válida o sin perfil');
+        console.log('Respuesta no valida o usuario no encontrado');
       }
     } catch (error) {
       console.error('💥 Error al cargar avatar:', error);
