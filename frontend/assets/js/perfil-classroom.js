@@ -206,7 +206,8 @@ function mostrarDatosEnUI(perfil) {
   const avatarInitials = document.getElementById('avatarInitials');
   
   if (perfil.avatar) {
-    const avatarUrl = perfil.avatar.startsWith('data:') ? perfil.avatar : `${window.BASE_URL || 'http://localhost:3000'}${perfil.avatar}?t=${Date.now()}`;
+    const BASE_URL = window.BASE_URL || 'http://localhost:3000';
+    const avatarUrl = `${BASE_URL}${perfil.avatar}?t=${Date.now()}`;
     
     if (avatarContainer) {
       avatarContainer.style.backgroundImage = `url(${avatarUrl})`;
