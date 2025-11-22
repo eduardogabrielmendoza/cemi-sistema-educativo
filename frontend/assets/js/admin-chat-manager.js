@@ -891,7 +891,7 @@ class AdminChatManager {
     if (avatar && avatar.trim()) {
       const BASE_URL = window.BASE_URL || 'http://localhost:3000';
       const avatarUrl = avatar.startsWith('http') ? avatar : avatar.startsWith('/uploads/') ? BASE_URL + avatar : BASE_URL + '/uploads/avatars/' + avatar;
-      const img = '<img src="' + avatarUrl + '" alt="' + nombre + '" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" onerror="this.style.display='none'; this.parentElement.textContent=\'' + iniciales + ''">';
+      const img = "<img src=\"" + avatarUrl + "\" alt=\"" + nombre + "\" style=\"width: 100%; height: 100%; object-fit: cover; border-radius: inherit;\" onerror=\"this.style.display='none'; this.parentElement.textContent='" + iniciales + "'\">";
       return img;
     }
     return '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white;">' + iniciales + '</div>';
