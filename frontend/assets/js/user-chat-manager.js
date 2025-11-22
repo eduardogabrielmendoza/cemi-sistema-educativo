@@ -556,8 +556,8 @@ class UserChatManager {
                             msg.id_remitente == this.userInfo.id_especifico;
         
         if (esMiMensaje) {
-          avatarParaMostrar = this.userInfo.avatar; // Mi avatar del localStorage
-          console.log(' Mi mensaje - usando avatar de localStorage:', avatarParaMostrar);
+          avatarParaMostrar = this.userInfo.avatar || msg.avatar_remitente; // Avatar de localStorage o BD
+          console.log(' Mi mensaje - usando avatar:', avatarParaMostrar);
         } else {
           avatarParaMostrar = msg.avatar_remitente; // Avatar del otro usuario desde BD
           console.log(' Mensaje de otro usuario - usando avatar de BD:', avatarParaMostrar);

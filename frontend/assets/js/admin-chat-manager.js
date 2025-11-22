@@ -462,9 +462,18 @@ class AdminChatManager {
         } else if (tipo === 'alumno') {
           tipoUsuario = ' (Alumno)';
         }
+      }      
+      const inicial = nombreMostrar.charAt(0).toUpperCase();
+      
+      // Determinar avatar a mostrar
+      let avatarParaMostrar = null;
+      if (isAdmin) {
+        avatarParaMostrar = this.adminInfo.avatar;
+      } else {
+        avatarParaMostrar = msg.avatar_remitente;
       }
       
-      const inicial = nombreMostrar.charAt(0).toUpperCase();
+      const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar, inicial);
       
       let mensajeContent = '';
       if (msg.archivo_adjunto) {
@@ -501,7 +510,7 @@ class AdminChatManager {
       
       return `
         <div class="user-chat-message ${isAdmin ? 'sent' : 'received'}">
-          <div class="user-chat-message-avatar">${inicial}</div>
+          <div class="user-chat-message-avatar">${avatarContent}</div>
           <div class="user-chat-message-content">
             <div class="user-chat-message-header">
               <span class="user-chat-message-sender">${nombreMostrar}${tipoUsuario}</span>
@@ -582,7 +591,7 @@ class AdminChatManager {
     
     const messageHTML = `
       <div class="user-chat-message ${isAdmin ? 'sent' : 'received'}">
-        <div class="user-chat-message-avatar">${inicial}</div>
+        <div class="user-chat-message-avatar">${avatarContent}</div>
         <div class="user-chat-message-content">
           <div class="user-chat-message-header">
             <span class="user-chat-message-sender">${nombreMostrar}${tipoUsuario}</span>
