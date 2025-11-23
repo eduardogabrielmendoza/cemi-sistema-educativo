@@ -341,10 +341,13 @@ class AdminChatManager {
       const noLeidos = conv.mensajes_no_leidos_admin || 0;
       const tipoLabel = conv.tipo_usuario === 'profesor' ? 'Profesor' : conv.tipo_usuario === 'alumno' ? 'Alumno' : 'Usuario';
       
+      const avatarUsuario = conv.avatar_usuario || null;
+      const avatarContent = this.renderAvatar(avatarUsuario, nombre);
+      
       return `
         <div class="user-chat-conversation-item ${this.activeConversation && this.activeConversation.id_conversacion === conv.id_conversacion ? 'active' : ''}" 
              onclick="adminChatManager.selectConversation(${conv.id_conversacion})">
-          <div class="user-chat-conv-avatar">${iniciales}</div>
+          <div class="user-chat-conv-avatar">${avatarContent}</div>
           <div class="user-chat-conv-info">
             <div class="user-chat-conv-header">
               <span class="user-chat-conv-name">${nombre}</span>
@@ -471,6 +474,13 @@ class AdminChatManager {
       
       const inicial = nombreMostrar.charAt(0).toUpperCase();
       
+      // Determinar que avatar mostrar
+      const avatarParaMostrar = isAdmin 
+        ? (this.adminInfo?.avatar || null)
+        : (msg.avatar_remitente || null);
+      
+      const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
+      
       let mensajeContent = '';
       if (msg.archivo_adjunto) {
         if (msg.tipo_archivo === 'image') {
@@ -506,7 +516,7 @@ class AdminChatManager {
       
       return `
         <div class="user-chat-message ${isAdmin ? 'sent' : 'received'}">
-          <div class="user-chat-message-avatar">${inicial}</div>
+          <div class="user-chat-message-avatar">${avatarContent}</div>
           <div class="user-chat-message-content">
             <div class="user-chat-message-header">
               <span class="user-chat-message-sender">${nombreMostrar}${tipoUsuario}</span>
