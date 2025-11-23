@@ -581,15 +581,13 @@ class UserChatManager {
                             (msg.id_especifico == this.userInfo.id_especifico || 
                              msg.id_remitente == this.userInfo.id_especifico);
         
-        if (esMiMensaje) {
-          avatarParaMostrar = this.userInfo.avatar || msg.avatar_remitente; // Avatar de localStorage o BD
-          console.log('🔵 Mi mensaje - usando avatar:', avatarParaMostrar);
-          console.log('🔵 userInfo.avatar:', this.userInfo.avatar);
-          console.log('🔵 msg.avatar_remitente:', msg.avatar_remitente);
-          console.log('🔵 msg completo:', msg);
+        // TEMPORAL: Si es del mismo tipo que yo, usar mi avatar (mensajes sin id_especifico)
+        if (msg.tipo_remitente === this.userType) {
+          avatarParaMostrar = this.userInfo.avatar || msg.avatar_remitente;
+          console.log('🔵 Mensaje de mi tipo (alumno/profesor) - usando MI avatar:', avatarParaMostrar);
         } else {
-          avatarParaMostrar = msg.avatar_remitente; // Avatar del otro usuario desde BD
-          console.log('🟢 Mensaje de otro usuario - usando avatar de BD:', avatarParaMostrar);
+          avatarParaMostrar = msg.avatar_remitente;
+          console.log('🟢 Mensaje de admin - usando avatar de BD:', avatarParaMostrar);
         }
       }
       
