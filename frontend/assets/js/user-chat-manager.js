@@ -44,8 +44,27 @@ class UserChatManager {
     }
     
     try {
-      if (!this.audioContext) return;
+      if (!this.audioContext) {
+        console.log('⚠️ AudioContext no disponible');
+        return;
+      }
       
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().then(() => {
+          this.playSoundEffect();
+        }).catch(err => {
+          console.log('⚠️ No se pudo reanudar AudioContext:', err);
+        });
+      } else {
+        this.playSoundEffect();
+      }
+    } catch (error) {
+      console.error('Error al reproducir sonido:', error);
+    }
+  }
+  
+  playSoundEffect() {
+    try {
       const oscillator = this.audioContext.createOscillator();
       const gainNode = this.audioContext.createGain();
       
@@ -62,7 +81,7 @@ class UserChatManager {
       oscillator.start(currentTime);
       oscillator.stop(currentTime + 0.5);
     } catch (error) {
-      console.error('Error al reproducir sonido:', error);
+      console.error('Error al reproducir efecto de sonido:', error);
     }
   }
   

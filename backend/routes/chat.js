@@ -5,6 +5,7 @@ import multer from "multer";
 import path from "path";
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import cloudinary from '../config/cloudinary.js';
 
 const router = express.Router();
 
@@ -16,6 +17,8 @@ export function setChatServer(chatServer) {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const isProduction = process.env.NODE_ENV === 'production' || process.env.MYSQLHOST;
 
 const chatStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -693,7 +696,29 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
       tipoArchivo = 'pdf';
     }
     
-    const rutaArchivo = `/uploads/chat-files/${req.file.filename}`;
+    let rutaArchivo;
+    
+    if (isProduction) {
+      const resourceType = tipoArchivo === 'pdf' ? 'raw' : 'image';
+      const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'cemi/chat-files',
+        resource_type: resourceType,
+        public_id: `chat-${Date.now()}-${path.basename(req.file.originalname, ext)}`
+      });
+      
+      rutaArchivo = uploadResult.secure_url;
+      
+      try {
+        fs.unlinkSync(req.file.path);
+      } catch (err) {
+        console.error('Error al eliminar archivo temporal:', err);
+      }
+      
+      console.log(' Archivo subido a Cloudinary:', rutaArchivo);
+    } else {
+      rutaArchivo = `/uploads/chat-files/${req.file.filename}`;
+      console.log(' Archivo guardado localmente:', rutaArchivo);
+    }
     
     const [columns] = await pool.query(`
       SHOW COLUMNS FROM chat_mensajes LIKE 'archivo_adjunto'
