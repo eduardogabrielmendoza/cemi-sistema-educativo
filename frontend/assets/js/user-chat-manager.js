@@ -469,14 +469,15 @@ class UserChatManager {
     
     container.innerHTML = this.conversations.map(conv => {
       const nombre = 'Soporte CEMI';
-      const iniciales = 'SC';
+      const logoUrl = 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png';
+      const avatarContent = this.renderAvatar(logoUrl, nombre);
       const tiempo = this.formatTime(conv.fecha_ultimo_mensaje || conv.fecha_inicio);
       const preview = conv.ultimo_mensaje || 'Sin mensajes';
       
       return `
         <div class="user-chat-conversation-item ${this.activeConversation && this.activeConversation.id_conversacion === conv.id_conversacion ? 'active' : ''}" 
              onclick="userChatManager.selectConversation(${conv.id_conversacion})">
-          <div class="user-chat-conv-avatar">${iniciales}</div>
+          <div class="user-chat-conv-avatar">${avatarContent}</div>
           <div class="user-chat-conv-info">
             <div class="user-chat-conv-header">
               <div class="user-chat-conv-name">${nombre}</div>
@@ -981,15 +982,17 @@ class UserChatManager {
       if (avatarUrl) {
         console.log(`️ Renderizando avatar con Cloudinary:`, avatarUrl);
         
-        // Usar background-image como en el header
-        return `<div style="width: 100%; height: 100%; background-image: url('${avatarUrl}'); background-size: cover; background-position: center; border-radius: inherit;">
+        const isLogo = avatarUrl.includes('logo');
+        const bgSize = isLogo ? 'contain' : 'cover';
+        const padding = isLogo ? 'padding: 4px;' : '';
+        
+        return `<div style="width: 100%; height: 100%; background-image: url('${avatarUrl}'); background-size: ${bgSize}; background-position: center; background-repeat: no-repeat; border-radius: inherit; ${padding}">
                   <span style="display: none;">${iniciales}</span>
                 </div>`;
       }
     }
     
-    // Fallback: mostrar iniciales
-    return `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white; border-radius: inherit;">${iniciales}</div>`;
+    return `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #1976d2; border-radius: inherit;">${iniciales}</div>`;
   }
   
   renderChatView() {
