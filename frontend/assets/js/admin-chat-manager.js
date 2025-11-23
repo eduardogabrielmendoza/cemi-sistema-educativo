@@ -117,12 +117,17 @@ class AdminChatManager {
   }
   
   loadAdminInfo() {
+    // Intentar obtener avatar de localStorage (se actualiza desde perfil-classroom)
+    const avatar = localStorage.getItem('avatar') || sessionStorage.getItem('avatar') || null;
+    
     this.adminInfo = {
       id_usuario: localStorage.getItem('id_usuario'),
       nombre: localStorage.getItem('nombre') || 'Admin',
       tipo: 'admin',
-      avatar: sessionStorage.getItem('avatar') || localStorage.getItem('avatar') || null
+      avatar: avatar
     };
+    
+    console.log(' Admin info cargada, avatar:', avatar);
   }
   
   connectSocket() {
