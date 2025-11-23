@@ -305,14 +305,16 @@ class UserChatManager {
   handleNewMessage(data) {
     console.log(' Nuevo mensaje recibido:', data);
     
-    // Verificar si es mensaje propio comparando con id_especifico (id_alumno o id_profesor)
+    // Verificar si es mensaje propio comparando con id_especifico
     const esMensajePropio = data.tipo_remitente === this.userType && 
-                            data.id_remitente == this.userInfo.id_especifico;
+                            (data.id_especifico == this.userInfo.id_especifico || 
+                             data.id_remitente == this.userInfo.id_especifico);
     
     console.log(' Es mensaje propio?', esMensajePropio, {
       data_tipo: data.tipo_remitente,
       my_tipo: this.userType,
-      data_id: data.id_remitente,
+      data_id_especifico: data.id_especifico,
+      data_id_remitente: data.id_remitente,
       my_id: this.userInfo.id_especifico
     });
     
@@ -576,18 +578,24 @@ class UserChatManager {
         tipoLabel = msg.tipo_remitente === 'profesor' ? 'Profesor' : 'Alumno';
         
         const esMiMensaje = msg.tipo_remitente === this.userType && 
-                            msg.id_remitente == this.userInfo.id_especifico;
+                            (msg.id_especifico == this.userInfo.id_especifico || 
+                             msg.id_remitente == this.userInfo.id_especifico);
         
         if (esMiMensaje) {
           avatarParaMostrar = this.userInfo.avatar || msg.avatar_remitente; // Avatar de localStorage o BD
-          console.log(' Mi mensaje - usando avatar:', avatarParaMostrar);
+          console.log('🔵 Mi mensaje - usando avatar:', avatarParaMostrar);
+          console.log('🔵 userInfo.avatar:', this.userInfo.avatar);
+          console.log('🔵 msg.avatar_remitente:', msg.avatar_remitente);
+          console.log('🔵 msg completo:', msg);
         } else {
           avatarParaMostrar = msg.avatar_remitente; // Avatar del otro usuario desde BD
-          console.log(' Mensaje de otro usuario - usando avatar de BD:', avatarParaMostrar);
+          console.log('🟢 Mensaje de otro usuario - usando avatar de BD:', avatarParaMostrar);
         }
       }
       
+      console.log('🎯 Antes de renderAvatar - avatarParaMostrar:', avatarParaMostrar);
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
+      console.log('🎯 Después de renderAvatar - avatarContent:', avatarContent);
       
       let mensajeContent = '';
       if (msg.archivo_adjunto) {

@@ -324,6 +324,8 @@ class ChatServer {
         id_mensaje,
         id_conversacion,
         tipo_remitente: userInfo.tipo,
+        id_remitente: id_remitente,
+        id_especifico: userInfo.id_especifico,
         nombre_remitente: userInfo.nombre,
         avatar_remitente: avatar_remitente,
         mensaje,
