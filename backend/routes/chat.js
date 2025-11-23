@@ -198,7 +198,12 @@ router.get("/conversacion/:id", async (req, res) => {
     const [mensajes] = await pool.query(`
       SELECT 
         cm.*,
-        COALESCE(p_alumno.avatar, p_profesor.avatar, p_admin.avatar) as avatar_remitente
+        COALESCE(
+          p_alumno.avatar, 
+          p_profesor.avatar, 
+          p_admin.avatar,
+          p_usuario.avatar
+        ) as avatar_remitente
       FROM chat_mensajes cm
       LEFT JOIN alumnos a ON cm.tipo_remitente = 'alumno' AND a.id_alumno = cm.id_remitente
       LEFT JOIN personas p_alumno ON a.id_persona = p_alumno.id_persona
@@ -206,6 +211,8 @@ router.get("/conversacion/:id", async (req, res) => {
       LEFT JOIN personas p_profesor ON pr.id_persona = p_profesor.id_persona
       LEFT JOIN administradores adm ON cm.tipo_remitente = 'admin' AND adm.id_administrador = cm.id_remitente
       LEFT JOIN personas p_admin ON adm.id_persona = p_admin.id_persona
+      LEFT JOIN usuarios u ON u.id_usuario = cm.id_remitente
+      LEFT JOIN personas p_usuario ON u.id_persona = p_usuario.id_persona
       WHERE cm.id_conversacion = ?
       ORDER BY cm.fecha_envio ASC
     `, [id]);
@@ -562,7 +569,12 @@ router.get("/mi-conversacion", async (req, res) => {
     const [mensajes] = await pool.query(`
       SELECT 
         cm.*,
-        COALESCE(p_alumno.avatar, p_profesor.avatar, p_admin.avatar) as avatar_remitente
+        COALESCE(
+          p_alumno.avatar, 
+          p_profesor.avatar, 
+          p_admin.avatar,
+          p_usuario.avatar
+        ) as avatar_remitente
       FROM chat_mensajes cm
       LEFT JOIN alumnos a ON cm.tipo_remitente = 'alumno' AND a.id_alumno = cm.id_remitente
       LEFT JOIN personas p_alumno ON a.id_persona = p_alumno.id_persona
@@ -570,6 +582,8 @@ router.get("/mi-conversacion", async (req, res) => {
       LEFT JOIN personas p_profesor ON pr.id_persona = p_profesor.id_persona
       LEFT JOIN administradores adm ON cm.tipo_remitente = 'admin' AND adm.id_administrador = cm.id_remitente
       LEFT JOIN personas p_admin ON adm.id_persona = p_admin.id_persona
+      LEFT JOIN usuarios u ON u.id_usuario = cm.id_remitente
+      LEFT JOIN personas p_usuario ON u.id_persona = p_usuario.id_persona
       WHERE cm.id_conversacion = ?
       ORDER BY cm.fecha_envio ASC
     `, [conversacion.id_conversacion]);
