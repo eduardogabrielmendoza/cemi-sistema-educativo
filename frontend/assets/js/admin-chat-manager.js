@@ -98,7 +98,7 @@ class AdminChatManager {
   updateNotificationBadge(count) {
     const badge = document.getElementById('chatNotificationBadge');
     if (!badge) {
-      console.error(' No se encontrÃƒÂ³ el elemento chatNotificationBadge');
+      console.error(' No se encontrÃƒÆ’Ã‚Â³ el elemento chatNotificationBadge');
       return;
     }
     
@@ -127,7 +127,7 @@ class AdminChatManager {
   
   connectSocket() {
     if (this.socket && this.socket.connected) {
-      console.log('Ã¯Â¸Â Socket.IO ya estÃƒÂ¡ conectado');
+      console.log('ÃƒÂ¯Ã‚Â¸Ã‚Â Socket.IO ya estÃƒÆ’Ã‚Â¡ conectado');
       return;
     }
     
@@ -165,7 +165,7 @@ class AdminChatManager {
     });
     
     this.socket.on('joined_conversation', (data) => {
-      console.log(' Admin confirmÃƒÂ³ uniÃƒÂ³n a conversaciÃƒÂ³n:', data);
+      console.log(' Admin confirmÃƒÆ’Ã‚Â³ uniÃƒÆ’Ã‚Â³n a conversaciÃƒÆ’Ã‚Â³n:', data);
     });
     
     this.socket.on('disconnect', () => {
@@ -214,7 +214,7 @@ class AdminChatManager {
         break;
         
       case 'joined_conversation':
-        console.log(' Admin confirmÃƒÂ³ uniÃƒÂ³n a conversaciÃƒÂ³n:', data);
+        console.log(' Admin confirmÃƒÆ’Ã‚Â³ uniÃƒÆ’Ã‚Â³n a conversaciÃƒÆ’Ã‚Â³n:', data);
         break;
         
       default:
@@ -223,12 +223,12 @@ class AdminChatManager {
   }
   
   handleNewMessage(data) {
-    console.log(' Admin recibiÃƒÂ³ mensaje:', data);
+    console.log(' Admin recibiÃƒÆ’Ã‚Â³ mensaje:', data);
     
     const esMensajePropio = data.tipo_remitente === 'admin';
     
     if (esMensajePropio) {
-      console.log('Ã¢ÂÂ­Ã¯Â¸Â Mensaje propio, ignorando (ya estÃƒÂ¡ en UI)');
+      console.log('ÃƒÂ¢Ã‚ÂÃ‚Â­ÃƒÂ¯Ã‚Â¸Ã‚Â Mensaje propio, ignorando (ya estÃƒÆ’Ã‚Â¡ en UI)');
       return;
     }
     
@@ -239,11 +239,11 @@ class AdminChatManager {
     const chatContainer = document.getElementById('adminChatContainer');
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
-    console.log('Ã¯Â¸Â Chat visible:', isChatVisible);
-    console.log(' ConversaciÃƒÂ³n activa:', this.activeConversation?.id_conversacion);
+    console.log('ÃƒÂ¯Ã‚Â¸Ã‚Â Chat visible:', isChatVisible);
+    console.log(' ConversaciÃƒÆ’Ã‚Â³n activa:', this.activeConversation?.id_conversacion);
     
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-      console.log(' Agregando mensaje a conversaciÃƒÂ³n activa');
+      console.log(' Agregando mensaje a conversaciÃƒÆ’Ã‚Â³n activa');
       this.addMessageToUI(data);
       this.scrollToBottom();
       
@@ -273,8 +273,8 @@ class AdminChatManager {
   handleConversationClosed() {
     Swal.fire({
       icon: 'info',
-      title: 'ConversaciÃƒÂ³n cerrada',
-      text: 'Esta conversaciÃƒÂ³n ha sido cerrada.'
+      title: 'ConversaciÃƒÆ’Ã‚Â³n cerrada',
+      text: 'Esta conversaciÃƒÆ’Ã‚Â³n ha sido cerrada.'
     });
     this.activeConversation = null;
     this.loadConversations();
@@ -296,19 +296,19 @@ class AdminChatManager {
           return sum + (conv.mensajes_no_leidos_admin || 0);
         }, 0);
         
-        console.log(' Total mensajes no leÃƒÂ­dos por admin:', totalNoLeidos);
+        console.log(' Total mensajes no leÃƒÆ’Ã‚Â­dos por admin:', totalNoLeidos);
         this.updateNotificationBadge(totalNoLeidos);
         
         if (this.socket && this.socket.connected) {
           this.conversations.forEach(conv => {
-            console.log(' Admin uniÃƒÂ©ndose a conversaciÃƒÂ³n:', conv.id_conversacion);
+            console.log(' Admin uniÃƒÆ’Ã‚Â©ndose a conversaciÃƒÆ’Ã‚Â³n:', conv.id_conversacion);
             this.socket.emit('join_conversation', { id_conversacion: conv.id_conversacion });
           });
         }
         
         this.renderConversationsList();
       } else {
-        console.log('Ã¢â€žÂ¹Ã¯Â¸Â No hay conversaciones');
+        console.log('ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¹ÃƒÂ¯Ã‚Â¸Ã‚Â No hay conversaciones');
         this.conversations = [];
         this.updateNotificationBadge(0);
         this.renderConversationsList();
@@ -364,18 +364,18 @@ class AdminChatManager {
   }
   
   async selectConversation(id) {
-    console.log(' Admin seleccionando conversaciÃƒÂ³n:', id, 'tipo:', typeof id);
+    console.log(' Admin seleccionando conversaciÃƒÆ’Ã‚Â³n:', id, 'tipo:', typeof id);
     
     const idNum = parseInt(id);
     const conv = this.conversations.find(c => c.id_conversacion == idNum);
     
     if (!conv) {
-      console.error(' No se encontrÃƒÂ³ conversaciÃƒÂ³n con ID:', id);
+      console.error(' No se encontrÃƒÆ’Ã‚Â³ conversaciÃƒÆ’Ã‚Â³n con ID:', id);
       console.error(' Conversaciones disponibles:', this.conversations.map(c => ({id: c.id_conversacion, nombre: c.nombre_completo_usuario})));
       return;
     }
     
-    console.log(' ConversaciÃƒÂ³n encontrada:', conv.nombre_completo_usuario || conv.nombre_invitado);
+    console.log(' ConversaciÃƒÆ’Ã‚Â³n encontrada:', conv.nombre_completo_usuario || conv.nombre_invitado);
     this.activeConversation = conv;
     this.renderConversationsList();
     
@@ -392,7 +392,7 @@ class AdminChatManager {
     if (inputArea) inputArea.style.display = 'flex';
     
     if (this.socket && this.socket.connected) {
-      console.log(' Admin uniÃƒÂ©ndose a conversaciÃƒÂ³n vÃƒÂ­a Socket.IO:', id);
+      console.log(' Admin uniÃƒÆ’Ã‚Â©ndose a conversaciÃƒÆ’Ã‚Â³n vÃƒÆ’Ã‚Â­a Socket.IO:', id);
       this.socket.emit('join_conversation', { id_conversacion: id });
     }
     
@@ -409,7 +409,7 @@ class AdminChatManager {
       if (result.success) {
         if (this.activeConversation) {
           this.activeConversation.mensajes = result.data?.mensajes || [];
-          console.log(` Mensajes cargados para conversaciÃƒÂ³n ${id}:`, this.activeConversation.mensajes.length);
+          console.log(` Mensajes cargados para conversaciÃƒÆ’Ã‚Â³n ${id}:`, this.activeConversation.mensajes.length);
           this.renderMessages();
         }
       }
@@ -426,7 +426,7 @@ class AdminChatManager {
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-          <p>Selecciona una conversaciÃƒÂ³n</p>
+          <p>Selecciona una conversaciÃƒÆ’Ã‚Â³n</p>
         </div>
       `;
       lucide.createIcons();
@@ -439,7 +439,7 @@ class AdminChatManager {
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-circle" style="width: 64px; height: 64px;"></i>
-          <p>No hay mensajes aÃƒÂºn</p>
+          <p>No hay mensajes aÃƒÆ’Ã‚Âºn</p>
         </div>
       `;
       lucide.createIcons();
@@ -489,7 +489,7 @@ class AdminChatManager {
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>Ã¢Å¡Â Ã¯Â¸Â Imagen no disponible</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -558,14 +558,14 @@ class AdminChatManager {
     
     const inicial = nombreMostrar.charAt(0).toUpperCase();
     
-    // Determinar quÃ¯Â¿Â½ avatar mostrar
+    // Determinar quÃƒÂ¯Ã‚Â¿Ã‚Â½ avatar mostrar
     const avatarParaMostrar = isAdmin 
       ? (this.adminInfo?.avatar || null)
       : (data.avatar_remitente || null);
     
     const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
     
-    // Renderizar contenido segÃƒÂºn si hay archivo adjunto
+    // Renderizar contenido segÃƒÆ’Ã‚Âºn si hay archivo adjunto
     let mensajeContent = '';
     if (data.archivo_adjunto) {
       if (data.tipo_archivo === 'image') {
@@ -575,7 +575,7 @@ class AdminChatManager {
                  alt="Imagen adjunta" 
                  class="chat-image-preview" 
                  onclick="window.open('${data.archivo_adjunto}', '_blank')" 
-                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>Ã¢Å¡Â Ã¯Â¸Â Imagen no disponible</div>';" />
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â Imagen no disponible</div>';" />
           </div>
         `;
       } else if (data.tipo_archivo === 'pdf') {
@@ -616,7 +616,7 @@ class AdminChatManager {
     
     container.insertAdjacentHTML('beforeend', messageHTML);
     
-    // Inicializar ÃƒÂ­conos de Lucide si hay PDFs
+    // Inicializar ÃƒÆ’Ã‚Â­conos de Lucide si hay PDFs
     if (data.tipo_archivo === 'pdf' && typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
@@ -654,7 +654,7 @@ class AdminChatManager {
       console.error(' Socket.IO no conectado');
       Swal.fire({
         icon: 'error',
-        title: 'Error de conexiÃƒÂ³n',
+        title: 'Error de conexiÃƒÆ’Ã‚Â³n',
         text: 'No se pudo enviar el mensaje. Intenta de nuevo.'
       });
     }
@@ -678,8 +678,8 @@ class AdminChatManager {
     if (!validTypes.includes(file.type)) {
       Swal.fire({
         icon: 'error',
-        title: 'Tipo de archivo no vÃƒÂ¡lido',
-        text: 'Solo se permiten imÃƒÂ¡genes (JPG, PNG, WEBP) y archivos PDF'
+        title: 'Tipo de archivo no vÃƒÆ’Ã‚Â¡lido',
+        text: 'Solo se permiten imÃƒÆ’Ã‚Â¡genes (JPG, PNG, WEBP) y archivos PDF'
       });
       event.target.value = '';
       return;
@@ -702,7 +702,7 @@ class AdminChatManager {
   async uploadFile(file) {
     try {
       if (!this.activeConversation) {
-        throw new Error('No hay conversaciÃƒÂ³n activa');
+        throw new Error('No hay conversaciÃƒÆ’Ã‚Â³n activa');
       }
       
       const formData = new FormData();
@@ -744,7 +744,7 @@ class AdminChatManager {
         this.addMessageToUI(messageData);
         this.scrollToBottom();
         
-        // Actualizar conversaciÃƒÂ³n en la lista
+        // Actualizar conversaciÃƒÆ’Ã‚Â³n en la lista
         const conv = this.conversations.find(c => c.id_conversacion === this.activeConversation.id_conversacion);
         if (conv) {
           conv.ultimo_mensaje = messageData.mensaje;
@@ -775,9 +775,9 @@ class AdminChatManager {
       });
       
       await this.loadConversations();
-      console.log(' Mensajes marcados como leÃƒÂ­dos, badge actualizado desde BD');
+      console.log(' Mensajes marcados como leÃƒÆ’Ã‚Â­dos, badge actualizado desde BD');
     } catch (error) {
-      console.error('Error al marcar como leÃƒÂ­do:', error);
+      console.error('Error al marcar como leÃƒÆ’Ã‚Â­do:', error);
     }
   }
   
@@ -785,8 +785,8 @@ class AdminChatManager {
     if (!this.activeConversation) {
       Swal.fire({
         icon: 'warning',
-        title: 'AtenciÃƒÂ³n',
-        text: 'No hay conversaciÃƒÂ³n activa seleccionada'
+        title: 'AtenciÃƒÆ’Ã‚Â³n',
+        text: 'No hay conversaciÃƒÆ’Ã‚Â³n activa seleccionada'
       });
       return;
     }
@@ -796,18 +796,18 @@ class AdminChatManager {
                          'Usuario';
     
     const result = await Swal.fire({
-      title: 'Ã‚Â¿Cerrar conversaciÃƒÂ³n?',
+      title: 'Ãƒâ€šÃ‚Â¿Cerrar conversaciÃƒÆ’Ã‚Â³n?',
       html: `
-        <p>Ã‚Â¿EstÃƒÂ¡s seguro de cerrar la conversaciÃƒÂ³n con <strong>${nombreUsuario}</strong>?</p>
+        <p>Ãƒâ€šÃ‚Â¿EstÃƒÆ’Ã‚Â¡s seguro de cerrar la conversaciÃƒÆ’Ã‚Â³n con <strong>${nombreUsuario}</strong>?</p>
         <p class="text-warning" style="font-size: 0.9em; margin-top: 10px;">
-          Ã¯Â¸Â Esta acciÃƒÂ³n eliminarÃƒÂ¡ la conversaciÃƒÂ³n permanentemente para ambos usuarios.
+          ÃƒÂ¯Ã‚Â¸Ã‚Â Esta acciÃƒÆ’Ã‚Â³n eliminarÃƒÆ’Ã‚Â¡ la conversaciÃƒÆ’Ã‚Â³n permanentemente para ambos usuarios.
         </p>
       `,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#dc3545',
       cancelButtonColor: '#6c757d',
-      confirmButtonText: 'SÃƒÂ­, cerrar conversaciÃƒÂ³n',
+      confirmButtonText: 'SÃƒÆ’Ã‚Â­, cerrar conversaciÃƒÆ’Ã‚Â³n',
       cancelButtonText: 'Cancelar'
     });
     
@@ -840,8 +840,8 @@ class AdminChatManager {
         
         Swal.fire({
           icon: 'success',
-          title: 'ConversaciÃƒÂ³n cerrada',
-          text: 'La conversaciÃƒÂ³n ha sido eliminada correctamente',
+          title: 'ConversaciÃƒÆ’Ã‚Â³n cerrada',
+          text: 'La conversaciÃƒÆ’Ã‚Â³n ha sido eliminada correctamente',
           timer: 2000,
           showConfirmButton: false
         });
@@ -856,15 +856,15 @@ class AdminChatManager {
         await this.loadConversations();
         
       } else {
-        throw new Error(result.message || 'Error al cerrar conversaciÃƒÂ³n');
+        throw new Error(result.message || 'Error al cerrar conversaciÃƒÆ’Ã‚Â³n');
       }
       
     } catch (error) {
-      console.error(' Error al cerrar conversaciÃƒÂ³n:', error);
+      console.error(' Error al cerrar conversaciÃƒÆ’Ã‚Â³n:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'No se pudo cerrar la conversaciÃƒÂ³n. Intenta de nuevo.'
+        text: 'No se pudo cerrar la conversaciÃƒÆ’Ã‚Â³n. Intenta de nuevo.'
       });
     }
   }
@@ -925,7 +925,7 @@ class AdminChatManager {
       indicator.id = 'adminTypingIndicator';
       indicator.className = 'user-chat-typing';
       indicator.innerHTML = `
-        <span>${nombre} estÃƒÂ¡ escribiendo</span>
+        <span>${nombre} estÃƒÆ’Ã‚Â¡ escribiendo</span>
         <div class="user-chat-typing-dots">
           <div class="user-chat-typing-dot"></div>
           <div class="user-chat-typing-dot"></div>
@@ -962,22 +962,22 @@ class AdminChatManager {
               <h3>${this.activeConversation ? (this.activeConversation.nombre_completo_usuario || this.activeConversation.nombre_invitado || 'Usuario') : 'Chat de Soporte'}</h3>
               <div class="user-chat-status">
                 <div class="user-chat-status-dot"></div>
-                <span>En lÃƒÂ­nea</span>
+                <span>En lÃƒÆ’Ã‚Â­nea</span>
               </div>
             </div>
             <button 
               class="chat-close-conversation-btn" 
               onclick="adminChatManager.closeConversation()" 
-              title="Cerrar y eliminar conversaciÃƒÂ³n">
+              title="Cerrar y eliminar conversaciÃƒÆ’Ã‚Â³n">
               <i data-lucide="x-circle" style="width: 18px; height: 18px;"></i>
-              <span>Cerrar ConversaciÃƒÂ³n</span>
+              <span>Cerrar ConversaciÃƒÆ’Ã‚Â³n</span>
             </button>
           </div>
           
           <div class="user-chat-messages" id="adminChatMessagesContainer">
             <div class="user-chat-empty">
               <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-              <p>Selecciona una conversaciÃƒÂ³n</p>
+              <p>Selecciona una conversaciÃƒÆ’Ã‚Â³n</p>
             </div>
           </div>
           
