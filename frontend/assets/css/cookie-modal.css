@@ -52,7 +52,7 @@
 .cookie-modal-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -79,14 +79,14 @@
 }
 
 .cookie-modal a {
-  color: #1e3c72;
+  color: #0071e3;
   text-decoration: underline;
   font-weight: 600;
   transition: color 0.2s;
 }
 
 .cookie-modal a:hover {
-  color: #2a5298;
+  color: #0077ed;
 }
 
 .cookie-buttons {
@@ -110,14 +110,14 @@
 }
 
 .cookie-btn-accept {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
 }
 
 .cookie-btn-accept:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.5);
 }
 
 .cookie-btn-config {
