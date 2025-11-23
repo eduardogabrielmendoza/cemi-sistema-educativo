@@ -944,8 +944,9 @@ class AdminChatManager {
         const isLogo = avatarUrl.includes('logo');
         const bgSize = isLogo ? 'contain' : 'cover';
         const padding = isLogo ? 'padding: 4px;' : '';
+        const bgColor = isLogo ? 'background-color: white;' : '';
         
-        var bgDiv = "<div style='width: 100%; height: 100%; background-image: url(\"" + avatarUrl + "\"); background-size: " + bgSize + "; background-position: center; background-repeat: no-repeat; border-radius: inherit; " + padding + "'><span style='display: none;'>" + iniciales + "</span></div>";
+        var bgDiv = "<div style='width: 100%; height: 100%; " + bgColor + " background-image: url(\"" + avatarUrl + "\"); background-size: " + bgSize + "; background-position: center; background-repeat: no-repeat; border-radius: inherit; " + padding + "'><span style='display: none;'>" + iniciales + "</span></div>";
         return bgDiv;
       }
     }
