@@ -787,4 +787,38 @@ router.get("/usuario-classroom/:id", async (req, res) => {
   }
 });
 
+// Endpoint para obtener avatar del usuario por id_usuario
+router.get("/usuario/:id_usuario", async (req, res) => {
+  const { id_usuario } = req.params;
+  
+  try {
+    const [rows] = await pool.query(
+      `SELECT p.avatar
+       FROM usuarios u
+       JOIN personas p ON u.id_persona = p.id_persona
+       WHERE u.id_usuario = ?`,
+      [id_usuario]
+    );
+    
+    if (rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado'
+      });
+    }
+    
+    res.json({
+      success: true,
+      avatar: rows[0].avatar
+    });
+    
+  } catch (error) {
+    console.error('Error obteniendo avatar:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al obtener avatar del usuario'
+    });
+  }
+});
+
 export default router;

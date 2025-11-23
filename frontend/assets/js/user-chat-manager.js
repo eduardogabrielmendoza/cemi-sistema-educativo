@@ -152,6 +152,11 @@ class UserChatManager {
     }
     
     console.log(' Usuario cargado:', this.userInfo);
+    
+    // Si no hay avatar en localStorage, intentar cargarlo desde el servidor
+    if (!this.userInfo.avatar && this.userInfo.id_usuario) {
+      this.cargarAvatarDesdeServidor();
+    }
   }
   
   async actualizarIdUsuario() {
@@ -207,6 +212,24 @@ class UserChatManager {
       
     } catch (err) {
       console.error(' Error actualizando id_usuario:', err);
+    }
+  }
+  
+  async cargarAvatarDesdeServidor() {
+    try {
+      const API_URL = window.API_URL || 'http://localhost:3000/api';
+      const response = await fetch(`${API_URL}/auth/usuario/${this.userInfo.id_usuario}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.avatar) {
+          console.log(' Avatar cargado desde servidor:', data.avatar);
+          this.userInfo.avatar = data.avatar;
+          localStorage.setItem('avatar', data.avatar);
+        }
+      }
+    } catch (error) {
+      console.warn(' No se pudo cargar avatar desde servidor:', error);
     }
   }
   

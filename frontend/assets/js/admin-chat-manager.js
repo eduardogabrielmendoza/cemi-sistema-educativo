@@ -119,15 +119,39 @@ class AdminChatManager {
   loadAdminInfo() {
     // Intentar obtener avatar de localStorage (se actualiza desde perfil-classroom)
     const avatar = localStorage.getItem('avatar') || sessionStorage.getItem('avatar') || null;
+    const id_usuario = localStorage.getItem('id_usuario');
     
     this.adminInfo = {
-      id_usuario: localStorage.getItem('id_usuario'),
+      id_usuario: id_usuario,
       nombre: localStorage.getItem('nombre') || 'Admin',
       tipo: 'admin',
       avatar: avatar
     };
     
     console.log(' Admin info cargada, avatar:', avatar);
+    
+    // Si no hay avatar en localStorage, intentar cargarlo desde el servidor
+    if (!avatar && id_usuario) {
+      this.cargarAvatarDesdeServidor();
+    }
+  }
+  
+  async cargarAvatarDesdeServidor() {
+    try {
+      const API_URL = window.API_URL || 'http://localhost:3000/api';
+      const response = await fetch(`${API_URL}/auth/usuario/${this.adminInfo.id_usuario}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.avatar) {
+          console.log(' Avatar admin cargado desde servidor:', data.avatar);
+          this.adminInfo.avatar = data.avatar;
+          localStorage.setItem('avatar', data.avatar);
+        }
+      }
+    } catch (error) {
+      console.warn(' No se pudo cargar avatar admin desde servidor:', error);
+    }
   }
   
   connectSocket() {
