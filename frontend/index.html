@@ -13,11 +13,34 @@
   <title>CEMI - Sistema de Gestión Académica</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/chat-widget.css">
+  <link rel="stylesheet" href="assets/css/cookie-modal.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
+  <div class="cookie-overlay" id="cookieOverlay" style="display: none;">
+    <div class="cookie-modal">
+      <div class="cookie-modal-icon">
+        🍪
+      </div>
+      <h2>Usamos Cookies</h2>
+      <p>
+        En nuestro sitio web utilizamos cookies propias y de terceros para analizar nuestros servicios y mostrarte publicidad relacionada con tus preferencias. 
+        Puedes configurar o rechazar las cookies en el botón de configuración, o continuar navegando haciendo clic en "Aceptar todas las cookies". 
+        Para más información, visita nuestra <a href="privacidad.html">política de privacidad</a>.
+      </p>
+      <div class="cookie-buttons">
+        <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">
+          ✓ Aceptar Todas las Cookies
+        </button>
+        <button class="cookie-btn cookie-btn-config" onclick="goToCookieConfig()">
+          ⚙️ Configurar Cookies
+        </button>
+      </div>
+    </div>
+  </div>
 
   <nav class="navbar">
     <div class="nav-container">
@@ -772,5 +795,6 @@
 
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script src="assets/js/chat-widget.js?v=2.0"></script>
+  <script src="assets/js/cookie-modal.js"></script>
 </body>
 </html>
