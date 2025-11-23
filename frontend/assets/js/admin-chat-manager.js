@@ -587,9 +587,8 @@ class AdminChatManager {
     
     const inicial = nombreMostrar.charAt(0).toUpperCase();
     
-    // Determinar que avatar mostrar
     const avatarParaMostrar = isAdmin 
-      ? (this.adminInfo?.avatar || null)
+      ? (this.adminInfo?.avatar || 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png')
       : (data.avatar_remitente || null);
     
     console.log(' addMessageToUI - isAdmin:', isAdmin, 'avatarParaMostrar:', avatarParaMostrar, 'adminInfo:', this.adminInfo);
@@ -634,7 +633,7 @@ class AdminChatManager {
     
     const messageHTML = `
       <div class="user-chat-message ${isAdmin ? 'sent' : 'received'}">
-        <div class="user-chat-message-avatar">${inicial}</div>
+        <div class="user-chat-message-avatar">${avatarContent}</div>
         <div class="user-chat-message-content">
           <div class="user-chat-message-header">
             <span class="user-chat-message-sender">${nombreMostrar}${tipoUsuario}</span>
