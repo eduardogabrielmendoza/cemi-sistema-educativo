@@ -645,6 +645,7 @@ class AdminChatManager {
         mensaje: mensaje,
         tipo_remitente: 'admin',
         nombre_remitente: this.adminInfo.nombre,
+        avatar_remitente: this.adminInfo.avatar,
         fecha_envio: new Date().toISOString(),
         es_admin: 1
       };
