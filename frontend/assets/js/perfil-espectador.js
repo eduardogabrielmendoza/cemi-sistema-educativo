@@ -62,8 +62,10 @@ function mostrarDatosEnUI() {
   const avatarInitials = document.getElementById('avatarInitials');
   
   if (perfilData.avatar) {
-    const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-    const avatarUrl = `${BASE_URL}${perfilData.avatar}`;
+    const avatarUrl = perfilData.avatar.startsWith('http') 
+      ? perfilData.avatar 
+      : `${window.BASE_URL || 'http://localhost:3000'}${perfilData.avatar}`;
+    
     if (avatarContainer) {
       avatarContainer.style.backgroundImage = `url(${avatarUrl})`;
       avatarContainer.style.backgroundSize = 'cover';
