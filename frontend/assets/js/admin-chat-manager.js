@@ -553,7 +553,7 @@ class AdminChatManager {
     
     const inicial = nombreMostrar.charAt(0).toUpperCase();
     
-    // Determinar qué avatar mostrar
+    // Determinar quï¿½ avatar mostrar
     const avatarParaMostrar = isAdmin 
       ? (this.adminInfo?.avatar || null)
       : (data.avatar_remitente || null);
