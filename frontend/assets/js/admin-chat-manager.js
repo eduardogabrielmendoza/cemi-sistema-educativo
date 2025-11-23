@@ -593,6 +593,8 @@ class AdminChatManager {
       ? (this.adminInfo?.avatar || null)
       : (data.avatar_remitente || null);
     
+    console.log(' addMessageToUI - isAdmin:', isAdmin, 'avatarParaMostrar:', avatarParaMostrar, 'adminInfo:', this.adminInfo);
+    
     const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
     
     // Renderizar contenido según si hay archivo adjunto
@@ -660,6 +662,8 @@ class AdminChatManager {
     
     if (!mensaje || !this.activeConversation) return;
     
+    console.log(' Enviando mensaje, avatar admin:', this.adminInfo.avatar);
+    
     if (this.socket && this.socket.connected) {
       this.socket.emit('message', {
         id_conversacion: this.activeConversation.id_conversacion,
@@ -678,6 +682,8 @@ class AdminChatManager {
         fecha_envio: new Date().toISOString(),
         es_admin: 1
       };
+      
+      console.log(' messageData con avatar:', messageData.avatar_remitente);
       
       this.addMessageToUI(messageData);
       
