@@ -936,12 +936,20 @@ class AdminChatManager {
   
   renderAvatar(avatar, nombre) {
     const iniciales = nombre ? nombre.charAt(0).toUpperCase() : 'U';
+    
     if (avatar && avatar.trim()) {
-      const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      const avatarUrl = avatar.startsWith('http') ? avatar : avatar.startsWith('/uploads/') ? BASE_URL + avatar : BASE_URL + '/uploads/avatars/' + avatar;
-      const img = "<img src=\"" + avatarUrl + "\" alt=\"" + nombre + "\" style=\"width: 100%; height: 100%; object-fit: cover; border-radius: inherit;\" onerror=\"this.style.display='none'; this.parentElement.textContent='" + iniciales + "'\">";
-      return img;
+      const avatarUrl = avatar.startsWith('http') ? avatar : null;
+      
+      if (avatarUrl) {
+        console.log('️ Renderizando avatar con Cloudinary:', avatarUrl);
+        
+        // Usar background-image como en el header
+        var bgDiv = "<div style='width: 100%; height: 100%; background-image: url(\"" + avatarUrl + "\"); background-size: cover; background-position: center; border-radius: inherit;'><span style='display: none;'>" + iniciales + "</span></div>";
+        return bgDiv;
+      }
     }
+    
+    // Fallback: mostrar iniciales
     return '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white;">' + iniciales + '</div>';
   }
   

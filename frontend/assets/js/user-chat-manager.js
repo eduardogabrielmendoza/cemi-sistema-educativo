@@ -951,27 +951,20 @@ class UserChatManager {
     const iniciales = nombre ? nombre.charAt(0).toUpperCase() : 'U';
     
     if (avatar && avatar.trim()) {
-      const BASE_URL = window.BASE_URL || 'http://localhost:3000';
-      const avatarUrl = avatar.startsWith('http')
-        ? avatar
-        : avatar.startsWith('/uploads/') 
-          ? `${BASE_URL}${avatar}` 
-          : `${BASE_URL}/uploads/avatars/${avatar}`;
+      const avatarUrl = avatar.startsWith('http') ? avatar : null;
       
-      console.log(`️ Renderizando avatar:`, { 
-        avatar, 
-        avatarUrl, 
-        nombre,
-        isCloudinary: avatar.startsWith('http'),
-        startsWithUploads: avatar.startsWith('/uploads/')
-      });
-      
-      return `<img src="${avatarUrl}" 
-                   alt="${nombre}" 
-                   style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;"
-                   onerror="console.error(' Error cargando avatar:', '${avatarUrl}'); this.style.display='none'; this.parentElement.textContent='${iniciales}'">`;
+      if (avatarUrl) {
+        console.log(`️ Renderizando avatar con Cloudinary:`, avatarUrl);
+        
+        // Usar background-image como en el header
+        return `<div style="width: 100%; height: 100%; background-image: url('${avatarUrl}'); background-size: cover; background-position: center; border-radius: inherit;">
+                  <span style="display: none;">${iniciales}</span>
+                </div>`;
+      }
     }
-    return iniciales;
+    
+    // Fallback: mostrar iniciales
+    return `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white; border-radius: inherit;">${iniciales}</div>`;
   }
   
   renderChatView() {
