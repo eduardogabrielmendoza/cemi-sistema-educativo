@@ -252,11 +252,11 @@ class UserChatManager {
       console.log(' User Chat Socket.IO conectado');
       this.isConnected = true;
       this.authenticate();
-      this.loadConversations();
     });
     
     this.socket.on('authenticated', (data) => {
       console.log(' Usuario autenticado');
+      this.loadConversations();
     });
     
     this.socket.on('new_message', (data) => {
