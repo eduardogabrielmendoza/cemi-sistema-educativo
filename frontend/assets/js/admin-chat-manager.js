@@ -120,7 +120,8 @@ class AdminChatManager {
     this.adminInfo = {
       id_usuario: localStorage.getItem('id_usuario'),
       nombre: localStorage.getItem('nombre') || 'Admin',
-      tipo: 'admin'
+      tipo: 'admin',
+      avatar: sessionStorage.getItem('avatar') || localStorage.getItem('avatar') || null
     };
   }
   
@@ -170,6 +171,10 @@ class AdminChatManager {
     this.socket.on('disconnect', () => {
       console.log(' Admin Chat Socket.IO desconectado');
       this.isConnected = false;
+    });
+    
+    this.socket.on('connect_error', (error) => {
+      console.error(' Error de conexion Socket.IO:', error.message);
     });
     
     this.socket.on('error', (error) => {
@@ -544,6 +549,13 @@ class AdminChatManager {
     
     const inicial = nombreMostrar.charAt(0).toUpperCase();
     
+    // Determinar que avatar mostrar
+    const avatarParaMostrar = isAdmin 
+      ? (this.adminInfo?.avatar || null)
+      : (data.avatar_remitente || null);
+    
+    const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
+    
     // Renderizar contenido según si hay archivo adjunto
     let mensajeContent = '';
     if (data.archivo_adjunto) {
@@ -874,6 +886,17 @@ class AdminChatManager {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+  }
+  
+  renderAvatar(avatar, nombre) {
+    const iniciales = nombre ? nombre.charAt(0).toUpperCase() : 'U';
+    if (avatar && avatar.trim()) {
+      const BASE_URL = window.BASE_URL || 'http://localhost:3000';
+      const avatarUrl = avatar.startsWith('http') ? avatar : avatar.startsWith('/uploads/') ? BASE_URL + avatar : BASE_URL + '/uploads/avatars/' + avatar;
+      const img = "<img src=\"" + avatarUrl + "\" alt=\"" + nombre + "\" style=\"width: 100%; height: 100%; object-fit: cover; border-radius: inherit;\" onerror=\"this.style.display='none'; this.parentElement.textContent='" + iniciales + "'\">";
+      return img;
+    }
+    return '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white;">' + iniciales + '</div>';
   }
   
   showTypingIndicator(nombre, isTyping) {
