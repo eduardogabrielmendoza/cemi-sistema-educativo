@@ -15,7 +15,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
       min-height: 100vh;
       padding: 20px;
       display: flex;
@@ -33,7 +33,7 @@
     }
 
     .header {
-      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
       padding: 40px 30px;
       text-align: center;
       color: white;
@@ -96,7 +96,7 @@
     .category-icon {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -121,7 +121,7 @@
     }
 
     .toggle-switch.active {
-      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     }
 
     .toggle-switch.disabled {
@@ -148,7 +148,7 @@
     .badge {
       display: inline-block;
       padding: 4px 10px;
-      background: #e74c3c;
+      background: #1e3c72;
       color: white;
       font-size: 11px;
       font-weight: 600;
@@ -180,14 +180,14 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
       color: white;
-      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+      box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.5);
+      box-shadow: 0 6px 20px rgba(30, 60, 114, 0.5);
     }
 
     .btn-secondary {
@@ -333,7 +333,6 @@
 
     function guardarPreferencias() {
       localStorage.setItem('cemi_cookie_preferences', JSON.stringify(cookiePrefs));
-      localStorage.setItem('cemi_cookies_accepted', 'true');
       
       const notification = document.createElement('div');
       notification.style.cssText = `
@@ -355,12 +354,13 @@
       setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => {
-          window.location.href = 'index.html';
+          notification.remove();
         }, 300);
       }, 1500);
     }
 
     function volverACEMI() {
+      localStorage.setItem('cemi_cookies_accepted', 'true');
       window.location.href = 'index.html';
     }
 
