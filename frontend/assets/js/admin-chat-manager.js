@@ -12,8 +12,8 @@ class AdminChatManager {
     this.initMessageSound();
   }
   
-  init() {
-    this.loadAdminInfo();
+  async init() {
+    await this.loadAdminInfo();
     this.connectSocket();
     
     document.addEventListener('click', () => {
@@ -116,7 +116,7 @@ class AdminChatManager {
     this.updateNotificationBadge(0);
   }
   
-  loadAdminInfo() {
+  async loadAdminInfo() {
     // Intentar obtener avatar de localStorage (se actualiza desde perfil-classroom)
     const avatar = localStorage.getItem('avatar') || sessionStorage.getItem('avatar') || null;
     const id_usuario = localStorage.getItem('id_usuario');
@@ -132,7 +132,7 @@ class AdminChatManager {
     
     // Si no hay avatar en localStorage, intentar cargarlo desde el servidor
     if (!avatar && id_usuario) {
-      this.cargarAvatarDesdeServidor();
+      await this.cargarAvatarDesdeServidor();
     }
   }
   

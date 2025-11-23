@@ -12,8 +12,8 @@ class UserChatManager {
     this.initMessageSound();
   }
   
-  init() {
-    this.loadUserInfo();
+  async init() {
+    await this.loadUserInfo();
     this.connectSocket();
     
     document.addEventListener('click', () => {
@@ -119,7 +119,7 @@ class UserChatManager {
     this.updateNotificationBadge(0);
   }
   
-  loadUserInfo() {
+  async loadUserInfo() {
     const idKey = this.userType === 'profesor' ? 'id_profesor' : 'id_alumno';
     
     let id_usuario = localStorage.getItem('id_usuario');
@@ -155,7 +155,7 @@ class UserChatManager {
     
     // Si no hay avatar en localStorage, intentar cargarlo desde el servidor
     if (!this.userInfo.avatar && this.userInfo.id_usuario) {
-      this.cargarAvatarDesdeServidor();
+      await this.cargarAvatarDesdeServidor();
     }
   }
   
