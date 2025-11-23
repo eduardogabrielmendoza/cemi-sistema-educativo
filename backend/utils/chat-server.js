@@ -85,7 +85,7 @@ class ChatServer {
   
   
   async handleAuth(socket, data) {
-    let { tipo, id_usuario, nombre, id_conversacion } = data;
+    let { tipo, id_usuario, id_especifico, nombre, id_conversacion } = data;
     
     if ((!id_usuario || id_usuario === 'null' || id_usuario === 'undefined') && nombre && tipo !== 'invitado') {
       try {
@@ -155,6 +155,7 @@ class ChatServer {
     socket.userInfo = {
       tipo, 
       id_usuario,
+      id_especifico: id_especifico || null,
       nombre,
       id_conversacion
     };
@@ -258,21 +259,48 @@ class ChatServer {
       ]);      
       const id_mensaje = result.insertId;
       
-      // Obtener avatar del remitente
+      // Obtener avatar del remitente según su tipo
       let avatar_remitente = null;
-      if (id_remitente) {
+      
+      if (userInfo.tipo === 'admin' && id_remitente) {
+        // Para admin, buscar por id_usuario
         const [avatarResult] = await pool.query(`
           SELECT p.avatar
           FROM personas p
-          WHERE p.id_persona = (
-            SELECT id_persona FROM usuarios WHERE id_usuario = ?
-          )
+          JOIN usuarios u ON p.id_persona = u.id_persona
+          WHERE u.id_usuario = ?
         `, [id_remitente]);
         
         if (avatarResult.length > 0) {
           avatar_remitente = avatarResult[0].avatar;
         }
+      } else if (userInfo.tipo === 'profesor' && userInfo.id_especifico) {
+        // Para profesor, buscar por id_profesor
+        const [avatarResult] = await pool.query(`
+          SELECT p.avatar
+          FROM personas p
+          JOIN profesores pr ON p.id_persona = pr.id_persona
+          WHERE pr.id_profesor = ?
+        `, [userInfo.id_especifico]);
+        
+        if (avatarResult.length > 0) {
+          avatar_remitente = avatarResult[0].avatar;
+        }
+      } else if (userInfo.tipo === 'alumno' && userInfo.id_especifico) {
+        // Para alumno, buscar por id_alumno
+        const [avatarResult] = await pool.query(`
+          SELECT p.avatar
+          FROM personas p
+          JOIN alumnos a ON p.id_persona = a.id_persona
+          WHERE a.id_alumno = ?
+        `, [userInfo.id_especifico]);
+        
+        if (avatarResult.length > 0) {
+          avatar_remitente = avatarResult[0].avatar;
+        }
       }
+      
+      console.log(` Avatar obtenido para ${userInfo.tipo}:`, avatar_remitente);
       
       if (userInfo.tipo === 'admin') {
         await pool.query(`
