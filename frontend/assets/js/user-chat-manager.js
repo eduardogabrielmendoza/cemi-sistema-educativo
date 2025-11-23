@@ -592,7 +592,7 @@ class UserChatManager {
       if (isAdmin) {
         nombreMostrar = msg.nombre_remitente || 'Admin';
         tipoLabel = 'Administrador';
-        avatarParaMostrar = msg.avatar_remitente; // Avatar del admin desde BD
+        avatarParaMostrar = 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png';
       } else {
         nombreMostrar = msg.nombre_remitente || this.userInfo.nombre;
         tipoLabel = msg.tipo_remitente === 'profesor' ? 'Profesor' : 'Alumno';
