@@ -20,6 +20,10 @@ const __dirname = path.dirname(__filename);
 
 const isProduction = process.env.NODE_ENV === 'production' || process.env.MYSQLHOST;
 
+console.log(` Modo de chat: ${isProduction ? 'PRODUCCIÓN (Cloudinary)' : 'DESARROLLO (Local)'}`);
+console.log(` NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(` MYSQLHOST: ${process.env.MYSQLHOST ? 'definido' : 'no definido'}`);
+
 const chatStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadPath = path.join(__dirname, '../../uploads/chat-files');
@@ -577,8 +581,7 @@ router.get("/mi-conversacion", async (req, res) => {
           p_alumno.avatar, 
           p_profesor.avatar, 
           p_admin.avatar,
-          p_usuario.avatar,
-          CASE WHEN cm.tipo_remitente = 'admin' THEN 'https://res.cloudinary.com/dquzp9ski/image/upload/v1/cemi/avatars/admin-logo.png' ELSE NULL END
+          p_usuario.avatar
         ) as avatar_remitente
       FROM chat_mensajes cm
       LEFT JOIN alumnos a ON cm.tipo_remitente = 'alumno' AND a.id_alumno = cm.id_remitente
