@@ -503,9 +503,8 @@ class AdminChatManager {
       
       const inicial = nombreMostrar.charAt(0).toUpperCase();
       
-      // Determinar que avatar mostrar
       const avatarParaMostrar = isAdmin 
-        ? (this.adminInfo?.avatar || null)
+        ? (this.adminInfo?.avatar || 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png')
         : (msg.avatar_remitente || null);
       
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
