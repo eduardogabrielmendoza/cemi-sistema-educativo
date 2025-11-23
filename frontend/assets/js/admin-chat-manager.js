@@ -943,14 +943,16 @@ class AdminChatManager {
       if (avatarUrl) {
         console.log('️ Renderizando avatar con Cloudinary:', avatarUrl);
         
-        // Usar background-image como en el header
-        var bgDiv = "<div style='width: 100%; height: 100%; background-image: url(\"" + avatarUrl + "\"); background-size: cover; background-position: center; border-radius: inherit;'><span style='display: none;'>" + iniciales + "</span></div>";
+        const isLogo = avatarUrl.includes('logo');
+        const bgSize = isLogo ? 'contain' : 'cover';
+        const padding = isLogo ? 'padding: 4px;' : '';
+        
+        var bgDiv = "<div style='width: 100%; height: 100%; background-image: url(\"" + avatarUrl + "\"); background-size: " + bgSize + "; background-position: center; background-repeat: no-repeat; border-radius: inherit; " + padding + "'><span style='display: none;'>" + iniciales + "</span></div>";
         return bgDiv;
       }
     }
     
-    // Fallback: mostrar iniciales
-    return '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white;">' + iniciales + '</div>';
+    return '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #1976d2;">' + iniciales + '</div>';
   }
   
   showTypingIndicator(nombre, isTyping) {
