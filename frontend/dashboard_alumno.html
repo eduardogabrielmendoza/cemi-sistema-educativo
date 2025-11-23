@@ -140,7 +140,7 @@
       
       console.log(`Buscando perfil de ${tipoUsuario} con ID: ${idUsuario}`);
       
-      const url = `${API_URL}/classroom/perfil/${idUsuario}`;
+      const url = `${API_URL}/classroom/perfil/${idUsuario}?tipo=${tipoUsuario}`;
       console.log('URL:', url);
       
       const response = await fetch(url);
