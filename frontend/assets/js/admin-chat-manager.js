@@ -553,6 +553,13 @@ class AdminChatManager {
     
     const inicial = nombreMostrar.charAt(0).toUpperCase();
     
+    // Determinar qué avatar mostrar
+    const avatarParaMostrar = isAdmin 
+      ? (this.adminInfo?.avatar || null)
+      : (data.avatar_remitente || null);
+    
+    const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
+    
     // Renderizar contenido segÃºn si hay archivo adjunto
     let mensajeContent = '';
     if (data.archivo_adjunto) {
