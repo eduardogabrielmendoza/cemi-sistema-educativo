@@ -272,6 +272,9 @@ router.get("/conversaciones", async (req, res) => {
         (SELECT fecha_envio FROM chat_mensajes 
          WHERE id_conversacion = c.id_conversacion 
          ORDER BY fecha_envio DESC LIMIT 1) as fecha_ultimo_mensaje,
+        (SELECT tipo_remitente FROM chat_mensajes 
+         WHERE id_conversacion = c.id_conversacion 
+         ORDER BY fecha_envio DESC LIMIT 1) as tipo_ultimo_remitente,
         CASE 
           WHEN c.atendido_por IS NOT NULL THEN CONCAT(p_admin.nombre, ' ', p_admin.apellido)
           ELSE NULL
@@ -280,7 +283,8 @@ router.get("/conversaciones", async (req, res) => {
           WHEN c.id_usuario IS NOT NULL THEN CONCAT(p_usuario.nombre, ' ', p_usuario.apellido)
           ELSE c.nombre_invitado
         END as nombre_completo_usuario,
-        p_usuario.avatar as avatar_usuario
+        p_usuario.avatar as avatar_usuario,
+        p_admin.avatar as avatar_admin
       FROM chat_conversaciones c
       LEFT JOIN chat_mensajes m ON c.id_conversacion = m.id_conversacion
       LEFT JOIN usuarios u_admin ON c.atendido_por = u_admin.id_usuario

@@ -370,8 +370,12 @@ class AdminChatManager {
       const noLeidos = conv.mensajes_no_leidos_admin || 0;
       const tipoLabel = conv.tipo_usuario === 'profesor' ? 'Profesor' : conv.tipo_usuario === 'alumno' ? 'Alumno' : 'Usuario';
       
-      const avatarUsuario = conv.avatar_usuario || null;
-      const avatarContent = this.renderAvatar(avatarUsuario, nombre);
+      const esUltimoMensajeAdmin = conv.tipo_ultimo_remitente === 'admin';
+      const avatarParaMostrar = esUltimoMensajeAdmin 
+        ? (conv.avatar_admin || 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png')
+        : (conv.avatar_usuario || null);
+      
+      const avatarContent = this.renderAvatar(avatarParaMostrar, nombre);
       
       return `
         <div class="user-chat-conversation-item ${this.activeConversation && this.activeConversation.id_conversacion === conv.id_conversacion ? 'active' : ''}" 
