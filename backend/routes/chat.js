@@ -264,7 +264,8 @@ router.get("/conversaciones", async (req, res) => {
         CASE
           WHEN c.id_usuario IS NOT NULL THEN CONCAT(p_usuario.nombre, ' ', p_usuario.apellido)
           ELSE c.nombre_invitado
-        END as nombre_completo_usuario
+        END as nombre_completo_usuario,
+        p_usuario.avatar as avatar_usuario
       FROM chat_conversaciones c
       LEFT JOIN chat_mensajes m ON c.id_conversacion = m.id_conversacion
       LEFT JOIN usuarios u_admin ON c.atendido_por = u_admin.id_usuario
