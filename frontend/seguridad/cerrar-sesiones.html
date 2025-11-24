@@ -8,11 +8,16 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <header class="security-header">
-        <div class="security-header-content">
-            <div class="security-icon"><i data-lucide="log-out"></i></div>
-            <h1>Cerrar Sesiones Remotas</h1>
-            <p>Expulsa dispositivos y cierra sesiones en las que no confías.</p>
+    <header class="security-header" style="background: linear-gradient(135deg, rgba(220, 53, 69, 0.95) 0%, rgba(200, 35, 51, 0.95) 100%), url('../images/security-logout.jpg'); background-size: cover; background-position: center; position: relative; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+        <div style="position: absolute; top: 20px; left: 20px;">
+            <img src="../images/logo.png" alt="CEMI Logo" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        </div>
+        <div class="security-header-content" style="text-align: center; position: relative; z-index: 1;">
+            <div class="security-icon" style="background: rgba(255,255,255,0.2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <i data-lucide="log-out" style="width: 40px; height: 40px;"></i>
+            </div>
+            <h1 style="font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Cerrar Sesiones Remotas</h1>
+            <p style="font-size: 1.1rem; opacity: 0.95;">Expulsa dispositivos y cierra sesiones en las que no confías.</p>
         </div>
     </header>
     <main class="security-container">
@@ -22,6 +27,40 @@
             <a href="cemi-privsec-home.html" style="color: #0071e3; text-decoration: none;">Privacidad y Seguridad</a>
             <span style="color: #5a6c7d;"> / </span>
             <span style="color: #2c3e50;">Cerrar sesiones</span>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); border-left: 6px solid #dc3545; padding: 25px; margin: 30px 0; border-radius: 12px; box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);">
+            <div style="display: flex; align-items: start; gap: 20px;">
+                <i data-lucide="alert-octagon" style="width: 32px; height: 32px; color: white; flex-shrink: 0; margin-top: 4px;"></i>
+                <div>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: white;">🚨 Protocolo de Emergencia</strong>
+                    <p style="margin: 0; color: rgba(255,255,255,0.95); line-height: 1.6;">Si sospechas acceso no autorizado, contacta INMEDIATAMENTE al administrador para cerrar todas las sesiones activas. Disponible 24/7 para emergencias.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%); padding: 30px; border-radius: 12px; margin: 25px 0; text-align: center; border: 2px solid #dc3545;">
+            <h3 style="margin-bottom: 20px; color: #dc3545;">
+                <i data-lucide="shield-alert" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"></i>
+                Cerrar Todas las Sesiones
+            </h3>
+            <p style="color: #5a6c7d; margin-bottom: 25px;">Fuerza el cierre de todas las sesiones excepto la actual. Usa esto si detectas actividad sospechosa.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button onclick="window.location.href='mailto:soporte@cemi.edu.ar?subject=URGENTE: Cerrar Todas las Sesiones&body=URGENTE%0D%0A%0D%0ASolicito cerrar TODAS mis sesiones activas inmediatamente.%0D%0A%0D%0ADatos:%0D%0A- Usuario: [TU USUARIO]%0D%0A- DNI: [TU DNI]%0D%0A- Motivo: [Acceso sospechoso/Dispositivo perdido/Otros]%0D%0A%0D%0APor favor, actúe rápido.'" 
+                        style="background: #dc3545; color: white; padding: 16px 36px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(220,53,69,0.3); display: inline-flex; align-items: center; gap: 10px;">
+                    <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+                    Email de Emergencia
+                </button>
+                <a href="tel:+5491112345678" 
+                   style="background: #000; color: white; padding: 16px 36px; border-radius: 8px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none; animation: pulse 2s infinite;">
+                    <i data-lucide="phone-call" style="width: 20px; height: 20px;"></i>
+                    Llamar AHORA: +54 911 1234-5678
+                </a>
+            </div>
+            <p style="margin-top: 20px; color: #dc3545; font-weight: 600; font-size: 14px;">
+                <i data-lucide="clock" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 5px;"></i>
+                Línea de emergencia disponible 24/7
+            </p>
         </div>
 
         <div class="security-alert">

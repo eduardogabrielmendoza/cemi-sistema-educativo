@@ -77,14 +77,17 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="security-header">
-        <div class="security-header-content">
-            <div class="security-icon">
-                <i data-lucide="key"></i>
+    <!-- Header con imagen de fondo y logo -->
+    <header class="security-header" style="background: linear-gradient(135deg, rgba(0, 113, 227, 0.95) 0%, rgba(0, 91, 181, 0.95) 100%), url('../images/security-password.jpg'); background-size: cover; background-position: center; position: relative; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+        <div style="position: absolute; top: 20px; left: 20px;">
+            <img src="../images/logo.png" alt="CEMI Logo" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        </div>
+        <div class="security-header-content" style="text-align: center; position: relative; z-index: 1;">
+            <div class="security-icon" style="background: rgba(255,255,255,0.2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <i data-lucide="key" style="width: 40px; height: 40px;"></i>
             </div>
-            <h1>Cambiar Contraseña</h1>
-            <p>Actualiza tu contraseña para mantener tu cuenta segura.</p>
+            <h1 style="font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Cambiar Contraseña</h1>
+            <p style="font-size: 1.1rem; opacity: 0.95;">Actualiza tu contraseña para mantener tu cuenta segura.</p>
         </div>
     </header>
 
@@ -99,33 +102,71 @@
         </div>
 
         <!-- Alerta informativa -->
-        <div class="security-alert">
-            <i data-lucide="info"></i>
-            <div>
-                <strong>Antes de continuar</strong>
-                <p>Asegúrate de recordar tu contraseña actual. Si la olvidaste, usa la opción de <a href="#" style="color: #0071e3; font-weight: 600;">recuperación de contraseña</a>.</p>
+        <div style="background: linear-gradient(135deg, #fff3cd 0%, #fffbf0 100%); border-left: 6px solid #FFC107; padding: 25px; margin: 30px 0; border-radius: 12px; box-shadow: 0 4px 12px rgba(255, 193, 7, 0.15);">
+            <div style="display: flex; align-items: start; gap: 20px;">
+                <i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #FFC107; flex-shrink: 0; margin-top: 4px;"></i>
+                <div>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">⚠️ Requiere Aprobación de Administrador</strong>
+                    <p style="margin: 0; color: #856404; line-height: 1.6;">Los cambios de contraseña deben ser solicitados y aprobados por un administrador del sistema. Esta medida de seguridad protege tu cuenta de accesos no autorizados.</p>
+                </div>
             </div>
         </div>
 
-        <!-- Formulario de cambio de contraseña -->
+        <!-- Formulario de cambio de contraseña (INFORMATIVO) -->
         <div class="security-card">
             <h2>
                 <i data-lucide="lock"></i>
-                Actualiza tu Contraseña
+                Cómo Solicitar un Cambio de Contraseña
             </h2>
-            <form id="passwordForm" style="margin-top: 30px;">
+            <p style="color: #5a6c7d; margin: 20px 0;">Para cambiar tu contraseña, debes contactar al administrador. El formulario a continuación muestra los requisitos que debe cumplir tu nueva contraseña:</p>
+
+            <!-- Botones de contacto destacados -->
+            <div style="background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%); padding: 30px; border-radius: 12px; margin: 25px 0; text-align: center; box-shadow: 0 4px 12px rgba(0,113,227,0.1);">
+                <h3 style="margin-bottom: 20px; color: #1a1f36;">
+                    <i data-lucide="headset" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"></i>
+                    Contacta al Soporte Técnico
+                </h3>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 25px;">
+                    <button onclick="window.location.href='mailto:soporte@cemi.edu.ar?subject=Solicitud: Cambio de Contraseña&body=Estimado equipo de soporte,%0D%0A%0D%0ASolicito realizar un cambio de contraseña para mi cuenta.%0D%0A%0D%0ADatos:%0D%0A- Usuario: [TU USUARIO]%0D%0A- DNI: [TU DNI]%0D%0A- Motivo: [DESCRIBE EL MOTIVO]%0D%0A%0D%0AGracias.'" 
+                            style="background: #0071e3; color: white; padding: 16px 36px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,113,227,0.3); display: inline-flex; align-items: center; gap: 10px;">
+                        <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+                        Enviar Solicitud por Email
+                    </button>
+                    <a href="tel:+5491112345678" 
+                       style="background: #28a745; color: white; padding: 16px 36px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(40,167,69,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none;">
+                        <i data-lucide="phone" style="width: 20px; height: 20px;"></i>
+                        Llamar: +54 911 1234-5678
+                    </a>
+                </div>
+                <p style="margin-top: 20px; color: #5a6c7d; font-size: 14px;">
+                    <i data-lucide="clock" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 5px;"></i>
+                    Horario de atención: Lunes a Viernes, 8:00 - 18:00 hs
+                </p>
+            </div>
+
+            <!-- Ejemplo visual del formulario (bloqueado) -->
+            <div style="position: relative; margin-top: 30px;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(240,240,240,0.92); backdrop-filter: blur(3px); z-index: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center; padding: 30px;">
+                        <i data-lucide="lock" style="width: 64px; height: 64px; color: #FFC107; margin-bottom: 15px;"></i>
+                        <h3 style="color: #1a1f36; margin-bottom: 10px;">Formulario No Disponible</h3>
+                        <p style="color: #5a6c7d; max-width: 400px;">Usa los botones arriba para contactar al administrador</p>
+                    </div>
+                </div>
+                
+            <form id="passwordForm" style="margin-top: 30px; opacity: 0.3; pointer-events: none;">
                 <!-- Contraseña actual -->
                 <div class="input-group">
                     <label for="currentPassword">Contraseña actual</label>
-                    <input type="password" id="currentPassword" name="currentPassword" required>
-                    <i data-lucide="eye" class="toggle-password" onclick="togglePassword('currentPassword')"></i>
+                    <input type="password" id="currentPassword" name="currentPassword" disabled>
+                    <i data-lucide="eye" class="toggle-password"></i>
                 </div>
 
                 <!-- Nueva contraseña -->
                 <div class="input-group">
                     <label for="newPassword">Nueva contraseña</label>
-                    <input type="password" id="newPassword" name="newPassword" required>
-                    <i data-lucide="eye" class="toggle-password" onclick="togglePassword('newPassword')"></i>
+                    <input type="password" id="newPassword" name="newPassword" disabled>
+                    <i data-lucide="eye" class="toggle-password"></i>
                     
                     <!-- Medidor de fuerza -->
                     <div class="password-strength">
@@ -137,8 +178,8 @@
                 <!-- Confirmar contraseña -->
                 <div class="input-group">
                     <label for="confirmPassword">Confirmar nueva contraseña</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
-                    <i data-lucide="eye" class="toggle-password" onclick="togglePassword('confirmPassword')"></i>
+                    <input type="password" id="confirmPassword" name="confirmPassword" disabled>
+                    <i data-lucide="eye" class="toggle-password"></i>
                 </div>
 
                 <!-- Requisitos de contraseña -->
@@ -168,7 +209,7 @@
 
                 <!-- Botones -->
                 <div style="display: flex; gap: 15px; margin-top: 30px;">
-                    <button type="submit" class="btn-primary-security">
+                    <button type="submit" class="btn-primary-security" disabled>
                         <i data-lucide="check"></i>
                         Cambiar contraseña
                     </button>
@@ -178,6 +219,7 @@
                     </a>
                 </div>
             </form>
+            </div>
         </div>
 
         <!-- Consejos de seguridad -->
@@ -257,113 +299,6 @@
 
     <script>
         lucide.createIcons();
-
-        // Toggle visibilidad de contraseña
-        function togglePassword(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = input.nextElementSibling;
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.setAttribute('data-lucide', 'eye-off');
-            } else {
-                input.type = 'password';
-                icon.setAttribute('data-lucide', 'eye');
-            }
-            lucide.createIcons();
-        }
-
-        // Verificar requisitos de contraseña
-        const newPasswordInput = document.getElementById('newPassword');
-        newPasswordInput.addEventListener('input', function() {
-            const password = this.value;
-            const strengthBar = document.getElementById('strengthBar');
-            const strengthText = document.getElementById('strengthText');
-            
-            // Verificar requisitos
-            const requirements = {
-                length: password.length >= 8,
-                uppercase: /[A-Z]/.test(password),
-                lowercase: /[a-z]/.test(password),
-                number: /[0-9]/.test(password),
-                special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
-            };
-            
-            // Actualizar indicadores visuales
-            updateRequirement('req-length', requirements.length);
-            updateRequirement('req-uppercase', requirements.uppercase);
-            updateRequirement('req-lowercase', requirements.lowercase);
-            updateRequirement('req-number', requirements.number);
-            updateRequirement('req-special', requirements.special);
-            
-            // Calcular fuerza
-            const metRequirements = Object.values(requirements).filter(Boolean).length;
-            strengthBar.className = 'password-strength-bar';
-            
-            if (metRequirements <= 2) {
-                strengthBar.classList.add('strength-weak');
-                strengthText.textContent = 'Débil';
-                strengthText.style.color = '#dc3545';
-            } else if (metRequirements <= 4) {
-                strengthBar.classList.add('strength-medium');
-                strengthText.textContent = 'Media';
-                strengthText.style.color = '#FFC107';
-            } else {
-                strengthBar.classList.add('strength-strong');
-                strengthText.textContent = 'Fuerte';
-                strengthText.style.color = '#28a745';
-            }
-        });
-
-        function updateRequirement(id, met) {
-            const element = document.getElementById(id);
-            const icon = element.querySelector('i');
-            
-            if (met) {
-                element.classList.add('met');
-                icon.setAttribute('data-lucide', 'check-circle');
-            } else {
-                element.classList.remove('met');
-                icon.setAttribute('data-lucide', 'circle');
-            }
-            lucide.createIcons();
-        }
-
-        // Validar formulario
-        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            // Verificar que las contraseñas coinciden
-            if (newPassword !== confirmPassword) {
-                alert('Las contraseñas no coinciden. Por favor, verifícalas.');
-                return;
-            }
-            
-            // Verificar que cumple todos los requisitos
-            const requirements = {
-                length: newPassword.length >= 8,
-                uppercase: /[A-Z]/.test(newPassword),
-                lowercase: /[a-z]/.test(newPassword),
-                number: /[0-9]/.test(newPassword),
-                special: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword)
-            };
-            
-            if (!Object.values(requirements).every(Boolean)) {
-                alert('Tu contraseña debe cumplir todos los requisitos de seguridad.');
-                return;
-            }
-            
-            // Aquí iría la llamada al backend
-            // Por ahora, simulamos el cambio
-            alert('Contraseña cambiada exitosamente. Por favor, inicia sesión nuevamente con tu nueva contraseña.');
-            
-            // En producción, redirigirías al login
-            // window.location.href = '../../login.html';
-        });
     </script>
 </body>
 </html>

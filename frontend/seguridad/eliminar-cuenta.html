@@ -8,11 +8,16 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <header class="security-header">
-        <div class="security-header-content">
-            <div class="security-icon"><i data-lucide="trash-2"></i></div>
-            <h1>Eliminar mi Cuenta</h1>
-            <p>Borra permanentemente tu cuenta y todos tus datos de CEMI.</p>
+    <header class="security-header" style="background: linear-gradient(135deg, rgba(220, 53, 69, 0.95) 0%, rgba(200, 35, 51, 0.95) 100%), url('../images/security-delete.jpg'); background-size: cover; background-position: center; position: relative; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+        <div style="position: absolute; top: 20px; left: 20px;">
+            <img src="../images/logo.png" alt="CEMI Logo" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        </div>
+        <div class="security-header-content" style="text-align: center; position: relative; z-index: 1;">
+            <div class="security-icon" style="background: rgba(255,255,255,0.2); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <i data-lucide="trash-2" style="width: 40px; height: 40px;"></i>
+            </div>
+            <h1 style="font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Eliminar mi Cuenta</h1>
+            <p style="font-size: 1.1rem; opacity: 0.95;">Borra permanentemente tu cuenta y todos tus datos de CEMI.</p>
         </div>
     </header>
     <main class="security-container">
@@ -21,7 +26,37 @@
             <span style="color: #5a6c7d;"> / </span>
             <a href="cemi-privsec-home.html" style="color: #0071e3; text-decoration: none;">Privacidad y Seguridad</a>
             <span style="color: #5a6c7d;"> / </span>
-            <span style="color: #2c3e50;">Eliminar cuenta</span>
+            <span style="color: #2c3e50;">Eliminar mi cuenta</span>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #fff3cd 0%, #fffbf0 100%); border-left: 6px solid #FFC107; padding: 25px; margin: 30px 0; border-radius: 12px; box-shadow: 0 4px 12px rgba(255, 193, 7, 0.15);">
+            <div style="display: flex; align-items: start; gap: 20px;">
+                <i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #FFC107; flex-shrink: 0; margin-top: 4px;"></i>
+                <div>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">⚠️ Acción Crítica - Requiere Aprobación</strong>
+                    <p style="margin: 0; color: #856404; line-height: 1.6;">La eliminación de cuenta es permanente y debe ser autorizada por un administrador. Este proceso incluye período de gracia de 30 días conforme GDPR.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%); padding: 30px; border-radius: 12px; margin: 25px 0; text-align: center; border: 2px solid #dc3545;">
+            <h3 style="margin-bottom: 20px; color: #dc3545;">
+                <i data-lucide="alert-triangle" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"></i>
+                Solicitar Eliminación de Cuenta
+            </h3>
+            <p style="color: #5a6c7d; margin-bottom: 25px;">Esta acción es irreversible. Todos tus datos serán eliminados permanentemente.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button onclick="window.location.href='mailto:soporte@cemi.edu.ar?subject=Solicitud GDPR: Eliminación de Cuenta&body=Estimado equipo,%0D%0A%0D%0ASolicito la eliminación permanente de mi cuenta (Derecho al Olvido GDPR).%0D%0A%0D%0ADatos:%0D%0A- Usuario: [TU USUARIO]%0D%0A- DNI: [TU DNI]%0D%0A- Motivo: [OPCIONAL]%0D%0A%0D%0AEntiendo que esta acción es irreversible.%0D%0A%0D%0AGracias.'" 
+                        style="background: #dc3545; color: white; padding: 16px 36px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(220,53,69,0.3); display: inline-flex; align-items: center; gap: 10px;">
+                    <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
+                    Solicitar Eliminación
+                </button>
+                <a href="tel:+5491112345678" 
+                   style="background: #28a745; color: white; padding: 16px 36px; border-radius: 8px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 12px rgba(40,167,69,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none;">
+                    <i data-lucide="phone" style="width: 20px; height: 20px;"></i>
+                    Llamar: +54 911 1234-5678
+                </a>
+            </div>
         </div>
 
         <div class="security-alert" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); border-left-color: #dc3545;">
