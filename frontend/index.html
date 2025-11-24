@@ -52,6 +52,12 @@
         <li><a href="#classroom">Classroom</a></li>
         <li><a href="#dashboard">Dashboard</a></li>
         <li><a href="#soporte">Soporte</a></li>
+        <li class="nav-item-dropdown nav-security">
+          <a href="#" class="dropdown-trigger" id="securityBtn">
+            <i data-lucide="shield-alert" style="width: 16px; height: 16px; margin-right: 4px;"></i>
+            Seguridad
+          </a>
+        </li>
         <li class="nav-item-dropdown">
           <a href="#" class="dropdown-trigger" id="moreInfoBtn">Más Información</a>
         </li>
@@ -80,6 +86,20 @@
           <a href="#equipo" class="dropdown-item">Nuestro Equipo</a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="dropdown-menu-security" id="dropdownSecurityMenu">
+    <div class="dropdown-backdrop" id="dropdownSecurityBackdrop"></div>
+    <div class="dropdown-content-security">
+      <a href="reportar-seguridad.html" class="dropdown-security-item">
+        <i data-lucide="shield-alert"></i>
+        <span>Reportar Problema de Seguridad</span>
+      </a>
+      <a href="reportar-copyright.html" class="dropdown-security-item">
+        <i data-lucide="copyright"></i>
+        <span>Reportar Infracción de Copyright</span>
+      </a>
     </div>
   </div>
 
@@ -208,6 +228,40 @@
     // Cerrar al hacer clic en backdrop
     dropdownBackdrop.addEventListener('click', () => {
       dropdownMenu.classList.remove('active');
+    });
+
+    // Dropdown de Seguridad
+    const securityBtn = document.getElementById('securityBtn');
+    const dropdownSecurityMenu = document.getElementById('dropdownSecurityMenu');
+    const dropdownSecurityBackdrop = document.getElementById('dropdownSecurityBackdrop');
+    const navSecurity = document.querySelector('.nav-security');
+    const dropdownContentSecurity = document.querySelector('.dropdown-content-security');
+    
+    let closeSecurityTimeout;
+    
+    navSecurity.addEventListener('mouseenter', () => {
+      clearTimeout(closeSecurityTimeout);
+      dropdownSecurityMenu.classList.add('active');
+    });
+    
+    dropdownContentSecurity.addEventListener('mouseenter', () => {
+      clearTimeout(closeSecurityTimeout);
+    });
+    
+    navSecurity.addEventListener('mouseleave', () => {
+      closeSecurityTimeout = setTimeout(() => {
+        dropdownSecurityMenu.classList.remove('active');
+      }, 100);
+    });
+    
+    dropdownContentSecurity.addEventListener('mouseleave', () => {
+      closeSecurityTimeout = setTimeout(() => {
+        dropdownSecurityMenu.classList.remove('active');
+      }, 100);
+    });
+    
+    dropdownSecurityBackdrop.addEventListener('click', () => {
+      dropdownSecurityMenu.classList.remove('active');
     });
     
     // Cerrar dropdown al hacer clic en un item

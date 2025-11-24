@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación de Aplicaciones | CEMI</title>
+    <link rel="stylesheet" href="../assets/css/seguridad.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="security-header">
+        <div class="security-header-content">
+            <div class="security-icon"><i data-lucide="key-round"></i></div>
+            <h1>Autenticación de Aplicaciones</h1>
+            <p>Gestiona tokens API y credenciales para aplicaciones y scripts externos.</p>
+        </div>
+    </header>
+    <main class="security-container">
+        <div style="margin-bottom: 30px;">
+            <a href="../index.html" style="color: #0071e3; text-decoration: none;">Inicio</a>
+            <span style="color: #5a6c7d;"> / </span>
+            <a href="cemi-privsec-home.html" style="color: #0071e3; text-decoration: none;">Privacidad y Seguridad</a>
+            <span style="color: #5a6c7d;"> / </span>
+            <span style="color: #2c3e50;">Autenticación de aplicaciones</span>
+        </div>
+
+        <div class="security-alert">
+            <i data-lucide="info"></i>
+            <div>
+                <strong>¿Qué son los tokens de API?</strong>
+                <p>Los tokens permiten que scripts, bots y herramientas accedan a tu cuenta sin necesidad de tu contraseña. Funcionan como "contraseñas temporales" con permisos específicos.</p>
+            </div>
+        </div>
+
+        <div class="security-card" style="background: linear-gradient(135deg, #0071e3 0%, #0056b3 100%); color: white;">
+            <h2 style="color: white; margin-bottom: 20px;"><i data-lucide="plus-circle"></i> Generar nuevo token</h2>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">Crea un token personalizado con los permisos que necesites:</p>
+            
+            <div style="background: white; padding: 30px; border-radius: 12px; color: #2c3e50;">
+                <form id="tokenForm">
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; font-weight: 700; margin-bottom: 10px;">
+                            <i data-lucide="tag" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Nombre del token *
+                        </label>
+                        <input type="text" required placeholder="Ej: Script de exportación de calificaciones" style="width: 100%; padding: 12px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 14px;">
+                        <small style="color: #5a6c7d; display: block; margin-top: 5px;">Nombre descriptivo para recordar para qué lo usas</small>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; font-weight: 700; margin-bottom: 10px;">
+                            <i data-lucide="calendar" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Duración *
+                        </label>
+                        <select required style="width: 100%; padding: 12px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 14px; background: white;">
+                            <option value="7">7 días</option>
+                            <option value="30">30 días</option>
+                            <option value="90" selected>90 días (recomendado)</option>
+                            <option value="365">1 año</option>
+                            <option value="never">Sin expiración (no recomendado)</option>
+                        </select>
+                        <small style="color: #5a6c7d; display: block; margin-top: 5px;">Los tokens largos son menos seguros. Renuévalos periódicamente.</small>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; font-weight: 700; margin-bottom: 15px;">
+                            <i data-lucide="lock" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Permisos (scopes) *
+                        </label>
+                        <div style="display: grid; gap: 12px;">
+                            <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" value="read:profile" style="margin-top: 3px;">
+                                <div>
+                                    <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">📋 Leer perfil</strong>
+                                    <small style="color: #5a6c7d;">Ver nombre, email y datos básicos de perfil</small>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" value="read:courses" checked style="margin-top: 3px;">
+                                <div>
+                                    <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">📚 Leer cursos</strong>
+                                    <small style="color: #5a6c7d;">Ver lista de cursos, materias y horarios</small>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" value="read:grades" checked style="margin-top: 3px;">
+                                <div>
+                                    <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">📊 Leer calificaciones</strong>
+                                    <small style="color: #5a6c7d;">Ver notas y evaluaciones</small>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #fff3cd; border: 2px solid #FFC107; border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" value="write:assignments" style="margin-top: 3px;">
+                                <div>
+                                    <strong style="display: block; color: #856404; margin-bottom: 5px;">✏️ Escribir tareas <span style="background: #FFC107; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 5px;">ALTO RIESGO</span></strong>
+                                    <small style="color: #856404;">Crear, modificar y eliminar tareas</small>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8d7da; border: 2px solid #dc3545; border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" value="admin:all" style="margin-top: 3px;">
+                                <div>
+                                    <strong style="display: block; color: #721c24; margin-bottom: 5px;">👑 Acceso total <span style="background: #dc3545; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 5px;">PELIGROSO</span></strong>
+                                    <small style="color: #721c24;">Control total sobre la cuenta. Solo para desarrolladores.</small>
+                                </div>
+                            </label>
+                        </div>
+                        <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #FFC107;">
+                            <small style="color: #856404;"><strong>⚠️ Regla de oro:</strong> Solo otorga los permisos mínimos necesarios. Nunca compartas tokens con terceros.</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" style="width: 100%; background: linear-gradient(135deg, #28a745 0%, #218838 100%); color: white; border: none; padding: 15px; font-size: 16px; font-weight: 700; border-radius: 8px; cursor: pointer;">
+                        <i data-lucide="key" style="width: 20px; height: 20px; display: inline; vertical-align: middle;"></i> Generar token
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="security-card">
+            <h2><i data-lucide="list"></i> Tokens activos</h2>
+            <p style="margin-bottom: 30px;">Tokens que creaste y están vigentes:</p>
+            
+            <!-- Token 1 -->
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                <div style="display: flex; gap: 20px; align-items: start;">
+                    <div style="background: #28a745; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="key" style="width: 24px; height: 24px; color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Exportador de Notas Python</h3>
+                                <div style="font-family: 'Courier New', monospace; background: #2c3e50; color: #00ff00; padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 15px; overflow-x: auto;">
+                                    <span style="color: #5a6c7d;">cemi_</span>8f4k2j9s7d6h5g4f3d2s1a0p9o8i7u6y5t4r3e2w1q
+                                    <button onclick="navigator.clipboard.writeText('cemi_8f4k2j9s7d6h5g4f3d2s1a0p9o8i7u6y5t4r3e2w1q'); alert('Token copiado al portapapeles')" style="background: transparent; border: 1px solid #00ff00; color: #00ff00; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-left: 10px; font-size: 11px;">
+                                        <i data-lucide="copy" style="width: 12px; height: 12px; display: inline; vertical-align: middle;"></i> Copiar
+                                    </button>
+                                </div>
+                                <div style="color: #5a6c7d; font-size: 14px; line-height: 1.8;">
+                                    <div><i data-lucide="check-circle" style="width: 14px; height: 14px; display: inline; vertical-align: middle; color: #28a745;"></i> <strong>Permisos:</strong> Leer cursos, Leer calificaciones</div>
+                                    <div><i data-lucide="calendar" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Creado: 15/03/2024 | Expira: 13/06/2024 (67 días restantes)</div>
+                                    <div><i data-lucide="activity" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Último uso: Hace 3 horas</div>
+                                    <div><i data-lucide="zap" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Uso: 1,247 llamadas API (promedio: 15/día)</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button onclick="alert('Token renovado por 90 días más')" style="background: #0071e3; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="refresh-cw" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Renovar
+                            </button>
+                            <button onclick="alert('Funcionalidad de edición disponible próximamente')" style="background: #6c757d; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="edit" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Editar permisos
+                            </button>
+                            <button onclick="if(confirm('¿Revocar este token? Las apps que lo usen dejarán de funcionar.')) alert('Token revocado exitosamente')" style="background: #dc3545; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="trash-2" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Revocar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Token 2 -->
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #FFC107;">
+                <div style="display: flex; gap: 20px; align-items: start;">
+                    <div style="background: #FFC107; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="key" style="width: 24px; height: 24px; color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <h3 style="margin: 0 0 10px 0; color: #2c3e50;">
+                                    Bot de Discord para Anuncios
+                                    <span style="background: #FFC107; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-left: 10px;">⚠️ POR EXPIRAR</span>
+                                </h3>
+                                <div style="font-family: 'Courier New', monospace; background: #2c3e50; color: #00ff00; padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 15px; overflow-x: auto;">
+                                    <span style="color: #5a6c7d;">cemi_</span>x9m8n7b6v5c4x3z2a1s0d9f8g7h6j5k4l3p2o1i
+                                    <button onclick="navigator.clipboard.writeText('cemi_x9m8n7b6v5c4x3z2a1s0d9f8g7h6j5k4l3p2o1i'); alert('Token copiado al portapapeles')" style="background: transparent; border: 1px solid #00ff00; color: #00ff00; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-left: 10px; font-size: 11px;">
+                                        <i data-lucide="copy" style="width: 12px; height: 12px; display: inline; vertical-align: middle;"></i> Copiar
+                                    </button>
+                                </div>
+                                <div style="color: #5a6c7d; font-size: 14px; line-height: 1.8;">
+                                    <div><i data-lucide="check-circle" style="width: 14px; height: 14px; display: inline; vertical-align: middle; color: #FFC107;"></i> <strong>Permisos:</strong> Leer perfil, Leer cursos</div>
+                                    <div><i data-lucide="calendar" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Creado: 10/02/2024 | Expira: 25/05/2024 (8 días restantes)</div>
+                                    <div><i data-lucide="activity" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Último uso: Hace 1 día</div>
+                                    <div><i data-lucide="zap" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Uso: 542 llamadas API (promedio: 5/día)</div>
+                                </div>
+                                <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-top: 12px; border-left: 3px solid #FFC107;">
+                                    <small style="color: #856404;"><strong>⚠️ Expira pronto:</strong> Este token vence en 8 días. Renuévalo o genera uno nuevo para evitar interrupciones.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button onclick="alert('Token renovado por 90 días más')" style="background: #FFC107; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="refresh-cw" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Renovar ahora
+                            </button>
+                            <button onclick="if(confirm('¿Revocar este token? Las apps que lo usen dejarán de funcionar.')) alert('Token revocado exitosamente')" style="background: #dc3545; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="trash-2" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Revocar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Token 3 -->
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; border-left: 4px solid #6c757d;">
+                <div style="display: flex; gap: 20px; align-items: start;">
+                    <div style="background: #6c757d; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="key" style="width: 24px; height: 24px; color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                            <div style="flex: 1; min-width: 250px;">
+                                <h3 style="margin: 0 0 10px 0; color: #2c3e50;">
+                                    Script de Backup (Node.js)
+                                    <span style="background: #6c757d; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-left: 10px;">SIN USO RECIENTE</span>
+                                </h3>
+                                <div style="font-family: 'Courier New', monospace; background: #2c3e50; color: #00ff00; padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 15px; overflow-x: auto;">
+                                    <span style="color: #5a6c7d;">cemi_</span>q1w2e3r4t5y6u7i8o9p0a1s2d3f4g5h6j7k8l9z
+                                    <button onclick="navigator.clipboard.writeText('cemi_q1w2e3r4t5y6u7i8o9p0a1s2d3f4g5h6j7k8l9z'); alert('Token copiado al portapapeles')" style="background: transparent; border: 1px solid #00ff00; color: #00ff00; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-left: 10px; font-size: 11px;">
+                                        <i data-lucide="copy" style="width: 12px; height: 12px; display: inline; vertical-align: middle;"></i> Copiar
+                                    </button>
+                                </div>
+                                <div style="color: #5a6c7d; font-size: 14px; line-height: 1.8;">
+                                    <div><i data-lucide="check-circle" style="width: 14px; height: 14px; display: inline; vertical-align: middle; color: #6c757d;"></i> <strong>Permisos:</strong> Leer perfil</div>
+                                    <div><i data-lucide="calendar" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Creado: 01/12/2023 | Expira: Nunca (sin expiración)</div>
+                                    <div><i data-lucide="activity" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Último uso: Hace 4 meses</div>
+                                    <div><i data-lucide="zap" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Uso: 78 llamadas API (total histórico)</div>
+                                </div>
+                                <div style="background: #e2e3e5; padding: 12px; border-radius: 8px; margin-top: 12px; border-left: 3px solid #6c757d;">
+                                    <small style="color: #383d41;"><strong>ℹ️ Recomendación:</strong> Este token no se usa desde hace 4 meses. Considera revocarlo si ya no lo necesitas.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button onclick="if(confirm('¿Revocar este token? Las apps que lo usen dejarán de funcionar.')) alert('Token revocado exitosamente')" style="background: #dc3545; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="trash-2" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Revocar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="security-card">
+            <h2><i data-lucide="book-open"></i> Guía de uso</h2>
+            <div style="margin-top: 30px;">
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                    <strong style="color: #0071e3; display: block; margin-bottom: 10px;">🔐 Almacenar tokens de forma segura</strong>
+                    <p style="color: #5a6c7d; margin: 0 0 10px 0; font-size: 14px;">✅ <strong>Hacer:</strong> Guárdalos en variables de entorno (.env), gestores de secretos (AWS Secrets, Azure Key Vault), o archivos de configuración locales (.gitignore)</p>
+                    <p style="color: #5a6c7d; margin: 0; font-size: 14px;">❌ <strong>NO hacer:</strong> Subirlos a GitHub, pegarlos en foros públicos, compartirlos por email/chat, o dejarlos en código fuente</p>
+                </div>
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                    <strong style="color: #0071e3; display: block; margin-bottom: 10px;">📝 Ejemplo de uso (Python)</strong>
+                    <div style="background: #2c3e50; color: #00ff00; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 13px; overflow-x: auto; margin-top: 10px;">
+                        <span style="color: #ff79c6;">import</span> requests<br><br>
+                        API_TOKEN = <span style="color: #f1fa8c;">"cemi_8f4k2j9s7d6h5g4f3d2s..."</span><br>
+                        headers = {<span style="color: #f1fa8c;">"Authorization"</span>: <span style="color: #f1fa8c;">f"Bearer {API_TOKEN}"</span>}<br><br>
+                        response = requests.get(<span style="color: #f1fa8c;">"https://api.cemi.edu.ar/v1/grades"</span>, headers=headers)<br>
+                        grades = response.json()
+                    </div>
+                </div>
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 12px;">
+                    <strong style="color: #0071e3; display: block; margin-bottom: 10px;">🛡️ Buenas prácticas</strong>
+                    <ul style="color: #5a6c7d; font-size: 14px; margin: 10px 0 0 20px; padding: 0;">
+                        <li style="margin-bottom: 8px;">Renueva tokens cada 3 meses como mínimo</li>
+                        <li style="margin-bottom: 8px;">Revoca tokens inmediatamente si sospechas que fueron comprometidos</li>
+                        <li style="margin-bottom: 8px;">Usa tokens diferentes para cada aplicación/script</li>
+                        <li style="margin-bottom: 8px;">Otorga solo los permisos mínimos necesarios</li>
+                        <li style="margin-bottom: 8px;">Monitorea el uso regularmente para detectar anomalías</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <div style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 30px; border-radius: 12px; color: white;">
+                <i data-lucide="shield-alert" style="width: 48px; height: 48px; margin-bottom: 15px;"></i>
+                <h3 style="color: white; margin-bottom: 15px; font-size: 20px;">¿Token comprometido?</h3>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: 25px;">Si crees que alguien más tiene acceso a uno de tus tokens, revócalo inmediatamente.</p>
+                <button onclick="if(confirm('¿Revocar TODOS los tokens activos? Esto detendrá todas las aplicaciones conectadas.')) alert('Todos los tokens han sido revocados. Genera nuevos tokens para tus aplicaciones.')" style="background: white; color: #dc3545; border: none; padding: 15px 40px; font-size: 16px; font-weight: 700; border-radius: 8px; cursor: pointer;">
+                    <i data-lucide="shield-off" style="width: 20px; height: 20px; display: inline; vertical-align: middle;"></i> Revocar todos los tokens
+                </button>
+            </div>
+        </div>
+
+        <div class="security-section" style="margin-top: 40px;">
+            <h3><i data-lucide="arrow-right-circle"></i> Recursos Relacionados</h3>
+            <div class="security-button-grid" style="margin-top: 20px;">
+                <a href="compartir-datos.html" class="security-action-btn">
+                    <i data-lucide="share-2"></i>
+                    <strong>Apps OAuth</strong>
+                    <span>Aplicaciones con acceso delegado</span>
+                </a>
+                <a href="historial-acceso.html" class="security-action-btn">
+                    <i data-lucide="clock"></i>
+                    <strong>Historial de acceso</strong>
+                    <span>Ver actividad de API</span>
+                </a>
+                <a href="cemi-privsec-home.html" class="security-action-btn">
+                    <i data-lucide="arrow-left"></i>
+                    <strong>Volver al Portal</strong>
+                    <span>Privacidad y Seguridad</span>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="security-footer">
+        <div class="security-footer-links">
+            <a href="../index.html">Inicio</a>
+            <a href="../privacidad.html">Privacidad</a>
+            <a href="../terminos.html">Términos</a>
+            <a href="../ayuda.html">Ayuda</a>
+        </div>
+        <p>&copy; 2024 CEMI. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        lucide.createIcons();
+        document.getElementById('tokenForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const randomToken = 'cemi_' + Array.from({length: 40}, () => 'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]).join('');
+            alert('✅ Token generado exitosamente\\n\\n' + randomToken + '\\n\\n⚠️ IMPORTANTE: Copia este token AHORA. Por seguridad, no podrás volver a verlo. Guárdalo en un lugar seguro.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

@@ -288,6 +288,107 @@ html {
   color: var(--color-text);
 }
 
+/* Dropdown de Seguridad con aura amarilla */
+.nav-security .dropdown-trigger {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
+  box-shadow: 0 0 20px rgba(255, 193, 7, 0.3), inset 0 0 10px rgba(255, 193, 7, 0.1);
+  border-radius: 8px;
+  padding: 8px 16px;
+  animation: securityGlow 3s ease-in-out infinite;
+}
+
+@keyframes securityGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.3), inset 0 0 10px rgba(255, 193, 7, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 193, 7, 0.5), inset 0 0 15px rgba(255, 193, 7, 0.2);
+  }
+}
+
+.nav-security .dropdown-trigger:hover {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 152, 0, 0.1) 100%);
+  box-shadow: 0 0 25px rgba(255, 193, 7, 0.4), inset 0 0 12px rgba(255, 193, 7, 0.15);
+}
+
+.dropdown-menu-security {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.dropdown-menu-security.active {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.dropdown-content-security {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-radius: 12px;
+  box-shadow: 0 12px 48px rgba(255, 193, 7, 0.3), 0 0 0 1px rgba(255, 193, 7, 0.2);
+  padding: 12px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 320px;
+  pointer-events: none;
+}
+
+.dropdown-menu-security.active .dropdown-content-security {
+  opacity: 1;
+  transform: translateX(-50%) translateY(20px);
+  pointer-events: auto;
+}
+
+.dropdown-security-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: slideInLeft 0.4s ease forwards;
+  border: 1px solid transparent;
+}
+
+.dropdown-security-item:first-child {
+  animation-delay: 0.05s;
+  margin-bottom: 6px;
+}
+
+.dropdown-security-item:last-child {
+  animation-delay: 0.1s;
+}
+
+.dropdown-security-item:hover {
+  background: rgba(255, 193, 7, 0.1);
+  transform: translateX(0);
+  border-color: rgba(255, 193, 7, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+}
+
+.dropdown-security-item i {
+  width: 20px;
+  height: 20px;
+  color: #FFC107;
+}
+
 .hero {
   min-height: calc(100vh - 64px);
   display: flex;

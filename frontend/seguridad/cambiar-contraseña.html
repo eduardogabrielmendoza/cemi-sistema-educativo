@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Contraseña | CEMI Seguridad</title>
+    <link rel="stylesheet" href="../assets/css/seguridad.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .password-strength {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+        .strength-weak { background: #dc3545; width: 33%; }
+        .strength-medium { background: #FFC107; width: 66%; }
+        .strength-strong { background: #28a745; width: 100%; }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #0071e3;
+            box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            cursor: pointer;
+            color: #5a6c7d;
+        }
+        .requirements-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: #5a6c7d;
+        }
+        .requirement.met {
+            color: #28a745;
+        }
+        .requirement i {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="security-header">
+        <div class="security-header-content">
+            <div class="security-icon">
+                <i data-lucide="key"></i>
+            </div>
+            <h1>Cambiar Contraseña</h1>
+            <p>Actualiza tu contraseña para mantener tu cuenta segura.</p>
+        </div>
+    </header>
+
+    <main class="security-container">
+        <!-- Breadcrumb -->
+        <div style="margin-bottom: 30px;">
+            <a href="../../index.html" style="color: #0071e3; text-decoration: none;">Inicio</a>
+            <span style="color: #5a6c7d;"> / </span>
+            <a href="../cemi-privsec-home.html" style="color: #0071e3; text-decoration: none;">Centro de Privacidad</a>
+            <span style="color: #5a6c7d;"> / </span>
+            <span style="color: #2c3e50;">Cambiar contraseña</span>
+        </div>
+
+        <!-- Alerta informativa -->
+        <div class="security-alert">
+            <i data-lucide="info"></i>
+            <div>
+                <strong>Antes de continuar</strong>
+                <p>Asegúrate de recordar tu contraseña actual. Si la olvidaste, usa la opción de <a href="#" style="color: #0071e3; font-weight: 600;">recuperación de contraseña</a>.</p>
+            </div>
+        </div>
+
+        <!-- Formulario de cambio de contraseña -->
+        <div class="security-card">
+            <h2>
+                <i data-lucide="lock"></i>
+                Actualiza tu Contraseña
+            </h2>
+            <form id="passwordForm" style="margin-top: 30px;">
+                <!-- Contraseña actual -->
+                <div class="input-group">
+                    <label for="currentPassword">Contraseña actual</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required>
+                    <i data-lucide="eye" class="toggle-password" onclick="togglePassword('currentPassword')"></i>
+                </div>
+
+                <!-- Nueva contraseña -->
+                <div class="input-group">
+                    <label for="newPassword">Nueva contraseña</label>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                    <i data-lucide="eye" class="toggle-password" onclick="togglePassword('newPassword')"></i>
+                    
+                    <!-- Medidor de fuerza -->
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <span id="strengthText" style="font-size: 14px; color: #5a6c7d;"></span>
+                </div>
+
+                <!-- Confirmar contraseña -->
+                <div class="input-group">
+                    <label for="confirmPassword">Confirmar nueva contraseña</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <i data-lucide="eye" class="toggle-password" onclick="togglePassword('confirmPassword')"></i>
+                </div>
+
+                <!-- Requisitos de contraseña -->
+                <div class="requirements-list">
+                    <strong style="display: block; margin-bottom: 15px; color: #2c3e50;">Tu contraseña debe cumplir:</strong>
+                    <div class="requirement" id="req-length">
+                        <i data-lucide="circle"></i>
+                        <span>Mínimo 8 caracteres</span>
+                    </div>
+                    <div class="requirement" id="req-uppercase">
+                        <i data-lucide="circle"></i>
+                        <span>Al menos una mayúscula (A-Z)</span>
+                    </div>
+                    <div class="requirement" id="req-lowercase">
+                        <i data-lucide="circle"></i>
+                        <span>Al menos una minúscula (a-z)</span>
+                    </div>
+                    <div class="requirement" id="req-number">
+                        <i data-lucide="circle"></i>
+                        <span>Al menos un número (0-9)</span>
+                    </div>
+                    <div class="requirement" id="req-special">
+                        <i data-lucide="circle"></i>
+                        <span>Al menos un carácter especial (!@#$%^&*)</span>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div style="display: flex; gap: 15px; margin-top: 30px;">
+                    <button type="submit" class="btn-primary-security">
+                        <i data-lucide="check"></i>
+                        Cambiar contraseña
+                    </button>
+                    <a href="../cemi-privsec-home.html" class="btn-secondary-security">
+                        <i data-lucide="x"></i>
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Consejos de seguridad -->
+        <div class="security-card" style="background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%);">
+            <h2>
+                <i data-lucide="lightbulb"></i>
+                Consejos para una Contraseña Segura
+            </h2>
+            <div class="security-grid" style="margin-top: 30px;">
+                <div style="display: flex; gap: 15px;">
+                    <i data-lucide="check-circle" style="width: 24px; height: 24px; color: #28a745; flex-shrink: 0;"></i>
+                    <div>
+                        <strong style="display: block; margin-bottom: 8px;">Usa frases memorables</strong>
+                        <span style="color: #5a6c7d; font-size: 14px;">Ej: "MiGato2024$Juega!" es más segura y fácil de recordar</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <i data-lucide="check-circle" style="width: 24px; height: 24px; color: #28a745; flex-shrink: 0;"></i>
+                    <div>
+                        <strong style="display: block; margin-bottom: 8px;">No reutilices contraseñas</strong>
+                        <span style="color: #5a6c7d; font-size: 14px;">Usa una diferente para cada cuenta importante</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <i data-lucide="check-circle" style="width: 24px; height: 24px; color: #28a745; flex-shrink: 0;"></i>
+                    <div>
+                        <strong style="display: block; margin-bottom: 8px;">Considera un gestor de contraseñas</strong>
+                        <span style="color: #5a6c7d; font-size: 14px;">Herramientas como 1Password o LastPass pueden ayudarte</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <i data-lucide="check-circle" style="width: 24px; height: 24px; color: #28a745; flex-shrink: 0;"></i>
+                    <div>
+                        <strong style="display: block; margin-bottom: 8px;">Cambia tu contraseña regularmente</strong>
+                        <span style="color: #5a6c7d; font-size: 14px;">Recomendamos actualizarla cada 3-6 meses</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Próximos pasos -->
+        <div class="security-card">
+            <h2>
+                <i data-lucide="arrow-right-circle"></i>
+                Próximos Pasos Recomendados
+            </h2>
+            <div class="security-button-grid" style="margin-top: 30px;">
+                <a href="verificacion-dos-pasos.html" class="security-action-btn">
+                    <i data-lucide="smartphone"></i>
+                    <strong>Activar verificación en dos pasos</strong>
+                    <span>Añade una capa extra de seguridad a tu cuenta</span>
+                </a>
+                <a href="codigos-recuperacion.html" class="security-action-btn">
+                    <i data-lucide="shield-alert"></i>
+                    <strong>Generar códigos de recuperación</strong>
+                    <span>Ten códigos de respaldo por si pierdes acceso</span>
+                </a>
+                <a href="ayuda/proteger-cuenta.html" class="security-action-btn">
+                    <i data-lucide="book-open"></i>
+                    <strong>Guía de seguridad completa</strong>
+                    <span>Aprende más sobre cómo proteger tu cuenta</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="security-footer">
+        <div class="security-footer-links">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../privacidad.html">Política de Privacidad</a>
+            <a href="../../terminos.html">Términos de Uso</a>
+            <a href="../../ayuda.html">Ayuda</a>
+        </div>
+        <p>&copy; 2024 CEMI - Centro Educativo de Modalidad Interactiva. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Toggle visibilidad de contraseña
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+
+        // Verificar requisitos de contraseña
+        const newPasswordInput = document.getElementById('newPassword');
+        newPasswordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+            
+            // Verificar requisitos
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+            };
+            
+            // Actualizar indicadores visuales
+            updateRequirement('req-length', requirements.length);
+            updateRequirement('req-uppercase', requirements.uppercase);
+            updateRequirement('req-lowercase', requirements.lowercase);
+            updateRequirement('req-number', requirements.number);
+            updateRequirement('req-special', requirements.special);
+            
+            // Calcular fuerza
+            const metRequirements = Object.values(requirements).filter(Boolean).length;
+            strengthBar.className = 'password-strength-bar';
+            
+            if (metRequirements <= 2) {
+                strengthBar.classList.add('strength-weak');
+                strengthText.textContent = 'Débil';
+                strengthText.style.color = '#dc3545';
+            } else if (metRequirements <= 4) {
+                strengthBar.classList.add('strength-medium');
+                strengthText.textContent = 'Media';
+                strengthText.style.color = '#FFC107';
+            } else {
+                strengthBar.classList.add('strength-strong');
+                strengthText.textContent = 'Fuerte';
+                strengthText.style.color = '#28a745';
+            }
+        });
+
+        function updateRequirement(id, met) {
+            const element = document.getElementById(id);
+            const icon = element.querySelector('i');
+            
+            if (met) {
+                element.classList.add('met');
+                icon.setAttribute('data-lucide', 'check-circle');
+            } else {
+                element.classList.remove('met');
+                icon.setAttribute('data-lucide', 'circle');
+            }
+            lucide.createIcons();
+        }
+
+        // Validar formulario
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Verificar que las contraseñas coinciden
+            if (newPassword !== confirmPassword) {
+                alert('Las contraseñas no coinciden. Por favor, verifícalas.');
+                return;
+            }
+            
+            // Verificar que cumple todos los requisitos
+            const requirements = {
+                length: newPassword.length >= 8,
+                uppercase: /[A-Z]/.test(newPassword),
+                lowercase: /[a-z]/.test(newPassword),
+                number: /[0-9]/.test(newPassword),
+                special: /[!@#$%^&*(),.?":{}|<>]/.test(newPassword)
+            };
+            
+            if (!Object.values(requirements).every(Boolean)) {
+                alert('Tu contraseña debe cumplir todos los requisitos de seguridad.');
+                return;
+            }
+            
+            // Aquí iría la llamada al backend
+            // Por ahora, simulamos el cambio
+            alert('Contraseña cambiada exitosamente. Por favor, inicia sesión nuevamente con tu nueva contraseña.');
+            
+            // En producción, redirigirías al login
+            // window.location.href = '../../login.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispositivos Activos | CEMI Seguridad</title>
+    <link rel="stylesheet" href="../assets/css/seguridad.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="security-header">
+        <div class="security-header-content">
+            <div class="security-icon"><i data-lucide="monitor-smartphone"></i></div>
+            <h1>Dispositivos Activos</h1>
+            <p>Revisa todos los dispositivos donde tu sesión está abierta actualmente.</p>
+        </div>
+    </header>
+    <main class="security-container">
+        <div style="margin-bottom: 30px;">
+            <a href="../index.html" style="color: #0071e3; text-decoration: none;">Inicio</a>
+            <span style="color: #5a6c7d;"> / </span>
+            <a href="cemi-privsec-home.html" style="color: #0071e3; text-decoration: none;">Privacidad y Seguridad</a>
+            <span style="color: #5a6c7d;"> / </span>
+            <span style="color: #2c3e50;">Dispositivos activos</span>
+        </div>
+
+        <div class="security-alert">
+            <i data-lucide="info"></i>
+            <div>
+                <strong>Sesiones abiertas</strong>
+                <p>Estos son todos los dispositivos donde iniciaste sesión y no has cerrado. Si ves algo que no reconoces, cierra esa sesión inmediatamente.</p>
+            </div>
+        </div>
+
+        <div class="security-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2 style="margin: 0;"><i data-lucide="list"></i> Mis dispositivos (4 activos)</h2>
+                <button onclick="if(confirm('¿Cerrar sesión en TODOS los dispositivos excepto este?')) alert('Todas las sesiones han sido cerradas')" style="background: #dc3545; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;">
+                    <i data-lucide="log-out" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Cerrar todas las sesiones
+                </button>
+            </div>
+
+            <!-- Dispositivo Actual -->
+            <div style="background: #e8f5e9; padding: 25px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                <div style="display: flex; gap: 20px;">
+                    <div style="width: 60px; height: 60px; background: #28a745; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="monitor" style="width: 32px; height: 32px; color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="color: #28a745; margin: 0 0 10px;">Windows 11 - Chrome 120 <span style="background: #28a745; color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px; font-weight: 700; margin-left: 10px;">ESTE DISPOSITIVO</span></h3>
+                                <div style="color: #5a6c7d; font-size: 14px; line-height: 2;">
+                                    <div><i data-lucide="map-pin" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Buenos Aires, Argentina</div>
+                                    <div><i data-lucide="wifi" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> IP: 181.45.xxx.xxx</div>
+                                    <div><i data-lucide="clock" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Última actividad: Ahora</div>
+                                    <div><i data-lucide="calendar" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Inicio de sesión: Hoy a las 14:30</div>
+                                </div>
+                            </div>
+                        </div>
+                        <span style="color: #28a745; font-size: 13px; font-weight: 600;">● Activo ahora</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dispositivo Móvil -->
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="display: flex; gap: 20px;">
+                    <div style="width: 60px; height: 60px; background: #0071e3; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="smartphone" style="width: 32px; height: 32px; color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="color: #2c3e50; margin: 0 0 10px;">Android 13 - CEMI App v1.2</h3>
+                                <div style="color: #5a6c7d; font-size: 14px; line-height: 2;">
+                                    <div><i data-lucide="smartphone" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Samsung Galaxy S23</div>
+                                    <div><i data-lucide="map-pin" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Buenos Aires, Argentina</div>
+                                    <div><i data-lucide="wifi" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> IP: 181.45.xxx.xxx</div>
+                                    <div><i data-lucide="clock" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Última actividad: Hace 2 horas</div>
+                                    <div><i data-lucide="calendar" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Inicio de sesión: Hace 3 días</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="alert('Sesión cerrada en este dispositivo')" style="background: #dc3545; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                            <i data-lucide="log-out" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tablet -->
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="display: flex; gap: 20px;">
+                    <div style="width: 60px; height: 60px; background: #6c757d; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="tablet" style="width: 32px; height: 32px; color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="color: #2c3e50; margin: 0 0 10px;">iPad Pro - Safari 17</h3>
+                                <div style="color: #5a6c7d; font-size: 14px; line-height: 2;">
+                                    <div><i data-lucide="tablet" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> iPad Pro 12.9" (2023)</div>
+                                    <div><i data-lucide="map-pin" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Buenos Aires, Argentina</div>
+                                    <div><i data-lucide="wifi" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> IP: 181.45.xxx.xxx</div>
+                                    <div><i data-lucide="clock" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Última actividad: Ayer a las 20:15</div>
+                                    <div><i data-lucide="calendar" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Inicio de sesión: Hace 1 semana</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="alert('Sesión cerrada en este dispositivo')" style="background: #dc3545; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                            <i data-lucide="log-out" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dispositivo sospechoso -->
+            <div style="background: #fff3cd; padding: 25px; border-radius: 12px; border-left: 4px solid #FFC107;">
+                <div style="display: flex; gap: 20px;">
+                    <div style="width: 60px; height: 60px; background: #FFC107; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="alert-triangle" style="width: 32px; height: 32px; color: white;"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div>
+                                <h3 style="color: #856404; margin: 0 0 10px;">Windows 10 - Firefox 118 <span style="background: #FFC107; color: white; padding: 3px 10px; border-radius: 15px; font-size: 11px; font-weight: 700; margin-left: 10px;">NUEVA UBICACIÓN</span></h3>
+                                <div style="color: #5a6c7d; font-size: 14px; line-height: 2;">
+                                    <div><i data-lucide="map-pin" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Córdoba, Argentina</div>
+                                    <div><i data-lucide="wifi" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> IP: 190.xxx.xxx.xxx</div>
+                                    <div><i data-lucide="clock" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Última actividad: Hace 5 horas</div>
+                                    <div><i data-lucide="calendar" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Inicio de sesión: Hace 2 días</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255, 193, 7, 0.2); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                            <strong style="color: #856404; display: block; margin-bottom: 5px;">⚠️ Primera vez desde esta ubicación</strong>
+                            <p style="color: #5a6c7d; margin: 0; font-size: 13px;">Este dispositivo inició sesión desde una ciudad donde no habías accedido antes.</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="alert('Sesión cerrada y dispositivo bloqueado')" style="background: #dc3545; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="shield-off" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> No fui yo - Cerrar sesión
+                            </button>
+                            <button onclick="alert('Ubicación marcada como segura')" style="background: #28a745; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                <i data-lucide="check" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Sí fui yo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="security-alert" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); border-left-color: #dc3545;">
+            <i data-lucide="alert-octagon" style="color: white;"></i>
+            <div>
+                <strong style="color: white;">🚨 ¿Ves un dispositivo que no reconoces?</strong>
+                <p style="color: rgba(255,255,255,0.9);">Cierra esa sesión INMEDIATAMENTE, cambia tu contraseña, y activa la verificación en dos pasos.</p>
+            </div>
+        </div>
+
+        <div class="security-card">
+            <h2><i data-lucide="info"></i> Información sobre dispositivos</h2>
+            <div style="margin-top: 30px;">
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                    <strong style="color: #2c3e50; display: block; margin-bottom: 10px;">🔍 ¿Cómo se detectan?</strong>
+                    <p style="color: #5a6c7d; margin: 0; font-size: 14px;">Usamos tu User-Agent (navegador/app), dirección IP y patrones de uso para identificar dispositivos.</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                    <strong style="color: #2c3e50; display: block; margin-bottom: 10px;">📍 ¿Por qué la ubicación es inexacta?</strong>
+                    <p style="color: #5a6c7d; margin: 0; font-size: 14px;">La ubicación se basa en tu IP, que puede mostrar la ubicación de tu proveedor de internet, no tu ubicación exacta.</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                    <strong style="color: #2c3e50; display: block; margin-bottom: 10px;">⏱️ ¿Cuánto duran las sesiones?</strong>
+                    <p style="color: #5a6c7d; margin: 0; font-size: 14px;">Las sesiones expiran automáticamente después de 30 días de inactividad por seguridad.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="security-section" style="margin-top: 40px;">
+            <h3><i data-lucide="arrow-right-circle"></i> Recursos Relacionados</h3>
+            <div class="security-button-grid" style="margin-top: 20px;">
+                <a href="cerrar-sesiones.html" class="security-action-btn">
+                    <i data-lucide="log-out"></i>
+                    <strong>Cerrar sesiones remotas</strong>
+                    <span>Guía paso a paso</span>
+                </a>
+                <a href="historial-acceso.html" class="security-action-btn">
+                    <i data-lucide="clock"></i>
+                    <strong>Historial completo</strong>
+                    <span>Ver todos los accesos (90 días)</span>
+                </a>
+                <a href="cemi-privsec-home.html" class="security-action-btn">
+                    <i data-lucide="arrow-left"></i>
+                    <strong>Volver al Portal</strong>
+                    <span>Privacidad y Seguridad</span>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="security-footer">
+        <div class="security-footer-links">
+            <a href="../index.html">Inicio</a>
+            <a href="../privacidad.html">Privacidad</a>
+            <a href="../terminos.html">Términos</a>
+            <a href="../ayuda.html">Ayuda</a>
+        </div>
+        <p>&copy; 2024 CEMI. Todos los derechos reservados.</p>
+    </footer>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
