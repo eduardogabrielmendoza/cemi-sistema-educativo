@@ -164,52 +164,6 @@
             </div>
         </div>
 
-        <div class="security-card" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white;">
-            <h2 style="color: white;"><i data-lucide="trash-2"></i> Solicitar eliminación de cuenta</h2>
-            <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">Si estás seguro de que deseas eliminar tu cuenta, completa el formulario:</p>
-            
-            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 12px; backdrop-filter: blur(10px);">
-                <form onsubmit="event.preventDefault(); if(confirm('¿Estás ABSOLUTAMENTE seguro? Esta acción iniciará el proceso de eliminación.')) alert('Solicitud de eliminación enviada. Recibirás un email de confirmación.')">
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">Motivo de eliminación (opcional):</label>
-                        <select style="width: 100%; padding: 12px; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; color: #2c3e50; font-size: 14px;">
-                            <option value="">Prefiero no decirlo</option>
-                            <option>Ya no uso CEMI</option>
-                            <option>Problemas de privacidad</option>
-                            <option>Creé una cuenta por error</option>
-                            <option>Mala experiencia con la plataforma</option>
-                            <option>Me gradué / cambié de institución</option>
-                            <option>Otro</option>
-                        </select>
-                    </div>
-
-                    <div style="margin-bottom: 25px;">
-                        <label style="display: block; margin-bottom: 10px; font-weight: 600;">Comentarios adicionales (opcional):</label>
-                        <textarea style="width: 100%; padding: 12px; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; color: #2c3e50; font-size: 14px; resize: vertical; min-height: 80px;" placeholder="Tu feedback nos ayuda a mejorar..."></textarea>
-                    </div>
-
-                    <div style="background: rgba(220, 53, 69, 0.2); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #dc3545;">
-                        <label style="display: flex; align-items: start; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" required style="width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; margin-top: 2px;">
-                            <span style="font-size: 14px;">Entiendo que esta acción eliminará permanentemente mi cuenta y todos mis datos después de 30 días, y que esta acción no se puede deshacer.</span>
-                        </label>
-                    </div>
-
-                    <div style="background: rgba(220, 53, 69, 0.2); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #dc3545;">
-                        <label style="display: flex; align-items: start; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" required style="width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; margin-top: 2px;">
-                            <span style="font-size: 14px;">Confirmo que he descargado cualquier información que deseo conservar.</span>
-                        </label>
-                    </div>
-
-                    <button type="submit" style="width: 100%; background: #dc3545; color: white; border: none; padding: 15px; font-size: 16px; font-weight: 700; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                        <i data-lucide="trash-2" style="width: 20px; height: 20px;"></i>
-                        Eliminar mi cuenta permanentemente
-                    </button>
-                </form>
-            </div>
-        </div>
-
         <div class="security-card">
             <h2><i data-lucide="help-circle"></i> Preguntas Frecuentes</h2>
             <div style="margin-top: 30px;">
