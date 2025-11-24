@@ -191,31 +191,33 @@
   <script>
     lucide.createIcons();
     
-    // Dropdown Menu con hover elegante
+    // Dropdown de "Más Información" - Específico para ese botón solamente
     const moreInfoBtn = document.getElementById('moreInfoBtn');
     const dropdownMenu = document.getElementById('dropdownMenu');
     const dropdownBackdrop = document.getElementById('dropdownBackdrop');
-    const navItemDropdown = document.querySelector('.nav-item-dropdown');
+    const navItemDropdown = document.querySelector('.nav-item-dropdown:not(.nav-security)'); // Excluir nav-security
     const dropdownContent = document.querySelector('.dropdown-content');
     
     let closeTimeout;
     
-    // Abrir con hover en el botón
-    navItemDropdown.addEventListener('mouseenter', () => {
-      clearTimeout(closeTimeout);
-      dropdownMenu.classList.add('active');
-    });
+    // Abrir con hover en el botón de Más Información (NO en seguridad)
+    if (navItemDropdown) {
+      navItemDropdown.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimeout);
+        dropdownMenu.classList.add('active');
+      });
+      
+      // Cerrar cuando el mouse sale del botón
+      navItemDropdown.addEventListener('mouseleave', () => {
+        closeTimeout = setTimeout(() => {
+          dropdownMenu.classList.remove('active');
+        }, 100);
+      });
+    }
     
     // Mantener abierto cuando el mouse está en el dropdown content
     dropdownContent.addEventListener('mouseenter', () => {
       clearTimeout(closeTimeout);
-    });
-    
-    // Cerrar cuando el mouse sale del botón
-    navItemDropdown.addEventListener('mouseleave', () => {
-      closeTimeout = setTimeout(() => {
-        dropdownMenu.classList.remove('active');
-      }, 100);
     });
     
     // Cerrar cuando el mouse sale del dropdown content
@@ -230,7 +232,7 @@
       dropdownMenu.classList.remove('active');
     });
 
-    // Dropdown de Seguridad
+    // Dropdown de Seguridad - SEPARADO del de Más Información
     const securityBtn = document.getElementById('securityBtn');
     const dropdownSecurityMenu = document.getElementById('dropdownSecurityMenu');
     const dropdownSecurityBackdrop = document.getElementById('dropdownSecurityBackdrop');
@@ -239,8 +241,11 @@
     
     let closeSecurityTimeout;
     
-    navSecurity.addEventListener('mouseenter', () => {
+    // Solo abrir dropdown de seguridad cuando el mouse entra específicamente en el elemento de seguridad
+    navSecurity.addEventListener('mouseenter', (e) => {
       clearTimeout(closeSecurityTimeout);
+      clearTimeout(closeTimeout); // Cerrar dropdown de Más Información si está abierto
+      dropdownMenu.classList.remove('active'); // Cerrar dropdown de Más Información
       dropdownSecurityMenu.classList.add('active');
     });
     
@@ -248,7 +253,7 @@
       clearTimeout(closeSecurityTimeout);
     });
     
-    navSecurity.addEventListener('mouseleave', () => {
+    navSecurity.addEventListener('mouseleave', (e) => {
       closeSecurityTimeout = setTimeout(() => {
         dropdownSecurityMenu.classList.remove('active');
       }, 100);
@@ -271,10 +276,15 @@
       });
     });
     
-    // Cerrar dropdown con tecla ESC
+    // Cerrar dropdowns con tecla ESC
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && dropdownMenu.classList.contains('active')) {
-        dropdownMenu.classList.remove('active');
+      if (e.key === 'Escape') {
+        if (dropdownMenu.classList.contains('active')) {
+          dropdownMenu.classList.remove('active');
+        }
+        if (dropdownSecurityMenu.classList.contains('active')) {
+          dropdownSecurityMenu.classList.remove('active');
+        }
       }
     });
   </script>

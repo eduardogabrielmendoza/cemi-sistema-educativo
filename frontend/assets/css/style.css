@@ -83,7 +83,7 @@ html {
   gap: 10px;
   transition: opacity 0.3s ease;
   flex-shrink: 0;
-  width: 150px;
+  min-width: 120px;
 }
 
 .logo:hover {
@@ -116,9 +116,8 @@ html {
 
 @media (min-width: 769px) {
   .nav-links {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    flex: 0 1 auto;
+    margin: 0 auto 0 20px;
   }
 }
 
@@ -141,7 +140,8 @@ html {
   align-items: center;
   justify-content: flex-end;
   flex-shrink: 0;
-  width: 350px;
+  min-width: 380px;
+  margin-left: auto;
 }
 
 .login-btn {
