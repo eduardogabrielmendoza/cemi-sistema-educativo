@@ -67,13 +67,13 @@ html {
 }
 
 .nav-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 12px 6%;
-  max-width: 1400px;
-  margin: 0 auto;
-  gap: 20px;
+  padding: 12px 3%;
+  max-width: 100%;
+  margin: 0;
+  gap: 40px;
   position: relative;
 }
 
@@ -83,7 +83,7 @@ html {
   gap: 10px;
   transition: opacity 0.3s ease;
   flex-shrink: 0;
-  min-width: 120px;
+  justify-self: start;
 }
 
 .logo:hover {
@@ -108,18 +108,13 @@ html {
   display: flex;
   list-style: none;
   gap: 32px;
-  flex: 1;
   justify-content: center;
   margin: 0;
   padding: 0;
+  justify-self: center;
 }
 
-@media (min-width: 769px) {
-  .nav-links {
-    flex: 0 1 auto;
-    margin: 0 auto 0 20px;
-  }
-}
+
 
 .nav-links a {
   color: var(--color-text);
@@ -140,8 +135,7 @@ html {
   align-items: center;
   justify-content: flex-end;
   flex-shrink: 0;
-  min-width: 380px;
-  margin-left: auto;
+  justify-self: end;
 }
 
 .login-btn {
