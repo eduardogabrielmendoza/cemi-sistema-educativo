@@ -68,12 +68,12 @@ html {
 
 .nav-container {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(auto, 250px) 1fr minmax(auto, 400px);
   align-items: center;
   padding: 12px 3%;
   max-width: 100%;
   margin: 0;
-  gap: 40px;
+  gap: 20px;
   position: relative;
 }
 
@@ -320,6 +320,22 @@ html {
 .dropdown-menu-security.active {
   visibility: visible;
   pointer-events: auto;
+}
+
+.dropdown-menu-security .dropdown-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-menu-security.active .dropdown-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 .dropdown-content-security {
