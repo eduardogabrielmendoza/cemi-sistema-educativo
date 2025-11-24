@@ -32,6 +32,79 @@ body {
   overflow: hidden;
 }
 
+/* Header con imagen de fondo y efecto blur */
+.security-header-blur {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+}
+
+.security-header-blur::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(2px);
+  transition: filter 0.4s ease;
+  z-index: 0;
+}
+
+.security-header-blur:hover::before {
+  filter: blur(6px);
+}
+
+/* Overlay oscuro sutil para legibilidad del texto */
+.security-header-blur::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.security-header-blur .security-header-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Imágenes específicas para cada página */
+.bg-password::before { background-image: url('../images/security-password.jpeg'); }
+.bg-2fa::before { background-image: url('../images/security-2fa.jpg'); }
+.bg-codes::before { background-image: url('../images/security-codes.jpg'); }
+.bg-privacy::before { background-image: url('../images/security-privacy.jpeg'); }
+.bg-data::before { background-image: url('../images/security-data.jpg'); }
+.bg-apps::before { background-image: url('../images/security-apps.jpg'); }
+.bg-delete::before { background-image: url('../images/security-delete.jpg'); }
+.bg-devices::before { background-image: url('../images/security-devices.jpeg'); }
+.bg-logout::before { background-image: url('../images/security-logout.jpeg'); }
+.bg-api::before { background-image: url('../images/security-api.jpg'); }
+.bg-logs::before { background-image: url('../images/security-logs.jpeg'); }
+
+/* Rutas para páginas en subcarpeta seguridad/ */
+.seguridad .bg-password::before { background-image: url('../../images/security-password.jpeg'); }
+.seguridad .bg-2fa::before { background-image: url('../../images/security-2fa.jpg'); }
+.seguridad .bg-codes::before { background-image: url('../../images/security-codes.jpg'); }
+.seguridad .bg-privacy::before { background-image: url('../../images/security-privacy.jpeg'); }
+.seguridad .bg-data::before { background-image: url('../../images/security-data.jpg'); }
+.seguridad .bg-apps::before { background-image: url('../../images/security-apps.jpg'); }
+.seguridad .bg-delete::before { background-image: url('../../images/security-delete.jpg'); }
+.seguridad .bg-devices::before { background-image: url('../../images/security-devices.jpeg'); }
+.seguridad .bg-logout::before { background-image: url('../../images/security-logout.jpeg'); }
+.seguridad .bg-api::before { background-image: url('../../images/security-api.jpg'); }
+.seguridad .bg-logs::before { background-image: url('../../images/security-logs.jpeg'); }
+
 .security-header::before {
   content: '';
   position: absolute;
