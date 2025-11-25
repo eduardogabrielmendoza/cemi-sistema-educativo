@@ -245,6 +245,44 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               </div>
               <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
             </button>
+            
+            <!-- Separador -->
+            <div style="
+              margin: 10px 0;
+              border-top: 2px dashed #e2e8f0;
+            "></div>
+            
+            <!-- Descargar Todo (ZIP) -->
+            <button onclick="generarTodosLosPDFs(${idAlumno})" class="doc-option-btn" style="
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              padding: 18px 20px;
+              background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+              border: 2px solid #1e40af;
+              border-radius: 14px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              text-align: left;
+            " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 4px 15px rgba(37, 99, 235, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+              <div style="
+                width: 50px;
+                height: 50px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              ">
+                <i data-lucide="archive" style="width: 24px; height: 24px; color: white;"></i>
+              </div>
+              <div style="flex: 1;">
+                <h4 style="margin: 0; color: white; font-size: 15px; font-weight: 600;">Descargar Todo (ZIP)</h4>
+                <p style="margin: 4px 0 0 0; color: rgba(255,255,255,0.8); font-size: 12px;">Paquete completo con los 4 documentos</p>
+              </div>
+              <i data-lucide="file-archive" style="width: 20px; height: 20px; color: rgba(255,255,255,0.8);"></i>
+            </button>
           </div>
           
           <div style="
@@ -839,7 +877,9 @@ async function generarEstadoCuenta(idAlumno) {
         doc.setFontSize(10);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(30, 60, 114);
-        doc.text(`${curso.nombre_curso} - ${curso.nombre_idioma}`, 25, yPos + 6);
+        const nombreCurso = curso.nombre_curso || 'Curso';
+        const nombreIdioma = curso.nombre_idioma || curso.idioma || '';
+        doc.text(`${nombreCurso}${nombreIdioma ? ' - ' + nombreIdioma : ''}`, 25, yPos + 6);
         
         yPos += 12;
         
@@ -1120,6 +1160,388 @@ async function generarFichaInscripcion(idAlumno) {
     console.error('Error al generar ficha:', error);
     showToast('Error al generar la ficha de inscripción', 'error');
   }
+}
+
+// 5. GENERAR TODOS LOS PDFs EN UN ZIP
+async function generarTodosLosPDFs(idAlumno) {
+  try {
+    closeDocumentosModal();
+    showToast('Generando paquete de documentos...', 'info');
+    
+    // Obtener datos del alumno
+    const response = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
+    if (!response.ok) throw new Error('Error al obtener datos del alumno');
+    const alumno = await response.json();
+    
+    // Obtener datos de pagos
+    const pagosResponse = await fetch(`${API_URL_DOCS}/pagos/alumno/${idAlumno}`);
+    let pagosData = { cursos: [] };
+    if (pagosResponse.ok) {
+      pagosData = await pagosResponse.json();
+    }
+    
+    const zip = new JSZip();
+    const { jsPDF } = window.jspdf;
+    
+    // Generar cada PDF
+    showToast('Generando Constancia de Alumno Regular...', 'info');
+    const pdfConstancia = await generarPDFConstancia(alumno);
+    zip.file(`01_Constancia_Alumno_Regular_${alumno.legajo}.pdf`, pdfConstancia);
+    
+    showToast('Generando Certificado de Calificaciones...', 'info');
+    const pdfCalificaciones = await generarPDFCalificaciones(alumno);
+    zip.file(`02_Certificado_Calificaciones_${alumno.legajo}.pdf`, pdfCalificaciones);
+    
+    showToast('Generando Estado de Cuenta...', 'info');
+    const pdfEstadoCuenta = await generarPDFEstadoCuenta(alumno, pagosData);
+    zip.file(`03_Estado_Cuenta_${alumno.legajo}.pdf`, pdfEstadoCuenta);
+    
+    showToast('Generando Ficha de Inscripción...', 'info');
+    const pdfFicha = await generarPDFFicha(alumno, pagosData);
+    zip.file(`04_Ficha_Inscripcion_${alumno.legajo}.pdf`, pdfFicha);
+    
+    // Generar y descargar ZIP
+    showToast('Comprimiendo archivos...', 'info');
+    const contenidoZip = await zip.generateAsync({ type: 'blob' });
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(contenidoZip);
+    link.download = `Documentos_${alumno.legajo}_${alumno.apellido}_${new Date().toISOString().split('T')[0]}.zip`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    
+    showToast('Paquete de documentos generado exitosamente', 'success');
+  } catch (error) {
+    console.error('Error al generar paquete:', error);
+    showToast('Error al generar el paquete de documentos', 'error');
+  }
+}
+
+// Funciones auxiliares para generar PDFs como blobs (para ZIP)
+async function generarPDFConstancia(alumno) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let yPos = agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
+  
+  const numConstancia = `CAR-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(4, '0')}`;
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 100, 100);
+  doc.text(`N° ${numConstancia}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 20;
+  
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(30, 30, 30);
+  const fecha = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  const texto = `Por medio de la presente, se deja constancia que ${alumno.nombre || ''} ${alumno.apellido || ''}, ` +
+    `DNI N° ${alumno.dni || 'No registrado'}, identificado/a con el legajo ${alumno.legajo || 'N/A'}, ` +
+    `se encuentra inscripto/a como ALUMNO REGULAR en el Centro de Enseñanza Multilingüe Internacional (CEMI).`;
+  
+  const lineas = doc.splitTextToSize(texto, pageWidth - 50);
+  doc.text(lineas, 25, yPos);
+  yPos += lineas.length * 7 + 15;
+  
+  const cursosActivos = alumno.cursos ? alumno.cursos.length : 0;
+  if (cursosActivos > 0) {
+    doc.text(`Actualmente cursa ${cursosActivos} ${cursosActivos === 1 ? 'programa' : 'programas'} académico${cursosActivos === 1 ? '' : 's'}:`, 25, yPos);
+    yPos += 10;
+    
+    alumno.cursos.forEach(curso => {
+      doc.setFillColor(240, 240, 240);
+      doc.rect(30, yPos - 4, pageWidth - 60, 8, 'F');
+      doc.text(`• ${curso.nombre_curso || 'Curso'} - Nivel ${curso.nivel || curso.id_nivel || 'N/A'}`, 35, yPos);
+      yPos += 10;
+    });
+  }
+  
+  yPos += 20;
+  doc.text(`Se extiende la presente constancia a pedido del interesado para los fines que estime corresponder.`, 25, yPos);
+  yPos += 20;
+  doc.text(`${alumno.localidad || 'San Miguel de Tucumán'}, ${fecha}`, 25, yPos);
+  
+  agregarFooterPDF(doc);
+  return doc.output('blob');
+}
+
+async function generarPDFCalificaciones(alumno) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let yPos = agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
+  
+  const numCertificado = `CC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(4, '0')}`;
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  doc.text(`N° ${numCertificado}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 15;
+  
+  doc.setFillColor(248, 250, 252);
+  doc.setDrawColor(200, 200, 200);
+  doc.roundedRect(20, yPos, pageWidth - 40, 25, 3, 3, 'FD');
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 60, 114);
+  doc.text('ALUMNO:', 25, yPos + 8);
+  doc.text('LEGAJO:', 25, yPos + 18);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(50, 50, 50);
+  doc.text(`${alumno.nombre || ''} ${alumno.apellido || ''}`, 50, yPos + 8);
+  doc.text(alumno.legajo || 'N/A', 50, yPos + 18);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 60, 114);
+  doc.text('DNI:', 110, yPos + 8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(50, 50, 50);
+  doc.text(alumno.dni || 'No registrado', 125, yPos + 8);
+  yPos += 35;
+  
+  if (alumno.calificaciones && alumno.calificaciones.length > 0) {
+    doc.setFillColor(30, 60, 114);
+    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text('Curso', 25, yPos + 6);
+    doc.text('Nota 1', 85, yPos + 6);
+    doc.text('Nota 2', 105, yPos + 6);
+    doc.text('Nota 3', 125, yPos + 6);
+    doc.text('Promedio', 150, yPos + 6);
+    doc.text('Estado', 175, yPos + 6);
+    yPos += 10;
+    
+    alumno.calificaciones.forEach((cal, index) => {
+      if (index % 2 === 0) {
+        doc.setFillColor(248, 250, 252);
+        doc.rect(20, yPos - 2, pageWidth - 40, 8, 'F');
+      }
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(50, 50, 50);
+      const nombreCurso = (cal.nombre_curso || 'Curso').length > 28 ? (cal.nombre_curso || 'Curso').substring(0, 25) + '...' : (cal.nombre_curso || 'Curso');
+      doc.text(nombreCurso, 25, yPos + 3);
+      doc.text(cal.nota1 !== null && cal.nota1 !== undefined ? String(cal.nota1) : '-', 90, yPos + 3, { align: 'center' });
+      doc.text(cal.nota2 !== null && cal.nota2 !== undefined ? String(cal.nota2) : '-', 110, yPos + 3, { align: 'center' });
+      doc.text(cal.nota3 !== null && cal.nota3 !== undefined ? String(cal.nota3) : '-', 130, yPos + 3, { align: 'center' });
+      
+      const promedio = cal.promedio || ((cal.nota1 || 0) + (cal.nota2 || 0) + (cal.nota3 || 0)) / 3;
+      doc.setFont('helvetica', 'bold');
+      doc.text(promedio ? promedio.toFixed(2) : '-', 155, yPos + 3, { align: 'center' });
+      
+      if (promedio >= 6) {
+        doc.setTextColor(16, 185, 129);
+        doc.text('Aprobado', 180, yPos + 3, { align: 'center' });
+      } else if (promedio > 0) {
+        doc.setTextColor(239, 68, 68);
+        doc.text('Regular', 180, yPos + 3, { align: 'center' });
+      } else {
+        doc.setTextColor(150, 150, 150);
+        doc.text('Cursando', 180, yPos + 3, { align: 'center' });
+      }
+      yPos += 8;
+    });
+  } else {
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text('No hay calificaciones registradas para este alumno.', pageWidth / 2, yPos + 10, { align: 'center' });
+  }
+  
+  agregarFooterPDF(doc);
+  return doc.output('blob');
+}
+
+async function generarPDFEstadoCuenta(alumno, pagosData) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let yPos = agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
+  
+  const numEstado = `EC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(5, '0')}`;
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  doc.text(`N° ${numEstado}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 15;
+  
+  doc.setFillColor(248, 250, 252);
+  doc.setDrawColor(200, 200, 200);
+  doc.roundedRect(20, yPos, pageWidth - 40, 20, 3, 3, 'FD');
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 60, 114);
+  doc.text('ALUMNO:', 25, yPos + 8);
+  doc.text('EMAIL:', 25, yPos + 15);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(50, 50, 50);
+  doc.text(`${alumno.nombre || ''} ${alumno.apellido || ''}`, 50, yPos + 8);
+  doc.text(alumno.mail || 'No registrado', 50, yPos + 15);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 60, 114);
+  doc.text('LEGAJO:', 130, yPos + 8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(50, 50, 50);
+  doc.text(alumno.legajo || 'N/A', 155, yPos + 8);
+  yPos += 30;
+  
+  let totalPagado = 0, totalPendiente = 0, cuotasPagadas = 0, cuotasPendientes = 0;
+  if (pagosData.cursos) {
+    pagosData.cursos.forEach(curso => {
+      if (curso.cuotas) {
+        curso.cuotas.forEach(cuota => {
+          if (cuota.pagado) {
+            totalPagado += cuota.monto || 15000;
+            cuotasPagadas++;
+          } else {
+            totalPendiente += cuota.monto || 15000;
+            cuotasPendientes++;
+          }
+        });
+      }
+    });
+  }
+  
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 60, 114);
+  doc.text('RESUMEN GENERAL', 20, yPos);
+  yPos += 8;
+  
+  doc.setFillColor(209, 250, 229);
+  doc.setDrawColor(16, 185, 129);
+  doc.roundedRect(20, yPos, 55, 28, 3, 3, 'FD');
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(5, 150, 105);
+  doc.text('TOTAL PAGADO', 47.5, yPos + 8, { align: 'center' });
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text(`$${totalPagado.toLocaleString('es-AR')}`, 47.5, yPos + 20, { align: 'center' });
+  
+  doc.setFillColor(254, 243, 199);
+  doc.setDrawColor(245, 158, 11);
+  doc.roundedRect(80, yPos, 55, 28, 3, 3, 'FD');
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(217, 119, 6);
+  doc.text('PENDIENTE', 107.5, yPos + 8, { align: 'center' });
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text(`$${totalPendiente.toLocaleString('es-AR')}`, 107.5, yPos + 20, { align: 'center' });
+  
+  doc.setFillColor(239, 246, 255);
+  doc.setDrawColor(59, 130, 246);
+  doc.roundedRect(140, yPos, 50, 28, 3, 3, 'FD');
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(37, 99, 235);
+  doc.text('CUOTAS', 165, yPos + 8, { align: 'center' });
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text(`${cuotasPagadas}/${cuotasPagadas + cuotasPendientes}`, 165, yPos + 20, { align: 'center' });
+  
+  yPos += 40;
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(100, 100, 100);
+  doc.text('* Los montos están expresados en pesos argentinos (ARS)', 20, yPos);
+  
+  agregarFooterPDF(doc);
+  return doc.output('blob');
+}
+
+async function generarPDFFicha(alumno, pagosData) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let yPos = agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Datos del Alumno');
+  
+  const numFicha = `FI-A${String(alumno.id_alumno).padStart(3, '0')}`;
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  doc.text(`N° ${numFicha}`, pageWidth - 20, yPos, { align: 'right' });
+  yPos += 15;
+  
+  doc.setFillColor(30, 60, 114);
+  doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('DATOS PERSONALES', 25, yPos + 6);
+  yPos += 14;
+  
+  const datosPersonales = [
+    { label: 'Nombre Completo', value: `${alumno.nombre || ''} ${alumno.apellido || ''}`.trim() || 'No registrado' },
+    { label: 'DNI', value: alumno.dni || 'No registrado' },
+    { label: 'Legajo', value: alumno.legajo || 'No asignado' },
+    { label: 'Email', value: alumno.mail || 'No registrado' },
+    { label: 'Teléfono', value: alumno.telefono || 'No registrado' },
+    { label: 'Fecha de Registro', value: alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES') : 'No registrada' },
+    { label: 'Estado', value: alumno.estado ? alumno.estado.charAt(0).toUpperCase() + alumno.estado.slice(1) : 'Activo' },
+    { label: 'Usuario', value: alumno.usuario || 'No asignado' }
+  ];
+  
+  doc.setFontSize(9);
+  let col = 0;
+  datosPersonales.forEach((dato) => {
+    const xBase = col === 0 ? 25 : 115;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text(`${dato.label}:`, xBase, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    const valorTruncado = dato.value.length > 35 ? dato.value.substring(0, 32) + '...' : dato.value;
+    doc.text(valorTruncado, xBase + 35, yPos);
+    col++;
+    if (col === 2) { col = 0; yPos += 8; }
+  });
+  if (col !== 0) yPos += 8;
+  yPos += 12;
+  
+  doc.setFillColor(30, 60, 114);
+  doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('CURSOS INSCRIPTOS', 25, yPos + 6);
+  yPos += 14;
+  
+  const cursosConProfesor = pagosData.cursos || [];
+  if (cursosConProfesor.length > 0 || (alumno.cursos && alumno.cursos.length > 0)) {
+    const cursos = cursosConProfesor.length > 0 ? cursosConProfesor : alumno.cursos;
+    doc.setFillColor(241, 245, 249);
+    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('Curso', 25, yPos + 6);
+    doc.text('Idioma', 75, yPos + 6);
+    doc.text('Nivel', 110, yPos + 6);
+    doc.text('Profesor', 135, yPos + 6);
+    yPos += 12;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    
+    cursos.forEach((curso, index) => {
+      if (index % 2 === 0) {
+        doc.setFillColor(248, 250, 252);
+        doc.rect(20, yPos - 3, pageWidth - 40, 8, 'F');
+      }
+      const nombreCurso = (curso.nombre_curso || 'Curso').length > 25 ? (curso.nombre_curso || 'Curso').substring(0, 22) + '...' : (curso.nombre_curso || 'Curso');
+      doc.text(nombreCurso, 25, yPos + 2);
+      doc.text(curso.nombre_idioma || curso.idioma || 'N/A', 75, yPos + 2);
+      doc.text(curso.nivel || (curso.id_nivel ? String(curso.id_nivel) : 'N/A'), 110, yPos + 2);
+      const profesor = (curso.profesor || 'No asignado').length > 20 ? (curso.profesor || 'No asignado').substring(0, 17) + '...' : (curso.profesor || 'No asignado');
+      doc.text(profesor, 135, yPos + 2);
+      yPos += 8;
+    });
+  } else {
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text('No hay cursos inscriptos actualmente.', pageWidth / 2, yPos, { align: 'center' });
+  }
+  
+  agregarFooterPDF(doc);
+  return doc.output('blob');
 }
 
 console.log('✅ Sistema de Documentos PDF cargado correctamente');
