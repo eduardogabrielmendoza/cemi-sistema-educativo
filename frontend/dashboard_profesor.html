@@ -1221,6 +1221,321 @@
           filterAyudaContent(query);
         });
       }
+      
+      // Modales de guía
+      document.querySelectorAll('.guia-item').forEach(item => {
+        item.addEventListener('click', () => {
+          openGuiaModal(item);
+        });
+      });
+    }
+
+    // Datos detallados para guías de profesor
+    const guiasDetalladas = {
+      'Navegación del Panel': {
+        descripcion: 'El menú lateral izquierdo es tu centro de control docente. Desde aquí accedes a todas las herramientas para gestionar tus cursos.',
+        pasos: [
+          { titulo: 'Localiza el menú lateral', desc: 'Está ubicado en el lado izquierdo de la pantalla.' },
+          { titulo: 'Explora las secciones', desc: 'Cada ícono representa una función docente diferente.' },
+          { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevará a la sección seleccionada.' },
+          { titulo: 'Observa los indicadores', desc: 'Los badges rojos indican acciones pendientes.' }
+        ],
+        tip: 'El menú se adapta a tu rol de profesor, mostrando solo las funciones que necesitas.'
+      },
+      'Entender tu Dashboard': {
+        descripcion: 'Tu dashboard muestra un resumen de tus cursos, alumnos y acciones pendientes.',
+        pasos: [
+          { titulo: 'Tarjetas de estadísticas', desc: 'Cursos activos, total de alumnos, clases hoy.' },
+          { titulo: 'Cursos destacados', desc: 'Acceso rápido a los cursos que impartes.' },
+          { titulo: 'Alertas pendientes', desc: 'Notas por cargar o tareas por revisar.' },
+          { titulo: 'Calendario resumido', desc: 'Vista rápida de tu agenda de clases.' }
+        ],
+        tip: 'Revisa tu dashboard al inicio de cada día para planificar mejor.'
+      },
+      'Ver Cursos Asignados': {
+        descripcion: 'Consulta todos los cursos donde eres profesor y su información.',
+        pasos: [
+          { titulo: 'Ve a Mis Cursos', desc: 'Desde el menú lateral.' },
+          { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra información básica.' },
+          { titulo: 'Consulta alumnos inscritos', desc: 'Número de estudiantes por curso.' },
+          { titulo: 'Accede a gestión', desc: 'Haz clic para administrar el curso.' }
+        ],
+        tip: 'Los colores de estado indican si hay acciones pendientes en cada curso.'
+      },
+      'Gestionar Cursos': {
+        descripcion: 'Administra cada curso: lista de alumnos, asistencia, calificaciones y materiales.',
+        pasos: [
+          { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta del curso.' },
+          { titulo: 'Accede a opciones', desc: 'Menú con todas las funciones disponibles.' },
+          { titulo: 'Administra contenido', desc: 'Sube materiales, crea tareas.' },
+          { titulo: 'Gestiona alumnos', desc: 'Lista, asistencia y calificaciones.' }
+        ],
+        tip: 'Cada acción que realices se refleja inmediatamente para los alumnos.'
+      },
+      'Horarios y Aulas': {
+        descripcion: 'Consulta dónde y cuándo impartes cada una de tus clases.',
+        pasos: [
+          { titulo: 'Revisa cada curso', desc: 'La información de horario está en la tarjeta.' },
+          { titulo: 'Día y hora', desc: 'Cuándo se imparte la clase.' },
+          { titulo: 'Aula asignada', desc: 'Ubicación física o virtual.' },
+          { titulo: 'Conflictos', desc: 'El sistema alerta si hay superposiciones.' }
+        ],
+        tip: 'Sincroniza tu calendario personal con los horarios del sistema.'
+      },
+      'Acceder a Listas': {
+        descripcion: 'Visualiza la lista completa de alumnos inscriptos en cada curso.',
+        pasos: [
+          { titulo: 'Selecciona el curso', desc: 'El que quieres consultar.' },
+          { titulo: 'Ve a Lista de Alumnos', desc: 'Opción en el menú del curso.' },
+          { titulo: 'Revisa inscriptos', desc: 'Nombre, legajo, foto de cada alumno.' },
+          { titulo: 'Exporta si necesitas', desc: 'Descarga la lista en PDF o Excel.' }
+        ],
+        tip: 'Imprime la lista al inicio del cuatrimestre para tener referencia física.'
+      },
+      'Buscar Alumnos': {
+        descripcion: 'Encuentra rápidamente a un alumno específico en tus cursos.',
+        pasos: [
+          { titulo: 'Usa el buscador', desc: 'Campo de búsqueda en la sección.' },
+          { titulo: 'Escribe nombre o legajo', desc: 'El sistema filtra mientras escribes.' },
+          { titulo: 'Revisa resultados', desc: 'Aparecen alumnos que coinciden.' },
+          { titulo: 'Accede al perfil', desc: 'Haz clic para ver más detalles.' }
+        ],
+        tip: 'El legajo es único, usarlo garantiza encontrar al alumno correcto.'
+      },
+      'Ver Información del Alumno': {
+        descripcion: 'Consulta datos de cada alumno: contacto, asistencia y rendimiento.',
+        pasos: [
+          { titulo: 'Selecciona al alumno', desc: 'Desde la lista de tu curso.' },
+          { titulo: 'Datos personales', desc: 'Nombre, email, teléfono de contacto.' },
+          { titulo: 'Historial de notas', desc: 'Todas sus calificaciones en tu curso.' },
+          { titulo: 'Asistencia', desc: 'Registro de presentes y ausentes.' }
+        ],
+        tip: 'Esta información te ayuda a hacer seguimiento personalizado.'
+      },
+      'Cargar Calificaciones': {
+        descripcion: 'Registra las notas de parciales y finales de tus alumnos.',
+        pasos: [
+          { titulo: 'Ve a Calificaciones', desc: 'Desde el menú del curso.' },
+          { titulo: 'Selecciona evaluación', desc: 'Parcial 1, Parcial 2 o Final.' },
+          { titulo: 'Ingresa las notas', desc: 'Campo numérico para cada alumno.' },
+          { titulo: 'Guarda los cambios', desc: 'Las notas quedan registradas.' }
+        ],
+        tip: 'Puedes editar notas después, pero queda registro del historial.'
+      },
+      'Modificar Notas': {
+        descripcion: 'Si cometiste un error, puedes corregir las calificaciones cargadas.',
+        pasos: [
+          { titulo: 'Localiza la nota', desc: 'En la grilla de calificaciones.' },
+          { titulo: 'Haz clic para editar', desc: 'El campo se vuelve editable.' },
+          { titulo: 'Ingresa valor correcto', desc: 'La nueva calificación.' },
+          { titulo: 'Confirma el cambio', desc: 'Guarda para aplicar la corrección.' }
+        ],
+        tip: 'Las modificaciones quedan registradas para auditoría.'
+      },
+      'Tipos de Evaluación': {
+        descripcion: 'Entiende cómo se estructuran las evaluaciones en el sistema.',
+        pasos: [
+          { titulo: 'Parcial 1', desc: 'Primera evaluación del período.' },
+          { titulo: 'Parcial 2', desc: 'Segunda evaluación del período.' },
+          { titulo: 'Final', desc: 'Evaluación de cierre del curso.' },
+          { titulo: 'Promedio', desc: 'Calculado automáticamente por el sistema.' }
+        ],
+        tip: 'El promedio se actualiza automáticamente al cargar cada nota.'
+      },
+      'Cálculo de Promedios': {
+        descripcion: 'El sistema calcula automáticamente el promedio de cada alumno.',
+        pasos: [
+          { titulo: 'Fórmula estándar', desc: 'Suma de notas dividido cantidad.' },
+          { titulo: 'Peso igual', desc: 'Todas las evaluaciones valen lo mismo.' },
+          { titulo: 'Actualización automática', desc: 'Al cargar cada nota nueva.' },
+          { titulo: 'Visualización', desc: 'El promedio aparece destacado.' }
+        ],
+        tip: 'El sistema redondea a 2 decimales para mayor precisión.'
+      },
+      'Tomar Asistencia': {
+        descripcion: 'Registra la asistencia de cada clase de forma rápida y sencilla.',
+        pasos: [
+          { titulo: 'Ve a Asistencia', desc: 'Desde el menú del curso.' },
+          { titulo: 'Selecciona la fecha', desc: 'El día de la clase.' },
+          { titulo: 'Marca cada alumno', desc: 'Presente, Ausente o Tardanza.' },
+          { titulo: 'Guarda el registro', desc: 'La asistencia queda guardada.' }
+        ],
+        tip: 'Puedes tomar asistencia desde tu celular durante la clase.'
+      },
+      'Historial de Asistencia': {
+        descripcion: 'Consulta el registro histórico de asistencia de cada alumno.',
+        pasos: [
+          { titulo: 'Selecciona el alumno', desc: 'O consulta por curso completo.' },
+          { titulo: 'Elige período', desc: 'Rango de fechas a consultar.' },
+          { titulo: 'Revisa el historial', desc: 'Calendario con todas las clases.' },
+          { titulo: 'Calcula porcentaje', desc: 'El sistema muestra el % de asistencia.' }
+        ],
+        tip: 'Un alumno necesita al menos 75% de asistencia para regularizar.'
+      },
+      'Acceder a Classroom': {
+        descripcion: 'Conecta con Google Classroom para gestionar materiales digitales.',
+        pasos: [
+          { titulo: 'Ve a Classroom', desc: 'Desde el menú lateral.' },
+          { titulo: 'Haz clic en acceder', desc: 'Serás redirigido a Google.' },
+          { titulo: 'Inicia sesión', desc: 'Con tu cuenta institucional de Google.' },
+          { titulo: 'Gestiona tus clases', desc: 'Crea, edita y administra contenido.' }
+        ],
+        tip: 'Vincula tu cuenta institucional para mejor integración.'
+      },
+      'Subir Materiales': {
+        descripcion: 'Comparte documentos, videos y recursos con tus alumnos.',
+        pasos: [
+          { titulo: 'Ingresa a Classroom', desc: 'Con tu cuenta docente.' },
+          { titulo: 'Selecciona la clase', desc: 'El curso donde subirás material.' },
+          { titulo: 'Ve a Materiales', desc: 'Sección para recursos de estudio.' },
+          { titulo: 'Sube archivos', desc: 'PDFs, videos, links, presentaciones.' }
+        ],
+        tip: 'Organiza los materiales por tema o unidad para facilitar el estudio.'
+      },
+      'Cambiar Avatar': {
+        descripcion: 'Personaliza tu perfil docente con tu foto.',
+        pasos: [
+          { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
+          { titulo: 'Haz clic en tu avatar', desc: 'El círculo con tu imagen.' },
+          { titulo: 'Selecciona foto', desc: 'Elige una imagen profesional.' },
+          { titulo: 'Confirma el cambio', desc: 'Tu foto se actualiza.' }
+        ],
+        tip: 'Una foto profesional ayuda a los alumnos a identificarte.'
+      },
+      'Actualizar Datos Personales': {
+        descripcion: 'Mantén tu información de contacto actualizada.',
+        pasos: [
+          { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
+          { titulo: 'Haz clic en editar', desc: 'Botón para modificar datos.' },
+          { titulo: 'Actualiza información', desc: 'Teléfono, email de contacto.' },
+          { titulo: 'Guarda cambios', desc: 'Confirma las modificaciones.' }
+        ],
+        tip: 'Tu email debe ser válido para recibir notificaciones importantes.'
+      },
+      'Contactar Soporte': {
+        descripcion: 'Comunícate con el equipo técnico para resolver problemas.',
+        pasos: [
+          { titulo: 'Ve a Chat Soporte', desc: 'Desde el menú lateral.' },
+          { titulo: 'Describe el problema', desc: 'Con el mayor detalle posible.' },
+          { titulo: 'Envía el mensaje', desc: 'El equipo recibirá tu consulta.' },
+          { titulo: 'Espera respuesta', desc: 'Te notificarán cuando respondan.' }
+        ],
+        tip: 'Incluye capturas de pantalla si el problema es visual.'
+      },
+      '¿Olvidé mi contraseña?': {
+        descripcion: 'Recupera el acceso a tu cuenta docente.',
+        pasos: [
+          { titulo: 'No te preocupes', desc: 'Tiene solución.' },
+          { titulo: 'Contacta administración', desc: 'Por email o presencialmente.' },
+          { titulo: 'Verifica identidad', desc: 'Con tu DNI o credencial.' },
+          { titulo: 'Recibe nueva contraseña', desc: 'Temporal para cambiar después.' }
+        ],
+        tip: 'Usa un gestor de contraseñas seguro para evitar olvidarlas.'
+      },
+      '¿No puedo cargar notas?': {
+        descripcion: 'Soluciona problemas al intentar registrar calificaciones.',
+        pasos: [
+          { titulo: 'Verifica el navegador', desc: 'Chrome o Firefox actualizados.' },
+          { titulo: 'Revisa conexión', desc: 'Asegúrate de tener internet.' },
+          { titulo: 'Verifica permisos', desc: 'Debes ser profesor del curso.' },
+          { titulo: 'Contacta soporte', desc: 'Si el problema persiste.' }
+        ],
+        tip: 'Prueba cerrar sesión y volver a entrar antes de reportar.'
+      },
+      '¿Encontré un error en el sistema?': {
+        descripcion: 'Reporta errores para que el equipo técnico pueda solucionarlos.',
+        pasos: [
+          { titulo: 'Documenta el error', desc: 'Anota qué estabas haciendo.' },
+          { titulo: 'Captura pantalla', desc: 'Si es posible, toma una imagen.' },
+          { titulo: 'Anota los pasos', desc: 'Para reproducir el problema.' },
+          { titulo: 'Reporta por chat', desc: 'Envía toda la información.' }
+        ],
+        tip: 'Cuanto más detallada sea la descripción, más rápido se soluciona.'
+      }
+    };
+
+    function openGuiaModal(item) {
+      const title = item.querySelector('h4')?.textContent || 'Guía';
+      const description = item.querySelector('p')?.textContent || '';
+      const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
+      const tags = item.querySelectorAll('.guia-tag');
+      
+      const datos = guiasDetalladas[title] || {
+        descripcion: description,
+        pasos: [
+          { titulo: 'Paso 1', desc: 'Sigue las instrucciones en pantalla.' },
+          { titulo: 'Paso 2', desc: 'Completa la información requerida.' },
+          { titulo: 'Paso 3', desc: 'Confirma los cambios realizados.' },
+          { titulo: 'Paso 4', desc: 'Verifica que todo esté correcto.' }
+        ],
+        tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
+      };
+      
+      let tagsHTML = '';
+      tags.forEach(tag => {
+        tagsHTML += `<span class="guia-tag">${tag.textContent}</span>`;
+      });
+      
+      const modalHTML = `
+        <div class="guia-modal-overlay active" onclick="closeGuiaModal(event)">
+          <div class="guia-modal" onclick="event.stopPropagation()">
+            <div class="guia-modal-header">
+              <button class="guia-modal-close" onclick="closeGuiaModal()">
+                <i data-lucide="x"></i>
+              </button>
+              <div class="guia-modal-icon">${iconHTML}</div>
+              <h3>${title}</h3>
+              <p>${datos.descripcion}</p>
+            </div>
+            <div class="guia-modal-body">
+              <div class="guia-modal-section">
+                <h4><i data-lucide="list-ordered"></i> Pasos a seguir</h4>
+                <ul class="guia-modal-steps">
+                  ${datos.pasos.map((paso, i) => `
+                    <li>
+                      <span class="step-number">${i + 1}</span>
+                      <div class="step-content">
+                        <strong>${paso.titulo}</strong>
+                        <span>${paso.desc}</span>
+                      </div>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+              <div class="guia-modal-section">
+                <div class="guia-modal-tip">
+                  <i data-lucide="lightbulb"></i>
+                  <p><strong>Tip:</strong> ${datos.tip}</p>
+                </div>
+              </div>
+            </div>
+            <div class="guia-modal-footer">
+              <div class="guia-modal-tags">${tagsHTML}</div>
+              <button class="guia-modal-action" onclick="closeGuiaModal()">
+                <i data-lucide="check"></i> Entendido
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      lucide.createIcons();
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    function handleEscapeKey(e) {
+      if (e.key === 'Escape') closeGuiaModal();
+    }
+
+    function closeGuiaModal(event) {
+      if (event && event.target !== event.currentTarget) return;
+      const overlay = document.querySelector('.guia-modal-overlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+        setTimeout(() => overlay.remove(), 300);
+      }
+      document.removeEventListener('keydown', handleEscapeKey);
     }
 
     function filterAyudaContent(query) {

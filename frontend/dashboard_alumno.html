@@ -1526,6 +1526,361 @@
         filterAyudaContent(query);
       });
     }
+    
+    // Modales de guía
+    document.querySelectorAll('.guia-item').forEach(item => {
+      item.addEventListener('click', () => {
+        openGuiaModal(item);
+      });
+    });
+  }
+
+  // Datos detallados para guías de alumno
+  const guiasDetalladas = {
+    'Navegación del Panel': {
+      descripcion: 'El menú lateral izquierdo es tu centro de control. Desde aquí accedes a todas las secciones del sistema.',
+      pasos: [
+        { titulo: 'Localiza el menú lateral', desc: 'Está ubicado en el lado izquierdo de la pantalla.' },
+        { titulo: 'Explora las secciones', desc: 'Cada ícono representa una sección diferente.' },
+        { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevará a la sección seleccionada.' },
+        { titulo: 'Observa los indicadores', desc: 'Los badges rojos indican notificaciones pendientes.' }
+      ],
+      tip: 'En dispositivos móviles, el menú se oculta automáticamente. Usa el ícono de menú para desplegarlo.'
+    },
+    'Entender tu Dashboard': {
+      descripcion: 'Tu dashboard es tu centro de información. Aquí ves un resumen de todo lo importante de un vistazo.',
+      pasos: [
+        { titulo: 'Tarjetas de estadísticas', desc: 'Muestran cursos activos, promedio y progreso.' },
+        { titulo: 'Cursos destacados', desc: 'Acceso rápido a tus cursos principales.' },
+        { titulo: 'Notificaciones', desc: 'Alertas sobre pagos, notas o mensajes.' },
+        { titulo: 'Accesos directos', desc: 'Botones para las funciones más usadas.' }
+      ],
+      tip: 'Revisa tu dashboard al inicio de cada sesión para estar al día.'
+    },
+    'Ver Cursos Inscritos': {
+      descripcion: 'Consulta todos los cursos donde estás matriculado y su información detallada.',
+      pasos: [
+        { titulo: 'Ve a Mis Cursos', desc: 'Desde el menú lateral.' },
+        { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su información básica.' },
+        { titulo: 'Consulta el progreso', desc: 'La barra indica tu avance en el curso.' },
+        { titulo: 'Accede a detalles', desc: 'Haz clic para ver más información.' }
+      ],
+      tip: 'El color de la barra de progreso indica tu estado: verde es bueno, amarillo es alerta.'
+    },
+    'Detalles de un Curso': {
+      descripcion: 'Accede a toda la información de un curso: profesor, horario, aula y tus calificaciones.',
+      pasos: [
+        { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta del curso.' },
+        { titulo: 'Ve la información', desc: 'Horario, aula, profesor asignado.' },
+        { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aquí.' },
+        { titulo: 'Revisa tu asistencia', desc: 'Historial de asistencias del curso.' }
+      ],
+      tip: 'Guarda el horario en tu calendario personal para no olvidar las clases.'
+    },
+    'Entender el Progreso': {
+      descripcion: 'La barra de progreso refleja tu rendimiento académico basado en tus calificaciones.',
+      pasos: [
+        { titulo: 'Verde (7-10)', desc: 'Excelente rendimiento, vas por buen camino.' },
+        { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podrías mejorar.' },
+        { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atención, considera refuerzo.' },
+        { titulo: 'Promedio general', desc: 'Se calcula con todas tus notas.' }
+      ],
+      tip: 'Habla con tu profesor si ves rojo, hay tiempo para mejorar.'
+    },
+    'Catálogo de Cursos': {
+      descripcion: 'Explora todos los cursos disponibles en el instituto para futuras inscripciones.',
+      pasos: [
+        { titulo: 'Ve a Cursado', desc: 'Desde el menú lateral.' },
+        { titulo: 'Navega el catálogo', desc: 'Todos los cursos disponibles aparecen aquí.' },
+        { titulo: 'Usa filtros', desc: 'Por idioma, nivel o disponibilidad.' },
+        { titulo: 'Revisa la info', desc: 'Cada tarjeta muestra horario y cupos.' }
+      ],
+      tip: 'Los cursos con pocos cupos se llenan rápido, solicita inscripción a tiempo.'
+    },
+    'Solicitar Inscripción': {
+      descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisará tu solicitud.',
+      pasos: [
+        { titulo: 'Encuentra el curso', desc: 'Navega el catálogo de cursos.' },
+        { titulo: 'Verifica requisitos', desc: 'Algunos cursos requieren nivel previo.' },
+        { titulo: 'Haz clic en inscribir', desc: 'Botón "Solicitar Inscripción".' },
+        { titulo: 'Espera confirmación', desc: 'Recibirás respuesta por el sistema.' }
+      ],
+      tip: 'Asegúrate de no tener conflictos de horario con tus cursos actuales.'
+    },
+    'Verificar Disponibilidad': {
+      descripcion: 'Cada curso tiene un cupo máximo. Verifica si hay lugar antes de solicitar inscripción.',
+      pasos: [
+        { titulo: 'Busca el indicador', desc: 'Cada curso muestra cupos disponibles.' },
+        { titulo: 'Interpreta los colores', desc: 'Verde hay lugar, rojo lleno.' },
+        { titulo: 'Consulta alternativas', desc: 'Si está lleno, busca otros horarios.' },
+        { titulo: 'Contacta soporte', desc: 'Para listas de espera o excepciones.' }
+      ],
+      tip: 'A inicio de cuatrimestre hay más movimiento, los cupos pueden liberarse.'
+    },
+    'Ver Calificaciones': {
+      descripcion: 'Consulta tus notas de parciales y finales de cada curso.',
+      pasos: [
+        { titulo: 'Ve a Calificaciones', desc: 'Desde el menú lateral.' },
+        { titulo: 'Selecciona el curso', desc: 'Si tienes varios, elige uno.' },
+        { titulo: 'Revisa tus notas', desc: 'Parcial 1, Parcial 2, Final.' },
+        { titulo: 'Consulta el promedio', desc: 'Se calcula automáticamente.' }
+      ],
+      tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos días.'
+    },
+    'Entender Promedios': {
+      descripcion: 'El promedio se calcula automáticamente basado en tus calificaciones registradas.',
+      pasos: [
+        { titulo: 'Promedio por curso', desc: 'Suma de notas dividido cantidad de evaluaciones.' },
+        { titulo: 'Promedio general', desc: 'Incluye todos tus cursos activos.' },
+        { titulo: 'Peso de evaluaciones', desc: 'Todas las evaluaciones valen igual.' },
+        { titulo: 'Actualización', desc: 'Se recalcula con cada nueva nota.' }
+      ],
+      tip: 'El promedio general es importante para becas y certificados.'
+    },
+    'Historial Académico': {
+      descripcion: 'Tu historial muestra toda tu trayectoria académica en el instituto.',
+      pasos: [
+        { titulo: 'Accede al historial', desc: 'Desde la sección Calificaciones.' },
+        { titulo: 'Revisa cursos pasados', desc: 'Todos tus cursos completados.' },
+        { titulo: 'Consulta notas finales', desc: 'Cada curso muestra nota de cierre.' },
+        { titulo: 'Solicita certificados', desc: 'Contacta administración si necesitas.' }
+      ],
+      tip: 'El historial es tu carta de presentación académica, cuídalo.'
+    },
+    'Ver Estado de Pagos': {
+      descripcion: 'Consulta el estado de tus cuotas: pagadas, pendientes o vencidas.',
+      pasos: [
+        { titulo: 'Ve a Mis Pagos', desc: 'Desde el menú lateral.' },
+        { titulo: 'Revisa la lista', desc: 'Cada cuota aparece con su estado.' },
+        { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo según urgencia.' },
+        { titulo: 'Consulta vencimientos', desc: 'Fechas límite de cada cuota.' }
+      ],
+      tip: 'Mantén tus pagos al día para evitar recargos e inconvenientes.'
+    },
+    'Realizar un Pago': {
+      descripcion: 'Paga tus cuotas de forma simple eligiendo el método que prefieras.',
+      pasos: [
+        { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
+        { titulo: 'Elige método de pago', desc: 'Mercado Pago o Efectivo.' },
+        { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones según método.' },
+        { titulo: 'Guarda el comprobante', desc: 'Siempre conserva tu recibo.' }
+      ],
+      tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretaría.'
+    },
+    'Pago en Efectivo': {
+      descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretaría.',
+      pasos: [
+        { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
+        { titulo: 'Elige "Efectivo"', desc: 'Como método de pago.' },
+        { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con código único.' },
+        { titulo: 'Presenta en secretaría', desc: 'Paga en efectivo y entrégalo.' }
+      ],
+      tip: 'El ticket tiene fecha de vencimiento, preséntalo a tiempo.'
+    },
+    'Pago con Mercado Pago': {
+      descripcion: 'Paga online con tarjeta o dinero en cuenta de Mercado Pago.',
+      pasos: [
+        { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
+        { titulo: 'Elige "Mercado Pago"', desc: 'Como método de pago.' },
+        { titulo: 'Serás redirigido', desc: 'A la página segura de MP.' },
+        { titulo: 'Completa el pago', desc: 'Con tarjeta o dinero en cuenta.' }
+      ],
+      tip: 'Asegúrate de tener fondos o tarjeta habilitada antes de iniciar.'
+    },
+    'Descargar Comprobantes': {
+      descripcion: 'Descarga tickets y comprobantes de tus pagos para tu registro.',
+      pasos: [
+        { titulo: 'Ve a Mis Pagos', desc: 'Desde el menú lateral.' },
+        { titulo: 'Busca el pago', desc: 'Localiza el pago del que necesitas comprobante.' },
+        { titulo: 'Haz clic en descargar', desc: 'Ícono de descarga junto al pago.' },
+        { titulo: 'Guarda el archivo', desc: 'Se descarga un PDF.' }
+      ],
+      tip: 'Guarda todos tus comprobantes en una carpeta organizada por fecha.'
+    },
+    'Cambiar Avatar': {
+      descripcion: 'Personaliza tu perfil subiendo una foto o imagen.',
+      pasos: [
+        { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
+        { titulo: 'Haz clic en tu avatar', desc: 'El círculo con tu imagen actual.' },
+        { titulo: 'Selecciona archivo', desc: 'Elige una imagen de tu dispositivo.' },
+        { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza automáticamente.' }
+      ],
+      tip: 'Usa una foto clara de tu rostro para fácil identificación.'
+    },
+    'Actualizar Datos Personales': {
+      descripcion: 'Mantén tu información de contacto actualizada para comunicaciones importantes.',
+      pasos: [
+        { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
+        { titulo: 'Haz clic en editar', desc: 'Botón para modificar datos.' },
+        { titulo: 'Actualiza la información', desc: 'Teléfono, email de contacto.' },
+        { titulo: 'Guarda los cambios', desc: 'Confirma las modificaciones.' }
+      ],
+      tip: 'Datos como DNI y legajo solo los puede modificar administración.'
+    },
+    'Acceder a Classroom': {
+      descripcion: 'Conecta con Google Classroom para acceder a materiales de estudio.',
+      pasos: [
+        { titulo: 'Ve a Classroom', desc: 'Desde el menú lateral.' },
+        { titulo: 'Haz clic en acceder', desc: 'Serás redirigido a Google.' },
+        { titulo: 'Inicia sesión', desc: 'Con tu cuenta de Google.' },
+        { titulo: 'Explora los cursos', desc: 'Verás los cursos donde estás inscrito.' }
+      ],
+      tip: 'Usa la misma cuenta de Google siempre para no perder acceso.'
+    },
+    'Acceder a Materiales': {
+      descripcion: 'Descarga materiales de estudio compartidos por tus profesores.',
+      pasos: [
+        { titulo: 'Ingresa a Classroom', desc: 'Conecta con tu cuenta Google.' },
+        { titulo: 'Selecciona el curso', desc: 'El que te interesa revisar.' },
+        { titulo: 'Busca Materiales', desc: 'Sección de recursos del curso.' },
+        { titulo: 'Descarga lo que necesites', desc: 'PDFs, documentos, presentaciones.' }
+      ],
+      tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexión.'
+    },
+    'Contactar Administración': {
+      descripcion: 'Usa el chat de soporte para comunicarte directamente con el equipo administrativo.',
+      pasos: [
+        { titulo: 'Ve a Chat Soporte', desc: 'Desde el menú lateral.' },
+        { titulo: 'Escribe tu mensaje', desc: 'Describe tu consulta o problema.' },
+        { titulo: 'Envía el mensaje', desc: 'Presiona Enter o el botón enviar.' },
+        { titulo: 'Espera respuesta', desc: 'Te notificarán cuando respondan.' }
+      ],
+      tip: 'Sé claro y específico en tu consulta para recibir mejor ayuda.'
+    },
+    'Notificaciones de Chat': {
+      descripcion: 'Recibe alertas cuando el equipo de soporte responda a tus consultas.',
+      pasos: [
+        { titulo: 'Observa el badge', desc: 'Número rojo en Chat Soporte.' },
+        { titulo: 'Habilita notificaciones', desc: 'Acepta cuando el navegador pregunte.' },
+        { titulo: 'Recibirás alertas', desc: 'Incluso con la pestaña cerrada.' },
+        { titulo: 'Revisa mensajes nuevos', desc: 'Haz clic para ver respuestas.' }
+      ],
+      tip: 'Las notificaciones funcionan mejor si mantienes sesión activa.'
+    },
+    '¿Olvidé mi contraseña?': {
+      descripcion: 'Si olvidaste tu contraseña, hay formas de recuperar el acceso a tu cuenta.',
+      pasos: [
+        { titulo: 'No te preocupes', desc: 'Es un problema común con solución.' },
+        { titulo: 'Contacta administración', desc: 'Vía email o presencialmente.' },
+        { titulo: 'Verifica tu identidad', desc: 'Con DNI o datos personales.' },
+        { titulo: 'Recibe nueva contraseña', desc: 'Te darán una temporal para cambiar.' }
+      ],
+      tip: 'Usa un gestor de contraseñas para no olvidarlas en el futuro.'
+    },
+    '¿Mis datos están incorrectos?': {
+      descripcion: 'Si encuentras errores en tu información personal, puedes solicitar corrección.',
+      pasos: [
+        { titulo: 'Identifica el error', desc: 'Qué dato específico está mal.' },
+        { titulo: 'Contacta administración', desc: 'Por chat o presencialmente.' },
+        { titulo: 'Proporciona información correcta', desc: 'Y documentación si es necesario.' },
+        { titulo: 'Espera la corrección', desc: 'Los cambios se reflejan pronto.' }
+      ],
+      tip: 'DNI y legajo requieren documentación para modificarse.'
+    },
+    '¿Cómo me doy de baja de un curso?': {
+      descripcion: 'Si necesitas abandonar un curso, debes solicitar la baja formalmente.',
+      pasos: [
+        { titulo: 'Evalúa tu decisión', desc: 'La baja puede afectar tu historial.' },
+        { titulo: 'Contacta administración', desc: 'Explica tu situación.' },
+        { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmación.' },
+        { titulo: 'Verifica la baja', desc: 'El curso desaparecerá de tu lista.' }
+      ],
+      tip: 'Consulta sobre períodos de baja sin penalización antes de decidir.'
+    },
+    '¿Encontré un error en el sistema?': {
+      descripcion: 'Los errores deben reportarse para que el equipo técnico pueda solucionarlos.',
+      pasos: [
+        { titulo: 'Documenta el error', desc: 'Anota qué estabas haciendo.' },
+        { titulo: 'Captura pantalla', desc: 'Si es posible, toma una captura.' },
+        { titulo: 'Anota los pasos', desc: 'Describe cómo reproducir el problema.' },
+        { titulo: 'Reporta por chat', desc: 'Envía la información a soporte.' }
+      ],
+      tip: 'Cuanto más detallada sea tu descripción, más rápido podremos solucionarlo.'
+    }
+  };
+
+  function openGuiaModal(item) {
+    const title = item.querySelector('h4')?.textContent || 'Guía';
+    const description = item.querySelector('p')?.textContent || '';
+    const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
+    const tags = item.querySelectorAll('.guia-tag');
+    
+    const datos = guiasDetalladas[title] || {
+      descripcion: description,
+      pasos: [
+        { titulo: 'Paso 1', desc: 'Sigue las instrucciones en pantalla.' },
+        { titulo: 'Paso 2', desc: 'Completa la información requerida.' },
+        { titulo: 'Paso 3', desc: 'Confirma los cambios realizados.' },
+        { titulo: 'Paso 4', desc: 'Verifica que todo esté correcto.' }
+      ],
+      tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
+    };
+    
+    let tagsHTML = '';
+    tags.forEach(tag => {
+      tagsHTML += `<span class="guia-tag">${tag.textContent}</span>`;
+    });
+    
+    const modalHTML = `
+      <div class="guia-modal-overlay active" onclick="closeGuiaModal(event)">
+        <div class="guia-modal" onclick="event.stopPropagation()">
+          <div class="guia-modal-header">
+            <button class="guia-modal-close" onclick="closeGuiaModal()">
+              <i data-lucide="x"></i>
+            </button>
+            <div class="guia-modal-icon">${iconHTML}</div>
+            <h3>${title}</h3>
+            <p>${datos.descripcion}</p>
+          </div>
+          <div class="guia-modal-body">
+            <div class="guia-modal-section">
+              <h4><i data-lucide="list-ordered"></i> Pasos a seguir</h4>
+              <ul class="guia-modal-steps">
+                ${datos.pasos.map((paso, i) => `
+                  <li>
+                    <span class="step-number">${i + 1}</span>
+                    <div class="step-content">
+                      <strong>${paso.titulo}</strong>
+                      <span>${paso.desc}</span>
+                    </div>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+            <div class="guia-modal-section">
+              <div class="guia-modal-tip">
+                <i data-lucide="lightbulb"></i>
+                <p><strong>Tip:</strong> ${datos.tip}</p>
+              </div>
+            </div>
+          </div>
+          <div class="guia-modal-footer">
+            <div class="guia-modal-tags">${tagsHTML}</div>
+            <button class="guia-modal-action" onclick="closeGuiaModal()">
+              <i data-lucide="check"></i> Entendido
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    lucide.createIcons();
+    document.addEventListener('keydown', handleEscapeKey);
+  }
+
+  function handleEscapeKey(e) {
+    if (e.key === 'Escape') closeGuiaModal();
+  }
+
+  function closeGuiaModal(event) {
+    if (event && event.target !== event.currentTarget) return;
+    const overlay = document.querySelector('.guia-modal-overlay');
+    if (overlay) {
+      overlay.classList.remove('active');
+      setTimeout(() => overlay.remove(), 300);
+    }
+    document.removeEventListener('keydown', handleEscapeKey);
   }
 
   function filterAyudaContent(query) {

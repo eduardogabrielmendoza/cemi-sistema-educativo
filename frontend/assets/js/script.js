@@ -822,6 +822,812 @@ function initAyudaInteractivity() {
       filterAyudaContent(query);
     });
   }
+
+  // Modales de guía - hacer clic en cada guia-item
+  document.querySelectorAll('.guia-item').forEach(item => {
+    item.addEventListener('click', () => {
+      openGuiaModal(item);
+    });
+  });
+}
+
+// Datos detallados para cada guía
+const guiasDetalladas = {
+  // Navegación del Panel
+  'Navegación del Panel': {
+    descripcion: 'El menú lateral izquierdo es tu centro de control. Desde aquí puedes acceder a todas las funcionalidades del sistema de manera organizada y eficiente.',
+    pasos: [
+      { titulo: 'Localiza el menú lateral', desc: 'El menú está ubicado en el lado izquierdo de la pantalla, siempre visible.' },
+      { titulo: 'Explora las secciones', desc: 'Cada ícono representa una sección diferente del sistema.' },
+      { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevará a la sección seleccionada.' },
+      { titulo: 'Observa los indicadores', desc: 'Los badges rojos indican notificaciones pendientes.' }
+    ],
+    tip: 'En dispositivos móviles, el menú se oculta automáticamente. Usa el ícono de menú para desplegarlo.'
+  },
+  // Funciones del Administrador
+  'Funciones del Administrador': {
+    descripcion: 'Como administrador tienes acceso completo a todas las funciones del sistema. Tu rol es fundamental para mantener la operación del instituto.',
+    pasos: [
+      { titulo: 'Gestión de Cursos', desc: 'Crear, editar, eliminar cursos y asignar profesores.' },
+      { titulo: 'Gestión de Usuarios', desc: 'Registrar alumnos, profesores y otros administradores.' },
+      { titulo: 'Control Financiero', desc: 'Supervisar pagos, confirmar efectivo y generar reportes.' },
+      { titulo: 'Soporte', desc: 'Responder consultas de usuarios a través del chat.' }
+    ],
+    tip: 'Realiza respaldos periódicos de información importante exportando PDFs de las listas de usuarios.'
+  },
+  // Crear Nuevo Curso
+  'Crear Nuevo Curso': {
+    descripcion: 'El proceso de creación de cursos es simple y te permite configurar todos los aspectos necesarios para que el curso funcione correctamente.',
+    pasos: [
+      { titulo: 'Haz clic en "Nuevo Curso"', desc: 'El botón está en la esquina superior derecha de la sección Cursos.' },
+      { titulo: 'Completa el formulario', desc: 'Nombre, idioma, nivel, días, horario y cupo máximo.' },
+      { titulo: 'Selecciona el aula', desc: 'Elige un aula disponible de la lista.' },
+      { titulo: 'Guarda los cambios', desc: 'El curso aparecerá en la lista inmediatamente.' }
+    ],
+    tip: 'Puedes asignar un profesor después de crear el curso usando el botón de asignación.'
+  },
+  // Editar Curso
+  'Editar Curso': {
+    descripcion: 'Modifica cualquier aspecto de un curso existente sin afectar a los alumnos ya inscritos.',
+    pasos: [
+      { titulo: 'Localiza el curso', desc: 'Usa el buscador o navega por las tarjetas de cursos.' },
+      { titulo: 'Haz clic en editar', desc: 'Es el ícono de lápiz en la tarjeta del curso.' },
+      { titulo: 'Modifica los campos', desc: 'Cambia los valores que necesites actualizar.' },
+      { titulo: 'Confirma los cambios', desc: 'Haz clic en Guardar para aplicar las modificaciones.' }
+    ],
+    tip: 'Los cambios de horario se reflejan inmediatamente en los dashboards de profesores y alumnos.'
+  },
+  // Eliminar Curso
+  'Eliminar Curso': {
+    descripcion: 'Elimina cursos que ya no se dictan. Esta acción requiere confirmación para evitar eliminaciones accidentales.',
+    pasos: [
+      { titulo: 'Localiza el curso', desc: 'Encuentra el curso que deseas eliminar.' },
+      { titulo: 'Verifica que no tenga alumnos', desc: 'Un curso con alumnos no puede eliminarse directamente.' },
+      { titulo: 'Haz clic en eliminar', desc: 'Es el ícono de papelera en la tarjeta.' },
+      { titulo: 'Confirma la acción', desc: 'Acepta el diálogo de confirmación.' }
+    ],
+    tip: 'Si necesitas eliminar un curso con alumnos, primero transfiere o desvincula a los estudiantes.'
+  },
+  // Asignar Profesor
+  'Asignar Profesor': {
+    descripcion: 'Vincula un profesor a un curso para que pueda gestionar calificaciones y asistencias de ese curso.',
+    pasos: [
+      { titulo: 'Abre la tarjeta del curso', desc: 'Haz clic en el curso al que quieres asignar profesor.' },
+      { titulo: 'Busca el botón de asignación', desc: 'Es el ícono verde con silueta de usuario.' },
+      { titulo: 'Selecciona el profesor', desc: 'Elige de la lista de profesores disponibles.' },
+      { titulo: 'Confirma la asignación', desc: 'El profesor ya podrá ver este curso en su panel.' }
+    ],
+    tip: 'Un profesor puede tener múltiples cursos asignados. Verifica su carga horaria antes de asignar.'
+  },
+  // Ver Detalles del Curso
+  'Ver Detalles del Curso': {
+    descripcion: 'Accede a toda la información del curso incluyendo lista de alumnos, calificaciones y estadísticas.',
+    pasos: [
+      { titulo: 'Haz clic en la tarjeta', desc: 'Cualquier parte de la tarjeta abre los detalles.' },
+      { titulo: 'Revisa la información', desc: 'Verás horario, aula, profesor y cupo.' },
+      { titulo: 'Consulta los alumnos', desc: 'La lista muestra todos los estudiantes inscritos.' },
+      { titulo: 'Usa las acciones rápidas', desc: 'Editar, eliminar o gestionar desde aquí.' }
+    ],
+    tip: 'Desde los detalles puedes ver el progreso general del curso y estadísticas de rendimiento.'
+  },
+  // Registrar Alumno
+  'Registrar Alumno': {
+    descripcion: 'El registro de alumnos es el primer paso para incorporar estudiantes al sistema. Los datos se validan automáticamente.',
+    pasos: [
+      { titulo: 'Haz clic en "Nuevo Alumno"', desc: 'Botón ubicado en la sección Alumnos.' },
+      { titulo: 'Completa los datos personales', desc: 'Nombre, apellido, DNI, email y teléfono.' },
+      { titulo: 'Asigna un curso inicial', desc: 'Selecciona el curso donde se inscribirá.' },
+      { titulo: 'Guarda el registro', desc: 'El sistema genera legajo y credenciales automáticamente.' }
+    ],
+    tip: 'Las credenciales iniciales usan el DNI como usuario y contraseña. El alumno puede cambiarlas.'
+  },
+  // Editar Información (Alumno)
+  'Editar Información': {
+    descripcion: 'Actualiza los datos de un alumno cuando sea necesario. Los cambios se aplican inmediatamente.',
+    pasos: [
+      { titulo: 'Busca al alumno', desc: 'Usa el buscador por nombre, legajo o DNI.' },
+      { titulo: 'Abre su perfil', desc: 'Haz clic en la tarjeta del alumno.' },
+      { titulo: 'Haz clic en editar', desc: 'Modifica los campos necesarios.' },
+      { titulo: 'Guarda los cambios', desc: 'La información se actualiza en todo el sistema.' }
+    ],
+    tip: 'El legajo y DNI solo pueden modificarse por motivos de corrección de errores.'
+  },
+  // Cambiar Estado
+  'Cambiar Estado': {
+    descripcion: 'Gestiona el estado de los usuarios: activos pueden acceder al sistema, inactivos no.',
+    pasos: [
+      { titulo: 'Localiza al usuario', desc: 'Encuentra el alumno o profesor.' },
+      { titulo: 'Abre las opciones', desc: 'Accede al menú de acciones del usuario.' },
+      { titulo: 'Cambia el estado', desc: 'Selecciona Activo o Inactivo según corresponda.' },
+      { titulo: 'Confirma el cambio', desc: 'El estado se actualiza inmediatamente.' }
+    ],
+    tip: 'Los usuarios inactivos conservan todos sus datos históricos para futuras consultas.'
+  },
+  // Descargar PDF
+  'Descargar PDF': {
+    descripcion: 'Genera documentos PDF con listas de usuarios, útiles para reportes impresos o archivos.',
+    pasos: [
+      { titulo: 'Ve a la sección deseada', desc: 'Alumnos, Profesores o Administradores.' },
+      { titulo: 'Busca el botón de descarga', desc: 'Generalmente dice "Descargar Información".' },
+      { titulo: 'Haz clic para generar', desc: 'El PDF se crea con los datos actuales.' },
+      { titulo: 'Guarda o imprime', desc: 'El archivo se descarga automáticamente.' }
+    ],
+    tip: 'Los PDFs incluyen fecha de generación para control de versiones.'
+  },
+  // Buscar y Filtrar
+  'Buscar y Filtrar': {
+    descripcion: 'Encuentra rápidamente usuarios o información específica usando los potentes filtros del sistema.',
+    pasos: [
+      { titulo: 'Localiza el buscador', desc: 'Está en la parte superior de cada sección.' },
+      { titulo: 'Escribe tu búsqueda', desc: 'Nombre, legajo, DNI o email.' },
+      { titulo: 'Revisa los resultados', desc: 'La lista se filtra en tiempo real.' },
+      { titulo: 'Usa filtros adicionales', desc: 'Estado, curso u otros criterios disponibles.' }
+    ],
+    tip: 'La búsqueda no distingue mayúsculas/minúsculas y busca coincidencias parciales.'
+  },
+  // Registrar Profesor
+  'Registrar Profesor': {
+    descripcion: 'Agrega nuevos profesores al sistema para que puedan gestionar sus cursos asignados.',
+    pasos: [
+      { titulo: 'Haz clic en "Nuevo Profesor"', desc: 'Botón en la sección Profesores.' },
+      { titulo: 'Ingresa los datos', desc: 'Nombre, apellido, DNI, email, teléfono.' },
+      { titulo: 'Define especialidad', desc: 'Idiomas o áreas que puede dictar.' },
+      { titulo: 'Guarda el registro', desc: 'Se generan credenciales de acceso.' }
+    ],
+    tip: 'Después del registro, asigna cursos al profesor desde la sección Cursos.'
+  },
+  // Asignar a Cursos
+  'Asignar a Cursos': {
+    descripcion: 'Vincula profesores con cursos para que puedan gestionar sus clases.',
+    pasos: [
+      { titulo: 'Ve a la sección Cursos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Selecciona un curso', desc: 'El curso debe existir previamente.' },
+      { titulo: 'Usa el botón de asignación', desc: 'Ícono de usuario en verde.' },
+      { titulo: 'Elige el profesor', desc: 'Selecciona de la lista disponible.' }
+    ],
+    tip: 'Verifica que el profesor no tenga conflictos de horario antes de asignar.'
+  },
+  // Crear Nuevo Administrador
+  'Crear Nuevo Administrador': {
+    descripcion: 'Agrega otros administradores que compartirán las responsabilidades de gestión del sistema.',
+    pasos: [
+      { titulo: 'Ve a Administradores', desc: 'Sección en el menú lateral.' },
+      { titulo: 'Haz clic en "Nuevo Admin"', desc: 'Se abre el formulario de registro.' },
+      { titulo: 'Completa los datos', desc: 'Nombre, email y credenciales.' },
+      { titulo: 'Define permisos', desc: 'Todos los admins tienen acceso completo.' }
+    ],
+    tip: 'Limita el número de administradores a los estrictamente necesarios por seguridad.'
+  },
+  // Permisos de Acceso
+  'Permisos de Acceso': {
+    descripcion: 'Comprende cómo funciona el sistema de permisos y roles en la plataforma.',
+    pasos: [
+      { titulo: 'Administrador', desc: 'Acceso total a todas las funciones.' },
+      { titulo: 'Profesor', desc: 'Gestión de cursos asignados, notas y asistencias.' },
+      { titulo: 'Alumno', desc: 'Visualización de sus cursos, notas y pagos.' },
+      { titulo: 'Seguridad', desc: 'Cada rol solo ve lo que le corresponde.' }
+    ],
+    tip: 'Revisa periódicamente los accesos y desactiva usuarios que ya no deban tener acceso.'
+  },
+  // Ver Historial de Pagos
+  'Ver Historial de Pagos': {
+    descripcion: 'Consulta todos los pagos realizados con diferentes estados y filtros disponibles.',
+    pasos: [
+      { titulo: 'Ve a la sección Pagos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Revisa la lista', desc: 'Muestra pagos ordenados por fecha.' },
+      { titulo: 'Aplica filtros', desc: 'Por estado, fecha o alumno.' },
+      { titulo: 'Consulta detalles', desc: 'Haz clic en un pago para más información.' }
+    ],
+    tip: 'Usa los filtros de estado para encontrar rápidamente pagos pendientes de confirmar.'
+  },
+  // Confirmar Pago en Efectivo
+  'Confirmar Pago en Efectivo': {
+    descripcion: 'Cuando un alumno paga en efectivo con su ticket, debes confirmar el pago en el sistema.',
+    pasos: [
+      { titulo: 'Recibe el ticket', desc: 'El alumno presenta su comprobante de pago.' },
+      { titulo: 'Busca el pago', desc: 'Filtra por "Efectivo Pendiente" en Pagos.' },
+      { titulo: 'Verifica el código', desc: 'Compara el código del ticket con el sistema.' },
+      { titulo: 'Confirma el pago', desc: 'Haz clic en el botón de confirmación.' }
+    ],
+    tip: 'Guarda los tickets físicos por al menos 30 días para cualquier reclamo.'
+  },
+  // Archivo de Pagos
+  'Archivo de Pagos': {
+    descripcion: 'Mantén la lista de pagos organizada archivando los pagos antiguos ya procesados.',
+    pasos: [
+      { titulo: 'Identifica pagos antiguos', desc: 'Pagos de meses anteriores ya confirmados.' },
+      { titulo: 'Selecciona para archivar', desc: 'Usa la opción de archivar en cada pago.' },
+      { titulo: 'Confirma la acción', desc: 'Los pagos pasan a la sección de archivo.' },
+      { titulo: 'Consulta cuando necesites', desc: 'El archivo está siempre disponible.' }
+    ],
+    tip: 'Archiva mensualmente para mantener un historial ordenado y fácil de consultar.'
+  },
+  // Crear Nueva Aula
+  'Crear Nueva Aula': {
+    descripcion: 'Registra los espacios físicos disponibles para dictar clases en el instituto.',
+    pasos: [
+      { titulo: 'Ve a la sección Aulas', desc: 'Desde el menú lateral.' },
+      { titulo: 'Haz clic en "Nueva Aula"', desc: 'Se abre el formulario.' },
+      { titulo: 'Ingresa los datos', desc: 'Nombre o número y capacidad máxima.' },
+      { titulo: 'Guarda el aula', desc: 'Estará disponible para asignar a cursos.' }
+    ],
+    tip: 'La capacidad del aula debe ser igual o mayor al cupo máximo de los cursos que se dicten allí.'
+  },
+  // Asignar a Cursos (Aulas)
+  'Asignar a Cursos': {
+    descripcion: 'Vincula aulas con cursos para definir dónde se dictarán las clases.',
+    pasos: [
+      { titulo: 'Crea o edita un curso', desc: 'Desde la sección Cursos.' },
+      { titulo: 'Busca el campo Aula', desc: 'En el formulario de curso.' },
+      { titulo: 'Selecciona el aula', desc: 'Elige de la lista de aulas disponibles.' },
+      { titulo: 'Guarda los cambios', desc: 'El curso queda vinculado al aula.' }
+    ],
+    tip: 'Evita asignar la misma aula a cursos con horarios superpuestos.'
+  },
+  // Agregar Idiomas
+  'Agregar Idiomas': {
+    descripcion: 'Configura los idiomas que se enseñan en el instituto para clasificar los cursos.',
+    pasos: [
+      { titulo: 'Ve a la sección Idiomas', desc: 'Desde el menú lateral.' },
+      { titulo: 'Haz clic en "Nuevo Idioma"', desc: 'Se abre el formulario.' },
+      { titulo: 'Ingresa el nombre', desc: 'Inglés, Francés, Portugués, etc.' },
+      { titulo: 'Guarda el idioma', desc: 'Estará disponible al crear cursos.' }
+    ],
+    tip: 'Usa nombres estandarizados para mantener consistencia en todo el sistema.'
+  },
+  // Configurar Niveles
+  'Configurar Niveles': {
+    descripcion: 'Los niveles clasifican la dificultad de los cursos para orientar a los alumnos.',
+    pasos: [
+      { titulo: 'Entiende los niveles', desc: 'Básico, Intermedio, Avanzado son los estándar.' },
+      { titulo: 'Asigna al crear curso', desc: 'Selecciona el nivel apropiado.' },
+      { titulo: 'Considera prerrequisitos', desc: 'Algunos niveles requieren aprobar anteriores.' },
+      { titulo: 'Comunica a alumnos', desc: 'Los niveles ayudan a elegir el curso correcto.' }
+    ],
+    tip: 'Define criterios claros para cada nivel y comunícalos a profesores y alumnos.'
+  },
+  // Responder Mensajes
+  'Responder Mensajes': {
+    descripcion: 'Atiende las consultas de alumnos y profesores a través del sistema de chat integrado.',
+    pasos: [
+      { titulo: 'Observa las notificaciones', desc: 'El badge rojo indica mensajes nuevos.' },
+      { titulo: 'Accede al Chat Soporte', desc: 'Desde el menú lateral.' },
+      { titulo: 'Selecciona la conversación', desc: 'Haz clic en el usuario a responder.' },
+      { titulo: 'Escribe y envía', desc: 'Tu respuesta llega instantáneamente.' }
+    ],
+    tip: 'Responde lo antes posible. Los usuarios valoran la atención rápida.'
+  },
+  // Gestionar Conversaciones
+  'Gestionar Conversaciones': {
+    descripcion: 'Organiza y prioriza las consultas de usuarios para una atención eficiente.',
+    pasos: [
+      { titulo: 'Revisa la bandeja', desc: 'Todas las conversaciones aparecen listadas.' },
+      { titulo: 'Filtra por estado', desc: 'Pendientes, En curso, Resueltas.' },
+      { titulo: 'Prioriza urgentes', desc: 'Atiende primero consultas críticas.' },
+      { titulo: 'Cierra resueltas', desc: 'Marca como completadas las atendidas.' }
+    ],
+    tip: 'Crea respuestas frecuentes para agilizar la atención de consultas comunes.'
+  },
+  // Notificaciones
+  'Notificaciones': {
+    descripcion: 'El sistema de notificaciones te mantiene informado sobre actividad importante.',
+    pasos: [
+      { titulo: 'Observa los badges', desc: 'Los números rojos indican pendientes.' },
+      { titulo: 'Habilita en navegador', desc: 'Permite notificaciones push cuando se solicite.' },
+      { titulo: 'Revisa periódicamente', desc: 'Algunas notificaciones requieren acción.' },
+      { titulo: 'Atiende lo urgente', desc: 'Mensajes y pagos pendientes son prioritarios.' }
+    ],
+    tip: 'Las notificaciones push funcionan incluso con el navegador minimizado.'
+  },
+  // ¿Cómo restablezco contraseña de un usuario?
+  '¿Cómo restablezco contraseña de un usuario?': {
+    descripcion: 'Cuando un usuario olvida su contraseña, puedes generar una nueva temporal.',
+    pasos: [
+      { titulo: 'Busca al usuario', desc: 'En la sección correspondiente (Alumnos/Profesores).' },
+      { titulo: 'Accede a su perfil', desc: 'Haz clic en la tarjeta del usuario.' },
+      { titulo: 'Busca opción de contraseña', desc: 'Generalmente en configuración o editar.' },
+      { titulo: 'Genera nueva contraseña', desc: 'El sistema crea una temporal.' }
+    ],
+    tip: 'Comunica la nueva contraseña de forma segura y pide que la cambie al ingresar.'
+  },
+  // ¿No puedo eliminar un curso?
+  '¿No puedo eliminar un curso?': {
+    descripcion: 'Los cursos con alumnos inscritos están protegidos contra eliminación accidental.',
+    pasos: [
+      { titulo: 'Verifica el motivo', desc: 'El sistema indica si hay alumnos inscritos.' },
+      { titulo: 'Desvincula alumnos', desc: 'Transfiérelos a otro curso o dáles de baja.' },
+      { titulo: 'Intenta de nuevo', desc: 'Con el curso vacío, podrás eliminarlo.' },
+      { titulo: 'Considera alternativas', desc: 'Quizás solo necesitas desactivar el curso.' }
+    ],
+    tip: 'Considera desactivar cursos en lugar de eliminarlos para conservar el historial.'
+  },
+  // ¿Se hacen respaldos automáticos?
+  '¿Se hacen respaldos automáticos?': {
+    descripcion: 'Railway, nuestra plataforma de hosting, realiza respaldos automáticos de la base de datos.',
+    pasos: [
+      { titulo: 'Respaldos automáticos', desc: 'Railway realiza backups periódicos.' },
+      { titulo: 'Recuperación', desc: 'Contacta al admin técnico si necesitas restaurar.' },
+      { titulo: 'Respaldos manuales', desc: 'Exporta PDFs importantes como respaldo local.' },
+      { titulo: 'Buenas prácticas', desc: 'Descarga información crítica periódicamente.' }
+    ],
+    tip: 'Aunque hay respaldos automáticos, mantén copias locales de información sensible.'
+  },
+  // ¿Encontré un error en el sistema?
+  '¿Encontré un error en el sistema?': {
+    descripcion: 'Los errores deben reportarse para que el equipo técnico pueda solucionarlos.',
+    pasos: [
+      { titulo: 'Documenta el error', desc: 'Anota qué estabas haciendo cuando ocurrió.' },
+      { titulo: 'Captura pantalla', desc: 'Si es posible, toma una captura del error.' },
+      { titulo: 'Anota los pasos', desc: 'Describe cómo reproducir el problema.' },
+      { titulo: 'Reporta al equipo', desc: 'Envía la información al desarrollador.' }
+    ],
+    tip: 'Cuanto más detallada sea tu descripción, más rápido podremos solucionarlo.'
+  },
+  // === GUÍAS PARA ALUMNOS ===
+  'Entender tu Dashboard': {
+    descripcion: 'Tu dashboard es tu centro de información. Aquí ves un resumen de todo lo importante de un vistazo.',
+    pasos: [
+      { titulo: 'Tarjetas de estadísticas', desc: 'Muestran cursos activos, promedio y progreso.' },
+      { titulo: 'Cursos destacados', desc: 'Acceso rápido a tus cursos principales.' },
+      { titulo: 'Notificaciones', desc: 'Alertas sobre pagos, notas o mensajes.' },
+      { titulo: 'Accesos directos', desc: 'Botones para las funciones más usadas.' }
+    ],
+    tip: 'Revisa tu dashboard al inicio de cada sesión para estar al día.'
+  },
+  'Ver Cursos Inscritos': {
+    descripcion: 'Consulta todos los cursos donde estás matriculado y su información detallada.',
+    pasos: [
+      { titulo: 'Ve a Mis Cursos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su información básica.' },
+      { titulo: 'Consulta el progreso', desc: 'La barra indica tu avance en el curso.' },
+      { titulo: 'Accede a detalles', desc: 'Haz clic para ver más información.' }
+    ],
+    tip: 'El color de la barra de progreso indica tu estado: verde es bueno, amarillo es alerta.'
+  },
+  'Detalles de un Curso': {
+    descripcion: 'Accede a toda la información de un curso: profesor, horario, aula y tus calificaciones.',
+    pasos: [
+      { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta del curso.' },
+      { titulo: 'Ve la información', desc: 'Horario, aula, profesor asignado.' },
+      { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aquí.' },
+      { titulo: 'Revisa tu asistencia', desc: 'Historial de asistencias del curso.' }
+    ],
+    tip: 'Guarda el horario en tu calendario personal para no olvidar las clases.'
+  },
+  'Entender el Progreso': {
+    descripcion: 'La barra de progreso refleja tu rendimiento académico basado en tus calificaciones.',
+    pasos: [
+      { titulo: 'Verde (7-10)', desc: 'Excelente rendimiento, vas por buen camino.' },
+      { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podrías mejorar.' },
+      { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atención, considera refuerzo.' },
+      { titulo: 'Promedio general', desc: 'Se calcula con todas tus notas.' }
+    ],
+    tip: 'Habla con tu profesor si ves rojo, hay tiempo para mejorar.'
+  },
+  'Catálogo de Cursos': {
+    descripcion: 'Explora todos los cursos disponibles en el instituto para futuras inscripciones.',
+    pasos: [
+      { titulo: 'Ve a Cursado', desc: 'Desde el menú lateral.' },
+      { titulo: 'Navega el catálogo', desc: 'Todos los cursos disponibles aparecen aquí.' },
+      { titulo: 'Usa filtros', desc: 'Por idioma, nivel o disponibilidad.' },
+      { titulo: 'Revisa la info', desc: 'Cada tarjeta muestra horario y cupos.' }
+    ],
+    tip: 'Los cursos con pocos cupos se llenan rápido, solicita inscripción a tiempo.'
+  },
+  'Solicitar Inscripción': {
+    descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisará tu solicitud.',
+    pasos: [
+      { titulo: 'Encuentra el curso', desc: 'Navega el catálogo de cursos.' },
+      { titulo: 'Verifica requisitos', desc: 'Algunos cursos requieren nivel previo.' },
+      { titulo: 'Haz clic en inscribir', desc: 'Botón "Solicitar Inscripción".' },
+      { titulo: 'Espera confirmación', desc: 'Recibirás respuesta por el sistema.' }
+    ],
+    tip: 'Asegúrate de no tener conflictos de horario con tus cursos actuales.'
+  },
+  'Verificar Disponibilidad': {
+    descripcion: 'Cada curso tiene un cupo máximo. Verifica si hay lugar antes de solicitar inscripción.',
+    pasos: [
+      { titulo: 'Busca el indicador', desc: 'Cada curso muestra cupos disponibles.' },
+      { titulo: 'Interpreta los colores', desc: 'Verde hay lugar, rojo lleno.' },
+      { titulo: 'Consulta alternativas', desc: 'Si está lleno, busca otros horarios.' },
+      { titulo: 'Contacta soporte', desc: 'Para listas de espera o excepciones.' }
+    ],
+    tip: 'A inicio de cuatrimestre hay más movimiento, los cupos pueden liberarse.'
+  },
+  'Ver Calificaciones': {
+    descripcion: 'Consulta tus notas de parciales y finales de cada curso.',
+    pasos: [
+      { titulo: 'Ve a Calificaciones', desc: 'Desde el menú lateral.' },
+      { titulo: 'Selecciona el curso', desc: 'Si tienes varios, elige uno.' },
+      { titulo: 'Revisa tus notas', desc: 'Parcial 1, Parcial 2, Final.' },
+      { titulo: 'Consulta el promedio', desc: 'Se calcula automáticamente.' }
+    ],
+    tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos días.'
+  },
+  'Entender Promedios': {
+    descripcion: 'El promedio se calcula automáticamente basado en tus calificaciones registradas.',
+    pasos: [
+      { titulo: 'Promedio por curso', desc: 'Suma de notas dividido cantidad de evaluaciones.' },
+      { titulo: 'Promedio general', desc: 'Incluye todos tus cursos activos.' },
+      { titulo: 'Peso de evaluaciones', desc: 'Todas las evaluaciones valen igual.' },
+      { titulo: 'Actualización', desc: 'Se recalcula con cada nueva nota.' }
+    ],
+    tip: 'El promedio general es importante para becas y certificados.'
+  },
+  'Historial Académico': {
+    descripcion: 'Tu historial muestra toda tu trayectoria académica en el instituto.',
+    pasos: [
+      { titulo: 'Accede al historial', desc: 'Desde la sección Calificaciones.' },
+      { titulo: 'Revisa cursos pasados', desc: 'Todos tus cursos completados.' },
+      { titulo: 'Consulta notas finales', desc: 'Cada curso muestra nota de cierre.' },
+      { titulo: 'Solicita certificados', desc: 'Contacta administración si necesitas.' }
+    ],
+    tip: 'El historial es tu carta de presentación académica, cuídalo.'
+  },
+  'Ver Estado de Pagos': {
+    descripcion: 'Consulta el estado de tus cuotas: pagadas, pendientes o vencidas.',
+    pasos: [
+      { titulo: 'Ve a Mis Pagos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Revisa la lista', desc: 'Cada cuota aparece con su estado.' },
+      { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo según urgencia.' },
+      { titulo: 'Consulta vencimientos', desc: 'Fechas límite de cada cuota.' }
+    ],
+    tip: 'Mantén tus pagos al día para evitar recargos e inconvenientes.'
+  },
+  'Realizar un Pago': {
+    descripcion: 'Paga tus cuotas de forma simple eligiendo el método que prefieras.',
+    pasos: [
+      { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
+      { titulo: 'Elige método de pago', desc: 'Mercado Pago o Efectivo.' },
+      { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones según método.' },
+      { titulo: 'Guarda el comprobante', desc: 'Siempre conserva tu recibo.' }
+    ],
+    tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretaría.'
+  },
+  'Pago en Efectivo': {
+    descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretaría.',
+    pasos: [
+      { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
+      { titulo: 'Elige "Efectivo"', desc: 'Como método de pago.' },
+      { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con código único.' },
+      { titulo: 'Presenta en secretaría', desc: 'Paga en efectivo y entrégalo.' }
+    ],
+    tip: 'El ticket tiene fecha de vencimiento, preséntalo a tiempo.'
+  },
+  'Pago con Mercado Pago': {
+    descripcion: 'Paga online con tarjeta o dinero en cuenta de Mercado Pago.',
+    pasos: [
+      { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
+      { titulo: 'Elige "Mercado Pago"', desc: 'Como método de pago.' },
+      { titulo: 'Serás redirigido', desc: 'A la página segura de MP.' },
+      { titulo: 'Completa el pago', desc: 'Con tarjeta o dinero en cuenta.' }
+    ],
+    tip: 'Asegúrate de tener fondos o tarjeta habilitada antes de iniciar.'
+  },
+  'Descargar Comprobantes': {
+    descripcion: 'Descarga tickets y comprobantes de tus pagos para tu registro.',
+    pasos: [
+      { titulo: 'Ve a Mis Pagos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Busca el pago', desc: 'Localiza el pago del que necesitas comprobante.' },
+      { titulo: 'Haz clic en descargar', desc: 'Ícono de descarga junto al pago.' },
+      { titulo: 'Guarda el archivo', desc: 'Se descarga un PDF.' }
+    ],
+    tip: 'Guarda todos tus comprobantes en una carpeta organizada por fecha.'
+  },
+  'Cambiar Avatar': {
+    descripcion: 'Personaliza tu perfil subiendo una foto o imagen.',
+    pasos: [
+      { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
+      { titulo: 'Haz clic en tu avatar', desc: 'El círculo con tu imagen actual.' },
+      { titulo: 'Selecciona archivo', desc: 'Elige una imagen de tu dispositivo.' },
+      { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza automáticamente.' }
+    ],
+    tip: 'Usa una foto clara de tu rostro para fácil identificación.'
+  },
+  'Actualizar Datos Personales': {
+    descripcion: 'Mantén tu información de contacto actualizada para comunicaciones importantes.',
+    pasos: [
+      { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
+      { titulo: 'Haz clic en editar', desc: 'Botón para modificar datos.' },
+      { titulo: 'Actualiza la información', desc: 'Teléfono, email de contacto.' },
+      { titulo: 'Guarda los cambios', desc: 'Confirma las modificaciones.' }
+    ],
+    tip: 'Datos como DNI y legajo solo los puede modificar administración.'
+  },
+  'Editar Información Personal': {
+    descripcion: 'Actualiza tus datos de contacto para mantenernos comunicados.',
+    pasos: [
+      { titulo: 'Accede a tu perfil', desc: 'Desde el menú lateral.' },
+      { titulo: 'Localiza campos editables', desc: 'Email, teléfono principalmente.' },
+      { titulo: 'Modifica lo necesario', desc: 'Ingresa la información correcta.' },
+      { titulo: 'Guarda los cambios', desc: 'Confirma con el botón guardar.' }
+    ],
+    tip: 'Un email actualizado es crucial para recuperar acceso si olvidas la contraseña.'
+  },
+  'Acceder a Classroom': {
+    descripcion: 'Conecta con Google Classroom para acceder a materiales de estudio.',
+    pasos: [
+      { titulo: 'Ve a Classroom', desc: 'Desde el menú lateral.' },
+      { titulo: 'Haz clic en acceder', desc: 'Serás redirigido a Google.' },
+      { titulo: 'Inicia sesión', desc: 'Con tu cuenta de Google.' },
+      { titulo: 'Explora los cursos', desc: 'Verás los cursos donde estás inscrito.' }
+    ],
+    tip: 'Usa la misma cuenta de Google siempre para no perder acceso.'
+  },
+  'Acceder a Materiales': {
+    descripcion: 'Descarga materiales de estudio compartidos por tus profesores.',
+    pasos: [
+      { titulo: 'Ingresa a Classroom', desc: 'Conecta con tu cuenta Google.' },
+      { titulo: 'Selecciona el curso', desc: 'El que te interesa revisar.' },
+      { titulo: 'Busca Materiales', desc: 'Sección de recursos del curso.' },
+      { titulo: 'Descarga lo que necesites', desc: 'PDFs, documentos, presentaciones.' }
+    ],
+    tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexión.'
+  },
+  'Vincular Google Classroom': {
+    descripcion: 'Conecta tu cuenta de Google para acceder a los recursos de Classroom.',
+    pasos: [
+      { titulo: 'Ten una cuenta Google', desc: 'Gmail o cuenta institucional.' },
+      { titulo: 'Haz clic en Classroom', desc: 'Desde el menú del sistema.' },
+      { titulo: 'Autoriza el acceso', desc: 'Google pedirá permisos.' },
+      { titulo: 'Listo', desc: 'Ya puedes acceder a los recursos.' }
+    ],
+    tip: 'Si tienes problemas, limpia las cookies del navegador e intenta de nuevo.'
+  },
+  'Contactar Administración': {
+    descripcion: 'Usa el chat de soporte para comunicarte directamente con el equipo administrativo.',
+    pasos: [
+      { titulo: 'Ve a Chat Soporte', desc: 'Desde el menú lateral.' },
+      { titulo: 'Escribe tu mensaje', desc: 'Describe tu consulta o problema.' },
+      { titulo: 'Envía el mensaje', desc: 'Presiona Enter o el botón enviar.' },
+      { titulo: 'Espera respuesta', desc: 'Te notificarán cuando respondan.' }
+    ],
+    tip: 'Sé claro y específico en tu consulta para recibir mejor ayuda.'
+  },
+  'Notificaciones de Chat': {
+    descripcion: 'Recibe alertas cuando el equipo de soporte responda a tus consultas.',
+    pasos: [
+      { titulo: 'Observa el badge', desc: 'Número rojo en Chat Soporte.' },
+      { titulo: 'Habilita notificaciones', desc: 'Acepta cuando el navegador pregunte.' },
+      { titulo: 'Recibirás alertas', desc: 'Incluso con la pestaña cerrada.' },
+      { titulo: 'Revisa mensajes nuevos', desc: 'Haz clic para ver respuestas.' }
+    ],
+    tip: 'Las notificaciones funcionan mejor si mantienes sesión activa.'
+  },
+  'Ver Historial de Mensajes': {
+    descripcion: 'Revisa conversaciones anteriores con administración cuando lo necesites.',
+    pasos: [
+      { titulo: 'Accede al chat', desc: 'Desde Chat Soporte.' },
+      { titulo: 'Desplázate hacia arriba', desc: 'Los mensajes antiguos cargan.' },
+      { titulo: 'Busca lo que necesitas', desc: 'Revisa respuestas anteriores.' },
+      { titulo: 'Referencia en nuevos mensajes', desc: 'Si es relevante, menciona el tema previo.' }
+    ],
+    tip: 'El historial se conserva indefinidamente para tu referencia.'
+  },
+  '¿Olvidé mi contraseña?': {
+    descripcion: 'Si olvidaste tu contraseña, hay formas de recuperar el acceso a tu cuenta.',
+    pasos: [
+      { titulo: 'No te preocupes', desc: 'Es un problema común con solución.' },
+      { titulo: 'Contacta administración', desc: 'Vía email o presencialmente.' },
+      { titulo: 'Verifica tu identidad', desc: 'Con DNI o datos personales.' },
+      { titulo: 'Recibe nueva contraseña', desc: 'Te darán una temporal para cambiar.' }
+    ],
+    tip: 'Usa un gestor de contraseñas para no olvidarlas en el futuro.'
+  },
+  '¿Mis datos están incorrectos?': {
+    descripcion: 'Si encuentras errores en tu información personal, puedes solicitar corrección.',
+    pasos: [
+      { titulo: 'Identifica el error', desc: 'Qué dato específico está mal.' },
+      { titulo: 'Contacta administración', desc: 'Por chat o presencialmente.' },
+      { titulo: 'Proporciona información correcta', desc: 'Y documentación si es necesario.' },
+      { titulo: 'Espera la corrección', desc: 'Los cambios se reflejan pronto.' }
+    ],
+    tip: 'DNI y legajo requieren documentación para modificarse.'
+  },
+  '¿Cómo me doy de baja de un curso?': {
+    descripcion: 'Si necesitas abandonar un curso, debes solicitar la baja formalmente.',
+    pasos: [
+      { titulo: 'Evalúa tu decisión', desc: 'La baja puede afectar tu historial.' },
+      { titulo: 'Contacta administración', desc: 'Explica tu situación.' },
+      { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmación.' },
+      { titulo: 'Verifica la baja', desc: 'El curso desaparecerá de tu lista.' }
+    ],
+    tip: 'Consulta sobre períodos de baja sin penalización antes de decidir.'
+  },
+  // === GUÍAS PARA PROFESORES ===
+  'Tu Primer Día': {
+    descripcion: 'Guía para comenzar a usar el sistema como profesor.',
+    pasos: [
+      { titulo: 'Revisa tus cursos', desc: 'Ve a Mis Cursos para ver asignaciones.' },
+      { titulo: 'Configura tu perfil', desc: 'Sube una foto y verifica tus datos.' },
+      { titulo: 'Explora las secciones', desc: 'Familiarízate con el menú.' },
+      { titulo: 'Prueba las funciones', desc: 'Calificaciones y asistencias.' }
+    ],
+    tip: 'Si tienes dudas, el chat de soporte está disponible para ayudarte.'
+  },
+  'Ver Cursos Asignados': {
+    descripcion: 'Consulta los cursos que te han sido asignados para dictar.',
+    pasos: [
+      { titulo: 'Ve a Mis Cursos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra información clave.' },
+      { titulo: 'Consulta horarios', desc: 'Días y horas de clase.' },
+      { titulo: 'Ve los alumnos', desc: 'Cantidad inscrita en cada curso.' }
+    ],
+    tip: 'Si falta un curso que deberías tener, contacta a administración.'
+  },
+  'Información del Curso': {
+    descripcion: 'Accede a todos los detalles de los cursos que dictas.',
+    pasos: [
+      { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta.' },
+      { titulo: 'Revisa la información', desc: 'Horario, aula, nivel.' },
+      { titulo: 'Consulta alumnos', desc: 'Lista completa de inscritos.' },
+      { titulo: 'Ve estadísticas', desc: 'Promedio del curso y asistencia.' }
+    ],
+    tip: 'Descarga la lista de alumnos para pasar asistencia en papel si lo prefieres.'
+  },
+  'Cargar Notas': {
+    descripcion: 'Ingresa las calificaciones de tus alumnos en el sistema.',
+    pasos: [
+      { titulo: 'Ve a Calificaciones', desc: 'Desde el menú lateral.' },
+      { titulo: 'Selecciona el curso', desc: 'Del desplegable de cursos.' },
+      { titulo: 'Busca al alumno', desc: 'En la lista aparecen todos.' },
+      { titulo: 'Ingresa las notas', desc: 'Parcial 1, Parcial 2, Final.' }
+    ],
+    tip: 'Guarda frecuentemente para no perder el trabajo.'
+  },
+  'Editar Calificaciones': {
+    descripcion: 'Modifica notas ya ingresadas si es necesario hacer correcciones.',
+    pasos: [
+      { titulo: 'Busca la calificación', desc: 'En la sección de notas del curso.' },
+      { titulo: 'Haz clic en editar', desc: 'Junto a la nota a modificar.' },
+      { titulo: 'Cambia el valor', desc: 'Ingresa la nota correcta.' },
+      { titulo: 'Guarda el cambio', desc: 'Se recalcula el promedio.' }
+    ],
+    tip: 'Los cambios quedan registrados, úsalos solo para correcciones legítimas.'
+  },
+  'Ver Promedio de Alumnos': {
+    descripcion: 'Consulta el rendimiento general de tus alumnos en cada curso.',
+    pasos: [
+      { titulo: 'Accede a Calificaciones', desc: 'Del curso correspondiente.' },
+      { titulo: 'Revisa la columna promedio', desc: 'Se calcula automáticamente.' },
+      { titulo: 'Identifica tendencias', desc: 'Alumnos que necesitan apoyo.' },
+      { titulo: 'Exporta si necesitas', desc: 'Para análisis fuera del sistema.' }
+    ],
+    tip: 'Los promedios bajos generalizados pueden indicar necesidad de refuerzo.'
+  },
+  'Tomar Asistencia': {
+    descripcion: 'Registra la asistencia de tus alumnos en cada clase.',
+    pasos: [
+      { titulo: 'Ve a Asistencias', desc: 'Desde el menú lateral.' },
+      { titulo: 'Selecciona curso y fecha', desc: 'La fecha actual viene por defecto.' },
+      { titulo: 'Marca cada alumno', desc: 'Presente, Ausente o Tarde.' },
+      { titulo: 'Se guarda automáticamente', desc: 'No necesitas botón guardar.' }
+    ],
+    tip: 'Toma asistencia al inicio de clase para mayor precisión.'
+  },
+  'Historial de Asistencias': {
+    descripcion: 'Consulta registros de asistencia de fechas anteriores.',
+    pasos: [
+      { titulo: 'Ve a Asistencias', desc: 'Del curso que te interesa.' },
+      { titulo: 'Cambia la fecha', desc: 'Usa el calendario para navegar.' },
+      { titulo: 'Revisa el registro', desc: 'Verás el estado de cada alumno.' },
+      { titulo: 'Identifica patrones', desc: 'Alumnos con muchas ausencias.' }
+    ],
+    tip: 'Comunica a administración si un alumno tiene ausencias excesivas.'
+  },
+  '¿No veo un curso asignado?': {
+    descripcion: 'Si un curso que deberías tener no aparece, puede haber un problema de asignación.',
+    pasos: [
+      { titulo: 'Verifica la asignación', desc: 'Confirma con administración.' },
+      { titulo: 'Recarga la página', desc: 'A veces es un problema de caché.' },
+      { titulo: 'Cierra y abre sesión', desc: 'Puede actualizar tus datos.' },
+      { titulo: 'Contacta soporte', desc: 'Si el problema persiste.' }
+    ],
+    tip: 'Los cursos nuevos pueden demorar unos minutos en aparecer.'
+  },
+  '¿Las calificaciones no se guardan?': {
+    descripcion: 'Si las notas no se guardan, puede haber un problema técnico.',
+    pasos: [
+      { titulo: 'Verifica conexión', desc: 'Asegúrate de tener internet.' },
+      { titulo: 'Haz clic en guardar', desc: 'No solo cambies el valor, confirma.' },
+      { titulo: 'Espera el mensaje', desc: 'Debe aparecer confirmación.' },
+      { titulo: 'Recarga y verifica', desc: 'La nota debe persistir.' }
+    ],
+    tip: 'Si el problema continúa, reporta el error con capturas de pantalla.'
+  }
+};
+
+function openGuiaModal(item) {
+  const title = item.querySelector('h4')?.textContent || 'Guía';
+  const description = item.querySelector('p')?.textContent || '';
+  const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
+  const tags = item.querySelectorAll('.guia-tag');
+  
+  // Buscar datos detallados o usar genéricos
+  const datos = guiasDetalladas[title] || {
+    descripcion: description,
+    pasos: [
+      { titulo: 'Paso 1', desc: 'Sigue las instrucciones en pantalla.' },
+      { titulo: 'Paso 2', desc: 'Completa la información requerida.' },
+      { titulo: 'Paso 3', desc: 'Confirma los cambios realizados.' },
+      { titulo: 'Paso 4', desc: 'Verifica que todo esté correcto.' }
+    ],
+    tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
+  };
+  
+  // Generar tags HTML
+  let tagsHTML = '';
+  tags.forEach(tag => {
+    tagsHTML += `<span class="guia-tag">${tag.textContent}</span>`;
+  });
+  
+  // Crear el modal
+  const modalHTML = `
+    <div class="guia-modal-overlay active" onclick="closeGuiaModal(event)">
+      <div class="guia-modal" onclick="event.stopPropagation()">
+        <div class="guia-modal-header">
+          <button class="guia-modal-close" onclick="closeGuiaModal()">
+            <i data-lucide="x"></i>
+          </button>
+          <div class="guia-modal-icon">${iconHTML}</div>
+          <h3>${title}</h3>
+          <p>${datos.descripcion}</p>
+        </div>
+        <div class="guia-modal-body">
+          <div class="guia-modal-section">
+            <h4><i data-lucide="list-ordered"></i> Pasos a seguir</h4>
+            <ul class="guia-modal-steps">
+              ${datos.pasos.map((paso, i) => `
+                <li>
+                  <span class="step-number">${i + 1}</span>
+                  <div class="step-content">
+                    <strong>${paso.titulo}</strong>
+                    <span>${paso.desc}</span>
+                  </div>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          <div class="guia-modal-section">
+            <div class="guia-modal-tip">
+              <i data-lucide="lightbulb"></i>
+              <p><strong>Tip:</strong> ${datos.tip}</p>
+            </div>
+          </div>
+        </div>
+        <div class="guia-modal-footer">
+          <div class="guia-modal-tags">${tagsHTML}</div>
+          <button class="guia-modal-action" onclick="closeGuiaModal()">
+            <i data-lucide="check"></i> Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  // Insertar modal en el DOM
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  lucide.createIcons();
+  
+  // Cerrar con Escape
+  document.addEventListener('keydown', handleEscapeKey);
+}
+
+function handleEscapeKey(e) {
+  if (e.key === 'Escape') {
+    closeGuiaModal();
+  }
+}
+
+function closeGuiaModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+  
+  const overlay = document.querySelector('.guia-modal-overlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+    setTimeout(() => overlay.remove(), 300);
+  }
+  document.removeEventListener('keydown', handleEscapeKey);
 }
 
 function filterAyudaContent(query) {
