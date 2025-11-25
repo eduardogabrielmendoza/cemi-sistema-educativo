@@ -40,26 +40,59 @@
   overflow: hidden;
 }
 
+/* Efecto shimmer animado en header */
 .ayuda-header::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255,255,255,0.08) 45%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.08) 55%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: headerShimmer 6s ease-in-out infinite;
   pointer-events: none;
 }
 
+/* Círculos decorativos flotantes */
 .ayuda-header::after {
   content: '';
   position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  top: -40%;
+  right: -15%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: floatCircle 8s ease-in-out infinite;
   pointer-events: none;
+}
+
+@keyframes floatCircle {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(-20px, 15px) scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-10px, 25px) scale(1.1);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-25px, 10px) scale(1.03);
+    opacity: 0.7;
+  }
 }
 
 .ayuda-header h2 {
@@ -72,14 +105,40 @@
   margin-bottom: 12px;
   position: relative;
   z-index: 1;
+  animation: fadeSlideDown 0.6s ease-out;
 }
 
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ayuda-header h2 svg,
 .ayuda-header h2 i {
   width: 36px;
   height: 36px;
   padding: 8px;
   background: rgba(255,255,255,0.2);
   border-radius: 12px;
+  animation: iconPulseGlow 2.5s ease-in-out infinite;
+  box-sizing: content-box;
+}
+
+@keyframes iconPulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255,255,255,0.3);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px 5px rgba(255,255,255,0.2);
+  }
 }
 
 .ayuda-header p {
@@ -88,6 +147,7 @@
   position: relative;
   z-index: 1;
   margin-bottom: 20px;
+  animation: fadeSlideDown 0.6s ease-out 0.15s both;
 }
 
 /* Estadísticas en Header */
@@ -102,6 +162,23 @@
 
 .ayuda-stat-item {
   text-align: center;
+  opacity: 0;
+  animation: statPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.ayuda-stat-item:nth-child(1) { animation-delay: 0.3s; }
+.ayuda-stat-item:nth-child(2) { animation-delay: 0.45s; }
+.ayuda-stat-item:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes statPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .ayuda-stat-number {
@@ -109,6 +186,12 @@
   font-weight: 700;
   color: #fff;
   line-height: 1;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.ayuda-stat-item:hover .ayuda-stat-number {
+  transform: scale(1.15);
 }
 
 .ayuda-stat-label {
@@ -898,10 +981,10 @@
 
 .guia-modal {
   background: var(--ayuda-bg-card);
-  border-radius: 24px;
-  max-width: 600px;
+  border-radius: 20px;
+  max-width: 520px;
   width: 100%;
-  max-height: 85vh;
+  max-height: 75vh;
   overflow: hidden;
   transform: scale(0.85) translateY(40px);
   opacity: 0;
@@ -921,7 +1004,7 @@
 
 .guia-modal-header {
   background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
-  padding: 30px;
+  padding: 22px 25px;
   position: relative;
   overflow: hidden;
 }
@@ -962,13 +1045,13 @@
 
 .guia-modal-close {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 38px;
-  height: 38px;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
   border: none;
   background: rgba(255,255,255,0.15);
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -988,21 +1071,21 @@
 }
 
 .guia-modal-close i {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   color: #fff;
   transition: transform 0.3s ease;
 }
 
 .guia-modal-icon {
-  width: 70px;
-  height: 70px;
+  width: 52px;
+  height: 52px;
   background: rgba(255,255,255,0.2);
-  border-radius: 18px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   animation: iconFloat 3s ease-in-out infinite;
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255,255,255,0.1);
@@ -1011,17 +1094,17 @@
 }
 
 .guia-modal-icon i {
-  width: 36px;
-  height: 36px;
+  width: 26px;
+  height: 26px;
   color: #fff;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
 .guia-modal-header h3 {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   position: relative;
   z-index: 2;
   text-shadow: 0 2px 4px rgba(0,0,0,0.15);
@@ -1031,18 +1114,18 @@
 
 .guia-modal-header p {
   color: rgba(255,255,255,0.9);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   position: relative;
   z-index: 2;
-  line-height: 1.6;
+  line-height: 1.5;
   opacity: 0;
   animation: stepFadeIn 0.4s ease forwards 0.3s;
 }
 
 .guia-modal-body {
-  padding: 30px;
+  padding: 20px 24px;
   overflow-y: auto;
-  max-height: calc(85vh - 180px);
+  max-height: calc(75vh - 160px);
   /* Scrollbar elegante */
   scrollbar-width: thin;
   scrollbar-color: var(--ayuda-primary-pale) transparent;
@@ -1066,7 +1149,7 @@
 }
 
 .guia-modal-section {
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   opacity: 0;
   animation: stepFadeIn 0.5s ease forwards;
 }
@@ -1082,16 +1165,16 @@
 .guia-modal-section h4 {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.05rem;
+  gap: 8px;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--ayuda-primary);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .guia-modal-section h4 i {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: var(--ayuda-primary-light);
 }
 
@@ -1109,10 +1192,10 @@
 
 .guia-modal-steps li {
   display: flex;
-  gap: 14px;
-  padding: 14px 12px;
-  border-radius: 12px;
-  margin-bottom: 8px;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 6px;
   background: transparent;
   transition: all 0.3s ease;
   opacity: 0;
@@ -1134,15 +1217,15 @@
 }
 
 .step-number {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   flex-shrink: 0;
   box-shadow: 0 3px 10px rgba(30, 60, 114, 0.25);
@@ -1156,14 +1239,14 @@
 
 .step-content {
   flex: 1;
-  padding-top: 2px;
+  padding-top: 0;
 }
 
 .step-content strong {
   display: block;
   color: var(--ayuda-text-dark);
-  font-size: 0.92rem;
-  margin-bottom: 4px;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
   transition: color 0.3s ease;
 }
 
@@ -1178,12 +1261,12 @@
 
 .guia-modal-tip {
   background: linear-gradient(135deg, rgba(255, 193, 7, 0.12) 0%, rgba(255, 193, 7, 0.05) 100%);
-  border-left: 4px solid #f0b429;
-  border-radius: 0 14px 14px 0;
-  padding: 18px 20px;
+  border-left: 3px solid #f0b429;
+  border-radius: 0 12px 12px 0;
+  padding: 12px 15px;
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 10px;
   position: relative;
   overflow: hidden;
   animation: tipPulse 3s ease-in-out infinite;
@@ -1194,27 +1277,28 @@
   position: absolute;
   top: -50%;
   right: -20%;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   background: radial-gradient(circle, rgba(255, 193, 7, 0.15) 0%, transparent 70%);
   pointer-events: none;
 }
 
 .guia-modal-tip i {
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   color: #d69e0c;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
   filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.4));
 }
 
 .guia-modal-tip p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   color: var(--ayuda-text-medium);
   position: relative;
   z-index: 1;
+  line-height: 1.4;
 }
 
 .guia-modal-tip p strong {
@@ -1222,7 +1306,7 @@
 }
 
 .guia-modal-footer {
-  padding: 20px 30px;
+  padding: 14px 24px;
   background: linear-gradient(to top, var(--ayuda-bg-light) 0%, rgba(247, 250, 252, 0.95) 100%);
   border-top: 1px solid var(--ayuda-border);
   display: flex;
