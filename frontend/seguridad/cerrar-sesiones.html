@@ -68,29 +68,6 @@
             </div>
         </div>
 
-        <div class="security-card" style="background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%); color: white;">
-            <h2 style="color: white;"><i data-lucide="zap"></i> Cierre rápido de sesiones</h2>
-            <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">Opciones para cerrar sesiones rápidamente:</p>
-            
-            <div class="security-button-grid">
-                <button onclick="if(confirm('¿Cerrar sesión en TODOS los dispositivos excepto este?')) alert('✅ Todas las sesiones cerradas exitosamente')" style="background: white; color: #dc3545; border: none; padding: 25px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center;">
-                    <i data-lucide="smartphone-off" style="width: 32px; height: 32px;"></i>
-                    <strong style="font-size: 16px;">Cerrar en otros dispositivos</strong>
-                    <span style="font-size: 13px; opacity: 0.8;">Mantiene solo este dispositivo activo</span>
-                </button>
-                <button onclick="if(confirm('Esto cerrará sesión en TODOS los dispositivos, incluyendo ESTE. Tendrás que volver a iniciar sesión.')) { alert('✅ Todas las sesiones cerradas'); setTimeout(() => window.location.href='../login.html', 2000); }" style="background: white; color: #dc3545; border: none; padding: 25px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center;">
-                    <i data-lucide="power" style="width: 32px; height: 32px;"></i>
-                    <strong style="font-size: 16px;">Cerrar en TODOS</strong>
-                    <span style="font-size: 13px; opacity: 0.8;">Incluido este dispositivo</span>
-                </button>
-                <button onclick="alert('Redirigiendo a Dispositivos Activos...')" style="background: white; color: #0071e3; border: none; padding: 25px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center;">
-                    <i data-lucide="list"></i>
-                    <strong style="font-size: 16px;">Cerrar selectivamente</strong>
-                    <span style="font-size: 13px; opacity: 0.8;">Elige qué dispositivos cerrar</span>
-                </button>
-            </div>
-        </div>
-
         <div class="security-card">
             <h2><i data-lucide="book-open"></i> Cómo cerrar sesiones paso a paso</h2>
             
