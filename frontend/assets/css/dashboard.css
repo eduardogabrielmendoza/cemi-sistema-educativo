@@ -568,8 +568,8 @@
 
 /* Botón de Documentos PDF */
 .btn-icon-docs {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #cbd5e0;
+  color: #718096;
   border: none;
   width: 36px;
   height: 36px;
@@ -579,13 +579,13 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: none;
 }
 
 .btn-icon-docs:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-  transform: scale(1.1);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+  background: #a0aec0;
+  color: #4a5568;
+  transform: scale(1.05);
 }
 
 .btn-icon-docs i {
