@@ -1794,7 +1794,7 @@ function generateTable(section, data) {
               <div class="curso-card-header">
                 <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1976d2, #42a5f5);'}">
                   ${avatarUrl 
-                    ? `<img src="${avatarUrl}" alt="${a.nombre}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
+                    ? `<img src="${avatarUrl}" alt="${a.nombre}">`
                     : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
                   }
                 </div>
@@ -1883,7 +1883,7 @@ function generateTable(section, data) {
               <div class="curso-card-header">
                 <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #6a1b9a, #8e24aa);'}">
                   ${avatarUrl 
-                    ? `<img src="${avatarUrl}" alt="${p.nombre}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
+                    ? `<img src="${avatarUrl}" alt="${p.nombre}">`
                     : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
                   }
                 </div>
@@ -1961,7 +1961,7 @@ function generateTable(section, data) {
               <div class="curso-card-header">
                 <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1e3a8a, #3b82f6);'}">
                   ${avatarUrl 
-                    ? `<img src="${avatarUrl}" alt="${admin.nombre}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
+                    ? `<img src="${avatarUrl}" alt="${admin.nombre}">`
                     : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
                   }
                 </div>
