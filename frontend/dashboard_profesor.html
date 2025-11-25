@@ -708,19 +708,70 @@
           <div class="ayuda-container">
             <div class="ayuda-header">
               <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
-              <p>Encuentra guías y respuestas para usar el sistema</p>
+              <p>Guías completas para gestionar tus cursos y alumnos en CEMI</p>
+              <div class="ayuda-stats">
+                <div class="ayuda-stat-item">
+                  <div class="ayuda-stat-number">20+</div>
+                  <div class="ayuda-stat-label">Guías disponibles</div>
+                </div>
+                <div class="ayuda-stat-item">
+                  <div class="ayuda-stat-number">8</div>
+                  <div class="ayuda-stat-label">Categorías</div>
+                </div>
+                <div class="ayuda-stat-item">
+                  <div class="ayuda-stat-number">24/7</div>
+                  <div class="ayuda-stat-label">Acceso disponible</div>
+                </div>
+              </div>
             </div>
 
             <div class="ayuda-search-container">
               <i data-lucide="search" class="search-icon"></i>
-              <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="Buscar en las guías..." autocomplete="off">
+              <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="¿Qué necesitas aprender hoy?" autocomplete="off">
+              <div class="search-suggestions">
+                <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='notas'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Calificaciones</span>
+                <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='asistencia'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Asistencias</span>
+                <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='cursos'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Mis Cursos</span>
+                <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='classroom'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Classroom</span>
+              </div>
             </div>
 
             <div class="search-results-count" id="searchResultsCount"></div>
             <div class="no-results-message" id="noResultsMessage">
               <i data-lucide="search-x"></i>
               <h3>No se encontraron resultados</h3>
-              <p>Intenta con otros términos de búsqueda</p>
+              <p>Intenta con otros términos de búsqueda o explora las categorías</p>
+            </div>
+
+            <div class="ayuda-quick-access">
+              <div class="quick-access-card" onclick="document.querySelector('[data-category=calificaciones] .accordion-header').click()">
+                <div class="qa-icon"><i data-lucide="clipboard-list"></i></div>
+                <div class="qa-text">
+                  <h4>Cargar Notas</h4>
+                  <span>Parciales y finales</span>
+                </div>
+              </div>
+              <div class="quick-access-card" onclick="document.querySelector('[data-category=asistencias] .accordion-header').click()">
+                <div class="qa-icon"><i data-lucide="calendar-check"></i></div>
+                <div class="qa-text">
+                  <h4>Tomar Asistencia</h4>
+                  <span>Registro diario</span>
+                </div>
+              </div>
+              <div class="quick-access-card" onclick="document.querySelector('[data-category=cursos] .accordion-header').click()">
+                <div class="qa-icon"><i data-lucide="book-open"></i></div>
+                <div class="qa-text">
+                  <h4>Mis Cursos</h4>
+                  <span>Ver asignados</span>
+                </div>
+              </div>
+              <div class="quick-access-card" onclick="document.querySelector('[data-category=chat] .accordion-header').click()">
+                <div class="qa-icon"><i data-lucide="message-circle"></i></div>
+                <div class="qa-text">
+                  <h4>Soporte</h4>
+                  <span>Contactar ayuda</span>
+                </div>
+              </div>
             </div>
 
             <div class="ayuda-categorias" id="ayudaCategorias">
@@ -728,27 +779,41 @@
               <!-- Primeros Pasos -->
               <div class="ayuda-accordion" data-category="inicio">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-inicio">
-                    <i data-lucide="home"></i>
-                    <span>Primeros Pasos</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="home"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Primeros Pasos</span>
+                      <small>Aprende a navegar y configurar tu panel</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">2 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="inicio bienvenida panel dashboard navegacion menu">
+                      <div class="guia-item" data-keywords="inicio bienvenida panel dashboard navegacion menu profesor">
                         <div class="guia-icon"><i data-lucide="layout-dashboard"></i></div>
                         <div class="guia-content">
                           <h4>Navegación del Panel</h4>
                           <p>El menú lateral izquierdo te permite acceder a todas las secciones: Mis Cursos, Calificaciones, Asistencias, Perfil y más. Haz clic en cualquier opción para cargar esa sección.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Básico</span>
+                            <span class="guia-tag">Navegación</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="primer dia comenzar profesor nuevo">
+                      <div class="guia-item" data-keywords="primer dia comenzar profesor nuevo empezar configurar">
                         <div class="guia-icon"><i data-lucide="rocket"></i></div>
                         <div class="guia-content">
                           <h4>Tu Primer Día</h4>
                           <p>Comienza revisando la sección "Mis Cursos" para ver qué cursos tienes asignados. Luego configura tu perfil y avatar para personalizar tu cuenta.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Inicio</span>
+                            <span class="guia-tag">Configuración</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -759,27 +824,41 @@
               <!-- Mis Cursos -->
               <div class="ayuda-accordion" data-category="cursos">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-cursos">
-                    <i data-lucide="book-open"></i>
-                    <span>Mis Cursos</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="book-open"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Mis Cursos</span>
+                      <small>Visualiza los cursos que tienes asignados</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">2 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="cursos asignados ver lista mis cursos profesor">
+                      <div class="guia-item" data-keywords="cursos asignados ver lista mis cursos profesor dictando">
                         <div class="guia-icon"><i data-lucide="book-open"></i></div>
                         <div class="guia-content">
                           <h4>Ver Cursos Asignados</h4>
                           <p>En esta sección encontrarás todos los cursos que te han sido asignados por administración. Cada tarjeta muestra el nombre del curso, idioma, nivel y horario.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Cursos</span>
+                            <span class="guia-tag">Asignación</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="informacion curso detalles horario aula alumnos">
+                      <div class="guia-item" data-keywords="informacion curso detalles horario aula alumnos cantidad inscritos">
                         <div class="guia-icon"><i data-lucide="info"></i></div>
                         <div class="guia-content">
                           <h4>Información del Curso</h4>
                           <p>Cada curso muestra: horario de clases, aula asignada, cantidad de alumnos inscritos y nivel del curso. Esta información te ayuda a organizar tus clases.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Detalles</span>
+                            <span class="guia-tag">Horarios</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -790,34 +869,52 @@
               <!-- Calificaciones -->
               <div class="ayuda-accordion" data-category="calificaciones">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-calificaciones">
-                    <i data-lucide="clipboard-list"></i>
-                    <span>Calificaciones</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="clipboard-list"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Calificaciones</span>
+                      <small>Carga y gestiona notas de tus alumnos</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">3 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="cargar notas ingresar calificaciones parcial final">
+                      <div class="guia-item" data-keywords="cargar notas ingresar calificaciones parcial final examenes evaluar">
                         <div class="guia-icon"><i data-lucide="edit-3"></i></div>
                         <div class="guia-content">
                           <h4>Cargar Notas</h4>
                           <p>Selecciona un curso del desplegable para ver la lista de alumnos. Haz clic en "Editar" junto a cada alumno para ingresar sus notas de Parcial 1, Parcial 2 y Final.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Notas</span>
+                            <span class="guia-tag">Evaluaciones</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="editar modificar cambiar nota calificacion corregir">
+                      <div class="guia-item" data-keywords="editar modificar cambiar nota calificacion corregir actualizar">
                         <div class="guia-icon"><i data-lucide="pencil"></i></div>
                         <div class="guia-content">
                           <h4>Editar Calificaciones</h4>
                           <p>Puedes modificar las notas en cualquier momento. Selecciona el alumno, cambia los valores y guarda los cambios. El sistema recalcula automáticamente el promedio.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Edición</span>
+                            <span class="guia-tag">Corrección</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="promedio alumno calcular media ver">
+                      <div class="guia-item" data-keywords="promedio alumno calcular media ver rendimiento estadisticas">
                         <div class="guia-icon"><i data-lucide="calculator"></i></div>
                         <div class="guia-content">
                           <h4>Ver Promedio de Alumnos</h4>
                           <p>El sistema calcula automáticamente el promedio de cada alumno basado en las notas ingresadas. Puedes ver esta información en la tabla de calificaciones.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Promedios</span>
+                            <span class="guia-tag">Cálculo</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -828,27 +925,41 @@
               <!-- Asistencias -->
               <div class="ayuda-accordion" data-category="asistencias">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-asistencias">
-                    <i data-lucide="calendar-check"></i>
-                    <span>Asistencias</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="calendar-check"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Asistencias</span>
+                      <small>Registra presentes, ausentes y tardanzas</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">2 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="tomar pasar asistencia registrar presente ausente">
+                      <div class="guia-item" data-keywords="tomar pasar asistencia registrar presente ausente tarde lista">
                         <div class="guia-icon"><i data-lucide="user-check"></i></div>
                         <div class="guia-content">
                           <h4>Tomar Asistencia</h4>
                           <p>Selecciona el curso y la fecha, luego marca a cada alumno como Presente, Ausente o Tarde. Los cambios se guardan automáticamente.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Registro</span>
+                            <span class="guia-tag">Diario</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="historial registro asistencias anteriores ver">
+                      <div class="guia-item" data-keywords="historial registro asistencias anteriores ver calendario consultar">
                         <div class="guia-icon"><i data-lucide="history"></i></div>
                         <div class="guia-content">
                           <h4>Historial de Asistencias</h4>
                           <p>Puedes consultar las asistencias de fechas anteriores seleccionando el curso y navegando por el calendario para ver el registro completo.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Historial</span>
+                            <span class="guia-tag">Consulta</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -859,27 +970,41 @@
               <!-- Mi Perfil -->
               <div class="ayuda-accordion" data-category="perfil">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-perfil">
-                    <i data-lucide="user"></i>
-                    <span>Mi Perfil</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="user"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Mi Perfil</span>
+                      <small>Personaliza tu cuenta y actualiza datos</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">2 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="avatar foto perfil imagen cambiar subir">
+                      <div class="guia-item" data-keywords="avatar foto perfil imagen cambiar subir fotografia personalizar">
                         <div class="guia-icon"><i data-lucide="camera"></i></div>
                         <div class="guia-content">
                           <h4>Cambiar Avatar</h4>
                           <p>Personaliza tu perfil subiendo una foto. Haz clic en tu avatar actual y selecciona una imagen de tu dispositivo (formatos: JPG, PNG).</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Avatar</span>
+                            <span class="guia-tag">Foto</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="datos personales editar informacion telefono email">
+                      <div class="guia-item" data-keywords="datos personales editar informacion telefono email contacto actualizar">
                         <div class="guia-icon"><i data-lucide="edit"></i></div>
                         <div class="guia-content">
                           <h4>Editar Información Personal</h4>
                           <p>Actualiza tu información de contacto como teléfono y email. Algunos datos solo pueden ser modificados por administración.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Datos</span>
+                            <span class="guia-tag">Contacto</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -890,27 +1015,41 @@
               <!-- Classroom -->
               <div class="ayuda-accordion" data-category="classroom">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-classroom">
-                    <i data-lucide="school"></i>
-                    <span>Classroom</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="school"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Classroom</span>
+                      <small>Comparte materiales con tus alumnos</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">2 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="classroom google acceder materiales recursos">
+                      <div class="guia-item" data-keywords="classroom google acceder materiales recursos plataforma compartir">
                         <div class="guia-icon"><i data-lucide="external-link"></i></div>
                         <div class="guia-content">
                           <h4>Acceder a Classroom</h4>
                           <p>Classroom te conecta con Google Classroom donde puedes compartir materiales de estudio, crear tareas y comunicarte con tus alumnos.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Google</span>
+                            <span class="guia-tag">Acceso</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="vincular google classroom cuenta conectar">
+                      <div class="guia-item" data-keywords="vincular google classroom cuenta conectar enlazar sincronizar">
                         <div class="guia-icon"><i data-lucide="link"></i></div>
                         <div class="guia-content">
                           <h4>Vincular Google Classroom</h4>
                           <p>Para acceder necesitas iniciar sesión con tu cuenta de Google. Una vez vinculada, podrás gestionar tus clases desde la plataforma.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Vinculación</span>
+                            <span class="guia-tag">Cuenta</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -921,27 +1060,41 @@
               <!-- Chat Soporte -->
               <div class="ayuda-accordion" data-category="chat">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-chat">
-                    <i data-lucide="message-circle"></i>
-                    <span>Chat de Soporte</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="message-circle"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Chat de Soporte</span>
+                      <small>Comunícate con el equipo de administración</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">2 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="contactar administracion mensaje soporte ayuda">
+                      <div class="guia-item" data-keywords="contactar administracion mensaje soporte ayuda consulta escribir">
                         <div class="guia-icon"><i data-lucide="send"></i></div>
                         <div class="guia-content">
                           <h4>Contactar Administración</h4>
                           <p>Usa el Chat de Soporte para comunicarte con el equipo administrativo. Puedes enviar consultas sobre horarios, aulas, alumnos o cualquier tema académico.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Contacto</span>
+                            <span class="guia-tag">Consultas</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="historial mensajes conversacion ver">
+                      <div class="guia-item" data-keywords="historial mensajes conversacion ver respuestas anteriores revisar">
                         <div class="guia-icon"><i data-lucide="message-square"></i></div>
                         <div class="guia-content">
                           <h4>Ver Historial de Mensajes</h4>
                           <p>El chat guarda el historial de tus conversaciones con administración, permitiéndote revisar respuestas anteriores cuando lo necesites.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Historial</span>
+                            <span class="guia-tag">Mensajes</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -952,41 +1105,63 @@
               <!-- FAQ -->
               <div class="ayuda-accordion" data-category="faq">
                 <div class="accordion-header">
-                  <div class="accordion-title cat-faq">
-                    <i data-lucide="message-square-text"></i>
-                    <span>Preguntas Frecuentes</span>
+                  <div class="accordion-title">
+                    <div class="cat-icon"><i data-lucide="message-square-text"></i></div>
+                    <div class="accordion-title-text">
+                      <span>Preguntas Frecuentes</span>
+                      <small>Respuestas rápidas a dudas comunes</small>
+                    </div>
                   </div>
-                  <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  <div class="accordion-meta">
+                    <span class="accordion-count">4 guías</span>
+                    <i data-lucide="chevron-down" class="accordion-icon"></i>
+                  </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="contraseña olvidé recuperar acceso login">
+                      <div class="guia-item" data-keywords="contraseña olvidé recuperar acceso login clave restablecer">
                         <div class="guia-icon"><i data-lucide="key"></i></div>
                         <div class="guia-content">
                           <h4>¿Olvidé mi contraseña?</h4>
                           <p>Contacta a administración a través del formulario de ayuda o acude presencialmente a secretaría para solicitar el restablecimiento de tu contraseña.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Contraseña</span>
+                            <span class="guia-tag">Acceso</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="curso no aparece falta asignado error">
+                      <div class="guia-item" data-keywords="curso no aparece falta asignado error verificar lista">
                         <div class="guia-icon"><i data-lucide="alert-circle"></i></div>
                         <div class="guia-content">
                           <h4>¿No veo un curso asignado?</h4>
                           <p>Si un curso que deberías tener no aparece en tu lista, contacta a administración para verificar la asignación en el sistema.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Cursos</span>
+                            <span class="guia-tag">Asignación</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="calificaciones no guarda error notas">
+                      <div class="guia-item" data-keywords="calificaciones no guarda error notas persistir guardar problema">
                         <div class="guia-icon"><i data-lucide="save"></i></div>
                         <div class="guia-content">
                           <h4>¿Las calificaciones no se guardan?</h4>
                           <p>Asegúrate de hacer clic en "Guardar" después de ingresar las notas. Si el problema persiste, recarga la página e intenta nuevamente o contacta soporte.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Error</span>
+                            <span class="guia-tag">Guardado</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="guia-item" data-keywords="problema error funciona mal bug reporte">
+                      <div class="guia-item" data-keywords="problema error funciona mal bug reporte tecnico sistema">
                         <div class="guia-icon"><i data-lucide="bug"></i></div>
                         <div class="guia-content">
                           <h4>¿Encontré un error en el sistema?</h4>
                           <p>Repórtalo a través del Chat de Soporte describiendo qué sucedió y en qué sección. Incluye capturas de pantalla si es posible.</p>
+                          <div class="guia-tags">
+                            <span class="guia-tag">Error</span>
+                            <span class="guia-tag">Reporte</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -997,12 +1172,24 @@
             </div>
 
             <div class="ayuda-tips">
-              <h3><i data-lucide="lightbulb"></i> Tips Rápidos</h3>
+              <h3><i data-lucide="lightbulb"></i> Tips Rápidos para Profesores</h3>
               <div class="tips-list">
-                <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga si algo no carga</div>
-                <div class="tip-badge"><i data-lucide="save"></i> Guarda cambios frecuentemente</div>
-                <div class="tip-badge"><i data-lucide="smartphone"></i> Funciona en celulares</div>
-                <div class="tip-badge"><i data-lucide="message-circle"></i> El chat es el canal más rápido</div>
+                <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la página si algo no carga correctamente</div>
+                <div class="tip-badge"><i data-lucide="save"></i> Guarda cambios frecuentemente al cargar notas</div>
+                <div class="tip-badge"><i data-lucide="smartphone"></i> El sistema funciona perfectamente desde tu celular</div>
+                <div class="tip-badge"><i data-lucide="message-circle"></i> El chat de soporte es el canal más rápido para ayuda</div>
+              </div>
+            </div>
+
+            <div class="ayuda-footer">
+              <p>¿No encontraste lo que buscabas? Estamos aquí para ayudarte.</p>
+              <div class="ayuda-footer-links">
+                <span class="ayuda-footer-link" onclick="document.getElementById('btnChatSoporte').click()">
+                  <i data-lucide="message-circle"></i> Abrir Chat de Soporte
+                </span>
+                <span class="ayuda-footer-link" onclick="window.open('ayuda.html', '_blank')">
+                  <i data-lucide="external-link"></i> Centro de Ayuda Completo
+                </span>
               </div>
             </div>
           </div>

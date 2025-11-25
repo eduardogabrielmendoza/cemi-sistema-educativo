@@ -278,18 +278,57 @@ function renderAdminAyuda() {
       <div class="ayuda-header">
         <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
         <p>Guías completas para administrar el sistema CEMI</p>
+        <div class="ayuda-stats">
+          <div class="ayuda-stat-item">
+            <div class="ayuda-stat-number">30+</div>
+            <div class="ayuda-stat-label">Guías disponibles</div>
+          </div>
+          <div class="ayuda-stat-item">
+            <div class="ayuda-stat-number">10</div>
+            <div class="ayuda-stat-label">Categorías</div>
+          </div>
+          <div class="ayuda-stat-item">
+            <div class="ayuda-stat-number">24/7</div>
+            <div class="ayuda-stat-label">Acceso disponible</div>
+          </div>
+        </div>
       </div>
 
       <div class="ayuda-search-container">
         <i data-lucide="search" class="search-icon"></i>
-        <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="Buscar en las guías..." autocomplete="off">
+        <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="¿Qué necesitas aprender hoy?" autocomplete="off">
+        <div class="search-suggestions">
+          <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='curso'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Cursos</span>
+          <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='alumno'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Alumnos</span>
+          <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='pago'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Pagos</span>
+          <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='profesor'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Profesores</span>
+        </div>
       </div>
 
       <div class="search-results-count" id="searchResultsCount"></div>
       <div class="no-results-message" id="noResultsMessage">
         <i data-lucide="search-x"></i>
         <h3>No se encontraron resultados</h3>
-        <p>Intenta con otros términos de búsqueda</p>
+        <p>Intenta con otros términos de búsqueda o explora las categorías</p>
+      </div>
+
+      <div class="ayuda-quick-access">
+        <div class="quick-access-card" onclick="document.querySelector('[data-category=cursos] .accordion-header').click()">
+          <div class="qa-icon"><i data-lucide="book-open"></i></div>
+          <div class="qa-text"><h4>Gestionar Cursos</h4><span>Crear y editar</span></div>
+        </div>
+        <div class="quick-access-card" onclick="document.querySelector('[data-category=alumnos] .accordion-header').click()">
+          <div class="qa-icon"><i data-lucide="users"></i></div>
+          <div class="qa-text"><h4>Gestionar Alumnos</h4><span>Registros</span></div>
+        </div>
+        <div class="quick-access-card" onclick="document.querySelector('[data-category=pagos] .accordion-header').click()">
+          <div class="qa-icon"><i data-lucide="credit-card"></i></div>
+          <div class="qa-text"><h4>Control de Pagos</h4><span>Cuotas</span></div>
+        </div>
+        <div class="quick-access-card" onclick="document.querySelector('[data-category=chat] .accordion-header').click()">
+          <div class="qa-icon"><i data-lucide="message-circle"></i></div>
+          <div class="qa-text"><h4>Soporte</h4><span>Mensajes</span></div>
+        </div>
       </div>
 
       <div class="ayuda-categorias" id="ayudaCategorias">
@@ -297,11 +336,14 @@ function renderAdminAyuda() {
         <!-- Primeros Pasos -->
         <div class="ayuda-accordion" data-category="inicio">
           <div class="accordion-header">
-            <div class="accordion-title cat-inicio">
-              <i data-lucide="home"></i>
-              <span>Primeros Pasos</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="home"></i></div>
+              <div class="accordion-title-text"><span>Primeros Pasos</span><small>Aprende a navegar el panel administrativo</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">2 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
@@ -310,14 +352,16 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="layout-dashboard"></i></div>
                   <div class="guia-content">
                     <h4>Navegación del Panel</h4>
-                    <p>El menú lateral izquierdo te da acceso a todas las secciones administrativas: Cursos, Alumnos, Profesores, Administradores, Pagos, Aulas, Idiomas y Chat Soporte.</p>
+                    <p>El menú lateral izquierdo te da acceso a todas las secciones: Cursos, Alumnos, Profesores, Administradores, Pagos, Aulas, Idiomas y Chat.</p>
+                    <div class="guia-tags"><span class="guia-tag">Básico</span><span class="guia-tag">Navegación</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="entender panel resumen funciones admin">
+                <div class="guia-item" data-keywords="entender panel resumen funciones admin control total">
                   <div class="guia-icon"><i data-lucide="info"></i></div>
                   <div class="guia-content">
                     <h4>Funciones del Administrador</h4>
-                    <p>Como administrador tienes control total sobre: gestión de cursos, registro de alumnos y profesores, control de pagos, configuración de aulas e idiomas, y soporte a usuarios.</p>
+                    <p>Control total sobre: gestión de cursos, registro de alumnos y profesores, control de pagos, configuración de aulas e idiomas, y soporte.</p>
+                    <div class="guia-tags"><span class="guia-tag">Roles</span><span class="guia-tag">Permisos</span></div>
                   </div>
                 </div>
               </div>
@@ -328,48 +372,56 @@ function renderAdminAyuda() {
         <!-- Gestión de Cursos -->
         <div class="ayuda-accordion" data-category="cursos">
           <div class="accordion-header">
-            <div class="accordion-title cat-cursos">
-              <i data-lucide="book-open"></i>
-              <span>Gestión de Cursos</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="book-open"></i></div>
+              <div class="accordion-title-text"><span>Gestión de Cursos</span><small>Crear, editar y administrar cursos</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">5 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="crear nuevo curso agregar añadir">
+                <div class="guia-item" data-keywords="crear nuevo curso agregar añadir formulario">
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Crear Nuevo Curso</h4>
-                    <p>Haz clic en "Nuevo Curso", completa el formulario con nombre, idioma, nivel, horario, cupo máximo y aula. Luego podrás asignar un profesor.</p>
+                    <p>Haz clic en "Nuevo Curso", completa nombre, idioma, nivel, horario, cupo y aula. Luego podrás asignar profesor.</p>
+                    <div class="guia-tags"><span class="guia-tag">Crear</span><span class="guia-tag">Curso</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="editar modificar curso cambiar actualizar">
                   <div class="guia-icon"><i data-lucide="edit"></i></div>
                   <div class="guia-content">
                     <h4>Editar Curso</h4>
-                    <p>En cada tarjeta de curso, haz clic en el ícono de lápiz para modificar los datos. Puedes cambiar horario, aula, cupo y otros detalles.</p>
+                    <p>En cada tarjeta de curso, haz clic en el ícono de lápiz para modificar horario, aula, cupo y otros detalles.</p>
+                    <div class="guia-tags"><span class="guia-tag">Editar</span><span class="guia-tag">Modificar</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="eliminar borrar curso quitar">
+                <div class="guia-item" data-keywords="eliminar borrar curso quitar remover">
                   <div class="guia-icon"><i data-lucide="trash-2"></i></div>
                   <div class="guia-content">
                     <h4>Eliminar Curso</h4>
-                    <p>Haz clic en el ícono de papelera para eliminar un curso. El sistema pedirá confirmación. Nota: Solo puedes eliminar cursos sin alumnos inscritos.</p>
+                    <p>Haz clic en papelera para eliminar. Solo puedes eliminar cursos sin alumnos inscritos.</p>
+                    <div class="guia-tags"><span class="guia-tag">Eliminar</span><span class="guia-tag">Borrar</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="asignar profesor docente curso vincular">
                   <div class="guia-icon"><i data-lucide="user-check"></i></div>
                   <div class="guia-content">
                     <h4>Asignar Profesor</h4>
-                    <p>Usa el botón verde con ícono de usuario para asignar o cambiar el profesor de un curso. Selecciona de la lista de profesores disponibles.</p>
+                    <p>Usa el botón verde para asignar o cambiar el profesor de un curso desde la lista disponible.</p>
+                    <div class="guia-tags"><span class="guia-tag">Profesor</span><span class="guia-tag">Asignar</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="ver detalles curso informacion alumnos">
+                <div class="guia-item" data-keywords="ver detalles curso informacion alumnos lista">
                   <div class="guia-icon"><i data-lucide="eye"></i></div>
                   <div class="guia-content">
                     <h4>Ver Detalles del Curso</h4>
-                    <p>Haz clic en la tarjeta o el ícono de ojo para ver todos los detalles: información del curso, lista de alumnos inscritos y opciones de gestión.</p>
+                    <p>Haz clic en la tarjeta para ver información completa, lista de alumnos y opciones de gestión.</p>
+                    <div class="guia-tags"><span class="guia-tag">Detalles</span><span class="guia-tag">Info</span></div>
                   </div>
                 </div>
               </div>
@@ -380,48 +432,56 @@ function renderAdminAyuda() {
         <!-- Gestión de Alumnos -->
         <div class="ayuda-accordion" data-category="alumnos">
           <div class="accordion-header">
-            <div class="accordion-title cat-alumnos">
-              <i data-lucide="users"></i>
-              <span>Gestión de Alumnos</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="users"></i></div>
+              <div class="accordion-title-text"><span>Gestión de Alumnos</span><small>Registro, edición y seguimiento</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">5 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="registrar nuevo alumno crear agregar estudiante">
+                <div class="guia-item" data-keywords="registrar nuevo alumno crear agregar estudiante matricula">
                   <div class="guia-icon"><i data-lucide="user-plus"></i></div>
                   <div class="guia-content">
                     <h4>Registrar Alumno</h4>
-                    <p>Haz clic en "Nuevo Alumno" y completa: nombre, apellido, DNI, email, teléfono y curso inicial. El sistema genera automáticamente el legajo y credenciales.</p>
+                    <p>Haz clic en "Nuevo Alumno" y completa datos. El sistema genera legajo y credenciales automáticamente.</p>
+                    <div class="guia-tags"><span class="guia-tag">Registro</span><span class="guia-tag">Nuevo</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="editar modificar alumno informacion datos">
+                <div class="guia-item" data-keywords="editar modificar alumno informacion datos actualizar">
                   <div class="guia-icon"><i data-lucide="edit"></i></div>
                   <div class="guia-content">
                     <h4>Editar Información</h4>
-                    <p>Accede a la tarjeta del alumno y haz clic en editar para modificar sus datos personales, información de contacto o cursos inscritos.</p>
+                    <p>Accede a la tarjeta del alumno para modificar datos personales, contacto o cursos inscritos.</p>
+                    <div class="guia-tags"><span class="guia-tag">Editar</span><span class="guia-tag">Datos</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="estado alumno activo inactivo cambiar baja">
+                <div class="guia-item" data-keywords="estado alumno activo inactivo cambiar baja alta">
                   <div class="guia-icon"><i data-lucide="toggle-left"></i></div>
                   <div class="guia-content">
                     <h4>Cambiar Estado</h4>
-                    <p>Puedes marcar un alumno como "Activo" o "Inactivo". Los alumnos inactivos no pueden acceder al sistema pero sus datos se conservan.</p>
+                    <p>Marca alumnos como "Activo" o "Inactivo". Los inactivos no acceden al sistema pero sus datos se conservan.</p>
+                    <div class="guia-tags"><span class="guia-tag">Estado</span><span class="guia-tag">Activo</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="descargar pdf lista alumnos exportar reporte">
+                <div class="guia-item" data-keywords="descargar pdf lista alumnos exportar reporte imprimir">
                   <div class="guia-icon"><i data-lucide="file-down"></i></div>
                   <div class="guia-content">
                     <h4>Descargar PDF</h4>
-                    <p>Usa el botón "Descargar Información" para generar un PDF con la lista completa de alumnos, útil para reportes e impresiones.</p>
+                    <p>Genera PDF con lista completa de alumnos para reportes e impresiones.</p>
+                    <div class="guia-tags"><span class="guia-tag">PDF</span><span class="guia-tag">Exportar</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="buscar filtrar alumno nombre legajo email">
+                <div class="guia-item" data-keywords="buscar filtrar alumno nombre legajo email encontrar">
                   <div class="guia-icon"><i data-lucide="search"></i></div>
                   <div class="guia-content">
                     <h4>Buscar y Filtrar</h4>
-                    <p>Usa el buscador para encontrar alumnos por nombre, legajo o email. También puedes filtrar por estado (activos/inactivos).</p>
+                    <p>Usa el buscador para encontrar alumnos por nombre, legajo o email. Filtra por estado.</p>
+                    <div class="guia-tags"><span class="guia-tag">Búsqueda</span><span class="guia-tag">Filtros</span></div>
                   </div>
                 </div>
               </div>
@@ -432,34 +492,40 @@ function renderAdminAyuda() {
         <!-- Gestión de Profesores -->
         <div class="ayuda-accordion" data-category="profesores">
           <div class="accordion-header">
-            <div class="accordion-title cat-profesores">
-              <i data-lucide="graduation-cap"></i>
-              <span>Gestión de Profesores</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="graduation-cap"></i></div>
+              <div class="accordion-title-text"><span>Gestión de Profesores</span><small>Registro y asignación de docentes</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">3 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="registrar nuevo profesor crear agregar docente">
+                <div class="guia-item" data-keywords="registrar nuevo profesor crear agregar docente alta">
                   <div class="guia-icon"><i data-lucide="user-plus"></i></div>
                   <div class="guia-content">
                     <h4>Registrar Profesor</h4>
-                    <p>Haz clic en "Nuevo Profesor" y completa los datos: nombre, apellido, DNI, email, teléfono y especialidad. El sistema genera las credenciales de acceso.</p>
+                    <p>Haz clic en "Nuevo Profesor" y completa los datos. El sistema genera las credenciales de acceso.</p>
+                    <div class="guia-tags"><span class="guia-tag">Registro</span><span class="guia-tag">Docente</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="asignar curso profesor vincular">
+                <div class="guia-item" data-keywords="asignar curso profesor vincular multiple">
                   <div class="guia-icon"><i data-lucide="link"></i></div>
                   <div class="guia-content">
                     <h4>Asignar a Cursos</h4>
-                    <p>Desde la sección de Cursos, puedes asignar profesores a cada curso. Un profesor puede tener múltiples cursos asignados.</p>
+                    <p>Desde Cursos puedes asignar profesores. Un profesor puede tener múltiples cursos asignados.</p>
+                    <div class="guia-tags"><span class="guia-tag">Asignar</span><span class="guia-tag">Cursos</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="descargar pdf profesores exportar lista">
+                <div class="guia-item" data-keywords="descargar pdf profesores exportar lista reporte">
                   <div class="guia-icon"><i data-lucide="file-down"></i></div>
                   <div class="guia-content">
                     <h4>Descargar PDF</h4>
-                    <p>Genera un reporte PDF con la lista de profesores usando el botón "Descargar Información".</p>
+                    <p>Genera un reporte PDF con la lista de profesores usando "Descargar Información".</p>
+                    <div class="guia-tags"><span class="guia-tag">PDF</span><span class="guia-tag">Exportar</span></div>
                   </div>
                 </div>
               </div>
@@ -470,27 +536,32 @@ function renderAdminAyuda() {
         <!-- Gestión de Administradores -->
         <div class="ayuda-accordion" data-category="admins">
           <div class="accordion-header">
-            <div class="accordion-title cat-admins">
-              <i data-lucide="shield"></i>
-              <span>Gestión de Administradores</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="shield"></i></div>
+              <div class="accordion-title-text"><span>Gestión de Administradores</span><small>Control de acceso administrativo</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">2 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="crear nuevo administrador agregar admin">
+                <div class="guia-item" data-keywords="crear nuevo administrador agregar admin usuario">
                   <div class="guia-icon"><i data-lucide="shield-plus"></i></div>
                   <div class="guia-content">
                     <h4>Crear Nuevo Administrador</h4>
-                    <p>Agrega nuevos administradores que tendrán acceso completo al sistema. Completa sus datos y define sus credenciales de acceso.</p>
+                    <p>Agrega nuevos administradores con acceso completo al sistema. Define sus credenciales de acceso.</p>
+                    <div class="guia-tags"><span class="guia-tag">Admin</span><span class="guia-tag">Crear</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="permisos acceso administrador seguridad">
+                <div class="guia-item" data-keywords="permisos acceso administrador seguridad control">
                   <div class="guia-icon"><i data-lucide="lock"></i></div>
                   <div class="guia-content">
                     <h4>Permisos de Acceso</h4>
-                    <p>Todos los administradores tienen acceso completo a todas las funciones del sistema. Gestiona con cuidado quién tiene este rol.</p>
+                    <p>Todos los administradores tienen acceso completo. Gestiona con cuidado quién tiene este rol.</p>
+                    <div class="guia-tags"><span class="guia-tag">Permisos</span><span class="guia-tag">Seguridad</span></div>
                   </div>
                 </div>
               </div>
@@ -501,34 +572,40 @@ function renderAdminAyuda() {
         <!-- Gestión de Pagos -->
         <div class="ayuda-accordion" data-category="pagos">
           <div class="accordion-header">
-            <div class="accordion-title cat-pagos">
-              <i data-lucide="credit-card"></i>
-              <span>Gestión de Pagos</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="credit-card"></i></div>
+              <div class="accordion-title-text"><span>Gestión de Pagos</span><small>Control de cuotas y comprobantes</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">3 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="ver historial pagos lista cuotas">
+                <div class="guia-item" data-keywords="ver historial pagos lista cuotas estado consultar">
                   <div class="guia-icon"><i data-lucide="list"></i></div>
                   <div class="guia-content">
                     <h4>Ver Historial de Pagos</h4>
-                    <p>Visualiza todos los pagos realizados con filtros por estado (pagado, pendiente, efectivo pendiente), fecha y alumno.</p>
+                    <p>Visualiza pagos con filtros por estado (pagado, pendiente, efectivo pendiente), fecha y alumno.</p>
+                    <div class="guia-tags"><span class="guia-tag">Historial</span><span class="guia-tag">Filtros</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="registrar pago efectivo confirmar aprobar">
+                <div class="guia-item" data-keywords="registrar pago efectivo confirmar aprobar validar ticket">
                   <div class="guia-icon"><i data-lucide="check-circle"></i></div>
                   <div class="guia-content">
                     <h4>Confirmar Pago en Efectivo</h4>
-                    <p>Cuando un alumno paga en efectivo con su ticket, busca el pago pendiente y confírmalo para actualizar el estado a "Pagado".</p>
+                    <p>Cuando un alumno paga con ticket, busca el pago pendiente y confírmalo para actualizarlo.</p>
+                    <div class="guia-tags"><span class="guia-tag">Confirmar</span><span class="guia-tag">Efectivo</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="archivo archivar pagos ocultar antiguos">
+                <div class="guia-item" data-keywords="archivo archivar pagos ocultar antiguos limpiar">
                   <div class="guia-icon"><i data-lucide="archive"></i></div>
                   <div class="guia-content">
                     <h4>Archivo de Pagos</h4>
-                    <p>Puedes archivar pagos antiguos para mantener la lista principal limpia. Los pagos archivados se pueden consultar en la sección de archivo.</p>
+                    <p>Archiva pagos antiguos para mantener la lista limpia. Se pueden consultar en la sección de archivo.</p>
+                    <div class="guia-tags"><span class="guia-tag">Archivar</span><span class="guia-tag">Organizar</span></div>
                   </div>
                 </div>
               </div>
@@ -539,27 +616,32 @@ function renderAdminAyuda() {
         <!-- Gestión de Aulas -->
         <div class="ayuda-accordion" data-category="aulas">
           <div class="accordion-header">
-            <div class="accordion-title cat-aulas">
-              <i data-lucide="door-open"></i>
-              <span>Gestión de Aulas</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="door-open"></i></div>
+              <div class="accordion-title-text"><span>Gestión de Aulas</span><small>Espacios físicos del instituto</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">2 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="crear nueva aula agregar salon">
+                <div class="guia-item" data-keywords="crear nueva aula agregar salon espacio capacidad">
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Crear Nueva Aula</h4>
-                    <p>Define las aulas disponibles en el instituto con su nombre/número y capacidad. Estas aulas estarán disponibles para asignar a cursos.</p>
+                    <p>Define aulas con nombre/número y capacidad. Estarán disponibles para asignar a cursos.</p>
+                    <div class="guia-tags"><span class="guia-tag">Crear</span><span class="guia-tag">Aula</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="asignar aula curso vincular espacio">
+                <div class="guia-item" data-keywords="asignar aula curso vincular espacio seleccionar">
                   <div class="guia-icon"><i data-lucide="link"></i></div>
                   <div class="guia-content">
                     <h4>Asignar a Cursos</h4>
-                    <p>Al crear o editar un curso, selecciona el aula donde se dictará. El sistema te muestra las aulas disponibles.</p>
+                    <p>Al crear o editar un curso, selecciona el aula donde se dictará.</p>
+                    <div class="guia-tags"><span class="guia-tag">Asignar</span><span class="guia-tag">Vincular</span></div>
                   </div>
                 </div>
               </div>
@@ -570,27 +652,32 @@ function renderAdminAyuda() {
         <!-- Gestión de Idiomas -->
         <div class="ayuda-accordion" data-category="idiomas">
           <div class="accordion-header">
-            <div class="accordion-title cat-idiomas">
-              <i data-lucide="languages"></i>
-              <span>Gestión de Idiomas</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="languages"></i></div>
+              <div class="accordion-title-text"><span>Gestión de Idiomas</span><small>Configuración de lenguas disponibles</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">2 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="agregar nuevo idioma crear lengua">
+                <div class="guia-item" data-keywords="agregar nuevo idioma crear lengua ingles frances portugues">
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Agregar Idiomas</h4>
-                    <p>Define los idiomas que se enseñan en el instituto (Inglés, Francés, Portugués, etc.). Estos idiomas estarán disponibles al crear cursos.</p>
+                    <p>Define los idiomas que se enseñan (Inglés, Francés, Portugués, etc.). Estarán disponibles al crear cursos.</p>
+                    <div class="guia-tags"><span class="guia-tag">Idioma</span><span class="guia-tag">Agregar</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="configurar niveles idioma basico intermedio avanzado">
+                <div class="guia-item" data-keywords="configurar niveles idioma basico intermedio avanzado dificultad">
                   <div class="guia-icon"><i data-lucide="sliders"></i></div>
                   <div class="guia-content">
                     <h4>Configurar Niveles</h4>
-                    <p>Los niveles (Básico, Intermedio, Avanzado) se asignan a cada curso para clasificar el grado de dificultad.</p>
+                    <p>Los niveles (Básico, Intermedio, Avanzado) clasifican el grado de dificultad de cada curso.</p>
+                    <div class="guia-tags"><span class="guia-tag">Niveles</span><span class="guia-tag">Config</span></div>
                   </div>
                 </div>
               </div>
@@ -601,34 +688,40 @@ function renderAdminAyuda() {
         <!-- Chat Soporte -->
         <div class="ayuda-accordion" data-category="chat">
           <div class="accordion-header">
-            <div class="accordion-title cat-chat">
-              <i data-lucide="message-circle"></i>
-              <span>Chat de Soporte</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="message-circle"></i></div>
+              <div class="accordion-title-text"><span>Chat de Soporte</span><small>Atención a usuarios del sistema</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">3 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="responder mensajes chat usuarios alumnos profesores">
+                <div class="guia-item" data-keywords="responder mensajes chat usuarios alumnos profesores atender">
                   <div class="guia-icon"><i data-lucide="message-square"></i></div>
                   <div class="guia-content">
                     <h4>Responder Mensajes</h4>
-                    <p>Recibirás notificaciones cuando usuarios (alumnos o profesores) envíen mensajes. Accede al chat para ver y responder las consultas.</p>
+                    <p>Recibirás notificaciones cuando usuarios envíen mensajes. Accede al chat para ver y responder.</p>
+                    <div class="guia-tags"><span class="guia-tag">Mensajes</span><span class="guia-tag">Responder</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="gestionar conversaciones atender cerrar chat">
+                <div class="guia-item" data-keywords="gestionar conversaciones atender cerrar chat pendientes activas">
                   <div class="guia-icon"><i data-lucide="inbox"></i></div>
                   <div class="guia-content">
                     <h4>Gestionar Conversaciones</h4>
-                    <p>Puedes ver todas las conversaciones activas, filtrar por estado (pendientes, en curso, cerradas) y atender múltiples consultas.</p>
+                    <p>Ve todas las conversaciones activas, filtra por estado y atiende múltiples consultas.</p>
+                    <div class="guia-tags"><span class="guia-tag">Gestión</span><span class="guia-tag">Filtros</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="notificaciones alerta badge nuevo mensaje">
+                <div class="guia-item" data-keywords="notificaciones alerta badge nuevo mensaje tiempo real">
                   <div class="guia-icon"><i data-lucide="bell"></i></div>
                   <div class="guia-content">
                     <h4>Notificaciones</h4>
-                    <p>El badge rojo en "Chat Soporte" indica mensajes sin leer. Habilita las notificaciones del navegador para recibir alertas en tiempo real.</p>
+                    <p>El badge rojo indica mensajes sin leer. Habilita notificaciones del navegador para alertas en tiempo real.</p>
+                    <div class="guia-tags"><span class="guia-tag">Alertas</span><span class="guia-tag">Badge</span></div>
                   </div>
                 </div>
               </div>
@@ -639,41 +732,48 @@ function renderAdminAyuda() {
         <!-- FAQ -->
         <div class="ayuda-accordion" data-category="faq">
           <div class="accordion-header">
-            <div class="accordion-title cat-faq">
-              <i data-lucide="message-square-text"></i>
-              <span>Preguntas Frecuentes</span>
+            <div class="accordion-title">
+              <div class="cat-icon"><i data-lucide="message-square-text"></i></div>
+              <div class="accordion-title-text"><span>Preguntas Frecuentes</span><small>Respuestas rápidas a dudas comunes</small></div>
             </div>
-            <i data-lucide="chevron-down" class="accordion-icon"></i>
+            <div class="accordion-meta">
+              <span class="accordion-count">4 guías</span>
+              <i data-lucide="chevron-down" class="accordion-icon"></i>
+            </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="restablecer contraseña usuario olvidó password">
+                <div class="guia-item" data-keywords="restablecer contraseña usuario olvidó password reset clave">
                   <div class="guia-icon"><i data-lucide="key"></i></div>
                   <div class="guia-content">
-                    <h4>¿Cómo restablezco la contraseña de un usuario?</h4>
-                    <p>Accede al perfil del alumno o profesor y usa la opción de restablecer contraseña. El sistema generará una nueva contraseña temporal.</p>
+                    <h4>¿Cómo restablezco contraseña de un usuario?</h4>
+                    <p>Accede al perfil del alumno o profesor y usa la opción de restablecer. Se genera contraseña temporal.</p>
+                    <div class="guia-tags"><span class="guia-tag">Contraseña</span><span class="guia-tag">Reset</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="eliminar borrar curso alumnos inscritos">
+                <div class="guia-item" data-keywords="eliminar borrar curso alumnos inscritos error no puedo">
                   <div class="guia-icon"><i data-lucide="alert-triangle"></i></div>
                   <div class="guia-content">
                     <h4>¿No puedo eliminar un curso?</h4>
-                    <p>Un curso con alumnos inscritos no puede eliminarse directamente. Primero debes desvincular o transferir los alumnos a otro curso.</p>
+                    <p>Cursos con alumnos inscritos no pueden eliminarse. Primero desvincular o transferir alumnos.</p>
+                    <div class="guia-tags"><span class="guia-tag">Eliminar</span><span class="guia-tag">Error</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="backup respaldo datos base datos">
+                <div class="guia-item" data-keywords="backup respaldo datos base datos automatico railway">
                   <div class="guia-icon"><i data-lucide="database"></i></div>
                   <div class="guia-content">
                     <h4>¿Se hacen respaldos automáticos?</h4>
-                    <p>El sistema en Railway realiza respaldos automáticos de la base de datos. Para respaldos manuales, contacta al administrador técnico.</p>
+                    <p>Railway realiza respaldos automáticos. Para respaldos manuales, contacta al administrador técnico.</p>
+                    <div class="guia-tags"><span class="guia-tag">Backup</span><span class="guia-tag">Datos</span></div>
                   </div>
                 </div>
-                <div class="guia-item" data-keywords="problema error funciona mal bug reporte">
+                <div class="guia-item" data-keywords="problema error funciona mal bug reporte tecnico sistema">
                   <div class="guia-icon"><i data-lucide="bug"></i></div>
                   <div class="guia-content">
                     <h4>¿Encontré un error en el sistema?</h4>
-                    <p>Documenta el error con capturas de pantalla y los pasos para reproducirlo. Contacta al equipo de desarrollo para reportarlo.</p>
+                    <p>Documenta el error con capturas y pasos para reproducirlo. Contacta al equipo de desarrollo.</p>
+                    <div class="guia-tags"><span class="guia-tag">Error</span><span class="guia-tag">Reporte</span></div>
                   </div>
                 </div>
               </div>
@@ -686,10 +786,19 @@ function renderAdminAyuda() {
       <div class="ayuda-tips">
         <h3><i data-lucide="lightbulb"></i> Tips para Administradores</h3>
         <div class="tips-list">
-          <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga si los datos no se actualizan</div>
-          <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones del chat</div>
-          <div class="tip-badge"><i data-lucide="file-down"></i> Exporta PDFs para reportes</div>
-          <div class="tip-badge"><i data-lucide="archive"></i> Archiva pagos antiguos regularmente</div>
+          <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la página si los datos no se actualizan</div>
+          <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones del chat para responder rápido</div>
+          <div class="tip-badge"><i data-lucide="file-down"></i> Exporta PDFs para reportes e impresiones</div>
+          <div class="tip-badge"><i data-lucide="archive"></i> Archiva pagos antiguos regularmente para mantener orden</div>
+        </div>
+      </div>
+
+      <div class="ayuda-footer">
+        <p>¿No encontraste lo que buscabas? Consulta la documentación técnica.</p>
+        <div class="ayuda-footer-links">
+          <span class="ayuda-footer-link" onclick="window.open('ayuda.html', '_blank')">
+            <i data-lucide="external-link"></i> Centro de Ayuda Completo
+          </span>
         </div>
       </div>
     </div>
