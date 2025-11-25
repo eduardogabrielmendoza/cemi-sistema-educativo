@@ -105,6 +105,10 @@
           <i data-lucide="home"></i>
           <span>Inicio</span>
         </a>
+        <a href="#" class="nav-item" data-view="activity">
+          <i data-lucide="activity"></i>
+          <span>Actividad</span>
+        </a>
         <a href="#" class="nav-item" data-view="classes">
           <i data-lucide="book-open"></i>
           <span>Mis Clases</span>
@@ -165,7 +169,73 @@
     </aside>
 
     <main class="classroom-main" id="mainContent">
+      <!-- VISTA INICIO - Centro de Recursos -->
       <div class="content-view" id="viewHome">
+        <div class="resources-header">
+          <div class="resources-title-section">
+            <div class="resources-icon-wrapper">
+              <i data-lucide="folder-open"></i>
+            </div>
+            <div>
+              <h2>Recursos y Material de Estudio</h2>
+              <p>Accede a todo el material compartido por tus profesores</p>
+            </div>
+          </div>
+          <div class="resources-actions">
+            <div class="search-box-resources">
+              <i data-lucide="search"></i>
+              <input type="text" id="searchRecursos" placeholder="Buscar recursos...">
+            </div>
+            <select class="filter-select-resources" id="filterTipoRecurso">
+              <option value="">Todos los tipos</option>
+              <option value="pdf">📄 PDFs</option>
+              <option value="documento">📝 Documentos</option>
+              <option value="enlace">🔗 Enlaces</option>
+              <option value="audio">🎧 Audio</option>
+              <option value="video">🎬 Video</option>
+              <option value="imagen">🖼️ Imágenes</option>
+            </select>
+            <button class="btn-upload-resource" id="btnSubirRecurso" style="display: none;">
+              <i data-lucide="upload-cloud"></i>
+              <span>Subir Recurso</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="resources-container" id="resourcesContainer">
+          <!-- Recursos por curso -->
+          <div class="resources-section" id="recursosPorCurso">
+            <div class="section-header">
+              <i data-lucide="graduation-cap"></i>
+              <h3>Mis Cursos</h3>
+            </div>
+            <div class="resources-grid" id="gridRecursosCursos">
+              <div class="loading-resources">
+                <div class="loading-spinner"></div>
+                <p>Cargando recursos...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biblioteca General -->
+          <div class="resources-section" id="bibliotecaGeneral">
+            <div class="section-header">
+              <i data-lucide="library"></i>
+              <h3>Biblioteca General CEMI</h3>
+              <span class="section-badge">Público</span>
+            </div>
+            <div class="resources-grid" id="gridBibliotecaGeneral">
+              <div class="loading-resources">
+                <div class="loading-spinner"></div>
+                <p>Cargando biblioteca...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA ACTIVIDAD - Feed (antes era Inicio) -->
+      <div class="content-view" id="viewActivity" style="display: none;">
         <div class="welcome-section">
           <div class="welcome-banner-overlay">
             <h2>Bienvenido a CEMI Classroom</h2>

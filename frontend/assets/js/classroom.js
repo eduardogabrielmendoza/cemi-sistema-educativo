@@ -485,7 +485,7 @@ async function loadDashboardData() {
   try {
     await Promise.all([
       loadClases(),
-      loadFeed()
+      loadRecursos()  // Cargar recursos en lugar del feed al inicio
     ]);
     
   } catch (error) {
@@ -1000,6 +1000,9 @@ async function loadViewData(viewName) {
   try {
     switch(viewName) {
       case 'home':
+        await loadRecursos();
+        break;
+      case 'activity':
         await loadFeed();
         break;
       case 'classes':
@@ -5916,6 +5919,532 @@ function aplicarTamañoFuente(tamaño) {
       body.style.fontSize = '18px';
       break;
   }
+}
+
+// =============================================
+// SISTEMA DE RECURSOS CLASSROOM
+// =============================================
+
+let recursosData = null;
+
+async function loadRecursos() {
+  try {
+    const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
+    console.log(`📚 Cargando recursos para ${tipo} ID: ${userId}`);
+    
+    const response = await fetch(`${API_URL}/classroom/recursos/${tipo}/${userId}`);
+    const data = await response.json();
+    
+    if (data.success) {
+      recursosData = data;
+      renderRecursos(data);
+      setupRecursosEventListeners();
+      
+      // Mostrar botón de subir solo para profesores
+      const btnSubir = document.getElementById('btnSubirRecurso');
+      if (btnSubir && userRol.toLowerCase() === 'profesor') {
+        btnSubir.style.display = 'flex';
+      }
+    } else {
+      console.error('Error al cargar recursos:', data.message);
+      mostrarErrorRecursos();
+    }
+  } catch (error) {
+    console.error('Error al cargar recursos:', error);
+    mostrarErrorRecursos();
+  }
+}
+
+function renderRecursos(data) {
+  const gridCursos = document.getElementById('gridRecursosCursos');
+  const gridBiblioteca = document.getElementById('gridBibliotecaGeneral');
+  
+  // Renderizar recursos por curso
+  if (data.recursosPorCurso && data.recursosPorCurso.length > 0) {
+    gridCursos.innerHTML = data.recursosPorCurso.map(curso => renderCursoCard(curso)).join('');
+  } else {
+    gridCursos.innerHTML = `
+      <div class="empty-resources">
+        <i data-lucide="folder-open"></i>
+        <p>No hay recursos disponibles en tus cursos</p>
+        ${userRol.toLowerCase() === 'profesor' ? '<span>Sube tu primer recurso usando el botón superior</span>' : ''}
+      </div>
+    `;
+  }
+  
+  // Renderizar biblioteca general
+  if (data.bibliotecaGeneral && data.bibliotecaGeneral.length > 0) {
+    gridBiblioteca.innerHTML = `
+      <div class="resources-list">
+        ${data.bibliotecaGeneral.map(recurso => renderRecursoItem(recurso, true)).join('')}
+      </div>
+    `;
+  } else {
+    gridBiblioteca.innerHTML = `
+      <div class="empty-resources">
+        <i data-lucide="library"></i>
+        <p>La biblioteca general está vacía</p>
+      </div>
+    `;
+  }
+  
+  lucide.createIcons();
+}
+
+function renderCursoCard(curso) {
+  const gradientes = [
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
+  ];
+  const gradiente = gradientes[curso.id_curso % gradientes.length];
+  
+  const hasRecursos = curso.recursos && curso.recursos.length > 0;
+  
+  return `
+    <div class="curso-folder" data-curso-id="${curso.id_curso}">
+      <div class="folder-header" style="background: ${gradiente};">
+        <div class="folder-icon">
+          <i data-lucide="folder"></i>
+        </div>
+        <div class="folder-info">
+          <h4>${curso.nombre_curso}</h4>
+          <span>${curso.nombre_idioma} - ${curso.nivel || 'Sin nivel'}</span>
+        </div>
+        <div class="folder-count">${curso.recursos?.length || 0}</div>
+      </div>
+      <div class="folder-content ${hasRecursos ? '' : 'empty'}">
+        ${hasRecursos ? 
+          curso.recursos.map(recurso => renderRecursoItem(recurso, false)).join('') :
+          `<div class="no-recursos-msg">
+            <i data-lucide="file-x"></i>
+            <span>Sin recursos</span>
+          </div>`
+        }
+      </div>
+      ${userRol.toLowerCase() === 'profesor' ? `
+        <button class="btn-add-recurso-curso" onclick="abrirModalSubirRecurso(${curso.id_curso}, '${curso.nombre_curso}')">
+          <i data-lucide="plus"></i>
+          Agregar recurso
+        </button>
+      ` : ''}
+    </div>
+  `;
+}
+
+function renderRecursoItem(recurso, isBiblioteca = false) {
+  const iconos = {
+    pdf: 'file-text',
+    documento: 'file',
+    enlace: 'link',
+    audio: 'headphones',
+    video: 'play-circle',
+    imagen: 'image'
+  };
+  
+  const colores = {
+    pdf: '#e74c3c',
+    documento: '#3498db',
+    enlace: '#9b59b6',
+    audio: '#1abc9c',
+    video: '#e67e22',
+    imagen: '#2ecc71'
+  };
+  
+  const icono = iconos[recurso.tipo] || 'file';
+  const color = colores[recurso.tipo] || '#667eea';
+  const esEnlace = recurso.tipo === 'enlace';
+  const urlRecurso = recurso.url || recurso.archivo || '#';
+  
+  const fechaFormateada = new Date(recurso.fecha_creacion).toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
+  
+  const puedeEliminar = userRol.toLowerCase() === 'profesor' && !isBiblioteca;
+  
+  return `
+    <div class="recurso-item" data-recurso-id="${recurso.id_recurso}" data-tipo="${recurso.tipo}">
+      <div class="recurso-icon" style="background: ${color}20; color: ${color};">
+        <i data-lucide="${icono}"></i>
+      </div>
+      <div class="recurso-info">
+        <h5 class="recurso-titulo">${recurso.titulo}</h5>
+        ${recurso.descripcion ? `<p class="recurso-desc">${recurso.descripcion}</p>` : ''}
+        <div class="recurso-meta">
+          <span class="recurso-fecha"><i data-lucide="calendar"></i> ${fechaFormateada}</span>
+          ${recurso.descargas > 0 ? `<span class="recurso-descargas"><i data-lucide="download"></i> ${recurso.descargas}</span>` : ''}
+        </div>
+      </div>
+      <div class="recurso-actions">
+        ${esEnlace ? 
+          `<a href="${urlRecurso}" target="_blank" class="btn-recurso-action" title="Abrir enlace">
+            <i data-lucide="external-link"></i>
+          </a>` :
+          `<button class="btn-recurso-action" onclick="descargarRecurso(${recurso.id_recurso}, '${urlRecurso}')" title="Descargar">
+            <i data-lucide="download"></i>
+          </button>`
+        }
+        ${puedeEliminar ? `
+          <button class="btn-recurso-action btn-delete" onclick="eliminarRecurso(${recurso.id_recurso})" title="Eliminar">
+            <i data-lucide="trash-2"></i>
+          </button>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function setupRecursosEventListeners() {
+  // Búsqueda de recursos
+  const searchInput = document.getElementById('searchRecursos');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      filtrarRecursos(e.target.value, document.getElementById('filterTipoRecurso')?.value || '');
+    });
+  }
+  
+  // Filtro por tipo
+  const filterTipo = document.getElementById('filterTipoRecurso');
+  if (filterTipo) {
+    filterTipo.addEventListener('change', (e) => {
+      filtrarRecursos(document.getElementById('searchRecursos')?.value || '', e.target.value);
+    });
+  }
+  
+  // Botón subir recurso
+  const btnSubir = document.getElementById('btnSubirRecurso');
+  if (btnSubir) {
+    btnSubir.addEventListener('click', () => abrirModalSubirRecurso(null, 'Biblioteca General'));
+  }
+}
+
+function filtrarRecursos(busqueda, tipo) {
+  const recursos = document.querySelectorAll('.recurso-item');
+  const carpetas = document.querySelectorAll('.curso-folder');
+  
+  const searchLower = busqueda.toLowerCase();
+  
+  recursos.forEach(recurso => {
+    const titulo = recurso.querySelector('.recurso-titulo')?.textContent.toLowerCase() || '';
+    const desc = recurso.querySelector('.recurso-desc')?.textContent.toLowerCase() || '';
+    const tipoRecurso = recurso.dataset.tipo || '';
+    
+    const matchSearch = !busqueda || titulo.includes(searchLower) || desc.includes(searchLower);
+    const matchTipo = !tipo || tipoRecurso === tipo;
+    
+    recurso.style.display = (matchSearch && matchTipo) ? 'flex' : 'none';
+  });
+  
+  // Mostrar/ocultar carpetas vacías después de filtrar
+  carpetas.forEach(carpeta => {
+    const recursosVisibles = carpeta.querySelectorAll('.recurso-item[style*="display: flex"], .recurso-item:not([style*="display"])');
+    const hayVisibles = Array.from(recursosVisibles).some(r => r.style.display !== 'none');
+    // No ocultamos carpetas, solo mostramos mensaje si está vacía después de filtrar
+  });
+}
+
+function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca General') {
+  const cursosOptions = recursosData?.cursos?.map(c => 
+    `<option value="${c.id_curso}" ${c.id_curso === idCurso ? 'selected' : ''}>${c.nombre_curso}</option>`
+  ).join('') || '';
+  
+  const modalHTML = `
+    <div id="modalSubirRecurso" class="modal-recursos-overlay">
+      <div class="modal-recursos-content">
+        <div class="modal-recursos-header">
+          <h3><i data-lucide="upload-cloud"></i> Subir Recurso</h3>
+          <button class="modal-close" onclick="cerrarModalRecurso()">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <form id="formSubirRecurso" class="form-recursos">
+          <div class="form-group">
+            <label for="recursoTitulo">Título del recurso *</label>
+            <input type="text" id="recursoTitulo" required placeholder="Ej: Vocabulario de colores">
+          </div>
+          
+          <div class="form-group">
+            <label for="recursoDescripcion">Descripción</label>
+            <textarea id="recursoDescripcion" placeholder="Breve descripción del material..." rows="2"></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="recursoCurso">Asignar a curso</label>
+              <select id="recursoCurso">
+                <option value="">Biblioteca General (público)</option>
+                ${cursosOptions}
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="recursoTipo">Tipo de recurso *</label>
+              <select id="recursoTipo" required onchange="toggleRecursoInput()">
+                <option value="enlace">🔗 Enlace web</option>
+                <option value="pdf">📄 PDF</option>
+                <option value="documento">📝 Documento</option>
+                <option value="audio">🎧 Audio</option>
+                <option value="video">🎬 Video</option>
+                <option value="imagen">🖼️ Imagen</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group" id="grupoEnlace">
+            <label for="recursoUrl">URL del enlace *</label>
+            <input type="url" id="recursoUrl" placeholder="https://ejemplo.com/recurso">
+          </div>
+          
+          <div class="form-group" id="grupoArchivo" style="display: none;">
+            <label for="recursoArchivo">Seleccionar archivo *</label>
+            <div class="file-upload-area" id="dropZone">
+              <i data-lucide="upload"></i>
+              <p>Arrastra tu archivo aquí o <span>haz clic para seleccionar</span></p>
+              <input type="file" id="recursoArchivo" accept=".pdf,.doc,.docx,.mp3,.mp4,.jpg,.png,.gif">
+              <span id="nombreArchivo" class="file-name"></span>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="cerrarModalRecurso()">Cancelar</button>
+            <button type="submit" class="btn-submit">
+              <i data-lucide="upload-cloud"></i>
+              Subir Recurso
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  lucide.createIcons();
+  
+  // Si viene con curso preseleccionado
+  if (idCurso) {
+    document.getElementById('recursoCurso').value = idCurso;
+  }
+  
+  // Event listeners del form
+  const form = document.getElementById('formSubirRecurso');
+  form.addEventListener('submit', handleSubirRecurso);
+  
+  // Drag and drop
+  setupDragAndDrop();
+  
+  // Animación de entrada
+  setTimeout(() => {
+    document.getElementById('modalSubirRecurso').classList.add('show');
+  }, 10);
+}
+
+function toggleRecursoInput() {
+  const tipo = document.getElementById('recursoTipo').value;
+  const grupoEnlace = document.getElementById('grupoEnlace');
+  const grupoArchivo = document.getElementById('grupoArchivo');
+  
+  if (tipo === 'enlace') {
+    grupoEnlace.style.display = 'block';
+    grupoArchivo.style.display = 'none';
+    document.getElementById('recursoUrl').required = true;
+    document.getElementById('recursoArchivo').required = false;
+  } else {
+    grupoEnlace.style.display = 'none';
+    grupoArchivo.style.display = 'block';
+    document.getElementById('recursoUrl').required = false;
+    document.getElementById('recursoArchivo').required = true;
+  }
+}
+
+function setupDragAndDrop() {
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('recursoArchivo');
+  
+  if (!dropZone || !fileInput) return;
+  
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  });
+  
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'));
+  });
+  
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'));
+  });
+  
+  dropZone.addEventListener('drop', (e) => {
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      fileInput.files = files;
+      mostrarNombreArchivo(files[0].name);
+    }
+  });
+  
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+      mostrarNombreArchivo(e.target.files[0].name);
+    }
+  });
+  
+  dropZone.addEventListener('click', () => fileInput.click());
+}
+
+function mostrarNombreArchivo(nombre) {
+  const span = document.getElementById('nombreArchivo');
+  if (span) {
+    span.textContent = nombre;
+    span.style.display = 'block';
+  }
+}
+
+async function handleSubirRecurso(e) {
+  e.preventDefault();
+  
+  const titulo = document.getElementById('recursoTitulo').value.trim();
+  const descripcion = document.getElementById('recursoDescripcion').value.trim();
+  const idCurso = document.getElementById('recursoCurso').value;
+  const tipo = document.getElementById('recursoTipo').value;
+  const url = document.getElementById('recursoUrl')?.value.trim();
+  const archivo = document.getElementById('recursoArchivo')?.files[0];
+  
+  if (!titulo) {
+    showNotification('Error', 'El título es requerido', 'error');
+    return;
+  }
+  
+  if (tipo === 'enlace' && !url) {
+    showNotification('Error', 'La URL es requerida', 'error');
+    return;
+  }
+  
+  if (tipo !== 'enlace' && !archivo) {
+    showNotification('Error', 'Debes seleccionar un archivo', 'error');
+    return;
+  }
+  
+  const formData = new FormData();
+  formData.append('titulo', titulo);
+  formData.append('descripcion', descripcion);
+  formData.append('id_curso', idCurso || 'null');
+  formData.append('tipo', tipo);
+  formData.append('id_profesor', userId);
+  
+  if (tipo === 'enlace') {
+    formData.append('url', url);
+  } else {
+    formData.append('archivo', archivo);
+  }
+  
+  try {
+    const btnSubmit = document.querySelector('#formSubirRecurso .btn-submit');
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = '<i data-lucide="loader"></i> Subiendo...';
+    lucide.createIcons();
+    
+    const response = await fetch(`${API_URL}/classroom/recursos`, {
+      method: 'POST',
+      body: formData
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification('¡Éxito!', 'Recurso subido correctamente', 'success');
+      cerrarModalRecurso();
+      await loadRecursos(); // Recargar recursos
+    } else {
+      throw new Error(data.message || 'Error al subir recurso');
+    }
+  } catch (error) {
+    console.error('Error al subir recurso:', error);
+    showNotification('Error', error.message || 'No se pudo subir el recurso', 'error');
+  }
+}
+
+function cerrarModalRecurso() {
+  const modal = document.getElementById('modalSubirRecurso');
+  if (modal) {
+    modal.classList.remove('show');
+    setTimeout(() => modal.remove(), 300);
+  }
+}
+
+async function descargarRecurso(idRecurso, url) {
+  try {
+    // Registrar descarga
+    await fetch(`${API_URL}/classroom/recursos/${idRecurso}/descarga`, {
+      method: 'POST'
+    });
+    
+    // Abrir el archivo
+    window.open(url, '_blank');
+  } catch (error) {
+    console.error('Error al registrar descarga:', error);
+    window.open(url, '_blank');
+  }
+}
+
+async function eliminarRecurso(idRecurso) {
+  const result = await Swal.fire({
+    title: '¿Eliminar recurso?',
+    text: 'Esta acción no se puede deshacer',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#e74c3c',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+  
+  if (!result.isConfirmed) return;
+  
+  try {
+    const response = await fetch(`${API_URL}/classroom/recursos/${idRecurso}`, {
+      method: 'DELETE'
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      showNotification('Eliminado', 'Recurso eliminado correctamente', 'success');
+      await loadRecursos();
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    console.error('Error al eliminar recurso:', error);
+    showNotification('Error', 'No se pudo eliminar el recurso', 'error');
+  }
+}
+
+function mostrarErrorRecursos() {
+  const gridCursos = document.getElementById('gridRecursosCursos');
+  const gridBiblioteca = document.getElementById('gridBibliotecaGeneral');
+  
+  const errorHTML = `
+    <div class="error-recursos">
+      <i data-lucide="alert-circle"></i>
+      <p>Error al cargar los recursos</p>
+      <button onclick="loadRecursos()" class="btn-retry">
+        <i data-lucide="refresh-cw"></i> Reintentar
+      </button>
+    </div>
+  `;
+  
+  if (gridCursos) gridCursos.innerHTML = errorHTML;
+  if (gridBiblioteca) gridBiblioteca.innerHTML = errorHTML;
+  
+  lucide.createIcons();
 }
 
 console.log('CEMI Classroom inicializado correctamente');

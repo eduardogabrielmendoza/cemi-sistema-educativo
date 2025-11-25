@@ -1859,4 +1859,220 @@ router.delete("/poll/:id", async (req, res) => {
   }
 });
 
+// =============================================
+// ENDPOINTS DE RECURSOS CLASSROOM
+// =============================================
+
+// Obtener recursos para un usuario (alumno o profesor)
+router.get("/recursos/:tipo/:id", async (req, res) => {
+  try {
+    const { tipo, id } = req.params;
+    
+    console.log(`📚 Obteniendo recursos para ${tipo} ID: ${id}`);
+    
+    let cursosUsuario = [];
+    
+    if (tipo === 'profesor') {
+      // Obtener cursos del profesor
+      const [cursos] = await pool.query(`
+        SELECT c.id_curso, c.nombre_curso, i.nombre_idioma, n.descripcion AS nivel
+        FROM cursos c
+        JOIN idiomas i ON c.id_idioma = i.id_idioma
+        LEFT JOIN niveles n ON c.id_nivel = n.id_nivel
+        WHERE c.id_profesor = ?
+      `, [id]);
+      cursosUsuario = cursos;
+    } else if (tipo === 'alumno') {
+      // Obtener cursos del alumno
+      const [cursos] = await pool.query(`
+        SELECT c.id_curso, c.nombre_curso, i.nombre_idioma, n.descripcion AS nivel
+        FROM inscripciones ins
+        JOIN cursos c ON ins.id_curso = c.id_curso
+        JOIN idiomas i ON c.id_idioma = i.id_idioma
+        LEFT JOIN niveles n ON c.id_nivel = n.id_nivel
+        WHERE ins.id_alumno = ? AND ins.estado = 'activo'
+      `, [id]);
+      cursosUsuario = cursos;
+    }
+    
+    // Obtener IDs de cursos
+    const cursosIds = cursosUsuario.map(c => c.id_curso);
+    
+    // Obtener recursos de esos cursos
+    let recursosCursos = [];
+    if (cursosIds.length > 0) {
+      const [recursos] = await pool.query(`
+        SELECT 
+          r.*,
+          c.nombre_curso,
+          i.nombre_idioma,
+          n.descripcion AS nivel,
+          CONCAT(p.nombre, ' ', p.apellido) AS profesor_nombre
+        FROM recursos_classroom r
+        LEFT JOIN cursos c ON r.id_curso = c.id_curso
+        LEFT JOIN idiomas i ON c.id_idioma = i.id_idioma
+        LEFT JOIN niveles n ON c.id_nivel = n.id_nivel
+        LEFT JOIN profesores prof ON r.id_profesor = prof.id_profesor
+        LEFT JOIN personas p ON prof.id_persona = p.id_persona
+        WHERE r.id_curso IN (?) AND r.activo = TRUE
+        ORDER BY r.fecha_creacion DESC
+      `, [cursosIds]);
+      recursosCursos = recursos;
+    }
+    
+    // Obtener recursos de biblioteca general (id_curso = NULL)
+    const [bibliotecaGeneral] = await pool.query(`
+      SELECT 
+        r.*,
+        CONCAT(p.nombre, ' ', p.apellido) AS profesor_nombre
+      FROM recursos_classroom r
+      LEFT JOIN profesores prof ON r.id_profesor = prof.id_profesor
+      LEFT JOIN personas p ON prof.id_persona = p.id_persona
+      WHERE r.id_curso IS NULL AND r.activo = TRUE
+      ORDER BY r.fecha_creacion DESC
+    `);
+    
+    // Agrupar recursos por curso
+    const recursosPorCurso = {};
+    cursosUsuario.forEach(curso => {
+      recursosPorCurso[curso.id_curso] = {
+        id_curso: curso.id_curso,
+        nombre_curso: curso.nombre_curso,
+        nombre_idioma: curso.nombre_idioma,
+        nivel: curso.nivel,
+        recursos: recursosCursos.filter(r => r.id_curso === curso.id_curso)
+      };
+    });
+    
+    res.json({
+      success: true,
+      cursos: cursosUsuario,
+      recursosPorCurso: Object.values(recursosPorCurso),
+      bibliotecaGeneral
+    });
+    
+  } catch (error) {
+    console.error("Error al obtener recursos:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al obtener recursos",
+      error: error.message 
+    });
+  }
+});
+
+// Subir nuevo recurso (solo profesores)
+router.post("/recursos", upload.single('archivo'), async (req, res) => {
+  try {
+    const { titulo, descripcion, tipo, url, id_curso, id_profesor } = req.body;
+    
+    console.log(`📤 Subiendo recurso: ${titulo}`);
+    
+    let archivoPath = null;
+    if (req.file) {
+      archivoPath = `/uploads/${req.file.filename}`;
+    }
+    
+    const [result] = await pool.query(`
+      INSERT INTO recursos_classroom (titulo, descripcion, tipo, url, archivo, id_curso, id_profesor)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [
+      titulo,
+      descripcion || null,
+      tipo,
+      url || null,
+      archivoPath,
+      id_curso === 'null' || id_curso === '' ? null : id_curso,
+      id_profesor
+    ]);
+    
+    res.json({
+      success: true,
+      message: "Recurso subido exitosamente",
+      id_recurso: result.insertId
+    });
+    
+  } catch (error) {
+    console.error("Error al subir recurso:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al subir recurso",
+      error: error.message 
+    });
+  }
+});
+
+// Actualizar recurso
+router.put("/recursos/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { titulo, descripcion, tipo, url, id_curso } = req.body;
+    
+    console.log(`✏️ Actualizando recurso ${id}`);
+    
+    await pool.query(`
+      UPDATE recursos_classroom 
+      SET titulo = ?, descripcion = ?, tipo = ?, url = ?, id_curso = ?
+      WHERE id_recurso = ?
+    `, [
+      titulo,
+      descripcion,
+      tipo,
+      url,
+      id_curso === 'null' || id_curso === '' ? null : id_curso,
+      id
+    ]);
+    
+    res.json({
+      success: true,
+      message: "Recurso actualizado exitosamente"
+    });
+    
+  } catch (error) {
+    console.error("Error al actualizar recurso:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al actualizar recurso" 
+    });
+  }
+});
+
+// Eliminar recurso
+router.delete("/recursos/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    console.log(`🗑️ Eliminando recurso ${id}`);
+    
+    // Soft delete
+    await pool.query(`UPDATE recursos_classroom SET activo = FALSE WHERE id_recurso = ?`, [id]);
+    
+    res.json({
+      success: true,
+      message: "Recurso eliminado exitosamente"
+    });
+    
+  } catch (error) {
+    console.error("Error al eliminar recurso:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al eliminar recurso" 
+    });
+  }
+});
+
+// Incrementar contador de descargas
+router.post("/recursos/:id/descarga", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    await pool.query(`UPDATE recursos_classroom SET descargas = descargas + 1 WHERE id_recurso = ?`, [id]);
+    
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error al registrar descarga:", error);
+    res.status(500).json({ success: false });
+  }
+});
+
 export default router;
