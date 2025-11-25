@@ -825,24 +825,24 @@ async function generarEstadoCuenta(idAlumno) {
     
     yPos += 18;
     
-    // Resumen general
+    // Resumen general - usar estadisticas_globales del endpoint
     let totalPagado = 0;
     let totalPendiente = 0;
     let cuotasPagadas = 0;
-    let cuotasPendientes = 0;
+    let cuotasTotales = 0;
+    
+    if (pagosData.estadisticas_globales) {
+      totalPagado = pagosData.estadisticas_globales.total_pagado || 0;
+      totalPendiente = pagosData.estadisticas_globales.total_pendiente || 0;
+    }
     
     if (pagosData.cursos && pagosData.cursos.length > 0) {
       pagosData.cursos.forEach(curso => {
-        if (curso.cuotas) {
-          curso.cuotas.forEach(cuota => {
-            if (cuota.pagado) {
-              totalPagado += cuota.monto || 15000;
-              cuotasPagadas++;
-            } else {
-              totalPendiente += cuota.monto || 15000;
-              cuotasPendientes++;
-            }
-          });
+        if (curso.estadisticas) {
+          cuotasPagadas += curso.estadisticas.cuotas_pagadas || 0;
+          cuotasTotales += (curso.estadisticas.cuotas_pagadas || 0) + 
+                          (curso.estadisticas.cuotas_impagas || 0) + 
+                          (curso.estadisticas.cuotas_pendientes || 0);
         }
       });
     }
@@ -888,7 +888,7 @@ async function generarEstadoCuenta(idAlumno) {
     doc.text('CUOTAS', 165, yPos + 8, { align: 'center' });
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${cuotasPagadas}/${cuotasPagadas + cuotasPendientes}`, 165, yPos + 20, { align: 'center' });
+    doc.text(`${cuotasPagadas}/${cuotasTotales}`, 165, yPos + 20, { align: 'center' });
     
     yPos += 38;
     
@@ -909,13 +909,12 @@ async function generarEstadoCuenta(idAlumno) {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(30, 60, 114);
         const nombreCurso = curso.nombre_curso || 'Curso';
-        const nombreIdioma = curso.nombre_idioma || curso.idioma || '';
-        doc.text(`${nombreCurso}${nombreIdioma ? ' - ' + nombreIdioma : ''}`, 25, yPos + 6);
+        doc.text(nombreCurso, 25, yPos + 6);
         
         yPos += 12;
         
-        // Cuotas del curso
-        if (curso.cuotas && curso.cuotas.length > 0) {
+        // Cuotas del curso - usar curso.meses del endpoint
+        if (curso.meses && curso.meses.length > 0) {
           doc.setFontSize(8);
           doc.setFont('helvetica', 'normal');
           
@@ -931,19 +930,29 @@ async function generarEstadoCuenta(idAlumno) {
           doc.line(25, yPos, pageWidth - 25, yPos);
           yPos += 4;
           
-          curso.cuotas.slice(0, 10).forEach(cuota => {
+          curso.meses.forEach(mes => {
             doc.setTextColor(50, 50, 50);
-            doc.text(cuota.mes, 25, yPos);
-            doc.text(`$${(cuota.monto || 15000).toLocaleString('es-AR')}`, 70, yPos);
+            doc.text(mes.mes || '', 25, yPos);
+            doc.text(`$${(mes.monto || 15000).toLocaleString('es-AR')}`, 70, yPos);
             
-            if (cuota.pagado) {
+            if (mes.estado === 'pagado') {
               doc.setTextColor(16, 185, 129);
               doc.text('Pagado', 100, yPos);
               doc.setTextColor(100, 100, 100);
-              doc.text(cuota.fecha_pago ? new Date(cuota.fecha_pago).toLocaleDateString('es-ES') : '-', 140, yPos);
-            } else {
+              doc.text(mes.fecha_pago ? new Date(mes.fecha_pago).toLocaleDateString('es-ES') : '-', 140, yPos);
+            } else if (mes.estado === 'impago') {
+              doc.setTextColor(239, 68, 68);
+              doc.text('Impago', 100, yPos);
+              doc.setTextColor(100, 100, 100);
+              doc.text('-', 140, yPos);
+            } else if (mes.estado === 'pendiente') {
               doc.setTextColor(245, 158, 11);
               doc.text('Pendiente', 100, yPos);
+              doc.setTextColor(100, 100, 100);
+              doc.text('-', 140, yPos);
+            } else {
+              doc.setTextColor(156, 163, 175);
+              doc.text('Próximo', 100, yPos);
               doc.setTextColor(100, 100, 100);
               doc.text('-', 140, yPos);
             }
@@ -1424,19 +1433,21 @@ async function generarPDFEstadoCuenta(alumno, pagosData) {
   doc.text(alumno.legajo || 'N/A', 155, yPos + 8);
   yPos += 30;
   
-  let totalPagado = 0, totalPendiente = 0, cuotasPagadas = 0, cuotasPendientes = 0;
+  // Usar estadisticas_globales del endpoint
+  let totalPagado = 0, totalPendiente = 0, cuotasPagadas = 0, cuotasTotales = 0;
+  
+  if (pagosData.estadisticas_globales) {
+    totalPagado = pagosData.estadisticas_globales.total_pagado || 0;
+    totalPendiente = pagosData.estadisticas_globales.total_pendiente || 0;
+  }
+  
   if (pagosData.cursos) {
     pagosData.cursos.forEach(curso => {
-      if (curso.cuotas) {
-        curso.cuotas.forEach(cuota => {
-          if (cuota.pagado) {
-            totalPagado += cuota.monto || 15000;
-            cuotasPagadas++;
-          } else {
-            totalPendiente += cuota.monto || 15000;
-            cuotasPendientes++;
-          }
-        });
+      if (curso.estadisticas) {
+        cuotasPagadas += curso.estadisticas.cuotas_pagadas || 0;
+        cuotasTotales += (curso.estadisticas.cuotas_pagadas || 0) + 
+                        (curso.estadisticas.cuotas_impagas || 0) + 
+                        (curso.estadisticas.cuotas_pendientes || 0);
       }
     });
   }
@@ -1478,7 +1489,7 @@ async function generarPDFEstadoCuenta(alumno, pagosData) {
   doc.text('CUOTAS', 165, yPos + 8, { align: 'center' });
   doc.setFontSize(12);
   doc.setFont('helvetica', 'bold');
-  doc.text(`${cuotasPagadas}/${cuotasPagadas + cuotasPendientes}`, 165, yPos + 20, { align: 'center' });
+  doc.text(`${cuotasPagadas}/${cuotasTotales}`, 165, yPos + 20, { align: 'center' });
   
   yPos += 40;
   doc.setFontSize(8);
