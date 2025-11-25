@@ -1787,12 +1787,16 @@ function generateTable(section, data) {
             const estado = a.estado || 'activo';
             const cursos = a.cursos_inscritos || 0;
             const iniciales = `${a.nombre.charAt(0)}${a.apellido.charAt(0)}`.toUpperCase();
+            const avatarUrl = a.avatar ? a.avatar : null;
             
             return `
             <div class="curso-card alumno-card" data-id="${a.id_alumno}">
               <div class="curso-card-header">
-                <div class="curso-icon" style="background: linear-gradient(135deg, #1976d2, #42a5f5);">
-                  <span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1976d2, #42a5f5);'}">
+                  ${avatarUrl 
+                    ? `<img src="${avatarUrl}" alt="${a.nombre}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
+                    : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
+                  }
                 </div>
                 <div class="curso-card-title">
                   <h3>${a.nombre} ${a.apellido}</h3>
@@ -1872,12 +1876,16 @@ function generateTable(section, data) {
             const cursos = p.total_cursos || 0;
             const iniciales = `${p.nombre.charAt(0)}${p.apellido.charAt(0)}`.toUpperCase();
             const idiomas = p.idiomas || 'Sin idiomas';
+            const avatarUrl = p.avatar ? p.avatar : null;
             
             return `
             <div class="curso-card profesor-card" data-id="${p.id_profesor}" data-idioma="${idiomas}">
               <div class="curso-card-header">
-                <div class="curso-icon" style="background: linear-gradient(135deg, #6a1b9a, #8e24aa);">
-                  <span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #6a1b9a, #8e24aa);'}">
+                  ${avatarUrl 
+                    ? `<img src="${avatarUrl}" alt="${p.nombre}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
+                    : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
+                  }
                 </div>
                 <div class="curso-card-title">
                   <h3>${p.nombre} ${p.apellido}</h3>
@@ -1946,12 +1954,16 @@ function generateTable(section, data) {
           ${data.map(admin => {
             const iniciales = `${admin.nombre.charAt(0)}${admin.apellido.charAt(0)}`.toUpperCase();
             const estado = admin.estado || 'activo';
+            const avatarUrl = admin.avatar ? admin.avatar : null;
             
             return `
             <div class="curso-card profesor-card" data-id="${admin.id_persona}">
               <div class="curso-card-header">
-                <div class="curso-icon" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
-                  <span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1e3a8a, #3b82f6);'}">
+                  ${avatarUrl 
+                    ? `<img src="${avatarUrl}" alt="${admin.nombre}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`
+                    : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
+                  }
                 </div>
                 <div class="curso-card-title">
                   <h3>${admin.nombre} ${admin.apellido}</h3>

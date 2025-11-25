@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
         p.mail, 
         p.dni,
         p.telefono,
+        p.avatar,
         a.legajo,
         a.estado,
         a.fecha_registro,

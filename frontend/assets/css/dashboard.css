@@ -958,7 +958,7 @@
   width: 48px;
   height: 48px;
   background: rgba(255,255,255,0.2);
-  border-radius: 12px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -970,7 +970,24 @@
   position: relative;
   z-index: 1;
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.25);
+  overflow: hidden;
+}
+
+.curso-icon.has-avatar {
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+.curso-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.curso-card:hover .curso-icon img {
+  transform: scale(1.1);
 }
 
 .curso-card:hover .curso-icon {

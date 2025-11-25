@@ -13,6 +13,7 @@ router.get("/", async (req, res) => {
         per.mail,
         per.dni,
         per.telefono,
+        per.avatar,
         u.username,
         u.fecha_creacion,
         CASE 

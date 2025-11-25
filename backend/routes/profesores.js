@@ -13,6 +13,7 @@ router.get("/", async (req, res) => {
         per.mail,
         per.dni,
         per.telefono,
+        per.avatar,
         p.especialidad,
         p.estado,
         p.fecha_ingreso,
