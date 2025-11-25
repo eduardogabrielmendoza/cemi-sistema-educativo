@@ -1,0 +1,395 @@
+/* ========================================
+   AYUDA SECTION - Estilos para Guías
+   ======================================== */
+
+/* Container Principal */
+.ayuda-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.ayuda-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.ayuda-header h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.8rem;
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+.ayuda-header h2 i {
+  color: #667eea;
+}
+
+.ayuda-header p {
+  color: #718096;
+  font-size: 1rem;
+}
+
+/* Buscador de Ayuda */
+.ayuda-search-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.ayuda-search-container i.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.ayuda-search-input {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  font-size: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.ayuda-search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.ayuda-search-input::placeholder {
+  color: #a0aec0;
+}
+
+.search-results-count {
+  text-align: center;
+  color: #718096;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.search-results-count.visible {
+  display: block;
+}
+
+/* Categorías Grid */
+.ayuda-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Acordeón */
+.ayuda-accordion {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.ayuda-accordion:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ayuda-accordion.hidden {
+  display: none;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f8fafc 0%, #fff 100%);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.accordion-header:hover {
+  background: linear-gradient(135deg, #f1f5f9 0%, #f8fafc 100%);
+}
+
+.accordion-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 1.05rem;
+}
+
+.accordion-title i {
+  width: 22px;
+  height: 22px;
+  color: #667eea;
+}
+
+.accordion-icon {
+  width: 20px;
+  height: 20px;
+  color: #a0aec0;
+  transition: transform 0.3s ease;
+}
+
+.ayuda-accordion.open .accordion-icon {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.ayuda-accordion.open .accordion-content {
+  max-height: 2000px;
+}
+
+.accordion-body {
+  padding: 0 20px 20px;
+}
+
+/* Guías dentro del acordeón */
+.guia-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.guia-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.guia-item:hover {
+  background: #f1f5f9;
+  transform: translateX(4px);
+}
+
+.guia-item.hidden {
+  display: none;
+}
+
+.guia-item.highlight {
+  background: #fffbeb;
+  border-left-color: #f59e0b;
+}
+
+.guia-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+}
+
+.guia-icon i {
+  width: 20px;
+  height: 20px;
+  color: #fff;
+}
+
+.guia-content {
+  flex: 1;
+}
+
+.guia-content h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+.guia-content p {
+  font-size: 0.85rem;
+  color: #718096;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Highlight de búsqueda */
+.search-highlight {
+  background: #fef3c7;
+  padding: 1px 3px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+/* Mensaje sin resultados */
+.no-results-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #718096;
+  display: none;
+}
+
+.no-results-message.visible {
+  display: block;
+}
+
+.no-results-message i {
+  width: 48px;
+  height: 48px;
+  color: #cbd5e0;
+  margin-bottom: 16px;
+}
+
+.no-results-message h3 {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 8px;
+}
+
+.no-results-message p {
+  font-size: 0.9rem;
+}
+
+/* Tips rápidos */
+.ayuda-tips {
+  margin-top: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+  border-radius: 12px;
+  border: 1px dashed #667eea40;
+}
+
+.ayuda-tips h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  color: #667eea;
+  margin-bottom: 12px;
+}
+
+.ayuda-tips h3 i {
+  width: 18px;
+  height: 18px;
+}
+
+.tips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tip-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fff;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #4a5568;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.tip-badge i {
+  width: 14px;
+  height: 14px;
+  color: #667eea;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ayuda-container {
+    padding: 15px;
+  }
+
+  .ayuda-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .accordion-header {
+    padding: 14px 16px;
+  }
+
+  .accordion-title {
+    font-size: 0.95rem;
+  }
+
+  .guia-item {
+    padding: 12px;
+    flex-direction: column;
+  }
+
+  .guia-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .tips-list {
+    flex-direction: column;
+  }
+
+  .tip-badge {
+    justify-content: center;
+  }
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ayuda-accordion {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.ayuda-accordion:nth-child(1) { animation-delay: 0.05s; }
+.ayuda-accordion:nth-child(2) { animation-delay: 0.1s; }
+.ayuda-accordion:nth-child(3) { animation-delay: 0.15s; }
+.ayuda-accordion:nth-child(4) { animation-delay: 0.2s; }
+.ayuda-accordion:nth-child(5) { animation-delay: 0.25s; }
+.ayuda-accordion:nth-child(6) { animation-delay: 0.3s; }
+.ayuda-accordion:nth-child(7) { animation-delay: 0.35s; }
+.ayuda-accordion:nth-child(8) { animation-delay: 0.4s; }
+
+/* Estilos específicos para iconos de categoría */
+.accordion-title.cat-inicio i { color: #10b981; }
+.accordion-title.cat-cursos i { color: #3b82f6; }
+.accordion-title.cat-calificaciones i { color: #8b5cf6; }
+.accordion-title.cat-pagos i { color: #f59e0b; }
+.accordion-title.cat-perfil i { color: #ec4899; }
+.accordion-title.cat-classroom i { color: #06b6d4; }
+.accordion-title.cat-chat i { color: #6366f1; }
+.accordion-title.cat-faq i { color: #64748b; }
+.accordion-title.cat-alumnos i { color: #0ea5e9; }
+.accordion-title.cat-profesores i { color: #14b8a6; }
+.accordion-title.cat-admins i { color: #f43f5e; }
+.accordion-title.cat-aulas i { color: #a855f7; }
+.accordion-title.cat-idiomas i { color: #22c55e; }
+.accordion-title.cat-asistencias i { color: #eab308; }
+.accordion-title.cat-cursado i { color: #0891b2; }

@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="assets/css/credit-card.css" />
   <link rel="stylesheet" href="assets/css/user-chat-manager.css" />
   <link rel="stylesheet" href="assets/css/cursado.css" />
+  <link rel="stylesheet" href="assets/css/ayuda-section.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   
@@ -49,6 +50,7 @@
         <i data-lucide="message-circle"></i> Chat Soporte
         <span id="chatNotificationBadge" class="notification-badge" style="display: none;"></span>
       </button>
+      <button id="btnAyuda"><i data-lucide="help-circle"></i> Ayuda</button>
       <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesión</button>
     </nav>
   </aside>
@@ -903,8 +905,468 @@
         mainContent.classList.add("active");
         lucide.createIcons();
       }, 100);
+    },
+
+    btnAyuda: () => {
+      mainContent.classList.remove("active");
+      mainContent.innerHTML = `
+        <div class="ayuda-container">
+          <div class="ayuda-header">
+            <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
+            <p>Encuentra guías y respuestas para usar el sistema</p>
+          </div>
+
+          <div class="ayuda-search-container">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="Buscar en las guías..." autocomplete="off">
+          </div>
+
+          <div class="search-results-count" id="searchResultsCount"></div>
+          <div class="no-results-message" id="noResultsMessage">
+            <i data-lucide="search-x"></i>
+            <h3>No se encontraron resultados</h3>
+            <p>Intenta con otros términos de búsqueda</p>
+          </div>
+
+          <div class="ayuda-categorias" id="ayudaCategorias">
+            
+            <!-- Primeros Pasos -->
+            <div class="ayuda-accordion" data-category="inicio">
+              <div class="accordion-header">
+                <div class="accordion-title cat-inicio">
+                  <i data-lucide="home"></i>
+                  <span>Primeros Pasos</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="inicio bienvenida panel dashboard navegacion menu">
+                      <div class="guia-icon"><i data-lucide="layout-dashboard"></i></div>
+                      <div class="guia-content">
+                        <h4>Navegación del Panel</h4>
+                        <p>El menú lateral izquierdo te permite acceder a todas las secciones: Mis Cursos, Cursado, Calificaciones, Pagos, Perfil y más. Haz clic en cualquier opción para cargar esa sección.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="entender dashboard resumen informacion">
+                      <div class="guia-icon"><i data-lucide="info"></i></div>
+                      <div class="guia-content">
+                        <h4>Entender tu Dashboard</h4>
+                        <p>Al ingresar verás un resumen de tus cursos activos, tu promedio general y tu progreso académico. Las tarjetas de estadísticas te muestran información clave de un vistazo.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mis Cursos -->
+            <div class="ayuda-accordion" data-category="cursos">
+              <div class="accordion-header">
+                <div class="accordion-title cat-cursos">
+                  <i data-lucide="book-open"></i>
+                  <span>Mis Cursos</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="cursos inscritos ver lista mis cursos">
+                      <div class="guia-icon"><i data-lucide="book-open"></i></div>
+                      <div class="guia-content">
+                        <h4>Ver Cursos Inscritos</h4>
+                        <p>En esta sección encontrarás todos los cursos en los que estás matriculado. Cada tarjeta muestra el nombre del curso, idioma, nivel y tu progreso actual.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="detalles curso informacion profesor horario aula">
+                      <div class="guia-icon"><i data-lucide="eye"></i></div>
+                      <div class="guia-content">
+                        <h4>Detalles de un Curso</h4>
+                        <p>Haz clic en cualquier tarjeta de curso para ver información detallada: profesor asignado, horario de clases, aula y tus calificaciones específicas de ese curso.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="progreso barra porcentaje avance notas">
+                      <div class="guia-icon"><i data-lucide="trending-up"></i></div>
+                      <div class="guia-content">
+                        <h4>Entender el Progreso</h4>
+                        <p>La barra de progreso en cada curso indica tu avance basado en tus calificaciones. Verde significa aprobado (7+), amarillo en proceso, rojo requiere atención.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cursado -->
+            <div class="ayuda-accordion" data-category="cursado">
+              <div class="accordion-header">
+                <div class="accordion-title cat-cursado">
+                  <i data-lucide="graduation-cap"></i>
+                  <span>Cursado</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="catalogo cursos disponibles explorar buscar">
+                      <div class="guia-icon"><i data-lucide="search"></i></div>
+                      <div class="guia-content">
+                        <h4>Catálogo de Cursos</h4>
+                        <p>Explora todos los cursos disponibles en el instituto. Puedes usar el buscador para filtrar por nombre, idioma o profesor.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="inscripcion solicitar inscribirse curso nuevo">
+                      <div class="guia-icon"><i data-lucide="user-plus"></i></div>
+                      <div class="guia-content">
+                        <h4>Solicitar Inscripción</h4>
+                        <p>Para inscribirte en un nuevo curso, haz clic en el botón "Solicitar Inscripción" de la tarjeta del curso. Un administrador revisará tu solicitud.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="disponibilidad cupos lugares disponibles lleno">
+                      <div class="guia-icon"><i data-lucide="users"></i></div>
+                      <div class="guia-content">
+                        <h4>Verificar Disponibilidad</h4>
+                        <p>Cada curso muestra la cantidad de cupos disponibles. Si un curso está lleno, puedes contactar a administración para consultar alternativas.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calificaciones -->
+            <div class="ayuda-accordion" data-category="calificaciones">
+              <div class="accordion-header">
+                <div class="accordion-title cat-calificaciones">
+                  <i data-lucide="clipboard-list"></i>
+                  <span>Mis Calificaciones</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="notas ver calificaciones parciales final">
+                      <div class="guia-icon"><i data-lucide="file-text"></i></div>
+                      <div class="guia-content">
+                        <h4>Ver Calificaciones</h4>
+                        <p>Consulta tus notas de Parcial 1, Parcial 2 y Final de cada curso. El sistema calcula automáticamente tu promedio por curso y general.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="promedio calcular media notas general">
+                      <div class="guia-icon"><i data-lucide="calculator"></i></div>
+                      <div class="guia-content">
+                        <h4>Entender Promedios</h4>
+                        <p>El promedio se calcula sumando tus notas y dividiendo por la cantidad de evaluaciones rendidas. El promedio general incluye todos tus cursos activos.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="historial academico registro notas anteriores">
+                      <div class="guia-icon"><i data-lucide="history"></i></div>
+                      <div class="guia-content">
+                        <h4>Historial Académico</h4>
+                        <p>Tu historial académico muestra todas las calificaciones obtenidas a lo largo del tiempo, permitiéndote ver tu evolución.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagos -->
+            <div class="ayuda-accordion" data-category="pagos">
+              <div class="accordion-header">
+                <div class="accordion-title cat-pagos">
+                  <i data-lucide="credit-card"></i>
+                  <span>Mis Pagos</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="estado pagos cuotas pendientes ver">
+                      <div class="guia-icon"><i data-lucide="receipt"></i></div>
+                      <div class="guia-content">
+                        <h4>Ver Estado de Pagos</h4>
+                        <p>Consulta el estado de tus cuotas: pagadas, pendientes o vencidas. El sistema te mostrará un resumen de tu situación financiera.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="pagar cuota realizar pago metodo mercadopago efectivo">
+                      <div class="guia-icon"><i data-lucide="wallet"></i></div>
+                      <div class="guia-content">
+                        <h4>Realizar un Pago</h4>
+                        <p>Para pagar una cuota, selecciona el mes a abonar y elige el método: Mercado Pago (online) o Efectivo (genera un ticket para pagar presencialmente).</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="efectivo ticket comprobante pago presencial">
+                      <div class="guia-icon"><i data-lucide="banknote"></i></div>
+                      <div class="guia-content">
+                        <h4>Pago en Efectivo</h4>
+                        <p>Al elegir efectivo, se genera un ticket con código único. Presenta este ticket en secretaría para completar el pago. Puedes descargar o imprimir el comprobante.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="mercadopago online tarjeta debito credito">
+                      <div class="guia-icon"><i data-lucide="smartphone"></i></div>
+                      <div class="guia-content">
+                        <h4>Pago con Mercado Pago</h4>
+                        <p>El pago online te redirige a Mercado Pago donde puedes usar tarjeta de débito, crédito o dinero en cuenta. El pago se acredita automáticamente.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="descargar ticket comprobante pdf imprimir">
+                      <div class="guia-icon"><i data-lucide="download"></i></div>
+                      <div class="guia-content">
+                        <h4>Descargar Comprobantes</h4>
+                        <p>Desde la sección de pagos puedes descargar los tickets de pago en efectivo o comprobantes de pagos realizados para tu registro personal.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mi Perfil -->
+            <div class="ayuda-accordion" data-category="perfil">
+              <div class="accordion-header">
+                <div class="accordion-title cat-perfil">
+                  <i data-lucide="user"></i>
+                  <span>Mi Perfil</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="avatar foto perfil imagen cambiar subir">
+                      <div class="guia-icon"><i data-lucide="camera"></i></div>
+                      <div class="guia-content">
+                        <h4>Cambiar Avatar</h4>
+                        <p>Puedes personalizar tu perfil subiendo una foto. Haz clic en tu avatar actual y selecciona una imagen de tu dispositivo (formatos: JPG, PNG).</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="datos personales editar informacion telefono email">
+                      <div class="guia-icon"><i data-lucide="edit"></i></div>
+                      <div class="guia-content">
+                        <h4>Actualizar Datos Personales</h4>
+                        <p>Mantén tu información actualizada: teléfono, email de contacto. Algunos datos como DNI y legajo solo pueden ser modificados por administración.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Classroom -->
+            <div class="ayuda-accordion" data-category="classroom">
+              <div class="accordion-header">
+                <div class="accordion-title cat-classroom">
+                  <i data-lucide="school"></i>
+                  <span>Classroom</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="classroom google acceder materiales recursos">
+                      <div class="guia-icon"><i data-lucide="external-link"></i></div>
+                      <div class="guia-content">
+                        <h4>Acceder a Classroom</h4>
+                        <p>Classroom te conecta con Google Classroom donde encontrarás materiales de estudio, tareas y recursos compartidos por tus profesores.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="materiales archivos documentos descargar recursos">
+                      <div class="guia-icon"><i data-lucide="folder-open"></i></div>
+                      <div class="guia-content">
+                        <h4>Acceder a Materiales</h4>
+                        <p>Una vez en Classroom, podrás ver y descargar los materiales que tus profesores hayan compartido para cada curso.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Soporte -->
+            <div class="ayuda-accordion" data-category="chat">
+              <div class="accordion-header">
+                <div class="accordion-title cat-chat">
+                  <i data-lucide="message-circle"></i>
+                  <span>Chat de Soporte</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="contactar administracion mensaje soporte ayuda">
+                      <div class="guia-icon"><i data-lucide="send"></i></div>
+                      <div class="guia-content">
+                        <h4>Contactar Administración</h4>
+                        <p>Usa el Chat de Soporte para comunicarte directamente con el equipo administrativo. Envía consultas, dudas o reporta problemas.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="notificaciones mensajes nuevos badge alerta">
+                      <div class="guia-icon"><i data-lucide="bell"></i></div>
+                      <div class="guia-content">
+                        <h4>Notificaciones</h4>
+                        <p>Cuando recibas una respuesta, verás una insignia de notificación en el botón de Chat Soporte. También recibirás alertas del navegador si las tienes habilitadas.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="ayuda-accordion" data-category="faq">
+              <div class="accordion-header">
+                <div class="accordion-title cat-faq">
+                  <i data-lucide="message-square-text"></i>
+                  <span>Preguntas Frecuentes</span>
+                </div>
+                <i data-lucide="chevron-down" class="accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <div class="accordion-body">
+                  <div class="guia-list">
+                    <div class="guia-item" data-keywords="contraseña olvidé recuperar acceso login">
+                      <div class="guia-icon"><i data-lucide="key"></i></div>
+                      <div class="guia-content">
+                        <h4>¿Olvidé mi contraseña?</h4>
+                        <p>Contacta a administración a través del formulario de ayuda o acude presencialmente a secretaría para solicitar el restablecimiento de tu contraseña.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="datos incorrectos error informacion mal legajo">
+                      <div class="guia-icon"><i data-lucide="alert-circle"></i></div>
+                      <div class="guia-content">
+                        <h4>¿Mis datos están incorrectos?</h4>
+                        <p>Si notas errores en tu información personal (nombre, DNI, legajo), comunícate con administración para que realicen la corrección correspondiente.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="baja curso desinscribir eliminar salir">
+                      <div class="guia-icon"><i data-lucide="user-minus"></i></div>
+                      <div class="guia-content">
+                        <h4>¿Cómo me doy de baja de un curso?</h4>
+                        <p>Para solicitar la baja de un curso, debes contactar a administración indicando el curso del que deseas desvincularte y el motivo.</p>
+                      </div>
+                    </div>
+                    <div class="guia-item" data-keywords="problema error funciona mal bug reporte">
+                      <div class="guia-icon"><i data-lucide="bug"></i></div>
+                      <div class="guia-content">
+                        <h4>¿Encontré un error en el sistema?</h4>
+                        <p>Si detectas algún problema técnico, repórtalo a través del Chat de Soporte describiendo qué sucedió y en qué sección. Esto nos ayuda a mejorar.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="ayuda-tips">
+            <h3><i data-lucide="lightbulb"></i> Tips Rápidos</h3>
+            <div class="tips-list">
+              <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la página si algo no carga</div>
+              <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones para alertas</div>
+              <div class="tip-badge"><i data-lucide="smartphone"></i> Funciona en celulares también</div>
+              <div class="tip-badge"><i data-lucide="message-circle"></i> El chat es el canal más rápido</div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      setTimeout(() => {
+        mainContent.classList.add("active");
+        lucide.createIcons();
+        initAyudaInteractivity();
+      }, 100);
     }
   };
+
+  // Función para inicializar interactividad de la sección Ayuda
+  function initAyudaInteractivity() {
+    // Acordeones
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const accordion = header.parentElement;
+        accordion.classList.toggle('open');
+      });
+    });
+
+    // Buscador
+    const searchInput = document.getElementById('ayudaSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        filterAyudaContent(query);
+      });
+    }
+  }
+
+  function filterAyudaContent(query) {
+    const accordions = document.querySelectorAll('.ayuda-accordion');
+    const guiaItems = document.querySelectorAll('.guia-item');
+    const noResults = document.getElementById('noResultsMessage');
+    const resultsCount = document.getElementById('searchResultsCount');
+    let totalVisible = 0;
+
+    if (!query) {
+      // Sin búsqueda: mostrar todo normal
+      accordions.forEach(acc => {
+        acc.classList.remove('hidden', 'open');
+      });
+      guiaItems.forEach(item => {
+        item.classList.remove('hidden', 'highlight');
+      });
+      noResults.classList.remove('visible');
+      resultsCount.classList.remove('visible');
+      return;
+    }
+
+    // Con búsqueda: filtrar
+    accordions.forEach(accordion => {
+      const items = accordion.querySelectorAll('.guia-item');
+      let hasVisibleItems = false;
+
+      items.forEach(item => {
+        const keywords = item.dataset.keywords || '';
+        const title = item.querySelector('h4')?.textContent.toLowerCase() || '';
+        const desc = item.querySelector('p')?.textContent.toLowerCase() || '';
+        const searchText = keywords + ' ' + title + ' ' + desc;
+
+        if (searchText.includes(query)) {
+          item.classList.remove('hidden');
+          item.classList.add('highlight');
+          hasVisibleItems = true;
+          totalVisible++;
+        } else {
+          item.classList.add('hidden');
+          item.classList.remove('highlight');
+        }
+      });
+
+      if (hasVisibleItems) {
+        accordion.classList.remove('hidden');
+        accordion.classList.add('open');
+      } else {
+        accordion.classList.add('hidden');
+      }
+    });
+
+    // Mostrar mensaje si no hay resultados
+    if (totalVisible === 0) {
+      noResults.classList.add('visible');
+      resultsCount.classList.remove('visible');
+    } else {
+      noResults.classList.remove('visible');
+      resultsCount.textContent = `Se encontraron ${totalVisible} resultado${totalVisible !== 1 ? 's' : ''}`;
+      resultsCount.classList.add('visible');
+    }
+  }
 
   // Función auxiliar para mostrar notificaciones
   function showNotification(message, type = 'success') {
