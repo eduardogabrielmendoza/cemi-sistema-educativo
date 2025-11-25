@@ -353,15 +353,21 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
   try {
     const logoBase64 = await cargarLogoCEMI();
     if (logoBase64) {
-      doc.addImage(logoBase64, 'PNG', 15, 8, 30, 30);
+      // Esfera blanca detrás del logo para mejor estética
+      doc.setFillColor(255, 255, 255);
+      doc.circle(24, 22.5, 12, 'F');
+      
+      // Logo más pequeño centrado en la esfera
+      doc.addImage(logoBase64, 'PNG', 12, 10.5, 24, 24);
+      
       // Texto CEMI al lado del logo
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(255, 255, 255);
-      doc.text('CEMI', 48, 22);
+      doc.text('CEMI', 42, 20);
       doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
-      doc.text('Centro de Enseñanza Multilingüe Internacional', 48, 29);
+      doc.text('Centro de Enseñanza Multilingüe Internacional', 42, 27);
     } else {
       // Fallback: solo texto
       doc.setFontSize(24);

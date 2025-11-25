@@ -80,6 +80,7 @@ router.get("/:id",
         c.id_curso,
         c.nombre_curso,
         i.nombre_idioma as nombre_idioma,
+        n.descripcion as nivel,
         c.id_nivel,
         c.horario,
         a.nombre_aula as aula,
@@ -97,6 +98,7 @@ router.get("/:id",
       FROM inscripciones insc
       JOIN cursos c ON insc.id_curso = c.id_curso
       JOIN idiomas i ON c.id_idioma = i.id_idioma
+      LEFT JOIN niveles n ON c.id_nivel = n.id_nivel
       LEFT JOIN aulas a ON c.id_aula = a.id_aula
       LEFT JOIN calificaciones cal ON (cal.id_alumno = ? AND cal.id_curso = c.id_curso)
       WHERE insc.id_alumno = ? AND insc.estado = 'activo'
