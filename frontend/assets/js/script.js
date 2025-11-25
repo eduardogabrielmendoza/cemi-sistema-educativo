@@ -5988,7 +5988,8 @@ async function editarAlumno(id) {
       
       if (updateRes.ok && data.success) {
         await Swal.fire('¡Listo!', 'Alumno actualizado correctamente', 'success');
-        obtenerAlumnos();
+        // Recargar la sección de alumnos
+        document.getElementById('btnAlumnos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar alumno', 'error');
       }
