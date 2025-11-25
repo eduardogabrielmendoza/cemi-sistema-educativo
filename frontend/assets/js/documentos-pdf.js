@@ -893,6 +893,20 @@ async function generarEstadoCuenta(idAlumno) {
     yPos += 38;
     
     // Detalle por curso
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margenInferior = 35; // Espacio para footer
+    
+    // Función para verificar y agregar nueva página si es necesario
+    const verificarNuevaPagina = (espacioNecesario = 15) => {
+      if (yPos + espacioNecesario > pageHeight - margenInferior) {
+        agregarFooterPDF(doc);
+        doc.addPage();
+        yPos = 20; // Reiniciar posición Y en nueva página
+        return true;
+      }
+      return false;
+    };
+    
     if (pagosData.cursos && pagosData.cursos.length > 0) {
       doc.setFontSize(11);
       doc.setFont('helvetica', 'bold');
@@ -902,6 +916,9 @@ async function generarEstadoCuenta(idAlumno) {
       yPos += 8;
       
       pagosData.cursos.forEach((curso, index) => {
+        // Verificar si hay espacio para el header del curso + al menos 3 filas
+        verificarNuevaPagina(40);
+        
         // Header del curso
         doc.setFillColor(241, 245, 249);
         doc.rect(20, yPos, pageWidth - 40, 8, 'F');
@@ -931,6 +948,27 @@ async function generarEstadoCuenta(idAlumno) {
           yPos += 4;
           
           curso.meses.forEach(mes => {
+            // Verificar espacio antes de cada fila
+            if (verificarNuevaPagina(8)) {
+              // Repetir headers en nueva página
+              doc.setFontSize(8);
+              doc.setFont('helvetica', 'bold');
+              doc.setTextColor(30, 60, 114);
+              doc.text(`${nombreCurso} (continuación)`, 25, yPos);
+              yPos += 8;
+              doc.setFont('helvetica', 'normal');
+              doc.setTextColor(100, 100, 100);
+              doc.text('Cuota', 25, yPos);
+              doc.text('Monto', 70, yPos);
+              doc.text('Estado', 100, yPos);
+              doc.text('Fecha Pago', 140, yPos);
+              yPos += 5;
+              doc.setDrawColor(200, 200, 200);
+              doc.line(25, yPos, pageWidth - 25, yPos);
+              yPos += 4;
+            }
+            
+            doc.setFontSize(8);
             doc.setTextColor(50, 50, 50);
             doc.text(mes.mes || '', 25, yPos);
             doc.text(`$${(mes.monto || 15000).toLocaleString('es-AR')}`, 70, yPos);
@@ -961,7 +999,7 @@ async function generarEstadoCuenta(idAlumno) {
           });
         }
         
-        yPos += 5;
+        yPos += 8;
       });
     } else {
       doc.setFontSize(11);
@@ -969,7 +1007,9 @@ async function generarEstadoCuenta(idAlumno) {
       doc.text('No hay registros de pagos para este alumno.', pageWidth / 2, yPos + 10, { align: 'center' });
     }
     
-    yPos += 10;
+    // Verificar espacio para notas finales
+    verificarNuevaPagina(20);
+    yPos += 5;
     
     // Nota
     doc.setFontSize(8);
