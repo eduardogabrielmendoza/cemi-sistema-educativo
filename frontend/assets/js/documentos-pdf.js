@@ -992,13 +992,23 @@ async function generarFichaInscripcion(idAlumno) {
     if (!response.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await response.json();
     
-    // Obtener información adicional de cursos con profesores
+    // Obtener información adicional de cursos con profesores desde pagos
     const pagosResponse = await fetch(`${API_URL_DOCS}/pagos/alumno/${idAlumno}`);
     let cursosConProfesor = [];
     if (pagosResponse.ok) {
       const pagosData = await pagosResponse.json();
       cursosConProfesor = pagosData.cursos || [];
     }
+    
+    // Combinar datos: usar alumno.cursos para idioma/nivel, agregar profesor de pagos
+    const cursosCombinados = (alumno.cursos || []).map(curso => {
+      // Buscar el profesor en cursosConProfesor
+      const cursoPago = cursosConProfesor.find(cp => cp.id_curso === curso.id_curso);
+      return {
+        ...curso,
+        profesor: cursoPago?.profesor || 'No asignado'
+      };
+    });
     
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({
@@ -1076,8 +1086,8 @@ async function generarFichaInscripcion(idAlumno) {
     
     yPos += 14;
     
-    if (cursosConProfesor.length > 0 || (alumno.cursos && alumno.cursos.length > 0)) {
-      const cursos = cursosConProfesor.length > 0 ? cursosConProfesor : alumno.cursos;
+    if (cursosCombinados.length > 0) {
+      const cursos = cursosCombinados;
       
       // Headers de tabla
       doc.setFillColor(241, 245, 249);
@@ -1536,9 +1546,18 @@ async function generarPDFFicha(alumno, pagosData) {
   doc.text('CURSOS INSCRIPTOS', 25, yPos + 6);
   yPos += 14;
   
+  // Combinar datos: usar alumno.cursos para idioma/nivel, agregar profesor de pagos
   const cursosConProfesor = pagosData.cursos || [];
-  if (cursosConProfesor.length > 0 || (alumno.cursos && alumno.cursos.length > 0)) {
-    const cursos = cursosConProfesor.length > 0 ? cursosConProfesor : alumno.cursos;
+  const cursosCombinados = (alumno.cursos || []).map(curso => {
+    const cursoPago = cursosConProfesor.find(cp => cp.id_curso === curso.id_curso);
+    return {
+      ...curso,
+      profesor: cursoPago?.profesor || 'No asignado'
+    };
+  });
+  
+  if (cursosCombinados.length > 0) {
+    const cursos = cursosCombinados;
     doc.setFillColor(241, 245, 249);
     doc.rect(20, yPos, pageWidth - 40, 8, 'F');
     doc.setFontSize(8);
@@ -1559,8 +1578,8 @@ async function generarPDFFicha(alumno, pagosData) {
       }
       const nombreCurso = (curso.nombre_curso || 'Curso').length > 25 ? (curso.nombre_curso || 'Curso').substring(0, 22) + '...' : (curso.nombre_curso || 'Curso');
       doc.text(nombreCurso, 25, yPos + 2);
-      doc.text(curso.nombre_idioma || curso.idioma || 'N/A', 75, yPos + 2);
-      doc.text(curso.nivel || (curso.id_nivel ? String(curso.id_nivel) : 'N/A'), 110, yPos + 2);
+      doc.text(curso.nombre_idioma || 'N/A', 75, yPos + 2);
+      doc.text(curso.nivel || 'N/A', 110, yPos + 2);
       const profesor = (curso.profesor || 'No asignado').length > 20 ? (curso.profesor || 'No asignado').substring(0, 17) + '...' : (curso.profesor || 'No asignado');
       doc.text(profesor, 135, yPos + 2);
       yPos += 8;
