@@ -3,8 +3,8 @@
 // CEMI - Centro de Enseñanza Multilingüe Internacional
 // ========================================
 
-// API Base URL (usar la misma que script.js o detectar automáticamente)
-const API_BASE_URL_DOCS = typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : '';
+// API Base URL (usar la misma que script.js)
+const API_URL_DOCS = typeof API_URL !== 'undefined' ? API_URL : '/api';
 
 // Logo CEMI en Base64 (se cargará dinámicamente)
 let CEMI_LOGO_BASE64 = null;
@@ -361,7 +361,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     closeDocumentosModal();
     showToast('Generando constancia...', 'info');
     
-    const response = await fetch(`${API_BASE_URL_DOCS}/alumnos/${idAlumno}`);
+    const response = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
     if (!response.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await response.json();
     
@@ -498,7 +498,7 @@ async function generarCertificadoCalificaciones(idAlumno) {
     closeDocumentosModal();
     showToast('Generando certificado...', 'info');
     
-    const response = await fetch(`${API_BASE_URL_DOCS}/alumnos/${idAlumno}`);
+    const response = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
     if (!response.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await response.json();
     
@@ -696,12 +696,12 @@ async function generarEstadoCuenta(idAlumno) {
     showToast('Generando estado de cuenta...', 'info');
     
     // Obtener datos del alumno
-    const alumnoResponse = await fetch(`${API_BASE_URL_DOCS}/alumnos/${idAlumno}`);
+    const alumnoResponse = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
     if (!alumnoResponse.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await alumnoResponse.json();
     
     // Obtener pagos del alumno
-    const pagosResponse = await fetch(`${API_BASE_URL_DOCS}/pagos/alumno/${idAlumno}`);
+    const pagosResponse = await fetch(`${API_URL_DOCS}/pagos/alumno/${idAlumno}`);
     let pagosData = { cursos: [] };
     if (pagosResponse.ok) {
       pagosData = await pagosResponse.json();
@@ -917,12 +917,12 @@ async function generarFichaInscripcion(idAlumno) {
     closeDocumentosModal();
     showToast('Generando ficha de inscripción...', 'info');
     
-    const response = await fetch(`${API_BASE_URL_DOCS}/alumnos/${idAlumno}`);
+    const response = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
     if (!response.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await response.json();
     
     // Obtener información adicional de cursos con profesores
-    const pagosResponse = await fetch(`${API_BASE_URL_DOCS}/pagos/alumno/${idAlumno}`);
+    const pagosResponse = await fetch(`${API_URL_DOCS}/pagos/alumno/${idAlumno}`);
     let cursosConProfesor = [];
     if (pagosResponse.ok) {
       const pagosData = await pagosResponse.json();
