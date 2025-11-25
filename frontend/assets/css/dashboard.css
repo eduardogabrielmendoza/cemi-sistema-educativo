@@ -923,7 +923,7 @@
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #547194 0%, #7a9bbd 100%);
+  background: linear-gradient(135deg, #5b9bd5 0%, #7eb7e8 100%);
   padding: 20px;
   border-radius: 12px 12px 0 0;
   position: relative;
@@ -938,7 +938,7 @@
   right: -15%;
   width: 80px;
   height: 80px;
-  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
   animation: cursoFloat 5s ease-in-out infinite;
   pointer-events: none;
 }
