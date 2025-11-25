@@ -566,6 +566,33 @@
   height: 18px;
 }
 
+/* Botón de Documentos PDF */
+.btn-icon-docs {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-icon-docs:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+}
+
+.btn-icon-docs i {
+  width: 18px;
+  height: 18px;
+}
+
 .btn-icon-warning {
   background: #cbd5e0;
   color: #718096;

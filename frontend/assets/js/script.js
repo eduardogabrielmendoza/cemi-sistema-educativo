@@ -1832,6 +1832,9 @@ function generateTable(section, data) {
                   ${cursos} ${cursos === 1 ? 'curso' : 'cursos'}
                 </span>
                 <div style="display: flex; gap: 8px;">
+                  <button class="btn-icon-docs" onclick="event.stopPropagation(); openDocumentosModal(${a.id_alumno}, '${a.nombre} ${a.apellido}')" title="Generar documentos">
+                    <i data-lucide="file-text"></i>
+                  </button>
                   <button class="btn-icon-primary" onclick="event.stopPropagation(); openAlumnoPanel(${a.id_alumno})" title="Ver detalles">
                     <i data-lucide="eye"></i>
                   </button>

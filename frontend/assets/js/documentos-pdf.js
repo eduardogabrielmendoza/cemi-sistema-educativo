@@ -1,0 +1,1122 @@
+// ========================================
+// SISTEMA DE GENERACIÓN DE DOCUMENTOS PDF
+// CEMI - Centro de Enseñanza Multilingüe Internacional
+// ========================================
+
+// Logo CEMI en Base64 (se cargará dinámicamente)
+let CEMI_LOGO_BASE64 = null;
+
+// Cargar logo CEMI
+async function cargarLogoCEMI() {
+  if (CEMI_LOGO_BASE64) return CEMI_LOGO_BASE64;
+  
+  try {
+    const response = await fetch('/images/logo.png');
+    const blob = await response.blob();
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        CEMI_LOGO_BASE64 = reader.result;
+        resolve(CEMI_LOGO_BASE64);
+      };
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.warn('No se pudo cargar el logo CEMI:', error);
+    return null;
+  }
+}
+
+// Abrir modal de selección de documentos
+function openDocumentosModal(idAlumno, nombreAlumno) {
+  // Crear modal
+  const modalHTML = `
+    <div id="documentosModal" class="modal-overlay" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      animation: fadeInDoc 0.3s ease;
+    ">
+      <div class="modal-content" style="
+        background: white;
+        border-radius: 20px;
+        width: 95%;
+        max-width: 550px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        animation: slideUpDoc 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      ">
+        <!-- Header del Modal -->
+        <div style="
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+          padding: 25px 30px;
+          border-radius: 20px 20px 0 0;
+          position: relative;
+          overflow: hidden;
+        ">
+          <div style="
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+          "></div>
+          <button onclick="closeDocumentosModal()" style="
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+            <i data-lucide="x" style="width: 20px; height: 20px; color: white;"></i>
+          </button>
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="
+              width: 55px;
+              height: 55px;
+              background: rgba(255,255,255,0.2);
+              border-radius: 15px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <i data-lucide="file-text" style="width: 28px; height: 28px; color: white;"></i>
+            </div>
+            <div>
+              <h2 style="margin: 0; color: white; font-size: 22px; font-weight: 600;">Generar Documentos</h2>
+              <p style="margin: 5px 0 0 0; color: rgba(255,255,255,0.8); font-size: 14px;">${nombreAlumno}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Cuerpo del Modal -->
+        <div style="padding: 25px 30px;">
+          <p style="color: #64748b; font-size: 14px; margin-bottom: 20px; text-align: center;">
+            Selecciona el documento que deseas generar en formato PDF
+          </p>
+          
+          <div style="display: grid; gap: 12px;">
+            <!-- Constancia de Alumno Regular -->
+            <button onclick="generarConstanciaAlumnoRegular(${idAlumno})" class="doc-option-btn" style="
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              padding: 18px 20px;
+              background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+              border: 2px solid #e2e8f0;
+              border-radius: 14px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              text-align: left;
+            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+              <div style="
+                width: 50px;
+                height: 50px;
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              ">
+                <i data-lucide="badge-check" style="width: 24px; height: 24px; color: white;"></i>
+              </div>
+              <div style="flex: 1;">
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Constancia de Alumno Regular</h4>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Certifica inscripción activa en el instituto</p>
+              </div>
+              <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
+            </button>
+            
+            <!-- Certificado de Calificaciones -->
+            <button onclick="generarCertificadoCalificaciones(${idAlumno})" class="doc-option-btn" style="
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              padding: 18px 20px;
+              background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+              border: 2px solid #e2e8f0;
+              border-radius: 14px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              text-align: left;
+            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+              <div style="
+                width: 50px;
+                height: 50px;
+                background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              ">
+                <i data-lucide="clipboard-list" style="width: 24px; height: 24px; color: white;"></i>
+              </div>
+              <div style="flex: 1;">
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Certificado de Calificaciones</h4>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Historial académico con notas y promedios</p>
+              </div>
+              <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
+            </button>
+            
+            <!-- Estado de Cuenta -->
+            <button onclick="generarEstadoCuenta(${idAlumno})" class="doc-option-btn" style="
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              padding: 18px 20px;
+              background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+              border: 2px solid #e2e8f0;
+              border-radius: 14px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              text-align: left;
+            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+              <div style="
+                width: 50px;
+                height: 50px;
+                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              ">
+                <i data-lucide="receipt" style="width: 24px; height: 24px; color: white;"></i>
+              </div>
+              <div style="flex: 1;">
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Estado de Cuenta</h4>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Resumen de pagos y cuotas pendientes</p>
+              </div>
+              <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
+            </button>
+            
+            <!-- Ficha de Inscripción -->
+            <button onclick="generarFichaInscripcion(${idAlumno})" class="doc-option-btn" style="
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              padding: 18px 20px;
+              background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+              border: 2px solid #e2e8f0;
+              border-radius: 14px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              text-align: left;
+            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+              <div style="
+                width: 50px;
+                height: 50px;
+                background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              ">
+                <i data-lucide="user-check" style="width: 24px; height: 24px; color: white;"></i>
+              </div>
+              <div style="flex: 1;">
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Ficha de Inscripción</h4>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Datos personales y cursos inscriptos</p>
+              </div>
+              <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
+            </button>
+          </div>
+          
+          <div style="
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+          ">
+            <i data-lucide="info" style="width: 20px; height: 20px; color: #92400e; flex-shrink: 0;"></i>
+            <p style="margin: 0; color: #92400e; font-size: 12px;">
+              Los documentos se generan con datos actualizados y tienen validez institucional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+      @keyframes fadeInDoc {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideUpDoc {
+        from { opacity: 0; transform: translateY(30px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+    </style>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  lucide.createIcons();
+  
+  // Cerrar con Escape
+  const closeOnEscape = (e) => {
+    if (e.key === 'Escape') {
+      closeDocumentosModal();
+      document.removeEventListener('keydown', closeOnEscape);
+    }
+  };
+  document.addEventListener('keydown', closeOnEscape);
+}
+
+// Cerrar modal de documentos
+function closeDocumentosModal() {
+  const modal = document.getElementById('documentosModal');
+  if (modal) {
+    modal.style.animation = 'fadeInDoc 0.2s ease reverse';
+    setTimeout(() => modal.remove(), 200);
+  }
+}
+
+// Función auxiliar para agregar header a los PDFs
+function agregarHeaderPDF(doc, titulo, subtitulo = null) {
+  const pageWidth = doc.internal.pageSize.getWidth();
+  
+  // Fondo del header
+  doc.setFillColor(30, 60, 114);
+  doc.rect(0, 0, pageWidth, 45, 'F');
+  
+  // Degradado decorativo
+  doc.setFillColor(42, 82, 152);
+  doc.rect(0, 35, pageWidth, 10, 'F');
+  
+  // Logo o texto CEMI
+  doc.setFontSize(24);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('CEMI', 20, 25);
+  
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 32);
+  
+  // Título del documento
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text(titulo, pageWidth - 20, 22, { align: 'right' });
+  
+  if (subtitulo) {
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text(subtitulo, pageWidth - 20, 30, { align: 'right' });
+  }
+  
+  return 55; // Retorna la posición Y después del header
+}
+
+// Función auxiliar para agregar footer a los PDFs
+function agregarFooterPDF(doc) {
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  
+  // Línea separadora
+  doc.setDrawColor(200, 200, 200);
+  doc.setLineWidth(0.5);
+  doc.line(20, pageHeight - 25, pageWidth - 20, pageHeight - 25);
+  
+  // Texto del footer
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(128, 128, 128);
+  doc.text('CEMI - Centro de Enseñanza Multilingüe Internacional', pageWidth / 2, pageHeight - 18, { align: 'center' });
+  doc.text(`Documento generado el ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })} a las ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`, pageWidth / 2, pageHeight - 12, { align: 'center' });
+  doc.setFontSize(7);
+  doc.text('Este documento tiene validez institucional', pageWidth / 2, pageHeight - 7, { align: 'center' });
+}
+
+// 1. CONSTANCIA DE ALUMNO REGULAR
+async function generarConstanciaAlumnoRegular(idAlumno) {
+  try {
+    closeDocumentosModal();
+    showToast('Generando constancia...', 'info');
+    
+    const response = await fetch(`${API_BASE_URL}/alumnos/${idAlumno}`);
+    if (!response.ok) throw new Error('Error al obtener datos del alumno');
+    const alumno = await response.json();
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPos = agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
+    
+    // Número de constancia
+    const numeroConstancia = `CONST-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.text(`N° ${numeroConstancia}`, pageWidth - 20, yPos, { align: 'right' });
+    
+    yPos += 20;
+    
+    // Título principal
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('CONSTANCIA DE ALUMNO REGULAR', pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 20;
+    
+    // Cuerpo de la constancia
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    
+    const textoConstancia = `Por medio de la presente, el Centro de Enseñanza Multilingüe Internacional (CEMI) certifica que:`;
+    doc.text(textoConstancia, 20, yPos, { maxWidth: pageWidth - 40 });
+    
+    yPos += 20;
+    
+    // Datos del alumno en recuadro
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(30, 60, 114);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(20, yPos, pageWidth - 40, 50, 3, 3, 'FD');
+    
+    yPos += 12;
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text(`${alumno.nombre} ${alumno.apellido}`, pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 10;
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(80, 80, 80);
+    doc.text(`DNI: ${alumno.dni || 'No registrado'}`, pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 8;
+    doc.text(`Legajo: ${alumno.legajo}`, pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 8;
+    doc.text(`Fecha de Registro: ${alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES') : 'No registrada'}`, pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 25;
+    
+    // Texto de confirmación
+    doc.setFontSize(12);
+    doc.setTextColor(50, 50, 50);
+    const textoConfirmacion = `Se encuentra regularmente inscripto/a como alumno/a de esta institución, cursando actualmente ${alumno.cursos_activos || 0} curso(s) de idiomas.`;
+    doc.text(textoConfirmacion, 20, yPos, { maxWidth: pageWidth - 40 });
+    
+    yPos += 20;
+    
+    // Cursos activos
+    if (alumno.cursos && alumno.cursos.length > 0) {
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 60, 114);
+      doc.text('Cursos en los que se encuentra inscripto:', 20, yPos);
+      
+      yPos += 8;
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(80, 80, 80);
+      
+      alumno.cursos.forEach((curso, index) => {
+        doc.text(`• ${curso.nombre_curso} - ${curso.nombre_idioma} (Nivel ${curso.id_nivel})`, 25, yPos);
+        yPos += 6;
+      });
+    }
+    
+    yPos += 15;
+    
+    // Texto final
+    doc.setFontSize(11);
+    doc.setTextColor(50, 50, 50);
+    doc.text('Se extiende la presente constancia a pedido del interesado para ser presentada', 20, yPos);
+    yPos += 6;
+    doc.text('ante quien corresponda.', 20, yPos);
+    
+    yPos += 25;
+    
+    // Fecha y lugar
+    doc.setFont('helvetica', 'italic');
+    doc.text(`San Miguel de Tucumán, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 20, yPos, { align: 'right' });
+    
+    // Espacio para firma
+    yPos += 30;
+    doc.setDrawColor(100, 100, 100);
+    doc.setLineWidth(0.3);
+    doc.line(pageWidth / 2 - 40, yPos, pageWidth / 2 + 40, yPos);
+    yPos += 5;
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Firma y Sello', pageWidth / 2, yPos, { align: 'center' });
+    yPos += 4;
+    doc.text('Dirección CEMI', pageWidth / 2, yPos, { align: 'center' });
+    
+    agregarFooterPDF(doc);
+    
+    const nombreArchivo = `Constancia_Alumno_Regular_${alumno.legajo}_${alumno.apellido}.pdf`;
+    doc.save(nombreArchivo);
+    
+    showToast('Constancia generada exitosamente', 'success');
+  } catch (error) {
+    console.error('Error al generar constancia:', error);
+    showToast('Error al generar la constancia', 'error');
+  }
+}
+
+// 2. CERTIFICADO DE CALIFICACIONES
+async function generarCertificadoCalificaciones(idAlumno) {
+  try {
+    closeDocumentosModal();
+    showToast('Generando certificado...', 'info');
+    
+    const response = await fetch(`${API_BASE_URL}/alumnos/${idAlumno}`);
+    if (!response.ok) throw new Error('Error al obtener datos del alumno');
+    const alumno = await response.json();
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPos = agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
+    
+    // Número de certificado
+    const numeroCertificado = `CERT-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.text(`N° ${numeroCertificado}`, pageWidth - 20, yPos, { align: 'right' });
+    
+    yPos += 15;
+    
+    // Título
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('CERTIFICADO DE CALIFICACIONES', pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 15;
+    
+    // Datos del alumno
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(30, 60, 114);
+    doc.roundedRect(20, yPos, pageWidth - 40, 28, 3, 3, 'FD');
+    
+    yPos += 10;
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('ALUMNO:', 25, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`${alumno.nombre} ${alumno.apellido}`, 50, yPos);
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('DNI:', 120, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`${alumno.dni || 'N/R'}`, 132, yPos);
+    
+    yPos += 10;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('LEGAJO:', 25, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`${alumno.legajo}`, 50, yPos);
+    
+    if (alumno.promedio_general) {
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 60, 114);
+      doc.text('PROMEDIO GENERAL:', 120, yPos);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(16, 185, 129);
+      doc.text(`${alumno.promedio_general}`, 172, yPos);
+    }
+    
+    yPos += 20;
+    
+    // Tabla de calificaciones
+    if (alumno.cursos && alumno.cursos.length > 0) {
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 60, 114);
+      doc.text('DETALLE DE CALIFICACIONES POR CURSO', 20, yPos);
+      
+      yPos += 8;
+      
+      // Headers de la tabla
+      const colWidths = [60, 25, 25, 25, 30];
+      const headers = ['Curso', 'Parcial 1', 'Parcial 2', 'Final', 'Promedio'];
+      
+      doc.setFillColor(30, 60, 114);
+      doc.rect(20, yPos, pageWidth - 40, 10, 'F');
+      
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      
+      let xPos = 22;
+      headers.forEach((header, i) => {
+        doc.text(header, xPos, yPos + 7);
+        xPos += colWidths[i];
+      });
+      
+      yPos += 12;
+      
+      // Filas de la tabla
+      doc.setFont('helvetica', 'normal');
+      alumno.cursos.forEach((curso, index) => {
+        // Alternar colores de fila
+        if (index % 2 === 0) {
+          doc.setFillColor(248, 250, 252);
+          doc.rect(20, yPos - 2, pageWidth - 40, 10, 'F');
+        }
+        
+        doc.setTextColor(50, 50, 50);
+        xPos = 22;
+        
+        // Nombre del curso (truncado si es muy largo)
+        const nombreCurso = curso.nombre_curso.length > 25 ? curso.nombre_curso.substring(0, 22) + '...' : curso.nombre_curso;
+        doc.text(nombreCurso, xPos, yPos + 5);
+        xPos += colWidths[0];
+        
+        // Parcial 1
+        doc.text(curso.parcial1 ? curso.parcial1.toString() : '-', xPos + 8, yPos + 5);
+        xPos += colWidths[1];
+        
+        // Parcial 2
+        doc.text(curso.parcial2 ? curso.parcial2.toString() : '-', xPos + 8, yPos + 5);
+        xPos += colWidths[2];
+        
+        // Final
+        doc.text(curso.final ? curso.final.toString() : '-', xPos + 5, yPos + 5);
+        xPos += colWidths[3];
+        
+        // Promedio
+        const promedio = curso.promedio ? parseFloat(curso.promedio).toFixed(2) : '-';
+        doc.setFont('helvetica', 'bold');
+        if (promedio !== '-' && parseFloat(promedio) >= 7) {
+          doc.setTextColor(16, 185, 129);
+        } else if (promedio !== '-' && parseFloat(promedio) >= 4) {
+          doc.setTextColor(245, 158, 11);
+        } else if (promedio !== '-') {
+          doc.setTextColor(239, 68, 68);
+        }
+        doc.text(promedio, xPos + 5, yPos + 5);
+        doc.setFont('helvetica', 'normal');
+        
+        yPos += 10;
+      });
+      
+      // Borde de la tabla
+      doc.setDrawColor(200, 200, 200);
+      doc.setLineWidth(0.3);
+      doc.rect(20, yPos - (alumno.cursos.length * 10) - 12, pageWidth - 40, (alumno.cursos.length * 10) + 12);
+      
+    } else {
+      doc.setFontSize(11);
+      doc.setTextColor(100, 100, 100);
+      doc.text('No hay calificaciones registradas.', pageWidth / 2, yPos + 10, { align: 'center' });
+      yPos += 20;
+    }
+    
+    yPos += 20;
+    
+    // Leyenda
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text('Escala de calificación: 1 a 10 | Nota mínima de aprobación: 7 (siete)', 20, yPos);
+    
+    yPos += 15;
+    
+    // Fecha y firma
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`Emitido en San Miguel de Tucumán, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 20, yPos, { align: 'right' });
+    
+    yPos += 25;
+    doc.setDrawColor(100, 100, 100);
+    doc.line(pageWidth / 2 - 40, yPos, pageWidth / 2 + 40, yPos);
+    yPos += 5;
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Firma y Sello - Dirección Académica', pageWidth / 2, yPos, { align: 'center' });
+    
+    agregarFooterPDF(doc);
+    
+    const nombreArchivo = `Certificado_Calificaciones_${alumno.legajo}_${alumno.apellido}.pdf`;
+    doc.save(nombreArchivo);
+    
+    showToast('Certificado generado exitosamente', 'success');
+  } catch (error) {
+    console.error('Error al generar certificado:', error);
+    showToast('Error al generar el certificado', 'error');
+  }
+}
+
+// 3. ESTADO DE CUENTA
+async function generarEstadoCuenta(idAlumno) {
+  try {
+    closeDocumentosModal();
+    showToast('Generando estado de cuenta...', 'info');
+    
+    // Obtener datos del alumno
+    const alumnoResponse = await fetch(`${API_BASE_URL}/alumnos/${idAlumno}`);
+    if (!alumnoResponse.ok) throw new Error('Error al obtener datos del alumno');
+    const alumno = await alumnoResponse.json();
+    
+    // Obtener pagos del alumno
+    const pagosResponse = await fetch(`${API_BASE_URL}/pagos/alumno/${idAlumno}`);
+    let pagosData = { cursos: [] };
+    if (pagosResponse.ok) {
+      pagosData = await pagosResponse.json();
+    }
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPos = agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
+    
+    // Número de documento
+    const numeroDoc = `EC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(idAlumno).padStart(5, '0')}`;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.text(`N° ${numeroDoc}`, pageWidth - 20, yPos, { align: 'right' });
+    
+    yPos += 10;
+    
+    // Datos del alumno
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(30, 60, 114);
+    doc.roundedRect(20, yPos, pageWidth - 40, 22, 3, 3, 'FD');
+    
+    yPos += 8;
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('ALUMNO:', 25, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`${alumno.nombre} ${alumno.apellido}`, 50, yPos);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('LEGAJO:', 130, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`${alumno.legajo}`, 152, yPos);
+    
+    yPos += 8;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('EMAIL:', 25, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`${alumno.mail || 'No registrado'}`, 45, yPos);
+    
+    yPos += 18;
+    
+    // Resumen general
+    let totalPagado = 0;
+    let totalPendiente = 0;
+    let cuotasPagadas = 0;
+    let cuotasPendientes = 0;
+    
+    if (pagosData.cursos && pagosData.cursos.length > 0) {
+      pagosData.cursos.forEach(curso => {
+        if (curso.cuotas) {
+          curso.cuotas.forEach(cuota => {
+            if (cuota.pagado) {
+              totalPagado += cuota.monto || 15000;
+              cuotasPagadas++;
+            } else {
+              totalPendiente += cuota.monto || 15000;
+              cuotasPendientes++;
+            }
+          });
+        }
+      });
+    }
+    
+    // Cajas de resumen
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('RESUMEN GENERAL', 20, yPos);
+    
+    yPos += 8;
+    
+    // Caja Total Pagado
+    doc.setFillColor(220, 252, 231);
+    doc.setDrawColor(16, 185, 129);
+    doc.roundedRect(20, yPos, 55, 28, 3, 3, 'FD');
+    doc.setFontSize(9);
+    doc.setTextColor(16, 185, 129);
+    doc.text('TOTAL PAGADO', 47.5, yPos + 8, { align: 'center' });
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`$${totalPagado.toLocaleString('es-AR')}`, 47.5, yPos + 20, { align: 'center' });
+    
+    // Caja Total Pendiente
+    doc.setFillColor(254, 243, 199);
+    doc.setDrawColor(245, 158, 11);
+    doc.roundedRect(80, yPos, 55, 28, 3, 3, 'FD');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(217, 119, 6);
+    doc.text('PENDIENTE', 107.5, yPos + 8, { align: 'center' });
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`$${totalPendiente.toLocaleString('es-AR')}`, 107.5, yPos + 20, { align: 'center' });
+    
+    // Caja Cuotas
+    doc.setFillColor(239, 246, 255);
+    doc.setDrawColor(59, 130, 246);
+    doc.roundedRect(140, yPos, 50, 28, 3, 3, 'FD');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(37, 99, 235);
+    doc.text('CUOTAS', 165, yPos + 8, { align: 'center' });
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${cuotasPagadas}/${cuotasPagadas + cuotasPendientes}`, 165, yPos + 20, { align: 'center' });
+    
+    yPos += 38;
+    
+    // Detalle por curso
+    if (pagosData.cursos && pagosData.cursos.length > 0) {
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 60, 114);
+      doc.text('DETALLE POR CURSO', 20, yPos);
+      
+      yPos += 8;
+      
+      pagosData.cursos.forEach((curso, index) => {
+        // Header del curso
+        doc.setFillColor(241, 245, 249);
+        doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(30, 60, 114);
+        doc.text(`${curso.nombre_curso} - ${curso.nombre_idioma}`, 25, yPos + 6);
+        
+        yPos += 12;
+        
+        // Cuotas del curso
+        if (curso.cuotas && curso.cuotas.length > 0) {
+          doc.setFontSize(8);
+          doc.setFont('helvetica', 'normal');
+          
+          // Headers de cuotas
+          doc.setTextColor(100, 100, 100);
+          doc.text('Cuota', 25, yPos);
+          doc.text('Monto', 70, yPos);
+          doc.text('Estado', 100, yPos);
+          doc.text('Fecha Pago', 140, yPos);
+          
+          yPos += 5;
+          doc.setDrawColor(200, 200, 200);
+          doc.line(25, yPos, pageWidth - 25, yPos);
+          yPos += 4;
+          
+          curso.cuotas.slice(0, 10).forEach(cuota => {
+            doc.setTextColor(50, 50, 50);
+            doc.text(cuota.mes, 25, yPos);
+            doc.text(`$${(cuota.monto || 15000).toLocaleString('es-AR')}`, 70, yPos);
+            
+            if (cuota.pagado) {
+              doc.setTextColor(16, 185, 129);
+              doc.text('Pagado', 100, yPos);
+              doc.setTextColor(100, 100, 100);
+              doc.text(cuota.fecha_pago ? new Date(cuota.fecha_pago).toLocaleDateString('es-ES') : '-', 140, yPos);
+            } else {
+              doc.setTextColor(245, 158, 11);
+              doc.text('Pendiente', 100, yPos);
+              doc.setTextColor(100, 100, 100);
+              doc.text('-', 140, yPos);
+            }
+            
+            yPos += 5;
+          });
+        }
+        
+        yPos += 5;
+      });
+    } else {
+      doc.setFontSize(11);
+      doc.setTextColor(100, 100, 100);
+      doc.text('No hay registros de pagos para este alumno.', pageWidth / 2, yPos + 10, { align: 'center' });
+    }
+    
+    yPos += 10;
+    
+    // Nota
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(100, 100, 100);
+    doc.text('* Los montos están expresados en pesos argentinos (ARS)', 20, yPos);
+    yPos += 4;
+    doc.text('* Para consultas sobre pagos, comunicarse con administración', 20, yPos);
+    
+    agregarFooterPDF(doc);
+    
+    const nombreArchivo = `Estado_Cuenta_${alumno.legajo}_${alumno.apellido}_${new Date().toISOString().slice(0, 10)}.pdf`;
+    doc.save(nombreArchivo);
+    
+    showToast('Estado de cuenta generado exitosamente', 'success');
+  } catch (error) {
+    console.error('Error al generar estado de cuenta:', error);
+    showToast('Error al generar el estado de cuenta', 'error');
+  }
+}
+
+// 4. FICHA DE INSCRIPCIÓN
+async function generarFichaInscripcion(idAlumno) {
+  try {
+    closeDocumentosModal();
+    showToast('Generando ficha de inscripción...', 'info');
+    
+    const response = await fetch(`${API_BASE_URL}/alumnos/${idAlumno}`);
+    if (!response.ok) throw new Error('Error al obtener datos del alumno');
+    const alumno = await response.json();
+    
+    // Obtener información adicional de cursos con profesores
+    const pagosResponse = await fetch(`${API_BASE_URL}/pagos/alumno/${idAlumno}`);
+    let cursosConProfesor = [];
+    if (pagosResponse.ok) {
+      const pagosData = await pagosResponse.json();
+      cursosConProfesor = pagosData.cursos || [];
+    }
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+    
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let yPos = agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Datos del Alumno');
+    
+    // Número de ficha
+    const numeroFicha = `FI-${alumno.legajo}`;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.text(`N° ${numeroFicha}`, pageWidth - 20, yPos, { align: 'right' });
+    
+    yPos += 10;
+    
+    // Sección: Datos Personales
+    doc.setFillColor(30, 60, 114);
+    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text('DATOS PERSONALES', 25, yPos + 6);
+    
+    yPos += 14;
+    
+    // Grid de datos personales
+    const datosPersonales = [
+      { label: 'Nombre Completo', value: `${alumno.nombre} ${alumno.apellido}` },
+      { label: 'DNI', value: alumno.dni || 'No registrado' },
+      { label: 'Legajo', value: alumno.legajo },
+      { label: 'Email', value: alumno.mail || 'No registrado' },
+      { label: 'Teléfono', value: alumno.telefono || 'No registrado' },
+      { label: 'Fecha de Registro', value: alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES') : 'No registrada' },
+      { label: 'Estado', value: alumno.estado ? alumno.estado.charAt(0).toUpperCase() + alumno.estado.slice(1) : 'Activo' },
+      { label: 'Usuario', value: alumno.usuario || 'No asignado' }
+    ];
+    
+    doc.setFontSize(9);
+    let col = 0;
+    datosPersonales.forEach((dato, index) => {
+      const xBase = col === 0 ? 25 : 115;
+      
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 60, 114);
+      doc.text(`${dato.label}:`, xBase, yPos);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(50, 50, 50);
+      const maxWidth = col === 0 ? 60 : 70;
+      const valorTruncado = dato.value.length > 35 ? dato.value.substring(0, 32) + '...' : dato.value;
+      doc.text(valorTruncado, xBase + 35, yPos);
+      
+      col++;
+      if (col === 2) {
+        col = 0;
+        yPos += 8;
+      }
+    });
+    
+    if (col !== 0) yPos += 8;
+    yPos += 8;
+    
+    // Sección: Cursos Inscriptos
+    doc.setFillColor(30, 60, 114);
+    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text('CURSOS INSCRIPTOS', 25, yPos + 6);
+    
+    yPos += 14;
+    
+    if (cursosConProfesor.length > 0 || (alumno.cursos && alumno.cursos.length > 0)) {
+      const cursos = cursosConProfesor.length > 0 ? cursosConProfesor : alumno.cursos;
+      
+      // Headers de tabla
+      doc.setFillColor(241, 245, 249);
+      doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 60, 114);
+      doc.text('Curso', 25, yPos + 6);
+      doc.text('Idioma', 75, yPos + 6);
+      doc.text('Nivel', 110, yPos + 6);
+      doc.text('Profesor', 135, yPos + 6);
+      
+      yPos += 12;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(50, 50, 50);
+      
+      cursos.forEach((curso, index) => {
+        if (index % 2 === 0) {
+          doc.setFillColor(248, 250, 252);
+          doc.rect(20, yPos - 3, pageWidth - 40, 8, 'F');
+        }
+        
+        const nombreCurso = (curso.nombre_curso || '').length > 25 ? (curso.nombre_curso || '').substring(0, 22) + '...' : (curso.nombre_curso || 'N/A');
+        doc.text(nombreCurso, 25, yPos + 2);
+        doc.text(curso.nombre_idioma || 'N/A', 75, yPos + 2);
+        doc.text(curso.nivel || curso.id_nivel?.toString() || 'N/A', 110, yPos + 2);
+        
+        const profesor = (curso.profesor || '').length > 20 ? (curso.profesor || '').substring(0, 17) + '...' : (curso.profesor || 'No asignado');
+        doc.text(profesor, 135, yPos + 2);
+        
+        yPos += 8;
+      });
+      
+      // Borde de tabla
+      doc.setDrawColor(200, 200, 200);
+      doc.rect(20, yPos - (cursos.length * 8) - 12, pageWidth - 40, (cursos.length * 8) + 12);
+      
+    } else {
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text('No hay cursos inscriptos actualmente.', pageWidth / 2, yPos, { align: 'center' });
+      yPos += 10;
+    }
+    
+    yPos += 15;
+    
+    // Sección: Información Académica
+    doc.setFillColor(30, 60, 114);
+    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text('INFORMACIÓN ACADÉMICA', 25, yPos + 6);
+    
+    yPos += 14;
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('Total de Cursos Activos:', 25, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`${alumno.cursos_activos || 0}`, 80, yPos);
+    
+    yPos += 8;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(30, 60, 114);
+    doc.text('Promedio General:', 25, yPos);
+    doc.setFont('helvetica', 'normal');
+    if (alumno.promedio_general && parseFloat(alumno.promedio_general) >= 7) {
+      doc.setTextColor(16, 185, 129);
+    } else if (alumno.promedio_general && parseFloat(alumno.promedio_general) >= 4) {
+      doc.setTextColor(245, 158, 11);
+    } else {
+      doc.setTextColor(50, 50, 50);
+    }
+    doc.text(`${alumno.promedio_general || 'Sin calificaciones'}`, 80, yPos);
+    
+    yPos += 25;
+    
+    // Fecha y firma
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(50, 50, 50);
+    doc.text(`Ficha generada el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 20, yPos, { align: 'right' });
+    
+    yPos += 20;
+    
+    // Firmas
+    doc.setDrawColor(100, 100, 100);
+    doc.setLineWidth(0.3);
+    
+    // Firma alumno
+    doc.line(30, yPos, 90, yPos);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Firma del Alumno', 60, yPos + 5, { align: 'center' });
+    
+    // Firma institución
+    doc.line(120, yPos, 180, yPos);
+    doc.text('Sello Institucional', 150, yPos + 5, { align: 'center' });
+    
+    agregarFooterPDF(doc);
+    
+    const nombreArchivo = `Ficha_Inscripcion_${alumno.legajo}_${alumno.apellido}.pdf`;
+    doc.save(nombreArchivo);
+    
+    showToast('Ficha de inscripción generada exitosamente', 'success');
+  } catch (error) {
+    console.error('Error al generar ficha:', error);
+    showToast('Error al generar la ficha de inscripción', 'error');
+  }
+}
+
+console.log('✅ Sistema de Documentos PDF cargado correctamente');
