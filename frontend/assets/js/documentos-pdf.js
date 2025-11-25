@@ -338,7 +338,7 @@ function closeDocumentosModal() {
 }
 
 // Función auxiliar para agregar header a los PDFs
-function agregarHeaderPDF(doc, titulo, subtitulo = null) {
+async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
   const pageWidth = doc.internal.pageSize.getWidth();
   
   // Fondo del header
@@ -349,19 +349,44 @@ function agregarHeaderPDF(doc, titulo, subtitulo = null) {
   doc.setFillColor(42, 82, 152);
   doc.rect(0, 35, pageWidth, 10, 'F');
   
-  // Logo o texto CEMI
-  doc.setFontSize(24);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 255, 255);
-  doc.text('CEMI', 20, 25);
-  
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 32);
+  // Intentar agregar logo
+  try {
+    const logoBase64 = await cargarLogoCEMI();
+    if (logoBase64) {
+      doc.addImage(logoBase64, 'PNG', 15, 8, 30, 30);
+      // Texto CEMI al lado del logo
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text('CEMI', 48, 22);
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Centro de Enseñanza Multilingüe Internacional', 48, 29);
+    } else {
+      // Fallback: solo texto
+      doc.setFontSize(24);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text('CEMI', 20, 25);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 32);
+    }
+  } catch (e) {
+    // Fallback: solo texto
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text('CEMI', 20, 25);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 32);
+  }
   
   // Título del documento
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
   doc.text(titulo, pageWidth - 20, 22, { align: 'right' });
   
   if (subtitulo) {
@@ -411,7 +436,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     });
     
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
+    let yPos = await agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
     
     // Número de constancia
     const numeroConstancia = `CONST-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
@@ -548,7 +573,7 @@ async function generarCertificadoCalificaciones(idAlumno) {
     });
     
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
+    let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
     
     // Número de certificado
     const numeroCertificado = `CERT-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
@@ -753,7 +778,7 @@ async function generarEstadoCuenta(idAlumno) {
     });
     
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
+    let yPos = await agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
     
     // Número de documento
     const numeroDoc = `EC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(idAlumno).padStart(5, '0')}`;
@@ -977,7 +1002,7 @@ async function generarFichaInscripcion(idAlumno) {
     });
     
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Datos del Alumno');
+    let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Datos del Alumno');
     
     // Número de ficha
     const numeroFicha = `FI-${alumno.legajo}`;
@@ -1000,9 +1025,9 @@ async function generarFichaInscripcion(idAlumno) {
     
     // Grid de datos personales
     const datosPersonales = [
-      { label: 'Nombre Completo', value: `${alumno.nombre} ${alumno.apellido}` },
+      { label: 'Nombre Completo', value: `${alumno.nombre || ''} ${alumno.apellido || ''}`.trim() || 'No registrado' },
       { label: 'DNI', value: alumno.dni || 'No registrado' },
-      { label: 'Legajo', value: alumno.legajo },
+      { label: 'Legajo', value: alumno.legajo || 'No asignado' },
       { label: 'Email', value: alumno.mail || 'No registrado' },
       { label: 'Teléfono', value: alumno.telefono || 'No registrado' },
       { label: 'Fecha de Registro', value: alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES') : 'No registrada' },
@@ -1222,7 +1247,7 @@ async function generarPDFConstancia(alumno) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
-  let yPos = agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
+  let yPos = await agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
   
   const numConstancia = `CAR-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(4, '0')}`;
   doc.setFontSize(10);
@@ -1269,7 +1294,7 @@ async function generarPDFCalificaciones(alumno) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
-  let yPos = agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
+  let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
   
   const numCertificado = `CC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(4, '0')}`;
   doc.setFontSize(10);
@@ -1355,7 +1380,7 @@ async function generarPDFEstadoCuenta(alumno, pagosData) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
-  let yPos = agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
+  let yPos = await agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
   
   const numEstado = `EC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(5, '0')}`;
   doc.setFontSize(10);
@@ -1453,7 +1478,7 @@ async function generarPDFFicha(alumno, pagosData) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
-  let yPos = agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Datos del Alumno');
+  let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Datos del Alumno');
   
   const numFicha = `FI-A${String(alumno.id_alumno).padStart(3, '0')}`;
   doc.setFontSize(10);
