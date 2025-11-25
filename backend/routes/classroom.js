@@ -1861,6 +1861,7 @@ router.delete("/poll/:id", async (req, res) => {
 
 // =============================================
 // ENDPOINTS DE RECURSOS CLASSROOM
+// Usa tabla 'anuncios' con columna es_recurso=1
 // =============================================
 
 // Obtener recursos para un usuario (alumno o profesor)
@@ -1898,38 +1899,56 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
     // Obtener IDs de cursos
     const cursosIds = cursosUsuario.map(c => c.id_curso);
     
-    // Obtener recursos de esos cursos
+    // Obtener recursos de esos cursos (anuncios con es_recurso=1)
     let recursosCursos = [];
     if (cursosIds.length > 0) {
       const [recursos] = await pool.query(`
         SELECT 
-          r.*,
+          a.id_anuncio AS id_recurso,
+          a.titulo,
+          a.contenido AS descripcion,
+          a.tipo_recurso AS tipo,
+          a.link_url AS url,
+          a.archivo_recurso AS archivo,
+          a.id_curso,
+          a.id_profesor,
+          a.fecha_creacion,
+          a.descargas,
           c.nombre_curso,
           i.nombre_idioma,
           n.descripcion AS nivel,
           CONCAT(p.nombre, ' ', p.apellido) AS profesor_nombre
-        FROM recursos_classroom r
-        LEFT JOIN cursos c ON r.id_curso = c.id_curso
+        FROM anuncios a
+        LEFT JOIN cursos c ON a.id_curso = c.id_curso
         LEFT JOIN idiomas i ON c.id_idioma = i.id_idioma
         LEFT JOIN niveles n ON c.id_nivel = n.id_nivel
-        LEFT JOIN profesores prof ON r.id_profesor = prof.id_profesor
+        LEFT JOIN profesores prof ON a.id_profesor = prof.id_profesor
         LEFT JOIN personas p ON prof.id_persona = p.id_persona
-        WHERE r.id_curso IN (?) AND r.activo = TRUE
-        ORDER BY r.fecha_creacion DESC
+        WHERE a.id_curso IN (?) AND a.es_recurso = 1
+        ORDER BY a.fecha_creacion DESC
       `, [cursosIds]);
       recursosCursos = recursos;
     }
     
-    // Obtener recursos de biblioteca general (id_curso = NULL)
+    // Obtener recursos de biblioteca general (id_curso = NULL, es_recurso = 1)
     const [bibliotecaGeneral] = await pool.query(`
       SELECT 
-        r.*,
+        a.id_anuncio AS id_recurso,
+        a.titulo,
+        a.contenido AS descripcion,
+        a.tipo_recurso AS tipo,
+        a.link_url AS url,
+        a.archivo_recurso AS archivo,
+        a.id_curso,
+        a.id_profesor,
+        a.fecha_creacion,
+        a.descargas,
         CONCAT(p.nombre, ' ', p.apellido) AS profesor_nombre
-      FROM recursos_classroom r
-      LEFT JOIN profesores prof ON r.id_profesor = prof.id_profesor
+      FROM anuncios a
+      LEFT JOIN profesores prof ON a.id_profesor = prof.id_profesor
       LEFT JOIN personas p ON prof.id_persona = p.id_persona
-      WHERE r.id_curso IS NULL AND r.activo = TRUE
-      ORDER BY r.fecha_creacion DESC
+      WHERE a.id_curso IS NULL AND a.es_recurso = 1
+      ORDER BY a.fecha_creacion DESC
     `);
     
     // Agrupar recursos por curso
@@ -1961,7 +1980,7 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
   }
 });
 
-// Subir nuevo recurso (solo profesores)
+// Subir nuevo recurso (solo profesores) - Inserta en anuncios con es_recurso=1
 router.post("/recursos", upload.single('archivo'), async (req, res) => {
   try {
     const { titulo, descripcion, tipo, url, id_curso, id_profesor } = req.body;
@@ -1973,16 +1992,18 @@ router.post("/recursos", upload.single('archivo'), async (req, res) => {
       archivoPath = `/uploads/${req.file.filename}`;
     }
     
+    const cursoValue = id_curso === 'null' || id_curso === '' || !id_curso ? null : id_curso;
+    
     const [result] = await pool.query(`
-      INSERT INTO recursos_classroom (titulo, descripcion, tipo, url, archivo, id_curso, id_profesor)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO anuncios (titulo, contenido, tipo_recurso, link_url, archivo_recurso, id_curso, id_profesor, es_recurso, importante, notificar, descargas)
+      VALUES (?, ?, ?, ?, ?, ?, ?, 1, 0, 0, 0)
     `, [
       titulo,
       descripcion || null,
       tipo,
       url || null,
       archivoPath,
-      id_curso === 'null' || id_curso === '' ? null : id_curso,
+      cursoValue,
       id_profesor
     ]);
     
@@ -2010,16 +2031,18 @@ router.put("/recursos/:id", async (req, res) => {
     
     console.log(`✏️ Actualizando recurso ${id}`);
     
+    const cursoValue = id_curso === 'null' || id_curso === '' || !id_curso ? null : id_curso;
+    
     await pool.query(`
-      UPDATE recursos_classroom 
-      SET titulo = ?, descripcion = ?, tipo = ?, url = ?, id_curso = ?
-      WHERE id_recurso = ?
+      UPDATE anuncios 
+      SET titulo = ?, contenido = ?, tipo_recurso = ?, link_url = ?, id_curso = ?
+      WHERE id_anuncio = ? AND es_recurso = 1
     `, [
       titulo,
       descripcion,
       tipo,
       url,
-      id_curso === 'null' || id_curso === '' ? null : id_curso,
+      cursoValue,
       id
     ]);
     
@@ -2037,15 +2060,14 @@ router.put("/recursos/:id", async (req, res) => {
   }
 });
 
-// Eliminar recurso
+// Eliminar recurso (hard delete ya que usamos anuncios)
 router.delete("/recursos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     
     console.log(`🗑️ Eliminando recurso ${id}`);
     
-    // Soft delete
-    await pool.query(`UPDATE recursos_classroom SET activo = FALSE WHERE id_recurso = ?`, [id]);
+    await pool.query(`DELETE FROM anuncios WHERE id_anuncio = ? AND es_recurso = 1`, [id]);
     
     res.json({
       success: true,
@@ -2066,7 +2088,7 @@ router.post("/recursos/:id/descarga", async (req, res) => {
   try {
     const { id } = req.params;
     
-    await pool.query(`UPDATE recursos_classroom SET descargas = descargas + 1 WHERE id_recurso = ?`, [id]);
+    await pool.query(`UPDATE anuncios SET descargas = descargas + 1 WHERE id_anuncio = ? AND es_recurso = 1`, [id]);
     
     res.json({ success: true });
   } catch (error) {
