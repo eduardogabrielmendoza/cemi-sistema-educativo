@@ -25,7 +25,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-      background: #fff;
+      background: #fcfcfe;
       color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
@@ -360,6 +360,39 @@
       }
     }
 
+    /* Navigation Buttons */
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      background: white;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-back:hover {
+      background: var(--bg-light);
+      border-color: var(--primary-color);
+    }
+
+    .btn-back svg {
+      width: 16px;
+      height: 16px;
+    }
+
     /* Continue Button */
     .btn-continue {
       display: inline-flex;
@@ -374,6 +407,9 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
+    }
+
+    .btn-continue.solo {
       margin-top: 32px;
     }
 
@@ -574,7 +610,7 @@
         </p>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Enviar</button>
+      <button type="button" class="btn-continue solo" onclick="nextStep()">Enviar</button>
 
       <p class="legal-text">
         Este sitio está protegido por reCAPTCHA y aplican la <a href="privacidad.html">Política de Privacidad</a> 
@@ -612,7 +648,13 @@
         </div>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 3: Fecha de nacimiento -->
@@ -635,7 +677,13 @@
         </div>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 4: Género -->
@@ -655,20 +703,18 @@
           <label for="female">Femenino</label>
         </div>
         <div class="option-item">
-          <input type="radio" name="gender" id="nonbinary" value="nonbinary">
-          <label for="nonbinary">No binario</label>
-        </div>
-        <div class="option-item">
           <input type="radio" name="gender" id="notanswer" value="notanswer">
-          <label for="notanswer">Prefiero no responder</label>
-        </div>
-        <div class="option-item">
-          <input type="radio" name="gender" id="selfdescribe" value="selfdescribe">
-          <label for="selfdescribe">Prefiero auto-describirme</label>
+          <label for="notanswer">Prefiero no especificar</label>
         </div>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 5: País -->
@@ -707,7 +753,13 @@
         </select>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 6: Ciudad -->
@@ -721,7 +773,13 @@
         <input type="text" class="form-input" id="city" placeholder="Ingresa una respuesta" required>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 7: Código Postal -->
@@ -735,7 +793,13 @@
         <input type="text" class="form-input" id="postalCode" placeholder="Ingresa una respuesta" required>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 8: Frecuencia de contacto -->
@@ -760,7 +824,13 @@
         </div>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 9: Trabajo en educación -->
@@ -785,7 +855,13 @@
         </div>
       </div>
 
-      <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
     </div>
 
     <!-- Step 10: Productos CEMI -->
@@ -855,7 +931,13 @@
         </div>
       </div>
 
-      <button type="button" class="btn-continue btn-submit" onclick="submitForm()">Enviar</button>
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue btn-submit" onclick="submitForm()">Enviar</button>
+      </div>
     </div>
 
     <!-- Step 11: Success -->
