@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novedades - CEMI Classroom</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+
+    .help-header { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); position: sticky; top: 0; z-index: 100; }
+    .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+    .header-logo img { width: 40px; height: 40px; border-radius: 8px; }
+    .header-logo span { font-size: 18px; font-weight: 600; }
+    .header-nav { display: flex; gap: 8px; }
+    .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+    .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
+
+    .hero-section { padding: 50px 40px; text-align: center; }
+    .hero-section h1 { color: white; font-size: 32px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .hero-section h1 i { width: 36px; height: 36px; }
+    .hero-section p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+    .main-content { max-width: 900px; margin: 0 auto; padding: 40px; }
+
+    .filter-tabs { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+    .filter-tab { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 14px; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.2s ease; }
+    .filter-tab:hover { border-color: #2563eb; color: #2563eb; }
+    .filter-tab.active { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; border-color: transparent; }
+    .filter-tab i { width: 16px; height: 16px; }
+
+    .timeline { position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #2563eb, #dbeafe); }
+
+    .timeline-item { position: relative; padding-left: 70px; padding-bottom: 40px; animation: fadeInUp 0.5s ease forwards; opacity: 0; }
+    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+    .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+    .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+
+    .timeline-marker { position: absolute; left: 12px; top: 4px; width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a5f, #2563eb); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid #f8fafc; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+    .timeline-marker i { width: 12px; height: 12px; color: white; }
+    .timeline-marker.nueva-funcion { background: linear-gradient(135deg, #059669, #10b981); }
+    .timeline-marker.mejora { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+    .timeline-marker.correccion { background: linear-gradient(135deg, #dc2626, #f87171); }
+
+    .timeline-date { font-size: 13px; color: #64748b; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .timeline-date i { width: 14px; height: 14px; }
+
+    .timeline-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+    .timeline-card:hover { border-color: #2563eb; box-shadow: 0 8px 30px rgba(37,99,235,0.12); transform: translateX(4px); }
+
+    .timeline-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+    .timeline-badge.nueva-funcion { background: #d1fae5; color: #065f46; }
+    .timeline-badge.mejora { background: #ede9fe; color: #5b21b6; }
+    .timeline-badge.correccion { background: #fee2e2; color: #991b1b; }
+    .timeline-badge i { width: 12px; height: 12px; }
+
+    .timeline-title { font-size: 18px; font-weight: 600; color: #1e3a5f; margin-bottom: 12px; line-height: 1.4; }
+    .timeline-description { font-size: 14px; color: #64748b; line-height: 1.7; margin-bottom: 16px; }
+
+    .timeline-features { list-style: none; margin-top: 16px; }
+    .timeline-features li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 14px; color: #475569; border-bottom: 1px solid #f1f5f9; }
+    .timeline-features li:last-child { border-bottom: none; }
+    .timeline-features li i { width: 16px; height: 16px; color: #2563eb; margin-top: 2px; flex-shrink: 0; }
+
+    .timeline-link { display: inline-flex; align-items: center; gap: 6px; color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500; margin-top: 12px; transition: all 0.2s ease; }
+    .timeline-link:hover { color: #1e3a5f; }
+    .timeline-link i { width: 16px; height: 16px; }
+
+    .subscribe-section { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); border-radius: 20px; padding: 40px; margin-top: 50px; text-align: center; position: relative; overflow: hidden; }
+    .subscribe-section::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%); pointer-events: none; }
+    .subscribe-section h3 { color: white; font-size: 22px; margin-bottom: 12px; }
+    .subscribe-section p { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 24px; }
+    .subscribe-form { display: flex; gap: 12px; max-width: 400px; margin: 0 auto; }
+    .subscribe-form input { flex: 1; padding: 14px 20px; border: none; border-radius: 10px; font-size: 14px; font-family: inherit; }
+    .subscribe-form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+    .subscribe-form button { padding: 14px 24px; background: white; color: #1e3a5f; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
+    .subscribe-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+    .subscribe-form button i { width: 16px; height: 16px; }
+
+    .help-footer { background: white; border-top: 1px solid #e2e8f0; padding: 30px 40px; margin-top: 60px; }
+    .footer-content { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: #64748b; text-decoration: none; font-size: 13px; transition: color 0.2s ease; }
+    .footer-links a:hover { color: #2563eb; }
+    .footer-copy { color: #94a3b8; font-size: 13px; }
+
+    @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 20px; } .timeline::before { left: 16px; } .timeline-item { padding-left: 50px; } .timeline-marker { left: 4px; width: 24px; height: 24px; } .subscribe-form { flex-direction: column; } }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4); } 50% { box-shadow: 0 0 0 10px rgba(37,99,235,0); } }
+    .timeline-item:first-child .timeline-marker { animation: pulse 2s infinite; }
+  </style>
+</head>
+<body>
+  <header class="help-header">
+    <div class="header-top">
+      <a href="classroom.html" class="header-logo">
+        <img src="images/logo.png" alt="CEMI">
+        <span>Novedades CEMI</span>
+      </a>
+      <nav class="header-nav">
+        <a href="ayuda-classroom.html">Centro de Ayuda</a>
+        <a href="comunidad-ayuda.html">Comunidad</a>
+        <a href="novedades-cemi.html" class="active">Novedades</a>
+        <a href="classroom.html">Volver a Classroom</a>
+      </nav>
+    </div>
+    <div class="hero-section">
+      <h1><i data-lucide="sparkles"></i>Novedades de CEMI Classroom</h1>
+      <p>Mantente al día con las últimas actualizaciones, nuevas funciones y mejoras de la plataforma</p>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all"><i data-lucide="layers"></i>Todas</button>
+      <button class="filter-tab" data-filter="nueva-funcion"><i data-lucide="plus-circle"></i>Nuevas funciones</button>
+      <button class="filter-tab" data-filter="mejora"><i data-lucide="trending-up"></i>Mejoras</button>
+      <button class="filter-tab" data-filter="correccion"><i data-lucide="wrench"></i>Correcciones</button>
+    </div>
+
+    <div class="timeline" id="novedadesTimeline">
+      <div class="timeline-item" data-type="nueva-funcion">
+        <div class="timeline-marker nueva-funcion"><i data-lucide="plus"></i></div>
+        <span class="timeline-date"><i data-lucide="calendar"></i>25 de Noviembre, 2025</span>
+        <div class="timeline-card">
+          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>NUEVA FUNCIÓN</span>
+          <h3 class="timeline-title">Sistema de Encuestas con Generación de PDF</h3>
+          <p class="timeline-description">Ahora los profesores pueden crear encuestas personalizadas para recopilar feedback de sus alumnos. El sistema incluye generación automática de reportes en PDF con gráficos estadísticos.</p>
+          <ul class="timeline-features">
+            <li><i data-lucide="check"></i>Creación de encuestas con múltiples tipos de pregunta</li>
+            <li><i data-lucide="check"></i>Generación automática de PDF con resultados</li>
+            <li><i data-lucide="check"></i>Gráficos de barras, torta y estadísticas</li>
+            <li><i data-lucide="check"></i>Exportación de datos para análisis</li>
+          </ul>
+          <a href="ayuda-classroom.html" class="timeline-link">Más información<i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-type="mejora">
+        <div class="timeline-marker mejora"><i data-lucide="trending-up"></i></div>
+        <span class="timeline-date"><i data-lucide="calendar"></i>20 de Noviembre, 2025</span>
+        <div class="timeline-card">
+          <span class="timeline-badge mejora"><i data-lucide="zap"></i>MEJORA</span>
+          <h3 class="timeline-title">Nuevo diseño del Dashboard</h3>
+          <p class="timeline-description">Hemos renovado completamente la interfaz del dashboard para una experiencia más intuitiva y moderna. Navegación mejorada, accesos rápidos y mejor visualización de información.</p>
+          <ul class="timeline-features">
+            <li><i data-lucide="check"></i>Interfaz más limpia y moderna</li>
+            <li><i data-lucide="check"></i>Accesos rápidos a funciones frecuentes</li>
+            <li><i data-lucide="check"></i>Mejor rendimiento y velocidad de carga</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-type="nueva-funcion">
+        <div class="timeline-marker nueva-funcion"><i data-lucide="plus"></i></div>
+        <span class="timeline-date"><i data-lucide="calendar"></i>15 de Noviembre, 2025</span>
+        <div class="timeline-card">
+          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>NUEVA FUNCIÓN</span>
+          <h3 class="timeline-title">Sistema de Archivo de Pagos</h3>
+          <p class="timeline-description">Los administradores ahora pueden archivar pagos antiguos para mantener un historial limpio sin perder información importante.</p>
+          <ul class="timeline-features">
+            <li><i data-lucide="check"></i>Archivado de pagos con un clic</li>
+            <li><i data-lucide="check"></i>Historial de pagos archivados accesible</li>
+            <li><i data-lucide="check"></i>Restauración de pagos archivados</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-type="correccion">
+        <div class="timeline-marker correccion"><i data-lucide="wrench"></i></div>
+        <span class="timeline-date"><i data-lucide="calendar"></i>10 de Noviembre, 2025</span>
+        <div class="timeline-card">
+          <span class="timeline-badge correccion"><i data-lucide="check-circle"></i>CORRECCIÓN</span>
+          <h3 class="timeline-title">Correcciones de estabilidad</h3>
+          <p class="timeline-description">Solucionamos varios problemas reportados por usuarios para mejorar la estabilidad general de la plataforma.</p>
+          <ul class="timeline-features">
+            <li><i data-lucide="check"></i>Corregido error al cargar archivos grandes</li>
+            <li><i data-lucide="check"></i>Solucionado problema de notificaciones</li>
+            <li><i data-lucide="check"></i>Mejoras en la sincronización de datos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-type="nueva-funcion">
+        <div class="timeline-marker nueva-funcion"><i data-lucide="plus"></i></div>
+        <span class="timeline-date"><i data-lucide="calendar"></i>5 de Noviembre, 2025</span>
+        <div class="timeline-card">
+          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>NUEVA FUNCIÓN</span>
+          <h3 class="timeline-title">Biblioteca de Recursos Compartidos</h3>
+          <p class="timeline-description">Nueva sección para compartir recursos educativos entre profesores. Comparte partituras, grabaciones, ejercicios y más con toda la comunidad CEMI.</p>
+          <ul class="timeline-features">
+            <li><i data-lucide="check"></i>Subida de archivos de hasta 50MB</li>
+            <li><i data-lucide="check"></i>Organización por categorías</li>
+            <li><i data-lucide="check"></i>Sistema de valoraciones y comentarios</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-type="mejora">
+        <div class="timeline-marker mejora"><i data-lucide="trending-up"></i></div>
+        <span class="timeline-date"><i data-lucide="calendar"></i>1 de Noviembre, 2025</span>
+        <div class="timeline-card">
+          <span class="timeline-badge mejora"><i data-lucide="zap"></i>MEJORA</span>
+          <h3 class="timeline-title">Aplicación Móvil Actualizada</h3>
+          <p class="timeline-description">Nueva versión de la aplicación móvil CEMI con mejoras de rendimiento y nuevas funcionalidades offline.</p>
+          <ul class="timeline-features">
+            <li><i data-lucide="check"></i>Modo offline para ver contenido descargado</li>
+            <li><i data-lucide="check"></i>Notificaciones push mejoradas</li>
+            <li><i data-lucide="check"></i>Diseño optimizado para tablets</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="subscribe-section">
+      <h3>¿Quieres recibir las novedades?</h3>
+      <p>Suscríbete para recibir notificaciones cuando publiquemos nuevas actualizaciones</p>
+      <form class="subscribe-form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" placeholder="Tu correo electrónico" required>
+        <button type="submit"><i data-lucide="bell"></i>Suscribirse</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="help-footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="ayuda-classroom.html">Centro de Ayuda</a>
+        <a href="comunidad-ayuda.html">Comunidad</a>
+        <a href="privacidad.html">Política de Privacidad</a>
+        <a href="terminos.html">Términos de Servicio</a>
+      </div>
+      <div class="footer-copy">© 2025 CEMI - Centro Educativo de Música Integral</div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        const items = document.querySelectorAll('.timeline-item');
+        items.forEach(item => {
+          if (filter === 'all' || item.dataset.type === filter) {
+            item.style.display = 'block';
+            item.style.animation = 'none';
+            item.offsetHeight;
+            item.style.animation = 'fadeInUp 0.5s ease forwards';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    function subscribeNewsletter(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input').value;
+      alert('¡Gracias por suscribirte! Recibirás novedades en: ' + email);
+      e.target.reset();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() { lucide.createIcons(); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidad de Ayuda - CEMI Classroom</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+
+    .help-header { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); position: sticky; top: 0; z-index: 100; }
+    .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+    .header-logo img { width: 40px; height: 40px; border-radius: 8px; }
+    .header-logo span { font-size: 18px; font-weight: 600; }
+    .header-nav { display: flex; gap: 8px; }
+    .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
+    .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
+
+    .hero-section { padding: 50px 40px; text-align: center; }
+    .hero-section h1 { color: white; font-size: 32px; font-weight: 600; margin-bottom: 12px; }
+    .hero-section p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto 24px; }
+    .hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 28px; font-weight: 700; color: white; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+    .main-content { max-width: 1200px; margin: 0 auto; padding: 40px; }
+    .content-grid { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+
+    .sidebar { position: sticky; top: 100px; height: fit-content; }
+    .sidebar-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 600; color: #1e3a5f; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .sidebar-title i { width: 18px; height: 18px; }
+    .category-list { list-style: none; }
+    .category-list li { margin-bottom: 4px; }
+    .category-list a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #475569; text-decoration: none; border-radius: 8px; font-size: 14px; transition: all 0.2s ease; }
+    .category-list a:hover, .category-list a.active { background: #dbeafe; color: #1e3a5f; }
+    .category-list a i { width: 18px; height: 18px; color: #64748b; }
+    .category-list a:hover i, .category-list a.active i { color: #2563eb; }
+    
+    .ask-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .ask-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.3); }
+    .ask-btn i { width: 18px; height: 18px; }
+
+    .posts-area { min-width: 0; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .section-title { font-size: 18px; font-weight: 600; color: #1e3a5f; display: flex; align-items: center; gap: 10px; }
+    .section-title i { width: 22px; height: 22px; color: #2563eb; }
+    
+    .posts-grid { display: grid; gap: 16px; margin-bottom: 40px; }
+    .post-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; transition: all 0.3s ease; cursor: pointer; }
+    .post-card:hover { border-color: #2563eb; box-shadow: 0 8px 24px rgba(37,99,235,0.1); transform: translateY(-2px); }
+    .post-card.featured { border-left: 4px solid #2563eb; }
+    .post-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: #dbeafe; color: #1e3a5f; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+    .post-badge.announcement { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; }
+    .post-badge i { width: 12px; height: 12px; }
+    .post-title { font-size: 16px; font-weight: 600; color: #1e3a5f; margin-bottom: 8px; line-height: 1.4; }
+    .post-excerpt { font-size: 14px; color: #64748b; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .post-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #94a3b8; }
+    .meta-item i { width: 14px; height: 14px; }
+    .meta-item.votes { color: #2563eb; }
+
+    .categories-section { margin-top: 40px; }
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .category-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+    .category-card:hover { border-color: #2563eb; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(30,58,95,0.12); }
+    .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .category-icon { width: 44px; height: 44px; background: linear-gradient(135deg, #dbeafe, #bfdbfe); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .category-icon i { width: 22px; height: 22px; color: #1e3a5f; }
+    .category-name { font-size: 15px; font-weight: 600; color: #1e3a5f; }
+    .category-posts { border-top: 1px solid #f1f5f9; padding-top: 16px; }
+    .category-post { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f8fafc; }
+    .category-post:last-child { border-bottom: none; }
+    .category-post-title { flex: 1; font-size: 13px; color: #475569; line-height: 1.4; }
+    .category-post-votes { font-size: 12px; color: #2563eb; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+    .category-post-votes i { width: 12px; height: 12px; }
+
+    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+    .modal.active { display: flex; opacity: 1; }
+    .modal-content { background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.3s ease; }
+    .modal.active .modal-content { transform: translateY(0); }
+    .modal-header { padding: 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+    .modal-header h2 { font-size: 20px; color: #1e3a5f; display: flex; align-items: center; gap: 12px; }
+    .modal-header h2 i { width: 24px; height: 24px; color: #2563eb; }
+    .close-modal { background: none; border: none; cursor: pointer; padding: 8px; border-radius: 8px; transition: all 0.2s ease; }
+    .close-modal:hover { background: #f1f5f9; }
+    .close-modal i { width: 20px; height: 20px; color: #64748b; }
+    .modal-body { padding: 24px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 8px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-family: inherit; transition: all 0.2s ease; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .modal-footer { padding: 20px 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
+    .btn { padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-secondary { background: #f1f5f9; color: #475569; border: none; }
+    .btn-secondary:hover { background: #e2e8f0; }
+    .btn-primary { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; border: none; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,0.3); }
+
+    .help-footer { background: white; border-top: 1px solid #e2e8f0; padding: 30px 40px; margin-top: 60px; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: #64748b; text-decoration: none; font-size: 13px; transition: color 0.2s ease; }
+    .footer-links a:hover { color: #2563eb; }
+    .footer-copy { color: #94a3b8; font-size: 13px; }
+
+    @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } .sidebar { position: static; } }
+    @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 20px; } .categories-grid { grid-template-columns: 1fr; } }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .post-card, .category-card { animation: fadeInUp 0.5s ease forwards; opacity: 0; }
+    .post-card:nth-child(1), .category-card:nth-child(1) { animation-delay: 0.1s; }
+    .post-card:nth-child(2), .category-card:nth-child(2) { animation-delay: 0.15s; }
+    .post-card:nth-child(3), .category-card:nth-child(3) { animation-delay: 0.2s; }
+    .post-card:nth-child(4), .category-card:nth-child(4) { animation-delay: 0.25s; }
+  </style>
+</head>
+<body>
+  <header class="help-header">
+    <div class="header-top">
+      <a href="classroom.html" class="header-logo">
+        <img src="images/logo.png" alt="CEMI">
+        <span>Comunidad CEMI</span>
+      </a>
+      <nav class="header-nav">
+        <a href="ayuda-classroom.html">Centro de Ayuda</a>
+        <a href="comunidad-ayuda.html" class="active">Comunidad</a>
+        <a href="novedades-cemi.html">Novedades</a>
+        <a href="classroom.html">Volver a Classroom</a>
+      </nav>
+    </div>
+    <div class="hero-section">
+      <h1>Bienvenido a la Comunidad de Ayuda CEMI</h1>
+      <p>Encuentra respuestas, comparte conocimientos y conecta con otros usuarios de CEMI Classroom</p>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-number">24</div><div class="stat-label">Preguntas</div></div>
+        <div class="stat-item"><div class="stat-number">87</div><div class="stat-label">Respuestas</div></div>
+        <div class="stat-item"><div class="stat-number">156</div><div class="stat-label">Miembros</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="content-grid">
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3 class="sidebar-title"><i data-lucide="layers"></i>Categorías</h3>
+          <ul class="category-list">
+            <li><a href="#" class="active" data-filter="all"><i data-lucide="grid"></i> Todas las preguntas</a></li>
+            <li><a href="#" data-filter="primeros-pasos"><i data-lucide="rocket"></i> Primeros Pasos</a></li>
+            <li><a href="#" data-filter="tareas"><i data-lucide="clipboard-list"></i> Tareas y Entregas</a></li>
+            <li><a href="#" data-filter="comunicacion"><i data-lucide="message-circle"></i> Comunicación</a></li>
+            <li><a href="#" data-filter="recursos"><i data-lucide="folder-open"></i> Recursos</a></li>
+            <li><a href="#" data-filter="cuenta"><i data-lucide="user"></i> Mi Cuenta</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h3 class="sidebar-title"><i data-lucide="info"></i>Acerca de</h3>
+          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">La comunidad CEMI es un espacio para resolver dudas y compartir experiencias entre usuarios.</p>
+          <button class="ask-btn" onclick="openAskModal()"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>
+        </div>
+      </aside>
+
+      <div class="posts-area">
+        <section>
+          <div class="section-header"><h2 class="section-title"><i data-lucide="star"></i>Publicaciones destacadas</h2></div>
+          <div class="posts-grid">
+            <div class="post-card featured">
+              <span class="post-badge announcement"><i data-lucide="megaphone"></i>ANUNCIO</span>
+              <h3 class="post-title">¡Nuevo sistema de encuestas disponible!</h3>
+              <p class="post-excerpt">Hemos lanzado un nuevo sistema para recopilar feedback de usuarios. Completa la encuesta y ayúdanos a mejorar CEMI Classroom.</p>
+              <div class="post-meta">
+                <span class="meta-item"><i data-lucide="calendar"></i> 25 Nov 2025</span>
+                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 42 votos</span>
+              </div>
+            </div>
+            <div class="post-card featured">
+              <span class="post-badge"><i data-lucide="pin"></i>DESTACADO</span>
+              <h3 class="post-title">Guía: Cómo usar CEMI Classroom desde el celular</h3>
+              <p class="post-excerpt">Aprende a acceder y utilizar todas las funciones de Classroom desde tu dispositivo móvil.</p>
+              <div class="post-meta">
+                <span class="meta-item"><i data-lucide="message-circle"></i> 12 respuestas</span>
+                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 89 votos</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-header"><h2 class="section-title"><i data-lucide="clock"></i>Preguntas recientes</h2></div>
+          <div class="posts-grid">
+            <div class="post-card">
+              <h3 class="post-title">¿Por qué no puedo ver mis clases archivadas?</h3>
+              <p class="post-excerpt">Archivé algunas clases del semestre pasado pero ahora no las encuentro. ¿Dónde puedo verlas?</p>
+              <div class="post-meta">
+                <span class="meta-item"><i data-lucide="user"></i> María G.</span>
+                <span class="meta-item"><i data-lucide="message-circle"></i> 5 respuestas</span>
+                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 23 votos</span>
+              </div>
+            </div>
+            <div class="post-card">
+              <h3 class="post-title">Error al subir archivos grandes en tareas</h3>
+              <p class="post-excerpt">Cuando intento subir un PDF de más de 10MB me da error. ¿Hay algún límite de tamaño?</p>
+              <div class="post-meta">
+                <span class="meta-item"><i data-lucide="user"></i> Carlos R.</span>
+                <span class="meta-item"><i data-lucide="message-circle"></i> 8 respuestas</span>
+                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 38 votos</span>
+              </div>
+            </div>
+            <div class="post-card">
+              <h3 class="post-title">Las notificaciones no me llegan al email</h3>
+              <p class="post-excerpt">Configuré las notificaciones por email pero no recibo ninguna cuando el profesor publica algo nuevo.</p>
+              <div class="post-meta">
+                <span class="meta-item"><i data-lucide="user"></i> Ana L.</span>
+                <span class="meta-item"><i data-lucide="message-circle"></i> 12 respuestas</span>
+                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 56 votos</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="categories-section">
+          <div class="section-header"><h2 class="section-title"><i data-lucide="layout-grid"></i>Explorar por categoría</h2></div>
+          <div class="categories-grid">
+            <div class="category-card">
+              <div class="category-header">
+                <div class="category-icon"><i data-lucide="rocket"></i></div>
+                <div class="category-name">Primeros Pasos</div>
+              </div>
+              <div class="category-posts">
+                <div class="category-post"><span class="category-post-title">¿Cómo me uno a una clase con código?</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 42</span></div>
+                <div class="category-post"><span class="category-post-title">No puedo iniciar sesión</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 28</span></div>
+              </div>
+            </div>
+            <div class="category-card">
+              <div class="category-header">
+                <div class="category-icon"><i data-lucide="clipboard-list"></i></div>
+                <div class="category-name">Tareas y Entregas</div>
+              </div>
+              <div class="category-posts">
+                <div class="category-post"><span class="category-post-title">¿Cómo entrego una tarea tarde?</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 67</span></div>
+                <div class="category-post"><span class="category-post-title">Error al adjuntar archivos</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 34</span></div>
+              </div>
+            </div>
+            <div class="category-card">
+              <div class="category-header">
+                <div class="category-icon"><i data-lucide="message-circle"></i></div>
+                <div class="category-name">Comunicación</div>
+              </div>
+              <div class="category-posts">
+                <div class="category-post"><span class="category-post-title">Notificaciones no funcionan</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 56</span></div>
+                <div class="category-post"><span class="category-post-title">¿Cómo envío mensaje privado?</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 21</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal" id="askModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i data-lucide="help-circle"></i> Hacer una pregunta</h2>
+        <button class="close-modal" onclick="closeAskModal()"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="questionCategory">
+            <option value="">Selecciona una categoría...</option>
+            <option value="primeros-pasos">Primeros Pasos</option>
+            <option value="tareas">Tareas y Entregas</option>
+            <option value="comunicacion">Comunicación</option>
+            <option value="recursos">Recursos y Materiales</option>
+            <option value="cuenta">Mi Cuenta</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Título de tu pregunta</label>
+          <input type="text" id="questionTitle" placeholder="Escribe un título claro y conciso...">
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea id="questionDescription" placeholder="Describe tu problema o pregunta con el mayor detalle posible..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeAskModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="submitQuestion()"><i data-lucide="send"></i>Publicar pregunta</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="help-footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="ayuda-classroom.html">Centro de Ayuda</a>
+        <a href="privacidad.html">Política de Privacidad</a>
+        <a href="terminos.html">Términos de Servicio</a>
+      </div>
+      <div class="footer-copy">© 2025 CEMI - Centro Educativo de Música Integral</div>
+    </div>
+  </footer>
+
+  <script>
+    function openAskModal() { document.getElementById('askModal').classList.add('active'); document.body.style.overflow = 'hidden'; lucide.createIcons(); }
+    function closeAskModal() { document.getElementById('askModal').classList.remove('active'); document.body.style.overflow = ''; }
+    function submitQuestion() {
+      const category = document.getElementById('questionCategory').value;
+      const title = document.getElementById('questionTitle').value.trim();
+      const description = document.getElementById('questionDescription').value.trim();
+      if (!category || !title || !description) { alert('Por favor completa todos los campos'); return; }
+      alert('¡Gracias por tu pregunta! La comunidad CEMI la revisará pronto.');
+      closeAskModal();
+      document.getElementById('questionCategory').value = '';
+      document.getElementById('questionTitle').value = '';
+      document.getElementById('questionDescription').value = '';
+    }
+    document.querySelectorAll('.category-list a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.category-list a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+    document.getElementById('askModal').addEventListener('click', function(e) { if (e.target === this) closeAskModal(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAskModal(); });
+    document.addEventListener('DOMContentLoaded', function() { lucide.createIcons(); });
+  </script>
+</body>
+</html>
