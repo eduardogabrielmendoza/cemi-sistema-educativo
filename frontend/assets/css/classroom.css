@@ -5088,6 +5088,8 @@ body.dark-mode .toggle-password-btn:hover {
 
 /* Carpeta de Curso */
 .curso-folder {
+  display: flex;
+  flex-direction: column;
   background: var(--bg-white);
   border-radius: 18px;
   overflow: hidden;
@@ -5202,9 +5204,18 @@ body.dark-mode .toggle-password-btn:hover {
   background: rgba(255, 255, 255, 0.35);
 }
 
+/* Wrapper para altura fija de cards */
+.folder-content-wrapper {
+  flex: 1;
+  min-height: 180px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 .folder-content {
   padding: 14px;
-  max-height: 320px;
+  flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -5216,6 +5227,7 @@ body.dark-mode .toggle-password-btn:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .no-recursos-msg {

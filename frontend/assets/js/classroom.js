@@ -5992,21 +5992,12 @@ function renderRecursos(data) {
 }
 
 function renderCursoCard(curso) {
-  const gradientes = [
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
-  ];
-  const gradiente = gradientes[curso.id_curso % gradientes.length];
-  
+  // Color institucional único para todos los headers
   const hasRecursos = curso.recursos && curso.recursos.length > 0;
   
   return `
     <div class="curso-folder" data-curso-id="${curso.id_curso}">
-      <div class="folder-header" style="background: ${gradiente};">
+      <div class="folder-header">
         <div class="folder-icon">
           <i data-lucide="folder"></i>
         </div>
@@ -6016,14 +6007,16 @@ function renderCursoCard(curso) {
         </div>
         <div class="folder-count">${curso.recursos?.length || 0}</div>
       </div>
-      <div class="folder-content ${hasRecursos ? '' : 'empty'}">
-        ${hasRecursos ? 
-          curso.recursos.map(recurso => renderRecursoItem(recurso, false)).join('') :
-          `<div class="no-recursos-msg">
-            <i data-lucide="file-x"></i>
-            <span>Sin recursos</span>
-          </div>`
-        }
+      <div class="folder-content-wrapper">
+        <div class="folder-content ${hasRecursos ? '' : 'empty'}">
+          ${hasRecursos ? 
+            curso.recursos.map(recurso => renderRecursoItem(recurso, false)).join('') :
+            `<div class="no-recursos-msg">
+              <i data-lucide="file-x"></i>
+              <span>Sin recursos</span>
+            </div>`
+          }
+        </div>
       </div>
       ${userRol.toLowerCase() === 'profesor' ? `
         <button class="btn-add-recurso-curso" onclick="abrirModalSubirRecurso(${curso.id_curso}, '${curso.nombre_curso}')">
