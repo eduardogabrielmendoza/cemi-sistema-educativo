@@ -1,7 +1,7 @@
 import express from "express";
 import pool from "../utils/db.js";
 import upload, { uploadRecursos } from "../config/multer.js";
-import cloudinary from "../config/cloudinary.js";
+import cloudinary, { getSignedUrl } from "../config/cloudinary.js";
 import fs from "fs";
 import path from "path";
 
@@ -2126,6 +2126,55 @@ router.post("/recursos/:id/descarga", async (req, res) => {
   } catch (error) {
     console.error("Error al registrar descarga:", error);
     res.status(500).json({ success: false });
+  }
+});
+
+// Obtener URL firmada para descarga (solo en producción para Cloudinary)
+router.get("/recursos/:id/download-url", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const [rows] = await pool.query(
+      `SELECT archivo_recurso FROM anuncios WHERE id_anuncio = ? AND es_recurso = 1`,
+      [id]
+    );
+    
+    if (rows.length === 0 || !rows[0].archivo_recurso) {
+      return res.status(404).json({ success: false, message: "Recurso no encontrado" });
+    }
+    
+    let downloadUrl = rows[0].archivo_recurso;
+    
+    // Si es URL de Cloudinary, generar URL firmada
+    if (downloadUrl.includes('cloudinary.com')) {
+      // Extraer el public_id del URL
+      // URL ejemplo: https://res.cloudinary.com/xxx/raw/upload/v123/cemi/recursos/recurso-123-archivo.pdf
+      const urlParts = downloadUrl.split('/upload/');
+      if (urlParts.length > 1) {
+        // Obtener la parte después de /upload/ y quitar la versión
+        let publicIdWithVersion = urlParts[1];
+        // Quitar versión (v1234567890/)
+        const versionMatch = publicIdWithVersion.match(/^v\d+\//);
+        let publicId = versionMatch 
+          ? publicIdWithVersion.substring(versionMatch[0].length)
+          : publicIdWithVersion;
+        
+        // Determinar tipo de recurso
+        const isRaw = downloadUrl.includes('/raw/');
+        const resourceType = isRaw ? 'raw' : 'image';
+        
+        downloadUrl = getSignedUrl(publicId, resourceType);
+      }
+    }
+    
+    // Incrementar contador de descargas
+    await pool.query(`UPDATE anuncios SET descargas = descargas + 1 WHERE id_anuncio = ? AND es_recurso = 1`, [id]);
+    
+    res.json({ success: true, url: downloadUrl });
+    
+  } catch (error) {
+    console.error("Error al obtener URL de descarga:", error);
+    res.status(500).json({ success: false, message: "Error al obtener URL" });
   }
 });
 

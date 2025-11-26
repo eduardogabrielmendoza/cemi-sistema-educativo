@@ -6404,15 +6404,25 @@ function cerrarModalRecurso() {
 
 async function descargarRecurso(idRecurso, url) {
   try {
-    // Registrar descarga
+    // Para URLs de Cloudinary, obtener URL firmada
+    if (url.includes('cloudinary.com')) {
+      const response = await fetch(`${API_URL}/classroom/recursos/${idRecurso}/download-url`);
+      const data = await response.json();
+      
+      if (data.success && data.url) {
+        window.open(data.url, '_blank');
+        return;
+      }
+    }
+    
+    // Para URLs locales o fallback
     await fetch(`${API_URL}/classroom/recursos/${idRecurso}/descarga`, {
       method: 'POST'
     });
-    
-    // Abrir el archivo
     window.open(url, '_blank');
   } catch (error) {
-    console.error('Error al registrar descarga:', error);
+    console.error('Error al descargar:', error);
+    // Fallback: intentar abrir la URL original
     window.open(url, '_blank');
   }
 }
