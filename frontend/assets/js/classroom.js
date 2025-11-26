@@ -6058,7 +6058,8 @@ function renderRecursoItem(recurso, isBiblioteca = false) {
     year: 'numeric'
   });
   
-  const puedeEliminar = userRol.toLowerCase() === 'profesor' && !isBiblioteca;
+  // Profesores pueden eliminar recursos (incluyendo biblioteca pública)
+  const puedeEliminar = userRol.toLowerCase() === 'profesor';
   
   return `
     <div class="recurso-item" data-recurso-id="${recurso.id_recurso}" data-tipo="${recurso.tipo}">
