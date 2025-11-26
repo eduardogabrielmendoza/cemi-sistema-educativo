@@ -16,14 +16,14 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8fafc;
-      color: #1e293b;
+      background: #f5f7fa;
+      color: #2d3748;
       line-height: 1.6;
     }
 
     /* Header */
     .help-header {
-      background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+      background: linear-gradient(135deg, #547194 0%, #667eea 100%);
       padding: 0;
       position: sticky;
       top: 0;
@@ -82,19 +82,20 @@
     }
 
     .hero-section {
-      padding: 60px 40px;
+      padding: 50px 40px;
       text-align: center;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
-      max-height: 400px;
+      transition: padding 0.3s ease, opacity 0.3s ease;
     }
 
     .hero-section.collapsed {
-      padding: 20px 40px;
-      max-height: 100px;
+      padding: 15px 40px;
     }
 
-    .hero-section.collapsed h1,
+    .hero-section.collapsed h1 {
+      font-size: 20px;
+      margin-bottom: 0;
+    }
+
     .hero-section.collapsed p {
       display: none;
     }
@@ -182,14 +183,14 @@
     }
 
     .search-result-item i {
-      color: #2563eb;
+      color: #667eea;
       width: 20px;
       height: 20px;
     }
 
     .search-result-item span {
       font-size: 14px;
-      color: #1e3a5f;
+      color: #547194;
     }
 
     /* Main Content */
@@ -202,7 +203,7 @@
     .section-title {
       font-size: 24px;
       font-weight: 600;
-      color: #1e3a5f;
+      color: #547194;
       margin-bottom: 32px;
       display: flex;
       align-items: center;
@@ -210,7 +211,7 @@
     }
 
     .section-title i {
-      color: #2563eb;
+      color: #667eea;
     }
 
     /* Categories Grid */
@@ -232,9 +233,9 @@
     }
 
     .category-card:hover {
-      border-color: #2563eb;
+      border-color: #667eea;
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(30,58,95,0.12);
+      box-shadow: 0 12px 40px rgba(102,126,234,0.12);
     }
 
     .category-header {
@@ -247,7 +248,7 @@
     .category-icon {
       width: 52px;
       height: 52px;
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(102,126,234,0.25));
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -257,13 +258,13 @@
     .category-icon i {
       width: 26px;
       height: 26px;
-      color: #1e3a5f;
+      color: #547194;
     }
 
     .category-info h3 {
       font-size: 18px;
       font-weight: 600;
-      color: #1e3a5f;
+      color: #547194;
       margin-bottom: 4px;
     }
 
@@ -289,7 +290,7 @@
     }
 
     .category-article:hover {
-      color: #2563eb;
+      color: #667eea;
     }
 
     .category-article i {
@@ -299,7 +300,7 @@
     }
 
     .category-article:hover i {
-      color: #2563eb;
+      color: #667eea;
     }
 
     /* Popular Articles */
@@ -328,7 +329,7 @@
     }
 
     .popular-article:hover {
-      background: #dbeafe;
+      background: rgba(102,126,234,0.1);
       transform: translateX(4px);
     }
 
@@ -347,13 +348,13 @@
     .popular-article-icon i {
       width: 20px;
       height: 20px;
-      color: #2563eb;
+      color: #667eea;
     }
 
     .popular-article-content h4 {
       font-size: 15px;
       font-weight: 600;
-      color: #1e3a5f;
+      color: #547194;
       margin-bottom: 4px;
     }
 
@@ -413,7 +414,7 @@
 
     .modal-header h2 {
       font-size: 22px;
-      color: #1e3a5f;
+      color: #547194;
       padding-right: 40px;
       line-height: 1.4;
     }
@@ -482,8 +483,8 @@
     }
 
     .helpful-btn:hover {
-      border-color: #2563eb;
-      color: #2563eb;
+      border-color: #667eea;
+      color: #667eea;
     }
 
     .helpful-btn i {
@@ -522,7 +523,7 @@
     }
 
     .footer-links a:hover {
-      color: #2563eb;
+      color: #667eea;
     }
 
     .footer-copy {

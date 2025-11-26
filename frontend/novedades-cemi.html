@@ -9,9 +9,9 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fa; color: #2d3748; line-height: 1.6; }
 
-    .help-header { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); position: sticky; top: 0; z-index: 100; }
+    .help-header { background: linear-gradient(135deg, #547194 0%, #667eea 100%); position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
     .header-logo img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
@@ -20,9 +20,12 @@
     .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
     .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
 
-    .hero-section { padding: 50px 40px; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; max-height: 250px; }
-    .hero-section.collapsed { padding: 0 40px; max-height: 0; opacity: 0; }
-    .hero-section h1 { color: white; font-size: 32px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .hero-section { padding: 50px 40px; text-align: center; transition: padding 0.3s ease, opacity 0.3s ease; }
+    .hero-section.collapsed { padding: 15px 40px; }
+    .hero-section.collapsed h1 { font-size: 20px; margin-bottom: 0; }
+    .hero-section.collapsed h1 i { width: 22px; height: 22px; }
+    .hero-section.collapsed p { display: none; }
+    .hero-section h1 { color: white; font-size: 32px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; transition: font-size 0.3s ease; }
     .hero-section h1 i { width: 36px; height: 36px; }
     .hero-section p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto; }
 
@@ -30,12 +33,12 @@
 
     .filter-tabs { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
     .filter-tab { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 14px; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.2s ease; }
-    .filter-tab:hover { border-color: #2563eb; color: #2563eb; }
-    .filter-tab.active { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; border-color: transparent; }
+    .filter-tab:hover { border-color: #667eea; color: #667eea; }
+    .filter-tab.active { background: linear-gradient(135deg, #547194, #667eea); color: white; border-color: transparent; }
     .filter-tab i { width: 16px; height: 16px; }
 
     .timeline { position: relative; }
-    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #2563eb, #dbeafe); }
+    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #667eea, rgba(102,126,234,0.3)); }
 
     .timeline-item { position: relative; padding-left: 70px; padding-bottom: 40px; animation: fadeInUp 0.5s ease forwards; opacity: 0; }
     .timeline-item:nth-child(1) { animation-delay: 0.1s; }
@@ -45,7 +48,7 @@
     .timeline-item:nth-child(5) { animation-delay: 0.5s; }
     .timeline-item:nth-child(6) { animation-delay: 0.6s; }
 
-    .timeline-marker { position: absolute; left: 12px; top: 4px; width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a5f, #2563eb); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid #f8fafc; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+    .timeline-marker { position: absolute; left: 12px; top: 4px; width: 26px; height: 26px; background: linear-gradient(135deg, #547194, #667eea); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid #f5f7fa; box-shadow: 0 2px 8px rgba(102,126,234,0.3); }
     .timeline-marker i { width: 12px; height: 12px; color: white; }
     .timeline-marker.nueva-funcion { background: linear-gradient(135deg, #059669, #10b981); }
     .timeline-marker.mejora { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
@@ -55,7 +58,7 @@
     .timeline-date i { width: 14px; height: 14px; }
 
     .timeline-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
-    .timeline-card:hover { border-color: #2563eb; box-shadow: 0 8px 30px rgba(37,99,235,0.12); transform: translateX(4px); }
+    .timeline-card:hover { border-color: #667eea; box-shadow: 0 8px 30px rgba(102,126,234,0.12); transform: translateX(4px); }
 
     .timeline-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
     .timeline-badge.nueva-funcion { background: #d1fae5; color: #065f46; }
@@ -63,26 +66,26 @@
     .timeline-badge.correccion { background: #fee2e2; color: #991b1b; }
     .timeline-badge i { width: 12px; height: 12px; }
 
-    .timeline-title { font-size: 18px; font-weight: 600; color: #1e3a5f; margin-bottom: 12px; line-height: 1.4; }
+    .timeline-title { font-size: 18px; font-weight: 600; color: #547194; margin-bottom: 12px; line-height: 1.4; }
     .timeline-description { font-size: 14px; color: #64748b; line-height: 1.7; margin-bottom: 16px; }
 
     .timeline-features { list-style: none; margin-top: 16px; }
     .timeline-features li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 14px; color: #475569; border-bottom: 1px solid #f1f5f9; }
     .timeline-features li:last-child { border-bottom: none; }
-    .timeline-features li i { width: 16px; height: 16px; color: #2563eb; margin-top: 2px; flex-shrink: 0; }
+    .timeline-features li i { width: 16px; height: 16px; color: #667eea; margin-top: 2px; flex-shrink: 0; }
 
-    .timeline-link { display: inline-flex; align-items: center; gap: 6px; color: #2563eb; text-decoration: none; font-size: 14px; font-weight: 500; margin-top: 12px; transition: all 0.2s ease; }
-    .timeline-link:hover { color: #1e3a5f; }
+    .timeline-link { display: inline-flex; align-items: center; gap: 6px; color: #667eea; text-decoration: none; font-size: 14px; font-weight: 500; margin-top: 12px; transition: all 0.2s ease; }
+    .timeline-link:hover { color: #547194; }
     .timeline-link i { width: 16px; height: 16px; }
 
-    .subscribe-section { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); border-radius: 20px; padding: 40px; margin-top: 50px; text-align: center; position: relative; overflow: hidden; }
+    .subscribe-section { background: linear-gradient(135deg, #547194 0%, #667eea 100%); border-radius: 20px; padding: 40px; margin-top: 50px; text-align: center; position: relative; overflow: hidden; }
     .subscribe-section::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%); pointer-events: none; }
     .subscribe-section h3 { color: white; font-size: 22px; margin-bottom: 12px; }
     .subscribe-section p { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 24px; }
     .subscribe-form { display: flex; gap: 12px; max-width: 400px; margin: 0 auto; }
     .subscribe-form input { flex: 1; padding: 14px 20px; border: none; border-radius: 10px; font-size: 14px; font-family: inherit; }
     .subscribe-form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
-    .subscribe-form button { padding: 14px 24px; background: white; color: #1e3a5f; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
+    .subscribe-form button { padding: 14px 24px; background: white; color: #547194; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
     .subscribe-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
     .subscribe-form button i { width: 16px; height: 16px; }
 
@@ -90,13 +93,13 @@
     .footer-content { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 24px; }
     .footer-links a { color: #64748b; text-decoration: none; font-size: 13px; transition: color 0.2s ease; }
-    .footer-links a:hover { color: #2563eb; }
+    .footer-links a:hover { color: #667eea; }
     .footer-copy { color: #94a3b8; font-size: 13px; }
 
     @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 20px; } .timeline::before { left: 16px; } .timeline-item { padding-left: 50px; } .timeline-marker { left: 4px; width: 24px; height: 24px; } .subscribe-form { flex-direction: column; } }
 
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4); } 50% { box-shadow: 0 0 0 10px rgba(37,99,235,0); } }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(102,126,234,0.4); } 50% { box-shadow: 0 0 0 10px rgba(102,126,234,0); } }
     .timeline-item:first-child .timeline-marker { animation: pulse 2s infinite; }
   </style>
 </head>
