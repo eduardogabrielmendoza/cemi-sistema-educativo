@@ -572,9 +572,20 @@
 
     /* CTA Section */
     .cta-section {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
       padding: 80px;
       background: var(--bg-gradient);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-content {
+      text-align: center;
+      flex: 1;
+      max-width: 600px;
     }
 
     .cta-section h2 {
@@ -589,9 +600,44 @@
       font-size: 16px;
       color: var(--text-secondary);
       margin-bottom: 32px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+    }
+
+    .cta-mascot {
+      flex-shrink: 0;
+      animation: ctaFloat 3s ease-in-out infinite;
+    }
+
+    .cta-mascot img {
+      width: 200px;
+      height: auto;
+      filter: drop-shadow(0 10px 30px rgba(84, 113, 148, 0.2));
+      transition: transform 0.3s ease;
+    }
+
+    .cta-mascot:hover img {
+      transform: scale(1.08) rotate(3deg);
+    }
+
+    @keyframes ctaFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(-2deg);
+      }
+      50% {
+        transform: translateY(-12px) rotate(2deg);
+      }
+    }
+
+    /* Responsive CTA */
+    @media (max-width: 900px) {
+      .cta-section {
+        flex-direction: column;
+        gap: 40px;
+        padding: 60px 24px;
+      }
+
+      .cta-mascot img {
+        width: 160px;
+      }
     }
 
     /* Footer */
@@ -929,9 +975,14 @@
 
   <!-- CTA Section -->
   <section class="cta-section reveal-scale" id="formulario">
-    <h2>Ayuda a dar forma al futuro de CEMI Classroom</h2>
-    <p>Tu feedback hará posible que continuemos nuestra misión de construir mejores herramientas educativas para todos.</p>
-    <a href="formulario-encuesta.html" class="btn-primary btn-pulse">Llenar formulario</a>
+    <div class="cta-mascot">
+      <img src="images/31.gif" alt="CEMI Mascota">
+    </div>
+    <div class="cta-content">
+      <h2>Ayuda a dar forma al futuro de CEMI Classroom</h2>
+      <p>Tu feedback hará posible que continuemos nuestra misión de construir mejores herramientas educativas para todos.</p>
+      <a href="formulario-encuesta.html" class="btn-primary btn-pulse">Llenar formulario</a>
+    </div>
   </section>
 
   <!-- Footer -->
