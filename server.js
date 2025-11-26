@@ -25,6 +25,7 @@ import perfilClassroomRoutes from "./backend/routes/perfil-classroom.js";
 import notificacionesRoutes from "./backend/routes/notificaciones.js";
 import chatRoutes, { setChatServer } from "./backend/routes/chat.js";
 import configRoutes from "./backend/routes/config.js";
+import investigacionRoutes from "./backend/routes/investigacion.js";
 import ChatServer from "./backend/utils/chat-server.js";
 import http from "http";
 
@@ -160,6 +161,7 @@ app.use("/api/classroom", perfilClassroomRoutes);
 app.use("/api/notificaciones", notificacionesRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/config", configRoutes);
+app.use("/api/investigacion", investigacionRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "frontend" });

@@ -177,6 +177,13 @@ function initAdminSPA() {
           endpoint = `${API_URL}/idiomas`;
           html = `<h2>Listado de Idiomas</h2>`;
           break;
+        case "investigacion":
+          loader.classList.add("hidden");
+          mainContent.innerHTML = await renderInvestigacionSection();
+          mainContent.classList.add("active");
+          lucide.createIcons();
+          initInvestigacionInteractivity();
+          return;
         case "chatsoporte":
           loader.classList.add("hidden");
           mainContent.innerHTML = "";
@@ -8498,3 +8505,650 @@ async function generarComprobantePago(idPago) {
     showToast('Error al generar el comprobante', 'error');
   }
 }
+
+// =====================================================
+// SECCIÓN DE INVESTIGACIÓN CEMI
+// =====================================================
+
+async function renderInvestigacionSection() {
+  try {
+    const [statsRes, encuestasRes] = await Promise.all([
+      fetch(`${API_URL}/investigacion/estadisticas`),
+      fetch(`${API_URL}/investigacion/encuestas`)
+    ]);
+    
+    const stats = await statsRes.json();
+    const encuestas = await encuestasRes.json();
+    
+    return `
+      <div class="investigacion-container">
+        <div class="investigacion-header">
+          <div class="investigacion-title">
+            <i data-lucide="flask-conical"></i>
+            <div>
+              <h2>Investigación CEMI</h2>
+              <p>Centro de recopilación de datos de experiencia de usuario</p>
+            </div>
+          </div>
+          <a href="encuesta-classroom.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+            <i data-lucide="external-link"></i>
+            Ver Landing de Encuesta
+          </a>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="investigacion-stats">
+          <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+              <i data-lucide="file-text"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">${stats.total || 0}</span>
+              <span class="stat-label">Total Encuestas</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+              <i data-lucide="calendar-check"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">${stats.hoy || 0}</span>
+              <span class="stat-label">Hoy</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #fc4a1a, #f7b733);">
+              <i data-lucide="calendar-days"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">${stats.semana || 0}</span>
+              <span class="stat-label">Esta Semana</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+              <i data-lucide="globe"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">${Object.keys(stats.porPais || {}).length}</span>
+              <span class="stat-label">Países</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Encuestas -->
+        <div class="investigacion-list-container">
+          <div class="list-header">
+            <h3><i data-lucide="list"></i> Encuestas Recibidas</h3>
+            <div class="list-actions">
+              <input type="text" id="searchEncuestas" placeholder="Buscar por nombre o email..." class="search-input">
+            </div>
+          </div>
+          
+          <div class="encuestas-list" id="encuestasList">
+            ${encuestas.length === 0 ? `
+              <div class="empty-state">
+                <i data-lucide="inbox"></i>
+                <h4>No hay encuestas aún</h4>
+                <p>Las encuestas completadas aparecerán aquí</p>
+              </div>
+            ` : encuestas.map(enc => `
+              <div class="encuesta-item" data-id="${enc.id}">
+                <div class="encuesta-avatar">
+                  <span>${enc.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}</span>
+                </div>
+                <div class="encuesta-info">
+                  <div class="encuesta-name">${enc.nombre}</div>
+                  <div class="encuesta-meta">
+                    <span><i data-lucide="mail"></i> ${enc.email}</span>
+                    <span><i data-lucide="map-pin"></i> ${enc.ciudad || 'N/A'}, ${enc.pais || 'N/A'}</span>
+                  </div>
+                </div>
+                <div class="encuesta-date">
+                  <i data-lucide="calendar"></i>
+                  ${new Date(enc.fecha).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' })}
+                </div>
+                <div class="encuesta-actions">
+                  <button class="btn-icon btn-view" onclick="verEncuestaPDF('${enc.pdfUrl}')" title="Ver PDF">
+                    <i data-lucide="eye"></i>
+                  </button>
+                  <button class="btn-icon btn-download" onclick="descargarEncuestaPDF('${enc.pdfUrl}', '${enc.nombre}')" title="Descargar">
+                    <i data-lucide="download"></i>
+                  </button>
+                  <button class="btn-icon btn-delete" onclick="eliminarEncuesta('${enc.id}')" title="Eliminar">
+                    <i data-lucide="trash-2"></i>
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Modal para PDF Viewer -->
+        <div class="pdf-viewer-modal" id="pdfViewerModal">
+          <div class="pdf-viewer-content">
+            <div class="pdf-viewer-header">
+              <h3><i data-lucide="file-text"></i> Visualizador de Encuesta</h3>
+              <button class="btn-close-modal" onclick="cerrarPDFViewer()">
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <div class="pdf-viewer-body">
+              <iframe id="pdfViewerFrame" src="" frameborder="0"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        .investigacion-container {
+          padding: 20px;
+        }
+        
+        .investigacion-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 30px;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+        
+        .investigacion-title {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+        
+        .investigacion-title > i {
+          width: 48px;
+          height: 48px;
+          color: #547194;
+        }
+        
+        .investigacion-title h2 {
+          margin: 0;
+          color: #2c3e50;
+        }
+        
+        .investigacion-title p {
+          margin: 4px 0 0;
+          color: #666;
+          font-size: 14px;
+        }
+        
+        .investigacion-stats {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 20px;
+          margin-bottom: 30px;
+        }
+        
+        .stat-card {
+          background: white;
+          border-radius: 16px;
+          padding: 20px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .stat-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        
+        .stat-icon {
+          width: 56px;
+          height: 56px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        }
+        
+        .stat-icon i {
+          width: 28px;
+          height: 28px;
+        }
+        
+        .stat-info {
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .stat-number {
+          font-size: 28px;
+          font-weight: 700;
+          color: #2c3e50;
+        }
+        
+        .stat-label {
+          font-size: 13px;
+          color: #666;
+        }
+        
+        .investigacion-list-container {
+          background: white;
+          border-radius: 16px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+          overflow: hidden;
+        }
+        
+        .list-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px 24px;
+          border-bottom: 1px solid #eee;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        
+        .list-header h3 {
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #2c3e50;
+        }
+        
+        .list-header h3 i {
+          width: 20px;
+          height: 20px;
+          color: #547194;
+        }
+        
+        .search-input {
+          padding: 10px 16px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          font-size: 14px;
+          min-width: 250px;
+          transition: border-color 0.2s;
+        }
+        
+        .search-input:focus {
+          outline: none;
+          border-color: #547194;
+        }
+        
+        .encuestas-list {
+          max-height: 500px;
+          overflow-y: auto;
+        }
+        
+        .encuesta-item {
+          display: flex;
+          align-items: center;
+          padding: 16px 24px;
+          border-bottom: 1px solid #f0f0f0;
+          gap: 16px;
+          transition: background-color 0.2s;
+        }
+        
+        .encuesta-item:hover {
+          background-color: #f8f9ff;
+        }
+        
+        .encuesta-avatar {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: 600;
+          font-size: 16px;
+          flex-shrink: 0;
+        }
+        
+        .encuesta-info {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .encuesta-name {
+          font-weight: 600;
+          color: #2c3e50;
+          margin-bottom: 4px;
+        }
+        
+        .encuesta-meta {
+          display: flex;
+          gap: 16px;
+          font-size: 13px;
+          color: #666;
+          flex-wrap: wrap;
+        }
+        
+        .encuesta-meta span {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        
+        .encuesta-meta i {
+          width: 14px;
+          height: 14px;
+        }
+        
+        .encuesta-date {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 13px;
+          color: #888;
+          white-space: nowrap;
+        }
+        
+        .encuesta-date i {
+          width: 14px;
+          height: 14px;
+        }
+        
+        .encuesta-actions {
+          display: flex;
+          gap: 8px;
+        }
+        
+        .btn-icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s;
+        }
+        
+        .btn-icon i {
+          width: 18px;
+          height: 18px;
+        }
+        
+        .btn-view {
+          background: #e8f4fd;
+          color: #2196F3;
+        }
+        
+        .btn-view:hover {
+          background: #2196F3;
+          color: white;
+        }
+        
+        .btn-download {
+          background: #e8f5e9;
+          color: #4CAF50;
+        }
+        
+        .btn-download:hover {
+          background: #4CAF50;
+          color: white;
+        }
+        
+        .btn-delete {
+          background: #ffebee;
+          color: #f44336;
+        }
+        
+        .btn-delete:hover {
+          background: #f44336;
+          color: white;
+        }
+        
+        .empty-state {
+          padding: 60px 20px;
+          text-align: center;
+          color: #999;
+        }
+        
+        .empty-state i {
+          width: 64px;
+          height: 64px;
+          margin-bottom: 16px;
+          opacity: 0.5;
+        }
+        
+        .empty-state h4 {
+          margin: 0 0 8px;
+          color: #666;
+        }
+        
+        .empty-state p {
+          margin: 0;
+          font-size: 14px;
+        }
+        
+        /* PDF Viewer Modal */
+        .pdf-viewer-modal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.7);
+          z-index: 9999;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        
+        .pdf-viewer-modal.active {
+          display: flex;
+        }
+        
+        .pdf-viewer-content {
+          background: white;
+          border-radius: 16px;
+          width: 100%;
+          max-width: 900px;
+          height: 90vh;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .pdf-viewer-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 24px;
+          border-bottom: 1px solid #eee;
+          background: #f8f9fa;
+        }
+        
+        .pdf-viewer-header h3 {
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #2c3e50;
+        }
+        
+        .pdf-viewer-header h3 i {
+          width: 22px;
+          height: 22px;
+          color: #547194;
+        }
+        
+        .btn-close-modal {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          border: none;
+          background: #eee;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s;
+        }
+        
+        .btn-close-modal:hover {
+          background: #f44336;
+          color: white;
+        }
+        
+        .pdf-viewer-body {
+          flex: 1;
+          padding: 0;
+          overflow: hidden;
+        }
+        
+        .pdf-viewer-body iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+        
+        @media (max-width: 768px) {
+          .encuesta-item {
+            flex-wrap: wrap;
+          }
+          
+          .encuesta-date {
+            width: 100%;
+            margin-top: 8px;
+          }
+          
+          .encuesta-actions {
+            width: 100%;
+            justify-content: flex-end;
+            margin-top: 8px;
+          }
+        }
+      </style>
+    `;
+  } catch (error) {
+    console.error('Error al cargar investigación:', error);
+    return `
+      <div class="investigacion-container">
+        <div class="error-state">
+          <i data-lucide="alert-circle"></i>
+          <h3>Error al cargar datos</h3>
+          <p>No se pudo conectar con el servidor de investigación.</p>
+          <button onclick="document.getElementById('btnInvestigacion').click()" class="btn-primary">Reintentar</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function initInvestigacionInteractivity() {
+  // Buscador
+  const searchInput = document.getElementById('searchEncuestas');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      const items = document.querySelectorAll('.encuesta-item');
+      
+      items.forEach(item => {
+        const name = item.querySelector('.encuesta-name').textContent.toLowerCase();
+        const email = item.querySelector('.encuesta-meta').textContent.toLowerCase();
+        
+        if (name.includes(query) || email.includes(query)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  }
+}
+
+function verEncuestaPDF(pdfUrl) {
+  const modal = document.getElementById('pdfViewerModal');
+  const iframe = document.getElementById('pdfViewerFrame');
+  
+  if (modal && iframe) {
+    // Usar Google Docs Viewer para PDFs de Cloudinary
+    const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+    iframe.src = viewerUrl;
+    modal.classList.add('active');
+  }
+}
+
+function cerrarPDFViewer() {
+  const modal = document.getElementById('pdfViewerModal');
+  const iframe = document.getElementById('pdfViewerFrame');
+  
+  if (modal) {
+    modal.classList.remove('active');
+  }
+  if (iframe) {
+    iframe.src = '';
+  }
+}
+
+function descargarEncuestaPDF(pdfUrl, nombre) {
+  const link = document.createElement('a');
+  link.href = pdfUrl;
+  link.download = `Encuesta_${nombre.replace(/\s+/g, '_')}.pdf`;
+  link.target = '_blank';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+async function eliminarEncuesta(id) {
+  const result = await Swal.fire({
+    title: '¿Eliminar encuesta?',
+    text: 'Esta acción no se puede deshacer. El PDF será eliminado permanentemente.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#f44336',
+    cancelButtonColor: '#666',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  });
+  
+  if (result.isConfirmed) {
+    try {
+      const res = await fetch(`${API_URL}/investigacion/encuesta/${id}`, {
+        method: 'DELETE'
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok && data.success) {
+        Swal.fire({
+          title: 'Eliminada',
+          text: 'La encuesta ha sido eliminada correctamente.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        
+        // Recargar la sección
+        document.getElementById('btnInvestigacion').click();
+      } else {
+        throw new Error(data.error || 'Error al eliminar');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo eliminar la encuesta.',
+        icon: 'error'
+      });
+    }
+  }
+}
+
+// Cerrar modal con ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    cerrarPDFViewer();
+  }
+});
+

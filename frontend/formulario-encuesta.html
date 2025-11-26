@@ -969,6 +969,11 @@
   <script>
     let currentStep = 1;
     const totalSteps = 11;
+    
+    // Detectar API URL
+    const API_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:3000/api'
+      : '/api';
 
     function updateProgress() {
       const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
@@ -1061,17 +1066,99 @@
       }
     }
 
-    function submitForm() {
-      if (validateStep(currentStep)) {
-        // Here you would normally send the data to the server
-        // For now, just show success screen
-        currentStep = 11;
-        showStep(currentStep);
+    function collectFormData() {
+      // Obtener productos seleccionados
+      const productsChecked = document.querySelectorAll('input[name="products"]:checked');
+      const products = Array.from(productsChecked).map(cb => cb.value);
+      
+      return {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName: document.getElementById('lastName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim() || null,
+        birthdate: document.getElementById('birthdate').value,
+        gender: document.querySelector('input[name="gender"]:checked')?.value,
+        country: document.getElementById('country').value,
+        city: document.getElementById('city').value.trim(),
+        postalCode: document.getElementById('postalCode').value.trim(),
+        frequency: document.querySelector('input[name="frequency"]:checked')?.value,
+        education: document.querySelector('input[name="education"]:checked')?.value,
+        products: products,
+        // Datos del usuario logueado (si existe)
+        userId: localStorage.getItem('id_usuario') || localStorage.getItem('id_alumno') || localStorage.getItem('id_profesor') || null,
+        userRole: localStorage.getItem('rol') || null,
+        userName: localStorage.getItem('nombre') || null
+      };
+    }
+
+    async function submitForm() {
+      if (!validateStep(currentStep)) return;
+      
+      // Validar que al menos un producto esté seleccionado
+      const productsChecked = document.querySelectorAll('input[name="products"]:checked');
+      if (productsChecked.length === 0) {
+        alert('Por favor selecciona al menos un producto o servicio');
+        return;
+      }
+
+      // Mostrar loading
+      const submitBtn = document.querySelector('.btn-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+      submitBtn.disabled = true;
+
+      try {
+        const formData = collectFormData();
+        
+        const response = await fetch(`${API_URL}/investigacion/encuesta`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Éxito - mostrar pantalla final
+          currentStep = 11;
+          showStep(currentStep);
+          console.log('✅ Encuesta enviada:', result.encuesta);
+        } else {
+          throw new Error(result.error || 'Error al enviar la encuesta');
+        }
+      } catch (error) {
+        console.error('❌ Error:', error);
+        alert('Hubo un error al enviar la encuesta. Por favor intenta nuevamente.');
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+
+    // Pre-llenar datos si el usuario está logueado
+    function prefillUserData() {
+      const nombre = localStorage.getItem('nombre');
+      const email = localStorage.getItem('email');
+      
+      if (nombre) {
+        const parts = nombre.split(' ');
+        if (parts.length >= 2) {
+          document.getElementById('firstName').value = parts[0];
+          document.getElementById('lastName').value = parts.slice(1).join(' ');
+        } else {
+          document.getElementById('firstName').value = nombre;
+        }
+      }
+      
+      if (email) {
+        document.getElementById('email').value = email;
       }
     }
 
     // Initialize
     updateProgress();
+    prefillUserData();
   </script>
 </body>
 </html>
