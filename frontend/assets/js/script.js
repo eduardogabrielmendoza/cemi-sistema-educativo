@@ -8524,13 +8524,13 @@ async function renderInvestigacionSection() {
       <div class="investigacion-container">
         <div class="investigacion-header">
           <div class="investigacion-title">
-            <i data-lucide="flask-conical"></i>
+            <i data-lucide="flask-conical" style="color: #1e3a5f;"></i>
             <div>
-              <h2>Investigación CEMI</h2>
+              <h2 style="color: #1e3a5f;">Investigación CEMI</h2>
               <p>Centro de recopilación de datos de experiencia de usuario</p>
             </div>
           </div>
-          <a href="encuesta-classroom.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1e3a5f, #2563eb);">
             <i data-lucide="external-link"></i>
             Ver Landing de Encuesta
           </a>
@@ -8539,7 +8539,7 @@ async function renderInvestigacionSection() {
         <!-- Estadísticas -->
         <div class="investigacion-stats">
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
               <i data-lucide="file-text"></i>
             </div>
             <div class="stat-info">
@@ -8548,7 +8548,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">
               <i data-lucide="star"></i>
             </div>
             <div class="stat-info">
@@ -8557,16 +8557,16 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #fc4a1a, #f7b733);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
               <i data-lucide="smile"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-number">${stats.estadisticas?.distribucionSatisfaccion?.[5] || 0}</span>
+              <span class="stat-number">${stats.estadisticas?.distribucionSatisfaccion?.[10] || 0}</span>
               <span class="stat-label">Muy Satisfechos</span>
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #1e40af, #1e3a5f);">
               <i data-lucide="calendar"></i>
             </div>
             <div class="stat-info">
@@ -8594,7 +8594,7 @@ async function renderInvestigacionSection() {
               </div>
             ` : encuestas.encuestas.map(enc => `
               <div class="encuesta-item" data-id="${enc.id}">
-                <div class="encuesta-avatar">
+                <div class="encuesta-avatar" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
                   <span>${enc.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}</span>
                 </div>
                 <div class="encuesta-info">
@@ -8602,7 +8602,7 @@ async function renderInvestigacionSection() {
                   <div class="encuesta-meta">
                     <span><i data-lucide="mail"></i> ${enc.email}</span>
                     <span class="satisfaction-badge satisfaction-${enc.satisfaction || 'na'}">
-                      <i data-lucide="star"></i> ${enc.satisfaction || 'N/A'}/5
+                      <i data-lucide="star"></i> ${enc.satisfaction || 'N/A'}/10
                     </span>
                   </div>
                 </div>
@@ -8848,6 +8848,8 @@ async function renderInvestigacionSection() {
           border-radius: 12px;
           font-size: 12px;
           font-weight: 600;
+          background: #dbeafe;
+          color: #1e3a5f;
         }
         
         .satisfaction-badge i {
@@ -8855,34 +8857,29 @@ async function renderInvestigacionSection() {
           height: 12px;
         }
         
-        .satisfaction-5 {
-          background: #d4edda;
-          color: #155724;
+        .satisfaction-10, .satisfaction-9, .satisfaction-8 {
+          background: #1e3a5f;
+          color: white;
         }
         
-        .satisfaction-4 {
-          background: #e8f5e9;
-          color: #2e7d32;
+        .satisfaction-7, .satisfaction-6 {
+          background: #2563eb;
+          color: white;
         }
         
-        .satisfaction-3 {
-          background: #fff3cd;
-          color: #856404;
+        .satisfaction-5, .satisfaction-4 {
+          background: #60a5fa;
+          color: white;
         }
         
-        .satisfaction-2 {
-          background: #ffe5d5;
-          color: #c62828;
-        }
-        
-        .satisfaction-1 {
-          background: #f8d7da;
-          color: #721c24;
+        .satisfaction-3, .satisfaction-2, .satisfaction-1 {
+          background: #93c5fd;
+          color: #1e3a5f;
         }
         
         .satisfaction-na {
-          background: #e9ecef;
-          color: #6c757d;
+          background: #e5e7eb;
+          color: #6b7280;
         }
         
         .encuesta-date {
@@ -8922,32 +8919,32 @@ async function renderInvestigacionSection() {
         }
         
         .btn-view {
-          background: #e8f4fd;
-          color: #2196F3;
+          background: #dbeafe;
+          color: #1e3a5f;
         }
         
         .btn-view:hover {
-          background: #2196F3;
+          background: #1e3a5f;
           color: white;
         }
         
         .btn-download {
-          background: #e8f5e9;
-          color: #4CAF50;
+          background: #dbeafe;
+          color: #2563eb;
         }
         
         .btn-download:hover {
-          background: #4CAF50;
+          background: #2563eb;
           color: white;
         }
         
         .btn-delete {
-          background: #ffebee;
-          color: #f44336;
+          background: #fee2e2;
+          color: #dc2626;
         }
         
         .btn-delete:hover {
-          background: #f44336;
+          background: #dc2626;
           color: white;
         }
         
