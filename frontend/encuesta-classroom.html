@@ -3,461 +3,611 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Encuesta CEMI Classroom - Mejora tu experiencia educativa</title>
+  <title>Investigación CEMI Classroom - Ayúdanos a mejorar</title>
   <link rel="icon" href="images/logo_cemi.png" type="image/png">
-  <link rel="stylesheet" href="assets/css/classroom.css">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
-    }
-
-    :root {
-      --primary-color: #547194;
-      --primary-light: #7a9bbd;
-      --secondary-color: #5b9bd5;
-      --text-primary: #2d3748;
-      --text-secondary: #4a5568;
-      --bg-light: #f5f7fa;
     }
 
     body {
-      background: linear-gradient(135deg, #e8eef3 0%, #f5f7fa 50%, #ffffff 100%);
-      min-height: 100vh;
-    }
-
-    .survey-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    .survey-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .survey-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .survey-logo img {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-    }
-
-    .survey-logo h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .survey-hero {
-      background: white;
-      border-radius: 24px;
-      padding: 48px;
-      box-shadow: 0 4px 24px rgba(84, 113, 148, 0.1);
-      margin-bottom: 32px;
-    }
-
-    .survey-hero-content {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .survey-hero-icon {
-      flex-shrink: 0;
-      width: 180px;
-      height: 180px;
-      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .survey-hero-icon::before {
-      content: '';
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border: 3px dashed rgba(84, 113, 148, 0.2);
-      border-radius: 50%;
-      animation: rotate 20s linear infinite;
-    }
-
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .survey-hero-icon svg {
-      width: 80px;
-      height: 80px;
-      color: var(--primary-color);
-    }
-
-    .survey-hero-text h2 {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-
-    .survey-hero-text p {
-      font-size: 16px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .btn-survey-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 32px;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      color: white;
-      font-size: 16px;
-      font-weight: 600;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(84, 113, 148, 0.3);
-    }
-
-    .btn-survey-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(84, 113, 148, 0.4);
-    }
-
-    .btn-survey-primary svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .survey-benefits {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
-      margin-bottom: 32px;
-    }
-
-    .benefit-card {
-      background: white;
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 2px 12px rgba(84, 113, 148, 0.08);
-      transition: all 0.3s ease;
-    }
-
-    .benefit-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(84, 113, 148, 0.15);
-    }
-
-    .benefit-icon {
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .benefit-icon.blue {
-      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-    }
-
-    .benefit-icon.purple {
-      background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-    }
-
-    .benefit-icon.orange {
-      background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
-    }
-
-    .benefit-icon svg {
-      width: 28px;
-      height: 28px;
-      color: var(--primary-color);
-    }
-
-    .benefit-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .benefit-card p {
-      font-size: 14px;
-      color: var(--text-secondary);
+      font-family: 'Google Sans', 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #202124;
       line-height: 1.6;
     }
 
-    .survey-info {
+    /* Header/Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
       background: white;
-      border-radius: 16px;
-      padding: 32px;
-      box-shadow: 0 2px 12px rgba(84, 113, 148, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    .survey-info h3 {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 20px;
+    .navbar-brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      text-decoration: none;
     }
 
-    .survey-info h3 svg {
+    .navbar-brand img {
+      height: 32px;
+    }
+
+    .navbar-brand span {
+      font-size: 18px;
+      color: #5f6368;
+      font-weight: 500;
+    }
+
+    .navbar-signup {
+      padding: 10px 24px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .navbar-signup:hover {
+      background: #1557b0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      min-height: 500px;
+      padding: 60px 80px;
+      background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+      gap: 60px;
+    }
+
+    .hero-content {
+      flex: 1;
+      max-width: 550px;
+    }
+
+    .hero-content h1 {
+      font-size: 44px;
+      font-weight: 400;
+      color: #202124;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .hero-content p {
+      font-size: 16px;
+      color: #5f6368;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #1557b0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    /* How it works Section */
+    .section {
+      padding: 80px 80px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 400;
+      color: #202124;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .step-card {
+      text-align: center;
+    }
+
+    .step-icon {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .step-icon-placeholder {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-icon-placeholder.blue { background: #e8f0fe; }
+    .step-icon-placeholder.green { background: #e6f4ea; }
+    .step-icon-placeholder.yellow { background: #fef7e0; }
+
+    .step-icon-placeholder svg {
+      width: 64px;
+      height: 64px;
+    }
+
+    .step-card h3 {
+      font-size: 22px;
+      font-weight: 500;
+      color: #202124;
+      margin-bottom: 12px;
+    }
+
+    .step-card p {
+      font-size: 15px;
+      color: #5f6368;
+      line-height: 1.6;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      background: #f8f9fa;
+      padding: 80px;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-category {
+      margin-bottom: 40px;
+    }
+
+    .faq-category-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #202124;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #dadce0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #dadce0;
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: #202124;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover {
+      color: #1a73e8;
+    }
+
+    .faq-question svg {
       width: 24px;
       height: 24px;
-      color: var(--secondary-color);
+      color: #5f6368;
+      transition: transform 0.3s;
     }
 
-    .info-list {
-      list-style: none;
+    .faq-item.active .faq-question svg {
+      transform: rotate(180deg);
     }
 
-    .info-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(84, 113, 148, 0.1);
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
     }
 
-    .info-list li:last-child {
-      border-bottom: none;
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding-bottom: 20px;
     }
 
-    .info-list li svg {
-      width: 20px;
-      height: 20px;
-      color: #4caf50;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .info-list li span {
+    .faq-answer p {
       font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.5;
+      color: #5f6368;
+      line-height: 1.7;
     }
 
-    .back-link {
-      display: inline-flex;
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 80px;
+      background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%);
+    }
+
+    .cta-section h2 {
+      font-size: 36px;
+      font-weight: 400;
+      color: #202124;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: #5f6368;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 40px;
+      background: #f8f9fa;
+      border-top: 1px solid #dadce0;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--primary-color);
+    }
+
+    .footer-brand img {
+      height: 24px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: #5f6368;
       text-decoration: none;
-      font-weight: 500;
-      margin-bottom: 24px;
-      transition: all 0.3s ease;
+      font-size: 14px;
+      transition: color 0.2s;
     }
 
-    .back-link:hover {
-      gap: 12px;
+    .footer-links a:hover {
+      color: #202124;
     }
 
-    .back-link svg {
-      width: 20px;
-      height: 20px;
+    .footer-language {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #5f6368;
+      font-size: 14px;
     }
 
-    @media (max-width: 768px) {
-      .survey-hero-content {
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero {
         flex-direction: column;
+        padding: 40px;
         text-align: center;
       }
 
-      .survey-hero-icon {
-        width: 140px;
-        height: 140px;
+      .hero-content {
+        max-width: 100%;
       }
 
-      .survey-hero-icon::before {
-        width: 160px;
-        height: 160px;
+      .hero-content h1 {
+        font-size: 32px;
       }
 
-      .survey-hero-icon svg {
-        width: 60px;
-        height: 60px;
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
       }
 
-      .survey-hero-text h2 {
+      .section, .faq-section, .cta-section {
+        padding: 60px 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 12px 16px;
+      }
+
+      .hero-content h1 {
+        font-size: 28px;
+      }
+
+      .section-title {
         font-size: 24px;
       }
 
-      .survey-hero {
-        padding: 32px 24px;
+      .footer {
+        flex-direction: column;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
-  <div class="survey-container">
-    <a href="classroom.html" class="back-link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m12 19-7-7 7-7"/>
-        <path d="M19 12H5"/>
-      </svg>
-      Volver a Classroom
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="classroom.html" class="navbar-brand">
+      <img src="images/logo_cemi.png" alt="CEMI">
+      <span>CEMI Classroom</span>
     </a>
+    <a href="#formulario" class="navbar-signup">Llenar formulario</a>
+  </nav>
 
-    <header class="survey-header">
-      <div class="survey-logo">
-        <img src="images/logo_cemi.png" alt="CEMI Logo">
-        <h1>CEMI Classroom</h1>
-      </div>
-    </header>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Ayúdanos a mejorar las herramientas de CEMI Classroom para tu institución, tus estudiantes y para ti</h1>
+      <p>
+        <strong>Tu opinión es importante para nosotros</strong><br><br>
+        Ya sea que uses CEMI Classroom frecuentemente o recién estés comenzando, nos encantaría escuchar tu feedback. 
+        Inscríbete para participar en nuestra investigación e influir en cómo mejoramos los productos que utilizan 
+        miles de personas todos los días.
+      </p>
+      <a href="#formulario" class="btn-primary">Llenar formulario</a>
+    </div>
+    <div class="hero-image">
+      <img src="images/classroom-research.svg" alt="Investigación educativa" onerror="this.style.display='none'">
+    </div>
+  </section>
 
-    <section class="survey-hero">
-      <div class="survey-hero-content">
-        <div class="survey-hero-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"/>
-            <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/>
-          </svg>
-        </div>
-        <div class="survey-hero-text">
-          <h2>Ayúdanos a mejorar tu experiencia educativa</h2>
-          <p>
-            Tu opinión es fundamental para nosotros. Queremos conocer tu experiencia usando CEMI Classroom 
-            para poder mejorar las herramientas que utilizas todos los días. Completa nuestra breve encuesta 
-            y ayúdanos a construir el futuro de la educación digital en tu institución.
-          </p>
-          <a href="#formulario" class="btn-survey-primary" id="btnLlenarFormulario">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 20h9"/>
-              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+  <!-- How it works -->
+  <section class="section">
+    <h2 class="section-title">¿Cómo funciona?</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">
+          <div class="step-icon-placeholder blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="1.5">
+              <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            Llenar formulario
-          </a>
+          </div>
+        </div>
+        <h3>Inscríbete</h3>
+        <p>Cuéntanos un poco sobre ti completando un cuestionario para determinar si un próximo estudio sería adecuado para ti.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">
+          <div class="step-icon-placeholder green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34a853" stroke-width="1.5">
+              <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+        </div>
+        <h3>Participa</h3>
+        <p>Si tu perfil encaja, te enviaremos un cuestionario de seguimiento y detalles sobre los próximos pasos.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">
+          <div class="step-icon-placeholder yellow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ea8600" stroke-width="1.5">
+              <path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+            </svg>
+          </div>
+        </div>
+        <h3>Recibe recompensas</h3>
+        <p>Disfruta de beneficios exclusivos como reconocimiento en nuestra comunidad y mejoras prioritarias basadas en tu feedback.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="faq-container">
+      <h2 class="section-title" style="text-align: left; margin-bottom: 40px;">Más información</h2>
+      
+      <div class="faq-category">
+        <h3 class="faq-category-title">Inscripción</h3>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Qué tipo de participantes están buscando?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Buscamos estudiantes, profesores y personal administrativo de todas las edades y niveles de experiencia con tecnología educativa. No importa si eres experto o principiante, tu perspectiva es valiosa.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Qué tan pronto me contactarán?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Revisamos las respuestas regularmente y te contactaremos dentro de 1-2 semanas si tu perfil coincide con algún estudio en curso o próximo.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Mi información será compartida con terceros?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>No. Tu información es confidencial y solo se utilizará para mejorar CEMI Classroom. Nunca compartiremos ni venderemos tus datos a terceros.</p>
+          </div>
         </div>
       </div>
-    </section>
 
-    <section class="survey-benefits">
-      <div class="benefit-card">
-        <div class="benefit-icon blue">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
-          </svg>
+      <div class="faq-category">
+        <h3 class="faq-category-title">Participación en estudios</h3>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Qué tipo de actividades realizaré en los estudios?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Las actividades pueden incluir encuestas en línea, entrevistas virtuales, pruebas de nuevas funcionalidades, o sesiones de feedback grupal. Siempre te informaremos con anticipación qué tipo de actividad es.</p>
+          </div>
         </div>
-        <h3>Solo 5 minutos</h3>
-        <p>La encuesta es breve y concisa. Valoramos tu tiempo y hemos diseñado preguntas directas.</p>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Cuánto tiempo tomarán las actividades?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>La mayoría de las actividades toman entre 15 y 45 minutos. Siempre te indicaremos la duración estimada antes de comenzar.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="benefit-card">
-        <div class="benefit-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
+      <div class="faq-category">
+        <h3 class="faq-category-title">Beneficios</h3>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            ¿Qué beneficios recibo por participar?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Los participantes activos reciben acceso anticipado a nuevas funcionalidades, reconocimiento en nuestra comunidad, y la satisfacción de saber que están ayudando a mejorar la experiencia educativa para todos.</p>
+          </div>
         </div>
-        <h3>100% Anónimo</h3>
-        <p>Tus respuestas son completamente anónimas. No recopilamos información personal identificable.</p>
       </div>
+    </div>
+  </section>
 
-      <div class="benefit-card">
-        <div class="benefit-icon purple">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
-        </div>
-        <h3>Impacto Real</h3>
-        <p>Tu feedback se traduce directamente en mejoras para CEMI Classroom.</p>
-      </div>
+  <!-- CTA Section -->
+  <section class="cta-section" id="formulario">
+    <h2>Ayuda a dar forma al futuro de CEMI Classroom</h2>
+    <p>Tu feedback hará posible que continuemos nuestra misión de construir mejores herramientas educativas para todos.</p>
+    <a href="formulario-encuesta.html" class="btn-primary">Llenar formulario</a>
+  </section>
 
-      <div class="benefit-card">
-        <div class="benefit-icon orange">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
-            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-            <path d="M4 22h16"/>
-            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-          </svg>
-        </div>
-        <h3>Comunidad</h3>
-        <p>Únete a nuestra comunidad de usuarios comprometidos con mejorar la educación.</p>
-      </div>
-    </section>
-
-    <section class="survey-info">
-      <h3>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 16v-4"/>
-          <path d="M12 8h.01"/>
-        </svg>
-        ¿Qué incluye la encuesta?
-      </h3>
-      <ul class="info-list">
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6 9 17l-5-5"/>
-          </svg>
-          <span>Preguntas sobre tu experiencia general con CEMI Classroom</span>
-        </li>
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6 9 17l-5-5"/>
-          </svg>
-          <span>Evaluación de las herramientas actuales (tareas, calendario, recursos)</span>
-        </li>
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6 9 17l-5-5"/>
-          </svg>
-          <span>Sugerencias para nuevas funcionalidades que te gustaría ver</span>
-        </li>
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 6 9 17l-5-5"/>
-          </svg>
-          <span>Comentarios abiertos para compartir tu opinión libremente</span>
-        </li>
-      </ul>
-    </section>
-
-    <!-- Aquí irá el formulario -->
-    <section id="formulario" style="margin-top: 40px;">
-      <!-- El formulario se agregará en la siguiente iteración -->
-    </section>
-  </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="images/logo_cemi.png" alt="CEMI">
+      <span style="color: #5f6368; font-size: 14px;">CEMI Sistema Educativo</span>
+    </div>
+    <div class="footer-links">
+      <a href="privacidad.html">Privacidad</a>
+      <a href="terminos.html">Términos</a>
+      <a href="ayuda.html">Ayuda</a>
+    </div>
+    <div class="footer-language">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      Español
+    </div>
+  </footer>
 
   <script>
-    // Smooth scroll al formulario
-    document.getElementById('btnLlenarFormulario').addEventListener('click', function(e) {
-      e.preventDefault();
-      const formulario = document.getElementById('formulario');
-      if (formulario) {
-        formulario.scrollIntoView({ behavior: 'smooth' });
-      }
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all items
+        document.querySelectorAll('.faq-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          faqItem.classList.add('active');
+        }
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     });
   </script>
 </body>
