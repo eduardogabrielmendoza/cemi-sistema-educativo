@@ -52,16 +52,113 @@ const descargarImagen = (url) => {
   });
 };
 
-// Colores del tema CEMI
+// Colores institucionales CEMI (Azul)
 const colores = {
-  primario: "#1a5f7a",
-  secundario: "#2d8aa8",
-  texto: "#333333",
-  textoClaro: "#666666",
-  fondo: "#f5f5f5",
-  borde: "#e0e0e0",
-  exito: "#28a745",
-  alerta: "#ffc107"
+  azulOscuro: "#1e3a5f",
+  azulPrimario: "#2563eb",
+  azulClaro: "#3b82f6",
+  azulMuyClaro: "#dbeafe",
+  texto: "#1f2937",
+  textoSecundario: "#6b7280",
+  blanco: "#ffffff",
+  grisClaro: "#f3f4f6",
+  borde: "#e5e7eb"
+};
+
+// Traducciones
+const traducciones = {
+  gender: {
+    "male": "Hombre",
+    "female": "Mujer",
+    "non-binary": "No binario",
+    "prefer-not": "Prefiero no decir",
+    "other": "Otro"
+  },
+  frequency: {
+    "daily": "Diariamente",
+    "weekly": "Semanalmente",
+    "monthly": "Mensualmente",
+    "quarterly": "Trimestralmente",
+    "rarely": "Raramente"
+  },
+  education: {
+    "primary": "Primaria",
+    "secondary": "Secundaria",
+    "k12": "Secundaria completa",
+    "university": "Universidad",
+    "postgraduate": "Posgrado",
+    "other": "Otro"
+  },
+  products: {
+    "classroom": "Aula Virtual",
+    "chat": "Chat",
+    "dashboard": "Panel de Control",
+    "calendar": "Calendario",
+    "payments": "Pagos",
+    "resources": "Recursos",
+    "grades": "Calificaciones",
+    "notifications": "Notificaciones"
+  },
+  improvements: {
+    "interfaz": "Interfaz de usuario",
+    "velocidad": "Velocidad del sistema",
+    "navegacion": "Navegacion",
+    "movil": "Version movil",
+    "contenido": "Contenido educativo",
+    "comunicacion": "Comunicacion",
+    "soporte": "Soporte tecnico",
+    "pagos": "Sistema de pagos",
+    "calendario": "Calendario",
+    "recursos": "Recursos",
+    "calificaciones": "Calificaciones",
+    "ninguna": "Ninguna mejora necesaria"
+  },
+  features: {
+    "videollamadas": "Videollamadas integradas",
+    "app-movil": "Aplicacion movil nativa",
+    "gamificacion": "Gamificacion",
+    "certificados": "Certificados digitales",
+    "foro": "Foro de discusion",
+    "biblioteca": "Biblioteca digital",
+    "grabaciones": "Grabacion de clases",
+    "ia": "Asistente con IA",
+    "offline": "Modo offline",
+    "ninguna": "Ninguna funcion adicional"
+  },
+  countries: {
+    "AR": "Argentina",
+    "BO": "Bolivia",
+    "BR": "Brasil",
+    "CL": "Chile",
+    "CO": "Colombia",
+    "CR": "Costa Rica",
+    "CU": "Cuba",
+    "EC": "Ecuador",
+    "SV": "El Salvador",
+    "GT": "Guatemala",
+    "HN": "Honduras",
+    "MX": "Mexico",
+    "NI": "Nicaragua",
+    "PA": "Panama",
+    "PY": "Paraguay",
+    "PE": "Peru",
+    "PR": "Puerto Rico",
+    "DO": "Republica Dominicana",
+    "UY": "Uruguay",
+    "VE": "Venezuela",
+    "ES": "Espana",
+    "US": "Estados Unidos",
+    "OTHER": "Otro"
+  }
+};
+
+// Funcion para traducir valores
+const traducir = (categoria, valor) => {
+  if (!valor) return "No especificado";
+  if (Array.isArray(valor)) {
+    return valor.map(v => traducciones[categoria]?.[v] || v).join(", ");
+  }
+  return traducciones[categoria]?.[valor] || valor;
 };
 
 // POST - Recibir encuesta y generar PDF
@@ -70,13 +167,13 @@ router.post("/encuesta", async (req, res) => {
     const datos = req.body;
     console.log("Datos de encuesta recibidos:", datos);
 
-    // Crear PDF con diseño profesional
+    // Crear PDF con diseno profesional
     const doc = new PDFDocument({
       size: "A4",
-      margins: { top: 50, bottom: 50, left: 50, right: 50 },
+      margins: { top: 40, bottom: 40, left: 50, right: 50 },
       info: {
-        Title: "Encuesta CEMI - Investigacion",
-        Author: "Sistema CEMI",
+        Title: "Encuesta CEMI",
+        Author: "CEMI",
         Subject: "Respuestas de Encuesta de Usuario"
       }
     });
@@ -89,7 +186,9 @@ router.post("/encuesta", async (req, res) => {
       doc.on("error", reject);
     });
 
-    // Intentar cargar el logo
+    const pageWidth = doc.page.width - 100;
+
+    // Intentar cargar el logo desde Cloudinary
     let logoBuffer = null;
     try {
       logoBuffer = await descargarImagen("https://res.cloudinary.com/dxtzivwqx/image/upload/v1747626498/logo_escudo_cemi.png");
@@ -97,105 +196,105 @@ router.post("/encuesta", async (req, res) => {
       console.log("No se pudo cargar el logo:", err.message);
     }
 
-    // ===== ENCABEZADO =====
-    const pageWidth = doc.page.width - 100;
+    // ===== ENCABEZADO AZUL INSTITUCIONAL =====
+    doc.rect(0, 0, doc.page.width, 120).fill(colores.azulOscuro);
     
-    // Fondo del encabezado
-    doc.rect(50, 50, pageWidth, 80)
-       .fill(colores.primario);
-
-    // Logo si está disponible
+    // Circulo blanco para el logo
     if (logoBuffer) {
+      doc.circle(75, 60, 40).fill(colores.blanco);
       try {
-        doc.image(logoBuffer, 60, 55, { width: 70, height: 70 });
+        doc.image(logoBuffer, 45, 30, { width: 60, height: 60 });
       } catch (err) {
         console.log("Error al insertar logo:", err.message);
       }
     }
 
-    // Título principal
-    doc.fillColor("#ffffff")
-       .fontSize(22)
+    // Titulo CEMI
+    doc.fillColor(colores.blanco)
+       .fontSize(32)
        .font("Helvetica-Bold")
-       .text("CEMI", logoBuffer ? 140 : 60, 65, { width: pageWidth - 100 })
+       .text("CEMI", logoBuffer ? 130 : 50, 35);
+
+    // Subtitulo
+    doc.fillColor(colores.azulMuyClaro)
        .fontSize(14)
        .font("Helvetica")
-       .text("Centro Educativo de Musica Integral", logoBuffer ? 140 : 60, 92);
+       .text("Encuesta de Experiencia de Usuario", logoBuffer ? 130 : 50, 72);
 
-    // Subtítulo
-    doc.fillColor(colores.secundario)
-       .fontSize(12)
-       .text("Encuesta de Investigacion y Satisfaccion", logoBuffer ? 140 : 60, 112);
-
-    // Línea decorativa
-    doc.moveTo(50, 140).lineTo(50 + pageWidth, 140).stroke(colores.secundario);
-
-    // Fecha de generación
+    // Fecha
     const fechaActual = new Date().toLocaleDateString("es-AR", {
       day: "2-digit",
       month: "long",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
+      year: "numeric"
     });
     
-    doc.fillColor(colores.textoClaro)
-       .fontSize(9)
-       .text(`Generado: ${fechaActual}`, 50, 148, { align: "right", width: pageWidth });
+    doc.fillColor(colores.azulMuyClaro)
+       .fontSize(10)
+       .text(`Generado el ${fechaActual}`, logoBuffer ? 130 : 50, 92);
 
-    let yPos = 170;
+    let yPos = 140;
 
-    // ===== FUNCIÓN PARA SECCIONES =====
-    const agregarSeccion = (titulo, icono = "●") => {
+    // ===== FUNCION PARA SECCIONES =====
+    const agregarSeccion = (titulo) => {
       if (yPos > 700) {
         doc.addPage();
+        // Barra superior en nuevas paginas
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
       
-      doc.rect(50, yPos, pageWidth, 28)
-         .fill(colores.fondo);
+      // Linea azul decorativa
+      doc.rect(50, yPos, 4, 20).fill(colores.azulPrimario);
       
-      doc.fillColor(colores.primario)
-         .fontSize(13)
+      doc.fillColor(colores.azulOscuro)
+         .fontSize(14)
          .font("Helvetica-Bold")
-         .text(`${icono} ${titulo}`, 60, yPos + 8);
+         .text(titulo, 62, yPos + 3);
       
-      yPos += 38;
+      yPos += 32;
     };
 
-    // ===== FUNCIÓN PARA CAMPOS =====
-    const agregarCampo = (etiqueta, valor, ancho = pageWidth) => {
+    // ===== FUNCION PARA CAMPOS =====
+    const agregarCampo = (etiqueta, valor) => {
       if (yPos > 720) {
         doc.addPage();
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
 
-      doc.fillColor(colores.textoClaro)
+      doc.fillColor(colores.textoSecundario)
          .fontSize(9)
          .font("Helvetica")
-         .text(etiqueta, 60, yPos);
+         .text(etiqueta, 62, yPos);
       
       doc.fillColor(colores.texto)
          .fontSize(11)
          .font("Helvetica-Bold")
-         .text(valor || "No especificado", 60, yPos + 12, { width: ancho - 20 });
+         .text(valor || "No especificado", 62, yPos + 12, { width: pageWidth - 20 });
       
-      yPos += 35;
+      yPos += 32;
     };
 
-    // ===== FUNCIÓN PARA CAMPOS EN LÍNEA =====
+    // ===== FUNCION PARA CAMPOS EN LINEA =====
     const agregarCamposLinea = (campos) => {
       if (yPos > 720) {
         doc.addPage();
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
 
-      const anchoColumna = pageWidth / campos.length;
+      const anchoColumna = (pageWidth - 12) / campos.length;
       
       campos.forEach((campo, i) => {
-        const xPos = 60 + (i * anchoColumna);
+        const xPos = 62 + (i * anchoColumna);
         
-        doc.fillColor(colores.textoClaro)
+        doc.fillColor(colores.textoSecundario)
            .fontSize(9)
            .font("Helvetica")
            .text(campo.etiqueta, xPos, yPos);
@@ -203,14 +302,42 @@ router.post("/encuesta", async (req, res) => {
         doc.fillColor(colores.texto)
            .fontSize(11)
            .font("Helvetica-Bold")
-           .text(campo.valor || "N/A", xPos, yPos + 12, { width: anchoColumna - 20 });
+           .text(campo.valor || "N/A", xPos, yPos + 12, { width: anchoColumna - 10 });
       });
       
-      yPos += 35;
+      yPos += 32;
     };
 
-    // ===== SECCIÓN: INFORMACIÓN PERSONAL =====
-    agregarSeccion("INFORMACION PERSONAL", "👤");
+    // ===== FUNCION PARA CAJA DE TEXTO =====
+    const agregarCajaTexto = (texto) => {
+      if (yPos > 650) {
+        doc.addPage();
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
+        yPos = 50;
+      }
+      
+      doc.rect(62, yPos, pageWidth - 24, 60)
+         .lineWidth(1)
+         .fillAndStroke(colores.grisClaro, colores.borde);
+      
+      doc.fillColor(colores.texto)
+         .fontSize(10)
+         .font("Helvetica")
+         .text(texto || "Sin comentarios", 72, yPos + 10, { 
+           width: pageWidth - 44,
+           height: 45,
+           ellipsis: true
+         });
+      
+      yPos += 72;
+    };
+
+    // ===== CONTENIDO DEL PDF =====
+
+    // Seccion: Informacion Personal
+    agregarSeccion("INFORMACION PERSONAL");
     
     agregarCamposLinea([
       { etiqueta: "Nombre", valor: datos.firstName },
@@ -220,156 +347,91 @@ router.post("/encuesta", async (req, res) => {
     agregarCampo("Correo Electronico", datos.email);
     
     agregarCamposLinea([
-      { etiqueta: "Telefono", valor: datos.phone },
+      { etiqueta: "Telefono", valor: datos.phone || "No proporcionado" },
       { etiqueta: "Fecha de Nacimiento", valor: datos.birthdate }
     ]);
 
-    // ===== SECCIÓN: UBICACIÓN =====
-    agregarSeccion("UBICACION", "📍");
+    // Seccion: Ubicacion
+    agregarSeccion("UBICACION");
     
     agregarCamposLinea([
-      { etiqueta: "Pais", valor: datos.country },
+      { etiqueta: "Pais", valor: traducir("countries", datos.country) },
       { etiqueta: "Ciudad", valor: datos.city }
     ]);
     
     agregarCamposLinea([
       { etiqueta: "Codigo Postal", valor: datos.postalCode },
-      { etiqueta: "Genero", valor: datos.gender }
+      { etiqueta: "Genero", valor: traducir("gender", datos.gender) }
     ]);
 
-    // ===== SECCIÓN: PERFIL EDUCATIVO =====
-    agregarSeccion("PERFIL EDUCATIVO", "🎓");
+    // Seccion: Perfil de Usuario
+    agregarSeccion("PERFIL DE USUARIO");
     
-    agregarCampo("Nivel de Educacion", datos.education);
-    agregarCampo("Frecuencia de Uso", datos.frequency);
+    agregarCamposLinea([
+      { etiqueta: "Nivel de Educacion", valor: traducir("education", datos.education) },
+      { etiqueta: "Frecuencia de Uso", valor: traducir("frequency", datos.frequency) }
+    ]);
 
-    // ===== SECCIÓN: PRODUCTOS Y SERVICIOS =====
-    agregarSeccion("PRODUCTOS Y SERVICIOS UTILIZADOS", "📦");
+    // Seccion: Productos Utilizados
+    agregarSeccion("PRODUCTOS Y SERVICIOS");
     
     if (datos.products && datos.products.length > 0) {
-      const productosTexto = datos.products.join(", ");
-      agregarCampo("Productos seleccionados", productosTexto);
+      agregarCampo("Productos utilizados", traducir("products", datos.products));
     } else {
-      agregarCampo("Productos seleccionados", "Ninguno seleccionado");
+      agregarCampo("Productos utilizados", "Ninguno seleccionado");
     }
 
-    // ===== SECCIÓN: SATISFACCIÓN =====
-    agregarSeccion("NIVEL DE SATISFACCION", "⭐");
+    // Seccion: Satisfaccion
+    agregarSeccion("SATISFACCION");
     
     const satisfaccionTexto = {
-      "1": "1 - Muy insatisfecho 😞",
-      "2": "2 - Insatisfecho 😕",
-      "3": "3 - Neutral 😐",
-      "4": "4 - Satisfecho 🙂",
-      "5": "5 - Muy satisfecho 😄"
+      "1": "Muy insatisfecho (1/5)",
+      "2": "Insatisfecho (2/5)",
+      "3": "Neutral (3/5)",
+      "4": "Satisfecho (4/5)",
+      "5": "Muy satisfecho (5/5)"
     };
     
-    agregarCampo("Valoracion general", satisfaccionTexto[datos.satisfaction] || datos.satisfaction || "No especificado");
+    agregarCampo("Nivel de satisfaccion general", satisfaccionTexto[datos.satisfaction] || "No especificado");
 
-    // ===== SECCIÓN: NPS =====
+    // NPS
     if (datos.nps) {
-      agregarSeccion("NET PROMOTER SCORE", "📊");
-      agregarCampo("Probabilidad de recomendar CEMI (0-10)", datos.nps);
+      agregarCampo("Probabilidad de recomendar CEMI", `${datos.nps}/10`);
     }
 
-    // ===== SECCIÓN: MEJORAS SUGERIDAS =====
-    const improvementsText = Array.isArray(datos.improvements) 
-      ? datos.improvements.join(", ") 
-      : datos.improvements;
-    
-    if (improvementsText && improvementsText.length > 0) {
-      agregarSeccion("ASPECTOS A MEJORAR", "🔧");
-      
-      if (yPos > 650) {
-        doc.addPage();
-        yPos = 50;
-      }
-      
-      doc.rect(55, yPos, pageWidth - 10, 80)
-         .lineWidth(1)
-         .stroke(colores.borde);
-      
-      doc.fillColor(colores.texto)
-         .fontSize(10)
-         .font("Helvetica")
-         .text(improvementsText, 65, yPos + 10, { 
-           width: pageWidth - 30,
-           height: 65,
-           ellipsis: true
-         });
-      
-      yPos += 90;
+    // Seccion: Mejoras
+    const mejorasTexto = traducir("improvements", datos.improvements);
+    if (mejorasTexto && mejorasTexto !== "No especificado") {
+      agregarSeccion("AREAS DE MEJORA SUGERIDAS");
+      agregarCajaTexto(mejorasTexto);
     }
 
-    // ===== SECCIÓN: SUGERENCIAS FUTURAS =====
-    const featuresText = Array.isArray(datos.features) 
-      ? datos.features.join(", ") 
-      : (datos.suggestions || datos.features);
-    
-    if (featuresText && featuresText.length > 0) {
-      agregarSeccion("FUNCIONES DESEADAS PARA EL FUTURO", "💡");
-      
-      if (yPos > 650) {
-        doc.addPage();
-        yPos = 50;
-      }
-      
-      doc.rect(55, yPos, pageWidth - 10, 80)
-         .lineWidth(1)
-         .stroke(colores.borde);
-      
-      doc.fillColor(colores.texto)
-         .fontSize(10)
-         .font("Helvetica")
-         .text(featuresText, 65, yPos + 10, { 
-           width: pageWidth - 30,
-           height: 65,
-           ellipsis: true
-         });
-      
-      yPos += 90;
+    // Seccion: Funciones Futuras
+    const funcionesTexto = traducir("features", datos.features);
+    if (funcionesTexto && funcionesTexto !== "No especificado") {
+      agregarSeccion("FUNCIONES SOLICITADAS");
+      agregarCajaTexto(funcionesTexto);
     }
 
-    // ===== SECCIÓN: COMENTARIOS =====
+    // Seccion: Comentarios
     if (datos.comments && datos.comments.trim()) {
-      agregarSeccion("COMENTARIOS ADICIONALES", "💬");
-      
-      if (yPos > 650) {
-        doc.addPage();
-        yPos = 50;
-      }
-      
-      doc.rect(55, yPos, pageWidth - 10, 80)
-         .lineWidth(1)
-         .stroke(colores.borde);
-      
-      doc.fillColor(colores.texto)
-         .fontSize(10)
-         .font("Helvetica")
-         .text(datos.comments, 65, yPos + 10, { 
-           width: pageWidth - 30,
-           height: 65,
-           ellipsis: true
-         });
-      
-      yPos += 90;
+      agregarSeccion("COMENTARIOS ADICIONALES");
+      agregarCajaTexto(datos.comments);
     }
 
-    // ===== PIE DE PÁGINA =====
+    // ===== PIE DE PAGINA =====
     const agregarPie = () => {
-      const pieY = doc.page.height - 40;
+      const pieY = doc.page.height - 35;
       
-      doc.moveTo(50, pieY - 10)
-         .lineTo(50 + pageWidth, pieY - 10)
-         .stroke(colores.borde);
+      doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.azulOscuro);
       
-      doc.fillColor(colores.textoClaro)
+      doc.fillColor(colores.blanco)
          .fontSize(8)
          .font("Helvetica")
          .text(
-           "CEMI - Centro Educativo de Musica Integral | Documento generado automaticamente | Confidencial",
+           "CEMI | Documento confidencial generado automaticamente | " + fechaActual,
            50,
-           pieY,
+           pieY + 5,
            { align: "center", width: pageWidth }
          );
     };
@@ -408,6 +470,7 @@ router.post("/encuesta", async (req, res) => {
       nombre: `${datos.firstName} ${datos.lastName}`,
       email: datos.email,
       satisfaction: datos.satisfaction || "N/A",
+      nps: datos.nps || "N/A",
       pdfUrl: uploadResult.secure_url,
       cloudinaryId: uploadResult.public_id
     };
@@ -450,18 +513,25 @@ router.get("/encuestas", (req, res) => {
   }
 });
 
-// GET - Estadísticas
+// GET - Estadisticas
 router.get("/estadisticas", (req, res) => {
   try {
     const registro = leerRegistro();
     
-    // Calcular estadísticas de satisfacción
     const satisfacciones = registro
       .map(e => parseInt(e.satisfaction))
       .filter(s => !isNaN(s));
     
     const promedioSatisfaccion = satisfacciones.length > 0
       ? (satisfacciones.reduce((a, b) => a + b, 0) / satisfacciones.length).toFixed(1)
+      : 0;
+
+    const npsScores = registro
+      .map(e => parseInt(e.nps))
+      .filter(n => !isNaN(n));
+    
+    const promedioNPS = npsScores.length > 0
+      ? (npsScores.reduce((a, b) => a + b, 0) / npsScores.length).toFixed(1)
       : 0;
 
     const distribucionSatisfaccion = {
@@ -477,6 +547,7 @@ router.get("/estadisticas", (req, res) => {
       estadisticas: {
         total: registro.length,
         promedioSatisfaccion,
+        promedioNPS,
         distribucionSatisfaccion,
         ultimaEncuesta: registro.length > 0 ? registro[registro.length - 1].fecha : null
       }
