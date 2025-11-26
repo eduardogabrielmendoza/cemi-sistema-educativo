@@ -1,8 +1,12 @@
 import express from "express";
 import pool from "../utils/db.js";
 import upload, { uploadRecursos } from "../config/multer.js";
+import cloudinary from "../config/cloudinary.js";
+import fs from "fs";
+import path from "path";
 
 const router = express.Router();
+const isProduction = process.env.NODE_ENV === 'production';
 
 router.get("/clases/:tipo/:id", async (req, res) => {
   try {
@@ -1988,8 +1992,34 @@ router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
     console.log(`📤 Subiendo recurso: ${titulo}`);
     
     let archivoPath = null;
+    
     if (req.file) {
-      archivoPath = `/uploads/recursos/${req.file.filename}`;
+      if (isProduction) {
+        // En producción: subir a Cloudinary
+        const ext = path.extname(req.file.originalname).toLowerCase();
+        const resourceType = ['.jpg', '.jpeg', '.png', '.gif', '.webp'].includes(ext) ? 'image' : 'raw';
+        
+        const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+          folder: 'cemi/recursos',
+          resource_type: resourceType,
+          public_id: `recurso-${Date.now()}-${path.basename(req.file.originalname, ext)}`
+        });
+        
+        archivoPath = uploadResult.secure_url;
+        
+        // Eliminar archivo temporal
+        try {
+          fs.unlinkSync(req.file.path);
+        } catch (err) {
+          console.error('Error al eliminar archivo temporal:', err);
+        }
+        
+        console.log('☁️ Recurso subido a Cloudinary:', archivoPath);
+      } else {
+        // En desarrollo: guardar localmente
+        archivoPath = `/uploads/recursos/${req.file.filename}`;
+        console.log('💾 Recurso guardado localmente:', archivoPath);
+      }
     }
     
     const cursoValue = id_curso === 'null' || id_curso === '' || !id_curso ? null : id_curso;
