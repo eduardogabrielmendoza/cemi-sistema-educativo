@@ -2002,6 +2002,8 @@ router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
         const uploadResult = await cloudinary.uploader.upload(req.file.path, {
           folder: 'cemi/recursos',
           resource_type: resourceType,
+          access_mode: 'public',
+          type: 'upload',
           public_id: `recurso-${Date.now()}-${path.basename(req.file.originalname, ext)}`
         });
         

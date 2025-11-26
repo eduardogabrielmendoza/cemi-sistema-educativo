@@ -713,6 +713,8 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
         folder: 'cemi/chat-files',
         resource_type: resourceType,
+        access_mode: 'public',
+        type: 'upload',
         public_id: `chat-${Date.now()}-${path.basename(req.file.originalname, ext)}`
       });
       
