@@ -92,14 +92,139 @@
       box-shadow: 0 4px 16px rgba(84, 113, 148, 0.35);
     }
 
+    /* Animaciones de scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-scale.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Delay classes */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
     /* Hero Section */
     .hero {
       display: flex;
       align-items: center;
-      min-height: 480px;
+      min-height: 520px;
       padding: 60px 80px;
       background: var(--bg-gradient);
       gap: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Elementos flotantes decorativos */
+    .floating-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .shape-1 {
+      width: 80px;
+      height: 80px;
+      background: var(--primary-color);
+      top: 10%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      width: 50px;
+      height: 50px;
+      background: var(--secondary-color);
+      top: 60%;
+      left: 15%;
+      animation-delay: 1s;
+    }
+
+    .shape-3 {
+      width: 30px;
+      height: 30px;
+      background: #34a853;
+      top: 25%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    .shape-4 {
+      width: 60px;
+      height: 60px;
+      background: #ea8600;
+      bottom: 15%;
+      right: 20%;
+      animation-delay: 3s;
+    }
+
+    .shape-5 {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      top: 70%;
+      right: 5%;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(10deg);
+      }
     }
 
     .hero-content {
@@ -152,30 +277,117 @@
       box-shadow: 0 8px 24px rgba(84, 113, 148, 0.4);
     }
 
+    /* Pulse animation for button */
+    .btn-pulse {
+      position: relative;
+    }
+
+    .btn-pulse::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      animation: pulse-ring 2s ease-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: 0.4;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+    }
+
     .hero-image {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
 
-    .hero-illustration {
-      width: 400px;
-      height: 300px;
-      background: rgba(255,255,255,0.7);
-      border-radius: 20px;
+    .cartoon-container {
+      position: relative;
+      animation: heroFloat 4s ease-in-out infinite;
+    }
+
+    .cartoon-container img {
+      width: 380px;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(84, 113, 148, 0.25));
+      transition: transform 0.3s ease;
+    }
+
+    .cartoon-container:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Burbujas flotantes alrededor del cartoon */
+    .bubble {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 20px rgba(84, 113, 148, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(84, 113, 148, 0.15);
-      backdrop-filter: blur(10px);
+      animation: bubbleFloat 3s ease-in-out infinite;
     }
 
-    .hero-illustration svg {
-      width: 200px;
-      height: 200px;
+    .bubble-1 {
+      width: 60px;
+      height: 60px;
+      top: -10px;
+      right: 20px;
+      animation-delay: 0s;
+    }
+
+    .bubble-2 {
+      width: 50px;
+      height: 50px;
+      bottom: 40px;
+      left: -20px;
+      animation-delay: 0.5s;
+    }
+
+    .bubble-3 {
+      width: 45px;
+      height: 45px;
+      top: 40%;
+      right: -25px;
+      animation-delay: 1s;
+    }
+
+    .bubble svg {
+      width: 24px;
+      height: 24px;
       color: var(--primary-color);
-      opacity: 0.8;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes bubbleFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-8px) scale(1.05);
+      }
     }
 
     /* How it works Section */
@@ -465,14 +677,16 @@
         font-size: 32px;
       }
 
-      .hero-illustration {
-        width: 300px;
-        height: 220px;
+      .cartoon-container img {
+        width: 280px;
       }
 
-      .hero-illustration svg {
-        width: 140px;
-        height: 140px;
+      .bubble {
+        display: none;
+      }
+
+      .floating-shapes {
+        opacity: 0.5;
       }
 
       .steps-grid {
@@ -516,6 +730,10 @@
         width: 44px;
         height: 44px;
       }
+
+      .cartoon-container img {
+        width: 220px;
+      }
     }
   </style>
 </head>
@@ -534,7 +752,16 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-content">
+    <!-- Formas flotantes decorativas -->
+    <div class="floating-shapes">
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+      <div class="floating-shape shape-4"></div>
+      <div class="floating-shape shape-5"></div>
+    </div>
+
+    <div class="hero-content reveal-left">
       <h1>Ayúdanos a mejorar las herramientas de CEMI Classroom para tu institución, tus estudiantes y para ti</h1>
       <p class="hero-subtitle">Tu opinión es importante para nosotros</p>
       <p>
@@ -542,26 +769,38 @@
         Inscríbete para participar en nuestra investigación e influir en cómo mejoramos los productos que utilizan 
         miles de personas todos los días.
       </p>
-      <a href="#formulario" class="btn-primary">Llenar formulario</a>
+      <a href="#formulario" class="btn-primary btn-pulse">Llenar formulario</a>
     </div>
-    <div class="hero-image">
-      <div class="hero-illustration">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
-          <polyline points="10 9 9 9 8 9"/>
-        </svg>
+    <div class="hero-image reveal-right">
+      <div class="cartoon-container">
+        <img src="images/cartoonman.png" alt="Investigación CEMI">
+        <!-- Burbujas con iconos -->
+        <div class="bubble bubble-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4"/>
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+        </div>
+        <div class="bubble bubble-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div class="bubble bubble-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- How it works -->
   <section class="section">
-    <h2 class="section-title">¿Cómo funciona?</h2>
+    <h2 class="section-title reveal">¿Cómo funciona?</h2>
     <div class="steps-grid">
-      <div class="step-card">
+      <div class="step-card reveal delay-1">
         <div class="step-icon">
           <div class="step-icon-circle blue">
             <svg viewBox="0 0 24 24" fill="none" stroke="#547194" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -572,7 +811,7 @@
         <h3>Inscríbete</h3>
         <p>Cuéntanos un poco sobre ti completando un cuestionario para determinar si un próximo estudio sería adecuado para ti.</p>
       </div>
-      <div class="step-card">
+      <div class="step-card reveal delay-2">
         <div class="step-icon">
           <div class="step-icon-circle green">
             <svg viewBox="0 0 24 24" fill="none" stroke="#34a853" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -583,7 +822,7 @@
         <h3>Participa</h3>
         <p>Si tu perfil encaja, te enviaremos un cuestionario de seguimiento y detalles sobre los próximos pasos.</p>
       </div>
-      <div class="step-card">
+      <div class="step-card reveal delay-3">
         <div class="step-icon">
           <div class="step-icon-circle yellow">
             <svg viewBox="0 0 24 24" fill="none" stroke="#ea8600" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -600,9 +839,9 @@
   <!-- FAQ Section -->
   <section class="faq-section">
     <div class="faq-container">
-      <h2 class="section-title">Más información</h2>
+      <h2 class="section-title reveal">Más información</h2>
       
-      <div class="faq-category">
+      <div class="faq-category reveal delay-1">
         <h3 class="faq-category-title">Inscripción</h3>
         
         <div class="faq-item">
@@ -642,7 +881,7 @@
         </div>
       </div>
 
-      <div class="faq-category">
+      <div class="faq-category reveal delay-2">
         <h3 class="faq-category-title">Participación en estudios</h3>
         
         <div class="faq-item">
@@ -670,7 +909,7 @@
         </div>
       </div>
 
-      <div class="faq-category">
+      <div class="faq-category reveal delay-3">
         <h3 class="faq-category-title">Beneficios</h3>
         
         <div class="faq-item">
@@ -689,10 +928,10 @@
   </section>
 
   <!-- CTA Section -->
-  <section class="cta-section" id="formulario">
+  <section class="cta-section reveal-scale" id="formulario">
     <h2>Ayuda a dar forma al futuro de CEMI Classroom</h2>
     <p>Tu feedback hará posible que continuemos nuestra misión de construir mejores herramientas educativas para todos.</p>
-    <a href="formulario-encuesta.html" class="btn-primary">Llenar formulario</a>
+    <a href="formulario-encuesta.html" class="btn-primary btn-pulse">Llenar formulario</a>
   </section>
 
   <!-- Footer -->
@@ -718,6 +957,36 @@
   </footer>
 
   <script>
+    // Scroll Reveal Animation
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+      
+      reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 120;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    // Initial check for elements in view
+    window.addEventListener('load', revealOnScroll);
+    window.addEventListener('scroll', revealOnScroll);
+
+    // Parallax effect for floating shapes
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const shapes = document.querySelectorAll('.floating-shape');
+      
+      shapes.forEach((shape, index) => {
+        const speed = 0.1 + (index * 0.05);
+        shape.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
     // FAQ Accordion
     document.querySelectorAll('.faq-question').forEach(button => {
       button.addEventListener('click', () => {
@@ -746,6 +1015,16 @@
         }
       });
     });
+
+    // Mouse parallax for cartoon
+    const cartoon = document.querySelector('.cartoon-container');
+    if (cartoon) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (window.innerWidth / 2 - e.pageX) / 50;
+        const y = (window.innerHeight / 2 - e.pageY) / 50;
+        cartoon.style.transform = `translateY(${-15 + y}px) translateX(${x}px)`;
+      });
+    }
   </script>
 </body>
 </html>
