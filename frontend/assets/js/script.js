@@ -9114,16 +9114,9 @@ function initInvestigacionInteractivity() {
 }
 
 function verEncuestaPDF(pdfUrl) {
-  const modal = document.getElementById('pdfViewerModal');
-  const iframe = document.getElementById('pdfViewerFrame');
-  
-  if (modal && iframe) {
-    // Usar URL directa - Cloudinary soporta visualización de PDFs
-    // Agregar parámetro para forzar visualización inline
-    const directUrl = pdfUrl.replace('/raw/upload/', '/raw/upload/fl_attachment:false/');
-    iframe.src = directUrl;
-    modal.classList.add('active');
-  }
+  // Abrir PDF en nueva ventana ya que los iframes tienen problemas con Cloudinary
+  window.open(pdfUrl, '_blank');
+  showToast('Abriendo PDF en nueva ventana...', 'info');
 }
 
 function cerrarPDFViewer() {
