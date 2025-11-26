@@ -1,6 +1,6 @@
 import express from "express";
 import pool from "../utils/db.js";
-import upload from "../config/multer.js";
+import upload, { uploadRecursos } from "../config/multer.js";
 
 const router = express.Router();
 
@@ -1981,7 +1981,7 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
 });
 
 // Subir nuevo recurso (solo profesores) - Inserta en anuncios con es_recurso=1
-router.post("/recursos", upload.single('archivo'), async (req, res) => {
+router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
   try {
     const { titulo, descripcion, tipo, url, id_curso, id_profesor } = req.body;
     
@@ -1989,7 +1989,7 @@ router.post("/recursos", upload.single('archivo'), async (req, res) => {
     
     let archivoPath = null;
     if (req.file) {
-      archivoPath = `/uploads/${req.file.filename}`;
+      archivoPath = `/uploads/recursos/${req.file.filename}`;
     }
     
     const cursoValue = id_curso === 'null' || id_curso === '' || !id_curso ? null : id_curso;

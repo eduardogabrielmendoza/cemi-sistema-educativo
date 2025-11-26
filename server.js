@@ -104,6 +104,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/uploads', express.static('uploads'));
+app.use('/uploads/recursos', express.static('uploads/recursos'));
+app.use('/uploads/tareas', express.static('uploads/tareas'));
 
 app.use('/assets', express.static('frontend/assets'));
 

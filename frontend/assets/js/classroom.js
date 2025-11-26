@@ -6149,16 +6149,20 @@ function filtrarRecursos(busqueda, tipo) {
 }
 
 function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca General') {
+  // Remover modal existente si hay uno
+  const existingModal = document.getElementById('modalSubirRecurso');
+  if (existingModal) existingModal.remove();
+  
   const cursosOptions = recursosData?.cursos?.map(c => 
     `<option value="${c.id_curso}" ${c.id_curso === idCurso ? 'selected' : ''}>${c.nombre_curso}</option>`
   ).join('') || '';
   
   const modalHTML = `
-    <div id="modalSubirRecurso" class="modal-recursos-overlay">
-      <div class="modal-recursos-content">
+    <div id="modalSubirRecurso" class="modal-recursos-overlay" onclick="if(event.target === this) cerrarModalRecurso()">
+      <div class="modal-recursos-content" onclick="event.stopPropagation()">
         <div class="modal-recursos-header">
           <h3><i data-lucide="upload-cloud"></i> Subir Recurso</h3>
-          <button class="modal-close" onclick="cerrarModalRecurso()">
+          <button type="button" class="modal-close" onclick="cerrarModalRecurso()">
             <i data-lucide="x"></i>
           </button>
         </div>
@@ -6267,6 +6271,7 @@ function setupDragAndDrop() {
   
   if (!dropZone || !fileInput) return;
   
+  // Prevenir eventos por defecto
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropZone.addEventListener(eventName, (e) => {
       e.preventDefault();
@@ -6285,24 +6290,36 @@ function setupDragAndDrop() {
   dropZone.addEventListener('drop', (e) => {
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-      fileInput.files = files;
+      // Crear un nuevo FileList para asignar al input
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(files[0]);
+      fileInput.files = dataTransfer.files;
       mostrarNombreArchivo(files[0].name);
     }
   });
   
+  // Manejar cambio de archivo
   fileInput.addEventListener('change', (e) => {
-    if (e.target.files.length > 0) {
+    if (e.target.files && e.target.files.length > 0) {
       mostrarNombreArchivo(e.target.files[0].name);
     }
   });
   
-  dropZone.addEventListener('click', () => fileInput.click());
+  // Click en zona para abrir selector - prevenir propagación
+  dropZone.addEventListener('click', (e) => {
+    if (e.target !== fileInput) {
+      e.preventDefault();
+      e.stopPropagation();
+      fileInput.click();
+    }
+  });
 }
 
 function mostrarNombreArchivo(nombre) {
   const span = document.getElementById('nombreArchivo');
   if (span) {
-    span.textContent = nombre;
+    span.textContent = `📎 ${nombre}`;
+    span.style.display = 'block';
     span.style.display = 'block';
   }
 }
@@ -6314,8 +6331,8 @@ async function handleSubirRecurso(e) {
   const descripcion = document.getElementById('recursoDescripcion').value.trim();
   const idCurso = document.getElementById('recursoCurso').value;
   const tipo = document.getElementById('recursoTipo').value;
-  const url = document.getElementById('recursoUrl')?.value.trim();
-  const archivo = document.getElementById('recursoArchivo')?.files[0];
+  const url = document.getElementById('recursoUrl')?.value?.trim() || '';
+  const archivo = document.getElementById('recursoArchivo')?.files?.[0];
   
   if (!titulo) {
     showNotification('Error', 'El título es requerido', 'error');
@@ -6335,21 +6352,25 @@ async function handleSubirRecurso(e) {
   const formData = new FormData();
   formData.append('titulo', titulo);
   formData.append('descripcion', descripcion);
-  formData.append('id_curso', idCurso || 'null');
+  formData.append('id_curso', idCurso || '');
   formData.append('tipo', tipo);
   formData.append('id_profesor', userId);
   
   if (tipo === 'enlace') {
     formData.append('url', url);
-  } else {
+  } else if (archivo) {
     formData.append('archivo', archivo);
   }
   
+  const btnSubmit = document.querySelector('#formSubirRecurso .btn-submit');
+  
   try {
-    const btnSubmit = document.querySelector('#formSubirRecurso .btn-submit');
-    btnSubmit.disabled = true;
-    btnSubmit.innerHTML = '<i data-lucide="loader"></i> Subiendo...';
-    lucide.createIcons();
+    // Deshabilitar botón inmediatamente
+    if (btnSubmit) {
+      btnSubmit.disabled = true;
+      btnSubmit.style.opacity = '0.7';
+      btnSubmit.innerHTML = '<span class="loading-spinner-small"></span> Subiendo...';
+    }
     
     const response = await fetch(`${API_URL}/classroom/recursos`, {
       method: 'POST',
@@ -6359,15 +6380,22 @@ async function handleSubirRecurso(e) {
     const data = await response.json();
     
     if (data.success) {
-      showNotification('¡Éxito!', 'Recurso subido correctamente', 'success');
       cerrarModalRecurso();
-      await loadRecursos(); // Recargar recursos
+      showNotification('¡Éxito!', 'Recurso subido correctamente', 'success');
+      await loadRecursos();
     } else {
       throw new Error(data.message || 'Error al subir recurso');
     }
   } catch (error) {
     console.error('Error al subir recurso:', error);
     showNotification('Error', error.message || 'No se pudo subir el recurso', 'error');
+    // Rehabilitar botón en caso de error
+    if (btnSubmit) {
+      btnSubmit.disabled = false;
+      btnSubmit.style.opacity = '1';
+      btnSubmit.innerHTML = '<i data-lucide="upload-cloud"></i> Subir Recurso';
+      lucide.createIcons();
+    }
   }
 }
 
@@ -6375,7 +6403,9 @@ function cerrarModalRecurso() {
   const modal = document.getElementById('modalSubirRecurso');
   if (modal) {
     modal.classList.remove('show');
-    setTimeout(() => modal.remove(), 300);
+    setTimeout(() => {
+      modal.remove();
+    }, 300);
   }
 }
 
