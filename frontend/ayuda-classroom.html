@@ -50,6 +50,9 @@
       width: 40px;
       height: 40px;
       border-radius: 8px;
+      background: white;
+      padding: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     .header-logo span {
@@ -81,6 +84,19 @@
     .hero-section {
       padding: 60px 40px;
       text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      max-height: 400px;
+    }
+
+    .hero-section.collapsed {
+      padding: 20px 40px;
+      max-height: 100px;
+    }
+
+    .hero-section.collapsed h1,
+    .hero-section.collapsed p {
+      display: none;
     }
 
     .hero-section h1 {
@@ -821,6 +837,16 @@
     document.addEventListener('DOMContentLoaded', function() {
       lucide.createIcons();
       loadHelpData();
+    });
+
+    // Colapsar hero al hacer scroll
+    const heroSection = document.querySelector('.hero-section');
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 50) {
+        heroSection.classList.add('collapsed');
+      } else {
+        heroSection.classList.remove('collapsed');
+      }
     });
   </script>
 </body>

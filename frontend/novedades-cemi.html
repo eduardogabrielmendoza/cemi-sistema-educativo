@@ -14,13 +14,14 @@
     .help-header { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
-    .header-logo img { width: 40px; height: 40px; border-radius: 8px; }
+    .header-logo img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .header-logo span { font-size: 18px; font-weight: 600; }
     .header-nav { display: flex; gap: 8px; }
     .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
     .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
 
-    .hero-section { padding: 50px 40px; text-align: center; }
+    .hero-section { padding: 50px 40px; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; max-height: 250px; }
+    .hero-section.collapsed { padding: 0 40px; max-height: 0; opacity: 0; }
     .hero-section h1 { color: white; font-size: 32px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; }
     .hero-section h1 i { width: 36px; height: 36px; }
     .hero-section p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto; }
@@ -271,6 +272,16 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() { lucide.createIcons(); });
+
+    // Colapsar hero al hacer scroll
+    const heroSection = document.querySelector('.hero-section');
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 50) {
+        heroSection.classList.add('collapsed');
+      } else {
+        heroSection.classList.remove('collapsed');
+      }
+    });
   </script>
 </body>
 </html>
