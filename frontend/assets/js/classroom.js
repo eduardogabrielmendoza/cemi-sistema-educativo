@@ -6481,4 +6481,31 @@ function mostrarErrorRecursos() {
   lucide.createIcons();
 }
 
+// ==========================================
+// BANNER DE INVESTIGACIÓN
+// ==========================================
+function cerrarBannerInvestigacion() {
+  const banner = document.getElementById('researchBanner');
+  if (banner) {
+    banner.style.animation = 'fadeOutUp 0.3s ease-out forwards';
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 300);
+    // Recordar que se cerró por esta sesión
+    sessionStorage.setItem('researchBannerClosed', 'true');
+  }
+}
+
+function verificarBannerInvestigacion() {
+  const banner = document.getElementById('researchBanner');
+  if (banner && sessionStorage.getItem('researchBannerClosed') === 'true') {
+    banner.style.display = 'none';
+  }
+}
+
+// Verificar al cargar la vista de actividad
+document.addEventListener('DOMContentLoaded', () => {
+  verificarBannerInvestigacion();
+});
+
 console.log('CEMI Classroom inicializado correctamente');

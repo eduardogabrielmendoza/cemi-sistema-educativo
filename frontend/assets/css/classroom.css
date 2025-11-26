@@ -1726,6 +1726,209 @@ body::before {
   text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* ==========================================
+   BANNER DE INVESTIGACIÓN/ENCUESTA
+   ========================================== */
+.research-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #e8f4fc 50%, #f0f7ff 100%);
+  border-radius: 16px;
+  padding: 20px 28px;
+  margin-bottom: 24px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 12px rgba(84, 113, 148, 0.1);
+  border: 1px solid rgba(84, 113, 148, 0.1);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.research-banner-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.research-banner-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
+}
+
+.research-banner-close i {
+  width: 20px;
+  height: 20px;
+}
+
+.research-banner-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+}
+
+.research-icon-bg {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #90caf9 0%, #64b5f6 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(100, 181, 246, 0.3);
+}
+
+.research-icon-bg i {
+  width: 28px;
+  height: 28px;
+  color: white;
+}
+
+.research-icon-accent {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(255, 167, 38, 0.4);
+  transform: rotate(12deg);
+}
+
+.research-icon-accent i {
+  width: 14px;
+  height: 14px;
+  color: white;
+}
+
+.research-banner-content {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.research-banner-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.research-banner-content p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.research-banner-action {
+  flex-shrink: 0;
+}
+
+.btn-research {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--primary-color);
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid var(--primary-color);
+  border-radius: 24px;
+  text-decoration: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-research:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(84, 113, 148, 0.3);
+}
+
+/* Responsive para el banner */
+@media (max-width: 768px) {
+  .research-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 16px;
+  }
+  
+  .research-banner-content {
+    padding-right: 0;
+  }
+  
+  .research-banner-close {
+    top: 8px;
+    right: 8px;
+  }
+}
+
+/* Dark mode */
+body.dark-mode .research-banner {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1a3352 50%, #152d47 100%);
+  border-color: rgba(144, 202, 249, 0.15);
+}
+
+body.dark-mode .research-banner-content h3 {
+  color: #e4e7eb;
+}
+
+body.dark-mode .research-banner-content p {
+  color: #a0aec0;
+}
+
+body.dark-mode .btn-research {
+  color: #90caf9;
+  border-color: #90caf9;
+}
+
+body.dark-mode .btn-research:hover {
+  background: #90caf9;
+  color: #1a202c;
+}
+
 
 .activity-stream {
   max-width: 900px;
