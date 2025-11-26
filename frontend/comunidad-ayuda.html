@@ -40,14 +40,20 @@
     .sidebar-title i { width: 18px; height: 18px; }
     .category-list { list-style: none; }
     .category-list li { margin-bottom: 4px; }
-    .category-list a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #475569; text-decoration: none; border-radius: 8px; font-size: 14px; transition: all 0.2s ease; }
+    .category-list a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #475569; text-decoration: none; border-radius: 8px; font-size: 14px; transition: all 0.2s ease; cursor: pointer; }
     .category-list a:hover, .category-list a.active { background: rgba(102, 126, 234, 0.1); color: #547194; }
     .category-list a i { width: 18px; height: 18px; color: #64748b; }
     .category-list a:hover i, .category-list a.active i { color: #667eea; }
     
-    .ask-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; background: linear-gradient(135deg, #547194, #667eea); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .ask-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; background: linear-gradient(135deg, #547194, #667eea); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
     .ask-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
     .ask-btn i { width: 18px; height: 18px; }
+    .ask-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .user-info-card { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(84,113,148,0.1)); border: 1px solid rgba(102,126,234,0.2); }
+    .user-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #667eea; }
+    .user-name { font-size: 15px; font-weight: 600; color: #547194; }
+    .user-role { font-size: 12px; color: #64748b; }
 
     .posts-area { min-width: 0; }
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -58,30 +64,29 @@
     .post-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; transition: all 0.3s ease; cursor: pointer; }
     .post-card:hover { border-color: #667eea; box-shadow: 0 8px 24px rgba(102,126,234,0.1); transform: translateY(-2px); }
     .post-card.featured { border-left: 4px solid #667eea; }
-    .post-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(102,126,234,0.15); color: #547194; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
+    .post-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(102,126,234,0.15); color: #547194; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; margin-right: 8px; }
     .post-badge.announcement { background: linear-gradient(135deg, #547194, #667eea); color: white; }
+    .post-badge.resolved { background: #d1fae5; color: #065f46; }
+    .post-badge.closed { background: #fee2e2; color: #991b1b; }
     .post-badge i { width: 12px; height: 12px; }
     .post-title { font-size: 16px; font-weight: 600; color: #547194; margin-bottom: 8px; line-height: 1.4; }
     .post-excerpt { font-size: 14px; color: #64748b; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .post-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+    .post-meta { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
     .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #94a3b8; }
     .meta-item i { width: 14px; height: 14px; }
-    .meta-item.votes { color: #667eea; }
+    .meta-item.votes { color: #667eea; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.2s ease; }
+    .meta-item.votes:hover { background: rgba(102,126,234,0.1); }
+    .meta-item.votes.voted { color: white; background: #667eea; }
+    .author-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
 
-    .categories-section { margin-top: 40px; }
-    .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-    .category-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
-    .category-card:hover { border-color: #667eea; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(102,126,234,0.12); }
-    .category-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .category-icon { width: 44px; height: 44px; background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(102,126,234,0.25)); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-    .category-icon i { width: 22px; height: 22px; color: #547194; }
-    .category-name { font-size: 15px; font-weight: 600; color: #547194; }
-    .category-posts { border-top: 1px solid #f1f5f9; padding-top: 16px; }
-    .category-post { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f8fafc; }
-    .category-post:last-child { border-bottom: none; }
-    .category-post-title { flex: 1; font-size: 13px; color: #475569; line-height: 1.4; }
-    .category-post-votes { font-size: 12px; color: #667eea; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-    .category-post-votes i { width: 12px; height: 12px; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #64748b; }
+    .empty-state i { width: 64px; height: 64px; color: #cbd5e1; margin-bottom: 16px; }
+    .empty-state h3 { font-size: 18px; color: #547194; margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; margin-bottom: 20px; }
+
+    .loading { text-align: center; padding: 40px; color: #64748b; }
+    .loading i { animation: spin 1s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
     .modal.active { display: flex; opacity: 1; }
@@ -105,6 +110,7 @@
     .btn-secondary:hover { background: #e2e8f0; }
     .btn-primary { background: linear-gradient(135deg, #547194, #667eea); color: white; border: none; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
     .help-footer { background: white; border-top: 1px solid #e2e8f0; padding: 30px 40px; margin-top: 60px; }
     .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
@@ -114,14 +120,15 @@
     .footer-copy { color: #94a3b8; font-size: 13px; }
 
     @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } .sidebar { position: static; } }
-    @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 20px; } .categories-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 20px; } }
 
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .post-card, .category-card { animation: fadeInUp 0.5s ease forwards; opacity: 0; }
-    .post-card:nth-child(1), .category-card:nth-child(1) { animation-delay: 0.1s; }
-    .post-card:nth-child(2), .category-card:nth-child(2) { animation-delay: 0.15s; }
-    .post-card:nth-child(3), .category-card:nth-child(3) { animation-delay: 0.2s; }
-    .post-card:nth-child(4), .category-card:nth-child(4) { animation-delay: 0.25s; }
+    .post-card { animation: fadeInUp 0.5s ease forwards; opacity: 0; }
+    .post-card:nth-child(1) { animation-delay: 0.1s; }
+    .post-card:nth-child(2) { animation-delay: 0.15s; }
+    .post-card:nth-child(3) { animation-delay: 0.2s; }
+    .post-card:nth-child(4) { animation-delay: 0.25s; }
+    .post-card:nth-child(5) { animation-delay: 0.3s; }
   </style>
 </head>
 <body>
@@ -142,9 +149,9 @@
       <h1>Bienvenido a la Comunidad de Ayuda CEMI</h1>
       <p>Encuentra respuestas, comparte conocimientos y conecta con otros usuarios de CEMI Classroom</p>
       <div class="hero-stats">
-        <div class="stat-item"><div class="stat-number">24</div><div class="stat-label">Preguntas</div></div>
-        <div class="stat-item"><div class="stat-number">87</div><div class="stat-label">Respuestas</div></div>
-        <div class="stat-item"><div class="stat-number">156</div><div class="stat-label">Miembros</div></div>
+        <div class="stat-item"><div class="stat-number" id="statPreguntas">0</div><div class="stat-label">Preguntas</div></div>
+        <div class="stat-item"><div class="stat-number" id="statRespuestas">0</div><div class="stat-label">Respuestas</div></div>
+        <div class="stat-item"><div class="stat-number" id="statParticipantes">0</div><div class="stat-label">Participantes</div></div>
       </div>
     </div>
   </header>
@@ -152,115 +159,52 @@
   <main class="main-content">
     <div class="content-grid">
       <aside class="sidebar">
+        <div class="sidebar-card user-info-card" id="userInfoCard" style="display: none;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <img src="" alt="" class="user-avatar" id="userAvatar">
+            <div>
+              <div class="user-name" id="userName"></div>
+              <div class="user-role" id="userRole"></div>
+            </div>
+          </div>
+          <button class="ask-btn" onclick="openAskModal()" id="askBtn"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>
+        </div>
+        
+        <div class="sidebar-card" id="loginPromptCard">
+          <div class="sidebar-title"><i data-lucide="log-in"></i>Participa</div>
+          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">Inicia sesion para hacer preguntas y responder a la comunidad.</p>
+          <a href="login-selector.html" class="ask-btn"><i data-lucide="log-in"></i>Iniciar sesion</a>
+        </div>
+
         <div class="sidebar-card">
-          <h3 class="sidebar-title"><i data-lucide="layers"></i>Categorías</h3>
+          <h3 class="sidebar-title"><i data-lucide="layers"></i>Categorias</h3>
           <ul class="category-list">
-            <li><a href="#" class="active" data-filter="all"><i data-lucide="grid"></i> Todas las preguntas</a></li>
-            <li><a href="#" data-filter="primeros-pasos"><i data-lucide="rocket"></i> Primeros Pasos</a></li>
-            <li><a href="#" data-filter="tareas"><i data-lucide="clipboard-list"></i> Tareas y Entregas</a></li>
-            <li><a href="#" data-filter="comunicacion"><i data-lucide="message-circle"></i> Comunicación</a></li>
-            <li><a href="#" data-filter="recursos"><i data-lucide="folder-open"></i> Recursos</a></li>
-            <li><a href="#" data-filter="cuenta"><i data-lucide="user"></i> Mi Cuenta</a></li>
+            <li><a class="active" data-filter="all"><i data-lucide="grid"></i> Todas las preguntas</a></li>
+            <li><a data-filter="primeros-pasos"><i data-lucide="rocket"></i> Primeros Pasos</a></li>
+            <li><a data-filter="tareas"><i data-lucide="clipboard-list"></i> Tareas y Entregas</a></li>
+            <li><a data-filter="comunicacion"><i data-lucide="message-circle"></i> Comunicacion</a></li>
+            <li><a data-filter="recursos"><i data-lucide="folder-open"></i> Recursos</a></li>
+            <li><a data-filter="cuenta"><i data-lucide="user"></i> Mi Cuenta</a></li>
+            <li><a data-filter="otro"><i data-lucide="help-circle"></i> Otro</a></li>
           </ul>
         </div>
+
         <div class="sidebar-card">
           <h3 class="sidebar-title"><i data-lucide="info"></i>Acerca de</h3>
-          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">La comunidad CEMI es un espacio para resolver dudas y compartir experiencias entre usuarios.</p>
-          <button class="ask-btn" onclick="openAskModal()"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>
+          <p style="font-size: 13px; color: #64748b;">La comunidad CEMI es un espacio para resolver dudas y compartir experiencias entre profesores y alumnos.</p>
         </div>
       </aside>
 
       <div class="posts-area">
-        <section>
+        <section id="featuredSection" style="display: none;">
           <div class="section-header"><h2 class="section-title"><i data-lucide="star"></i>Publicaciones destacadas</h2></div>
-          <div class="posts-grid">
-            <div class="post-card featured">
-              <span class="post-badge announcement"><i data-lucide="megaphone"></i>ANUNCIO</span>
-              <h3 class="post-title">¡Nuevo sistema de encuestas disponible!</h3>
-              <p class="post-excerpt">Hemos lanzado un nuevo sistema para recopilar feedback de usuarios. Completa la encuesta y ayúdanos a mejorar CEMI Classroom.</p>
-              <div class="post-meta">
-                <span class="meta-item"><i data-lucide="calendar"></i> 25 Nov 2025</span>
-                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 42 votos</span>
-              </div>
-            </div>
-            <div class="post-card featured">
-              <span class="post-badge"><i data-lucide="pin"></i>DESTACADO</span>
-              <h3 class="post-title">Guía: Cómo usar CEMI Classroom desde el celular</h3>
-              <p class="post-excerpt">Aprende a acceder y utilizar todas las funciones de Classroom desde tu dispositivo móvil.</p>
-              <div class="post-meta">
-                <span class="meta-item"><i data-lucide="message-circle"></i> 12 respuestas</span>
-                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 89 votos</span>
-              </div>
-            </div>
-          </div>
+          <div class="posts-grid" id="featuredPosts"></div>
         </section>
 
         <section>
           <div class="section-header"><h2 class="section-title"><i data-lucide="clock"></i>Preguntas recientes</h2></div>
-          <div class="posts-grid">
-            <div class="post-card">
-              <h3 class="post-title">¿Por qué no puedo ver mis clases archivadas?</h3>
-              <p class="post-excerpt">Archivé algunas clases del semestre pasado pero ahora no las encuentro. ¿Dónde puedo verlas?</p>
-              <div class="post-meta">
-                <span class="meta-item"><i data-lucide="user"></i> María G.</span>
-                <span class="meta-item"><i data-lucide="message-circle"></i> 5 respuestas</span>
-                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 23 votos</span>
-              </div>
-            </div>
-            <div class="post-card">
-              <h3 class="post-title">Error al subir archivos grandes en tareas</h3>
-              <p class="post-excerpt">Cuando intento subir un PDF de más de 10MB me da error. ¿Hay algún límite de tamaño?</p>
-              <div class="post-meta">
-                <span class="meta-item"><i data-lucide="user"></i> Carlos R.</span>
-                <span class="meta-item"><i data-lucide="message-circle"></i> 8 respuestas</span>
-                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 38 votos</span>
-              </div>
-            </div>
-            <div class="post-card">
-              <h3 class="post-title">Las notificaciones no me llegan al email</h3>
-              <p class="post-excerpt">Configuré las notificaciones por email pero no recibo ninguna cuando el profesor publica algo nuevo.</p>
-              <div class="post-meta">
-                <span class="meta-item"><i data-lucide="user"></i> Ana L.</span>
-                <span class="meta-item"><i data-lucide="message-circle"></i> 12 respuestas</span>
-                <span class="meta-item votes"><i data-lucide="thumbs-up"></i> 56 votos</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="categories-section">
-          <div class="section-header"><h2 class="section-title"><i data-lucide="layout-grid"></i>Explorar por categoría</h2></div>
-          <div class="categories-grid">
-            <div class="category-card">
-              <div class="category-header">
-                <div class="category-icon"><i data-lucide="rocket"></i></div>
-                <div class="category-name">Primeros Pasos</div>
-              </div>
-              <div class="category-posts">
-                <div class="category-post"><span class="category-post-title">¿Cómo me uno a una clase con código?</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 42</span></div>
-                <div class="category-post"><span class="category-post-title">No puedo iniciar sesión</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 28</span></div>
-              </div>
-            </div>
-            <div class="category-card">
-              <div class="category-header">
-                <div class="category-icon"><i data-lucide="clipboard-list"></i></div>
-                <div class="category-name">Tareas y Entregas</div>
-              </div>
-              <div class="category-posts">
-                <div class="category-post"><span class="category-post-title">¿Cómo entrego una tarea tarde?</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 67</span></div>
-                <div class="category-post"><span class="category-post-title">Error al adjuntar archivos</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 34</span></div>
-              </div>
-            </div>
-            <div class="category-card">
-              <div class="category-header">
-                <div class="category-icon"><i data-lucide="message-circle"></i></div>
-                <div class="category-name">Comunicación</div>
-              </div>
-              <div class="category-posts">
-                <div class="category-post"><span class="category-post-title">Notificaciones no funcionan</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 56</span></div>
-                <div class="category-post"><span class="category-post-title">¿Cómo envío mensaje privado?</span><span class="category-post-votes"><i data-lucide="thumbs-up"></i> 21</span></div>
-              </div>
-            </div>
+          <div id="postsContainer">
+            <div class="loading"><i data-lucide="loader"></i> Cargando preguntas...</div>
           </div>
         </section>
       </div>
@@ -275,29 +219,29 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label>Categoría</label>
+          <label>Categoria</label>
           <select id="questionCategory">
-            <option value="">Selecciona una categoría...</option>
+            <option value="">Selecciona una categoria...</option>
             <option value="primeros-pasos">Primeros Pasos</option>
             <option value="tareas">Tareas y Entregas</option>
-            <option value="comunicacion">Comunicación</option>
+            <option value="comunicacion">Comunicacion</option>
             <option value="recursos">Recursos y Materiales</option>
             <option value="cuenta">Mi Cuenta</option>
             <option value="otro">Otro</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Título de tu pregunta</label>
-          <input type="text" id="questionTitle" placeholder="Escribe un título claro y conciso...">
+          <label>Titulo de tu pregunta</label>
+          <input type="text" id="questionTitle" placeholder="Escribe un titulo claro y conciso..." maxlength="150">
         </div>
         <div class="form-group">
-          <label>Descripción</label>
-          <textarea id="questionDescription" placeholder="Describe tu problema o pregunta con el mayor detalle posible..."></textarea>
+          <label>Descripcion</label>
+          <textarea id="questionDescription" placeholder="Describe tu problema o pregunta con el mayor detalle posible..." maxlength="2000"></textarea>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeAskModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="submitQuestion()"><i data-lucide="send"></i>Publicar pregunta</button>
+        <button class="btn btn-primary" onclick="submitQuestion()" id="submitBtn"><i data-lucide="send"></i>Publicar pregunta</button>
       </div>
     </div>
   </div>
@@ -306,49 +250,264 @@
     <div class="footer-content">
       <div class="footer-links">
         <a href="ayuda-classroom.html">Centro de Ayuda</a>
-        <a href="privacidad.html">Política de Privacidad</a>
-        <a href="terminos.html">Términos de Servicio</a>
+        <a href="privacidad.html">Politica de Privacidad</a>
+        <a href="terminos.html">Terminos de Servicio</a>
       </div>
-      <div class="footer-copy">© 2025 CEMI - Centro Educativo de Música Integral</div>
+      <div class="footer-copy">2025 CEMI - Centro Educativo de Musica Integral</div>
     </div>
   </footer>
 
   <script>
-    function openAskModal() { document.getElementById('askModal').classList.add('active'); document.body.style.overflow = 'hidden'; lucide.createIcons(); }
-    function closeAskModal() { document.getElementById('askModal').classList.remove('active'); document.body.style.overflow = ''; }
-    function submitQuestion() {
-      const category = document.getElementById('questionCategory').value;
-      const title = document.getElementById('questionTitle').value.trim();
-      const description = document.getElementById('questionDescription').value.trim();
-      if (!category || !title || !description) { alert('Por favor completa todos los campos'); return; }
-      alert('¡Gracias por tu pregunta! La comunidad CEMI la revisará pronto.');
-      closeAskModal();
+    let currentUser = null;
+    let allPreguntas = [];
+    let currentFilter = 'all';
+
+    function checkSession() {
+      const alumnoSession = localStorage.getItem('alumnoLogueado') || sessionStorage.getItem('alumnoLogueado');
+      const profesorSession = localStorage.getItem('profesorLogueado') || sessionStorage.getItem('profesorLogueado');
+      const adminSession = localStorage.getItem('adminLogueado') || sessionStorage.getItem('adminLogueado');
+
+      if (alumnoSession) {
+        const data = JSON.parse(alumnoSession);
+        currentUser = { tipo: 'alumno', id: data.id, nombre: `${data.nombre} ${data.apellido}`, avatar: data.avatar, rol: 'Alumno' };
+      } else if (profesorSession) {
+        const data = JSON.parse(profesorSession);
+        currentUser = { tipo: 'profesor', id: data.id, nombre: `${data.nombre} ${data.apellido}`, avatar: data.avatar, rol: 'Profesor' };
+      } else if (adminSession) {
+        const data = JSON.parse(adminSession);
+        currentUser = { tipo: 'admin', id: data.id, nombre: `${data.nombre} ${data.apellido}`, avatar: data.avatar, rol: 'Administrador' };
+      }
+      updateUserUI();
+    }
+
+    function updateUserUI() {
+      const userCard = document.getElementById('userInfoCard');
+      const loginCard = document.getElementById('loginPromptCard');
+
+      if (currentUser) {
+        userCard.style.display = 'block';
+        loginCard.style.display = 'none';
+        document.getElementById('userName').textContent = currentUser.nombre;
+        document.getElementById('userRole').textContent = currentUser.rol;
+        const avatar = document.getElementById('userAvatar');
+        if (currentUser.avatar) {
+          avatar.src = currentUser.avatar.startsWith('http') ? currentUser.avatar : `/uploads/avatars/${currentUser.avatar}`;
+        } else {
+          avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.nombre)}&background=667eea&color=fff`;
+        }
+      } else {
+        userCard.style.display = 'none';
+        loginCard.style.display = 'block';
+      }
+    }
+
+    async function loadPreguntas() {
+      try {
+        const response = await fetch('/api/comunidad/preguntas');
+        const data = await response.json();
+        if (data.success) {
+          allPreguntas = data.preguntas;
+          document.getElementById('statPreguntas').textContent = data.stats.preguntas;
+          document.getElementById('statRespuestas').textContent = data.stats.respuestas;
+          document.getElementById('statParticipantes').textContent = data.stats.participantes;
+          renderPreguntas();
+        }
+      } catch (error) {
+        console.error('Error cargando preguntas:', error);
+        document.getElementById('postsContainer').innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="message-circle"></i>
+            <h3>No hay preguntas aun</h3>
+            <p>Se el primero en hacer una pregunta a la comunidad.</p>
+            ${currentUser ? '<button class="btn btn-primary" onclick="openAskModal()"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>' : ''}
+          </div>
+        `;
+        lucide.createIcons();
+      }
+    }
+
+    function renderPreguntas() {
+      let preguntas = currentFilter === 'all' ? allPreguntas : allPreguntas.filter(p => p.categoria === currentFilter);
+      const destacados = preguntas.filter(p => p.destacado || p.esAnuncio);
+      const regulares = preguntas.filter(p => !p.destacado && !p.esAnuncio);
+
+      const featuredSection = document.getElementById('featuredSection');
+      const featuredContainer = document.getElementById('featuredPosts');
+      
+      if (destacados.length > 0) {
+        featuredSection.style.display = 'block';
+        featuredContainer.innerHTML = destacados.map(p => renderPostCard(p, true)).join('');
+      } else {
+        featuredSection.style.display = 'none';
+      }
+
+      const container = document.getElementById('postsContainer');
+      
+      if (regulares.length === 0 && destacados.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="message-circle"></i>
+            <h3>No hay preguntas aun</h3>
+            <p>Se el primero en hacer una pregunta a la comunidad.</p>
+            ${currentUser ? '<button class="btn btn-primary" onclick="openAskModal()"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>' : ''}
+          </div>
+        `;
+      } else if (regulares.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="filter"></i>
+            <h3>No hay preguntas en esta categoria</h3>
+            <p>Prueba con otra categoria o haz la primera pregunta.</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `<div class="posts-grid">${regulares.map(p => renderPostCard(p, false)).join('')}</div>`;
+      }
+      lucide.createIcons();
+    }
+
+    function renderPostCard(pregunta, isFeatured) {
+      const fecha = new Date(pregunta.fechaCreacion).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+      const votanteKey = currentUser ? `${currentUser.tipo}_${currentUser.id}` : null;
+      const hasVoted = votanteKey && pregunta.votantes && pregunta.votantes.includes(votanteKey);
+      
+      let badges = '';
+      if (pregunta.esAnuncio) badges += '<span class="post-badge announcement"><i data-lucide="megaphone"></i>ANUNCIO</span>';
+      else if (pregunta.destacado) badges += '<span class="post-badge"><i data-lucide="pin"></i>DESTACADO</span>';
+      if (pregunta.estado === 'resuelta') badges += '<span class="post-badge resolved"><i data-lucide="check-circle"></i>RESUELTA</span>';
+      else if (pregunta.estado === 'cerrada') badges += '<span class="post-badge closed"><i data-lucide="lock"></i>CERRADA</span>';
+
+      const avatarUrl = pregunta.autorAvatar 
+        ? (pregunta.autorAvatar.startsWith('http') ? pregunta.autorAvatar : `/uploads/avatars/${pregunta.autorAvatar}`)
+        : `https://ui-avatars.com/api/?name=${encodeURIComponent(pregunta.autorNombre)}&background=667eea&color=fff&size=40`;
+
+      return `
+        <div class="post-card ${isFeatured ? 'featured' : ''}" onclick="viewPregunta('${pregunta.id}')">
+          ${badges}
+          <h3 class="post-title">${escapeHtml(pregunta.titulo)}</h3>
+          <p class="post-excerpt">${escapeHtml(pregunta.descripcion)}</p>
+          <div class="post-meta">
+            <span class="meta-item"><img src="${avatarUrl}" alt="" class="author-avatar">${escapeHtml(pregunta.autorNombre)}</span>
+            <span class="meta-item"><i data-lucide="calendar"></i>${fecha}</span>
+            <span class="meta-item"><i data-lucide="message-circle"></i>${pregunta.numRespuestas || 0} respuestas</span>
+            <span class="meta-item votes ${hasVoted ? 'voted' : ''}" onclick="event.stopPropagation(); votarPregunta('${pregunta.id}')">
+              <i data-lucide="thumbs-up"></i>${pregunta.votos} votos
+            </span>
+          </div>
+        </div>
+      `;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function viewPregunta(id) {
+      window.location.href = `pregunta-detalle.html?id=${id}`;
+    }
+
+    async function votarPregunta(id) {
+      if (!currentUser) { alert('Debes iniciar sesion para votar'); return; }
+      try {
+        const response = await fetch(`/api/comunidad/preguntas/${id}/votar`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ votanteTipo: currentUser.tipo, votanteId: currentUser.id })
+        });
+        const data = await response.json();
+        if (data.success) {
+          const pregunta = allPreguntas.find(p => p.id === id);
+          if (pregunta) {
+            pregunta.votos = data.votos;
+            const votanteKey = `${currentUser.tipo}_${currentUser.id}`;
+            if (data.action === 'added') {
+              if (!pregunta.votantes) pregunta.votantes = [];
+              pregunta.votantes.push(votanteKey);
+            } else {
+              pregunta.votantes = pregunta.votantes.filter(v => v !== votanteKey);
+            }
+            renderPreguntas();
+          }
+        }
+      } catch (error) { console.error('Error al votar:', error); }
+    }
+
+    function openAskModal() {
+      if (!currentUser) { alert('Debes iniciar sesion para hacer una pregunta'); return; }
+      document.getElementById('askModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeAskModal() {
+      document.getElementById('askModal').classList.remove('active');
+      document.body.style.overflow = '';
       document.getElementById('questionCategory').value = '';
       document.getElementById('questionTitle').value = '';
       document.getElementById('questionDescription').value = '';
     }
+
+    async function submitQuestion() {
+      const category = document.getElementById('questionCategory').value;
+      const title = document.getElementById('questionTitle').value.trim();
+      const description = document.getElementById('questionDescription').value.trim();
+      if (!category || !title || !description) { alert('Por favor completa todos los campos'); return; }
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i data-lucide="loader"></i>Publicando...';
+      lucide.createIcons();
+
+      try {
+        const response = await fetch('/api/comunidad/preguntas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            titulo: title, descripcion: description, categoria: category,
+            autorTipo: currentUser.tipo, autorId: currentUser.id,
+            autorNombre: currentUser.nombre, autorAvatar: currentUser.avatar
+          })
+        });
+        const data = await response.json();
+        if (data.success) {
+          closeAskModal();
+          allPreguntas.unshift(data.pregunta);
+          renderPreguntas();
+          document.getElementById('statPreguntas').textContent = parseInt(document.getElementById('statPreguntas').textContent) + 1;
+        } else { alert(data.error || 'Error al publicar la pregunta'); }
+      } catch (error) { console.error('Error:', error); alert('Error al publicar la pregunta'); }
+      finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="send"></i>Publicar pregunta';
+        lucide.createIcons();
+      }
+    }
+
     document.querySelectorAll('.category-list a').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelectorAll('.category-list a').forEach(l => l.classList.remove('active'));
         this.classList.add('active');
+        currentFilter = this.dataset.filter;
+        renderPreguntas();
       });
     });
+
     document.getElementById('askModal').addEventListener('click', function(e) { if (e.target === this) closeAskModal(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAskModal(); });
-    document.addEventListener('DOMContentLoaded', function() { lucide.createIcons(); });
 
-    // Colapsar hero al hacer scroll
-    let lastScroll = 0;
     const heroSection = document.querySelector('.hero-section');
     window.addEventListener('scroll', function() {
-      const currentScroll = window.pageYOffset;
-      if (currentScroll > 50) {
-        heroSection.classList.add('collapsed');
-      } else {
-        heroSection.classList.remove('collapsed');
-      }
-      lastScroll = currentScroll;
+      if (window.pageYOffset > 50) heroSection.classList.add('collapsed');
+      else heroSection.classList.remove('collapsed');
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      lucide.createIcons();
+      checkSession();
+      loadPreguntas();
     });
   </script>
 </body>
