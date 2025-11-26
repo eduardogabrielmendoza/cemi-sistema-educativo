@@ -187,6 +187,9 @@ function initClassroom() {
   }
 
   loadDashboardData();
+  
+  // Mostrar la vista de Inicio (activity) por defecto
+  switchView('activity');
 }
 
 function mostrarBannerAdministrador() {
