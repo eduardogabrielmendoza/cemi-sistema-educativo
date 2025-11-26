@@ -448,6 +448,25 @@
       margin-top: 24px;
     }
 
+    .success-mascot {
+      margin: 32px auto;
+      animation: celebrateFloat 2s ease-in-out infinite;
+    }
+
+    .success-mascot img {
+      width: 220px;
+      height: auto;
+    }
+
+    @keyframes celebrateFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-10px) scale(1.02);
+      }
+    }
+
     .success-close a {
       color: var(--primary-color);
     }
@@ -862,6 +881,10 @@
         </p>
 
         <p class="success-text">¡Estamos emocionados de escuchar tus ideas pronto!</p>
+
+        <div class="success-mascot">
+          <img src="images/32.gif" alt="Celebración">
+        </div>
 
         <p class="success-close">
           <a href="classroom.html">(Puedes cerrar esta ventana ahora)</a>
