@@ -141,19 +141,30 @@
     const preguntaId = new URLSearchParams(window.location.search).get('id');
 
     function checkSession() {
-      const alumnoSession = localStorage.getItem('alumnoLogueado') || sessionStorage.getItem('alumnoLogueado');
-      const profesorSession = localStorage.getItem('profesorLogueado') || sessionStorage.getItem('profesorLogueado');
-      const adminSession = localStorage.getItem('adminLogueado') || sessionStorage.getItem('adminLogueado');
+      // Leer datos de sesión del localStorage (formato usado por classroom-login.js)
+      const nombre = localStorage.getItem('nombre');
+      const rol = localStorage.getItem('rol');
+      const avatar = localStorage.getItem('avatar');
+      const idProfesor = localStorage.getItem('id_profesor');
+      const idAlumno = localStorage.getItem('id_alumno');
+      const idUsuario = localStorage.getItem('id_usuario');
 
-      if (alumnoSession) {
-        const data = JSON.parse(alumnoSession);
-        currentUser = { tipo: 'alumno', id: data.id, nombre: `${data.nombre} ${data.apellido}`, avatar: data.avatar, rol: 'Alumno' };
-      } else if (profesorSession) {
-        const data = JSON.parse(profesorSession);
-        currentUser = { tipo: 'profesor', id: data.id, nombre: `${data.nombre} ${data.apellido}`, avatar: data.avatar, rol: 'Profesor' };
-      } else if (adminSession) {
-        const data = JSON.parse(adminSession);
-        currentUser = { tipo: 'admin', id: data.id, nombre: `${data.nombre} ${data.apellido}`, avatar: data.avatar, rol: 'Administrador' };
+      if (nombre && rol) {
+        let tipo = 'alumno';
+        let id = idAlumno || idUsuario;
+        let rolDisplay = 'Alumno';
+
+        if (rol === 'profesor' || idProfesor) {
+          tipo = 'profesor';
+          id = idProfesor || idUsuario;
+          rolDisplay = 'Profesor';
+        } else if (rol === 'admin' || rol === 'administrador') {
+          tipo = 'admin';
+          id = idUsuario;
+          rolDisplay = 'Administrador';
+        }
+
+        currentUser = { tipo, id, nombre, avatar, rol: rolDisplay };
       }
     }
 
