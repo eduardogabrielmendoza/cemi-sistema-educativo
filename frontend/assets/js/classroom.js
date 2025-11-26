@@ -485,7 +485,7 @@ async function loadDashboardData() {
   try {
     await Promise.all([
       loadClases(),
-      loadRecursos()  // Cargar recursos en lugar del feed al inicio
+      loadFeed()  // Cargar el feed de inicio (Inicio es la pestaña por defecto)
     ]);
     
   } catch (error) {
