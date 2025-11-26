@@ -82,10 +82,11 @@ const traducciones = {
     "rarely": "Raramente"
   },
   education: {
-    "primary": "Primaria",
-    "secondary": "Secundaria",
-    "k12": "Secundaria completa",
-    "university": "Universidad",
+    "primary": "Nivel Primario",
+    "secondary": "Nivel Secundario",
+    "k12": "Nivel Secundario",
+    "university": "Nivel Superior/Universidad",
+    "higher": "Nivel Superior/Universidad",
     "postgraduate": "Posgrado",
     "other": "Otro"
   },
@@ -191,7 +192,7 @@ router.post("/encuesta", async (req, res) => {
     // Intentar cargar el logo desde Cloudinary
     let logoBuffer = null;
     try {
-      logoBuffer = await descargarImagen("https://res.cloudinary.com/dxtzivwqx/image/upload/v1747626498/logo_escudo_cemi.png");
+      logoBuffer = await descargarImagen("https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png");
     } catch (err) {
       console.log("No se pudo cargar el logo:", err.message);
     }
@@ -368,7 +369,7 @@ router.post("/encuesta", async (req, res) => {
     agregarSeccion("PERFIL DE USUARIO");
     
     agregarCamposLinea([
-      { etiqueta: "Nivel de Educacion", valor: traducir("education", datos.education) },
+      { etiqueta: "Nivel Educativo", valor: traducir("education", datos.education) },
       { etiqueta: "Frecuencia de Uso", valor: traducir("frequency", datos.frequency) }
     ]);
 
@@ -385,14 +386,20 @@ router.post("/encuesta", async (req, res) => {
     agregarSeccion("SATISFACCION");
     
     const satisfaccionTexto = {
-      "1": "Muy insatisfecho (1/5)",
-      "2": "Insatisfecho (2/5)",
-      "3": "Neutral (3/5)",
-      "4": "Satisfecho (4/5)",
-      "5": "Muy satisfecho (5/5)"
+      "1": "1/10 - Muy insatisfecho",
+      "2": "2/10 - Insatisfecho",
+      "3": "3/10 - Insatisfecho",
+      "4": "4/10 - Poco satisfecho",
+      "5": "5/10 - Neutral",
+      "6": "6/10 - Algo satisfecho",
+      "7": "7/10 - Satisfecho",
+      "8": "8/10 - Muy satisfecho",
+      "9": "9/10 - Excelente",
+      "10": "10/10 - Completamente satisfecho"
     };
     
-    agregarCampo("Nivel de satisfaccion general", satisfaccionTexto[datos.satisfaction] || "No especificado");
+    const valorSatisfaccion = datos.satisfaction ? satisfaccionTexto[datos.satisfaction] || `${datos.satisfaction}/10` : "No especificado";
+    agregarCampo("Nivel de satisfaccion general", valorSatisfaccion);
 
     // NPS
     if (datos.nps) {
@@ -601,6 +608,270 @@ router.delete("/encuesta/:id", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error al eliminar encuesta",
+      error: error.message
+    });
+  }
+});
+
+// GET - Generar PDF de prueba
+router.get("/test-pdf", async (req, res) => {
+  try {
+    // Datos de prueba
+    const datos = {
+      firstName: "Juan",
+      lastName: "Perez",
+      email: "juan.perez@ejemplo.com",
+      phone: "3814567890",
+      birthdate: "1995-03-15",
+      gender: "male",
+      country: "AR",
+      city: "San Miguel de Tucuman",
+      postalCode: "T4000",
+      education: "university",
+      frequency: "daily",
+      products: ["classroom", "chat", "dashboard", "calendar"],
+      satisfaction: "8",
+      nps: "9",
+      improvements: ["interfaz", "velocidad", "movil"],
+      features: ["videollamadas", "app-movil", "certificados"],
+      comments: "El sistema es muy util para gestionar las clases. Me gustaria ver mejoras en la aplicacion movil y que se agreguen videollamadas integradas."
+    };
+
+    // Simular la generacion del PDF (reutilizar logica)
+    const PDFDocument = (await import("pdfkit")).default;
+    
+    const doc = new PDFDocument({
+      size: "A4",
+      margins: { top: 40, bottom: 40, left: 50, right: 50 }
+    });
+
+    const chunks = [];
+    doc.on("data", (chunk) => chunks.push(chunk));
+
+    const pdfPromise = new Promise((resolve, reject) => {
+      doc.on("end", () => resolve(Buffer.concat(chunks)));
+      doc.on("error", reject);
+    });
+
+    const pageWidth = doc.page.width - 100;
+
+    // Logo
+    let logoBuffer = null;
+    try {
+      logoBuffer = await descargarImagen("https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png");
+    } catch (err) {
+      console.log("No se pudo cargar el logo:", err.message);
+    }
+
+    // Encabezado
+    doc.rect(0, 0, doc.page.width, 120).fill(colores.azulOscuro);
+    
+    if (logoBuffer) {
+      doc.circle(75, 60, 40).fill(colores.blanco);
+      try {
+        doc.image(logoBuffer, 45, 30, { width: 60, height: 60 });
+      } catch (err) {
+        console.log("Error al insertar logo:", err.message);
+      }
+    }
+
+    doc.fillColor(colores.blanco)
+       .fontSize(32)
+       .font("Helvetica-Bold")
+       .text("CEMI", logoBuffer ? 130 : 50, 35);
+
+    doc.fillColor(colores.azulMuyClaro)
+       .fontSize(14)
+       .font("Helvetica")
+       .text("Encuesta de Experiencia de Usuario", logoBuffer ? 130 : 50, 72);
+
+    const fechaActual = new Date().toLocaleDateString("es-AR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    });
+    
+    doc.fillColor(colores.azulMuyClaro)
+       .fontSize(10)
+       .text(`Generado el ${fechaActual}`, logoBuffer ? 130 : 50, 92);
+
+    let yPos = 140;
+
+    const agregarSeccion = (titulo) => {
+      if (yPos > 700) {
+        doc.addPage();
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
+        yPos = 50;
+      }
+      
+      doc.rect(50, yPos, 4, 20).fill(colores.azulPrimario);
+      doc.fillColor(colores.azulOscuro)
+         .fontSize(14)
+         .font("Helvetica-Bold")
+         .text(titulo, 62, yPos + 3);
+      yPos += 32;
+    };
+
+    const agregarCampo = (etiqueta, valor) => {
+      if (yPos > 720) {
+        doc.addPage();
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
+        yPos = 50;
+      }
+
+      doc.fillColor(colores.textoSecundario)
+         .fontSize(9)
+         .font("Helvetica")
+         .text(etiqueta, 62, yPos);
+      
+      doc.fillColor(colores.texto)
+         .fontSize(11)
+         .font("Helvetica-Bold")
+         .text(valor || "No especificado", 62, yPos + 12, { width: pageWidth - 20 });
+      
+      yPos += 32;
+    };
+
+    const agregarCamposLinea = (campos) => {
+      if (yPos > 720) {
+        doc.addPage();
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
+        yPos = 50;
+      }
+
+      const anchoColumna = (pageWidth - 12) / campos.length;
+      
+      campos.forEach((campo, i) => {
+        const xPos = 62 + (i * anchoColumna);
+        
+        doc.fillColor(colores.textoSecundario)
+           .fontSize(9)
+           .font("Helvetica")
+           .text(campo.etiqueta, xPos, yPos);
+        
+        doc.fillColor(colores.texto)
+           .fontSize(11)
+           .font("Helvetica-Bold")
+           .text(campo.valor || "N/A", xPos, yPos + 12, { width: anchoColumna - 10 });
+      });
+      
+      yPos += 32;
+    };
+
+    const agregarCajaTexto = (texto) => {
+      if (yPos > 650) {
+        doc.addPage();
+        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
+        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+           .text("CEMI - Encuesta de Usuario", 50, 10);
+        yPos = 50;
+      }
+      
+      doc.rect(62, yPos, pageWidth - 24, 60)
+         .lineWidth(1)
+         .fillAndStroke(colores.grisClaro, colores.borde);
+      
+      doc.fillColor(colores.texto)
+         .fontSize(10)
+         .font("Helvetica")
+         .text(texto || "Sin comentarios", 72, yPos + 10, { 
+           width: pageWidth - 44,
+           height: 45,
+           ellipsis: true
+         });
+      
+      yPos += 72;
+    };
+
+    // Contenido
+    agregarSeccion("INFORMACION PERSONAL");
+    agregarCamposLinea([
+      { etiqueta: "Nombre", valor: datos.firstName },
+      { etiqueta: "Apellido", valor: datos.lastName }
+    ]);
+    agregarCampo("Correo Electronico", datos.email);
+    agregarCamposLinea([
+      { etiqueta: "Telefono", valor: datos.phone },
+      { etiqueta: "Fecha de Nacimiento", valor: datos.birthdate }
+    ]);
+
+    agregarSeccion("UBICACION");
+    agregarCamposLinea([
+      { etiqueta: "Pais", valor: traducir("countries", datos.country) },
+      { etiqueta: "Ciudad", valor: datos.city }
+    ]);
+    agregarCamposLinea([
+      { etiqueta: "Codigo Postal", valor: datos.postalCode },
+      { etiqueta: "Genero", valor: traducir("gender", datos.gender) }
+    ]);
+
+    agregarSeccion("PERFIL DE USUARIO");
+    agregarCamposLinea([
+      { etiqueta: "Nivel Educativo", valor: traducir("education", datos.education) },
+      { etiqueta: "Frecuencia de Uso", valor: traducir("frequency", datos.frequency) }
+    ]);
+
+    agregarSeccion("PRODUCTOS Y SERVICIOS");
+    agregarCampo("Productos utilizados", traducir("products", datos.products));
+
+    agregarSeccion("SATISFACCION");
+    const satisfaccionTexto = {
+      "1": "1/10 - Muy insatisfecho",
+      "2": "2/10 - Insatisfecho",
+      "3": "3/10 - Insatisfecho",
+      "4": "4/10 - Poco satisfecho",
+      "5": "5/10 - Neutral",
+      "6": "6/10 - Algo satisfecho",
+      "7": "7/10 - Satisfecho",
+      "8": "8/10 - Muy satisfecho",
+      "9": "9/10 - Excelente",
+      "10": "10/10 - Completamente satisfecho"
+    };
+    agregarCampo("Nivel de satisfaccion general", satisfaccionTexto[datos.satisfaction]);
+    agregarCampo("Probabilidad de recomendar CEMI", `${datos.nps}/10`);
+
+    agregarSeccion("AREAS DE MEJORA SUGERIDAS");
+    agregarCajaTexto(traducir("improvements", datos.improvements));
+
+    agregarSeccion("FUNCIONES SOLICITADAS");
+    agregarCajaTexto(traducir("features", datos.features));
+
+    agregarSeccion("COMENTARIOS ADICIONALES");
+    agregarCajaTexto(datos.comments);
+
+    // Pie de pagina
+    const pieY = doc.page.height - 35;
+    doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.azulOscuro);
+    doc.fillColor(colores.blanco)
+       .fontSize(8)
+       .font("Helvetica")
+       .text(
+         "CEMI | Documento confidencial generado automaticamente | " + fechaActual,
+         50,
+         pieY + 5,
+         { align: "center", width: pageWidth }
+       );
+
+    doc.end();
+
+    const pdfBuffer = await pdfPromise;
+
+    // Enviar PDF directamente
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "inline; filename=encuesta-test-cemi.pdf");
+    res.send(pdfBuffer);
+
+  } catch (error) {
+    console.error("Error al generar PDF de prueba:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error al generar PDF de prueba",
       error: error.message
     });
   }
