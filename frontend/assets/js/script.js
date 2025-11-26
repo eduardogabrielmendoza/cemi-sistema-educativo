@@ -8543,35 +8543,35 @@ async function renderInvestigacionSection() {
               <i data-lucide="file-text"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-number">${stats.total || 0}</span>
+              <span class="stat-number">${stats.estadisticas?.total || 0}</span>
               <span class="stat-label">Total Encuestas</span>
             </div>
           </div>
           <div class="stat-card">
             <div class="stat-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
-              <i data-lucide="calendar-check"></i>
+              <i data-lucide="star"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-number">${stats.hoy || 0}</span>
-              <span class="stat-label">Hoy</span>
+              <span class="stat-number">${stats.estadisticas?.promedioSatisfaccion || '0.0'}</span>
+              <span class="stat-label">Satisfacción Promedio</span>
             </div>
           </div>
           <div class="stat-card">
             <div class="stat-icon" style="background: linear-gradient(135deg, #fc4a1a, #f7b733);">
-              <i data-lucide="calendar-days"></i>
+              <i data-lucide="smile"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-number">${stats.semana || 0}</span>
-              <span class="stat-label">Esta Semana</span>
+              <span class="stat-number">${stats.estadisticas?.distribucionSatisfaccion?.[5] || 0}</span>
+              <span class="stat-label">Muy Satisfechos</span>
             </div>
           </div>
           <div class="stat-card">
             <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
-              <i data-lucide="globe"></i>
+              <i data-lucide="calendar"></i>
             </div>
             <div class="stat-info">
-              <span class="stat-number">${Object.keys(stats.porPais || {}).length}</span>
-              <span class="stat-label">Países</span>
+              <span class="stat-number">${stats.estadisticas?.ultimaEncuesta ? new Date(stats.estadisticas.ultimaEncuesta).toLocaleDateString('es-AR', {day: '2-digit', month: 'short'}) : 'N/A'}</span>
+              <span class="stat-label">Última Encuesta</span>
             </div>
           </div>
         </div>
@@ -8586,13 +8586,13 @@ async function renderInvestigacionSection() {
           </div>
           
           <div class="encuestas-list" id="encuestasList">
-            ${encuestas.length === 0 ? `
+            ${encuestas.encuestas?.length === 0 || !encuestas.encuestas ? `
               <div class="empty-state">
                 <i data-lucide="inbox"></i>
                 <h4>No hay encuestas aún</h4>
                 <p>Las encuestas completadas aparecerán aquí</p>
               </div>
-            ` : encuestas.map(enc => `
+            ` : encuestas.encuestas.map(enc => `
               <div class="encuesta-item" data-id="${enc.id}">
                 <div class="encuesta-avatar">
                   <span>${enc.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}</span>
@@ -8601,7 +8601,9 @@ async function renderInvestigacionSection() {
                   <div class="encuesta-name">${enc.nombre}</div>
                   <div class="encuesta-meta">
                     <span><i data-lucide="mail"></i> ${enc.email}</span>
-                    <span><i data-lucide="map-pin"></i> ${enc.ciudad || 'N/A'}, ${enc.pais || 'N/A'}</span>
+                    <span class="satisfaction-badge satisfaction-${enc.satisfaction || 'na'}">
+                      <i data-lucide="star"></i> ${enc.satisfaction || 'N/A'}/5
+                    </span>
                   </div>
                 </div>
                 <div class="encuesta-date">
@@ -8838,6 +8840,51 @@ async function renderInvestigacionSection() {
           height: 14px;
         }
         
+        .satisfaction-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          padding: 2px 8px;
+          border-radius: 12px;
+          font-size: 12px;
+          font-weight: 600;
+        }
+        
+        .satisfaction-badge i {
+          width: 12px;
+          height: 12px;
+        }
+        
+        .satisfaction-5 {
+          background: #d4edda;
+          color: #155724;
+        }
+        
+        .satisfaction-4 {
+          background: #e8f5e9;
+          color: #2e7d32;
+        }
+        
+        .satisfaction-3 {
+          background: #fff3cd;
+          color: #856404;
+        }
+        
+        .satisfaction-2 {
+          background: #ffe5d5;
+          color: #c62828;
+        }
+        
+        .satisfaction-1 {
+          background: #f8d7da;
+          color: #721c24;
+        }
+        
+        .satisfaction-na {
+          background: #e9ecef;
+          color: #6c757d;
+        }
+        
         .encuesta-date {
           display: flex;
           align-items: center;
@@ -9071,9 +9118,10 @@ function verEncuestaPDF(pdfUrl) {
   const iframe = document.getElementById('pdfViewerFrame');
   
   if (modal && iframe) {
-    // Usar Google Docs Viewer para PDFs de Cloudinary
-    const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
-    iframe.src = viewerUrl;
+    // Usar URL directa - Cloudinary soporta visualización de PDFs
+    // Agregar parámetro para forzar visualización inline
+    const directUrl = pdfUrl.replace('/raw/upload/', '/raw/upload/fl_attachment:false/');
+    iframe.src = directUrl;
     modal.classList.add('active');
   }
 }

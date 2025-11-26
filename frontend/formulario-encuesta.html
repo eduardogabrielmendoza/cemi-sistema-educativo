@@ -497,6 +497,100 @@
       color: var(--primary-color);
     }
 
+    /* Satisfaction Scale */
+    .satisfaction-scale {
+      margin: 24px 0;
+    }
+
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .scale-options {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+    }
+
+    .scale-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .scale-option input {
+      display: none;
+    }
+
+    .scale-option span {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .scale-option:hover span {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .scale-option input:checked + span {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-color: var(--primary-color);
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(84, 113, 148, 0.3);
+    }
+
+    .nps-scale .scale-options {
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .nps-scale .scale-option span {
+      width: 40px;
+      height: 40px;
+      font-size: 14px;
+    }
+
+    /* Textarea */
+    .form-textarea {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text-primary);
+      resize: vertical;
+      min-height: 120px;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(84, 113, 148, 0.1);
+    }
+
+    .form-textarea::placeholder {
+      color: #9ca3af;
+    }
+
     /* Legal text */
     .legal-text {
       font-size: 12px;
@@ -926,12 +1020,304 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           Anterior
         </button>
-        <button type="button" class="btn-continue btn-submit" onclick="submitForm()">Enviar</button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
       </div>
     </div>
 
-    <!-- Step 11: Success -->
+    <!-- Step 11: Satisfacción General -->
     <div class="step" data-step="11">
+      <div class="question-number">
+        <span>10.</span>
+        <h2 class="question-title">¿Qué tan satisfecho/a estás con tu experiencia general en CEMI? <span class="required">*</span></h2>
+      </div>
+
+      <div class="satisfaction-scale">
+        <div class="scale-labels">
+          <span>Muy insatisfecho</span>
+          <span>Muy satisfecho</span>
+        </div>
+        <div class="scale-options">
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="1" required>
+            <span>1</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="2">
+            <span>2</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="3">
+            <span>3</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="4">
+            <span>4</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="5">
+            <span>5</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="6">
+            <span>6</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="7">
+            <span>7</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="8">
+            <span>8</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="9">
+            <span>9</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="satisfaction" value="10">
+            <span>10</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
+    </div>
+
+    <!-- Step 12: Áreas a Mejorar -->
+    <div class="step" data-step="12">
+      <div class="question-number">
+        <span>11.</span>
+        <h2 class="question-title">¿Qué áreas crees que necesitan mejoras? Selecciona todas las que apliquen. <span class="required">*</span></h2>
+      </div>
+      <p class="question-subtitle">Tu opinión nos ayuda a priorizar las mejoras del sistema.</p>
+
+      <div class="checkbox-grid">
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_ui" value="interfaz">
+          <label for="imp_ui">Diseño e Interfaz Visual</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_speed" value="velocidad">
+          <label for="imp_speed">Velocidad y Rendimiento</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_nav" value="navegacion">
+          <label for="imp_nav">Navegación y Usabilidad</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_mobile" value="movil">
+          <label for="imp_mobile">Experiencia en Móvil</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_content" value="contenido">
+          <label for="imp_content">Calidad del Contenido</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_comm" value="comunicacion">
+          <label for="imp_comm">Comunicación (notificaciones, mensajes)</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_support" value="soporte">
+          <label for="imp_support">Soporte y Ayuda</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_payment" value="pagos">
+          <label for="imp_payment">Sistema de Pagos</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_calendar" value="calendario">
+          <label for="imp_calendar">Calendario y Horarios</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_resources" value="recursos">
+          <label for="imp_resources">Recursos y Materiales</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_grades" value="calificaciones">
+          <label for="imp_grades">Sistema de Calificaciones</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="improvements" id="imp_none" value="ninguna">
+          <label for="imp_none">Todo funciona bien</label>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
+    </div>
+
+    <!-- Step 13: Funciones Futuras -->
+    <div class="step" data-step="13">
+      <div class="question-number">
+        <span>12.</span>
+        <h2 class="question-title">¿Qué funciones te gustaría ver en el futuro? Selecciona las que más te interesen. <span class="required">*</span></h2>
+      </div>
+      <p class="question-subtitle">Estamos planificando nuevas funcionalidades. ¡Ayúdanos a decidir!</p>
+
+      <div class="checkbox-grid">
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_video" value="videoconferencia">
+          <label for="feat_video">Videoconferencias integradas</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_ai" value="ia_tutor">
+          <label for="feat_ai">Tutor con Inteligencia Artificial</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_games" value="gamificacion">
+          <label for="feat_games">Gamificación (puntos, logros, rankings)</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_forum" value="foro">
+          <label for="feat_forum">Foro de Discusión</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_practice" value="practica_oral">
+          <label for="feat_practice">Práctica de Pronunciación</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_cert" value="certificados">
+          <label for="feat_cert">Certificados Digitales</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_progress" value="progreso_detallado">
+          <label for="feat_progress">Seguimiento de Progreso Detallado</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_offline" value="modo_offline">
+          <label for="feat_offline">Modo Sin Conexión</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_social" value="red_social">
+          <label for="feat_social">Red Social entre Estudiantes</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_podcast" value="podcasts">
+          <label for="feat_podcast">Podcasts Educativos</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_flashcards" value="flashcards">
+          <label for="feat_flashcards">Flashcards y Vocabulario</label>
+        </div>
+        <div class="option-item">
+          <input type="checkbox" name="features" id="feat_parent" value="portal_padres">
+          <label for="feat_parent">Portal para Padres/Tutores</label>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
+    </div>
+
+    <!-- Step 14: Comentarios Abiertos -->
+    <div class="step" data-step="14">
+      <div class="question-number">
+        <span>13.</span>
+        <h2 class="question-title">¿Tienes algún comentario adicional o sugerencia para mejorar CEMI?</h2>
+      </div>
+      <p class="question-subtitle">Este campo es opcional pero muy valioso para nosotros.</p>
+
+      <div class="form-group">
+        <textarea class="form-textarea" id="comments" rows="5" placeholder="Escribe aquí tus comentarios, sugerencias o experiencias..."></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue" onclick="nextStep()">Continuar</button>
+      </div>
+    </div>
+
+    <!-- Step 15: Recomendación -->
+    <div class="step" data-step="15">
+      <div class="question-number">
+        <span>14.</span>
+        <h2 class="question-title">¿Qué tan probable es que recomiendes CEMI a un amigo o familiar? <span class="required">*</span></h2>
+      </div>
+      <p class="question-subtitle">0 = Nada probable, 10 = Muy probable</p>
+
+      <div class="satisfaction-scale nps-scale">
+        <div class="scale-labels">
+          <span>Nada probable</span>
+          <span>Muy probable</span>
+        </div>
+        <div class="scale-options">
+          <label class="scale-option">
+            <input type="radio" name="nps" value="0" required>
+            <span>0</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="1">
+            <span>1</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="2">
+            <span>2</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="3">
+            <span>3</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="4">
+            <span>4</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="5">
+            <span>5</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="6">
+            <span>6</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="7">
+            <span>7</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="8">
+            <span>8</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="9">
+            <span>9</span>
+          </label>
+          <label class="scale-option">
+            <input type="radio" name="nps" value="10">
+            <span>10</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="previousStep()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Anterior
+        </button>
+        <button type="button" class="btn-continue btn-submit" onclick="submitForm()">Enviar Encuesta</button>
+      </div>
+    </div>
+
+    <!-- Step 16: Success -->
+    <div class="step" data-step="16">
       <div class="success-screen">
         <div class="success-logo">
           <img src="images/logo.png" alt="CEMI">
@@ -968,7 +1354,7 @@
 
   <script>
     let currentStep = 1;
-    const totalSteps = 11;
+    const totalSteps = 16;
     
     // Detectar API URL
     const API_URL = window.location.hostname === 'localhost' 
@@ -1047,6 +1433,24 @@
         }
       }
       
+      // Validate checkboxes for improvements (step 12)
+      if (step === 12) {
+        const improvementsChecked = document.querySelectorAll('input[name="improvements"]:checked');
+        if (improvementsChecked.length === 0) {
+          alert('Por favor selecciona al menos una opción');
+          return false;
+        }
+      }
+      
+      // Validate checkboxes for features (step 13)
+      if (step === 13) {
+        const featuresChecked = document.querySelectorAll('input[name="features"]:checked');
+        if (featuresChecked.length === 0) {
+          alert('Por favor selecciona al menos una opción');
+          return false;
+        }
+      }
+      
       return true;
     }
 
@@ -1071,6 +1475,14 @@
       const productsChecked = document.querySelectorAll('input[name="products"]:checked');
       const products = Array.from(productsChecked).map(cb => cb.value);
       
+      // Obtener áreas a mejorar
+      const improvementsChecked = document.querySelectorAll('input[name="improvements"]:checked');
+      const improvements = Array.from(improvementsChecked).map(cb => cb.value);
+      
+      // Obtener funciones futuras
+      const featuresChecked = document.querySelectorAll('input[name="features"]:checked');
+      const features = Array.from(featuresChecked).map(cb => cb.value);
+      
       return {
         firstName: document.getElementById('firstName').value.trim(),
         lastName: document.getElementById('lastName').value.trim(),
@@ -1084,6 +1496,11 @@
         frequency: document.querySelector('input[name="frequency"]:checked')?.value,
         education: document.querySelector('input[name="education"]:checked')?.value,
         products: products,
+        satisfaction: document.querySelector('input[name="satisfaction"]:checked')?.value,
+        improvements: improvements,
+        features: features,
+        comments: document.getElementById('comments').value.trim() || null,
+        nps: document.querySelector('input[name="nps"]:checked')?.value,
         // Datos del usuario logueado (si existe)
         userId: localStorage.getItem('id_usuario') || localStorage.getItem('id_alumno') || localStorage.getItem('id_profesor') || null,
         userRole: localStorage.getItem('rol') || null,
@@ -1093,13 +1510,6 @@
 
     async function submitForm() {
       if (!validateStep(currentStep)) return;
-      
-      // Validar que al menos un producto esté seleccionado
-      const productsChecked = document.querySelectorAll('input[name="products"]:checked');
-      if (productsChecked.length === 0) {
-        alert('Por favor selecciona al menos un producto o servicio');
-        return;
-      }
 
       // Mostrar loading
       const submitBtn = document.querySelector('.btn-submit');
@@ -1122,7 +1532,7 @@
 
         if (response.ok && result.success) {
           // Éxito - mostrar pantalla final
-          currentStep = 11;
+          currentStep = 16;
           showStep(currentStep);
           console.log('✅ Encuesta enviada:', result.encuesta);
         } else {
