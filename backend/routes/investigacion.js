@@ -266,8 +266,18 @@ router.post("/encuesta", async (req, res) => {
     
     agregarCampo("Valoracion general", satisfaccionTexto[datos.satisfaction] || datos.satisfaction || "No especificado");
 
+    // ===== SECCIÓN: NPS =====
+    if (datos.nps) {
+      agregarSeccion("NET PROMOTER SCORE", "📊");
+      agregarCampo("Probabilidad de recomendar CEMI (0-10)", datos.nps);
+    }
+
     // ===== SECCIÓN: MEJORAS SUGERIDAS =====
-    if (datos.improvements && datos.improvements.trim()) {
+    const improvementsText = Array.isArray(datos.improvements) 
+      ? datos.improvements.join(", ") 
+      : datos.improvements;
+    
+    if (improvementsText && improvementsText.length > 0) {
       agregarSeccion("ASPECTOS A MEJORAR", "🔧");
       
       if (yPos > 650) {
@@ -282,7 +292,7 @@ router.post("/encuesta", async (req, res) => {
       doc.fillColor(colores.texto)
          .fontSize(10)
          .font("Helvetica")
-         .text(datos.improvements, 65, yPos + 10, { 
+         .text(improvementsText, 65, yPos + 10, { 
            width: pageWidth - 30,
            height: 65,
            ellipsis: true
@@ -292,7 +302,11 @@ router.post("/encuesta", async (req, res) => {
     }
 
     // ===== SECCIÓN: SUGERENCIAS FUTURAS =====
-    if (datos.suggestions && datos.suggestions.trim()) {
+    const featuresText = Array.isArray(datos.features) 
+      ? datos.features.join(", ") 
+      : (datos.suggestions || datos.features);
+    
+    if (featuresText && featuresText.length > 0) {
       agregarSeccion("FUNCIONES DESEADAS PARA EL FUTURO", "💡");
       
       if (yPos > 650) {
@@ -307,7 +321,32 @@ router.post("/encuesta", async (req, res) => {
       doc.fillColor(colores.texto)
          .fontSize(10)
          .font("Helvetica")
-         .text(datos.suggestions, 65, yPos + 10, { 
+         .text(featuresText, 65, yPos + 10, { 
+           width: pageWidth - 30,
+           height: 65,
+           ellipsis: true
+         });
+      
+      yPos += 90;
+    }
+
+    // ===== SECCIÓN: COMENTARIOS =====
+    if (datos.comments && datos.comments.trim()) {
+      agregarSeccion("COMENTARIOS ADICIONALES", "💬");
+      
+      if (yPos > 650) {
+        doc.addPage();
+        yPos = 50;
+      }
+      
+      doc.rect(55, yPos, pageWidth - 10, 80)
+         .lineWidth(1)
+         .stroke(colores.borde);
+      
+      doc.fillColor(colores.texto)
+         .fontSize(10)
+         .font("Helvetica")
+         .text(datos.comments, 65, yPos + 10, { 
            width: pageWidth - 30,
            height: 65,
            ellipsis: true
