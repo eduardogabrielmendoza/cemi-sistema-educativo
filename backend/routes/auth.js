@@ -158,12 +158,12 @@ router.post("/forgot-password",
           p.id_persona,
           p.nombre,
           p.apellido,
-          p.email,
+          p.mail as email,
           perf.nombre_perfil as rol
          FROM usuarios u
          JOIN personas p ON u.id_persona = p.id_persona
          JOIN perfiles perf ON u.id_perfil = perf.id_perfil
-         WHERE p.email = ?`,
+         WHERE p.mail = ?`,
         [email]
       );
 
@@ -660,7 +660,7 @@ router.post("/admin-cambiar-password-classroom",
 
       // Obtener datos del usuario para el email
       const [personaData] = await pool.query(
-        `SELECT p.nombre, p.apellido, p.email FROM personas p WHERE p.id_persona = ?`,
+        `SELECT p.nombre, p.apellido, p.mail as email FROM personas p WHERE p.id_persona = ?`,
         [id_persona]
       );
 
