@@ -2711,56 +2711,56 @@ async function loadModeracionContenido(tipo) {
   `;
   
   try {
-    const response = await fetch(\`/api/moderacion/contenido/\${tipo}\`);
+    const response = await fetch(`/api/moderacion/contenido/${tipo}`);
     if (response.ok) {
       const contenido = await response.json();
       
       if (contenido.length === 0) {
-        container.innerHTML = \`
+        container.innerHTML = `
           <div class="mod-empty-state">
             <i data-lucide="inbox"></i>
             <p>No hay contenido para mostrar</p>
           </div>
-        \`;
+        `;
         if (typeof lucide !== 'undefined') lucide.createIcons();
         return;
       }
       
-      container.innerHTML = contenido.map(item => \`
-        <div class="mod-content-item" data-id="\${item.id}" data-tipo="\${item.tipo}">
+      container.innerHTML = contenido.map(item => `
+        <div class="mod-content-item" data-id="${item.id}" data-tipo="${item.tipo}">
           <div class="mod-item-main">
             <div class="mod-item-header">
-              <span class="mod-item-type \${item.tipo}">\${item.tipo}</span>
-              <span class="mod-item-author">por <strong>\${item.autor || 'Usuario'}</strong></span>
+              <span class="mod-item-type ${item.tipo}">${item.tipo}</span>
+              <span class="mod-item-author">por <strong>${item.autor || 'Usuario'}</strong></span>
             </div>
-            <div class="mod-item-title">\${item.titulo || 'Sin título'}</div>
-            <div class="mod-item-preview">\${item.contenido || ''}</div>
+            <div class="mod-item-title">${item.titulo || 'Sin título'}</div>
+            <div class="mod-item-preview">${item.contenido || ''}</div>
             <div class="mod-item-meta">
-              <span><i data-lucide="calendar"></i> \${item.fecha || 'Fecha no disponible'}</span>
-              <span><i data-lucide="book-open"></i> \${item.curso || 'Sin curso'}</span>
+              <span><i data-lucide="calendar"></i> ${item.fecha || 'Fecha no disponible'}</span>
+              <span><i data-lucide="book-open"></i> ${item.curso || 'Sin curso'}</span>
             </div>
           </div>
           <div class="mod-item-actions">
-            <button class="mod-action-btn view" title="Ver detalle" onclick="viewModContent('\${item.tipo}', \${item.id})">
+            <button class="mod-action-btn view" title="Ver detalle" onclick="viewModContent('${item.tipo}', ${item.id})">
               <i data-lucide="eye"></i>
             </button>
-            <button class="mod-action-btn delete" title="Eliminar" onclick="openModDeleteModal('\${item.tipo}', \${item.id}, '\${(item.titulo || '').replace(/'/g, "\\\\'")}')">
+            <button class="mod-action-btn delete" title="Eliminar" onclick="openModDeleteModal('${item.tipo}', ${item.id}, '${(item.titulo || '').replace(/'/g, "\\\\'")}')">
               <i data-lucide="trash-2"></i>
             </button>
           </div>
         </div>
-      \`).join('');
+      `).join('');
       
       if (typeof lucide !== 'undefined') lucide.createIcons();
     }
   } catch (error) {
     console.error('Error cargando contenido:', error);
-    container.innerHTML = \`
+    container.innerHTML = `
       <div class="mod-empty-state">
         <i data-lucide="alert-circle"></i>
         <p>Error al cargar el contenido</p>
       </div>
-    \`;
+    `;
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 }
@@ -2774,26 +2774,26 @@ async function loadModeracionReportes() {
       const reportes = await response.json();
       
       if (reportes.length === 0) {
-        container.innerHTML = \`
+        container.innerHTML = `
           <div class="mod-empty-state" style="padding: 30px;">
             <i data-lucide="check-circle"></i>
             <p>Sin reportes pendientes</p>
           </div>
-        \`;
+        `;
         if (typeof lucide !== 'undefined') lucide.createIcons();
         return;
       }
       
-      container.innerHTML = reportes.slice(0, 5).map(r => \`
-        <div class="mod-report-item" onclick="handleReport(\${r.id})">
+      container.innerHTML = reportes.slice(0, 5).map(r => `
+        <div class="mod-report-item" onclick="handleReport(${r.id})">
           <div class="mod-report-badge">
             <i data-lucide="flag"></i>
-            \${r.tipo || 'Contenido'}
+            ${r.tipo || 'Contenido'}
           </div>
-          <div class="mod-report-content">\${r.motivo || 'Sin motivo especificado'}</div>
-          <div class="mod-report-meta">Reportado por \${r.reportadoPor || 'Anónimo'} · \${r.fecha || ''}</div>
+          <div class="mod-report-content">${r.motivo || 'Sin motivo especificado'}</div>
+          <div class="mod-report-meta">Reportado por ${r.reportadoPor || 'Anónimo'} · ${r.fecha || ''}</div>
         </div>
-      \`).join('');
+      `).join('');
       
       if (typeof lucide !== 'undefined') lucide.createIcons();
     }
@@ -2812,12 +2812,12 @@ async function loadModeracionLog() {
       const log = await response.json();
       
       if (log.length === 0) {
-        container.innerHTML = \`
+        container.innerHTML = `
           <div class="mod-empty-state" style="padding: 30px;">
             <i data-lucide="activity"></i>
             <p>Sin actividad reciente</p>
           </div>
-        \`;
+        `;
         if (typeof lucide !== 'undefined') lucide.createIcons();
         return;
       }
@@ -2836,17 +2836,17 @@ async function loadModeracionLog() {
           icon = 'alert-triangle';
         }
         
-        return \`
+        return `
           <div class="mod-log-item">
-            <div class="mod-log-icon \${iconClass}">
-              <i data-lucide="\${icon}"></i>
+            <div class="mod-log-icon ${iconClass}">
+              <i data-lucide="${icon}"></i>
             </div>
             <div class="mod-log-content">
-              <div class="mod-log-text"><strong>\${l.admin || 'Admin'}</strong> \${l.accion || ''}</div>
-              <div class="mod-log-time">\${l.fecha || ''}</div>
+              <div class="mod-log-text"><strong>${l.admin || 'Admin'}</strong> ${l.accion || ''}</div>
+              <div class="mod-log-time">${l.fecha || ''}</div>
             </div>
           </div>
-        \`;
+        `;
       }).join('');
       
       if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -2884,7 +2884,7 @@ async function confirmModDelete() {
   const { tipo, id, titulo } = currentModDeleteItem;
   
   try {
-    const response = await fetch(\`/api/moderacion/contenido/\${tipo}/\${id}\`, {
+    const response = await fetch(`/api/moderacion/contenido/${tipo}/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ motivo: reason })
@@ -2896,7 +2896,7 @@ async function confirmModDelete() {
       Swal.fire({
         icon: 'success',
         title: 'Contenido eliminado',
-        text: \`"\${titulo}" ha sido eliminado correctamente.\`,
+        text: `"${titulo}" ha sido eliminado correctamente.`,
         confirmButtonColor: '#547194'
       });
       
@@ -2922,7 +2922,7 @@ function viewModContent(tipo, id) {
   // Abrir en nueva pestaña o mostrar modal con detalle
   Swal.fire({
     title: 'Ver Contenido',
-    text: \`Tipo: \${tipo}, ID: \${id}\`,
+    text: `Tipo: ${tipo}, ID: ${id}`,
     icon: 'info',
     confirmButtonColor: '#547194'
   });
@@ -2946,7 +2946,7 @@ async function handleReport(id) {
   
   if (accion) {
     try {
-      await fetch(\`/api/moderacion/reportes/\${id}\`, {
+      await fetch(`/api/moderacion/reportes/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ accion })
@@ -3013,13 +3013,13 @@ function exportModeracionLog() {
               l.accion || '',
               (l.detalles || '').replace(/,/g, ';')
             ].join(','))
-          ].join('\\n');
+          ].join('\n');
           
           // Descargar
           const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
           const link = document.createElement('a');
           link.href = URL.createObjectURL(blob);
-          link.download = \`moderacion-log-\${new Date().toISOString().split('T')[0]}.csv\`;
+          link.download = `moderacion-log-${new Date().toISOString().split('T')[0]}.csv`;
           link.click();
           
           Swal.fire({
