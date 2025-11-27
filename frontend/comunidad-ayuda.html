@@ -21,7 +21,8 @@
     .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
     .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
 
-    .hero-section { padding: 20px 40px 16px; text-align: center; position: relative; overflow: hidden; }
+    .hero-section { padding: 20px 40px 16px; text-align: center; position: relative; overflow: hidden; max-height: 300px; transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease; }
+    .hero-section.hidden { max-height: 0; padding: 0 40px; opacity: 0; pointer-events: none; }
     .hero-section h1 { color: white; font-size: 22px; font-weight: 600; margin-bottom: 6px; position: relative; z-index: 1; }
     .hero-section p { color: rgba(255,255,255,0.9); font-size: 14px; max-width: 500px; margin: 0 auto 14px; position: relative; z-index: 1; }
 
@@ -800,6 +801,16 @@
     // Modal events
     document.getElementById('askModal').addEventListener('click', function(e) { if (e.target === this) closeAskModal(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAskModal(); });
+
+    // Hide hero on scroll
+    const heroSection = document.querySelector('.hero-section');
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 50) {
+        heroSection.classList.add('hidden');
+      } else {
+        heroSection.classList.remove('hidden');
+      }
+    });
 
     // Init
     document.addEventListener('DOMContentLoaded', function() {
