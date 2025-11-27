@@ -21,30 +21,23 @@
     .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
     .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
 
-    .hero-section { padding: 50px 40px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; }
-    .hero-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%); animation: heroGlow 20s ease-in-out infinite; }
-    @keyframes heroGlow { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(5%, 5%); } }
-    .hero-section.collapsed { padding: 15px 40px; }
-    .hero-section.collapsed h1 { font-size: 20px; margin-bottom: 0; }
-    .hero-section.collapsed p, .hero-section.collapsed .hero-stats, .hero-section.collapsed .hero-search { display: none; }
-    .hero-section h1 { color: white; font-size: 36px; font-weight: 700; margin-bottom: 12px; position: relative; z-index: 1; }
-    .hero-section p { color: rgba(255,255,255,0.9); font-size: 17px; max-width: 600px; margin: 0 auto 28px; position: relative; z-index: 1; }
+    .hero-section { padding: 20px 40px 16px; text-align: center; position: relative; overflow: hidden; }
+    .hero-section h1 { color: white; font-size: 22px; font-weight: 600; margin-bottom: 6px; position: relative; z-index: 1; }
+    .hero-section p { color: rgba(255,255,255,0.9); font-size: 14px; max-width: 500px; margin: 0 auto 14px; position: relative; z-index: 1; }
 
     /* Stats animados */
-    .hero-stats { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; position: relative; z-index: 1; margin-bottom: 28px; }
+    .hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; position: relative; z-index: 1; margin-bottom: 14px; }
     .stat-item { text-align: center; }
-    .stat-number { font-size: 36px; font-weight: 700; color: white; line-height: 1; margin-bottom: 4px; }
-    .stat-number.animate { animation: countUp 0.6s ease-out; }
-    @keyframes countUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-number { font-size: 24px; font-weight: 700; color: white; line-height: 1; margin-bottom: 2px; }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* Search en hero */
     .hero-search { max-width: 500px; margin: 0 auto; position: relative; z-index: 10; }
     .hero-search-wrapper { position: relative; }
-    .hero-search input { width: 100%; padding: 16px 20px 16px 50px; border: none; border-radius: 12px; font-size: 15px; font-family: inherit; background: rgba(255,255,255,0.95); box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: all 0.3s ease; }
-    .hero-search input:focus { outline: none; box-shadow: 0 12px 40px rgba(0,0,0,0.2); transform: translateY(-2px); }
+    .hero-search input { width: 100%; padding: 12px 20px 12px 44px; border: none; border-radius: 10px; font-size: 14px; font-family: inherit; background: rgba(255,255,255,0.95); box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: all 0.3s ease; }
+    .hero-search input:focus { outline: none; box-shadow: 0 12px 40px rgba(0,0,0,0.2); transform: translateY(-1px); }
     .hero-search input::placeholder { color: #94a3b8; }
-    .hero-search i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #667eea; width: 20px; height: 20px; }
+    .hero-search i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #667eea; width: 18px; height: 18px; }
 
     /* Main Content */
     .main-content { max-width: 1200px; margin: 0 auto; padding: 40px; }
@@ -807,13 +800,6 @@
     // Modal events
     document.getElementById('askModal').addEventListener('click', function(e) { if (e.target === this) closeAskModal(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAskModal(); });
-
-    // Collapse hero on scroll
-    const heroSection = document.querySelector('.hero-section');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 80) heroSection.classList.add('collapsed');
-      else heroSection.classList.remove('collapsed');
-    });
 
     // Init
     document.addEventListener('DOMContentLoaded', function() {

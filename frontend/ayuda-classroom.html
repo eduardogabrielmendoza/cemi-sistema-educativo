@@ -21,12 +21,7 @@
     .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
     .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
 
-    .hero-section { padding: 20px 40px 16px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; }
-    .hero-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%); animation: heroGlow 15s ease-in-out infinite; }
-    @keyframes heroGlow { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10%, 10%); } }
-    .hero-section.collapsed { padding: 12px 40px; }
-    .hero-section.collapsed h1 { font-size: 18px; margin-bottom: 0; }
-    .hero-section.collapsed p, .hero-section.collapsed .search-container, .hero-section.collapsed .quick-actions { display: none; }
+    .hero-section { padding: 20px 40px 16px; text-align: center; position: relative; overflow: hidden; }
     .hero-section h1 { color: white; font-size: 22px; font-weight: 600; margin-bottom: 6px; position: relative; z-index: 1; }
     .hero-section p { color: rgba(255,255,255,0.9); font-size: 14px; max-width: 500px; margin: 0 auto 14px; position: relative; z-index: 1; }
 
@@ -88,7 +83,6 @@
     .category-article:hover i { color: #667eea; }
     .category-article span { flex: 1; }
     .category-article .badge-new { background: linear-gradient(135deg, #10b981, #059669); color: white; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
-    .category-article .badge-popular { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
 
     /* Popular Articles Mejorado */
     .popular-section { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 60px; }
@@ -249,10 +243,6 @@
         <a class="quick-action" href="comunidad-ayuda.html">
           <i data-lucide="users"></i>
           <span>Comunidad</span>
-        </a>
-        <a class="quick-action" href="guia.html">
-          <i data-lucide="play-circle"></i>
-          <span>Video Tutoriales</span>
         </a>
         <div class="quick-action" onclick="scrollToContact()">
           <i data-lucide="mail"></i>
@@ -461,7 +451,6 @@
                 <i data-lucide="chevron-right"></i>
                 <span>${art.titulo}</span>
                 ${art.nuevo ? '<span class="badge-new">NUEVO</span>' : ''}
-                ${art.popular && !art.nuevo ? '<span class="badge-popular">POPULAR</span>' : ''}
               </div>
             `).join('')}
           </div>
@@ -644,15 +633,6 @@
     function scrollToContact() {
       document.getElementById('contactSection').scrollIntoView({ behavior: 'smooth' });
     }
-
-    const heroSection = document.querySelector('.hero-section');
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 80) {
-        heroSection.classList.add('collapsed');
-      } else {
-        heroSection.classList.remove('collapsed');
-      }
-    });
 
     document.addEventListener('DOMContentLoaded', function() {
       lucide.createIcons();
