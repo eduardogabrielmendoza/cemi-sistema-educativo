@@ -112,7 +112,8 @@
           "id": "r-3",
           "titulo": "Biblioteca de recursos compartidos",
           "contenido": "La biblioteca contiene recursos educativos compartidos por toda la institución: partituras, grabaciones, ejercicios y más. Accede desde el menú principal.",
-          "popular": false
+          "popular": false,
+          "nuevo": true
         }
       ]
     },
@@ -144,7 +145,8 @@
           "id": "p-4",
           "titulo": "Crear encuestas",
           "contenido": "Usa el sistema de encuestas para recopilar feedback. Ve a 'Crear' > 'Encuesta', define las preguntas y opciones. Los resultados se pueden exportar a PDF con gráficos estadísticos.",
-          "popular": false
+          "popular": false,
+          "nuevo": true
         }
       ]
     },

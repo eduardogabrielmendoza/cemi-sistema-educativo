@@ -11,6 +11,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fa; color: #2d3748; line-height: 1.6; }
 
+    /* Header */
     .help-header { background: linear-gradient(135deg, #547194 0%, #667eea 100%); position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
@@ -20,98 +21,188 @@
     .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
     .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
 
-    .hero-section { padding: 50px 40px; text-align: center; transition: padding 0.3s ease, opacity 0.3s ease; }
+    .hero-section { padding: 50px 40px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .hero-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%); animation: heroGlow 20s ease-in-out infinite; }
+    @keyframes heroGlow { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(5%, 5%); } }
     .hero-section.collapsed { padding: 15px 40px; }
     .hero-section.collapsed h1 { font-size: 20px; margin-bottom: 0; }
-    .hero-section.collapsed p, .hero-section.collapsed .hero-stats { display: none; }
-    .hero-section h1 { color: white; font-size: 32px; font-weight: 600; margin-bottom: 12px; }
-    .hero-section p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto 24px; }
-    .hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .hero-section.collapsed p, .hero-section.collapsed .hero-stats, .hero-section.collapsed .hero-search { display: none; }
+    .hero-section h1 { color: white; font-size: 36px; font-weight: 700; margin-bottom: 12px; position: relative; z-index: 1; }
+    .hero-section p { color: rgba(255,255,255,0.9); font-size: 17px; max-width: 600px; margin: 0 auto 28px; position: relative; z-index: 1; }
+
+    /* Stats animados */
+    .hero-stats { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; position: relative; z-index: 1; margin-bottom: 28px; }
     .stat-item { text-align: center; }
-    .stat-number { font-size: 28px; font-weight: 700; color: white; }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,0.7); }
+    .stat-number { font-size: 36px; font-weight: 700; color: white; line-height: 1; margin-bottom: 4px; }
+    .stat-number.animate { animation: countUp 0.6s ease-out; }
+    @keyframes countUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
+    /* Search en hero */
+    .hero-search { max-width: 500px; margin: 0 auto; position: relative; z-index: 10; }
+    .hero-search-wrapper { position: relative; }
+    .hero-search input { width: 100%; padding: 16px 20px 16px 50px; border: none; border-radius: 12px; font-size: 15px; font-family: inherit; background: rgba(255,255,255,0.95); box-shadow: 0 8px 30px rgba(0,0,0,0.15); transition: all 0.3s ease; }
+    .hero-search input:focus { outline: none; box-shadow: 0 12px 40px rgba(0,0,0,0.2); transform: translateY(-2px); }
+    .hero-search input::placeholder { color: #94a3b8; }
+    .hero-search i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #667eea; width: 20px; height: 20px; }
+
+    /* Main Content */
     .main-content { max-width: 1200px; margin: 0 auto; padding: 40px; }
-    .content-grid { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+    .content-grid { display: grid; grid-template-columns: 300px 1fr; gap: 30px; }
 
+    /* Sidebar mejorado */
     .sidebar { position: sticky; top: 100px; height: fit-content; }
-    .sidebar-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 20px; }
-    .sidebar-title { font-size: 14px; font-weight: 600; color: #547194; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-    .sidebar-title i { width: 18px; height: 18px; }
-    .category-list { list-style: none; }
-    .category-list li { margin-bottom: 4px; }
-    .category-list a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #475569; text-decoration: none; border-radius: 8px; font-size: 14px; transition: all 0.2s ease; cursor: pointer; }
-    .category-list a:hover, .category-list a.active { background: rgba(102, 126, 234, 0.1); color: #547194; }
-    .category-list a i { width: 18px; height: 18px; color: #64748b; }
-    .category-list a:hover i, .category-list a.active i { color: #667eea; }
-    
-    .ask-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; background: linear-gradient(135deg, #547194, #667eea); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
-    .ask-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
+    .sidebar-card { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 20px; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+    .sidebar-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .sidebar-title { font-size: 13px; font-weight: 600; color: #547194; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .sidebar-title i { width: 18px; height: 18px; color: #667eea; }
+
+    /* User card mejorado */
+    .user-info-card { background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(84,113,148,0.08)); border: 1px solid rgba(102,126,234,0.2); position: relative; overflow: hidden; }
+    .user-info-card::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: radial-gradient(circle, rgba(102,126,234,0.1) 0%, transparent 70%); }
+    .user-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; position: relative; z-index: 1; }
+    .user-avatar { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 3px solid #667eea; box-shadow: 0 4px 15px rgba(102,126,234,0.3); }
+    .user-avatar.online { position: relative; }
+    .user-avatar.online::after { content: ''; position: absolute; bottom: 2px; right: 2px; width: 14px; height: 14px; background: #10b981; border: 3px solid white; border-radius: 50%; }
+    .user-name { font-size: 16px; font-weight: 600; color: #1e293b; }
+    .user-role { font-size: 12px; color: #667eea; font-weight: 500; background: rgba(102,126,234,0.15); padding: 2px 10px; border-radius: 20px; display: inline-block; margin-top: 4px; }
+    .ask-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px 20px; background: linear-gradient(135deg, #547194, #667eea); color: white; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; position: relative; z-index: 1; overflow: hidden; }
+    .ask-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+    .ask-btn:hover::before { left: 100%; }
+    .ask-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102,126,234,0.35); }
     .ask-btn i { width: 18px; height: 18px; }
     .ask-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-    .user-info-card { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(84,113,148,0.1)); border: 1px solid rgba(102,126,234,0.2); }
-    .user-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #667eea; }
-    .user-name { font-size: 15px; font-weight: 600; color: #547194; }
-    .user-role { font-size: 12px; color: #64748b; }
+    /* Login prompt */
+    .login-prompt-card { text-align: center; padding: 30px 24px; }
+    .login-prompt-icon { width: 60px; height: 60px; background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(84,113,148,0.15)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+    .login-prompt-icon i { width: 28px; height: 28px; color: #667eea; }
+    .login-prompt-card h4 { font-size: 16px; color: #547194; margin-bottom: 8px; }
+    .login-prompt-card p { font-size: 13px; color: #64748b; margin-bottom: 20px; }
 
+    /* Category list mejorado */
+    .category-list { list-style: none; }
+    .category-list li { margin-bottom: 4px; }
+    .category-list a { display: flex; align-items: center; gap: 12px; padding: 12px 14px; color: #475569; text-decoration: none; border-radius: 10px; font-size: 14px; transition: all 0.2s ease; cursor: pointer; position: relative; }
+    .category-list a::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 0; background: linear-gradient(135deg, #547194, #667eea); border-radius: 2px; transition: height 0.2s ease; }
+    .category-list a:hover, .category-list a.active { background: rgba(102,126,234,0.1); color: #547194; }
+    .category-list a:hover::before, .category-list a.active::before { height: 60%; }
+    .category-list a i { width: 18px; height: 18px; color: #64748b; transition: all 0.2s ease; }
+    .category-list a:hover i, .category-list a.active i { color: #667eea; }
+    .category-count { margin-left: auto; font-size: 11px; font-weight: 600; color: #94a3b8; background: #f1f5f9; padding: 2px 8px; border-radius: 10px; }
+
+    /* Posts area */
     .posts-area { min-width: 0; }
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-    .section-title { font-size: 18px; font-weight: 600; color: #547194; display: flex; align-items: center; gap: 10px; }
-    .section-title i { width: 22px; height: 22px; color: #667eea; }
+
+    /* Toolbar */
+    .posts-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+    .section-title { font-size: 20px; font-weight: 600; color: #547194; display: flex; align-items: center; gap: 10px; margin: 0; }
+    .section-title i { width: 24px; height: 24px; color: #667eea; }
+    .sort-dropdown { display: flex; align-items: center; gap: 8px; }
+    .sort-dropdown label { font-size: 13px; color: #64748b; }
+    .sort-dropdown select { padding: 8px 32px 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 13px; font-family: inherit; background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center; appearance: none; cursor: pointer; transition: all 0.2s ease; color: #475569; }
+    .sort-dropdown select:hover { border-color: #667eea; }
+    .sort-dropdown select:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+
+    /* Posts grid mejorado */
+    .posts-grid { display: grid; gap: 20px; margin-bottom: 40px; }
     
-    .posts-grid { display: grid; gap: 16px; margin-bottom: 40px; }
-    .post-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; transition: all 0.3s ease; cursor: pointer; }
-    .post-card:hover { border-color: #667eea; box-shadow: 0 8px 24px rgba(102,126,234,0.1); transform: translateY(-2px); }
-    .post-card.featured { border-left: 4px solid #667eea; }
-    .post-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(102,126,234,0.15); color: #547194; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; margin-right: 8px; }
+    /* Post card mejorado */
+    .post-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden; }
+    .post-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, #547194, #667eea); transform: scaleY(0); transition: transform 0.3s ease; transform-origin: top; }
+    .post-card:hover { border-color: rgba(102,126,234,0.3); box-shadow: 0 12px 40px rgba(102,126,234,0.12); transform: translateY(-4px); }
+    .post-card:hover::before { transform: scaleY(1); }
+    .post-card.featured { background: linear-gradient(135deg, rgba(102,126,234,0.03), rgba(84,113,148,0.03)); border-color: rgba(102,126,234,0.2); }
+    .post-card.featured::before { transform: scaleY(1); }
+
+    .post-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+    .post-author-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #e2e8f0; flex-shrink: 0; transition: all 0.3s ease; }
+    .post-card:hover .post-author-avatar { border-color: #667eea; }
+    .post-author-info { flex: 1; min-width: 0; }
+    .post-author-name { font-size: 14px; font-weight: 600; color: #547194; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .author-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+    .author-badge.profesor { background: linear-gradient(135deg, #547194, #667eea); color: white; }
+    .author-badge.admin { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+    .post-date { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+
+    .post-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .post-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+    .post-badge i { width: 12px; height: 12px; }
+    .post-badge.category { background: #f1f5f9; color: #64748b; }
     .post-badge.announcement { background: linear-gradient(135deg, #547194, #667eea); color: white; }
+    .post-badge.pinned { background: rgba(102,126,234,0.15); color: #547194; }
     .post-badge.resolved { background: #d1fae5; color: #065f46; }
     .post-badge.closed { background: #fee2e2; color: #991b1b; }
-    .post-badge i { width: 12px; height: 12px; }
-    .post-title { font-size: 16px; font-weight: 600; color: #547194; margin-bottom: 8px; line-height: 1.4; }
-    .post-excerpt { font-size: 14px; color: #64748b; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .post-meta { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+
+    .post-title { font-size: 17px; font-weight: 600; color: #1e293b; margin-bottom: 10px; line-height: 1.4; transition: color 0.2s ease; }
+    .post-card:hover .post-title { color: #547194; }
+    .post-excerpt { font-size: 14px; color: #64748b; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6; }
+
+    /* Post preview de respuestas */
+    .post-preview { background: #f8fafc; border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; border-left: 3px solid #667eea; }
+    .post-preview-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .post-preview-avatar { width: 22px; height: 22px; border-radius: 50%; }
+    .post-preview-author { font-size: 12px; font-weight: 600; color: #547194; }
+    .post-preview-badge { font-size: 9px; background: #667eea; color: white; padding: 1px 6px; border-radius: 8px; }
+    .post-preview-text { font-size: 13px; color: #64748b; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .post-meta { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; padding-top: 14px; border-top: 1px solid #f1f5f9; }
     .meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #94a3b8; }
-    .meta-item i { width: 14px; height: 14px; }
-    .meta-item.votes { color: #667eea; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.2s ease; }
-    .meta-item.votes:hover { background: rgba(102,126,234,0.1); }
-    .meta-item.votes.voted { color: white; background: #667eea; }
-    .author-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
+    .meta-item i { width: 16px; height: 16px; }
+    .meta-item.votes { color: #64748b; cursor: pointer; padding: 6px 12px; border-radius: 8px; transition: all 0.2s ease; background: #f8fafc; }
+    .meta-item.votes:hover { background: rgba(102,126,234,0.1); color: #667eea; }
+    .meta-item.votes.voted { color: white; background: linear-gradient(135deg, #547194, #667eea); }
+    .meta-item.votes.voted i { fill: white; }
 
-    .empty-state { text-align: center; padding: 60px 20px; color: #64748b; }
-    .empty-state i { width: 64px; height: 64px; color: #cbd5e1; margin-bottom: 16px; }
-    .empty-state h3 { font-size: 18px; color: #547194; margin-bottom: 8px; }
-    .empty-state p { font-size: 14px; margin-bottom: 20px; }
+    /* Empty state mejorado */
+    .empty-state { text-align: center; padding: 80px 20px; }
+    .empty-state-icon { width: 80px; height: 80px; background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(84,113,148,0.15)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .empty-state-icon i { width: 40px; height: 40px; color: #667eea; }
+    .empty-state h3 { font-size: 20px; color: #547194; margin-bottom: 10px; }
+    .empty-state p { font-size: 14px; color: #64748b; margin-bottom: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
 
-    .loading { text-align: center; padding: 40px; color: #64748b; }
-    .loading i { animation: spin 1s linear infinite; }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    /* Skeleton loaders */
+    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skeleton-card { height: 180px; border-radius: 16px; margin-bottom: 20px; }
+    .skeleton-avatar { width: 44px; height: 44px; border-radius: 50%; }
+    .skeleton-text { height: 14px; margin-bottom: 8px; }
+    .skeleton-text.short { width: 40%; }
+    .skeleton-text.medium { width: 70%; }
 
-    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+    /* Loading state */
+    .loading { text-align: center; padding: 60px; }
+    .loading-spinner { width: 48px; height: 48px; border: 3px solid #e2e8f0; border-top-color: #667eea; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading p { color: #64748b; font-size: 14px; }
+
+    /* Modal mejorado */
+    .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
     .modal.active { display: flex; opacity: 1; }
-    .modal-content { background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.3s ease; }
-    .modal.active .modal-content { transform: translateY(0); }
-    .modal-header { padding: 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+    .modal-content { background: white; border-radius: 24px; max-width: 600px; width: 100%; max-height: 90vh; overflow: hidden; transform: translateY(20px) scale(0.95); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .modal.active .modal-content { transform: translateY(0) scale(1); }
+    .modal-header { padding: 24px 28px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, rgba(102,126,234,0.05), rgba(84,113,148,0.05)); }
     .modal-header h2 { font-size: 20px; color: #547194; display: flex; align-items: center; gap: 12px; }
     .modal-header h2 i { width: 24px; height: 24px; color: #667eea; }
-    .close-modal { background: none; border: none; cursor: pointer; padding: 8px; border-radius: 8px; transition: all 0.2s ease; }
-    .close-modal:hover { background: #f1f5f9; }
+    .close-modal { background: white; border: 1px solid #e2e8f0; cursor: pointer; padding: 8px; border-radius: 10px; transition: all 0.2s ease; }
+    .close-modal:hover { background: #f1f5f9; border-color: #667eea; }
     .close-modal i { width: 20px; height: 20px; color: #64748b; }
-    .modal-body { padding: 24px; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 8px; }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-family: inherit; transition: all 0.2s ease; }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-    .form-group textarea { min-height: 120px; resize: vertical; }
-    .modal-footer { padding: 20px 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; }
-    .btn { padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
-    .btn-secondary { background: #f1f5f9; color: #475569; border: none; }
-    .btn-secondary:hover { background: #e2e8f0; }
-    .btn-primary { background: linear-gradient(135deg, #547194, #667eea); color: white; border: none; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
+    .modal-body { padding: 28px; max-height: 60vh; overflow-y: auto; }
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 10px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; font-family: inherit; transition: all 0.2s ease; background: #fafafa; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 4px rgba(102,126,234,0.1); background: white; }
+    .form-group textarea { min-height: 140px; resize: vertical; }
+    .form-group small { display: block; margin-top: 6px; font-size: 12px; color: #94a3b8; }
+    .modal-footer { padding: 20px 28px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 12px; background: #f8fafc; }
+    .btn { padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; border: none; }
+    .btn-secondary { background: white; color: #475569; border: 1px solid #e2e8f0; }
+    .btn-secondary:hover { background: #f1f5f9; border-color: #cbd5e1; }
+    .btn-primary { background: linear-gradient(135deg, #547194, #667eea); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102,126,234,0.35); }
     .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
+    /* Footer */
     .help-footer { background: white; border-top: 1px solid #e2e8f0; padding: 30px 40px; margin-top: 60px; }
     .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 24px; }
@@ -119,16 +210,31 @@
     .footer-links a:hover { color: #667eea; }
     .footer-copy { color: #94a3b8; font-size: 13px; }
 
-    @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } .sidebar { position: static; } }
-    @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 20px; } }
+    /* Responsive */
+    @media (max-width: 900px) { 
+      .content-grid { grid-template-columns: 1fr; } 
+      .sidebar { position: static; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+      .sidebar-card { margin-bottom: 0; }
+    }
+    @media (max-width: 768px) { 
+      .header-top { padding: 12px 20px; } 
+      .header-nav { display: none; } 
+      .hero-section { padding: 35px 20px; } 
+      .hero-section h1 { font-size: 26px; } 
+      .hero-stats { gap: 30px; }
+      .stat-number { font-size: 28px; }
+      .main-content { padding: 24px 16px; } 
+      .posts-toolbar { flex-direction: column; align-items: stretch; }
+    }
 
+    /* Animations */
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .post-card { animation: fadeInUp 0.5s ease forwards; opacity: 0; }
-    .post-card:nth-child(1) { animation-delay: 0.1s; }
-    .post-card:nth-child(2) { animation-delay: 0.15s; }
-    .post-card:nth-child(3) { animation-delay: 0.2s; }
-    .post-card:nth-child(4) { animation-delay: 0.25s; }
-    .post-card:nth-child(5) { animation-delay: 0.3s; }
+    .post-card:nth-child(1) { animation-delay: 0.05s; }
+    .post-card:nth-child(2) { animation-delay: 0.1s; }
+    .post-card:nth-child(3) { animation-delay: 0.15s; }
+    .post-card:nth-child(4) { animation-delay: 0.2s; }
+    .post-card:nth-child(5) { animation-delay: 0.25s; }
   </style>
 </head>
 <body>
@@ -146,12 +252,27 @@
       </nav>
     </div>
     <div class="hero-section">
-      <h1>Bienvenido a la Comunidad de Ayuda CEMI</h1>
-      <p>Encuentra respuestas, comparte conocimientos y conecta con otros usuarios de CEMI Classroom</p>
+      <h1>Comunidad de Ayuda CEMI</h1>
+      <p>Conecta con profesores y alumnos, comparte conocimientos y encuentra respuestas</p>
       <div class="hero-stats">
-        <div class="stat-item"><div class="stat-number" id="statPreguntas">0</div><div class="stat-label">Preguntas</div></div>
-        <div class="stat-item"><div class="stat-number" id="statRespuestas">0</div><div class="stat-label">Respuestas</div></div>
-        <div class="stat-item"><div class="stat-number" id="statParticipantes">0</div><div class="stat-label">Participantes</div></div>
+        <div class="stat-item">
+          <div class="stat-number" id="statPreguntas">0</div>
+          <div class="stat-label">Preguntas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="statRespuestas">0</div>
+          <div class="stat-label">Respuestas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="statParticipantes">0</div>
+          <div class="stat-label">Participantes</div>
+        </div>
+      </div>
+      <div class="hero-search">
+        <div class="hero-search-wrapper">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="Buscar en la comunidad..." id="communitySearch">
+        </div>
       </div>
     </div>
   </header>
@@ -159,89 +280,125 @@
   <main class="main-content">
     <div class="content-grid">
       <aside class="sidebar">
+        <!-- User card (logged in) -->
         <div class="sidebar-card user-info-card" id="userInfoCard" style="display: none;">
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-            <img src="" alt="" class="user-avatar" id="userAvatar">
+          <div class="user-header">
+            <img src="" alt="" class="user-avatar online" id="userAvatar">
             <div>
               <div class="user-name" id="userName"></div>
               <div class="user-role" id="userRole"></div>
             </div>
           </div>
-          <button class="ask-btn" onclick="openAskModal()" id="askBtn"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>
+          <button class="ask-btn" onclick="openAskModal()" id="askBtn">
+            <i data-lucide="plus-circle"></i>
+            Hacer una pregunta
+          </button>
         </div>
         
-        <div class="sidebar-card" id="loginPromptCard">
-          <div class="sidebar-title"><i data-lucide="log-in"></i>Participa</div>
-          <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">Inicia sesion para hacer preguntas y responder a la comunidad.</p>
-          <a href="login-selector.html" class="ask-btn"><i data-lucide="log-in"></i>Iniciar sesion</a>
+        <!-- Login prompt (not logged in) -->
+        <div class="sidebar-card login-prompt-card" id="loginPromptCard">
+          <div class="login-prompt-icon">
+            <i data-lucide="user-plus"></i>
+          </div>
+          <h4>Únete a la conversación</h4>
+          <p>Inicia sesión para hacer preguntas y ayudar a otros usuarios.</p>
+          <a href="login-selector.html" class="ask-btn">
+            <i data-lucide="log-in"></i>
+            Iniciar sesión
+          </a>
         </div>
 
+        <!-- Categories -->
         <div class="sidebar-card">
-          <h3 class="sidebar-title"><i data-lucide="layers"></i>Categorias</h3>
-          <ul class="category-list">
-            <li><a class="active" data-filter="all"><i data-lucide="grid"></i> Todas las preguntas</a></li>
-            <li><a data-filter="primeros-pasos"><i data-lucide="rocket"></i> Primeros Pasos</a></li>
-            <li><a data-filter="tareas"><i data-lucide="clipboard-list"></i> Tareas y Entregas</a></li>
-            <li><a data-filter="comunicacion"><i data-lucide="message-circle"></i> Comunicacion</a></li>
-            <li><a data-filter="recursos"><i data-lucide="folder-open"></i> Recursos</a></li>
-            <li><a data-filter="cuenta"><i data-lucide="user"></i> Mi Cuenta</a></li>
-            <li><a data-filter="otro"><i data-lucide="help-circle"></i> Otro</a></li>
+          <h3 class="sidebar-title"><i data-lucide="layers"></i>Categorías</h3>
+          <ul class="category-list" id="categoryList">
+            <li><a class="active" data-filter="all"><i data-lucide="grid-3x3"></i>Todas<span class="category-count" id="countAll">0</span></a></li>
+            <li><a data-filter="primeros-pasos"><i data-lucide="rocket"></i>Primeros Pasos<span class="category-count" id="countPrimeros">0</span></a></li>
+            <li><a data-filter="tareas"><i data-lucide="clipboard-list"></i>Tareas y Entregas<span class="category-count" id="countTareas">0</span></a></li>
+            <li><a data-filter="comunicacion"><i data-lucide="message-circle"></i>Comunicación<span class="category-count" id="countComunicacion">0</span></a></li>
+            <li><a data-filter="recursos"><i data-lucide="folder-open"></i>Recursos<span class="category-count" id="countRecursos">0</span></a></li>
+            <li><a data-filter="cuenta"><i data-lucide="user-cog"></i>Mi Cuenta<span class="category-count" id="countCuenta">0</span></a></li>
+            <li><a data-filter="otro"><i data-lucide="help-circle"></i>Otro<span class="category-count" id="countOtro">0</span></a></li>
           </ul>
         </div>
 
+        <!-- About -->
         <div class="sidebar-card">
           <h3 class="sidebar-title"><i data-lucide="info"></i>Acerca de</h3>
-          <p style="font-size: 13px; color: #64748b;">La comunidad CEMI es un espacio para resolver dudas y compartir experiencias entre profesores y alumnos.</p>
+          <p style="font-size: 13px; color: #64748b; line-height: 1.7;">La comunidad CEMI es un espacio colaborativo donde profesores y alumnos pueden resolver dudas, compartir experiencias y ayudarse mutuamente.</p>
         </div>
       </aside>
 
       <div class="posts-area">
+        <!-- Featured section -->
         <section id="featuredSection" style="display: none;">
-          <div class="section-header"><h2 class="section-title"><i data-lucide="star"></i>Publicaciones destacadas</h2></div>
+          <div class="posts-toolbar">
+            <h2 class="section-title"><i data-lucide="star"></i>Destacados</h2>
+          </div>
           <div class="posts-grid" id="featuredPosts"></div>
         </section>
 
+        <!-- Recent posts -->
         <section>
-          <div class="section-header"><h2 class="section-title"><i data-lucide="clock"></i>Preguntas recientes</h2></div>
+          <div class="posts-toolbar">
+            <h2 class="section-title"><i data-lucide="message-square"></i>Preguntas</h2>
+            <div class="sort-dropdown">
+              <label>Ordenar por:</label>
+              <select id="sortSelect" onchange="handleSort()">
+                <option value="recent">Más recientes</option>
+                <option value="popular">Más votadas</option>
+                <option value="unanswered">Sin respuesta</option>
+              </select>
+            </div>
+          </div>
           <div id="postsContainer">
-            <div class="loading"><i data-lucide="loader"></i> Cargando preguntas...</div>
+            <div class="loading">
+              <div class="loading-spinner"></div>
+              <p>Cargando preguntas...</p>
+            </div>
           </div>
         </section>
       </div>
     </div>
   </main>
 
+  <!-- Ask Question Modal -->
   <div class="modal" id="askModal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2><i data-lucide="help-circle"></i> Hacer una pregunta</h2>
+        <h2><i data-lucide="help-circle"></i>Hacer una pregunta</h2>
         <button class="close-modal" onclick="closeAskModal()"><i data-lucide="x"></i></button>
       </div>
       <div class="modal-body">
         <div class="form-group">
-          <label>Categoria</label>
+          <label>Categoría</label>
           <select id="questionCategory">
-            <option value="">Selecciona una categoria...</option>
-            <option value="primeros-pasos">Primeros Pasos</option>
-            <option value="tareas">Tareas y Entregas</option>
-            <option value="comunicacion">Comunicacion</option>
-            <option value="recursos">Recursos y Materiales</option>
-            <option value="cuenta">Mi Cuenta</option>
-            <option value="otro">Otro</option>
+            <option value="">Selecciona una categoría...</option>
+            <option value="primeros-pasos">🚀 Primeros Pasos</option>
+            <option value="tareas">📋 Tareas y Entregas</option>
+            <option value="comunicacion">💬 Comunicación</option>
+            <option value="recursos">📁 Recursos y Materiales</option>
+            <option value="cuenta">👤 Mi Cuenta</option>
+            <option value="otro">❓ Otro</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Titulo de tu pregunta</label>
-          <input type="text" id="questionTitle" placeholder="Escribe un titulo claro y conciso..." maxlength="150">
+          <label>Título de tu pregunta</label>
+          <input type="text" id="questionTitle" placeholder="Escribe un título claro y descriptivo..." maxlength="150">
+          <small>Sé específico para obtener mejores respuestas</small>
         </div>
         <div class="form-group">
-          <label>Descripcion</label>
-          <textarea id="questionDescription" placeholder="Describe tu problema o pregunta con el mayor detalle posible..." maxlength="2000"></textarea>
+          <label>Descripción</label>
+          <textarea id="questionDescription" placeholder="Describe tu problema o pregunta con el mayor detalle posible. Incluye pasos que hayas intentado..." maxlength="2000"></textarea>
+          <small>Mientras más detalles proporciones, mejor podrán ayudarte</small>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeAskModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="submitQuestion()" id="submitBtn"><i data-lucide="send"></i>Publicar pregunta</button>
+        <button class="btn btn-primary" onclick="submitQuestion()" id="submitBtn">
+          <i data-lucide="send"></i>
+          Publicar pregunta
+        </button>
       </div>
     </div>
   </div>
@@ -250,10 +407,10 @@
     <div class="footer-content">
       <div class="footer-links">
         <a href="ayuda-classroom.html">Centro de Ayuda</a>
-        <a href="privacidad.html">Politica de Privacidad</a>
-        <a href="terminos.html">Terminos de Servicio</a>
+        <a href="privacidad.html">Política de Privacidad</a>
+        <a href="terminos.html">Términos de Servicio</a>
       </div>
-      <div class="footer-copy">2025 CEMI - Centro Educativo de Musica Integral</div>
+      <div class="footer-copy">© 2025 CEMI - Centro Educativo de Música Integral</div>
     </div>
   </footer>
 
@@ -261,9 +418,10 @@
     let currentUser = null;
     let allPreguntas = [];
     let currentFilter = 'all';
+    let currentSort = 'recent';
+    let searchQuery = '';
 
     function checkSession() {
-      // Leer datos de sesión del localStorage (formato usado por classroom-login.js)
       const nombre = localStorage.getItem('nombre');
       const rol = localStorage.getItem('rol');
       const avatar = localStorage.getItem('avatar');
@@ -312,40 +470,106 @@
       }
     }
 
+    // Animación de contadores
+    function animateCounter(element, target) {
+      const duration = 600;
+      const start = 0;
+      const startTime = performance.now();
+      
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (target - start) * easeOut);
+        element.textContent = current;
+        
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
     async function loadPreguntas() {
       try {
         const response = await fetch('/api/comunidad/preguntas');
         const data = await response.json();
         if (data.success) {
           allPreguntas = data.preguntas;
-          document.getElementById('statPreguntas').textContent = data.stats.preguntas;
-          document.getElementById('statRespuestas').textContent = data.stats.respuestas;
-          document.getElementById('statParticipantes').textContent = data.stats.participantes;
+          
+          // Animar contadores
+          animateCounter(document.getElementById('statPreguntas'), data.stats.preguntas);
+          animateCounter(document.getElementById('statRespuestas'), data.stats.respuestas);
+          animateCounter(document.getElementById('statParticipantes'), data.stats.participantes);
+          
+          // Actualizar contadores de categorías
+          updateCategoryCounts();
           renderPreguntas();
         }
       } catch (error) {
         console.error('Error cargando preguntas:', error);
-        document.getElementById('postsContainer').innerHTML = `
-          <div class="empty-state">
-            <i data-lucide="message-circle"></i>
-            <h3>No hay preguntas aun</h3>
-            <p>Se el primero en hacer una pregunta a la comunidad.</p>
-            ${currentUser ? '<button class="btn btn-primary" onclick="openAskModal()"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>' : ''}
-          </div>
-        `;
-        lucide.createIcons();
+        showEmptyState('No se pudieron cargar las preguntas', 'Intenta recargar la página');
       }
     }
 
+    function updateCategoryCounts() {
+      document.getElementById('countAll').textContent = allPreguntas.length;
+      const counts = {
+        'primeros-pasos': 0, 'tareas': 0, 'comunicacion': 0,
+        'recursos': 0, 'cuenta': 0, 'otro': 0
+      };
+      allPreguntas.forEach(p => {
+        if (counts[p.categoria] !== undefined) counts[p.categoria]++;
+      });
+      document.getElementById('countPrimeros').textContent = counts['primeros-pasos'];
+      document.getElementById('countTareas').textContent = counts['tareas'];
+      document.getElementById('countComunicacion').textContent = counts['comunicacion'];
+      document.getElementById('countRecursos').textContent = counts['recursos'];
+      document.getElementById('countCuenta').textContent = counts['cuenta'];
+      document.getElementById('countOtro').textContent = counts['otro'];
+    }
+
+    function getFilteredAndSortedPreguntas() {
+      let preguntas = [...allPreguntas];
+      
+      // Filtrar por categoría
+      if (currentFilter !== 'all') {
+        preguntas = preguntas.filter(p => p.categoria === currentFilter);
+      }
+      
+      // Filtrar por búsqueda
+      if (searchQuery) {
+        preguntas = preguntas.filter(p => 
+          p.titulo.toLowerCase().includes(searchQuery) ||
+          p.descripcion.toLowerCase().includes(searchQuery) ||
+          p.autorNombre.toLowerCase().includes(searchQuery)
+        );
+      }
+      
+      // Ordenar
+      switch (currentSort) {
+        case 'popular':
+          preguntas.sort((a, b) => b.votos - a.votos);
+          break;
+        case 'unanswered':
+          preguntas = preguntas.filter(p => !p.numRespuestas || p.numRespuestas === 0);
+          preguntas.sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
+          break;
+        default: // recent
+          preguntas.sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
+      }
+      
+      return preguntas;
+    }
+
     function renderPreguntas() {
-      let preguntas = currentFilter === 'all' ? allPreguntas : allPreguntas.filter(p => p.categoria === currentFilter);
+      const preguntas = getFilteredAndSortedPreguntas();
       const destacados = preguntas.filter(p => p.destacado || p.esAnuncio);
       const regulares = preguntas.filter(p => !p.destacado && !p.esAnuncio);
 
+      // Featured section
       const featuredSection = document.getElementById('featuredSection');
       const featuredContainer = document.getElementById('featuredPosts');
       
-      if (destacados.length > 0) {
+      if (destacados.length > 0 && currentFilter === 'all' && !searchQuery) {
         featuredSection.style.display = 'block';
         featuredContainer.innerHTML = destacados.map(p => renderPostCard(p, true)).join('');
       } else {
@@ -355,51 +579,88 @@
       const container = document.getElementById('postsContainer');
       
       if (regulares.length === 0 && destacados.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <i data-lucide="message-circle"></i>
-            <h3>No hay preguntas aun</h3>
-            <p>Se el primero en hacer una pregunta a la comunidad.</p>
-            ${currentUser ? '<button class="btn btn-primary" onclick="openAskModal()"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>' : ''}
-          </div>
-        `;
-      } else if (regulares.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <i data-lucide="filter"></i>
-            <h3>No hay preguntas en esta categoria</h3>
-            <p>Prueba con otra categoria o haz la primera pregunta.</p>
-          </div>
-        `;
+        if (searchQuery) {
+          showEmptyState('No se encontraron resultados', `No hay preguntas que coincidan con "${searchQuery}"`);
+        } else if (currentSort === 'unanswered') {
+          showEmptyState('¡Excelente!', 'Todas las preguntas han sido respondidas');
+        } else {
+          showEmptyState('No hay preguntas aún', 'Sé el primero en hacer una pregunta a la comunidad');
+        }
       } else {
         container.innerHTML = `<div class="posts-grid">${regulares.map(p => renderPostCard(p, false)).join('')}</div>`;
       }
       lucide.createIcons();
     }
 
+    function showEmptyState(title, message) {
+      document.getElementById('postsContainer').innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon"><i data-lucide="message-circle"></i></div>
+          <h3>${title}</h3>
+          <p>${message}</p>
+          ${currentUser ? '<button class="btn btn-primary" onclick="openAskModal()"><i data-lucide="plus-circle"></i>Hacer una pregunta</button>' : ''}
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
     function renderPostCard(pregunta, isFeatured) {
-      const fecha = new Date(pregunta.fechaCreacion).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+      const fecha = formatTimeAgo(pregunta.fechaCreacion);
       const votanteKey = currentUser ? `${currentUser.tipo}_${currentUser.id}` : null;
       const hasVoted = votanteKey && pregunta.votantes && pregunta.votantes.includes(votanteKey);
       
-      let badges = '';
-      if (pregunta.esAnuncio) badges += '<span class="post-badge announcement"><i data-lucide="megaphone"></i>ANUNCIO</span>';
-      else if (pregunta.destacado) badges += '<span class="post-badge"><i data-lucide="pin"></i>DESTACADO</span>';
-      if (pregunta.estado === 'resuelta') badges += '<span class="post-badge resolved"><i data-lucide="check-circle"></i>RESUELTA</span>';
-      else if (pregunta.estado === 'cerrada') badges += '<span class="post-badge closed"><i data-lucide="lock"></i>CERRADA</span>';
+      const categoryNames = {
+        'primeros-pasos': 'Primeros Pasos', 'tareas': 'Tareas', 'comunicacion': 'Comunicación',
+        'recursos': 'Recursos', 'cuenta': 'Mi Cuenta', 'otro': 'Otro'
+      };
+
+      let badges = `<span class="post-badge category">${categoryNames[pregunta.categoria] || pregunta.categoria}</span>`;
+      if (pregunta.esAnuncio) badges += '<span class="post-badge announcement"><i data-lucide="megaphone"></i>Anuncio</span>';
+      else if (pregunta.destacado) badges += '<span class="post-badge pinned"><i data-lucide="pin"></i>Fijado</span>';
+      if (pregunta.estado === 'resuelta') badges += '<span class="post-badge resolved"><i data-lucide="check-circle"></i>Resuelta</span>';
+      else if (pregunta.estado === 'cerrada') badges += '<span class="post-badge closed"><i data-lucide="lock"></i>Cerrada</span>';
 
       const avatarUrl = pregunta.autorAvatar 
         ? (pregunta.autorAvatar.startsWith('http') ? pregunta.autorAvatar : `/uploads/avatars/${pregunta.autorAvatar}`)
-        : `https://ui-avatars.com/api/?name=${encodeURIComponent(pregunta.autorNombre)}&background=667eea&color=fff&size=40`;
+        : `https://ui-avatars.com/api/?name=${encodeURIComponent(pregunta.autorNombre)}&background=667eea&color=fff&size=88`;
+
+      let authorBadge = '';
+      if (pregunta.autorTipo === 'profesor') authorBadge = '<span class="author-badge profesor">Profesor</span>';
+      else if (pregunta.autorTipo === 'admin') authorBadge = '<span class="author-badge admin">Admin</span>';
+
+      // Preview de respuesta (si hay)
+      let previewHtml = '';
+      if (pregunta.respuestas && pregunta.respuestas.length > 0) {
+        const bestResp = pregunta.respuestas.find(r => r.esRecomendada) || pregunta.respuestas[0];
+        const respAvatar = bestResp.autorAvatar 
+          ? (bestResp.autorAvatar.startsWith('http') ? bestResp.autorAvatar : `/uploads/avatars/${bestResp.autorAvatar}`)
+          : `https://ui-avatars.com/api/?name=${encodeURIComponent(bestResp.autorNombre)}&background=667eea&color=fff&size=44`;
+        previewHtml = `
+          <div class="post-preview">
+            <div class="post-preview-header">
+              <img src="${respAvatar}" class="post-preview-avatar" alt="">
+              <span class="post-preview-author">${escapeHtml(bestResp.autorNombre)}</span>
+              ${bestResp.esRecomendada ? '<span class="post-preview-badge">Mejor respuesta</span>' : ''}
+            </div>
+            <div class="post-preview-text">${escapeHtml(bestResp.contenido)}</div>
+          </div>
+        `;
+      }
 
       return `
         <div class="post-card ${isFeatured ? 'featured' : ''}" onclick="viewPregunta('${pregunta.id}')">
-          ${badges}
+          <div class="post-header">
+            <img src="${avatarUrl}" alt="" class="post-author-avatar">
+            <div class="post-author-info">
+              <div class="post-author-name">${escapeHtml(pregunta.autorNombre)}${authorBadge}</div>
+              <div class="post-date">${fecha}</div>
+            </div>
+          </div>
+          <div class="post-badges">${badges}</div>
           <h3 class="post-title">${escapeHtml(pregunta.titulo)}</h3>
           <p class="post-excerpt">${escapeHtml(pregunta.descripcion)}</p>
+          ${previewHtml}
           <div class="post-meta">
-            <span class="meta-item"><img src="${avatarUrl}" alt="" class="author-avatar">${escapeHtml(pregunta.autorNombre)}</span>
-            <span class="meta-item"><i data-lucide="calendar"></i>${fecha}</span>
             <span class="meta-item"><i data-lucide="message-circle"></i>${pregunta.numRespuestas || 0} respuestas</span>
             <span class="meta-item votes ${hasVoted ? 'voted' : ''}" onclick="event.stopPropagation(); votarPregunta('${pregunta.id}')">
               <i data-lucide="thumbs-up"></i>${pregunta.votos} votos
@@ -407,6 +668,18 @@
           </div>
         </div>
       `;
+    }
+
+    function formatTimeAgo(dateString) {
+      const date = new Date(dateString);
+      const now = new Date();
+      const seconds = Math.floor((now - date) / 1000);
+      
+      if (seconds < 60) return 'Hace un momento';
+      if (seconds < 3600) return `Hace ${Math.floor(seconds / 60)} min`;
+      if (seconds < 86400) return `Hace ${Math.floor(seconds / 3600)} horas`;
+      if (seconds < 604800) return `Hace ${Math.floor(seconds / 86400)} días`;
+      return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
     }
 
     function escapeHtml(text) {
@@ -420,7 +693,7 @@
     }
 
     async function votarPregunta(id) {
-      if (!currentUser) { alert('Debes iniciar sesion para votar'); return; }
+      if (!currentUser) { alert('Debes iniciar sesión para votar'); return; }
       try {
         const response = await fetch(`/api/comunidad/preguntas/${id}/votar`, {
           method: 'POST',
@@ -445,8 +718,35 @@
       } catch (error) { console.error('Error al votar:', error); }
     }
 
+    function handleSort() {
+      currentSort = document.getElementById('sortSelect').value;
+      renderPreguntas();
+    }
+
+    // Búsqueda
+    const searchInput = document.getElementById('communitySearch');
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        searchQuery = this.value.toLowerCase().trim();
+        renderPreguntas();
+      }, 300);
+    });
+
+    // Category filters
+    document.querySelectorAll('.category-list a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.category-list a').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        currentFilter = this.dataset.filter;
+        renderPreguntas();
+      });
+    });
+
     function openAskModal() {
-      if (!currentUser) { alert('Debes iniciar sesion para hacer una pregunta'); return; }
+      if (!currentUser) { alert('Debes iniciar sesión para hacer una pregunta'); return; }
       document.getElementById('askModal').classList.add('active');
       document.body.style.overflow = 'hidden';
       lucide.createIcons();
@@ -464,7 +764,10 @@
       const category = document.getElementById('questionCategory').value;
       const title = document.getElementById('questionTitle').value.trim();
       const description = document.getElementById('questionDescription').value.trim();
-      if (!category || !title || !description) { alert('Por favor completa todos los campos'); return; }
+      
+      if (!category) { alert('Selecciona una categoría'); return; }
+      if (!title) { alert('Escribe un título para tu pregunta'); return; }
+      if (!description) { alert('Describe tu pregunta'); return; }
 
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
@@ -485,36 +788,34 @@
         if (data.success) {
           closeAskModal();
           allPreguntas.unshift(data.pregunta);
+          updateCategoryCounts();
           renderPreguntas();
-          document.getElementById('statPreguntas').textContent = parseInt(document.getElementById('statPreguntas').textContent) + 1;
-        } else { alert(data.error || 'Error al publicar la pregunta'); }
-      } catch (error) { console.error('Error:', error); alert('Error al publicar la pregunta'); }
-      finally {
+          animateCounter(document.getElementById('statPreguntas'), allPreguntas.length);
+        } else { 
+          alert(data.error || 'Error al publicar la pregunta'); 
+        }
+      } catch (error) { 
+        console.error('Error:', error); 
+        alert('Error al publicar la pregunta'); 
+      } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i data-lucide="send"></i>Publicar pregunta';
         lucide.createIcons();
       }
     }
 
-    document.querySelectorAll('.category-list a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelectorAll('.category-list a').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        currentFilter = this.dataset.filter;
-        renderPreguntas();
-      });
-    });
-
+    // Modal events
     document.getElementById('askModal').addEventListener('click', function(e) { if (e.target === this) closeAskModal(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeAskModal(); });
 
+    // Collapse hero on scroll
     const heroSection = document.querySelector('.hero-section');
     window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 50) heroSection.classList.add('collapsed');
+      if (window.pageYOffset > 80) heroSection.classList.add('collapsed');
       else heroSection.classList.remove('collapsed');
     });
 
+    // Init
     document.addEventListener('DOMContentLoaded', function() {
       lucide.createIcons();
       checkSession();
