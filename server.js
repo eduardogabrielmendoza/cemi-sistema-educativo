@@ -58,6 +58,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('combined')); // Formato completo para producción
 }
 
+// Confiar en el proxy de Railway
+app.set('trust proxy', 1);
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 1000, // Aumentado a 1000 requests por IP
@@ -66,7 +69,8 @@ const limiter = rateLimit({
   legacyHeaders: false,
   skip: (req) => {
     return req.path.startsWith('/api/chat');
-  }
+  },
+  validate: { xForwardedForHeader: false }
 });
 app.use('/api/', limiter);
 
