@@ -17,6 +17,157 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* Status Banner Styles */
+    .system-status-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .system-status-banner.degraded {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-bottom: 2px solid #f59e0b;
+    }
+
+    .system-status-banner.outage {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border-bottom: 2px solid #ef4444;
+    }
+
+    .system-status-banner.maintenance {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      border-bottom: 2px solid #3b82f6;
+    }
+
+    .status-banner-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .status-banner-content > i {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .system-status-banner.degraded .status-banner-content > i { color: #d97706; }
+    .system-status-banner.outage .status-banner-content > i { color: #dc2626; }
+    .system-status-banner.maintenance .status-banner-content > i { color: #2563eb; }
+
+    #statusBannerText {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .status-banner-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 4px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .system-status-banner.degraded .status-banner-link {
+      color: #b45309;
+      background: rgba(245, 158, 11, 0.2);
+    }
+
+    .system-status-banner.degraded .status-banner-link:hover {
+      background: rgba(245, 158, 11, 0.3);
+    }
+
+    .system-status-banner.outage .status-banner-link {
+      color: #b91c1c;
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .system-status-banner.outage .status-banner-link:hover {
+      background: rgba(239, 68, 68, 0.3);
+    }
+
+    .system-status-banner.maintenance .status-banner-link {
+      color: #1d4ed8;
+      background: rgba(59, 130, 246, 0.2);
+    }
+
+    .system-status-banner.maintenance .status-banner-link:hover {
+      background: rgba(59, 130, 246, 0.3);
+    }
+
+    .status-banner-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .status-banner-close i {
+      width: 18px;
+      height: 18px;
+      color: #64748b;
+    }
+
+    .status-banner-close:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Ajustar navbar cuando el banner está visible */
+    body.has-status-banner .navbar {
+      top: 46px;
+    }
+
+    body.has-status-banner .hero-main {
+      padding-top: calc(100px + 46px);
+    }
+
+    @media (max-width: 768px) {
+      .system-status-banner {
+        padding: 10px 15px;
+      }
+
+      .status-banner-content {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+
+      #statusBannerText {
+        font-size: 0.85rem;
+      }
+
+      .status-banner-link {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -71,6 +222,18 @@
       </div>
     </div>
   </nav>
+
+  <!-- Banner de Status del Sistema -->
+  <div id="systemStatusBanner" class="system-status-banner" style="display: none;">
+    <div class="status-banner-content">
+      <i id="statusBannerIcon" data-lucide="alert-triangle"></i>
+      <span id="statusBannerText">Mensaje del sistema...</span>
+      <a href="status.html" class="status-banner-link">Ver estado <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i></a>
+    </div>
+    <button class="status-banner-close" onclick="hideStatusBanner()">
+      <i data-lucide="x"></i>
+    </button>
+  </div>
 
   <div class="dropdown-menu" id="dropdownMenu">
     <div class="dropdown-backdrop" id="dropdownBackdrop"></div>
@@ -853,6 +1016,62 @@
     
     // Inicializar todos los iconos de Lucide al cargar la página
     lucide.createIcons();
+
+    // ===== BANNER DE STATUS DEL SISTEMA =====
+    async function checkSystemStatus() {
+      try {
+        const response = await fetch('/api/status/banner');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.show_banner && data.incident) {
+            showStatusBanner(data.incident);
+          }
+        }
+      } catch (error) {
+        console.log('Status check failed:', error);
+      }
+    }
+
+    function showStatusBanner(incident) {
+      const banner = document.getElementById('systemStatusBanner');
+      const icon = document.getElementById('statusBannerIcon');
+      const text = document.getElementById('statusBannerText');
+      
+      // Configurar severidad
+      banner.className = 'system-status-banner ' + incident.severity;
+      
+      // Configurar icono
+      const iconMap = {
+        degraded: 'alert-triangle',
+        outage: 'x-circle',
+        maintenance: 'wrench'
+      };
+      icon.setAttribute('data-lucide', iconMap[incident.severity] || 'alert-triangle');
+      
+      // Configurar texto
+      text.textContent = incident.title;
+      
+      // Mostrar banner
+      banner.style.display = 'flex';
+      document.body.classList.add('has-status-banner');
+      
+      // Recrear iconos
+      lucide.createIcons();
+    }
+
+    function hideStatusBanner() {
+      const banner = document.getElementById('systemStatusBanner');
+      banner.style.display = 'none';
+      document.body.classList.remove('has-status-banner');
+      
+      // Guardar en sessionStorage para no mostrar de nuevo en esta sesión
+      sessionStorage.setItem('statusBannerDismissed', 'true');
+    }
+
+    // Verificar si el usuario ya cerró el banner en esta sesión
+    if (!sessionStorage.getItem('statusBannerDismissed')) {
+      checkSystemStatus();
+    }
   </script>
   
   <script src="assets/js/pwa-install.js?v=3.0"></script>

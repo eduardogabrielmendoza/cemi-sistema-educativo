@@ -205,6 +205,13 @@ function initAdminSPA() {
           lucide.createIcons();
           initAyudaInteractivity();
           return;
+        case "status":
+          loader.classList.add("hidden");
+          mainContent.innerHTML = renderStatusSection();
+          mainContent.classList.add("active");
+          lucide.createIcons();
+          await initStatusInteractivity();
+          return;
         default:
           endpoint = "";
           html = "<p>Seleccione una sección</p>";
@@ -1697,6 +1704,1101 @@ function filterAyudaContent(query) {
     resultsCount.classList.add('visible');
   }
 }
+
+// ========================================
+// SECCIÓN DE STATUS DEL SISTEMA - ADMIN
+// ========================================
+
+const STATUS_CONFIG = {
+  labels: {
+    operational: 'Operativo',
+    degraded: 'Degradado',
+    outage: 'Interrupción',
+    maintenance: 'Mantenimiento'
+  },
+  icons: {
+    operational: 'check-circle',
+    degraded: 'alert-triangle',
+    outage: 'x-circle',
+    maintenance: 'wrench'
+  },
+  colors: {
+    operational: '#16a34a',
+    degraded: '#d97706',
+    outage: '#dc2626',
+    maintenance: '#2563eb'
+  }
+};
+
+let currentStatusData = null;
+
+function renderStatusSection() {
+  return `
+    <style>
+      .status-admin-container {
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .status-hero {
+        background: linear-gradient(135deg, #547194 0%, #3d5a7a 100%);
+        border-radius: 16px;
+        padding: 30px;
+        margin-bottom: 25px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .status-hero-info h2 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .status-hero-info h2 i { width: 28px; height: 28px; }
+
+      .status-hero-info p {
+        opacity: 0.9;
+        font-size: 0.95rem;
+      }
+
+      .status-hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .status-btn {
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+      }
+
+      .status-btn i { width: 18px; height: 18px; }
+
+      .status-btn-primary {
+        background: white;
+        color: #547194;
+      }
+
+      .status-btn-primary:hover {
+        background: #f1f5f9;
+        transform: translateY(-2px);
+      }
+
+      .status-btn-secondary {
+        background: rgba(255,255,255,0.15);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.3);
+      }
+
+      .status-btn-secondary:hover {
+        background: rgba(255,255,255,0.25);
+      }
+
+      .status-grid {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 25px;
+      }
+
+      @media (max-width: 1024px) {
+        .status-grid { grid-template-columns: 1fr; }
+      }
+
+      .status-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        border: 1px solid #e2e8f0;
+      }
+
+      .status-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .status-card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .status-card-title i { width: 20px; height: 20px; color: #547194; }
+
+      /* Estado Global */
+      .global-status-display {
+        text-align: center;
+        padding: 30px 20px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+      }
+
+      .global-status-display.operational { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+      .global-status-display.degraded { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+      .global-status-display.outage { background: linear-gradient(135deg, #fee2e2, #fecaca); }
+      .global-status-display.maintenance { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+
+      .global-status-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+
+      .global-status-icon i { width: 30px; height: 30px; }
+      .global-status-icon.operational i { color: #16a34a; }
+      .global-status-icon.degraded i { color: #d97706; }
+      .global-status-icon.outage i { color: #dc2626; }
+      .global-status-icon.maintenance i { color: #2563eb; }
+
+      .global-status-text {
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+
+      .global-status-text.operational { color: #16a34a; }
+      .global-status-text.degraded { color: #d97706; }
+      .global-status-text.outage { color: #dc2626; }
+      .global-status-text.maintenance { color: #2563eb; }
+
+      .global-status-time {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-top: 8px;
+      }
+
+      /* Servicios */
+      .service-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .service-item:last-child { border-bottom: none; }
+
+      .service-info h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 2px;
+      }
+
+      .service-info p {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+
+      .service-status-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .service-status-badge i { width: 14px; height: 14px; }
+
+      .service-status-badge.operational { background: #dcfce7; color: #16a34a; }
+      .service-status-badge.degraded { background: #fef3c7; color: #d97706; }
+      .service-status-badge.outage { background: #fee2e2; color: #dc2626; }
+      .service-status-badge.maintenance { background: #dbeafe; color: #2563eb; }
+
+      /* Incidente Activo */
+      .active-incident-card {
+        background: #fffbeb;
+        border: 2px solid #fbbf24;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .active-incident-card.outage {
+        background: #fef2f2;
+        border-color: #ef4444;
+      }
+
+      .active-incident-card.maintenance {
+        background: #eff6ff;
+        border-color: #3b82f6;
+      }
+
+      .incident-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .incident-badge.degraded { background: #fef3c7; color: #b45309; }
+      .incident-badge.outage { background: #fee2e2; color: #b91c1c; }
+      .incident-badge.maintenance { background: #dbeafe; color: #1d4ed8; }
+
+      .incident-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 8px;
+      }
+
+      .incident-message {
+        font-size: 0.9rem;
+        color: #475569;
+        margin-bottom: 12px;
+        line-height: 1.5;
+      }
+
+      .incident-meta {
+        font-size: 0.8rem;
+        color: #64748b;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .incident-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .incident-meta i { width: 14px; height: 14px; }
+
+      .incident-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(0,0,0,0.1);
+      }
+
+      .incident-action-btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+
+      .incident-action-btn i { width: 16px; height: 16px; }
+
+      .incident-action-btn.resolve {
+        background: #16a34a;
+        color: white;
+      }
+
+      .incident-action-btn.resolve:hover { background: #15803d; }
+
+      .incident-action-btn.update {
+        background: #f1f5f9;
+        color: #475569;
+      }
+
+      .incident-action-btn.update:hover { background: #e2e8f0; }
+
+      .incident-action-btn.delete {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+
+      .incident-action-btn.delete:hover { background: #fecaca; }
+
+      /* Historial */
+      .history-list {
+        max-height: 400px;
+        overflow-y: auto;
+      }
+
+      .history-item {
+        padding: 14px;
+        background: #f8fafc;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border-left: 3px solid;
+      }
+
+      .history-item.degraded { border-color: #f59e0b; }
+      .history-item.outage { border-color: #ef4444; }
+      .history-item.maintenance { border-color: #3b82f6; }
+
+      .history-item-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      }
+
+      .history-item-title {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 0.9rem;
+      }
+
+      .history-item-resolved {
+        font-size: 0.75rem;
+        color: #16a34a;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .history-item-resolved i { width: 12px; height: 12px; }
+
+      .history-item-dates {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+
+      .no-history {
+        text-align: center;
+        padding: 30px;
+        color: #94a3b8;
+      }
+
+      .no-history i { width: 40px; height: 40px; margin-bottom: 10px; opacity: 0.5; }
+
+      /* Modal de Incidente */
+      .status-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+      }
+
+      .status-modal-overlay.active { display: flex; }
+
+      .status-modal {
+        background: white;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      }
+
+      .status-modal-header {
+        padding: 24px 24px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .status-modal-header h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .status-modal-close {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #64748b;
+        padding: 4px;
+      }
+
+      .status-modal-close:hover { color: #1e293b; }
+      .status-modal-close i { width: 24px; height: 24px; }
+
+      .status-modal-body { padding: 24px; }
+
+      .status-form-group {
+        margin-bottom: 20px;
+      }
+
+      .status-form-group label {
+        display: block;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+
+      .status-form-group input,
+      .status-form-group textarea,
+      .status-form-group select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        transition: border-color 0.2s;
+      }
+
+      .status-form-group input:focus,
+      .status-form-group textarea:focus,
+      .status-form-group select:focus {
+        outline: none;
+        border-color: #547194;
+      }
+
+      .status-form-group textarea { resize: vertical; min-height: 100px; }
+
+      .status-checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .status-checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background: #f8fafc;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .status-checkbox-item:hover { background: #f1f5f9; }
+
+      .status-checkbox-item input { width: 18px; height: 18px; cursor: pointer; }
+
+      .status-checkbox-item span { font-size: 0.9rem; color: #475569; }
+
+      .banner-toggle {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px;
+        background: #f8fafc;
+        border-radius: 10px;
+      }
+
+      .banner-toggle input { width: 18px; height: 18px; }
+      .banner-toggle label { font-weight: 500; color: #475569; cursor: pointer; }
+
+      .status-modal-footer {
+        padding: 0 24px 24px;
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+      }
+
+      .status-modal-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+      }
+
+      .status-modal-btn.cancel {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+
+      .status-modal-btn.cancel:hover { background: #e2e8f0; }
+
+      .status-modal-btn.submit {
+        background: linear-gradient(135deg, #547194, #3d5a7a);
+        color: white;
+      }
+
+      .status-modal-btn.submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(84, 113, 148, 0.3);
+      }
+
+      /* Banner Preview */
+      .banner-preview {
+        margin-top: 20px;
+        padding: 16px;
+        border-radius: 10px;
+        border: 2px dashed #e2e8f0;
+      }
+
+      .banner-preview-label {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .banner-preview-content {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .banner-preview-content.outage {
+        background: #fee2e2;
+        border-color: #ef4444;
+      }
+
+      .banner-preview-content.maintenance {
+        background: #dbeafe;
+        border-color: #3b82f6;
+      }
+
+      .banner-preview-content i { width: 20px; height: 20px; }
+      .banner-preview-content.degraded i { color: #d97706; }
+      .banner-preview-content.outage i { color: #dc2626; }
+      .banner-preview-content.maintenance i { color: #2563eb; }
+
+      .banner-preview-text {
+        flex: 1;
+        font-size: 0.9rem;
+        color: #1e293b;
+      }
+
+      /* Loading */
+      .status-loading {
+        text-align: center;
+        padding: 40px;
+      }
+
+      .status-loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #e2e8f0;
+        border-top-color: #547194;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+
+    <div class="status-admin-container">
+      <!-- Hero -->
+      <div class="status-hero">
+        <div class="status-hero-info">
+          <h2><i data-lucide="activity"></i> Status del Sistema</h2>
+          <p>Gestiona el estado de los servicios y comunica incidentes a los usuarios.</p>
+        </div>
+        <div class="status-hero-actions">
+          <button class="status-btn status-btn-primary" onclick="openNewIncidentModal()">
+            <i data-lucide="alert-circle"></i>
+            Reportar Incidente
+          </button>
+          <button class="status-btn status-btn-secondary" onclick="window.open('/status.html', '_blank')">
+            <i data-lucide="external-link"></i>
+            Ver Página Pública
+          </button>
+        </div>
+      </div>
+
+      <div class="status-grid">
+        <!-- Panel Principal -->
+        <div class="status-main">
+          <!-- Estado Global -->
+          <div class="status-card">
+            <div class="status-card-header">
+              <span class="status-card-title"><i data-lucide="globe"></i> Estado Global</span>
+              <button class="status-btn status-btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="refreshStatusData()">
+                <i data-lucide="refresh-cw"></i> Actualizar
+              </button>
+            </div>
+            <div id="globalStatusDisplay" class="global-status-display operational">
+              <div class="status-loading">
+                <div class="status-loading-spinner"></div>
+                <p>Cargando...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Incidente Activo -->
+          <div id="activeIncidentContainer"></div>
+
+          <!-- Lista de Servicios -->
+          <div class="status-card">
+            <div class="status-card-header">
+              <span class="status-card-title"><i data-lucide="server"></i> Servicios</span>
+            </div>
+            <div id="servicesList">
+              <div class="status-loading">
+                <div class="status-loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar - Historial -->
+        <div class="status-sidebar">
+          <div class="status-card">
+            <div class="status-card-header">
+              <span class="status-card-title"><i data-lucide="history"></i> Historial</span>
+            </div>
+            <div class="history-list" id="historyList">
+              <div class="status-loading">
+                <div class="status-loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Nuevo Incidente -->
+    <div class="status-modal-overlay" id="incidentModal">
+      <div class="status-modal">
+        <div class="status-modal-header">
+          <h3 id="incidentModalTitle">Reportar Incidente</h3>
+          <button class="status-modal-close" onclick="closeIncidentModal()">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="status-modal-body">
+          <div class="status-form-group">
+            <label>Título del Incidente *</label>
+            <input type="text" id="incidentTitle" placeholder="Ej: Mantenimiento programado del sistema">
+          </div>
+          
+          <div class="status-form-group">
+            <label>Severidad *</label>
+            <select id="incidentSeverity" onchange="updateBannerPreview()">
+              <option value="">Selecciona la severidad...</option>
+              <option value="degraded">⚠️ Degradado - Rendimiento reducido</option>
+              <option value="outage">🔴 Interrupción - Servicio no disponible</option>
+              <option value="maintenance">🔧 Mantenimiento - Trabajo programado</option>
+            </select>
+          </div>
+
+          <div class="status-form-group">
+            <label>Mensaje (opcional)</label>
+            <textarea id="incidentMessage" placeholder="Describe el incidente y las acciones que se están tomando..." oninput="updateBannerPreview()"></textarea>
+          </div>
+
+          <div class="status-form-group">
+            <label>Servicios Afectados</label>
+            <div class="status-checkbox-group" id="servicesCheckboxes">
+              <!-- Se llena dinámicamente -->
+            </div>
+          </div>
+
+          <div class="banner-toggle">
+            <input type="checkbox" id="showBanner" checked>
+            <label for="showBanner">Mostrar banner en la página de inicio</label>
+          </div>
+
+          <div class="banner-preview" id="bannerPreview" style="display: none;">
+            <div class="banner-preview-label">Vista previa del banner</div>
+            <div class="banner-preview-content degraded" id="bannerPreviewContent">
+              <i data-lucide="alert-triangle"></i>
+              <span class="banner-preview-text" id="bannerPreviewText">Título del incidente</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-modal-footer">
+          <button class="status-modal-btn cancel" onclick="closeIncidentModal()">Cancelar</button>
+          <button class="status-modal-btn submit" onclick="submitIncident()">Publicar Incidente</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function initStatusInteractivity() {
+  await loadStatusData();
+}
+
+async function loadStatusData() {
+  try {
+    const response = await fetch('/api/status');
+    if (response.ok) {
+      currentStatusData = await response.json();
+      renderStatusUI();
+    }
+  } catch (error) {
+    console.error('Error cargando status:', error);
+  }
+}
+
+function renderStatusUI() {
+  if (!currentStatusData) return;
+
+  const { global_status, services, active_incident, incidents_history, last_updated } = currentStatusData;
+
+  // Estado Global
+  const globalDisplay = document.getElementById('globalStatusDisplay');
+  globalDisplay.className = `global-status-display ${global_status}`;
+  globalDisplay.innerHTML = `
+    <div class="global-status-icon ${global_status}">
+      <i data-lucide="${STATUS_CONFIG.icons[global_status]}"></i>
+    </div>
+    <div class="global-status-text ${global_status}">${STATUS_CONFIG.labels[global_status]}</div>
+    <div class="global-status-time">Última actualización: ${formatStatusTime(last_updated)}</div>
+  `;
+
+  // Incidente Activo
+  const incidentContainer = document.getElementById('activeIncidentContainer');
+  if (active_incident) {
+    incidentContainer.innerHTML = `
+      <div class="active-incident-card ${active_incident.severity}">
+        <span class="incident-badge ${active_incident.severity}">
+          <i data-lucide="${STATUS_CONFIG.icons[active_incident.severity]}"></i>
+          ${STATUS_CONFIG.labels[active_incident.severity]}
+        </span>
+        <div class="incident-title">${active_incident.title}</div>
+        ${active_incident.message ? `<div class="incident-message">${active_incident.message}</div>` : ''}
+        <div class="incident-meta">
+          <span><i data-lucide="clock"></i> ${formatStatusDate(active_incident.created_at)}</span>
+          ${active_incident.affected_services?.length ? `
+            <span><i data-lucide="layers"></i> ${active_incident.affected_services.length} servicio(s) afectado(s)</span>
+          ` : ''}
+          ${active_incident.show_banner ? '<span><i data-lucide="eye"></i> Banner activo</span>' : ''}
+        </div>
+        <div class="incident-actions">
+          <button class="incident-action-btn resolve" onclick="resolveIncident(${active_incident.id})">
+            <i data-lucide="check"></i> Resolver
+          </button>
+          <button class="incident-action-btn update" onclick="openUpdateModal(${active_incident.id})">
+            <i data-lucide="edit-3"></i> Actualizar
+          </button>
+          <button class="incident-action-btn delete" onclick="deleteIncident(${active_incident.id})">
+            <i data-lucide="trash-2"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    `;
+  } else {
+    incidentContainer.innerHTML = '';
+  }
+
+  // Servicios
+  const servicesList = document.getElementById('servicesList');
+  servicesList.innerHTML = services.map(s => `
+    <div class="service-item">
+      <div class="service-info">
+        <h4>${s.name}</h4>
+        <p>${s.description}</p>
+      </div>
+      <span class="service-status-badge ${s.status}">
+        <i data-lucide="${STATUS_CONFIG.icons[s.status]}"></i>
+        ${STATUS_CONFIG.labels[s.status]}
+      </span>
+    </div>
+  `).join('');
+
+  // Historial
+  const historyList = document.getElementById('historyList');
+  if (incidents_history.length === 0) {
+    historyList.innerHTML = `
+      <div class="no-history">
+        <i data-lucide="check-circle"></i>
+        <p>No hay incidentes en el historial</p>
+      </div>
+    `;
+  } else {
+    historyList.innerHTML = incidents_history.slice(0, 10).map(inc => `
+      <div class="history-item ${inc.severity}">
+        <div class="history-item-header">
+          <span class="history-item-title">${inc.title}</span>
+          <span class="history-item-resolved"><i data-lucide="check"></i> Resuelto</span>
+        </div>
+        <div class="history-item-dates">
+          ${formatStatusDate(inc.created_at)} - ${formatStatusDate(inc.resolved_at)}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Actualizar checkboxes del modal
+  const checkboxContainer = document.getElementById('servicesCheckboxes');
+  if (checkboxContainer) {
+    checkboxContainer.innerHTML = services.map(s => `
+      <label class="status-checkbox-item">
+        <input type="checkbox" name="affected_service" value="${s.id}">
+        <span>${s.name}</span>
+      </label>
+    `).join('');
+  }
+
+  lucide.createIcons();
+}
+
+function formatStatusDate(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('es-AR', {
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+function formatStatusTime(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now - date;
+  const diffMins = Math.floor(diffMs / 60000);
+  
+  if (diffMins < 1) return 'Hace un momento';
+  if (diffMins < 60) return `Hace ${diffMins} minuto${diffMins !== 1 ? 's' : ''}`;
+  
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) return `Hace ${diffHours} hora${diffHours !== 1 ? 's' : ''}`;
+  
+  return formatStatusDate(dateStr);
+}
+
+function refreshStatusData() {
+  loadStatusData();
+  Swal.fire({
+    icon: 'success',
+    title: 'Actualizado',
+    timer: 1500,
+    showConfirmButton: false
+  });
+}
+
+function openNewIncidentModal() {
+  document.getElementById('incidentTitle').value = '';
+  document.getElementById('incidentSeverity').value = '';
+  document.getElementById('incidentMessage').value = '';
+  document.getElementById('showBanner').checked = true;
+  document.getElementById('bannerPreview').style.display = 'none';
+  
+  // Limpiar checkboxes
+  document.querySelectorAll('input[name="affected_service"]').forEach(cb => cb.checked = false);
+  
+  document.getElementById('incidentModalTitle').textContent = 'Reportar Incidente';
+  document.getElementById('incidentModal').classList.add('active');
+  lucide.createIcons();
+}
+
+function closeIncidentModal() {
+  document.getElementById('incidentModal').classList.remove('active');
+}
+
+function updateBannerPreview() {
+  const severity = document.getElementById('incidentSeverity').value;
+  const title = document.getElementById('incidentTitle').value || 'Título del incidente';
+  const preview = document.getElementById('bannerPreview');
+  const content = document.getElementById('bannerPreviewContent');
+  const text = document.getElementById('bannerPreviewText');
+  
+  if (severity) {
+    preview.style.display = 'block';
+    content.className = `banner-preview-content ${severity}`;
+    text.textContent = title;
+    
+    const icon = content.querySelector('i');
+    icon.setAttribute('data-lucide', STATUS_CONFIG.icons[severity]);
+    lucide.createIcons();
+  } else {
+    preview.style.display = 'none';
+  }
+}
+
+async function submitIncident() {
+  const title = document.getElementById('incidentTitle').value.trim();
+  const severity = document.getElementById('incidentSeverity').value;
+  const message = document.getElementById('incidentMessage').value.trim();
+  const showBanner = document.getElementById('showBanner').checked;
+  
+  const affectedServices = [];
+  document.querySelectorAll('input[name="affected_service"]:checked').forEach(cb => {
+    affectedServices.push(cb.value);
+  });
+  
+  if (!title) {
+    Swal.fire({ icon: 'warning', title: 'Título requerido', text: 'Ingresa un título para el incidente.', confirmButtonColor: '#547194' });
+    return;
+  }
+  
+  if (!severity) {
+    Swal.fire({ icon: 'warning', title: 'Severidad requerida', text: 'Selecciona la severidad del incidente.', confirmButtonColor: '#547194' });
+    return;
+  }
+  
+  try {
+    const response = await fetch('/api/status/incident', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title,
+        severity,
+        message,
+        affected_services: affectedServices,
+        show_banner: showBanner
+      })
+    });
+    
+    if (response.ok) {
+      closeIncidentModal();
+      await loadStatusData();
+      Swal.fire({
+        icon: 'success',
+        title: 'Incidente publicado',
+        text: showBanner ? 'El banner se mostrará en la página de inicio.' : 'El incidente ha sido registrado.',
+        confirmButtonColor: '#547194'
+      });
+    } else {
+      const error = await response.json();
+      throw new Error(error.error);
+    }
+  } catch (error) {
+    Swal.fire({ icon: 'error', title: 'Error', text: error.message, confirmButtonColor: '#547194' });
+  }
+}
+
+async function resolveIncident(id) {
+  const result = await Swal.fire({
+    icon: 'question',
+    title: '¿Resolver incidente?',
+    text: 'Esto marcará el incidente como resuelto y restaurará todos los servicios.',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, resolver',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#16a34a'
+  });
+  
+  if (!result.isConfirmed) return;
+  
+  try {
+    const response = await fetch(`/api/status/incident/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ resolve: true })
+    });
+    
+    if (response.ok) {
+      await loadStatusData();
+      Swal.fire({
+        icon: 'success',
+        title: 'Incidente resuelto',
+        text: 'El sistema ha vuelto a la normalidad.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    }
+  } catch (error) {
+    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo resolver el incidente.', confirmButtonColor: '#547194' });
+  }
+}
+
+async function deleteIncident(id) {
+  const result = await Swal.fire({
+    icon: 'warning',
+    title: '¿Eliminar incidente?',
+    text: 'Esto eliminará el incidente sin agregarlo al historial.',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#dc2626'
+  });
+  
+  if (!result.isConfirmed) return;
+  
+  try {
+    const response = await fetch(`/api/status/incident/${id}`, { method: 'DELETE' });
+    
+    if (response.ok) {
+      await loadStatusData();
+      Swal.fire({
+        icon: 'success',
+        title: 'Incidente eliminado',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
+  } catch (error) {
+    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo eliminar el incidente.', confirmButtonColor: '#547194' });
+  }
+}
+
+function openUpdateModal(id) {
+  Swal.fire({
+    title: 'Agregar actualización',
+    input: 'textarea',
+    inputPlaceholder: 'Escribe una actualización sobre el incidente...',
+    showCancelButton: true,
+    confirmButtonText: 'Publicar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#547194',
+    inputValidator: (value) => {
+      if (!value) return 'Escribe un mensaje';
+    }
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(`/api/status/incident/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ update_message: result.value })
+        });
+        
+        if (response.ok) {
+          await loadStatusData();
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualización publicada',
+            timer: 1500,
+            showConfirmButton: false
+          });
+        }
+      } catch (error) {
+        Swal.fire({ icon: 'error', title: 'Error', confirmButtonColor: '#547194' });
+      }
+    }
+  });
+}
+
+// ========================================
+// FIN SECCIÓN STATUS
+// ========================================
 
 function generateTable(section, data) {
   switch (section) {

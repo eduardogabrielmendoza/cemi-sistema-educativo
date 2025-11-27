@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estado del Sistema - CEMI</title>
+  <link rel="icon" type="image/png" href="images/CEMI.png">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      min-height: 100vh;
+      color: #1e293b;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Header */
+    .status-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .status-header .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .status-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .status-header p {
+      color: #64748b;
+      font-size: 1rem;
+    }
+
+    /* Status Principal */
+    .main-status {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .main-status .status-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .main-status .status-icon i {
+      width: 40px;
+      height: 40px;
+    }
+
+    .main-status .status-icon.operational {
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+      color: #16a34a;
+    }
+
+    .main-status .status-icon.degraded {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #d97706;
+    }
+
+    .main-status .status-icon.outage {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      color: #dc2626;
+    }
+
+    .main-status .status-icon.maintenance {
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      color: #2563eb;
+    }
+
+    .main-status h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .main-status h2.operational { color: #16a34a; }
+    .main-status h2.degraded { color: #d97706; }
+    .main-status h2.outage { color: #dc2626; }
+    .main-status h2.maintenance { color: #2563eb; }
+
+    .main-status .last-updated {
+      color: #94a3b8;
+      font-size: 0.875rem;
+    }
+
+    /* Incidente Activo */
+    .active-incident {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid;
+    }
+
+    .active-incident.degraded { border-color: #f59e0b; background: linear-gradient(90deg, #fffbeb, white); }
+    .active-incident.outage { border-color: #ef4444; background: linear-gradient(90deg, #fef2f2, white); }
+    .active-incident.maintenance { border-color: #3b82f6; background: linear-gradient(90deg, #eff6ff, white); }
+
+    .incident-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .incident-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .incident-badge.degraded { background: #fef3c7; color: #b45309; }
+    .incident-badge.outage { background: #fee2e2; color: #b91c1c; }
+    .incident-badge.maintenance { background: #dbeafe; color: #1d4ed8; }
+
+    .incident-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .incident-message {
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .incident-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .incident-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .incident-meta i {
+      width: 14px;
+      height: 14px;
+    }
+
+    .incident-updates {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .incident-updates h4 {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .update-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .update-item:last-child { border-bottom: none; }
+
+    .update-time {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+
+    .update-message {
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    /* Lista de Servicios */
+    .services-section {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .services-section h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .services-section h3 i {
+      width: 20px;
+      height: 20px;
+      color: #547194;
+    }
+
+    .service-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .service-item:last-child { border-bottom: none; }
+
+    .service-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+
+    .service-info p {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .service-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .service-status i { width: 14px; height: 14px; }
+
+    .service-status.operational {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .service-status.degraded {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .service-status.outage {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .service-status.maintenance {
+      background: #dbeafe;
+      color: #2563eb;
+    }
+
+    /* Historial */
+    .history-section {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .history-section h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .history-section h3 i {
+      width: 20px;
+      height: 20px;
+      color: #547194;
+    }
+
+    .history-item {
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      border-left: 3px solid;
+    }
+
+    .history-item:last-child { margin-bottom: 0; }
+
+    .history-item.degraded { border-color: #f59e0b; }
+    .history-item.outage { border-color: #ef4444; }
+    .history-item.maintenance { border-color: #3b82f6; }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .history-title {
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .history-resolved {
+      font-size: 0.75rem;
+      color: #16a34a;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .history-resolved i { width: 12px; height: 12px; }
+
+    .history-message {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .history-dates {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .no-history {
+      text-align: center;
+      padding: 30px;
+      color: #94a3b8;
+    }
+
+    .no-history i {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+      opacity: 0.5;
+    }
+
+    /* Footer */
+    .status-footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .status-footer a {
+      color: #547194;
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .status-footer a:hover {
+      color: #3d5a7a;
+    }
+
+    .status-footer a i {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 60px;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e2e8f0;
+      border-top-color: #547194;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .container { padding: 20px 16px; }
+      .main-status { padding: 30px 20px; }
+      .status-header h1 { font-size: 1.5rem; }
+      .incident-meta { flex-direction: column; gap: 8px; }
+      .service-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="status-header">
+      <img src="images/CEMI.png" alt="CEMI" class="logo">
+      <h1>Estado del Sistema</h1>
+      <p>Monitoreo en tiempo real de los servicios de CEMI</p>
+    </header>
+
+    <div id="statusContent">
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        <p>Cargando estado del sistema...</p>
+      </div>
+    </div>
+
+    <footer class="status-footer">
+      <a href="index.html">
+        <i data-lucide="arrow-left"></i>
+        Volver al inicio
+      </a>
+    </footer>
+  </div>
+
+  <script>
+    const STATUS_LABELS = {
+      operational: 'Todos los sistemas operativos',
+      degraded: 'Rendimiento degradado',
+      outage: 'Interrupción del servicio',
+      maintenance: 'Mantenimiento en curso'
+    };
+
+    const STATUS_ICONS = {
+      operational: 'check-circle',
+      degraded: 'alert-triangle',
+      outage: 'x-circle',
+      maintenance: 'wrench'
+    };
+
+    const SERVICE_STATUS_LABELS = {
+      operational: 'Operativo',
+      degraded: 'Degradado',
+      outage: 'Caído',
+      maintenance: 'Mantenimiento'
+    };
+
+    const SEVERITY_LABELS = {
+      degraded: 'Degradado',
+      outage: 'Interrupción',
+      maintenance: 'Mantenimiento'
+    };
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('es-AR', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function formatRelativeTime(dateStr) {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMins / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffMins < 1) return 'Hace un momento';
+      if (diffMins < 60) return `Hace ${diffMins} minuto${diffMins !== 1 ? 's' : ''}`;
+      if (diffHours < 24) return `Hace ${diffHours} hora${diffHours !== 1 ? 's' : ''}`;
+      return `Hace ${diffDays} día${diffDays !== 1 ? 's' : ''}`;
+    }
+
+    async function loadStatus() {
+      try {
+        const response = await fetch('/api/status');
+        if (!response.ok) throw new Error('Error al cargar');
+        const status = await response.json();
+        renderStatus(status);
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('statusContent').innerHTML = `
+          <div class="main-status">
+            <div class="status-icon operational">
+              <i data-lucide="check-circle"></i>
+            </div>
+            <h2 class="operational">Todos los sistemas operativos</h2>
+            <p class="last-updated">No se pudo conectar al servidor de estado</p>
+          </div>
+        `;
+        lucide.createIcons();
+      }
+    }
+
+    function renderStatus(status) {
+      const { global_status, services, active_incident, incidents_history, last_updated } = status;
+
+      let html = `
+        <!-- Estado Principal -->
+        <div class="main-status">
+          <div class="status-icon ${global_status}">
+            <i data-lucide="${STATUS_ICONS[global_status]}"></i>
+          </div>
+          <h2 class="${global_status}">${STATUS_LABELS[global_status]}</h2>
+          <p class="last-updated">Última actualización: ${formatRelativeTime(last_updated)}</p>
+        </div>
+      `;
+
+      // Incidente Activo
+      if (active_incident) {
+        html += `
+          <div class="active-incident ${active_incident.severity}">
+            <div class="incident-header">
+              <span class="incident-badge ${active_incident.severity}">${SEVERITY_LABELS[active_incident.severity]}</span>
+              <span class="incident-title">${active_incident.title}</span>
+            </div>
+            ${active_incident.message ? `<p class="incident-message">${active_incident.message}</p>` : ''}
+            <div class="incident-meta">
+              <span><i data-lucide="clock"></i> Iniciado: ${formatDate(active_incident.created_at)}</span>
+              ${active_incident.affected_services?.length ? `
+                <span><i data-lucide="layers"></i> Afecta: ${active_incident.affected_services.map(id => {
+                  const svc = services.find(s => s.id === id);
+                  return svc ? svc.name : id;
+                }).join(', ')}</span>
+              ` : ''}
+            </div>
+            ${active_incident.updates?.length ? `
+              <div class="incident-updates">
+                <h4>Actualizaciones</h4>
+                ${active_incident.updates.map(u => `
+                  <div class="update-item">
+                    <div class="update-time">${formatDate(u.timestamp)}</div>
+                    <div class="update-message">${u.message}</div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      // Servicios
+      html += `
+        <div class="services-section">
+          <h3><i data-lucide="server"></i> Estado de Servicios</h3>
+          ${services.map(service => `
+            <div class="service-item">
+              <div class="service-info">
+                <h4>${service.name}</h4>
+                <p>${service.description}</p>
+              </div>
+              <div class="service-status ${service.status}">
+                <i data-lucide="${STATUS_ICONS[service.status]}"></i>
+                ${SERVICE_STATUS_LABELS[service.status]}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      // Historial
+      html += `
+        <div class="history-section">
+          <h3><i data-lucide="history"></i> Historial de Incidentes</h3>
+          ${incidents_history.length === 0 ? `
+            <div class="no-history">
+              <i data-lucide="check-circle"></i>
+              <p>No hay incidentes recientes</p>
+            </div>
+          ` : incidents_history.slice(0, 10).map(inc => `
+            <div class="history-item ${inc.severity}">
+              <div class="history-header">
+                <span class="history-title">${inc.title}</span>
+                <span class="history-resolved">
+                  <i data-lucide="check"></i> Resuelto
+                </span>
+              </div>
+              ${inc.message ? `<p class="history-message">${inc.message}</p>` : ''}
+              <div class="history-dates">
+                ${formatDate(inc.created_at)} - ${formatDate(inc.resolved_at)}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      document.getElementById('statusContent').innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // Cargar al inicio
+    loadStatus();
+
+    // Actualizar cada 30 segundos
+    setInterval(loadStatus, 30000);
+  </script>
+</body>
+</html>
