@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,7 +36,7 @@ async function handleLogin(e) {
   message.textContent = "Accediendo...";
 
   try {
-    console.log(" Enviando petición a:", `${API_URL}/auth/login`);
+    console.log(" Enviando peticiÃ³n a:", `${API_URL}/auth/login`);
     const resp = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -57,29 +57,29 @@ async function handleLogin(e) {
         if (data.id_alumno) localStorage.setItem("id_alumno", data.id_alumno);
         
       message.style.color = "green";
-      message.textContent = "Inicio de sesión exitoso";
+      message.textContent = "Inicio de sesiÃ³n exitoso";
 
       const rol = data.rol.toLowerCase();
       console.log(" Rol detectado:", rol);
       console.log(" Redirigiendo...");
       
       if (rol === "admin" || rol === "administrador") {
-        console.log("️ Redirigiendo a dashboard_admin.html");
+        console.log("ï¸ Redirigiendo a dashboard_admin.html");
         window.location.href = "dashboard_admin.html";
       } else if (rol === "profesor") {
-        console.log("️ Redirigiendo a dashboard_profesor.html");
+        console.log("ï¸ Redirigiendo a dashboard_profesor.html");
         window.location.href = "dashboard_profesor.html";
       } else if (rol === "alumno") {
-        console.log("️ Redirigiendo a dashboard_alumno.html");
+        console.log("ï¸ Redirigiendo a dashboard_alumno.html");
         window.location.href = "dashboard_alumno.html";
       } else {
-        console.log("️ Redirigiendo a index.html");
+        console.log("ï¸ Redirigiendo a index.html");
         window.location.href = "index.html";
       }
     } else {
       console.error(" Login fallido:", data.message);
       message.style.color = "red";
-      message.textContent = data.message || "Usuario o contraseña incorrectos.";
+      message.textContent = data.message || "Usuario o contraseÃ±a incorrectos.";
     }
   } catch (err) {
     console.error(" Error al conectar:", err);
@@ -144,7 +144,7 @@ function initAdminSPA() {
               <h2 style="margin: 0;">Listado de Alumnos</h2>
               <button onclick="descargarPDFAlumnos()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar Información
+                Descargar InformaciÃ³n
               </button>
             </div>
           `;
@@ -156,7 +156,7 @@ function initAdminSPA() {
               <h2 style="margin: 0;">Listado de Profesores</h2>
               <button onclick="descargarPDFProfesores()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar Información
+                Descargar InformaciÃ³n
               </button>
             </div>
           `;
@@ -205,16 +205,9 @@ function initAdminSPA() {
           lucide.createIcons();
           initAyudaInteractivity();
           return;
-        case "moderacion":
-          loader.classList.add("hidden");
-          mainContent.innerHTML = renderModeracionSection();
-          mainContent.classList.add("active");
-          lucide.createIcons();
-          await initModeracionInteractivity();
-          return;
         default:
           endpoint = "";
-          html = "<p>Seleccione una sección</p>";
+          html = "<p>Seleccione una secciÃ³n</p>";
       }
 
       if (endpoint) {
@@ -267,7 +260,7 @@ function initAdminSPA() {
         mainContent.classList.add("active");
       }, 400);
     } catch (err) {
-      console.error("Error al cargar sección:", err);
+      console.error("Error al cargar secciÃ³n:", err);
       loader.classList.add("hidden");
       mainContent.innerHTML = "<p>Error al cargar los datos.</p>";
       mainContent.classList.add("active");
@@ -283,7 +276,7 @@ function recargarSeccionActiva() {
 }
 
 // =====================================================
-// SECCIÓN DE AYUDA PARA ADMINISTRADOR
+// SECCIÃ“N DE AYUDA PARA ADMINISTRADOR
 // =====================================================
 
 function renderAdminAyuda() {
@@ -291,15 +284,15 @@ function renderAdminAyuda() {
     <div class="ayuda-container">
       <div class="ayuda-header">
         <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
-        <p>Guías completas para administrar el sistema CEMI</p>
+        <p>GuÃ­as completas para administrar el sistema CEMI</p>
         <div class="ayuda-stats">
           <div class="ayuda-stat-item">
             <div class="ayuda-stat-number">30+</div>
-            <div class="ayuda-stat-label">Guías disponibles</div>
+            <div class="ayuda-stat-label">GuÃ­as disponibles</div>
           </div>
           <div class="ayuda-stat-item">
             <div class="ayuda-stat-number">10</div>
-            <div class="ayuda-stat-label">Categorías</div>
+            <div class="ayuda-stat-label">CategorÃ­as</div>
           </div>
           <div class="ayuda-stat-item">
             <div class="ayuda-stat-number">24/7</div>
@@ -310,7 +303,7 @@ function renderAdminAyuda() {
 
       <div class="ayuda-search-container">
         <i data-lucide="search" class="search-icon"></i>
-        <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="¿Qué necesitas aprender hoy?" autocomplete="off">
+        <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="Â¿QuÃ© necesitas aprender hoy?" autocomplete="off">
         <div class="search-suggestions">
           <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='curso'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Cursos</span>
           <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='alumno'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Alumnos</span>
@@ -323,7 +316,7 @@ function renderAdminAyuda() {
       <div class="no-results-message" id="noResultsMessage">
         <i data-lucide="search-x"></i>
         <h3>No se encontraron resultados</h3>
-        <p>Intenta con otros términos de búsqueda o explora las categorías</p>
+        <p>Intenta con otros tÃ©rminos de bÃºsqueda o explora las categorÃ­as</p>
       </div>
 
       <div class="ayuda-quick-access">
@@ -355,7 +348,7 @@ function renderAdminAyuda() {
               <div class="accordion-title-text"><span>Primeros Pasos</span><small>Aprende a navegar el panel administrativo</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 guías</span>
+              <span class="accordion-count">2 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -365,16 +358,16 @@ function renderAdminAyuda() {
                 <div class="guia-item" data-keywords="inicio bienvenida panel dashboard navegacion menu">
                   <div class="guia-icon"><i data-lucide="layout-dashboard"></i></div>
                   <div class="guia-content">
-                    <h4>Navegación del Panel</h4>
-                    <p>El menú lateral izquierdo te da acceso a todas las secciones: Cursos, Alumnos, Profesores, Administradores, Pagos, Aulas, Idiomas y Chat.</p>
-                    <div class="guia-tags"><span class="guia-tag">Básico</span><span class="guia-tag">Navegación</span></div>
+                    <h4>NavegaciÃ³n del Panel</h4>
+                    <p>El menÃº lateral izquierdo te da acceso a todas las secciones: Cursos, Alumnos, Profesores, Administradores, Pagos, Aulas, Idiomas y Chat.</p>
+                    <div class="guia-tags"><span class="guia-tag">BÃ¡sico</span><span class="guia-tag">NavegaciÃ³n</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="entender panel resumen funciones admin control total">
                   <div class="guia-icon"><i data-lucide="info"></i></div>
                   <div class="guia-content">
                     <h4>Funciones del Administrador</h4>
-                    <p>Control total sobre: gestión de cursos, registro de alumnos y profesores, control de pagos, configuración de aulas e idiomas, y soporte.</p>
+                    <p>Control total sobre: gestiÃ³n de cursos, registro de alumnos y profesores, control de pagos, configuraciÃ³n de aulas e idiomas, y soporte.</p>
                     <div class="guia-tags"><span class="guia-tag">Roles</span><span class="guia-tag">Permisos</span></div>
                   </div>
                 </div>
@@ -383,26 +376,26 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gestión de Cursos -->
+        <!-- GestiÃ³n de Cursos -->
         <div class="ayuda-accordion" data-category="cursos">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="book-open"></i></div>
-              <div class="accordion-title-text"><span>Gestión de Cursos</span><small>Crear, editar y administrar cursos</small></div>
+              <div class="accordion-title-text"><span>GestiÃ³n de Cursos</span><small>Crear, editar y administrar cursos</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">5 guías</span>
+              <span class="accordion-count">5 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="crear nuevo curso agregar añadir formulario">
+                <div class="guia-item" data-keywords="crear nuevo curso agregar aÃ±adir formulario">
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Crear Nuevo Curso</h4>
-                    <p>Haz clic en "Nuevo Curso", completa nombre, idioma, nivel, horario, cupo y aula. Luego podrás asignar profesor.</p>
+                    <p>Haz clic en "Nuevo Curso", completa nombre, idioma, nivel, horario, cupo y aula. Luego podrÃ¡s asignar profesor.</p>
                     <div class="guia-tags"><span class="guia-tag">Crear</span><span class="guia-tag">Curso</span></div>
                   </div>
                 </div>
@@ -410,7 +403,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="edit"></i></div>
                   <div class="guia-content">
                     <h4>Editar Curso</h4>
-                    <p>En cada tarjeta de curso, haz clic en el ícono de lápiz para modificar horario, aula, cupo y otros detalles.</p>
+                    <p>En cada tarjeta de curso, haz clic en el Ã­cono de lÃ¡piz para modificar horario, aula, cupo y otros detalles.</p>
                     <div class="guia-tags"><span class="guia-tag">Editar</span><span class="guia-tag">Modificar</span></div>
                   </div>
                 </div>
@@ -426,7 +419,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="user-check"></i></div>
                   <div class="guia-content">
                     <h4>Asignar Profesor</h4>
-                    <p>Usa el botón verde para asignar o cambiar el profesor de un curso desde la lista disponible.</p>
+                    <p>Usa el botÃ³n verde para asignar o cambiar el profesor de un curso desde la lista disponible.</p>
                     <div class="guia-tags"><span class="guia-tag">Profesor</span><span class="guia-tag">Asignar</span></div>
                   </div>
                 </div>
@@ -434,7 +427,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="eye"></i></div>
                   <div class="guia-content">
                     <h4>Ver Detalles del Curso</h4>
-                    <p>Haz clic en la tarjeta para ver información completa, lista de alumnos y opciones de gestión.</p>
+                    <p>Haz clic en la tarjeta para ver informaciÃ³n completa, lista de alumnos y opciones de gestiÃ³n.</p>
                     <div class="guia-tags"><span class="guia-tag">Detalles</span><span class="guia-tag">Info</span></div>
                   </div>
                 </div>
@@ -443,15 +436,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gestión de Alumnos -->
+        <!-- GestiÃ³n de Alumnos -->
         <div class="ayuda-accordion" data-category="alumnos">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="users"></i></div>
-              <div class="accordion-title-text"><span>Gestión de Alumnos</span><small>Registro, edición y seguimiento</small></div>
+              <div class="accordion-title-text"><span>GestiÃ³n de Alumnos</span><small>Registro, ediciÃ³n y seguimiento</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">5 guías</span>
+              <span class="accordion-count">5 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -462,14 +455,14 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="user-plus"></i></div>
                   <div class="guia-content">
                     <h4>Registrar Alumno</h4>
-                    <p>Haz clic en "Nuevo Alumno" y completa datos. El sistema genera legajo y credenciales automáticamente.</p>
+                    <p>Haz clic en "Nuevo Alumno" y completa datos. El sistema genera legajo y credenciales automÃ¡ticamente.</p>
                     <div class="guia-tags"><span class="guia-tag">Registro</span><span class="guia-tag">Nuevo</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="editar modificar alumno informacion datos actualizar">
                   <div class="guia-icon"><i data-lucide="edit"></i></div>
                   <div class="guia-content">
-                    <h4>Editar Información</h4>
+                    <h4>Editar InformaciÃ³n</h4>
                     <p>Accede a la tarjeta del alumno para modificar datos personales, contacto o cursos inscritos.</p>
                     <div class="guia-tags"><span class="guia-tag">Editar</span><span class="guia-tag">Datos</span></div>
                   </div>
@@ -495,7 +488,7 @@ function renderAdminAyuda() {
                   <div class="guia-content">
                     <h4>Buscar y Filtrar</h4>
                     <p>Usa el buscador para encontrar alumnos por nombre, legajo o email. Filtra por estado.</p>
-                    <div class="guia-tags"><span class="guia-tag">Búsqueda</span><span class="guia-tag">Filtros</span></div>
+                    <div class="guia-tags"><span class="guia-tag">BÃºsqueda</span><span class="guia-tag">Filtros</span></div>
                   </div>
                 </div>
               </div>
@@ -503,15 +496,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gestión de Profesores -->
+        <!-- GestiÃ³n de Profesores -->
         <div class="ayuda-accordion" data-category="profesores">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="graduation-cap"></i></div>
-              <div class="accordion-title-text"><span>Gestión de Profesores</span><small>Registro y asignación de docentes</small></div>
+              <div class="accordion-title-text"><span>GestiÃ³n de Profesores</span><small>Registro y asignaciÃ³n de docentes</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">3 guías</span>
+              <span class="accordion-count">3 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -530,7 +523,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="link"></i></div>
                   <div class="guia-content">
                     <h4>Asignar a Cursos</h4>
-                    <p>Desde Cursos puedes asignar profesores. Un profesor puede tener múltiples cursos asignados.</p>
+                    <p>Desde Cursos puedes asignar profesores. Un profesor puede tener mÃºltiples cursos asignados.</p>
                     <div class="guia-tags"><span class="guia-tag">Asignar</span><span class="guia-tag">Cursos</span></div>
                   </div>
                 </div>
@@ -538,7 +531,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="file-down"></i></div>
                   <div class="guia-content">
                     <h4>Descargar PDF</h4>
-                    <p>Genera un reporte PDF con la lista de profesores usando "Descargar Información".</p>
+                    <p>Genera un reporte PDF con la lista de profesores usando "Descargar InformaciÃ³n".</p>
                     <div class="guia-tags"><span class="guia-tag">PDF</span><span class="guia-tag">Exportar</span></div>
                   </div>
                 </div>
@@ -547,15 +540,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gestión de Administradores -->
+        <!-- GestiÃ³n de Administradores -->
         <div class="ayuda-accordion" data-category="admins">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="shield"></i></div>
-              <div class="accordion-title-text"><span>Gestión de Administradores</span><small>Control de acceso administrativo</small></div>
+              <div class="accordion-title-text"><span>GestiÃ³n de Administradores</span><small>Control de acceso administrativo</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 guías</span>
+              <span class="accordion-count">2 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -574,7 +567,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="lock"></i></div>
                   <div class="guia-content">
                     <h4>Permisos de Acceso</h4>
-                    <p>Todos los administradores tienen acceso completo. Gestiona con cuidado quién tiene este rol.</p>
+                    <p>Todos los administradores tienen acceso completo. Gestiona con cuidado quiÃ©n tiene este rol.</p>
                     <div class="guia-tags"><span class="guia-tag">Permisos</span><span class="guia-tag">Seguridad</span></div>
                   </div>
                 </div>
@@ -583,15 +576,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gestión de Pagos -->
+        <!-- GestiÃ³n de Pagos -->
         <div class="ayuda-accordion" data-category="pagos">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="credit-card"></i></div>
-              <div class="accordion-title-text"><span>Gestión de Pagos</span><small>Control de cuotas y comprobantes</small></div>
+              <div class="accordion-title-text"><span>GestiÃ³n de Pagos</span><small>Control de cuotas y comprobantes</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">3 guías</span>
+              <span class="accordion-count">3 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -610,7 +603,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="check-circle"></i></div>
                   <div class="guia-content">
                     <h4>Confirmar Pago en Efectivo</h4>
-                    <p>Cuando un alumno paga con ticket, busca el pago pendiente y confírmalo para actualizarlo.</p>
+                    <p>Cuando un alumno paga con ticket, busca el pago pendiente y confÃ­rmalo para actualizarlo.</p>
                     <div class="guia-tags"><span class="guia-tag">Confirmar</span><span class="guia-tag">Efectivo</span></div>
                   </div>
                 </div>
@@ -618,7 +611,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="archive"></i></div>
                   <div class="guia-content">
                     <h4>Archivo de Pagos</h4>
-                    <p>Archiva pagos antiguos para mantener la lista limpia. Se pueden consultar en la sección de archivo.</p>
+                    <p>Archiva pagos antiguos para mantener la lista limpia. Se pueden consultar en la secciÃ³n de archivo.</p>
                     <div class="guia-tags"><span class="guia-tag">Archivar</span><span class="guia-tag">Organizar</span></div>
                   </div>
                 </div>
@@ -627,15 +620,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gestión de Aulas -->
+        <!-- GestiÃ³n de Aulas -->
         <div class="ayuda-accordion" data-category="aulas">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="door-open"></i></div>
-              <div class="accordion-title-text"><span>Gestión de Aulas</span><small>Espacios físicos del instituto</small></div>
+              <div class="accordion-title-text"><span>GestiÃ³n de Aulas</span><small>Espacios fÃ­sicos del instituto</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 guías</span>
+              <span class="accordion-count">2 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -646,7 +639,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Crear Nueva Aula</h4>
-                    <p>Define aulas con nombre/número y capacidad. Estarán disponibles para asignar a cursos.</p>
+                    <p>Define aulas con nombre/nÃºmero y capacidad. EstarÃ¡n disponibles para asignar a cursos.</p>
                     <div class="guia-tags"><span class="guia-tag">Crear</span><span class="guia-tag">Aula</span></div>
                   </div>
                 </div>
@@ -654,7 +647,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="link"></i></div>
                   <div class="guia-content">
                     <h4>Asignar a Cursos</h4>
-                    <p>Al crear o editar un curso, selecciona el aula donde se dictará.</p>
+                    <p>Al crear o editar un curso, selecciona el aula donde se dictarÃ¡.</p>
                     <div class="guia-tags"><span class="guia-tag">Asignar</span><span class="guia-tag">Vincular</span></div>
                   </div>
                 </div>
@@ -663,15 +656,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gestión de Idiomas -->
+        <!-- GestiÃ³n de Idiomas -->
         <div class="ayuda-accordion" data-category="idiomas">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="languages"></i></div>
-              <div class="accordion-title-text"><span>Gestión de Idiomas</span><small>Configuración de lenguas disponibles</small></div>
+              <div class="accordion-title-text"><span>GestiÃ³n de Idiomas</span><small>ConfiguraciÃ³n de lenguas disponibles</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 guías</span>
+              <span class="accordion-count">2 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -682,7 +675,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Agregar Idiomas</h4>
-                    <p>Define los idiomas que se enseñan (Inglés, Francés, Portugués, etc.). Estarán disponibles al crear cursos.</p>
+                    <p>Define los idiomas que se enseÃ±an (InglÃ©s, FrancÃ©s, PortuguÃ©s, etc.). EstarÃ¡n disponibles al crear cursos.</p>
                     <div class="guia-tags"><span class="guia-tag">Idioma</span><span class="guia-tag">Agregar</span></div>
                   </div>
                 </div>
@@ -690,7 +683,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="sliders"></i></div>
                   <div class="guia-content">
                     <h4>Configurar Niveles</h4>
-                    <p>Los niveles (Básico, Intermedio, Avanzado) clasifican el grado de dificultad de cada curso.</p>
+                    <p>Los niveles (BÃ¡sico, Intermedio, Avanzado) clasifican el grado de dificultad de cada curso.</p>
                     <div class="guia-tags"><span class="guia-tag">Niveles</span><span class="guia-tag">Config</span></div>
                   </div>
                 </div>
@@ -704,10 +697,10 @@ function renderAdminAyuda() {
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="message-circle"></i></div>
-              <div class="accordion-title-text"><span>Chat de Soporte</span><small>Atención a usuarios del sistema</small></div>
+              <div class="accordion-title-text"><span>Chat de Soporte</span><small>AtenciÃ³n a usuarios del sistema</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">3 guías</span>
+              <span class="accordion-count">3 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -718,7 +711,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="message-square"></i></div>
                   <div class="guia-content">
                     <h4>Responder Mensajes</h4>
-                    <p>Recibirás notificaciones cuando usuarios envíen mensajes. Accede al chat para ver y responder.</p>
+                    <p>RecibirÃ¡s notificaciones cuando usuarios envÃ­en mensajes. Accede al chat para ver y responder.</p>
                     <div class="guia-tags"><span class="guia-tag">Mensajes</span><span class="guia-tag">Responder</span></div>
                   </div>
                 </div>
@@ -726,8 +719,8 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="inbox"></i></div>
                   <div class="guia-content">
                     <h4>Gestionar Conversaciones</h4>
-                    <p>Ve todas las conversaciones activas, filtra por estado y atiende múltiples consultas.</p>
-                    <div class="guia-tags"><span class="guia-tag">Gestión</span><span class="guia-tag">Filtros</span></div>
+                    <p>Ve todas las conversaciones activas, filtra por estado y atiende mÃºltiples consultas.</p>
+                    <div class="guia-tags"><span class="guia-tag">GestiÃ³n</span><span class="guia-tag">Filtros</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="notificaciones alerta badge nuevo mensaje tiempo real">
@@ -748,28 +741,28 @@ function renderAdminAyuda() {
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="message-square-text"></i></div>
-              <div class="accordion-title-text"><span>Preguntas Frecuentes</span><small>Respuestas rápidas a dudas comunes</small></div>
+              <div class="accordion-title-text"><span>Preguntas Frecuentes</span><small>Respuestas rÃ¡pidas a dudas comunes</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">4 guías</span>
+              <span class="accordion-count">4 guÃ­as</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="restablecer contraseña usuario olvidó password reset clave">
+                <div class="guia-item" data-keywords="restablecer contraseÃ±a usuario olvidÃ³ password reset clave">
                   <div class="guia-icon"><i data-lucide="key"></i></div>
                   <div class="guia-content">
-                    <h4>¿Cómo restablezco contraseña de un usuario?</h4>
-                    <p>Accede al perfil del alumno o profesor y usa la opción de restablecer. Se genera contraseña temporal.</p>
-                    <div class="guia-tags"><span class="guia-tag">Contraseña</span><span class="guia-tag">Reset</span></div>
+                    <h4>Â¿CÃ³mo restablezco contraseÃ±a de un usuario?</h4>
+                    <p>Accede al perfil del alumno o profesor y usa la opciÃ³n de restablecer. Se genera contraseÃ±a temporal.</p>
+                    <div class="guia-tags"><span class="guia-tag">ContraseÃ±a</span><span class="guia-tag">Reset</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="eliminar borrar curso alumnos inscritos error no puedo">
                   <div class="guia-icon"><i data-lucide="alert-triangle"></i></div>
                   <div class="guia-content">
-                    <h4>¿No puedo eliminar un curso?</h4>
+                    <h4>Â¿No puedo eliminar un curso?</h4>
                     <p>Cursos con alumnos inscritos no pueden eliminarse. Primero desvincular o transferir alumnos.</p>
                     <div class="guia-tags"><span class="guia-tag">Eliminar</span><span class="guia-tag">Error</span></div>
                   </div>
@@ -777,15 +770,15 @@ function renderAdminAyuda() {
                 <div class="guia-item" data-keywords="backup respaldo datos base datos automatico railway">
                   <div class="guia-icon"><i data-lucide="database"></i></div>
                   <div class="guia-content">
-                    <h4>¿Se hacen respaldos automáticos?</h4>
-                    <p>Railway realiza respaldos automáticos. Para respaldos manuales, contacta al administrador técnico.</p>
+                    <h4>Â¿Se hacen respaldos automÃ¡ticos?</h4>
+                    <p>Railway realiza respaldos automÃ¡ticos. Para respaldos manuales, contacta al administrador tÃ©cnico.</p>
                     <div class="guia-tags"><span class="guia-tag">Backup</span><span class="guia-tag">Datos</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="problema error funciona mal bug reporte tecnico sistema">
                   <div class="guia-icon"><i data-lucide="bug"></i></div>
                   <div class="guia-content">
-                    <h4>¿Encontré un error en el sistema?</h4>
+                    <h4>Â¿EncontrÃ© un error en el sistema?</h4>
                     <p>Documenta el error con capturas y pasos para reproducirlo. Contacta al equipo de desarrollo.</p>
                     <div class="guia-tags"><span class="guia-tag">Error</span><span class="guia-tag">Reporte</span></div>
                   </div>
@@ -800,15 +793,15 @@ function renderAdminAyuda() {
       <div class="ayuda-tips">
         <h3><i data-lucide="lightbulb"></i> Tips para Administradores</h3>
         <div class="tips-list">
-          <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la página si los datos no se actualizan</div>
-          <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones del chat para responder rápido</div>
+          <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la pÃ¡gina si los datos no se actualizan</div>
+          <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones del chat para responder rÃ¡pido</div>
           <div class="tip-badge"><i data-lucide="file-down"></i> Exporta PDFs para reportes e impresiones</div>
           <div class="tip-badge"><i data-lucide="archive"></i> Archiva pagos antiguos regularmente para mantener orden</div>
         </div>
       </div>
 
       <div class="ayuda-footer">
-        <p>¿No encontraste lo que buscabas? Consulta la documentación técnica.</p>
+        <p>Â¿No encontraste lo que buscabas? Consulta la documentaciÃ³n tÃ©cnica.</p>
         <div class="ayuda-footer-links">
           <span class="ayuda-footer-link" onclick="window.open('ayuda.html', '_blank')">
             <i data-lucide="external-link"></i> Centro de Ayuda Completo
@@ -837,7 +830,7 @@ function initAyudaInteractivity() {
     });
   }
 
-  // Modales de guía - hacer clic en cada guia-item
+  // Modales de guÃ­a - hacer clic en cada guia-item
   document.querySelectorAll('.guia-item').forEach(item => {
     item.addEventListener('click', () => {
       openGuiaModal(item);
@@ -845,47 +838,47 @@ function initAyudaInteractivity() {
   });
 }
 
-// Datos detallados para cada guía
+// Datos detallados para cada guÃ­a
 const guiasDetalladas = {
-  // Navegación del Panel
-  'Navegación del Panel': {
-    descripcion: 'El menú lateral izquierdo es tu centro de control. Desde aquí puedes acceder a todas las funcionalidades del sistema de manera organizada y eficiente.',
+  // NavegaciÃ³n del Panel
+  'NavegaciÃ³n del Panel': {
+    descripcion: 'El menÃº lateral izquierdo es tu centro de control. Desde aquÃ­ puedes acceder a todas las funcionalidades del sistema de manera organizada y eficiente.',
     pasos: [
-      { titulo: 'Localiza el menú lateral', desc: 'El menú está ubicado en el lado izquierdo de la pantalla, siempre visible.' },
-      { titulo: 'Explora las secciones', desc: 'Cada ícono representa una sección diferente del sistema.' },
-      { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevará a la sección seleccionada.' },
+      { titulo: 'Localiza el menÃº lateral', desc: 'El menÃº estÃ¡ ubicado en el lado izquierdo de la pantalla, siempre visible.' },
+      { titulo: 'Explora las secciones', desc: 'Cada Ã­cono representa una secciÃ³n diferente del sistema.' },
+      { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevarÃ¡ a la secciÃ³n seleccionada.' },
       { titulo: 'Observa los indicadores', desc: 'Los badges rojos indican notificaciones pendientes.' }
     ],
-    tip: 'En dispositivos móviles, el menú se oculta automáticamente. Usa el ícono de menú para desplegarlo.'
+    tip: 'En dispositivos mÃ³viles, el menÃº se oculta automÃ¡ticamente. Usa el Ã­cono de menÃº para desplegarlo.'
   },
   // Funciones del Administrador
   'Funciones del Administrador': {
-    descripcion: 'Como administrador tienes acceso completo a todas las funciones del sistema. Tu rol es fundamental para mantener la operación del instituto.',
+    descripcion: 'Como administrador tienes acceso completo a todas las funciones del sistema. Tu rol es fundamental para mantener la operaciÃ³n del instituto.',
     pasos: [
-      { titulo: 'Gestión de Cursos', desc: 'Crear, editar, eliminar cursos y asignar profesores.' },
-      { titulo: 'Gestión de Usuarios', desc: 'Registrar alumnos, profesores y otros administradores.' },
+      { titulo: 'GestiÃ³n de Cursos', desc: 'Crear, editar, eliminar cursos y asignar profesores.' },
+      { titulo: 'GestiÃ³n de Usuarios', desc: 'Registrar alumnos, profesores y otros administradores.' },
       { titulo: 'Control Financiero', desc: 'Supervisar pagos, confirmar efectivo y generar reportes.' },
-      { titulo: 'Soporte', desc: 'Responder consultas de usuarios a través del chat.' }
+      { titulo: 'Soporte', desc: 'Responder consultas de usuarios a travÃ©s del chat.' }
     ],
-    tip: 'Realiza respaldos periódicos de información importante exportando PDFs de las listas de usuarios.'
+    tip: 'Realiza respaldos periÃ³dicos de informaciÃ³n importante exportando PDFs de las listas de usuarios.'
   },
   // Crear Nuevo Curso
   'Crear Nuevo Curso': {
-    descripcion: 'El proceso de creación de cursos es simple y te permite configurar todos los aspectos necesarios para que el curso funcione correctamente.',
+    descripcion: 'El proceso de creaciÃ³n de cursos es simple y te permite configurar todos los aspectos necesarios para que el curso funcione correctamente.',
     pasos: [
-      { titulo: 'Haz clic en "Nuevo Curso"', desc: 'El botón está en la esquina superior derecha de la sección Cursos.' },
-      { titulo: 'Completa el formulario', desc: 'Nombre, idioma, nivel, días, horario y cupo máximo.' },
+      { titulo: 'Haz clic en "Nuevo Curso"', desc: 'El botÃ³n estÃ¡ en la esquina superior derecha de la secciÃ³n Cursos.' },
+      { titulo: 'Completa el formulario', desc: 'Nombre, idioma, nivel, dÃ­as, horario y cupo mÃ¡ximo.' },
       { titulo: 'Selecciona el aula', desc: 'Elige un aula disponible de la lista.' },
-      { titulo: 'Guarda los cambios', desc: 'El curso aparecerá en la lista inmediatamente.' }
+      { titulo: 'Guarda los cambios', desc: 'El curso aparecerÃ¡ en la lista inmediatamente.' }
     ],
-    tip: 'Puedes asignar un profesor después de crear el curso usando el botón de asignación.'
+    tip: 'Puedes asignar un profesor despuÃ©s de crear el curso usando el botÃ³n de asignaciÃ³n.'
   },
   // Editar Curso
   'Editar Curso': {
     descripcion: 'Modifica cualquier aspecto de un curso existente sin afectar a los alumnos ya inscritos.',
     pasos: [
       { titulo: 'Localiza el curso', desc: 'Usa el buscador o navega por las tarjetas de cursos.' },
-      { titulo: 'Haz clic en editar', desc: 'Es el ícono de lápiz en la tarjeta del curso.' },
+      { titulo: 'Haz clic en editar', desc: 'Es el Ã­cono de lÃ¡piz en la tarjeta del curso.' },
       { titulo: 'Modifica los campos', desc: 'Cambia los valores que necesites actualizar.' },
       { titulo: 'Confirma los cambios', desc: 'Haz clic en Guardar para aplicar las modificaciones.' }
     ],
@@ -893,12 +886,12 @@ const guiasDetalladas = {
   },
   // Eliminar Curso
   'Eliminar Curso': {
-    descripcion: 'Elimina cursos que ya no se dictan. Esta acción requiere confirmación para evitar eliminaciones accidentales.',
+    descripcion: 'Elimina cursos que ya no se dictan. Esta acciÃ³n requiere confirmaciÃ³n para evitar eliminaciones accidentales.',
     pasos: [
       { titulo: 'Localiza el curso', desc: 'Encuentra el curso que deseas eliminar.' },
       { titulo: 'Verifica que no tenga alumnos', desc: 'Un curso con alumnos no puede eliminarse directamente.' },
-      { titulo: 'Haz clic en eliminar', desc: 'Es el ícono de papelera en la tarjeta.' },
-      { titulo: 'Confirma la acción', desc: 'Acepta el diálogo de confirmación.' }
+      { titulo: 'Haz clic en eliminar', desc: 'Es el Ã­cono de papelera en la tarjeta.' },
+      { titulo: 'Confirma la acciÃ³n', desc: 'Acepta el diÃ¡logo de confirmaciÃ³n.' }
     ],
     tip: 'Si necesitas eliminar un curso con alumnos, primero transfiere o desvincula a los estudiantes.'
   },
@@ -907,132 +900,132 @@ const guiasDetalladas = {
     descripcion: 'Vincula un profesor a un curso para que pueda gestionar calificaciones y asistencias de ese curso.',
     pasos: [
       { titulo: 'Abre la tarjeta del curso', desc: 'Haz clic en el curso al que quieres asignar profesor.' },
-      { titulo: 'Busca el botón de asignación', desc: 'Es el ícono verde con silueta de usuario.' },
+      { titulo: 'Busca el botÃ³n de asignaciÃ³n', desc: 'Es el Ã­cono verde con silueta de usuario.' },
       { titulo: 'Selecciona el profesor', desc: 'Elige de la lista de profesores disponibles.' },
-      { titulo: 'Confirma la asignación', desc: 'El profesor ya podrá ver este curso en su panel.' }
+      { titulo: 'Confirma la asignaciÃ³n', desc: 'El profesor ya podrÃ¡ ver este curso en su panel.' }
     ],
-    tip: 'Un profesor puede tener múltiples cursos asignados. Verifica su carga horaria antes de asignar.'
+    tip: 'Un profesor puede tener mÃºltiples cursos asignados. Verifica su carga horaria antes de asignar.'
   },
   // Ver Detalles del Curso
   'Ver Detalles del Curso': {
-    descripcion: 'Accede a toda la información del curso incluyendo lista de alumnos, calificaciones y estadísticas.',
+    descripcion: 'Accede a toda la informaciÃ³n del curso incluyendo lista de alumnos, calificaciones y estadÃ­sticas.',
     pasos: [
       { titulo: 'Haz clic en la tarjeta', desc: 'Cualquier parte de la tarjeta abre los detalles.' },
-      { titulo: 'Revisa la información', desc: 'Verás horario, aula, profesor y cupo.' },
+      { titulo: 'Revisa la informaciÃ³n', desc: 'VerÃ¡s horario, aula, profesor y cupo.' },
       { titulo: 'Consulta los alumnos', desc: 'La lista muestra todos los estudiantes inscritos.' },
-      { titulo: 'Usa las acciones rápidas', desc: 'Editar, eliminar o gestionar desde aquí.' }
+      { titulo: 'Usa las acciones rÃ¡pidas', desc: 'Editar, eliminar o gestionar desde aquÃ­.' }
     ],
-    tip: 'Desde los detalles puedes ver el progreso general del curso y estadísticas de rendimiento.'
+    tip: 'Desde los detalles puedes ver el progreso general del curso y estadÃ­sticas de rendimiento.'
   },
   // Registrar Alumno
   'Registrar Alumno': {
-    descripcion: 'El registro de alumnos es el primer paso para incorporar estudiantes al sistema. Los datos se validan automáticamente.',
+    descripcion: 'El registro de alumnos es el primer paso para incorporar estudiantes al sistema. Los datos se validan automÃ¡ticamente.',
     pasos: [
-      { titulo: 'Haz clic en "Nuevo Alumno"', desc: 'Botón ubicado en la sección Alumnos.' },
-      { titulo: 'Completa los datos personales', desc: 'Nombre, apellido, DNI, email y teléfono.' },
-      { titulo: 'Asigna un curso inicial', desc: 'Selecciona el curso donde se inscribirá.' },
-      { titulo: 'Guarda el registro', desc: 'El sistema genera legajo y credenciales automáticamente.' }
+      { titulo: 'Haz clic en "Nuevo Alumno"', desc: 'BotÃ³n ubicado en la secciÃ³n Alumnos.' },
+      { titulo: 'Completa los datos personales', desc: 'Nombre, apellido, DNI, email y telÃ©fono.' },
+      { titulo: 'Asigna un curso inicial', desc: 'Selecciona el curso donde se inscribirÃ¡.' },
+      { titulo: 'Guarda el registro', desc: 'El sistema genera legajo y credenciales automÃ¡ticamente.' }
     ],
-    tip: 'Las credenciales iniciales usan el DNI como usuario y contraseña. El alumno puede cambiarlas.'
+    tip: 'Las credenciales iniciales usan el DNI como usuario y contraseÃ±a. El alumno puede cambiarlas.'
   },
-  // Editar Información (Alumno)
-  'Editar Información': {
+  // Editar InformaciÃ³n (Alumno)
+  'Editar InformaciÃ³n': {
     descripcion: 'Actualiza los datos de un alumno cuando sea necesario. Los cambios se aplican inmediatamente.',
     pasos: [
       { titulo: 'Busca al alumno', desc: 'Usa el buscador por nombre, legajo o DNI.' },
       { titulo: 'Abre su perfil', desc: 'Haz clic en la tarjeta del alumno.' },
       { titulo: 'Haz clic en editar', desc: 'Modifica los campos necesarios.' },
-      { titulo: 'Guarda los cambios', desc: 'La información se actualiza en todo el sistema.' }
+      { titulo: 'Guarda los cambios', desc: 'La informaciÃ³n se actualiza en todo el sistema.' }
     ],
-    tip: 'El legajo y DNI solo pueden modificarse por motivos de corrección de errores.'
+    tip: 'El legajo y DNI solo pueden modificarse por motivos de correcciÃ³n de errores.'
   },
   // Cambiar Estado
   'Cambiar Estado': {
     descripcion: 'Gestiona el estado de los usuarios: activos pueden acceder al sistema, inactivos no.',
     pasos: [
       { titulo: 'Localiza al usuario', desc: 'Encuentra el alumno o profesor.' },
-      { titulo: 'Abre las opciones', desc: 'Accede al menú de acciones del usuario.' },
-      { titulo: 'Cambia el estado', desc: 'Selecciona Activo o Inactivo según corresponda.' },
+      { titulo: 'Abre las opciones', desc: 'Accede al menÃº de acciones del usuario.' },
+      { titulo: 'Cambia el estado', desc: 'Selecciona Activo o Inactivo segÃºn corresponda.' },
       { titulo: 'Confirma el cambio', desc: 'El estado se actualiza inmediatamente.' }
     ],
-    tip: 'Los usuarios inactivos conservan todos sus datos históricos para futuras consultas.'
+    tip: 'Los usuarios inactivos conservan todos sus datos histÃ³ricos para futuras consultas.'
   },
   // Descargar PDF
   'Descargar PDF': {
-    descripcion: 'Genera documentos PDF con listas de usuarios, útiles para reportes impresos o archivos.',
+    descripcion: 'Genera documentos PDF con listas de usuarios, Ãºtiles para reportes impresos o archivos.',
     pasos: [
-      { titulo: 'Ve a la sección deseada', desc: 'Alumnos, Profesores o Administradores.' },
-      { titulo: 'Busca el botón de descarga', desc: 'Generalmente dice "Descargar Información".' },
+      { titulo: 'Ve a la secciÃ³n deseada', desc: 'Alumnos, Profesores o Administradores.' },
+      { titulo: 'Busca el botÃ³n de descarga', desc: 'Generalmente dice "Descargar InformaciÃ³n".' },
       { titulo: 'Haz clic para generar', desc: 'El PDF se crea con los datos actuales.' },
-      { titulo: 'Guarda o imprime', desc: 'El archivo se descarga automáticamente.' }
+      { titulo: 'Guarda o imprime', desc: 'El archivo se descarga automÃ¡ticamente.' }
     ],
-    tip: 'Los PDFs incluyen fecha de generación para control de versiones.'
+    tip: 'Los PDFs incluyen fecha de generaciÃ³n para control de versiones.'
   },
   // Buscar y Filtrar
   'Buscar y Filtrar': {
-    descripcion: 'Encuentra rápidamente usuarios o información específica usando los potentes filtros del sistema.',
+    descripcion: 'Encuentra rÃ¡pidamente usuarios o informaciÃ³n especÃ­fica usando los potentes filtros del sistema.',
     pasos: [
-      { titulo: 'Localiza el buscador', desc: 'Está en la parte superior de cada sección.' },
-      { titulo: 'Escribe tu búsqueda', desc: 'Nombre, legajo, DNI o email.' },
+      { titulo: 'Localiza el buscador', desc: 'EstÃ¡ en la parte superior de cada secciÃ³n.' },
+      { titulo: 'Escribe tu bÃºsqueda', desc: 'Nombre, legajo, DNI o email.' },
       { titulo: 'Revisa los resultados', desc: 'La lista se filtra en tiempo real.' },
       { titulo: 'Usa filtros adicionales', desc: 'Estado, curso u otros criterios disponibles.' }
     ],
-    tip: 'La búsqueda no distingue mayúsculas/minúsculas y busca coincidencias parciales.'
+    tip: 'La bÃºsqueda no distingue mayÃºsculas/minÃºsculas y busca coincidencias parciales.'
   },
   // Registrar Profesor
   'Registrar Profesor': {
     descripcion: 'Agrega nuevos profesores al sistema para que puedan gestionar sus cursos asignados.',
     pasos: [
-      { titulo: 'Haz clic en "Nuevo Profesor"', desc: 'Botón en la sección Profesores.' },
-      { titulo: 'Ingresa los datos', desc: 'Nombre, apellido, DNI, email, teléfono.' },
-      { titulo: 'Define especialidad', desc: 'Idiomas o áreas que puede dictar.' },
+      { titulo: 'Haz clic en "Nuevo Profesor"', desc: 'BotÃ³n en la secciÃ³n Profesores.' },
+      { titulo: 'Ingresa los datos', desc: 'Nombre, apellido, DNI, email, telÃ©fono.' },
+      { titulo: 'Define especialidad', desc: 'Idiomas o Ã¡reas que puede dictar.' },
       { titulo: 'Guarda el registro', desc: 'Se generan credenciales de acceso.' }
     ],
-    tip: 'Después del registro, asigna cursos al profesor desde la sección Cursos.'
+    tip: 'DespuÃ©s del registro, asigna cursos al profesor desde la secciÃ³n Cursos.'
   },
   // Asignar a Cursos
   'Asignar a Cursos': {
     descripcion: 'Vincula profesores con cursos para que puedan gestionar sus clases.',
     pasos: [
-      { titulo: 'Ve a la sección Cursos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a la secciÃ³n Cursos', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Selecciona un curso', desc: 'El curso debe existir previamente.' },
-      { titulo: 'Usa el botón de asignación', desc: 'Ícono de usuario en verde.' },
+      { titulo: 'Usa el botÃ³n de asignaciÃ³n', desc: 'Ãcono de usuario en verde.' },
       { titulo: 'Elige el profesor', desc: 'Selecciona de la lista disponible.' }
     ],
     tip: 'Verifica que el profesor no tenga conflictos de horario antes de asignar.'
   },
   // Crear Nuevo Administrador
   'Crear Nuevo Administrador': {
-    descripcion: 'Agrega otros administradores que compartirán las responsabilidades de gestión del sistema.',
+    descripcion: 'Agrega otros administradores que compartirÃ¡n las responsabilidades de gestiÃ³n del sistema.',
     pasos: [
-      { titulo: 'Ve a Administradores', desc: 'Sección en el menú lateral.' },
+      { titulo: 'Ve a Administradores', desc: 'SecciÃ³n en el menÃº lateral.' },
       { titulo: 'Haz clic en "Nuevo Admin"', desc: 'Se abre el formulario de registro.' },
       { titulo: 'Completa los datos', desc: 'Nombre, email y credenciales.' },
       { titulo: 'Define permisos', desc: 'Todos los admins tienen acceso completo.' }
     ],
-    tip: 'Limita el número de administradores a los estrictamente necesarios por seguridad.'
+    tip: 'Limita el nÃºmero de administradores a los estrictamente necesarios por seguridad.'
   },
   // Permisos de Acceso
   'Permisos de Acceso': {
-    descripcion: 'Comprende cómo funciona el sistema de permisos y roles en la plataforma.',
+    descripcion: 'Comprende cÃ³mo funciona el sistema de permisos y roles en la plataforma.',
     pasos: [
       { titulo: 'Administrador', desc: 'Acceso total a todas las funciones.' },
-      { titulo: 'Profesor', desc: 'Gestión de cursos asignados, notas y asistencias.' },
-      { titulo: 'Alumno', desc: 'Visualización de sus cursos, notas y pagos.' },
+      { titulo: 'Profesor', desc: 'GestiÃ³n de cursos asignados, notas y asistencias.' },
+      { titulo: 'Alumno', desc: 'VisualizaciÃ³n de sus cursos, notas y pagos.' },
       { titulo: 'Seguridad', desc: 'Cada rol solo ve lo que le corresponde.' }
     ],
-    tip: 'Revisa periódicamente los accesos y desactiva usuarios que ya no deban tener acceso.'
+    tip: 'Revisa periÃ³dicamente los accesos y desactiva usuarios que ya no deban tener acceso.'
   },
   // Ver Historial de Pagos
   'Ver Historial de Pagos': {
     descripcion: 'Consulta todos los pagos realizados con diferentes estados y filtros disponibles.',
     pasos: [
-      { titulo: 'Ve a la sección Pagos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a la secciÃ³n Pagos', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Revisa la lista', desc: 'Muestra pagos ordenados por fecha.' },
       { titulo: 'Aplica filtros', desc: 'Por estado, fecha o alumno.' },
-      { titulo: 'Consulta detalles', desc: 'Haz clic en un pago para más información.' }
+      { titulo: 'Consulta detalles', desc: 'Haz clic en un pago para mÃ¡s informaciÃ³n.' }
     ],
-    tip: 'Usa los filtros de estado para encontrar rápidamente pagos pendientes de confirmar.'
+    tip: 'Usa los filtros de estado para encontrar rÃ¡pidamente pagos pendientes de confirmar.'
   },
   // Confirmar Pago en Efectivo
   'Confirmar Pago en Efectivo': {
@@ -1040,38 +1033,38 @@ const guiasDetalladas = {
     pasos: [
       { titulo: 'Recibe el ticket', desc: 'El alumno presenta su comprobante de pago.' },
       { titulo: 'Busca el pago', desc: 'Filtra por "Efectivo Pendiente" en Pagos.' },
-      { titulo: 'Verifica el código', desc: 'Compara el código del ticket con el sistema.' },
-      { titulo: 'Confirma el pago', desc: 'Haz clic en el botón de confirmación.' }
+      { titulo: 'Verifica el cÃ³digo', desc: 'Compara el cÃ³digo del ticket con el sistema.' },
+      { titulo: 'Confirma el pago', desc: 'Haz clic en el botÃ³n de confirmaciÃ³n.' }
     ],
-    tip: 'Guarda los tickets físicos por al menos 30 días para cualquier reclamo.'
+    tip: 'Guarda los tickets fÃ­sicos por al menos 30 dÃ­as para cualquier reclamo.'
   },
   // Archivo de Pagos
   'Archivo de Pagos': {
-    descripcion: 'Mantén la lista de pagos organizada archivando los pagos antiguos ya procesados.',
+    descripcion: 'MantÃ©n la lista de pagos organizada archivando los pagos antiguos ya procesados.',
     pasos: [
       { titulo: 'Identifica pagos antiguos', desc: 'Pagos de meses anteriores ya confirmados.' },
-      { titulo: 'Selecciona para archivar', desc: 'Usa la opción de archivar en cada pago.' },
-      { titulo: 'Confirma la acción', desc: 'Los pagos pasan a la sección de archivo.' },
-      { titulo: 'Consulta cuando necesites', desc: 'El archivo está siempre disponible.' }
+      { titulo: 'Selecciona para archivar', desc: 'Usa la opciÃ³n de archivar en cada pago.' },
+      { titulo: 'Confirma la acciÃ³n', desc: 'Los pagos pasan a la secciÃ³n de archivo.' },
+      { titulo: 'Consulta cuando necesites', desc: 'El archivo estÃ¡ siempre disponible.' }
     ],
-    tip: 'Archiva mensualmente para mantener un historial ordenado y fácil de consultar.'
+    tip: 'Archiva mensualmente para mantener un historial ordenado y fÃ¡cil de consultar.'
   },
   // Crear Nueva Aula
   'Crear Nueva Aula': {
-    descripcion: 'Registra los espacios físicos disponibles para dictar clases en el instituto.',
+    descripcion: 'Registra los espacios fÃ­sicos disponibles para dictar clases en el instituto.',
     pasos: [
-      { titulo: 'Ve a la sección Aulas', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a la secciÃ³n Aulas', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Haz clic en "Nueva Aula"', desc: 'Se abre el formulario.' },
-      { titulo: 'Ingresa los datos', desc: 'Nombre o número y capacidad máxima.' },
-      { titulo: 'Guarda el aula', desc: 'Estará disponible para asignar a cursos.' }
+      { titulo: 'Ingresa los datos', desc: 'Nombre o nÃºmero y capacidad mÃ¡xima.' },
+      { titulo: 'Guarda el aula', desc: 'EstarÃ¡ disponible para asignar a cursos.' }
     ],
-    tip: 'La capacidad del aula debe ser igual o mayor al cupo máximo de los cursos que se dicten allí.'
+    tip: 'La capacidad del aula debe ser igual o mayor al cupo mÃ¡ximo de los cursos que se dicten allÃ­.'
   },
   // Asignar a Cursos (Aulas)
   'Asignar a Cursos': {
-    descripcion: 'Vincula aulas con cursos para definir dónde se dictarán las clases.',
+    descripcion: 'Vincula aulas con cursos para definir dÃ³nde se dictarÃ¡n las clases.',
     pasos: [
-      { titulo: 'Crea o edita un curso', desc: 'Desde la sección Cursos.' },
+      { titulo: 'Crea o edita un curso', desc: 'Desde la secciÃ³n Cursos.' },
       { titulo: 'Busca el campo Aula', desc: 'En el formulario de curso.' },
       { titulo: 'Selecciona el aula', desc: 'Elige de la lista de aulas disponibles.' },
       { titulo: 'Guarda los cambios', desc: 'El curso queda vinculado al aula.' }
@@ -1080,12 +1073,12 @@ const guiasDetalladas = {
   },
   // Agregar Idiomas
   'Agregar Idiomas': {
-    descripcion: 'Configura los idiomas que se enseñan en el instituto para clasificar los cursos.',
+    descripcion: 'Configura los idiomas que se enseÃ±an en el instituto para clasificar los cursos.',
     pasos: [
-      { titulo: 'Ve a la sección Idiomas', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a la secciÃ³n Idiomas', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Haz clic en "Nuevo Idioma"', desc: 'Se abre el formulario.' },
-      { titulo: 'Ingresa el nombre', desc: 'Inglés, Francés, Portugués, etc.' },
-      { titulo: 'Guarda el idioma', desc: 'Estará disponible al crear cursos.' }
+      { titulo: 'Ingresa el nombre', desc: 'InglÃ©s, FrancÃ©s, PortuguÃ©s, etc.' },
+      { titulo: 'Guarda el idioma', desc: 'EstarÃ¡ disponible al crear cursos.' }
     ],
     tip: 'Usa nombres estandarizados para mantener consistencia en todo el sistema.'
   },
@@ -1093,237 +1086,237 @@ const guiasDetalladas = {
   'Configurar Niveles': {
     descripcion: 'Los niveles clasifican la dificultad de los cursos para orientar a los alumnos.',
     pasos: [
-      { titulo: 'Entiende los niveles', desc: 'Básico, Intermedio, Avanzado son los estándar.' },
+      { titulo: 'Entiende los niveles', desc: 'BÃ¡sico, Intermedio, Avanzado son los estÃ¡ndar.' },
       { titulo: 'Asigna al crear curso', desc: 'Selecciona el nivel apropiado.' },
       { titulo: 'Considera prerrequisitos', desc: 'Algunos niveles requieren aprobar anteriores.' },
       { titulo: 'Comunica a alumnos', desc: 'Los niveles ayudan a elegir el curso correcto.' }
     ],
-    tip: 'Define criterios claros para cada nivel y comunícalos a profesores y alumnos.'
+    tip: 'Define criterios claros para cada nivel y comunÃ­calos a profesores y alumnos.'
   },
   // Responder Mensajes
   'Responder Mensajes': {
-    descripcion: 'Atiende las consultas de alumnos y profesores a través del sistema de chat integrado.',
+    descripcion: 'Atiende las consultas de alumnos y profesores a travÃ©s del sistema de chat integrado.',
     pasos: [
       { titulo: 'Observa las notificaciones', desc: 'El badge rojo indica mensajes nuevos.' },
-      { titulo: 'Accede al Chat Soporte', desc: 'Desde el menú lateral.' },
-      { titulo: 'Selecciona la conversación', desc: 'Haz clic en el usuario a responder.' },
-      { titulo: 'Escribe y envía', desc: 'Tu respuesta llega instantáneamente.' }
+      { titulo: 'Accede al Chat Soporte', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Selecciona la conversaciÃ³n', desc: 'Haz clic en el usuario a responder.' },
+      { titulo: 'Escribe y envÃ­a', desc: 'Tu respuesta llega instantÃ¡neamente.' }
     ],
-    tip: 'Responde lo antes posible. Los usuarios valoran la atención rápida.'
+    tip: 'Responde lo antes posible. Los usuarios valoran la atenciÃ³n rÃ¡pida.'
   },
   // Gestionar Conversaciones
   'Gestionar Conversaciones': {
-    descripcion: 'Organiza y prioriza las consultas de usuarios para una atención eficiente.',
+    descripcion: 'Organiza y prioriza las consultas de usuarios para una atenciÃ³n eficiente.',
     pasos: [
       { titulo: 'Revisa la bandeja', desc: 'Todas las conversaciones aparecen listadas.' },
       { titulo: 'Filtra por estado', desc: 'Pendientes, En curso, Resueltas.' },
-      { titulo: 'Prioriza urgentes', desc: 'Atiende primero consultas críticas.' },
+      { titulo: 'Prioriza urgentes', desc: 'Atiende primero consultas crÃ­ticas.' },
       { titulo: 'Cierra resueltas', desc: 'Marca como completadas las atendidas.' }
     ],
-    tip: 'Crea respuestas frecuentes para agilizar la atención de consultas comunes.'
+    tip: 'Crea respuestas frecuentes para agilizar la atenciÃ³n de consultas comunes.'
   },
   // Notificaciones
   'Notificaciones': {
     descripcion: 'El sistema de notificaciones te mantiene informado sobre actividad importante.',
     pasos: [
-      { titulo: 'Observa los badges', desc: 'Los números rojos indican pendientes.' },
+      { titulo: 'Observa los badges', desc: 'Los nÃºmeros rojos indican pendientes.' },
       { titulo: 'Habilita en navegador', desc: 'Permite notificaciones push cuando se solicite.' },
-      { titulo: 'Revisa periódicamente', desc: 'Algunas notificaciones requieren acción.' },
+      { titulo: 'Revisa periÃ³dicamente', desc: 'Algunas notificaciones requieren acciÃ³n.' },
       { titulo: 'Atiende lo urgente', desc: 'Mensajes y pagos pendientes son prioritarios.' }
     ],
     tip: 'Las notificaciones push funcionan incluso con el navegador minimizado.'
   },
-  // ¿Cómo restablezco contraseña de un usuario?
-  '¿Cómo restablezco contraseña de un usuario?': {
-    descripcion: 'Cuando un usuario olvida su contraseña, puedes generar una nueva temporal.',
+  // Â¿CÃ³mo restablezco contraseÃ±a de un usuario?
+  'Â¿CÃ³mo restablezco contraseÃ±a de un usuario?': {
+    descripcion: 'Cuando un usuario olvida su contraseÃ±a, puedes generar una nueva temporal.',
     pasos: [
-      { titulo: 'Busca al usuario', desc: 'En la sección correspondiente (Alumnos/Profesores).' },
+      { titulo: 'Busca al usuario', desc: 'En la secciÃ³n correspondiente (Alumnos/Profesores).' },
       { titulo: 'Accede a su perfil', desc: 'Haz clic en la tarjeta del usuario.' },
-      { titulo: 'Busca opción de contraseña', desc: 'Generalmente en configuración o editar.' },
-      { titulo: 'Genera nueva contraseña', desc: 'El sistema crea una temporal.' }
+      { titulo: 'Busca opciÃ³n de contraseÃ±a', desc: 'Generalmente en configuraciÃ³n o editar.' },
+      { titulo: 'Genera nueva contraseÃ±a', desc: 'El sistema crea una temporal.' }
     ],
-    tip: 'Comunica la nueva contraseña de forma segura y pide que la cambie al ingresar.'
+    tip: 'Comunica la nueva contraseÃ±a de forma segura y pide que la cambie al ingresar.'
   },
-  // ¿No puedo eliminar un curso?
-  '¿No puedo eliminar un curso?': {
-    descripcion: 'Los cursos con alumnos inscritos están protegidos contra eliminación accidental.',
+  // Â¿No puedo eliminar un curso?
+  'Â¿No puedo eliminar un curso?': {
+    descripcion: 'Los cursos con alumnos inscritos estÃ¡n protegidos contra eliminaciÃ³n accidental.',
     pasos: [
       { titulo: 'Verifica el motivo', desc: 'El sistema indica si hay alumnos inscritos.' },
-      { titulo: 'Desvincula alumnos', desc: 'Transfiérelos a otro curso o dáles de baja.' },
-      { titulo: 'Intenta de nuevo', desc: 'Con el curso vacío, podrás eliminarlo.' },
-      { titulo: 'Considera alternativas', desc: 'Quizás solo necesitas desactivar el curso.' }
+      { titulo: 'Desvincula alumnos', desc: 'TransfiÃ©relos a otro curso o dÃ¡les de baja.' },
+      { titulo: 'Intenta de nuevo', desc: 'Con el curso vacÃ­o, podrÃ¡s eliminarlo.' },
+      { titulo: 'Considera alternativas', desc: 'QuizÃ¡s solo necesitas desactivar el curso.' }
     ],
     tip: 'Considera desactivar cursos en lugar de eliminarlos para conservar el historial.'
   },
-  // ¿Se hacen respaldos automáticos?
-  '¿Se hacen respaldos automáticos?': {
-    descripcion: 'Railway, nuestra plataforma de hosting, realiza respaldos automáticos de la base de datos.',
+  // Â¿Se hacen respaldos automÃ¡ticos?
+  'Â¿Se hacen respaldos automÃ¡ticos?': {
+    descripcion: 'Railway, nuestra plataforma de hosting, realiza respaldos automÃ¡ticos de la base de datos.',
     pasos: [
-      { titulo: 'Respaldos automáticos', desc: 'Railway realiza backups periódicos.' },
-      { titulo: 'Recuperación', desc: 'Contacta al admin técnico si necesitas restaurar.' },
+      { titulo: 'Respaldos automÃ¡ticos', desc: 'Railway realiza backups periÃ³dicos.' },
+      { titulo: 'RecuperaciÃ³n', desc: 'Contacta al admin tÃ©cnico si necesitas restaurar.' },
       { titulo: 'Respaldos manuales', desc: 'Exporta PDFs importantes como respaldo local.' },
-      { titulo: 'Buenas prácticas', desc: 'Descarga información crítica periódicamente.' }
+      { titulo: 'Buenas prÃ¡cticas', desc: 'Descarga informaciÃ³n crÃ­tica periÃ³dicamente.' }
     ],
-    tip: 'Aunque hay respaldos automáticos, mantén copias locales de información sensible.'
+    tip: 'Aunque hay respaldos automÃ¡ticos, mantÃ©n copias locales de informaciÃ³n sensible.'
   },
-  // ¿Encontré un error en el sistema?
-  '¿Encontré un error en el sistema?': {
-    descripcion: 'Los errores deben reportarse para que el equipo técnico pueda solucionarlos.',
+  // Â¿EncontrÃ© un error en el sistema?
+  'Â¿EncontrÃ© un error en el sistema?': {
+    descripcion: 'Los errores deben reportarse para que el equipo tÃ©cnico pueda solucionarlos.',
     pasos: [
-      { titulo: 'Documenta el error', desc: 'Anota qué estabas haciendo cuando ocurrió.' },
+      { titulo: 'Documenta el error', desc: 'Anota quÃ© estabas haciendo cuando ocurriÃ³.' },
       { titulo: 'Captura pantalla', desc: 'Si es posible, toma una captura del error.' },
-      { titulo: 'Anota los pasos', desc: 'Describe cómo reproducir el problema.' },
-      { titulo: 'Reporta al equipo', desc: 'Envía la información al desarrollador.' }
+      { titulo: 'Anota los pasos', desc: 'Describe cÃ³mo reproducir el problema.' },
+      { titulo: 'Reporta al equipo', desc: 'EnvÃ­a la informaciÃ³n al desarrollador.' }
     ],
-    tip: 'Cuanto más detallada sea tu descripción, más rápido podremos solucionarlo.'
+    tip: 'Cuanto mÃ¡s detallada sea tu descripciÃ³n, mÃ¡s rÃ¡pido podremos solucionarlo.'
   },
-  // === GUÍAS PARA ALUMNOS ===
+  // === GUÃAS PARA ALUMNOS ===
   'Entender tu Dashboard': {
-    descripcion: 'Tu dashboard es tu centro de información. Aquí ves un resumen de todo lo importante de un vistazo.',
+    descripcion: 'Tu dashboard es tu centro de informaciÃ³n. AquÃ­ ves un resumen de todo lo importante de un vistazo.',
     pasos: [
-      { titulo: 'Tarjetas de estadísticas', desc: 'Muestran cursos activos, promedio y progreso.' },
-      { titulo: 'Cursos destacados', desc: 'Acceso rápido a tus cursos principales.' },
+      { titulo: 'Tarjetas de estadÃ­sticas', desc: 'Muestran cursos activos, promedio y progreso.' },
+      { titulo: 'Cursos destacados', desc: 'Acceso rÃ¡pido a tus cursos principales.' },
       { titulo: 'Notificaciones', desc: 'Alertas sobre pagos, notas o mensajes.' },
-      { titulo: 'Accesos directos', desc: 'Botones para las funciones más usadas.' }
+      { titulo: 'Accesos directos', desc: 'Botones para las funciones mÃ¡s usadas.' }
     ],
-    tip: 'Revisa tu dashboard al inicio de cada sesión para estar al día.'
+    tip: 'Revisa tu dashboard al inicio de cada sesiÃ³n para estar al dÃ­a.'
   },
   'Ver Cursos Inscritos': {
-    descripcion: 'Consulta todos los cursos donde estás matriculado y su información detallada.',
+    descripcion: 'Consulta todos los cursos donde estÃ¡s matriculado y su informaciÃ³n detallada.',
     pasos: [
-      { titulo: 'Ve a Mis Cursos', desc: 'Desde el menú lateral.' },
-      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su información básica.' },
+      { titulo: 'Ve a Mis Cursos', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su informaciÃ³n bÃ¡sica.' },
       { titulo: 'Consulta el progreso', desc: 'La barra indica tu avance en el curso.' },
-      { titulo: 'Accede a detalles', desc: 'Haz clic para ver más información.' }
+      { titulo: 'Accede a detalles', desc: 'Haz clic para ver mÃ¡s informaciÃ³n.' }
     ],
     tip: 'El color de la barra de progreso indica tu estado: verde es bueno, amarillo es alerta.'
   },
   'Detalles de un Curso': {
-    descripcion: 'Accede a toda la información de un curso: profesor, horario, aula y tus calificaciones.',
+    descripcion: 'Accede a toda la informaciÃ³n de un curso: profesor, horario, aula y tus calificaciones.',
     pasos: [
       { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta del curso.' },
-      { titulo: 'Ve la información', desc: 'Horario, aula, profesor asignado.' },
-      { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aquí.' },
+      { titulo: 'Ve la informaciÃ³n', desc: 'Horario, aula, profesor asignado.' },
+      { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aquÃ­.' },
       { titulo: 'Revisa tu asistencia', desc: 'Historial de asistencias del curso.' }
     ],
     tip: 'Guarda el horario en tu calendario personal para no olvidar las clases.'
   },
   'Entender el Progreso': {
-    descripcion: 'La barra de progreso refleja tu rendimiento académico basado en tus calificaciones.',
+    descripcion: 'La barra de progreso refleja tu rendimiento acadÃ©mico basado en tus calificaciones.',
     pasos: [
       { titulo: 'Verde (7-10)', desc: 'Excelente rendimiento, vas por buen camino.' },
-      { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podrías mejorar.' },
-      { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atención, considera refuerzo.' },
+      { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podrÃ­as mejorar.' },
+      { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atenciÃ³n, considera refuerzo.' },
       { titulo: 'Promedio general', desc: 'Se calcula con todas tus notas.' }
     ],
     tip: 'Habla con tu profesor si ves rojo, hay tiempo para mejorar.'
   },
-  'Catálogo de Cursos': {
+  'CatÃ¡logo de Cursos': {
     descripcion: 'Explora todos los cursos disponibles en el instituto para futuras inscripciones.',
     pasos: [
-      { titulo: 'Ve a Cursado', desc: 'Desde el menú lateral.' },
-      { titulo: 'Navega el catálogo', desc: 'Todos los cursos disponibles aparecen aquí.' },
+      { titulo: 'Ve a Cursado', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Navega el catÃ¡logo', desc: 'Todos los cursos disponibles aparecen aquÃ­.' },
       { titulo: 'Usa filtros', desc: 'Por idioma, nivel o disponibilidad.' },
       { titulo: 'Revisa la info', desc: 'Cada tarjeta muestra horario y cupos.' }
     ],
-    tip: 'Los cursos con pocos cupos se llenan rápido, solicita inscripción a tiempo.'
+    tip: 'Los cursos con pocos cupos se llenan rÃ¡pido, solicita inscripciÃ³n a tiempo.'
   },
-  'Solicitar Inscripción': {
-    descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisará tu solicitud.',
+  'Solicitar InscripciÃ³n': {
+    descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisarÃ¡ tu solicitud.',
     pasos: [
-      { titulo: 'Encuentra el curso', desc: 'Navega el catálogo de cursos.' },
+      { titulo: 'Encuentra el curso', desc: 'Navega el catÃ¡logo de cursos.' },
       { titulo: 'Verifica requisitos', desc: 'Algunos cursos requieren nivel previo.' },
-      { titulo: 'Haz clic en inscribir', desc: 'Botón "Solicitar Inscripción".' },
-      { titulo: 'Espera confirmación', desc: 'Recibirás respuesta por el sistema.' }
+      { titulo: 'Haz clic en inscribir', desc: 'BotÃ³n "Solicitar InscripciÃ³n".' },
+      { titulo: 'Espera confirmaciÃ³n', desc: 'RecibirÃ¡s respuesta por el sistema.' }
     ],
-    tip: 'Asegúrate de no tener conflictos de horario con tus cursos actuales.'
+    tip: 'AsegÃºrate de no tener conflictos de horario con tus cursos actuales.'
   },
   'Verificar Disponibilidad': {
-    descripcion: 'Cada curso tiene un cupo máximo. Verifica si hay lugar antes de solicitar inscripción.',
+    descripcion: 'Cada curso tiene un cupo mÃ¡ximo. Verifica si hay lugar antes de solicitar inscripciÃ³n.',
     pasos: [
       { titulo: 'Busca el indicador', desc: 'Cada curso muestra cupos disponibles.' },
       { titulo: 'Interpreta los colores', desc: 'Verde hay lugar, rojo lleno.' },
-      { titulo: 'Consulta alternativas', desc: 'Si está lleno, busca otros horarios.' },
+      { titulo: 'Consulta alternativas', desc: 'Si estÃ¡ lleno, busca otros horarios.' },
       { titulo: 'Contacta soporte', desc: 'Para listas de espera o excepciones.' }
     ],
-    tip: 'A inicio de cuatrimestre hay más movimiento, los cupos pueden liberarse.'
+    tip: 'A inicio de cuatrimestre hay mÃ¡s movimiento, los cupos pueden liberarse.'
   },
   'Ver Calificaciones': {
     descripcion: 'Consulta tus notas de parciales y finales de cada curso.',
     pasos: [
-      { titulo: 'Ve a Calificaciones', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a Calificaciones', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Selecciona el curso', desc: 'Si tienes varios, elige uno.' },
       { titulo: 'Revisa tus notas', desc: 'Parcial 1, Parcial 2, Final.' },
-      { titulo: 'Consulta el promedio', desc: 'Se calcula automáticamente.' }
+      { titulo: 'Consulta el promedio', desc: 'Se calcula automÃ¡ticamente.' }
     ],
-    tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos días.'
+    tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos dÃ­as.'
   },
   'Entender Promedios': {
-    descripcion: 'El promedio se calcula automáticamente basado en tus calificaciones registradas.',
+    descripcion: 'El promedio se calcula automÃ¡ticamente basado en tus calificaciones registradas.',
     pasos: [
       { titulo: 'Promedio por curso', desc: 'Suma de notas dividido cantidad de evaluaciones.' },
       { titulo: 'Promedio general', desc: 'Incluye todos tus cursos activos.' },
       { titulo: 'Peso de evaluaciones', desc: 'Todas las evaluaciones valen igual.' },
-      { titulo: 'Actualización', desc: 'Se recalcula con cada nueva nota.' }
+      { titulo: 'ActualizaciÃ³n', desc: 'Se recalcula con cada nueva nota.' }
     ],
     tip: 'El promedio general es importante para becas y certificados.'
   },
-  'Historial Académico': {
-    descripcion: 'Tu historial muestra toda tu trayectoria académica en el instituto.',
+  'Historial AcadÃ©mico': {
+    descripcion: 'Tu historial muestra toda tu trayectoria acadÃ©mica en el instituto.',
     pasos: [
-      { titulo: 'Accede al historial', desc: 'Desde la sección Calificaciones.' },
+      { titulo: 'Accede al historial', desc: 'Desde la secciÃ³n Calificaciones.' },
       { titulo: 'Revisa cursos pasados', desc: 'Todos tus cursos completados.' },
       { titulo: 'Consulta notas finales', desc: 'Cada curso muestra nota de cierre.' },
-      { titulo: 'Solicita certificados', desc: 'Contacta administración si necesitas.' }
+      { titulo: 'Solicita certificados', desc: 'Contacta administraciÃ³n si necesitas.' }
     ],
-    tip: 'El historial es tu carta de presentación académica, cuídalo.'
+    tip: 'El historial es tu carta de presentaciÃ³n acadÃ©mica, cuÃ­dalo.'
   },
   'Ver Estado de Pagos': {
     descripcion: 'Consulta el estado de tus cuotas: pagadas, pendientes o vencidas.',
     pasos: [
-      { titulo: 'Ve a Mis Pagos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a Mis Pagos', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Revisa la lista', desc: 'Cada cuota aparece con su estado.' },
-      { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo según urgencia.' },
-      { titulo: 'Consulta vencimientos', desc: 'Fechas límite de cada cuota.' }
+      { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo segÃºn urgencia.' },
+      { titulo: 'Consulta vencimientos', desc: 'Fechas lÃ­mite de cada cuota.' }
     ],
-    tip: 'Mantén tus pagos al día para evitar recargos e inconvenientes.'
+    tip: 'MantÃ©n tus pagos al dÃ­a para evitar recargos e inconvenientes.'
   },
   'Realizar un Pago': {
-    descripcion: 'Paga tus cuotas de forma simple eligiendo el método que prefieras.',
+    descripcion: 'Paga tus cuotas de forma simple eligiendo el mÃ©todo que prefieras.',
     pasos: [
       { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-      { titulo: 'Elige método de pago', desc: 'Mercado Pago o Efectivo.' },
-      { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones según método.' },
+      { titulo: 'Elige mÃ©todo de pago', desc: 'Mercado Pago o Efectivo.' },
+      { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones segÃºn mÃ©todo.' },
       { titulo: 'Guarda el comprobante', desc: 'Siempre conserva tu recibo.' }
     ],
-    tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretaría.'
+    tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretarÃ­a.'
   },
   'Pago en Efectivo': {
-    descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretaría.',
+    descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretarÃ­a.',
     pasos: [
       { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-      { titulo: 'Elige "Efectivo"', desc: 'Como método de pago.' },
-      { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con código único.' },
-      { titulo: 'Presenta en secretaría', desc: 'Paga en efectivo y entrégalo.' }
+      { titulo: 'Elige "Efectivo"', desc: 'Como mÃ©todo de pago.' },
+      { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con cÃ³digo Ãºnico.' },
+      { titulo: 'Presenta en secretarÃ­a', desc: 'Paga en efectivo y entrÃ©galo.' }
     ],
-    tip: 'El ticket tiene fecha de vencimiento, preséntalo a tiempo.'
+    tip: 'El ticket tiene fecha de vencimiento, presÃ©ntalo a tiempo.'
   },
   'Pago con Mercado Pago': {
     descripcion: 'Paga online con tarjeta o dinero en cuenta de Mercado Pago.',
     pasos: [
       { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-      { titulo: 'Elige "Mercado Pago"', desc: 'Como método de pago.' },
-      { titulo: 'Serás redirigido', desc: 'A la página segura de MP.' },
+      { titulo: 'Elige "Mercado Pago"', desc: 'Como mÃ©todo de pago.' },
+      { titulo: 'SerÃ¡s redirigido', desc: 'A la pÃ¡gina segura de MP.' },
       { titulo: 'Completa el pago', desc: 'Con tarjeta o dinero en cuenta.' }
     ],
-    tip: 'Asegúrate de tener fondos o tarjeta habilitada antes de iniciar.'
+    tip: 'AsegÃºrate de tener fondos o tarjeta habilitada antes de iniciar.'
   },
   'Descargar Comprobantes': {
     descripcion: 'Descarga tickets y comprobantes de tus pagos para tu registro.',
     pasos: [
-      { titulo: 'Ve a Mis Pagos', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a Mis Pagos', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Busca el pago', desc: 'Localiza el pago del que necesitas comprobante.' },
-      { titulo: 'Haz clic en descargar', desc: 'Ícono de descarga junto al pago.' },
+      { titulo: 'Haz clic en descargar', desc: 'Ãcono de descarga junto al pago.' },
       { titulo: 'Guarda el archivo', desc: 'Se descarga un PDF.' }
     ],
     tip: 'Guarda todos tus comprobantes en una carpeta organizada por fecha.'
@@ -1331,40 +1324,40 @@ const guiasDetalladas = {
   'Cambiar Avatar': {
     descripcion: 'Personaliza tu perfil subiendo una foto o imagen.',
     pasos: [
-      { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
-      { titulo: 'Haz clic en tu avatar', desc: 'El círculo con tu imagen actual.' },
+      { titulo: 'Ve a Mi Perfil', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Haz clic en tu avatar', desc: 'El cÃ­rculo con tu imagen actual.' },
       { titulo: 'Selecciona archivo', desc: 'Elige una imagen de tu dispositivo.' },
-      { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza automáticamente.' }
+      { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza automÃ¡ticamente.' }
     ],
-    tip: 'Usa una foto clara de tu rostro para fácil identificación.'
+    tip: 'Usa una foto clara de tu rostro para fÃ¡cil identificaciÃ³n.'
   },
   'Actualizar Datos Personales': {
-    descripcion: 'Mantén tu información de contacto actualizada para comunicaciones importantes.',
+    descripcion: 'MantÃ©n tu informaciÃ³n de contacto actualizada para comunicaciones importantes.',
     pasos: [
-      { titulo: 'Ve a Mi Perfil', desc: 'Desde el menú lateral.' },
-      { titulo: 'Haz clic en editar', desc: 'Botón para modificar datos.' },
-      { titulo: 'Actualiza la información', desc: 'Teléfono, email de contacto.' },
+      { titulo: 'Ve a Mi Perfil', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Haz clic en editar', desc: 'BotÃ³n para modificar datos.' },
+      { titulo: 'Actualiza la informaciÃ³n', desc: 'TelÃ©fono, email de contacto.' },
       { titulo: 'Guarda los cambios', desc: 'Confirma las modificaciones.' }
     ],
-    tip: 'Datos como DNI y legajo solo los puede modificar administración.'
+    tip: 'Datos como DNI y legajo solo los puede modificar administraciÃ³n.'
   },
-  'Editar Información Personal': {
+  'Editar InformaciÃ³n Personal': {
     descripcion: 'Actualiza tus datos de contacto para mantenernos comunicados.',
     pasos: [
-      { titulo: 'Accede a tu perfil', desc: 'Desde el menú lateral.' },
-      { titulo: 'Localiza campos editables', desc: 'Email, teléfono principalmente.' },
-      { titulo: 'Modifica lo necesario', desc: 'Ingresa la información correcta.' },
-      { titulo: 'Guarda los cambios', desc: 'Confirma con el botón guardar.' }
+      { titulo: 'Accede a tu perfil', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Localiza campos editables', desc: 'Email, telÃ©fono principalmente.' },
+      { titulo: 'Modifica lo necesario', desc: 'Ingresa la informaciÃ³n correcta.' },
+      { titulo: 'Guarda los cambios', desc: 'Confirma con el botÃ³n guardar.' }
     ],
-    tip: 'Un email actualizado es crucial para recuperar acceso si olvidas la contraseña.'
+    tip: 'Un email actualizado es crucial para recuperar acceso si olvidas la contraseÃ±a.'
   },
   'Acceder a Classroom': {
     descripcion: 'Conecta con Google Classroom para acceder a materiales de estudio.',
     pasos: [
-      { titulo: 'Ve a Classroom', desc: 'Desde el menú lateral.' },
-      { titulo: 'Haz clic en acceder', desc: 'Serás redirigido a Google.' },
-      { titulo: 'Inicia sesión', desc: 'Con tu cuenta de Google.' },
-      { titulo: 'Explora los cursos', desc: 'Verás los cursos donde estás inscrito.' }
+      { titulo: 'Ve a Classroom', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Haz clic en acceder', desc: 'SerÃ¡s redirigido a Google.' },
+      { titulo: 'Inicia sesiÃ³n', desc: 'Con tu cuenta de Google.' },
+      { titulo: 'Explora los cursos', desc: 'VerÃ¡s los cursos donde estÃ¡s inscrito.' }
     ],
     tip: 'Usa la misma cuenta de Google siempre para no perder acceso.'
   },
@@ -1373,116 +1366,116 @@ const guiasDetalladas = {
     pasos: [
       { titulo: 'Ingresa a Classroom', desc: 'Conecta con tu cuenta Google.' },
       { titulo: 'Selecciona el curso', desc: 'El que te interesa revisar.' },
-      { titulo: 'Busca Materiales', desc: 'Sección de recursos del curso.' },
+      { titulo: 'Busca Materiales', desc: 'SecciÃ³n de recursos del curso.' },
       { titulo: 'Descarga lo que necesites', desc: 'PDFs, documentos, presentaciones.' }
     ],
-    tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexión.'
+    tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexiÃ³n.'
   },
   'Vincular Google Classroom': {
     descripcion: 'Conecta tu cuenta de Google para acceder a los recursos de Classroom.',
     pasos: [
       { titulo: 'Ten una cuenta Google', desc: 'Gmail o cuenta institucional.' },
-      { titulo: 'Haz clic en Classroom', desc: 'Desde el menú del sistema.' },
-      { titulo: 'Autoriza el acceso', desc: 'Google pedirá permisos.' },
+      { titulo: 'Haz clic en Classroom', desc: 'Desde el menÃº del sistema.' },
+      { titulo: 'Autoriza el acceso', desc: 'Google pedirÃ¡ permisos.' },
       { titulo: 'Listo', desc: 'Ya puedes acceder a los recursos.' }
     ],
     tip: 'Si tienes problemas, limpia las cookies del navegador e intenta de nuevo.'
   },
-  'Contactar Administración': {
+  'Contactar AdministraciÃ³n': {
     descripcion: 'Usa el chat de soporte para comunicarte directamente con el equipo administrativo.',
     pasos: [
-      { titulo: 'Ve a Chat Soporte', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a Chat Soporte', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Escribe tu mensaje', desc: 'Describe tu consulta o problema.' },
-      { titulo: 'Envía el mensaje', desc: 'Presiona Enter o el botón enviar.' },
-      { titulo: 'Espera respuesta', desc: 'Te notificarán cuando respondan.' }
+      { titulo: 'EnvÃ­a el mensaje', desc: 'Presiona Enter o el botÃ³n enviar.' },
+      { titulo: 'Espera respuesta', desc: 'Te notificarÃ¡n cuando respondan.' }
     ],
-    tip: 'Sé claro y específico en tu consulta para recibir mejor ayuda.'
+    tip: 'SÃ© claro y especÃ­fico en tu consulta para recibir mejor ayuda.'
   },
   'Notificaciones de Chat': {
     descripcion: 'Recibe alertas cuando el equipo de soporte responda a tus consultas.',
     pasos: [
-      { titulo: 'Observa el badge', desc: 'Número rojo en Chat Soporte.' },
+      { titulo: 'Observa el badge', desc: 'NÃºmero rojo en Chat Soporte.' },
       { titulo: 'Habilita notificaciones', desc: 'Acepta cuando el navegador pregunte.' },
-      { titulo: 'Recibirás alertas', desc: 'Incluso con la pestaña cerrada.' },
+      { titulo: 'RecibirÃ¡s alertas', desc: 'Incluso con la pestaÃ±a cerrada.' },
       { titulo: 'Revisa mensajes nuevos', desc: 'Haz clic para ver respuestas.' }
     ],
-    tip: 'Las notificaciones funcionan mejor si mantienes sesión activa.'
+    tip: 'Las notificaciones funcionan mejor si mantienes sesiÃ³n activa.'
   },
   'Ver Historial de Mensajes': {
-    descripcion: 'Revisa conversaciones anteriores con administración cuando lo necesites.',
+    descripcion: 'Revisa conversaciones anteriores con administraciÃ³n cuando lo necesites.',
     pasos: [
       { titulo: 'Accede al chat', desc: 'Desde Chat Soporte.' },
-      { titulo: 'Desplázate hacia arriba', desc: 'Los mensajes antiguos cargan.' },
+      { titulo: 'DesplÃ¡zate hacia arriba', desc: 'Los mensajes antiguos cargan.' },
       { titulo: 'Busca lo que necesitas', desc: 'Revisa respuestas anteriores.' },
       { titulo: 'Referencia en nuevos mensajes', desc: 'Si es relevante, menciona el tema previo.' }
     ],
     tip: 'El historial se conserva indefinidamente para tu referencia.'
   },
-  '¿Olvidé mi contraseña?': {
-    descripcion: 'Si olvidaste tu contraseña, hay formas de recuperar el acceso a tu cuenta.',
+  'Â¿OlvidÃ© mi contraseÃ±a?': {
+    descripcion: 'Si olvidaste tu contraseÃ±a, hay formas de recuperar el acceso a tu cuenta.',
     pasos: [
-      { titulo: 'No te preocupes', desc: 'Es un problema común con solución.' },
-      { titulo: 'Contacta administración', desc: 'Vía email o presencialmente.' },
+      { titulo: 'No te preocupes', desc: 'Es un problema comÃºn con soluciÃ³n.' },
+      { titulo: 'Contacta administraciÃ³n', desc: 'VÃ­a email o presencialmente.' },
       { titulo: 'Verifica tu identidad', desc: 'Con DNI o datos personales.' },
-      { titulo: 'Recibe nueva contraseña', desc: 'Te darán una temporal para cambiar.' }
+      { titulo: 'Recibe nueva contraseÃ±a', desc: 'Te darÃ¡n una temporal para cambiar.' }
     ],
-    tip: 'Usa un gestor de contraseñas para no olvidarlas en el futuro.'
+    tip: 'Usa un gestor de contraseÃ±as para no olvidarlas en el futuro.'
   },
-  '¿Mis datos están incorrectos?': {
-    descripcion: 'Si encuentras errores en tu información personal, puedes solicitar corrección.',
+  'Â¿Mis datos estÃ¡n incorrectos?': {
+    descripcion: 'Si encuentras errores en tu informaciÃ³n personal, puedes solicitar correcciÃ³n.',
     pasos: [
-      { titulo: 'Identifica el error', desc: 'Qué dato específico está mal.' },
-      { titulo: 'Contacta administración', desc: 'Por chat o presencialmente.' },
-      { titulo: 'Proporciona información correcta', desc: 'Y documentación si es necesario.' },
-      { titulo: 'Espera la corrección', desc: 'Los cambios se reflejan pronto.' }
+      { titulo: 'Identifica el error', desc: 'QuÃ© dato especÃ­fico estÃ¡ mal.' },
+      { titulo: 'Contacta administraciÃ³n', desc: 'Por chat o presencialmente.' },
+      { titulo: 'Proporciona informaciÃ³n correcta', desc: 'Y documentaciÃ³n si es necesario.' },
+      { titulo: 'Espera la correcciÃ³n', desc: 'Los cambios se reflejan pronto.' }
     ],
-    tip: 'DNI y legajo requieren documentación para modificarse.'
+    tip: 'DNI y legajo requieren documentaciÃ³n para modificarse.'
   },
-  '¿Cómo me doy de baja de un curso?': {
+  'Â¿CÃ³mo me doy de baja de un curso?': {
     descripcion: 'Si necesitas abandonar un curso, debes solicitar la baja formalmente.',
     pasos: [
-      { titulo: 'Evalúa tu decisión', desc: 'La baja puede afectar tu historial.' },
-      { titulo: 'Contacta administración', desc: 'Explica tu situación.' },
-      { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmación.' },
-      { titulo: 'Verifica la baja', desc: 'El curso desaparecerá de tu lista.' }
+      { titulo: 'EvalÃºa tu decisiÃ³n', desc: 'La baja puede afectar tu historial.' },
+      { titulo: 'Contacta administraciÃ³n', desc: 'Explica tu situaciÃ³n.' },
+      { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmaciÃ³n.' },
+      { titulo: 'Verifica la baja', desc: 'El curso desaparecerÃ¡ de tu lista.' }
     ],
-    tip: 'Consulta sobre períodos de baja sin penalización antes de decidir.'
+    tip: 'Consulta sobre perÃ­odos de baja sin penalizaciÃ³n antes de decidir.'
   },
-  // === GUÍAS PARA PROFESORES ===
-  'Tu Primer Día': {
-    descripcion: 'Guía para comenzar a usar el sistema como profesor.',
+  // === GUÃAS PARA PROFESORES ===
+  'Tu Primer DÃ­a': {
+    descripcion: 'GuÃ­a para comenzar a usar el sistema como profesor.',
     pasos: [
       { titulo: 'Revisa tus cursos', desc: 'Ve a Mis Cursos para ver asignaciones.' },
       { titulo: 'Configura tu perfil', desc: 'Sube una foto y verifica tus datos.' },
-      { titulo: 'Explora las secciones', desc: 'Familiarízate con el menú.' },
+      { titulo: 'Explora las secciones', desc: 'FamiliarÃ­zate con el menÃº.' },
       { titulo: 'Prueba las funciones', desc: 'Calificaciones y asistencias.' }
     ],
-    tip: 'Si tienes dudas, el chat de soporte está disponible para ayudarte.'
+    tip: 'Si tienes dudas, el chat de soporte estÃ¡ disponible para ayudarte.'
   },
   'Ver Cursos Asignados': {
     descripcion: 'Consulta los cursos que te han sido asignados para dictar.',
     pasos: [
-      { titulo: 'Ve a Mis Cursos', desc: 'Desde el menú lateral.' },
-      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra información clave.' },
-      { titulo: 'Consulta horarios', desc: 'Días y horas de clase.' },
+      { titulo: 'Ve a Mis Cursos', desc: 'Desde el menÃº lateral.' },
+      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra informaciÃ³n clave.' },
+      { titulo: 'Consulta horarios', desc: 'DÃ­as y horas de clase.' },
       { titulo: 'Ve los alumnos', desc: 'Cantidad inscrita en cada curso.' }
     ],
-    tip: 'Si falta un curso que deberías tener, contacta a administración.'
+    tip: 'Si falta un curso que deberÃ­as tener, contacta a administraciÃ³n.'
   },
-  'Información del Curso': {
+  'InformaciÃ³n del Curso': {
     descripcion: 'Accede a todos los detalles de los cursos que dictas.',
     pasos: [
       { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta.' },
-      { titulo: 'Revisa la información', desc: 'Horario, aula, nivel.' },
+      { titulo: 'Revisa la informaciÃ³n', desc: 'Horario, aula, nivel.' },
       { titulo: 'Consulta alumnos', desc: 'Lista completa de inscritos.' },
-      { titulo: 'Ve estadísticas', desc: 'Promedio del curso y asistencia.' }
+      { titulo: 'Ve estadÃ­sticas', desc: 'Promedio del curso y asistencia.' }
     ],
     tip: 'Descarga la lista de alumnos para pasar asistencia en papel si lo prefieres.'
   },
   'Cargar Notas': {
     descripcion: 'Ingresa las calificaciones de tus alumnos en el sistema.',
     pasos: [
-      { titulo: 'Ve a Calificaciones', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a Calificaciones', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Selecciona el curso', desc: 'Del desplegable de cursos.' },
       { titulo: 'Busca al alumno', desc: 'En la lista aparecen todos.' },
       { titulo: 'Ingresa las notas', desc: 'Parcial 1, Parcial 2, Final.' }
@@ -1492,79 +1485,79 @@ const guiasDetalladas = {
   'Editar Calificaciones': {
     descripcion: 'Modifica notas ya ingresadas si es necesario hacer correcciones.',
     pasos: [
-      { titulo: 'Busca la calificación', desc: 'En la sección de notas del curso.' },
+      { titulo: 'Busca la calificaciÃ³n', desc: 'En la secciÃ³n de notas del curso.' },
       { titulo: 'Haz clic en editar', desc: 'Junto a la nota a modificar.' },
       { titulo: 'Cambia el valor', desc: 'Ingresa la nota correcta.' },
       { titulo: 'Guarda el cambio', desc: 'Se recalcula el promedio.' }
     ],
-    tip: 'Los cambios quedan registrados, úsalos solo para correcciones legítimas.'
+    tip: 'Los cambios quedan registrados, Ãºsalos solo para correcciones legÃ­timas.'
   },
   'Ver Promedio de Alumnos': {
     descripcion: 'Consulta el rendimiento general de tus alumnos en cada curso.',
     pasos: [
       { titulo: 'Accede a Calificaciones', desc: 'Del curso correspondiente.' },
-      { titulo: 'Revisa la columna promedio', desc: 'Se calcula automáticamente.' },
+      { titulo: 'Revisa la columna promedio', desc: 'Se calcula automÃ¡ticamente.' },
       { titulo: 'Identifica tendencias', desc: 'Alumnos que necesitan apoyo.' },
-      { titulo: 'Exporta si necesitas', desc: 'Para análisis fuera del sistema.' }
+      { titulo: 'Exporta si necesitas', desc: 'Para anÃ¡lisis fuera del sistema.' }
     ],
     tip: 'Los promedios bajos generalizados pueden indicar necesidad de refuerzo.'
   },
   'Tomar Asistencia': {
     descripcion: 'Registra la asistencia de tus alumnos en cada clase.',
     pasos: [
-      { titulo: 'Ve a Asistencias', desc: 'Desde el menú lateral.' },
+      { titulo: 'Ve a Asistencias', desc: 'Desde el menÃº lateral.' },
       { titulo: 'Selecciona curso y fecha', desc: 'La fecha actual viene por defecto.' },
       { titulo: 'Marca cada alumno', desc: 'Presente, Ausente o Tarde.' },
-      { titulo: 'Se guarda automáticamente', desc: 'No necesitas botón guardar.' }
+      { titulo: 'Se guarda automÃ¡ticamente', desc: 'No necesitas botÃ³n guardar.' }
     ],
-    tip: 'Toma asistencia al inicio de clase para mayor precisión.'
+    tip: 'Toma asistencia al inicio de clase para mayor precisiÃ³n.'
   },
   'Historial de Asistencias': {
     descripcion: 'Consulta registros de asistencia de fechas anteriores.',
     pasos: [
       { titulo: 'Ve a Asistencias', desc: 'Del curso que te interesa.' },
       { titulo: 'Cambia la fecha', desc: 'Usa el calendario para navegar.' },
-      { titulo: 'Revisa el registro', desc: 'Verás el estado de cada alumno.' },
+      { titulo: 'Revisa el registro', desc: 'VerÃ¡s el estado de cada alumno.' },
       { titulo: 'Identifica patrones', desc: 'Alumnos con muchas ausencias.' }
     ],
-    tip: 'Comunica a administración si un alumno tiene ausencias excesivas.'
+    tip: 'Comunica a administraciÃ³n si un alumno tiene ausencias excesivas.'
   },
-  '¿No veo un curso asignado?': {
-    descripcion: 'Si un curso que deberías tener no aparece, puede haber un problema de asignación.',
+  'Â¿No veo un curso asignado?': {
+    descripcion: 'Si un curso que deberÃ­as tener no aparece, puede haber un problema de asignaciÃ³n.',
     pasos: [
-      { titulo: 'Verifica la asignación', desc: 'Confirma con administración.' },
-      { titulo: 'Recarga la página', desc: 'A veces es un problema de caché.' },
-      { titulo: 'Cierra y abre sesión', desc: 'Puede actualizar tus datos.' },
+      { titulo: 'Verifica la asignaciÃ³n', desc: 'Confirma con administraciÃ³n.' },
+      { titulo: 'Recarga la pÃ¡gina', desc: 'A veces es un problema de cachÃ©.' },
+      { titulo: 'Cierra y abre sesiÃ³n', desc: 'Puede actualizar tus datos.' },
       { titulo: 'Contacta soporte', desc: 'Si el problema persiste.' }
     ],
     tip: 'Los cursos nuevos pueden demorar unos minutos en aparecer.'
   },
-  '¿Las calificaciones no se guardan?': {
-    descripcion: 'Si las notas no se guardan, puede haber un problema técnico.',
+  'Â¿Las calificaciones no se guardan?': {
+    descripcion: 'Si las notas no se guardan, puede haber un problema tÃ©cnico.',
     pasos: [
-      { titulo: 'Verifica conexión', desc: 'Asegúrate de tener internet.' },
+      { titulo: 'Verifica conexiÃ³n', desc: 'AsegÃºrate de tener internet.' },
       { titulo: 'Haz clic en guardar', desc: 'No solo cambies el valor, confirma.' },
-      { titulo: 'Espera el mensaje', desc: 'Debe aparecer confirmación.' },
+      { titulo: 'Espera el mensaje', desc: 'Debe aparecer confirmaciÃ³n.' },
       { titulo: 'Recarga y verifica', desc: 'La nota debe persistir.' }
     ],
-    tip: 'Si el problema continúa, reporta el error con capturas de pantalla.'
+    tip: 'Si el problema continÃºa, reporta el error con capturas de pantalla.'
   }
 };
 
 function openGuiaModal(item) {
-  const title = item.querySelector('h4')?.textContent || 'Guía';
+  const title = item.querySelector('h4')?.textContent || 'GuÃ­a';
   const description = item.querySelector('p')?.textContent || '';
   const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
   const tags = item.querySelectorAll('.guia-tag');
   
-  // Buscar datos detallados o usar genéricos
+  // Buscar datos detallados o usar genÃ©ricos
   const datos = guiasDetalladas[title] || {
     descripcion: description,
     pasos: [
       { titulo: 'Paso 1', desc: 'Sigue las instrucciones en pantalla.' },
-      { titulo: 'Paso 2', desc: 'Completa la información requerida.' },
+      { titulo: 'Paso 2', desc: 'Completa la informaciÃ³n requerida.' },
       { titulo: 'Paso 3', desc: 'Confirma los cambios realizados.' },
-      { titulo: 'Paso 4', desc: 'Verifica que todo esté correcto.' }
+      { titulo: 'Paso 4', desc: 'Verifica que todo estÃ© correcto.' }
     ],
     tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
   };
@@ -1652,7 +1645,7 @@ function filterAyudaContent(query) {
   let totalVisible = 0;
 
   if (!query) {
-    // Sin búsqueda: mostrar todo normal
+    // Sin bÃºsqueda: mostrar todo normal
     accordions.forEach(acc => {
       acc.classList.remove('hidden', 'open');
     });
@@ -1664,7 +1657,7 @@ function filterAyudaContent(query) {
     return;
   }
 
-  // Con búsqueda: filtrar
+  // Con bÃºsqueda: filtrar
   accordions.forEach(accordion => {
     const items = accordion.querySelectorAll('.guia-item');
     let hasVisibleItems = false;
@@ -1705,1763 +1698,6 @@ function filterAyudaContent(query) {
   }
 }
 
-// ========================================
-// SECCIÓN DE MODERACIÓN CLASSROOM - ADMIN
-// ========================================
-
-function renderModeracionSection() {
-  return `
-    <style>
-      .moderacion-container {
-        padding: 0;
-        max-width: 100%;
-      }
-
-      .mod-hero {
-        background: linear-gradient(135deg, #547194 0%, #3d5a7a 50%, #2d4a6a 100%);
-        border-radius: 20px;
-        padding: 40px;
-        margin-bottom: 30px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 10px 40px rgba(84, 113, 148, 0.3);
-      }
-
-      .mod-hero::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        border-radius: 50%;
-      }
-
-      .mod-hero::after {
-        content: '';
-        position: absolute;
-        bottom: -30%;
-        left: -10%;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(102,126,234,0.2) 0%, transparent 70%);
-        border-radius: 50%;
-      }
-
-      .mod-hero-content {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-
-      .mod-hero-text h1 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .mod-hero-text h1 i {
-        width: 42px;
-        height: 42px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 12px;
-        padding: 8px;
-      }
-
-      .mod-hero-text p {
-        color: rgba(255,255,255,0.85);
-        font-size: 1.05rem;
-        max-width: 500px;
-      }
-
-      .mod-quick-actions {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .mod-quick-btn {
-        background: rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.3);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      .mod-quick-btn:hover {
-        background: rgba(255,255,255,0.25);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      }
-
-      .mod-quick-btn i {
-        width: 18px;
-        height: 18px;
-      }
-
-      .mod-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
-      }
-
-      .mod-stat-card {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(84, 113, 148, 0.1);
-        transition: all 0.3s ease;
-      }
-
-      .mod-stat-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(84, 113, 148, 0.15);
-      }
-
-      .mod-stat-icon {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-
-      .mod-stat-icon i {
-        width: 28px;
-        height: 28px;
-        color: white;
-      }
-
-      .mod-stat-icon.blue { background: linear-gradient(135deg, #547194, #667eea); }
-      .mod-stat-icon.orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-      .mod-stat-icon.red { background: linear-gradient(135deg, #ef4444, #f87171); }
-      .mod-stat-icon.green { background: linear-gradient(135deg, #10b981, #34d399); }
-      .mod-stat-icon.purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-
-      .mod-stat-info h3 {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #1a1a2e;
-        line-height: 1;
-        margin-bottom: 4px;
-      }
-
-      .mod-stat-info p {
-        color: #64748b;
-        font-size: 0.9rem;
-        margin: 0;
-      }
-
-      .mod-main-grid {
-        display: grid;
-        grid-template-columns: 1fr 380px;
-        gap: 25px;
-      }
-
-      @media (max-width: 1200px) {
-        .mod-main-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .mod-content-panel {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(84, 113, 148, 0.1);
-        overflow: hidden;
-      }
-
-      .mod-panel-header {
-        padding: 20px 24px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-
-      .mod-panel-title {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .mod-panel-title i {
-        width: 24px;
-        height: 24px;
-        color: #547194;
-      }
-
-      .mod-panel-title h2 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #1a1a2e;
-        margin: 0;
-      }
-
-      .mod-tabs {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-
-      .mod-tab {
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        background: transparent;
-        color: #64748b;
-        font-size: 0.85rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .mod-tab:hover {
-        background: rgba(84, 113, 148, 0.05);
-        color: #547194;
-      }
-
-      .mod-tab.active {
-        background: #547194;
-        color: white;
-        border-color: #547194;
-      }
-
-      .mod-tab .count {
-        background: rgba(255,255,255,0.2);
-        padding: 2px 8px;
-        border-radius: 10px;
-        font-size: 0.75rem;
-      }
-
-      .mod-tab.active .count {
-        background: rgba(255,255,255,0.3);
-      }
-
-      .mod-content-list {
-        max-height: 600px;
-        overflow-y: auto;
-      }
-
-      .mod-content-item {
-        padding: 18px 24px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 15px;
-        transition: all 0.2s ease;
-      }
-
-      .mod-content-item:hover {
-        background: rgba(84, 113, 148, 0.03);
-      }
-
-      .mod-content-item:last-child {
-        border-bottom: none;
-      }
-
-      .mod-item-main {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .mod-item-header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 6px;
-        flex-wrap: wrap;
-      }
-
-      .mod-item-type {
-        padding: 3px 10px;
-        border-radius: 6px;
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-
-      .mod-item-type.tarea { background: #dbeafe; color: #1d4ed8; }
-      .mod-item-type.anuncio { background: #fef3c7; color: #b45309; }
-      .mod-item-type.comentario { background: #e0e7ff; color: #4338ca; }
-      .mod-item-type.pregunta { background: #d1fae5; color: #047857; }
-      .mod-item-type.recurso { background: #fce7f3; color: #be185d; }
-
-      .mod-item-author {
-        font-size: 0.85rem;
-        color: #64748b;
-      }
-
-      .mod-item-author strong {
-        color: #1a1a2e;
-        font-weight: 600;
-      }
-
-      .mod-item-title {
-        font-size: 0.95rem;
-        color: #1a1a2e;
-        margin-bottom: 4px;
-        font-weight: 500;
-        line-height: 1.4;
-      }
-
-      .mod-item-preview {
-        font-size: 0.85rem;
-        color: #64748b;
-        line-height: 1.5;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      .mod-item-meta {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-top: 8px;
-        font-size: 0.8rem;
-        color: #94a3b8;
-      }
-
-      .mod-item-meta span {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .mod-item-meta i {
-        width: 14px;
-        height: 14px;
-      }
-
-      .mod-item-actions {
-        display: flex;
-        gap: 8px;
-        flex-shrink: 0;
-      }
-
-      .mod-action-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        background: white;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-      }
-
-      .mod-action-btn i {
-        width: 16px;
-        height: 16px;
-        color: #64748b;
-      }
-
-      .mod-action-btn:hover {
-        background: #f8fafc;
-      }
-
-      .mod-action-btn.view:hover {
-        background: #dbeafe;
-        border-color: #3b82f6;
-      }
-      .mod-action-btn.view:hover i { color: #3b82f6; }
-
-      .mod-action-btn.delete:hover {
-        background: #fee2e2;
-        border-color: #ef4444;
-      }
-      .mod-action-btn.delete:hover i { color: #ef4444; }
-
-      .mod-action-btn.warn:hover {
-        background: #fef3c7;
-        border-color: #f59e0b;
-      }
-      .mod-action-btn.warn:hover i { color: #f59e0b; }
-
-      /* Panel lateral */
-      .mod-sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .mod-sidebar-card {
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(84, 113, 148, 0.1);
-        overflow: hidden;
-      }
-
-      .mod-sidebar-header {
-        padding: 16px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .mod-sidebar-header i {
-        width: 20px;
-        height: 20px;
-        color: #547194;
-      }
-
-      .mod-sidebar-header h3 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #1a1a2e;
-        margin: 0;
-      }
-
-      .mod-report-list {
-        max-height: 300px;
-        overflow-y: auto;
-      }
-
-      .mod-report-item {
-        padding: 14px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-
-      .mod-report-item:hover {
-        background: rgba(239, 68, 68, 0.05);
-      }
-
-      .mod-report-item:last-child {
-        border-bottom: none;
-      }
-
-      .mod-report-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 10px;
-        background: #fee2e2;
-        color: #dc2626;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        margin-bottom: 8px;
-      }
-
-      .mod-report-badge i {
-        width: 12px;
-        height: 12px;
-      }
-
-      .mod-report-content {
-        font-size: 0.85rem;
-        color: #1a1a2e;
-        margin-bottom: 6px;
-        line-height: 1.4;
-      }
-
-      .mod-report-meta {
-        font-size: 0.75rem;
-        color: #94a3b8;
-      }
-
-      /* Log de actividad */
-      .mod-log-list {
-        max-height: 350px;
-        overflow-y: auto;
-      }
-
-      .mod-log-item {
-        padding: 12px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
-        display: flex;
-        gap: 12px;
-      }
-
-      .mod-log-item:last-child {
-        border-bottom: none;
-      }
-
-      .mod-log-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-
-      .mod-log-icon i {
-        width: 16px;
-        height: 16px;
-        color: white;
-      }
-
-      .mod-log-icon.delete { background: linear-gradient(135deg, #ef4444, #f87171); }
-      .mod-log-icon.warn { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-      .mod-log-icon.approve { background: linear-gradient(135deg, #10b981, #34d399); }
-      .mod-log-icon.suspend { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-
-      .mod-log-content {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .mod-log-text {
-        font-size: 0.85rem;
-        color: #1a1a2e;
-        margin-bottom: 2px;
-      }
-
-      .mod-log-text strong {
-        color: #547194;
-      }
-
-      .mod-log-time {
-        font-size: 0.75rem;
-        color: #94a3b8;
-      }
-
-      /* Empty states */
-      .mod-empty-state {
-        padding: 60px 30px;
-        text-align: center;
-        color: #94a3b8;
-      }
-
-      .mod-empty-state i {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 15px;
-        opacity: 0.5;
-      }
-
-      .mod-empty-state p {
-        font-size: 0.95rem;
-        margin: 0;
-      }
-
-      /* Loading */
-      .mod-loading {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px;
-        gap: 12px;
-        color: #547194;
-      }
-
-      .mod-loading-spinner {
-        width: 24px;
-        height: 24px;
-        border: 3px solid rgba(84, 113, 148, 0.2);
-        border-top-color: #547194;
-        border-radius: 50%;
-        animation: modSpin 0.8s linear infinite;
-      }
-
-      @keyframes modSpin {
-        to { transform: rotate(360deg); }
-      }
-
-      /* Modal de confirmación */
-      .mod-modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-      }
-
-      .mod-modal-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .mod-modal {
-        background: white;
-        border-radius: 20px;
-        width: 90%;
-        max-width: 480px;
-        padding: 30px;
-        transform: scale(0.9);
-        transition: all 0.3s ease;
-      }
-
-      .mod-modal-overlay.active .mod-modal {
-        transform: scale(1);
-      }
-
-      .mod-modal-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-      }
-
-      .mod-modal-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .mod-modal-icon.danger {
-        background: linear-gradient(135deg, #ef4444, #f87171);
-      }
-
-      .mod-modal-icon i {
-        width: 26px;
-        height: 26px;
-        color: white;
-      }
-
-      .mod-modal-title h3 {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #1a1a2e;
-        margin-bottom: 4px;
-      }
-
-      .mod-modal-title p {
-        font-size: 0.9rem;
-        color: #64748b;
-        margin: 0;
-      }
-
-      .mod-modal-body {
-        margin-bottom: 25px;
-      }
-
-      .mod-modal-field {
-        margin-bottom: 15px;
-      }
-
-      .mod-modal-field label {
-        display: block;
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: #1a1a2e;
-        margin-bottom: 8px;
-      }
-
-      .mod-modal-field textarea {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 10px;
-        font-size: 0.9rem;
-        resize: vertical;
-        min-height: 100px;
-        font-family: inherit;
-        transition: all 0.2s ease;
-      }
-
-      .mod-modal-field textarea:focus {
-        outline: none;
-        border-color: #547194;
-        box-shadow: 0 0 0 3px rgba(84, 113, 148, 0.1);
-      }
-
-      .mod-modal-actions {
-        display: flex;
-        gap: 12px;
-        justify-content: flex-end;
-      }
-
-      .mod-modal-btn {
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-
-      .mod-modal-btn.cancel {
-        background: #f1f5f9;
-        border: none;
-        color: #64748b;
-      }
-
-      .mod-modal-btn.cancel:hover {
-        background: #e2e8f0;
-      }
-
-      .mod-modal-btn.confirm {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        border: none;
-        color: white;
-      }
-
-      .mod-modal-btn.confirm:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .mod-hero {
-          padding: 25px;
-        }
-
-        .mod-hero-text h1 {
-          font-size: 1.5rem;
-        }
-
-        .mod-hero-content {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .mod-quick-actions {
-          justify-content: center;
-        }
-
-        .mod-stats-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .mod-panel-header {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .mod-content-item {
-          flex-direction: column;
-        }
-
-        .mod-item-actions {
-          margin-top: 10px;
-        }
-      }
-    </style>
-
-    <div class="moderacion-container">
-      <!-- Hero Section -->
-      <div class="mod-hero">
-        <div class="mod-hero-content">
-          <div class="mod-hero-text">
-            <h1>
-              <i data-lucide="shield-check"></i>
-              Moderación Classroom
-            </h1>
-            <p>Centro de control para gestionar contenido, reportes y usuarios de la plataforma educativa.</p>
-          </div>
-          <div class="mod-quick-actions">
-            <button class="mod-quick-btn" onclick="refreshModeracionStats()">
-              <i data-lucide="refresh-cw"></i>
-              Actualizar
-            </button>
-            <button class="mod-quick-btn" onclick="exportModeracionLog()">
-              <i data-lucide="download"></i>
-              Exportar Log
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stats Grid -->
-      <div class="mod-stats-grid" id="modStatsGrid">
-        <div class="mod-stat-card">
-          <div class="mod-stat-icon blue">
-            <i data-lucide="file-text"></i>
-          </div>
-          <div class="mod-stat-info">
-            <h3 id="statTotalContenido">-</h3>
-            <p>Contenido Total</p>
-          </div>
-        </div>
-        <div class="mod-stat-card">
-          <div class="mod-stat-icon orange">
-            <i data-lucide="alert-triangle"></i>
-          </div>
-          <div class="mod-stat-info">
-            <h3 id="statReportesPendientes">-</h3>
-            <p>Reportes Pendientes</p>
-          </div>
-        </div>
-        <div class="mod-stat-card">
-          <div class="mod-stat-icon red">
-            <i data-lucide="trash-2"></i>
-          </div>
-          <div class="mod-stat-info">
-            <h3 id="statEliminadosHoy">-</h3>
-            <p>Eliminados Hoy</p>
-          </div>
-        </div>
-        <div class="mod-stat-card">
-          <div class="mod-stat-icon green">
-            <i data-lucide="check-circle"></i>
-          </div>
-          <div class="mod-stat-info">
-            <h3 id="statResueltos">-</h3>
-            <p>Resueltos Este Mes</p>
-          </div>
-        </div>
-        <div class="mod-stat-card">
-          <div class="mod-stat-icon purple">
-            <i data-lucide="user-x"></i>
-          </div>
-          <div class="mod-stat-info">
-            <h3 id="statSuspendidos">-</h3>
-            <p>Usuarios Suspendidos</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Main Grid -->
-      <div class="mod-main-grid">
-        <!-- Panel Principal de Contenido -->
-        <div class="mod-content-panel">
-          <div class="mod-panel-header">
-            <div class="mod-panel-title">
-              <i data-lucide="folder-open"></i>
-              <h2>Gestión de Contenido</h2>
-            </div>
-            <div class="mod-tabs">
-              <button class="mod-tab active" data-tipo="todos">
-                Todos <span class="count" id="countTodos">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="tareas">
-                Tareas <span class="count" id="countTareas">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="anuncios">
-                Anuncios <span class="count" id="countAnuncios">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="comentarios">
-                Comentarios <span class="count" id="countComentarios">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="preguntas">
-                Comunidad <span class="count" id="countPreguntas">0</span>
-              </button>
-            </div>
-          </div>
-          <div class="mod-content-list" id="modContentList">
-            <div class="mod-loading">
-              <div class="mod-loading-spinner"></div>
-              <span>Cargando contenido...</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="mod-sidebar">
-          <!-- Reportes Recientes -->
-          <div class="mod-sidebar-card">
-            <div class="mod-sidebar-header">
-              <i data-lucide="flag"></i>
-              <h3>Reportes Recientes</h3>
-            </div>
-            <div class="mod-report-list" id="modReportList">
-              <div class="mod-loading">
-                <div class="mod-loading-spinner"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Log de Actividad -->
-          <div class="mod-sidebar-card">
-            <div class="mod-sidebar-header">
-              <i data-lucide="activity"></i>
-              <h3>Actividad Reciente</h3>
-            </div>
-            <div class="mod-log-list" id="modLogList">
-              <div class="mod-loading">
-                <div class="mod-loading-spinner"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Usuarios Suspendidos -->
-          <div class="mod-sidebar-card">
-            <div class="mod-sidebar-header">
-              <i data-lucide="user-x"></i>
-              <h3>Usuarios Suspendidos</h3>
-            </div>
-            <div class="mod-suspended-list" id="modSuspendedList">
-              <div class="mod-loading">
-                <div class="mod-loading-spinner"></div>
-              </div>
-            </div>
-            <div style="padding: 12px 20px; border-top: 1px solid rgba(84, 113, 148, 0.1);">
-              <button class="mod-quick-btn" style="width: 100%; justify-content: center; background: #547194; border-color: #547194;" onclick="openSuspendUserModal()">
-                <i data-lucide="user-plus"></i>
-                Suspender Usuario
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal de Confirmación para Eliminar -->
-    <div class="mod-modal-overlay" id="modDeleteModal">
-      <div class="mod-modal">
-        <div class="mod-modal-header">
-          <div class="mod-modal-icon danger">
-            <i data-lucide="trash-2"></i>
-          </div>
-          <div class="mod-modal-title">
-            <h3>Eliminar Contenido</h3>
-            <p>Esta acción no se puede deshacer</p>
-          </div>
-        </div>
-        <div class="mod-modal-body">
-          <div class="mod-modal-field">
-            <label>Motivo de eliminación (obligatorio)</label>
-            <textarea id="modDeleteReason" placeholder="Describe el motivo por el cual se elimina este contenido..."></textarea>
-          </div>
-        </div>
-        <div class="mod-modal-actions">
-          <button class="mod-modal-btn cancel" onclick="closeModDeleteModal()">Cancelar</button>
-          <button class="mod-modal-btn confirm" onclick="confirmModDelete()">Eliminar</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal para Suspender Usuario -->
-    <div class="mod-modal-overlay" id="modSuspendModal">
-      <div class="mod-modal">
-        <div class="mod-modal-header">
-          <div class="mod-modal-icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
-            <i data-lucide="user-x"></i>
-          </div>
-          <div class="mod-modal-title">
-            <h3>Suspender Usuario</h3>
-            <p>El usuario no podrá acceder al sistema</p>
-          </div>
-        </div>
-        <div class="mod-modal-body">
-          <div class="mod-modal-field">
-            <label>Buscar usuario</label>
-            <input type="text" id="modSuspendSearch" placeholder="Escribe el nombre o usuario..." oninput="searchUsersToSuspend(this.value)">
-            <div id="modSuspendUserList" class="mod-user-search-results"></div>
-            <input type="hidden" id="modSuspendUserId">
-            <div id="modSelectedUser" class="mod-selected-user" style="display: none;"></div>
-          </div>
-          <div class="mod-modal-field">
-            <label>Duración de la suspensión</label>
-            <select id="modSuspendDuration">
-              <option value="1d">1 día</option>
-              <option value="3d">3 días</option>
-              <option value="7d">1 semana</option>
-              <option value="30d">1 mes</option>
-              <option value="permanente">Permanente</option>
-            </select>
-          </div>
-          <div class="mod-modal-field">
-            <label>Motivo de la suspensión (obligatorio)</label>
-            <textarea id="modSuspendReason" placeholder="Describe el motivo de la suspensión..."></textarea>
-          </div>
-        </div>
-        <div class="mod-modal-actions">
-          <button class="mod-modal-btn cancel" onclick="closeSuspendModal()">Cancelar</button>
-          <button class="mod-modal-btn confirm" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" onclick="confirmSuspendUser()">Suspender</button>
-        </div>
-      </div>
-    </div>
-
-    <style>
-      .mod-user-search-results {
-        max-height: 150px;
-        overflow-y: auto;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 8px;
-        margin-top: 8px;
-        display: none;
-      }
-      .mod-user-search-results.active {
-        display: block;
-      }
-      .mod-user-search-item {
-        padding: 10px 15px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
-      }
-      .mod-user-search-item:hover {
-        background: rgba(84, 113, 148, 0.05);
-      }
-      .mod-user-search-item:last-child {
-        border-bottom: none;
-      }
-      .mod-user-search-item .name {
-        font-weight: 500;
-        color: #1a1a2e;
-      }
-      .mod-user-search-item .username {
-        font-size: 0.8rem;
-        color: #64748b;
-      }
-      .mod-user-search-item .tipo {
-        font-size: 0.7rem;
-        padding: 2px 8px;
-        border-radius: 4px;
-        background: #e0e7ff;
-        color: #4338ca;
-      }
-      .mod-selected-user {
-        padding: 12px;
-        background: #f0fdf4;
-        border: 1px solid #86efac;
-        border-radius: 8px;
-        margin-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .mod-selected-user .info {
-        display: flex;
-        flex-direction: column;
-      }
-      .mod-selected-user .name {
-        font-weight: 600;
-        color: #166534;
-      }
-      .mod-selected-user .username {
-        font-size: 0.85rem;
-        color: #4ade80;
-      }
-      .mod-selected-user .remove {
-        background: none;
-        border: none;
-        color: #dc2626;
-        cursor: pointer;
-        padding: 5px;
-      }
-      .mod-suspended-item {
-        padding: 12px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .mod-suspended-item:last-child {
-        border-bottom: none;
-      }
-      .mod-suspended-info .name {
-        font-weight: 500;
-        color: #1a1a2e;
-        font-size: 0.9rem;
-      }
-      .mod-suspended-info .reason {
-        font-size: 0.75rem;
-        color: #64748b;
-        margin-top: 2px;
-      }
-      .mod-unsuspend-btn {
-        background: #10b981;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-      .mod-unsuspend-btn:hover {
-        background: #059669;
-      }
-      #modSuspendDuration {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 8px;
-        font-size: 0.9rem;
-      }
-      #modSuspendSearch {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 8px;
-        font-size: 0.9rem;
-      }
-    </style>
-  `;
-}
-
-// Variables globales para moderación
-let currentModTipo = 'todos';
-let currentModDeleteItem = null;
-let modContenidoCache = {};
-let modUsuariosCache = [];
-
-async function initModeracionInteractivity() {
-  // Cargar estadísticas
-  await loadModeracionStats();
-  
-  // Cargar contenido inicial
-  await loadModeracionContenido('todos');
-  
-  // Cargar reportes
-  await loadModeracionReportes();
-  
-  // Cargar log de actividad
-  await loadModeracionLog();
-  
-  // Cargar usuarios suspendidos
-  await loadSuspendedUsers();
-  
-  // Configurar tabs
-  document.querySelectorAll('.mod-tab').forEach(tab => {
-    tab.addEventListener('click', async function() {
-      document.querySelectorAll('.mod-tab').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      currentModTipo = this.dataset.tipo;
-      await loadModeracionContenido(currentModTipo);
-    });
-  });
-}
-
-async function loadModeracionStats() {
-  try {
-    const response = await fetch('/api/moderacion/stats');
-    if (response.ok) {
-      const stats = await response.json();
-      document.getElementById('statTotalContenido').textContent = stats.totalContenido || 0;
-      document.getElementById('statReportesPendientes').textContent = stats.reportesPendientes || 0;
-      document.getElementById('statEliminadosHoy').textContent = stats.eliminadosHoy || 0;
-      document.getElementById('statResueltos').textContent = stats.resueltosEsteMes || 0;
-      document.getElementById('statSuspendidos').textContent = stats.usuariosSuspendidos || 0;
-      
-      // Actualizar contadores de tabs
-      document.getElementById('countTodos').textContent = stats.totalContenido || 0;
-      document.getElementById('countTareas').textContent = stats.tareas || 0;
-      document.getElementById('countAnuncios').textContent = stats.anuncios || 0;
-      document.getElementById('countComentarios').textContent = stats.comentarios || 0;
-      document.getElementById('countPreguntas').textContent = stats.preguntas || 0;
-    }
-  } catch (error) {
-    console.error('Error cargando stats de moderación:', error);
-  }
-}
-
-async function loadModeracionContenido(tipo) {
-  const container = document.getElementById('modContentList');
-  container.innerHTML = `
-    <div class="mod-loading">
-      <div class="mod-loading-spinner"></div>
-      <span>Cargando contenido...</span>
-    </div>
-  `;
-  
-  try {
-    const response = await fetch(`/api/moderacion/contenido/${tipo}`);
-    if (response.ok) {
-      const contenido = await response.json();
-      
-      if (contenido.length === 0) {
-        container.innerHTML = `
-          <div class="mod-empty-state">
-            <i data-lucide="inbox"></i>
-            <p>No hay contenido para mostrar</p>
-          </div>
-        `;
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-        return;
-      }
-      
-      container.innerHTML = contenido.map(item => `
-        <div class="mod-content-item" data-id="${item.id}" data-tipo="${item.tipo}">
-          <div class="mod-item-main">
-            <div class="mod-item-header">
-              <span class="mod-item-type ${item.tipo}">${item.tipo}</span>
-              <span class="mod-item-author">por <strong>${item.autor || 'Usuario'}</strong></span>
-            </div>
-            <div class="mod-item-title">${item.titulo || 'Sin título'}</div>
-            <div class="mod-item-preview">${item.contenido || ''}</div>
-            <div class="mod-item-meta">
-              <span><i data-lucide="calendar"></i> ${item.fecha || 'Fecha no disponible'}</span>
-              <span><i data-lucide="book-open"></i> ${item.curso || 'Sin curso'}</span>
-            </div>
-          </div>
-          <div class="mod-item-actions">
-            <button class="mod-action-btn view" title="Ver detalle" onclick="viewModContent('${item.tipo}', ${item.id})">
-              <i data-lucide="eye"></i>
-            </button>
-            <button class="mod-action-btn delete" title="Eliminar" onclick="openModDeleteModal('${item.tipo}', ${item.id}, '${(item.titulo || '').replace(/'/g, "\\\\'")}')">
-              <i data-lucide="trash-2"></i>
-            </button>
-          </div>
-        </div>
-      `).join('');
-      
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    }
-  } catch (error) {
-    console.error('Error cargando contenido:', error);
-    container.innerHTML = `
-      <div class="mod-empty-state">
-        <i data-lucide="alert-circle"></i>
-        <p>Error al cargar el contenido</p>
-      </div>
-    `;
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-  }
-}
-
-async function loadModeracionReportes() {
-  const container = document.getElementById('modReportList');
-  
-  try {
-    const response = await fetch('/api/moderacion/reportes');
-    if (response.ok) {
-      const reportes = await response.json();
-      
-      if (reportes.length === 0) {
-        container.innerHTML = `
-          <div class="mod-empty-state" style="padding: 30px;">
-            <i data-lucide="check-circle"></i>
-            <p>Sin reportes pendientes</p>
-          </div>
-        `;
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-        return;
-      }
-      
-      container.innerHTML = reportes.slice(0, 5).map(r => `
-        <div class="mod-report-item" onclick="handleReport(${r.id})">
-          <div class="mod-report-badge">
-            <i data-lucide="flag"></i>
-            ${r.tipo || 'Contenido'}
-          </div>
-          <div class="mod-report-content">${r.motivo || 'Sin motivo especificado'}</div>
-          <div class="mod-report-meta">Reportado por ${r.reportadoPor || 'Anónimo'} · ${r.fecha || ''}</div>
-        </div>
-      `).join('');
-      
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    }
-  } catch (error) {
-    console.error('Error cargando reportes:', error);
-    container.innerHTML = '<div class="mod-empty-state" style="padding: 30px;"><p>Error al cargar reportes</p></div>';
-  }
-}
-
-async function loadModeracionLog() {
-  const container = document.getElementById('modLogList');
-  
-  try {
-    const response = await fetch('/api/moderacion/log?limit=10');
-    if (response.ok) {
-      const log = await response.json();
-      
-      if (log.length === 0) {
-        container.innerHTML = `
-          <div class="mod-empty-state" style="padding: 30px;">
-            <i data-lucide="activity"></i>
-            <p>Sin actividad reciente</p>
-          </div>
-        `;
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-        return;
-      }
-      
-      container.innerHTML = log.map(l => {
-        let iconClass = 'delete';
-        let icon = 'trash-2';
-        if (l.accion?.includes('aprobar') || l.accion?.includes('resolver')) {
-          iconClass = 'approve';
-          icon = 'check';
-        } else if (l.accion?.includes('suspender')) {
-          iconClass = 'suspend';
-          icon = 'user-x';
-        } else if (l.accion?.includes('advertir')) {
-          iconClass = 'warn';
-          icon = 'alert-triangle';
-        }
-        
-        return `
-          <div class="mod-log-item">
-            <div class="mod-log-icon ${iconClass}">
-              <i data-lucide="${icon}"></i>
-            </div>
-            <div class="mod-log-content">
-              <div class="mod-log-text"><strong>${l.admin || 'Admin'}</strong> ${l.accion || ''}</div>
-              <div class="mod-log-time">${l.fecha || ''}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-      
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    }
-  } catch (error) {
-    console.error('Error cargando log:', error);
-  }
-}
-
-function openModDeleteModal(tipo, id, titulo) {
-  currentModDeleteItem = { tipo, id, titulo };
-  document.getElementById('modDeleteReason').value = '';
-  document.getElementById('modDeleteModal').classList.add('active');
-}
-
-function closeModDeleteModal() {
-  document.getElementById('modDeleteModal').classList.remove('active');
-  currentModDeleteItem = null;
-}
-
-async function confirmModDelete() {
-  if (!currentModDeleteItem) return;
-  
-  const reason = document.getElementById('modDeleteReason').value.trim();
-  if (!reason) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Motivo requerido',
-      text: 'Debes especificar un motivo para eliminar este contenido.',
-      confirmButtonColor: '#547194'
-    });
-    return;
-  }
-  
-  const { tipo, id, titulo } = currentModDeleteItem;
-  
-  try {
-    const response = await fetch(`/api/moderacion/contenido/${tipo}/${id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ motivo: reason })
-    });
-    
-    if (response.ok) {
-      closeModDeleteModal();
-      
-      Swal.fire({
-        icon: 'success',
-        title: 'Contenido eliminado',
-        text: `"${titulo}" ha sido eliminado correctamente.`,
-        confirmButtonColor: '#547194'
-      });
-      
-      // Recargar contenido y stats
-      await loadModeracionContenido(currentModTipo);
-      await loadModeracionStats();
-      await loadModeracionLog();
-    } else {
-      throw new Error('Error al eliminar');
-    }
-  } catch (error) {
-    console.error('Error eliminando contenido:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'No se pudo eliminar el contenido. Intenta de nuevo.',
-      confirmButtonColor: '#547194'
-    });
-  }
-}
-
-// ============ FUNCIONES DE SUSPENSIÓN DE USUARIOS ============
-
-async function loadSuspendedUsers() {
-  const listContainer = document.getElementById('modSuspendedList');
-  if (!listContainer) return;
-  
-  try {
-    const response = await fetch('/api/moderacion/usuarios/suspendidos');
-    if (response.ok) {
-      const suspendedUsers = await response.json();
-      
-      if (suspendedUsers.length === 0) {
-        listContainer.innerHTML = `
-          <div style="text-align: center; padding: 20px; color: #64748b; font-size: 0.85rem;">
-            <i data-lucide="users" style="width: 32px; height: 32px; margin-bottom: 8px; opacity: 0.5;"></i>
-            <p>No hay usuarios suspendidos</p>
-          </div>
-        `;
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-        return;
-      }
-      
-      listContainer.innerHTML = suspendedUsers.map(user => `
-        <div class="mod-suspended-item" data-user-id="${user.id_usuario}">
-          <div class="mod-suspended-info">
-            <div class="name">${user.nombre || user.username}</div>
-            <div class="reason">${user.motivo || 'Sin motivo'} · Hasta: ${formatSuspensionDate(user.fecha_fin)}</div>
-          </div>
-          <button class="mod-unsuspend-btn" onclick="unsuspendUser(${user.id_usuario}, '${(user.nombre || user.username).replace(/'/g, "\\'")}')">
-            Reactivar
-          </button>
-        </div>
-      `).join('');
-      
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    }
-  } catch (error) {
-    console.error('Error cargando usuarios suspendidos:', error);
-    listContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #ef4444;">Error al cargar</div>';
-  }
-}
-
-function formatSuspensionDate(dateStr) {
-  if (!dateStr) return 'Indefinido';
-  if (dateStr === 'permanent') return 'Permanente';
-  
-  try {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  } catch {
-    return dateStr;
-  }
-}
-
-function openSuspendUserModal() {
-  document.getElementById('modSuspendSearch').value = '';
-  document.getElementById('modSuspendReason').value = '';
-  document.getElementById('modSuspendDuration').value = '7';
-  document.getElementById('modSuspendModal').classList.add('active');
-}
-
-function closeSuspendModal() {
-  document.getElementById('modSuspendModal').classList.remove('active');
-}
-
-async function confirmSuspendUser() {
-  const usernameInput = document.getElementById('modSuspendSearch').value.trim();
-  const reason = document.getElementById('modSuspendReason').value.trim();
-  const duration = document.getElementById('modSuspendDuration').value;
-  
-  if (!usernameInput) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Usuario requerido',
-      text: 'Ingresa el nombre de usuario a suspender.',
-      confirmButtonColor: '#547194'
-    });
-    return;
-  }
-  
-  if (!reason) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Motivo requerido',
-      text: 'Debes especificar un motivo para la suspensión.',
-      confirmButtonColor: '#547194'
-    });
-    return;
-  }
-  
-  // Buscar el usuario por nombre
-  try {
-    // Primero buscar el usuario usando el endpoint de moderación
-    const searchResponse = await fetch(`/api/moderacion/usuarios/buscar?q=${encodeURIComponent(usernameInput)}`);
-    let userId = null;
-    let userName = usernameInput;
-    
-    if (searchResponse.ok) {
-      const usuarios = await searchResponse.json();
-      const usuario = usuarios.find(u => 
-        u.nombre?.toLowerCase().includes(usernameInput.toLowerCase()) || 
-        u.email?.toLowerCase() === usernameInput.toLowerCase() ||
-        u.username?.toLowerCase() === usernameInput.toLowerCase()
-      );
-      if (usuario) {
-        userId = usuario.id_usuario;
-        userName = usuario.nombre || usuario.username;
-      }
-    }
-    
-    if (!userId) {
-      // Si no se encontró, intentar con el input como ID
-      if (!isNaN(usernameInput)) {
-        userId = parseInt(usernameInput);
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Usuario no encontrado',
-          text: 'No se encontró un usuario con ese nombre. Verifica e intenta de nuevo.',
-          confirmButtonColor: '#547194'
-        });
-        return;
-      }
-    }
-    
-    // Confirmar suspensión
-    const confirmResult = await Swal.fire({
-      icon: 'warning',
-      title: '¿Suspender usuario?',
-      html: `Estás por suspender a <strong>${userName}</strong> por ${getDurationText(duration)}.<br><br>Motivo: ${reason}`,
-      showCancelButton: true,
-      confirmButtonText: 'Sí, suspender',
-      cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#ef4444',
-      cancelButtonColor: '#64748b'
-    });
-    
-    if (!confirmResult.isConfirmed) return;
-    
-    // Ejecutar suspensión
-    const response = await fetch(`/api/moderacion/usuarios/${userId}/suspender`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ motivo: reason, duracion: duration })
-    });
-    
-    if (response.ok) {
-      closeSuspendModal();
-      
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario suspendido',
-        text: `${userName} ha sido suspendido correctamente.`,
-        confirmButtonColor: '#547194'
-      });
-      
-      // Recargar lista y stats
-      await loadSuspendedUsers();
-      await loadModeracionStats();
-      await loadModeracionLog();
-    } else {
-      const error = await response.json();
-      throw new Error(error.error || 'Error al suspender');
-    }
-  } catch (error) {
-    console.error('Error suspendiendo usuario:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: error.message || 'No se pudo suspender al usuario. Intenta de nuevo.',
-      confirmButtonColor: '#547194'
-    });
-  }
-}
-
-function getDurationText(duration) {
-  const texts = {
-    '1': '1 día',
-    '3': '3 días',
-    '7': '7 días',
-    '15': '15 días',
-    '30': '30 días',
-    'permanent': 'permanentemente'
-  };
-  return texts[duration] || `${duration} días`;
-}
-
-async function unsuspendUser(userId, userName) {
-  const confirmResult = await Swal.fire({
-    icon: 'question',
-    title: '¿Reactivar usuario?',
-    html: `¿Deseas reactivar la cuenta de <strong>${userName}</strong>?`,
-    showCancelButton: true,
-    confirmButtonText: 'Sí, reactivar',
-    cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#10b981',
-    cancelButtonColor: '#64748b'
-  });
-  
-  if (!confirmResult.isConfirmed) return;
-  
-  try {
-    const response = await fetch(`/api/moderacion/usuarios/${userId}/suspender`, {
-      method: 'DELETE'
-    });
-    
-    if (response.ok) {
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario reactivado',
-        text: `${userName} puede acceder nuevamente al sistema.`,
-        confirmButtonColor: '#547194'
-      });
-      
-      // Recargar lista y stats
-      await loadSuspendedUsers();
-      await loadModeracionStats();
-      await loadModeracionLog();
-    } else {
-      throw new Error('Error al reactivar');
-    }
-  } catch (error) {
-    console.error('Error reactivando usuario:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'No se pudo reactivar al usuario. Intenta de nuevo.',
-      confirmButtonColor: '#547194'
-    });
-  }
-}
-
-function viewModContent(tipo, id) {
-  // Abrir en nueva pestaña o mostrar modal con detalle
-  Swal.fire({
-    title: 'Ver Contenido',
-    text: `Tipo: ${tipo}, ID: ${id}`,
-    icon: 'info',
-    confirmButtonColor: '#547194'
-  });
-}
-
-async function handleReport(id) {
-  const { value: accion } = await Swal.fire({
-    title: 'Gestionar Reporte',
-    input: 'select',
-    inputOptions: {
-      'resolver': 'Marcar como resuelto',
-      'eliminar': 'Eliminar contenido reportado',
-      'ignorar': 'Ignorar reporte'
-    },
-    inputPlaceholder: 'Selecciona una acción',
-    showCancelButton: true,
-    confirmButtonColor: '#547194',
-    cancelButtonText: 'Cancelar',
-    confirmButtonText: 'Aplicar'
-  });
-  
-  if (accion) {
-    try {
-      await fetch(`/api/moderacion/reportes/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accion })
-      });
-      
-      Swal.fire({
-        icon: 'success',
-        title: 'Reporte procesado',
-        confirmButtonColor: '#547194'
-      });
-      
-      await loadModeracionReportes();
-      await loadModeracionStats();
-      await loadModeracionLog();
-    } catch (error) {
-      console.error('Error procesando reporte:', error);
-    }
-  }
-}
-
-async function refreshModeracionStats() {
-  Swal.fire({
-    title: 'Actualizando...',
-    allowOutsideClick: false,
-    didOpen: () => Swal.showLoading()
-  });
-  
-  await loadModeracionStats();
-  await loadModeracionContenido(currentModTipo);
-  await loadModeracionReportes();
-  await loadModeracionLog();
-  
-  Swal.fire({
-    icon: 'success',
-    title: 'Actualizado',
-    text: 'Los datos se han actualizado correctamente.',
-    timer: 1500,
-    showConfirmButton: false
-  });
-}
-
-function exportModeracionLog() {
-  Swal.fire({
-    icon: 'info',
-    title: 'Exportar Log',
-    text: 'Esta función exportará el historial de moderación a un archivo CSV.',
-    showCancelButton: true,
-    confirmButtonColor: '#547194',
-    confirmButtonText: 'Exportar',
-    cancelButtonText: 'Cancelar'
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        const response = await fetch('/api/moderacion/log?limit=1000');
-        if (response.ok) {
-          const log = await response.json();
-          
-          // Crear CSV
-          const csv = [
-            ['Fecha', 'Admin', 'Acción', 'Detalles'].join(','),
-            ...log.map(l => [
-              l.fecha || '',
-              l.admin || '',
-              l.accion || '',
-              (l.detalles || '').replace(/,/g, ';')
-            ].join(','))
-          ].join('\n');
-          
-          // Descargar
-          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-          const link = document.createElement('a');
-          link.href = URL.createObjectURL(blob);
-          link.download = `moderacion-log-${new Date().toISOString().split('T')[0]}.csv`;
-          link.click();
-          
-          Swal.fire({
-            icon: 'success',
-            title: 'Exportado',
-            text: 'El log se ha descargado correctamente.',
-            timer: 2000,
-            showConfirmButton: false
-          });
-        }
-      } catch (error) {
-        console.error('Error exportando log:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'No se pudo exportar el log.',
-          confirmButtonColor: '#547194'
-        });
-      }
-    }
-  });
-}
-
-// ========================================
-// FIN SECCIÓN DE MODERACIÓN
-// ========================================
 
 function generateTable(section, data) {
   switch (section) {
@@ -3830,7 +2066,7 @@ case "pagos":
           </div>
         </div>
         <div class="metric-card-value">$<span id="metricPromedio">0</span></div>
-        <div class="metric-card-subtitle">Histórico</div>
+        <div class="metric-card-subtitle">HistÃ³rico</div>
       </div>
     </div>
 
@@ -3874,7 +2110,7 @@ case "pagos":
     </div>
 
     <div class="cuotas-gestion-container" id="cuotasGestionContainer" style="display: none;">
-      <!-- Contenedor para la gestión de cuotas -->
+      <!-- Contenedor para la gestiÃ³n de cuotas -->
     </div>
   `;
   
@@ -3884,7 +2120,7 @@ case "pagos":
           <div></div>
           <button class="btn-primary" onclick="openNuevaInscripcionModal()">
             <i data-lucide="user-plus"></i>
-            Nueva Inscripción
+            Nueva InscripciÃ³n
           </button>
         </div>
         <table>
@@ -3893,7 +2129,7 @@ case "pagos":
               <th>ID</th>
               <th>Alumno</th>
               <th>Curso</th>
-              <th>Fecha Inscripción</th>
+              <th>Fecha InscripciÃ³n</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
@@ -3921,7 +2157,7 @@ case "pagos":
       return `
         <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">Gestión de Aulas</h2>
+            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">GestiÃ³n de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevaAulaModal()">
@@ -3953,7 +2189,7 @@ case "pagos":
                   </div>
                   <div>
                     <div style="font-size: 24px; font-weight: 700; color: ${capacidadColor};">${a.capacidad}</div>
-                    <div style="font-size: 12px; color: #666;">Capacidad máxima</div>
+                    <div style="font-size: 12px; color: #666;">Capacidad mÃ¡xima</div>
                   </div>
                 </div>
               </div>
@@ -3974,13 +2210,13 @@ case "pagos":
     case "idiomas":
       const idiomasStats = {
         total: data.length,
-        populares: ['Inglés', 'Francés', 'Alemán', 'Italiano', 'Portugués']
+        populares: ['InglÃ©s', 'FrancÃ©s', 'AlemÃ¡n', 'Italiano', 'PortuguÃ©s']
       };
       
       return `
         <div class="idiomas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">Gestión de Idiomas</h2>
+            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">GestiÃ³n de Idiomas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} idioma${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevoIdiomaModal()">
@@ -4028,7 +2264,7 @@ case "pagos":
       `;
       
     default:
-      return "<p>Sección no disponible.</p>";
+      return "<p>SecciÃ³n no disponible.</p>";
   }
 }
 
@@ -4048,7 +2284,7 @@ async function generateDashboardHome() {
     return `
       <h2 style="margin-bottom: 30px;">Dashboard Administrativo</h2>
       
-      <!-- Cards de Estadísticas -->
+      <!-- Cards de EstadÃ­sticas -->
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-card-header">
@@ -4101,11 +2337,11 @@ async function generateDashboardHome() {
 
       <!-- Tablas de resumen -->
       <div class="dashboard-tables">
-        <!-- Últimos Registros -->
+        <!-- Ãšltimos Registros -->
         <div class="dashboard-table-card">
           <h3>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
-            Últimos Registros
+            Ãšltimos Registros
           </h3>
           ${registros.length > 0 ? `
             <table class="mini-table">
@@ -4129,11 +2365,11 @@ async function generateDashboardHome() {
           ` : '<div class="empty-state">No hay registros recientes</div>'}
         </div>
 
-        <!-- Últimos Pagos -->
+        <!-- Ãšltimos Pagos -->
         <div class="dashboard-table-card">
           <h3>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-            Últimos Pagos
+            Ãšltimos Pagos
           </h3>
           ${pagos.length > 0 ? `
             <table class="mini-table">
@@ -4171,7 +2407,7 @@ function ensureInscribirModal() {
     <div id="modalInscribir" class="modal">
       <div class="modal-content" style="max-width: 900px; max-height: 90vh;">
         <div class="modal-header">
-          <h3 id="modalInscribirTitle">Gestión de Alumnos</h3>
+          <h3 id="modalInscribirTitle">GestiÃ³n de Alumnos</h3>
           <button type="button" class="close-modal" aria-label="Cerrar">&times;</button>
         </div>
         
@@ -4244,7 +2480,7 @@ function ensureInscribirModal() {
 async function openInscribirModal(idCurso, nombre) {
   ensureInscribirModal();
   const modal = document.getElementById('modalInscribir');
-  document.getElementById('modalInscribirTitle').textContent = `Gestión de Alumnos - ${nombre}`;
+  document.getElementById('modalInscribirTitle').textContent = `GestiÃ³n de Alumnos - ${nombre}`;
   modal.dataset.idCurso = idCurso;
   modal.classList.add('active');
 
@@ -4325,7 +2561,7 @@ async function cargarAlumnosDisponibles(idCurso) {
     document.getElementById('badgeDisponibles').textContent = disponibles.length;
 
     if (disponibles.length === 0) {
-      container.innerHTML = '<div class="empty-state"><i data-lucide="user-check"></i><p>Todos los alumnos ya están inscritos</p></div>';
+      container.innerHTML = '<div class="empty-state"><i data-lucide="user-check"></i><p>Todos los alumnos ya estÃ¡n inscritos</p></div>';
       lucide.createIcons();
       return;
     }
@@ -4417,7 +2653,7 @@ function updateSelectedCount() {
 }
 
 async function darDeBajaAlumno(idCurso, idAlumno, nombreAlumno) {
-  if (!confirm(`¿Estás seguro de dar de baja a ${nombreAlumno}?`)) return;
+  if (!confirm(`Â¿EstÃ¡s seguro de dar de baja a ${nombreAlumno}?`)) return;
 
   try {
     const resp = await fetch(`${API_URL}/inscripciones/${idCurso}/${idAlumno}`, {
@@ -4462,12 +2698,12 @@ function ensureCursoPanel() {
     <div id="cursoPanel" class="curso-panel">
       <div class="curso-panel-header">
         <h2 id="cursoPanelTitle">Detalle del Curso</h2>
-        <button class="close-panel" aria-label="Cerrar">×</button>
+        <button class="close-panel" aria-label="Cerrar">Ã—</button>
       </div>
       
       <div class="curso-panel-content">
         <div class="panel-section">
-          <h3><i data-lucide="info"></i> Información del Curso</h3>
+          <h3><i data-lucide="info"></i> InformaciÃ³n del Curso</h3>
           <div class="curso-stats-grid" id="cursoStats"></div>
         </div>
         
@@ -4589,14 +2825,14 @@ async function openCursoPanel(idCurso) {
     };
 
     document.getElementById('btnEliminarCurso').onclick = () => {
-      if (confirm(`¿Estás seguro de eliminar el curso "${curso.nombre_curso}"?`)) {
-        alert('Funcionalidad de eliminar curso próximamente');
+      if (confirm(`Â¿EstÃ¡s seguro de eliminar el curso "${curso.nombre_curso}"?`)) {
+        alert('Funcionalidad de eliminar curso prÃ³ximamente');
       }
     };
 
   } catch (err) {
     console.error('Error al cargar detalles del curso:', err);
-    document.getElementById('cursoStats').innerHTML = '<p>Error al cargar estadísticas</p>';
+    document.getElementById('cursoStats').innerHTML = '<p>Error al cargar estadÃ­sticas</p>';
     document.getElementById('alumnosInscritos').innerHTML = '<p>Error al cargar alumnos</p>';
   }
 }
@@ -4643,7 +2879,7 @@ function ensureEditarCursoModal() {
             
             <div>
               <label for="editHorario">Horario:</label>
-              <input type="text" id="editHorario" placeholder="Ej: Lunes y Miércoles 18:00-20:00" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+              <input type="text" id="editHorario" placeholder="Ej: Lunes y MiÃ©rcoles 18:00-20:00" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
             </div>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
@@ -4655,7 +2891,7 @@ function ensureEditarCursoModal() {
               </div>
               
               <div>
-                <label for="editCupo">Cupo Máximo:</label>
+                <label for="editCupo">Cupo MÃ¡ximo:</label>
                 <input type="number" id="editCupo" min="1" max="100" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
               </div>
             </div>
@@ -4772,7 +3008,7 @@ async function initAdminDashboard() {
 
 
 async function initProfesorDashboard() {
-  console.log("‍ Dashboard PROFESOR cargado");
+  console.log("â€ Dashboard PROFESOR cargado");
 
   const loader = document.getElementById("loader");
   const mainContent = document.getElementById("mainContent");
@@ -4921,11 +3157,11 @@ async function initProfesorDashboard() {
         <div class="message-list">
           <div class="message-item">
             <i data-lucide="mail"></i>
-            <div><h3>Coordinación Académica</h3><p>Reunión el jueves a las 14hs</p></div>
+            <div><h3>CoordinaciÃ³n AcadÃ©mica</h3><p>ReuniÃ³n el jueves a las 14hs</p></div>
           </div>
           <div class="message-item">
             <i data-lucide="mail"></i>
-            <div><h3>Administración</h3><p>Por favor enviar lista de asistencia</p></div>
+            <div><h3>AdministraciÃ³n</h3><p>Por favor enviar lista de asistencia</p></div>
           </div>
         </div>`;
       lucide.createIcons();
@@ -5010,13 +3246,13 @@ function ensureAlumnoPanel() {
     <div id="alumnoPanelOverlay" class="curso-panel-overlay"></div>
     <div id="alumnoPanel" class="alumno-panel">
       <div class="alumno-panel-header">
-        <button class="close-panel" aria-label="Cerrar">×</button>
+        <button class="close-panel" aria-label="Cerrar">Ã—</button>
         <div class="alumno-panel-header-content">
           <div class="alumno-panel-avatar" id="panelAlumnoAvatar">AA</div>
           <div class="alumno-panel-info">
             <h2 id="panelAlumnoNombre">Cargando...</h2>
             <div class="legajo-info">
-              <span id="panelAlumnoLegajo"></span> • 
+              <span id="panelAlumnoLegajo"></span> â€¢ 
               <span id="panelAlumnoEstado" class="alumno-estado-badge activo">Activo</span>
             </div>
           </div>
@@ -5026,7 +3262,7 @@ function ensureAlumnoPanel() {
       <div class="alumno-panel-content" id="panelAlumnoContent">
         <div style="text-align: center; padding: 40px; color: #999;">
           <i data-lucide="loader" style="width: 32px; height: 32px; animation: spin 1s linear infinite;"></i>
-          <p>Cargando información...</p>
+          <p>Cargando informaciÃ³n...</p>
         </div>
       </div>
     </div>`;
@@ -5085,16 +3321,16 @@ async function openAlumnoPanel(idAlumno) {
 
     const content = document.getElementById('panelAlumnoContent');
     content.innerHTML = `
-      <!-- Información Personal -->
+      <!-- InformaciÃ³n Personal -->
       <div class="info-section">
-        <h3><i data-lucide="user"></i> Información Personal</h3>
+        <h3><i data-lucide="user"></i> InformaciÃ³n Personal</h3>
         <div class="info-grid">
           <div class="info-item">
             <div class="info-item-label">Email</div>
             <div class="info-item-value">${alumno.mail}</div>
           </div>
           <div class="info-item">
-            <div class="info-item-label">Teléfono</div>
+            <div class="info-item-label">TelÃ©fono</div>
             <div class="info-item-value">${alumno.telefono || 'No registrado'}</div>
           </div>
           <div class="info-item">
@@ -5110,9 +3346,9 @@ async function openAlumnoPanel(idAlumno) {
         </div>
       </div>
 
-      <!-- Estadísticas Académicas -->
+      <!-- EstadÃ­sticas AcadÃ©micas -->
       <div class="info-section">
-        <h3><i data-lucide="bar-chart-2"></i> Estadísticas Académicas</h3>
+        <h3><i data-lucide="bar-chart-2"></i> EstadÃ­sticas AcadÃ©micas</h3>
         <div class="stats-grid">
           <div class="stat-box">
             <div class="stat-number">${alumno.cursos_activos || 0}</div>
@@ -5138,7 +3374,7 @@ async function openAlumnoPanel(idAlumno) {
               <div class="curso-item">
                 <div class="curso-item-info">
                   <h4>${c.nombre_curso}</h4>
-                  <p>${c.nombre_idioma} - ${c.nivel} ${c.horario ? `• ${c.horario}` : ''}</p>
+                  <p>${c.nombre_idioma} - ${c.nivel} ${c.horario ? `â€¢ ${c.horario}` : ''}</p>
                 </div>
                 <div class="curso-item-calificacion">
                   ${c.promedio !== null ? `
@@ -5149,7 +3385,7 @@ async function openAlumnoPanel(idAlumno) {
               </div>
             `).join('')}
           </div>
-        ` : '<p style="color: #999; text-align: center; padding: 20px;">No está inscrito en ningún curso actualmente</p>'}
+        ` : '<p style="color: #999; text-align: center; padding: 20px;">No estÃ¡ inscrito en ningÃºn curso actualmente</p>'}
       </div>
 
       <!-- Resumen de Pagos -->
@@ -5158,7 +3394,7 @@ async function openAlumnoPanel(idAlumno) {
         <div class="pagos-summary">
           <h4>Total Pagado</h4>
           <div class="pagos-total">$${alumno.total_pagado ? parseFloat(alumno.total_pagado).toLocaleString('es-AR', {minimumFractionDigits: 2}) : '0.00'}</div>
-          ${alumno.ultimo_pago ? `<div class="pagos-ultimo">Último pago: ${new Date(alumno.ultimo_pago).toLocaleDateString('es-AR')}</div>` : '<div class="pagos-ultimo">Sin pagos registrados</div>'}
+          ${alumno.ultimo_pago ? `<div class="pagos-ultimo">Ãšltimo pago: ${new Date(alumno.ultimo_pago).toLocaleDateString('es-AR')}</div>` : '<div class="pagos-ultimo">Sin pagos registrados</div>'}
         </div>
         <div class="stats-grid">
           <div class="stat-box">
@@ -5181,7 +3417,7 @@ async function openAlumnoPanel(idAlumno) {
     document.getElementById('panelAlumnoContent').innerHTML = `
       <div style="text-align: center; padding: 40px; color: #f44336;">
         <i data-lucide="alert-circle" style="width: 32px; height: 32px;"></i>
-        <p>Error al cargar la información del alumno</p>
+        <p>Error al cargar la informaciÃ³n del alumno</p>
       </div>`;
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
@@ -5228,14 +3464,14 @@ function ensureProfesorPanel() {
     <div id="profesorPanelOverlay" class="curso-panel-overlay"></div>
     <div id="profesorPanel" class="profesor-panel">
       <div class="profesor-panel-header">
-        <button class="close-panel" aria-label="Cerrar">×</button>
+        <button class="close-panel" aria-label="Cerrar">Ã—</button>
         <div class="profesor-panel-header-content">
           <div class="profesor-panel-avatar" id="panelProfesorAvatar">PP</div>
           <div class="profesor-panel-info">
             <h2 id="panelProfesorNombre">Cargando...</h2>
             <div class="especialidad-info">
               <i data-lucide="award"></i>
-              <span id="panelProfesorEspecialidad"></span> • 
+              <span id="panelProfesorEspecialidad"></span> â€¢ 
               <span id="panelProfesorEstado" class="profesor-estado-badge activo">Activo</span>
             </div>
           </div>
@@ -5245,7 +3481,7 @@ function ensureProfesorPanel() {
       <div class="profesor-panel-content" id="panelProfesorContent">
         <div style="text-align: center; padding: 40px; color: #999;">
           <i data-lucide="loader" style="width: 32px; height: 32px; animation: spin 1s linear infinite;"></i>
-          <p>Cargando información...</p>
+          <p>Cargando informaciÃ³n...</p>
         </div>
       </div>
     </div>`;
@@ -5302,7 +3538,7 @@ async function openProfesorPanel(idProfesor) {
     estadoBadge.textContent = (profesor.estado || 'activo').charAt(0).toUpperCase() + (profesor.estado || 'activo').slice(1);
     estadoBadge.className = `profesor-estado-badge ${profesor.estado || 'activo'}`;
 
-    const horasPorCurso = 3; // Estimación promedio
+    const horasPorCurso = 3; // EstimaciÃ³n promedio
     const horasTotales = profesor.total_cursos * horasPorCurso;
     const horasMaximas = 40;
     const porcentajeCarga = (horasTotales / horasMaximas) * 100;
@@ -5312,16 +3548,16 @@ async function openProfesorPanel(idProfesor) {
 
     const content = document.getElementById('panelProfesorContent');
     content.innerHTML = `
-      <!-- Información Personal -->
+      <!-- InformaciÃ³n Personal -->
       <div class="info-section">
-        <h3><i data-lucide="user"></i> Información Personal</h3>
+        <h3><i data-lucide="user"></i> InformaciÃ³n Personal</h3>
         <div class="info-grid">
           <div class="info-item">
             <div class="info-item-label">Email</div>
             <div class="info-item-value">${profesor.mail}</div>
           </div>
           <div class="info-item">
-            <div class="info-item-label">Teléfono</div>
+            <div class="info-item-label">TelÃ©fono</div>
             <div class="info-item-value">${profesor.telefono || 'No registrado'}</div>
           </div>
           <div class="info-item">
@@ -5329,8 +3565,8 @@ async function openProfesorPanel(idProfesor) {
             <div class="info-item-value">${profesor.fecha_ingreso ? new Date(profesor.fecha_ingreso).toLocaleDateString('es-AR') : 'N/A'}</div>
           </div>
           <div class="info-item">
-            <div class="info-item-label">Antigüedad</div>
-            <div class="info-item-value">${profesor.antiguedad_anos} ${profesor.antiguedad_anos === 1 ? 'año' : 'años'}</div>
+            <div class="info-item-label">AntigÃ¼edad</div>
+            <div class="info-item-value">${profesor.antiguedad_anos} ${profesor.antiguedad_anos === 1 ? 'aÃ±o' : 'aÃ±os'}</div>
           </div>
         </div>
       </div>
@@ -5358,9 +3594,9 @@ async function openProfesorPanel(idProfesor) {
         </div>
       </div>
 
-      <!-- Estadísticas de Alumnos -->
+      <!-- EstadÃ­sticas de Alumnos -->
       <div class="info-section">
-        <h3><i data-lucide="users"></i> Estadísticas de Alumnos</h3>
+        <h3><i data-lucide="users"></i> EstadÃ­sticas de Alumnos</h3>
         <div class="stats-grid">
           <div class="stat-box">
             <div class="stat-number">${profesor.total_alumnos || 0}</div>
@@ -5395,7 +3631,7 @@ async function openProfesorPanel(idProfesor) {
               <div class="profesor-curso-item">
                 <div class="profesor-curso-info">
                   <h4>${c.nombre_curso}</h4>
-                  <p>${c.nombre_idioma} - ${c.nivel || 'Sin nivel'} ${c.horario ? `• ${c.horario}` : ''} ${c.nombre_aula ? `• ${c.nombre_aula}` : ''}</p>
+                  <p>${c.nombre_idioma} - ${c.nivel || 'Sin nivel'} ${c.horario ? `â€¢ ${c.horario}` : ''} ${c.nombre_aula ? `â€¢ ${c.nombre_aula}` : ''}</p>
                 </div>
                 <div class="profesor-curso-stats">
                   <div class="numero">${c.total_alumnos || 0}</div>
@@ -5405,12 +3641,12 @@ async function openProfesorPanel(idProfesor) {
               </div>
             `).join('')}
           </div>
-        ` : '<p style="color: #999; text-align: center; padding: 20px;">No está dictando cursos actualmente</p>'}
+        ` : '<p style="color: #999; text-align: center; padding: 20px;">No estÃ¡ dictando cursos actualmente</p>'}
       </div>
 
-      <!-- Idiomas que Enseña -->
+      <!-- Idiomas que EnseÃ±a -->
       <div class="info-section">
-        <h3><i data-lucide="languages"></i> Idiomas que Enseña</h3>
+        <h3><i data-lucide="languages"></i> Idiomas que EnseÃ±a</h3>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           ${profesor.idiomas && profesor.idiomas.length > 0 ? 
             profesor.idiomas.map(idioma => `
@@ -5423,7 +3659,7 @@ async function openProfesorPanel(idProfesor) {
         </div>
       </div>
 
-      <!-- Botones de Acción -->
+      <!-- Botones de AcciÃ³n -->
       <div class="panel-actions">
         <button class="btn-danger" onclick="darDeBajaProfesor(${idProfesor}, '${profesor.nombre} ${profesor.apellido}')">
           <i data-lucide="user-x"></i>
@@ -5440,7 +3676,7 @@ async function openProfesorPanel(idProfesor) {
     document.getElementById('panelProfesorContent').innerHTML = `
       <div style="text-align: center; padding: 40px; color: #f44336;">
         <i data-lucide="alert-circle" style="width: 32px; height: 32px;"></i>
-        <p>Error al cargar la información del profesor</p>
+        <p>Error al cargar la informaciÃ³n del profesor</p>
       </div>`;
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
@@ -5586,7 +3822,7 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
             tag.innerHTML = `
               ${idioma.nombre_idioma}
               <button type="button" onclick="event.stopPropagation(); this.parentElement.remove(); document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').checked = false; document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').dispatchEvent(new Event('change'));" 
-                      style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; line-height: 1; padding: 0; margin: 0;">×</button>
+                      style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; line-height: 1; padding: 0; margin: 0;">Ã—</button>
             `;
             display.appendChild(tag);
           }
@@ -5605,20 +3841,20 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
 
 function ensureEditarProfesorModal() {
   document.querySelectorAll('#modalEditarProfesor').forEach(m => {
-    console.log('️ Eliminando modal viejo por ID');
+    console.log('ï¸ Eliminando modal viejo por ID');
     m.remove();
   });
   
   document.querySelectorAll('.modal').forEach(m => {
     if (m.innerHTML && m.innerHTML.includes('Editar Profesor')) {
-      console.log('️ Eliminando modal viejo por contenido');
+      console.log('ï¸ Eliminando modal viejo por contenido');
       m.remove();
     }
   });
 
   const timestamp = Date.now();
   console.log(` CREANDO MODAL PROFESOR - Timestamp: ${timestamp}`);
-  console.log('️ Si NO ves el campo DNI después de esto, el problema es CACHE del navegador');
+  console.log('ï¸ Si NO ves el campo DNI despuÃ©s de esto, el problema es CACHE del navegador');
   console.log(' Verificar en Elements: buscar id="editProfesorDNI"');
 
   const modalHtml = `
@@ -5664,7 +3900,7 @@ function ensureEditarProfesorModal() {
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
-                <label for="editProfesorTelefono">Teléfono:</label>
+                <label for="editProfesorTelefono">TelÃ©fono:</label>
                 <input type="tel" id="editProfesorTelefono" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
               </div>
               
@@ -5679,13 +3915,13 @@ function ensureEditarProfesorModal() {
             </div>
             
             <div style="margin-bottom: 16px; background: #fff3cd; padding: 15px; border: 2px solid #ff0000; border-radius: 8px;">
-              <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #000;"> IDIOMAS QUE ENSEÑA (CAMPO DE PRUEBA):</label>
+              <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #000;"> IDIOMAS QUE ENSEÃ‘A (CAMPO DE PRUEBA):</label>
               <div id="idiomasMultiSelect" style="position: relative;">
                 <div id="idiomasSelectedDisplay" style="min-height: 42px; padding: 8px; border: 2px solid #ff0000; border-radius: 4px; cursor: pointer; background: white; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
                   <span style="color: #ff0000; font-size: 14px; font-weight: bold;" id="idiomasPlaceholder">Seleccionar idiomas...</span>
                 </div>
                 <div id="idiomasDropdown" style="display: none; position: absolute; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; background: white; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                  <!-- Se llenarán los idiomas dinámicamente -->
+                  <!-- Se llenarÃ¡n los idiomas dinÃ¡micamente -->
                 </div>
               </div>
               <input type="hidden" id="editProfesorIdiomas" value="">
@@ -5856,7 +4092,7 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           
           <div style="margin-bottom: 8px;">
             <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">
-              Contraseña <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
+              ContraseÃ±a <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
             </label>
             <div style="position: relative;">
               <input type="text" id="passwordProfesor" value="${passwordActual}"
@@ -5868,7 +4104,7 @@ async function abrirModalCredencialesProfesor(idProfesor) {
               </button>
             </div>
             <p style="font-size: 11px; color: #6b7280; margin-top: 4px;">
-              Dejá vacío para mantener la contraseña actual
+              DejÃ¡ vacÃ­o para mantener la contraseÃ±a actual
             </p>
           </div>
         </div>
@@ -5948,8 +4184,8 @@ async function abrirModalCredencialesProfesor(idProfesor) {
         });
         
         if (response.ok) {
-          const mensaje = password ? 'Usuario y contraseña actualizados correctamente' : 'Usuario actualizado correctamente';
-          Swal.fire('¡Actualizado!', mensaje, 'success');
+          const mensaje = password ? 'Usuario y contraseÃ±a actualizados correctamente' : 'Usuario actualizado correctamente';
+          Swal.fire('Â¡Actualizado!', mensaje, 'success');
         } else {
           const data = await response.json();
           Swal.fire('Error', data.message || 'Error al actualizar credenciales', 'error');
@@ -5976,8 +4212,8 @@ async function cambiarEstadoProfesor(idProfesor, estadoActual) {
   if (!cambio) return;
 
   const confirmed = await showConfirm(
-    '¿Cambiar estado del profesor?',
-    `Se cambiará el estado a: <strong>${cambio.label}</strong>`,
+    'Â¿Cambiar estado del profesor?',
+    `Se cambiarÃ¡ el estado a: <strong>${cambio.label}</strong>`,
     cambio.icon
   );
 
@@ -6011,14 +4247,14 @@ async function cambiarEstadoProfesor(idProfesor, estadoActual) {
 
 async function cambiarPasswordProfesorDashboard(idProfesor) {
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contraseña del Dashboard',
+    title: 'Cambiar ContraseÃ±a del Dashboard',
     html: `
       <div style="text-align: left;">
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva Contraseña:</label>
-        <input id="swal-password" type="password" class="swal2-input" placeholder="Mínimo 6 caracteres" style="margin: 0 0 16px 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva ContraseÃ±a:</label>
+        <input id="swal-password" type="password" class="swal2-input" placeholder="MÃ­nimo 6 caracteres" style="margin: 0 0 16px 0;">
         
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar Contraseña:</label>
-        <input id="swal-password-confirm" type="password" class="swal2-input" placeholder="Repetir contraseña" style="margin: 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar ContraseÃ±a:</label>
+        <input id="swal-password-confirm" type="password" class="swal2-input" placeholder="Repetir contraseÃ±a" style="margin: 0;">
       </div>
     `,
     focusConfirm: false,
@@ -6035,12 +4271,12 @@ async function cambiarPasswordProfesorDashboard(idProfesor) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirm) {
-        Swal.showValidationMessage('Las contraseñas no coinciden');
+        Swal.showValidationMessage('Las contraseÃ±as no coinciden');
         return false;
       }
       
@@ -6060,13 +4296,13 @@ async function cambiarPasswordProfesorDashboard(idProfesor) {
     const result = await resp.json();
 
     if (resp.ok) {
-      Swal.fire('¡Éxito!', 'Contraseña del Dashboard actualizada correctamente', 'success');
+      Swal.fire('Â¡Ã‰xito!', 'ContraseÃ±a del Dashboard actualizada correctamente', 'success');
     } else {
-      Swal.fire('Error', result.message || 'No se pudo cambiar la contraseña', 'error');
+      Swal.fire('Error', result.message || 'No se pudo cambiar la contraseÃ±a', 'error');
     }
   } catch (error) {
-    console.error('Error al cambiar contraseña:', error);
-    Swal.fire('Error', 'Ocurrió un error al cambiar la contraseña', 'error');
+    console.error('Error al cambiar contraseÃ±a:', error);
+    Swal.fire('Error', 'OcurriÃ³ un error al cambiar la contraseÃ±a', 'error');
   }
 }
 
@@ -6077,19 +4313,19 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
     const profesor = await resp.json();
     idPersona = profesor.id_persona;
   } catch (error) {
-    Swal.fire('Error', 'No se pudo obtener la información del profesor', 'error');
+    Swal.fire('Error', 'No se pudo obtener la informaciÃ³n del profesor', 'error');
     return;
   }
 
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contraseña del Classroom',
+    title: 'Cambiar ContraseÃ±a del Classroom',
     html: `
       <div style="text-align: left;">
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva Contraseña:</label>
-        <input id="swal-password-class" type="password" class="swal2-input" placeholder="Mínimo 6 caracteres" style="margin: 0 0 16px 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva ContraseÃ±a:</label>
+        <input id="swal-password-class" type="password" class="swal2-input" placeholder="MÃ­nimo 6 caracteres" style="margin: 0 0 16px 0;">
         
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar Contraseña:</label>
-        <input id="swal-password-class-confirm" type="password" class="swal2-input" placeholder="Repetir contraseña" style="margin: 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar ContraseÃ±a:</label>
+        <input id="swal-password-class-confirm" type="password" class="swal2-input" placeholder="Repetir contraseÃ±a" style="margin: 0;">
       </div>
     `,
     focusConfirm: false,
@@ -6106,12 +4342,12 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirm) {
-        Swal.showValidationMessage('Las contraseñas no coinciden');
+        Swal.showValidationMessage('Las contraseÃ±as no coinciden');
         return false;
       }
       
@@ -6134,20 +4370,20 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
     const result = await resp.json();
 
     if (resp.ok) {
-      Swal.fire('¡Éxito!', 'Contraseña del Classroom actualizada correctamente', 'success');
+      Swal.fire('Â¡Ã‰xito!', 'ContraseÃ±a del Classroom actualizada correctamente', 'success');
     } else {
-      Swal.fire('Error', result.message || 'No se pudo cambiar la contraseña', 'error');
+      Swal.fire('Error', result.message || 'No se pudo cambiar la contraseÃ±a', 'error');
     }
   } catch (error) {
-    console.error('Error al cambiar contraseña:', error);
-    Swal.fire('Error', 'Ocurrió un error al cambiar la contraseña', 'error');
+    console.error('Error al cambiar contraseÃ±a:', error);
+    Swal.fire('Error', 'OcurriÃ³ un error al cambiar la contraseÃ±a', 'error');
   }
 }
 
 async function darDeBajaProfesor(idProfesor, nombre) {
   const confirmed = await showConfirm(
-    '¿Dar de baja al profesor?',
-    `¿Estás seguro de dar de baja a <strong>${nombre}</strong>?<br>El profesor será marcado como inactivo.`,
+    'Â¿Dar de baja al profesor?',
+    `Â¿EstÃ¡s seguro de dar de baja a <strong>${nombre}</strong>?<br>El profesor serÃ¡ marcado como inactivo.`,
     'user-x',
     true
   );
@@ -6333,7 +4569,7 @@ function renderPagosTable(pagos) {
         </button>
       `;
     } else if (estado === 'anulado' && archivado === 1) {
-      // Pagos archivados muestran botón de desarchivar y eliminar
+      // Pagos archivados muestran botÃ³n de desarchivar y eliminar
       const alumnoEscaped = p.alumno.replace(/'/g, "\\'");
       const conceptoEscaped = p.concepto.replace(/'/g, "\\'");
       
@@ -6517,7 +4753,7 @@ async function openPagoPanel(idAlumno) {
     const iniciales = nombreCompleto.split(' ').map(n => n.charAt(0)).join('').substring(0, 2).toUpperCase();
     document.getElementById('pagoPanelAvatar').textContent = iniciales;
     document.getElementById('pagoPanelNombre').textContent = nombreCompleto;
-    document.getElementById('pagoPanelLegajo').textContent = `Legajo: ${alumno.legajo} • ${alumno.mail}`;
+    document.getElementById('pagoPanelLegajo').textContent = `Legajo: ${alumno.legajo} â€¢ ${alumno.mail}`;
 
     const content = document.getElementById('pagoPanelContent');
     content.innerHTML = `
@@ -6540,7 +4776,7 @@ async function openPagoPanel(idAlumno) {
         </div>
         ${estado_cuenta.ultimo_pago ? `
           <p style="font-size: 13px; color: #666; margin-top: 12px;">
-            Último pago: ${new Date(estado_cuenta.ultimo_pago).toLocaleDateString('es-AR', {year: 'numeric', month: 'long', day: 'numeric'})}
+            Ãšltimo pago: ${new Date(estado_cuenta.ultimo_pago).toLocaleDateString('es-AR', {year: 'numeric', month: 'long', day: 'numeric'})}
           </p>
         ` : '<p style="font-size: 13px; color: #999; margin-top: 12px;">Sin pagos registrados</p>'}
       </div>
@@ -6592,8 +4828,8 @@ async function openPagoPanel(idAlumno) {
 
 async function confirmarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¿Confirmar pago?',
-    `¿Estás seguro de confirmar el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiará a <strong>PAGADO</strong> y se registrará la fecha actual.`,
+    'Â¿Confirmar pago?',
+    `Â¿EstÃ¡s seguro de confirmar el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiarÃ¡ a <strong>PAGADO</strong> y se registrarÃ¡ la fecha actual.`,
     'check',
     false
   );
@@ -6621,8 +4857,8 @@ async function confirmarPago(idPago, nombreAlumno, concepto) {
 
 async function anularPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¿Anular pago?',
-    `¿Estás seguro de anular el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiará a <strong>ANULADO</strong> y se conservará en el registro.`,
+    'Â¿Anular pago?',
+    `Â¿EstÃ¡s seguro de anular el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiarÃ¡ a <strong>ANULADO</strong> y se conservarÃ¡ en el registro.`,
     'trash-2',
     true
   );
@@ -6651,8 +4887,8 @@ async function anularPago(idPago, nombreAlumno, concepto) {
 // Archivar pago anulado
 async function archivarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¿Archivar pago?',
-    `¿Estás seguro de archivar el pago anulado de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>Se moverá a la pestaña de <strong>ARCHIVO</strong>.`,
+    'Â¿Archivar pago?',
+    `Â¿EstÃ¡s seguro de archivar el pago anulado de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>Se moverÃ¡ a la pestaÃ±a de <strong>ARCHIVO</strong>.`,
     'archive',
     false
   );
@@ -6681,8 +4917,8 @@ async function archivarPago(idPago, nombreAlumno, concepto) {
 // Desarchivar pago (devolver a pagos activos)
 async function desarchivarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¿Devolver a pagos activos?',
-    `¿Estás seguro de devolver el pago de <strong>${nombreAlumno}</strong> a pagos activos?<br>Concepto: ${concepto}<br><br>Mantendrá su estado de <strong>ANULADO</strong>.`,
+    'Â¿Devolver a pagos activos?',
+    `Â¿EstÃ¡s seguro de devolver el pago de <strong>${nombreAlumno}</strong> a pagos activos?<br>Concepto: ${concepto}<br><br>MantendrÃ¡ su estado de <strong>ANULADO</strong>.`,
     'archive',
     false
   );
@@ -6710,21 +4946,21 @@ async function desarchivarPago(idPago, nombreAlumno, concepto) {
 
 async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
   const result = await Swal.fire({
-    title: '️ ELIMINAR PERMANENTEMENTE',
+    title: 'ï¸ ELIMINAR PERMANENTEMENTE',
     html: `
       <div style="text-align: left; margin: 20px 0;">
         <p style="font-size: 15px; margin-bottom: 15px;">
-          Estás a punto de <strong style="color: #f44336;">eliminar permanentemente</strong> el siguiente registro:
+          EstÃ¡s a punto de <strong style="color: #f44336;">eliminar permanentemente</strong> el siguiente registro:
         </p>
         <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0;">
           <p style="margin: 5px 0;"><strong>Alumno:</strong> ${nombreAlumno}</p>
           <p style="margin: 5px 0;"><strong>Concepto:</strong> ${concepto}</p>
         </div>
         <p style="color: #f44336; font-weight: 600; margin-top: 15px;">
-          ️ Esta acción NO se puede deshacer
+          ï¸ Esta acciÃ³n NO se puede deshacer
         </p>
         <p style="font-size: 14px; color: #666; margin-top: 10px;">
-          El registro será eliminado completamente de la base de datos.
+          El registro serÃ¡ eliminado completamente de la base de datos.
         </p>
       </div>
     `,
@@ -6732,7 +4968,7 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
     showCancelButton: true,
     confirmButtonColor: '#f44336',
     cancelButtonColor: '#999',
-    confirmButtonText: 'Sí, eliminar permanentemente',
+    confirmButtonText: 'SÃ­, eliminar permanentemente',
     cancelButtonText: 'Cancelar',
     reverseButtons: true,
     customClass: {
@@ -6838,15 +5074,15 @@ async function openRegistrarPagoModal() {
             <select id="swal-medio-pago" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="Efectivo">Efectivo</option>
               <option value="Transferencia">Transferencia</option>
-              <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
-              <option value="Tarjeta de Débito">Tarjeta de Débito</option>
+              <option value="Tarjeta de CrÃ©dito">Tarjeta de CrÃ©dito</option>
+              <option value="Tarjeta de DÃ©bito">Tarjeta de DÃ©bito</option>
             </select>
           </div>
 
           <div style="background: #e3f2fd; border-left: 4px solid #1976d2; padding: 12px; border-radius: 4px; margin-top: 20px;">
             <p style="margin: 0; font-size: 13px; color: #1565c0;">
               <i class="lucide-info" style="width: 14px; height: 14px;"></i> 
-              Este pago se registrará como pagado en la fecha actual
+              Este pago se registrarÃ¡ como pagado en la fecha actual
             </p>
           </div>
         </div>
@@ -6970,11 +5206,11 @@ async function openRegistrarPagoModal() {
             mesSelect.disabled = true;
             
             if (mesesPagados.length === todosMeses.length) {
-              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i>  Todas las cuotas de este curso están pagadas</div>';
+              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i>  Todas las cuotas de este curso estÃ¡n pagadas</div>';
             } else if (cuotasHabilitadas.length === 0) {
               mesesPagadosInfo.innerHTML = '<div style="color: #f57c00; background: #fff3e0; padding: 8px; border-radius: 4px;"><i class="lucide-alert-circle" style="width: 14px; height: 14px;"></i> Este curso no tiene cuotas habilitadas</div>';
             } else {
-              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i> Todas las cuotas habilitadas están pagadas</div>';
+              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i> Todas las cuotas habilitadas estÃ¡n pagadas</div>';
             }
           } else {
             const opciones = todosMeses.map(mes => {
@@ -7004,7 +5240,7 @@ async function openRegistrarPagoModal() {
               </div>`);
             }
             if (infoParts.length === 0) {
-              infoParts.push('<div style="color: #757575;">Todas las cuotas están disponibles</div>');
+              infoParts.push('<div style="color: #757575;">Todas las cuotas estÃ¡n disponibles</div>');
             }
             mesesPagadosInfo.innerHTML = infoParts.join('');
           }
@@ -7038,7 +5274,7 @@ async function openRegistrarPagoModal() {
           return false;
         }
         if (!monto || parseFloat(monto) <= 0) {
-          Swal.showValidationMessage('Ingresa un monto válido');
+          Swal.showValidationMessage('Ingresa un monto vÃ¡lido');
           return false;
         }
         if (!medioPago) {
@@ -7076,7 +5312,7 @@ async function openRegistrarPagoModal() {
         if (response.ok && data.success) {
           await Swal.fire({
             icon: 'success',
-            title: '¡Pago Registrado!',
+            title: 'Â¡Pago Registrado!',
             html: `
               <div style="text-align: left; padding: 20px;">
                 <p style="margin: 0 0 12px 0;"><strong>Comprobante:</strong> ${data.comprobante.numero}</p>
@@ -7114,7 +5350,7 @@ async function openRegistrarPagoModal() {
   }
 }
 
-// ===== GESTIÓN DE AULAS ===== //
+// ===== GESTIÃ“N DE AULAS ===== //
 async function openNuevaAulaModal() {
   const { value: formValues } = await Swal.fire({
     title: 'Nueva Aula',
@@ -7165,7 +5401,7 @@ async function openNuevaAulaModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Creada!', 'Aula creada exitosamente', 'success');
+        Swal.fire('Â¡Creada!', 'Aula creada exitosamente', 'success');
         document.getElementById('btnAulas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al crear aula', 'error');
@@ -7227,7 +5463,7 @@ async function editarAula(id, nombre, capacidad) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Actualizada!', 'Aula actualizada exitosamente', 'success');
+        Swal.fire('Â¡Actualizada!', 'Aula actualizada exitosamente', 'success');
         document.getElementById('btnAulas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar aula', 'error');
@@ -7241,13 +5477,13 @@ async function editarAula(id, nombre, capacidad) {
 
 async function eliminarAula(id, nombre) {
   const result = await Swal.fire({
-    title: '¿Eliminar aula?',
-    html: `¿Estás seguro de eliminar el aula <strong>${nombre}</strong>?`,
+    title: 'Â¿Eliminar aula?',
+    html: `Â¿EstÃ¡s seguro de eliminar el aula <strong>${nombre}</strong>?`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -7257,7 +5493,7 @@ async function eliminarAula(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Eliminada!', 'Aula eliminada exitosamente', 'success');
+        Swal.fire('Â¡Eliminada!', 'Aula eliminada exitosamente', 'success');
         document.getElementById('btnAulas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar aula', 'error');
@@ -7269,13 +5505,13 @@ async function eliminarAula(id, nombre) {
   }
 }
 
-// ===== GESTIÓN DE IDIOMAS ===== //
+// ===== GESTIÃ“N DE IDIOMAS ===== //
 async function openNuevoIdiomaModal() {
   const { value: nombre } = await Swal.fire({
     title: 'Nuevo Idioma',
     input: 'text',
     inputLabel: 'Nombre del idioma',
-    inputPlaceholder: 'Ej: Inglés',
+    inputPlaceholder: 'Ej: InglÃ©s',
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
@@ -7298,7 +5534,7 @@ async function openNuevoIdiomaModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Creado!', 'Idioma creado exitosamente', 'success');
+        Swal.fire('Â¡Creado!', 'Idioma creado exitosamente', 'success');
         document.getElementById('btnIdiomas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al crear idioma', 'error');
@@ -7338,7 +5574,7 @@ async function editarIdioma(id, nombreActual) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Actualizado!', 'Idioma actualizado exitosamente', 'success');
+        Swal.fire('Â¡Actualizado!', 'Idioma actualizado exitosamente', 'success');
         document.getElementById('btnIdiomas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar idioma', 'error');
@@ -7352,13 +5588,13 @@ async function editarIdioma(id, nombreActual) {
 
 async function eliminarIdioma(id, nombre) {
   const result = await Swal.fire({
-    title: '¿Eliminar idioma?',
-    html: `¿Estás seguro de eliminar el idioma <strong>${nombre}</strong>?`,
+    title: 'Â¿Eliminar idioma?',
+    html: `Â¿EstÃ¡s seguro de eliminar el idioma <strong>${nombre}</strong>?`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -7368,7 +5604,7 @@ async function eliminarIdioma(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Eliminado!', 'Idioma eliminado exitosamente', 'success');
+        Swal.fire('Â¡Eliminado!', 'Idioma eliminado exitosamente', 'success');
         document.getElementById('btnIdiomas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar idioma', 'error');
@@ -7380,7 +5616,7 @@ async function eliminarIdioma(id, nombre) {
   }
 }
 
-// ===== GESTIÓN DE INSCRIPCIONES ===== //
+// ===== GESTIÃ“N DE INSCRIPCIONES ===== //
 async function openNuevaInscripcionModal() {
   try {
     const [alumnosRes, cursosRes] = await Promise.all([
@@ -7392,7 +5628,7 @@ async function openNuevaInscripcionModal() {
     const cursos = await cursosRes.json();
     
     const { value: formValues } = await Swal.fire({
-      title: 'Nueva Inscripción',
+      title: 'Nueva InscripciÃ³n',
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
@@ -7442,7 +5678,7 @@ async function openNuevaInscripcionModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Inscrito!', 'Alumno inscrito exitosamente', 'success');
+        Swal.fire('Â¡Inscrito!', 'Alumno inscrito exitosamente', 'success');
         document.getElementById('btnInscripciones').click();
       } else {
         Swal.fire('Error', data.message || 'Error al inscribir alumno', 'error');
@@ -7456,13 +5692,13 @@ async function openNuevaInscripcionModal() {
 
 async function eliminarInscripcion(id, alumno, curso) {
   const result = await Swal.fire({
-    title: '¿Eliminar inscripción?',
-    html: `¿Estás seguro de eliminar la inscripción de <strong>${alumno}</strong> al curso <strong>${curso}</strong>?`,
+    title: 'Â¿Eliminar inscripciÃ³n?',
+    html: `Â¿EstÃ¡s seguro de eliminar la inscripciÃ³n de <strong>${alumno}</strong> al curso <strong>${curso}</strong>?`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -7472,10 +5708,10 @@ async function eliminarInscripcion(id, alumno, curso) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Eliminada!', 'Inscripción eliminada exitosamente', 'success');
+        Swal.fire('Â¡Eliminada!', 'InscripciÃ³n eliminada exitosamente', 'success');
         document.getElementById('btnInscripciones').click();
       } else {
-        Swal.fire('Error', data.message || 'Error al eliminar inscripción', 'error');
+        Swal.fire('Error', data.message || 'Error al eliminar inscripciÃ³n', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -7484,7 +5720,7 @@ async function eliminarInscripcion(id, alumno, curso) {
   }
 }
 
-// ===== GESTIÓN DE ALUMNOS ===== //
+// ===== GESTIÃ“N DE ALUMNOS ===== //
 async function openNuevoAlumnoModal() {
   const { value: formValues } = await Swal.fire({
     title: 'Nuevo Alumno',
@@ -7511,7 +5747,7 @@ async function openNuevoAlumnoModal() {
           <input id="legajo" class="swal2-input" placeholder="Ej: A0001" oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÃ©fono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
       </div>
@@ -7551,7 +5787,7 @@ async function openNuevoAlumnoModal() {
         return false;
       }
       if (!telefono) {
-        Swal.showValidationMessage('El teléfono es obligatorio');
+        Swal.showValidationMessage('El telÃ©fono es obligatorio');
         return false;
       }
       return { nombre, apellido, dni, mail, legajo, telefono };
@@ -7574,7 +5810,7 @@ async function openNuevoAlumnoModal() {
         
         await Swal.fire({
           icon: 'success',
-          title: '¡Alumno creado!',
+          title: 'Â¡Alumno creado!',
           text: `${nombreCompleto} ha sido registrado exitosamente`,
           timer: 1500,
           showConfirmButton: false
@@ -7604,16 +5840,16 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Usuario</label>
           <input id="username" class="swal2-input" placeholder="Nombre de usuario" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">Este será el usuario para iniciar sesión</small>
+          <small style="color: #999; font-size: 12px;">Este serÃ¡ el usuario para iniciar sesiÃ³n</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Contraseña</label>
-          <input id="password" type="password" class="swal2-input" placeholder="Contraseña" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">Mínimo 6 caracteres</small>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">ContraseÃ±a</label>
+          <input id="password" type="password" class="swal2-input" placeholder="ContraseÃ±a" style="width: 100%; margin: 0;">
+          <small style="color: #999; font-size: 12px;">MÃ­nimo 6 caracteres</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contraseña</label>
-          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contraseña" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÃ±a</label>
+          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contraseÃ±a" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
@@ -7622,7 +5858,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
     showCancelButton: true,
     showDenyButton: true,
     confirmButtonText: 'Crear Credenciales',
-    denyButtonText: 'Omitir (crear después)',
+    denyButtonText: 'Omitir (crear despuÃ©s)',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#1e3c72',
     preConfirm: () => {
@@ -7636,12 +5872,12 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== password2) {
-        Swal.showValidationMessage('Las contraseñas no coinciden');
+        Swal.showValidationMessage('Las contraseÃ±as no coinciden');
         return false;
       }
       
@@ -7662,15 +5898,15 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: '¡Credenciales creadas!',
+          title: 'Â¡Credenciales creadas!',
           html: `
             <p>Las credenciales de acceso han sido creadas exitosamente.</p>
             <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Usuario:</strong> ${credenciales.username}</p>
-              <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${credenciales.password}</p>
+              <p style="margin: 5px 0;"><strong>ContraseÃ±a:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              ️ Guarda estas credenciales de forma segura
+              ï¸ Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#1e3c72'
@@ -7716,7 +5952,7 @@ async function editarAlumno(id) {
             <input id="legajo" class="swal2-input" placeholder="Ej: A0001" oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" value="${alumno.legajo}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÃ©fono</label>
             <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${alumno.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -7774,8 +6010,8 @@ async function editarAlumno(id) {
       const data = await updateRes.json();
       
       if (updateRes.ok && data.success) {
-        await Swal.fire('¡Listo!', 'Alumno actualizado correctamente', 'success');
-        // Recargar la sección de alumnos
+        await Swal.fire('Â¡Listo!', 'Alumno actualizado correctamente', 'success');
+        // Recargar la secciÃ³n de alumnos
         document.getElementById('btnAlumnos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar alumno', 'error');
@@ -7828,7 +6064,7 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           
           <div style="margin-bottom: 8px;">
             <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">
-              Contraseña <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
+              ContraseÃ±a <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
             </label>
             <div style="position: relative;">
               <input type="text" id="passwordAlumno" value="${passwordActual}"
@@ -7840,7 +6076,7 @@ async function abrirModalCredencialesAlumno(idAlumno) {
               </button>
             </div>
             <p style="font-size: 11px; color: #6b7280; margin-top: 4px;">
-              Dejá vacío para mantener la contraseña actual
+              DejÃ¡ vacÃ­o para mantener la contraseÃ±a actual
             </p>
           </div>
         </div>
@@ -7920,8 +6156,8 @@ async function abrirModalCredencialesAlumno(idAlumno) {
         });
         
         if (response.ok) {
-          const mensaje = password ? 'Usuario y contraseña actualizados correctamente' : 'Usuario actualizado correctamente';
-          Swal.fire('¡Actualizado!', mensaje, 'success');
+          const mensaje = password ? 'Usuario y contraseÃ±a actualizados correctamente' : 'Usuario actualizado correctamente';
+          Swal.fire('Â¡Actualizado!', mensaje, 'success');
         } else {
           const data = await response.json();
           Swal.fire('Error', data.message || 'Error al actualizar credenciales', 'error');
@@ -7939,14 +6175,14 @@ async function abrirModalCredencialesAlumno(idAlumno) {
 
 async function eliminarAlumno(id, nombre) {
   const result = await Swal.fire({
-    title: '¿Eliminar alumno?',
-    html: `¿Estás seguro de eliminar al alumno <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Esta acción eliminará también sus calificaciones, asistencias y pagos.</span>`,
+    title: 'Â¿Eliminar alumno?',
+    html: `Â¿EstÃ¡s seguro de eliminar al alumno <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Esta acciÃ³n eliminarÃ¡ tambiÃ©n sus calificaciones, asistencias y pagos.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -7956,7 +6192,7 @@ async function eliminarAlumno(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Eliminado!', 'Alumno eliminado exitosamente', 'success');
+        Swal.fire('Â¡Eliminado!', 'Alumno eliminado exitosamente', 'success');
         document.getElementById('btnAlumnos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar alumno', 'error');
@@ -7970,24 +6206,24 @@ async function eliminarAlumno(id, nombre) {
 
 async function cambiarPasswordAlumnoDashboard(idAlumno) {
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contraseña Dashboard',
+    title: 'Cambiar ContraseÃ±a Dashboard',
     html: `
       <div style="text-align: left;">
-        <p style="margin-bottom: 15px; color: #666;">Esta contraseña se usa para acceder al Dashboard administrativo.</p>
+        <p style="margin-bottom: 15px; color: #666;">Esta contraseÃ±a se usa para acceder al Dashboard administrativo.</p>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva Contraseña</label>
-          <input id="password" type="password" class="swal2-input" placeholder="Mínimo 6 caracteres" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva ContraseÃ±a</label>
+          <input id="password" type="password" class="swal2-input" placeholder="MÃ­nimo 6 caracteres" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contraseña</label>
-          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contraseña" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÃ±a</label>
+          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contraseÃ±a" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
     width: '450px',
     focusConfirm: false,
     showCancelButton: true,
-    confirmButtonText: 'Cambiar Contraseña',
+    confirmButtonText: 'Cambiar ContraseÃ±a',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#1e3c72',
     preConfirm: () => {
@@ -8000,12 +6236,12 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirmPassword) {
-        Swal.showValidationMessage('Las contraseñas no coinciden');
+        Swal.showValidationMessage('Las contraseÃ±as no coinciden');
         return false;
       }
       
@@ -8024,9 +6260,9 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Actualizado!', 'Contraseña Dashboard actualizada exitosamente', 'success');
+        Swal.fire('Â¡Actualizado!', 'ContraseÃ±a Dashboard actualizada exitosamente', 'success');
       } else {
-        Swal.fire('Error', data.message || 'Error al actualizar contraseña', 'error');
+        Swal.fire('Error', data.message || 'Error al actualizar contraseÃ±a', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -8037,24 +6273,24 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
 
 async function cambiarPasswordAlumnoClassroom(idAlumno) {
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contraseña Classroom',
+    title: 'Cambiar ContraseÃ±a Classroom',
     html: `
       <div style="text-align: left;">
-        <p style="margin-bottom: 15px; color: #666;">Esta contraseña se usa para acceder a la plataforma educativa Classroom.</p>
+        <p style="margin-bottom: 15px; color: #666;">Esta contraseÃ±a se usa para acceder a la plataforma educativa Classroom.</p>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva Contraseña</label>
-          <input id="password" type="password" class="swal2-input" placeholder="Mínimo 6 caracteres" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva ContraseÃ±a</label>
+          <input id="password" type="password" class="swal2-input" placeholder="MÃ­nimo 6 caracteres" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contraseña</label>
-          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contraseña" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÃ±a</label>
+          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contraseÃ±a" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
     width: '450px',
     focusConfirm: false,
     showCancelButton: true,
-    confirmButtonText: 'Cambiar Contraseña',
+    confirmButtonText: 'Cambiar ContraseÃ±a',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#2575fc',
     preConfirm: () => {
@@ -8067,12 +6303,12 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirmPassword) {
-        Swal.showValidationMessage('Las contraseñas no coinciden');
+        Swal.showValidationMessage('Las contraseÃ±as no coinciden');
         return false;
       }
       
@@ -8097,9 +6333,9 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Actualizado!', 'Contraseña Classroom actualizada exitosamente', 'success');
+        Swal.fire('Â¡Actualizado!', 'ContraseÃ±a Classroom actualizada exitosamente', 'success');
       } else {
-        Swal.fire('Error', data.message || 'Error al actualizar contraseña', 'error');
+        Swal.fire('Error', data.message || 'Error al actualizar contraseÃ±a', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -8108,7 +6344,7 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
   }
 }
 
-// ===== GESTIÓN DE PROFESORES ===== //
+// ===== GESTIÃ“N DE PROFESORES ===== //
 async function openNuevoProfesorModal() {
   const { value: formValues } = await Swal.fire({
     title: 'Nuevo Profesor',
@@ -8132,14 +6368,14 @@ async function openNuevoProfesorModal() {
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Especialidad</label>
-          <input id="especialidad" class="swal2-input" placeholder="Ej: Inglés Avanzado" style="width: 100%; margin: 0;">
+          <input id="especialidad" class="swal2-input" placeholder="Ej: InglÃ©s Avanzado" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÃ©fono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que enseña</label>
+          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que enseÃ±a</label>
           <div id="idiomasContainerNuevo" style="border: 1px solid #d0d5dd; border-radius: 8px; padding: 12px; max-height: 150px; overflow-y: auto; background: #f9fafb;">
             <div style="color: #666; font-size: 13px; text-align: center;">Cargando idiomas...</div>
           </div>
@@ -8204,7 +6440,7 @@ async function openNuevoProfesorModal() {
         return false;
       }
       if (!telefono) {
-        Swal.showValidationMessage('El teléfono es obligatorio');
+        Swal.showValidationMessage('El telÃ©fono es obligatorio');
         return false;
       }
       return { nombre, apellido, dni, mail, especialidad, telefono, idiomas: idiomasSeleccionados };
@@ -8230,7 +6466,7 @@ async function openNuevoProfesorModal() {
         
         await Swal.fire({
           icon: 'success',
-          title: '¡Profesor creado!',
+          title: 'Â¡Profesor creado!',
           text: `${nombreCompleto} ha sido registrado exitosamente`,
           timer: 1500,
           showConfirmButton: false
@@ -8244,7 +6480,7 @@ async function openNuevoProfesorModal() {
         Swal.fire('Error', data.message || 'Error al crear profesor', 'error');
       }
     } catch (error) {
-      console.error('Error de conexión:', error);
+      console.error('Error de conexiÃ³n:', error);
       Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
     }
   }
@@ -8261,16 +6497,16 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Usuario</label>
           <input id="username" class="swal2-input" placeholder="Nombre de usuario" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">Este será el usuario para iniciar sesión</small>
+          <small style="color: #999; font-size: 12px;">Este serÃ¡ el usuario para iniciar sesiÃ³n</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Contraseña</label>
-          <input id="password" type="password" class="swal2-input" placeholder="Contraseña" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">Mínimo 6 caracteres</small>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">ContraseÃ±a</label>
+          <input id="password" type="password" class="swal2-input" placeholder="ContraseÃ±a" style="width: 100%; margin: 0;">
+          <small style="color: #999; font-size: 12px;">MÃ­nimo 6 caracteres</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contraseña</label>
-          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contraseña" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÃ±a</label>
+          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contraseÃ±a" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
@@ -8279,7 +6515,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
     showCancelButton: true,
     showDenyButton: true,
     confirmButtonText: 'Crear Credenciales',
-    denyButtonText: 'Omitir (crear después)',
+    denyButtonText: 'Omitir (crear despuÃ©s)',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#1e3c72',
     preConfirm: () => {
@@ -8293,12 +6529,12 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== password2) {
-        Swal.showValidationMessage('Las contraseñas no coinciden');
+        Swal.showValidationMessage('Las contraseÃ±as no coinciden');
         return false;
       }
       
@@ -8319,15 +6555,15 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: '¡Credenciales creadas!',
+          title: 'Â¡Credenciales creadas!',
           html: `
             <p>Las credenciales de acceso han sido creadas exitosamente.</p>
             <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Usuario:</strong> ${credenciales.username}</p>
-              <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${credenciales.password}</p>
+              <p style="margin: 5px 0;"><strong>ContraseÃ±a:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              ️ Guarda estas credenciales de forma segura
+              ï¸ Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#1e3c72'
@@ -8375,7 +6611,7 @@ async function editarProfesor(id) {
             <input id="especialidad" class="swal2-input" value="${profesor.especialidad || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Idiomas que enseña</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Idiomas que enseÃ±a</label>
             <div id="idiomasContainerEditar" style="max-height: 150px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; background: #f9f9f9;">
               ${idiomas.map(idioma => `
                 <label style="display: block; margin-bottom: 8px; cursor: pointer;">
@@ -8386,7 +6622,7 @@ async function editarProfesor(id) {
             </div>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÃ©fono</label>
             <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${profesor.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -8449,7 +6685,7 @@ async function editarProfesor(id) {
       const data = await updateRes.json();
       
       if (updateRes.ok && data.success) {
-        Swal.fire('¡Actualizado!', 'Profesor actualizado exitosamente', 'success');
+        Swal.fire('Â¡Actualizado!', 'Profesor actualizado exitosamente', 'success');
         document.getElementById('btnProfesores').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar profesor', 'error');
@@ -8463,14 +6699,14 @@ async function editarProfesor(id) {
 
 async function eliminarProfesor(id, nombre) {
   const result = await Swal.fire({
-    title: '¿Eliminar profesor?',
-    html: `¿Estás seguro de eliminar al profesor <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Los cursos que dicta quedarán sin profesor asignado.</span>`,
+    title: 'Â¿Eliminar profesor?',
+    html: `Â¿EstÃ¡s seguro de eliminar al profesor <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Los cursos que dicta quedarÃ¡n sin profesor asignado.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -8483,14 +6719,14 @@ async function eliminarProfesor(id, nombre) {
       console.log('Datos recibidos:', data);
       
       if (res.ok && data.success) {
-        Swal.fire('¡Eliminado!', 'Profesor eliminado exitosamente', 'success');
+        Swal.fire('Â¡Eliminado!', 'Profesor eliminado exitosamente', 'success');
         document.getElementById('btnProfesores').click();
       } else {
         console.error('Error del servidor:', data);
         Swal.fire('Error', data.message || 'Error al eliminar profesor', 'error');
       }
     } catch (error) {
-      console.error('Error de conexión:', error);
+      console.error('Error de conexiÃ³n:', error);
       Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
     }
   }
@@ -8545,7 +6781,7 @@ async function openNuevoAdministradorModal() {
           <input id="admin_dni" class="swal2-input" placeholder="12345678" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÃ©fono</label>
           <input id="admin_telefono" class="swal2-input" placeholder="+54 9 11 1234-5678" style="width: 100%; margin: 0;">
         </div>
         <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
@@ -8555,8 +6791,8 @@ async function openNuevoAdministradorModal() {
           <input id="admin_username" class="swal2-input" placeholder="nombreusuario" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Contraseña</label>
-          <input id="admin_password" type="password" class="swal2-input" placeholder="Mínimo 6 caracteres" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">ContraseÃ±a</label>
+          <input id="admin_password" type="password" class="swal2-input" placeholder="MÃ­nimo 6 caracteres" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
@@ -8580,7 +6816,7 @@ async function openNuevoAdministradorModal() {
       }
 
       if (password.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
 
@@ -8601,14 +6837,14 @@ async function openNuevoAdministradorModal() {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: '¡Administrador creado!',
+          title: 'Â¡Administrador creado!',
           html: `
             <p>El administrador <strong>${formValues.nombre} ${formValues.apellido}</strong> ha sido creado correctamente.</p>
             <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Usuario:</strong> ${formValues.username}</p>
-              <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${formValues.password}</p>
+              <p style="margin: 5px 0;"><strong>ContraseÃ±a:</strong> ${formValues.password}</p>
             </div>
-            <p style="margin-top: 15px; font-size: 13px; color: #666;">Asegúrate de compartir estas credenciales de forma segura.</p>
+            <p style="margin-top: 15px; font-size: 13px; color: #666;">AsegÃºrate de compartir estas credenciales de forma segura.</p>
           `,
           confirmButtonColor: '#000'
         });
@@ -8652,7 +6888,7 @@ async function editarAdministrador(id) {
             <input id="edit_admin_dni" class="swal2-input" value="${admin.dni || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Teléfono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÃ©fono</label>
             <input id="edit_admin_telefono" class="swal2-input" value="${admin.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
         </div>
@@ -8701,7 +6937,7 @@ async function editarAdministrador(id) {
       const data = await updateRes.json();
 
       if (updateRes.ok && data.success) {
-        Swal.fire('¡Actualizado!', 'Administrador actualizado correctamente', 'success');
+        Swal.fire('Â¡Actualizado!', 'Administrador actualizado correctamente', 'success');
         document.getElementById('btnAdministradores').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar administrador', 'error');
@@ -8752,7 +6988,7 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
             
             <div style="margin-bottom: 15px;">
               <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #374151;">
-                Contraseña <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
+                ContraseÃ±a <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
               </label>
               <div style="position: relative;">
                 <input type="text" id="passwordDashboard" value="${passwordActual}"
@@ -8763,7 +6999,7 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
                   <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
                 </button>
               </div>
-              <small style="color: #6b7280; font-size: 12px;">Dejá vacío para mantener la contraseña actual</small>
+              <small style="color: #6b7280; font-size: 12px;">DejÃ¡ vacÃ­o para mantener la contraseÃ±a actual</small>
             </div>
           </div>
         </div>
@@ -8867,17 +7103,17 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
           const dataPassword = await responsePassword.json();
           
           if (!responsePassword.ok) {
-            Swal.fire('Error', dataPassword.message || 'Error al actualizar contraseña', 'error');
+            Swal.fire('Error', dataPassword.message || 'Error al actualizar contraseÃ±a', 'error');
             return;
           }
         } catch (error) {
           console.error(error);
-          Swal.fire('Error', 'No se pudo actualizar la contraseña', 'error');
+          Swal.fire('Error', 'No se pudo actualizar la contraseÃ±a', 'error');
           return;
         }
       }
 
-      Swal.fire('¡Éxito!', 'Credenciales actualizadas correctamente', 'success');
+      Swal.fire('Â¡Ã‰xito!', 'Credenciales actualizadas correctamente', 'success');
     }
   } catch (error) {
     console.error(error);
@@ -8887,14 +7123,14 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
 
 async function cambiarPasswordAdministrador(id, nombre) {
   const { value: password } = await Swal.fire({
-    title: 'Cambiar Contraseña',
+    title: 'Cambiar ContraseÃ±a',
     html: `
-      <p>Ingresa la nueva contraseña para <strong>${nombre}</strong></p>
-      <input id="nueva_password" type="password" class="swal2-input" placeholder="Nueva contraseña (mín. 6 caracteres)" style="width: 90%;">
-      <input id="confirmar_password" type="password" class="swal2-input" placeholder="Confirmar contraseña" style="width: 90%; margin-top: 10px;">
+      <p>Ingresa la nueva contraseÃ±a para <strong>${nombre}</strong></p>
+      <input id="nueva_password" type="password" class="swal2-input" placeholder="Nueva contraseÃ±a (mÃ­n. 6 caracteres)" style="width: 90%;">
+      <input id="confirmar_password" type="password" class="swal2-input" placeholder="Confirmar contraseÃ±a" style="width: 90%; margin-top: 10px;">
     `,
     showCancelButton: true,
-    confirmButtonText: 'Cambiar Contraseña',
+    confirmButtonText: 'Cambiar ContraseÃ±a',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#000',
     preConfirm: () => {
@@ -8902,12 +7138,12 @@ async function cambiarPasswordAdministrador(id, nombre) {
       const confirm = document.getElementById('confirmar_password').value;
 
       if (!pass || pass.length < 6) {
-        Swal.showValidationMessage('La contraseña debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÃ±a debe tener al menos 6 caracteres');
         return false;
       }
 
       if (pass !== confirm) {
-        Swal.showValidationMessage('Las contraseñas no coinciden');
+        Swal.showValidationMessage('Las contraseÃ±as no coinciden');
         return false;
       }
 
@@ -8928,18 +7164,18 @@ async function cambiarPasswordAdministrador(id, nombre) {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: 'Contraseña actualizada',
+          title: 'ContraseÃ±a actualizada',
           html: `
-            <p>La contraseña de <strong>${nombre}</strong> ha sido actualizada.</p>
+            <p>La contraseÃ±a de <strong>${nombre}</strong> ha sido actualizada.</p>
             <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
-              <p style="margin: 5px 0;"><strong>Nueva contraseña:</strong> ${password}</p>
+              <p style="margin: 5px 0;"><strong>Nueva contraseÃ±a:</strong> ${password}</p>
             </div>
-            <p style="margin-top: 15px; font-size: 13px; color: #666;">Asegúrate de compartir esta información de forma segura.</p>
+            <p style="margin-top: 15px; font-size: 13px; color: #666;">AsegÃºrate de compartir esta informaciÃ³n de forma segura.</p>
           `,
           confirmButtonColor: '#000'
         });
       } else {
-        Swal.fire('Error', data.message || 'Error al cambiar contraseña', 'error');
+        Swal.fire('Error', data.message || 'Error al cambiar contraseÃ±a', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -8950,14 +7186,14 @@ async function cambiarPasswordAdministrador(id, nombre) {
 
 async function eliminarAdministrador(id, nombre) {
   const result = await Swal.fire({
-    title: '¿Eliminar administrador?',
-    html: `¿Estás seguro de eliminar al administrador <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Esta acción no se puede deshacer.</span>`,
+    title: 'Â¿Eliminar administrador?',
+    html: `Â¿EstÃ¡s seguro de eliminar al administrador <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Esta acciÃ³n no se puede deshacer.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -8967,7 +7203,7 @@ async function eliminarAdministrador(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Eliminado!', 'Administrador eliminado exitosamente', 'success');
+        Swal.fire('Â¡Eliminado!', 'Administrador eliminado exitosamente', 'success');
         document.getElementById('btnAdministradores').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar administrador', 'error');
@@ -8979,7 +7215,7 @@ async function eliminarAdministrador(id, nombre) {
   }
 }
 
-// ===== GESTIÓN DE CURSOS ===== //
+// ===== GESTIÃ“N DE CURSOS ===== //
 async function openNuevoCursoModal() {
   try {
     const [idiomasRes, nivelesRes, profesoresRes, aulasRes] = await Promise.all([
@@ -9000,7 +7236,7 @@ async function openNuevoCursoModal() {
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nombre del Curso</label>
-            <input id="nombre_curso" class="swal2-input" placeholder="Ej: Inglés Básico A1" style="width: 100%; margin: 0;">
+            <input id="nombre_curso" class="swal2-input" placeholder="Ej: InglÃ©s BÃ¡sico A1" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600;">Idioma</label>
@@ -9028,7 +7264,7 @@ async function openNuevoCursoModal() {
             <input id="horario" class="swal2-input" placeholder="Ej: Lun-Mie 18:00-20:00" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo Máximo</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo MÃ¡ximo</label>
             <input id="cupo_maximo" type="number" class="swal2-input" value="30" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -9081,7 +7317,7 @@ async function openNuevoCursoModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Creado!', 'Curso creado exitosamente', 'success');
+        Swal.fire('Â¡Creado!', 'Curso creado exitosamente', 'success');
         document.getElementById('btnCursos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al crear curso', 'error');
@@ -9141,7 +7377,7 @@ async function editarCurso(id) {
             <input id="horario" class="swal2-input" value="${curso.horario || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo Máximo</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo MÃ¡ximo</label>
             <input id="cupo_maximo" type="number" class="swal2-input" value="${curso.cupo_maximo}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -9186,7 +7422,7 @@ async function editarCurso(id) {
       const data = await updateRes.json();
       
       if (updateRes.ok && data.success) {
-        Swal.fire('¡Actualizado!', 'Curso actualizado exitosamente', 'success');
+        Swal.fire('Â¡Actualizado!', 'Curso actualizado exitosamente', 'success');
         document.getElementById('btnCursos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar curso', 'error');
@@ -9200,14 +7436,14 @@ async function editarCurso(id) {
 
 async function eliminarCurso(id, nombre) {
   const result = await Swal.fire({
-    title: '¿Eliminar curso?',
-    html: `¿Estás seguro de eliminar el curso <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Se eliminarán todas las calificaciones, asistencias e inscripciones asociadas.</span>`,
+    title: 'Â¿Eliminar curso?',
+    html: `Â¿EstÃ¡s seguro de eliminar el curso <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Se eliminarÃ¡n todas las calificaciones, asistencias e inscripciones asociadas.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -9217,7 +7453,7 @@ async function eliminarCurso(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¡Eliminado!', 'Curso eliminado exitosamente', 'success');
+        Swal.fire('Â¡Eliminado!', 'Curso eliminado exitosamente', 'success');
         document.getElementById('btnCursos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar curso', 'error');
@@ -9288,7 +7524,7 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
       if (updateRes.ok && data.success) {
         Swal.fire({
           icon: 'success',
-          title: '¡Asignado!',
+          title: 'Â¡Asignado!',
           text: 'Profesor asignado correctamente al curso',
           timer: 2000,
           showConfirmButton: false
@@ -9499,8 +7735,8 @@ async function loadCuotasGestion() {
     <div style="max-width: 1400px; margin: 0 auto;">
       <div style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 32px;">
-          <h2 style="margin: 0; color: #1f2937; font-size: 28px;"> Gestión de Cuotas Disponibles</h2>
-          <p style="margin: 8px 0 0 0; color: #6b7280;">Controla qué cuotas pueden pagar los alumnos en cada curso</p>
+          <h2 style="margin: 0; color: #1f2937; font-size: 28px;"> GestiÃ³n de Cuotas Disponibles</h2>
+          <p style="margin: 8px 0 0 0; color: #6b7280;">Controla quÃ© cuotas pueden pagar los alumnos en cada curso</p>
         </div>
 
         <div id="cursosListaCuotas" style="display: grid; gap: 20px;">
@@ -9650,7 +7886,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
           <p style="margin-bottom: 24px; color: #6b7280; font-size: 15px;">
             Ingrese la clave asignada para ingresar
           </p>
-          <input id="swal-password" type="password" class="swal2-input" placeholder="••••••••" style="width: 100%; margin: 0; text-align: center; font-size: 18px; letter-spacing: 2px;" autocomplete="off">
+          <input id="swal-password" type="password" class="swal2-input" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" style="width: 100%; margin: 0; text-align: center; font-size: 18px; letter-spacing: 2px;" autocomplete="off">
         </div>
       `,
       width: '450px',
@@ -9735,7 +7971,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
           </div>
           <div style="margin-top: 20px; padding: 16px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px;">
             <p style="margin: 0; font-size: 14px; color: #1e40af;">
-               <strong>Tip:</strong> Los alumnos solo verán y podrán pagar las cuotas seleccionadas.
+               <strong>Tip:</strong> Los alumnos solo verÃ¡n y podrÃ¡n pagar las cuotas seleccionadas.
             </p>
           </div>
         </div>
@@ -9798,7 +8034,7 @@ async function liberarCuotasTodasLosCursos() {
     html: `
       <div style="text-align: left;">
         <p style="margin-bottom: 20px; color: #6b7280;">
-          Selecciona las cuotas que estarán disponibles para <strong style="color: #111827;">TODOS los cursos</strong>
+          Selecciona las cuotas que estarÃ¡n disponibles para <strong style="color: #111827;">TODOS los cursos</strong>
         </p>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
           ${todasLasCuotas.map(cuota => `
@@ -9810,7 +8046,7 @@ async function liberarCuotasTodasLosCursos() {
         </div>
         <div style="margin-top: 20px; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
           <p style="margin: 0; font-size: 14px; color: #92400e;">
-            ️ <strong>Atención:</strong> Esto sobrescribirá la configuración de TODOS los cursos.
+            ï¸ <strong>AtenciÃ³n:</strong> Esto sobrescribirÃ¡ la configuraciÃ³n de TODOS los cursos.
           </p>
         </div>
       </div>
@@ -9832,7 +8068,7 @@ async function liberarCuotasTodasLosCursos() {
     if (cuotasSeleccionadas.length === 0) {
       Swal.fire({
         icon: 'warning',
-        title: 'Atención',
+        title: 'AtenciÃ³n',
         text: 'Debes seleccionar al menos una cuota'
       });
       return;
@@ -9897,7 +8133,7 @@ rippleStyle.textContent = `
 `;
 document.head.appendChild(rippleStyle);
 
-// ===== GENERACIÓN DE PDFs ===== //
+// ===== GENERACIÃ“N DE PDFs ===== //
 
 async function descargarPDFAlumnos() {
   try {
@@ -9954,7 +8190,7 @@ async function descargarPDFAlumnos() {
     
     doc.autoTable({
       startY: 45,
-      head: [['Nombre Completo', 'Email', 'Teléfono', 'DNI', 'Cursos Inscritos', 'Estado']],
+      head: [['Nombre Completo', 'Email', 'TelÃ©fono', 'DNI', 'Cursos Inscritos', 'Estado']],
       body: tableData,
       theme: 'grid',
       headStyles: {
@@ -9986,7 +8222,7 @@ async function descargarPDFAlumnos() {
       doc.setFontSize(8);
       doc.setTextColor(150);
       doc.text(
-        `Página ${i} de ${pageCount}`,
+        `PÃ¡gina ${i} de ${pageCount}`,
         doc.internal.pageSize.width / 2,
         doc.internal.pageSize.height - 10,
         { align: 'center' }
@@ -10055,7 +8291,7 @@ async function descargarPDFProfesores() {
     
     doc.autoTable({
       startY: 45,
-      head: [['Nombre Completo', 'Email', 'Teléfono', 'Especialidad', 'Cursos que Dicta', 'Estado']],
+      head: [['Nombre Completo', 'Email', 'TelÃ©fono', 'Especialidad', 'Cursos que Dicta', 'Estado']],
       body: tableData,
       theme: 'grid',
       headStyles: {
@@ -10087,7 +8323,7 @@ async function descargarPDFProfesores() {
       doc.setFontSize(8);
       doc.setTextColor(150);
       doc.text(
-        `Página ${i} de ${pageCount}`,
+        `PÃ¡gina ${i} de ${pageCount}`,
         doc.internal.pageSize.width / 2,
         doc.internal.pageSize.height - 10,
         { align: 'center' }
@@ -10103,7 +8339,7 @@ async function descargarPDFProfesores() {
   }
 }
 
-// ===== GENERACIÓN DE COMPROBANTE DE PAGO ===== //
+// ===== GENERACIÃ“N DE COMPROBANTE DE PAGO ===== //
 
 async function generarComprobantePago(idPago) {
   try {
@@ -10113,13 +8349,13 @@ async function generarComprobantePago(idPago) {
     const pago = await response.json();
     
     if (!pago || !pago.id_pago) {
-      throw new Error('No se encontró el pago');
+      throw new Error('No se encontrÃ³ el pago');
     }
     
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
-      format: [80, 200] // Ancho de ticket térmico
+      format: [80, 200] // Ancho de ticket tÃ©rmico
     });
     
     let yPos = 15;
@@ -10147,7 +8383,7 @@ async function generarComprobantePago(idPago) {
     
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
-    doc.text('N° Comprobante:', 40, yPos, { align: 'center' });
+    doc.text('NÂ° Comprobante:', 40, yPos, { align: 'center' });
     yPos += 5;
     doc.setFontSize(14);
     doc.setTextColor(25, 118, 210);
@@ -10217,7 +8453,7 @@ async function generarComprobantePago(idPago) {
     
     if (pago.periodo) {
       doc.setFont('helvetica', 'normal');
-      doc.text('Período:', 12, yPos);
+      doc.text('PerÃ­odo:', 12, yPos);
       doc.setFont('helvetica', 'bold');
       doc.text(pago.periodo, 68, yPos, { align: 'right' });
       yPos += 4;
@@ -10254,12 +8490,12 @@ async function generarComprobantePago(idPago) {
     doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(100);
-    doc.text('Centro de enseñanza de idiomas - CEMI', 40, yPos, { align: 'center' });
+    doc.text('Centro de enseÃ±anza de idiomas - CEMI', 40, yPos, { align: 'center' });
     yPos += 4;
     doc.text(`Comprobante generado el ${new Date().toLocaleDateString('es-ES')}`, 40, yPos, { align: 'center' });
     yPos += 3;
     doc.setFontSize(6);
-    doc.text('Este documento es un comprobante válido de pago', 40, yPos, { align: 'center' });
+    doc.text('Este documento es un comprobante vÃ¡lido de pago', 40, yPos, { align: 'center' });
     
     const nombreArchivo = `Comprobante_${String(pago.id_pago).padStart(6, '0')}_${pago.alumno.replace(/\s+/g, '_')}.pdf`;
     doc.save(nombreArchivo);
@@ -10272,7 +8508,7 @@ async function generarComprobantePago(idPago) {
 }
 
 // =====================================================
-// SECCIÓN DE INVESTIGACIÓN CEMI
+// SECCIÃ“N DE INVESTIGACIÃ“N CEMI
 // =====================================================
 
 async function renderInvestigacionSection() {
@@ -10291,8 +8527,8 @@ async function renderInvestigacionSection() {
           <div class="investigacion-title">
             <i data-lucide="flask-conical" style="color: #1e3a5f;"></i>
             <div>
-              <h2 style="color: #1e3a5f;">Investigación CEMI</h2>
-              <p>Centro de recopilación de datos de experiencia de usuario</p>
+              <h2 style="color: #1e3a5f;">InvestigaciÃ³n CEMI</h2>
+              <p>Centro de recopilaciÃ³n de datos de experiencia de usuario</p>
             </div>
           </div>
           <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1e3a5f, #2563eb);">
@@ -10301,7 +8537,7 @@ async function renderInvestigacionSection() {
           </a>
         </div>
 
-        <!-- Estadísticas -->
+        <!-- EstadÃ­sticas -->
         <div class="investigacion-stats">
           <div class="stat-card">
             <div class="stat-icon" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
@@ -10318,7 +8554,7 @@ async function renderInvestigacionSection() {
             </div>
             <div class="stat-info">
               <span class="stat-number">${stats.estadisticas?.promedioSatisfaccion || '0.0'}</span>
-              <span class="stat-label">Satisfacción Promedio</span>
+              <span class="stat-label">SatisfacciÃ³n Promedio</span>
             </div>
           </div>
           <div class="stat-card">
@@ -10336,7 +8572,7 @@ async function renderInvestigacionSection() {
             </div>
             <div class="stat-info">
               <span class="stat-number">${stats.estadisticas?.ultimaEncuesta ? new Date(stats.estadisticas.ultimaEncuesta).toLocaleDateString('es-AR', {day: '2-digit', month: 'short'}) : 'N/A'}</span>
-              <span class="stat-label">Última Encuesta</span>
+              <span class="stat-label">Ãšltima Encuesta</span>
             </div>
           </div>
         </div>
@@ -10354,8 +8590,8 @@ async function renderInvestigacionSection() {
             ${encuestas.encuestas?.length === 0 || !encuestas.encuestas ? `
               <div class="empty-state">
                 <i data-lucide="inbox"></i>
-                <h4>No hay encuestas aún</h4>
-                <p>Las encuestas completadas aparecerán aquí</p>
+                <h4>No hay encuestas aÃºn</h4>
+                <p>Las encuestas completadas aparecerÃ¡n aquÃ­</p>
               </div>
             ` : encuestas.encuestas.map(enc => `
               <div class="encuesta-item" data-id="${enc.id}">
@@ -10839,13 +9075,13 @@ async function renderInvestigacionSection() {
       </style>
     `;
   } catch (error) {
-    console.error('Error al cargar investigación:', error);
+    console.error('Error al cargar investigaciÃ³n:', error);
     return `
       <div class="investigacion-container">
         <div class="error-state">
           <i data-lucide="alert-circle"></i>
           <h3>Error al cargar datos</h3>
-          <p>No se pudo conectar con el servidor de investigación.</p>
+          <p>No se pudo conectar con el servidor de investigaciÃ³n.</p>
           <button onclick="document.getElementById('btnInvestigacion').click()" class="btn-primary">Reintentar</button>
         </div>
       </div>
@@ -10905,13 +9141,13 @@ function descargarEncuestaPDF(pdfUrl, nombre) {
 
 async function eliminarEncuesta(id) {
   const result = await Swal.fire({
-    title: '¿Eliminar encuesta?',
-    text: 'Esta acción no se puede deshacer. El PDF será eliminado permanentemente.',
+    title: 'Â¿Eliminar encuesta?',
+    text: 'Esta acciÃ³n no se puede deshacer. El PDF serÃ¡ eliminado permanentemente.',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#f44336',
     cancelButtonColor: '#666',
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'SÃ­, eliminar',
     cancelButtonText: 'Cancelar'
   });
   
@@ -10932,7 +9168,7 @@ async function eliminarEncuesta(id) {
           showConfirmButton: false
         });
         
-        // Recargar la sección
+        // Recargar la secciÃ³n
         document.getElementById('btnInvestigacion').click();
       } else {
         throw new Error(data.error || 'Error al eliminar');

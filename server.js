@@ -27,7 +27,6 @@ import chatRoutes, { setChatServer } from "./backend/routes/chat.js";
 import configRoutes from "./backend/routes/config.js";
 import investigacionRoutes from "./backend/routes/investigacion.js";
 import comunidadRoutes from "./backend/routes/comunidad.js";
-import moderacionRoutes from "./backend/routes/moderacion.js";
 import ChatServer from "./backend/utils/chat-server.js";
 import http from "http";
 
@@ -169,7 +168,6 @@ app.use("/api/chat", chatRoutes);
 app.use("/api/config", configRoutes);
 app.use("/api/investigacion", investigacionRoutes);
 app.use("/api/comunidad", comunidadRoutes);
-app.use("/api/moderacion", moderacionRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "frontend" });
