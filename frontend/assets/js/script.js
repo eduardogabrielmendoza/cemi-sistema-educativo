@@ -2277,18 +2277,20 @@ function renderStatusSection() {
       .status-form-group textarea,
       .status-form-group select {
         width: 100%;
-        padding: 14px 16px;
+        padding: 12px 14px;
         border: 2px solid #e2e8f0;
-        border-radius: 14px;
+        border-radius: 12px;
         font-size: 0.95rem;
         transition: all 0.3s ease;
         background: white;
         color: #1e293b;
+        font-family: inherit;
       }
 
       .status-form-group input::placeholder,
       .status-form-group textarea::placeholder {
         color: #94a3b8;
+        font-family: inherit;
       }
 
       .status-form-group input:focus,
@@ -2297,7 +2299,6 @@ function renderStatusSection() {
         outline: none;
         border-color: #547194;
         box-shadow: 0 0 0 4px rgba(84, 113, 148, 0.15);
-        transform: translateY(-1px);
       }
 
       .status-form-group input:hover,
