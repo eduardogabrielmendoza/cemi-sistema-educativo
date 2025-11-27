@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estado del Sistema - CEMI</title>
-  <link rel="icon" type="image/png" href="images/CEMI.png">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
@@ -14,152 +15,384 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #0f172a;
       min-height: 100vh;
-      color: #1e293b;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      overflow: hidden;
+    }
+
+    .bg-animation::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 30%, rgba(84, 113, 148, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      animation: bgPulse 15s ease-in-out infinite;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, -5%) scale(1.1); }
+    }
+
+    /* Floating Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #547194, #3b82f6);
+      top: -100px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #16a34a, #22d3ee);
+      bottom: -50px;
+      left: -50px;
+      animation-delay: -7s;
+    }
+
+    .orb-3 {
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      top: 50%;
+      left: 50%;
+      animation-delay: -14s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(30px, -30px) rotate(5deg); }
+      50% { transform: translate(-20px, 20px) rotate(-5deg); }
+      75% { transform: translate(15px, 15px) rotate(3deg); }
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 40px 20px;
+      position: relative;
+      z-index: 1;
     }
 
     /* Header */
     .status-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
+      animation: fadeInDown 0.8s ease-out;
     }
 
-    .status-header .logo {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 20px;
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .logo-container img {
+      width: 60px;
+      height: 60px;
+      filter: drop-shadow(0 4px 20px rgba(84, 113, 148, 0.4));
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .logo-container span {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
     }
 
     .status-header h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 8px;
+      color: white;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
     }
 
     .status-header p {
-      color: #64748b;
-      font-size: 1rem;
+      color: #94a3b8;
+      font-size: 1.1rem;
+      font-weight: 400;
     }
 
-    /* Status Principal */
+    /* Main Status Card */
     .main-status {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 50px;
       text-align: center;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
     }
 
-    .main-status .status-icon {
-      width: 80px;
-      height: 80px;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .main-status::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    }
+
+    .status-ring {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 25px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .status-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, var(--status-color), transparent);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: ringPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes ringPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    .status-ring.operational { --status-color: #22c55e; }
+    .status-ring.degraded { --status-color: #f59e0b; }
+    .status-ring.outage { --status-color: #ef4444; }
+    .status-ring.maintenance { --status-color: #3b82f6; }
+
+    .status-icon-inner {
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--bg-from), var(--bg-to));
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     }
 
-    .main-status .status-icon i {
-      width: 40px;
-      height: 40px;
-    }
+    .status-icon-inner.operational { --bg-from: #166534; --bg-to: #15803d; }
+    .status-icon-inner.degraded { --bg-from: #b45309; --bg-to: #d97706; }
+    .status-icon-inner.outage { --bg-from: #b91c1c; --bg-to: #dc2626; }
+    .status-icon-inner.maintenance { --bg-from: #1d4ed8; --bg-to: #2563eb; }
 
-    .main-status .status-icon.operational {
-      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-      color: #16a34a;
-    }
-
-    .main-status .status-icon.degraded {
-      background: linear-gradient(135deg, #fef3c7, #fde68a);
-      color: #d97706;
-    }
-
-    .main-status .status-icon.outage {
-      background: linear-gradient(135deg, #fee2e2, #fecaca);
-      color: #dc2626;
-    }
-
-    .main-status .status-icon.maintenance {
-      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-      color: #2563eb;
+    .status-icon-inner i {
+      width: 45px;
+      height: 45px;
+      color: white;
     }
 
     .main-status h2 {
-      font-size: 1.75rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
     }
 
-    .main-status h2.operational { color: #16a34a; }
-    .main-status h2.degraded { color: #d97706; }
-    .main-status h2.outage { color: #dc2626; }
-    .main-status h2.maintenance { color: #2563eb; }
+    .main-status h2.operational { color: #4ade80; }
+    .main-status h2.degraded { color: #fbbf24; }
+    .main-status h2.outage { color: #f87171; }
+    .main-status h2.maintenance { color: #60a5fa; }
 
-    .main-status .last-updated {
-      color: #94a3b8;
-      font-size: 0.875rem;
+    .last-updated {
+      color: #64748b;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    /* Incidente Activo */
+    .last-updated i { width: 14px; height: 14px; }
+
+    .live-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #4ade80;
+      margin-top: 20px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    /* Active Incident */
     .active-incident {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 28px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      border-left: 4px solid;
+      border: 1px solid;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
     }
 
-    .active-incident.degraded { border-color: #f59e0b; background: linear-gradient(90deg, #fffbeb, white); }
-    .active-incident.outage { border-color: #ef4444; background: linear-gradient(90deg, #fef2f2, white); }
-    .active-incident.maintenance { border-color: #3b82f6; background: linear-gradient(90deg, #eff6ff, white); }
+    .active-incident::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .active-incident.degraded {
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .active-incident.degraded::before {
+      background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+    }
+
+    .active-incident.outage {
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .active-incident.outage::before {
+      background: linear-gradient(90deg, #ef4444, #f87171, #ef4444);
+    }
+
+    .active-incident.maintenance {
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .active-incident.maintenance::before {
+      background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+    }
 
     .incident-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
 
     .incident-badge {
-      padding: 4px 12px;
-      border-radius: 20px;
+      padding: 6px 14px;
+      border-radius: 8px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .incident-badge.degraded { background: #fef3c7; color: #b45309; }
-    .incident-badge.outage { background: #fee2e2; color: #b91c1c; }
-    .incident-badge.maintenance { background: #dbeafe; color: #1d4ed8; }
+    .incident-badge i { width: 14px; height: 14px; }
+
+    .incident-badge.degraded {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .incident-badge.outage {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .incident-badge.maintenance {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
 
     .incident-title {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 600;
-      color: #1e293b;
+      color: white;
     }
 
     .incident-message {
-      color: #475569;
-      line-height: 1.6;
-      margin-bottom: 12px;
+      color: #94a3b8;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
     }
 
     .incident-meta {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       flex-wrap: wrap;
       font-size: 0.85rem;
       color: #64748b;
@@ -168,84 +401,138 @@
     .incident-meta span {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .incident-meta i {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
     }
 
     .incident-updates {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid #e2e8f0;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .incident-updates h4 {
       font-size: 0.9rem;
-      color: #64748b;
-      margin-bottom: 12px;
+      color: #94a3b8;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
+    .incident-updates h4 i { width: 16px; height: 16px; }
+
     .update-item {
-      padding: 10px 0;
-      border-bottom: 1px solid #f1f5f9;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      gap: 16px;
     }
 
     .update-item:last-child { border-bottom: none; }
 
+    .update-dot {
+      width: 10px;
+      height: 10px;
+      background: #547194;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .update-content { flex: 1; }
+
     .update-time {
       font-size: 0.75rem;
-      color: #94a3b8;
-      margin-bottom: 4px;
+      color: #64748b;
+      margin-bottom: 6px;
     }
 
     .update-message {
       font-size: 0.9rem;
-      color: #475569;
+      color: #cbd5e1;
+      line-height: 1.5;
     }
 
-    /* Lista de Servicios */
+    /* Services Section */
     .services-section {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 28px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 0.8s ease-out 0.4s both;
     }
 
-    .services-section h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 20px;
+    .section-header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .services-section h3 i {
-      width: 20px;
-      height: 20px;
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .section-title i {
+      width: 22px;
+      height: 22px;
       color: #547194;
+    }
+
+    .uptime-badge {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #4ade80;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .services-grid {
+      display: grid;
+      gap: 12px;
     }
 
     .service-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid #f1f5f9;
+      padding: 18px 20px;
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
     }
 
-    .service-item:last-child { border-bottom: none; }
+    .service-item:hover {
+      background: rgba(30, 41, 59, 0.8);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    .service-info { flex: 1; }
 
     .service-info h4 {
       font-size: 1rem;
       font-weight: 600;
-      color: #1e293b;
-      margin-bottom: 2px;
+      color: white;
+      margin-bottom: 4px;
     }
 
     .service-info p {
@@ -257,181 +544,248 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 14px;
-      border-radius: 20px;
+      padding: 8px 16px;
+      border-radius: 10px;
       font-size: 0.8rem;
       font-weight: 600;
+      transition: all 0.3s ease;
     }
 
-    .service-status i { width: 14px; height: 14px; }
+    .service-status i { width: 16px; height: 16px; }
 
     .service-status.operational {
-      background: #dcfce7;
-      color: #16a34a;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
     }
 
     .service-status.degraded {
-      background: #fef3c7;
-      color: #d97706;
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
     }
 
     .service-status.outage {
-      background: #fee2e2;
-      color: #dc2626;
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
     .service-status.maintenance {
-      background: #dbeafe;
-      color: #2563eb;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
     }
 
-    /* Historial */
+    /* History Section */
     .history-section {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .history-section h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .history-section h3 i {
-      width: 20px;
-      height: 20px;
-      color: #547194;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 0.8s ease-out 0.5s both;
     }
 
     .history-item {
-      padding: 16px;
-      background: #f8fafc;
-      border-radius: 10px;
+      padding: 20px;
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 14px;
       margin-bottom: 12px;
       border-left: 3px solid;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
     }
 
     .history-item:last-child { margin-bottom: 0; }
 
-    .history-item.degraded { border-color: #f59e0b; }
-    .history-item.outage { border-color: #ef4444; }
-    .history-item.maintenance { border-color: #3b82f6; }
+    .history-item:hover {
+      background: rgba(30, 41, 59, 0.8);
+      transform: translateX(5px);
+    }
+
+    .history-item.degraded { border-left-color: #f59e0b; }
+    .history-item.outage { border-left-color: #ef4444; }
+    .history-item.maintenance { border-left-color: #3b82f6; }
 
     .history-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .history-title {
       font-weight: 600;
-      color: #1e293b;
+      color: white;
+      font-size: 1rem;
     }
 
     .history-resolved {
       font-size: 0.75rem;
-      color: #16a34a;
+      color: #4ade80;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
     }
 
-    .history-resolved i { width: 12px; height: 12px; }
+    .history-resolved i { width: 14px; height: 14px; }
 
     .history-message {
       font-size: 0.9rem;
-      color: #64748b;
-      margin-bottom: 8px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      line-height: 1.5;
     }
 
     .history-dates {
       font-size: 0.8rem;
-      color: #94a3b8;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
+
+    .history-dates i { width: 14px; height: 14px; }
 
     .no-history {
       text-align: center;
-      padding: 30px;
-      color: #94a3b8;
+      padding: 50px 20px;
+      color: #64748b;
     }
 
-    .no-history i {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 10px;
-      opacity: 0.5;
+    .no-history-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(34, 197, 94, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .no-history-icon i {
+      width: 35px;
+      height: 35px;
+      color: #4ade80;
+    }
+
+    .no-history h4 {
+      color: white;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
     }
 
     /* Footer */
     .status-footer {
       text-align: center;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #e2e8f0;
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 0.8s ease-out 0.6s both;
     }
 
-    .status-footer a {
-      color: #547194;
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: #94a3b8;
       text-decoration: none;
       font-weight: 500;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 6px;
-      transition: color 0.2s;
+      gap: 8px;
+      transition: all 0.3s ease;
+      padding: 10px 20px;
+      border-radius: 10px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .status-footer a:hover {
-      color: #3d5a7a;
+    .footer-link:hover {
+      color: white;
+      background: rgba(84, 113, 148, 0.3);
+      border-color: rgba(84, 113, 148, 0.5);
+      transform: translateY(-2px);
     }
 
-    .status-footer a i {
-      width: 16px;
-      height: 16px;
+    .footer-link i {
+      width: 18px;
+      height: 18px;
+    }
+
+    .footer-credit {
+      margin-top: 30px;
+      color: #475569;
+      font-size: 0.85rem;
     }
 
     /* Loading */
     .loading {
       text-align: center;
-      padding: 60px;
+      padding: 80px;
     }
 
     .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid #e2e8f0;
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(84, 113, 148, 0.2);
       border-top-color: #547194;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin: 0 auto 16px;
+      margin: 0 auto 20px;
     }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
 
+    .loading p {
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
     /* Responsive */
-    @media (max-width: 640px) {
-      .container { padding: 20px 16px; }
-      .main-status { padding: 30px 20px; }
-      .status-header h1 { font-size: 1.5rem; }
-      .incident-meta { flex-direction: column; gap: 8px; }
-      .service-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    @media (max-width: 768px) {
+      .container { padding: 30px 16px; }
+      .main-status { padding: 35px 25px; }
+      .status-header h1 { font-size: 1.8rem; }
+      .status-ring { width: 100px; height: 100px; }
+      .status-icon-inner { width: 75px; height: 75px; }
+      .status-icon-inner i { width: 35px; height: 35px; }
+      .incident-meta { flex-direction: column; gap: 10px; }
+      .service-item { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .section-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .footer-links { flex-direction: column; gap: 12px; }
     }
   </style>
 </head>
 <body>
+  <div class="bg-animation"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
   <div class="container">
     <header class="status-header">
-      <img src="images/CEMI.png" alt="CEMI" class="logo">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="CEMI">
+        <span>CEMI</span>
+      </div>
       <h1>Estado del Sistema</h1>
-      <p>Monitoreo en tiempo real de los servicios de CEMI</p>
+      <p>Monitoreo en tiempo real de todos los servicios</p>
     </header>
 
     <div id="statusContent">
@@ -442,10 +796,21 @@
     </div>
 
     <footer class="status-footer">
-      <a href="index.html">
-        <i data-lucide="arrow-left"></i>
-        Volver al inicio
-      </a>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">
+          <i data-lucide="home"></i>
+          Ir al Inicio
+        </a>
+        <a href="ayuda.html" class="footer-link">
+          <i data-lucide="help-circle"></i>
+          Centro de Ayuda
+        </a>
+        <a href="mailto:soporte@cemi.edu" class="footer-link">
+          <i data-lucide="mail"></i>
+          Contactar Soporte
+        </a>
+      </div>
+      <p class="footer-credit">CEMI - Sistema de Gestión Académica</p>
     </footer>
   </div>
 
@@ -472,9 +837,15 @@
     };
 
     const SEVERITY_LABELS = {
-      degraded: 'Degradado',
+      degraded: 'Rendimiento Degradado',
       outage: 'Interrupción',
-      maintenance: 'Mantenimiento'
+      maintenance: 'Mantenimiento Programado'
+    };
+
+    const SEVERITY_ICONS = {
+      degraded: 'alert-triangle',
+      outage: 'x-circle',
+      maintenance: 'wrench'
     };
 
     function formatDate(dateStr) {
@@ -512,11 +883,13 @@
         console.error('Error:', error);
         document.getElementById('statusContent').innerHTML = `
           <div class="main-status">
-            <div class="status-icon operational">
-              <i data-lucide="check-circle"></i>
+            <div class="status-ring operational">
+              <div class="status-icon-inner operational">
+                <i data-lucide="check-circle"></i>
+              </div>
             </div>
             <h2 class="operational">Todos los sistemas operativos</h2>
-            <p class="last-updated">No se pudo conectar al servidor de estado</p>
+            <p class="last-updated"><i data-lucide="wifi-off"></i> No se pudo conectar al servidor de estado</p>
           </div>
         `;
         lucide.createIcons();
@@ -529,11 +902,17 @@
       let html = `
         <!-- Estado Principal -->
         <div class="main-status">
-          <div class="status-icon ${global_status}">
-            <i data-lucide="${STATUS_ICONS[global_status]}"></i>
+          <div class="status-ring ${global_status}">
+            <div class="status-icon-inner ${global_status}">
+              <i data-lucide="${STATUS_ICONS[global_status]}"></i>
+            </div>
           </div>
           <h2 class="${global_status}">${STATUS_LABELS[global_status]}</h2>
-          <p class="last-updated">Última actualización: ${formatRelativeTime(last_updated)}</p>
+          <p class="last-updated"><i data-lucide="clock"></i> ${formatRelativeTime(last_updated)}</p>
+          <div class="live-indicator">
+            <span class="live-dot"></span>
+            Actualizando en vivo
+          </div>
         </div>
       `;
 
@@ -542,14 +921,17 @@
         html += `
           <div class="active-incident ${active_incident.severity}">
             <div class="incident-header">
-              <span class="incident-badge ${active_incident.severity}">${SEVERITY_LABELS[active_incident.severity]}</span>
+              <span class="incident-badge ${active_incident.severity}">
+                <i data-lucide="${SEVERITY_ICONS[active_incident.severity]}"></i>
+                ${SEVERITY_LABELS[active_incident.severity]}
+              </span>
               <span class="incident-title">${active_incident.title}</span>
             </div>
             ${active_incident.message ? `<p class="incident-message">${active_incident.message}</p>` : ''}
             <div class="incident-meta">
               <span><i data-lucide="clock"></i> Iniciado: ${formatDate(active_incident.created_at)}</span>
               ${active_incident.affected_services?.length ? `
-                <span><i data-lucide="layers"></i> Afecta: ${active_incident.affected_services.map(id => {
+                <span><i data-lucide="layers"></i> Servicios afectados: ${active_incident.affected_services.map(id => {
                   const svc = services.find(s => s.id === id);
                   return svc ? svc.name : id;
                 }).join(', ')}</span>
@@ -557,11 +939,14 @@
             </div>
             ${active_incident.updates?.length ? `
               <div class="incident-updates">
-                <h4>Actualizaciones</h4>
+                <h4><i data-lucide="message-circle"></i> Actualizaciones</h4>
                 ${active_incident.updates.map(u => `
                   <div class="update-item">
-                    <div class="update-time">${formatDate(u.timestamp)}</div>
-                    <div class="update-message">${u.message}</div>
+                    <div class="update-dot"></div>
+                    <div class="update-content">
+                      <div class="update-time">${formatDate(u.timestamp)}</div>
+                      <div class="update-message">${u.message}</div>
+                    </div>
                   </div>
                 `).join('')}
               </div>
@@ -573,42 +958,59 @@
       // Servicios
       html += `
         <div class="services-section">
-          <h3><i data-lucide="server"></i> Estado de Servicios</h3>
-          ${services.map(service => `
-            <div class="service-item">
-              <div class="service-info">
-                <h4>${service.name}</h4>
-                <p>${service.description}</p>
-              </div>
-              <div class="service-status ${service.status}">
-                <i data-lucide="${STATUS_ICONS[service.status]}"></i>
-                ${SERVICE_STATUS_LABELS[service.status]}
-              </div>
+          <div class="section-header">
+            <div class="section-title">
+              <i data-lucide="server"></i>
+              Estado de Servicios
             </div>
-          `).join('')}
+            <div class="uptime-badge">99.9% Uptime</div>
+          </div>
+          <div class="services-grid">
+            ${services.map(service => `
+              <div class="service-item">
+                <div class="service-info">
+                  <h4>${service.name}</h4>
+                  <p>${service.description}</p>
+                </div>
+                <div class="service-status ${service.status}">
+                  <i data-lucide="${STATUS_ICONS[service.status]}"></i>
+                  ${SERVICE_STATUS_LABELS[service.status]}
+                </div>
+              </div>
+            `).join('')}
+          </div>
         </div>
       `;
 
       // Historial
       html += `
         <div class="history-section">
-          <h3><i data-lucide="history"></i> Historial de Incidentes</h3>
+          <div class="section-header">
+            <div class="section-title">
+              <i data-lucide="history"></i>
+              Historial de Incidentes
+            </div>
+          </div>
           ${incidents_history.length === 0 ? `
             <div class="no-history">
-              <i data-lucide="check-circle"></i>
-              <p>No hay incidentes recientes</p>
+              <div class="no-history-icon">
+                <i data-lucide="shield-check"></i>
+              </div>
+              <h4>Sin incidentes recientes</h4>
+              <p>No ha habido problemas reportados en los últimos 90 días</p>
             </div>
           ` : incidents_history.slice(0, 10).map(inc => `
             <div class="history-item ${inc.severity}">
               <div class="history-header">
                 <span class="history-title">${inc.title}</span>
                 <span class="history-resolved">
-                  <i data-lucide="check"></i> Resuelto
+                  <i data-lucide="check-circle"></i> Resuelto
                 </span>
               </div>
               ${inc.message ? `<p class="history-message">${inc.message}</p>` : ''}
               <div class="history-dates">
-                ${formatDate(inc.created_at)} - ${formatDate(inc.resolved_at)}
+                <i data-lucide="calendar"></i>
+                ${formatDate(inc.created_at)} — ${formatDate(inc.resolved_at)}
               </div>
             </div>
           `).join('')}

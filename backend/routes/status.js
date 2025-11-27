@@ -87,16 +87,18 @@ router.get('/banner', (req, res) => {
     const status = readStatus();
     if (status.active_incident && status.active_incident.show_banner) {
       res.json({
-        active: true,
-        severity: status.active_incident.severity,
-        title: status.active_incident.title,
-        message: status.active_incident.message
+        show_banner: true,
+        incident: {
+          severity: status.active_incident.severity,
+          title: status.active_incident.title,
+          message: status.active_incident.message
+        }
       });
     } else {
-      res.json({ active: false });
+      res.json({ show_banner: false });
     }
   } catch (error) {
-    res.json({ active: false });
+    res.json({ show_banner: false });
   }
 });
 
