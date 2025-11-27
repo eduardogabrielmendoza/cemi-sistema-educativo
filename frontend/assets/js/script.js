@@ -205,6 +205,13 @@ function initAdminSPA() {
           lucide.createIcons();
           initAyudaInteractivity();
           return;
+        case "moderacion":
+          loader.classList.add("hidden");
+          mainContent.innerHTML = renderModeracionSection();
+          mainContent.classList.add("active");
+          lucide.createIcons();
+          await initModeracionInteractivity();
+          return;
         default:
           endpoint = "";
           html = "<p>Seleccione una sección</p>";
@@ -1697,6 +1704,1348 @@ function filterAyudaContent(query) {
     resultsCount.classList.add('visible');
   }
 }
+
+// ========================================
+// SECCIÓN DE MODERACIÓN CLASSROOM - ADMIN
+// ========================================
+
+function renderModeracionSection() {
+  return `
+    <style>
+      .moderacion-container {
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .mod-hero {
+        background: linear-gradient(135deg, #547194 0%, #3d5a7a 50%, #2d4a6a 100%);
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(84, 113, 148, 0.3);
+      }
+
+      .mod-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        border-radius: 50%;
+      }
+
+      .mod-hero::after {
+        content: '';
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(102,126,234,0.2) 0%, transparent 70%);
+        border-radius: 50%;
+      }
+
+      .mod-hero-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .mod-hero-text h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .mod-hero-text h1 i {
+        width: 42px;
+        height: 42px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 12px;
+        padding: 8px;
+      }
+
+      .mod-hero-text p {
+        color: rgba(255,255,255,0.85);
+        font-size: 1.05rem;
+        max-width: 500px;
+      }
+
+      .mod-quick-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .mod-quick-btn {
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .mod-quick-btn:hover {
+        background: rgba(255,255,255,0.25);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      }
+
+      .mod-quick-btn i {
+        width: 18px;
+        height: 18px;
+      }
+
+      .mod-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .mod-stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid rgba(84, 113, 148, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .mod-stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(84, 113, 148, 0.15);
+      }
+
+      .mod-stat-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .mod-stat-icon i {
+        width: 28px;
+        height: 28px;
+        color: white;
+      }
+
+      .mod-stat-icon.blue { background: linear-gradient(135deg, #547194, #667eea); }
+      .mod-stat-icon.orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+      .mod-stat-icon.red { background: linear-gradient(135deg, #ef4444, #f87171); }
+      .mod-stat-icon.green { background: linear-gradient(135deg, #10b981, #34d399); }
+      .mod-stat-icon.purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+
+      .mod-stat-info h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .mod-stat-info p {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      .mod-main-grid {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 25px;
+      }
+
+      @media (max-width: 1200px) {
+        .mod-main-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .mod-content-panel {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid rgba(84, 113, 148, 0.1);
+        overflow: hidden;
+      }
+
+      .mod-panel-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .mod-panel-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .mod-panel-title i {
+        width: 24px;
+        height: 24px;
+        color: #547194;
+      }
+
+      .mod-panel-title h2 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #1a1a2e;
+        margin: 0;
+      }
+
+      .mod-tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .mod-tab {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid rgba(84, 113, 148, 0.2);
+        background: transparent;
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .mod-tab:hover {
+        background: rgba(84, 113, 148, 0.05);
+        color: #547194;
+      }
+
+      .mod-tab.active {
+        background: #547194;
+        color: white;
+        border-color: #547194;
+      }
+
+      .mod-tab .count {
+        background: rgba(255,255,255,0.2);
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.75rem;
+      }
+
+      .mod-tab.active .count {
+        background: rgba(255,255,255,0.3);
+      }
+
+      .mod-content-list {
+        max-height: 600px;
+        overflow-y: auto;
+      }
+
+      .mod-content-item {
+        padding: 18px 24px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+        transition: all 0.2s ease;
+      }
+
+      .mod-content-item:hover {
+        background: rgba(84, 113, 148, 0.03);
+      }
+
+      .mod-content-item:last-child {
+        border-bottom: none;
+      }
+
+      .mod-item-main {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .mod-item-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+        flex-wrap: wrap;
+      }
+
+      .mod-item-type {
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .mod-item-type.tarea { background: #dbeafe; color: #1d4ed8; }
+      .mod-item-type.anuncio { background: #fef3c7; color: #b45309; }
+      .mod-item-type.comentario { background: #e0e7ff; color: #4338ca; }
+      .mod-item-type.pregunta { background: #d1fae5; color: #047857; }
+      .mod-item-type.recurso { background: #fce7f3; color: #be185d; }
+
+      .mod-item-author {
+        font-size: 0.85rem;
+        color: #64748b;
+      }
+
+      .mod-item-author strong {
+        color: #1a1a2e;
+        font-weight: 600;
+      }
+
+      .mod-item-title {
+        font-size: 0.95rem;
+        color: #1a1a2e;
+        margin-bottom: 4px;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      .mod-item-preview {
+        font-size: 0.85rem;
+        color: #64748b;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .mod-item-meta {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 8px;
+        font-size: 0.8rem;
+        color: #94a3b8;
+      }
+
+      .mod-item-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .mod-item-meta i {
+        width: 14px;
+        height: 14px;
+      }
+
+      .mod-item-actions {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .mod-action-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1px solid rgba(84, 113, 148, 0.2);
+        background: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .mod-action-btn i {
+        width: 16px;
+        height: 16px;
+        color: #64748b;
+      }
+
+      .mod-action-btn:hover {
+        background: #f8fafc;
+      }
+
+      .mod-action-btn.view:hover {
+        background: #dbeafe;
+        border-color: #3b82f6;
+      }
+      .mod-action-btn.view:hover i { color: #3b82f6; }
+
+      .mod-action-btn.delete:hover {
+        background: #fee2e2;
+        border-color: #ef4444;
+      }
+      .mod-action-btn.delete:hover i { color: #ef4444; }
+
+      .mod-action-btn.warn:hover {
+        background: #fef3c7;
+        border-color: #f59e0b;
+      }
+      .mod-action-btn.warn:hover i { color: #f59e0b; }
+
+      /* Panel lateral */
+      .mod-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .mod-sidebar-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid rgba(84, 113, 148, 0.1);
+        overflow: hidden;
+      }
+
+      .mod-sidebar-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mod-sidebar-header i {
+        width: 20px;
+        height: 20px;
+        color: #547194;
+      }
+
+      .mod-sidebar-header h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1a1a2e;
+        margin: 0;
+      }
+
+      .mod-report-list {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+
+      .mod-report-item {
+        padding: 14px 20px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .mod-report-item:hover {
+        background: rgba(239, 68, 68, 0.05);
+      }
+
+      .mod-report-item:last-child {
+        border-bottom: none;
+      }
+
+      .mod-report-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: #fee2e2;
+        color: #dc2626;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .mod-report-badge i {
+        width: 12px;
+        height: 12px;
+      }
+
+      .mod-report-content {
+        font-size: 0.85rem;
+        color: #1a1a2e;
+        margin-bottom: 6px;
+        line-height: 1.4;
+      }
+
+      .mod-report-meta {
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+
+      /* Log de actividad */
+      .mod-log-list {
+        max-height: 350px;
+        overflow-y: auto;
+      }
+
+      .mod-log-item {
+        padding: 12px 20px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
+        display: flex;
+        gap: 12px;
+      }
+
+      .mod-log-item:last-child {
+        border-bottom: none;
+      }
+
+      .mod-log-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .mod-log-icon i {
+        width: 16px;
+        height: 16px;
+        color: white;
+      }
+
+      .mod-log-icon.delete { background: linear-gradient(135deg, #ef4444, #f87171); }
+      .mod-log-icon.warn { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+      .mod-log-icon.approve { background: linear-gradient(135deg, #10b981, #34d399); }
+      .mod-log-icon.suspend { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+
+      .mod-log-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .mod-log-text {
+        font-size: 0.85rem;
+        color: #1a1a2e;
+        margin-bottom: 2px;
+      }
+
+      .mod-log-text strong {
+        color: #547194;
+      }
+
+      .mod-log-time {
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+
+      /* Empty states */
+      .mod-empty-state {
+        padding: 60px 30px;
+        text-align: center;
+        color: #94a3b8;
+      }
+
+      .mod-empty-state i {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 15px;
+        opacity: 0.5;
+      }
+
+      .mod-empty-state p {
+        font-size: 0.95rem;
+        margin: 0;
+      }
+
+      /* Loading */
+      .mod-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        gap: 12px;
+        color: #547194;
+      }
+
+      .mod-loading-spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid rgba(84, 113, 148, 0.2);
+        border-top-color: #547194;
+        border-radius: 50%;
+        animation: modSpin 0.8s linear infinite;
+      }
+
+      @keyframes modSpin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Modal de confirmación */
+      .mod-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .mod-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .mod-modal {
+        background: white;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 480px;
+        padding: 30px;
+        transform: scale(0.9);
+        transition: all 0.3s ease;
+      }
+
+      .mod-modal-overlay.active .mod-modal {
+        transform: scale(1);
+      }
+
+      .mod-modal-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .mod-modal-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mod-modal-icon.danger {
+        background: linear-gradient(135deg, #ef4444, #f87171);
+      }
+
+      .mod-modal-icon i {
+        width: 26px;
+        height: 26px;
+        color: white;
+      }
+
+      .mod-modal-title h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1a1a2e;
+        margin-bottom: 4px;
+      }
+
+      .mod-modal-title p {
+        font-size: 0.9rem;
+        color: #64748b;
+        margin: 0;
+      }
+
+      .mod-modal-body {
+        margin-bottom: 25px;
+      }
+
+      .mod-modal-field {
+        margin-bottom: 15px;
+      }
+
+      .mod-modal-field label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #1a1a2e;
+        margin-bottom: 8px;
+      }
+
+      .mod-modal-field textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid rgba(84, 113, 148, 0.2);
+        border-radius: 10px;
+        font-size: 0.9rem;
+        resize: vertical;
+        min-height: 100px;
+        font-family: inherit;
+        transition: all 0.2s ease;
+      }
+
+      .mod-modal-field textarea:focus {
+        outline: none;
+        border-color: #547194;
+        box-shadow: 0 0 0 3px rgba(84, 113, 148, 0.1);
+      }
+
+      .mod-modal-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+      }
+
+      .mod-modal-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .mod-modal-btn.cancel {
+        background: #f1f5f9;
+        border: none;
+        color: #64748b;
+      }
+
+      .mod-modal-btn.cancel:hover {
+        background: #e2e8f0;
+      }
+
+      .mod-modal-btn.confirm {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        border: none;
+        color: white;
+      }
+
+      .mod-modal-btn.confirm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .mod-hero {
+          padding: 25px;
+        }
+
+        .mod-hero-text h1 {
+          font-size: 1.5rem;
+        }
+
+        .mod-hero-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .mod-quick-actions {
+          justify-content: center;
+        }
+
+        .mod-stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .mod-panel-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .mod-content-item {
+          flex-direction: column;
+        }
+
+        .mod-item-actions {
+          margin-top: 10px;
+        }
+      }
+    </style>
+
+    <div class="moderacion-container">
+      <!-- Hero Section -->
+      <div class="mod-hero">
+        <div class="mod-hero-content">
+          <div class="mod-hero-text">
+            <h1>
+              <i data-lucide="shield-check"></i>
+              Moderación Classroom
+            </h1>
+            <p>Centro de control para gestionar contenido, reportes y usuarios de la plataforma educativa.</p>
+          </div>
+          <div class="mod-quick-actions">
+            <button class="mod-quick-btn" onclick="refreshModeracionStats()">
+              <i data-lucide="refresh-cw"></i>
+              Actualizar
+            </button>
+            <button class="mod-quick-btn" onclick="exportModeracionLog()">
+              <i data-lucide="download"></i>
+              Exportar Log
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="mod-stats-grid" id="modStatsGrid">
+        <div class="mod-stat-card">
+          <div class="mod-stat-icon blue">
+            <i data-lucide="file-text"></i>
+          </div>
+          <div class="mod-stat-info">
+            <h3 id="statTotalContenido">-</h3>
+            <p>Contenido Total</p>
+          </div>
+        </div>
+        <div class="mod-stat-card">
+          <div class="mod-stat-icon orange">
+            <i data-lucide="alert-triangle"></i>
+          </div>
+          <div class="mod-stat-info">
+            <h3 id="statReportesPendientes">-</h3>
+            <p>Reportes Pendientes</p>
+          </div>
+        </div>
+        <div class="mod-stat-card">
+          <div class="mod-stat-icon red">
+            <i data-lucide="trash-2"></i>
+          </div>
+          <div class="mod-stat-info">
+            <h3 id="statEliminadosHoy">-</h3>
+            <p>Eliminados Hoy</p>
+          </div>
+        </div>
+        <div class="mod-stat-card">
+          <div class="mod-stat-icon green">
+            <i data-lucide="check-circle"></i>
+          </div>
+          <div class="mod-stat-info">
+            <h3 id="statResueltos">-</h3>
+            <p>Resueltos Este Mes</p>
+          </div>
+        </div>
+        <div class="mod-stat-card">
+          <div class="mod-stat-icon purple">
+            <i data-lucide="user-x"></i>
+          </div>
+          <div class="mod-stat-info">
+            <h3 id="statSuspendidos">-</h3>
+            <p>Usuarios Suspendidos</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Grid -->
+      <div class="mod-main-grid">
+        <!-- Panel Principal de Contenido -->
+        <div class="mod-content-panel">
+          <div class="mod-panel-header">
+            <div class="mod-panel-title">
+              <i data-lucide="folder-open"></i>
+              <h2>Gestión de Contenido</h2>
+            </div>
+            <div class="mod-tabs">
+              <button class="mod-tab active" data-tipo="todos">
+                Todos <span class="count" id="countTodos">0</span>
+              </button>
+              <button class="mod-tab" data-tipo="tareas">
+                Tareas <span class="count" id="countTareas">0</span>
+              </button>
+              <button class="mod-tab" data-tipo="anuncios">
+                Anuncios <span class="count" id="countAnuncios">0</span>
+              </button>
+              <button class="mod-tab" data-tipo="comentarios">
+                Comentarios <span class="count" id="countComentarios">0</span>
+              </button>
+              <button class="mod-tab" data-tipo="preguntas">
+                Comunidad <span class="count" id="countPreguntas">0</span>
+              </button>
+            </div>
+          </div>
+          <div class="mod-content-list" id="modContentList">
+            <div class="mod-loading">
+              <div class="mod-loading-spinner"></div>
+              <span>Cargando contenido...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="mod-sidebar">
+          <!-- Reportes Recientes -->
+          <div class="mod-sidebar-card">
+            <div class="mod-sidebar-header">
+              <i data-lucide="flag"></i>
+              <h3>Reportes Recientes</h3>
+            </div>
+            <div class="mod-report-list" id="modReportList">
+              <div class="mod-loading">
+                <div class="mod-loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Log de Actividad -->
+          <div class="mod-sidebar-card">
+            <div class="mod-sidebar-header">
+              <i data-lucide="activity"></i>
+              <h3>Actividad Reciente</h3>
+            </div>
+            <div class="mod-log-list" id="modLogList">
+              <div class="mod-loading">
+                <div class="mod-loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminar -->
+    <div class="mod-modal-overlay" id="modDeleteModal">
+      <div class="mod-modal">
+        <div class="mod-modal-header">
+          <div class="mod-modal-icon danger">
+            <i data-lucide="trash-2"></i>
+          </div>
+          <div class="mod-modal-title">
+            <h3>Eliminar Contenido</h3>
+            <p>Esta acción no se puede deshacer</p>
+          </div>
+        </div>
+        <div class="mod-modal-body">
+          <div class="mod-modal-field">
+            <label>Motivo de eliminación (obligatorio)</label>
+            <textarea id="modDeleteReason" placeholder="Describe el motivo por el cual se elimina este contenido..."></textarea>
+          </div>
+        </div>
+        <div class="mod-modal-actions">
+          <button class="mod-modal-btn cancel" onclick="closeModDeleteModal()">Cancelar</button>
+          <button class="mod-modal-btn confirm" onclick="confirmModDelete()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Variables globales para moderación
+let currentModTipo = 'todos';
+let currentModDeleteItem = null;
+let modContenidoCache = {};
+
+async function initModeracionInteractivity() {
+  // Cargar estadísticas
+  await loadModeracionStats();
+  
+  // Cargar contenido inicial
+  await loadModeracionContenido('todos');
+  
+  // Cargar reportes
+  await loadModeracionReportes();
+  
+  // Cargar log de actividad
+  await loadModeracionLog();
+  
+  // Configurar tabs
+  document.querySelectorAll('.mod-tab').forEach(tab => {
+    tab.addEventListener('click', async function() {
+      document.querySelectorAll('.mod-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      currentModTipo = this.dataset.tipo;
+      await loadModeracionContenido(currentModTipo);
+    });
+  });
+}
+
+async function loadModeracionStats() {
+  try {
+    const response = await fetch('/api/moderacion/stats');
+    if (response.ok) {
+      const stats = await response.json();
+      document.getElementById('statTotalContenido').textContent = stats.totalContenido || 0;
+      document.getElementById('statReportesPendientes').textContent = stats.reportesPendientes || 0;
+      document.getElementById('statEliminadosHoy').textContent = stats.eliminadosHoy || 0;
+      document.getElementById('statResueltos').textContent = stats.resueltosEsteMes || 0;
+      document.getElementById('statSuspendidos').textContent = stats.usuariosSuspendidos || 0;
+      
+      // Actualizar contadores de tabs
+      document.getElementById('countTodos').textContent = stats.totalContenido || 0;
+      document.getElementById('countTareas').textContent = stats.tareas || 0;
+      document.getElementById('countAnuncios').textContent = stats.anuncios || 0;
+      document.getElementById('countComentarios').textContent = stats.comentarios || 0;
+      document.getElementById('countPreguntas').textContent = stats.preguntas || 0;
+    }
+  } catch (error) {
+    console.error('Error cargando stats de moderación:', error);
+  }
+}
+
+async function loadModeracionContenido(tipo) {
+  const container = document.getElementById('modContentList');
+  container.innerHTML = `
+    <div class="mod-loading">
+      <div class="mod-loading-spinner"></div>
+      <span>Cargando contenido...</span>
+    </div>
+  `;
+  
+  try {
+    const response = await fetch(\`/api/moderacion/contenido/\${tipo}\`);
+    if (response.ok) {
+      const contenido = await response.json();
+      
+      if (contenido.length === 0) {
+        container.innerHTML = \`
+          <div class="mod-empty-state">
+            <i data-lucide="inbox"></i>
+            <p>No hay contenido para mostrar</p>
+          </div>
+        \`;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        return;
+      }
+      
+      container.innerHTML = contenido.map(item => \`
+        <div class="mod-content-item" data-id="\${item.id}" data-tipo="\${item.tipo}">
+          <div class="mod-item-main">
+            <div class="mod-item-header">
+              <span class="mod-item-type \${item.tipo}">\${item.tipo}</span>
+              <span class="mod-item-author">por <strong>\${item.autor || 'Usuario'}</strong></span>
+            </div>
+            <div class="mod-item-title">\${item.titulo || 'Sin título'}</div>
+            <div class="mod-item-preview">\${item.contenido || ''}</div>
+            <div class="mod-item-meta">
+              <span><i data-lucide="calendar"></i> \${item.fecha || 'Fecha no disponible'}</span>
+              <span><i data-lucide="book-open"></i> \${item.curso || 'Sin curso'}</span>
+            </div>
+          </div>
+          <div class="mod-item-actions">
+            <button class="mod-action-btn view" title="Ver detalle" onclick="viewModContent('\${item.tipo}', \${item.id})">
+              <i data-lucide="eye"></i>
+            </button>
+            <button class="mod-action-btn delete" title="Eliminar" onclick="openModDeleteModal('\${item.tipo}', \${item.id}, '\${(item.titulo || '').replace(/'/g, "\\\\'")}')">
+              <i data-lucide="trash-2"></i>
+            </button>
+          </div>
+        </div>
+      \`).join('');
+      
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  } catch (error) {
+    console.error('Error cargando contenido:', error);
+    container.innerHTML = \`
+      <div class="mod-empty-state">
+        <i data-lucide="alert-circle"></i>
+        <p>Error al cargar el contenido</p>
+      </div>
+    \`;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+}
+
+async function loadModeracionReportes() {
+  const container = document.getElementById('modReportList');
+  
+  try {
+    const response = await fetch('/api/moderacion/reportes');
+    if (response.ok) {
+      const reportes = await response.json();
+      
+      if (reportes.length === 0) {
+        container.innerHTML = \`
+          <div class="mod-empty-state" style="padding: 30px;">
+            <i data-lucide="check-circle"></i>
+            <p>Sin reportes pendientes</p>
+          </div>
+        \`;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        return;
+      }
+      
+      container.innerHTML = reportes.slice(0, 5).map(r => \`
+        <div class="mod-report-item" onclick="handleReport(\${r.id})">
+          <div class="mod-report-badge">
+            <i data-lucide="flag"></i>
+            \${r.tipo || 'Contenido'}
+          </div>
+          <div class="mod-report-content">\${r.motivo || 'Sin motivo especificado'}</div>
+          <div class="mod-report-meta">Reportado por \${r.reportadoPor || 'Anónimo'} · \${r.fecha || ''}</div>
+        </div>
+      \`).join('');
+      
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  } catch (error) {
+    console.error('Error cargando reportes:', error);
+    container.innerHTML = '<div class="mod-empty-state" style="padding: 30px;"><p>Error al cargar reportes</p></div>';
+  }
+}
+
+async function loadModeracionLog() {
+  const container = document.getElementById('modLogList');
+  
+  try {
+    const response = await fetch('/api/moderacion/log?limit=10');
+    if (response.ok) {
+      const log = await response.json();
+      
+      if (log.length === 0) {
+        container.innerHTML = \`
+          <div class="mod-empty-state" style="padding: 30px;">
+            <i data-lucide="activity"></i>
+            <p>Sin actividad reciente</p>
+          </div>
+        \`;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        return;
+      }
+      
+      container.innerHTML = log.map(l => {
+        let iconClass = 'delete';
+        let icon = 'trash-2';
+        if (l.accion?.includes('aprobar') || l.accion?.includes('resolver')) {
+          iconClass = 'approve';
+          icon = 'check';
+        } else if (l.accion?.includes('suspender')) {
+          iconClass = 'suspend';
+          icon = 'user-x';
+        } else if (l.accion?.includes('advertir')) {
+          iconClass = 'warn';
+          icon = 'alert-triangle';
+        }
+        
+        return \`
+          <div class="mod-log-item">
+            <div class="mod-log-icon \${iconClass}">
+              <i data-lucide="\${icon}"></i>
+            </div>
+            <div class="mod-log-content">
+              <div class="mod-log-text"><strong>\${l.admin || 'Admin'}</strong> \${l.accion || ''}</div>
+              <div class="mod-log-time">\${l.fecha || ''}</div>
+            </div>
+          </div>
+        \`;
+      }).join('');
+      
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  } catch (error) {
+    console.error('Error cargando log:', error);
+  }
+}
+
+function openModDeleteModal(tipo, id, titulo) {
+  currentModDeleteItem = { tipo, id, titulo };
+  document.getElementById('modDeleteReason').value = '';
+  document.getElementById('modDeleteModal').classList.add('active');
+}
+
+function closeModDeleteModal() {
+  document.getElementById('modDeleteModal').classList.remove('active');
+  currentModDeleteItem = null;
+}
+
+async function confirmModDelete() {
+  if (!currentModDeleteItem) return;
+  
+  const reason = document.getElementById('modDeleteReason').value.trim();
+  if (!reason) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Motivo requerido',
+      text: 'Debes especificar un motivo para eliminar este contenido.',
+      confirmButtonColor: '#547194'
+    });
+    return;
+  }
+  
+  const { tipo, id, titulo } = currentModDeleteItem;
+  
+  try {
+    const response = await fetch(\`/api/moderacion/contenido/\${tipo}/\${id}\`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ motivo: reason })
+    });
+    
+    if (response.ok) {
+      closeModDeleteModal();
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Contenido eliminado',
+        text: \`"\${titulo}" ha sido eliminado correctamente.\`,
+        confirmButtonColor: '#547194'
+      });
+      
+      // Recargar contenido y stats
+      await loadModeracionContenido(currentModTipo);
+      await loadModeracionStats();
+      await loadModeracionLog();
+    } else {
+      throw new Error('Error al eliminar');
+    }
+  } catch (error) {
+    console.error('Error eliminando contenido:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo eliminar el contenido. Intenta de nuevo.',
+      confirmButtonColor: '#547194'
+    });
+  }
+}
+
+function viewModContent(tipo, id) {
+  // Abrir en nueva pestaña o mostrar modal con detalle
+  Swal.fire({
+    title: 'Ver Contenido',
+    text: \`Tipo: \${tipo}, ID: \${id}\`,
+    icon: 'info',
+    confirmButtonColor: '#547194'
+  });
+}
+
+async function handleReport(id) {
+  const { value: accion } = await Swal.fire({
+    title: 'Gestionar Reporte',
+    input: 'select',
+    inputOptions: {
+      'resolver': 'Marcar como resuelto',
+      'eliminar': 'Eliminar contenido reportado',
+      'ignorar': 'Ignorar reporte'
+    },
+    inputPlaceholder: 'Selecciona una acción',
+    showCancelButton: true,
+    confirmButtonColor: '#547194',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Aplicar'
+  });
+  
+  if (accion) {
+    try {
+      await fetch(\`/api/moderacion/reportes/\${id}\`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accion })
+      });
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Reporte procesado',
+        confirmButtonColor: '#547194'
+      });
+      
+      await loadModeracionReportes();
+      await loadModeracionStats();
+      await loadModeracionLog();
+    } catch (error) {
+      console.error('Error procesando reporte:', error);
+    }
+  }
+}
+
+async function refreshModeracionStats() {
+  Swal.fire({
+    title: 'Actualizando...',
+    allowOutsideClick: false,
+    didOpen: () => Swal.showLoading()
+  });
+  
+  await loadModeracionStats();
+  await loadModeracionContenido(currentModTipo);
+  await loadModeracionReportes();
+  await loadModeracionLog();
+  
+  Swal.fire({
+    icon: 'success',
+    title: 'Actualizado',
+    text: 'Los datos se han actualizado correctamente.',
+    timer: 1500,
+    showConfirmButton: false
+  });
+}
+
+function exportModeracionLog() {
+  Swal.fire({
+    icon: 'info',
+    title: 'Exportar Log',
+    text: 'Esta función exportará el historial de moderación a un archivo CSV.',
+    showCancelButton: true,
+    confirmButtonColor: '#547194',
+    confirmButtonText: 'Exportar',
+    cancelButtonText: 'Cancelar'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch('/api/moderacion/log?limit=1000');
+        if (response.ok) {
+          const log = await response.json();
+          
+          // Crear CSV
+          const csv = [
+            ['Fecha', 'Admin', 'Acción', 'Detalles'].join(','),
+            ...log.map(l => [
+              l.fecha || '',
+              l.admin || '',
+              l.accion || '',
+              (l.detalles || '').replace(/,/g, ';')
+            ].join(','))
+          ].join('\\n');
+          
+          // Descargar
+          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = \`moderacion-log-\${new Date().toISOString().split('T')[0]}.csv\`;
+          link.click();
+          
+          Swal.fire({
+            icon: 'success',
+            title: 'Exportado',
+            text: 'El log se ha descargado correctamente.',
+            timer: 2000,
+            showConfirmButton: false
+          });
+        }
+      } catch (error) {
+        console.error('Error exportando log:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo exportar el log.',
+          confirmButtonColor: '#547194'
+        });
+      }
+    }
+  });
+}
+
+// ========================================
+// FIN SECCIÓN DE MODERACIÓN
+// ========================================
 
 function generateTable(section, data) {
   switch (section) {
