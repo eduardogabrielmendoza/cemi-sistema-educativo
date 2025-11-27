@@ -21,22 +21,22 @@
     .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
     .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
 
-    .hero-section { padding: 60px 40px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .hero-section { padding: 30px 40px 24px; text-align: center; transition: all 0.3s ease; position: relative; overflow: hidden; }
     .hero-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%); animation: heroGlow 15s ease-in-out infinite; }
     @keyframes heroGlow { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10%, 10%); } }
     .hero-section.collapsed { padding: 15px 40px; }
     .hero-section.collapsed h1 { font-size: 20px; margin-bottom: 0; }
     .hero-section.collapsed p, .hero-section.collapsed .search-container, .hero-section.collapsed .quick-actions { display: none; }
-    .hero-section h1 { color: white; font-size: 40px; font-weight: 700; margin-bottom: 16px; position: relative; z-index: 1; }
-    .hero-section p { color: rgba(255,255,255,0.9); font-size: 18px; max-width: 600px; margin: 0 auto 32px; position: relative; z-index: 1; }
+    .hero-section h1 { color: white; font-size: 28px; font-weight: 700; margin-bottom: 8px; position: relative; z-index: 1; }
+    .hero-section p { color: rgba(255,255,255,0.9); font-size: 15px; max-width: 550px; margin: 0 auto 20px; position: relative; z-index: 1; }
 
     /* Search Box Mejorado */
-    .search-container { max-width: 650px; margin: 0 auto 32px; position: relative; z-index: 10; }
+    .search-container { max-width: 600px; margin: 0 auto 20px; position: relative; z-index: 10; }
     .search-wrapper { position: relative; }
-    .search-input { width: 100%; padding: 20px 24px 20px 60px; border: none; border-radius: 16px; font-size: 16px; font-family: inherit; box-shadow: 0 10px 40px rgba(0,0,0,0.2); transition: all 0.3s ease; background: white; }
+    .search-input { width: 100%; padding: 16px 24px 16px 52px; border: none; border-radius: 12px; font-size: 15px; font-family: inherit; box-shadow: 0 10px 40px rgba(0,0,0,0.2); transition: all 0.3s ease; background: white; }
     .search-input:focus { outline: none; box-shadow: 0 15px 50px rgba(0,0,0,0.25); transform: translateY(-2px); }
     .search-input::placeholder { color: #94a3b8; }
-    .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: #667eea; width: 22px; height: 22px; }
+    .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #667eea; width: 20px; height: 20px; }
     .search-shortcut { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: #f1f5f9; padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #64748b; font-weight: 500; }
     .search-results { position: absolute; top: calc(100% + 12px); left: 0; right: 0; background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); max-height: 450px; overflow-y: auto; display: none; z-index: 100; }
     .search-results.active { display: block; animation: slideDown 0.2s ease; }
@@ -55,10 +55,10 @@
     .search-no-results p { color: #64748b; font-size: 14px; }
 
     /* Quick Actions */
-    .quick-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; z-index: 1; }
-    .quick-action { display: flex; align-items: center; gap: 10px; padding: 12px 20px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: white; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s ease; cursor: pointer; }
+    .quick-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .quick-action { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: white; text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.3s ease; cursor: pointer; }
     .quick-action:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
-    .quick-action i { width: 18px; height: 18px; }
+    .quick-action i { width: 16px; height: 16px; }
 
     /* Main Content */
     .main-content { max-width: 1200px; margin: 0 auto; padding: 60px 40px; }
