@@ -1,41 +1,103 @@
 /**
  * Plantillas de email para el sistema CEMI
+ * Colores institucionales: Azul #1976d2
  */
 
 const LOGO_URL = 'https://raw.githubusercontent.com/eduardogabrielmendozaprogram/cemi-sistema-educativo/main/frontend/images/logo.png';
+const SITE_URL = 'https://cemi-sistema-educativo-production.up.railway.app';
+
+// Colores institucionales
+const COLORS = {
+  primary: '#1976d2',
+  primaryDark: '#1565c0',
+  primaryLight: '#e3f2fd',
+  success: '#2e7d32',
+  successLight: '#e8f5e9',
+  warning: '#f57c00',
+  warningLight: '#fff3e0',
+  danger: '#c62828',
+  dangerLight: '#ffebee',
+  text: '#333333',
+  textLight: '#666666',
+  textMuted: '#888888',
+  background: '#f5f7fa',
+  white: '#ffffff',
+  border: '#e0e0e0'
+};
 
 /**
- * Estilos base para todos los emails
+ * Estilos base para todos los emails - Colores institucionales CEMI
  */
 const baseStyles = `
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
-    .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; }
-    .header img { max-width: 120px; margin-bottom: 15px; }
-    .header h1 { color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: ${COLORS.background}; }
+    .container { max-width: 600px; margin: 0 auto; background: ${COLORS.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .header { background: linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.primaryDark} 100%); padding: 35px 30px; text-align: center; }
+    .logo-container { background: ${COLORS.white}; width: 90px; height: 90px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .logo-container img { max-width: 60px; max-height: 60px; }
+    .header h1 { color: ${COLORS.white}; margin: 0; font-size: 22px; font-weight: 600; }
     .content { padding: 40px 30px; }
-    .content h2 { color: #333; margin-bottom: 20px; }
-    .content p { color: #555; line-height: 1.6; margin-bottom: 15px; }
-    .info-box { background: #f8f9ff; border-left: 4px solid #667eea; padding: 20px; margin: 25px 0; border-radius: 0 8px 8px 0; }
-    .info-box p { margin: 8px 0; }
-    .info-box strong { color: #333; }
-    .credential-box { background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border: 2px solid #667eea; padding: 25px; margin: 25px 0; border-radius: 12px; text-align: center; }
-    .credential-box h3 { color: #667eea; margin-bottom: 15px; }
-    .credential-item { background: #fff; padding: 12px 20px; margin: 10px 0; border-radius: 8px; display: inline-block; min-width: 200px; }
-    .credential-item label { display: block; font-size: 12px; color: #888; margin-bottom: 4px; }
-    .credential-item span { font-size: 18px; font-weight: 600; color: #333; font-family: monospace; }
-    .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-    .warning p { color: #856404; margin: 0; }
-    .footer { background: #f8f9fa; padding: 25px; text-align: center; border-top: 1px solid #eee; }
-    .footer p { color: #888; font-size: 13px; margin: 5px 0; }
-    .btn { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; padding: 14px 35px; border-radius: 30px; text-decoration: none; font-weight: 600; margin-top: 20px; }
+    .content h2 { color: ${COLORS.text}; margin-bottom: 20px; font-size: 20px; }
+    .content h3 { color: ${COLORS.primary}; margin-top: 25px; margin-bottom: 15px; }
+    .content p { color: ${COLORS.textLight}; line-height: 1.7; margin-bottom: 15px; font-size: 15px; }
+    .info-box { background: ${COLORS.primaryLight}; border-left: 4px solid ${COLORS.primary}; padding: 20px; margin: 25px 0; border-radius: 0 8px 8px 0; }
+    .info-box p { margin: 8px 0; color: ${COLORS.text}; }
+    .info-box strong { color: ${COLORS.primary}; }
+    .credential-box { background: ${COLORS.primaryLight}; border: 2px solid ${COLORS.primary}; padding: 25px; margin: 25px 0; border-radius: 12px; text-align: center; }
+    .credential-box h3 { color: ${COLORS.primary}; margin-bottom: 20px; margin-top: 0; }
+    .credential-item { background: ${COLORS.white}; padding: 15px 25px; margin: 10px 0; border-radius: 8px; display: inline-block; min-width: 220px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .credential-item label { display: block; font-size: 11px; color: ${COLORS.textMuted}; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .credential-item span { font-size: 18px; font-weight: 600; color: ${COLORS.text}; font-family: 'Consolas', monospace; }
+    .warning { background: ${COLORS.warningLight}; border-left: 4px solid ${COLORS.warning}; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .warning p { color: #e65100; margin: 0; font-size: 14px; }
+    .success-box { background: ${COLORS.successLight}; border-left: 4px solid ${COLORS.success}; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    .success-box p { color: ${COLORS.success}; margin: 0; font-size: 14px; }
+    .btn { display: inline-block; background: linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.primaryDark} 100%); color: ${COLORS.white} !important; padding: 14px 35px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 20px; box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3); }
+    .btn:hover { background: ${COLORS.primaryDark}; }
+    .btn-secondary { display: inline-block; background: transparent; color: ${COLORS.primary} !important; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 500; border: 2px solid ${COLORS.primary}; margin: 10px 5px; }
     .success-icon { font-size: 48px; margin-bottom: 15px; }
+    .divider { height: 1px; background: ${COLORS.border}; margin: 30px 0; }
+    .footer { background: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid ${COLORS.border}; }
+    .footer p { color: ${COLORS.textMuted}; font-size: 13px; margin: 5px 0; }
+    .footer-links { margin: 20px 0; padding: 0; }
+    .footer-links a { color: ${COLORS.primary}; text-decoration: none; margin: 0 12px; font-size: 13px; font-weight: 500; }
+    .footer-links a:hover { text-decoration: underline; }
+    .social-links { margin: 15px 0; }
+    .social-links a { display: inline-block; margin: 0 8px; color: ${COLORS.textMuted}; font-size: 12px; text-decoration: none; }
+    .footer-brand { color: ${COLORS.primary}; font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+    .footer-legal { font-size: 11px; color: #aaa; margin-top: 15px; line-height: 1.6; }
+    ul { padding-left: 20px; }
+    ul li { color: ${COLORS.textLight}; line-height: 2; margin-bottom: 5px; }
   </style>
 `;
 
 /**
- * Email 1: Confirmación al usuario de que su solicitud fue recibida
+ * Footer comun para todos los emails
+ */
+const footerTemplate = `
+  <div class="footer">
+    <p class="footer-brand">Centro Educativo Multilingue Integral</p>
+    <p>Tu plataforma educativa de confianza</p>
+    
+    <div class="footer-links">
+      <a href="${SITE_URL}/ayuda.html">Centro de Ayuda</a>
+      <a href="${SITE_URL}/terminos.html">Terminos de Uso</a>
+      <a href="${SITE_URL}/privacidad.html">Privacidad</a>
+      <a href="mailto:soporte@cemi.edu">Contacto</a>
+    </div>
+    
+    <div class="divider" style="margin: 15px auto; max-width: 200px;"></div>
+    
+    <p class="footer-legal">
+      Este es un correo automatico enviado por el sistema CEMI.<br>
+      Por favor no responda directamente a este mensaje.<br>
+      &copy; ${new Date().getFullYear()} CEMI - Todos los derechos reservados.
+    </p>
+  </div>
+`;
+
+/**
+ * Email 1: Confirmacion al usuario de que su solicitud fue recibida
  */
 export function solicitudRecibidaTemplate(nombreUsuario, email) {
   return `
@@ -49,7 +111,9 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI Logo">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
           <h1>Solicitud Recibida</h1>
         </div>
         <div class="content">
@@ -57,25 +121,27 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
             <div class="success-icon">📩</div>
           </div>
           <h2>Hola ${nombreUsuario || 'Usuario'},</h2>
-          <p>Hemos recibido tu solicitud de recuperación de contraseña para tu cuenta en el <strong>Centro Educativo Multilingüe Integral (CEMI)</strong>.</p>
+          <p>Hemos recibido tu solicitud de recuperacion de contrasena para tu cuenta en el <strong>Centro Educativo Multilingue Integral (CEMI)</strong>.</p>
           
           <div class="info-box">
-            <p><strong>Email registrado:</strong> ${email}</p>
-            <p><strong>Fecha de solicitud:</strong> ${new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'short' })}</p>
+            <p><strong>📧 Email registrado:</strong> ${email}</p>
+            <p><strong>📅 Fecha de solicitud:</strong> ${new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'short' })}</p>
+            <p><strong>🔢 Numero de referencia:</strong> #${Date.now().toString().slice(-8)}</p>
           </div>
           
-          <p>Un administrador revisará tu solicitud y te enviará tus nuevas credenciales de acceso a este mismo correo electrónico.</p>
+          <p>Un administrador revisara tu solicitud y te enviara tus nuevas credenciales de acceso a este mismo correo electronico.</p>
           
           <div class="warning">
-            <p>⚠️ Si no solicitaste este cambio, por favor ignora este mensaje o contacta con el administrador.</p>
+            <p>⚠️ <strong>Importante:</strong> Si no solicitaste este cambio, por favor ignora este mensaje o contacta inmediatamente con soporte.</p>
           </div>
           
-          <p>Te notificaremos cuando tus credenciales hayan sido actualizadas.</p>
+          <p>Te notificaremos cuando tus credenciales hayan sido actualizadas. Este proceso suele tomar entre 24-48 horas habiles.</p>
+          
+          <div style="text-align: center; margin-top: 30px;">
+            <a href="${SITE_URL}/ayuda.html" class="btn-secondary">Visitar Centro de Ayuda</a>
+          </div>
         </div>
-        <div class="footer">
-          <p><strong>Centro Educativo Multilingüe Integral</strong></p>
-          <p>Este es un correo automático, por favor no responda a este mensaje.</p>
-        </div>
+        ${footerTemplate}
       </div>
     </body>
     </html>
@@ -83,7 +149,7 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
 }
 
 /**
- * Email 2: Notificación al administrador de nueva solicitud
+ * Email 2: Notificacion al administrador de nueva solicitud
  */
 export function notificacionAdminTemplate(usuario) {
   return `
@@ -96,14 +162,17 @@ export function notificacionAdminTemplate(usuario) {
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">
-          <img src="${LOGO_URL}" alt="CEMI Logo">
-          <h1>🔐 Nueva Solicitud de Recuperación</h1>
+        <div class="header" style="background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%);">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>🔐 Nueva Solicitud de Recuperacion</h1>
         </div>
         <div class="content">
-          <h2>Se ha recibido una solicitud de recuperación de contraseña</h2>
+          <h2>Accion Requerida: Solicitud de Restablecimiento</h2>
+          <p>Se ha recibido una nueva solicitud de recuperacion de contrasena que requiere tu atencion.</p>
           
-          <div class="info-box" style="border-left-color: #ff6b6b;">
+          <div class="info-box" style="border-left-color: #c62828; background: #ffebee;">
             <p><strong>👤 Usuario:</strong> ${usuario.nombre || 'No disponible'}</p>
             <p><strong>📧 Email:</strong> ${usuario.email}</p>
             <p><strong>🏷️ Rol:</strong> ${usuario.rol || 'No especificado'}</p>
@@ -111,16 +180,21 @@ export function notificacionAdminTemplate(usuario) {
             <p><strong>📅 Fecha/Hora:</strong> ${new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'medium' })}</p>
           </div>
           
-          <p>Por favor, accede al panel de administración para gestionar esta solicitud y asignar nuevas credenciales al usuario.</p>
+          <div class="divider"></div>
+          
+          <h3>Pasos a seguir:</h3>
+          <ul>
+            <li>Accede al panel de administracion</li>
+            <li>Verifica la identidad del usuario solicitante</li>
+            <li>Genera nuevas credenciales de acceso</li>
+            <li>El sistema enviara automaticamente las credenciales al usuario</li>
+          </ul>
           
           <div style="text-align: center; margin-top: 30px;">
-            <p style="color: #888; font-size: 14px;">Accede al Dashboard de Administrador para cambiar las credenciales del usuario.</p>
+            <a href="${SITE_URL}/login-admin.html" class="btn">Ir al Panel de Admin</a>
           </div>
         </div>
-        <div class="footer">
-          <p><strong>Sistema de Notificaciones CEMI</strong></p>
-          <p>Este mensaje fue generado automáticamente</p>
-        </div>
+        ${footerTemplate}
       </div>
     </body>
     </html>
@@ -141,17 +215,19 @@ export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);">
-          <img src="${LOGO_URL}" alt="CEMI Logo">
-          <h1>✅ Contraseña Restablecida</h1>
+        <div class="header" style="background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>✅ Contrasena Restablecida</h1>
         </div>
         <div class="content">
           <div style="text-align: center;">
             <div class="success-icon">🎉</div>
           </div>
           <h2>¡Hola ${usuario.nombre || 'Usuario'}!</h2>
-          <p>Tu contraseña ha sido <strong>restablecida exitosamente</strong> por el administrador del sistema.</p>
-          <p>A continuación encontrarás tus nuevas credenciales de acceso:</p>
+          <p>Tu contrasena ha sido <strong>restablecida exitosamente</strong> por el administrador del sistema.</p>
+          <p>A continuacion encontraras tus nuevas credenciales de acceso:</p>
           
           <div class="credential-box">
             <h3>🔑 Tus Nuevas Credenciales</h3>
@@ -160,21 +236,24 @@ export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
               <span>${nuevasCredenciales.usuario}</span>
             </div>
             <div class="credential-item">
-              <label>Contraseña</label>
+              <label>Contrasena</label>
               <span>${nuevasCredenciales.password}</span>
             </div>
           </div>
           
-          <div class="warning" style="background: #d4edda; border-left-color: #28a745;">
-            <p style="color: #155724;">🔒 <strong>Recomendación de seguridad:</strong> Te sugerimos cambiar tu contraseña después de iniciar sesión por primera vez.</p>
+          <div class="success-box">
+            <p>🔒 <strong>Recomendacion de seguridad:</strong> Te sugerimos cambiar tu contrasena despues de iniciar sesion por primera vez desde tu perfil.</p>
           </div>
           
-          <p>Si tienes alguna duda o problema para acceder, no dudes en contactar con el administrador del sistema.</p>
+          <div style="text-align: center; margin-top: 25px;">
+            <a href="${SITE_URL}/login.html" class="btn">Iniciar Sesion Ahora</a>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <p style="font-size: 14px;">Si tienes alguna duda o problema para acceder, visita nuestro <a href="${SITE_URL}/ayuda.html" style="color: #1976d2;">Centro de Ayuda</a> o contacta con el administrador del sistema.</p>
         </div>
-        <div class="footer">
-          <p><strong>Centro Educativo Multilingüe Integral</strong></p>
-          <p>Este es un correo automático, por favor no responda a este mensaje.</p>
-        </div>
+        ${footerTemplate}
       </div>
     </body>
     </html>
@@ -195,9 +274,11 @@ export function encuestaAgradecimientoTemplate(nombre) {
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-          <img src="${LOGO_URL}" alt="CEMI Logo">
-          <h1>Gracias por Participar</h1>
+        <div class="header">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>¡Gracias por Participar!</h1>
         </div>
         <div class="content">
           <div style="text-align: center;">
@@ -207,33 +288,35 @@ export function encuestaAgradecimientoTemplate(nombre) {
           <p>Queremos agradecerte sinceramente por tomarte el tiempo de completar nuestra <strong>encuesta de investigacion</strong>.</p>
           
           <div class="info-box">
-            <p style="margin: 0; font-size: 15px;">Tu opinion es fundamental para nosotros. Cada respuesta nos ayuda a entender mejor las necesidades de nuestra comunidad educativa y a mejorar continuamente <strong>CEMI Classroom</strong>.</p>
+            <p style="margin: 0; font-size: 15px;">💡 Tu opinion es fundamental para nosotros. Cada respuesta nos ayuda a entender mejor las necesidades de nuestra comunidad educativa y a mejorar continuamente <strong>CEMI Classroom</strong>.</p>
           </div>
           
-          <h3 style="color: #667eea; margin-top: 30px;">¿Que sigue?</h3>
+          <h3>¿Que sigue ahora?</h3>
           <p>Tu perfil ya esta activo en nuestro sistema de investigacion. Esto significa que:</p>
           
-          <ul style="color: #555; line-height: 2;">
-            <li>Seras considerado/a para futuros estudios y encuestas</li>
-            <li>Recibiras invitaciones exclusivas para probar nuevas funcionalidades</li>
-            <li>Podras influir directamente en el desarrollo de CEMI</li>
-            <li>Tendras acceso prioritario a novedades y actualizaciones</li>
+          <ul>
+            <li>✨ Seras considerado/a para futuros estudios y encuestas</li>
+            <li>🔔 Recibiras invitaciones exclusivas para probar nuevas funcionalidades</li>
+            <li>💬 Podras influir directamente en el desarrollo de CEMI</li>
+            <li>🚀 Tendras acceso prioritario a novedades y actualizaciones</li>
           </ul>
           
-          <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 20px; border-radius: 12px; margin: 25px 0; text-align: center;">
-            <p style="margin: 0; color: #0369a1; font-weight: 600;">Manten un ojo en tu bandeja de entrada</p>
-            <p style="margin: 8px 0 0 0; color: #0284c7; font-size: 14px;">Pronto recibiras mas novedades y encuestas para seguir ayudando a la investigacion.</p>
+          <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 25px; border-radius: 12px; margin: 25px 0; text-align: center; border: 1px solid rgba(25, 118, 210, 0.2);">
+            <p style="margin: 0; color: #1565c0; font-weight: 600; font-size: 16px;">📬 Manten un ojo en tu bandeja de entrada</p>
+            <p style="margin: 10px 0 0 0; color: #1976d2; font-size: 14px;">Pronto recibiras mas novedades y oportunidades para seguir colaborando con nosotros.</p>
           </div>
           
-          <p>Si tienes alguna pregunta o sugerencia adicional, no dudes en contactarnos. ¡Estamos emocionados de contar contigo!</p>
+          <p>Si tienes alguna pregunta, sugerencia o comentario adicional, no dudes en contactarnos. ¡Estamos emocionados de contar contigo en nuestra comunidad!</p>
           
-          <p style="margin-top: 30px;">Con gratitud,<br><strong>El equipo de CEMI</strong></p>
+          <div style="text-align: center; margin-top: 25px;">
+            <a href="${SITE_URL}/classroom.html" class="btn">Explorar CEMI Classroom</a>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <p style="margin-top: 20px;">Con gratitud,<br><strong style="color: #1976d2;">El equipo de CEMI</strong></p>
         </div>
-        <div class="footer">
-          <p><strong>Centro Educativo Multilingue Integral</strong></p>
-          <p>Investigacion de Experiencia de Usuario</p>
-          <p style="font-size: 11px; color: #aaa; margin-top: 12px;">Este correo fue enviado porque completaste una encuesta en CEMI Classroom.</p>
-        </div>
+        ${footerTemplate}
       </div>
     </body>
     </html>
