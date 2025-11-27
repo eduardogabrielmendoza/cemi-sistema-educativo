@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 
 // Archivo para log de moderación
 const MODERATION_LOG_PATH = path.join(__dirname, '../../frontend/assets/data/moderation-log.json');
+// Archivo para usuarios suspendidos
+const SUSPENDED_USERS_PATH = path.join(__dirname, '../../frontend/assets/data/suspended-users.json');
 
 // Función para leer el log de moderación
 function readModerationLog() {
@@ -36,6 +38,50 @@ function writeModerationLog(log) {
   } catch (error) {
     console.error('Error escribiendo log de moderación:', error);
   }
+}
+
+// Función para leer usuarios suspendidos
+function readSuspendedUsers() {
+  try {
+    if (fs.existsSync(SUSPENDED_USERS_PATH)) {
+      const data = fs.readFileSync(SUSPENDED_USERS_PATH, 'utf8');
+      return JSON.parse(data);
+    }
+    return { usuarios: [] };
+  } catch (error) {
+    console.error('Error leyendo usuarios suspendidos:', error);
+    return { usuarios: [] };
+  }
+}
+
+// Función para escribir usuarios suspendidos
+function writeSuspendedUsers(data) {
+  try {
+    const dir = path.dirname(SUSPENDED_USERS_PATH);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(SUSPENDED_USERS_PATH, JSON.stringify(data, null, 2));
+  } catch (error) {
+    console.error('Error escribiendo usuarios suspendidos:', error);
+  }
+}
+
+// Función para verificar si un usuario está suspendido
+function isUserSuspended(id_usuario) {
+  const data = readSuspendedUsers();
+  const user = data.usuarios.find(u => u.id_usuario == id_usuario && u.activo);
+  if (user) {
+    // Verificar si la suspensión ha expirado
+    if (user.fecha_fin && new Date(user.fecha_fin) < new Date()) {
+      // Expiró, desactivar
+      user.activo = false;
+      writeSuspendedUsers(data);
+      return null;
+    }
+    return user;
+  }
+  return null;
 }
 
 // Función para registrar una acción de moderación
@@ -124,6 +170,10 @@ router.get('/stats', async (req, res) => {
     // Calcular totales
     const totalContenido = tareasCount[0].total + anunciosCount[0].total + recursosTotal + preguntasCount + comentariosTotal;
     
+    // Contar usuarios suspendidos activos
+    const suspendedData = readSuspendedUsers();
+    const usuariosSuspendidos = suspendedData.usuarios.filter(u => u.activo).length;
+
     // Responder con el formato que espera el frontend
     res.json({
       totalContenido,
@@ -132,10 +182,10 @@ router.get('/stats', async (req, res) => {
       comentarios: comentariosTotal,
       preguntas: preguntasCount,
       recursos: recursosTotal,
-      reportesPendientes: 0, // TODO: implementar sistema de reportes
+      reportesPendientes: 0,
       eliminadosHoy,
       resueltosEsteMes,
-      usuariosSuspendidos: 0 // TODO: implementar suspensiones
+      usuariosSuspendidos
     });
   } catch (error) {
     console.error('Error obteniendo estadísticas de moderación:', error);
@@ -817,6 +867,235 @@ router.put('/clases/:id/archivar', async (req, res) => {
   } catch (error) {
     console.error('Error archivando clase:', error);
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// ==================== SUSPENSIÓN DE USUARIOS ====================
+
+// GET /api/moderacion/usuarios - Listar usuarios con estado de suspensión
+router.get('/usuarios', async (req, res) => {
+  try {
+    const [usuarios] = await pool.query(`
+      SELECT u.id_usuario, u.username, 
+             CONCAT(p.nombre, ' ', p.apellido) as nombre_completo,
+             p.mail,
+             CASE 
+               WHEN EXISTS (SELECT 1 FROM alumnos a WHERE a.id_persona = p.id_persona) THEN 'alumno'
+               WHEN EXISTS (SELECT 1 FROM profesores pr WHERE pr.id_persona = p.id_persona) THEN 'profesor'
+               WHEN EXISTS (SELECT 1 FROM administradores ad WHERE ad.id_persona = p.id_persona) THEN 'admin'
+               ELSE 'otro'
+             END as tipo_usuario
+      FROM usuarios u
+      JOIN personas p ON u.id_persona = p.id_persona
+      ORDER BY p.nombre, p.apellido
+    `);
+    
+    // Agregar estado de suspensión
+    const suspendedData = readSuspendedUsers();
+    const usuariosConEstado = usuarios.map(u => {
+      const suspension = suspendedData.usuarios.find(s => s.id_usuario == u.id_usuario && s.activo);
+      return {
+        ...u,
+        suspendido: !!suspension,
+        suspension: suspension || null
+      };
+    });
+    
+    res.json(usuariosConEstado);
+  } catch (error) {
+    console.error('Error obteniendo usuarios:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/moderacion/usuarios/buscar - Buscar usuarios por nombre/email
+router.get('/usuarios/buscar', async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q || q.trim().length < 2) {
+      return res.json([]);
+    }
+    
+    const searchTerm = `%${q.trim()}%`;
+    const [usuarios] = await pool.query(`
+      SELECT u.id_usuario, u.username, CONCAT(p.nombre, ' ', p.apellido) as nombre, p.email
+      FROM usuarios u
+      JOIN personas p ON u.id_persona = p.id_persona
+      WHERE p.nombre LIKE ? OR p.apellido LIKE ? OR p.email LIKE ? OR u.username LIKE ?
+      LIMIT 10
+    `, [searchTerm, searchTerm, searchTerm, searchTerm]);
+    
+    res.json(usuarios);
+  } catch (error) {
+    console.error('Error buscando usuarios:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/moderacion/usuarios/suspendidos - Listar solo usuarios suspendidos
+router.get('/usuarios/suspendidos', async (req, res) => {
+  try {
+    const suspendedData = readSuspendedUsers();
+    const suspendidosActivos = suspendedData.usuarios.filter(u => u.activo);
+    
+    // Obtener info de cada usuario suspendido
+    const resultado = [];
+    for (const s of suspendidosActivos) {
+      try {
+        const [usuario] = await pool.query(`
+          SELECT u.id_usuario, u.username, CONCAT(p.nombre, ' ', p.apellido) as nombre_completo
+          FROM usuarios u
+          JOIN personas p ON u.id_persona = p.id_persona
+          WHERE u.id_usuario = ?
+        `, [s.id_usuario]);
+        
+        if (usuario.length > 0) {
+          resultado.push({
+            ...usuario[0],
+            ...s
+          });
+        }
+      } catch (e) {}
+    }
+    
+    res.json(resultado);
+  } catch (error) {
+    console.error('Error obteniendo usuarios suspendidos:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST /api/moderacion/usuarios/:id/suspender - Suspender usuario
+router.post('/usuarios/:id/suspender', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { motivo, duracion, admin_nombre } = req.body;
+    
+    // Verificar que el usuario existe
+    const [usuario] = await pool.query(`
+      SELECT u.id_usuario, u.username, CONCAT(p.nombre, ' ', p.apellido) as nombre_completo
+      FROM usuarios u
+      JOIN personas p ON u.id_persona = p.id_persona
+      WHERE u.id_usuario = ?
+    `, [id]);
+    
+    if (usuario.length === 0) {
+      return res.status(404).json({ success: false, error: 'Usuario no encontrado' });
+    }
+    
+    // Calcular fecha de fin según duración (acepta formato '7d' o '7')
+    let fecha_fin = null;
+    let duracionLabel = 'permanente';
+    if (duracion && duracion !== 'permanent' && duracion !== 'permanente') {
+      const ahora = new Date();
+      // Extraer número de días
+      let dias = 0;
+      if (typeof duracion === 'string') {
+        dias = parseInt(duracion.replace('d', ''));
+      } else {
+        dias = parseInt(duracion);
+      }
+      
+      if (!isNaN(dias) && dias > 0) {
+        fecha_fin = new Date(ahora.getTime() + dias * 24 * 60 * 60 * 1000);
+        duracionLabel = `${dias} días`;
+      }
+    }
+    
+    // Agregar a lista de suspendidos
+    const suspendedData = readSuspendedUsers();
+    
+    // Desactivar suspensiones anteriores del mismo usuario
+    suspendedData.usuarios.forEach(u => {
+      if (u.id_usuario == id) u.activo = false;
+    });
+    
+    // Agregar nueva suspensión
+    suspendedData.usuarios.unshift({
+      id_usuario: parseInt(id),
+      username: usuario[0].username,
+      nombre: usuario[0].nombre_completo,
+      motivo: motivo || 'Sin motivo especificado',
+      duracion: duracionLabel,
+      fecha_inicio: new Date().toISOString(),
+      fecha_fin: fecha_fin ? fecha_fin.toISOString() : null,
+      admin: admin_nombre || 'Administrador',
+      activo: true
+    });
+    
+    writeSuspendedUsers(suspendedData);
+    
+    // Registrar acción
+    logModerationAction({
+      tipo: 'suspender_usuario',
+      contenido_id: id,
+      contenido_titulo: usuario[0].nombre_completo,
+      razon: motivo,
+      admin: admin_nombre || 'Administrador',
+      accion: `suspendió a ${usuario[0].nombre_completo} (${duracionLabel})`
+    });
+    
+    res.json({ success: true, message: 'Usuario suspendido correctamente' });
+  } catch (error) {
+    console.error('Error suspendiendo usuario:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// DELETE /api/moderacion/usuarios/:id/suspender - Levantar suspensión
+router.delete('/usuarios/:id/suspender', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { admin_nombre } = req.body;
+    
+    const suspendedData = readSuspendedUsers();
+    const suspension = suspendedData.usuarios.find(u => u.id_usuario == id && u.activo);
+    
+    if (!suspension) {
+      return res.status(404).json({ success: false, error: 'El usuario no está suspendido' });
+    }
+    
+    // Desactivar suspensión
+    suspension.activo = false;
+    suspension.fecha_levantada = new Date().toISOString();
+    suspension.levantada_por = admin_nombre || 'Administrador';
+    
+    writeSuspendedUsers(suspendedData);
+    
+    // Registrar acción
+    logModerationAction({
+      tipo: 'levantar_suspension',
+      contenido_id: id,
+      contenido_titulo: suspension.nombre,
+      admin: admin_nombre || 'Administrador',
+      accion: `levantó la suspensión de ${suspension.nombre}`
+    });
+    
+    res.json({ success: true, message: 'Suspensión levantada correctamente' });
+  } catch (error) {
+    console.error('Error levantando suspensión:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET /api/moderacion/verificar-suspension/:id - Verificar si usuario está suspendido (para login)
+router.get('/verificar-suspension/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const suspension = isUserSuspended(id);
+    
+    if (suspension) {
+      res.json({
+        suspendido: true,
+        motivo: suspension.motivo,
+        fecha_fin: suspension.fecha_fin,
+        permanente: !suspension.fecha_fin
+      });
+    } else {
+      res.json({ suspendido: false });
+    }
+  } catch (error) {
+    res.json({ suspendido: false });
   }
 });
 

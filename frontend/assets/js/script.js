@@ -2618,6 +2618,25 @@ function renderModeracionSection() {
               </div>
             </div>
           </div>
+
+          <!-- Usuarios Suspendidos -->
+          <div class="mod-sidebar-card">
+            <div class="mod-sidebar-header">
+              <i data-lucide="user-x"></i>
+              <h3>Usuarios Suspendidos</h3>
+            </div>
+            <div class="mod-suspended-list" id="modSuspendedList">
+              <div class="mod-loading">
+                <div class="mod-loading-spinner"></div>
+              </div>
+            </div>
+            <div style="padding: 12px 20px; border-top: 1px solid rgba(84, 113, 148, 0.1);">
+              <button class="mod-quick-btn" style="width: 100%; justify-content: center; background: #547194; border-color: #547194;" onclick="openSuspendUserModal()">
+                <i data-lucide="user-plus"></i>
+                Suspender Usuario
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2646,6 +2665,167 @@ function renderModeracionSection() {
         </div>
       </div>
     </div>
+
+    <!-- Modal para Suspender Usuario -->
+    <div class="mod-modal-overlay" id="modSuspendModal">
+      <div class="mod-modal">
+        <div class="mod-modal-header">
+          <div class="mod-modal-icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
+            <i data-lucide="user-x"></i>
+          </div>
+          <div class="mod-modal-title">
+            <h3>Suspender Usuario</h3>
+            <p>El usuario no podrá acceder al sistema</p>
+          </div>
+        </div>
+        <div class="mod-modal-body">
+          <div class="mod-modal-field">
+            <label>Buscar usuario</label>
+            <input type="text" id="modSuspendSearch" placeholder="Escribe el nombre o usuario..." oninput="searchUsersToSuspend(this.value)">
+            <div id="modSuspendUserList" class="mod-user-search-results"></div>
+            <input type="hidden" id="modSuspendUserId">
+            <div id="modSelectedUser" class="mod-selected-user" style="display: none;"></div>
+          </div>
+          <div class="mod-modal-field">
+            <label>Duración de la suspensión</label>
+            <select id="modSuspendDuration">
+              <option value="1d">1 día</option>
+              <option value="3d">3 días</option>
+              <option value="7d">1 semana</option>
+              <option value="30d">1 mes</option>
+              <option value="permanente">Permanente</option>
+            </select>
+          </div>
+          <div class="mod-modal-field">
+            <label>Motivo de la suspensión (obligatorio)</label>
+            <textarea id="modSuspendReason" placeholder="Describe el motivo de la suspensión..."></textarea>
+          </div>
+        </div>
+        <div class="mod-modal-actions">
+          <button class="mod-modal-btn cancel" onclick="closeSuspendModal()">Cancelar</button>
+          <button class="mod-modal-btn confirm" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" onclick="confirmSuspendUser()">Suspender</button>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .mod-user-search-results {
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid rgba(84, 113, 148, 0.2);
+        border-radius: 8px;
+        margin-top: 8px;
+        display: none;
+      }
+      .mod-user-search-results.active {
+        display: block;
+      }
+      .mod-user-search-item {
+        padding: 10px 15px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
+      }
+      .mod-user-search-item:hover {
+        background: rgba(84, 113, 148, 0.05);
+      }
+      .mod-user-search-item:last-child {
+        border-bottom: none;
+      }
+      .mod-user-search-item .name {
+        font-weight: 500;
+        color: #1a1a2e;
+      }
+      .mod-user-search-item .username {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+      .mod-user-search-item .tipo {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: #e0e7ff;
+        color: #4338ca;
+      }
+      .mod-selected-user {
+        padding: 12px;
+        background: #f0fdf4;
+        border: 1px solid #86efac;
+        border-radius: 8px;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mod-selected-user .info {
+        display: flex;
+        flex-direction: column;
+      }
+      .mod-selected-user .name {
+        font-weight: 600;
+        color: #166534;
+      }
+      .mod-selected-user .username {
+        font-size: 0.85rem;
+        color: #4ade80;
+      }
+      .mod-selected-user .remove {
+        background: none;
+        border: none;
+        color: #dc2626;
+        cursor: pointer;
+        padding: 5px;
+      }
+      .mod-suspended-item {
+        padding: 12px 20px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mod-suspended-item:last-child {
+        border-bottom: none;
+      }
+      .mod-suspended-info .name {
+        font-weight: 500;
+        color: #1a1a2e;
+        font-size: 0.9rem;
+      }
+      .mod-suspended-info .reason {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 2px;
+      }
+      .mod-unsuspend-btn {
+        background: #10b981;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .mod-unsuspend-btn:hover {
+        background: #059669;
+      }
+      #modSuspendDuration {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid rgba(84, 113, 148, 0.2);
+        border-radius: 8px;
+        font-size: 0.9rem;
+      }
+      #modSuspendSearch {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid rgba(84, 113, 148, 0.2);
+        border-radius: 8px;
+        font-size: 0.9rem;
+      }
+    </style>
   `;
 }
 
@@ -2653,6 +2833,7 @@ function renderModeracionSection() {
 let currentModTipo = 'todos';
 let currentModDeleteItem = null;
 let modContenidoCache = {};
+let modUsuariosCache = [];
 
 async function initModeracionInteractivity() {
   // Cargar estadísticas
@@ -2666,6 +2847,9 @@ async function initModeracionInteractivity() {
   
   // Cargar log de actividad
   await loadModeracionLog();
+  
+  // Cargar usuarios suspendidos
+  await loadSuspendedUsers();
   
   // Configurar tabs
   document.querySelectorAll('.mod-tab').forEach(tab => {
@@ -2913,6 +3097,238 @@ async function confirmModDelete() {
       icon: 'error',
       title: 'Error',
       text: 'No se pudo eliminar el contenido. Intenta de nuevo.',
+      confirmButtonColor: '#547194'
+    });
+  }
+}
+
+// ============ FUNCIONES DE SUSPENSIÓN DE USUARIOS ============
+
+async function loadSuspendedUsers() {
+  const listContainer = document.getElementById('modSuspendedList');
+  if (!listContainer) return;
+  
+  try {
+    const response = await fetch('/api/moderacion/usuarios/suspendidos');
+    if (response.ok) {
+      const suspendedUsers = await response.json();
+      
+      if (suspendedUsers.length === 0) {
+        listContainer.innerHTML = `
+          <div style="text-align: center; padding: 20px; color: #64748b; font-size: 0.85rem;">
+            <i data-lucide="users" style="width: 32px; height: 32px; margin-bottom: 8px; opacity: 0.5;"></i>
+            <p>No hay usuarios suspendidos</p>
+          </div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        return;
+      }
+      
+      listContainer.innerHTML = suspendedUsers.map(user => `
+        <div class="mod-suspended-item" data-user-id="${user.id_usuario}">
+          <div class="mod-suspended-info">
+            <div class="name">${user.nombre || user.username}</div>
+            <div class="reason">${user.motivo || 'Sin motivo'} · Hasta: ${formatSuspensionDate(user.fecha_fin)}</div>
+          </div>
+          <button class="mod-unsuspend-btn" onclick="unsuspendUser(${user.id_usuario}, '${(user.nombre || user.username).replace(/'/g, "\\'")}')">
+            Reactivar
+          </button>
+        </div>
+      `).join('');
+      
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  } catch (error) {
+    console.error('Error cargando usuarios suspendidos:', error);
+    listContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #ef4444;">Error al cargar</div>';
+  }
+}
+
+function formatSuspensionDate(dateStr) {
+  if (!dateStr) return 'Indefinido';
+  if (dateStr === 'permanent') return 'Permanente';
+  
+  try {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  } catch {
+    return dateStr;
+  }
+}
+
+function openSuspendUserModal() {
+  document.getElementById('modSuspendSearch').value = '';
+  document.getElementById('modSuspendReason').value = '';
+  document.getElementById('modSuspendDuration').value = '7';
+  document.getElementById('modSuspendModal').classList.add('active');
+}
+
+function closeSuspendModal() {
+  document.getElementById('modSuspendModal').classList.remove('active');
+}
+
+async function confirmSuspendUser() {
+  const usernameInput = document.getElementById('modSuspendSearch').value.trim();
+  const reason = document.getElementById('modSuspendReason').value.trim();
+  const duration = document.getElementById('modSuspendDuration').value;
+  
+  if (!usernameInput) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Usuario requerido',
+      text: 'Ingresa el nombre de usuario a suspender.',
+      confirmButtonColor: '#547194'
+    });
+    return;
+  }
+  
+  if (!reason) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Motivo requerido',
+      text: 'Debes especificar un motivo para la suspensión.',
+      confirmButtonColor: '#547194'
+    });
+    return;
+  }
+  
+  // Buscar el usuario por nombre
+  try {
+    // Primero buscar el usuario usando el endpoint de moderación
+    const searchResponse = await fetch(`/api/moderacion/usuarios/buscar?q=${encodeURIComponent(usernameInput)}`);
+    let userId = null;
+    let userName = usernameInput;
+    
+    if (searchResponse.ok) {
+      const usuarios = await searchResponse.json();
+      const usuario = usuarios.find(u => 
+        u.nombre?.toLowerCase().includes(usernameInput.toLowerCase()) || 
+        u.email?.toLowerCase() === usernameInput.toLowerCase() ||
+        u.username?.toLowerCase() === usernameInput.toLowerCase()
+      );
+      if (usuario) {
+        userId = usuario.id_usuario;
+        userName = usuario.nombre || usuario.username;
+      }
+    }
+    
+    if (!userId) {
+      // Si no se encontró, intentar con el input como ID
+      if (!isNaN(usernameInput)) {
+        userId = parseInt(usernameInput);
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Usuario no encontrado',
+          text: 'No se encontró un usuario con ese nombre. Verifica e intenta de nuevo.',
+          confirmButtonColor: '#547194'
+        });
+        return;
+      }
+    }
+    
+    // Confirmar suspensión
+    const confirmResult = await Swal.fire({
+      icon: 'warning',
+      title: '¿Suspender usuario?',
+      html: `Estás por suspender a <strong>${userName}</strong> por ${getDurationText(duration)}.<br><br>Motivo: ${reason}`,
+      showCancelButton: true,
+      confirmButtonText: 'Sí, suspender',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#64748b'
+    });
+    
+    if (!confirmResult.isConfirmed) return;
+    
+    // Ejecutar suspensión
+    const response = await fetch(`/api/moderacion/usuarios/${userId}/suspender`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ motivo: reason, duracion: duration })
+    });
+    
+    if (response.ok) {
+      closeSuspendModal();
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuario suspendido',
+        text: `${userName} ha sido suspendido correctamente.`,
+        confirmButtonColor: '#547194'
+      });
+      
+      // Recargar lista y stats
+      await loadSuspendedUsers();
+      await loadModeracionStats();
+      await loadModeracionLog();
+    } else {
+      const error = await response.json();
+      throw new Error(error.error || 'Error al suspender');
+    }
+  } catch (error) {
+    console.error('Error suspendiendo usuario:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error.message || 'No se pudo suspender al usuario. Intenta de nuevo.',
+      confirmButtonColor: '#547194'
+    });
+  }
+}
+
+function getDurationText(duration) {
+  const texts = {
+    '1': '1 día',
+    '3': '3 días',
+    '7': '7 días',
+    '15': '15 días',
+    '30': '30 días',
+    'permanent': 'permanentemente'
+  };
+  return texts[duration] || `${duration} días`;
+}
+
+async function unsuspendUser(userId, userName) {
+  const confirmResult = await Swal.fire({
+    icon: 'question',
+    title: '¿Reactivar usuario?',
+    html: `¿Deseas reactivar la cuenta de <strong>${userName}</strong>?`,
+    showCancelButton: true,
+    confirmButtonText: 'Sí, reactivar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#10b981',
+    cancelButtonColor: '#64748b'
+  });
+  
+  if (!confirmResult.isConfirmed) return;
+  
+  try {
+    const response = await fetch(`/api/moderacion/usuarios/${userId}/suspender`, {
+      method: 'DELETE'
+    });
+    
+    if (response.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuario reactivado',
+        text: `${userName} puede acceder nuevamente al sistema.`,
+        confirmButtonColor: '#547194'
+      });
+      
+      // Recargar lista y stats
+      await loadSuspendedUsers();
+      await loadModeracionStats();
+      await loadModeracionLog();
+    } else {
+      throw new Error('Error al reactivar');
+    }
+  } catch (error) {
+    console.error('Error reactivando usuario:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo reactivar al usuario. Intenta de nuevo.',
       confirmButtonColor: '#547194'
     });
   }
