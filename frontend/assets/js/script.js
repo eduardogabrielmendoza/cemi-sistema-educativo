@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -1712,41 +1712,63 @@ function filterAyudaContent(query) {
 function renderModeracionSection() {
   return `
     <style>
+      /* ========== MODERACIÓN CLASSROOM - DISEÑO PROFESIONAL ========== */
+      
       .moderacion-container {
         padding: 0;
         max-width: 100%;
+        animation: modFadeIn 0.5s ease;
+      }
+      
+      @keyframes modFadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes modSlideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes modFloat {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(15px, -15px) rotate(3deg); }
+        66% { transform: translate(-10px, 10px) rotate(-2deg); }
       }
 
+      /* Hero Section */
       .mod-hero {
-        background: linear-gradient(135deg, #547194 0%, #3d5a7a 50%, #2d4a6a 100%);
-        border-radius: 20px;
-        padding: 40px;
+        background: linear-gradient(135deg, #547194 0%, #3d5a7a 40%, #2d4a6a 100%);
+        border-radius: 24px;
+        padding: 45px;
         margin-bottom: 30px;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 10px 40px rgba(84, 113, 148, 0.3);
+        box-shadow: 0 15px 50px rgba(84, 113, 148, 0.35);
       }
 
       .mod-hero::before {
         content: '';
         position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        top: -60%;
+        right: -15%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 60%);
         border-radius: 50%;
+        animation: modFloat 15s ease-in-out infinite;
       }
 
       .mod-hero::after {
         content: '';
         position: absolute;
-        bottom: -30%;
-        left: -10%;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(102,126,234,0.2) 0%, transparent 70%);
+        bottom: -40%;
+        left: -8%;
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, rgba(102,126,234,0.25) 0%, transparent 60%);
         border-radius: 50%;
+        animation: modFloat 12s ease-in-out infinite reverse;
       }
 
       .mod-hero-content {
@@ -1756,730 +1778,625 @@ function renderModeracionSection() {
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 25px;
       }
 
       .mod-hero-text h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-weight: 700;
         color: white;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 16px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.15);
       }
 
       .mod-hero-text h1 i {
-        width: 42px;
-        height: 42px;
+        width: 48px;
+        height: 48px;
         background: rgba(255,255,255,0.2);
-        border-radius: 12px;
-        padding: 8px;
+        border-radius: 14px;
+        padding: 10px;
+        backdrop-filter: blur(10px);
       }
 
       .mod-hero-text p {
-        color: rgba(255,255,255,0.85);
-        font-size: 1.05rem;
-        max-width: 500px;
+        color: rgba(255,255,255,0.9);
+        font-size: 1.1rem;
+        max-width: 520px;
+        line-height: 1.6;
       }
 
       .mod-quick-actions {
         display: flex;
-        gap: 12px;
+        gap: 14px;
         flex-wrap: wrap;
       }
 
       .mod-quick-btn {
-        background: rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.25);
         color: white;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-size: 0.9rem;
+        padding: 14px 24px;
+        border-radius: 14px;
+        font-size: 0.92rem;
         font-weight: 500;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 8px;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
+        gap: 10px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(15px);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .mod-quick-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+      }
+      
+      .mod-quick-btn:hover::before {
+        left: 100%;
       }
 
       .mod-quick-btn:hover {
-        background: rgba(255,255,255,0.25);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        background: rgba(255,255,255,0.22);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        border-color: rgba(255,255,255,0.4);
       }
 
       .mod-quick-btn i {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+      }
+      
+      .mod-quick-btn:hover i {
+        transform: rotate(180deg);
       }
 
+      /* Stats Grid */
       .mod-stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(5, 1fr);
         gap: 20px;
         margin-bottom: 30px;
+      }
+      
+      @media (max-width: 1400px) {
+        .mod-stats-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+      
+      @media (max-width: 900px) {
+        .mod-stats-grid { grid-template-columns: repeat(2, 1fr); }
       }
 
       .mod-stat-card {
         background: white;
-        border-radius: 16px;
+        border-radius: 18px;
         padding: 24px;
         display: flex;
         align-items: center;
-        gap: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(84, 113, 148, 0.1);
-        transition: all 0.3s ease;
+        gap: 18px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        border: 1px solid rgba(84, 113, 148, 0.08);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: modSlideUp 0.5s ease backwards;
+        position: relative;
+        overflow: hidden;
       }
+      
+      .mod-stat-card:nth-child(1) { animation-delay: 0.1s; }
+      .mod-stat-card:nth-child(2) { animation-delay: 0.15s; }
+      .mod-stat-card:nth-child(3) { animation-delay: 0.2s; }
+      .mod-stat-card:nth-child(4) { animation-delay: 0.25s; }
+      .mod-stat-card:nth-child(5) { animation-delay: 0.3s; }
 
       .mod-stat-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(84, 113, 148, 0.15);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(84, 113, 148, 0.15);
       }
 
       .mod-stat-icon {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        transition: transform 0.3s ease;
       }
+      
+      .mod-stat-card:hover .mod-stat-icon { transform: scale(1.08); }
 
-      .mod-stat-icon i {
-        width: 28px;
-        height: 28px;
-        color: white;
-      }
+      .mod-stat-icon i { width: 28px; height: 28px; color: white; }
 
-      .mod-stat-icon.blue { background: linear-gradient(135deg, #547194, #667eea); }
-      .mod-stat-icon.orange { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-      .mod-stat-icon.red { background: linear-gradient(135deg, #ef4444, #f87171); }
-      .mod-stat-icon.green { background: linear-gradient(135deg, #10b981, #34d399); }
-      .mod-stat-icon.purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+      .mod-stat-icon.blue { background: linear-gradient(145deg, #547194, #667eea); box-shadow: 0 6px 20px rgba(84, 113, 148, 0.35); }
+      .mod-stat-icon.orange { background: linear-gradient(145deg, #f59e0b, #fbbf24); box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35); }
+      .mod-stat-icon.red { background: linear-gradient(145deg, #ef4444, #f87171); box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35); }
+      .mod-stat-icon.green { background: linear-gradient(145deg, #10b981, #34d399); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35); }
+      .mod-stat-icon.purple { background: linear-gradient(145deg, #8b5cf6, #a78bfa); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.35); }
 
-      .mod-stat-info h3 {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #1a1a2e;
-        line-height: 1;
-        margin-bottom: 4px;
-      }
+      .mod-stat-info h3 { font-size: 2rem; font-weight: 700; color: #1a1a2e; line-height: 1; margin-bottom: 6px; }
+      .mod-stat-info p { color: #64748b; font-size: 0.88rem; margin: 0; font-weight: 500; }
 
-      .mod-stat-info p {
-        color: #64748b;
-        font-size: 0.9rem;
-        margin: 0;
-      }
-
+      /* Main Grid Layout */
       .mod-main-grid {
         display: grid;
-        grid-template-columns: 1fr 380px;
-        gap: 25px;
+        grid-template-columns: 1fr 400px;
+        gap: 28px;
+        animation: modSlideUp 0.6s ease backwards;
+        animation-delay: 0.3s;
       }
 
-      @media (max-width: 1200px) {
-        .mod-main-grid {
-          grid-template-columns: 1fr;
-        }
-      }
+      @media (max-width: 1200px) { .mod-main-grid { grid-template-columns: 1fr; } }
 
+      /* Content Panel */
       .mod-content-panel {
         background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(84, 113, 148, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.04);
+        border: 1px solid rgba(84, 113, 148, 0.08);
         overflow: hidden;
       }
 
       .mod-panel-header {
-        padding: 20px 24px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-
-      .mod-panel-title {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .mod-panel-title i {
-        width: 24px;
-        height: 24px;
-        color: #547194;
-      }
-
-      .mod-panel-title h2 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #1a1a2e;
-        margin: 0;
-      }
-
-      .mod-tabs {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-
-      .mod-tab {
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        background: transparent;
-        color: #64748b;
-        font-size: 0.85rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .mod-tab:hover {
-        background: rgba(84, 113, 148, 0.05);
-        color: #547194;
-      }
-
-      .mod-tab.active {
-        background: #547194;
-        color: white;
-        border-color: #547194;
-      }
-
-      .mod-tab .count {
-        background: rgba(255,255,255,0.2);
-        padding: 2px 8px;
-        border-radius: 10px;
-        font-size: 0.75rem;
-      }
-
-      .mod-tab.active .count {
-        background: rgba(255,255,255,0.3);
-      }
-
-      .mod-content-list {
-        max-height: 600px;
-        overflow-y: auto;
-      }
-
-      .mod-content-item {
-        padding: 18px 24px;
+        padding: 22px 28px;
         border-bottom: 1px solid rgba(84, 113, 148, 0.08);
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
-        gap: 15px;
-        transition: all 0.2s ease;
-      }
-
-      .mod-content-item:hover {
-        background: rgba(84, 113, 148, 0.03);
-      }
-
-      .mod-content-item:last-child {
-        border-bottom: none;
-      }
-
-      .mod-item-main {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .mod-item-header {
-        display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 6px;
         flex-wrap: wrap;
+        gap: 18px;
+        background: linear-gradient(180deg, rgba(84, 113, 148, 0.02) 0%, transparent 100%);
       }
 
-      .mod-item-type {
-        padding: 3px 10px;
-        border-radius: 6px;
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
+      .mod-panel-title { display: flex; align-items: center; gap: 14px; }
+      .mod-panel-title i { width: 26px; height: 26px; color: #547194; }
+      .mod-panel-title h2 { font-size: 1.2rem; font-weight: 600; color: #1a1a2e; margin: 0; }
 
-      .mod-item-type.tarea { background: #dbeafe; color: #1d4ed8; }
-      .mod-item-type.anuncio { background: #fef3c7; color: #b45309; }
-      .mod-item-type.comentario { background: #e0e7ff; color: #4338ca; }
-      .mod-item-type.pregunta { background: #d1fae5; color: #047857; }
-      .mod-item-type.recurso { background: #fce7f3; color: #be185d; }
+      /* Tabs */
+      .mod-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
 
-      .mod-item-author {
-        font-size: 0.85rem;
+      .mod-tab {
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 1px solid rgba(84, 113, 148, 0.15);
+        background: transparent;
         color: #64748b;
-      }
-
-      .mod-item-author strong {
-        color: #1a1a2e;
-        font-weight: 600;
-      }
-
-      .mod-item-title {
-        font-size: 0.95rem;
-        color: #1a1a2e;
-        margin-bottom: 4px;
+        font-size: 0.88rem;
         font-weight: 500;
-        line-height: 1.4;
-      }
-
-      .mod-item-preview {
-        font-size: 0.85rem;
-        color: #64748b;
-        line-height: 1.5;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      .mod-item-meta {
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
-        gap: 15px;
-        margin-top: 8px;
-        font-size: 0.8rem;
-        color: #94a3b8;
-      }
-
-      .mod-item-meta span {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .mod-item-meta i {
-        width: 14px;
-        height: 14px;
-      }
-
-      .mod-item-actions {
-        display: flex;
         gap: 8px;
-        flex-shrink: 0;
       }
+
+      .mod-tab:hover { background: rgba(84, 113, 148, 0.06); color: #547194; }
+
+      .mod-tab.active {
+        background: linear-gradient(145deg, #547194, #4a6584);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 15px rgba(84, 113, 148, 0.3);
+      }
+
+      .mod-tab .count { background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+      .mod-tab.active .count { background: rgba(255,255,255,0.25); }
+
+      /* Content List */
+      .mod-content-list { max-height: 580px; overflow-y: auto; }
+
+      .mod-content-item {
+        padding: 20px 28px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 18px;
+        transition: all 0.25s ease;
+        position: relative;
+      }
+      
+      .mod-content-item::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: #547194;
+        opacity: 0;
+        transform: scaleY(0);
+        transition: all 0.3s ease;
+      }
+
+      .mod-content-item:hover { background: linear-gradient(90deg, rgba(84, 113, 148, 0.04), transparent); }
+      .mod-content-item:hover::before { opacity: 1; transform: scaleY(1); }
+      .mod-content-item:last-child { border-bottom: none; }
+
+      .mod-item-main { flex: 1; min-width: 0; }
+      .mod-item-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+
+      .mod-item-type { padding: 4px 12px; border-radius: 8px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; }
+      .mod-item-type.tarea { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1d4ed8; }
+      .mod-item-type.anuncio { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #b45309; }
+      .mod-item-type.comentario { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #4338ca; }
+      .mod-item-type.pregunta { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #047857; }
+
+      .mod-item-author { font-size: 0.88rem; color: #64748b; }
+      .mod-item-author strong { color: #1a1a2e; font-weight: 600; }
+      .mod-item-title { font-size: 0.98rem; color: #1a1a2e; margin-bottom: 5px; font-weight: 500; line-height: 1.5; }
+      .mod-item-preview { font-size: 0.88rem; color: #64748b; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .mod-item-meta { display: flex; align-items: center; gap: 18px; margin-top: 10px; font-size: 0.82rem; color: #94a3b8; }
+      .mod-item-meta span { display: flex; align-items: center; gap: 5px; }
+      .mod-item-meta i { width: 14px; height: 14px; }
+
+      /* Action Buttons */
+      .mod-item-actions { display: flex; gap: 10px; flex-shrink: 0; }
 
       .mod-action-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
+        width: 40px; height: 40px;
+        border-radius: 12px;
+        border: 1px solid rgba(84, 113, 148, 0.12);
         background: white;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      .mod-action-btn i {
-        width: 16px;
-        height: 16px;
-        color: #64748b;
-      }
+      .mod-action-btn i { width: 18px; height: 18px; color: #64748b; transition: all 0.3s ease; }
+      .mod-action-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+      .mod-action-btn.view:hover { background: linear-gradient(145deg, #dbeafe, #bfdbfe); border-color: #3b82f6; }
+      .mod-action-btn.view:hover i { color: #2563eb; }
+      .mod-action-btn.delete:hover { background: linear-gradient(145deg, #fee2e2, #fecaca); border-color: #ef4444; }
+      .mod-action-btn.delete:hover i { color: #dc2626; }
 
-      .mod-action-btn:hover {
-        background: #f8fafc;
-      }
-
-      .mod-action-btn.view:hover {
-        background: #dbeafe;
-        border-color: #3b82f6;
-      }
-      .mod-action-btn.view:hover i { color: #3b82f6; }
-
-      .mod-action-btn.delete:hover {
-        background: #fee2e2;
-        border-color: #ef4444;
-      }
-      .mod-action-btn.delete:hover i { color: #ef4444; }
-
-      .mod-action-btn.warn:hover {
-        background: #fef3c7;
-        border-color: #f59e0b;
-      }
-      .mod-action-btn.warn:hover i { color: #f59e0b; }
-
-      /* Panel lateral */
-      .mod-sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
+      /* Sidebar */
+      .mod-sidebar { display: flex; flex-direction: column; gap: 22px; }
 
       .mod-sidebar-card {
         background: white;
-        border-radius: 16px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border: 1px solid rgba(84, 113, 148, 0.1);
+        border-radius: 18px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        border: 1px solid rgba(84, 113, 148, 0.08);
         overflow: hidden;
+        transition: all 0.3s ease;
       }
+      
+      .mod-sidebar-card:hover { box-shadow: 0 8px 30px rgba(84, 113, 148, 0.12); }
 
       .mod-sidebar-header {
-        padding: 16px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
+        padding: 18px 22px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
+        background: linear-gradient(180deg, rgba(84, 113, 148, 0.03) 0%, transparent 100%);
       }
 
-      .mod-sidebar-header i {
-        width: 20px;
-        height: 20px;
-        color: #547194;
-      }
+      .mod-sidebar-header i { width: 22px; height: 22px; color: #547194; }
+      .mod-sidebar-header h3 { font-size: 1.02rem; font-weight: 600; color: #1a1a2e; margin: 0; }
 
-      .mod-sidebar-header h3 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #1a1a2e;
-        margin: 0;
-      }
-
-      .mod-report-list {
-        max-height: 300px;
-        overflow-y: auto;
-      }
+      /* Report List */
+      .mod-report-list { max-height: 280px; overflow-y: auto; }
 
       .mod-report-item {
-        padding: 14px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
+        padding: 16px 22px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.06);
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.25s ease;
       }
 
-      .mod-report-item:hover {
-        background: rgba(239, 68, 68, 0.05);
-      }
-
-      .mod-report-item:last-child {
-        border-bottom: none;
-      }
+      .mod-report-item:hover { background: linear-gradient(90deg, rgba(239, 68, 68, 0.04), transparent); }
+      .mod-report-item:last-child { border-bottom: none; }
 
       .mod-report-badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        padding: 4px 10px;
-        background: #fee2e2;
+        padding: 5px 12px;
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
         color: #dc2626;
-        border-radius: 6px;
-        font-size: 0.75rem;
+        border-radius: 8px;
+        font-size: 0.76rem;
         font-weight: 600;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
 
-      .mod-report-badge i {
-        width: 12px;
-        height: 12px;
-      }
+      .mod-report-badge i { width: 12px; height: 12px; }
+      .mod-report-content { font-size: 0.88rem; color: #1a1a2e; margin-bottom: 8px; line-height: 1.5; }
+      .mod-report-meta { font-size: 0.78rem; color: #94a3b8; }
 
-      .mod-report-content {
-        font-size: 0.85rem;
-        color: #1a1a2e;
-        margin-bottom: 6px;
-        line-height: 1.4;
-      }
-
-      .mod-report-meta {
-        font-size: 0.75rem;
-        color: #94a3b8;
-      }
-
-      /* Log de actividad */
-      .mod-log-list {
-        max-height: 350px;
-        overflow-y: auto;
-      }
+      /* Activity Log */
+      .mod-log-list { max-height: 320px; overflow-y: auto; }
 
       .mod-log-item {
-        padding: 12px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
+        padding: 14px 22px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.06);
         display: flex;
-        gap: 12px;
+        gap: 14px;
+        transition: all 0.2s ease;
       }
-
-      .mod-log-item:last-child {
-        border-bottom: none;
-      }
+      
+      .mod-log-item:hover { background: rgba(84, 113, 148, 0.02); }
+      .mod-log-item:last-child { border-bottom: none; }
 
       .mod-log-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
+        width: 36px; height: 36px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
       }
 
-      .mod-log-icon i {
-        width: 16px;
-        height: 16px;
-        color: white;
-      }
+      .mod-log-icon i { width: 16px; height: 16px; color: white; }
+      .mod-log-icon.delete { background: linear-gradient(145deg, #ef4444, #f87171); }
+      .mod-log-icon.warn { background: linear-gradient(145deg, #f59e0b, #fbbf24); }
+      .mod-log-icon.approve { background: linear-gradient(145deg, #10b981, #34d399); }
+      .mod-log-icon.suspend { background: linear-gradient(145deg, #8b5cf6, #a78bfa); }
 
-      .mod-log-icon.delete { background: linear-gradient(135deg, #ef4444, #f87171); }
-      .mod-log-icon.warn { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-      .mod-log-icon.approve { background: linear-gradient(135deg, #10b981, #34d399); }
-      .mod-log-icon.suspend { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+      .mod-log-content { flex: 1; min-width: 0; }
+      .mod-log-text { font-size: 0.88rem; color: #1a1a2e; margin-bottom: 3px; line-height: 1.4; }
+      .mod-log-text strong { color: #547194; }
+      .mod-log-time { font-size: 0.76rem; color: #94a3b8; }
 
-      .mod-log-content {
-        flex: 1;
-        min-width: 0;
-      }
+      /* Suspended Users List */
+      .mod-suspended-list { max-height: 280px; overflow-y: auto; }
 
-      .mod-log-text {
-        font-size: 0.85rem;
-        color: #1a1a2e;
-        margin-bottom: 2px;
-      }
-
-      .mod-log-text strong {
-        color: #547194;
-      }
-
-      .mod-log-time {
-        font-size: 0.75rem;
-        color: #94a3b8;
-      }
-
-      /* Empty states */
-      .mod-empty-state {
-        padding: 60px 30px;
-        text-align: center;
-        color: #94a3b8;
-      }
-
-      .mod-empty-state i {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 15px;
-        opacity: 0.5;
-      }
-
-      .mod-empty-state p {
-        font-size: 0.95rem;
-        margin: 0;
-      }
-
-      /* Loading */
-      .mod-loading {
+      .mod-suspended-item {
+        padding: 14px 22px;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.06);
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        padding: 40px;
         gap: 12px;
-        color: #547194;
+        transition: all 0.2s ease;
+      }
+      
+      .mod-suspended-item:hover { background: rgba(139, 92, 246, 0.03); }
+      .mod-suspended-item:last-child { border-bottom: none; }
+
+      .mod-suspended-info { flex: 1; min-width: 0; }
+      .mod-suspended-info .name { font-weight: 600; color: #1a1a2e; font-size: 0.92rem; margin-bottom: 2px; }
+      .mod-suspended-info .reason { font-size: 0.78rem; color: #64748b; line-height: 1.4; }
+
+      .mod-unsuspend-btn {
+        background: linear-gradient(145deg, #10b981, #059669);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
       }
 
-      .mod-loading-spinner {
-        width: 24px;
-        height: 24px;
-        border: 3px solid rgba(84, 113, 148, 0.2);
-        border-top-color: #547194;
-        border-radius: 50%;
-        animation: modSpin 0.8s linear infinite;
-      }
+      .mod-unsuspend-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35); }
 
-      @keyframes modSpin {
-        to { transform: rotate(360deg); }
-      }
+      /* Empty States */
+      .mod-empty-state { padding: 50px 30px; text-align: center; color: #94a3b8; }
+      .mod-empty-state i { width: 52px; height: 52px; margin-bottom: 18px; opacity: 0.4; }
+      .mod-empty-state p { font-size: 0.95rem; margin: 0; font-weight: 500; }
 
-      /* Modal de confirmación */
+      /* Loading States */
+      .mod-loading { display: flex; align-items: center; justify-content: center; padding: 45px; gap: 14px; color: #547194; }
+      .mod-loading-spinner { width: 28px; height: 28px; border: 3px solid rgba(84, 113, 148, 0.15); border-top-color: #547194; border-radius: 50%; animation: modSpin 0.8s linear infinite; }
+      @keyframes modSpin { to { transform: rotate(360deg); } }
+
+      /* ========== MODALS ========== */
       .mod-modal-overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 10000;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
+        transition: all 0.35s ease;
+        padding: 20px;
       }
 
-      .mod-modal-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
+      .mod-modal-overlay.active { opacity: 1; visibility: visible; }
 
       .mod-modal {
         background: white;
-        border-radius: 20px;
-        width: 90%;
-        max-width: 480px;
-        padding: 30px;
-        transform: scale(0.9);
-        transition: all 0.3s ease;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 520px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 32px;
+        transform: scale(0.92) translateY(20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 25px 80px rgba(0,0,0,0.25);
       }
 
-      .mod-modal-overlay.active .mod-modal {
-        transform: scale(1);
-      }
+      .mod-modal-overlay.active .mod-modal { transform: scale(1) translateY(0); }
 
-      .mod-modal-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-      }
+      .mod-modal-header { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
 
       .mod-modal-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 14px;
+        width: 56px; height: 56px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
       }
 
-      .mod-modal-icon.danger {
-        background: linear-gradient(135deg, #ef4444, #f87171);
-      }
+      .mod-modal-icon.danger { background: linear-gradient(145deg, #ef4444, #dc2626); box-shadow: 0 8px 25px rgba(239, 68, 68, 0.35); }
+      .mod-modal-icon.suspend { background: linear-gradient(145deg, #547194, #3d5a7a); box-shadow: 0 8px 25px rgba(84, 113, 148, 0.35); }
+      .mod-modal-icon i { width: 28px; height: 28px; color: white; }
 
-      .mod-modal-icon i {
-        width: 26px;
-        height: 26px;
-        color: white;
-      }
+      .mod-modal-title h3 { font-size: 1.35rem; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+      .mod-modal-title p { font-size: 0.95rem; color: #64748b; margin: 0; }
 
-      .mod-modal-title h3 {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #1a1a2e;
-        margin-bottom: 4px;
+      .mod-modal-body { margin-bottom: 28px; }
+      .mod-modal-field { margin-bottom: 20px; }
+      .mod-modal-field:last-child { margin-bottom: 0; }
+      .mod-modal-field label { display: block; font-size: 0.88rem; font-weight: 600; color: #1a1a2e; margin-bottom: 10px; }
+      
+      .mod-modal-field input[type="text"],
+      .mod-modal-field select {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid rgba(84, 113, 148, 0.15);
+        border-radius: 12px;
+        font-size: 0.95rem;
+        transition: all 0.25s ease;
+        background: #f8fafc;
       }
-
-      .mod-modal-title p {
-        font-size: 0.9rem;
-        color: #64748b;
-        margin: 0;
-      }
-
-      .mod-modal-body {
-        margin-bottom: 25px;
-      }
-
-      .mod-modal-field {
-        margin-bottom: 15px;
-      }
-
-      .mod-modal-field label {
-        display: block;
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: #1a1a2e;
-        margin-bottom: 8px;
+      
+      .mod-modal-field input[type="text"]:focus,
+      .mod-modal-field select:focus {
+        outline: none;
+        border-color: #547194;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(84, 113, 148, 0.1);
       }
 
       .mod-modal-field textarea {
         width: 100%;
-        padding: 12px 15px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 10px;
-        font-size: 0.9rem;
+        padding: 14px 18px;
+        border: 2px solid rgba(84, 113, 148, 0.15);
+        border-radius: 12px;
+        font-size: 0.95rem;
         resize: vertical;
-        min-height: 100px;
+        min-height: 110px;
         font-family: inherit;
-        transition: all 0.2s ease;
+        transition: all 0.25s ease;
+        background: #f8fafc;
       }
 
       .mod-modal-field textarea:focus {
         outline: none;
         border-color: #547194;
-        box-shadow: 0 0 0 3px rgba(84, 113, 148, 0.1);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(84, 113, 148, 0.1);
       }
 
-      .mod-modal-actions {
-        display: flex;
-        gap: 12px;
-        justify-content: flex-end;
-      }
+      .mod-modal-actions { display: flex; gap: 14px; justify-content: flex-end; }
 
       .mod-modal-btn {
-        padding: 12px 24px;
-        border-radius: 10px;
-        font-size: 0.9rem;
-        font-weight: 500;
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        font-weight: 600;
         cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+      }
+
+      .mod-modal-btn.cancel { background: #f1f5f9; color: #64748b; }
+      .mod-modal-btn.cancel:hover { background: #e2e8f0; color: #475569; }
+
+      .mod-modal-btn.confirm { background: linear-gradient(145deg, #ef4444, #dc2626); color: white; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
+      .mod-modal-btn.confirm:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4); }
+      
+      .mod-modal-btn.confirm.suspend { background: linear-gradient(145deg, #547194, #3d5a7a); box-shadow: 0 4px 15px rgba(84, 113, 148, 0.3); }
+      .mod-modal-btn.confirm.suspend:hover { box-shadow: 0 8px 25px rgba(84, 113, 148, 0.4); }
+
+      /* User Search in Modal */
+      .mod-user-search-results {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 2px solid rgba(84, 113, 148, 0.15);
+        border-radius: 12px;
+        margin-top: 10px;
+        display: none;
+        background: white;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      }
+      
+      .mod-user-search-results.active { display: block; animation: modSlideUp 0.2s ease; }
+
+      .mod-user-search-item {
+        padding: 14px 18px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
         transition: all 0.2s ease;
       }
 
-      .mod-modal-btn.cancel {
-        background: #f1f5f9;
-        border: none;
-        color: #64748b;
+      .mod-user-search-item:hover { background: linear-gradient(90deg, rgba(84, 113, 148, 0.06), transparent); }
+      .mod-user-search-item:last-child { border-bottom: none; }
+      
+      .mod-user-search-item .user-info { display: flex; flex-direction: column; gap: 2px; }
+      .mod-user-search-item .name { font-weight: 600; color: #1a1a2e; font-size: 0.95rem; }
+      .mod-user-search-item .email { font-size: 0.82rem; color: #64748b; }
+
+      .mod-user-search-item .tipo {
+        font-size: 0.75rem;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .mod-user-search-item .tipo.profesor { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1d4ed8; }
+      .mod-user-search-item .tipo.alumno { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #047857; }
+      .mod-user-search-item .tipo.admin { background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #be185d; }
+
+      .mod-selected-user {
+        padding: 16px;
+        background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        border: 2px solid #86efac;
+        border-radius: 12px;
+        margin-top: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
-      .mod-modal-btn.cancel:hover {
-        background: #e2e8f0;
-      }
+      .mod-selected-user .info { display: flex; flex-direction: column; gap: 3px; }
+      .mod-selected-user .name { font-weight: 700; color: #166534; font-size: 0.98rem; }
+      .mod-selected-user .detail { font-size: 0.85rem; color: #22c55e; }
 
-      .mod-modal-btn.confirm {
-        background: linear-gradient(135deg, #ef4444, #dc2626);
-        border: none;
-        color: white;
+      .mod-selected-user .remove {
+        background: white;
+        border: 1px solid #fecaca;
+        color: #dc2626;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
       }
-
-      .mod-modal-btn.confirm:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
-      }
+      
+      .mod-selected-user .remove:hover { background: #fee2e2; }
 
       /* Responsive */
       @media (max-width: 768px) {
-        .mod-hero {
-          padding: 25px;
-        }
-
-        .mod-hero-text h1 {
-          font-size: 1.5rem;
-        }
-
-        .mod-hero-content {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .mod-quick-actions {
-          justify-content: center;
-        }
-
-        .mod-stats-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .mod-panel-header {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .mod-content-item {
-          flex-direction: column;
-        }
-
-        .mod-item-actions {
-          margin-top: 10px;
-        }
+        .mod-hero { padding: 28px; }
+        .mod-hero-text h1 { font-size: 1.6rem; }
+        .mod-hero-content { flex-direction: column; text-align: center; }
+        .mod-quick-actions { justify-content: center; }
+        .mod-panel-header { flex-direction: column; align-items: flex-start; }
+        .mod-content-item { flex-direction: column; }
+        .mod-item-actions { margin-top: 12px; align-self: flex-end; }
+        .mod-modal { padding: 24px; margin: 15px; }
       }
     </style>
 
@@ -2510,45 +2427,35 @@ function renderModeracionSection() {
       <!-- Stats Grid -->
       <div class="mod-stats-grid" id="modStatsGrid">
         <div class="mod-stat-card">
-          <div class="mod-stat-icon blue">
-            <i data-lucide="file-text"></i>
-          </div>
+          <div class="mod-stat-icon blue"><i data-lucide="file-text"></i></div>
           <div class="mod-stat-info">
             <h3 id="statTotalContenido">-</h3>
             <p>Contenido Total</p>
           </div>
         </div>
         <div class="mod-stat-card">
-          <div class="mod-stat-icon orange">
-            <i data-lucide="alert-triangle"></i>
-          </div>
+          <div class="mod-stat-icon orange"><i data-lucide="alert-triangle"></i></div>
           <div class="mod-stat-info">
             <h3 id="statReportesPendientes">-</h3>
             <p>Reportes Pendientes</p>
           </div>
         </div>
         <div class="mod-stat-card">
-          <div class="mod-stat-icon red">
-            <i data-lucide="trash-2"></i>
-          </div>
+          <div class="mod-stat-icon red"><i data-lucide="trash-2"></i></div>
           <div class="mod-stat-info">
             <h3 id="statEliminadosHoy">-</h3>
             <p>Eliminados Hoy</p>
           </div>
         </div>
         <div class="mod-stat-card">
-          <div class="mod-stat-icon green">
-            <i data-lucide="check-circle"></i>
-          </div>
+          <div class="mod-stat-icon green"><i data-lucide="check-circle"></i></div>
           <div class="mod-stat-info">
             <h3 id="statResueltos">-</h3>
             <p>Resueltos Este Mes</p>
           </div>
         </div>
         <div class="mod-stat-card">
-          <div class="mod-stat-icon purple">
-            <i data-lucide="user-x"></i>
-          </div>
+          <div class="mod-stat-icon purple"><i data-lucide="user-x"></i></div>
           <div class="mod-stat-info">
             <h3 id="statSuspendidos">-</h3>
             <p>Usuarios Suspendidos</p>
@@ -2566,21 +2473,11 @@ function renderModeracionSection() {
               <h2>Gestión de Contenido</h2>
             </div>
             <div class="mod-tabs">
-              <button class="mod-tab active" data-tipo="todos">
-                Todos <span class="count" id="countTodos">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="tareas">
-                Tareas <span class="count" id="countTareas">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="anuncios">
-                Anuncios <span class="count" id="countAnuncios">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="comentarios">
-                Comentarios <span class="count" id="countComentarios">0</span>
-              </button>
-              <button class="mod-tab" data-tipo="preguntas">
-                Comunidad <span class="count" id="countPreguntas">0</span>
-              </button>
+              <button class="mod-tab active" data-tipo="todos">Todos <span class="count" id="countTodos">0</span></button>
+              <button class="mod-tab" data-tipo="tareas">Tareas <span class="count" id="countTareas">0</span></button>
+              <button class="mod-tab" data-tipo="anuncios">Anuncios <span class="count" id="countAnuncios">0</span></button>
+              <button class="mod-tab" data-tipo="comentarios">Comentarios <span class="count" id="countComentarios">0</span></button>
+              <button class="mod-tab" data-tipo="preguntas">Comunidad <span class="count" id="countPreguntas">0</span></button>
             </div>
           </div>
           <div class="mod-content-list" id="modContentList">
@@ -2593,6 +2490,23 @@ function renderModeracionSection() {
 
         <!-- Sidebar -->
         <div class="mod-sidebar">
+          <!-- Gestión de Usuarios -->
+          <div class="mod-sidebar-card">
+            <div class="mod-sidebar-header">
+              <i data-lucide="users"></i>
+              <h3>Gestión de Usuarios</h3>
+            </div>
+            <div style="padding: 18px 22px; border-bottom: 1px solid rgba(84, 113, 148, 0.08);">
+              <button class="mod-quick-btn" style="width: 100%; justify-content: center; background: linear-gradient(145deg, #547194, #3d5a7a); border: none; color: white; box-shadow: 0 4px 15px rgba(84, 113, 148, 0.25);" onclick="openSuspendUserModal()">
+                <i data-lucide="user-x"></i>
+                Suspender Usuario
+              </button>
+            </div>
+            <div class="mod-suspended-list" id="modSuspendedList">
+              <div class="mod-loading"><div class="mod-loading-spinner"></div></div>
+            </div>
+          </div>
+
           <!-- Reportes Recientes -->
           <div class="mod-sidebar-card">
             <div class="mod-sidebar-header">
@@ -2600,9 +2514,7 @@ function renderModeracionSection() {
               <h3>Reportes Recientes</h3>
             </div>
             <div class="mod-report-list" id="modReportList">
-              <div class="mod-loading">
-                <div class="mod-loading-spinner"></div>
-              </div>
+              <div class="mod-loading"><div class="mod-loading-spinner"></div></div>
             </div>
           </div>
 
@@ -2613,28 +2525,7 @@ function renderModeracionSection() {
               <h3>Actividad Reciente</h3>
             </div>
             <div class="mod-log-list" id="modLogList">
-              <div class="mod-loading">
-                <div class="mod-loading-spinner"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Usuarios Suspendidos -->
-          <div class="mod-sidebar-card">
-            <div class="mod-sidebar-header">
-              <i data-lucide="user-x"></i>
-              <h3>Usuarios Suspendidos</h3>
-            </div>
-            <div class="mod-suspended-list" id="modSuspendedList">
-              <div class="mod-loading">
-                <div class="mod-loading-spinner"></div>
-              </div>
-            </div>
-            <div style="padding: 12px 20px; border-top: 1px solid rgba(84, 113, 148, 0.1);">
-              <button class="mod-quick-btn" style="width: 100%; justify-content: center; background: #547194; border-color: #547194;" onclick="openSuspendUserModal()">
-                <i data-lucide="user-plus"></i>
-                Suspender Usuario
-              </button>
+              <div class="mod-loading"><div class="mod-loading-spinner"></div></div>
             </div>
           </div>
         </div>
@@ -2645,9 +2536,7 @@ function renderModeracionSection() {
     <div class="mod-modal-overlay" id="modDeleteModal">
       <div class="mod-modal">
         <div class="mod-modal-header">
-          <div class="mod-modal-icon danger">
-            <i data-lucide="trash-2"></i>
-          </div>
+          <div class="mod-modal-icon danger"><i data-lucide="trash-2"></i></div>
           <div class="mod-modal-title">
             <h3>Eliminar Contenido</h3>
             <p>Esta acción no se puede deshacer</p>
@@ -2670,18 +2559,16 @@ function renderModeracionSection() {
     <div class="mod-modal-overlay" id="modSuspendModal">
       <div class="mod-modal">
         <div class="mod-modal-header">
-          <div class="mod-modal-icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
-            <i data-lucide="user-x"></i>
-          </div>
+          <div class="mod-modal-icon suspend"><i data-lucide="user-x"></i></div>
           <div class="mod-modal-title">
             <h3>Suspender Usuario</h3>
-            <p>El usuario no podrá acceder al sistema</p>
+            <p>El usuario no podrá acceder al sistema durante la suspensión</p>
           </div>
         </div>
         <div class="mod-modal-body">
           <div class="mod-modal-field">
             <label>Buscar usuario</label>
-            <input type="text" id="modSuspendSearch" placeholder="Escribe el nombre o usuario..." oninput="searchUsersToSuspend(this.value)">
+            <input type="text" id="modSuspendSearch" placeholder="Escribe el nombre, email o usuario..." oninput="searchUsersToSuspend(this.value)">
             <div id="modSuspendUserList" class="mod-user-search-results"></div>
             <input type="hidden" id="modSuspendUserId">
             <div id="modSelectedUser" class="mod-selected-user" style="display: none;"></div>
@@ -2689,146 +2576,28 @@ function renderModeracionSection() {
           <div class="mod-modal-field">
             <label>Duración de la suspensión</label>
             <select id="modSuspendDuration">
-              <option value="1d">1 día</option>
-              <option value="3d">3 días</option>
-              <option value="7d">1 semana</option>
-              <option value="30d">1 mes</option>
-              <option value="permanente">Permanente</option>
+              <option value="">Selecciona la duración...</option>
+              <option value="1">1 día</option>
+              <option value="3">3 días</option>
+              <option value="7">1 semana</option>
+              <option value="15">15 días</option>
+              <option value="30">1 mes</option>
+              <option value="permanent">Permanente</option>
             </select>
           </div>
           <div class="mod-modal-field">
             <label>Motivo de la suspensión (obligatorio)</label>
-            <textarea id="modSuspendReason" placeholder="Describe el motivo de la suspensión..."></textarea>
+            <textarea id="modSuspendReason" placeholder="Describe detalladamente el motivo de la suspensión..."></textarea>
           </div>
         </div>
         <div class="mod-modal-actions">
           <button class="mod-modal-btn cancel" onclick="closeSuspendModal()">Cancelar</button>
-          <button class="mod-modal-btn confirm" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" onclick="confirmSuspendUser()">Suspender</button>
+          <button class="mod-modal-btn confirm suspend" onclick="confirmSuspendUser()">Suspender Usuario</button>
         </div>
       </div>
     </div>
-
-    <style>
-      .mod-user-search-results {
-        max-height: 150px;
-        overflow-y: auto;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 8px;
-        margin-top: 8px;
-        display: none;
-      }
-      .mod-user-search-results.active {
-        display: block;
-      }
-      .mod-user-search-item {
-        padding: 10px 15px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.1);
-      }
-      .mod-user-search-item:hover {
-        background: rgba(84, 113, 148, 0.05);
-      }
-      .mod-user-search-item:last-child {
-        border-bottom: none;
-      }
-      .mod-user-search-item .name {
-        font-weight: 500;
-        color: #1a1a2e;
-      }
-      .mod-user-search-item .username {
-        font-size: 0.8rem;
-        color: #64748b;
-      }
-      .mod-user-search-item .tipo {
-        font-size: 0.7rem;
-        padding: 2px 8px;
-        border-radius: 4px;
-        background: #e0e7ff;
-        color: #4338ca;
-      }
-      .mod-selected-user {
-        padding: 12px;
-        background: #f0fdf4;
-        border: 1px solid #86efac;
-        border-radius: 8px;
-        margin-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .mod-selected-user .info {
-        display: flex;
-        flex-direction: column;
-      }
-      .mod-selected-user .name {
-        font-weight: 600;
-        color: #166534;
-      }
-      .mod-selected-user .username {
-        font-size: 0.85rem;
-        color: #4ade80;
-      }
-      .mod-selected-user .remove {
-        background: none;
-        border: none;
-        color: #dc2626;
-        cursor: pointer;
-        padding: 5px;
-      }
-      .mod-suspended-item {
-        padding: 12px 20px;
-        border-bottom: 1px solid rgba(84, 113, 148, 0.08);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .mod-suspended-item:last-child {
-        border-bottom: none;
-      }
-      .mod-suspended-info .name {
-        font-weight: 500;
-        color: #1a1a2e;
-        font-size: 0.9rem;
-      }
-      .mod-suspended-info .reason {
-        font-size: 0.75rem;
-        color: #64748b;
-        margin-top: 2px;
-      }
-      .mod-unsuspend-btn {
-        background: #10b981;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-      .mod-unsuspend-btn:hover {
-        background: #059669;
-      }
-      #modSuspendDuration {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 8px;
-        font-size: 0.9rem;
-      }
-      #modSuspendSearch {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid rgba(84, 113, 148, 0.2);
-        border-radius: 8px;
-        font-size: 0.9rem;
-      }
-    </style>
   `;
 }
-
 // Variables globales para moderación
 let currentModTipo = 'todos';
 let currentModDeleteItem = null;
@@ -3156,7 +2925,91 @@ function formatSuspensionDate(dateStr) {
   }
 }
 
+// Variable para almacenar el usuario seleccionado para suspender
+let selectedUserToSuspend = null;
+
 function openSuspendUserModal() {
+  document.getElementById('modSuspendSearch').value = '';
+  document.getElementById('modSuspendReason').value = '';
+  document.getElementById('modSuspendDuration').value = '';
+  document.getElementById('modSuspendUserId').value = '';
+  document.getElementById('modSuspendUserList').classList.remove('active');
+  document.getElementById('modSuspendUserList').innerHTML = '';
+  document.getElementById('modSelectedUser').style.display = 'none';
+  selectedUserToSuspend = null;
+  document.getElementById('modSuspendModal').classList.add('active');
+}
+
+async function searchUsersToSuspend(query) {
+  const container = document.getElementById('modSuspendUserList');
+  const selectedContainer = document.getElementById('modSelectedUser');
+  
+  if (!query || query.length < 2) {
+    container.classList.remove('active');
+    container.innerHTML = '';
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/api/moderacion/usuarios/buscar?q=${encodeURIComponent(query)}`);
+    if (response.ok) {
+      const usuarios = await response.json();
+      
+      if (usuarios.length === 0) {
+        container.innerHTML = '<div style="padding: 15px; text-align: center; color: #64748b;">No se encontraron usuarios</div>';
+        container.classList.add('active');
+        return;
+      }
+      
+      container.innerHTML = usuarios.map(u => `
+        <div class="mod-user-search-item" onclick="selectUserToSuspend(${u.id_usuario}, '${(u.nombre || '').replace(/'/g, "\\'")}', '${u.email || ''}', '${u.tipo || 'alumno'}')">
+          <div class="user-info">
+            <span class="name">${u.nombre || 'Sin nombre'}</span>
+            <span class="email">${u.email || ''}</span>
+          </div>
+          <span class="tipo ${u.tipo || 'alumno'}">${u.tipo || 'Alumno'}</span>
+        </div>
+      `).join('');
+      container.classList.add('active');
+    }
+  } catch (error) {
+    console.error('Error buscando usuarios:', error);
+    container.innerHTML = '<div style="padding: 15px; text-align: center; color: #ef4444;">Error al buscar</div>';
+    container.classList.add('active');
+  }
+}
+
+function selectUserToSuspend(id, nombre, email, tipo) {
+  selectedUserToSuspend = { id, nombre, email, tipo };
+  document.getElementById('modSuspendUserId').value = id;
+  document.getElementById('modSuspendSearch').value = '';
+  document.getElementById('modSuspendUserList').classList.remove('active');
+  
+  const selectedContainer = document.getElementById('modSelectedUser');
+  selectedContainer.innerHTML = `
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <strong style="color: #1a1a2e;">${nombre}</strong>
+        <span style="color: #64748b; font-size: 0.85rem; margin-left: 8px;">${email}</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="tipo ${tipo}" style="font-size: 0.75rem; padding: 4px 12px; border-radius: 6px; font-weight: 600; text-transform: uppercase; ${tipo === 'profesor' ? 'background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1d4ed8;' : 'background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #047857;'}">${tipo}</span>
+        <button onclick="clearSelectedUser()" style="background: none; border: none; cursor: pointer; color: #64748b; padding: 4px;">
+          <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+    </div>
+  `;
+  selectedContainer.style.display = 'block';
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function clearSelectedUser() {
+  selectedUserToSuspend = null;
+  document.getElementById('modSuspendUserId').value = '';
+  document.getElementById('modSelectedUser').style.display = 'none';
+  document.getElementById('modSuspendSearch').focus();
+}
   document.getElementById('modSuspendSearch').value = '';
   document.getElementById('modSuspendReason').value = '';
   document.getElementById('modSuspendDuration').value = '7';
@@ -3168,15 +3021,25 @@ function closeSuspendModal() {
 }
 
 async function confirmSuspendUser() {
-  const usernameInput = document.getElementById('modSuspendSearch').value.trim();
+  const userId = document.getElementById('modSuspendUserId').value;
   const reason = document.getElementById('modSuspendReason').value.trim();
   const duration = document.getElementById('modSuspendDuration').value;
   
-  if (!usernameInput) {
+  if (!selectedUserToSuspend || !userId) {
     Swal.fire({
       icon: 'warning',
       title: 'Usuario requerido',
-      text: 'Ingresa el nombre de usuario a suspender.',
+      text: 'Selecciona un usuario de la lista.',
+      confirmButtonColor: '#547194'
+    });
+    return;
+  }
+  
+  if (!duration) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Duración requerida',
+      text: 'Selecciona la duración de la suspensión.',
       confirmButtonColor: '#547194'
     });
     return;
@@ -3192,46 +3055,14 @@ async function confirmSuspendUser() {
     return;
   }
   
-  // Buscar el usuario por nombre
   try {
-    // Primero buscar el usuario usando el endpoint de moderación
-    const searchResponse = await fetch(`/api/moderacion/usuarios/buscar?q=${encodeURIComponent(usernameInput)}`);
-    let userId = null;
-    let userName = usernameInput;
-    
-    if (searchResponse.ok) {
-      const usuarios = await searchResponse.json();
-      const usuario = usuarios.find(u => 
-        u.nombre?.toLowerCase().includes(usernameInput.toLowerCase()) || 
-        u.email?.toLowerCase() === usernameInput.toLowerCase() ||
-        u.username?.toLowerCase() === usernameInput.toLowerCase()
-      );
-      if (usuario) {
-        userId = usuario.id_usuario;
-        userName = usuario.nombre || usuario.username;
-      }
-    }
-    
-    if (!userId) {
-      // Si no se encontró, intentar con el input como ID
-      if (!isNaN(usernameInput)) {
-        userId = parseInt(usernameInput);
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Usuario no encontrado',
-          text: 'No se encontró un usuario con ese nombre. Verifica e intenta de nuevo.',
-          confirmButtonColor: '#547194'
-        });
-        return;
-      }
-    }
+    const userName = selectedUserToSuspend.nombre || 'Usuario';
     
     // Confirmar suspensión
     const confirmResult = await Swal.fire({
       icon: 'warning',
       title: '¿Suspender usuario?',
-      html: `Estás por suspender a <strong>${userName}</strong> por ${getDurationText(duration)}.<br><br>Motivo: ${reason}`,
+      html: `Estás por suspender a <strong>${userName}</strong> por ${getDurationText(duration)}.<br><br><strong>Motivo:</strong> ${reason}`,
       showCancelButton: true,
       confirmButtonText: 'Sí, suspender',
       cancelButtonText: 'Cancelar',
