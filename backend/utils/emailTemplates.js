@@ -2,7 +2,7 @@
  * Plantillas de email para el sistema CEMI
  */
 
-const LOGO_URL = 'https://res.cloudinary.com/dxzvc3ihm/image/upload/v1749140625/Logo-CEMI_rxvhbw.png';
+const LOGO_URL = 'https://raw.githubusercontent.com/eduardogabrielmendozaprogram/cemi-sistema-educativo/main/frontend/images/logo.png';
 
 /**
  * Estilos base para todos los emails
