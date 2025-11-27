@@ -181,8 +181,68 @@ export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
   `;
 }
 
+/**
+ * Email 4: Agradecimiento por completar encuesta de investigacion
+ */
+export function encuestaAgradecimientoTemplate(nombre) {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      ${baseStyles}
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          <img src="${LOGO_URL}" alt="CEMI Logo">
+          <h1>Gracias por Participar</h1>
+        </div>
+        <div class="content">
+          <div style="text-align: center;">
+            <div class="success-icon">🎉</div>
+          </div>
+          <h2>Hola ${nombre || 'Participante'},</h2>
+          <p>Queremos agradecerte sinceramente por tomarte el tiempo de completar nuestra <strong>encuesta de investigacion</strong>.</p>
+          
+          <div class="info-box">
+            <p style="margin: 0; font-size: 15px;">Tu opinion es fundamental para nosotros. Cada respuesta nos ayuda a entender mejor las necesidades de nuestra comunidad educativa y a mejorar continuamente <strong>CEMI Classroom</strong>.</p>
+          </div>
+          
+          <h3 style="color: #667eea; margin-top: 30px;">¿Que sigue?</h3>
+          <p>Tu perfil ya esta activo en nuestro sistema de investigacion. Esto significa que:</p>
+          
+          <ul style="color: #555; line-height: 2;">
+            <li>Seras considerado/a para futuros estudios y encuestas</li>
+            <li>Recibiras invitaciones exclusivas para probar nuevas funcionalidades</li>
+            <li>Podras influir directamente en el desarrollo de CEMI</li>
+            <li>Tendras acceso prioritario a novedades y actualizaciones</li>
+          </ul>
+          
+          <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 20px; border-radius: 12px; margin: 25px 0; text-align: center;">
+            <p style="margin: 0; color: #0369a1; font-weight: 600;">Manten un ojo en tu bandeja de entrada</p>
+            <p style="margin: 8px 0 0 0; color: #0284c7; font-size: 14px;">Pronto recibiras mas novedades y encuestas para seguir ayudando a la investigacion.</p>
+          </div>
+          
+          <p>Si tienes alguna pregunta o sugerencia adicional, no dudes en contactarnos. ¡Estamos emocionados de contar contigo!</p>
+          
+          <p style="margin-top: 30px;">Con gratitud,<br><strong>El equipo de CEMI</strong></p>
+        </div>
+        <div class="footer">
+          <p><strong>Centro Educativo Multilingue Integral</strong></p>
+          <p>Investigacion de Experiencia de Usuario</p>
+          <p style="font-size: 11px; color: #aaa; margin-top: 12px;">Este correo fue enviado porque completaste una encuesta en CEMI Classroom.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
 export default {
   solicitudRecibidaTemplate,
   notificacionAdminTemplate,
-  credencialesActualizadasTemplate
+  credencialesActualizadasTemplate,
+  encuestaAgradecimientoTemplate
 };

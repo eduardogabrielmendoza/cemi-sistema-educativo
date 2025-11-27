@@ -5,6 +5,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import https from "https";
+import { sendEmail } from "../config/mailer.js";
+import { encuestaAgradecimientoTemplate } from "../utils/emailTemplates.js";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -484,6 +486,20 @@ router.post("/encuesta", async (req, res) => {
     
     registro.push(nuevoRegistro);
     guardarRegistro(registro);
+
+    // Enviar email de agradecimiento (no bloqueante)
+    try {
+      const emailHtml = encuestaAgradecimientoTemplate(datos.firstName);
+      await sendEmail(
+        datos.email,
+        "¡Gracias por completar nuestra encuesta! - CEMI",
+        emailHtml
+      );
+      console.log(`Email de agradecimiento enviado a: ${datos.email}`);
+    } catch (emailError) {
+      console.error("Error al enviar email de agradecimiento:", emailError.message);
+      // No interrumpimos el flujo si falla el email
+    }
 
     res.json({
       success: true,
