@@ -97,7 +97,7 @@ class ChatServer {
             FROM usuarios u
             JOIN administradores adm ON u.id_administrador = adm.id_administrador
             JOIN personas p ON adm.id_persona = p.id_persona
-            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.tipo_usuario = 'administrador'
+            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.id_administrador IS NOT NULL
             LIMIT 1
           `;
           params = [nombre];
@@ -107,7 +107,7 @@ class ChatServer {
             FROM usuarios u
             JOIN profesores prof ON u.id_profesor = prof.id_profesor
             JOIN personas p ON prof.id_persona = p.id_persona
-            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.tipo_usuario = 'profesor'
+            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.id_profesor IS NOT NULL
             LIMIT 1
           `;
           params = [nombre];
@@ -117,7 +117,7 @@ class ChatServer {
             FROM usuarios u
             JOIN alumnos al ON u.id_alumno = al.id_alumno
             JOIN personas p ON al.id_persona = p.id_persona
-            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.tipo_usuario = 'alumno'
+            WHERE CONCAT(p.nombre, ' ', p.apellido) = ? AND u.id_alumno IS NOT NULL
             LIMIT 1
           `;
           params = [nombre];
