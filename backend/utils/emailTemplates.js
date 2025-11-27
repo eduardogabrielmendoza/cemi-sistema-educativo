@@ -3,8 +3,8 @@
  * Colores institucionales: Azul #1976d2
  */
 
-const LOGO_URL = 'https://raw.githubusercontent.com/eduardogabrielmendozaprogram/cemi-sistema-educativo/main/frontend/images/logo.png';
-const SITE_URL = 'https://cemi-sistema-educativo-production.up.railway.app';
+const LOGO_URL = 'https://cemi.up.railway.app/images/logo.png';
+const SITE_URL = 'https://cemi.up.railway.app';
 
 // Colores institucionales
 const COLORS = {
