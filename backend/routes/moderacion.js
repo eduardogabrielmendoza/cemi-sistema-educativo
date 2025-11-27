@@ -66,10 +66,10 @@ function formatearFecha(fecha) {
 router.get('/stats', async (req, res) => {
   try {
     // Contar tareas
-    const [tareasCount] = await pool.query('SELECT COUNT(*) as total FROM tareas_classroom');
+    const [tareasCount] = await pool.query('SELECT COUNT(*) as total FROM tareas');
     
     // Contar anuncios
-    const [anunciosCount] = await pool.query('SELECT COUNT(*) as total FROM anuncios_classroom');
+    const [anunciosCount] = await pool.query('SELECT COUNT(*) as total FROM anuncios');
     
     // Contar recursos de biblioteca
     let recursosTotal = 0;
@@ -96,7 +96,7 @@ router.get('/stats', async (req, res) => {
     // Contar comentarios
     let comentariosTotal = 0;
     try {
-      const [comentariosCount] = await pool.query('SELECT COUNT(*) as total FROM comentarios_classroom');
+      const [comentariosCount] = await pool.query('SELECT COUNT(*) as total FROM comentarios_anuncios');
       comentariosTotal = comentariosCount[0].total;
     } catch (e) {}
     
@@ -155,9 +155,10 @@ router.get('/contenido/:tipo', async (req, res) => {
       const [tareas] = await pool.query(`
         SELECT t.id_tarea as id, t.titulo, t.descripcion as contenido, t.fecha_creacion,
                c.nombre_curso as curso, CONCAT(p.nombre, ' ', p.apellido) as autor
-        FROM tareas_classroom t
+        FROM tareas t
         LEFT JOIN cursos c ON t.id_curso = c.id_curso
-        LEFT JOIN profesores p ON t.id_profesor = p.id_profesor
+        LEFT JOIN profesores pr ON t.id_profesor = pr.id_profesor
+        LEFT JOIN personas p ON pr.id_persona = p.id_persona
         ORDER BY t.fecha_creacion DESC
         LIMIT 50
       `);
@@ -172,9 +173,10 @@ router.get('/contenido/:tipo', async (req, res) => {
       const [anuncios] = await pool.query(`
         SELECT a.id_anuncio as id, a.titulo, a.contenido, a.fecha_creacion,
                c.nombre_curso as curso, CONCAT(p.nombre, ' ', p.apellido) as autor
-        FROM anuncios_classroom a
+        FROM anuncios a
         LEFT JOIN cursos c ON a.id_curso = c.id_curso
-        LEFT JOIN profesores p ON a.id_profesor = p.id_profesor
+        LEFT JOIN profesores pr ON a.id_profesor = pr.id_profesor
+        LEFT JOIN personas p ON pr.id_persona = p.id_persona
         ORDER BY a.fecha_creacion DESC
         LIMIT 50
       `);
@@ -188,11 +190,12 @@ router.get('/contenido/:tipo', async (req, res) => {
     if (tipo === 'todos' || tipo === 'comentarios') {
       try {
         const [comentarios] = await pool.query(`
-          SELECT cc.id_comentario as id, cc.contenido, cc.fecha_creacion,
-                 CONCAT(a.nombre, ' ', a.apellido) as autor, c.nombre_curso as curso
-          FROM comentarios_classroom cc
-          LEFT JOIN alumnos a ON cc.id_alumno = a.id_alumno
-          LEFT JOIN cursos c ON cc.id_curso = c.id_curso
+          SELECT cc.id_comentario as id, cc.contenido, cc.fecha_creacion, cc.tipo_usuario,
+                 CONCAT(p.nombre, ' ', p.apellido) as autor, a.titulo as curso
+          FROM comentarios_anuncios cc
+          LEFT JOIN usuarios u ON cc.id_usuario = u.id_usuario
+          LEFT JOIN personas p ON u.id_persona = p.id_persona
+          LEFT JOIN anuncios a ON cc.id_anuncio = a.id_anuncio
           ORDER BY cc.fecha_creacion DESC
           LIMIT 50
         `);
@@ -202,7 +205,9 @@ router.get('/contenido/:tipo', async (req, res) => {
           titulo: c.contenido?.substring(0, 50) + '...',
           fecha: formatearFecha(c.fecha_creacion)
         })));
-      } catch (e) {}
+      } catch (e) {
+        console.log('Error cargando comentarios:', e.message);
+      }
     }
     
     if (tipo === 'todos' || tipo === 'preguntas') {
@@ -246,29 +251,29 @@ router.delete('/contenido/:tipo/:id', async (req, res) => {
     
     switch (tipo) {
       case 'tarea':
-        const [tarea] = await pool.query('SELECT titulo FROM tareas_classroom WHERE id_tarea = ?', [id]);
+        const [tarea] = await pool.query('SELECT titulo FROM tareas WHERE id_tarea = ?', [id]);
         if (tarea.length > 0) {
           titulo = tarea[0].titulo;
-          await pool.query('DELETE FROM entregas_tarea WHERE id_tarea = ?', [id]);
-          await pool.query('DELETE FROM tareas_classroom WHERE id_tarea = ?', [id]);
+          await pool.query('DELETE FROM entregas_tareas WHERE id_tarea = ?', [id]);
+          await pool.query('DELETE FROM tareas WHERE id_tarea = ?', [id]);
           deleted = true;
         }
         break;
         
       case 'anuncio':
-        const [anuncio] = await pool.query('SELECT titulo FROM anuncios_classroom WHERE id_anuncio = ?', [id]);
+        const [anuncio] = await pool.query('SELECT titulo FROM anuncios WHERE id_anuncio = ?', [id]);
         if (anuncio.length > 0) {
           titulo = anuncio[0].titulo;
-          await pool.query('DELETE FROM anuncios_classroom WHERE id_anuncio = ?', [id]);
+          await pool.query('DELETE FROM anuncios WHERE id_anuncio = ?', [id]);
           deleted = true;
         }
         break;
         
       case 'comentario':
-        const [comentario] = await pool.query('SELECT contenido FROM comentarios_classroom WHERE id_comentario = ?', [id]);
+        const [comentario] = await pool.query('SELECT contenido FROM comentarios_anuncios WHERE id_comentario = ?', [id]);
         if (comentario.length > 0) {
           titulo = comentario[0].contenido?.substring(0, 30) + '...';
-          await pool.query('DELETE FROM comentarios_classroom WHERE id_comentario = ?', [id]);
+          await pool.query('DELETE FROM comentarios_anuncios WHERE id_comentario = ?', [id]);
           deleted = true;
         }
         break;
@@ -375,7 +380,7 @@ router.get('/tareas', async (req, res) => {
     const [tareas] = await pool.query(`
       SELECT t.*, c.nombre_curso, 
              CONCAT(p.nombre, ' ', p.apellido) as profesor_nombre
-      FROM tareas_classroom t
+      FROM tareas t
       LEFT JOIN cursos c ON t.id_curso = c.id_curso
       LEFT JOIN profesores p ON t.id_profesor = p.id_profesor
       ORDER BY t.fecha_creacion DESC
@@ -396,17 +401,17 @@ router.delete('/tareas/:id', async (req, res) => {
     const { razon, admin_id, admin_nombre } = req.body;
     
     // Obtener info de la tarea antes de eliminar
-    const [tarea] = await pool.query('SELECT * FROM tareas_classroom WHERE id_tarea = ?', [id]);
+    const [tarea] = await pool.query('SELECT * FROM tareas WHERE id_tarea = ?', [id]);
     
     if (tarea.length === 0) {
       return res.status(404).json({ success: false, error: 'Tarea no encontrada' });
     }
     
     // Eliminar entregas asociadas
-    await pool.query('DELETE FROM entregas_tarea WHERE id_tarea = ?', [id]);
+    await pool.query('DELETE FROM entregas_tareas WHERE id_tarea = ?', [id]);
     
     // Eliminar la tarea
-    await pool.query('DELETE FROM tareas_classroom WHERE id_tarea = ?', [id]);
+    await pool.query('DELETE FROM tareas WHERE id_tarea = ?', [id]);
     
     // Registrar acción
     logModerationAction({
@@ -433,7 +438,7 @@ router.get('/anuncios', async (req, res) => {
     const [anuncios] = await pool.query(`
       SELECT a.*, c.nombre_curso,
              CONCAT(p.nombre, ' ', p.apellido) as profesor_nombre
-      FROM anuncios_classroom a
+      FROM anuncios a
       LEFT JOIN cursos c ON a.id_curso = c.id_curso
       LEFT JOIN profesores p ON a.id_profesor = p.id_profesor
       ORDER BY a.fecha_creacion DESC
@@ -453,13 +458,13 @@ router.delete('/anuncios/:id', async (req, res) => {
     const { id } = req.params;
     const { razon, admin_id, admin_nombre } = req.body;
     
-    const [anuncio] = await pool.query('SELECT * FROM anuncios_classroom WHERE id_anuncio = ?', [id]);
+    const [anuncio] = await pool.query('SELECT * FROM anuncios WHERE id_anuncio = ?', [id]);
     
     if (anuncio.length === 0) {
       return res.status(404).json({ success: false, error: 'Anuncio no encontrado' });
     }
     
-    await pool.query('DELETE FROM anuncios_classroom WHERE id_anuncio = ?', [id]);
+    await pool.query('DELETE FROM anuncios WHERE id_anuncio = ?', [id]);
     
     logModerationAction({
       tipo: 'eliminar_anuncio',
@@ -658,7 +663,7 @@ router.get('/comentarios', async (req, res) => {
                WHEN c.id_alumno IS NOT NULL THEN 'alumno'
                ELSE 'desconocido'
              END as autor_tipo
-      FROM comentarios_classroom c
+      FROM comentarios_anuncios c
       LEFT JOIN profesores p ON c.id_profesor = p.id_profesor
       LEFT JOIN alumnos a ON c.id_alumno = a.id_alumno
       ORDER BY c.fecha_creacion DESC
@@ -678,13 +683,13 @@ router.delete('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
     const { razon, admin_id, admin_nombre } = req.body;
     
-    const [comentario] = await pool.query('SELECT * FROM comentarios_classroom WHERE id_comentario = ?', [id]);
+    const [comentario] = await pool.query('SELECT * FROM comentarios_anuncios WHERE id_comentario = ?', [id]);
     
     if (comentario.length === 0) {
       return res.status(404).json({ success: false, error: 'Comentario no encontrado' });
     }
     
-    await pool.query('DELETE FROM comentarios_classroom WHERE id_comentario = ?', [id]);
+    await pool.query('DELETE FROM comentarios_anuncios WHERE id_comentario = ?', [id]);
     
     logModerationAction({
       tipo: 'eliminar_comentario',
