@@ -2130,8 +2130,9 @@ function renderStatusSection() {
         border-radius: 24px;
         width: 100%;
         max-width: 550px;
-        max-height: 90vh;
-        overflow-y: auto;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
         box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25),
                     0 10px 30px rgba(0, 0, 0, 0.15),
                     inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -2161,6 +2162,7 @@ function renderStatusSection() {
         height: 4px;
         background: linear-gradient(90deg, #547194, #3b82f6, #8b5cf6);
         animation: shimmer 2s infinite;
+        z-index: 10;
       }
 
       @keyframes shimmer {
@@ -2169,10 +2171,12 @@ function renderStatusSection() {
       }
 
       .status-modal-header {
-        padding: 28px 28px 0;
+        padding: 28px 28px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border-bottom: 1px solid #e2e8f0;
+        flex-shrink: 0;
       }
 
       .status-modal-header h3 {
@@ -2213,7 +2217,30 @@ function renderStatusSection() {
 
       .status-modal-close i { width: 20px; height: 20px; }
 
-      .status-modal-body { padding: 28px; }
+      .status-modal-body { 
+        padding: 24px 28px;
+        overflow-y: auto;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .status-modal-body::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .status-modal-body::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+      }
+
+      .status-modal-body::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+
+      .status-modal-body::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
 
       .status-form-group {
         margin-bottom: 24px;
@@ -2375,11 +2402,13 @@ function renderStatusSection() {
       }
 
       .status-modal-footer {
-        padding: 0 28px 28px;
+        padding: 20px 28px;
         display: flex;
         gap: 14px;
         justify-content: flex-end;
-        animation: fadeInUp 0.4s ease 0.35s both;
+        background: linear-gradient(to top, #ffffff 0%, #f8fafc 100%);
+        border-top: 1px solid #e2e8f0;
+        flex-shrink: 0;
       }
 
       .status-modal-btn {
