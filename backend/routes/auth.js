@@ -177,36 +177,34 @@ router.post("/forgot-password",
       const usuario = rows[0];
       const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`.trim();
 
-      // Email 1: Confirmacion al usuario
-      const emailUsuario = await sendEmail(
-        email,
-        'Solicitud de Recuperacion de Contrasena - CEMI',
-        solicitudRecibidaTemplate(nombreCompleto, email)
-      );
+      // Responder inmediatamente al usuario (no esperar emails)
+      res.json({
+        success: true,
+        message: "Solicitud recibida. Si el email existe en nuestro sistema, recibiras instrucciones pronto."
+      });
 
-      // Email 2: Notificacion al administrador
-      const emailAdmin = await sendEmail(
-        ADMIN_EMAIL,
-        `Solicitud de Recuperacion: ${nombreCompleto}`,
-        notificacionAdminTemplate({
-          id: usuario.id_usuario,
-          nombre: nombreCompleto,
-          email: email,
-          rol: usuario.rol
-        })
-      );
+      // Enviar emails en background (no bloquea la respuesta)
+      try {
+        // Email 1: Confirmacion al usuario
+        await sendEmail(
+          email,
+          'Solicitud de Recuperacion de Contrasena - CEMI',
+          solicitudRecibidaTemplate(nombreCompleto, email)
+        );
 
-      if (emailUsuario.success && emailAdmin.success) {
-        return res.json({
-          success: true,
-          message: "Se ha enviado un correo con las instrucciones. Un administrador revisara tu solicitud pronto."
-        });
-      } else {
-        console.error('Error enviando emails:', { emailUsuario, emailAdmin });
-        return res.status(500).json({
-          success: false,
-          message: "Error al enviar el correo. Por favor, intenta mas tarde."
-        });
+        // Email 2: Notificacion al administrador
+        await sendEmail(
+          ADMIN_EMAIL,
+          `Solicitud de Recuperacion: ${nombreCompleto}`,
+          notificacionAdminTemplate({
+            id: usuario.id_usuario,
+            nombre: nombreCompleto,
+            email: email,
+            rol: usuario.rol
+          })
+        );
+      } catch (emailError) {
+        console.error('Error enviando emails (background):', emailError.message);
       }
 
     } catch (error) {
