@@ -3,6 +3,8 @@ import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import { body, validationResult } from "express-validator";
+import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
+import { solicitudRecibidaTemplate, notificacionAdminTemplate, credencialesActualizadasTemplate } from "../utils/emailTemplates.js";
 
 dotenv.config();
 
@@ -124,6 +126,98 @@ router.post("/login",
     return res.status(500).json({ success: false, message: "Error del servidor" });
   }
 });
+
+// ============================================
+// RECUPERACION DE CONTRASENA
+// ============================================
+router.post("/forgot-password",
+  [
+    body('email')
+      .trim()
+      .notEmpty().withMessage('El email es requerido')
+      .isEmail().withMessage('Email invalido')
+      .normalizeEmail()
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: errors.array()[0].msg
+      });
+    }
+
+    const { email } = req.body;
+
+    try {
+      // Buscar usuario por email
+      const [rows] = await pool.query(
+        `SELECT 
+          u.id_usuario,
+          u.username,
+          p.id_persona,
+          p.nombre,
+          p.apellido,
+          p.email,
+          perf.nombre_perfil as rol
+         FROM usuarios u
+         JOIN personas p ON u.id_persona = p.id_persona
+         JOIN perfiles perf ON u.id_perfil = perf.id_perfil
+         WHERE p.email = ?`,
+        [email]
+      );
+
+      if (rows.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No existe una cuenta asociada a este email"
+        });
+      }
+
+      const usuario = rows[0];
+      const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`.trim();
+
+      // Email 1: Confirmacion al usuario
+      const emailUsuario = await sendEmail(
+        email,
+        'Solicitud de Recuperacion de Contrasena - CEMI',
+        solicitudRecibidaTemplate(nombreCompleto, email)
+      );
+
+      // Email 2: Notificacion al administrador
+      const emailAdmin = await sendEmail(
+        ADMIN_EMAIL,
+        `Solicitud de Recuperacion: ${nombreCompleto}`,
+        notificacionAdminTemplate({
+          id: usuario.id_usuario,
+          nombre: nombreCompleto,
+          email: email,
+          rol: usuario.rol
+        })
+      );
+
+      if (emailUsuario.success && emailAdmin.success) {
+        return res.json({
+          success: true,
+          message: "Se ha enviado un correo con las instrucciones. Un administrador revisara tu solicitud pronto."
+        });
+      } else {
+        console.error('Error enviando emails:', { emailUsuario, emailAdmin });
+        return res.status(500).json({
+          success: false,
+          message: "Error al enviar el correo. Por favor, intenta mas tarde."
+        });
+      }
+
+    } catch (error) {
+      console.error("/auth/forgot-password error:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Error del servidor"
+      });
+    }
+  }
+);
 
 router.post("/register",
   [
@@ -559,10 +653,16 @@ router.post("/admin-cambiar-password-classroom",
       });
     }
 
-    const { id_persona, username, password } = req.body;
+    const { id_persona, username, password, enviarEmail } = req.body;
 
     try {
       console.log(` Admin actualizando credenciales para id_persona: ${id_persona}`);
+
+      // Obtener datos del usuario para el email
+      const [personaData] = await pool.query(
+        `SELECT p.nombre, p.apellido, p.email FROM personas p WHERE p.id_persona = ?`,
+        [id_persona]
+      );
 
       const [existingUser] = await pool.query(
         `SELECT id_persona FROM usuarios WHERE username = ? AND id_persona != ?`,
@@ -604,6 +704,37 @@ router.post("/admin-cambiar-password-classroom",
         );
 
         console.log(` Password actualizada para id_persona: ${id_persona}`);
+
+        // Enviar email si se solicitó
+        if (enviarEmail && personaData.length > 0 && personaData[0].email) {
+          const persona = personaData[0];
+          const nombreCompleto = `${persona.nombre} ${persona.apellido}`.trim();
+          
+          const emailResult = await sendEmail(
+            persona.email,
+            'Tu Contrasena ha sido Restablecida - CEMI',
+            credencialesActualizadasTemplate(
+              { nombre: nombreCompleto },
+              { usuario: username, password: password }
+            )
+          );
+
+          if (emailResult.success) {
+            console.log(` Email de credenciales enviado a: ${persona.email}`);
+            return res.json({
+              success: true,
+              message: 'Usuario y contrasena actualizados. Se ha enviado un email con las credenciales.',
+              emailEnviado: true
+            });
+          } else {
+            console.error(' Error enviando email de credenciales:', emailResult.error);
+            return res.json({
+              success: true,
+              message: 'Usuario y contrasena actualizados, pero no se pudo enviar el email.',
+              emailEnviado: false
+            });
+          }
+        }
 
         return res.json({
           success: true,

@@ -208,19 +208,76 @@
     function showForgotPassword(e) {
       e.preventDefault();
       Swal.fire({
-        title: 'Recuperar Contraseña',
+        title: 'Recuperar Contrasena',
         html: `
-          <p style="margin-bottom: 15px;">Por favor, contacta al administrador del sistema:</p>
-          <div style="display: flex; align-items: center; gap: 10px; justify-content: center; margin-top: 15px;">
-            <i data-lucide="mail" style="width: 20px; height: 20px; color: #000;"></i>
-            <strong>contacto@cemi.edu.ar</strong>
+          <div style="text-align: left;">
+            <p style="margin-bottom: 20px; color: #555;">Ingresa el email asociado a tu cuenta. Te enviaremos instrucciones para recuperar tu contrasena.</p>
+            <div style="margin-bottom: 16px;">
+              <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 8px;">
+                Correo electronico
+              </label>
+              <input type="email" id="emailRecuperacion" placeholder="tu@email.com" 
+                     style="width: 100%; padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s;"
+                     onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+                     onblur="this.style.borderColor='#d1d5db'; this.style.boxShadow='none';">
+            </div>
           </div>
         `,
-        icon: 'info',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#000000',
-        didOpen: () => {
-          lucide.createIcons();
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Enviar solicitud',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#667eea',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          const email = document.getElementById('emailRecuperacion').value.trim();
+          
+          if (!email) {
+            Swal.showValidationMessage('Por favor ingresa tu email');
+            return false;
+          }
+          
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            Swal.showValidationMessage('Por favor ingresa un email valido');
+            return false;
+          }
+          
+          try {
+            const response = await fetch(`${API_URL}/auth/forgot-password`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+              throw new Error(data.message || 'Error al procesar la solicitud');
+            }
+            
+            return data;
+          } catch (error) {
+            Swal.showValidationMessage(error.message);
+            return false;
+          }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Solicitud Enviada!',
+            html: `
+              <div style="text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 15px;">📩</div>
+                <p style="color: #555; margin-bottom: 10px;">Hemos recibido tu solicitud de recuperacion de contrasena.</p>
+                <p style="color: #555;">Un administrador revisara tu solicitud y te enviara tus nuevas credenciales por correo electronico.</p>
+              </div>
+            `,
+            icon: 'success',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#22c55e'
+          });
         }
       });
     }

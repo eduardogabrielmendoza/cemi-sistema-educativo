@@ -5440,9 +5440,9 @@ async function abrirModalCredencialesProfesor(idProfesor) {
                    style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 14px; color: #9ca3af;">
           </div>
           
-          <div style="margin-bottom: 8px;">
+          <div style="margin-bottom: 16px;">
             <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">
-              Contraseña <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
+              Contrasena <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
             </label>
             <div style="position: relative;">
               <input type="text" id="passwordProfesor" value="${passwordActual}"
@@ -5454,8 +5454,21 @@ async function abrirModalCredencialesProfesor(idProfesor) {
               </button>
             </div>
             <p style="font-size: 11px; color: #6b7280; margin-top: 4px;">
-              Dejá vacío para mantener la contraseña actual
+              Deja vacio para mantener la contrasena actual
             </p>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 14px 16px; border-radius: 10px; border: 1px solid #86efac; margin-top: 16px;">
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin: 0;">
+              <input type="checkbox" id="enviarEmailProfesor" 
+                     style="width: 18px; height: 18px; accent-color: #22c55e; cursor: pointer;">
+              <div>
+                <span style="font-size: 13px; font-weight: 600; color: #166534;">Notificar al usuario por email</span>
+                <p style="margin: 4px 0 0 0; font-size: 11px; color: #15803d;">
+                  Se enviara un correo con las nuevas credenciales
+                </p>
+              </div>
+            </label>
           </div>
         </div>
       `,
@@ -5500,6 +5513,7 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       preConfirm: async () => {
         const usuario = document.getElementById('usuarioProfesor').value.trim();
         const password = document.getElementById('passwordProfesor').value.trim();
+        const enviarEmail = document.getElementById('enviarEmailProfesor').checked;
         
         const nuevoUsuario = (usuario === '' || usuario === '${usuarioActual}') ? '${usuarioActual}' : usuario;
         
@@ -5509,18 +5523,24 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           Swal.showValidationMessage('El usuario es obligatorio');
           return false;
         }
+
+        if (enviarEmail && !nuevoPassword) {
+          Swal.showValidationMessage('Debes ingresar una nueva contrasena para enviar el email');
+          return false;
+        }
         
-        return { usuario: nuevoUsuario, password: nuevoPassword };
+        return { usuario: nuevoUsuario, password: nuevoPassword, enviarEmail };
       }
     });
 
     if (result.isConfirmed && result.value) {
-      const { usuario, password } = result.value;
+      const { usuario, password, enviarEmail } = result.value;
 
       try {
         const bodyData = {
           id_persona: profesor.id_persona,
-          username: usuario
+          username: usuario,
+          enviarEmail: enviarEmail
         };
         
         if (password && password.trim().length > 0) {
@@ -5534,8 +5554,12 @@ async function abrirModalCredencialesProfesor(idProfesor) {
         });
         
         if (response.ok) {
-          const mensaje = password ? 'Usuario y contraseña actualizados correctamente' : 'Usuario actualizado correctamente';
-          Swal.fire('¡Actualizado!', mensaje, 'success');
+          const data = await response.json();
+          let mensaje = password ? 'Usuario y contrasena actualizados correctamente' : 'Usuario actualizado correctamente';
+          if (data.emailEnviado) {
+            mensaje += '. Se ha enviado un email con las credenciales.';
+          }
+          Swal.fire('Actualizado!', mensaje, 'success');
         } else {
           const data = await response.json();
           Swal.fire('Error', data.message || 'Error al actualizar credenciales', 'error');
@@ -7412,9 +7436,9 @@ async function abrirModalCredencialesAlumno(idAlumno) {
                    style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 14px; color: #9ca3af;">
           </div>
           
-          <div style="margin-bottom: 8px;">
+          <div style="margin-bottom: 16px;">
             <label style="display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px;">
-              Contraseña <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
+              Contrasena <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
             </label>
             <div style="position: relative;">
               <input type="text" id="passwordAlumno" value="${passwordActual}"
@@ -7426,8 +7450,21 @@ async function abrirModalCredencialesAlumno(idAlumno) {
               </button>
             </div>
             <p style="font-size: 11px; color: #6b7280; margin-top: 4px;">
-              Dejá vacío para mantener la contraseña actual
+              Deja vacio para mantener la contrasena actual
             </p>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 14px 16px; border-radius: 10px; border: 1px solid #86efac; margin-top: 16px;">
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin: 0;">
+              <input type="checkbox" id="enviarEmailAlumno" 
+                     style="width: 18px; height: 18px; accent-color: #22c55e; cursor: pointer;">
+              <div>
+                <span style="font-size: 13px; font-weight: 600; color: #166534;">Notificar al usuario por email</span>
+                <p style="margin: 4px 0 0 0; font-size: 11px; color: #15803d;">
+                  Se enviara un correo con las nuevas credenciales
+                </p>
+              </div>
+            </label>
           </div>
         </div>
       `,
@@ -7472,6 +7509,7 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       preConfirm: async () => {
         const usuario = document.getElementById('usuarioAlumno').value.trim();
         const password = document.getElementById('passwordAlumno').value.trim();
+        const enviarEmail = document.getElementById('enviarEmailAlumno').checked;
         
         const nuevoUsuario = (usuario === '' || usuario === '${usuarioActual}') ? '${usuarioActual}' : usuario;
         
@@ -7481,18 +7519,24 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           Swal.showValidationMessage('El usuario es obligatorio');
           return false;
         }
+
+        if (enviarEmail && !nuevoPassword) {
+          Swal.showValidationMessage('Debes ingresar una nueva contrasena para enviar el email');
+          return false;
+        }
         
-        return { usuario: nuevoUsuario, password: nuevoPassword };
+        return { usuario: nuevoUsuario, password: nuevoPassword, enviarEmail };
       }
     });
 
     if (result.isConfirmed && result.value) {
-      const { usuario, password } = result.value;
+      const { usuario, password, enviarEmail } = result.value;
 
       try {
         const bodyData = {
           id_persona: alumno.id_persona,
-          username: usuario
+          username: usuario,
+          enviarEmail: enviarEmail
         };
         
         if (password && password.trim().length > 0) {
@@ -7506,8 +7550,12 @@ async function abrirModalCredencialesAlumno(idAlumno) {
         });
         
         if (response.ok) {
-          const mensaje = password ? 'Usuario y contraseña actualizados correctamente' : 'Usuario actualizado correctamente';
-          Swal.fire('¡Actualizado!', mensaje, 'success');
+          const data = await response.json();
+          let mensaje = password ? 'Usuario y contrasena actualizados correctamente' : 'Usuario actualizado correctamente';
+          if (data.emailEnviado) {
+            mensaje += '. Se ha enviado un email con las credenciales.';
+          }
+          Swal.fire('Actualizado!', mensaje, 'success');
         } else {
           const data = await response.json();
           Swal.fire('Error', data.message || 'Error al actualizar credenciales', 'error');
@@ -8338,7 +8386,7 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
             
             <div style="margin-bottom: 15px;">
               <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #374151;">
-                Contraseña <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
+                Contrasena <span style="color: #9ca3af; font-weight: 400;">(actual: ${passwordActual || 'sin configurar'})</span>
               </label>
               <div style="position: relative;">
                 <input type="text" id="passwordDashboard" value="${passwordActual}"
@@ -8349,8 +8397,21 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
                   <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
                 </button>
               </div>
-              <small style="color: #6b7280; font-size: 12px;">Dejá vacío para mantener la contraseña actual</small>
+              <small style="color: #6b7280; font-size: 12px;">Deja vacio para mantener la contrasena actual</small>
             </div>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 14px 16px; border-radius: 10px; border: 1px solid #86efac;">
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin: 0;">
+              <input type="checkbox" id="enviarEmailAdmin" 
+                     style="width: 18px; height: 18px; accent-color: #22c55e; cursor: pointer;">
+              <div>
+                <span style="font-size: 13px; font-weight: 600; color: #166534;">Notificar al usuario por email</span>
+                <p style="margin: 4px 0 0 0; font-size: 11px; color: #15803d;">
+                  Se enviara un correo con las nuevas credenciales
+                </p>
+              </div>
+            </label>
           </div>
         </div>
       `,
@@ -8400,6 +8461,7 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
       preConfirm: () => {
         const usuarioDash = document.getElementById('usuarioDashboard').value.trim();
         const passwordDash = document.getElementById('passwordDashboard').value.trim();
+        const enviarEmail = document.getElementById('enviarEmailAdmin').checked;
 
         const usuarioActualAdmin = "${admin.usuario || ''}";
         const passwordActualAdmin = "${passwordActual}";
@@ -8413,15 +8475,21 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
           return false;
         }
 
+        if (enviarEmail && !nuevoPassword) {
+          Swal.showValidationMessage('Debes ingresar una nueva contrasena para enviar el email');
+          return false;
+        }
+
         return {
           usuarioDashboard: nuevoUsuario,
-          passwordDashboard: nuevoPassword
+          passwordDashboard: nuevoPassword,
+          enviarEmail: enviarEmail
         };
       }
     });
 
     if (formValues) {
-      const { usuarioDashboard, passwordDashboard } = formValues;
+      const { usuarioDashboard, passwordDashboard, enviarEmail } = formValues;
 
       try {
         const responseUsuario = await fetch(`${API_URL}/administradores/${idAdmin}/usuario`, {
@@ -8444,26 +8512,38 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
 
       if (passwordDashboard && passwordDashboard.length > 0) {
         try {
-          const responsePassword = await fetch(`${API_URL}/administradores/${idAdmin}/cambiar-password`, {
+          const responsePassword = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: passwordDashboard })
+            body: JSON.stringify({ 
+              id_persona: admin.id_persona,
+              username: usuarioDashboard,
+              password: passwordDashboard,
+              enviarEmail: enviarEmail
+            })
           });
 
           const dataPassword = await responsePassword.json();
           
           if (!responsePassword.ok) {
-            Swal.fire('Error', dataPassword.message || 'Error al actualizar contraseña', 'error');
+            Swal.fire('Error', dataPassword.message || 'Error al actualizar contrasena', 'error');
             return;
           }
+
+          let mensaje = 'Credenciales actualizadas correctamente';
+          if (dataPassword.emailEnviado) {
+            mensaje += '. Se ha enviado un email con las credenciales.';
+          }
+          Swal.fire('Exito!', mensaje, 'success');
+          return;
         } catch (error) {
           console.error(error);
-          Swal.fire('Error', 'No se pudo actualizar la contraseña', 'error');
+          Swal.fire('Error', 'No se pudo actualizar la contrasena', 'error');
           return;
         }
       }
 
-      Swal.fire('¡Éxito!', 'Credenciales actualizadas correctamente', 'success');
+      Swal.fire('Exito!', 'Credenciales actualizadas correctamente', 'success');
     }
   } catch (error) {
     console.error(error);
