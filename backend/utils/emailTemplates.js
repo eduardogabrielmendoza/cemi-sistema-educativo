@@ -323,9 +323,89 @@ export function encuestaAgradecimientoTemplate(nombre) {
   `;
 }
 
+/**
+ * Email 5: Bienvenida a nuevo alumno registrado
+ */
+export function bienvenidaAlumnoTemplate(datos) {
+  const { nombre, apellido, username, legajo } = datos;
+  
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      ${baseStyles}
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>¡Bienvenido/a a CEMI!</h1>
+        </div>
+        <div class="content">
+          <div style="text-align: center;">
+            <div class="success-icon">🎓</div>
+          </div>
+          <h2>¡Hola ${nombre} ${apellido}!</h2>
+          <p>Es un placer darte la bienvenida al <strong>Centro Educativo Multilingue Integral</strong>. Tu registro ha sido completado exitosamente y ya formas parte de nuestra comunidad educativa.</p>
+          
+          <div class="credential-box">
+            <h3>📋 Tus Datos de Acceso</h3>
+            <div class="credential-item">
+              <label>Usuario</label>
+              <span>${username}</span>
+            </div>
+            <div class="credential-item">
+              <label>Legajo</label>
+              <span>${legajo}</span>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <p style="margin: 0; font-size: 15px;">🔐 <strong>Importante:</strong> Tu contrasena es la que elegiste durante el registro. Guardala en un lugar seguro.</p>
+          </div>
+          
+          <h3>¿Que puedes hacer ahora?</h3>
+          <ul>
+            <li>📚 Explorar los cursos disponibles</li>
+            <li>📅 Consultar tus horarios de clases</li>
+            <li>📊 Ver tu progreso academico</li>
+            <li>💳 Gestionar tus pagos de cuotas</li>
+            <li>👤 Personalizar tu perfil</li>
+          </ul>
+          
+          <div style="background: linear-gradient(135deg, ${COLORS.primaryLight} 0%, #bbdefb 100%); padding: 25px; border-radius: 12px; margin: 25px 0; text-align: center; border: 1px solid rgba(25, 118, 210, 0.2);">
+            <p style="margin: 0; color: ${COLORS.primaryDark}; font-weight: 600; font-size: 16px;">🚀 ¡Comienza tu experiencia educativa!</p>
+            <p style="margin: 10px 0 0 0; color: ${COLORS.primary}; font-size: 14px;">Inicia sesion y descubre todo lo que CEMI tiene para ofrecerte.</p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 25px;">
+            <a href="${SITE_URL}/login.html" class="btn">Iniciar Sesion</a>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <div class="success-box">
+            <p>💡 <strong>Consejo:</strong> Guarda este correo como referencia. Contiene tus datos de acceso importantes.</p>
+          </div>
+          
+          <p style="margin-top: 20px;">¡Estamos emocionados de acompanarte en tu camino educativo!</p>
+          <p>Saludos cordiales,<br><strong style="color: ${COLORS.primary};">El equipo de CEMI</strong></p>
+        </div>
+        ${footerTemplate}
+      </div>
+    </body>
+    </html>
+  `;
+}
+
 export default {
   solicitudRecibidaTemplate,
   notificacionAdminTemplate,
   credencialesActualizadasTemplate,
-  encuestaAgradecimientoTemplate
+  encuestaAgradecimientoTemplate,
+  bienvenidaAlumnoTemplate
 };

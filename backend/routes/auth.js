@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
-import { solicitudRecibidaTemplate, notificacionAdminTemplate, credencialesActualizadasTemplate } from "../utils/emailTemplates.js";
+import { solicitudRecibidaTemplate, notificacionAdminTemplate, credencialesActualizadasTemplate, bienvenidaAlumnoTemplate } from "../utils/emailTemplates.js";
 
 dotenv.config();
 
@@ -343,6 +343,25 @@ router.post("/register",
 
         await connection.commit();
         connection.release();
+
+        // Enviar email de bienvenida al alumno (no bloqueante)
+        try {
+          const emailHtml = bienvenidaAlumnoTemplate({
+            nombre: nombre.trim(),
+            apellido: apellido.trim(),
+            username: username.trim(),
+            legajo: nuevoLegajo
+          });
+          await sendEmail(
+            email.trim(),
+            "¡Bienvenido/a a CEMI! - Tu registro fue exitoso",
+            emailHtml
+          );
+          console.log(`Email de bienvenida enviado a: ${email.trim()}`);
+        } catch (emailError) {
+          console.error("Error al enviar email de bienvenida:", emailError.message);
+          // No interrumpimos el flujo si falla el email
+        }
 
         return res.status(201).json({
           success: true,
