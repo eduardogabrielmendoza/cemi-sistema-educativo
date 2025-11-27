@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1976d2">
+  <title>¡Cuenta Confirmada! - CEMI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f8f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .confirmation-container {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+      overflow: hidden;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header-section {
+      background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.3; }
+    }
+
+    .logo-circle {
+      width: 100px;
+      height: 100px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-circle img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .header-section h1 {
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-section p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-section {
+      padding: 40px 35px;
+      text-align: center;
+    }
+
+    .success-animation {
+      margin-bottom: 25px;
+    }
+
+    .success-animation img {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+    }
+
+    .checkmark-circle {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #4caf50 0%, #43a047 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+      animation: scaleIn 0.5s ease-out 0.3s both;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .checkmark-circle svg {
+      width: 40px;
+      height: 40px;
+      color: #ffffff;
+    }
+
+    .content-section h2 {
+      color: #333;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .content-section .subtitle {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .info-card {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      border: 1px solid rgba(25, 118, 210, 0.2);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .info-card h3 {
+      color: #1565c0;
+      font-size: 18px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-card li {
+      color: #1976d2;
+      font-size: 14px;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(25, 118, 210, 0.1);
+    }
+
+    .info-card li:last-child {
+      border-bottom: none;
+    }
+
+    .info-card li svg {
+      width: 18px;
+      height: 18px;
+      color: #1976d2;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(25, 118, 210, 0.4);
+    }
+
+    .btn-primary svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-section {
+      background: #f8f9fa;
+      padding: 25px;
+      text-align: center;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .footer-section p {
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .footer-section a {
+      color: #1976d2;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-section a:hover {
+      text-decoration: underline;
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #1976d2;
+      animation: confetti-fall 3s ease-out forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .confirmation-container {
+        border-radius: 16px;
+      }
+
+      .header-section {
+        padding: 30px 20px;
+      }
+
+      .header-section h1 {
+        font-size: 22px;
+      }
+
+      .content-section {
+        padding: 30px 20px;
+      }
+
+      .content-section h2 {
+        font-size: 20px;
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 14px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="confetti" id="confetti"></div>
+
+  <div class="confirmation-container">
+    <div class="header-section">
+      <div class="logo-circle">
+        <img src="images/logo.png" alt="CEMI Logo">
+      </div>
+      <h1>¡Felicitaciones!</h1>
+      <p>Tu cuenta ha sido verificada exitosamente</p>
+    </div>
+
+    <div class="content-section">
+      <div class="success-animation">
+        <img src="images/32.gif" alt="Celebración">
+      </div>
+
+      <div class="checkmark-circle">
+        <i data-lucide="check"></i>
+      </div>
+
+      <h2>¡Tu cuenta está activa!</h2>
+      <p class="subtitle">
+        Ya sos parte oficial de la comunidad del <strong>Centro Educativo Multilingüe Integral</strong>. 
+        Ahora tenés acceso completo a todas las funcionalidades del sistema.
+      </p>
+
+      <div class="info-card">
+        <h3>
+          <i data-lucide="sparkles"></i>
+          ¿Qué podés hacer ahora?
+        </h3>
+        <ul>
+          <li>
+            <i data-lucide="book-open"></i>
+            <span>Explorar los cursos disponibles e inscribirte</span>
+          </li>
+          <li>
+            <i data-lucide="calendar"></i>
+            <span>Consultar tus horarios y calendario académico</span>
+          </li>
+          <li>
+            <i data-lucide="bar-chart-2"></i>
+            <span>Ver tu progreso y calificaciones</span>
+          </li>
+          <li>
+            <i data-lucide="credit-card"></i>
+            <span>Gestionar tus pagos y cuotas</span>
+          </li>
+          <li>
+            <i data-lucide="user"></i>
+            <span>Personalizar tu perfil con foto y datos</span>
+          </li>
+        </ul>
+      </div>
+
+      <a href="login.html" class="btn-primary">
+        <i data-lucide="log-in"></i>
+        Iniciar Sesión
+      </a>
+    </div>
+
+    <div class="footer-section">
+      <p>¿Tenés alguna pregunta?</p>
+      <p><a href="ayuda.html">Visitá nuestro Centro de Ayuda</a> | <a href="mailto:soporte@cemi.edu">Contactar Soporte</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Inicializar iconos Lucide
+    lucide.createIcons();
+
+    // Crear confetti de celebración
+    function createConfetti() {
+      const confettiContainer = document.getElementById('confetti');
+      const colors = ['#1976d2', '#4caf50', '#ff9800', '#e91e63', '#9c27b0', '#00bcd4'];
+      
+      for (let i = 0; i < 50; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * 2 + 's';
+        piece.style.width = (Math.random() * 10 + 5) + 'px';
+        piece.style.height = (Math.random() * 10 + 5) + 'px';
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confettiContainer.appendChild(piece);
+      }
+
+      // Limpiar confetti después de la animación
+      setTimeout(() => {
+        confettiContainer.innerHTML = '';
+      }, 5000);
+    }
+
+    // Ejecutar confetti al cargar
+    createConfetti();
+  </script>
+</body>
+</html>

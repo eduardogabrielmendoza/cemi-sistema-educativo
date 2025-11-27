@@ -420,10 +420,26 @@
         if (response.ok && data.success) {
           Swal.fire({
             icon: 'success',
-            title: '¡Cuenta creada!',
-            text: data.message,
-            confirmButtonColor: '#1e3c72',
-            confirmButtonText: 'Ir a iniciar sesión'
+            title: '¡Cuenta creada exitosamente!',
+            html: `
+              <div style="text-align: center; padding: 10px 0;">
+                <p style="font-size: 16px; color: #333; margin-bottom: 15px;">
+                  Para activar tu cuenta, te enviamos un correo de confirmación a:
+                </p>
+                <p style="font-size: 18px; font-weight: 600; color: #1976d2; background: #e3f2fd; padding: 12px 20px; border-radius: 8px; display: inline-block;">
+                  📧 ${email}
+                </p>
+                <p style="font-size: 14px; color: #666; margin-top: 20px;">
+                  Abrí el correo y hacé clic en el botón de confirmación para comenzar.
+                </p>
+                <p style="font-size: 12px; color: #999; margin-top: 15px; font-style: italic;">
+                  💡 Si no encontrás el correo en tu bandeja principal, revisá la carpeta de spam o correo no deseado.
+                </p>
+              </div>
+            `,
+            confirmButtonColor: '#1976d2',
+            confirmButtonText: 'Entendido',
+            allowOutsideClick: false
           }).then(() => {
             window.location.href = 'login.html';
           });

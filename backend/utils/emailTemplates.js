@@ -324,7 +324,7 @@ export function encuestaAgradecimientoTemplate(nombre) {
 }
 
 /**
- * Email 5: Bienvenida a nuevo alumno registrado
+ * Email 5: Bienvenida a nuevo alumno registrado - Confirmación de cuenta
  */
 export function bienvenidaAlumnoTemplate(datos) {
   const { nombre, apellido, username, legajo } = datos;
@@ -343,14 +343,20 @@ export function bienvenidaAlumnoTemplate(datos) {
           <div class="logo-container">
             <img src="${LOGO_URL}" alt="CEMI Logo">
           </div>
-          <h1>¡Bienvenido/a a CEMI!</h1>
+          <h1>¡Confirmá tu Cuenta!</h1>
         </div>
         <div class="content">
           <div style="text-align: center;">
-            <div class="success-icon">🎓</div>
+            <div class="success-icon">📧</div>
           </div>
           <h2>¡Hola ${nombre} ${apellido}!</h2>
-          <p>Es un placer darte la bienvenida al <strong>Centro Educativo Multilingue Integral</strong>. Tu registro ha sido completado exitosamente y ya formas parte de nuestra comunidad educativa.</p>
+          <p>¡Gracias por registrarte en el <strong>Centro Educativo Multilingue Integral</strong>! Estás a un solo paso de activar tu cuenta.</p>
+          
+          <div style="background: linear-gradient(135deg, ${COLORS.primaryLight} 0%, #bbdefb 100%); padding: 30px; border-radius: 16px; margin: 30px 0; text-align: center; border: 2px solid ${COLORS.primary};">
+            <p style="margin: 0 0 20px 0; color: ${COLORS.primaryDark}; font-weight: 600; font-size: 18px;">🎯 Solo falta un paso</p>
+            <p style="margin: 0 0 25px 0; color: ${COLORS.text}; font-size: 15px;">Hacé clic en el botón de abajo para confirmar tu cuenta y comenzar tu experiencia educativa.</p>
+            <a href="${SITE_URL}/cuenta-confirmada.html" class="btn" style="font-size: 18px; padding: 18px 50px;">✅ Confirmar mi Cuenta</a>
+          </div>
           
           <div class="credential-box">
             <h3>📋 Tus Datos de Acceso</h3>
@@ -365,34 +371,25 @@ export function bienvenidaAlumnoTemplate(datos) {
           </div>
           
           <div class="info-box">
-            <p style="margin: 0; font-size: 15px;">🔐 <strong>Importante:</strong> Tu contrasena es la que elegiste durante el registro. Guardala en un lugar seguro.</p>
+            <p style="margin: 0; font-size: 15px;">🔐 <strong>Recordatorio:</strong> Tu contrasena es la que elegiste durante el registro. Guardala en un lugar seguro.</p>
           </div>
           
-          <h3>¿Que puedes hacer ahora?</h3>
+          <h3>Una vez confirmada tu cuenta, podras:</h3>
           <ul>
-            <li>📚 Explorar los cursos disponibles</li>
-            <li>📅 Consultar tus horarios de clases</li>
-            <li>📊 Ver tu progreso academico</li>
-            <li>💳 Gestionar tus pagos de cuotas</li>
-            <li>👤 Personalizar tu perfil</li>
+            <li>📚 Explorar los cursos disponibles e inscribirte</li>
+            <li>📅 Consultar tus horarios y calendario academico</li>
+            <li>📊 Ver tu progreso y calificaciones</li>
+            <li>💳 Gestionar tus pagos de cuotas online</li>
+            <li>👤 Personalizar tu perfil con foto</li>
           </ul>
-          
-          <div style="background: linear-gradient(135deg, ${COLORS.primaryLight} 0%, #bbdefb 100%); padding: 25px; border-radius: 12px; margin: 25px 0; text-align: center; border: 1px solid rgba(25, 118, 210, 0.2);">
-            <p style="margin: 0; color: ${COLORS.primaryDark}; font-weight: 600; font-size: 16px;">🚀 ¡Comienza tu experiencia educativa!</p>
-            <p style="margin: 10px 0 0 0; color: ${COLORS.primary}; font-size: 14px;">Inicia sesion y descubre todo lo que CEMI tiene para ofrecerte.</p>
-          </div>
-          
-          <div style="text-align: center; margin-top: 25px;">
-            <a href="${SITE_URL}/login.html" class="btn">Iniciar Sesion</a>
-          </div>
           
           <div class="divider"></div>
           
-          <div class="success-box">
-            <p>💡 <strong>Consejo:</strong> Guarda este correo como referencia. Contiene tus datos de acceso importantes.</p>
+          <div class="warning" style="background: #fff8e1; border-left-color: #ffc107;">
+            <p style="color: #856404;">⚠️ <strong>Importante:</strong> Si no creaste esta cuenta, podes ignorar este mensaje de forma segura.</p>
           </div>
           
-          <p style="margin-top: 20px;">¡Estamos emocionados de acompanarte en tu camino educativo!</p>
+          <p style="margin-top: 25px;">¡Te esperamos dentro!</p>
           <p>Saludos cordiales,<br><strong style="color: ${COLORS.primary};">El equipo de CEMI</strong></p>
         </div>
         ${footerTemplate}
