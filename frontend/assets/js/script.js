@@ -2277,7 +2277,7 @@ function renderStatusSection() {
       .status-form-group textarea,
       .status-form-group select {
         width: 100%;
-        padding: 12px 14px;
+        padding: 12px;
         border: 2px solid #e2e8f0;
         border-radius: 12px;
         font-size: 0.95rem;
