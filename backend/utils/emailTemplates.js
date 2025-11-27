@@ -33,8 +33,8 @@ const baseStyles = `
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: ${COLORS.background}; }
     .container { max-width: 600px; margin: 0 auto; background: ${COLORS.white}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
     .header { background: linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.primaryDark} 100%); padding: 35px 30px; text-align: center; }
-    .logo-container { background: ${COLORS.white}; width: 90px; height: 90px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-    .logo-container img { max-width: 60px; max-height: 60px; }
+    .logo-container { background: ${COLORS.white}; width: 100px; height: 100px; border-radius: 50%; display: inline-block; text-align: center; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); padding: 15px; box-sizing: border-box; }
+    .logo-container img { width: 70px; height: 70px; object-fit: contain; }
     .header h1 { color: ${COLORS.white}; margin: 0; font-size: 22px; font-weight: 600; }
     .content { padding: 40px 30px; }
     .content h2 { color: ${COLORS.text}; margin-bottom: 20px; font-size: 20px; }
