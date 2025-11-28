@@ -544,65 +544,227 @@ html {
 
 
 @media (max-width: 768px) {
+  .selector-body {
+    padding: 20px 16px;
+    align-items: flex-start;
+    padding-top: 30px;
+  }
+
+  .selector-wrapper {
+    max-width: 100%;
+  }
+
   .selector-header h1 {
-    font-size: 32px;
+    font-size: 28px;
+  }
+
+  .selector-title {
+    margin-bottom: 24px;
   }
 
   .selector-title h2 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .selector-title p {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .selector-cards {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
   }
 
   .selector-card {
-    min-height: 420px;
+    min-height: 380px;
+  }
+
+  .card-content {
+    padding: 32px 24px;
   }
 
   .card-content h3 {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .card-content > p {
     font-size: 14px;
+    margin-bottom: 20px;
   }
 
   .card-icon {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
   }
 
   .card-icon svg {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .card-features {
+    margin-bottom: 24px;
+  }
+
+  .card-features li {
+    margin-bottom: 12px;
+    font-size: 13px;
+  }
+
+  .card-features li svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .card-action {
+    padding: 14px 22px;
+    font-size: 15px;
+  }
+
+  .btn-back {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .back-button {
+    top: 20px;
+    left: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .back-button i {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Ocultar iconos flotantes en móvil */
+  .selector-background .floating-icon {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
   .selector-body {
-    padding: 20px 16px;
+    padding: 16px 12px;
+    padding-top: 24px;
   }
 
   .selector-header {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+  }
+
+  .selector-header h1 {
+    font-size: 24px;
   }
 
   .selector-logo {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
   }
 
   .selector-title {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+  }
+
+  .selector-title h2 {
+    font-size: 20px;
+  }
+
+  .selector-title p {
+    font-size: 14px;
+  }
+
+  .selector-cards {
+    gap: 16px;
+  }
+
+  .selector-card {
+    min-height: 340px;
+    border-radius: 18px;
   }
 
   .card-content {
-    padding: 32px 24px;
+    padding: 24px 20px;
+  }
+
+  .card-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .card-content > p {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .card-features {
+    margin-bottom: 20px;
+  }
+
+  .card-features li {
+    margin-bottom: 10px;
+    font-size: 12px;
+    gap: 10px;
+  }
+
+  .card-features li svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .card-action {
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .selector-footer {
+    margin-top: 20px;
+  }
+
+  .btn-back {
+    padding: 10px 20px;
+    font-size: 13px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .back-button {
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .back-button i {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .selector-title h2 {
+    font-size: 18px;
+  }
+
+  .card-content h3 {
+    font-size: 18px;
+  }
+
+  .selector-card {
+    min-height: 320px;
   }
 }
