@@ -536,3 +536,82 @@
     display: none;
   }
 }
+
+/* ===== MOBILE MEDIUM - iPhone XR/11/12/13/14 (414-430px) ===== */
+@media (max-width: 430px) {
+  /* === BASE === */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* === MIS CURSOS MINI === */
+  .mis-cursos-actuales-mini {
+    padding: 0;
+    margin: 0 0 20px 0;
+  }
+
+  .mis-cursos-actuales-mini h3 {
+    font-size: 1.05rem;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .mis-cursos-mini-grid {
+    gap: 10px;
+  }
+
+  .curso-mini-badge {
+    padding: 14px 16px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+
+  .mini-badge-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+  }
+
+  .mini-badge-icon i {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mini-badge-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mini-badge-content h4 {
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .mini-badge-meta {
+    gap: 8px;
+    font-size: 0.78rem;
+  }
+
+  .mini-idioma,
+  .mini-nivel {
+    padding: 3px 8px;
+    font-size: 0.72rem;
+  }
+
+  .mini-horario {
+    font-size: 0.75rem;
+  }
+
+  .mini-horario i {
+    width: 13px;
+    height: 13px;
+  }
+}

@@ -1146,6 +1146,277 @@ body {
   }
 }
 
+/* ===== MOBILE MEDIUM - iPhone XR/11/12/13/14 (414-430px) ===== */
+@media (max-width: 430px) {
+  /* === BASE === */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  /* === CONTAINER === */
+  .classroom-login-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    flex-direction: column;
+  }
+
+  /* === LEFT PANEL === */
+  .login-left-panel {
+    padding: 28px 20px;
+    min-height: auto;
+    flex: 0 0 auto;
+  }
+
+  .brand-logo {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 14px;
+    border-radius: 14px;
+  }
+
+  .brand-logo i,
+  .brand-logo svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brand-section h1 {
+    font-size: 1.55rem;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .brand-subtitle {
+    font-size: 0.9rem;
+    text-align: center;
+    max-width: 280px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+
+  /* Ocultar elementos decorativos */
+  .decorative-elements,
+  .particles-background,
+  .features-section {
+    display: none !important;
+  }
+
+  /* === RIGHT PANEL === */
+  .login-right-panel {
+    padding: 30px 20px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .login-form-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* === WELCOME HEADER === */
+  .welcome-header {
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .welcome-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .welcome-header p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* === FORM === */
+  .login-form {
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    font-size: 0.88rem;
+    margin-bottom: 8px;
+    gap: 6px;
+  }
+
+  .form-group label i {
+    width: 15px;
+    height: 15px;
+  }
+
+  .input-wrapper {
+    width: 100%;
+  }
+
+  .input-wrapper input {
+    width: 100%;
+    padding: 14px 48px 14px 42px;
+    font-size: 16px;
+    border-radius: 12px;
+    min-height: 50px;
+  }
+
+  .input-icon {
+    left: 14px;
+  }
+
+  .input-icon i,
+  .input-icon svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .toggle-password {
+    right: 12px;
+    padding: 8px;
+  }
+
+  .toggle-password i,
+  .toggle-password svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* === FORM OPTIONS === */
+  .form-options {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 8px;
+  }
+
+  .checkbox-container {
+    font-size: 0.82rem;
+    gap: 8px;
+  }
+
+  .checkbox-container input {
+    width: 18px;
+    height: 18px;
+  }
+
+  .forgot-password {
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  /* === LOGIN MESSAGE === */
+  .login-message {
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  /* === BUTTON === */
+  .btn-login {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 0.98rem;
+    border-radius: 12px;
+    gap: 10px;
+    min-height: 52px;
+  }
+
+  .btn-login .btn-text {
+    font-size: 0.95rem;
+  }
+
+  .btn-icon i {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* === DIVIDER === */
+  .divider {
+    margin: 26px 0;
+  }
+
+  .divider span {
+    font-size: 0.82rem;
+    padding: 0 14px;
+  }
+
+  /* === ALTERNATIVE ACTIONS === */
+  .alternative-actions {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .btn-secondary {
+    padding: 13px 16px;
+    font-size: 0.88rem;
+    border-radius: 10px;
+    min-height: 48px;
+    gap: 8px;
+  }
+
+  .btn-secondary i {
+    width: 17px;
+    height: 17px;
+  }
+
+  /* === FOOTER === */
+  .login-footer {
+    padding-top: 22px;
+    text-align: center;
+  }
+
+  .login-footer p {
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+  }
+
+  .login-footer a {
+    font-size: 0.88rem;
+  }
+
+  .footer-links {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+  }
+
+  .footer-links span {
+    display: none;
+  }
+
+  /* === LOADER === */
+  .loader-overlay {
+    padding: 20px;
+  }
+
+  .loader-text {
+    font-size: 0.95rem;
+  }
+}
+
 @media (max-width: 360px) {
   .login-left-panel {
     padding: 20px 16px;

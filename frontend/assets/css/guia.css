@@ -920,6 +920,319 @@ body {
   }
 }
 
+/* ===== MOBILE MEDIUM - iPhone XR/11/12/13/14 (414-430px) ===== */
+@media (max-width: 430px) {
+  /* === BASE === */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* === HERO === */
+  .hero-guia {
+    padding: 85px 18px 50px;
+    min-height: auto;
+  }
+
+  .hero-badge {
+    padding: 8px 18px;
+    font-size: 0.78rem;
+    margin-bottom: 18px;
+    border-radius: 20px;
+  }
+
+  .hero-title {
+    font-size: 1.65rem;
+    line-height: 1.3;
+    margin-bottom: 14px;
+    max-width: 100%;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+    line-height: 1.55;
+    max-width: 100%;
+    padding: 0 8px;
+  }
+
+  .back-home {
+    padding: 12px 24px;
+    font-size: 0.92rem;
+    border-radius: 25px;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .back-home svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Ocultar iconos flotantes */
+  .floating-icon {
+    display: none !important;
+  }
+
+  /* === ROLE SELECTOR === */
+  .role-selector {
+    padding: 45px 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    padding: 0 18px;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+
+  .section-subtitle {
+    font-size: 0.92rem;
+    padding: 0 18px;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .role-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 18px;
+  }
+
+  .role-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+
+  .role-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .role-card-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .role-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .role-card > p {
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .role-features {
+    margin-bottom: 16px;
+  }
+
+  .role-features li {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    gap: 10px;
+  }
+
+  .role-features svg {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+  }
+
+  .role-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .role-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* === GUIDE SECTION === */
+  .guide-section {
+    padding: 45px 0;
+  }
+
+  .guide-header {
+    margin-bottom: 45px;
+    padding: 0 18px;
+  }
+
+  .guide-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+  }
+
+  .guide-icon svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .guide-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .guide-header p {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    padding: 0;
+  }
+
+  /* === TIMELINE === */
+  .timeline {
+    padding: 28px 18px;
+    max-width: 100%;
+  }
+
+  .timeline::before {
+    left: 18px;
+    width: 3px;
+  }
+
+  .timeline-item {
+    padding-left: 56px;
+    margin-bottom: 36px;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-marker {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    left: -5px;
+  }
+
+  .marker-number {
+    font-size: 1.15rem;
+  }
+
+  .timeline-content {
+    padding: 20px 18px;
+    border-radius: 14px;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.08rem;
+    margin-bottom: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .timeline-content h3 svg {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+  }
+
+  .timeline-content > p {
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+
+  /* === STEP DETAILS === */
+  .step-details {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .detail-card {
+    padding: 16px 14px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+
+  .detail-card svg {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+  }
+
+  .detail-card h4 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .detail-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* === STEP TIP === */
+  .step-tip {
+    padding: 16px 14px;
+    gap: 12px;
+    border-radius: 12px;
+    margin-top: 18px;
+  }
+
+  .step-tip svg {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+  }
+
+  .step-tip p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  /* === GUIDE CTA === */
+  .guide-cta {
+    margin: 45px 18px 0;
+    padding: 32px 22px;
+    border-radius: 18px;
+  }
+
+  .guide-cta h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .guide-cta p {
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+
+  .cta-button {
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    border-radius: 30px;
+    width: 100%;
+    justify-content: center;
+    min-height: 52px;
+    gap: 10px;
+  }
+
+  .cta-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
 @media (max-width: 360px) {
   .hero-title {
     font-size: 1.6rem;
