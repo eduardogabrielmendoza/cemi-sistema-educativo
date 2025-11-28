@@ -641,6 +641,11 @@ body {
 
 
 @media (max-width: 768px) {
+  .hero-guia {
+    min-height: auto;
+    padding: 100px 20px 60px;
+  }
+
   .hero-title {
     font-size: 2.5rem;
   }
@@ -649,8 +654,32 @@ body {
     font-size: 1rem;
   }
 
+  .role-selector {
+    padding: 60px 0;
+  }
+
   .role-cards {
     grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .role-card {
+    padding: 30px;
+  }
+
+  .role-card-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .role-card-icon svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .role-card h3 {
+    font-size: 1.5rem;
   }
 
   .timeline::before {
@@ -659,6 +688,7 @@ body {
 
   .timeline-item {
     padding-left: 80px;
+    margin-bottom: 50px;
   }
 
   .timeline-marker {
@@ -672,50 +702,271 @@ body {
 
   .step-details {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .detail-card {
+    padding: 16px;
   }
 
   .section-title {
     font-size: 2rem;
+    padding: 0 16px;
+  }
+
+  .section-subtitle {
+    padding: 0 16px;
+    margin-bottom: 40px;
+  }
+
+  .guide-section {
+    padding: 60px 0;
   }
 
   .guide-header h2 {
     font-size: 2rem;
   }
 
+  .guide-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .guide-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .timeline-content {
+    padding: 24px;
+  }
+
   .timeline-content h3 {
     font-size: 1.2rem;
+  }
+
+  .step-tip {
+    padding: 16px;
+  }
+
+  /* Ocultar iconos flotantes en móvil */
+  .floating-icon {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
+  .hero-guia {
+    padding: 90px 16px 50px;
+  }
+
   .hero-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.3;
   }
 
-  .floating-icon {
-    width: 60px;
-    height: 60px;
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 30px;
   }
 
-  .floating-icon svg {
-    width: 30px;
-    height: 30px;
+  .hero-badge {
+    padding: 8px 16px;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .back-home {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .role-selector {
+    padding: 50px 0;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .role-cards {
+    gap: 20px;
   }
 
   .role-card {
-    padding: 25px;
+    padding: 24px;
+  }
+
+  .role-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .role-card > p {
+    font-size: 0.9rem;
+  }
+
+  .role-features li {
+    font-size: 0.85rem;
+  }
+
+  .timeline {
+    padding: 30px 0;
+  }
+
+  .timeline::before {
+    left: 16px;
+    width: 3px;
+  }
+
+  .timeline-item {
+    padding-left: 60px;
+    margin-bottom: 40px;
+  }
+
+  .timeline-marker {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .marker-number {
+    font-size: 1.2rem;
   }
 
   .timeline-content {
-    padding: 25px;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.1rem;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .timeline-content h3 svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .timeline-content > p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .detail-card {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .detail-card h4 {
+    font-size: 0.95rem;
+  }
+
+  .detail-card p {
+    font-size: 0.85rem;
+  }
+
+  .step-tip {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .step-tip p {
+    font-size: 0.85rem;
+  }
+
+  .guide-section {
+    padding: 50px 0;
+  }
+
+  .guide-header {
+    margin-bottom: 50px;
+  }
+
+  .guide-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .guide-header p {
+    font-size: 0.95rem;
+    padding: 0 16px;
   }
 
   .guide-cta {
-    padding: 35px 25px;
+    margin: 50px 16px 0;
+    padding: 30px 20px;
+    border-radius: 18px;
+  }
+
+  .guide-cta h3 {
+    font-size: 1.5rem;
+  }
+
+  .guide-cta p {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
   }
 
   .cta-button {
-    padding: 14px 24px;
+    padding: 12px 22px;
+    font-size: 0.95rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .section-title,
+  .guide-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .role-card {
+    padding: 20px;
+  }
+
+  .timeline-item {
+    padding-left: 50px;
+  }
+
+  .timeline-marker {
+    width: 40px;
+    height: 40px;
+  }
+
+  .marker-number {
     font-size: 1rem;
+  }
+
+  .timeline-content {
+    padding: 16px;
+  }
+}
+
+/* Mejoras táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .role-card,
+  .back-home,
+  .cta-button {
+    min-height: 44px;
+  }
+
+  .role-card:hover,
+  .timeline-item:hover .timeline-content,
+  .detail-card:hover {
+    transform: none;
+  }
+
+  .role-card:active {
+    transform: scale(0.98);
   }
 }
