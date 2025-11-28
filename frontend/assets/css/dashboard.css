@@ -8138,4 +8138,243 @@
   }
 }
 
+/* ===== DASHBOARD RESPONSIVE - MEJORAS ADICIONALES ===== */
+
+/* Sidebar móvil mejorado */
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: none;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  /* Mejoras para el header del dashboard */
+  .dashboard-header {
+    margin: 0 0 20px 0;
+    border-radius: 12px;
+    position: relative;
+  }
+
+  /* Tabs responsive */
+  .tabs-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tabs-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Grid de stats mejorado */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Cards de curso más compactas */
+  .curso-card,
+  .alumno-card,
+  .profesor-card {
+    border-radius: 12px;
+  }
+
+  /* Botones de acción táctiles */
+  .btn-icon-primary,
+  .btn-icon-edit,
+  .btn-icon-danger,
+  .btn-icon-warning,
+  .btn-icon-success {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  /* Dropdown/menu items táctiles */
+  .dropdown-item,
+  .menu-item {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* Search box responsive */
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+
+  /* Actions bar responsive */
+  .actions-bar,
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* Cuotas grid móvil */
+  .cuotas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  /* Panel lateral slide-in mejorado */
+  .curso-panel,
+  .alumno-panel,
+  .profesor-panel,
+  .pago-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    z-index: 1000;
+    border-radius: 0;
+    animation: slideInRight 0.3s ease;
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .panel-close-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1001;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Stats grid en columna única */
+  .stats-grid,
+  .pagos-stats-grid,
+  .alumno-pagos-stats {
+    grid-template-columns: 1fr;
+  }
+
+  /* Formularios full width */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px !important; /* Previene zoom en iOS */
+  }
+
+  /* Cuotas en columna única */
+  .cuotas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Meses grid compacto */
+  .meses-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Modal full screen */
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+  }
+
+  /* Sidebar más estrecha */
+  .sidebar {
+    width: 280px;
+    max-width: 85vw;
+  }
+
+  /* Toggle botón más visible */
+  .mobile-menu-toggle {
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+}
+
+@media (max-width: 360px) {
+  .dashboard-main {
+    padding: 65px 8px 12px 8px;
+  }
+
+  .stat-card,
+  .stat-pago-card {
+    padding: 10px;
+  }
+
+  .stat-card h3 {
+    font-size: 18px;
+  }
+
+  .meses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .curso-card-title h3,
+  .alumno-card h3,
+  .profesor-card h3 {
+    font-size: 14px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Mejoras táctiles para dashboards */
+@media (hover: none) and (pointer: coarse) {
+  .sidebar-menu button {
+    min-height: 48px;
+  }
+
+  .tab-btn {
+    min-height: 44px;
+  }
+
+  .btn-icon-primary,
+  .btn-icon-edit,
+  .btn-icon-danger {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Desactivar hover effects en touch */
+  .curso-card:hover,
+  .alumno-card:hover,
+  .stat-card:hover {
+    transform: none;
+  }
+
+  /* Mejor scroll en tablas */
+  .table-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 
