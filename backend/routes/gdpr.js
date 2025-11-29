@@ -41,7 +41,7 @@ router.post("/solicitar-exportacion",
           p.id_persona,
           p.nombre,
           p.apellido,
-          p.email,
+          p.mail,
           p.dni,
           u.id_usuario,
           u.username,
@@ -49,7 +49,7 @@ router.post("/solicitar-exportacion",
          FROM personas p
          LEFT JOIN usuarios u ON p.id_persona = u.id_persona
          LEFT JOIN perfiles perf ON u.id_perfil = perf.id_perfil
-         WHERE LOWER(TRIM(p.email)) = LOWER(TRIM(?))`,
+         WHERE LOWER(TRIM(p.mail)) = LOWER(TRIM(?))`,
         [email]
       );
       
@@ -83,7 +83,7 @@ router.post("/solicitar-exportacion",
       const datosEmail = {
         nombre: persona.nombre,
         apellido: persona.apellido,
-        email: persona.email,
+        email: persona.mail,
         dni: persona.dni,
         legajo: datosAlumno?.legajo,
         tipoSolicitud: 'exportar',
@@ -95,7 +95,7 @@ router.post("/solicitar-exportacion",
 
       // Enviar email de confirmación al usuario
       const emailUsuario = await sendEmail(
-        persona.email,
+        persona.mail,
         `Solicitud GDPR Recibida - Ref: #${referencia}`,
         gdprSolicitudUsuarioTemplate(datosEmail)
       );
@@ -112,7 +112,7 @@ router.post("/solicitar-exportacion",
         referencia,
         tipo: 'exportar',
         usuario: persona.username,
-        email: persona.email,
+        email: persona.mail,
         formato,
         emailUsuarioEnviado: emailUsuario.success,
         emailAdminEnviado: emailAdmin.success
@@ -165,13 +165,13 @@ router.post("/solicitar-eliminacion",
       // Buscar al usuario
       const [personas] = await pool.query(
         `SELECT 
-          p.id_persona, p.nombre, p.apellido, p.email, p.dni,
+          p.id_persona, p.nombre, p.apellido, p.mail, p.dni,
           u.id_usuario, u.username,
           perf.nombre_perfil as rol
          FROM personas p
          LEFT JOIN usuarios u ON p.id_persona = u.id_persona
          LEFT JOIN perfiles perf ON u.id_perfil = perf.id_perfil
-         WHERE LOWER(p.email) = LOWER(?)`,
+         WHERE LOWER(p.mail) = LOWER(?)`,
         [email]
       );
 
@@ -198,7 +198,7 @@ router.post("/solicitar-eliminacion",
       const datosEmail = {
         nombre: persona.nombre,
         apellido: persona.apellido,
-        email: persona.email,
+        email: persona.mail,
         dni: persona.dni,
         legajo: datosAlumno?.legajo,
         tipoSolicitud: 'eliminar',
@@ -208,7 +208,7 @@ router.post("/solicitar-eliminacion",
       };
 
       // Enviar emails
-      await sendEmail(persona.email, `Solicitud de Eliminación Recibida - Ref: #${referencia}`, gdprSolicitudUsuarioTemplate(datosEmail));
+      await sendEmail(persona.mail, `Solicitud de Eliminación Recibida - Ref: #${referencia}`, gdprSolicitudUsuarioTemplate(datosEmail));
       await sendEmail(ADMIN_EMAIL, `🗑️ Solicitud GDPR: Eliminación de Cuenta - #${referencia}`, gdprNotificacionAdminTemplate(datosEmail));
 
       res.json({
