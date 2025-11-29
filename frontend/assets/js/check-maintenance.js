@@ -14,6 +14,8 @@
   // Obtener la página actual
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
+  console.log('[check-maintenance] Página actual:', currentPage);
+  
   // Páginas que SIEMPRE deben ser accesibles (no redirigir ni mostrar banner)
   const fullyExcludedPages = [
     'login-admin.html',
@@ -27,42 +29,38 @@
     'classroom-login.html'
   ];
 
-  // Páginas que muestran BANNER pero no bloquean (dashboards, classroom ya logueado)
-  const bannerOnlyPages = [
-    'dashboard_alumno.html',
-    'dashboard_profesor.html',
-    'classroom.html',
-    'index.html',
-    'ayuda.html'
-  ];
-
   // Si es una página completamente excluida, no hacer nada
   if (fullyExcludedPages.includes(currentPage)) {
+    console.log('[check-maintenance] Página excluida, no se verifica');
     return;
   }
 
   try {
-    // Obtener API_URL del config (debe cargarse antes que este script)
-    const apiUrl = typeof API_URL !== 'undefined' ? API_URL : '';
+    // Obtener BASE_URL del config (debe cargarse antes que este script)
+    const baseUrl = typeof BASE_URL !== 'undefined' ? BASE_URL : '';
     
-    const response = await fetch(`${apiUrl}/api/status`, {
+    console.log('[check-maintenance] Verificando estado en:', `${baseUrl}/api/status`);
+    
+    const response = await fetch(`${baseUrl}/api/status`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      // Timeout de 5 segundos para no bloquear la carga
       signal: AbortSignal.timeout(5000)
     });
 
     if (!response.ok) {
-      // Si hay error en la API, permitir acceso (fail-open)
-      console.warn('No se pudo verificar el estado del sistema');
+      console.warn('[check-maintenance] Error en respuesta:', response.status);
       return;
     }
 
     const data = await response.json();
     const status = data.global_status;
+    
+    console.log('[check-maintenance] Estado del sistema:', status);
+    console.log('[check-maintenance] Es página bloqueable:', blockablePages.includes(currentPage));
 
     // Si el estado es operacional, no hacer nada
     if (status === 'operational') {
+      console.log('[check-maintenance] Sistema operacional, acceso permitido');
       return;
     }
 
@@ -71,21 +69,28 @@
 
     // Si es una página de login/registro Y el estado es bloqueante
     if (blockablePages.includes(currentPage) && blockedStatuses.includes(status)) {
-      // Redirigir a página de mantenimiento
-      const returnUrl = encodeURIComponent(window.location.href);
-      window.location.replace(`mantenimiento.html?redirect=${currentPage}&from=${returnUrl}`);
+      console.log('[check-maintenance] BLOQUEANDO ACCESO - Redirigiendo a mantenimiento.html');
+      // Redirigir a página de mantenimiento INMEDIATAMENTE
+      window.location.href = 'mantenimiento.html';
+      // Prevenir que el resto de la página cargue
+      document.documentElement.innerHTML = '<h1 style="text-align:center;margin-top:50px;">Redirigiendo...</h1>';
       return;
     }
 
     // Para estado degraded O para páginas ya logueadas en outage/maintenance
     // Mostrar banner de advertencia (sin bloquear)
     if (status === 'degraded' || blockedStatuses.includes(status)) {
-      showStatusBanner(status, data.active_incident);
+      console.log('[check-maintenance] Mostrando banner de advertencia');
+      // Esperar a que el DOM esté listo para insertar el banner
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => showStatusBanner(status, data.active_incident));
+      } else {
+        showStatusBanner(status, data.active_incident);
+      }
     }
 
   } catch (error) {
-    // En caso de error de red o timeout, permitir acceso (fail-open)
-    console.warn('Error verificando estado del sistema:', error.message);
+    console.warn('[check-maintenance] Error:', error.message);
   }
 })();
 
@@ -95,6 +100,13 @@
 function showStatusBanner(status, incident) {
   // Evitar duplicados
   if (document.getElementById('system-status-banner')) {
+    return;
+  }
+
+  // Asegurarse de que el body existe
+  if (!document.body) {
+    console.warn('[check-maintenance] Body no existe aún, esperando...');
+    setTimeout(() => showStatusBanner(status, incident), 100);
     return;
   }
 
