@@ -496,7 +496,7 @@ export function gdprNotificacionAdminTemplate(datos) {
     </head>
     <body>
       <div class="container">
-        <div class="header" style="background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);">
+        <div class="header">
           <div class="logo-container">
             <img src="${LOGO_URL}" alt="CEMI Logo">
           </div>
@@ -506,14 +506,14 @@ export function gdprNotificacionAdminTemplate(datos) {
           <h2>Acción Requerida: ${tipoTexto[tipoSolicitud] || tipoSolicitud}</h2>
           <p>Se ha recibido una nueva solicitud de derechos GDPR que requiere tu atención.</p>
           
-          <div class="info-box" style="border-left-color: #7b1fa2; background: #f3e5f5;">
+          <div class="info-box">
             <p><strong>🔢 Referencia:</strong> #${referencia}</p>
             <p><strong>📝 Tipo:</strong> ${tipoTexto[tipoSolicitud] || tipoSolicitud}</p>
             <p><strong>📅 Fecha/Hora:</strong> ${new Date().toLocaleString('es-AR', { dateStyle: 'full', timeStyle: 'medium' })}</p>
           </div>
           
-          <div class="credential-box" style="border-color: #7b1fa2; background: #faf5ff;">
-            <h3 style="color: #7b1fa2;">👤 Datos del Solicitante</h3>
+          <div class="credential-box">
+            <h3>👤 Datos del Solicitante</h3>
             <table style="width: 100%; text-align: left; margin-top: 15px;">
               <tr><td style="padding: 8px; color: #666;"><strong>Nombre:</strong></td><td style="padding: 8px;">${nombre} ${apellido}</td></tr>
               <tr><td style="padding: 8px; color: #666;"><strong>Email:</strong></td><td style="padding: 8px;">${email}</td></tr>
@@ -541,7 +541,145 @@ export function gdprNotificacionAdminTemplate(datos) {
           </div>
           
           <div style="text-align: center; margin-top: 30px;">
-            <a href="${SITE_URL}/login-admin.html" class="btn" style="background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);">Ir al Panel de Admin</a>
+            <a href="${SITE_URL}/login-admin.html" class="btn">Ir al Panel de Admin</a>
+          </div>
+        </div>
+        ${footerTemplate}
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+/**
+ * Email 8: Confirmación al usuario de solicitud de códigos de recuperación 2FA
+ */
+export function codigosRecuperacionUsuarioTemplate(datos) {
+  const { nombre, apellido, email, referencia } = datos;
+  
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      ${baseStyles}
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>🔑 Solicitud de Códigos Recibida</h1>
+        </div>
+        <div class="content">
+          <div style="text-align: center;">
+            <div class="success-icon">🔐</div>
+          </div>
+          <h2>Hola ${nombre} ${apellido},</h2>
+          <p>Hemos recibido tu solicitud para <strong>generar/regenerar códigos de recuperación</strong> para la verificación en dos pasos (2FA).</p>
+          
+          <div class="info-box">
+            <p><strong>📧 Email asociado:</strong> ${email}</p>
+            <p><strong>📝 Tipo de solicitud:</strong> Códigos de Recuperación 2FA</p>
+            <p><strong>🔢 Número de referencia:</strong> #${referencia}</p>
+            <p><strong>📅 Fecha de solicitud:</strong> ${new Date().toLocaleString('es-AR', { dateStyle: 'full', timeStyle: 'short' })}</p>
+          </div>
+          
+          <div class="success-box">
+            <p>✅ <strong>¿Qué sigue ahora?</strong> Un administrador verificará tu identidad y generará tus nuevos códigos de recuperación. Los recibirás por este mismo correo.</p>
+          </div>
+          
+          <h3>⏱️ Tiempo estimado:</h3>
+          <p>El proceso suele completarse en <strong>24-48 horas hábiles</strong>.</p>
+          
+          <div class="warning">
+            <p>⚠️ <strong>Importante:</strong> Si no realizaste esta solicitud, por favor contacta inmediatamente con soporte. Tu cuenta podría estar comprometida.</p>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <h3>📖 ¿Para qué sirven los códigos de recuperación?</h3>
+          <ul>
+            <li>Acceder a tu cuenta si pierdes tu dispositivo 2FA</li>
+            <li>Cada código solo puede usarse <strong>una vez</strong></li>
+            <li>Recibirás 10 códigos únicos de 8 dígitos</li>
+            <li>Guárdalos en un lugar seguro (no en tu teléfono)</li>
+          </ul>
+          
+          <p style="margin-top: 25px;">Gracias por mantener tu cuenta segura.</p>
+          <p>Atentamente,<br><strong style="color: ${COLORS.primary};">El equipo de CEMI</strong></p>
+        </div>
+        ${footerTemplate}
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+/**
+ * Email 9: Notificación al administrador de solicitud de códigos de recuperación
+ */
+export function codigosRecuperacionAdminTemplate(datos) {
+  const { nombre, apellido, email, dni, usuario, motivo, referencia, idUsuario } = datos;
+  
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      ${baseStyles}
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>🔑 Solicitud de Códigos 2FA</h1>
+        </div>
+        <div class="content">
+          <h2>Acción Requerida: Generar Códigos de Recuperación</h2>
+          <p>Se ha recibido una nueva solicitud de códigos de recuperación para 2FA que requiere tu atención.</p>
+          
+          <div class="info-box">
+            <p><strong>🔢 Referencia:</strong> #${referencia}</p>
+            <p><strong>📝 Tipo:</strong> 🔑 Códigos de Recuperación 2FA</p>
+            <p><strong>📅 Fecha/Hora:</strong> ${new Date().toLocaleString('es-AR', { dateStyle: 'full', timeStyle: 'medium' })}</p>
+          </div>
+          
+          <div class="credential-box">
+            <h3>👤 Datos del Solicitante</h3>
+            <table style="width: 100%; text-align: left; margin-top: 15px;">
+              <tr><td style="padding: 8px; color: #666;"><strong>Nombre:</strong></td><td style="padding: 8px;">${nombre} ${apellido}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>Usuario:</strong></td><td style="padding: 8px;">${usuario || 'No especificado'}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>Email:</strong></td><td style="padding: 8px;">${email}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>DNI:</strong></td><td style="padding: 8px;">${dni || 'No especificado'}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>ID Usuario:</strong></td><td style="padding: 8px;">${idUsuario || 'No disponible'}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>Motivo:</strong></td><td style="padding: 8px;">${motivo || 'No especificado'}</td></tr>
+            </table>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <h3>Pasos a seguir:</h3>
+          <ul>
+            <li>Verificar la identidad del usuario (DNI, usuario, email)</li>
+            <li>Acceder al panel de administración</li>
+            <li>Localizar al usuario en la gestión de 2FA</li>
+            <li>Generar nuevos códigos de recuperación (10 códigos)</li>
+            <li>Enviar los códigos de forma segura al usuario</li>
+            <li>Los códigos anteriores quedarán invalidados</li>
+          </ul>
+          
+          <div class="warning">
+            <p>🔒 <strong>Seguridad:</strong> Antes de generar códigos, verifica que la solicitud sea legítima. Podrías contactar al usuario por otro medio para confirmar.</p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px;">
+            <a href="${SITE_URL}/login-admin.html" class="btn">Ir al Panel de Admin</a>
           </div>
         </div>
         ${footerTemplate}

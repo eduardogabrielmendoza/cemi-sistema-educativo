@@ -29,6 +29,7 @@ import investigacionRoutes from "./backend/routes/investigacion.js";
 import comunidadRoutes from "./backend/routes/comunidad.js";
 import statusRoutes from "./backend/routes/status.js";
 import gdprRoutes from "./backend/routes/gdpr.js";
+import codigosRecuperacionRoutes from "./backend/routes/codigosRecuperacion.js";
 import ChatServer from "./backend/utils/chat-server.js";
 import http from "http";
 
@@ -172,6 +173,7 @@ app.use("/api/investigacion", investigacionRoutes);
 app.use("/api/comunidad", comunidadRoutes);
 app.use("/api/status", statusRoutes);
 app.use("/api/gdpr", gdprRoutes);
+app.use("/api/codigos-recuperacion", codigosRecuperacionRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "frontend" });
