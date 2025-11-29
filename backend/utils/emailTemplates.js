@@ -406,3 +406,147 @@ export default {
   encuestaAgradecimientoTemplate,
   bienvenidaAlumnoTemplate
 };
+
+/**
+ * Email 6: Confirmación al usuario de solicitud GDPR recibida
+ */
+export function gdprSolicitudUsuarioTemplate(datos) {
+  const { nombre, apellido, email, tipoSolicitud, referencia } = datos;
+  
+  const tipoTexto = {
+    'exportar': 'exportación de datos personales',
+    'eliminar': 'eliminación de cuenta y datos',
+    'rectificar': 'rectificación de datos'
+  };
+  
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      ${baseStyles}
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>Solicitud GDPR Recibida</h1>
+        </div>
+        <div class="content">
+          <div style="text-align: center;">
+            <div class="success-icon">📋</div>
+          </div>
+          <h2>Hola ${nombre} ${apellido},</h2>
+          <p>Hemos recibido tu solicitud de <strong>${tipoTexto[tipoSolicitud] || tipoSolicitud}</strong> conforme al Reglamento General de Protección de Datos (GDPR).</p>
+          
+          <div class="info-box">
+            <p><strong>📧 Email asociado:</strong> ${email}</p>
+            <p><strong>📝 Tipo de solicitud:</strong> ${tipoTexto[tipoSolicitud] || tipoSolicitud}</p>
+            <p><strong>🔢 Número de referencia:</strong> #${referencia}</p>
+            <p><strong>📅 Fecha de solicitud:</strong> ${new Date().toLocaleString('es-AR', { dateStyle: 'full', timeStyle: 'short' })}</p>
+          </div>
+          
+          <div class="success-box">
+            <p>✅ <strong>¿Qué sigue ahora?</strong> Un administrador procesará tu solicitud en los próximos días hábiles. Recibirás un correo con los resultados.</p>
+          </div>
+          
+          <h3>Tiempos estimados:</h3>
+          <ul>
+            <li><strong>Exportación de datos:</strong> 48-72 horas hábiles</li>
+            <li><strong>Eliminación de cuenta:</strong> 5-7 días hábiles</li>
+            <li><strong>Rectificación de datos:</strong> 24-48 horas hábiles</li>
+          </ul>
+          
+          <div class="warning">
+            <p>⚠️ <strong>Importante:</strong> Si no realizaste esta solicitud, por favor contacta inmediatamente con soporte respondiendo a este correo.</p>
+          </div>
+          
+          <p style="margin-top: 25px;">Gracias por confiar en nosotros.</p>
+          <p>Atentamente,<br><strong style="color: ${COLORS.primary};">El equipo de CEMI</strong></p>
+        </div>
+        ${footerTemplate}
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+/**
+ * Email 7: Notificación al administrador de solicitud GDPR
+ */
+export function gdprNotificacionAdminTemplate(datos) {
+  const { nombre, apellido, email, dni, legajo, tipoSolicitud, formato, referencia, idUsuario, idAlumno } = datos;
+  
+  const tipoTexto = {
+    'exportar': '📦 Exportación de Datos',
+    'eliminar': '🗑️ Eliminación de Cuenta',
+    'rectificar': '✏️ Rectificación de Datos'
+  };
+  
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      ${baseStyles}
+    </head>
+    <body>
+      <div class="container">
+        <div class="header" style="background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);">
+          <div class="logo-container">
+            <img src="${LOGO_URL}" alt="CEMI Logo">
+          </div>
+          <h1>🔐 Nueva Solicitud GDPR</h1>
+        </div>
+        <div class="content">
+          <h2>Acción Requerida: ${tipoTexto[tipoSolicitud] || tipoSolicitud}</h2>
+          <p>Se ha recibido una nueva solicitud de derechos GDPR que requiere tu atención.</p>
+          
+          <div class="info-box" style="border-left-color: #7b1fa2; background: #f3e5f5;">
+            <p><strong>🔢 Referencia:</strong> #${referencia}</p>
+            <p><strong>📝 Tipo:</strong> ${tipoTexto[tipoSolicitud] || tipoSolicitud}</p>
+            <p><strong>📅 Fecha/Hora:</strong> ${new Date().toLocaleString('es-AR', { dateStyle: 'full', timeStyle: 'medium' })}</p>
+          </div>
+          
+          <div class="credential-box" style="border-color: #7b1fa2; background: #faf5ff;">
+            <h3 style="color: #7b1fa2;">👤 Datos del Solicitante</h3>
+            <table style="width: 100%; text-align: left; margin-top: 15px;">
+              <tr><td style="padding: 8px; color: #666;"><strong>Nombre:</strong></td><td style="padding: 8px;">${nombre} ${apellido}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>Email:</strong></td><td style="padding: 8px;">${email}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>DNI:</strong></td><td style="padding: 8px;">${dni || 'No disponible'}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>Legajo:</strong></td><td style="padding: 8px;">${legajo || 'No disponible'}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>ID Usuario:</strong></td><td style="padding: 8px;">${idUsuario}</td></tr>
+              <tr><td style="padding: 8px; color: #666;"><strong>ID Alumno:</strong></td><td style="padding: 8px;">${idAlumno || 'N/A'}</td></tr>
+              ${formato ? `<tr><td style="padding: 8px; color: #666;"><strong>Formato preferido:</strong></td><td style="padding: 8px;">${formato.toUpperCase()}</td></tr>` : ''}
+            </table>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <h3>Pasos a seguir:</h3>
+          <ul>
+            <li>Accede al panel de administración</li>
+            <li>Localiza al usuario en la sección correspondiente</li>
+            ${tipoSolicitud === 'exportar' ? '<li>Genera el archivo de exportación en el formato solicitado</li><li>Envía el archivo al email del usuario</li>' : ''}
+            ${tipoSolicitud === 'eliminar' ? '<li>Verifica que no haya pagos pendientes</li><li>Procede con la eliminación segura de datos</li><li>Confirma la eliminación al usuario</li>' : ''}
+            ${tipoSolicitud === 'rectificar' ? '<li>Contacta al usuario para conocer los cambios necesarios</li><li>Actualiza los datos correspondientes</li><li>Confirma los cambios al usuario</li>' : ''}
+          </ul>
+          
+          <div class="warning">
+            <p>⏰ <strong>Plazo legal:</strong> Según GDPR, tienes un máximo de 30 días para responder a esta solicitud.</p>
+          </div>
+          
+          <div style="text-align: center; margin-top: 30px;">
+            <a href="${SITE_URL}/login-admin.html" class="btn" style="background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);">Ir al Panel de Admin</a>
+          </div>
+        </div>
+        ${footerTemplate}
+      </div>
+    </body>
+    </html>
+  `;
+}

@@ -28,6 +28,7 @@ import configRoutes from "./backend/routes/config.js";
 import investigacionRoutes from "./backend/routes/investigacion.js";
 import comunidadRoutes from "./backend/routes/comunidad.js";
 import statusRoutes from "./backend/routes/status.js";
+import gdprRoutes from "./backend/routes/gdpr.js";
 import ChatServer from "./backend/utils/chat-server.js";
 import http from "http";
 
@@ -170,6 +171,7 @@ app.use("/api/config", configRoutes);
 app.use("/api/investigacion", investigacionRoutes);
 app.use("/api/comunidad", comunidadRoutes);
 app.use("/api/status", statusRoutes);
+app.use("/api/gdpr", gdprRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "frontend" });
