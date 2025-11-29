@@ -130,11 +130,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='#2a5298'; this.style.background='linear-gradient(135deg, #e8f4fd 0%, #d0e8fc 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -162,11 +162,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='#2a5298'; this.style.background='linear-gradient(135deg, #e8f4fd 0%, #d0e8fc 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -194,11 +194,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='#2a5298'; this.style.background='linear-gradient(135deg, #e8f4fd 0%, #d0e8fc 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -226,11 +226,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='#2a5298'; this.style.background='linear-gradient(135deg, #e8f4fd 0%, #d0e8fc 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -258,11 +258,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='#2a5298'; this.style.background='linear-gradient(135deg, #e8f4fd 0%, #d0e8fc 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -502,7 +502,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
       ">
         <!-- Header -->
         <div style="
-          background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
           padding: 25px 30px;
           position: relative;
         ">
@@ -544,13 +544,13 @@ function generarCodigosRecuperacion(nombreAlumno) {
         <!-- Cuerpo -->
         <div style="padding: 25px 30px;">
           <div style="
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-            border: 2px dashed #f9a8d4;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px dashed #93c5fd;
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 20px;
           ">
-            <p style="margin: 0 0 15px 0; color: #9d174d; font-size: 13px; text-align: center; font-weight: 500;">
+            <p style="margin: 0 0 15px 0; color: #1e40af; font-size: 13px; text-align: center; font-weight: 500;">
               🔐 Códigos generados aleatoriamente
             </p>
             <div style="display: grid; gap: 10px;">
@@ -562,10 +562,10 @@ function generarCodigosRecuperacion(nombreAlumno) {
                   background: white;
                   padding: 12px 16px;
                   border-radius: 10px;
-                  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.1);
+                  box-shadow: 0 2px 8px rgba(30, 60, 114, 0.1);
                 ">
                   <span style="
-                    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+                    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
                     color: white;
                     width: 28px;
                     height: 28px;
@@ -651,7 +651,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
             <button onclick="generarNuevosCodigos('${nombreAlumno}')" style="
               flex: 1;
               padding: 14px;
-              background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+              background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
               border: none;
               border-radius: 12px;
               font-size: 14px;
