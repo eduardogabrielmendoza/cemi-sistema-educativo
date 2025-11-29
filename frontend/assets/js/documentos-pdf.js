@@ -246,6 +246,38 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
             </button>
             
+            <!-- Códigos de Recuperación 2FA -->
+            <button onclick="generarCodigosRecuperacion('${nombreAlumno}')" class="doc-option-btn" style="
+              display: flex;
+              align-items: center;
+              gap: 15px;
+              padding: 18px 20px;
+              background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+              border: 2px solid #e2e8f0;
+              border-radius: 14px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              text-align: left;
+            " onmouseover="this.style.borderColor='#667eea'; this.style.background='linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+              <div style="
+                width: 50px;
+                height: 50px;
+                background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              ">
+                <i data-lucide="key" style="width: 24px; height: 24px; color: white;"></i>
+              </div>
+              <div style="flex: 1;">
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Códigos de Recuperación 2FA</h4>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Generar 5 códigos aleatorios de respaldo</p>
+              </div>
+              <i data-lucide="sparkles" style="width: 20px; height: 20px; color: #94a3b8;"></i>
+            </button>
+            
             <!-- Separador -->
             <div style="
               margin: 10px 0;
@@ -422,6 +454,248 @@ function agregarFooterPDF(doc) {
   doc.text(`Documento generado el ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })} a las ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`, pageWidth / 2, pageHeight - 12, { align: 'center' });
   doc.setFontSize(7);
   doc.text('Este documento tiene validez institucional', pageWidth / 2, pageHeight - 7, { align: 'center' });
+}
+
+// GENERADOR DE CÓDIGOS DE RECUPERACIÓN 2FA (Visual)
+function generarCodigosRecuperacion(nombreAlumno) {
+  // Función para generar un código aleatorio de 8 caracteres
+  function generarCodigo() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Sin I, O, 0, 1 para evitar confusión
+    let codigo = '';
+    for (let i = 0; i < 8; i++) {
+      if (i === 4) codigo += '-'; // Separador en el medio
+      codigo += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return codigo;
+  }
+  
+  // Generar 5 códigos únicos
+  const codigos = [];
+  for (let i = 0; i < 5; i++) {
+    codigos.push(generarCodigo());
+  }
+  
+  // Crear modal para mostrar los códigos
+  const modalHTML = `
+    <div id="codigosRecuperacionModal" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100000;
+      animation: fadeInCodigos 0.3s ease;
+    ">
+      <div style="
+        background: white;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 450px;
+        overflow: hidden;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        animation: slideUpCodigos 0.4s ease;
+      ">
+        <!-- Header -->
+        <div style="
+          background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+          padding: 25px 30px;
+          position: relative;
+        ">
+          <button onclick="document.getElementById('codigosRecuperacionModal').remove()" style="
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          ">
+            <i data-lucide="x" style="width: 20px; height: 20px; color: white;"></i>
+          </button>
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="
+              width: 55px;
+              height: 55px;
+              background: rgba(255,255,255,0.2);
+              border-radius: 15px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <i data-lucide="key" style="width: 28px; height: 28px; color: white;"></i>
+            </div>
+            <div>
+              <h2 style="margin: 0; color: white; font-size: 20px; font-weight: 600;">Códigos de Recuperación</h2>
+              <p style="margin: 5px 0 0 0; color: rgba(255,255,255,0.85); font-size: 14px;">${nombreAlumno}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Cuerpo -->
+        <div style="padding: 25px 30px;">
+          <div style="
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+            border: 2px dashed #f9a8d4;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+          ">
+            <p style="margin: 0 0 15px 0; color: #9d174d; font-size: 13px; text-align: center; font-weight: 500;">
+              🔐 Códigos generados aleatoriamente
+            </p>
+            <div style="display: grid; gap: 10px;">
+              ${codigos.map((codigo, i) => `
+                <div style="
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+                  background: white;
+                  padding: 12px 16px;
+                  border-radius: 10px;
+                  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.1);
+                ">
+                  <span style="
+                    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+                    color: white;
+                    width: 28px;
+                    height: 28px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 12px;
+                    font-weight: 600;
+                  ">${i + 1}</span>
+                  <code style="
+                    font-family: 'Consolas', 'Monaco', monospace;
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #1e293b;
+                    letter-spacing: 2px;
+                    flex: 1;
+                  ">${codigo}</code>
+                  <button onclick="navigator.clipboard.writeText('${codigo}'); this.innerHTML='<i data-lucide=\\'check\\' style=\\'width:16px;height:16px;color:#10b981;\\'></i>'; lucide.createIcons(); setTimeout(() => { this.innerHTML='<i data-lucide=\\'copy\\' style=\\'width:16px;height:16px;color:#94a3b8;\\'></i>'; lucide.createIcons(); }, 1500);" style="
+                    background: #f1f5f9;
+                    border: none;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  ">
+                    <i data-lucide="copy" style="width: 16px; height: 16px; color: #94a3b8;"></i>
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div style="
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+          ">
+            <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #92400e; flex-shrink: 0; margin-top: 2px;"></i>
+            <div>
+              <p style="margin: 0; color: #92400e; font-size: 12px; line-height: 1.5;">
+                <strong>⚠️ Importante:</strong> Cada código solo puede usarse UNA vez. Guárdalos en un lugar seguro fuera de tu dispositivo.
+              </p>
+            </div>
+          </div>
+          
+          <div style="display: flex; gap: 12px;">
+            <button onclick="
+              const texto = '🔐 Códigos de Recuperación 2FA - CEMI\\n' +
+                           '${nombreAlumno}\\n' +
+                           '━━━━━━━━━━━━━━━━━━━━━━━━\\n' +
+                           '${codigos.map((c, i) => (i+1) + '. ' + c).join('\\n')}\\n' +
+                           '━━━━━━━━━━━━━━━━━━━━━━━━\\n' +
+                           '⚠️ Cada código es de un solo uso.\\n' +
+                           'Generado: ' + new Date().toLocaleString('es-AR');
+              navigator.clipboard.writeText(texto);
+              showToast('Códigos copiados al portapapeles', 'success');
+            " style="
+              flex: 1;
+              padding: 14px;
+              background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+              border: 2px solid #e2e8f0;
+              border-radius: 12px;
+              font-size: 14px;
+              font-weight: 600;
+              color: #475569;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+            ">
+              <i data-lucide="clipboard-copy" style="width: 18px; height: 18px;"></i>
+              Copiar Todos
+            </button>
+            <button onclick="generarNuevosCodigos('${nombreAlumno}')" style="
+              flex: 1;
+              padding: 14px;
+              background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+              border: none;
+              border-radius: 12px;
+              font-size: 14px;
+              font-weight: 600;
+              color: white;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+            ">
+              <i data-lucide="refresh-cw" style="width: 18px; height: 18px;"></i>
+              Regenerar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+      @keyframes fadeInCodigos {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideUpCodigos {
+        from { opacity: 0; transform: translateY(30px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+    </style>
+  `;
+  
+  // Remover modal anterior si existe
+  const existingModal = document.getElementById('codigosRecuperacionModal');
+  if (existingModal) existingModal.remove();
+  
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  lucide.createIcons();
+}
+
+// Función para regenerar códigos
+function generarNuevosCodigos(nombreAlumno) {
+  document.getElementById('codigosRecuperacionModal').remove();
+  generarCodigosRecuperacion(nombreAlumno);
+  showToast('Nuevos códigos generados', 'success');
 }
 
 // 1. CONSTANCIA DE ALUMNO REGULAR
