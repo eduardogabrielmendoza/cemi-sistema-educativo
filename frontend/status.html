@@ -495,13 +495,43 @@
     }
 
     .uptime-badge {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      color: #4ade80;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 12px;
       font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .uptime-badge .uptime-value {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .uptime-badge .uptime-label {
+      font-size: 0.65rem;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .uptime-badge.uptime-good {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+    }
+
+    .uptime-badge.uptime-warning {
+      background: rgba(251, 191, 36, 0.15);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      color: #fbbf24;
+    }
+
+    .uptime-badge.uptime-critical {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
     }
 
     .services-grid {
@@ -956,6 +986,24 @@
       }
 
       // Servicios
+      // Calcular uptime basado en servicios operativos
+      const totalServices = services.length;
+      const operationalServices = services.filter(s => s.status === 'operational').length;
+      const degradedServices = services.filter(s => s.status === 'degraded').length;
+      
+      // Servicios operativos = 100%, degradados = 50%, caídos = 0%
+      const uptimePercent = totalServices > 0 
+        ? Math.round(((operationalServices * 100) + (degradedServices * 50)) / totalServices)
+        : 100;
+      
+      // Determinar clase de color según uptime
+      let uptimeBadgeClass = 'uptime-good';
+      if (uptimePercent < 50) {
+        uptimeBadgeClass = 'uptime-critical';
+      } else if (uptimePercent < 80) {
+        uptimeBadgeClass = 'uptime-warning';
+      }
+
       html += `
         <div class="services-section">
           <div class="section-header">
@@ -963,7 +1011,10 @@
               <i data-lucide="server"></i>
               Estado de Servicios
             </div>
-            <div class="uptime-badge">99.9% Uptime</div>
+            <div class="uptime-badge ${uptimeBadgeClass}">
+              <span class="uptime-value">${operationalServices}/${totalServices}</span>
+              <span class="uptime-label">Servicios Operativos</span>
+            </div>
           </div>
           <div class="services-grid">
             ${services.map(service => `
