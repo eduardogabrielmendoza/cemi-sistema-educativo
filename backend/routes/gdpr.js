@@ -15,8 +15,7 @@ router.post("/solicitar-exportacion",
     body('email')
       .trim()
       .notEmpty().withMessage('El email es requerido')
-      .isEmail().withMessage('Email inválido')
-      .normalizeEmail(),
+      .isEmail().withMessage('Email inválido'),
     body('formato')
       .optional()
       .isIn(['json', 'csv', 'pdf']).withMessage('Formato inválido')
@@ -32,9 +31,11 @@ router.post("/solicitar-exportacion",
     }
 
     const { email, formato = 'pdf' } = req.body;
+    
+    console.log('[GDPR] Buscando email:', email);
 
     try {
-      // Buscar al usuario por email en la tabla personas
+      // Buscar al usuario por email en la tabla personas (búsqueda flexible)
       const [personas] = await pool.query(
         `SELECT 
           p.id_persona,
@@ -48,9 +49,11 @@ router.post("/solicitar-exportacion",
          FROM personas p
          LEFT JOIN usuarios u ON p.id_persona = u.id_persona
          LEFT JOIN perfiles perf ON u.id_perfil = perf.id_perfil
-         WHERE LOWER(p.email) = LOWER(?)`,
+         WHERE LOWER(TRIM(p.email)) = LOWER(TRIM(?))`,
         [email]
       );
+      
+      console.log('[GDPR] Resultados encontrados:', personas.length);
 
       if (personas.length === 0) {
         return res.status(404).json({
@@ -146,7 +149,6 @@ router.post("/solicitar-eliminacion",
       .trim()
       .notEmpty().withMessage('El email es requerido')
       .isEmail().withMessage('Email inválido')
-      .normalizeEmail()
   ],
   async (req, res) => {
     const errors = validationResult(req);
