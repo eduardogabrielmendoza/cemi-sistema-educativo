@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e3c72">
+  <title>Sistema en Mantenimiento - CEMI</title>
+  <link rel="icon" href="images/logo.png">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    /* Estado: Mantenimiento */
+    body.maintenance {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+
+    /* Estado: Outage/Caída */
+    body.outage {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d1f1f 50%, #3d2020 100%);
+    }
+
+    .maintenance-container {
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Icono animado */
+    .icon-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 32px;
+    }
+
+    .icon-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      opacity: 0.15;
+    }
+
+    body.maintenance .icon-bg {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    body.outage .icon-bg {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.15; }
+      50% { transform: scale(1.1); opacity: 0.25; }
+    }
+
+    .icon-main {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    body.maintenance .icon-main {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+      box-shadow: 0 8px 32px rgba(243, 156, 18, 0.4);
+    }
+
+    body.outage .icon-main {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      box-shadow: 0 8px 32px rgba(231, 76, 60, 0.4);
+    }
+
+    .icon-main i {
+      width: 40px;
+      height: 40px;
+      color: white;
+    }
+
+    body.maintenance .icon-main i {
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Título */
+    .maintenance-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .maintenance-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* Card de mensaje */
+    .message-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .message-card h3 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .message-card h3 i {
+      width: 22px;
+      height: 22px;
+    }
+
+    body.maintenance .message-card h3 i {
+      color: #f39c12;
+    }
+
+    body.outage .message-card h3 i {
+      color: #e74c3c;
+    }
+
+    .message-card p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .message-card p#incidentMessage {
+      margin-top: 16px;
+      padding: 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      border-left: 3px solid;
+    }
+
+    body.maintenance .message-card p#incidentMessage {
+      border-left-color: #f39c12;
+    }
+
+    body.outage .message-card p#incidentMessage {
+      border-left-color: #e74c3c;
+    }
+
+    /* Tiempo estimado */
+    .time-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    .time-info i {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Botones */
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-retry:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .btn-retry i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-home:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .btn-home i {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Link discreto para admin */
+    .admin-access {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .admin-access:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .admin-access i {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    body.maintenance .status-badge {
+      background: rgba(243, 156, 18, 0.2);
+      color: #f39c12;
+      border: 1px solid rgba(243, 156, 18, 0.3);
+    }
+
+    body.outage .status-badge {
+      background: rgba(231, 76, 60, 0.2);
+      color: #e74c3c;
+      border: 1px solid rgba(231, 76, 60, 0.3);
+    }
+
+    .status-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    body.maintenance .status-badge .dot {
+      background: #f39c12;
+    }
+
+    body.outage .status-badge .dot {
+      background: #e74c3c;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* Logo */
+    .logo-section {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-section img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    .logo-section span {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .maintenance-title {
+        font-size: 1.7rem;
+      }
+
+      .maintenance-subtitle {
+        font-size: 1rem;
+      }
+
+      .message-card {
+        padding: 20px 16px;
+      }
+
+      .icon-container {
+        width: 110px;
+        height: 110px;
+      }
+
+      .icon-main {
+        width: 65px;
+        height: 65px;
+      }
+
+      .icon-main i {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo-section {
+        top: 16px;
+        left: 16px;
+      }
+
+      .admin-access {
+        bottom: 16px;
+        right: 16px;
+      }
+    }
+  </style>
+</head>
+<body class="maintenance">
+
+  <div class="logo-section">
+    <img src="images/logo.png" alt="CEMI">
+    <span>CEMI</span>
+  </div>
+
+  <div class="maintenance-container">
+    <div class="status-badge" id="statusBadge">
+      <span class="dot"></span>
+      <span id="statusText">Mantenimiento Programado</span>
+    </div>
+
+    <div class="icon-container">
+      <div class="icon-bg"></div>
+      <div class="icon-main">
+        <i data-lucide="settings" id="mainIcon"></i>
+      </div>
+    </div>
+
+    <h1 class="maintenance-title" id="mainTitle">Sistema en Mantenimiento</h1>
+    <p class="maintenance-subtitle" id="mainSubtitle">
+      Estamos realizando mejoras para brindarte una mejor experiencia.
+    </p>
+
+    <div class="message-card">
+      <h3>
+        <i data-lucide="info" id="messageIcon"></i>
+        <span id="incidentTitle">Información del Estado</span>
+      </h3>
+      <p id="incidentMessage">
+        El sistema se encuentra temporalmente fuera de servicio. Por favor, intenta nuevamente en unos minutos.
+      </p>
+    </div>
+
+    <div class="time-info" id="timeInfo">
+      <i data-lucide="clock"></i>
+      <span>Última actualización: <span id="lastUpdate">--</span></span>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-retry" onclick="checkStatus()">
+        <i data-lucide="refresh-cw"></i>
+        Verificar Estado
+      </button>
+      <a href="index.html" class="btn-home">
+        <i data-lucide="home"></i>
+        Volver al Inicio
+      </a>
+    </div>
+  </div>
+
+  <a href="login-admin.html" class="admin-access">
+    <i data-lucide="shield"></i>
+    Acceso Administrativo
+  </a>
+
+  <script src="assets/js/config.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // Obtener parámetro de redirect
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTo = urlParams.get('redirect') || 'index.html';
+
+    // Cargar estado del sistema
+    async function loadStatus() {
+      try {
+        const response = await fetch(`${API_URL}/api/status`);
+        const data = await response.json();
+        
+        updateUI(data);
+      } catch (error) {
+        console.error('Error cargando estado:', error);
+      }
+    }
+
+    function updateUI(data) {
+      const body = document.body;
+      const statusBadge = document.getElementById('statusBadge');
+      const statusText = document.getElementById('statusText');
+      const mainIcon = document.getElementById('mainIcon');
+      const mainTitle = document.getElementById('mainTitle');
+      const mainSubtitle = document.getElementById('mainSubtitle');
+      const incidentTitle = document.getElementById('incidentTitle');
+      const incidentMessage = document.getElementById('incidentMessage');
+      const lastUpdate = document.getElementById('lastUpdate');
+
+      const status = data.global_status;
+      const incident = data.active_incident;
+
+      // Configurar según el estado
+      if (status === 'maintenance') {
+        body.className = 'maintenance';
+        statusText.textContent = 'Mantenimiento Programado';
+        mainIcon.setAttribute('data-lucide', 'settings');
+        mainTitle.textContent = 'Sistema en Mantenimiento';
+        mainSubtitle.textContent = 'Estamos realizando mejoras para brindarte una mejor experiencia.';
+      } else if (status === 'outage') {
+        body.className = 'outage';
+        statusText.textContent = 'Sistema No Disponible';
+        mainIcon.setAttribute('data-lucide', 'alert-triangle');
+        mainTitle.textContent = 'Sistema Temporalmente No Disponible';
+        mainSubtitle.textContent = 'Estamos trabajando para restablecer el servicio lo antes posible.';
+      }
+
+      // Mostrar información del incidente si existe
+      if (incident) {
+        incidentTitle.textContent = incident.title || 'Información del Estado';
+        incidentMessage.textContent = incident.message || 'El sistema se encuentra temporalmente fuera de servicio.';
+      }
+
+      // Última actualización
+      if (data.last_updated) {
+        const date = new Date(data.last_updated);
+        lastUpdate.textContent = date.toLocaleString('es-AR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      }
+
+      // Re-renderizar iconos
+      lucide.createIcons();
+    }
+
+    // Verificar si el sistema ya está operativo
+    async function checkStatus() {
+      const btn = document.querySelector('.btn-retry');
+      const originalContent = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="loader-2" style="animation: rotate 1s linear infinite;"></i> Verificando...';
+      btn.disabled = true;
+      lucide.createIcons();
+
+      try {
+        const response = await fetch(`${API_URL}/api/status`);
+        const data = await response.json();
+
+        if (data.global_status === 'operational' || data.global_status === 'degraded') {
+          // Sistema operativo, redirigir
+          btn.innerHTML = '<i data-lucide="check"></i> ¡Sistema Disponible!';
+          btn.style.background = 'rgba(76, 175, 80, 0.3)';
+          lucide.createIcons();
+          
+          setTimeout(() => {
+            window.location.href = redirectTo;
+          }, 1000);
+        } else {
+          // Aún en mantenimiento
+          updateUI(data);
+          btn.innerHTML = originalContent;
+          btn.disabled = false;
+          lucide.createIcons();
+        }
+      } catch (error) {
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    // Cargar al iniciar
+    loadStatus();
+
+    // Auto-refresh cada 30 segundos
+    setInterval(loadStatus, 30000);
+  </script>
+</body>
+</html>
