@@ -1,4 +1,4 @@
-// =====================================================
+﻿// =====================================================
 // ASISTENTE VIRTUAL CEMI - Sistema de Ayuda Inteligente
 // =====================================================
 
@@ -171,8 +171,8 @@ const BASE_CONOCIMIENTO = [
     categoria: "sobre_cemi",
     keywords: ["contacto rapido", "emergencia", "urgente"],
     pregunta: "¿Cómo contacto a CEMI urgentemente?",
-    respuesta: "Para consultas urgentes:\n\n📞 Teléfono: (0381) 123-4567\n📱 WhatsApp: +54 9 381 123-4567\n📧 Email: info@cemi.edu.ar\n\n⏰ Horario de atención: Lunes a Viernes 8:00 a 21:00",
-    acciones: [{ texto: "Llamar ahora", link: "tel:+5493811234567" }]
+    respuesta: "Para consultas urgentes:\n\n📞 Teléfono: (0381) 446-4324\n📱 WhatsApp: +54 9 381 446-3243\n📧 Email: info@cemi.edu.ar\n\n⏰ Horario de atención: Lunes a Viernes 8:00 a 21:00",
+    acciones: [{ texto: "Llamar ahora", link: "tel:+543814463243" }]
   },
   {
     id: 20,
@@ -264,7 +264,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["ruso", "rusia", "russian"],
     pregunta: "¿Tienen cursos de ruso?",
     respuesta: "Sí, ofrecemos **Ruso** en niveles iniciales:\n\n📚 Alfabeto cirílico\n🗣️ Conversación básica\n📖 Lectura y escritura\n\n*Consultá disponibilidad de grupos*",
-    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243" }]
   },
   {
     id: 31,
@@ -272,7 +272,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["arabe", "arabia", "arabic"],
     pregunta: "¿Tienen cursos de árabe?",
     respuesta: "Ofrecemos **Árabe** en modalidad especial:\n\n📚 Árabe Moderno Estándar\n✍️ Escritura y caligrafía\n🗣️ Conversación básica\n\n*Consultá inicio de grupos*",
-    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243" }]
   },
   {
     id: 32,
@@ -280,7 +280,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["que idioma estudiar", "cual me recomiendan", "mejor idioma", "idioma facil"],
     pregunta: "¿Qué idioma me recomiendan estudiar?",
     respuesta: "Depende de tus objetivos:\n\n💼 **Trabajo internacional**: Inglés, Alemán\n✈️ **Viajar por Sudamérica**: Portugués\n🇪🇺 **Emigrar a Europa**: Italiano, Francés, Alemán\n📈 **Negocios con Asia**: Chino Mandarín\n🎌 **Cultura pop**: Japonés, Coreano\n\n¿Querés asesoramiento personalizado?",
-    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243" }]
   },
   {
     id: 33,
@@ -320,7 +320,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["online", "virtual", "distancia", "remoto"],
     pregunta: "¿Tienen cursos online de idiomas?",
     respuesta: "Sí, ofrecemos modalidad **online** para varios idiomas:\n\n💻 Clases en vivo por videollamada\n📚 Acceso a plataforma Classroom\n📖 Material digital incluido\n🕐 Flexibilidad horaria\n\n*Consultá disponibilidad para cada idioma*",
-    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20cursos%20online" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20cursos%20online" }]
   },
   {
     id: 38,
@@ -404,7 +404,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["niveles", "a1", "b1", "c1", "basico", "intermedio", "avanzado"],
     pregunta: "¿Qué niveles manejan?",
     respuesta: "Seguimos el **Marco Común Europeo (MCER)**:\n\n🟢 **A1-A2**: Nivel básico\n🟡 **B1-B2**: Nivel intermedio\n🔴 **C1-C2**: Nivel avanzado\n\n📝 Realizamos test de nivelación gratuito para ubicarte correctamente.",
-    acciones: [{ texto: "Solicitar test", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
+    acciones: [{ texto: "Solicitar test", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 48,
@@ -436,7 +436,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["individual", "particular", "privado", "uno a uno"],
     pregunta: "¿Ofrecen clases individuales?",
     respuesta: "¡Sí! Las **clases individuales** ofrecen:\n\n✅ Horarios 100% flexibles\n✅ Ritmo personalizado\n✅ Contenido adaptado a tus necesidades\n✅ Mayor práctica oral\n💰 Costo diferenciado\n\n*Ideales para objetivos específicos*",
-    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
   },
   {
     id: 52,
@@ -444,7 +444,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["intensivo", "rapido", "acelerar", "pocas semanas"],
     pregunta: "¿Tienen cursos intensivos?",
     respuesta: "Sí, ofrecemos **cursos intensivos**:\n\n⚡ 4-5 clases por semana\n⏱️ 2-3 horas diarias\n📅 Duración: 2-3 meses por nivel\n🎯 Ideal para viajes o trabajo próximo\n\n*Requiere mayor dedicación y disponibilidad*",
-    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20cursos%20intensivos" }]
+    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20cursos%20intensivos" }]
   },
   {
     id: 53,
@@ -508,7 +508,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["conversacion", "hablar", "speaking", "oral"],
     pregunta: "¿Tienen cursos solo de conversación?",
     respuesta: "Sí, ofrecemos **talleres de conversación**:\n\n🗣️ 100% práctica oral\n☕ Ambiente relajado\n📰 Temas de actualidad\n🎭 Role-playing y debates\n\n*Requisito: Nivel A2 mínimo*",
-    acciones: [{ texto: "Consultar", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20talleres%20de%20conversaci%C3%B3n" }]
+    acciones: [{ texto: "Consultar", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20talleres%20de%20conversaci%C3%B3n" }]
   },
   {
     id: 61,
@@ -532,7 +532,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["empezar", "cuando empiezo", "inicio", "comienzo"],
     pregunta: "¿Cuándo puedo empezar?",
     respuesta: "Tenemos **ingresos flexibles**:\n\n📅 Inicio de cuatrimestre: Marzo y Agosto\n🔄 Ingreso permanente en grupos con cupo\n✨ Cursos intensivos: Todo el año\n👤 Clases individuales: Cuando quieras\n\n*Consultá disponibilidad actual*",
-    acciones: [{ texto: "Consultar inicio", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20saber%20cuando%20puedo%20empezar" }]
+    acciones: [{ texto: "Consultar inicio", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20saber%20cuando%20puedo%20empezar" }]
   },
   {
     id: 64,
@@ -540,7 +540,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["prueba", "gratis", "demo", "probar"],
     pregunta: "¿Puedo hacer una clase de prueba?",
     respuesta: "¡Sí! Ofrecemos:\n\n🆓 **Clase de prueba gratuita**\n📋 Test de nivelación sin costo\n🤝 Entrevista con coordinación\n\nAsí podés conocer nuestra metodología antes de inscribirte.",
-    acciones: [{ texto: "Solicitar clase prueba", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20solicitar%20una%20clase%20de%20prueba" }]
+    acciones: [{ texto: "Solicitar clase prueba", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20solicitar%20una%20clase%20de%20prueba" }]
   },
   {
     id: 65,
@@ -592,7 +592,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["matricula", "inscripcion costo", "costo inscripcion"],
     pregunta: "¿La inscripción tiene costo?",
     respuesta: "Sí, hay una **matrícula anual** que incluye:\n\n📋 Inscripción administrativa\n📊 Test de nivelación\n💻 Acceso a plataforma Classroom\n📧 Cuenta institucional\n\n*Consultá el monto actual en secretaría*",
-    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
   },
   {
     id: 71,
@@ -600,7 +600,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["cupo", "lugar", "vacante", "hay lugar"],
     pregunta: "¿Hay cupo disponible?",
     respuesta: "Los cupos varían según:\n\n📚 Idioma y nivel\n🕐 Horario elegido\n📅 Época del año\n\n✅ Consultá disponibilidad actual en secretaría o por WhatsApp.\n⚠️ Reservamos tu lugar con el pago de matrícula.",
-    acciones: [{ texto: "Consultar cupo", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20cupos" }]
+    acciones: [{ texto: "Consultar cupo", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20cupos" }]
   },
   {
     id: 72,
@@ -624,7 +624,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["nivelacion", "test nivel", "evaluar nivel", "que nivel soy"],
     pregunta: "¿Cómo sé qué nivel me corresponde?",
     respuesta: "Realizamos un **test de nivelación gratuito**:\n\n📝 Evaluación escrita (30 min)\n🗣️ Entrevista oral breve\n📊 Resultado inmediato\n✅ Te ubicamos en el nivel correcto\n\n*Si nunca estudiaste, empezás en A1*",
-    acciones: [{ texto: "Solicitar test", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
+    acciones: [{ texto: "Solicitar test", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 75,
@@ -672,7 +672,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["reincorporar", "volver", "retomar", "hace tiempo"],
     pregunta: "Dejé de estudiar hace tiempo, ¿puedo volver?",
     respuesta: "¡Por supuesto! Para reincorporarte:\n\n📝 Realizá un nuevo test de nivelación\n📋 Actualizamos tu ficha\n💰 Abonás matrícula y cuota\n🔄 Retomás desde tu nivel actual\n\n*¡Nunca es tarde para volver!*",
-    acciones: [{ texto: "Reincorporarme", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20reincorporarme%20a%20CEMI" }]
+    acciones: [{ texto: "Reincorporarme", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20reincorporarme%20a%20CEMI" }]
   },
   {
     id: 81,
@@ -707,8 +707,8 @@ const BASE_CONOCIMIENTO = [
     categoria: "pagos",
     keywords: ["cuanto cuesta", "precio", "valor", "costo", "aranceles"],
     pregunta: "¿Cuánto cuestan los cursos?",
-    respuesta: "Los aranceles varían según:\n\n📚 Tipo de curso (grupal/individual)\n🕐 Cantidad de horas semanales\n🌐 Idioma elegido\n\n💰 **Cuota mensual grupal**: Desde $XX.XXX\n💰 **Clase individual**: Desde $XX.XXX/hora\n\n*Consultá valores actualizados*",
-    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
+    respuesta: "Los aranceles varían según:\n\n📚 Tipo de curso (grupal/individual)\n🕐 Cantidad de horas semanales\n🌐 Idioma elegido\n\n💰 **Cuota mensual grupal**: Desde $50.000\n💰 **Clase individual**: Desde $90.000/hora\n\n*Consultá valores actualizados*",
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
   },
   {
     id: 85,
@@ -739,7 +739,7 @@ const BASE_CONOCIMIENTO = [
     categoria: "pagos",
     keywords: ["transferencia", "cbu", "alias", "banco", "deposito"],
     pregunta: "¿Puedo pagar por transferencia?",
-    respuesta: "Sí, aceptamos transferencias:\n\n🏦 **Banco**: [Nombre del banco]\n🔢 **CBU**: XXXX XXXX XXXX XXXX XXXX\n📝 **Alias**: CEMI.IDIOMAS\n👤 **Titular**: CEMI S.A.\n\n⚠️ Enviá el comprobante por email o WhatsApp",
+    respuesta: "Sí, aceptamos transferencias:\n\n🏦 **Banco**: Banco Macro\n🔢 **CBU**: 9984066521875490002191000\n📝 **Alias**: cemi.idiomas\n👤 **Titular**: CEMI S.A.\n\n⚠️ Enviá el comprobante por email o WhatsApp",
     acciones: []
   },
   {
@@ -835,8 +835,8 @@ const BASE_CONOCIMIENTO = [
     categoria: "pagos",
     keywords: ["precio clases individuales", "particular precio", "costo privada"],
     pregunta: "¿Cuánto cuestan las clases individuales?",
-    respuesta: "Las **clases individuales** tienen un costo por hora:\n\n💰 Valor hora: Desde $XX.XXX\n📦 Pack 4 clases: Descuento del 10%\n📦 Pack 8 clases: Descuento del 15%\n\n*Precio según idioma y nivel*",
-    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
+    respuesta: "Las **clases individuales** tienen un costo por hora:\n\n💰 Valor hora: Desde $90.000\n📦 Pack 4 clases: Descuento del 10%\n📦 Pack 8 clases: Descuento del 15%\n\n*Precio según idioma y nivel*",
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
   },
   {
     id: 101,
@@ -848,231 +848,7 @@ const BASE_CONOCIMIENTO = [
   },
 
   // ============================================
-  // CATEGORÍA 6: UBICACIÓN Y CONTACTO (12 respuestas)
-  // ============================================
-  {
-    id: 102,
-    categoria: "ubicacion",
-    keywords: ["donde estan", "direccion", "ubicacion", "domicilio", "sede"],
-    pregunta: "¿Dónde están ubicados?",
-    respuesta: "Nuestra sede está en:\n\n📍 **Dirección**: Av. Principal 1234, Ciudad\n🏢 **Piso**: Planta baja\n🚇 **Cerca de**: Estación Central\n🅿️ **Estacionamiento**: Disponible en la zona\n\n¡Te esperamos!",
-    acciones: [{ texto: "Ver en mapa", link: "#ubicacion" }]
-  },
-  {
-    id: 103,
-    categoria: "ubicacion",
-    keywords: ["telefono", "llamar", "numero", "tel"],
-    pregunta: "¿Cuál es el teléfono?",
-    respuesta: "Podés comunicarte por:\n\n📞 **Teléfono fijo**: (0381) 123-4567\n📱 **Celular/WhatsApp**: +54 9 381 123-4567\n\n⏰ Horario: Lunes a Viernes 8:00 a 21:00\n⏰ Sábados: 9:00 a 13:00",
-    acciones: [{ texto: "Llamar", link: "tel:+5493811234567" }, { texto: "WhatsApp", link: "https://wa.me/5493811234567" }]
-  },
-  {
-    id: 104,
-    categoria: "ubicacion",
-    keywords: ["email", "correo", "mail", "escribir"],
-    pregunta: "¿Cuál es el email de contacto?",
-    respuesta: "Escribinos a:\n\n📧 **Consultas generales**: info@cemi.edu.ar\n📧 **Inscripciones**: inscripciones@cemi.edu.ar\n📧 **Soporte técnico**: soporte@cemi.edu.ar\n\n*Respondemos en 24-48hs hábiles*",
-    acciones: [{ texto: "Enviar email", link: "mailto:info@cemi.edu.ar" }]
-  },
-  {
-    id: 105,
-    categoria: "ubicacion",
-    keywords: ["whatsapp", "wsp", "wp", "mensaje"],
-    pregunta: "¿Tienen WhatsApp?",
-    respuesta: "¡Sí! Escribinos por WhatsApp:\n\n📱 **+54 9 381 123-4567**\n\n✅ Consultas rápidas\n✅ Envío de comprobantes\n✅ Información de cursos\n\n*Respondemos en horario de atención*",
-    acciones: [{ texto: "Abrir WhatsApp", link: "https://wa.me/5493811234567" }]
-  },
-  {
-    id: 106,
-    categoria: "ubicacion",
-    keywords: ["horario atencion", "cuando atienden", "abierto", "secretaria"],
-    pregunta: "¿Cuál es el horario de atención?",
-    respuesta: "Horarios de secretaría:\n\n🕐 **Lunes a Viernes**: 8:00 a 21:00\n🕐 **Sábados**: 9:00 a 13:00\n🚫 **Domingos y feriados**: Cerrado\n\n*Para trámites administrativos, mejor venir por la mañana*",
-    acciones: []
-  },
-  {
-    id: 107,
-    categoria: "ubicacion",
-    keywords: ["como llegar", "colectivo", "bondi", "transporte", "subte"],
-    pregunta: "¿Cómo llego al instituto?",
-    respuesta: "Podés llegar en:\n\n🚌 **Colectivos**: Líneas 101, 102, 103 (parada a 1 cuadra)\n🚇 **Subte/Metro**: Estación Central (5 min caminando)\n🚗 **Auto**: Estacionamiento en la zona\n🚲 **Bici**: Bicicletero en el edificio\n\n📍 Av. Principal 1234",
-    acciones: [{ texto: "Ver mapa", link: "#ubicacion" }]
-  },
-  {
-    id: 108,
-    categoria: "ubicacion",
-    keywords: ["estacionamiento", "parking", "auto", "donde estacionar"],
-    pregunta: "¿Hay estacionamiento?",
-    respuesta: "Opciones de estacionamiento:\n\n🅿️ **Estacionamiento público** a 50 metros\n🚗 **Estacionamiento del edificio** (limitado)\n🚫 No hay playa propia del instituto\n\n*La zona tiene parquímetros municipales*",
-    acciones: []
-  },
-  {
-    id: 109,
-    categoria: "ubicacion",
-    keywords: ["sucursal", "otra sede", "otras sedes", "filial"],
-    pregunta: "¿Tienen otras sedes?",
-    respuesta: "Actualmente contamos con una única sede:\n\n📍 Av. Principal 1234, Ciudad\n\n💻 También ofrecemos cursos **100% online** accesibles desde cualquier lugar.\n\n*Próximamente nuevas sedes*",
-    acciones: []
-  },
-  {
-    id: 110,
-    categoria: "ubicacion",
-    keywords: ["accesibilidad", "discapacidad", "silla de ruedas", "rampa"],
-    pregunta: "¿El edificio es accesible?",
-    respuesta: "Sí, contamos con:\n\n♿ Rampa de acceso\n🛗 Ascensor\n🚻 Baños adaptados\n🦮 Admitimos perros guía\n\n*Comunicate si necesitás asistencia especial*",
-    acciones: []
-  },
-  {
-    id: 111,
-    categoria: "ubicacion",
-    keywords: ["zona", "barrio", "seguro", "seguridad zona"],
-    pregunta: "¿La zona es segura?",
-    respuesta: "Estamos ubicados en una zona céntrica y segura:\n\n✅ Zona comercial con movimiento\n✅ Buena iluminación\n✅ Cerca de transporte público\n👮 Presencia policial en la zona\n\n*Horarios nocturnos sin inconvenientes*",
-    acciones: []
-  },
-  {
-    id: 112,
-    categoria: "ubicacion",
-    keywords: ["redes sociales", "instagram", "facebook", "social media"],
-    pregunta: "¿Dónde los encuentro en redes?",
-    respuesta: "¡Seguinos en redes!\n\n📘 **Facebook**: facebook.com/CEMIidiomas\n📸 **Instagram**: @cemi_idiomas\n🎥 **YouTube**: CEMI Idiomas Oficial\n💼 **LinkedIn**: CEMI Centro Educativo\n\n*Novedades, tips y contenido educativo*",
-    acciones: []
-  },
-  {
-    id: 113,
-    categoria: "ubicacion",
-    keywords: ["formulario contacto", "escribirles", "consulta web"],
-    pregunta: "¿Tienen formulario de contacto?",
-    respuesta: "Sí, podés contactarnos:\n\n📧 Email: info@cemi.edu.ar\n📱 WhatsApp: +54 9 381 123-4567\n📞 Teléfono: (0381) 123-4567\n\n*Respondemos todas las consultas*",
-    acciones: [{ texto: "Enviar WhatsApp", link: "https://wa.me/5493811234567" }, { texto: "Enviar email", link: "mailto:info@cemi.edu.ar" }]
-  },
-
-  // ============================================
-  // CATEGORÍA 7: HORARIOS (15 respuestas)
-  // ============================================
-  {
-    id: 114,
-    categoria: "horarios",
-    keywords: ["horarios", "turnos", "cuando hay clases", "que horarios"],
-    pregunta: "¿Qué horarios de cursada tienen?",
-    respuesta: "Ofrecemos múltiples turnos:\n\n🌅 **Mañana**: 8:00 - 12:00\n☀️ **Tarde**: 14:00 - 18:00\n🌙 **Noche**: 18:00 - 22:00\n📅 **Sábados**: 9:00 - 13:00\n\n*Horarios varían según idioma y nivel*",
-    acciones: []
-  },
-  {
-    id: 115,
-    categoria: "horarios",
-    keywords: ["mañana", "temprano", "matutino"],
-    pregunta: "¿Tienen clases a la mañana?",
-    respuesta: "Sí, turno mañana disponible:\n\n🌅 **Horarios**: 8:00 a 12:00\n📚 Varias opciones de cursada\n👶 Ideal para niños y jubilados\n💼 Para quienes trabajan por la tarde\n\n*Consultá disponibilidad según idioma*",
-    acciones: []
-  },
-  {
-    id: 116,
-    categoria: "horarios",
-    keywords: ["tarde", "siesta", "vespertino"],
-    pregunta: "¿Tienen clases a la tarde?",
-    respuesta: "Turno tarde disponible:\n\n☀️ **Horarios**: 14:00 a 18:00\n👨‍🎓 Ideal para estudiantes universitarios\n🎓 Grupos de adolescentes\n\n*Varios horarios para elegir*",
-    acciones: []
-  },
-  {
-    id: 117,
-    categoria: "horarios",
-    keywords: ["noche", "nocturno", "despues trabajo", "tarde noche"],
-    pregunta: "¿Tienen clases a la noche?",
-    respuesta: "Sí, turno noche muy solicitado:\n\n🌙 **Horarios**: 18:00 a 22:00\n💼 Ideal para quienes trabajan\n👥 Mayor oferta de grupos\n\n*Último turno comienza a las 20:30*",
-    acciones: []
-  },
-  {
-    id: 118,
-    categoria: "horarios",
-    keywords: ["sabado", "fin semana", "finde", "weekend"],
-    pregunta: "¿Tienen clases los sábados?",
-    respuesta: "¡Sí! Cursada sabatina:\n\n📅 **Sábados**: 9:00 a 13:00\n⏱️ Clases de 2-3 horas\n👥 Grupos especiales\n\n*Ideal para quienes no pueden en la semana*\n\n🚫 No tenemos clases los domingos",
-    acciones: []
-  },
-  {
-    id: 119,
-    categoria: "horarios",
-    keywords: ["cambiar horario", "otro horario", "modificar horario"],
-    pregunta: "¿Puedo cambiar de horario?",
-    respuesta: "Sí, podés solicitar cambio:\n\n📋 Hablá con secretaría\n🔄 Se evalúa disponibilidad\n📅 Cambio desde el mes siguiente\n✅ Sin costo adicional\n\n*Sujeto a cupos disponibles*",
-    acciones: []
-  },
-  {
-    id: 120,
-    categoria: "horarios",
-    keywords: ["cuanto dura clase", "duracion clase", "horas clase"],
-    pregunta: "¿Cuánto dura cada clase?",
-    respuesta: "Duración según modalidad:\n\n⏱️ **Curso regular**: 1.5 horas (90 min)\n⏱️ **Intensivo**: 2-3 horas\n⏱️ **Sábados**: 3 horas\n⏱️ **Individual**: 1 hora (60 min)\n\n*Incluye recreo en clases largas*",
-    acciones: []
-  },
-  {
-    id: 121,
-    categoria: "horarios",
-    keywords: ["dias semana", "que dias", "frecuencia", "veces por semana"],
-    pregunta: "¿Cuántos días por semana son las clases?",
-    respuesta: "Frecuencia según modalidad:\n\n📅 **Extensivo**: 2 veces por semana\n📅 **Semi-intensivo**: 3 veces por semana\n📅 **Intensivo**: 4-5 veces por semana\n📅 **Sábados**: 1 vez por semana\n\n*Vos elegís según tu disponibilidad*",
-    acciones: []
-  },
-  {
-    id: 122,
-    categoria: "horarios",
-    keywords: ["feriado", "feriados", "dia feriado", "no hay clase"],
-    pregunta: "¿Hay clases en feriados?",
-    respuesta: "En feriados nacionales:\n\n🚫 **No hay clases**\n📅 Se recuperan según calendario\n📧 Aviso previo por email/plataforma\n\n*Consultá el calendario académico*",
-    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20las%20fechas%20de%20feriados" }]
-  },
-  {
-    id: 123,
-    categoria: "horarios",
-    keywords: ["vacaciones", "receso", "invierno", "verano"],
-    pregunta: "¿Cuándo son las vacaciones?",
-    respuesta: "Recesos durante el año:\n\n❄️ **Invierno**: 2 semanas en julio\n☀️ **Verano**: Diciembre a Febrero\n📅 Feriados nacionales\n\n*En verano hay cursos intensivos opcionales*",
-    acciones: []
-  },
-  {
-    id: 124,
-    categoria: "horarios",
-    keywords: ["recuperar clase", "clase perdida", "falte"],
-    pregunta: "¿Puedo recuperar una clase que falté?",
-    respuesta: "Opciones para recuperar:\n\n📚 Material disponible en Classroom\n📹 Grabación de clase (si disponible)\n👥 Asistir a otro grupo del mismo nivel\n👨‍🏫 Consulta con el profesor\n\n*Avisá con anticipación si vas a faltar*",
-    acciones: []
-  },
-  {
-    id: 125,
-    categoria: "horarios",
-    keywords: ["llego tarde", "tardanza", "puntualidad", "retraso"],
-    pregunta: "¿Qué pasa si llego tarde?",
-    respuesta: "Política de puntualidad:\n\n⏰ Tolerancia: 10 minutos\n📝 Después: Se registra tardanza\n🚪 Podés ingresar, pero sin interrumpir\n⚠️ Tardanzas reiteradas afectan asistencia\n\n*¡Mejor llegar a tiempo!*",
-    acciones: []
-  },
-  {
-    id: 126,
-    categoria: "horarios",
-    keywords: ["horario flexible", "elegir horario", "personalizado"],
-    pregunta: "¿Puedo elegir mi propio horario?",
-    respuesta: "Depende del tipo de curso:\n\n👥 **Grupal**: Elegís entre horarios fijos\n👤 **Individual**: Horario 100% a tu medida\n💼 **Empresas**: Se coordina con la empresa\n\n*Las clases individuales ofrecen máxima flexibilidad*",
-    acciones: []
-  },
-  {
-    id: 127,
-    categoria: "horarios",
-    keywords: ["cuando empiezan", "inicio clases", "arrancan"],
-    pregunta: "¿Cuándo empiezan las clases?",
-    respuesta: "Inicio de cursada:\n\n📅 **Ciclo anual**: Marzo\n📅 **Segundo cuatrimestre**: Agosto\n🔄 **Ingreso permanente**: Todo el año (si hay cupo)\n☀️ **Intensivo verano**: Enero\n\n*Consultá fechas exactas de inicio*",
-    acciones: []
-  },
-  {
-    id: 128,
-    categoria: "horarios",
-    keywords: ["cuando terminan", "fin clases", "cierre"],
-    pregunta: "¿Cuándo terminan las clases?",
-    respuesta: "Fin de cursada:\n\n📅 **Primer cuatrimestre**: Julio\n📅 **Segundo cuatrimestre**: Diciembre\n📝 **Exámenes finales**: Julio y Diciembre\n🏖️ **Receso verano**: Enero-Febrero\n\n*Fechas exactas en calendario académico*",
-    acciones: []
-  },
-
-  // ============================================
-  // CATEGORÍA 8: DOCENTES (12 respuestas)
+  // CATEGORÍA 6: DOCENTES (12 respuestas)
   // ============================================
   {
     id: 129,
@@ -1428,7 +1204,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["calendario", "fechas importantes", "cronograma", "agenda"],
     pregunta: "¿Dónde veo el calendario académico?",
     respuesta: "El calendario académico está disponible:\n\n📅 En nuestra **web**: /calendario\n📱 En la **app móvil**\n🏫 En **secretaría** (impreso)\n\n*Incluye fechas de inicio, exámenes, feriados y recesos*",
-    acciones: [{ texto: "Consultar calendario", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20el%20calendario%20acad%C3%A9mico" }]
+    acciones: [{ texto: "Consultar calendario", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20consultar%20el%20calendario%20acad%C3%A9mico" }]
   },
   {
     id: 172,
@@ -1436,7 +1212,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["cuando empiezo", "inicio cursada", "arranco"],
     pregunta: "¿Cuándo empieza el próximo ciclo?",
     respuesta: "Inicios de cursada:\n\n📅 **Marzo**: Ciclo anual\n📅 **Agosto**: Segundo cuatrimestre\n📅 **Enero**: Intensivo de verano\n\n*Fechas exactas en el calendario académico*",
-    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20saber%20cuando%20empiezan%20las%20clases" }]
+    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20saber%20cuando%20empiezan%20las%20clases" }]
   },
   {
     id: 173,
@@ -1567,7 +1343,7 @@ const BASE_CONOCIMIENTO = [
     categoria: "cuenta",
     keywords: ["hackeo", "cuenta hackeada", "acceso no autorizado", "robaron cuenta"],
     pregunta: "Creo que hackearon mi cuenta",
-    respuesta: "Si sospechás acceso no autorizado:\n\n1️⃣ **Cambiá la contraseña** inmediatamente\n2️⃣ **Cerrá todas las sesiones**\n3️⃣ **Activá 2FA**\n4️⃣ **Contactá a soporte** urgente\n\n📧 soporte@cemi.edu.ar\n📱 WhatsApp: +54 9 381 123-4567",
+    respuesta: "Si sospechás acceso no autorizado:\n\n1️⃣ **Cambiá la contraseña** inmediatamente\n2️⃣ **Cerrá todas las sesiones**\n3️⃣ **Activá 2FA**\n4️⃣ **Contactá a soporte** urgente\n\n📧 soporte@cemi.edu.ar\n📱 WhatsApp: +54 9 381 446-3243",
     acciones: [{ texto: "Contactar soporte", link: "mailto:soporte@cemi.edu.ar" }]
   },
   {
@@ -1611,7 +1387,7 @@ const BASE_CONOCIMIENTO = [
     categoria: "soporte",
     keywords: ["soporte", "ayuda tecnica", "problema tecnico", "no funciona"],
     pregunta: "¿Cómo contacto al soporte técnico?",
-    respuesta: "Canales de soporte:\n\n📧 **Email**: soporte@cemi.edu.ar\n📱 **WhatsApp**: +54 9 381 123-4567\n💬 **Chat**: En la plataforma (horario hábil)\n🏫 **Presencial**: Secretaría\n\n⏰ Respuesta en 24-48hs hábiles",
+    respuesta: "Canales de soporte:\n\n📧 **Email**: soporte@cemi.edu.ar\n📱 **WhatsApp**: +54 9 381 446-3243\n💬 **Chat**: En la plataforma (horario hábil)\n🏫 **Presencial**: Secretaría\n\n⏰ Respuesta en 24-48hs hábiles",
     acciones: [{ texto: "Enviar email", link: "mailto:soporte@cemi.edu.ar" }]
   },
   {
@@ -1808,7 +1584,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["recomendacion", "que nivel empezar", "cual curso"],
     pregunta: "¿Qué curso me recomiendan?",
     respuesta: "Para recomendarte:\n\n1️⃣ Hacé el **test de nivel** gratuito\n2️⃣ Contanos tus **objetivos** (trabajo, viaje, etc.)\n3️⃣ Decinos tu **disponibilidad horaria**\n\n📞 Llamanos o vení a secretaría\n*Te asesoramos personalmente*",
-    acciones: [{ texto: "Solicitar test", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
+    acciones: [{ texto: "Solicitar test", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 218,
@@ -4180,8 +3956,6 @@ const CATEGORIAS_MENU = [
   { id: 'cursos', nombre: 'Cursos', icon: '' },
   { id: 'inscripciones', nombre: 'Inscripciones', icon: '' },
   { id: 'pagos', nombre: 'Pagos y Cuotas', icon: '' },
-  { id: 'horarios', nombre: 'Horarios', icon: '' },
-  { id: 'ubicacion', nombre: 'Ubicacion', icon: '' },
   { id: 'examenes', nombre: 'Examenes', icon: '' },
   { id: 'certificaciones', nombre: 'Certificaciones', icon: '' },
   { id: 'plataforma', nombre: 'Plataforma Online', icon: '' },
