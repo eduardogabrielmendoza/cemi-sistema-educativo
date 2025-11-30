@@ -28,7 +28,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["que es cemi", "quienes son", "sobre ustedes", "instituto", "institucion", "centro educativo"],
     pregunta: "¿Qué es CEMI?",
     respuesta: "**CEMI** (Centro Educativo Multilingüe Integral) es una institución educativa dedicada a la enseñanza de idiomas con una trayectoria de excelencia académica. Nos especializamos en formar estudiantes con competencias lingüísticas de alto nivel.",
-    acciones: [{ texto: "Conocer más", link: "/sobre-nosotros.html" }]
+    acciones: []
   },
   {
     id: 2,
@@ -116,7 +116,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["trabajan", "empleos", "trabajo", "vacantes", "cv", "curriculum"],
     pregunta: "¿Cómo puedo trabajar en CEMI?",
     respuesta: "Si te interesa formar parte de nuestro equipo docente o administrativo, podés:\n\n📧 Enviar tu CV a: rrhh@cemi.edu.ar\n📝 Especificar el área de interés\n🎓 Adjuntar títulos y certificaciones\n\nEvaluamos perfiles de forma continua.",
-    acciones: [{ texto: "Contactar", link: "/contacto.html" }]
+    acciones: [{ texto: "Enviar email", link: "mailto:rrhh@cemi.edu.ar" }]
   },
   {
     id: 13,
@@ -192,7 +192,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["idiomas", "lenguas", "que enseñan", "cursos idiomas", "ofrecen"],
     pregunta: "¿Qué idiomas enseñan?",
     respuesta: "En CEMI ofrecemos cursos de:\n\n🇬🇧 **Inglés** - Todos los niveles\n🇧🇷 **Portugués** - Brasileño y europeo\n🇫🇷 **Francés** - General y negocios\n🇩🇪 **Alemán** - Certificación Goethe\n🇮🇹 **Italiano** - Cultura y ciudadanía\n🇨🇳 **Chino Mandarín** - HSK\n🇯🇵 **Japonés** - JLPT",
-    acciones: [{ texto: "Ver todos los cursos", link: "/cursos.html" }]
+    acciones: [{ texto: "Ver cursos", link: "#cursos" }]
   },
   {
     id: 22,
@@ -200,7 +200,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["ingles", "english", "britanico", "americano"],
     pregunta: "¿Tienen cursos de inglés?",
     respuesta: "¡Sí! Nuestro programa de **Inglés** incluye:\n\n📚 Inglés General (A1 a C2)\n👶 Inglés para Niños (4-12 años)\n🎓 Inglés Adolescentes (13-17 años)\n💼 Inglés de Negocios\n✈️ Inglés para Viajeros\n📝 Preparación IELTS, TOEFL, Cambridge",
-    acciones: [{ texto: "Ver programa", link: "/cursos/ingles.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Inglés" }]
   },
   {
     id: 23,
@@ -208,7 +208,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["portugues", "brasil", "brasileño", "portugal"],
     pregunta: "¿Tienen cursos de portugués?",
     respuesta: "Ofrecemos **Portugués** en dos variantes:\n\n🇧🇷 **Portugués Brasileño** - El más demandado en la región\n🇵🇹 **Portugués Europeo** - Para emigrar a Portugal\n\n📝 Preparación para CELPE-Bras\n💼 Portugués para negocios",
-    acciones: [{ texto: "Ver programa", link: "/cursos/portugues.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Portugués" }]
   },
   {
     id: 24,
@@ -216,7 +216,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["frances", "francia", "french"],
     pregunta: "¿Tienen cursos de francés?",
     respuesta: "Nuestro programa de **Francés** ofrece:\n\n📚 Francés General (A1 a C1)\n🎓 Preparación DELF/DALF\n💼 Francés de Negocios\n🇨🇦 Francés para Canadá (Quebec)\n🎨 Cultura francófona",
-    acciones: [{ texto: "Ver programa", link: "/cursos/frances.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Francés" }]
   },
   {
     id: 25,
@@ -224,7 +224,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["aleman", "alemania", "german", "deutsch"],
     pregunta: "¿Tienen cursos de alemán?",
     respuesta: "Ofrecemos **Alemán** con:\n\n📚 Alemán General (A1 a C1)\n🎓 Preparación Goethe-Zertifikat\n💼 Alemán para trabajo en Alemania/Austria/Suiza\n📝 Certificaciones oficiales",
-    acciones: [{ texto: "Ver programa", link: "/cursos/aleman.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Alemán" }]
   },
   {
     id: 26,
@@ -232,7 +232,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["italiano", "italia", "italian"],
     pregunta: "¿Tienen cursos de italiano?",
     respuesta: "Nuestro programa de **Italiano** incluye:\n\n📚 Italiano General (A1 a B2)\n🎓 Preparación CILS/CELI\n🇮🇹 Italiano para ciudadanía\n🎨 Cultura y arte italiano",
-    acciones: [{ texto: "Ver programa", link: "/cursos/italiano.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Italiano" }]
   },
   {
     id: 27,
@@ -240,7 +240,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["chino", "mandarin", "china", "chinese"],
     pregunta: "¿Tienen cursos de chino?",
     respuesta: "Ofrecemos **Chino Mandarín**:\n\n📚 Niveles HSK 1 a HSK 4\n✍️ Caracteres simplificados\n🗣️ Pronunciación y tonos\n💼 Chino para negocios",
-    acciones: [{ texto: "Ver programa", link: "/cursos/chino.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Chino" }]
   },
   {
     id: 28,
@@ -248,7 +248,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["japones", "japon", "japanese", "nihongo"],
     pregunta: "¿Tienen cursos de japonés?",
     respuesta: "Nuestro programa de **Japonés** ofrece:\n\n📚 Niveles JLPT N5 a N3\n✍️ Hiragana, Katakana y Kanji\n🎌 Cultura japonesa\n🎮 Japonés para anime/manga",
-    acciones: [{ texto: "Ver programa", link: "/cursos/japones.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Japonés" }]
   },
   {
     id: 29,
@@ -256,7 +256,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["coreano", "corea", "korean", "kpop"],
     pregunta: "¿Tienen cursos de coreano?",
     respuesta: "Ofrecemos **Coreano**:\n\n📚 Niveles TOPIK I y II\n✍️ Alfabeto Hangul\n🎵 Cultura K-pop y K-drama\n💼 Coreano básico y conversacional",
-    acciones: [{ texto: "Ver programa", link: "/cursos/coreano.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Coreano" }]
   },
   {
     id: 30,
@@ -264,7 +264,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["ruso", "rusia", "russian"],
     pregunta: "¿Tienen cursos de ruso?",
     respuesta: "Sí, ofrecemos **Ruso** en niveles iniciales:\n\n📚 Alfabeto cirílico\n🗣️ Conversación básica\n📖 Lectura y escritura\n\n*Consultá disponibilidad de grupos*",
-    acciones: [{ texto: "Consultar", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567" }]
   },
   {
     id: 31,
@@ -272,7 +272,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["arabe", "arabia", "arabic"],
     pregunta: "¿Tienen cursos de árabe?",
     respuesta: "Ofrecemos **Árabe** en modalidad especial:\n\n📚 Árabe Moderno Estándar\n✍️ Escritura y caligrafía\n🗣️ Conversación básica\n\n*Consultá inicio de grupos*",
-    acciones: [{ texto: "Consultar", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567" }]
   },
   {
     id: 32,
@@ -280,7 +280,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["que idioma estudiar", "cual me recomiendan", "mejor idioma", "idioma facil"],
     pregunta: "¿Qué idioma me recomiendan estudiar?",
     respuesta: "Depende de tus objetivos:\n\n💼 **Trabajo internacional**: Inglés, Alemán\n✈️ **Viajar por Sudamérica**: Portugués\n🇪🇺 **Emigrar a Europa**: Italiano, Francés, Alemán\n📈 **Negocios con Asia**: Chino Mandarín\n🎌 **Cultura pop**: Japonés, Coreano\n\n¿Querés asesoramiento personalizado?",
-    acciones: [{ texto: "Solicitar asesoramiento", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567" }]
   },
   {
     id: 33,
@@ -320,7 +320,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["online", "virtual", "distancia", "remoto"],
     pregunta: "¿Tienen cursos online de idiomas?",
     respuesta: "Sí, ofrecemos modalidad **online** para varios idiomas:\n\n💻 Clases en vivo por videollamada\n📚 Acceso a plataforma Classroom\n📖 Material digital incluido\n🕐 Flexibilidad horaria\n\n*Consultá disponibilidad para cada idioma*",
-    acciones: [{ texto: "Consultar", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20cursos%20online" }]
   },
   {
     id: 38,
@@ -336,7 +336,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["lengua de señas", "señas", "lsn", "sordo"],
     pregunta: "¿Enseñan Lengua de Señas?",
     respuesta: "Actualmente no contamos con cursos de Lengua de Señas Argentina (LSA). Sin embargo, estamos evaluando incorporarlo.\n\n📧 Si te interesa, dejanos tu contacto para avisarte cuando abramos inscripción.",
-    acciones: [{ texto: "Dejar contacto", link: "/contacto.html" }]
+    acciones: [{ texto: "Dejar contacto", link: "mailto:info@cemi.edu.ar?subject=Interés en Lengua de Señas" }]
   },
   {
     id: 40,
@@ -352,7 +352,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["español", "castellano", "extranjeros", "spanish"],
     pregunta: "¿Enseñan español para extranjeros?",
     respuesta: "¡Sí! Ofrecemos **Español como Lengua Extranjera (ELE)**:\n\n📚 Todos los niveles (A1-C2)\n🎓 Preparación DELE/SIELE\n💼 Español para negocios\n🌎 Español latinoamericano",
-    acciones: [{ texto: "Ver programa", link: "/cursos/espanol.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Español" }]
   },
   {
     id: 42,
@@ -360,7 +360,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["hebreo", "israel", "hebrew"],
     pregunta: "¿Tienen cursos de hebreo?",
     respuesta: "Ofrecemos **Hebreo moderno** bajo demanda:\n\n📚 Nivel inicial\n✍️ Alfabeto hebreo\n🗣️ Conversación básica\n\n*Consultá formación de grupos*",
-    acciones: [{ texto: "Consultar", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Hebreo" }]
   },
   {
     id: 43,
@@ -368,7 +368,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["hindu", "hindi", "india"],
     pregunta: "¿Tienen cursos de hindi?",
     respuesta: "Actualmente no ofrecemos Hindi como curso regular. Nos enfocamos en los idiomas de mayor demanda.\n\n📧 Si hay suficiente interés, podemos abrir un grupo.",
-    acciones: [{ texto: "Expresar interés", link: "/contacto.html" }]
+    acciones: [{ texto: "Expresar interés", link: "mailto:info@cemi.edu.ar?subject=Interés en curso de Hindi" }]
   },
   {
     id: 44,
@@ -376,7 +376,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["turco", "turquia", "turkish"],
     pregunta: "¿Tienen cursos de turco?",
     respuesta: "Actualmente no ofrecemos Turco en nuestro programa regular.\n\n📧 Dejanos tu contacto si te interesa para considerar la apertura de un curso.",
-    acciones: [{ texto: "Expresar interés", link: "/contacto.html" }]
+    acciones: [{ texto: "Expresar interés", link: "mailto:info@cemi.edu.ar?subject=Interés en curso de Turco" }]
   },
   {
     id: 45,
@@ -384,7 +384,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["polaco", "polonia", "polish"],
     pregunta: "¿Tienen cursos de polaco?",
     respuesta: "No contamos con Polaco actualmente. Nuestros cursos se centran en los idiomas de mayor demanda.\n\n📧 Si te interesa, podés dejarnos tu contacto.",
-    acciones: [{ texto: "Expresar interés", link: "/contacto.html" }]
+    acciones: [{ texto: "Expresar interés", link: "mailto:info@cemi.edu.ar?subject=Interés en curso de Polaco" }]
   },
 
   // ============================================
@@ -396,7 +396,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["tipos de cursos", "cursos disponibles", "que cursos", "opciones"],
     pregunta: "¿Qué tipos de cursos tienen?",
     respuesta: "Ofrecemos diferentes modalidades:\n\n👥 **Grupales**: 8-15 alumnos\n👤 **Individuales**: Clases particulares\n💼 **Empresas**: In-company\n🚀 **Intensivos**: Aprendizaje acelerado\n📅 **Extensivos**: Ritmo regular\n👶 **Niños**: 4-12 años\n🎓 **Adolescentes**: 13-17 años\n👨‍🎓 **Adultos**: +18 años",
-    acciones: [{ texto: "Ver cursos", link: "/cursos.html" }]
+    acciones: [{ texto: "Ver cursos", link: "#cursos" }]
   },
   {
     id: 47,
@@ -404,7 +404,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["niveles", "a1", "b1", "c1", "basico", "intermedio", "avanzado"],
     pregunta: "¿Qué niveles manejan?",
     respuesta: "Seguimos el **Marco Común Europeo (MCER)**:\n\n🟢 **A1-A2**: Nivel básico\n🟡 **B1-B2**: Nivel intermedio\n🔴 **C1-C2**: Nivel avanzado\n\n📝 Realizamos test de nivelación gratuito para ubicarte correctamente.",
-    acciones: [{ texto: "Hacer test de nivel", link: "/nivelacion.html" }]
+    acciones: [{ texto: "Solicitar test", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 48,
@@ -436,7 +436,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["individual", "particular", "privado", "uno a uno"],
     pregunta: "¿Ofrecen clases individuales?",
     respuesta: "¡Sí! Las **clases individuales** ofrecen:\n\n✅ Horarios 100% flexibles\n✅ Ritmo personalizado\n✅ Contenido adaptado a tus necesidades\n✅ Mayor práctica oral\n💰 Costo diferenciado\n\n*Ideales para objetivos específicos*",
-    acciones: [{ texto: "Consultar precios", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
   },
   {
     id: 52,
@@ -444,7 +444,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["intensivo", "rapido", "acelerar", "pocas semanas"],
     pregunta: "¿Tienen cursos intensivos?",
     respuesta: "Sí, ofrecemos **cursos intensivos**:\n\n⚡ 4-5 clases por semana\n⏱️ 2-3 horas diarias\n📅 Duración: 2-3 meses por nivel\n🎯 Ideal para viajes o trabajo próximo\n\n*Requiere mayor dedicación y disponibilidad*",
-    acciones: [{ texto: "Consultar fechas", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20cursos%20intensivos" }]
   },
   {
     id: 53,
@@ -460,7 +460,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["niños", "nenes", "chicos", "infantil", "kids"],
     pregunta: "¿Tienen cursos para niños?",
     respuesta: "¡Sí! Cursos para **niños de 4 a 12 años**:\n\n🎮 Metodología lúdica y dinámica\n🎨 Juegos, canciones y actividades\n📚 Material didáctico especial\n👨‍👩‍👧 Comunicación con padres\n📊 Seguimiento del progreso\n\n*Grupos reducidos por edad*",
-    acciones: [{ texto: "Ver programa kids", link: "/cursos/ninos.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos para niños" }]
   },
   {
     id: 55,
@@ -468,7 +468,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["adolescentes", "teens", "jovenes", "secundario"],
     pregunta: "¿Tienen cursos para adolescentes?",
     respuesta: "Cursos para **adolescentes (13-17 años)**:\n\n📱 Temáticas actuales y relevantes\n🎯 Preparación para exámenes internacionales\n💬 Enfoque comunicativo\n🎮 Recursos multimedia\n📅 Horarios compatibles con el colegio",
-    acciones: [{ texto: "Ver programa teens", link: "/cursos/adolescentes.html" }]
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos para adolescentes" }]
   },
   {
     id: 56,
@@ -484,7 +484,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["empresas", "corporativo", "in company", "trabajo"],
     pregunta: "¿Ofrecen cursos para empresas?",
     respuesta: "Sí, ofrecemos **capacitación corporativa**:\n\n🏢 Cursos in-company en tu empresa\n📋 Programas a medida\n📊 Evaluación de personal\n💼 Idioma para negocios\n📜 Informes de progreso\n💰 Presupuestos especiales",
-    acciones: [{ texto: "Solicitar presupuesto", link: "/empresas.html" }]
+    acciones: [{ texto: "Solicitar presupuesto", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos para empresas" }]
   },
   {
     id: 58,
@@ -508,7 +508,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["conversacion", "hablar", "speaking", "oral"],
     pregunta: "¿Tienen cursos solo de conversación?",
     respuesta: "Sí, ofrecemos **talleres de conversación**:\n\n🗣️ 100% práctica oral\n☕ Ambiente relajado\n📰 Temas de actualidad\n🎭 Role-playing y debates\n\n*Requisito: Nivel A2 mínimo*",
-    acciones: [{ texto: "Consultar", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20talleres%20de%20conversaci%C3%B3n" }]
   },
   {
     id: 61,
@@ -516,7 +516,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["examen", "preparacion examen", "cambridge", "ielts", "toefl"],
     pregunta: "¿Preparan para exámenes internacionales?",
     respuesta: "¡Sí! Somos centro preparador para:\n\n🇬🇧 **Cambridge**: KET, PET, FCE, CAE, CPE\n📝 **IELTS**: Academic y General\n🇺🇸 **TOEFL**: iBT\n🇫🇷 **DELF/DALF**: Francés\n🇩🇪 **Goethe**: Alemán\n🇮🇹 **CILS**: Italiano\n🇧🇷 **CELPE-Bras**: Portugués",
-    acciones: [{ texto: "Ver preparación exámenes", link: "/examenes.html" }]
+    acciones: [{ texto: "Consultar exámenes", link: "mailto:info@cemi.edu.ar?subject=Consulta preparación exámenes internacionales" }]
   },
   {
     id: 62,
@@ -532,7 +532,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["empezar", "cuando empiezo", "inicio", "comienzo"],
     pregunta: "¿Cuándo puedo empezar?",
     respuesta: "Tenemos **ingresos flexibles**:\n\n📅 Inicio de cuatrimestre: Marzo y Agosto\n🔄 Ingreso permanente en grupos con cupo\n✨ Cursos intensivos: Todo el año\n👤 Clases individuales: Cuando quieras\n\n*Consultá disponibilidad actual*",
-    acciones: [{ texto: "Consultar inicio", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar inicio", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20saber%20cuando%20puedo%20empezar" }]
   },
   {
     id: 64,
@@ -540,7 +540,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["prueba", "gratis", "demo", "probar"],
     pregunta: "¿Puedo hacer una clase de prueba?",
     respuesta: "¡Sí! Ofrecemos:\n\n🆓 **Clase de prueba gratuita**\n📋 Test de nivelación sin costo\n🤝 Entrevista con coordinación\n\nAsí podés conocer nuestra metodología antes de inscribirte.",
-    acciones: [{ texto: "Solicitar clase prueba", link: "/contacto.html" }]
+    acciones: [{ texto: "Solicitar clase prueba", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20solicitar%20una%20clase%20de%20prueba" }]
   },
   {
     id: 65,
@@ -592,7 +592,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["matricula", "inscripcion costo", "costo inscripcion"],
     pregunta: "¿La inscripción tiene costo?",
     respuesta: "Sí, hay una **matrícula anual** que incluye:\n\n📋 Inscripción administrativa\n📊 Test de nivelación\n💻 Acceso a plataforma Classroom\n📧 Cuenta institucional\n\n*Consultá el monto actual en secretaría*",
-    acciones: [{ texto: "Ver aranceles", link: "/aranceles.html" }]
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
   },
   {
     id: 71,
@@ -600,7 +600,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["cupo", "lugar", "vacante", "hay lugar"],
     pregunta: "¿Hay cupo disponible?",
     respuesta: "Los cupos varían según:\n\n📚 Idioma y nivel\n🕐 Horario elegido\n📅 Época del año\n\n✅ Consultá disponibilidad actual en secretaría o por WhatsApp.\n⚠️ Reservamos tu lugar con el pago de matrícula.",
-    acciones: [{ texto: "Consultar cupo", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar cupo", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20cupos" }]
   },
   {
     id: 72,
@@ -624,7 +624,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["nivelacion", "test nivel", "evaluar nivel", "que nivel soy"],
     pregunta: "¿Cómo sé qué nivel me corresponde?",
     respuesta: "Realizamos un **test de nivelación gratuito**:\n\n📝 Evaluación escrita (30 min)\n🗣️ Entrevista oral breve\n📊 Resultado inmediato\n✅ Te ubicamos en el nivel correcto\n\n*Si nunca estudiaste, empezás en A1*",
-    acciones: [{ texto: "Hacer test", link: "/nivelacion.html" }]
+    acciones: [{ texto: "Solicitar test", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 75,
@@ -640,7 +640,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["baja", "dejar", "abandonar", "darme de baja", "cancelar inscripcion"],
     pregunta: "¿Cómo me doy de baja?",
     respuesta: "Para darte de baja:\n\n📝 Completá el formulario de baja\n📅 Avisá con 15 días de anticipación\n💰 No hay reembolso de cuotas pagadas\n📋 Se guarda tu historial académico\n\n*Podés reincorporarte cuando quieras*",
-    acciones: [{ texto: "Solicitar baja", link: "/contacto.html" }]
+    acciones: [{ texto: "Solicitar baja", link: "mailto:info@cemi.edu.ar?subject=Solicitud de baja" }]
   },
   {
     id: 77,
@@ -672,7 +672,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["reincorporar", "volver", "retomar", "hace tiempo"],
     pregunta: "Dejé de estudiar hace tiempo, ¿puedo volver?",
     respuesta: "¡Por supuesto! Para reincorporarte:\n\n📝 Realizá un nuevo test de nivelación\n📋 Actualizamos tu ficha\n💰 Abonás matrícula y cuota\n🔄 Retomás desde tu nivel actual\n\n*¡Nunca es tarde para volver!*",
-    acciones: [{ texto: "Reincorporarme", link: "/contacto.html" }]
+    acciones: [{ texto: "Reincorporarme", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20reincorporarme%20a%20CEMI" }]
   },
   {
     id: 81,
@@ -708,7 +708,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["cuanto cuesta", "precio", "valor", "costo", "aranceles"],
     pregunta: "¿Cuánto cuestan los cursos?",
     respuesta: "Los aranceles varían según:\n\n📚 Tipo de curso (grupal/individual)\n🕐 Cantidad de horas semanales\n🌐 Idioma elegido\n\n💰 **Cuota mensual grupal**: Desde $XX.XXX\n💰 **Clase individual**: Desde $XX.XXX/hora\n\n*Consultá valores actualizados*",
-    acciones: [{ texto: "Ver aranceles", link: "/aranceles.html" }]
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
   },
   {
     id: 85,
@@ -780,7 +780,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["beca", "ayuda economica", "no puedo pagar", "dificultad"],
     pregunta: "¿Tienen becas?",
     respuesta: "Sí, ofrecemos un programa de **becas**:\n\n📋 Presentá solicitud en secretaría\n📄 Documentación socioeconómica\n📊 Evaluación caso por caso\n💰 Becas parciales (30-50%)\n\n*Cupos limitados por período*",
-    acciones: [{ texto: "Solicitar beca", link: "/contacto.html" }]
+    acciones: [{ texto: "Solicitar beca", link: "mailto:info@cemi.edu.ar?subject=Solicitud de beca" }]
   },
   {
     id: 94,
@@ -836,7 +836,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["precio clases individuales", "particular precio", "costo privada"],
     pregunta: "¿Cuánto cuestan las clases individuales?",
     respuesta: "Las **clases individuales** tienen un costo por hora:\n\n💰 Valor hora: Desde $XX.XXX\n📦 Pack 4 clases: Descuento del 10%\n📦 Pack 8 clases: Descuento del 15%\n\n*Precio según idioma y nivel*",
-    acciones: [{ texto: "Consultar precios", link: "/contacto.html" }]
+    acciones: [{ texto: "Consultar precios", link: "https://wa.me/5493811234567?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
   },
   {
     id: 101,
@@ -943,8 +943,8 @@ const BASE_CONOCIMIENTO = [
     categoria: "ubicacion",
     keywords: ["formulario contacto", "escribirles", "consulta web"],
     pregunta: "¿Tienen formulario de contacto?",
-    respuesta: "Sí, podés contactarnos:\n\n📝 Formulario en la web: /contacto\n📧 Email: info@cemi.edu.ar\n📱 WhatsApp: +54 9 381 123-4567\n📞 Teléfono: (0381) 123-4567\n\n*Respondemos todas las consultas*",
-    acciones: [{ texto: "Ir a contacto", link: "/contacto.html" }]
+    respuesta: "Sí, podés contactarnos:\n\n📧 Email: info@cemi.edu.ar\n📱 WhatsApp: +54 9 381 123-4567\n📞 Teléfono: (0381) 123-4567\n\n*Respondemos todas las consultas*",
+    acciones: [{ texto: "Enviar WhatsApp", link: "https://wa.me/5493811234567" }, { texto: "Enviar email", link: "mailto:info@cemi.edu.ar" }]
   },
 
   // ============================================
@@ -1020,7 +1020,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["feriado", "feriados", "dia feriado", "no hay clase"],
     pregunta: "¿Hay clases en feriados?",
     respuesta: "En feriados nacionales:\n\n🚫 **No hay clases**\n📅 Se recuperan según calendario\n📧 Aviso previo por email/plataforma\n\n*Consultá el calendario académico*",
-    acciones: [{ texto: "Ver calendario", link: "/calendario.html" }]
+    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20las%20fechas%20de%20feriados" }]
   },
   {
     id: 123,
@@ -1312,7 +1312,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["olvide contraseña", "no puedo entrar", "recuperar clave", "restablecer"],
     pregunta: "Olvidé mi contraseña de Classroom",
     respuesta: "Para recuperar tu contraseña:\n\n1️⃣ En la pantalla de login, clic en **\"¿Olvidaste tu contraseña?\"**\n2️⃣ Ingresá tu email registrado\n3️⃣ Recibirás un link de recuperación\n4️⃣ Creá una nueva contraseña\n\n*Si no funciona, contactá a soporte*",
-    acciones: [{ texto: "Recuperar contraseña", link: "/recuperar-password.html" }]
+    acciones: [{ texto: "Ir a login", link: "/login.html" }]
   },
   {
     id: 158,
@@ -1352,7 +1352,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["app celular", "aplicacion movil", "desde celular"],
     pregunta: "¿Hay app para celular?",
     respuesta: "Sí, tenemos **app móvil CEMI**:\n\n📱 Disponible para Android\n🔔 Notificaciones de clases\n📚 Acceso a materiales\n✅ Consulta de notas\n💬 Chat con profesores\n\n*Descargala desde el sitio o Play Store*",
-    acciones: [{ texto: "Descargar app", link: "/descargar-app.html" }]
+    acciones: []
   },
   {
     id: 163,
@@ -1428,7 +1428,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["calendario", "fechas importantes", "cronograma", "agenda"],
     pregunta: "¿Dónde veo el calendario académico?",
     respuesta: "El calendario académico está disponible:\n\n📅 En nuestra **web**: /calendario\n📱 En la **app móvil**\n🏫 En **secretaría** (impreso)\n\n*Incluye fechas de inicio, exámenes, feriados y recesos*",
-    acciones: [{ texto: "Ver calendario", link: "/calendario.html" }]
+    acciones: [{ texto: "Consultar calendario", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20consultar%20el%20calendario%20acad%C3%A9mico" }]
   },
   {
     id: 172,
@@ -1436,7 +1436,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["cuando empiezo", "inicio cursada", "arranco"],
     pregunta: "¿Cuándo empieza el próximo ciclo?",
     respuesta: "Inicios de cursada:\n\n📅 **Marzo**: Ciclo anual\n📅 **Agosto**: Segundo cuatrimestre\n📅 **Enero**: Intensivo de verano\n\n*Fechas exactas en el calendario académico*",
-    acciones: [{ texto: "Ver calendario", link: "/calendario.html" }]
+    acciones: [{ texto: "Consultar fechas", link: "https://wa.me/5493811234567?text=Hola!%20Quisiera%20saber%20cuando%20empiezan%20las%20clases" }]
   },
   {
     id: 173,
@@ -1468,7 +1468,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["inscripcion cuando", "fecha inscripcion", "abren inscripcion"],
     pregunta: "¿Cuándo abren las inscripciones?",
     respuesta: "Períodos de inscripción:\n\n📋 **Febrero-Marzo**: Para ciclo anual\n📋 **Julio-Agosto**: Para 2do cuatrimestre\n📋 **Diciembre**: Para intensivo de verano\n🔄 **Todo el año**: Si hay cupos disponibles\n\n*Inscribite temprano para asegurar lugar*",
-    acciones: [{ texto: "Inscribirme", link: "/inscripcion.html" }]
+    acciones: [{ texto: "Inscribirme", link: "/register.html" }]
   },
   {
     id: 177,
@@ -1808,7 +1808,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["recomendacion", "que nivel empezar", "cual curso"],
     pregunta: "¿Qué curso me recomiendan?",
     respuesta: "Para recomendarte:\n\n1️⃣ Hacé el **test de nivel** gratuito\n2️⃣ Contanos tus **objetivos** (trabajo, viaje, etc.)\n3️⃣ Decinos tu **disponibilidad horaria**\n\n📞 Llamanos o vení a secretaría\n*Te asesoramos personalmente*",
-    acciones: [{ texto: "Hacer test de nivel", link: "/test-nivel.html" }]
+    acciones: [{ texto: "Solicitar test", link: "https://wa.me/5493811234567?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 218,
@@ -2668,7 +2668,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["empresa", "corporativo", "in company", "oficina"],
     pregunta: "¿Tienen cursos para empresas?",
     respuesta: "Cursos corporativos:\n\n🏢 **In-Company**: En tu empresa\n📚 Programas a medida\n👥 Grupos o individuales\n⏰ Horarios flexibles\n📊 Seguimiento de resultados\n\n*Capacitamos a tu equipo*",
-    acciones: [{ texto: "Solicitar info empresas", link: "/contacto-empresas.html" }]
+    acciones: [{ texto: "Solicitar info empresas", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos corporativos" }]
   },
   {
     id: 322,
@@ -2700,7 +2700,7 @@ const BASE_CONOCIMIENTO = [
     keywords: ["cotizacion", "presupuesto empresa", "cuanto cuesta"],
     pregunta: "¿Cuánto cuesta para empresas?",
     respuesta: "Cotización corporativa:\n\n📋 Según cantidad de empleados\n⏰ Horas mensuales\n📍 Modalidad (presencial/online)\n📚 Material incluido o no\n\n*Pedí presupuesto sin compromiso*",
-    acciones: [{ texto: "Pedir presupuesto", link: "/contacto-empresas.html" }]
+    acciones: [{ texto: "Pedir presupuesto", link: "mailto:info@cemi.edu.ar?subject=Solicitud presupuesto corporativo" }]
   },
   {
     id: 326,
