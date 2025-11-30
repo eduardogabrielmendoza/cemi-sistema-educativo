@@ -4281,8 +4281,8 @@ function agregarEstilosAsistente() {
     /* Botón flotante */
     .asistente-fab {
       position: fixed;
-      bottom: 100px;
-      right: 30px;
+      bottom: 30px;
+      left: 30px;
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -4327,8 +4327,8 @@ function agregarEstilosAsistente() {
     /* Modal */
     .asistente-modal {
       position: fixed;
-      bottom: 170px;
-      right: 30px;
+      bottom: 100px;
+      left: 30px;
       width: 380px;
       max-width: calc(100vw - 40px);
       height: 550px;
@@ -4422,11 +4422,33 @@ function agregarEstilosAsistente() {
     .asistente-mensajes {
       flex: 1;
       overflow-y: auto;
+      overflow-x: hidden;
       padding: 20px;
+      padding-right: 12px;
       display: flex;
       flex-direction: column;
       gap: 15px;
       background: var(--asistente-gray);
+      scroll-behavior: smooth;
+    }
+    
+    /* Scrollbar personalizado */
+    .asistente-mensajes::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .asistente-mensajes::-webkit-scrollbar-track {
+      background: #e0e0e0;
+      border-radius: 10px;
+    }
+    
+    .asistente-mensajes::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
+      border-radius: 10px;
+    }
+    
+    .asistente-mensajes::-webkit-scrollbar-thumb:hover {
+      background: var(--asistente-primary);
     }
     
     .asistente-mensaje {

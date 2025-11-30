@@ -978,23 +978,7 @@
     </div>
   </footer>
 
-  <div class="floating-menu-wrapper" id="floatingMenuWrapper">
-    <button class="floating-menu-item" onclick="window.location.href='terminos.html'" title="Términos de Servicio" data-label="Términos">
-      <i data-lucide="file-text"></i>
-    </button>
-    
-    <button class="floating-menu-item" onclick="window.location.href='privacidad.html'" title="Política de Privacidad" data-label="Privacidad">
-      <i data-lucide="shield"></i>
-    </button>
-    
-    <button class="floating-menu-item" onclick="window.location.href='ayuda.html'" title="Centro de Ayuda" data-label="Ayuda">
-      <i data-lucide="help-circle"></i>
-    </button>
-    
-    <button class="floating-menu-toggle" id="floatingMenuToggle" title="Menú de opciones">
-      <i data-lucide="menu"></i>
-    </button>
-  </div>
+  <!-- Menú flotante eliminado - reemplazado por Asistente CEMI -->
 
   <div id="mapaModal" class="mapa-modal" onclick="cerrarMapa()">
     <div class="mapa-modal-content" onclick="event.stopPropagation()">
@@ -1070,28 +1054,7 @@
       offset: 100
     });
 
-    const floatingMenuWrapper = document.getElementById('floatingMenuWrapper');
-    const floatingMenuToggle = document.getElementById('floatingMenuToggle');
-    
-    if (floatingMenuWrapper && floatingMenuToggle) {
-      floatingMenuToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        floatingMenuWrapper.classList.toggle('active');
-        lucide.createIcons();
-      });
-      
-      document.addEventListener('click', (e) => {
-        if (!floatingMenuWrapper.contains(e.target)) {
-          floatingMenuWrapper.classList.remove('active');
-        }
-      });
-      
-      floatingMenuWrapper.querySelectorAll('.floating-menu-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-          floatingMenuWrapper.classList.remove('active');
-        }); 
-      });
-    }
+    // Menú flotante removido - Asistente CEMI lo reemplaza
 
     document.querySelectorAll('.faq-question').forEach(question => {
       question.addEventListener('click', () => {
