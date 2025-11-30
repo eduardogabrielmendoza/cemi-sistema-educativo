@@ -4252,8 +4252,8 @@ function agregarEstilosAsistente() {
   styles.textContent = `
     #asistente-cemi-container {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      --asistente-primary: #1e3c72;
-      --asistente-secondary: #2a5298;
+      --asistente-primary: #0071e3;
+      --asistente-secondary: #0077ed;
       --asistente-bg: #ffffff;
       --asistente-text: #333333;
       --asistente-gray: #f5f5f5;
