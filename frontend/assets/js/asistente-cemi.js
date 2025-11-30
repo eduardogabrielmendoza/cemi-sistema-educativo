@@ -4171,19 +4171,37 @@ function obtenerSugerencias(categoria = null) {
   return relacionadas.length > 0 ? relacionadas : ASISTENTE_CONFIG.sugerenciasDefault;
 }
 
+// =====================================================
+// CATEGORIAS PARA EL MENU
+// =====================================================
+
+const CATEGORIAS_MENU = [
+  { id: 'sobre_cemi', nombre: 'Sobre CEMI', icon: '' },
+  { id: 'cursos', nombre: 'Cursos', icon: '' },
+  { id: 'inscripciones', nombre: 'Inscripciones', icon: '' },
+  { id: 'pagos', nombre: 'Pagos y Cuotas', icon: '' },
+  { id: 'horarios', nombre: 'Horarios', icon: '' },
+  { id: 'ubicacion', nombre: 'Ubicacion', icon: '' },
+  { id: 'examenes', nombre: 'Examenes', icon: '' },
+  { id: 'certificaciones', nombre: 'Certificaciones', icon: '' },
+  { id: 'plataforma', nombre: 'Plataforma Online', icon: '' },
+  { id: 'docentes', nombre: 'Docentes', icon: '' },
+  { id: 'metodologia', nombre: 'Metodologia', icon: '' },
+  { id: 'beneficios', nombre: 'Beneficios', icon: '' },
+  { id: 'tramites', nombre: 'Tramites', icon: '' },
+  { id: 'soporte', nombre: 'Soporte', icon: '' },
+  { id: 'faq', nombre: 'FAQ', icon: '' }
+];
+
 /**
  * Crea la interfaz del asistente
  */
 function crearAsistenteUI() {
-  // Verificar si ya existe
-  if (document.getElementById('asistente-cemi-container')) {
-    return;
-  }
+  if (document.getElementById('asistente-cemi-container')) return;
   
   const container = document.createElement('div');
   container.id = 'asistente-cemi-container';
   container.innerHTML = `
-    <!-- Botón flotante del asistente -->
     <button id="asistente-toggle" class="asistente-fab" aria-label="Abrir asistente">
       <div class="asistente-fab-icon">
         <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
@@ -4192,93 +4210,54 @@ function crearAsistenteUI() {
       </div>
       <div class="asistente-fab-pulse"></div>
     </button>
-    
-    <!-- Modal del asistente -->
     <div id="asistente-modal" class="asistente-modal">
       <div class="asistente-content">
-        <!-- Header -->
         <div class="asistente-header">
           <div class="asistente-header-info">
             <div class="asistente-avatar">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
               </svg>
             </div>
             <div>
               <h3 class="asistente-title">CEMI Asistente</h3>
-              <span class="asistente-status">En línea</span>
+              <span class="asistente-status"> En linea</span>
             </div>
           </div>
-          <button id="asistente-close" class="asistente-close-btn" aria-label="Cerrar">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-            </svg>
-          </button>
+          <div class="asistente-header-actions">
+            <button id="asistente-home" class="asistente-header-btn" title="Inicio">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            </button>
+            <button id="asistente-close" class="asistente-header-btn" title="Cerrar">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
         </div>
-        
-        <!-- Mensajes -->
-        <div id="asistente-mensajes" class="asistente-mensajes">
-          <!-- Los mensajes se agregan dinámicamente -->
-        </div>
-        
-        <!-- Sugerencias -->
-        <div id="asistente-sugerencias" class="asistente-sugerencias">
-          <!-- Las sugerencias se agregan dinámicamente -->
-        </div>
-        
-        <!-- Input -->
-        <div class="asistente-input-container">
-          <input 
-            type="text" 
-            id="asistente-input" 
-            class="asistente-input" 
-            placeholder="Escribí tu consulta..."
-            autocomplete="off"
-          >
-          <button id="asistente-enviar" class="asistente-enviar-btn" aria-label="Enviar">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-            </svg>
-          </button>
-        </div>
+        <div id="asistente-body" class="asistente-body"></div>
       </div>
     </div>
   `;
   
   document.body.appendChild(container);
-  
-  // Agregar estilos
   agregarEstilosAsistente();
-  
-  // Inicializar eventos
   inicializarEventos();
-  
-  // Mostrar mensaje de bienvenida
-  mostrarMensajeBienvenida();
+  mostrarMenuPrincipal();
 }
 
-/**
- * Agrega los estilos CSS del asistente
- */
 function agregarEstilosAsistente() {
   if (document.getElementById('asistente-styles')) return;
   
   const styles = document.createElement('style');
   styles.id = 'asistente-styles';
   styles.textContent = `
-    /* Contenedor principal */
     #asistente-cemi-container {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       --asistente-primary: #1e3c72;
       --asistente-secondary: #2a5298;
-      --asistente-accent: #4facfe;
       --asistente-bg: #ffffff;
       --asistente-text: #333333;
       --asistente-gray: #f5f5f5;
-      --asistente-shadow: 0 10px 40px rgba(0,0,0,0.15);
     }
-    
-    /* Botón flotante */
     .asistente-fab {
       position: fixed;
       bottom: 30px;
@@ -4289,26 +4268,15 @@ function agregarEstilosAsistente() {
       background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
       border: none;
       cursor: pointer;
-      box-shadow: var(--asistente-shadow);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       z-index: 9997;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
     }
-    
-    .asistente-fab:hover {
-      transform: scale(1.1);
-      box-shadow: 0 15px 50px rgba(30, 60, 114, 0.4);
-    }
-    
-    .asistente-fab-icon {
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
+    .asistente-fab:hover { transform: scale(1.1); }
+    .asistente-fab-icon { color: white; display: flex; align-items: center; justify-content: center; }
     .asistente-fab-pulse {
       position: absolute;
       width: 100%;
@@ -4318,499 +4286,313 @@ function agregarEstilosAsistente() {
       opacity: 0;
       animation: pulse 2s infinite;
     }
-    
     @keyframes pulse {
       0% { transform: scale(1); opacity: 0.5; }
       100% { transform: scale(1.5); opacity: 0; }
     }
-    
-    /* Modal */
     .asistente-modal {
       position: fixed;
       bottom: 100px;
       left: 30px;
       width: 380px;
-      max-width: calc(100vw - 40px);
-      height: 550px;
-      max-height: calc(100vh - 200px);
+      max-width: calc(100vw - 60px);
+      height: 520px;
+      max-height: calc(100vh - 140px);
       background: var(--asistente-bg);
       border-radius: 20px;
-      box-shadow: var(--asistente-shadow);
-      z-index: 9999;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      z-index: 9998;
       display: none;
       flex-direction: column;
       overflow: hidden;
-      animation: slideUp 0.3s ease;
     }
-    
-    .asistente-modal.active {
-      display: flex;
-    }
-    
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Header */
+    .asistente-modal.active { display: flex; }
+    .asistente-content { display: flex; flex-direction: column; height: 100%; }
     .asistente-header {
       background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
       color: white;
-      padding: 15px 20px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
     }
-    
-    .asistente-header-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
+    .asistente-header-info { display: flex; align-items: center; gap: 12px; }
     .asistente-avatar {
-      width: 45px;
-      height: 45px;
-      background: rgba(255,255,255,0.2);
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
+      background: rgba(255,255,255,0.2);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    
-    .asistente-title {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-    }
-    
-    .asistente-status {
-      font-size: 12px;
-      opacity: 0.9;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .asistente-status::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background: #4ade80;
-      border-radius: 50%;
-    }
-    
-    .asistente-close-btn {
-      background: rgba(255,255,255,0.2);
+    .asistente-title { margin: 0; font-size: 16px; font-weight: 600; }
+    .asistente-status { font-size: 12px; color: #4ade80; }
+    .asistente-header-actions { display: flex; gap: 8px; }
+    .asistente-header-btn {
+      background: rgba(255,255,255,0.15);
       border: none;
-      border-radius: 50%;
       width: 36px;
       height: 36px;
+      border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      transition: background 0.3s;
+      transition: all 0.2s;
     }
-    
-    .asistente-close-btn:hover {
-      background: rgba(255,255,255,0.3);
-    }
-    
-    /* Área de mensajes */
-    .asistente-mensajes {
+    .asistente-header-btn:hover { background: rgba(255,255,255,0.3); }
+    .asistente-body {
       flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 20px;
-      padding-right: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
       background: var(--asistente-gray);
-      scroll-behavior: smooth;
     }
-    
-    /* Scrollbar personalizado */
-    .asistente-mensajes::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    .asistente-mensajes::-webkit-scrollbar-track {
-      background: #e0e0e0;
-      border-radius: 10px;
-    }
-    
-    .asistente-mensajes::-webkit-scrollbar-thumb {
+    .asistente-body::-webkit-scrollbar { width: 6px; }
+    .asistente-body::-webkit-scrollbar-track { background: #e5e5e5; }
+    .asistente-body::-webkit-scrollbar-thumb {
       background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
       border-radius: 10px;
     }
-    
-    .asistente-mensajes::-webkit-scrollbar-thumb:hover {
-      background: var(--asistente-primary);
-    }
-    
-    .asistente-mensaje {
-      max-width: 85%;
-      padding: 12px 16px;
-      border-radius: 18px;
-      font-size: 14px;
-      line-height: 1.5;
-      animation: fadeIn 0.3s ease;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .asistente-mensaje.bot {
+    .asistente-menu { padding: 16px; }
+    .asistente-bienvenida {
       background: white;
-      color: var(--asistente-text);
-      align-self: flex-start;
-      border-bottom-left-radius: 5px;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
-    
-    .asistente-mensaje.usuario {
+    .asistente-bienvenida h4 { margin: 0 0 8px 0; color: var(--asistente-primary); font-size: 16px; }
+    .asistente-bienvenida p { margin: 0; color: #666; font-size: 14px; line-height: 1.5; }
+    .asistente-categorias-titulo {
+      font-size: 13px;
+      font-weight: 600;
+      color: #888;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .asistente-categorias-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .asistente-categoria-btn {
+      background: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--asistente-text);
+    }
+    .asistente-categoria-btn:hover {
       background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
       color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 5px;
+      transform: translateY(-2px);
     }
-    
-    .asistente-mensaje .respuesta-contenido {
+    .asistente-categoria-btn .icon { font-size: 18px; }
+    .asistente-preguntas-header {
+      background: white;
+      padding: 16px 20px;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .asistente-preguntas-header h4 { margin: 0; font-size: 16px; color: var(--asistente-primary); }
+    .asistente-volver-btn {
+      background: var(--asistente-gray);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--asistente-primary);
+      margin-top: 12px;
+    }
+    .asistente-volver-btn:hover { background: #e0e0e0; }
+    .asistente-preguntas-lista { padding: 12px 16px; }
+    .asistente-pregunta-btn {
+      display: block;
+      width: 100%;
+      background: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 14px;
+      color: var(--asistente-text);
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .asistente-pregunta-btn:hover {
+      background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
+      color: white;
+      transform: translateX(4px);
+    }
+    .asistente-respuesta-container { padding: 16px; }
+    .asistente-respuesta-card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    }
+    .asistente-respuesta-pregunta {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--asistente-primary);
+      margin: 0 0 16px 0;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--asistente-gray);
+    }
+    .asistente-respuesta-texto {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--asistente-text);
       white-space: pre-line;
     }
-    
-    .asistente-mensaje .respuesta-contenido strong {
-      color: var(--asistente-primary);
-    }
-    
-    .asistente-mensaje.usuario .respuesta-contenido strong {
-      color: white;
-    }
-    
-    /* Acciones */
+    .asistente-respuesta-texto strong { color: var(--asistente-primary); }
     .asistente-acciones {
-      margin-top: 10px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
-    
     .asistente-accion-btn {
       background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
       color: white;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.3s;
       text-decoration: none;
-      display: inline-block;
-    }
-    
-    .asistente-accion-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 3px 10px rgba(30, 60, 114, 0.3);
-    }
-    
-    /* Sugerencias */
-    .asistente-sugerencias {
-      padding: 10px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      background: white;
-      border-top: 1px solid #eee;
-    }
-    
-    .asistente-sugerencia {
-      background: var(--asistente-gray);
-      border: 1px solid #e0e0e0;
+      padding: 10px 16px;
       border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.3s;
-      color: var(--asistente-text);
+      font-size: 13px;
     }
-    
-    .asistente-sugerencia:hover {
-      background: var(--asistente-primary);
-      color: white;
-      border-color: var(--asistente-primary);
-    }
-    
-    /* Input */
-    .asistente-input-container {
-      padding: 15px 20px;
-      background: white;
-      display: flex;
-      gap: 10px;
-      border-top: 1px solid #eee;
-    }
-    
-    .asistente-input {
+    .asistente-nav-btns { display: flex; gap: 10px; margin-top: 20px; }
+    .asistente-nav-btn {
       flex: 1;
-      border: 2px solid #e0e0e0;
-      border-radius: 25px;
-      padding: 12px 20px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-    
-    .asistente-input:focus {
-      border-color: var(--asistente-primary);
-    }
-    
-    .asistente-enviar-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
+      padding: 12px;
       border: none;
+      border-radius: 12px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .asistente-nav-btn.secundario { background: var(--asistente-gray); color: var(--asistente-primary); }
+    .asistente-nav-btn.primario {
+      background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
       color: white;
-      transition: all 0.3s;
     }
-    
-    .asistente-enviar-btn:hover {
-      transform: scale(1.1);
-    }
-    
-    /* Typing indicator */
-    .asistente-typing {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 12px 16px;
-      background: white;
-      border-radius: 18px;
-      border-bottom-left-radius: 5px;
-      width: fit-content;
-    }
-    
-    .asistente-typing span {
-      width: 8px;
-      height: 8px;
-      background: var(--asistente-primary);
-      border-radius: 50%;
-      animation: typing 1.4s infinite;
-    }
-    
-    .asistente-typing span:nth-child(2) { animation-delay: 0.2s; }
-    .asistente-typing span:nth-child(3) { animation-delay: 0.4s; }
-    
-    @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
-      30% { transform: translateY(-5px); opacity: 1; }
-    }
-    
-    /* Responsive */
     @media (max-width: 480px) {
-      .asistente-modal {
-        width: calc(100vw - 20px);
-        right: 10px;
-        bottom: 150px;
-        height: calc(100vh - 180px);
-        border-radius: 15px;
-      }
-      
-      .asistente-fab {
-        bottom: 80px;
-        right: 15px;
-        width: 55px;
-        height: 55px;
-      }
+      .asistente-fab { bottom: 20px; left: 20px; width: 54px; height: 54px; }
+      .asistente-modal { left: 10px; right: 10px; bottom: 85px; width: auto; }
+      .asistente-categorias-grid { grid-template-columns: 1fr; }
     }
   `;
-  
   document.head.appendChild(styles);
 }
 
-/**
- * Inicializa los eventos del asistente
- */
 function inicializarEventos() {
   const toggle = document.getElementById('asistente-toggle');
   const modal = document.getElementById('asistente-modal');
   const closeBtn = document.getElementById('asistente-close');
-  const input = document.getElementById('asistente-input');
-  const enviarBtn = document.getElementById('asistente-enviar');
+  const homeBtn = document.getElementById('asistente-home');
   
-  // Toggle modal
-  toggle.addEventListener('click', () => {
-    modal.classList.toggle('active');
-    if (modal.classList.contains('active')) {
-      input.focus();
-    }
-  });
+  toggle.addEventListener('click', () => modal.classList.toggle('active'));
+  closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+  homeBtn.addEventListener('click', mostrarMenuPrincipal);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.remove('active'); });
+}
+
+function mostrarMenuPrincipal() {
+  const body = document.getElementById('asistente-body');
   
-  // Cerrar modal
-  closeBtn.addEventListener('click', () => {
-    modal.classList.remove('active');
-  });
+  const categoriasHTML = CATEGORIAS_MENU.map(cat => 
+    '<button class="asistente-categoria-btn" data-categoria="' + cat.id + '">' +
+    '<span class="icon">' + cat.icon + '</span>' +
+    '<span>' + cat.nombre + '</span></button>'
+  ).join('');
   
-  // Enviar mensaje con Enter
-  input.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && input.value.trim()) {
-      enviarMensaje(input.value.trim());
-      input.value = '';
-    }
-  });
+  body.innerHTML = 
+    '<div class="asistente-menu">' +
+    '<div class="asistente-bienvenida">' +
+    '<h4>Hola! Soy el asistente de CEMI</h4>' +
+    '<p>Selecciona una categoria para encontrar respuestas a tus consultas.</p>' +
+    '</div>' +
+    '<div class="asistente-categorias-titulo">Categorias</div>' +
+    '<div class="asistente-categorias-grid">' + categoriasHTML + '</div>' +
+    '</div>';
   
-  // Enviar mensaje con botón
-  enviarBtn.addEventListener('click', () => {
-    if (input.value.trim()) {
-      enviarMensaje(input.value.trim());
-      input.value = '';
-    }
-  });
+  body.scrollTop = 0;
   
-  // Cerrar con Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      modal.classList.remove('active');
-    }
+  body.querySelectorAll('.asistente-categoria-btn').forEach(btn => {
+    btn.addEventListener('click', () => mostrarPreguntas(btn.dataset.categoria));
   });
 }
 
-/**
- * Muestra mensaje de bienvenida
- */
-function mostrarMensajeBienvenida() {
-  const mensajesContainer = document.getElementById('asistente-mensajes');
-  agregarMensajeBot(ASISTENTE_CONFIG.bienvenida);
-  mostrarSugerencias(ASISTENTE_CONFIG.sugerenciasDefault);
-}
-
-/**
- * Envía un mensaje del usuario
- * @param {string} texto - Texto del mensaje
- */
-function enviarMensaje(texto) {
-  // Agregar mensaje del usuario
-  agregarMensajeUsuario(texto);
+function mostrarPreguntas(categoriaId) {
+  const body = document.getElementById('asistente-body');
+  const categoria = CATEGORIAS_MENU.find(c => c.id === categoriaId);
+  const preguntas = BASE_CONOCIMIENTO.filter(item => item.categoria === categoriaId);
   
-  // Mostrar indicador de escritura
-  mostrarTyping();
+  if (preguntas.length === 0) { mostrarMenuPrincipal(); return; }
   
-  // Buscar respuesta
-  setTimeout(() => {
-    ocultarTyping();
-    
-    const respuesta = buscarRespuesta(texto);
-    
-    if (respuesta) {
-      agregarMensajeBot(respuesta.respuesta, respuesta.acciones);
-      mostrarSugerencias(obtenerSugerencias(respuesta.categoria));
-    } else {
-      agregarMensajeBot(ASISTENTE_CONFIG.noEntiendo);
-      mostrarSugerencias(ASISTENTE_CONFIG.sugerenciasDefault);
-    }
-  }, 800 + Math.random() * 700);
-}
-
-/**
- * Agrega mensaje del bot
- * @param {string} texto - Texto del mensaje
- * @param {Array} acciones - Acciones disponibles
- */
-function agregarMensajeBot(texto, acciones = []) {
-  const mensajesContainer = document.getElementById('asistente-mensajes');
+  const preguntasHTML = preguntas.map(p => 
+    '<button class="asistente-pregunta-btn" data-pregunta-id="' + p.id + '">' + p.pregunta + '</button>'
+  ).join('');
   
-  // Formatear texto (convertir **texto** a <strong>texto</strong>)
-  const textoFormateado = texto.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  body.innerHTML = 
+    '<div class="asistente-preguntas-header">' +
+    '<h4>' + (categoria ? categoria.icon + ' ' + categoria.nombre : 'Preguntas') + '</h4>' +
+    '<button class="asistente-volver-btn" id="volver-menu">Volver al menu</button>' +
+    '</div>' +
+    '<div class="asistente-preguntas-lista">' + preguntasHTML + '</div>';
   
-  const mensaje = document.createElement('div');
-  mensaje.className = 'asistente-mensaje bot';
-  mensaje.innerHTML = `
-    <div class="respuesta-contenido">${textoFormateado}</div>
-    ${acciones && acciones.length > 0 ? `
-      <div class="asistente-acciones">
-        ${acciones.map(a => `<a href="${a.link}" class="asistente-accion-btn" target="_blank">${a.texto}</a>`).join('')}
-      </div>
-    ` : ''}
-  `;
+  body.scrollTop = 0;
   
-  mensajesContainer.appendChild(mensaje);
-  mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
-}
-
-/**
- * Agrega mensaje del usuario
- * @param {string} texto - Texto del mensaje
- */
-function agregarMensajeUsuario(texto) {
-  const mensajesContainer = document.getElementById('asistente-mensajes');
-  
-  const mensaje = document.createElement('div');
-  mensaje.className = 'asistente-mensaje usuario';
-  mensaje.innerHTML = `<div class="respuesta-contenido">${texto}</div>`;
-  
-  mensajesContainer.appendChild(mensaje);
-  mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
-}
-
-/**
- * Muestra indicador de escritura
- */
-function mostrarTyping() {
-  const mensajesContainer = document.getElementById('asistente-mensajes');
-  
-  const typing = document.createElement('div');
-  typing.className = 'asistente-typing';
-  typing.id = 'asistente-typing';
-  typing.innerHTML = '<span></span><span></span><span></span>';
-  
-  mensajesContainer.appendChild(typing);
-  mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
-}
-
-/**
- * Oculta indicador de escritura
- */
-function ocultarTyping() {
-  const typing = document.getElementById('asistente-typing');
-  if (typing) {
-    typing.remove();
-  }
-}
-
-/**
- * Muestra sugerencias de preguntas
- * @param {Array} sugerencias - Array de sugerencias
- */
-function mostrarSugerencias(sugerencias) {
-  const container = document.getElementById('asistente-sugerencias');
-  container.innerHTML = '';
-  
-  sugerencias.forEach(sug => {
-    const btn = document.createElement('button');
-    btn.className = 'asistente-sugerencia';
-    btn.textContent = sug;
-    btn.addEventListener('click', () => {
-      enviarMensaje(sug);
-    });
-    container.appendChild(btn);
+  document.getElementById('volver-menu').addEventListener('click', mostrarMenuPrincipal);
+  body.querySelectorAll('.asistente-pregunta-btn').forEach(btn => {
+    btn.addEventListener('click', () => mostrarRespuesta(parseInt(btn.dataset.preguntaId), categoriaId));
   });
 }
 
-// =====================================================
-// INICIALIZACIÓN
-// =====================================================
+function mostrarRespuesta(preguntaId, categoriaId) {
+  const body = document.getElementById('asistente-body');
+  const pregunta = BASE_CONOCIMIENTO.find(p => p.id === preguntaId);
+  
+  if (!pregunta) { mostrarMenuPrincipal(); return; }
+  
+  const textoFormateado = pregunta.respuesta.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  const accionesHTML = pregunta.acciones && pregunta.acciones.length > 0 
+    ? '<div class="asistente-acciones">' + pregunta.acciones.map(a => 
+        '<a href="' + a.link + '" class="asistente-accion-btn" target="_blank">' + a.texto + '</a>'
+      ).join('') + '</div>'
+    : '';
+  
+  body.innerHTML = 
+    '<div class="asistente-respuesta-container">' +
+    '<div class="asistente-respuesta-card">' +
+    '<div class="asistente-respuesta-pregunta">' + pregunta.pregunta + '</div>' +
+    '<div class="asistente-respuesta-texto">' + textoFormateado + '</div>' +
+    accionesHTML +
+    '<div class="asistente-nav-btns">' +
+    '<button class="asistente-nav-btn secundario" id="volver-categoria">Mas preguntas</button>' +
+    '<button class="asistente-nav-btn primario" id="ir-inicio">Inicio</button>' +
+    '</div></div></div>';
+  
+  body.scrollTop = 0;
+  
+  document.getElementById('volver-categoria').addEventListener('click', () => mostrarPreguntas(categoriaId));
+  document.getElementById('ir-inicio').addEventListener('click', mostrarMenuPrincipal);
+}
 
-/**
- * Inicializa el asistente cuando el DOM está listo
- */
 function inicializarAsistente() {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', crearAsistenteUI);
@@ -4819,16 +4601,4 @@ function inicializarAsistente() {
   }
 }
 
-// Auto-inicializar
 inicializarAsistente();
-
-// Exportar funciones para uso externo si es necesario
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    buscarRespuesta,
-    obtenerSugerencias,
-    enviarMensaje,
-    ASISTENTE_CONFIG,
-    BASE_CONOCIMIENTO
-  };
-}
