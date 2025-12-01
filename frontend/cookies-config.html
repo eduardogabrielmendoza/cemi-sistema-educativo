@@ -300,8 +300,14 @@
     }
 
     .toggle-switch.disabled {
-      opacity: 0.6;
+      opacity: 0.85;
       cursor: not-allowed;
+    }
+
+    .toggle-switch.active.disabled {
+      opacity: 1;
+      background: linear-gradient(135deg, #0071e3 0%, #00a8ff 100%);
+      box-shadow: 0 4px 15px rgba(0, 113, 227, 0.5);
     }
 
     .toggle-slider {
