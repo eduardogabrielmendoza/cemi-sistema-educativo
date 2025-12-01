@@ -289,24 +289,24 @@
 </head>
 <body>
 
-  <div class="cookie-overlay" id="cookieOverlay" style="display: none;">
-    <div class="cookie-modal">
-      <div class="cookie-modal-icon">
-        🍪
-      </div>
-      <h2>Usamos Cookies</h2>
-      <p>
-        En nuestro sitio web utilizamos cookies propias y de terceros para analizar nuestros servicios y mostrarte publicidad relacionada con tus preferencias. 
-        Puedes configurar o rechazar las cookies en el botón de configuración, o continuar navegando haciendo clic en "Aceptar todas las cookies". 
-        Para más información, visita nuestra <a href="privacidad.html">política de privacidad</a>.
-      </p>
-      <div class="cookie-buttons">
-        <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">
-          ✓ Aceptar Todas las Cookies
-        </button>
-        <button class="cookie-btn cookie-btn-config" onclick="goToCookieConfig()">
-          ⚙️ Configurar Cookies
-        </button>
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-inner">
+        <div class="cookie-banner-text">
+          <div class="cookie-icon">🍪</div>
+          <div class="cookie-message">
+            <strong>Usamos cookies</strong> para mejorar tu experiencia. Al continuar navegando, aceptas nuestra 
+            <a href="privacidad.html">política de privacidad</a> y el uso de cookies para analítica y personalización.
+          </div>
+        </div>
+        <div class="cookie-banner-actions">
+          <button class="cookie-btn cookie-btn-reject" onclick="rejectCookies()">
+            Rechazar
+          </button>
+          <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">
+            ✓ Aceptar Cookies
+          </button>
+        </div>
       </div>
     </div>
   </div>
