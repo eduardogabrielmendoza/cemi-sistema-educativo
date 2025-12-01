@@ -211,7 +211,6 @@
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
   background: var(--hw-color-wrought-iron);
   padding: 16px 24px 20px;
   opacity: 0;
@@ -219,6 +218,16 @@
   transform: translateY(-10px);
   transition: all 0.3s ease;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 280px;
+  width: auto;
+  white-space: nowrap;
+  border-radius: 0 0 4px 4px;
+}
+
+@media (min-width: 768px) {
+  .harvard-search-quicklink {
+    min-width: 320px;
+  }
 }
 
 .harvard-search-wrapper.active .harvard-search-quicklink {
