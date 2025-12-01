@@ -4024,8 +4024,8 @@ function agregarEstilosAsistente() {
   styles.textContent = `
     #asistente-cemi-container {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      --asistente-primary: #0071e3;
-      --asistente-secondary: #0077ed;
+      --asistente-primary: #656f77;
+      --asistente-secondary: #4a5259;
       --asistente-bg: #ffffff;
       --asistente-text: #333333;
       --asistente-gray: #f5f5f5;
@@ -4042,7 +4042,7 @@ function agregarEstilosAsistente() {
       background: linear-gradient(135deg, var(--asistente-primary), var(--asistente-secondary));
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0,113,227,0.35);
+      box-shadow: 0 8px 25px rgba(101, 111, 119, 0.35);
       z-index: 9997;
       display: flex;
       align-items: center;
