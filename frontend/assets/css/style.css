@@ -2476,7 +2476,7 @@ footer i {
 
 .about-card i {
   font-size: 2rem;
-  color: #0070F3;
+  color: #1976d2;
   margin-bottom: 15px;
   display: block;
 }
@@ -2512,7 +2512,7 @@ footer i {
 
 .team-card i {
   font-size: 2rem;
-  color: #0070F3;
+  color: #1976d2;
   margin-bottom: 10px;
 }
 
@@ -2570,14 +2570,14 @@ footer i {
   gap: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: #0A2540;
+  color: #1e3c72;
   margin-bottom: 8px;
 }
 
 .form-group label i {
   width: 16px;
   height: 16px;
-  color: #1A3A5C;
+  color: #2a5298;
 }
 
 .form-group input {
@@ -3475,7 +3475,7 @@ footer i {
 }
 
 .professional-footer {
-  background: linear-gradient(135deg, #0a1628 0%, #0d2847 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   color: white;
   padding: 60px 20px 20px;
 }
@@ -3541,7 +3541,7 @@ footer i {
 }
 
 .footer-links a:hover {
-  color: #3d8eea;
+  color: var(--color-accent);
   transform: translateX(5px);
 }
 
@@ -3568,7 +3568,7 @@ footer i {
 .footer-contact i {
   width: 18px;
   height: 18px;
-  color: #3d8eea;
+  color: var(--color-accent);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -3593,9 +3593,8 @@ footer i {
 }
 
 .social-link:hover {
-  background: #0071E3;
+  background: var(--color-accent);
   transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
 }
 
 .social-link i {
@@ -3604,7 +3603,7 @@ footer i {
 }
 
 .footer-cta {
-  background: linear-gradient(135deg, #0071E3 0%, #0066cc 100%);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   color: white;
   border: none;
   padding: 12px 24px;
@@ -3618,12 +3617,11 @@ footer i {
   transition: all 0.3s ease;
   width: 100%;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
 }
 
 .footer-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(0, 113, 227, 0.4);
+  box-shadow: 0 5px 20px rgba(126, 154, 200, 0.4);
 }
 
 .footer-cta i {
@@ -3635,7 +3633,7 @@ footer i {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 30px;
-  border-top: 1px solid rgba(0, 113, 227, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
 }
 
@@ -3697,7 +3695,7 @@ footer i {
 
 .floating-menu-wrapper.active .floating-menu-toggle {
   transform: rotate(135deg);
-  background: linear-gradient(135deg, #1A3A5C 0%, #0070F3 100%);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
 .floating-menu-item {
@@ -3919,11 +3917,11 @@ footer i {
 }
 
 .admin-submit {
-  background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
 }
 
 .admin-submit:hover {
-  background: linear-gradient(135deg, #1A3A5C 0%, #0A2540 100%);
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
   box-shadow: 0 8px 24px rgba(30, 60, 114, 0.4);
 }
 
@@ -5203,5 +5201,3 @@ footer i {
     max-width: 100%;
   }
 }
-
-
