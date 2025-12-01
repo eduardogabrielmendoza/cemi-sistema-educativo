@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #667eea 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -26,7 +26,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #667eea 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
 }
 
 .hero-background {
@@ -132,7 +132,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, #0071E3 0%, #00D4FF 100%);
+  background: linear-gradient(90deg, #7a9bbd 0%, #a8c5e0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -248,7 +248,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: 0;
@@ -256,8 +256,8 @@ body {
 
 .role-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 113, 227, 0.3);
-  border-color: #0071E3;
+  box-shadow: 0 20px 40px rgba(84, 113, 148, 0.3);
+  border-color: #547194;
 }
 
 .role-card:hover::before {
@@ -265,8 +265,8 @@ body {
 }
 
 .role-card.selected {
-  border-color: #0071E3;
-  box-shadow: 0 8px 30px rgba(0, 113, 227, 0.4);
+  border-color: #547194;
+  box-shadow: 0 8px 30px rgba(84, 113, 148, 0.4);
 }
 
 .role-card.selected::before {
@@ -286,7 +286,7 @@ body {
 .role-card-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -338,7 +338,7 @@ body {
 .role-features svg {
   width: 18px;
   height: 18px;
-  color: #0071E3;
+  color: #547194;
   flex-shrink: 0;
 }
 
@@ -368,7 +368,7 @@ body {
 .role-arrow svg {
   width: 20px;
   height: 20px;
-  color: #0071E3;
+  color: #547194;
 }
 
 .role-card:hover .role-arrow svg,
@@ -390,7 +390,7 @@ body {
 .guide-icon {
   width: 100px;
   height: 100px;
-  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
   border-radius: 25px;
   display: inline-flex;
   align-items: center;
@@ -432,7 +432,7 @@ body {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, #0071E3 0%, #005bb5 100%);
+  background: linear-gradient(180deg, #42638c 0%, #547194 100%);
   border-radius: 4px;
 }
 
@@ -456,19 +456,19 @@ body {
   top: 0;
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 20px rgba(0, 113, 227, 0.4);
+  box-shadow: 0 8px 20px rgba(84, 113, 148, 0.4);
   z-index: 2;
   transition: all 0.4s ease;
 }
 
 .timeline-item:hover .timeline-marker {
   transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 12px 30px rgba(0, 113, 227, 0.5);
+  box-shadow: 0 12px 30px rgba(84, 113, 148, 0.5);
 }
 
 .marker-number {
@@ -487,7 +487,7 @@ body {
 
 .timeline-item:hover .timeline-content {
   transform: translateX(10px);
-  box-shadow: 0 8px 30px rgba(0, 113, 227, 0.15);
+  box-shadow: 0 8px 30px rgba(84, 113, 148, 0.15);
 }
 
 .timeline-content h3 {
@@ -503,7 +503,7 @@ body {
 .timeline-content h3 svg {
   width: 28px;
   height: 28px;
-  color: #0071E3;
+  color: #547194;
 }
 
 .timeline-content > p {
@@ -532,15 +532,15 @@ body {
 }
 
 .detail-card:hover {
-  border-color: #0071E3;
-  background: #ebf8ff;
+  border-color: #547194;
+  background: #e8f0f7;
   transform: translateY(-3px);
 }
 
 .detail-card svg {
   width: 24px;
   height: 24px;
-  color: #0071E3;
+  color: #547194;
   flex-shrink: 0;
   margin-top: 3px;
 }
@@ -594,9 +594,9 @@ body {
   max-width: 700px;
   margin: 80px auto 0;
   padding: 50px;
-  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
   border-radius: 25px;
-  box-shadow: 0 15px 40px rgba(0, 113, 227, 0.4);
+  box-shadow: 0 15px 40px rgba(84, 113, 148, 0.4);
   animation: fadeInUp 1s ease-out;
 }
 
@@ -618,7 +618,7 @@ body {
   align-items: center;
   gap: 12px;
   background: white;
-  color: #0071E3;
+  color: #547194;
   padding: 16px 32px;
   border-radius: 50px;
   font-size: 1.1rem;
