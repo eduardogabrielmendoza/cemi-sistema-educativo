@@ -1043,13 +1043,12 @@ html {
 }
 
 .roles h2 {
+  font-family: var(--font-heading);
   font-size: 2.8em;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text);
   margin-bottom: 20px;
-  font-weight: 700;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 .roles h2::after {
@@ -1170,13 +1169,12 @@ html {
 }
 
 .modules h2 {
+  font-family: var(--font-heading);
   font-size: 2.8em;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text);
   margin-bottom: 20px;
-  font-weight: 700;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 .modules h2::after {
