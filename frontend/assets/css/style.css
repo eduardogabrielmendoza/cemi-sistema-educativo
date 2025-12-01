@@ -1,7 +1,7 @@
 :root {
   --color-primary: #000000;
   --color-secondary: #1d1d1f;
-  --color-accent: #232340;
+  --color-accent: #1e3c72;
   --color-bg: #ffffff;
   --color-bg-secondary: #f5f5f7;
   --color-text: #1d1d1f;
@@ -3665,14 +3665,14 @@ footer i {
   width: 56px !important;
   height: 56px !important;
   border-radius: 50% !important;
-  background: #232340 !important;
+  background: #1e3c72 !important;
   color: white !important;
   border: none !important;
   cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  box-shadow: 0 4px 12px rgba(35, 35, 64, 0.5), 0 0 40px rgba(35, 35, 64, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.5), 0 0 40px rgba(30, 60, 114, 0.3) !important;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   order: 999;
   position: relative !important;
@@ -3683,8 +3683,8 @@ footer i {
 
 .floating-menu-toggle:hover {
   transform: scale(1.1) rotate(90deg);
-  background: #2d2d4a !important;
-  box-shadow: 0 6px 20px rgba(35, 35, 64, 0.7), 0 0 50px rgba(35, 35, 64, 0.5) !important;
+  background: #2a5298 !important;
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.7), 0 0 50px rgba(30, 60, 114, 0.5) !important;
 }
 
 .floating-menu-toggle i {
@@ -3836,7 +3836,7 @@ footer i {
 }
 
 .login-btn-admin {
-  background: linear-gradient(135deg, #232340 0%, #1c1c35 100%);
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
   border: none;
   padding: 8px 18px;
@@ -3848,13 +3848,13 @@ footer i {
   display: flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 4px 12px rgba(35, 35, 64, 0.4);
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
 }
 
 .login-btn-admin:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(35, 35, 64, 0.6);
-  background: linear-gradient(135deg, #2d2d4a 0%, #232340 100%);
+  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.6);
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
 }
 
 .login-btn-admin:active {
