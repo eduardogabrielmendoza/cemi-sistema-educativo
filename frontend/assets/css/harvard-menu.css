@@ -259,7 +259,7 @@
 
 /* ===== MEGA MENU FULLSCREEN ===== */
 .harvard-mega-menu {
-  background-color: var(--hw-color-wrought-iron);
+  background-color: var(--hw-color-wrought-iron) !important;
   position: fixed;
   top: 0;
   left: 0;
@@ -274,6 +274,10 @@
   backface-visibility: hidden;
   transform: translate3d(0, -100%, 0);
   transition: transform 0.4s cubic-bezier(0.52, 0.16, 0.24, 1);
+}
+
+.harvard-mega-menu * {
+  background-color: transparent;
 }
 
 .harvard-mega-menu.active {
