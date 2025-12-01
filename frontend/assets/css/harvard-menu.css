@@ -8,10 +8,10 @@
   --hw-color-wrought-iron: #1e1e1e;
   --hw-color-blackboard: #0e0e0e;
   --hw-color-graphite: #4a4a4a;
-  --hw-color-slate: #a0a0a0;
+  --hw-color-slate: #b0b0b0;
   --hw-color-shade: #cccccc;
   --hw-color-white: #ffffff;
-  --hw-color-asphalt: #7a7a7a;
+  --hw-color-asphalt: #8a8a8a;
   --hw-color-accent: #0070F3;
 }
 
@@ -835,7 +835,7 @@
 
 /* ===== QUICK LINKS FOOTER ===== */
 .mega-menu-footer {
-  color: var(--hw-color-white);
+  color: var(--hw-color-slate);
   background-color: var(--hw-color-wrought-iron);
   border-top: 1px solid var(--hw-color-graphite);
   position: absolute;
@@ -917,7 +917,7 @@
   display: inline-block;
   line-height: 1.15;
   margin-right: 28px;
-  color: var(--hw-color-white);
+  color: var(--hw-color-slate);
   font-size: 16px;
   font-weight: 700;
   text-decoration: none;
@@ -936,7 +936,7 @@
 
 .mega-footer-link:hover,
 .mega-footer-link:focus {
-  color: var(--hw-color-shade);
+  color: var(--hw-color-white);
 }
 
 /* ===== RESPONSIVE ===== */
