@@ -339,7 +339,12 @@
   bottom: 0;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.52, 0.16, 0.24, 1);
+  transition: opacity 0.3s ease-out;
+  will-change: opacity;
+}
+
+.mega-menu-bg-image img.active {
+  opacity: 1;
 }
 
 .mega-menu-bg-image::after {
@@ -356,7 +361,7 @@
   z-index: 1;
 }
 
-.mega-menu-bg-image.visible img {
+.mega-menu-bg-image.visible img.active {
   opacity: 1;
 }
 

@@ -60,6 +60,20 @@ document.addEventListener('DOMContentLoaded', function() {
   let isMenuOpen = false;
   let activeNavItem = null;
   let activeSubLink = null;
+  
+  // Precargar imágenes del menú para transiciones suaves
+  function preloadMenuImages() {
+    const images = document.querySelectorAll('[data-image]');
+    images.forEach(el => {
+      const src = el.dataset.image;
+      if (src && !bgImage.querySelector(`img[data-src="${src}"]`)) {
+        const img = document.createElement('img');
+        img.dataset.src = src;
+        img.src = src;
+        bgImage.appendChild(img);
+      }
+    });
+  }
 
   // ===== ABRIR/CERRAR MENÚ =====
   function openMenu() {
@@ -67,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
     header?.classList.add('menu-open');
     document.body.style.overflow = 'hidden';
     isMenuOpen = true;
+    
+    // Precargar todas las imágenes
+    preloadMenuImages();
     
     // Reinicializar iconos Lucide
     setTimeout(() => {
@@ -214,15 +231,24 @@ document.addEventListener('DOMContentLoaded', function() {
         hideTertiaryPanel(targetTertiary);
         hideBackgroundImage();
         activeSubLink = null;
+        activeSubLinkImage = null;
         return;
       }
       
       // Desactivar otros sub-links
       document.querySelectorAll('.mega-sub-link').forEach(l => l.classList.remove('active'));
       
+      // Cerrar items terciarios expandidos
+      document.querySelectorAll('.mega-tertiary-item.active').forEach(item => {
+        item.classList.remove('active');
+      });
+      
       // Activar este
       this.classList.add('active');
       activeSubLink = this;
+      
+      // Guardar imagen del sub-link para restaurar después
+      activeSubLinkImage = targetImage || null;
       
       // Mostrar panel terciario
       showTertiaryPanel(targetTertiary);
@@ -254,19 +280,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function showBackgroundImage(imageSrc) {
     if (bgImage) {
-      const img = bgImage.querySelector('img');
-      if (img) {
+      // Buscar o crear imagen para esta URL
+      let img = bgImage.querySelector(`img[data-src="${imageSrc}"]`);
+      
+      if (!img) {
+        // Crear nueva imagen
+        img = document.createElement('img');
+        img.dataset.src = imageSrc;
         img.src = imageSrc;
+        bgImage.appendChild(img);
       }
+      
+      // Desactivar todas las imágenes
+      bgImage.querySelectorAll('img').forEach(i => i.classList.remove('active'));
+      
+      // Activar esta imagen
+      img.classList.add('active');
       bgImage.classList.add('visible');
     }
   }
 
   function hideBackgroundImage() {
     if (bgImage) {
+      bgImage.querySelectorAll('img').forEach(i => i.classList.remove('active'));
       bgImage.classList.remove('visible');
     }
   }
+  
+  // Guardar referencia al sub-link activo para restaurar su imagen
+  let activeSubLinkImage = null;
 
   // ===== LINKS DIRECTOS (sin submenú) =====
   document.querySelectorAll('.mega-sub-link:not(.has-children)').forEach(link => {
@@ -283,10 +325,15 @@ document.addEventListener('DOMContentLoaded', function() {
     button?.addEventListener('click', function(e) {
       e.preventDefault();
       
-      // Si ya está activo, cerrar
+      // Si ya está activo, cerrar y mostrar imagen del padre
       if (item.classList.contains('active')) {
         item.classList.remove('active');
-        hideBackgroundImage();
+        // Restaurar imagen del panel padre (sub-link activo)
+        if (activeSubLinkImage) {
+          showBackgroundImage(activeSubLinkImage);
+        } else {
+          hideBackgroundImage();
+        }
         return;
       }
       
