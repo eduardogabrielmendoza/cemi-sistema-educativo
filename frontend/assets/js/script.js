@@ -3150,10 +3150,10 @@ function generateTable(section, data) {
             return `
             <div class="curso-card alumno-card" data-id="${a.id_alumno}">
               <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #0070F3, #42a5f5);'}">
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}">
                   ${avatarUrl 
                     ? `<img src="${avatarUrl}" alt="${a.nombre}">`
-                    : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`
                   }
                 </div>
                 <div class="curso-card-title">
@@ -3242,10 +3242,10 @@ function generateTable(section, data) {
             return `
             <div class="curso-card profesor-card" data-id="${p.id_profesor}" data-idioma="${idiomas}">
               <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #6a1b9a, #8e24aa);'}">
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}">
                   ${avatarUrl 
                     ? `<img src="${avatarUrl}" alt="${p.nombre}">`
-                    : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`
                   }
                 </div>
                 <div class="curso-card-title">
@@ -3320,10 +3320,10 @@ function generateTable(section, data) {
             return `
             <div class="curso-card profesor-card" data-id="${admin.id_persona}">
               <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1e3a8a, #0070F3);'}">
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}">
                   ${avatarUrl 
                     ? `<img src="${avatarUrl}" alt="${admin.nombre}">`
-                    : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>`
                   }
                 </div>
                 <div class="curso-card-title">
