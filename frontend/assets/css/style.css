@@ -1,18 +1,55 @@
+/* =====================================================
+   CEMI Design System - Inspirado en Harvard
+   Paleta conservadora con cyan como color de marca
+   ===================================================== */
 :root {
-  --color-primary: #000000;
-  --color-secondary: #1d1d1f;
-  --color-accent: #0071e3;
+  /* Colores Primarios CEMI */
+  --color-primary: #0A2540;        /* Azul oscuro profundo - texto principal */
+  --color-secondary: #0070F3;      /* Cyan CEMI - color de marca */
+  --color-accent: #0070F3;         /* Cyan para acentos y CTAs */
+  
+  /* Colores Neutrales (estilo Harvard) */
   --color-bg: #ffffff;
-  --color-bg-secondary: #f5f5f7;
-  --color-text: #1d1d1f;
-  --color-text-light: #86868b;
+  --color-bg-secondary: #F7F7F7;   /* Gris muy suave */
+  --color-bg-tertiary: #EAEAEA;    /* Gris claro para secciones */
+  --color-text: #1E1E1E;           /* Negro suave para texto */
+  --color-text-light: #6B7280;     /* Gris medio para texto secundario */
+  --color-text-muted: #9CA3AF;     /* Gris claro para hints */
   --color-card: #ffffff;
-  --color-border: #d2d2d7;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --radius: 18px;
-  --radius-lg: 24px;
+  --color-border: #E5E7EB;         /* Bordes sutiles */
+  --color-border-light: #F3F4F6;
+  
+  /* Colores de Estado */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  
+  /* Sombras sutiles (estilo Harvard) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.1);
+  
+  /* Border radius conservador (estilo Harvard) */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* Tipografía */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  
+  /* Espaciado consistente */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
 }
 
 * {
@@ -21,17 +58,22 @@
   box-sizing: border-box;
 }
 
+/* Importar fuente Inter para un look más moderno y legible */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6;
+  line-height: 1.7;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   max-width: 100vw;
   position: relative;
+  font-size: 16px;
+  letter-spacing: -0.01em;
 }
 
 html {
@@ -57,62 +99,72 @@ html {
   max-width: 100vw;
 }
 
+/* =====================================================
+   NAVBAR - Estilo limpio y profesional
+   ===================================================== */
 .navbar {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.navbar:hover {
+  background: rgba(255, 255, 255, 0.98);
 }
 
 .nav-container {
   display: grid;
   grid-template-columns: minmax(auto, 150px) 1fr minmax(auto, 480px);
   align-items: center;
-  padding: 12px 3%;
-  max-width: 100%;
-  margin: 0;
-  gap: 20px;
+  padding: 16px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 24px;
   position: relative;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  transition: opacity 0.3s ease;
+  gap: 12px;
+  transition: opacity 0.2s ease;
   flex-shrink: 0;
   justify-self: start;
 }
 
 .logo:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .logo img {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
+  box-shadow: var(--shadow-sm);
 }
 
 .logo span {
   color: var(--color-primary);
-  font-size: 1.4em;
-  font-weight: 600;
-  letter-spacing: -0.5px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 32px;
+  gap: 36px;
   justify-content: center;
   margin: 0;
   padding: 0;
   justify-self: center;
-  margin-left: 220px;
+  margin-left: 180px;
 }
 
 
@@ -120,40 +172,59 @@ html {
 .nav-links a {
   color: var(--color-text);
   text-decoration: none;
-  font-weight: 400;
-  font-size: 0.875rem;
+  font-weight: 500;
+  font-size: 0.9rem;
   position: relative;
-  transition: opacity 0.3s ease;
+  transition: color 0.2s ease;
+  padding: 8px 0;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-secondary);
+  transition: width 0.3s ease;
 }
 
 .nav-links a:hover {
-  opacity: 0.6;
+  color: var(--color-secondary);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 .nav-buttons {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
   justify-content: flex-end;
   flex-shrink: 0;
   justify-self: end;
 }
 
+/* Botón principal de login - Estilo Harvard con cyan CEMI */
 .login-btn {
-  background: var(--color-primary);
+  background: var(--color-secondary);
   color: white;
   border: none;
-  padding: 8px 18px;
-  border-radius: 980px;
+  padding: 10px 24px;
+  border-radius: var(--radius);
   font-size: 0.875rem;
-  font-weight: 400;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
 }
 
 .login-btn:hover {
-  background: var(--color-secondary);
-  transform: scale(1.02);
+  background: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .nav-item-dropdown {
@@ -446,172 +517,127 @@ html {
   align-items: center;
 }
 
+/* =====================================================
+   BOTONES CTA - Estilo conservador Harvard con cyan CEMI
+   ===================================================== */
 .cta-btn {
-  background: var(--color-accent);
+  background: var(--color-secondary);
   color: white;
-  padding: 12px 24px;
+  padding: 14px 32px;
   border: none;
-  border-radius: 980px;
+  border-radius: var(--radius);
   cursor: pointer;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.cta-btn:hover::before {
-  width: 300px;
-  height: 300px;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .cta-btn:hover {
-  transform: scale(1.05);
-  background: #0077ed;
-  box-shadow: 0 8px 24px rgba(0, 113, 227, 0.3);
+  background: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
+/* Botón APK - Verde Android más sutil */
 .cta-btn-apk {
-  background: linear-gradient(135deg, #3ddc84 0%, #2ba568 100%);
+  background: #22C55E;
   color: white;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border: none;
-  border-radius: 980px;
+  border-radius: var(--radius);
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-decoration: none;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(61, 220, 132, 0.3);
-}
-
-.cta-btn-apk::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.cta-btn-apk:hover::before {
-  width: 300px;
-  height: 300px;
+  letter-spacing: 0.01em;
 }
 
 .cta-btn-apk:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #45e592 0%, #2fb370 100%);
-  box-shadow: 0 8px 24px rgba(61, 220, 132, 0.5);
+  background: #16A34A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
 }
 
+/* Botón secundario - Outline elegante */
 .cta-btn-secondary {
   background: transparent;
-  color: var(--color-accent);
-  padding: 12px 24px;
-  border: 1px solid var(--color-accent);
-  border-radius: 980px;
+  color: var(--color-secondary);
+  padding: 14px 32px;
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--radius);
   cursor: pointer;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-btn-secondary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--color-accent);
-  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: -1;
-}
-
-.cta-btn-secondary:hover::before {
-  left: 0;
+  letter-spacing: 0.01em;
 }
 
 .cta-btn-secondary:hover {
+  background: var(--color-secondary);
   color: white;
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 113, 227, 0.2);
-  transform: scale(1.02);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
+/* Link arrow - Estilo Harvard */
 .link-arrow {
-  color: var(--color-accent);
+  color: var(--color-secondary);
   text-decoration: none;
-  font-size: 1.125rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-block;
-  position: relative;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .link-arrow::after {
   content: '→';
-  position: absolute;
-  right: -20px;
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s ease;
 }
 
 .link-arrow:hover {
-  opacity: 0.7;
-  transform: translateX(4px);
+  color: var(--color-primary);
 }
 
 .link-arrow:hover::after {
-  right: -24px;
+  transform: translateX(4px);
 }
 
 .product-section {
-  padding: 100px 6%;
+  padding: 120px 6%;
   text-align: center;
   background: white;
 }
 
+/* =====================================================
+   HERO PRINCIPAL - Diseño limpio y elegante estilo Harvard
+   ===================================================== */
 .hero-main {
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
+  background: var(--color-bg);
   color: var(--color-text);
   padding: 80px 6%;
   position: relative;
-  gap: 80px;
+  gap: 100px;
   overflow: hidden;
 }
 
+/* Fondo sutil con imagen */
 .hero-main::before {
   content: '';
   position: absolute;
@@ -623,10 +649,11 @@ html {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.7;
+  opacity: 0.15;
   z-index: 0;
 }
 
+/* Overlay gradiente suave */
 .hero-main::after {
   content: '';
   position: absolute;
@@ -634,14 +661,13 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, 
-    rgba(255,255,255,0.2) 0%,
-    rgba(255,255,255,0.3) 20%,
-    rgba(255,255,255,0.45) 40%,
-    rgba(255,255,255,0.6) 60%,
-    rgba(255,255,255,0.75) 75%,
-    rgba(255,255,255,0.88) 88%,
-    rgba(255,255,255,0.98) 100%);
+  background: linear-gradient(
+    180deg, 
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.85) 40%,
+    rgba(255, 255, 255, 0.95) 70%,
+    rgba(255, 255, 255, 1) 100%
+  );
   z-index: 1;
 }
 
@@ -651,41 +677,33 @@ html {
   z-index: 2;
 }
 
+/* Logo con animación elegante y sombra sutil */
 .hero-logo-animate {
-  width: 400px;
-  height: 400px;
+  width: 380px;
+  height: 380px;
   border-radius: 50%;
-  box-shadow: 0 20px 60px rgba(0, 113, 227, 0.4);
-  animation: fadeInBounce 1.2s ease-out, gentleBounce 3s ease-in-out 1.2s infinite;
+  box-shadow: 0 20px 60px rgba(0, 112, 243, 0.2);
+  animation: fadeInScale 1s ease-out, gentleFloat 4s ease-in-out 1s infinite;
+  border: 4px solid rgba(255, 255, 255, 0.8);
 }
 
-@keyframes fadeInBounce {
+@keyframes fadeInScale {
   0% {
     opacity: 0;
-    transform: scale(0.3) translateY(-100px) rotate(-15deg);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05) translateY(15px) rotate(3deg);
-  }
-  70% {
-    transform: scale(0.95) translateY(-8px) rotate(-2deg);
-  }
-  85% {
-    transform: scale(1.02) translateY(4px) rotate(1deg);
+    transform: scale(0.8);
   }
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0) rotate(0deg);
+    transform: scale(1);
   }
 }
 
-@keyframes gentleBounce {
+@keyframes gentleFloat {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-12px);
+    transform: translateY(-10px);
   }
 }
 
@@ -694,129 +712,127 @@ html {
   text-align: left;
   position: relative;
   z-index: 2;
+  max-width: 600px;
 }
 
+/* Título principal - Tipografía impactante estilo Harvard */
 .hero-content h1 {
-  font-size: 5rem;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
   letter-spacing: -0.03em;
-  line-height: 1.05;
-  color: var(--color-text);
+  line-height: 1.1;
+  color: var(--color-primary);
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 1s ease forwards 0.2s;
+  animation: fadeInUp 0.8s ease forwards 0.2s;
 }
 
+/* Subtítulo elegante */
 .hero-content p {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   color: var(--color-text-light);
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   font-weight: 400;
+  line-height: 1.5;
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 1s ease forwards 0.4s;
+  animation: fadeInUp 0.8s ease forwards 0.4s;
 }
 
 .hero-buttons {
   display: flex;
   gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 1s ease forwards 0.6s;
+  animation: fadeInUp 0.8s ease forwards 0.6s;
 }
 
 .product-section.bg-light {
   background: var(--color-bg-secondary);
 }
 
+/* =====================================================
+   SECCIONES DE CONTENIDO - Espaciado generoso
+   ===================================================== */
 .section-content {
-  max-width: 980px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .section-content h2 {
-  font-size: 3.5rem;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
   letter-spacing: -0.02em;
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 .section-subtitle {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   color: var(--color-text-light);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   font-weight: 400;
 }
 
 .section-description {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--color-text-light);
-  margin-bottom: 32px;
-  line-height: 1.5;
-  max-width: 700px;
+  margin-bottom: 36px;
+  line-height: 1.7;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .section-links {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 
+/* =====================================================
+   GRID DE CARACTERÍSTICAS - Diseño limpio
+   ===================================================== */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  padding: 80px 6%;
-  max-width: 1400px;
+  gap: 32px;
+  padding: 100px 6%;
+  max-width: 1200px;
   margin: 0 auto;
   background: white;
 }
 
 .feature-card {
-  padding: 48px 24px;
+  padding: 48px 32px;
   text-align: center;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  transform: translateY(30px);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
 }
-
-.feature-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.feature-card:nth-child(1) { transition-delay: 0.1s; }
-.feature-card:nth-child(2) { transition-delay: 0.2s; }
-.feature-card:nth-child(3) { transition-delay: 0.3s; }
 
 .feature-card:hover {
-  transform: translateY(-8px) !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-secondary);
 }
 
 .feature-icon {
-  color: var(--color-accent);
+  color: var(--color-secondary);
   margin-bottom: 24px;
   display: flex;
   justify-content: center;
-  animation: floatIcon 3s ease-in-out infinite;
 }
 
 .feature-card:hover .feature-icon {
   transform: scale(1.1);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes floatIcon {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  transition: transform 0.3s ease;
 }
 
 @keyframes fadeInUp {
@@ -827,16 +843,16 @@ html {
 }
 
 .feature-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 12px;
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 .feature-card p {
   font-size: 1rem;
   color: var(--color-text-light);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .footer {
@@ -1006,58 +1022,52 @@ html {
   }
 }
 
+/* =====================================================
+   SECCIÓN ROLES - Estilo institucional limpio
+   ===================================================== */
 .roles {
   text-align: center;
-  padding: 100px 8%;
+  padding: 100px 6%;
   background: var(--color-bg-secondary);
   position: relative;
 }
 
 .roles h2 {
-  font-size: 2.8em;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 16px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .roles h2::after {
   content: '';
   display: block;
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-  margin: 20px auto 40px;
+  width: 60px;
+  height: 3px;
+  background: var(--color-secondary);
+  margin: 20px auto 48px;
   border-radius: 2px;
 }
 
 .role-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 35px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .role-card {
   background: white;
-  padding: 40px 30px;
+  padding: 48px 32px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-border);
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards;
 }
-
-.role-card:nth-child(1) { animation-delay: 0.1s; }
-.role-card:nth-child(2) { animation-delay: 0.3s; }
-.role-card:nth-child(3) { animation-delay: 0.5s; }
 
 .role-card::before {
   content: '';
@@ -1066,7 +1076,7 @@ html {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  background: var(--color-secondary);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -1076,179 +1086,121 @@ html {
 }
 
 .role-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary);
+  border-color: var(--color-secondary);
 }
 
 .role-card i {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   margin-bottom: 20px;
-  color: var(--color-primary);
-  background: linear-gradient(135deg, rgba(30, 60, 114, 0.1), rgba(42, 82, 152, 0.1));
-  padding: 15px;
+  color: var(--color-secondary);
+  background: rgba(0, 112, 243, 0.08);
+  padding: 14px;
   border-radius: 50%;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  transition: all 0.3s ease;
 }
 
 .role-card:hover i {
-  transform: scale(1.15) rotate(10deg);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  transform: scale(1.1);
+  background: var(--color-secondary);
   color: white;
-  animation: none;
 }
 
 .role-card h3 {
-  margin-bottom: 15px;
-  color: var(--color-text);
-  font-size: 1.4em;
+  margin-bottom: 12px;
+  color: var(--color-primary);
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
 .role-card p {
   color: var(--color-text-light);
   line-height: 1.7;
-  font-size: 0.95em;
+  font-size: 0.95rem;
 }
 
+/* =====================================================
+   SECCIÓN MÓDULOS - Cards limpias y profesionales
+   ===================================================== */
 .modules {
   text-align: center;
-  padding: 100px 8%;
+  padding: 100px 6%;
   background: white;
   position: relative;
 }
 
-.modules::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path fill="%23f8f9ff" d="M0,50 Q360,100 720,50 T1440,50 L1440,0 L0,0 Z"></path></svg>');
-  background-size: cover;
-}
-
 .modules h2 {
-  font-size: 2.8em;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 16px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .modules h2::after {
   content: '';
   display: block;
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-  margin: 20px auto 40px;
+  width: 60px;
+  height: 3px;
+  background: var(--color-secondary);
+  margin: 20px auto 48px;
   border-radius: 2px;
 }
 
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
+  gap: 28px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .module-card {
-  background: linear-gradient(135deg, rgba(30, 60, 114, 0.05), rgba(42, 82, 152, 0.05));
-  padding: 40px 30px;
+  background: var(--color-bg-secondary);
+  padding: 40px 28px;
   border-radius: var(--radius-lg);
-  border: 2px solid var(--color-border);
-  transition: all 0.4s ease;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transform: scale(0.95);
-  animation: fadeInScale 0.8s ease forwards;
-}
-
-.module-card:nth-child(1) { animation-delay: 0.1s; }
-.module-card:nth-child(2) { animation-delay: 0.2s; }
-.module-card:nth-child(3) { animation-delay: 0.3s; }
-.module-card:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes fadeInScale {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.module-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(135deg, transparent, rgba(30, 60, 114, 0.1), transparent);
-  transform: rotate(45deg);
-  transition: all 0.6s ease;
-}
-
-.module-card:hover::before {
-  top: -100%;
-  right: -100%;
 }
 
 .module-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary);
-  background: linear-gradient(135deg, rgba(30, 60, 114, 0.1), rgba(42, 82, 152, 0.1));
+  border-color: var(--color-secondary);
+  background: white;
 }
 
 .module-card i {
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   margin-bottom: 20px;
   color: white;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  padding: 15px;
+  background: var(--color-secondary);
+  padding: 14px;
   border-radius: var(--radius);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 1;
+  transition: all 0.3s ease;
 }
 
 .module-card:hover i {
-  transform: rotateY(360deg);
-}
-
-.module-card:hover i {
-  transform: scale(1.1) rotate(-5deg);
+  transform: scale(1.1);
+  background: var(--color-primary);
 }
 
 .module-card h3 {
-  margin-bottom: 15px;
-  color: var(--color-text);
-  font-size: 1.3em;
+  margin-bottom: 12px;
+  color: var(--color-primary);
+  font-size: 1.2rem;
   font-weight: 600;
-  position: relative;
-  z-index: 1;
 }
 
 .module-card p {
   color: var(--color-text-light);
   line-height: 1.7;
-  font-size: 0.95em;
-  position: relative;
-  z-index: 1;
+  font-size: 0.95rem;
 }
 
 
@@ -3059,37 +3011,40 @@ footer i {
 }
 
 
+/* =====================================================
+   SECCIÓN ESTADÍSTICAS - Estilo limpio y elegante
+   ===================================================== */
 .stats-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 80px 20px;
-  margin: 60px 0;
+  background: white;
+  padding: 100px 6%;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .stats-section h2 {
   text-align: center;
   font-size: 2.5rem;
   color: var(--color-primary);
-  margin-bottom: 50px;
+  margin-bottom: 56px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px;
-  max-width: 1200px;
+  gap: 32px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 20px;
 }
 
 .stat-item {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 15px;
+  background: var(--color-bg-secondary);
+  padding: 40px 24px;
+  border-radius: var(--radius-lg);
   text-align: center;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3097,31 +3052,31 @@ footer i {
 }
 
 .stat-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(30, 60, 114, 0.15);
-  border-color: var(--color-accent);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-secondary);
 }
 
 .stat-item i {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 15px;
-  color: var(--color-primary);
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+  color: var(--color-secondary);
 }
 
 .stat-item h3 {
-  font-size: 3rem;
+  font-size: 2.75rem;
   font-weight: 700;
   color: var(--color-primary);
-  margin: 10px 0;
+  margin: 8px 0;
   line-height: 1;
 }
 
 .stat-item p {
-  font-size: 1.1rem;
-  color: #6c757d;
+  font-size: 1rem;
+  color: var(--color-text-light);
   font-weight: 500;
-  margin: 10px 0 0 0;
+  margin: 8px 0 0 0;
 }
 
 .stats-grid {
@@ -3265,58 +3220,61 @@ footer i {
   margin: 0;
 }
 
+/* =====================================================
+   SECCIÓN TECNOLOGÍAS - Estilo elegante con cyan CEMI
+   ===================================================== */
 .tech-section {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  padding: 80px 20px;
+  background: var(--color-primary);
+  padding: 100px 6%;
   color: white;
 }
 
 .tech-section h2 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .tech-subtitle {
   text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 50px;
-  opacity: 0.95;
+  font-size: 1.1rem;
+  margin-bottom: 56px;
+  opacity: 0.85;
   font-weight: 400;
 }
 
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 .tech-item {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 30px 25px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 32px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition: all 0.3s ease;
   text-align: center;
 }
 
 .tech-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .tech-icon {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .tech-icon i {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   color: white;
   opacity: 0.9;
 }
@@ -3325,25 +3283,24 @@ footer i {
   text-decoration: none;
   color: inherit;
   display: inline-block;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .tech-item a:hover {
-  transform: scale(1.05);
-  text-decoration: underline;
+  opacity: 0.8;
 }
 
 .tech-item h4 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
   font-weight: 600;
   color: white;
 }
 
 .tech-item p {
-  opacity: 0.9;
-  line-height: 1.6;
-  font-size: 0.95rem;
+  opacity: 0.8;
+  line-height: 1.5;
+  font-size: 0.9rem;
   color: white;
 }
 
@@ -3383,71 +3340,75 @@ footer i {
   font-size: 0.95rem;
 }
 
+/* =====================================================
+   FAQ SECTION - Estilo limpio y profesional
+   ===================================================== */
 .faq-section {
-  padding: 80px 20px;
-  background: #f8f9fa;
+  padding: 100px 6%;
+  background: var(--color-bg-secondary);
 }
 
 .faq-section h2 {
   text-align: center;
   font-size: 2.5rem;
   color: var(--color-primary);
-  margin-bottom: 50px;
+  margin-bottom: 56px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .faq-container {
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
 .faq-item {
   background: white;
-  margin-bottom: 20px;
-  border-radius: 10px;
+  margin-bottom: 16px;
+  border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
 }
 
 .faq-item:hover {
-  box-shadow: 0 5px 20px rgba(30, 60, 114, 0.12);
+  border-color: var(--color-secondary);
 }
 
 .faq-question {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 25px 30px;
+  gap: 16px;
+  padding: 24px;
   cursor: pointer;
   background: white;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   user-select: none;
 }
 
 .faq-question:hover {
-  background: #f8f9fa;
+  background: var(--color-bg-secondary);
 }
 
 .faq-question > i:first-child {
-  width: 24px;
-  height: 24px;
-  color: var(--color-primary);
+  width: 22px;
+  height: 22px;
+  color: var(--color-secondary);
   flex-shrink: 0;
 }
 
 .faq-question h3 {
   flex: 1;
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--color-primary);
   font-weight: 600;
 }
 
 .faq-toggle {
-  width: 20px;
-  height: 20px;
-  color: var(--color-accent);
+  width: 18px;
+  height: 18px;
+  color: var(--color-secondary);
   transition: transform 0.3s ease;
   flex-shrink: 0;
 }
@@ -3460,53 +3421,58 @@ footer i {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease, padding 0.3s ease;
-  background: #f8f9fa;
+  background: var(--color-bg-secondary);
 }
 
 .faq-item.active .faq-answer {
   max-height: 500px;
-  padding: 0 30px 25px 69px;
+  padding: 0 24px 24px 62px;
 }
 
 .faq-answer p {
-  color: #495057;
+  color: var(--color-text-light);
   line-height: 1.7;
   margin: 0;
 }
 
+/* =====================================================
+   FOOTER PROFESIONAL - Estilo institucional
+   ===================================================== */
 .professional-footer {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: var(--color-primary);
   color: white;
-  padding: 60px 20px 20px;
+  padding: 80px 6% 32px;
 }
 
 .footer-main {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 48px;
+  margin-bottom: 48px;
 }
 
 .footer-column h4 {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  margin-bottom: 24px;
   font-weight: 600;
   color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .footer-logo {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .footer-logo img {
-  width: 45px;
-  height: 45px;
-  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
 }
 
 .footer-logo h3 {
@@ -3516,8 +3482,8 @@ footer i {
 }
 
 .footer-description {
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
   font-size: 0.95rem;
 }
 
@@ -3528,26 +3494,28 @@ footer i {
 }
 
 .footer-links li {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .footer-links a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
 }
 
 .footer-links a:hover {
-  color: var(--color-accent);
-  transform: translateX(5px);
+  color: white;
+  transform: translateX(4px);
 }
 
 .footer-links a i {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+  color: var(--color-secondary);
 }
 
 .footer-contact {
@@ -3557,18 +3525,19 @@ footer i {
 }
 
 .footer-contact li {
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 16px;
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
   line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .footer-contact i {
   width: 18px;
   height: 18px;
-  color: var(--color-accent);
+  color: var(--color-secondary);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -3576,25 +3545,25 @@ footer i {
 .footer-social {
   display: flex;
   gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .social-link {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .social-link:hover {
-  background: var(--color-accent);
-  transform: translateY(-3px);
+  background: var(--color-secondary);
+  transform: translateY(-2px);
 }
 
 .social-link i {
@@ -3603,25 +3572,25 @@ footer i {
 }
 
 .footer-cta {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: var(--color-secondary);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   width: 100%;
   justify-content: center;
 }
 
 .footer-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(126, 154, 200, 0.4);
+  background: white;
+  color: var(--color-primary);
 }
 
 .footer-cta i {
@@ -3630,17 +3599,17 @@ footer i {
 }
 
 .footer-bottom {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding-top: 30px;
+  padding-top: 32px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
 }
 
 .footer-bottom p {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
   margin: 8px 0;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .footer-tech {
@@ -3835,26 +3804,26 @@ footer i {
   z-index: 9999 !important;
 }
 
+/* Botón Admin - Estilo elegante */
 .login-btn-admin {
-  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
-  color: white;
-  border: none;
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-border);
   padding: 8px 18px;
-  border-radius: 980px;
+  border-radius: var(--radius);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
 }
 
 .login-btn-admin:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.5);
-  background: linear-gradient(135deg, #005bb5 0%, #0071E3 100%);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background: rgba(0, 112, 243, 0.05);
 }
 
 .login-btn-admin:active {
