@@ -335,10 +335,21 @@
       
       <!-- Botones a la derecha -->
       <div class="harvard-actions">
-        <a href="a-to-z.html" class="harvard-admin-btn harvard-az-btn">
-          <i data-lucide="book-open-text" style="width: 16px; height: 16px;"></i>
-          <span>Índice A-Z</span>
-        </a>
+        <div class="harvard-search-container" id="harvardSearchContainer">
+          <button class="harvard-search-btn" id="harvardSearchBtn" aria-label="Buscar en el índice A-Z">
+            <i data-lucide="search" class="search-icon"></i>
+            <span class="search-label">A-Z</span>
+          </button>
+          <div class="harvard-search-expand">
+            <input type="text" class="harvard-search-input" id="harvardSearchInput" placeholder="Buscar en CEMI..." autocomplete="off">
+            <button class="harvard-search-go" id="harvardSearchGo" aria-label="Ir al índice">
+              <i data-lucide="arrow-right"></i>
+            </button>
+            <button class="harvard-search-close" id="harvardSearchClose" aria-label="Cerrar búsqueda">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+        </div>
         <button class="harvard-menu-btn" id="harvardMenuBtn">
           <span>Menu</span>
           <div class="harvard-hamburger">
@@ -461,7 +472,6 @@
           <p class="mega-sub-description">Herramientas de acceso y administración institucional.</p>
           <div class="mega-sub-links">
             <a href="login-admin.html" class="mega-sub-link">Acceso Administrativo</a>
-            <a href="login-selector.html" class="mega-sub-link">Ingreso por Rol</a>
             <a href="reglamento-institucional.html" class="mega-sub-link">Reglamento Institucional</a>
           </div>
         </div>

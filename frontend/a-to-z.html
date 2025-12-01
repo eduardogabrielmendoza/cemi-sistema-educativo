@@ -4,313 +4,297 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Índice A-Z - CEMI</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/harvard-pages.css">
   <link rel="stylesheet" href="assets/css/a-to-z.css">
-  
-  <script src="assets/js/config.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="az-page">
+<body class="harvard-page">
 
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
-        <img src="images/logo.png" alt="Logo CEMI">
+  <!-- Header -->
+  <header class="harvard-internal-header">
+    <div class="harvard-internal-header-inner">
+      <a href="index.html" class="harvard-internal-logo">
+        <img src="images/logo.png" alt="CEMI">
         <span>CEMI</span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="classroom-login.html">Classroom</a></li>
-        <li><a href="login-selector.html">Dashboard</a></li>
-        <li><a href="ayuda.html">Ayuda</a></li>
-      </ul>
-      <button class="login-btn" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+      </a>
+      <nav class="harvard-internal-nav">
+        <a href="index.html">Inicio</a>
+        <a href="ayuda.html">Ayuda</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <main class="az-container">
-    
-    <!-- Hero Header -->
-    <header class="az-header">
-      <div class="az-header-content">
-        <h1>Índice A-Z</h1>
-        <p class="az-subtitle">Directorio alfabético de páginas, secciones y recursos de CEMI</p>
+  <div class="harvard-page-content">
+    <!-- Hero Banner -->
+    <div class="harvard-hero-banner">
+      <div class="harvard-hero-banner-inner">
+        <h1 class="harvard-hero-title">Índice A-Z</h1>
+        <p class="harvard-hero-subtitle">Directorio alfabético de páginas, secciones y recursos de CEMI</p>
       </div>
-      <div class="az-header-image">
-        <img src="images/STOCK1.jpg" alt="Índice de CEMI" loading="lazy">
-      </div>
-    </header>
+    </div>
 
-    <!-- Búsqueda y Navegación Alfabética -->
-    <section class="az-controls">
-      <div class="az-search">
+    <!-- Main Content -->
+    <main class="harvard-main-content">
+      
+      <a href="index.html" class="harvard-back-link">
+        <i data-lucide="arrow-left"></i>
+        Volver al inicio
+      </a>
+
+      <!-- Búsqueda -->
+      <div class="az-search-box">
         <i data-lucide="search"></i>
         <input type="text" id="azSearch" placeholder="Buscar en el índice...">
         <button class="az-search-clear" id="azSearchClear" style="display: none;">
           <i data-lucide="x"></i>
         </button>
       </div>
-      
-      <nav class="az-alphabet-nav" aria-label="Navegación alfabética">
-        <span class="az-nav-label">Ir a:</span>
-        <div class="az-letters">
-          <a href="#section-a" class="az-letter">A</a>
-          <a href="#section-b" class="az-letter">B</a>
-          <a href="#section-c" class="az-letter">C</a>
-          <a href="#section-d" class="az-letter">D</a>
-          <a href="#section-e" class="az-letter">E</a>
-          <a href="#section-f" class="az-letter">F</a>
-          <a href="#section-g" class="az-letter">G</a>
-          <a href="#section-h" class="az-letter">H</a>
-          <a href="#section-i" class="az-letter">I</a>
-          <a href="#section-j" class="az-letter disabled">J</a>
-          <a href="#section-k" class="az-letter disabled">K</a>
-          <a href="#section-l" class="az-letter">L</a>
-          <a href="#section-m" class="az-letter">M</a>
-          <a href="#section-n" class="az-letter">N</a>
-          <a href="#section-o" class="az-letter disabled">O</a>
-          <a href="#section-p" class="az-letter">P</a>
-          <a href="#section-q" class="az-letter disabled">Q</a>
-          <a href="#section-r" class="az-letter">R</a>
-          <a href="#section-s" class="az-letter">S</a>
-          <a href="#section-t" class="az-letter">T</a>
-          <a href="#section-u" class="az-letter disabled">U</a>
-          <a href="#section-v" class="az-letter">V</a>
-          <a href="#section-w" class="az-letter disabled">W</a>
-          <a href="#section-x" class="az-letter disabled">X</a>
-          <a href="#section-y" class="az-letter disabled">Y</a>
-          <a href="#section-z" class="az-letter disabled">Z</a>
-        </div>
-      </nav>
-    </section>
 
-    <!-- Contenido del Índice -->
-    <section class="az-content">
-      
+      <!-- Navegación Alfabética -->
+      <nav class="az-alphabet" aria-label="Navegación alfabética">
+        <a href="#section-a" class="az-letter">A</a>
+        <a href="#section-b" class="az-letter">B</a>
+        <a href="#section-c" class="az-letter">C</a>
+        <a href="#section-d" class="az-letter">D</a>
+        <a href="#section-e" class="az-letter">E</a>
+        <a href="#section-f" class="az-letter">F</a>
+        <a href="#section-g" class="az-letter">G</a>
+        <a href="#section-h" class="az-letter">H</a>
+        <a href="#section-i" class="az-letter">I</a>
+        <span class="az-letter disabled">J</span>
+        <span class="az-letter disabled">K</span>
+        <a href="#section-l" class="az-letter">L</a>
+        <a href="#section-m" class="az-letter">M</a>
+        <a href="#section-n" class="az-letter">N</a>
+        <span class="az-letter disabled">O</span>
+        <a href="#section-p" class="az-letter">P</a>
+        <span class="az-letter disabled">Q</span>
+        <a href="#section-r" class="az-letter">R</a>
+        <a href="#section-s" class="az-letter">S</a>
+        <a href="#section-t" class="az-letter">T</a>
+        <span class="az-letter disabled">U</span>
+        <a href="#section-v" class="az-letter">V</a>
+        <span class="az-letter disabled">W</span>
+        <span class="az-letter disabled">X</span>
+        <span class="az-letter disabled">Y</span>
+        <span class="az-letter disabled">Z</span>
+      </nav>
+
       <p class="az-intro">
         Este es un listado alfabético de las páginas, secciones y recursos del Centro Municipal de Idiomas. 
         Si no encuentras lo que buscas, prueba con la <a href="ayuda.html">búsqueda general</a>.
       </p>
 
-      <!-- Sección A -->
-      <div class="az-section" id="section-a">
-        <h2 class="az-section-title">A</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="accesibilidad.html">Accesibilidad</a></li>
-          <li class="az-item"><a href="login-selector.html">Acceso Administrativo</a></li>
-          <li class="az-item"><a href="dashboard-admin.html">Administración - Panel Principal</a></li>
-          <li class="az-item"><a href="dashboard-admin.html#alumnos">Alumnos - Gestión</a></li>
-          <li class="az-item"><a href="classroom-login.html">Anuncios del Classroom</a></li>
-          <li class="az-item"><a href="https://cemi.up.railway.app/downloads/cemi-app-v1.2.apk">App Android - Descargar</a></li>
-          <li class="az-item"><a href="dashboard-admin.html#asistencia">Asistencia - Control</a></li>
-          <li class="az-item"><a href="ayuda.html">Ayuda - Centro de</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
+      <!-- Contenido del Índice -->
+      <div class="az-index">
+        
+        <!-- Sección A -->
+        <section class="az-section" id="section-a">
+          <h2>A</h2>
+          <ul class="az-list">
+            <li><a href="accesibilidad.html">Accesibilidad</a></li>
+            <li><a href="login-admin.html">Acceso Administrativo</a></li>
+            <li><a href="dashboard-admin.html">Administración - Panel Principal</a></li>
+            <li><a href="dashboard-admin.html#alumnos">Alumnos - Gestión</a></li>
+            <li><a href="classroom-login.html">Anuncios del Classroom</a></li>
+            <li><a href="https://cemi.up.railway.app/downloads/cemi-app-v1.2.apk">App Android - Descargar</a></li>
+            <li><a href="dashboard-admin.html#asistencia">Asistencia - Control</a></li>
+            <li><a href="ayuda.html">Ayuda - Centro de</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección B -->
+        <section class="az-section" id="section-b">
+          <h2>B</h2>
+          <ul class="az-list">
+            <li><a href="index.html#beneficios">Beneficios del Sistema</a></li>
+            <li><a href="index.html">Bienvenida - Página Principal</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección C -->
+        <section class="az-section" id="section-c">
+          <h2>C</h2>
+          <ul class="az-list">
+            <li><a href="classroom-login.html">Calificaciones - Ver</a></li>
+            <li><a href="index.html#caracteristicas">Características del Sistema</a></li>
+            <li><a href="classroom-login.html">Classroom - Acceso</a></li>
+            <li><a href="guia.html#classroom">Classroom - Guía de Uso</a></li>
+            <li><a href="cookies-config.html">Configuración de Cookies</a></li>
+            <li><a href="ayuda.html#contacto">Contactar Soporte</a></li>
+            <li><a href="reportar-copyright.html">Copyright - Reportar Infracción</a></li>
+            <li><a href="dashboard-admin.html#cursos">Cursos - Gestión</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección D -->
+        <section class="az-section" id="section-d">
+          <h2>D</h2>
+          <ul class="az-list">
+            <li><a href="login-selector.html">Dashboard - Acceso</a></li>
+            <li><a href="dashboard-admin.html">Dashboard Administrativo</a></li>
+            <li><a href="dashboard-alumno.html">Dashboard de Alumno</a></li>
+            <li><a href="dashboard-profesor.html">Dashboard de Profesor</a></li>
+            <li><a href="https://cemi.up.railway.app/downloads/cemi-app-v1.2.apk">Descargas - App Android</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección E -->
+        <section class="az-section" id="section-e">
+          <h2>E</h2>
+          <ul class="az-list">
+            <li><a href="index.html#equipo">Equipo CEMI</a></li>
+            <li><a href="dashboard-admin.html#estadisticas">Estadísticas - Panel</a></li>
+            <li><a href="status.html">Estado del Sistema</a></li>
+            <li><a href="classroom-login.html">Entregas de Tareas</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección F -->
+        <section class="az-section" id="section-f">
+          <h2>F</h2>
+          <ul class="az-list">
+            <li><a href="ayuda.html#faq-ayuda">FAQ - Preguntas Frecuentes</a></li>
+            <li><a href="index.html#filosofia">Filosofía Institucional</a></li>
+            <li><a href="classroom-login.html">Foro del Classroom</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección G -->
+        <section class="az-section" id="section-g">
+          <h2>G</h2>
+          <ul class="az-list">
+            <li><a href="guia.html">Guía de Uso</a></li>
+            <li><a href="guia.html#primeros-pasos">Guía de Primeros Pasos</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección H -->
+        <section class="az-section" id="section-h">
+          <h2>H</h2>
+          <ul class="az-list">
+            <li><a href="index.html#historia">Historia de CEMI</a></li>
+            <li><a href="dashboard-admin.html#horarios">Horarios - Gestión</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección I -->
+        <section class="az-section" id="section-i">
+          <h2>I</h2>
+          <ul class="az-list">
+            <li><a href="index.html">Inicio - Página Principal</a></li>
+            <li><a href="login.html">Iniciar Sesión</a></li>
+            <li><a href="login-admin.html">Ingreso Administrativo</a></li>
+            <li><a href="dashboard-admin.html#inscripciones">Inscripciones - Gestión</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección L -->
+        <section class="az-section" id="section-l">
+          <h2>L</h2>
+          <ul class="az-list">
+            <li><a href="login.html">Login - Alumnos</a></li>
+            <li><a href="login-admin.html">Login - Administración</a></li>
+            <li><a href="login-profesor.html">Login - Profesores</a></li>
+            <li><a href="login-selector.html">Login - Selector de Rol</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección M -->
+        <section class="az-section" id="section-m">
+          <h2>M</h2>
+          <ul class="az-list">
+            <li><a href="dashboard-admin.html#matricula">Matrícula - Gestión</a></li>
+            <li><a href="index.html#filosofia">Misión y Visión</a></li>
+            <li><a href="index.html#modulos">Módulos del Sistema</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección N -->
+        <section class="az-section" id="section-n">
+          <h2>N</h2>
+          <ul class="az-list">
+            <li><a href="index.html#nosotros">Nosotros - Sobre CEMI</a></li>
+            <li><a href="classroom-login.html">Notificaciones</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección P -->
+        <section class="az-section" id="section-p">
+          <h2>P</h2>
+          <ul class="az-list">
+            <li><a href="dashboard-admin.html#pagos">Pagos - Gestión</a></li>
+            <li><a href="dashboard-alumno.html#perfil">Perfil de Usuario</a></li>
+            <li><a href="ayuda.html#faq-ayuda">Preguntas Frecuentes</a></li>
+            <li><a href="privacidad.html">Privacidad - Política</a></li>
+            <li><a href="dashboard-admin.html#profesores">Profesores - Gestión</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección R -->
+        <section class="az-section" id="section-r">
+          <h2>R</h2>
+          <ul class="az-list">
+            <li><a href="registro.html">Registro de Usuario</a></li>
+            <li><a href="reglamento-institucional.html">Reglamento Institucional</a></li>
+            <li><a href="reportar-copyright.html">Reportar Copyright</a></li>
+            <li><a href="reportar-seguridad.html">Reportar Seguridad</a></li>
+            <li><a href="guia.html">Recursos y Guías</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección S -->
+        <section class="az-section" id="section-s">
+          <h2>S</h2>
+          <ul class="az-list">
+            <li><a href="reportar-seguridad.html">Seguridad - Reportar</a></li>
+            <li><a href="login-selector.html">Selector de Rol</a></li>
+            <li><a href="ayuda.html">Soporte Técnico</a></li>
+            <li><a href="status.html">Status del Sistema</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección T -->
+        <section class="az-section" id="section-t">
+          <h2>T</h2>
+          <ul class="az-list">
+            <li><a href="classroom-login.html">Tareas - Ver y Entregar</a></li>
+            <li><a href="index.html#tecnologias">Tecnologías Utilizadas</a></li>
+            <li><a href="terminos.html">Términos de Servicio</a></li>
+          </ul>
+        </section>
+
+        <!-- Sección V -->
+        <section class="az-section" id="section-v">
+          <h2>V</h2>
+          <ul class="az-list">
+            <li><a href="index.html#valores">Valores Institucionales</a></li>
+          </ul>
+        </section>
+
       </div>
 
-      <!-- Sección B -->
-      <div class="az-section" id="section-b">
-        <h2 class="az-section-title">B</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="index.html#beneficios">Beneficios del Sistema</a></li>
-          <li class="az-item"><a href="index.html">Bienvenida - Página Principal</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección C -->
-      <div class="az-section" id="section-c">
-        <h2 class="az-section-title">C</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="classroom-login.html">Calificaciones - Ver</a></li>
-          <li class="az-item"><a href="index.html#caracteristicas">Características del Sistema</a></li>
-          <li class="az-item"><a href="classroom-login.html">Classroom - Acceso</a></li>
-          <li class="az-item"><a href="guia.html#classroom">Classroom - Guía de Uso</a></li>
-          <li class="az-item"><a href="cookies-config.html">Configuración de Cookies</a></li>
-          <li class="az-item"><a href="ayuda.html#contacto">Contactar Soporte</a></li>
-          <li class="az-item"><a href="reportar-copyright.html">Copyright - Reportar Infracción</a></li>
-          <li class="az-item"><a href="dashboard-admin.html#cursos">Cursos - Gestión</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección D -->
-      <div class="az-section" id="section-d">
-        <h2 class="az-section-title">D</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="login-selector.html">Dashboard - Acceso</a></li>
-          <li class="az-item"><a href="dashboard-admin.html">Dashboard Administrativo</a></li>
-          <li class="az-item"><a href="dashboard-alumno.html">Dashboard de Alumno</a></li>
-          <li class="az-item"><a href="dashboard-profesor.html">Dashboard de Profesor</a></li>
-          <li class="az-item"><a href="https://cemi.up.railway.app/downloads/cemi-app-v1.2.apk">Descargas - App Android</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección E -->
-      <div class="az-section" id="section-e">
-        <h2 class="az-section-title">E</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="index.html#equipo">Equipo CEMI</a></li>
-          <li class="az-item"><a href="dashboard-admin.html#estadisticas">Estadísticas - Panel</a></li>
-          <li class="az-item"><a href="status.html">Estado del Sistema</a></li>
-          <li class="az-item"><a href="classroom-login.html">Entregas de Tareas</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección F -->
-      <div class="az-section" id="section-f">
-        <h2 class="az-section-title">F</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="ayuda.html#faq-ayuda">FAQ - Preguntas Frecuentes</a></li>
-          <li class="az-item"><a href="index.html#filosofia">Filosofía Institucional</a></li>
-          <li class="az-item"><a href="classroom-login.html">Foro del Classroom</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección G -->
-      <div class="az-section" id="section-g">
-        <h2 class="az-section-title">G</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="guia.html">Guía de Uso</a></li>
-          <li class="az-item"><a href="guia.html#primeros-pasos">Guía de Primeros Pasos</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección H -->
-      <div class="az-section" id="section-h">
-        <h2 class="az-section-title">H</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="index.html#historia">Historia de CEMI</a></li>
-          <li class="az-item"><a href="dashboard-admin.html#horarios">Horarios - Gestión</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección I -->
-      <div class="az-section" id="section-i">
-        <h2 class="az-section-title">I</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="index.html">Inicio - Página Principal</a></li>
-          <li class="az-item"><a href="login.html">Iniciar Sesión</a></li>
-          <li class="az-item"><a href="login-selector.html">Ingreso Administrativo</a></li>
-          <li class="az-item"><a href="dashboard-admin.html#inscripciones">Inscripciones - Gestión</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección L -->
-      <div class="az-section" id="section-l">
-        <h2 class="az-section-title">L</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="login.html">Login - Alumnos</a></li>
-          <li class="az-item"><a href="login-admin.html">Login - Administración</a></li>
-          <li class="az-item"><a href="login-profesor.html">Login - Profesores</a></li>
-          <li class="az-item"><a href="login-selector.html">Login - Selector de Rol</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección M -->
-      <div class="az-section" id="section-m">
-        <h2 class="az-section-title">M</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="dashboard-admin.html#matricula">Matrícula - Gestión</a></li>
-          <li class="az-item"><a href="index.html#filosofia">Misión y Visión</a></li>
-          <li class="az-item"><a href="index.html#modulos">Módulos del Sistema</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección N -->
-      <div class="az-section" id="section-n">
-        <h2 class="az-section-title">N</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="index.html#nosotros">Nosotros - Sobre CEMI</a></li>
-          <li class="az-item"><a href="classroom-login.html">Notificaciones</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección P -->
-      <div class="az-section" id="section-p">
-        <h2 class="az-section-title">P</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="dashboard-admin.html#pagos">Pagos - Gestión</a></li>
-          <li class="az-item"><a href="dashboard-alumno.html#perfil">Perfil de Usuario</a></li>
-          <li class="az-item"><a href="ayuda.html#faq-ayuda">Preguntas Frecuentes</a></li>
-          <li class="az-item"><a href="privacidad.html">Privacidad - Política</a></li>
-          <li class="az-item"><a href="dashboard-admin.html#profesores">Profesores - Gestión</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección R -->
-      <div class="az-section" id="section-r">
-        <h2 class="az-section-title">R</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="registro.html">Registro de Usuario</a></li>
-          <li class="az-item"><a href="reglamento-institucional.html">Reglamento Institucional</a></li>
-          <li class="az-item"><a href="reportar-copyright.html">Reportar Copyright</a></li>
-          <li class="az-item"><a href="reportar-seguridad.html">Reportar Seguridad</a></li>
-          <li class="az-item"><a href="guia.html">Recursos y Guías</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección S -->
-      <div class="az-section" id="section-s">
-        <h2 class="az-section-title">S</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="reportar-seguridad.html">Seguridad - Reportar</a></li>
-          <li class="az-item"><a href="login-selector.html">Selector de Rol</a></li>
-          <li class="az-item"><a href="ayuda.html">Soporte Técnico</a></li>
-          <li class="az-item"><a href="status.html">Status del Sistema</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección T -->
-      <div class="az-section" id="section-t">
-        <h2 class="az-section-title">T</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="classroom-login.html">Tareas - Ver y Entregar</a></li>
-          <li class="az-item"><a href="index.html#tecnologias">Tecnologías Utilizadas</a></li>
-          <li class="az-item"><a href="terminos.html">Términos de Servicio</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-      <!-- Sección V -->
-      <div class="az-section" id="section-v">
-        <h2 class="az-section-title">V</h2>
-        <ul class="az-list">
-          <li class="az-item"><a href="index.html#valores">Valores Institucionales</a></li>
-        </ul>
-        <a href="#" class="az-back-top">Volver arriba</a>
-      </div>
-
-    </section>
-
-  </main>
+    </main>
+  </div>
 
   <!-- Footer -->
-  <footer class="az-footer">
-    <div class="az-footer-inner">
-      <div class="az-footer-brand">
-        <img src="images/logolong.png" alt="CEMI" class="az-footer-logo">
-        <p>Centro Municipal de Idiomas</p>
+  <footer class="harvard-internal-footer">
+    <div class="harvard-internal-footer-inner">
+      <div class="harvard-footer-top">
+        <div class="harvard-footer-brand">
+          <img src="images/logolong.png" alt="CEMI">
+          <p>Centro Municipal de Idiomas</p>
+        </div>
+        <div class="harvard-footer-links">
+          <a href="terminos.html">Términos</a>
+          <a href="privacidad.html">Privacidad</a>
+          <a href="accesibilidad.html">Accesibilidad</a>
+          <a href="ayuda.html">Ayuda</a>
+        </div>
       </div>
-      <div class="az-footer-links">
-        <a href="terminos.html">Términos</a>
-        <a href="privacidad.html">Privacidad</a>
-        <a href="accesibilidad.html">Accesibilidad</a>
-        <a href="ayuda.html">Ayuda</a>
+      <div class="harvard-footer-bottom">
+        <p class="harvard-footer-copy">© 2025 CEMI. Todos los derechos reservados.</p>
       </div>
-      <p class="az-footer-copy">© 2025 CEMI. Todos los derechos reservados.</p>
     </div>
   </footer>
 
@@ -318,14 +302,23 @@
     // Inicializar Lucide icons
     lucide.createIcons();
 
-    // Búsqueda en el índice
+    // Elementos
     const searchInput = document.getElementById('azSearch');
     const searchClear = document.getElementById('azSearchClear');
-    const azItems = document.querySelectorAll('.az-item');
     const azSections = document.querySelectorAll('.az-section');
+    const azItems = document.querySelectorAll('.az-list li');
 
-    searchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase().trim();
+    // Leer parámetro de búsqueda de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('search');
+    if (searchQuery) {
+      searchInput.value = searchQuery;
+      filterIndex(searchQuery);
+    }
+
+    // Función de filtrado
+    function filterIndex(query) {
+      query = query.toLowerCase().trim();
       searchClear.style.display = query ? 'flex' : 'none';
 
       if (!query) {
@@ -335,7 +328,7 @@
       }
 
       azSections.forEach(section => {
-        const items = section.querySelectorAll('.az-item');
+        const items = section.querySelectorAll('.az-list li');
         let hasVisibleItems = false;
 
         items.forEach(item => {
@@ -343,6 +336,11 @@
           if (text.includes(query)) {
             item.style.display = '';
             hasVisibleItems = true;
+            // Resaltar coincidencias
+            const link = item.querySelector('a');
+            const originalText = link.textContent;
+            const regex = new RegExp(`(${query})`, 'gi');
+            link.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
           } else {
             item.style.display = 'none';
           }
@@ -350,15 +348,28 @@
 
         section.style.display = hasVisibleItems ? '' : 'none';
       });
+    }
+
+    // Evento de búsqueda
+    searchInput.addEventListener('input', function() {
+      // Limpiar marcas previas
+      document.querySelectorAll('.az-list a mark').forEach(mark => {
+        mark.replaceWith(mark.textContent);
+      });
+      filterIndex(this.value);
     });
 
+    // Limpiar búsqueda
     searchClear.addEventListener('click', function() {
       searchInput.value = '';
-      searchInput.dispatchEvent(new Event('input'));
+      document.querySelectorAll('.az-list a mark').forEach(mark => {
+        mark.replaceWith(mark.textContent);
+      });
+      filterIndex('');
       searchInput.focus();
     });
 
-    // Scroll suave para los enlaces alfabéticos
+    // Scroll suave para enlaces alfabéticos
     document.querySelectorAll('.az-letter:not(.disabled)').forEach(link => {
       link.addEventListener('click', function(e) {
         e.preventDefault();
@@ -367,14 +378,6 @@
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      });
-    });
-
-    // Volver arriba
-    document.querySelectorAll('.az-back-top').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
   </script>

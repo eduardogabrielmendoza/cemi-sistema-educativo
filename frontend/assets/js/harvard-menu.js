@@ -391,5 +391,67 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // ===== BUSCADOR A-Z EXPANDIBLE =====
+  const searchContainer = document.getElementById('harvardSearchContainer');
+  const searchBtn = document.getElementById('harvardSearchBtn');
+  const searchInput = document.getElementById('harvardSearchInput');
+  const searchGo = document.getElementById('harvardSearchGo');
+  const searchClose = document.getElementById('harvardSearchClose');
+
+  function openSearch() {
+    searchContainer?.classList.add('expanded');
+    setTimeout(() => {
+      searchInput?.focus();
+    }, 300);
+  }
+
+  function closeSearch() {
+    searchContainer?.classList.remove('expanded');
+    if (searchInput) searchInput.value = '';
+  }
+
+  function goToSearch() {
+    const query = searchInput?.value.trim();
+    if (query) {
+      // Ir al índice A-Z con el término de búsqueda
+      window.location.href = `a-to-z.html?search=${encodeURIComponent(query)}`;
+    } else {
+      window.location.href = 'a-to-z.html';
+    }
+  }
+
+  searchBtn?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (searchContainer?.classList.contains('expanded')) {
+      goToSearch();
+    } else {
+      openSearch();
+    }
+  });
+
+  searchGo?.addEventListener('click', goToSearch);
+
+  searchClose?.addEventListener('click', function(e) {
+    e.preventDefault();
+    closeSearch();
+  });
+
+  searchInput?.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      goToSearch();
+    } else if (e.key === 'Escape') {
+      closeSearch();
+    }
+  });
+
+  // Cerrar buscador al hacer click fuera
+  document.addEventListener('click', function(e) {
+    if (searchContainer?.classList.contains('expanded')) {
+      if (!searchContainer.contains(e.target)) {
+        closeSearch();
+      }
+    }
+  });
+
   console.log('Harvard Mega Menu initialized');
 });

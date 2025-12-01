@@ -4,85 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accesibilidad - CEMI</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/terminos.css">
+  <link rel="stylesheet" href="assets/css/harvard-pages.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body class="harvard-page">
 
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
-        <img src="images/logo.png" alt="Logo CEMI">
+  <!-- Header -->
+  <header class="harvard-internal-header">
+    <div class="harvard-internal-header-inner">
+      <a href="index.html" class="harvard-internal-logo">
+        <img src="images/logo.png" alt="CEMI">
         <span>CEMI</span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="classroom-login.html">Classroom</a></li>
-        <li><a href="login-selector.html">Dashboard</a></li>
-        <li><a href="ayuda.html">Ayuda</a></li>
-      </ul>
-      <button class="login-btn" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+      </a>
+      <nav class="harvard-internal-nav">
+        <a href="index.html">Inicio</a>
+        <a href="ayuda.html">Ayuda</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <div class="terms-container">
-    
-    <aside class="terms-sidebar">
-      <div class="sidebar-sticky">
-        <h3>Accesibilidad</h3>
-        <nav class="terms-nav">
-          <a href="#compromiso" class="nav-link active">Nuestro Compromiso</a>
-          <a href="#caracteristicas" class="nav-link">Características</a>
-          <a href="#navegacion" class="nav-link">Navegación</a>
-          <a href="#compatibilidad" class="nav-link">Compatibilidad</a>
-          <a href="#asistencia" class="nav-link">Asistencia</a>
-          <a href="#contacto" class="nav-link">Contacto</a>
-        </nav>
-        <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e5e5;">
-          <h4 style="font-size: 0.85rem; color: #656f77; margin-bottom: 12px;">Acceso Rápido</h4>
-          <a href="login-selector.html" class="back-btn" style="margin-bottom: 8px;">
-            <i data-lucide="log-in"></i>
-            Ingreso Administrativo
-          </a>
-          <a href="reglamento-institucional.html" class="back-btn" style="margin-top: 8px;">
-            <i data-lucide="book-open"></i>
-            Reglamento Institucional
-          </a>
-        </div>
-        <button class="back-btn" onclick="window.location.href='index.html'" style="margin-top: 16px;">
-          <i data-lucide="arrow-left"></i>
-          Volver al Inicio
-        </button>
+  <div class="harvard-page-content">
+    <!-- Hero Banner -->
+    <div class="harvard-hero-banner">
+      <div class="harvard-hero-banner-inner">
+        <h1 class="harvard-hero-title">Accesibilidad</h1>
+        <p class="harvard-hero-subtitle">Nuestro compromiso con la inclusión digital</p>
       </div>
-    </aside>
+    </div>
 
-    <main class="terms-content">
+    <!-- Main Content -->
+    <main class="harvard-main-content">
       
-      <header class="terms-header">
-        <h1>Accesibilidad</h1>
-        <p class="last-update">Compromiso con la inclusión digital</p>
-      </header>
+      <a href="index.html" class="harvard-back-link">
+        <i data-lucide="arrow-left"></i>
+        Volver al inicio
+      </a>
 
-      <section id="compromiso" class="term-section">
-        <h2>Nuestro Compromiso</h2>
+      <!-- Quick Access -->
+      <div class="harvard-info-box" style="margin-bottom: 40px;">
+        <i data-lucide="key"></i>
+        <div>
+          <h4>Acceso Rápido</h4>
+          <p style="margin-bottom: 8px;">¿Necesitas ingresar a la plataforma?</p>
+          <a href="login-admin.html" style="margin-right: 16px;">Acceso Administrativo →</a>
+          <a href="reglamento-institucional.html">Reglamento Institucional →</a>
+        </div>
+      </div>
+
+      <section class="harvard-section">
+        <h2>Nuestro compromiso</h2>
         <p>En CEMI estamos comprometidos con garantizar que nuestra plataforma digital sea accesible para todas las personas, incluyendo aquellas con discapacidades visuales, auditivas, motoras o cognitivas.</p>
         <p>Trabajamos continuamente para mejorar la experiencia de usuario y cumplir con los estándares internacionales de accesibilidad web, siguiendo las pautas WCAG 2.1 (Web Content Accessibility Guidelines).</p>
-        
-        <div class="info-box">
-          <i data-lucide="heart"></i>
-          <div>
-            <h4>Educación para todos</h4>
-            <p>Creemos que la educación es un derecho universal y que las barreras tecnológicas no deben impedir el acceso al aprendizaje de idiomas.</p>
-          </div>
-        </div>
       </section>
 
-      <section id="caracteristicas" class="term-section">
-        <h2>Características de Accesibilidad</h2>
-        <p>Nuestra plataforma incluye las siguientes características de accesibilidad:</p>
+      <section class="harvard-section">
+        <h2>Características de accesibilidad</h2>
         
-        <h3>Navegación por Teclado</h3>
+        <h3>Navegación por teclado</h3>
         <ul>
           <li>Todos los elementos interactivos son accesibles mediante teclado</li>
           <li>Uso de la tecla Tab para navegar entre elementos</li>
@@ -90,7 +68,7 @@
           <li>Atajos de teclado para acciones frecuentes</li>
         </ul>
         
-        <h3>Contenido Visual</h3>
+        <h3>Contenido visual</h3>
         <ul>
           <li>Alto contraste entre texto y fondo</li>
           <li>Texto redimensionable hasta 200% sin pérdida de funcionalidad</li>
@@ -98,73 +76,55 @@
           <li>No dependencia exclusiva del color para transmitir información</li>
         </ul>
         
-        <h3>Contenido Multimedia</h3>
+        <h3>Contenido multimedia</h3>
         <ul>
           <li>Subtítulos en contenido de video</li>
           <li>Transcripciones de audio disponibles</li>
           <li>Controles de reproducción accesibles</li>
           <li>Opción para pausar animaciones automáticas</li>
         </ul>
-        
-        <h3>Formularios</h3>
-        <ul>
-          <li>Etiquetas claras para cada campo</li>
-          <li>Mensajes de error descriptivos</li>
-          <li>Instrucciones visibles antes de completar</li>
-          <li>Tiempo suficiente para completar formularios</li>
-        </ul>
       </section>
 
-      <section id="navegacion" class="term-section">
-        <h2>Ayuda para la Navegación</h2>
+      <section class="harvard-section">
+        <h2>Atajos de teclado</h2>
         
-        <h3>Estructura del Sitio</h3>
-        <p>Nuestro sitio utiliza una estructura clara con:</p>
-        <ul>
-          <li>Encabezados jerárquicos (H1, H2, H3) para organizar el contenido</li>
-          <li>Navegación consistente en todas las páginas</li>
-          <li>Migas de pan para indicar ubicación</li>
-          <li>Mapa del sitio disponible en el <a href="a-to-z.html">Índice A-Z</a></li>
-        </ul>
-        
-        <h3>Atajos de Teclado</h3>
-        <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+        <table>
           <thead>
-            <tr style="background: #f5f5f5;">
-              <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e5e5;">Combinación</th>
-              <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e5e5;">Acción</th>
+            <tr>
+              <th>Combinación</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;"><kbd>Tab</kbd></td>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;">Navegar al siguiente elemento</td>
+              <td><kbd>Tab</kbd></td>
+              <td>Navegar al siguiente elemento</td>
             </tr>
             <tr>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;"><kbd>Shift</kbd> + <kbd>Tab</kbd></td>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;">Navegar al elemento anterior</td>
+              <td><kbd>Shift</kbd> + <kbd>Tab</kbd></td>
+              <td>Navegar al elemento anterior</td>
             </tr>
             <tr>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;"><kbd>Enter</kbd></td>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;">Activar enlace o botón</td>
+              <td><kbd>Enter</kbd></td>
+              <td>Activar enlace o botón</td>
             </tr>
             <tr>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;"><kbd>Esc</kbd></td>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;">Cerrar menús o modales</td>
+              <td><kbd>Esc</kbd></td>
+              <td>Cerrar menús o modales</td>
             </tr>
             <tr>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;"><kbd>Espacio</kbd></td>
-              <td style="padding: 12px; border-bottom: 1px solid #e5e5e5;">Activar botones / Desplazar página</td>
+              <td><kbd>Espacio</kbd></td>
+              <td>Activar botones / Desplazar página</td>
             </tr>
           </tbody>
         </table>
       </section>
 
-      <section id="compatibilidad" class="term-section">
-        <h2>Compatibilidad con Tecnologías de Asistencia</h2>
-        <p>Nuestra plataforma ha sido probada y es compatible con:</p>
+      <section class="harvard-section">
+        <h2>Compatibilidad</h2>
         
-        <h3>Lectores de Pantalla</h3>
+        <h3>Lectores de pantalla</h3>
+        <p>Nuestra plataforma ha sido probada y es compatible con:</p>
         <ul>
           <li>NVDA (Windows)</li>
           <li>JAWS (Windows)</li>
@@ -179,119 +139,58 @@
           <li>Microsoft Edge (últimas 3 versiones)</li>
           <li>Safari (últimas 2 versiones)</li>
         </ul>
+      </section>
+
+      <section class="harvard-section">
+        <h2>Asistencia personalizada</h2>
+        <p>Si necesitas asistencia adicional para acceder a nuestra plataforma, nuestro equipo está disponible para ayudarte:</p>
         
-        <h3>Herramientas de Magnificación</h3>
         <ul>
-          <li>Lupa de Windows</li>
-          <li>Zoom de macOS</li>
-          <li>ZoomText</li>
+          <li><strong>Teléfono:</strong> +54 (261) 123-4567 (Lunes a Viernes, 8:00 a 18:00)</li>
+          <li><strong>Email:</strong> accesibilidad@cemi.edu</li>
+          <li><strong>Presencial:</strong> Oficina de Accesibilidad, Planta Baja</li>
         </ul>
       </section>
 
-      <section id="asistencia" class="term-section">
-        <h2>Asistencia Personalizada</h2>
-        <p>Si necesitas asistencia adicional para acceder a nuestra plataforma o tienes requerimientos específicos de accesibilidad, nuestro equipo está disponible para ayudarte:</p>
-        
-        <div class="step-list">
-          <div class="step-item">
-            <span class="step-number"><i data-lucide="phone" style="width: 18px; height: 18px;"></i></span>
-            <div>
-              <h4>Atención Telefónica</h4>
-              <p>Línea directa: +54 (261) 123-4567<br>Lunes a Viernes, 8:00 a 18:00</p>
-            </div>
-          </div>
-          
-          <div class="step-item">
-            <span class="step-number"><i data-lucide="mail" style="width: 18px; height: 18px;"></i></span>
-            <div>
-              <h4>Correo Electrónico</h4>
-              <p>accesibilidad@cemi.edu<br>Respuesta en 24-48 horas hábiles</p>
-            </div>
-          </div>
-          
-          <div class="step-item">
-            <span class="step-number"><i data-lucide="map-pin" style="width: 18px; height: 18px;"></i></span>
-            <div>
-              <h4>Atención Presencial</h4>
-              <p>Oficina de Accesibilidad<br>Planta Baja, junto a Administración</p>
-            </div>
-          </div>
-        </div>
+      <section class="harvard-section">
+        <h2>Reportar problemas</h2>
+        <p>Valoramos tu retroalimentación. Si encuentras alguna barrera de accesibilidad en nuestro sitio, por favor comunícate con nosotros enviando un correo a <a href="mailto:accesibilidad@cemi.edu">accesibilidad@cemi.edu</a> describiendo:</p>
+        <ul>
+          <li>La página donde encontraste el problema</li>
+          <li>La tecnología de asistencia que utilizas</li>
+          <li>Una descripción del inconveniente</li>
+        </ul>
+        <p>Nos comprometemos a responder en un plazo de 5 días hábiles.</p>
       </section>
 
-      <section id="contacto" class="term-section">
-        <h2>Reportar Problemas de Accesibilidad</h2>
-        <p>Valoramos tu retroalimentación. Si encuentras alguna barrera de accesibilidad en nuestro sitio, por favor comunícate con nosotros:</p>
-        
-        <div class="info-box">
-          <i data-lucide="message-square"></i>
-          <div>
-            <h4>Contáctanos</h4>
-            <p>Envía un correo a <a href="mailto:accesibilidad@cemi.edu">accesibilidad@cemi.edu</a> describiendo:</p>
-            <ul style="margin: 8px 0 0 20px; font-size: 0.95rem;">
-              <li>La página donde encontraste el problema</li>
-              <li>La tecnología de asistencia que utilizas</li>
-              <li>Una descripción del inconveniente</li>
-            </ul>
-          </div>
-        </div>
-        
-        <p style="margin-top: 24px;">Nos comprometemos a responder en un plazo de 5 días hábiles y a trabajar en una solución lo antes posible.</p>
-      </section>
+      <p class="harvard-effective-date">Última actualización: 1 de diciembre de 2025</p>
 
     </main>
   </div>
 
-  <footer class="terms-footer">
-    <div class="footer-content">
-      <p>&copy; 2025 CEMI - Centro Municipal de Idiomas. Todos los derechos reservados.</p>
-      <div class="footer-links">
-        <a href="terminos.html">Términos de Servicio</a>
-        <a href="privacidad.html">Privacidad</a>
-        <a href="a-to-z.html">Índice A-Z</a>
+  <!-- Footer -->
+  <footer class="harvard-internal-footer">
+    <div class="harvard-internal-footer-inner">
+      <div class="harvard-footer-top">
+        <div class="harvard-footer-brand">
+          <img src="images/logolong.png" alt="CEMI">
+          <p>Centro Municipal de Idiomas</p>
+        </div>
+        <div class="harvard-footer-links">
+          <a href="terminos.html">Términos</a>
+          <a href="privacidad.html">Privacidad</a>
+          <a href="a-to-z.html">Índice A-Z</a>
+          <a href="ayuda.html">Ayuda</a>
+        </div>
+      </div>
+      <div class="harvard-footer-bottom">
+        <p class="harvard-footer-copy">© 2025 CEMI. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>
 
   <script>
     lucide.createIcons();
-
-    // Highlight active section on scroll
-    const sections = document.querySelectorAll('.term-section');
-    const navLinks = document.querySelectorAll('.terms-nav .nav-link');
-
-    function highlightActiveSection() {
-      let scrollPosition = window.scrollY + 150;
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute('id');
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          navLinks.forEach((link) => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + sectionId) {
-              link.classList.add('active');
-            }
-          });
-        }
-      });
-    }
-
-    window.addEventListener('scroll', highlightActiveSection);
-
-    // Smooth scroll for nav links
-    navLinks.forEach((link) => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
   </script>
 
 </body>

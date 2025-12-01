@@ -4,61 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reglamento Institucional - CEMI</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/terminos.css">
+  <link rel="stylesheet" href="assets/css/harvard-pages.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body class="harvard-page">
 
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
-        <img src="images/logo.png" alt="Logo CEMI">
+  <!-- Header -->
+  <header class="harvard-internal-header">
+    <div class="harvard-internal-header-inner">
+      <a href="index.html" class="harvard-internal-logo">
+        <img src="images/logo.png" alt="CEMI">
         <span>CEMI</span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="classroom-login.html">Classroom</a></li>
-        <li><a href="login-selector.html">Dashboard</a></li>
-        <li><a href="ayuda.html">Ayuda</a></li>
-      </ul>
-      <button class="login-btn" onclick="window.location.href='login.html'">Iniciar Sesión</button>
+      </a>
+      <nav class="harvard-internal-nav">
+        <a href="index.html">Inicio</a>
+        <a href="ayuda.html">Ayuda</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <div class="terms-container">
-    
-    <aside class="terms-sidebar">
-      <div class="sidebar-sticky">
-        <h3>Contenido</h3>
-        <nav class="terms-nav">
-          <a href="#disposiciones" class="nav-link active">Disposiciones Generales</a>
-          <a href="#inscripcion" class="nav-link">Inscripción y Matrícula</a>
-          <a href="#asistencia" class="nav-link">Asistencia y Puntualidad</a>
-          <a href="#evaluacion" class="nav-link">Evaluación Académica</a>
-          <a href="#conducta" class="nav-link">Normas de Conducta</a>
-          <a href="#uso-instalaciones" class="nav-link">Uso de Instalaciones</a>
-          <a href="#plataforma" class="nav-link">Uso de Plataforma Digital</a>
-          <a href="#pagos" class="nav-link">Pagos y Cuotas</a>
-          <a href="#certificaciones" class="nav-link">Certificaciones</a>
-          <a href="#sanciones" class="nav-link">Sanciones</a>
-          <a href="#disposiciones-finales" class="nav-link">Disposiciones Finales</a>
-        </nav>
-        <button class="back-btn" onclick="window.location.href='index.html'">
-          <i data-lucide="arrow-left"></i>
-          Volver al Inicio
-        </button>
+  <div class="harvard-page-content">
+    <!-- Hero Banner -->
+    <div class="harvard-hero-banner">
+      <div class="harvard-hero-banner-inner">
+        <h1 class="harvard-hero-title">Reglamento Institucional</h1>
+        <p class="harvard-hero-subtitle">Normas y procedimientos del Centro Municipal de Idiomas</p>
       </div>
-    </aside>
+    </div>
 
-    <main class="terms-content">
+    <!-- Main Content -->
+    <main class="harvard-main-content">
       
-      <header class="terms-header">
-        <h1>Reglamento Institucional</h1>
-        <p class="last-update">Vigente desde: 1 de marzo de 2025</p>
-      </header>
+      <a href="index.html" class="harvard-back-link">
+        <i data-lucide="arrow-left"></i>
+        Volver al inicio
+      </a>
 
-      <section id="disposiciones" class="term-section">
+      <!-- Table of Contents -->
+      <nav class="harvard-toc">
+        <h4>Contenido</h4>
+        <ul>
+          <li><a href="#disposiciones">Capítulo I: Disposiciones Generales</a></li>
+          <li><a href="#inscripcion">Capítulo II: Inscripción y Matrícula</a></li>
+          <li><a href="#asistencia">Capítulo III: Asistencia y Puntualidad</a></li>
+          <li><a href="#evaluacion">Capítulo IV: Evaluación Académica</a></li>
+          <li><a href="#conducta">Capítulo V: Normas de Conducta</a></li>
+          <li><a href="#instalaciones">Capítulo VI: Uso de Instalaciones</a></li>
+          <li><a href="#plataforma">Capítulo VII: Plataforma Digital</a></li>
+          <li><a href="#pagos">Capítulo VIII: Pagos y Cuotas</a></li>
+          <li><a href="#certificaciones">Capítulo IX: Certificaciones</a></li>
+          <li><a href="#sanciones">Capítulo X: Sanciones</a></li>
+          <li><a href="#finales">Capítulo XI: Disposiciones Finales</a></li>
+        </ul>
+      </nav>
+
+      <!-- Chapter I -->
+      <section class="harvard-section" id="disposiciones">
         <h2>Capítulo I: Disposiciones Generales</h2>
         
         <h3>Artículo 1. Objeto</h3>
@@ -77,7 +78,8 @@
         <p>CEMI tiene como misión proporcionar educación de calidad en el aprendizaje de idiomas, promoviendo el desarrollo integral de sus alumnos mediante metodologías modernas y un ambiente de respeto mutuo.</p>
       </section>
 
-      <section id="inscripcion" class="term-section">
+      <!-- Chapter II -->
+      <section class="harvard-section" id="inscripcion">
         <h2>Capítulo II: Inscripción y Matrícula</h2>
         
         <h3>Artículo 4. Requisitos de Inscripción</h3>
@@ -108,7 +110,8 @@
         </ul>
       </section>
 
-      <section id="asistencia" class="term-section">
+      <!-- Chapter III -->
+      <section class="harvard-section" id="asistencia">
         <h2>Capítulo III: Asistencia y Puntualidad</h2>
         
         <h3>Artículo 7. Control de Asistencia</h3>
@@ -134,14 +137,14 @@
           <li>Documentación oficial para trámites legales</li>
           <li>Constancia laboral para compromisos de trabajo</li>
         </ul>
-        <p>Las inasistencias justificadas no afectan el récord de asistencia, pero el alumno debe recuperar el contenido por su cuenta.</p>
       </section>
 
-      <section id="evaluacion" class="term-section">
+      <!-- Chapter IV -->
+      <section class="harvard-section" id="evaluacion">
         <h2>Capítulo IV: Evaluación Académica</h2>
         
         <h3>Artículo 10. Sistema de Calificación</h3>
-        <p>El sistema de calificación se basa en una escala del 1 al 10, donde:</p>
+        <p>El sistema de calificación se basa en una escala del 1 al 10:</p>
         <ul>
           <li><strong>10-9:</strong> Sobresaliente</li>
           <li><strong>8-7:</strong> Bueno</li>
@@ -159,15 +162,11 @@
         </ul>
         
         <h3>Artículo 12. Exámenes de Recuperación</h3>
-        <p>Los alumnos que reprueben tendrán derecho a un examen de recuperación, sujeto a:</p>
-        <ul>
-          <li>Haber cumplido con el 75% de asistencia</li>
-          <li>No haber incurrido en conductas de deshonestidad académica</li>
-          <li>Abonar la cuota correspondiente al examen extraordinario</li>
-        </ul>
+        <p>Los alumnos que reprueben tendrán derecho a un examen de recuperación, sujeto a haber cumplido con el 75% de asistencia y no haber incurrido en conductas de deshonestidad académica.</p>
       </section>
 
-      <section id="conducta" class="term-section">
+      <!-- Chapter V -->
+      <section class="harvard-section" id="conducta">
         <h2>Capítulo V: Normas de Conducta</h2>
         
         <h3>Artículo 13. Comportamiento Esperado</h3>
@@ -181,26 +180,18 @@
         </ul>
         
         <h3>Artículo 14. Conductas Prohibidas</h3>
-        <p>Están terminantemente prohibidas las siguientes conductas:</p>
+        <p>Están terminantemente prohibidas:</p>
         <ul>
           <li>Acoso, discriminación o violencia física o verbal</li>
           <li>Plagio o copia en evaluaciones</li>
           <li>Consumo de alcohol, tabaco o sustancias prohibidas</li>
           <li>Uso de dispositivos electrónicos durante clases sin autorización</li>
-          <li>Ingreso de armas o elementos peligrosos</li>
           <li>Daño intencional a propiedad del centro</li>
-        </ul>
-        
-        <h3>Artículo 15. Uso de Teléfonos Celulares</h3>
-        <p>Durante las clases, los teléfonos celulares deben permanecer en modo silencioso. Su uso está permitido únicamente:</p>
-        <ul>
-          <li>Para actividades académicas autorizadas por el docente</li>
-          <li>En casos de emergencia familiar comprobada</li>
-          <li>Durante los períodos de receso</li>
         </ul>
       </section>
 
-      <section id="uso-instalaciones" class="term-section">
+      <!-- Chapter VI -->
+      <section class="harvard-section" id="instalaciones">
         <h2>Capítulo VI: Uso de Instalaciones</h2>
         
         <h3>Artículo 16. Horario de Atención</h3>
@@ -212,34 +203,15 @@
         </ul>
         
         <h3>Artículo 17. Áreas Comunes</h3>
-        <p>El uso de áreas comunes (biblioteca, sala de estudio, cafetería) está sujeto a:</p>
-        <ul>
-          <li>Presentar credencial de estudiante vigente</li>
-          <li>Respetar los horarios de funcionamiento</li>
-          <li>Mantener el orden y limpieza del espacio</li>
-          <li>No consumir alimentos en áreas no autorizadas</li>
-        </ul>
-        
-        <h3>Artículo 18. Laboratorio de Idiomas</h3>
-        <p>El uso del laboratorio de idiomas requiere:</p>
-        <ul>
-          <li>Reserva previa a través de la plataforma digital</li>
-          <li>Supervisión de un docente o personal autorizado</li>
-          <li>Cuidado del equipo de cómputo y audífonos</li>
-          <li>Reportar cualquier daño o desperfecto inmediatamente</li>
-        </ul>
+        <p>El uso de áreas comunes (biblioteca, sala de estudio, cafetería) está sujeto a presentar credencial de estudiante vigente, respetar los horarios y mantener el orden.</p>
       </section>
 
-      <section id="plataforma" class="term-section">
-        <h2>Capítulo VII: Uso de Plataforma Digital</h2>
+      <!-- Chapter VII -->
+      <section class="harvard-section" id="plataforma">
+        <h2>Capítulo VII: Plataforma Digital</h2>
         
         <h3>Artículo 19. Acceso a la Plataforma</h3>
-        <p>Cada alumno recibe credenciales únicas para acceder al sistema digital CEMI, las cuales:</p>
-        <ul>
-          <li>Son personales e intransferibles</li>
-          <li>Deben mantenerse confidenciales</li>
-          <li>No pueden compartirse con terceros bajo ninguna circunstancia</li>
-        </ul>
+        <p>Cada alumno recibe credenciales únicas para acceder al sistema digital CEMI, las cuales son personales e intransferibles y deben mantenerse confidenciales.</p>
         
         <h3>Artículo 20. Uso del Classroom Virtual</h3>
         <p>Al utilizar el aula virtual, el alumno se compromete a:</p>
@@ -249,18 +221,10 @@
           <li>Participar respetuosamente en foros y discusiones</li>
           <li>No compartir contenido del curso con personas no inscritas</li>
         </ul>
-        
-        <h3>Artículo 21. Seguridad de la Cuenta</h3>
-        <p>El alumno es responsable de:</p>
-        <ul>
-          <li>Mantener su contraseña segura y actualizada</li>
-          <li>Cerrar sesión al terminar de usar equipos compartidos</li>
-          <li>Reportar inmediatamente cualquier acceso no autorizado</li>
-          <li>No intentar acceder a cuentas o datos de otros usuarios</li>
-        </ul>
       </section>
 
-      <section id="pagos" class="term-section">
+      <!-- Chapter VIII -->
+      <section class="harvard-section" id="pagos">
         <h2>Capítulo VIII: Pagos y Cuotas</h2>
         
         <h3>Artículo 22. Estructura de Pagos</h3>
@@ -269,61 +233,30 @@
           <li><strong>Matrícula:</strong> Pago único al inicio del ciclo</li>
           <li><strong>Cuotas mensuales:</strong> Según plan de pago seleccionado</li>
           <li><strong>Materiales:</strong> Costo adicional según el curso</li>
-          <li><strong>Exámenes extraordinarios:</strong> Tarifa adicional</li>
         </ul>
         
         <h3>Artículo 23. Fechas de Pago</h3>
-        <p>Las cuotas mensuales deben abonarse dentro de los primeros 10 días de cada mes. Pasada esta fecha:</p>
-        <ul>
-          <li>Del día 11 al 15: Recargo del 5%</li>
-          <li>Del día 16 al 20: Recargo del 10%</li>
-          <li>Después del día 20: Suspensión temporal del acceso a clases</li>
-        </ul>
-        
-        <h3>Artículo 24. Métodos de Pago</h3>
-        <p>Se aceptan los siguientes métodos de pago:</p>
-        <ul>
-          <li>Efectivo en administración</li>
-          <li>Transferencia bancaria</li>
-          <li>Tarjeta de débito/crédito</li>
-          <li>Pago en línea a través de la plataforma</li>
-        </ul>
-        
-        <h3>Artículo 25. Reembolsos</h3>
-        <p>Las solicitudes de reembolso están sujetas a las siguientes condiciones:</p>
-        <ul>
-          <li>Retiro antes del inicio de clases: 100% de reembolso</li>
-          <li>Retiro en la primera semana: 75% de reembolso</li>
-          <li>Retiro en la segunda semana: 50% de reembolso</li>
-          <li>Posterior a la segunda semana: Sin reembolso</li>
-        </ul>
+        <p>Las cuotas mensuales deben abonarse dentro de los primeros 10 días de cada mes. Pasada esta fecha se aplican recargos del 5% (días 11-15) y 10% (días 16-20).</p>
       </section>
 
-      <section id="certificaciones" class="term-section">
+      <!-- Chapter IX -->
+      <section class="harvard-section" id="certificaciones">
         <h2>Capítulo IX: Certificaciones</h2>
         
         <h3>Artículo 26. Tipos de Certificados</h3>
         <p>CEMI emite los siguientes tipos de certificaciones:</p>
         <ul>
           <li><strong>Certificado de Nivel:</strong> Al aprobar satisfactoriamente un nivel completo</li>
-          <li><strong>Constancia de Estudios:</strong> Para trámites que requieran comprobante de inscripción</li>
+          <li><strong>Constancia de Estudios:</strong> Para trámites que requieran comprobante</li>
           <li><strong>Certificado de Asistencia:</strong> Para cursos especiales o talleres</li>
         </ul>
         
         <h3>Artículo 27. Requisitos para Certificación</h3>
-        <p>Para obtener el certificado de nivel, el alumno debe:</p>
-        <ul>
-          <li>Aprobar con calificación mínima de 6</li>
-          <li>Cumplir con el 75% de asistencia</li>
-          <li>Estar al día en sus pagos</li>
-          <li>No tener sanciones disciplinarias vigentes</li>
-        </ul>
-        
-        <h3>Artículo 28. Trámite de Certificados</h3>
-        <p>Los certificados se solicitan a través de la plataforma digital o en administración. El tiempo de entrega es de 5 a 10 días hábiles.</p>
+        <p>Para obtener el certificado de nivel, el alumno debe aprobar con calificación mínima de 6, cumplir con el 75% de asistencia y estar al día en sus pagos.</p>
       </section>
 
-      <section id="sanciones" class="term-section">
+      <!-- Chapter X -->
+      <section class="harvard-section" id="sanciones">
         <h2>Capítulo X: Sanciones</h2>
         
         <h3>Artículo 29. Tipos de Sanciones</h3>
@@ -336,99 +269,56 @@
         </ul>
         
         <h3>Artículo 30. Faltas Graves</h3>
-        <p>Se consideran faltas graves:</p>
-        <ul>
-          <li>Plagio o copia en evaluaciones</li>
-          <li>Agresión física o verbal a cualquier miembro de la comunidad</li>
-          <li>Daño intencional a instalaciones o equipos</li>
-          <li>Suplantación de identidad</li>
-          <li>Acoso de cualquier tipo</li>
-        </ul>
-        
-        <h3>Artículo 31. Proceso Disciplinario</h3>
-        <p>Ante una presunta falta, se seguirá el siguiente proceso:</p>
-        <ol>
-          <li>Notificación escrita al alumno (o tutor si es menor)</li>
-          <li>Audiencia con el Comité Disciplinario</li>
-          <li>Emisión de resolución en un plazo de 5 días hábiles</li>
-          <li>Derecho a apelación dentro de 3 días hábiles</li>
-        </ol>
+        <p>Se consideran faltas graves: plagio o copia en evaluaciones, agresión física o verbal, daño intencional a instalaciones, suplantación de identidad y acoso de cualquier tipo.</p>
       </section>
 
-      <section id="disposiciones-finales" class="term-section">
+      <!-- Chapter XI -->
+      <section class="harvard-section" id="finales">
         <h2>Capítulo XI: Disposiciones Finales</h2>
         
         <h3>Artículo 32. Modificaciones al Reglamento</h3>
-        <p>Este reglamento puede ser modificado por la Dirección del CEMI. Las modificaciones serán comunicadas con al menos 30 días de anticipación a través de la plataforma digital y medios oficiales.</p>
+        <p>Este reglamento puede ser modificado por la Dirección del CEMI. Las modificaciones serán comunicadas con al menos 30 días de anticipación a través de la plataforma digital.</p>
         
         <h3>Artículo 33. Casos No Previstos</h3>
         <p>Los casos no previstos en este reglamento serán resueltos por la Dirección del CEMI, en consulta con el Comité Académico cuando sea necesario.</p>
-        
-        <h3>Artículo 34. Vigencia</h3>
-        <p>El presente reglamento entra en vigencia a partir del 1 de marzo de 2025 y deroga cualquier disposición anterior que se le oponga.</p>
-        
-        <div class="info-box">
+
+        <div class="harvard-info-box">
           <i data-lucide="info"></i>
           <div>
-            <h4>¿Tienes dudas sobre el reglamento?</h4>
-            <p>Si tienes preguntas sobre algún artículo o necesitas aclaraciones, puedes contactar a la administración o visitar nuestro <a href="ayuda.html">Centro de Ayuda</a>.</p>
+            <h4>¿Tienes dudas?</h4>
+            <p>Si tienes preguntas sobre algún artículo del reglamento, puedes contactar a la administración o visitar nuestro <a href="ayuda.html">Centro de Ayuda</a>.</p>
           </div>
         </div>
       </section>
 
+      <p class="harvard-effective-date">Vigente desde el 1 de marzo de 2025</p>
+
     </main>
   </div>
 
-  <footer class="terms-footer">
-    <div class="footer-content">
-      <p>&copy; 2025 CEMI - Centro Municipal de Idiomas. Todos los derechos reservados.</p>
-      <div class="footer-links">
-        <a href="terminos.html">Términos de Servicio</a>
-        <a href="privacidad.html">Privacidad</a>
-        <a href="ayuda.html">Ayuda</a>
+  <!-- Footer -->
+  <footer class="harvard-internal-footer">
+    <div class="harvard-internal-footer-inner">
+      <div class="harvard-footer-top">
+        <div class="harvard-footer-brand">
+          <img src="images/logolong.png" alt="CEMI">
+          <p>Centro Municipal de Idiomas</p>
+        </div>
+        <div class="harvard-footer-links">
+          <a href="terminos.html">Términos</a>
+          <a href="privacidad.html">Privacidad</a>
+          <a href="accesibilidad.html">Accesibilidad</a>
+          <a href="ayuda.html">Ayuda</a>
+        </div>
+      </div>
+      <div class="harvard-footer-bottom">
+        <p class="harvard-footer-copy">© 2025 CEMI. Todos los derechos reservados.</p>
       </div>
     </div>
   </footer>
 
   <script>
     lucide.createIcons();
-
-    // Highlight active section on scroll
-    const sections = document.querySelectorAll('.term-section');
-    const navLinks = document.querySelectorAll('.terms-nav .nav-link');
-
-    function highlightActiveSection() {
-      let scrollPosition = window.scrollY + 150;
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute('id');
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          navLinks.forEach((link) => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + sectionId) {
-              link.classList.add('active');
-            }
-          });
-        }
-      });
-    }
-
-    window.addEventListener('scroll', highlightActiveSection);
-
-    // Smooth scroll for nav links
-    navLinks.forEach((link) => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
   </script>
 
 </body>

@@ -117,8 +117,15 @@
   }
 }
 
-/* Botón Índice A-Z */
-.harvard-admin-btn {
+/* ===== BUSCADOR A-Z EXPANDIBLE ===== */
+.harvard-search-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.harvard-search-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -128,48 +135,166 @@
   background-color: transparent;
   color: var(--hw-color-white);
   cursor: pointer;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-  text-decoration: none;
-  width: 40px;
+  transition: all 0.2s ease;
   height: 40px;
+  width: 40px;
   font-size: 0;
 }
 
-.harvard-admin-btn:hover,
-.harvard-admin-btn:focus {
+.harvard-search-btn .search-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.harvard-search-btn .search-label {
+  display: none;
+}
+
+.harvard-search-btn:hover {
   color: var(--hw-color-graphite);
 }
 
-/* Estilo específico para botón A-Z */
-.harvard-az-btn {
-  gap: 8px;
+.harvard-search-btn:hover .search-icon {
+  transform: scale(1.1);
 }
 
-.harvard-az-btn i {
+/* Contenedor expandible */
+.harvard-search-expand {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--hw-color-white);
+  border-radius: 4px;
+  padding: 0;
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.harvard-search-container.expanded .harvard-search-expand {
+  opacity: 1;
+  visibility: visible;
+  width: 320px;
+  padding: 8px 12px;
+  margin-right: 12px;
+}
+
+.harvard-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--hw-font-sans);
+  font-size: 15px;
+  color: var(--hw-color-charcoal);
+  padding: 8px 4px;
+  outline: none;
+  min-width: 0;
+}
+
+.harvard-search-input::placeholder {
+  color: #999;
+}
+
+.harvard-search-go,
+.harvard-search-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--hw-color-graphite);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
   flex-shrink: 0;
 }
 
+.harvard-search-go:hover {
+  background: var(--hw-color-charcoal);
+  color: var(--hw-color-white);
+}
+
+.harvard-search-close:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.harvard-search-go i,
+.harvard-search-close i {
+  width: 18px;
+  height: 18px;
+}
+
+/* Estado expandido - ocultar label del botón */
+.harvard-search-container.expanded .harvard-search-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Desktop */
 @media (min-width: 1024px) {
-  .harvard-admin-btn {
+  .harvard-search-btn {
     font-family: var(--hw-font-sans);
     background-color: var(--hw-color-wrought-iron);
     color: var(--hw-color-white);
     width: auto;
     height: 100%;
-    padding: 0 39px 0 31px;
+    padding: 0 28px;
     font-size: 18px;
     font-weight: 500;
     letter-spacing: -0.2px;
+    gap: 10px;
   }
   
-  .harvard-admin-btn:hover,
-  .harvard-admin-btn:focus {
+  .harvard-search-btn .search-label {
+    display: inline;
+  }
+  
+  .harvard-search-btn .search-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .harvard-search-btn:hover,
+  .harvard-search-btn:focus {
     background-color: var(--hw-color-blackboard);
     color: var(--hw-color-white);
   }
   
-  .harvard-az-btn {
-    gap: 10px;
+  .harvard-search-expand {
+    right: 0;
+    top: 100%;
+    transform: translateY(0);
+    margin-right: 0;
+    margin-top: 8px;
+    border-radius: 8px;
+  }
+  
+  .harvard-search-container.expanded .harvard-search-expand {
+    width: 380px;
+    padding: 12px 16px;
+    margin-right: 0;
+  }
+  
+  .harvard-search-container.expanded .harvard-search-btn {
+    opacity: 1;
+    pointer-events: auto;
+    background-color: var(--hw-color-blackboard);
+  }
+  
+  .harvard-search-input {
+    font-size: 16px;
+    padding: 10px 8px;
   }
 }
 
