@@ -1,5 +1,5 @@
 /* =====================================================
-   COOKIE BANNER - Diseño moderno slide-up
+   COOKIE BANNER - Estilo minimalista CEMI
    ===================================================== */
 
 .cookie-banner {
@@ -11,7 +11,8 @@
   transform: translateY(100%);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s ease;
 }
 
 .cookie-banner.active {
@@ -23,181 +24,150 @@
 .cookie-banner.hiding {
   transform: translateY(100%);
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 1, 1);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 1, 1),
+              opacity 0.3s ease;
 }
 
 .cookie-banner-content {
-  background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(22, 33, 62, 0.9) 100%);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.4),
-              0 -2px 20px rgba(0, 113, 227, 0.1),
-              inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  padding: 20px 0;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px 0;
 }
 
 .cookie-banner-inner {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px;
-  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .cookie-banner-text {
   flex: 1;
-  min-width: 300px;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.cookie-icon {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 22px;
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
-  animation: cookieBounce 2s ease-in-out infinite;
-}
-
-@keyframes cookieBounce {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-3px) rotate(-5deg); }
-  75% { transform: translateY(-3px) rotate(5deg); }
+  min-width: 280px;
 }
 
 .cookie-message {
   color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .cookie-message strong {
-  color: #fff;
+  display: block;
+  color: #ffffff;
+  font-family: var(--font-heading), Georgia, 'Times New Roman', serif;
+  font-size: 16px;
   font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cookie-message span {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .cookie-message a {
-  color: #00c6ff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border-bottom: 1px solid transparent;
+  color: #888;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
 }
 
 .cookie-message a:hover {
-  color: #fff;
-  border-bottom-color: #00c6ff;
+  color: #ffffff;
 }
 
 .cookie-banner-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
 .cookie-btn {
-  padding: 12px 28px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 4px;
+  font-family: var(--font-body), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   white-space: nowrap;
 }
 
+.cookie-btn-config {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 10px 14px;
+}
+
+.cookie-btn-config:hover {
+  color: #ffffff;
+}
+
 .cookie-btn-reject {
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
   color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .cookie-btn-reject:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
 }
 
 .cookie-btn-accept {
-  background: linear-gradient(135deg, #0071e3 0%, #00a8ff 100%);
-  color: white;
-  box-shadow: 0 4px 20px rgba(0, 113, 227, 0.5);
+  background: #656f77;
+  color: #ffffff;
   border: none;
 }
 
 .cookie-btn-accept:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(0, 113, 227, 0.6);
+  background: #4a5259;
 }
 
 .cookie-btn:active {
-  transform: translateY(0) scale(0.98);
+  transform: scale(0.98);
 }
 
-.cookie-btn-config {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 12px 20px;
-}
-
-.cookie-btn-config:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-.cookie-config-link {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 13px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
-.cookie-config-link:hover {
-  color: #00c6ff;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-@media (max-width: 900px) {
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
   .cookie-banner-inner {
     flex-direction: column;
     text-align: center;
-    gap: 20px;
+    gap: 16px;
+    padding: 0 20px;
   }
   
   .cookie-banner-text {
-    flex-direction: column;
-    align-items: center;
     min-width: auto;
+  }
+  
+  .cookie-message strong {
+    font-size: 15px;
   }
   
   .cookie-banner-actions {
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .cookie-btn {
+    padding: 10px 16px;
+    font-size: 13px;
   }
 }
 
@@ -208,29 +178,31 @@
   
   .cookie-banner-inner {
     padding: 0 16px;
-    gap: 16px;
+    gap: 14px;
   }
   
   .cookie-message {
     font-size: 13px;
   }
   
+  .cookie-message strong {
+    font-size: 14px;
+  }
+  
   .cookie-banner-actions {
     flex-direction: column;
-    width: 100%;
+    gap: 8px;
   }
   
   .cookie-btn {
     width: 100%;
-    padding: 14px 20px;
+    padding: 12px 20px;
   }
   
   .cookie-btn-config {
     order: 3;
-  }
-  
-  .cookie-config-link {
-    justify-content: center;
+    background: transparent;
+    border: none;
   }
 }
 
