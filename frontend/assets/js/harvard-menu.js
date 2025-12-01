@@ -397,16 +397,25 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchSubmit = document.getElementById('harvardSearchSubmit');
   const searchCloseBtn = document.getElementById('harvardSearchClose');
   const azBtn = document.getElementById('harvardAzBtn');
+  
+  let searchJustOpened = false;
 
   function openSearch() {
+    if (searchWrapper?.classList.contains('active')) return;
+    
+    searchJustOpened = true;
     searchWrapper?.classList.add('active');
     azBtn?.classList.add('hidden');
+    
     setTimeout(() => {
       searchField?.focus();
-    }, 300);
+      searchJustOpened = false;
+    }, 350);
   }
 
   function closeSearch() {
+    if (!searchWrapper?.classList.contains('active')) return;
+    
     searchWrapper?.classList.remove('active');
     azBtn?.classList.remove('hidden');
     if (searchField) searchField.value = '';
@@ -424,16 +433,26 @@ document.addEventListener('DOMContentLoaded', function() {
   // Click en botón A-Z abre el buscador
   azBtn?.addEventListener('click', function(e) {
     e.preventDefault();
+    e.stopPropagation();
     openSearch();
   });
 
   // Click en lupa envía búsqueda
-  searchSubmit?.addEventListener('click', goToSearch);
+  searchSubmit?.addEventListener('click', function(e) {
+    e.stopPropagation();
+    goToSearch();
+  });
 
   // Click en X cierra el buscador
   searchCloseBtn?.addEventListener('click', function(e) {
     e.preventDefault();
+    e.stopPropagation();
     closeSearch();
+  });
+  
+  // Click en el wrapper no cierra
+  searchWrapper?.addEventListener('click', function(e) {
+    e.stopPropagation();
   });
 
   // Teclas en el input
@@ -445,10 +464,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Cerrar buscador al hacer click fuera
+  // Cerrar buscador al hacer click fuera (con delay para evitar conflictos)
   document.addEventListener('click', function(e) {
+    if (searchJustOpened) return;
+    
     if (searchWrapper?.classList.contains('active')) {
-      if (!searchWrapper.contains(e.target) && e.target !== azBtn) {
+      const isInsideWrapper = searchWrapper.contains(e.target);
+      const isAzBtn = azBtn?.contains(e.target) || e.target === azBtn;
+      
+      if (!isInsideWrapper && !isAzBtn) {
         closeSearch();
       }
     }

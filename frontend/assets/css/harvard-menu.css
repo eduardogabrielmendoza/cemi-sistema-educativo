@@ -206,6 +206,52 @@
   height: 20px;
 }
 
+/* Quick link debajo del buscador */
+.harvard-search-quicklink {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--hw-color-wrought-iron);
+  padding: 16px 24px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.harvard-search-wrapper.active .harvard-search-quicklink {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.harvard-search-quicklink span {
+  display: block;
+  font-family: var(--hw-font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--hw-color-graphite);
+  margin-bottom: 8px;
+}
+
+.harvard-search-quicklink a {
+  display: block;
+  font-family: var(--hw-font-sans);
+  font-size: 16px;
+  color: #ffc72c;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.harvard-search-quicklink a:hover {
+  color: #ffe066;
+  text-decoration: underline;
+}
+
 /* Botón A-Z */
 .harvard-az-btn {
   display: inline-flex;
