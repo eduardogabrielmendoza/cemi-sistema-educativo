@@ -916,9 +916,10 @@
 
 /* ===== QUICK LINKS FOOTER ===== */
 .mega-menu-footer {
-  color: var(--hw-color-slate);
-  background-color: #1e1e1e;
-  border-top: 1px solid #333;
+  color: #b0b0b0 !important;
+  background: #1e1e1e !important;
+  background-color: #1e1e1e !important;
+  border-top: 1px solid #333 !important;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -928,15 +929,7 @@
 }
 
 .mega-menu-footer::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -1px;
-  width: 61px;
-  height: 60px;
-  background: linear-gradient(180deg, rgba(14, 14, 14, 0) 29.22%, #0e0e0e 100%);
-  transform: rotate(-90deg);
-  pointer-events: none;
+  display: none !important;
 }
 
 .mega-footer-inner {
