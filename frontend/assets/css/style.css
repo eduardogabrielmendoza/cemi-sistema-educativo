@@ -3544,9 +3544,14 @@ footer i {
 }
 
 .footer-logo img {
-  width: 45px;
+  width: auto;
   height: 45px;
-  border-radius: 8px;
+  border-radius: 0;
+}
+
+.footer-logo-long {
+  height: 50px;
+  width: auto;
 }
 
 .footer-logo h3 {
@@ -3869,7 +3874,7 @@ footer i {
   .faq-item.active .faq-answer {
     padding: 0 20px 20px 20px;
   }
-}
+
 
 .swal-high-zindex {
   z-index: 9999 !important;

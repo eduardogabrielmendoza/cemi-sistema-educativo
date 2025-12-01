@@ -1023,6 +1023,29 @@
   color: var(--hw-color-white);
 }
 
+/* ===== LOGO LARGO EN MEGA MENU ===== */
+.mega-logo-long {
+  height: 40px;
+  width: auto;
+}
+
+@media (min-width: 768px) {
+  .mega-logo-long {
+    height: 48px;
+  }
+}
+
+/* ===== OCULTAR FABs CUANDO MENU ESTÁ ABIERTO ===== */
+.harvard-mega-menu.active ~ .chat-float-button,
+.harvard-mega-menu.active ~ #asistente-container,
+body:has(.harvard-mega-menu.active) .chat-float-button,
+body:has(.harvard-mega-menu.active) #asistente-container,
+body:has(.harvard-mega-menu.active) .asistente-fab {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 767px) {
   .mega-nav-secondary,
