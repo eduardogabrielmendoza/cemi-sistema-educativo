@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   // Elementos principales
+  const header = document.querySelector('.harvard-header');
   const menuBtn = document.getElementById('harvardMenuBtn');
   const megaMenu = document.getElementById('harvardMegaMenu');
   const closeBtn = document.getElementById('megaMenuClose');
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ===== ABRIR/CERRAR MENÚ =====
   function openMenu() {
     megaMenu.classList.add('active');
+    header?.classList.add('menu-open');
     document.body.style.overflow = 'hidden';
     isMenuOpen = true;
     
@@ -36,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function closeMenu() {
     megaMenu.classList.remove('active');
+    header?.classList.remove('menu-open');
     document.body.style.overflow = '';
     isMenuOpen = false;
     
