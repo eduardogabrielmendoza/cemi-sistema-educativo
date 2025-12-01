@@ -856,6 +856,7 @@ html {
   font-weight: 400;
   margin-bottom: 12px;
   color: var(--color-text);
+  letter-spacing: -0.01em;
 }
 
 .feature-card p {
@@ -864,6 +865,7 @@ html {
   color: var(--color-text-light);
   line-height: 1.6;
   letter-spacing: -0.01em;
+  font-weight: 400;
 }
 
 .footer {
@@ -1133,16 +1135,20 @@ html {
 }
 
 .role-card h3 {
+  font-family: var(--font-heading);
   margin-bottom: 15px;
   color: var(--color-text);
   font-size: 1.4em;
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 .role-card p {
+  font-family: var(--font-body);
   color: var(--color-text-light);
   line-height: 1.7;
   font-size: 0.95em;
+  font-weight: 400;
 }
 
 .modules {
@@ -1262,18 +1268,22 @@ html {
 }
 
 .module-card h3 {
+  font-family: var(--font-heading);
   margin-bottom: 15px;
   color: var(--color-text);
   font-size: 1.3em;
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   position: relative;
   z-index: 1;
 }
 
 .module-card p {
+  font-family: var(--font-body);
   color: var(--color-text-light);
   line-height: 1.7;
   font-size: 0.95em;
+  font-weight: 400;
   position: relative;
   z-index: 1;
 }
