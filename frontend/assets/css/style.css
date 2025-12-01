@@ -1,7 +1,8 @@
 :root {
   --color-primary: #000000;
   --color-secondary: #1d1d1f;
-  --color-accent: #0071e3;
+  --color-accent: #656f77;
+  --color-accent-hover: #4a5259;
   --color-bg: #ffffff;
   --color-bg-secondary: #f5f5f7;
   --color-text: #1d1d1f;
@@ -609,7 +610,7 @@ html {
 }
 
 .link-arrow:hover {
-  opacity: 0.7;
+  color: var(--color-accent-hover);
   transform: translateX(4px);
 }
 
@@ -3595,7 +3596,7 @@ footer i {
 }
 
 .footer-links a:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
   transform: translateX(5px);
 }
 
