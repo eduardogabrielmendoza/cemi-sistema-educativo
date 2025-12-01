@@ -6,12 +6,12 @@
   --security-primary: #0071E3;
   --security-primary-light: #3d8eea;
   --security-primary-lighter: #66a3f0;
-  --security-primary-dark: #005bb5;
-  --security-primary-darker: #004a94;
+  --security-primary-dark: #0066cc;
+  --security-primary-darker: #0077d4;
   
   /* Alias para compatibilidad */
   --security-blue: #0071E3;
-  --security-blue-dark: #005bb5;
+  --security-blue-dark: #0066cc;
   --security-blue-light: #3d8eea;
   
   /* Acento Cyan brillante */
@@ -48,7 +48,7 @@ body {
 
 /* Header con gradiente y patrón */
 .security-header {
-  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
+  background: linear-gradient(135deg, #0071E3 0%, #0066cc 100%);
   padding: 80px 20px;
   text-align: center;
   color: white;
