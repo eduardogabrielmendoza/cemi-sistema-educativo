@@ -13,6 +13,7 @@
   --hw-color-white: #ffffff;
   --hw-color-asphalt: #8a8a8a;
   --hw-color-accent: #0070F3;
+  --hw-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* ===== HEADER PRINCIPAL ===== */
@@ -81,10 +82,11 @@
 }
 
 .harvard-brand-text {
+  font-family: var(--hw-font-sans);
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--hw-color-wrought-iron);
-  letter-spacing: -0.1px;
+  letter-spacing: -0.2px;
 }
 
 @media (min-width: 1024px) {
@@ -132,13 +134,15 @@
 
 @media (min-width: 1024px) {
   .harvard-admin-btn {
+    font-family: var(--hw-font-sans);
     background-color: var(--hw-color-wrought-iron);
     color: var(--hw-color-white);
     width: auto;
     height: 100%;
     padding: 0 39px 0 31px;
     font-size: 18px;
-    letter-spacing: -0.1px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
   }
   
   .harvard-admin-btn:hover,
@@ -195,8 +199,10 @@
   .harvard-menu-btn > span {
     display: inline-block;
     vertical-align: middle;
+    font-family: var(--hw-font-sans);
     font-size: 18px;
-    letter-spacing: -0.1px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
   }
 }
 
