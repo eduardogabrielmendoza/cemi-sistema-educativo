@@ -37,13 +37,20 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function closeMenu() {
-    megaMenu.classList.remove('active');
-    header?.classList.remove('menu-open');
-    document.body.style.overflow = '';
-    isMenuOpen = false;
+    // Agregar clase closing para animación inversa
+    megaMenu.classList.add('closing');
     
-    // Resetear estados
-    resetMenuState();
+    // Después de la animación, remover clases
+    setTimeout(() => {
+      megaMenu.classList.remove('active');
+      megaMenu.classList.remove('closing');
+      header?.classList.remove('menu-open');
+      document.body.style.overflow = '';
+      isMenuOpen = false;
+      
+      // Resetear estados
+      resetMenuState();
+    }, 350); // Duración de la animación de cierre
   }
 
   function resetMenuState() {

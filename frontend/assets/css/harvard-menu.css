@@ -284,6 +284,15 @@
   transform: translate3d(0, 0, 0);
 }
 
+/* Animación de cierre (drop down inverso) */
+.harvard-mega-menu.closing {
+  transform: translate3d(0, -100%, 0);
+  transition: transform 0.35s cubic-bezier(0.52, 0.16, 0.24, 1), 
+              opacity 0.3s ease-out,
+              visibility 0s 0.35s;
+  opacity: 0;
+}
+
 .mega-menu-backdrop {
   display: none;
 }
@@ -422,7 +431,7 @@
   color: var(--hw-color-white);
   display: inline-flex;
   align-items: center;
-  gap: 17px;
+  gap: 12px;
   padding: 0;
   border: 0;
   background-color: transparent;
@@ -435,9 +444,16 @@
   color: var(--hw-color-shade);
 }
 
+.mega-menu-close:hover .close-icon-circle,
+.mega-menu-close:focus .close-icon-circle {
+  border-color: var(--hw-color-slate);
+}
+
 .mega-menu-close > span {
+  font-family: var(--hw-font-sans);
   font-size: 16px;
-  letter-spacing: -0.1px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
   display: none;
 }
 
@@ -447,11 +463,10 @@
   }
 }
 
-.mega-menu-close i {
-  font-size: 24px;
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
+/* Círculo alrededor de la X */
+.close-icon-circle {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 1px solid var(--hw-color-graphite);
   display: flex;
@@ -460,9 +475,9 @@
   transition: border-color 0.15s ease-in-out;
 }
 
-.mega-menu-close:hover i,
-.mega-menu-close:focus i {
-  border-color: var(--hw-color-white);
+.close-icon-circle i {
+  width: 16px;
+  height: 16px;
 }
 
 /* ===== CONTENIDO DEL MENU ===== */
@@ -672,6 +687,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-family: var(--hw-font-sans);
   font-size: 18px;
   font-weight: 400;
   color: var(--hw-color-white);
@@ -694,7 +710,9 @@
 }
 
 .mega-sub-description {
-  font-size: 16px;
+  font-family: var(--hw-font-sans);
+  font-size: 15px;
+  font-weight: 400;
   color: var(--hw-color-slate);
   line-height: 1.5;
   margin-bottom: 30px;
@@ -722,10 +740,11 @@
   padding: 0;
   color: var(--hw-color-white);
   text-decoration: none;
-  font-size: 20px;
+  font-family: var(--hw-font-sans);
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.5;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.2px;
   transition: color 0.15s ease-in-out;
   cursor: pointer;
   background: transparent;
@@ -893,7 +912,7 @@
 /* ===== QUICK LINKS FOOTER ===== */
 .mega-menu-footer {
   color: var(--hw-color-slate);
-  background-color: var(--hw-color-wrought-iron);
+  background-color: var(--hw-color-wrought-iron) !important;
   border-top: 1px solid var(--hw-color-graphite);
   position: absolute;
   bottom: 0;
@@ -937,10 +956,11 @@
 }
 
 .mega-footer-label {
+  font-family: var(--hw-font-sans);
   font-weight: 400;
   color: var(--hw-color-slate);
   font-size: 16px;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.2px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -975,8 +995,10 @@
   line-height: 1.15;
   margin-right: 28px;
   color: var(--hw-color-slate);
+  font-family: var(--hw-font-sans);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: -0.2px;
   text-decoration: none;
   transition: color 0.15s ease-in-out;
 }
