@@ -276,9 +276,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  document.querySelectorAll('.mega-tertiary-link').forEach(link => {
+  // ===== TERTIARY ITEMS EXPANDIBLES =====
+  document.querySelectorAll('.mega-tertiary-item').forEach(item => {
+    const button = item.querySelector('.mega-tertiary-link');
+    
+    button?.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Si ya está activo, cerrar
+      if (item.classList.contains('active')) {
+        item.classList.remove('active');
+        hideBackgroundImage();
+        return;
+      }
+      
+      // Cerrar otros items activos
+      document.querySelectorAll('.mega-tertiary-item.active').forEach(activeItem => {
+        activeItem.classList.remove('active');
+      });
+      
+      // Activar este item
+      item.classList.add('active');
+      
+      // Cambiar imagen de fondo
+      const imageSrc = item.dataset.image;
+      if (imageSrc) {
+        showBackgroundImage(imageSrc);
+      }
+    });
+  });
+  
+  // Links de acción dentro de los items expandibles
+  document.querySelectorAll('.mega-tertiary-action').forEach(link => {
     link.addEventListener('click', function() {
-      // Cerrar menú después de navegar
       setTimeout(closeMenu, 100);
     });
   });

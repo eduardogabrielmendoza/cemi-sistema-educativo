@@ -937,26 +937,90 @@
   gap: 0;
 }
 
+/* ===== TERTIARY ITEMS EXPANDIBLES ===== */
+.mega-tertiary-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mega-tertiary-item:last-child {
+  border-bottom: none;
+}
+
 .mega-tertiary-link {
-  display: block;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 0;
+  background: none;
+  border: none;
   color: var(--hw-color-white);
   text-decoration: none;
   font-family: var(--hw-font-sans);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.1px;
-  transition: color 0.15s ease-in-out;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-align: left;
 }
 
-.mega-tertiary-link + .mega-tertiary-link {
-  margin-top: 16px;
+.mega-tertiary-link::after {
+  content: '+';
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--hw-color-slate);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mega-tertiary-item.active .mega-tertiary-link::after {
+  transform: rotate(45deg);
 }
 
 .mega-tertiary-link:hover {
   color: var(--hw-color-shade);
+}
+
+/* Info expandible */
+.mega-tertiary-info {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease,
+              padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 0 0 0;
+}
+
+.mega-tertiary-item.active .mega-tertiary-info {
+  max-height: 150px;
+  opacity: 1;
+  padding: 0 0 16px 0;
+}
+
+.mega-tertiary-info p {
+  color: var(--hw-color-slate);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+  font-family: var(--hw-font-sans);
+}
+
+.mega-tertiary-action {
+  display: inline-block;
+  color: var(--hw-color-white);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  font-family: var(--hw-font-sans);
+}
+
+.mega-tertiary-action:hover {
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* ===== QUICK LINKS FOOTER ===== */
