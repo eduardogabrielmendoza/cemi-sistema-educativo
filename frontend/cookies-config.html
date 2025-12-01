@@ -15,50 +15,133 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
       min-height: 100vh;
       padding: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .container {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 700px;
-      width: 100%;
+      position: relative;
       overflow: hidden;
     }
 
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 20%, rgba(0, 113, 227, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(0, 198, 255, 0.1) 0%, transparent 50%);
+      animation: bgPulse 15s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-5%, -5%) scale(1.1); }
+    }
+
+    .container {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.98) 100%);
+      border-radius: 28px;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.5),
+                  0 0 0 1px rgba(255, 255, 255, 0.1),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      max-width: 700px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      animation: containerEntry 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes containerEntry {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
     .header {
-      background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
-      padding: 40px 30px;
+      background: linear-gradient(135deg, #0071e3 0%, #00a8ff 50%, #0077ed 100%);
+      background-size: 200% 200%;
+      animation: headerGradient 8s ease infinite;
+      padding: 50px 30px;
       text-align: center;
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes headerGradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
     }
 
     .header-icon {
-      width: 70px;
-      height: 70px;
+      width: 80px;
+      height: 80px;
       background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin: 0 auto 24px;
+      animation: iconFloat 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(5deg); }
+    }
+
+    .header-icon::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), transparent);
+      opacity: 0;
+      animation: iconGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes iconGlow {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
     }
 
     .header h1 {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+      letter-spacing: -0.5px;
     }
 
     .header p {
-      font-size: 16px;
+      font-size: 17px;
       opacity: 0.95;
+      font-weight: 400;
     }
 
     .content {
@@ -66,66 +149,113 @@
     }
 
     .cookie-category {
-      background: #f8f9fa;
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 20px;
-      transition: all 0.3s;
+      background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid rgba(0, 113, 227, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 16px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      animation: categoryEntry 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    }
+
+    .cookie-category:nth-child(1) { animation-delay: 0.1s; }
+    .cookie-category:nth-child(2) { animation-delay: 0.2s; }
+    .cookie-category:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes categoryEntry {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .cookie-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #0071e3, #00c6ff);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .cookie-category:hover {
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transform: translateX(8px);
+      box-shadow: 0 10px 40px rgba(0, 113, 227, 0.15);
+      border-color: rgba(0, 113, 227, 0.2);
+    }
+
+    .cookie-category:hover::before {
+      opacity: 1;
     }
 
     .category-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
     .category-title {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       font-size: 18px;
       font-weight: 600;
-      color: #2c3e50;
+      color: #1e293b;
     }
 
     .category-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
-      border-radius: 10px;
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, #0071e3 0%, #00a8ff 100%);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
+      box-shadow: 0 4px 15px rgba(0, 113, 227, 0.3);
+      transition: all 0.3s;
+    }
+
+    .cookie-category:hover .category-icon {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
     }
 
     .category-description {
       font-size: 14px;
-      line-height: 1.6;
-      color: #5a6c7d;
+      line-height: 1.7;
+      color: #64748b;
     }
 
     .toggle-switch {
       position: relative;
-      width: 60px;
-      height: 32px;
-      background: #dfe6e9;
-      border-radius: 16px;
+      width: 64px;
+      height: 34px;
+      background: linear-gradient(145deg, #cbd5e1, #e2e8f0);
+      border-radius: 17px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .toggle-switch.active {
-      background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
+      background: linear-gradient(135deg, #0071e3 0%, #00a8ff 100%);
+      box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
 
     .toggle-switch.disabled {
-      opacity: 0.5;
+      opacity: 0.6;
       cursor: not-allowed;
     }
 
@@ -133,82 +263,163 @@
       position: absolute;
       top: 4px;
       left: 4px;
-      width: 24px;
-      height: 24px;
-      background: white;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(145deg, #fff, #f8fafc);
       border-radius: 50%;
-      transition: transform 0.3s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .toggle-switch.active .toggle-slider {
-      transform: translateX(28px);
+      transform: translateX(30px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .toggle-switch:not(.disabled):hover .toggle-slider {
+      transform: scale(1.1);
+    }
+
+    .toggle-switch.active:not(.disabled):hover .toggle-slider {
+      transform: translateX(30px) scale(1.1);
     }
 
     .badge {
-      display: inline-block;
-      padding: 4px 10px;
-      background: #0071e3;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      background: linear-gradient(135deg, #0071e3, #00a8ff);
       color: white;
       font-size: 11px;
       font-weight: 600;
-      border-radius: 12px;
+      border-radius: 20px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-left: 8px;
+      margin-left: 10px;
+      box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
     }
 
     .actions {
       display: flex;
-      gap: 15px;
-      margin-top: 30px;
+      gap: 16px;
+      margin-top: 32px;
     }
 
     .btn {
       flex: 1;
-      padding: 16px 24px;
+      padding: 18px 28px;
       border: none;
-      border-radius: 12px;
+      border-radius: 16px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
+      background: linear-gradient(135deg, #0071e3 0%, #00a8ff 100%);
       color: white;
-      box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
+      box-shadow: 0 8px 30px rgba(0, 113, 227, 0.4);
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 113, 227, 0.5);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(0, 113, 227, 0.5);
+    }
+
+    .btn-primary:active {
+      transform: translateY(-2px) scale(0.98);
     }
 
     .btn-secondary {
-      background: white;
-      color: #5a6c7d;
-      border: 2px solid #dfe6e9;
+      background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+      color: #475569;
+      border: 1px solid rgba(0, 113, 227, 0.15);
     }
 
     .btn-secondary:hover {
-      background: #f8f9fa;
-      border-color: #b2bec3;
+      background: linear-gradient(145deg, #fff, #f1f5f9);
+      border-color: rgba(0, 113, 227, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary:active {
       transform: translateY(-2px);
+    }
+
+    .notification {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 20px 28px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+      z-index: 10000;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: notificationIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .notification.hiding {
+      animation: notificationOut 0.4s ease forwards;
+    }
+
+    @keyframes notificationIn {
+      from {
+        opacity: 0;
+        transform: translateX(100px) scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes notificationOut {
+      from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(100px) scale(0.8);
+      }
     }
 
     @media (max-width: 768px) {
       .header {
-        padding: 30px 20px;
+        padding: 40px 24px;
       }
 
       .header h1 {
-        font-size: 24px;
+        font-size: 26px;
       }
 
       .content {
@@ -220,7 +431,15 @@
       }
 
       .cookie-category {
-        padding: 20px;
+        padding: 22px;
+      }
+
+      .category-title {
+        font-size: 16px;
+      }
+
+      .cookie-category:hover {
+        transform: none;
       }
     }
   </style>
@@ -229,7 +448,7 @@
   <div class="container">
     <div class="header">
       <div class="header-icon">
-        <i data-lucide="cookie" style="width: 35px; height: 35px;"></i>
+        <i data-lucide="cookie" style="width: 38px; height: 38px;"></i>
       </div>
       <h1>Configuración de Cookies</h1>
       <p>Personaliza tus preferencias de privacidad</p>
@@ -240,7 +459,7 @@
         <div class="category-header">
           <div class="category-title">
             <div class="category-icon">
-              <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+              <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
             </div>
             <span>Cookies Necesarias <span class="badge">Requeridas</span></span>
           </div>
@@ -257,7 +476,7 @@
         <div class="category-header">
           <div class="category-title">
             <div class="category-icon">
-              <i data-lucide="bar-chart-3" style="width: 20px; height: 20px;"></i>
+              <i data-lucide="bar-chart-3" style="width: 22px; height: 22px;"></i>
             </div>
             <span>Cookies Analíticas</span>
           </div>
@@ -274,7 +493,7 @@
         <div class="category-header">
           <div class="category-title">
             <div class="category-icon">
-              <i data-lucide="megaphone" style="width: 20px; height: 20px;"></i>
+              <i data-lucide="megaphone" style="width: 22px; height: 22px;"></i>
             </div>
             <span>Cookies de Marketing</span>
           </div>
@@ -289,11 +508,11 @@
 
       <div class="actions">
         <button class="btn btn-secondary" onclick="volverACEMI()">
-          <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+          <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
           Volver a CEMI
         </button>
         <button class="btn btn-primary" onclick="guardarPreferencias()">
-          <i data-lucide="check" style="width: 18px; height: 18px;"></i>
+          <i data-lucide="check" style="width: 20px; height: 20px;"></i>
           Guardar Preferencias
         </button>
       </div>
@@ -333,30 +552,20 @@
 
     function guardarPreferencias() {
       localStorage.setItem('cemi_cookie_preferences', JSON.stringify(cookiePrefs));
+      localStorage.setItem('cemi_cookies_accepted', 'true');
       
       const notification = document.createElement('div');
-      notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        color: white;
-        padding: 16px 24px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-        z-index: 10000;
-        font-weight: 600;
-        animation: slideIn 0.3s ease;
-      `;
-      notification.textContent = '✓ Preferencias guardadas correctamente';
+      notification.className = 'notification';
+      notification.innerHTML = '<i data-lucide="check-circle" style="width: 24px; height: 24px;"></i> Preferencias guardadas correctamente';
       document.body.appendChild(notification);
+      lucide.createIcons();
 
       setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
+        notification.classList.add('hiding');
         setTimeout(() => {
           notification.remove();
-        }, 300);
-      }, 1500);
+        }, 400);
+      }, 2000);
     }
 
     function volverACEMI() {
@@ -366,29 +575,5 @@
 
     loadPreferences();
   </script>
-
-  <style>
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideOut {
-      from {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-    }
-  </style>
 </body>
 </html>
