@@ -1,19 +1,36 @@
 /* Estilos compartidos para páginas de seguridad */
-/* Paleta de colores sincronizada con terminos.css */
+/* Paleta Apple Blue - Sistema CEMI */
 
 :root {
-  --security-primary: #547194;
-  --security-primary-light: #7a9bbd;
-  --security-primary-dark: #42638c;
-  --security-blue: #547194;
-  --security-blue-dark: #42638c;
+  /* Paleta Principal Apple Blue */
+  --security-primary: #0071E3;
+  --security-primary-light: #3d8eea;
+  --security-primary-lighter: #66a3f0;
+  --security-primary-dark: #005bb5;
+  --security-primary-darker: #004a94;
+  
+  /* Alias para compatibilidad */
+  --security-blue: #0071E3;
+  --security-blue-dark: #005bb5;
+  --security-blue-light: #3d8eea;
+  
+  /* Acento Cyan brillante */
+  --security-accent-cyan: #00D4FF;
+  
+  /* Colores de estado */
   --security-yellow: #FFC107;
   --security-yellow-light: #FFD54F;
+  
+  /* Grises y textos */
   --security-gray: #718096;
   --security-text-dark: #2d3748;
   --security-text-medium: #4a5568;
   --security-text-light: #718096;
-  --security-bg: #f5f7fa;
+  
+  /* Fondos */
+  --security-bg: #f0f7ff;
+  --security-bg-light: #ebf8ff;
+  --security-bg-subtle: #f5f9ff;
 }
 
 * {
@@ -31,7 +48,7 @@ body {
 
 /* Header con gradiente y patrón */
 .security-header {
-  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
+  background: linear-gradient(135deg, #0071E3 0%, #005bb5 100%);
   padding: 80px 20px;
   text-align: center;
   color: white;
@@ -173,11 +190,11 @@ body {
   margin-bottom: 30px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s;
-  border: 1px solid rgba(84, 113, 148, 0.15);
+  border: 1px solid rgba(0, 113, 227, 0.15);
 }
 
 .security-card:hover {
-  box-shadow: 0 8px 30px rgba(84, 113, 148, 0.18);
+  box-shadow: 0 8px 30px rgba(0, 113, 227, 0.18);
   transform: translateY(-2px);
 }
 
@@ -219,8 +236,8 @@ body {
 }
 
 .security-section:hover {
-  border-color: rgba(84, 113, 148, 0.3);
-  box-shadow: 0 8px 25px rgba(84, 113, 148, 0.15);
+  border-color: rgba(0, 113, 227, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.15);
 }
 
 .security-section h3 {
@@ -279,7 +296,7 @@ body {
 
 .security-action-btn:hover {
   border-color: var(--security-primary);
-  box-shadow: 0 8px 25px rgba(84, 113, 148, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.2);
   transform: translateY(-4px);
 }
 
@@ -313,14 +330,14 @@ body {
   border-radius: 12px;
   font-weight: 600;
   font-size: 16px;
-  box-shadow: 0 4px 15px rgba(84, 113, 148, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
   transition: all 0.3s;
   border: none;
   cursor: pointer;
 }
 
 .btn-primary-security:hover {
-  box-shadow: 0 6px 20px rgba(84, 113, 148, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.5);
   transform: translateY(-2px);
 }
 
