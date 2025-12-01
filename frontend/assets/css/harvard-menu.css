@@ -29,7 +29,7 @@
 .harvard-header-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: 72px;
   padding: 0 24px;
   pointer-events: none;
@@ -38,7 +38,58 @@
 @media (min-width: 1024px) {
   .harvard-header-inner {
     height: 88px;
-    padding: 0 40px;
+    padding: 0 0 0 40px;
+  }
+}
+
+/* ===== BRANDING (Logo + Nombre) ===== */
+.harvard-branding {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .harvard-branding {
+    display: flex;
+  }
+}
+
+.harvard-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--hw-color-white);
+  padding: 2px;
+}
+
+@media (min-width: 1024px) {
+  .harvard-logo-img {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.harvard-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--hw-color-accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.harvard-brand-text {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--hw-color-wrought-iron);
+  letter-spacing: -0.1px;
+}
+
+@media (min-width: 1024px) {
+  .harvard-brand-text {
+    font-size: 18px;
   }
 }
 
@@ -48,7 +99,7 @@
   align-items: center;
   align-self: stretch;
   pointer-events: auto;
-  margin-right: -8px;
+  margin-right: 0;
 }
 
 @media (min-width: 1024px) {
