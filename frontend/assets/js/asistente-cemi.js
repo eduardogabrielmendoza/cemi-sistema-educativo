@@ -3989,9 +3989,7 @@ function crearAsistenteUI() {
         <div class="asistente-header">
           <div class="asistente-header-info">
             <div class="asistente-avatar">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-              </svg>
+              <img src="/images/logo.png" alt="CEMI" />
             </div>
             <div>
               <h3 class="asistente-title">CEMI Asistente</h3>
@@ -4174,11 +4172,19 @@ function agregarEstilosAsistente() {
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
+      background: white;
       display: flex;
       align-items: center;
       justify-content: center;
       animation: avatarPulse 2s infinite;
+      overflow: hidden;
+      padding: 4px;
+      box-sizing: border-box;
+    }
+    .asistente-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     @keyframes avatarPulse {
       0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
