@@ -8,10 +8,10 @@
   --hw-color-wrought-iron: #1e1e1e;
   --hw-color-blackboard: #0e0e0e;
   --hw-color-graphite: #4a4a4a;
-  --hw-color-slate: #888888;
+  --hw-color-slate: #a0a0a0;
   --hw-color-shade: #cccccc;
   --hw-color-white: #ffffff;
-  --hw-color-asphalt: #6a6a6a;
+  --hw-color-asphalt: #7a7a7a;
   --hw-color-accent: #0070F3;
 }
 
@@ -322,20 +322,39 @@
   text-decoration: none;
 }
 
-.mega-menu-logo img {
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
+/* Círculo blanco detrás del logo */
+.mega-logo-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background-color: var(--hw-color-white);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 @media (min-width: 768px) {
-  .mega-menu-logo img {
-    width: 42px;
-    height: 42px;
+  .mega-logo-circle {
+    width: 48px;
+    height: 48px;
   }
 }
 
-.mega-menu-logo span {
+.mega-logo-circle img {
+  width: 32px;
+  height: 32px;
+  border-radius: 0;
+}
+
+@media (min-width: 768px) {
+  .mega-logo-circle img {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+.mega-menu-logo > span:not(.mega-logo-circle) {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--hw-color-white);
@@ -591,6 +610,32 @@
   display: none;
 }
 
+/* Título principal del panel con flecha (como Harvard "Academics →") */
+.mega-sub-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--hw-color-white);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.15s ease-in-out;
+}
+
+.mega-sub-title:hover {
+  color: var(--hw-color-shade);
+}
+
+.mega-sub-title .arrow {
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.mega-sub-title:hover .arrow {
+  transform: translateX(4px);
+}
+
 .mega-sub-description {
   font-size: 16px;
   color: var(--hw-color-slate);
@@ -613,7 +658,9 @@
 
 /* Links secundarios */
 .mega-sub-link {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   text-align: left;
   padding: 0;
   color: var(--hw-color-white);
@@ -626,6 +673,18 @@
   cursor: pointer;
   background: transparent;
   border: 0;
+}
+
+/* Chevron para enlaces con submenú */
+.mega-sub-link .chevron {
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 2px;
+  transition: transform 0.2s ease;
+}
+
+.mega-sub-link:hover .chevron {
+  transform: translateX(3px);
 }
 
 .mega-sub-link + .mega-sub-link {
@@ -647,10 +706,26 @@
 }
 
 @media (min-width: 1200px) {
+  .mega-nav-secondary .mega-sub-title,
   .mega-nav-secondary .mega-sub-link,
   .mega-nav-secondary .mega-sub-description {
     transform: translate3d(-18px, 0, 0);
   }
+}
+
+/* Animación de entrada para título */
+.mega-nav-secondary .mega-sub-title {
+  opacity: 0;
+  transform: translate3d(0, 15px, 0);
+  transition: opacity 0.35s cubic-bezier(0.32, 0.08, 0.24, 1), 
+              transform 0.25s cubic-bezier(0.32, 0.08, 0.24, 1),
+              color 0.15s ease-in-out;
+}
+
+.mega-nav-secondary.visible .mega-sub-title {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0s;
 }
 
 .mega-nav-secondary.visible .mega-sub-link,
@@ -809,7 +884,9 @@
   color: var(--hw-color-slate);
   font-size: 16px;
   letter-spacing: -0.1px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-right: 28px;
 }
 
@@ -825,20 +902,9 @@
   }
 }
 
-.mega-footer-label i {
-  display: none;
-  visibility: hidden;
-  font-size: 14px;
-  position: relative;
-  top: 1px;
-  margin-left: 24px;
-}
-
-@media (min-width: 768px) {
-  .mega-footer-label i {
-    display: inline-block;
-    visibility: visible;
-  }
+.mega-footer-label .chevron {
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .mega-footer-links {
