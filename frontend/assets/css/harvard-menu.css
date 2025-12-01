@@ -571,10 +571,11 @@
   text-decoration: none;
   padding: 0;
   cursor: pointer;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Georgia, 'Times New Roman', Times, serif !important;
+  font-weight: 400 !important;
   font-size: 40px;
   line-height: 1.15;
-  letter-spacing: -0.1px;
+  letter-spacing: -0.5px;
   color: var(--hw-color-white);
   opacity: 0;
   transform: translate3d(0, -40px, 0);
@@ -1025,13 +1026,19 @@
 
 /* ===== LOGO LARGO EN MEGA MENU ===== */
 .mega-logo-long {
-  height: 40px;
+  height: 60px;
   width: auto;
 }
 
 @media (min-width: 768px) {
   .mega-logo-long {
-    height: 48px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mega-logo-long {
+    height: 100px;
   }
 }
 
