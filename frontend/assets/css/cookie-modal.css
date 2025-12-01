@@ -27,10 +27,13 @@
 }
 
 .cookie-banner-content {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(22, 33, 62, 0.9) 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.4),
+              0 -2px 20px rgba(0, 113, 227, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
   padding: 20px 0;
 }
 
@@ -99,6 +102,7 @@
 
 .cookie-banner-actions {
   display: flex;
+  align-items: center;
   gap: 12px;
   flex-shrink: 0;
 }
@@ -145,6 +149,20 @@
 
 .cookie-btn:active {
   transform: translateY(0) scale(0.98);
+}
+
+.cookie-btn-config {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 12px 20px;
+}
+
+.cookie-btn-config:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
 .cookie-config-link {
@@ -205,6 +223,10 @@
   .cookie-btn {
     width: 100%;
     padding: 14px 20px;
+  }
+  
+  .cookie-btn-config {
+    order: 3;
   }
   
   .cookie-config-link {
