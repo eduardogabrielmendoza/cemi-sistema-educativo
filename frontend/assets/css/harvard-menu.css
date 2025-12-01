@@ -1,242 +1,318 @@
 /* =====================================================
    HARVARD-STYLE MEGA MENU - CEMI
-   Menú fullscreen inspirado en Harvard University
+   Basado en CSS originales de harvard.edu
    ===================================================== */
 
+/* ===== VARIABLES DE COLOR (basadas en Harvard) ===== */
+:root {
+  --hw-color-wrought-iron: #1e1e1e;
+  --hw-color-blackboard: #0e0e0e;
+  --hw-color-graphite: #4a4a4a;
+  --hw-color-slate: #888888;
+  --hw-color-shade: #cccccc;
+  --hw-color-white: #ffffff;
+  --hw-color-asphalt: #6a6a6a;
+  --hw-color-accent: #0070F3;
+}
+
 /* ===== HEADER PRINCIPAL ===== */
-/* Header completamente transparente - solo botones visibles */
 .harvard-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 0 24px;
-  background: transparent;
-  pointer-events: none; /* Permite clicks a través del header */
+  user-select: none;
+  pointer-events: none;
 }
 
 .harvard-header-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Alineado a la derecha */
-  max-width: 100%;
-  margin: 0;
+  justify-content: flex-end;
   height: 72px;
+  padding: 0 24px;
   pointer-events: none;
 }
 
-/* Ocultar logo y branding - solo botones visibles */
-.harvard-brand {
-  display: none;
+@media (min-width: 1024px) {
+  .harvard-header-inner {
+    height: 88px;
+    padding: 0 40px;
+  }
 }
 
-.harvard-logo {
-  display: none;
-}
-
-.harvard-logo:hover {
-  opacity: 0.85;
-}
-
-.harvard-logo img {
-  display: none;
-}
-
-.harvard-logo-text {
-  display: none;
-}
-
-/* Separador y nombre de sección - ocultos */
-.harvard-section-indicator {
-  display: none;
-}
-
-.harvard-dot {
-  display: none;
-}
-
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.1); }
-}
-
-.harvard-section-name {
-  display: none;
-}
-
-/* ===== BOTONES DEL HEADER - ESTILO HARVARD ===== */
+/* ===== BOTONES DEL HEADER ===== */
 .harvard-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
-  pointer-events: auto; /* Re-habilita clicks en los botones */
+  align-self: stretch;
+  pointer-events: auto;
+  margin-right: -8px;
 }
 
-/* Botón Acceso Administrativo - Estilo Harvard */
+@media (min-width: 1024px) {
+  .harvard-actions {
+    margin-right: 0;
+  }
+}
+
+/* Botón Acceso Administrativo */
 .harvard-admin-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0;
+  justify-content: center;
   padding: 0;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 0.9375rem; /* 15px como Harvard */
-  font-weight: 400;
-  font-family: inherit;
+  border: 0;
+  background-color: transparent;
+  color: var(--hw-color-white);
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
   text-decoration: none;
-  letter-spacing: 0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  font-size: 0;
 }
 
-.harvard-admin-btn:hover {
-  opacity: 0.7;
-  background: transparent;
-  border: none;
+.harvard-admin-btn:hover,
+.harvard-admin-btn:focus {
+  color: var(--hw-color-graphite);
 }
 
-/* Ocultar icono del botón admin */
-.harvard-admin-btn i {
+@media (min-width: 1024px) {
+  .harvard-admin-btn {
+    background-color: var(--hw-color-wrought-iron);
+    color: var(--hw-color-white);
+    width: auto;
+    height: 100%;
+    padding: 0 39px 0 31px;
+    font-size: 18px;
+    letter-spacing: -0.1px;
+  }
+  
+  .harvard-admin-btn:hover,
+  .harvard-admin-btn:focus {
+    background-color: var(--hw-color-blackboard);
+    color: var(--hw-color-white);
+  }
+}
+
+/* Botón Menu */
+.harvard-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: var(--hw-color-white);
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+  width: 40px;
+  height: 40px;
+  margin-left: 9px;
+}
+
+.harvard-menu-btn:hover,
+.harvard-menu-btn:focus {
+  color: var(--hw-color-graphite);
+}
+
+@media (min-width: 1024px) {
+  .harvard-menu-btn {
+    background-color: var(--hw-color-wrought-iron);
+    color: var(--hw-color-white);
+    width: auto;
+    height: 100%;
+    padding: 0 39px 0 31px;
+    margin-left: 0;
+    border-left: 1px solid var(--hw-color-blackboard);
+  }
+  
+  .harvard-menu-btn:hover,
+  .harvard-menu-btn:focus {
+    background-color: var(--hw-color-blackboard);
+    color: var(--hw-color-white);
+  }
+}
+
+.harvard-menu-btn > span {
   display: none;
 }
 
-/* Botón Menu con Hamburguesa - Estilo Harvard */
-.harvard-menu-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 0.9375rem; /* 15px como Harvard */
-  font-weight: 400;
-  font-family: inherit;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+@media (min-width: 1024px) {
+  .harvard-menu-btn > span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    letter-spacing: -0.1px;
+  }
 }
 
-.harvard-menu-btn:hover {
-  opacity: 0.7;
-  background: transparent;
-}
-
-/* Hamburguesa estilo Harvard - 3 líneas */
+/* Icono Hamburguesa */
 .harvard-hamburger {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 20px;
-  height: 14px;
+  justify-content: center;
+  align-items: center;
+  width: 31px;
+  height: 31px;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .harvard-hamburger {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 11px;
+  }
 }
 
 .harvard-hamburger span {
   display: block;
-  width: 100%;
+  width: 22px;
   height: 2px;
-  background: white;
-  border-radius: 0;
+  background: currentColor;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   transition: all 0.3s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Animación X cuando está activo */
+.harvard-hamburger span:nth-child(1) { top: 8px; }
+.harvard-hamburger span:nth-child(2) { top: 50%; transform: translate(-50%, -50%); }
+.harvard-hamburger span:nth-child(3) { bottom: 8px; }
+
+/* Animación X cuando menú abierto */
 .harvard-header.menu-open .harvard-hamburger span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .harvard-header.menu-open .harvard-hamburger span:nth-child(2) {
   opacity: 0;
-  transform: scaleX(0);
+  transform: translate(-50%, -50%) scaleX(0);
 }
 
 .harvard-header.menu-open .harvard-hamburger span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+  bottom: auto;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 /* ===== MEGA MENU FULLSCREEN ===== */
 .harvard-mega-menu {
+  background-color: var(--hw-color-wrought-iron);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
-  visibility: hidden;
+  width: 100%;
+  z-index: 999;
   opacity: 0;
-  transition: visibility 0s 0.4s, opacity 0.4s ease;
+  overflow: hidden;
+  visibility: hidden;
+  height: 0;
+  backface-visibility: hidden;
+  transform: translate3d(0, -100%, 0);
+  transition: transform 0.4s cubic-bezier(0.52, 0.16, 0.24, 1);
 }
 
 .harvard-mega-menu.active {
+  z-index: 1001;
   visibility: visible;
+  height: 100%;
   opacity: 1;
-  transition: visibility 0s, opacity 0.4s ease;
+  transform: translate3d(0, 0, 0);
 }
 
-/* Fondo oscuro */
 .mega-menu-backdrop {
+  display: none;
+}
+
+/* Imagen de fondo */
+.mega-menu-bg-image {
+  display: none;
+  visibility: hidden;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  height: 100%;
+}
+
+@media (min-width: 1200px) {
+  .mega-menu-bg-image {
+    display: block;
+    visibility: visible;
+  }
+}
+
+.mega-menu-bg-image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.52, 0.16, 0.24, 1);
+}
+
+.mega-menu-bg-image::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1;
+}
+
+.mega-menu-bg-image.visible img {
+  opacity: 1;
+}
+
+/* ===== HEADER DEL MENU ===== */
+.mega-menu-header {
+  height: 72px;
+  line-height: 72px;
+  z-index: 10;
+  user-select: none;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: rgba(18, 18, 18, 0.98);
-  transform: translateY(-100%);
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.harvard-mega-menu.active .mega-menu-backdrop {
-  transform: translateY(0);
-}
-
-/* Imagen de fondo decorativa */
-.mega-menu-bg-image {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 50%;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.mega-menu-bg-image.visible {
-  opacity: 1;
-}
-
-.mega-menu-bg-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.4;
-  mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-}
-
-/* Header del mega menu */
-.mega-menu-header {
-  position: relative;
-  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 5%;
-  max-width: 1400px;
-  margin: 0 auto;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: all 0.4s ease 0.1s;
+  padding: 0 24px;
 }
 
-.harvard-mega-menu.active .mega-menu-header {
-  opacity: 1;
-  transform: translateY(0);
+@media (min-width: 768px) {
+  .mega-menu-header {
+    height: 80px;
+    line-height: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mega-menu-header {
+    height: 88px;
+    line-height: 88px;
+    padding: 0 40px;
+  }
 }
 
 .mega-menu-logo {
@@ -247,407 +323,528 @@
 }
 
 .mega-menu-logo img {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+}
+
+@media (min-width: 768px) {
+  .mega-menu-logo img {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 .mega-menu-logo span {
   font-size: 1.25rem;
   font-weight: 700;
-  color: white;
+  color: var(--hw-color-white);
 }
 
+/* Botón cerrar */
 .mega-menu-close {
-  display: flex;
+  color: var(--hw-color-white);
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  color: white;
-  font-size: 0.875rem;
-  font-weight: 500;
+  gap: 17px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 0.15s ease-in-out;
 }
 
-.mega-menu-close:hover {
-  background: rgba(255, 255, 255, 0.1);
+.mega-menu-close:hover,
+.mega-menu-close:focus {
+  color: var(--hw-color-shade);
 }
 
-.mega-menu-close i {
-  width: 18px;
-  height: 18px;
-}
-
-/* Contenido del mega menu */
-.mega-menu-content {
-  position: relative;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: 280px 350px 1fr;
-  gap: 48px;
-  padding: 40px 5%;
-  max-width: 1400px;
-  margin: 0 auto;
-  min-height: calc(100vh - 200px);
-}
-
-/* Columna principal de navegación */
-.mega-nav-primary {
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: all 0.5s ease 0.2s;
-}
-
-.harvard-mega-menu.active .mega-nav-primary {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.mega-nav-item {
-  display: block;
-  font-size: 2.5rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-  padding: 12px 0;
-  position: relative;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.mega-nav-item::after {
-  content: '';
-  position: absolute;
-  bottom: 8px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: white;
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.mega-nav-item:hover,
-.mega-nav-item.active {
-  color: white;
-}
-
-.mega-nav-item.active::after {
-  width: 100%;
-}
-
-/* Columna de submenú nivel 1 */
-.mega-nav-secondary {
-  padding-top: 16px;
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: all 0.4s ease;
+.mega-menu-close > span {
+  font-size: 16px;
+  letter-spacing: -0.1px;
   display: none;
 }
 
-.mega-nav-secondary.visible {
-  opacity: 1;
-  transform: translateX(0);
+@media (min-width: 768px) {
+  .mega-menu-close > span {
+    display: inline;
+  }
+}
+
+.mega-menu-close i {
+  font-size: 24px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--hw-color-graphite);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.mega-menu-close:hover i,
+.mega-menu-close:focus i {
+  border-color: var(--hw-color-white);
+}
+
+/* ===== CONTENIDO DEL MENU ===== */
+.mega-menu-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .mega-menu-content {
+    flex-direction: row;
+    overflow: hidden;
+    padding-top: 100px;
+  }
+}
+
+/* ===== COLUMNA PRIMARIA ===== */
+.mega-nav-primary {
+  padding: 100px 24px 24px;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-primary {
+    overflow: hidden;
+    margin-right: 40px;
+    width: 330px;
+    padding: 0 0 0 24px;
+    height: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mega-nav-primary {
+    width: 350px;
+    padding-left: 40px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .mega-nav-primary {
+    width: 350px;
+    margin-right: 57px;
+  }
+}
+
+/* Items de navegación primaria */
+.mega-nav-item {
   display: block;
+  text-decoration: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 40px;
+  line-height: 1.15;
+  letter-spacing: -0.1px;
+  color: var(--hw-color-white);
+  opacity: 0;
+  transform: translate3d(0, -40px, 0);
+  transition: opacity 0.5s cubic-bezier(0.32, 0.08, 0.24, 1), 
+              transform 0.5s cubic-bezier(0.32, 0.08, 0.24, 1),
+              color 0.15s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-item { font-size: 48px; }
+}
+
+@media (min-width: 1200px) {
+  .mega-nav-item { font-size: 56px; }
+}
+
+.harvard-mega-menu.active .mega-nav-item {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.mega-nav-item:nth-child(1) { transition-delay: 0.1s; }
+.mega-nav-item:nth-child(2) { transition-delay: 0.15s; }
+.mega-nav-item:nth-child(3) { transition-delay: 0.2s; }
+.mega-nav-item:nth-child(4) { transition-delay: 0.25s; }
+.mega-nav-item:nth-child(5) { transition-delay: 0.3s; }
+.mega-nav-item:nth-child(6) { transition-delay: 0.35s; }
+
+.mega-nav-item + .mega-nav-item {
+  margin-top: 25px;
+}
+
+/* Underline animation - estilo Harvard */
+.mega-nav-item-text {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.3s;
+  position: relative;
+}
+
+.mega-nav-item:hover .mega-nav-item-text {
+  background-size: 100% 1px;
+}
+
+/* Items grises cuando hay activo */
+.mega-nav-primary.has-active .mega-nav-item {
+  color: var(--hw-color-slate);
+}
+
+.mega-nav-primary.has-active .mega-nav-item:hover {
+  color: var(--hw-color-white);
+}
+
+.mega-nav-primary.has-active .mega-nav-item:hover .mega-nav-item-text {
+  background-size: 0 1px;
+}
+
+.mega-nav-item.active {
+  color: var(--hw-color-white) !important;
+}
+
+.mega-nav-item.active .mega-nav-item-text {
+  background-size: 100% 1px !important;
+}
+
+/* ===== COLUMNA SECUNDARIA ===== */
+.mega-nav-secondary {
+  display: none;
+  visibility: hidden;
+  padding: 0 24px 24px;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-secondary {
+    display: block;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    backface-visibility: hidden;
+    margin-right: 40px;
+    width: 320px;
+    padding: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mega-nav-secondary { width: 356px; }
+}
+
+@media (min-width: 1200px) {
+  .mega-nav-secondary { width: 348px; }
+}
+
+.mega-nav-secondary.visible {
+  display: block;
+  visibility: visible;
+  height: auto;
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-secondary.visible {
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 10px;
+  }
 }
 
 .mega-sub-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.mega-sub-header h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-}
-
-.mega-sub-header i {
-  width: 16px;
-  height: 16px;
-  color: #0070F3;
+  display: none;
 }
 
 .mega-sub-description {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.6;
-  margin-bottom: 24px;
+  font-size: 16px;
+  color: var(--hw-color-slate);
+  line-height: 1.5;
+  margin-bottom: 30px;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mega-sub-description {
+    display: block;
+  }
 }
 
 .mega-sub-links {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0;
 }
 
+/* Links secundarios */
 .mega-sub-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  text-align: left;
+  padding: 0;
+  color: var(--hw-color-white);
   text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 400;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.1px;
+  transition: color 0.15s ease-in-out;
   cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.mega-sub-link + .mega-sub-link {
+  margin-top: 17px;
 }
 
 .mega-sub-link:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
+  color: var(--hw-color-white);
 }
 
-.mega-sub-link.has-children::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(-45deg);
-  transition: transform 0.2s ease;
-}
-
-.mega-sub-link.has-children:hover::after {
-  transform: translateX(3px) rotate(-45deg);
-}
-
-.mega-sub-link.has-children.active {
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
-}
-
-/* Columna de submenú nivel 2 */
-.mega-nav-tertiary {
-  padding-top: 16px;
+/* Animaciones de entrada */
+.mega-nav-secondary .mega-sub-link,
+.mega-nav-secondary .mega-sub-description {
   opacity: 0;
-  transform: translateX(-20px);
-  transition: all 0.4s ease;
+  transform: translate3d(0, 15px, 0);
+  transition: opacity 0.35s cubic-bezier(0.32, 0.08, 0.24, 1), 
+              transform 0.25s cubic-bezier(0.32, 0.08, 0.24, 1),
+              color 0.15s ease-in-out;
+}
+
+@media (min-width: 1200px) {
+  .mega-nav-secondary .mega-sub-link,
+  .mega-nav-secondary .mega-sub-description {
+    transform: translate3d(-18px, 0, 0);
+  }
+}
+
+.mega-nav-secondary.visible .mega-sub-link,
+.mega-nav-secondary.visible .mega-sub-description {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.mega-nav-secondary.visible .mega-sub-description { transition-delay: 0.05s; }
+.mega-nav-secondary.visible .mega-sub-link:nth-child(1) { transition-delay: 0.1s; }
+.mega-nav-secondary.visible .mega-sub-link:nth-child(2) { transition-delay: 0.15s; }
+.mega-nav-secondary.visible .mega-sub-link:nth-child(3) { transition-delay: 0.2s; }
+.mega-nav-secondary.visible .mega-sub-link:nth-child(4) { transition-delay: 0.25s; }
+.mega-nav-secondary.visible .mega-sub-link:nth-child(5) { transition-delay: 0.3s; }
+
+/* ===== COLUMNA TERCIARIA ===== */
+.mega-nav-tertiary {
   display: none;
+  visibility: hidden;
+  padding: 0 24px 24px;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-tertiary {
+    display: block;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    width: 300px;
+    padding: 0;
+  }
 }
 
 .mega-nav-tertiary.visible {
-  opacity: 1;
-  transform: translateX(0);
   display: block;
+  visibility: visible;
+  height: auto;
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-tertiary.visible {
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 10px;
+  }
 }
 
 .mega-tertiary-header {
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
 }
 
 .mega-tertiary-header h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--hw-color-white);
+  margin-bottom: 10px;
 }
 
 .mega-tertiary-header p {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  color: var(--hw-color-slate);
   line-height: 1.5;
 }
 
 .mega-tertiary-links {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
 }
 
 .mega-tertiary-link {
   display: block;
-  padding: 12px 0;
-  color: rgba(255, 255, 255, 0.75);
+  padding: 0;
+  color: var(--hw-color-white);
   text-decoration: none;
-  font-size: 0.95rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.2s ease;
+  font-size: 16px;
+  font-weight: 400;
+  transition: color 0.15s ease-in-out;
+}
+
+.mega-tertiary-link + .mega-tertiary-link {
+  margin-top: 20px;
 }
 
 .mega-tertiary-link:hover {
-  color: white;
-  padding-left: 8px;
+  color: var(--hw-color-shade);
 }
 
-/* Quick Links Footer */
+/* ===== QUICK LINKS FOOTER ===== */
 .mega-menu-footer {
+  color: var(--hw-color-white);
+  background-color: var(--hw-color-wrought-iron);
+  border-top: 1px solid var(--hw-color-graphite);
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10;
-  padding: 20px 5%;
-  background: rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s ease 0.3s;
+  overflow: hidden;
 }
 
-.harvard-mega-menu.active .mega-menu-footer {
-  opacity: 1;
-  transform: translateY(0);
+.mega-menu-footer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -1px;
+  width: 61px;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(14, 14, 14, 0) 29.22%, #0e0e0e 100%);
+  transform: rotate(-90deg);
+  pointer-events: none;
 }
 
 .mega-footer-inner {
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 18px 0 19px 24px;
   display: flex;
   align-items: center;
-  gap: 32px;
-  max-width: 1400px;
-  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .mega-footer-inner {
+    padding: 24px 0 26px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mega-footer-inner {
+    padding: 30px 0 32px 40px;
+  }
 }
 
 .mega-footer-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 400;
+  color: var(--hw-color-slate);
+  font-size: 16px;
+  letter-spacing: -0.1px;
+  display: inline-block;
+  margin-right: 28px;
+}
+
+@media (min-width: 768px) {
+  .mega-footer-label {
+    margin-right: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mega-footer-label {
+    font-size: 18px;
+  }
 }
 
 .mega-footer-label i {
-  width: 14px;
-  height: 14px;
+  display: none;
+  visibility: hidden;
+  font-size: 14px;
+  position: relative;
+  top: 1px;
+  margin-left: 24px;
+}
+
+@media (min-width: 768px) {
+  .mega-footer-label i {
+    display: inline-block;
+    visibility: visible;
+  }
 }
 
 .mega-footer-links {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 0;
 }
 
 .mega-footer-link {
-  color: rgba(255, 255, 255, 0.8);
+  display: inline-block;
+  line-height: 1.15;
+  margin-right: 28px;
+  color: var(--hw-color-white);
+  font-size: 16px;
+  font-weight: 700;
   text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease-in-out;
 }
 
-.mega-footer-link:hover {
-  color: white;
+.mega-footer-link:last-of-type {
+  margin-right: 65px;
+}
+
+@media (min-width: 1200px) {
+  .mega-footer-link {
+    font-size: 18px;
+  }
+}
+
+.mega-footer-link:hover,
+.mega-footer-link:focus {
+  color: var(--hw-color-shade);
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 1024px) {
-  .mega-menu-content {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 24px 5%;
-    overflow-y: auto;
-    max-height: calc(100vh - 180px);
-  }
-
-  .mega-nav-item {
-    font-size: 2rem;
-    padding: 10px 0;
-  }
-
+@media (max-width: 767px) {
   .mega-nav-secondary,
   .mega-nav-tertiary {
     position: fixed;
-    top: 80px;
+    top: 72px;
     left: 0;
     right: 0;
     bottom: 80px;
-    background: rgba(18, 18, 18, 0.98);
-    padding: 24px 5%;
+    background: var(--hw-color-wrought-iron);
+    padding: 24px;
     overflow-y: auto;
   }
-
-  .mega-menu-bg-image {
-    display: none;
-  }
-
-  .harvard-section-indicator {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .harvard-header-inner {
-    height: 64px;
-  }
-
-  .harvard-logo img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .harvard-logo-text {
-    font-size: 1.25rem;
-  }
-
-  .harvard-admin-btn span {
-    display: none;
-  }
-
-  .harvard-admin-btn {
-    padding: 10px;
-  }
-
-  .harvard-menu-btn span {
-    display: none;
-  }
-
-  .harvard-menu-btn {
-    padding: 10px 14px;
-  }
-
+  
   .mega-nav-item {
-    font-size: 1.75rem;
+    font-size: 32px;
   }
-
-  .mega-footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .mega-footer-links {
-    gap: 16px;
-  }
-}
-
-/* ===== ANIMACIONES DE ENTRADA ESCALONADA ===== */
-.mega-nav-item {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.harvard-mega-menu.active .mega-nav-item {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.harvard-mega-menu.active .mega-nav-item:nth-child(1) { transition-delay: 0.15s; }
-.harvard-mega-menu.active .mega-nav-item:nth-child(2) { transition-delay: 0.2s; }
-.harvard-mega-menu.active .mega-nav-item:nth-child(3) { transition-delay: 0.25s; }
-.harvard-mega-menu.active .mega-nav-item:nth-child(4) { transition-delay: 0.3s; }
-.harvard-mega-menu.active .mega-nav-item:nth-child(5) { transition-delay: 0.35s; }
-.harvard-mega-menu.active .mega-nav-item:nth-child(6) { transition-delay: 0.4s; }
-
-/* Ocultar navbar original cuando se usa harvard header */
-body.harvard-style .navbar {
-  display: none;
-}
-
-/* Ajustar hero para harvard header */
-body.harvard-style .hero-main {
-  padding-top: 72px;
 }

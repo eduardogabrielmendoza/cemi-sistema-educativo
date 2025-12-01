@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Remover estados activos
     navItems.forEach(item => item.classList.remove('active'));
     document.querySelectorAll('.mega-sub-link').forEach(link => link.classList.remove('active'));
+    document.querySelector('.mega-nav-primary')?.classList.remove('has-active');
     
     // Ocultar imagen de fondo
     if (bgImage) {
@@ -88,6 +89,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // ===== NAVEGACIÓN PRINCIPAL =====
+  const navPrimary = document.querySelector('.mega-nav-primary');
+  
   navItems.forEach(item => {
     item.addEventListener('click', function(e) {
       e.preventDefault();
@@ -97,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Si ya está activo, desactivar
       if (this.classList.contains('active')) {
         this.classList.remove('active');
+        navPrimary?.classList.remove('has-active');
         hideSecondaryPanel(targetPanel);
         activeNavItem = null;
         return;
@@ -107,23 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Activar este item
       this.classList.add('active');
+      navPrimary?.classList.add('has-active');
       activeNavItem = this;
       
       // Mostrar panel secundario correspondiente
       showSecondaryPanel(targetPanel);
-    });
-
-    // Hover effect para el subrayado
-    item.addEventListener('mouseenter', function() {
-      if (!this.classList.contains('active')) {
-        this.style.color = 'white';
-      }
-    });
-
-    item.addEventListener('mouseleave', function() {
-      if (!this.classList.contains('active')) {
-        this.style.color = '';
-      }
     });
   });
 
