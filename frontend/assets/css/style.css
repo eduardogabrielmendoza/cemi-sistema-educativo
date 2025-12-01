@@ -50,6 +50,14 @@ p, span, a, li, label, input, textarea, button, div {
   font-family: var(--font-body);
 }
 
+/* Excluir mega menu de fuentes globales - usa sus propias fuentes */
+.harvard-mega-menu p,
+.harvard-mega-menu span,
+.harvard-mega-menu a,
+.harvard-mega-menu div {
+  font-family: inherit;
+}
+
 html {
   overflow-x: hidden;
   width: 100%;

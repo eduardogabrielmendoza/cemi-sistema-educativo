@@ -392,6 +392,28 @@
   text-decoration: none;
 }
 
+/* Logo largo en mega menu */
+.mega-menu-logo .mega-logo-long {
+  height: 50px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .mega-menu-logo .mega-logo-long {
+    height: 60px;
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mega-menu-logo .mega-logo-long {
+    height: 70px;
+    max-width: 400px;
+  }
+}
+
 /* Círculo blanco detrás del logo */
 .mega-logo-circle {
   display: flex;
@@ -571,8 +593,6 @@
   text-decoration: none;
   padding: 0;
   cursor: pointer;
-  font-family: Georgia, 'Times New Roman', Times, serif !important;
-  font-weight: 400 !important;
   font-size: 40px;
   line-height: 1.15;
   letter-spacing: -0.5px;
@@ -583,6 +603,16 @@
               transform 0.5s cubic-bezier(0.32, 0.08, 0.24, 1),
               color 0.15s ease-in-out;
   white-space: nowrap;
+}
+
+/* FORZAR Georgia en items de navegación */
+.harvard-mega-menu .mega-nav-item,
+.harvard-mega-menu .mega-nav-item span,
+.harvard-mega-menu .mega-nav-item .mega-nav-item-text,
+.mega-nav-item,
+.mega-nav-item-text {
+  font-family: Georgia, 'Times New Roman', Times, serif !important;
+  font-weight: 400 !important;
 }
 
 @media (min-width: 768px) {
@@ -1022,24 +1052,6 @@
 .mega-footer-link:hover,
 .mega-footer-link:focus {
   color: var(--hw-color-white);
-}
-
-/* ===== LOGO LARGO EN MEGA MENU ===== */
-.mega-logo-long {
-  height: 60px;
-  width: auto;
-}
-
-@media (min-width: 768px) {
-  .mega-logo-long {
-    height: 80px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .mega-logo-long {
-    height: 100px;
-  }
 }
 
 /* ===== OCULTAR FABs CUANDO MENU ESTÁ ABIERTO ===== */
