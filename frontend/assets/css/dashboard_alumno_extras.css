@@ -45,7 +45,7 @@
 }
 
 .alumno-stat-card-enhanced.primary .stat-decoration {
-  background: linear-gradient(135deg, #0070F3, #1d4ed8);
+  background: linear-gradient(135deg, #0A2540, #2E5077);
 }
 
 .alumno-stat-card-enhanced.success .stat-decoration {
@@ -84,7 +84,7 @@
 }
 
 .alumno-stat-card-enhanced.primary .stat-icon-wrapper i {
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .alumno-stat-card-enhanced.success .stat-icon-wrapper i {
@@ -144,7 +144,7 @@
 
 .curso-card-header-enhanced {
   padding: 1.5rem;
-  background: linear-gradient(135deg, #0070F3, #0A2540);
+  background: linear-gradient(135deg, #1A3A5C, #0A2540);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -207,7 +207,7 @@
 .curso-info-item-enhanced i {
   width: 16px;
   height: 16px;
-  color: #0070F3;
+  color: #4A6FA5;
   flex-shrink: 0;
 }
 
@@ -394,7 +394,7 @@
 }
 
 .asistencia-stat-card.total .stat-decoration {
-  background: linear-gradient(135deg, #0070F3, #1d4ed8);
+  background: linear-gradient(135deg, #0A2540, #2E5077);
 }
 
 .asistencia-stat-card.presente .stat-decoration {
@@ -446,7 +446,7 @@
 }
 
 .asistencia-stat-card.total .asistencia-stat-icon i {
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .asistencia-stat-card.presente .asistencia-stat-icon i {
@@ -498,7 +498,7 @@
 .asistencia-por-curso-section h3 i {
   width: 24px;
   height: 24px;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .cursos-asistencia-grid {
@@ -750,7 +750,7 @@
 .perfil-section-header i {
   width: 24px;
   height: 24px;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .perfil-section-header h3 {
@@ -795,7 +795,7 @@
 .dato-valor i {
   width: 18px;
   height: 18px;
-  color: #0070F3;
+  color: #4A6FA5;
   flex-shrink: 0;
 }
 
@@ -843,7 +843,7 @@
 .form-group-perfil label i {
   width: 18px;
   height: 18px;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .form-group-perfil input {
@@ -857,7 +857,7 @@
 
 .form-group-perfil input:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -874,7 +874,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background: linear-gradient(135deg, #0070F3, #0A2540);
+  background: linear-gradient(135deg, #1A3A5C, #0A2540);
   color: white;
   border: none;
   border-radius: 10px;
@@ -996,6 +996,8 @@
     gap: 0.5rem;
   }
 }
+
+
 
 
 

@@ -199,7 +199,7 @@
 .user-info i {
   width: 20px;
   height: 20px;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .sidebar-menu button:hover {
@@ -339,7 +339,7 @@
 }
 
 #mainContent th {
-  background: linear-gradient(135deg, #0A2540, #0070F3);
+  background: linear-gradient(135deg, #0A2540, #4A6FA5);
   color: white;
   padding: 12px 16px;
   text-align: left;
@@ -378,7 +378,7 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #0070F3, #3291FF);
+  background: linear-gradient(135deg, #0A2540, #4A6FA5);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -626,7 +626,7 @@
 
 .modal-header {
   padding: 24px;
-  background: linear-gradient(135deg, #0A2540, #0070F3);
+  background: linear-gradient(135deg, #0A2540, #4A6FA5);
   border-radius: 8px 8px 0 0;
   border-bottom: none;
   position: relative;
@@ -719,7 +719,7 @@
 .form-group select:focus,
 .form-group input:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
   transform: translateY(-1px);
 }
@@ -866,7 +866,7 @@
 .curso-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(91, 155, 213, 0.25);
-  border-color: #5B8DEF;
+  border-color: #6B8CBB;
 }
 
 .curso-card-header {
@@ -874,7 +874,7 @@
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #1A3A5C 0%, #3291FF 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #4A6FA5 100%);
   padding: 20px;
   border-radius: 12px 12px 0 0;
 }
@@ -882,7 +882,7 @@
 .curso-icon {
   width: 48px;
   height: 48px;
-  background: #1A3A5C;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -891,6 +891,7 @@
   font-size: 22px;
   flex-shrink: 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
 }
 
 .curso-card-title {
@@ -900,12 +901,13 @@
 .curso-card-title h3 {
   margin: 0 0 4px 0;
   font-size: 17px;
-  color: #2d3748;
+  color: #ffffff;
   font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .curso-card-title .idioma {
-  color: rgba(45, 55, 72, 0.7);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 13px;
   font-weight: 400;
   margin-bottom: 8px;
@@ -917,11 +919,11 @@
   border-radius: 10px;
   font-size: 11px;
   font-weight: 600;
-  background: white;
-  color: #2d3748;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0A2540;
   margin-top: 6px;
   letter-spacing: 0.3px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .curso-card-info {
@@ -1396,7 +1398,7 @@
 
 .search-box input:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -1437,7 +1439,7 @@
 
 .search-box-wrapper .search-input-with-icon:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -1800,7 +1802,7 @@
 }
 
 .info-section h3 i {
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .info-grid {
@@ -1865,7 +1867,7 @@
 .curso-item-calificacion .promedio {
   font-size: 24px;
   font-weight: 700;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .curso-item-calificacion .label {
@@ -1900,7 +1902,7 @@
 .stat-number {
   font-size: 36px;
   font-weight: 700;
-  color: #0070F3;
+  color: #4A6FA5;
   margin-bottom: 4px;
 }
 
@@ -2254,7 +2256,7 @@
 .profesor-curso-stats .numero {
   font-size: 20px;
   font-weight: 700;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .profesor-curso-stats .label {
@@ -2570,7 +2572,7 @@
 .filter-group input:focus,
 .filter-group select:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -2768,7 +2770,7 @@
 }
 
 .pago-section h3 i {
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .estado-cuenta-grid {
@@ -2788,7 +2790,7 @@
 
 .estado-cuenta-card.highlight {
   background: linear-gradient(135deg, #e3f2fd, #fff);
-  border-color: #0070F3;
+  border-color: #4A6FA5;
 }
 
 .estado-cuenta-card.danger {
@@ -2886,7 +2888,7 @@
 }
 
 .historial-item-detail i {
-  color: #0070F3;
+  color: #4A6FA5;
   width: 16px;
   height: 16px;
 }
@@ -3044,7 +3046,7 @@
 }
 
 .profesor-stat-card-enhanced.primary {
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
 }
 
@@ -3145,7 +3147,7 @@
 .estado-vacio-icon i {
   width: 50px;
   height: 50px;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .estado-vacio-profesor h3 {
@@ -3258,7 +3260,7 @@
 .curso-alumnos-count i {
   width: 16px;
   height: 16px;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .curso-card-arrow {
@@ -4071,7 +4073,7 @@
 
 .nota-input:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -4465,7 +4467,7 @@
 
 .observaciones-input:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -5371,7 +5373,7 @@
 
 .estado-badge.estado-pendiente {
   background: #e3f2fd;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .leyenda-calificaciones {
@@ -5802,7 +5804,7 @@
   gap: 6px;
   padding: 4px 10px;
   background: #e3f2fd;
-  color: #0070F3;
+  color: #4A6FA5;
   border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
@@ -6430,7 +6432,7 @@
 
 .badge-tipo.profesor {
   background: rgba(102,126,234,0.1);
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .empty-state {
@@ -6535,7 +6537,7 @@
 }
 
 .historial-stat.primary {
-  border-left-color: #0070F3;
+  border-left-color: #4A6FA5;
 }
 
 .historial-stat.success {
@@ -6577,7 +6579,7 @@
 }
 
 .historial-stat.primary h4 {
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .historial-stat p {
@@ -6855,7 +6857,7 @@
 }
 
 .mes-item.pendiente svg {
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .mes-item.proximo {
@@ -7067,7 +7069,7 @@
 .mes-confirmacion .mes-icono svg {
   width: 32px;
   height: 32px;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .mes-detalle {
@@ -7110,7 +7112,7 @@
 .monto-valor {
   font-size: 28px;
   font-weight: 700;
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .acciones-confirmacion {
@@ -7634,6 +7636,7 @@
     overflow-y: auto;
   }
 }
+
 
 
 

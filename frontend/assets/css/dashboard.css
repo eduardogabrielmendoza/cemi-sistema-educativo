@@ -950,7 +950,7 @@
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #0070F3 0%, #3291FF 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #4A6FA5 100%);
   padding: 20px;
   border-radius: 12px 12px 0 0;
   position: relative;
@@ -1069,7 +1069,7 @@
   font-size: 11px;
   font-weight: 600;
   background: rgba(255,255,255,0.95);
-  color: #0070F3;
+  color: #4A6FA5;
   margin-top: 6px;
   letter-spacing: 0.3px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -1376,7 +1376,7 @@
 .alumno-avatar {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #0070F3 0%, #3291FF 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #4A6FA5 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1624,13 +1624,13 @@
 }
 
 .alumno-card:hover {
-  border-color: #3291FF;
+  border-color: #6B8CBB;
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(10, 37, 64, 0.25);
 }
 
 .alumno-card.selected {
-  border-color: #0070F3;
+  border-color: #4A6FA5;
   box-shadow: 0 4px 16px rgba(0, 112, 243, 0.2);
 }
 
@@ -1639,7 +1639,7 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #0070F3 0%, #3291FF 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #4A6FA5 100%);
   padding: 20px;
   border-radius: 12px 12px 0 0;
 }
@@ -1647,7 +1647,7 @@
 .alumno-card-avatar {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #0070F3 0%, #3291FF 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #4A6FA5 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2102,7 +2102,7 @@
 }
 
 .pagos-summary {
-  background: linear-gradient(135deg, #0070F3 0%, #3291FF 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #4A6FA5 100%);
   color: white;
   padding: 24px;
   border-radius: 12px;
@@ -3376,7 +3376,7 @@
 }
 
 .profesor-stat-card-enhanced.info .stat-icon-wrapper {
-  background: linear-gradient(135deg, #0A2540, #3291FF);
+  background: linear-gradient(135deg, #0A2540, #4A6FA5);
 }
 
 .stat-icon-wrapper {
@@ -5034,7 +5034,7 @@
 
 .curso-card-header {
   padding: 20px;
-  background: linear-gradient(135deg, #0070F3 0%, #3291FF 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #4A6FA5 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6616,7 +6616,7 @@
 }
 
 .stat-icon.purple {
-  background: linear-gradient(135deg, #0070F3 0%, #0A2540 100%);
+  background: linear-gradient(135deg, #1A3A5C 0%, #0A2540 100%);
 }
 
 .stat-icon.green {
@@ -6743,7 +6743,7 @@
 
 .badge-tipo.profesor {
   background: rgba(102,126,234,0.1);
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .empty-state {
@@ -6810,7 +6810,7 @@
 }
 
 .historial-info-card {
-  background: linear-gradient(135deg, #0070F3 0%, #0A2540 100%);
+  background: linear-gradient(135deg, #1A3A5C 0%, #0A2540 100%);
   padding: 20px;
   border-radius: 12px;
   color: white;
@@ -6848,7 +6848,7 @@
 }
 
 .historial-stat.primary {
-  border-left-color: #0070F3;
+  border-left-color: #4A6FA5;
 }
 
 .historial-stat.success {
@@ -6890,7 +6890,7 @@
 }
 
 .historial-stat.primary h4 {
-  color: #0070F3;
+  color: #4A6FA5;
 }
 
 .historial-stat p {
@@ -8932,6 +8932,8 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+
 
 
 
