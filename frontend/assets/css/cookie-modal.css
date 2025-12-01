@@ -59,14 +59,14 @@
 .cookie-icon {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #16213e 0%, #1f3460 100%);
+  background: linear-gradient(135deg, #0071e3 0%, #00c6ff 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   font-size: 22px;
-  box-shadow: 0 4px 15px rgba(22, 33, 62, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
   animation: cookieBounce 2s ease-in-out infinite;
 }
 
@@ -136,15 +136,15 @@
 }
 
 .cookie-btn-accept {
-  background: linear-gradient(135deg, #16213e 0%, #1f3460 100%);
+  background: linear-gradient(135deg, #0071e3 0%, #00a8ff 100%);
   color: white;
-  box-shadow: 0 4px 20px rgba(22, 33, 62, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 113, 227, 0.5);
   border: none;
 }
 
 .cookie-btn-accept:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(22, 33, 62, 0.7);
+  box-shadow: 0 8px 30px rgba(0, 113, 227, 0.6);
 }
 
 .cookie-btn:active {
