@@ -224,21 +224,22 @@
       </a>
       
       <div class="harvard-actions">
-        <div class="harvard-search-container" id="harvardSearchContainer">
-          <button class="harvard-search-btn" id="harvardSearchBtn" aria-label="Buscar en el índice A-Z">
-            <i data-lucide="search" class="search-icon"></i>
-            <span class="search-label">A-Z</span>
-          </button>
-          <div class="harvard-search-expand">
-            <input type="text" class="harvard-search-input" id="harvardSearchInput" placeholder="Buscar en CEMI..." autocomplete="off">
-            <button class="harvard-search-go" id="harvardSearchGo" aria-label="Ir al índice">
-              <i data-lucide="arrow-right"></i>
+        <!-- Buscador estilo Harvard - inline en la barra -->
+        <div class="harvard-search-wrapper" id="harvardSearchWrapper">
+          <input type="text" class="harvard-search-field" id="harvardSearchField" placeholder="Buscar en CEMI" autocomplete="off">
+          <div class="harvard-search-icons">
+            <button class="harvard-search-submit" id="harvardSearchSubmit" aria-label="Buscar">
+              <i data-lucide="search"></i>
             </button>
             <button class="harvard-search-close" id="harvardSearchClose" aria-label="Cerrar búsqueda">
               <i data-lucide="x"></i>
             </button>
           </div>
         </div>
+        <!-- Botón A-Z que activa el buscador -->
+        <button class="harvard-az-btn" id="harvardAzBtn" aria-label="Índice A-Z">
+          <span>A-Z</span>
+        </button>
         <button class="harvard-menu-btn" id="harvardMenuBtn">
           <span>Menu</span>
           <div class="harvard-hamburger">

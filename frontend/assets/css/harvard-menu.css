@@ -117,19 +117,100 @@
   }
 }
 
-/* ===== BUSCADOR A-Z EXPANDIBLE ===== */
-.harvard-search-container {
+/* ===== BUSCADOR A-Z ESTILO HARVARD ===== */
+
+/* Wrapper del buscador - inline en la barra */
+.harvard-search-wrapper {
   display: flex;
   align-items: center;
   height: 100%;
-  position: relative;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.3s ease,
+              padding 0.3s ease;
+  background: var(--hw-color-wrought-iron);
 }
 
-.harvard-search-btn {
+.harvard-search-wrapper.active {
+  max-width: 400px;
+  opacity: 1;
+  padding-left: 20px;
+}
+
+@media (min-width: 768px) {
+  .harvard-search-wrapper.active {
+    max-width: 500px;
+    padding-left: 24px;
+  }
+}
+
+/* Campo de búsqueda */
+.harvard-search-field {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--hw-font-sans);
+  font-size: 16px;
+  color: var(--hw-color-graphite);
+  padding: 12px 0;
+  outline: none;
+  min-width: 150px;
+  width: 100%;
+}
+
+.harvard-search-field::placeholder {
+  color: var(--hw-color-graphite);
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .harvard-search-field {
+    font-size: 18px;
+    min-width: 200px;
+  }
+}
+
+/* Iconos del buscador */
+.harvard-search-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 12px;
+}
+
+.harvard-search-submit,
+.harvard-search-wrapper .harvard-search-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--hw-color-white);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.15s ease;
+}
+
+.harvard-search-submit:hover,
+.harvard-search-wrapper .harvard-search-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.harvard-search-submit i,
+.harvard-search-wrapper .harvard-search-close i {
+  width: 20px;
+  height: 20px;
+}
+
+/* Botón A-Z */
+.harvard-az-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   padding: 0;
   border: 0;
   background-color: transparent;
@@ -138,109 +219,22 @@
   transition: all 0.2s ease;
   height: 40px;
   width: 40px;
-  font-size: 0;
-  z-index: 5;
+  font-family: var(--hw-font-sans);
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.harvard-search-btn .search-icon {
-  width: 20px;
-  height: 20px;
-  transition: transform 0.2s ease;
+.harvard-az-btn:hover {
+  color: var(--hw-color-graphite);
 }
 
-.harvard-search-btn .search-label {
+/* Ocultar botón A-Z cuando buscador está activo */
+.harvard-az-btn.hidden {
   display: none;
 }
 
-.harvard-search-btn:hover {
-  color: var(--hw-color-graphite);
-}
-
-.harvard-search-btn:hover .search-icon {
-  transform: scale(1.1);
-}
-
-/* Contenedor expandible - MOBILE: se expande hacia la izquierda */
-.harvard-search-expand {
-  position: absolute;
-  right: calc(100% + 8px);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--hw-color-white);
-  border-radius: 8px;
-  padding: 0;
-  opacity: 0;
-  visibility: hidden;
-  max-width: 0;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-}
-
-.harvard-search-container.expanded .harvard-search-expand {
-  opacity: 1;
-  visibility: visible;
-  max-width: 280px;
-  padding: 8px 12px;
-}
-
-.harvard-search-input {
-  flex: 1;
-  border: none;
-  background: transparent;
-  font-family: var(--hw-font-sans);
-  font-size: 15px;
-  color: var(--hw-color-charcoal);
-  padding: 8px 4px;
-  outline: none;
-  min-width: 150px;
-  width: 100%;
-}
-
-.harvard-search-input::placeholder {
-  color: #999;
-}
-
-.harvard-search-go,
-.harvard-search-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: transparent;
-  color: var(--hw-color-graphite);
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
-}
-
-.harvard-search-go:hover {
-  background: var(--hw-color-charcoal);
-  color: var(--hw-color-white);
-}
-
-.harvard-search-close:hover {
-  background: #f0f0f0;
-  color: #333;
-}
-
-.harvard-search-go i,
-.harvard-search-close i {
-  width: 18px;
-  height: 18px;
-}
-
-/* DESKTOP - expande hacia abajo como dropdown */
 @media (min-width: 1024px) {
-  .harvard-search-btn {
-    font-family: var(--hw-font-sans);
+  .harvard-az-btn {
     background-color: var(--hw-color-wrought-iron);
     color: var(--hw-color-white);
     width: auto;
@@ -249,42 +243,12 @@
     font-size: 18px;
     font-weight: 500;
     letter-spacing: -0.2px;
-    gap: 10px;
   }
   
-  .harvard-search-btn .search-label {
-    display: inline;
-  }
-  
-  .harvard-search-btn .search-icon {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .harvard-search-btn:hover,
-  .harvard-search-btn:focus {
+  .harvard-az-btn:hover,
+  .harvard-az-btn:focus {
     background-color: var(--hw-color-blackboard);
     color: var(--hw-color-white);
-  }
-  
-  /* En desktop se abre hacia abajo */
-  .harvard-search-expand {
-    right: 0;
-    left: auto;
-    top: calc(100% + 8px);
-    transform: none;
-    border-radius: 8px;
-  }
-  
-  .harvard-search-container.expanded .harvard-search-expand {
-    max-width: 380px;
-    padding: 12px 16px;
-  }
-  
-  .harvard-search-input {
-    font-size: 16px;
-    padding: 10px 8px;
-    min-width: 250px;
   }
 }
 

@@ -391,52 +391,53 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // ===== BUSCADOR A-Z EXPANDIBLE =====
-  const searchContainer = document.getElementById('harvardSearchContainer');
-  const searchBtn = document.getElementById('harvardSearchBtn');
-  const searchInput = document.getElementById('harvardSearchInput');
-  const searchGo = document.getElementById('harvardSearchGo');
-  const searchClose = document.getElementById('harvardSearchClose');
+  // ===== BUSCADOR A-Z ESTILO HARVARD =====
+  const searchWrapper = document.getElementById('harvardSearchWrapper');
+  const searchField = document.getElementById('harvardSearchField');
+  const searchSubmit = document.getElementById('harvardSearchSubmit');
+  const searchCloseBtn = document.getElementById('harvardSearchClose');
+  const azBtn = document.getElementById('harvardAzBtn');
 
   function openSearch() {
-    searchContainer?.classList.add('expanded');
+    searchWrapper?.classList.add('active');
+    azBtn?.classList.add('hidden');
     setTimeout(() => {
-      searchInput?.focus();
+      searchField?.focus();
     }, 300);
   }
 
   function closeSearch() {
-    searchContainer?.classList.remove('expanded');
-    if (searchInput) searchInput.value = '';
+    searchWrapper?.classList.remove('active');
+    azBtn?.classList.remove('hidden');
+    if (searchField) searchField.value = '';
   }
 
   function goToSearch() {
-    const query = searchInput?.value.trim();
+    const query = searchField?.value.trim();
     if (query) {
-      // Ir al índice A-Z con el término de búsqueda
       window.location.href = `a-to-z.html?search=${encodeURIComponent(query)}`;
     } else {
       window.location.href = 'a-to-z.html';
     }
   }
 
-  searchBtn?.addEventListener('click', function(e) {
+  // Click en botón A-Z abre el buscador
+  azBtn?.addEventListener('click', function(e) {
     e.preventDefault();
-    if (searchContainer?.classList.contains('expanded')) {
-      goToSearch();
-    } else {
-      openSearch();
-    }
+    openSearch();
   });
 
-  searchGo?.addEventListener('click', goToSearch);
+  // Click en lupa envía búsqueda
+  searchSubmit?.addEventListener('click', goToSearch);
 
-  searchClose?.addEventListener('click', function(e) {
+  // Click en X cierra el buscador
+  searchCloseBtn?.addEventListener('click', function(e) {
     e.preventDefault();
     closeSearch();
   });
 
-  searchInput?.addEventListener('keydown', function(e) {
+  // Teclas en el input
+  searchField?.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
       goToSearch();
     } else if (e.key === 'Escape') {
@@ -446,8 +447,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Cerrar buscador al hacer click fuera
   document.addEventListener('click', function(e) {
-    if (searchContainer?.classList.contains('expanded')) {
-      if (!searchContainer.contains(e.target)) {
+    if (searchWrapper?.classList.contains('active')) {
+      if (!searchWrapper.contains(e.target) && e.target !== azBtn) {
         closeSearch();
       }
     }
