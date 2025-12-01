@@ -106,3 +106,5 @@ uploadToCloudinary()
     console.error('\n❌ Proceso fallido');
     process.exit(1);
   });
+
+

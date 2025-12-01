@@ -371,3 +371,5 @@ try {
   console.error('\n💡 Los archivos con backup pueden restaurarse manualmente.\n');
   process.exit(1);
 }
+
+

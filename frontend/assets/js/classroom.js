@@ -3768,10 +3768,10 @@ function getCalendarColors() {
     bgDay: isDark ? '#2d3748' : 'white',
     bgEmpty: 'transparent',
     borderNormal: isDark ? 'rgba(203, 213, 224, 0.15)' : '#e8eaf0',
-    borderToday: isDark ? '#7a9bbd' : '#0070F3',
+    borderToday: isDark ? '#3291FF' : '#0070F3',
     textDay: isDark ? '#e4e7eb' : '#2c3e50',
     textToday: isDark ? '#9ab8d6' : '#0070F3',
-    accent: isDark ? '#7a9bbd' : '#0070F3',
+    accent: isDark ? '#3291FF' : '#0070F3',
     shadowNormal: isDark ? '0 2px 8px rgba(0, 0, 0, 0.3)' : '0 1px 3px rgba(0,0,0,0.05)',
     shadowHover: isDark ? '0 4px 16px rgba(0, 0, 0, 0.4)' : '0 4px 12px rgba(102, 126, 234, 0.15)',
     shadowToday: isDark ? '0 0 0 2px rgba(122, 155, 189, 0.3)' : '0 0 0 2px rgba(102, 126, 234, 0.2)',
@@ -6043,7 +6043,7 @@ function renderRecursoItem(recurso, isBiblioteca = false) {
   
   const colores = {
     pdf: '#e74c3c',
-    documento: '#3498db',
+    documento: '#0070F3',
     enlace: '#9b59b6',
     audio: '#1abc9c',
     video: '#e67e22',
@@ -6512,4 +6512,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('CEMI Classroom inicializado correctamente');
+
+
 

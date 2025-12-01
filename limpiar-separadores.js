@@ -150,3 +150,5 @@ console.log(`Archivos procesados: ${resultadosGlobales.archivos}`);
 console.log(`Separadores eliminados: ${resultadosGlobales.lineasEliminadas}`);
 console.log(`Errores: ${resultadosGlobales.errores}`);
 console.log('\nLIMPIEZA COMPLETADA\n');
+
+

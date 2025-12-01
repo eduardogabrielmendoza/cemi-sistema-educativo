@@ -72,7 +72,7 @@
 .curso-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(91, 155, 213, 0.25);
-  border-color: #8eb8db;
+  border-color: #5B8DEF;
 }
 
 .curso-card-header {
@@ -80,7 +80,7 @@
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #1A3A5C 0%, #7a9bbd 100%);
+  background: linear-gradient(135deg, #1A3A5C 0%, #3291FF 100%);
   padding: 20px;
   border-radius: 12px 12px 0 0;
 }
@@ -88,7 +88,7 @@
 .curso-icon {
   width: 48px;
   height: 48px;
-  background: #5a7a99;
+  background: #1A3A5C;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -433,7 +433,7 @@
   flex-shrink: 0;
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, #1A3A5C 0%, #7a9bbd 100%);
+  background: linear-gradient(135deg, #1A3A5C 0%, #3291FF 100%);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -615,4 +615,6 @@
     height: 13px;
   }
 }
+
+
 

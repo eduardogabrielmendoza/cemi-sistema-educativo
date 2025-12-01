@@ -970,3 +970,5 @@ router.get("/usuario/:id_usuario", async (req, res) => {
 });
 
 export default router;
+
+

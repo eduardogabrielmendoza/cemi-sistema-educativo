@@ -180,3 +180,5 @@ router.delete("/:id_curso/:id_alumno", async (req, res) => {
 
 export default router;
 
+
+

@@ -942,7 +942,7 @@
 .curso-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(10, 37, 64, 0.25);
-  border-color: #8eb8db;
+  border-color: #5B8DEF;
 }
 
 .curso-card-header {
@@ -950,7 +950,7 @@
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #5b9bd5 0%, #7eb7e8 100%);
+  background: linear-gradient(135deg, #0070F3 0%, #3291FF 100%);
   padding: 20px;
   border-radius: 12px 12px 0 0;
   position: relative;
@@ -3371,12 +3371,12 @@
 }
 
 .profesor-stat-card-enhanced.info {
-  border-color: #00acc1;
+  border-color: #0A2540;
   background: linear-gradient(135deg, #ffffff 0%, #e0f7fa 100%);
 }
 
 .profesor-stat-card-enhanced.info .stat-icon-wrapper {
-  background: linear-gradient(135deg, #00acc1, #26c6da);
+  background: linear-gradient(135deg, #0A2540, #3291FF);
 }
 
 .stat-icon-wrapper {
@@ -8932,6 +8932,8 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+
+
 
 
 

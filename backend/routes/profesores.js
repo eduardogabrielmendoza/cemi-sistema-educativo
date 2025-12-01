@@ -575,3 +575,5 @@ router.patch("/:id/usuario", async (req, res) => {
 });
 
 export default router;
+
+

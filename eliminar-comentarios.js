@@ -289,3 +289,5 @@ console.log(`️  Líneas de comentarios eliminadas: ${resultadosGlobales.lineas
 console.log(` Emojis eliminados: ${resultadosGlobales.emojisEliminados}`);
 console.log(` Errores: ${resultadosGlobales.errores}`);
 console.log('\n LIMPIEZA COMPLETADA\n');
+
+

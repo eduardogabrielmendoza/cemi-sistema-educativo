@@ -54,3 +54,5 @@ export async function sendEmail(to, subject, html) {
 }
 
 export default { sendEmail, ADMIN_EMAIL };
+
+

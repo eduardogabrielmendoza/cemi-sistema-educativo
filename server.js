@@ -190,3 +190,5 @@ server.listen(PORT, () => {
   console.log(` Servidor Socket.IO de Chat activo en http://localhost:${PORT}/socket.io/`);
   console.log(` Estado del chat:`, chatServer.getStats());
 });
+
+

@@ -3579,7 +3579,7 @@ case "pagos":
             const colors = [
               { bg: '#0070F3', light: '#42a5f5', icon: 'globe-2' },
               { bg: '#7b1fa2', light: '#ba68c8', icon: 'book-open' },
-              { bg: '#0097a7', light: '#4dd0e1', icon: 'message-circle' },
+              { bg: '#1A3A5C', light: '#5B8DEF', icon: 'message-circle' },
               { bg: '#d84315', light: '#ff7043', icon: 'volume-2' },
               { bg: '#388e3c', light: '#66bb6a', icon: 'award' },
               { bg: '#f57c00', light: '#ffb74d', icon: 'flag' }
@@ -10622,5 +10622,7 @@ document.addEventListener('keydown', (e) => {
     cerrarPDFViewer();
   }
 });
+
+
 
 

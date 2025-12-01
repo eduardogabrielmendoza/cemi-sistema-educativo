@@ -105,11 +105,11 @@ body {
 }
 
 .creditcard .cyan {
-  fill: #26c6da;
+  fill: #3291FF;
 }
 
 .creditcard .cyandark {
-  fill: #0097a7;
+  fill: #1A3A5C;
 }
 
 .creditcard .green {
@@ -892,4 +892,6 @@ body {
     max-height: 200px;
   }
 }
+
+
 

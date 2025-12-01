@@ -108,3 +108,5 @@ router.get("/ingresos-mensuales", async (req, res) => {
 });
 
 export default router;
+
+

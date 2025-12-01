@@ -365,3 +365,5 @@ router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
 });
 
 export default router;
+
+

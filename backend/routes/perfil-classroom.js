@@ -501,3 +501,5 @@ router.post("/perfil/:userId/avatar", (req, res) => {
 });
 
 export default router;
+
+

@@ -8,9 +8,9 @@
 
 :root {
   --primary-color: #1A3A5C;
-  --primary-light: #7a9bbd;
+  --primary-light: #3291FF;
   --primary-dark: #0A2540;
-  --secondary-color: #5b9bd5;
+  --secondary-color: #0070F3;
   --accent-color: #0070F3;
   --success-color: #4caf50;
   --warning-color: #ff9800;
@@ -29,7 +29,7 @@
 }
 
 body.dark-mode {
-  --primary-color: #7a9bbd;
+  --primary-color: #3291FF;
   --primary-light: #9ab8d6;
   --primary-dark: #1A3A5C;
   --secondary-color: #6ba3e0;
@@ -2223,7 +2223,7 @@ body.dark-mode .btn-research:hover {
 
 
 .btn-primary {
-  background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 50%, #7a9bbd 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 50%, #3291FF 100%);
   background-size: 200% 200%;
   color: white;
   padding: 11px 22px;
@@ -2435,7 +2435,7 @@ body.dark-mode .btn-research:hover {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 50%, #7a9bbd 100%) !important;
+  background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 50%, #3291FF 100%) !important;
   background-size: 200% 200% !important;
   animation: headerGradient 8s ease infinite !important;
   border-radius: 16px 16px 0 0 !important;
@@ -4321,7 +4321,7 @@ body.dark-mode .toggle-password-btn {
 }
 
 body.dark-mode .toggle-password-btn:hover {
-  color: #7a9bbd;
+  color: #3291FF;
   background: rgba(122, 155, 189, 0.15);
 }
 
@@ -7051,4 +7051,6 @@ body.dark-mode .toggle-password-btn:hover {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+
 

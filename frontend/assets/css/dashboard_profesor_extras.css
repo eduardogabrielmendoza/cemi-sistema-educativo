@@ -531,7 +531,7 @@
 }
 
 .historial-stat.info {
-  border-top-color: #00acc1;
+  border-top-color: #0A2540;
 }
 
 .historial-stat h4 {
@@ -615,7 +615,7 @@
 
 .estado-badge.justificado {
   background: #e0f7fa;
-  color: #00acc1;
+  color: #0A2540;
 }
 
 @media (max-width: 768px) {
@@ -892,4 +892,6 @@
     font-size: 24px;
   }
 }
+
+
 

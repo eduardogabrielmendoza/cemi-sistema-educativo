@@ -21,3 +21,5 @@ export function getSignedUrl(publicId, resourceType = 'raw') {
 }
 
 export default cloudinary;
+
+

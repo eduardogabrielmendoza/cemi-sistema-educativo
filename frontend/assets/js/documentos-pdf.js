@@ -1921,3 +1921,5 @@ async function generarPDFFicha(alumno, pagosData) {
 
 console.log('✅ Sistema de Documentos PDF cargado correctamente');
 
+
+
