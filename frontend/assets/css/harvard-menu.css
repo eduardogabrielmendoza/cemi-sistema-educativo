@@ -117,11 +117,12 @@
   }
 }
 
-/* Botón Acceso Administrativo */
+/* Botón Índice A-Z */
 .harvard-admin-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 0;
   border: 0;
   background-color: transparent;
@@ -137,6 +138,15 @@
 .harvard-admin-btn:hover,
 .harvard-admin-btn:focus {
   color: var(--hw-color-graphite);
+}
+
+/* Estilo específico para botón A-Z */
+.harvard-az-btn {
+  gap: 8px;
+}
+
+.harvard-az-btn i {
+  flex-shrink: 0;
 }
 
 @media (min-width: 1024px) {
@@ -156,6 +166,10 @@
   .harvard-admin-btn:focus {
     background-color: var(--hw-color-blackboard);
     color: var(--hw-color-white);
+  }
+  
+  .harvard-az-btn {
+    gap: 10px;
   }
 }
 
