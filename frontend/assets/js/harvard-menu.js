@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // ===== SCROLL HIDE/SHOW HEADER =====
   let lastScrollY = window.scrollY;
   let ticking = false;
-  const scrollThreshold = 80; // Píxeles mínimos antes de activar
+  const scrollThreshold = 80; // Píxeles mínimos antes de ocultar
+  const showThreshold = 200; // Mostrar header cuando estemos a menos de esto del inicio
   
   function handleScroll() {
     const currentScrollY = window.scrollY;
@@ -25,22 +26,19 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     
-    // No ocultar si estamos muy arriba
-    if (currentScrollY < scrollThreshold) {
+    // Mostrar header si estamos cerca del inicio de la página
+    if (currentScrollY < showThreshold) {
       header?.classList.remove('header-hidden');
       lastScrollY = currentScrollY;
       ticking = false;
       return;
     }
     
-    // Detectar dirección del scroll
-    if (currentScrollY > lastScrollY) {
-      // Scroll hacia abajo - ocultar header
+    // Scroll hacia abajo - ocultar header
+    if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
       header?.classList.add('header-hidden');
-    } else {
-      // Scroll hacia arriba - mostrar header
-      header?.classList.remove('header-hidden');
     }
+    // El header permanece oculto al hacer scroll up (solo aparece cerca del inicio)
     
     lastScrollY = currentScrollY;
     ticking = false;
