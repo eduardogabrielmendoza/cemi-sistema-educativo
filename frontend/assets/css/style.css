@@ -2476,7 +2476,7 @@ footer i {
 
 .about-card i {
   font-size: 2rem;
-  color: #1976d2;
+  color: #0070F3;
   margin-bottom: 15px;
   display: block;
 }
@@ -2512,7 +2512,7 @@ footer i {
 
 .team-card i {
   font-size: 2rem;
-  color: #1976d2;
+  color: #0070F3;
   margin-bottom: 10px;
 }
 
@@ -2570,14 +2570,14 @@ footer i {
   gap: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: #1e3c72;
+  color: #0A2540;
   margin-bottom: 8px;
 }
 
 .form-group label i {
   width: 16px;
   height: 16px;
-  color: #2a5298;
+  color: #1A3A5C;
 }
 
 .form-group input {
@@ -3697,7 +3697,7 @@ footer i {
 
 .floating-menu-wrapper.active .floating-menu-toggle {
   transform: rotate(135deg);
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: linear-gradient(135deg, #1A3A5C 0%, #0070F3 100%);
 }
 
 .floating-menu-item {
@@ -3919,11 +3919,11 @@ footer i {
 }
 
 .admin-submit {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 100%);
 }
 
 .admin-submit:hover {
-  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  background: linear-gradient(135deg, #1A3A5C 0%, #0A2540 100%);
   box-shadow: 0 8px 24px rgba(30, 60, 114, 0.4);
 }
 

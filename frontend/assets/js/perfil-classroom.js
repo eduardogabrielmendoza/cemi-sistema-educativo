@@ -548,3 +548,4 @@ function formatearFecha(fecha) {
     day: 'numeric' 
   });
 }
+

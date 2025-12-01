@@ -104,3 +104,4 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
   console.log(' App ejecutándose como PWA instalada');
   document.body.classList.add('pwa-mode');
 }
+

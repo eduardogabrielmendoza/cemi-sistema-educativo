@@ -6,11 +6,11 @@
 }
 
 :root {
-  --primary: #1976d2;
-  --primary-dark: #1565c0;
+  --primary: #0070F3;
+  --primary-dark: #0A2540;
   --primary-light: #42a5f5;
-  --secondary: #667eea;
-  --accent: #764ba2;
+  --secondary: #0070F3;
+  --accent: #1A3A5C;
   --success: #43a047;
   --danger: #e53935;
   --text-primary: #212121;
@@ -1461,3 +1461,4 @@ body {
     transform: none;
   }
 }
+

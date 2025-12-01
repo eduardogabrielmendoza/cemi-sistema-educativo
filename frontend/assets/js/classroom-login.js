@@ -37,7 +37,7 @@ function verificarSesionActiva() {
       showCancelButton: true,
       confirmButtonText: 'Continuar al Classroom',
       cancelButtonText: 'Cerrar Sesión',
-      confirmButtonColor: '#1976d2',
+      confirmButtonColor: '#0070F3',
       cancelButtonColor: '#757575'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -238,7 +238,7 @@ document.querySelector('.forgot-password').addEventListener('click', (e) => {
     showCancelButton: true,
     confirmButtonText: 'Enviar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1976d2',
+    confirmButtonColor: '#0070F3',
     preConfirm: () => {
       const email = document.getElementById('recoveryEmail').value;
       if (!email) {
@@ -257,7 +257,7 @@ document.querySelector('.forgot-password').addEventListener('click', (e) => {
         title: '¡Enviado!',
         text: 'Revisa tu correo electrónico para continuar con la recuperación de tu contraseña.',
         icon: 'success',
-        confirmButtonColor: '#1976d2'
+        confirmButtonColor: '#0070F3'
       });
     }
   });
@@ -269,3 +269,4 @@ setTimeout(() => {
 }, 300);
 
 console.log('CEMI Classroom Login inicializado correctamente');
+

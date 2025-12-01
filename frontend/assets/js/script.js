@@ -1726,7 +1726,7 @@ const STATUS_CONFIG = {
     operational: '#16a34a',
     degraded: '#d97706',
     outage: '#dc2626',
-    maintenance: '#2563eb'
+    maintenance: '#0070F3'
   }
 };
 
@@ -1741,7 +1741,7 @@ function renderStatusSection() {
       }
 
       .status-hero {
-        background: linear-gradient(135deg, #547194 0%, #3d5a7a 100%);
+        background: linear-gradient(135deg, #1A3A5C 0%, #3d5a7a 100%);
         border-radius: 16px;
         padding: 30px;
         margin-bottom: 25px;
@@ -1791,7 +1791,7 @@ function renderStatusSection() {
 
       .status-btn-primary {
         background: white;
-        color: #547194;
+        color: #1A3A5C;
       }
 
       .status-btn-primary:hover {
@@ -1845,7 +1845,7 @@ function renderStatusSection() {
         gap: 10px;
       }
 
-      .status-card-title i { width: 20px; height: 20px; color: #547194; }
+      .status-card-title i { width: 20px; height: 20px; color: #1A3A5C; }
 
       /* Estado Global */
       .global-status-display {
@@ -1876,7 +1876,7 @@ function renderStatusSection() {
       .global-status-icon.operational i { color: #16a34a; }
       .global-status-icon.degraded i { color: #d97706; }
       .global-status-icon.outage i { color: #dc2626; }
-      .global-status-icon.maintenance i { color: #2563eb; }
+      .global-status-icon.maintenance i { color: #0070F3; }
 
       .global-status-text {
         font-size: 1.25rem;
@@ -1886,7 +1886,7 @@ function renderStatusSection() {
       .global-status-text.operational { color: #16a34a; }
       .global-status-text.degraded { color: #d97706; }
       .global-status-text.outage { color: #dc2626; }
-      .global-status-text.maintenance { color: #2563eb; }
+      .global-status-text.maintenance { color: #0070F3; }
 
       .global-status-time {
         font-size: 0.85rem;
@@ -1932,7 +1932,7 @@ function renderStatusSection() {
       .service-status-badge.operational { background: #dcfce7; color: #16a34a; }
       .service-status-badge.degraded { background: #fef3c7; color: #d97706; }
       .service-status-badge.outage { background: #fee2e2; color: #dc2626; }
-      .service-status-badge.maintenance { background: #dbeafe; color: #2563eb; }
+      .service-status-badge.maintenance { background: #dbeafe; color: #0070F3; }
 
       /* Incidente Activo */
       .active-incident-card {
@@ -1950,7 +1950,7 @@ function renderStatusSection() {
 
       .active-incident-card.maintenance {
         background: #eff6ff;
-        border-color: #3b82f6;
+        border-color: #0070F3;
       }
 
       .incident-badge {
@@ -2059,7 +2059,7 @@ function renderStatusSection() {
 
       .history-item.degraded { border-color: #f59e0b; }
       .history-item.outage { border-color: #ef4444; }
-      .history-item.maintenance { border-color: #3b82f6; }
+      .history-item.maintenance { border-color: #0070F3; }
 
       .history-item-header {
         display: flex;
@@ -2160,7 +2160,7 @@ function renderStatusSection() {
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #547194, #3b82f6, #8b5cf6);
+        background: linear-gradient(90deg, #1A3A5C, #0070F3, #8b5cf6);
         animation: shimmer 2s infinite;
         z-index: 10;
       }
@@ -2192,7 +2192,7 @@ function renderStatusSection() {
         content: '';
         width: 4px;
         height: 24px;
-        background: linear-gradient(135deg, #547194, #3b82f6);
+        background: linear-gradient(135deg, #1A3A5C, #0070F3);
         border-radius: 2px;
       }
 
@@ -2270,7 +2270,7 @@ function renderStatusSection() {
       .status-form-group label i {
         width: 16px;
         height: 16px;
-        color: #547194;
+        color: #1A3A5C;
       }
 
       .status-form-group input,
@@ -2297,7 +2297,7 @@ function renderStatusSection() {
       .status-form-group textarea:focus,
       .status-form-group select:focus {
         outline: none;
-        border-color: #547194;
+        border-color: #1A3A5C;
         box-shadow: 0 0 0 4px rgba(84, 113, 148, 0.15);
       }
 
@@ -2348,7 +2348,7 @@ function renderStatusSection() {
       }
 
       .status-checkbox-item:has(input:checked) {
-        border-color: #547194;
+        border-color: #1A3A5C;
         background: linear-gradient(145deg, #eff6ff, #dbeafe);
       }
 
@@ -2356,7 +2356,7 @@ function renderStatusSection() {
         width: 18px; 
         height: 18px; 
         cursor: pointer;
-        accent-color: #547194;
+        accent-color: #1A3A5C;
       }
 
       .status-checkbox-item span { 
@@ -2440,7 +2440,7 @@ function renderStatusSection() {
       }
 
       .status-modal-btn.submit {
-        background: linear-gradient(135deg, #547194, #3d5a7a);
+        background: linear-gradient(135deg, #1A3A5C, #3d5a7a);
         color: white;
         box-shadow: 0 4px 15px rgba(84, 113, 148, 0.3);
       }
@@ -2511,14 +2511,14 @@ function renderStatusSection() {
 
       .banner-preview-content.maintenance {
         background: linear-gradient(145deg, #dbeafe, #bfdbfe);
-        border-color: #3b82f6;
+        border-color: #0070F3;
         box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
       }
 
       .banner-preview-content i { width: 22px; height: 22px; }
       .banner-preview-content.degraded i { color: #d97706; }
       .banner-preview-content.outage i { color: #dc2626; }
-      .banner-preview-content.maintenance i { color: #2563eb; }
+      .banner-preview-content.maintenance i { color: #0070F3; }
 
       .banner-preview-text {
         flex: 1;
@@ -2556,7 +2556,7 @@ function renderStatusSection() {
         width: 40px;
         height: 40px;
         border: 3px solid #e2e8f0;
-        border-top-color: #547194;
+        border-top-color: #1A3A5C;
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin: 0 auto 15px;
@@ -2903,12 +2903,12 @@ async function submitIncident() {
   });
   
   if (!title) {
-    Swal.fire({ icon: 'warning', title: 'Título requerido', text: 'Ingresa un título para el incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'warning', title: 'Título requerido', text: 'Ingresa un título para el incidente.', confirmButtonColor: '#1A3A5C' });
     return;
   }
   
   if (!severity) {
-    Swal.fire({ icon: 'warning', title: 'Severidad requerida', text: 'Selecciona la severidad del incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'warning', title: 'Severidad requerida', text: 'Selecciona la severidad del incidente.', confirmButtonColor: '#1A3A5C' });
     return;
   }
   
@@ -2932,14 +2932,14 @@ async function submitIncident() {
         icon: 'success',
         title: 'Incidente publicado',
         text: showBanner ? 'El banner se mostrará en la página de inicio.' : 'El incidente ha sido registrado.',
-        confirmButtonColor: '#547194'
+        confirmButtonColor: '#1A3A5C'
       });
     } else {
       const error = await response.json();
       throw new Error(error.error);
     }
   } catch (error) {
-    Swal.fire({ icon: 'error', title: 'Error', text: error.message, confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'error', title: 'Error', text: error.message, confirmButtonColor: '#1A3A5C' });
   }
 }
 
@@ -2974,7 +2974,7 @@ async function resolveIncident(id) {
       });
     }
   } catch (error) {
-    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo resolver el incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo resolver el incidente.', confirmButtonColor: '#1A3A5C' });
   }
 }
 
@@ -3004,7 +3004,7 @@ async function deleteIncident(id) {
       });
     }
   } catch (error) {
-    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo eliminar el incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo eliminar el incidente.', confirmButtonColor: '#1A3A5C' });
   }
 }
 
@@ -3016,7 +3016,7 @@ function openUpdateModal(id) {
     showCancelButton: true,
     confirmButtonText: 'Publicar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#547194',
+    confirmButtonColor: '#1A3A5C',
     inputValidator: (value) => {
       if (!value) return 'Escribe un mensaje';
     }
@@ -3039,7 +3039,7 @@ function openUpdateModal(id) {
           });
         }
       } catch (error) {
-        Swal.fire({ icon: 'error', title: 'Error', confirmButtonColor: '#547194' });
+        Swal.fire({ icon: 'error', title: 'Error', confirmButtonColor: '#1A3A5C' });
       }
     }
   });
@@ -3150,7 +3150,7 @@ function generateTable(section, data) {
             return `
             <div class="curso-card alumno-card" data-id="${a.id_alumno}">
               <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1976d2, #42a5f5);'}">
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #0070F3, #42a5f5);'}">
                   ${avatarUrl 
                     ? `<img src="${avatarUrl}" alt="${a.nombre}">`
                     : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
@@ -3320,7 +3320,7 @@ function generateTable(section, data) {
             return `
             <div class="curso-card profesor-card" data-id="${admin.id_persona}">
               <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1e3a8a, #3b82f6);'}">
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1e3a8a, #0070F3);'}">
                   ${avatarUrl 
                     ? `<img src="${avatarUrl}" alt="${admin.nombre}">`
                     : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
@@ -3374,7 +3374,7 @@ function generateTable(section, data) {
 case "pagos":
   return `
     <div class="pagos-tabs" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb;">
-      <button class="pagos-tab active" data-tab="activos" onclick="switchPagosTab('activos')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid #667eea; color: #667eea; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+      <button class="pagos-tab active" data-tab="activos" onclick="switchPagosTab('activos')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid #0070F3; color: #0070F3; font-weight: 600; cursor: pointer; transition: all 0.3s;">
         <i data-lucide="list"></i> Pagos Activos
       </button>
       <button class="pagos-tab" data-tab="archivo" onclick="switchPagosTab('archivo')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 600; cursor: pointer; transition: all 0.3s;">
@@ -3507,7 +3507,7 @@ case "pagos":
       return `
         <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">Gestión de Aulas</h2>
+            <h2 style="color: #0A2540; margin: 0 0 5px 0;">Gestión de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevaAulaModal()">
@@ -3517,7 +3517,7 @@ case "pagos":
         </div>
         <div class="aulas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map(a => {
-            const capacidadColor = a.capacidad >= 40 ? '#2e7d32' : a.capacidad >= 25 ? '#ed6c02' : '#1976d2';
+            const capacidadColor = a.capacidad >= 40 ? '#2e7d32' : a.capacidad >= 25 ? '#ed6c02' : '#0070F3';
             const capacidadIcon = a.capacidad >= 40 ? 'users' : a.capacidad >= 25 ? 'user-check' : 'user';
             
             return `
@@ -3527,7 +3527,7 @@ case "pagos":
                   <i data-lucide="door-open" style="width: 24px; height: 24px; color: ${capacidadColor};"></i>
                 </div>
                 <div style="flex: 1;">
-                  <h3 style="margin: 0 0 5px 0; color: #1e3c72; font-size: 18px;">${a.nombre_aula}</h3>
+                  <h3 style="margin: 0 0 5px 0; color: #0A2540; font-size: 18px;">${a.nombre_aula}</h3>
                   <p style="margin: 0; color: #666; font-size: 13px;">Aula ${a.id_aula}</p>
                 </div>
               </div>
@@ -3566,7 +3566,7 @@ case "pagos":
       return `
         <div class="idiomas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">Gestión de Idiomas</h2>
+            <h2 style="color: #0A2540; margin: 0 0 5px 0;">Gestión de Idiomas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} idioma${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevoIdiomaModal()">
@@ -3577,7 +3577,7 @@ case "pagos":
         <div class="idiomas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map((idioma, index) => {
             const colors = [
-              { bg: '#1976d2', light: '#42a5f5', icon: 'globe-2' },
+              { bg: '#0070F3', light: '#42a5f5', icon: 'globe-2' },
               { bg: '#7b1fa2', light: '#ba68c8', icon: 'book-open' },
               { bg: '#0097a7', light: '#4dd0e1', icon: 'message-circle' },
               { bg: '#d84315', light: '#ff7043', icon: 'volume-2' },
@@ -3595,7 +3595,7 @@ case "pagos":
                 <i data-lucide="${colorScheme.icon}" style="width: 30px; height: 30px; color: white;"></i>
               </div>
               
-              <h3 style="margin: 0 0 8px 0; color: #1e3c72; font-size: 20px; font-weight: 600;">${idioma.nombre_idioma}</h3>
+              <h3 style="margin: 0 0 8px 0; color: #0A2540; font-size: 20px; font-weight: 600;">${idioma.nombre_idioma}</h3>
               <p style="margin: 0 0 15px 0; color: #999; font-size: 13px;">ID: ${idioma.id_idioma}</p>
               
               <div style="height: 1px; background: #e0e0e0; margin: 15px 0;"></div>
@@ -5000,7 +5000,7 @@ async function openProfesorPanel(idProfesor) {
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           ${profesor.idiomas && profesor.idiomas.length > 0 ? 
             profesor.idiomas.map(idioma => `
-              <span style="background: #e3f2fd; color: #1976d2; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              <span style="background: #e3f2fd; color: #0070F3; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;">
                 ${idioma}
               </span>
             `).join('') :
@@ -5168,7 +5168,7 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
           const idioma = idiomas.find(i => i.id_idioma === id);
           if (idioma) {
             const tag = document.createElement('span');
-            tag.style.cssText = 'background: #1e3c72; color: white; padding: 4px 10px; border-radius: 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;';
+            tag.style.cssText = 'background: #0A2540; color: white; padding: 4px 10px; border-radius: 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;';
             tag.innerHTML = `
               ${idioma.nombre_idioma}
               <button type="button" onclick="event.stopPropagation(); this.parentElement.remove(); document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').checked = false; document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').dispatchEvent(new Event('change'));" 
@@ -5425,7 +5425,7 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       title: 'Editar Credenciales',
       html: `
         <div style="text-align: left;">
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
+          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #0070F3;">
             <p style="margin: 0; font-size: 13px; color: #1e40af;">
               Estas credenciales se usan para <strong>Dashboard y Classroom</strong>
             </p>
@@ -5476,7 +5476,7 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       showCancelButton: true,
       confirmButtonText: 'Guardar Cambios',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#0A2540',
       didOpen: () => {
         lucide.createIcons();
         
@@ -5993,8 +5993,8 @@ function switchPagosTab(tab) {
   document.querySelectorAll('.pagos-tab').forEach(t => {
     if (t.dataset.tab === tab) {
       t.classList.add('active');
-      t.style.borderBottomColor = '#667eea';
-      t.style.color = '#667eea';
+      t.style.borderBottomColor = '#0070F3';
+      t.style.color = '#0070F3';
     } else {
       t.classList.remove('active');
       t.style.borderBottomColor = 'transparent';
@@ -6402,7 +6402,7 @@ async function openRegistrarPagoModal() {
     ).join('');
 
     const { value: formValues } = await Swal.fire({
-      title: '<div style="display: flex; align-items: center; gap: 12px;"><i class="lucide-credit-card" style="width: 28px; height: 28px; color: #1976d2;"></i> Registrar Pago Manual</div>',
+      title: '<div style="display: flex; align-items: center; gap: 12px;"><i class="lucide-credit-card" style="width: 28px; height: 28px; color: #0070F3;"></i> Registrar Pago Manual</div>',
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 20px;">
@@ -6453,8 +6453,8 @@ async function openRegistrarPagoModal() {
             </select>
           </div>
 
-          <div style="background: #e3f2fd; border-left: 4px solid #1976d2; padding: 12px; border-radius: 4px; margin-top: 20px;">
-            <p style="margin: 0; font-size: 13px; color: #1565c0;">
+          <div style="background: #e3f2fd; border-left: 4px solid #0070F3; padding: 12px; border-radius: 4px; margin-top: 20px;">
+            <p style="margin: 0; font-size: 13px; color: #0A2540;">
               <i class="lucide-info" style="width: 14px; height: 14px;"></i> 
               Este pago se registrará como pagado en la fecha actual
             </p>
@@ -6466,7 +6466,7 @@ async function openRegistrarPagoModal() {
       showCancelButton: true,
       confirmButtonText: '<i class="lucide-check" style="width: 16px; height: 16px;"></i> Registrar Pago',
       cancelButtonText: '<i class="lucide-x" style="width: 16px; height: 16px;"></i> Cancelar',
-      confirmButtonColor: '#1976d2',
+      confirmButtonColor: '#0070F3',
       cancelButtonColor: '#757575',
       didOpen: () => {
         if (typeof lucide !== 'undefined') {
@@ -6604,7 +6604,7 @@ async function openRegistrarPagoModal() {
             
             const infoParts = [];
             if (mesesPagados.length > 0) {
-              infoParts.push(`<div style="color: #1565c0; background: #e3f2fd; padding: 8px; border-radius: 4px; margin-bottom: 4px;">
+              infoParts.push(`<div style="color: #0A2540; background: #e3f2fd; padding: 8px; border-radius: 4px; margin-bottom: 4px;">
                 <i class="lucide-check" style="width: 14px; height: 14px;"></i> Ya pagado: ${mesesPagados.join(', ')}
               </div>`);
             }
@@ -6696,7 +6696,7 @@ async function openRegistrarPagoModal() {
                 <p style="margin: 0;"><strong>Fecha:</strong> ${new Date(data.comprobante.fecha).toLocaleDateString('es-ES')}</p>
               </div>
             `,
-            confirmButtonColor: '#1976d2'
+            confirmButtonColor: '#0070F3'
           });
 
           await loadPagosData();
@@ -6714,7 +6714,7 @@ async function openRegistrarPagoModal() {
           icon: 'error',
           title: 'Error',
           text: error.message || 'No se pudo registrar el pago',
-          confirmButtonColor: '#1976d2'
+          confirmButtonColor: '#0070F3'
         });
       }
     }
@@ -6744,7 +6744,7 @@ async function openNuevaAulaModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     preConfirm: () => {
       const nombre = document.getElementById('nombre_aula').value;
       const capacidad = document.getElementById('capacidad').value;
@@ -6806,7 +6806,7 @@ async function editarAula(id, nombre, capacidad) {
     showCancelButton: true,
     confirmButtonText: 'Guardar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     preConfirm: () => {
       const nombre = document.getElementById('nombre_aula').value;
       const capacidad = document.getElementById('capacidad').value;
@@ -6889,7 +6889,7 @@ async function openNuevoIdiomaModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     inputValidator: (value) => {
       if (!value) {
         return 'El nombre es obligatorio';
@@ -6929,7 +6929,7 @@ async function editarIdioma(id, nombreActual) {
     showCancelButton: true,
     confirmButtonText: 'Guardar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     inputValidator: (value) => {
       if (!value) {
         return 'El nombre es obligatorio';
@@ -7025,7 +7025,7 @@ async function openNuevaInscripcionModal() {
       showCancelButton: true,
       confirmButtonText: 'Inscribir',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#0A2540',
       preConfirm: () => {
         const id_alumno = document.getElementById('id_alumno').value;
         const id_curso = document.getElementById('id_curso').value;
@@ -7131,7 +7131,7 @@ async function openNuevoAlumnoModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     preConfirm: () => {
       const nombre = document.getElementById('nombre').value;
       const apellido = document.getElementById('apellido').value;
@@ -7234,7 +7234,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
     confirmButtonText: 'Crear Credenciales',
     denyButtonText: 'Omitir (crear después)',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     preConfirm: () => {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
@@ -7283,7 +7283,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
               ️ Guarda estas credenciales de forma segura
             </p>
           `,
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
       } else {
         Swal.fire('Error', data.message || 'Error al crear credenciales', 'error');
@@ -7345,7 +7345,7 @@ async function editarAlumno(id) {
       confirmButtonText: 'Guardar',
       denyButtonText: '<i data-lucide="key"></i> Editar Credenciales',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#0A2540',
       denyButtonColor: '#6b7280',
       didOpen: () => {
         if (typeof lucide !== 'undefined') {
@@ -7421,7 +7421,7 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       title: 'Editar Credenciales',
       html: `
         <div style="text-align: left;">
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
+          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #0070F3;">
             <p style="margin: 0; font-size: 13px; color: #1e40af;">
               Estas credenciales se usan para <strong>Dashboard y Classroom</strong>
             </p>
@@ -7472,7 +7472,7 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       showCancelButton: true,
       confirmButtonText: 'Guardar Cambios',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#0A2540',
       didOpen: () => {
         lucide.createIcons();
         
@@ -7623,7 +7623,7 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
     showCancelButton: true,
     confirmButtonText: 'Cambiar Contraseña',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     preConfirm: () => {
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
@@ -7785,7 +7785,7 @@ async function openNuevoProfesorModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     didOpen: async () => {
       try {
         const resp = await fetch(`${API_URL}/idiomas`);
@@ -7915,7 +7915,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
     confirmButtonText: 'Crear Credenciales',
     denyButtonText: 'Omitir (crear después)',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#0A2540',
     preConfirm: () => {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
@@ -7964,7 +7964,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
               ️ Guarda estas credenciales de forma segura
             </p>
           `,
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
       } else {
         Swal.fire('Error', data.message || 'Error al crear credenciales', 'error');
@@ -8040,7 +8040,7 @@ async function editarProfesor(id) {
       confirmButtonText: 'Guardar',
       denyButtonText: '<i data-lucide="key"></i> Editar Credenciales',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#0A2540',
       denyButtonColor: '#6b7280',
       didOpen: () => {
         if (typeof lucide !== 'undefined') {
@@ -8711,7 +8711,7 @@ async function openNuevoCursoModal() {
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#0A2540',
       preConfirm: () => {
         const nombre_curso = document.getElementById('nombre_curso').value;
         const id_idioma = document.getElementById('id_idioma').value;
@@ -8824,7 +8824,7 @@ async function editarCurso(id) {
       showCancelButton: true,
       confirmButtonText: 'Guardar',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#0A2540',
       preConfirm: () => {
         const nombre_curso = document.getElementById('nombre_curso').value;
         const id_idioma = document.getElementById('id_idioma').value;
@@ -8931,7 +8931,7 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
       showCancelButton: true,
       confirmButtonText: 'Asignar',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1976d2',
+      confirmButtonColor: '#0070F3',
       preConfirm: () => {
         const select = document.getElementById('swal-profesor-select');
         if (!select.value) {
@@ -9204,7 +9204,7 @@ async function loadCuotasGestion() {
         <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
           <div style="flex: 1;">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <div style="background: #667eea; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+              <div style="background: #0070F3; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                 <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
               </div>
               <div>
@@ -9325,7 +9325,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
       showCancelButton: true,
       confirmButtonText: '<i class="lucide-unlock" style="width: 16px; height: 16px;"></i> Acceder',
       cancelButtonText: '<i class="lucide-x" style="width: 16px; height: 16px;"></i> Cancelar',
-      confirmButtonColor: '#1976d2',
+      confirmButtonColor: '#0070F3',
       cancelButtonColor: '#757575',
       focusConfirm: false,
       didOpen: () => {
@@ -9401,7 +9401,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
               </label>
             `).join('')}
           </div>
-          <div style="margin-top: 20px; padding: 16px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px;">
+          <div style="margin-top: 20px; padding: 16px; background: #eff6ff; border-left: 4px solid #0070F3; border-radius: 8px;">
             <p style="margin: 0; font-size: 14px; color: #1e40af;">
                <strong>Tip:</strong> Los alumnos solo verán y podrán pagar las cuotas seleccionadas.
             </p>
@@ -9963,7 +9963,7 @@ async function renderInvestigacionSection() {
               <p>Centro de recopilación de datos de experiencia de usuario</p>
             </div>
           </div>
-          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1e3a5f, #2563eb);">
+          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1e3a5f, #0070F3);">
             <i data-lucide="external-link"></i>
             Ver Landing de Encuesta
           </a>
@@ -9972,7 +9972,7 @@ async function renderInvestigacionSection() {
         <!-- Estadísticas -->
         <div class="investigacion-stats">
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #1e3a5f, #0070F3);">
               <i data-lucide="file-text"></i>
             </div>
             <div class="stat-info">
@@ -9981,7 +9981,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #0070F3, #0070F3);">
               <i data-lucide="star"></i>
             </div>
             <div class="stat-info">
@@ -9990,7 +9990,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #0070F3, #60a5fa);">
               <i data-lucide="smile"></i>
             </div>
             <div class="stat-info">
@@ -10027,7 +10027,7 @@ async function renderInvestigacionSection() {
               </div>
             ` : encuestas.encuestas.map(enc => `
               <div class="encuesta-item" data-id="${enc.id}">
-                <div class="encuesta-avatar" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
+                <div class="encuesta-avatar" style="background: linear-gradient(135deg, #1e3a5f, #0070F3);">
                   <span>${enc.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}</span>
                 </div>
                 <div class="encuesta-info">
@@ -10098,7 +10098,7 @@ async function renderInvestigacionSection() {
         .investigacion-title > i {
           width: 48px;
           height: 48px;
-          color: #547194;
+          color: #1A3A5C;
         }
         
         .investigacion-title h2 {
@@ -10194,7 +10194,7 @@ async function renderInvestigacionSection() {
         .list-header h3 i {
           width: 20px;
           height: 20px;
-          color: #547194;
+          color: #1A3A5C;
         }
         
         .search-input {
@@ -10208,7 +10208,7 @@ async function renderInvestigacionSection() {
         
         .search-input:focus {
           outline: none;
-          border-color: #547194;
+          border-color: #1A3A5C;
         }
         
         .encuestas-list {
@@ -10233,7 +10233,7 @@ async function renderInvestigacionSection() {
           width: 48px;
           height: 48px;
           border-radius: 12px;
-          background: linear-gradient(135deg, #667eea, #764ba2);
+          background: linear-gradient(135deg, #0070F3, #1A3A5C);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -10296,7 +10296,7 @@ async function renderInvestigacionSection() {
         }
         
         .satisfaction-7, .satisfaction-6 {
-          background: #2563eb;
+          background: #0070F3;
           color: white;
         }
         
@@ -10363,11 +10363,11 @@ async function renderInvestigacionSection() {
         
         .btn-download {
           background: #dbeafe;
-          color: #2563eb;
+          color: #0070F3;
         }
         
         .btn-download:hover {
-          background: #2563eb;
+          background: #0070F3;
           color: white;
         }
         
@@ -10455,7 +10455,7 @@ async function renderInvestigacionSection() {
         .pdf-viewer-header h3 i {
           width: 22px;
           height: 22px;
-          color: #547194;
+          color: #1A3A5C;
         }
         
         .btn-close-modal {
@@ -10622,4 +10622,5 @@ document.addEventListener('keydown', (e) => {
     cerrarPDFViewer();
   }
 });
+
 

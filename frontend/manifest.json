@@ -6,7 +6,7 @@
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#1e3c72",
+  "theme_color": "#0A2540",
   "orientation": "portrait-primary",
   "dir": "ltr",
   "lang": "es",
@@ -61,3 +61,4 @@
   "prefer_related_applications": false,
   "related_applications": []
 }
+

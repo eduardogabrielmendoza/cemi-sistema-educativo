@@ -308,3 +308,4 @@ class UserChat {
 
 // Exportar para uso global
 window.UserChat = UserChat;
+

@@ -1,7 +1,7 @@
 
 :root {
-  --primary-color: #667eea;
-  --secondary-color: #764ba2;
+  --primary-color: #0070F3;
+  --secondary-color: #1A3A5C;
   --dashboard-color: #4a90e2;
   --classroom-color: #9b59b6;
   --text-dark: #2c3e50;
@@ -964,3 +964,4 @@ html {
     min-height: 320px;
   }
 }
+

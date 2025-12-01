@@ -443,3 +443,4 @@ class CursadoManager {
 if (typeof cursadoManager === 'undefined') {
     window.cursadoManager = new CursadoManager();
 }
+

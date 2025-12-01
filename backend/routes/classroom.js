@@ -1297,7 +1297,7 @@ router.post("/calendario/eventos", async (req, res) => {
       `INSERT INTO eventos_calendario 
        (id_curso, id_profesor, titulo, descripcion, tipo, fecha_inicio, fecha_fin, color, notificar) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [id_curso, id_profesor, titulo, descripcion, tipo, fecha_inicio, fecha_fin, color || '#667eea', notificar || 1]
+      [id_curso, id_profesor, titulo, descripcion, tipo, fecha_inicio, fecha_fin, color || '#0070F3', notificar || 1]
     );
     
     res.json({
@@ -2179,3 +2179,4 @@ router.get("/recursos/:id/download-url", async (req, res) => {
 });
 
 export default router;
+

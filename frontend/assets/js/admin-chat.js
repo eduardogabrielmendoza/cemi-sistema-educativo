@@ -425,3 +425,4 @@ class AdminChat {
 
 // Exportar para uso global
 window.AdminChat = AdminChat;
+

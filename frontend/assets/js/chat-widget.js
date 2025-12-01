@@ -562,3 +562,4 @@ document.addEventListener('DOMContentLoaded', () => {
   window.chatWidget = new ChatWidget();
   console.log(' Chat Widget inicializado');
 });
+

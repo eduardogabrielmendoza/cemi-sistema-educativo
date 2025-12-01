@@ -122,7 +122,7 @@ function showStatusBanner(status, incident) {
     },
     maintenance: {
       bgColor: '#dbeafe',
-      borderColor: '#3b82f6',
+      borderColor: '#0070F3',
       textColor: '#1e40af',
       icon: '🔧',
       title: 'Mantenimiento en Curso',
@@ -218,3 +218,5 @@ function showStatusBanner(status, incident) {
   // Agregar padding al body para compensar el banner fijo
   document.body.style.paddingTop = (banner.offsetHeight) + 'px';
 }
+
+

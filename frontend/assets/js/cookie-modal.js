@@ -50,3 +50,4 @@
     setTimeout(showCookieBanner, 2000);
   });
 })();
+

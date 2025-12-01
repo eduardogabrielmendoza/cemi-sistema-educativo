@@ -1,6 +1,6 @@
 /**
  * Plantillas de email para el sistema CEMI
- * Colores institucionales: Azul #1976d2
+ * Colores institucionales: Azul #0070F3
  */
 
 const LOGO_URL = 'https://cemi.up.railway.app/images/logo.png';
@@ -8,8 +8,8 @@ const SITE_URL = 'https://cemi.up.railway.app';
 
 // Colores institucionales
 const COLORS = {
-  primary: '#1976d2',
-  primaryDark: '#1565c0',
+  primary: '#0070F3',
+  primaryDark: '#0A2540',
   primaryLight: '#e3f2fd',
   success: '#2e7d32',
   successLight: '#e8f5e9',
@@ -251,7 +251,7 @@ export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
           
           <div class="divider"></div>
           
-          <p style="font-size: 14px;">Si tienes alguna duda o problema para acceder, visita nuestro <a href="${SITE_URL}/ayuda.html" style="color: #1976d2;">Centro de Ayuda</a> o contacta con el administrador del sistema.</p>
+          <p style="font-size: 14px;">Si tienes alguna duda o problema para acceder, visita nuestro <a href="${SITE_URL}/ayuda.html" style="color: #0070F3;">Centro de Ayuda</a> o contacta con el administrador del sistema.</p>
         </div>
         ${footerTemplate}
       </div>
@@ -302,8 +302,8 @@ export function encuestaAgradecimientoTemplate(nombre) {
           </ul>
           
           <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 25px; border-radius: 12px; margin: 25px 0; text-align: center; border: 1px solid rgba(25, 118, 210, 0.2);">
-            <p style="margin: 0; color: #1565c0; font-weight: 600; font-size: 16px;">📬 Manten un ojo en tu bandeja de entrada</p>
-            <p style="margin: 10px 0 0 0; color: #1976d2; font-size: 14px;">Pronto recibiras mas novedades y oportunidades para seguir colaborando con nosotros.</p>
+            <p style="margin: 0; color: #0A2540; font-weight: 600; font-size: 16px;">📬 Manten un ojo en tu bandeja de entrada</p>
+            <p style="margin: 10px 0 0 0; color: #0070F3; font-size: 14px;">Pronto recibiras mas novedades y oportunidades para seguir colaborando con nosotros.</p>
           </div>
           
           <p>Si tienes alguna pregunta, sugerencia o comentario adicional, no dudes en contactarnos. ¡Estamos emocionados de contar contigo en nuestra comunidad!</p>
@@ -314,7 +314,7 @@ export function encuestaAgradecimientoTemplate(nombre) {
           
           <div class="divider"></div>
           
-          <p style="margin-top: 20px;">Con gratitud,<br><strong style="color: #1976d2;">El equipo de CEMI</strong></p>
+          <p style="margin-top: 20px;">Con gratitud,<br><strong style="color: #0070F3;">El equipo de CEMI</strong></p>
         </div>
         ${footerTemplate}
       </div>
@@ -688,3 +688,4 @@ export function codigosRecuperacionAdminTemplate(datos) {
     </html>
   `;
 }
+

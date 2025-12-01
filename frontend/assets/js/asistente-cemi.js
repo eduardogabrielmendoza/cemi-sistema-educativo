@@ -1,18 +1,18 @@
-ï»¿// =====================================================
+// =====================================================
 // ASISTENTE VIRTUAL CEMI - Sistema de Ayuda Inteligente
 // =====================================================
 
 const ASISTENTE_CONFIG = {
   nombre: "CEMI Asistente",
   version: "1.0.0",
-  bienvenida: "Â¡Hola! ğŸ‘‹ Soy el asistente virtual de CEMI. Estoy aquÃ­ para ayudarte con cualquier consulta sobre nuestro instituto, cursos, inscripciones y mÃ¡s. Â¿En quÃ© puedo ayudarte?",
-  despedida: "Â¡Gracias por consultar! Si tenÃ©s mÃ¡s dudas, no dudes en escribirme. Â¡Ã‰xitos! ğŸ“",
-  noEntiendo: "No encontrÃ© informaciÃ³n especÃ­fica sobre eso. Â¿PodrÃ­as reformular tu pregunta o elegir una de las sugerencias?",
+  bienvenida: "¡Hola! ?? Soy el asistente virtual de CEMI. Estoy aquí para ayudarte con cualquier consulta sobre nuestro instituto, cursos, inscripciones y más. ¿En qué puedo ayudarte?",
+  despedida: "¡Gracias por consultar! Si tenés más dudas, no dudes en escribirme. ¡Éxitos! ??",
+  noEntiendo: "No encontré información específica sobre eso. ¿Podrías reformular tu pregunta o elegir una de las sugerencias?",
   sugerenciasDefault: [
-    "Â¿QuÃ© cursos ofrecen?",
-    "Â¿CÃ³mo me inscribo?",
-    "Â¿CuÃ¡les son los horarios?",
-    "Â¿DÃ³nde estÃ¡n ubicados?"
+    "¿Qué cursos ofrecen?",
+    "¿Cómo me inscribo?",
+    "¿Cuáles son los horarios?",
+    "¿Dónde están ubicados?"
   ]
 };
 
@@ -20,1322 +20,1322 @@ const ASISTENTE_CONFIG = {
 const BASE_CONOCIMIENTO = [
 
   // ============================================
-  // CATEGORÃA 1: SOBRE CEMI (20 respuestas)
+  // CATEGORÍA 1: SOBRE CEMI (20 respuestas)
   // ============================================
   {
     id: 1,
     categoria: "sobre_cemi",
     keywords: ["que es cemi", "quienes son", "sobre ustedes", "instituto", "institucion", "centro educativo"],
-    pregunta: "Â¿QuÃ© es CEMI?",
-    respuesta: "**CEMI** (Centro Educativo MultilingÃ¼e Integral) es una instituciÃ³n educativa dedicada a la enseÃ±anza de idiomas con una trayectoria de excelencia acadÃ©mica. Nos especializamos en formar estudiantes con competencias lingÃ¼Ã­sticas de alto nivel.",
+    pregunta: "¿Qué es CEMI?",
+    respuesta: "**CEMI** (Centro Educativo Multilingüe Integral) es una institución educativa dedicada a la enseñanza de idiomas con una trayectoria de excelencia académica. Nos especializamos en formar estudiantes con competencias lingüísticas de alto nivel.",
     acciones: []
   },
   {
     id: 2,
     categoria: "sobre_cemi",
     keywords: ["mision", "objetivo", "proposito", "para que"],
-    pregunta: "Â¿CuÃ¡l es la misiÃ³n de CEMI?",
-    respuesta: "Nuestra **misiÃ³n** es brindar educaciÃ³n de idiomas de calidad, formando estudiantes competentes y preparados para un mundo globalizado, con metodologÃ­as innovadoras y docentes altamente capacitados.",
+    pregunta: "¿Cuál es la misión de CEMI?",
+    respuesta: "Nuestra **misión** es brindar educación de idiomas de calidad, formando estudiantes competentes y preparados para un mundo globalizado, con metodologías innovadoras y docentes altamente capacitados.",
     acciones: []
   },
   {
     id: 3,
     categoria: "sobre_cemi",
     keywords: ["vision", "futuro", "proyeccion"],
-    pregunta: "Â¿CuÃ¡l es la visiÃ³n de CEMI?",
-    respuesta: "Nuestra **visiÃ³n** es ser el instituto de idiomas lÃ­der en la regiÃ³n, reconocido por la excelencia acadÃ©mica, innovaciÃ³n educativa y formaciÃ³n integral de nuestros estudiantes.",
+    pregunta: "¿Cuál es la visión de CEMI?",
+    respuesta: "Nuestra **visión** es ser el instituto de idiomas líder en la región, reconocido por la excelencia académica, innovación educativa y formación integral de nuestros estudiantes.",
     acciones: []
   },
   {
     id: 4,
     categoria: "sobre_cemi",
     keywords: ["valores", "principios", "filosofia"],
-    pregunta: "Â¿CuÃ¡les son los valores de CEMI?",
-    respuesta: "Nuestros **valores** fundamentales son:\n\nâ€¢ **Excelencia acadÃ©mica** - Compromiso con la calidad educativa\nâ€¢ **InnovaciÃ³n** - MetodologÃ­as modernas y tecnologÃ­a\nâ€¢ **Respeto** - Ambiente inclusivo y diverso\nâ€¢ **Compromiso** - DedicaciÃ³n al Ã©xito del estudiante\nâ€¢ **Integridad** - Transparencia en todo lo que hacemos",
+    pregunta: "¿Cuáles son los valores de CEMI?",
+    respuesta: "Nuestros **valores** fundamentales son:\n\n• **Excelencia académica** - Compromiso con la calidad educativa\n• **Innovación** - Metodologías modernas y tecnología\n• **Respeto** - Ambiente inclusivo y diverso\n• **Compromiso** - Dedicación al éxito del estudiante\n• **Integridad** - Transparencia en todo lo que hacemos",
     acciones: []
   },
   {
     id: 5,
     categoria: "sobre_cemi",
-    keywords: ["historia", "cuando fundaron", "aÃ±os", "trayectoria", "antiguedad"],
-    pregunta: "Â¿CuÃ¡l es la historia de CEMI?",
-    respuesta: "CEMI fue fundado con el objetivo de ofrecer educaciÃ³n de idiomas de calidad. A lo largo de los aÃ±os, hemos formado a miles de estudiantes, consolidÃ¡ndonos como una instituciÃ³n de referencia en la enseÃ±anza de lenguas extranjeras.",
+    keywords: ["historia", "cuando fundaron", "años", "trayectoria", "antiguedad"],
+    pregunta: "¿Cuál es la historia de CEMI?",
+    respuesta: "CEMI fue fundado con el objetivo de ofrecer educación de idiomas de calidad. A lo largo de los años, hemos formado a miles de estudiantes, consolidándonos como una institución de referencia en la enseñanza de lenguas extranjeras.",
     acciones: []
   },
   {
     id: 6,
     categoria: "sobre_cemi",
     keywords: ["diferencia", "diferencial", "por que elegir", "ventaja", "mejor que"],
-    pregunta: "Â¿QuÃ© diferencia a CEMI de otros institutos?",
-    respuesta: "Lo que nos diferencia:\n\nâœ… **MetodologÃ­a comunicativa** - Enfoque en la prÃ¡ctica real\nâœ… **Grupos reducidos** - AtenciÃ³n personalizada\nâœ… **Docentes certificados** - Profesionales de excelencia\nâœ… **TecnologÃ­a educativa** - Plataforma Classroom moderna\nâœ… **Certificaciones internacionales** - PreparaciÃ³n para exÃ¡menes oficiales\nâœ… **Flexibilidad horaria** - MÃºltiples turnos disponibles",
+    pregunta: "¿Qué diferencia a CEMI de otros institutos?",
+    respuesta: "Lo que nos diferencia:\n\n? **Metodología comunicativa** - Enfoque en la práctica real\n? **Grupos reducidos** - Atención personalizada\n? **Docentes certificados** - Profesionales de excelencia\n? **Tecnología educativa** - Plataforma Classroom moderna\n? **Certificaciones internacionales** - Preparación para exámenes oficiales\n? **Flexibilidad horaria** - Múltiples turnos disponibles",
     acciones: []
   },
   {
     id: 7,
     categoria: "sobre_cemi",
-    keywords: ["metodologia", "como enseÃ±an", "metodo", "forma de enseÃ±ar"],
-    pregunta: "Â¿QuÃ© metodologÃ­a utilizan?",
-    respuesta: "Utilizamos el **enfoque comunicativo**, que prioriza:\n\nâ€¢ ConversaciÃ³n y prÃ¡ctica oral desde el primer dÃ­a\nâ€¢ Situaciones reales de comunicaciÃ³n\nâ€¢ Desarrollo de las 4 habilidades: hablar, escuchar, leer y escribir\nâ€¢ Uso de tecnologÃ­a y recursos multimedia\nâ€¢ Actividades interactivas y dinÃ¡micas",
+    keywords: ["metodologia", "como enseñan", "metodo", "forma de enseñar"],
+    pregunta: "¿Qué metodología utilizan?",
+    respuesta: "Utilizamos el **enfoque comunicativo**, que prioriza:\n\n• Conversación y práctica oral desde el primer día\n• Situaciones reales de comunicación\n• Desarrollo de las 4 habilidades: hablar, escuchar, leer y escribir\n• Uso de tecnología y recursos multimedia\n• Actividades interactivas y dinámicas",
     acciones: []
   },
   {
     id: 8,
     categoria: "sobre_cemi",
     keywords: ["instalaciones", "edificio", "aulas", "infraestructura"],
-    pregunta: "Â¿CÃ³mo son las instalaciones?",
-    respuesta: "Contamos con instalaciones modernas:\n\nğŸ« Aulas climatizadas y equipadas\nğŸ’» Laboratorio de idiomas con tecnologÃ­a\nğŸ“š Biblioteca con material de consulta\nâ˜• Espacios de descanso\nâ™¿ Accesibilidad para personas con movilidad reducida\nğŸ“¶ WiFi en todo el edificio",
-    acciones: [{ texto: "Ver ubicaciÃ³n", link: "#ubicacion" }]
+    pregunta: "¿Cómo son las instalaciones?",
+    respuesta: "Contamos con instalaciones modernas:\n\n?? Aulas climatizadas y equipadas\n?? Laboratorio de idiomas con tecnología\n?? Biblioteca con material de consulta\n? Espacios de descanso\n? Accesibilidad para personas con movilidad reducida\n?? WiFi en todo el edificio",
+    acciones: [{ texto: "Ver ubicación", link: "#ubicacion" }]
   },
   {
     id: 9,
     categoria: "sobre_cemi",
     keywords: ["cuantos alumnos", "estudiantes", "cantidad"],
-    pregunta: "Â¿CuÃ¡ntos alumnos tienen?",
-    respuesta: "Actualmente contamos con una comunidad activa de estudiantes en diferentes niveles e idiomas. Mantenemos grupos reducidos (mÃ¡ximo 15 alumnos por clase) para garantizar atenciÃ³n personalizada.",
+    pregunta: "¿Cuántos alumnos tienen?",
+    respuesta: "Actualmente contamos con una comunidad activa de estudiantes en diferentes niveles e idiomas. Mantenemos grupos reducidos (máximo 15 alumnos por clase) para garantizar atención personalizada.",
     acciones: []
   },
   {
     id: 10,
     categoria: "sobre_cemi",
     keywords: ["reconocimiento", "premios", "logros", "acreditacion"],
-    pregunta: "Â¿Tienen reconocimientos o acreditaciones?",
-    respuesta: "CEMI cuenta con:\n\nğŸ† Reconocimiento como centro preparador de exÃ¡menes internacionales\nğŸ“œ AcreditaciÃ³n acadÃ©mica institucional\nğŸ¤ Convenios con instituciones educativas\nâœ… Certificaciones de calidad educativa",
+    pregunta: "¿Tienen reconocimientos o acreditaciones?",
+    respuesta: "CEMI cuenta con:\n\n?? Reconocimiento como centro preparador de exámenes internacionales\n?? Acreditación académica institucional\n?? Convenios con instituciones educativas\n? Certificaciones de calidad educativa",
     acciones: []
   },
   {
     id: 11,
     categoria: "sobre_cemi",
     keywords: ["director", "directora", "autoridades", "quien dirige"],
-    pregunta: "Â¿QuiÃ©n dirige CEMI?",
-    respuesta: "CEMI cuenta con un equipo directivo comprometido con la excelencia educativa, conformado por profesionales con amplia experiencia en educaciÃ³n y enseÃ±anza de idiomas.",
+    pregunta: "¿Quién dirige CEMI?",
+    respuesta: "CEMI cuenta con un equipo directivo comprometido con la excelencia educativa, conformado por profesionales con amplia experiencia en educación y enseñanza de idiomas.",
     acciones: []
   },
   {
     id: 12,
     categoria: "sobre_cemi",
     keywords: ["trabajan", "empleos", "trabajo", "vacantes", "cv", "curriculum"],
-    pregunta: "Â¿CÃ³mo puedo trabajar en CEMI?",
-    respuesta: "Si te interesa formar parte de nuestro equipo docente o administrativo, podÃ©s:\n\nğŸ“§ Enviar tu CV a: rrhh@cemi.edu.ar\nğŸ“ Especificar el Ã¡rea de interÃ©s\nğŸ“ Adjuntar tÃ­tulos y certificaciones\n\nEvaluamos perfiles de forma continua.",
+    pregunta: "¿Cómo puedo trabajar en CEMI?",
+    respuesta: "Si te interesa formar parte de nuestro equipo docente o administrativo, podés:\n\n?? Enviar tu CV a: rrhh@cemi.edu.ar\n?? Especificar el área de interés\n?? Adjuntar títulos y certificaciones\n\nEvaluamos perfiles de forma continua.",
     acciones: [{ texto: "Enviar email", link: "mailto:rrhh@cemi.edu.ar" }]
   },
   {
     id: 13,
     categoria: "sobre_cemi",
     keywords: ["seguro", "seguridad", "confiable"],
-    pregunta: "Â¿CEMI es una instituciÃ³n confiable?",
-    respuesta: "Â¡Absolutamente! CEMI es una instituciÃ³n legalmente constituida, con aÃ±os de trayectoria formando estudiantes exitosos. Contamos con:\n\nâœ… HabilitaciÃ³n oficial\nâœ… Seguro para estudiantes\nâœ… Protocolos de seguridad\nâœ… Transparencia institucional",
+    pregunta: "¿CEMI es una institución confiable?",
+    respuesta: "¡Absolutamente! CEMI es una institución legalmente constituida, con años de trayectoria formando estudiantes exitosos. Contamos con:\n\n? Habilitación oficial\n? Seguro para estudiantes\n? Protocolos de seguridad\n? Transparencia institucional",
     acciones: []
   },
   {
     id: 14,
     categoria: "sobre_cemi",
     keywords: ["convenios", "alianzas", "partners", "asociados"],
-    pregunta: "Â¿Tienen convenios con otras instituciones?",
-    respuesta: "SÃ­, CEMI mantiene convenios con:\n\nğŸ“ Universidades locales e internacionales\nğŸ¢ Empresas para capacitaciÃ³n corporativa\nğŸ“š Organismos de certificaciÃ³n internacional\nğŸŒ Instituciones de intercambio cultural",
+    pregunta: "¿Tienen convenios con otras instituciones?",
+    respuesta: "Sí, CEMI mantiene convenios con:\n\n?? Universidades locales e internacionales\n?? Empresas para capacitación corporativa\n?? Organismos de certificación internacional\n?? Instituciones de intercambio cultural",
     acciones: []
   },
   {
     id: 15,
     categoria: "sobre_cemi",
     keywords: ["pandemia", "covid", "protocolos sanitarios"],
-    pregunta: "Â¿QuÃ© protocolos de salud tienen?",
-    respuesta: "Mantenemos protocolos de higiene y seguridad:\n\nğŸ§´ Dispensadores de alcohol en gel\nğŸŒ¬ï¸ VentilaciÃ³n adecuada en aulas\nğŸ§¹ Limpieza y desinfecciÃ³n regular\nğŸ˜· Respeto por medidas sanitarias vigentes",
+    pregunta: "¿Qué protocolos de salud tienen?",
+    respuesta: "Mantenemos protocolos de higiene y seguridad:\n\n?? Dispensadores de alcohol en gel\n??? Ventilación adecuada en aulas\n?? Limpieza y desinfección regular\n?? Respeto por medidas sanitarias vigentes",
     acciones: []
   },
   {
     id: 16,
     categoria: "sobre_cemi",
     keywords: ["redes sociales", "facebook", "instagram", "twitter", "social"],
-    pregunta: "Â¿Tienen redes sociales?",
-    respuesta: "Â¡SÃ­! Seguinos en nuestras redes:\n\nğŸ“˜ Facebook: /CEMIidiomas\nğŸ“¸ Instagram: @cemi_idiomas\nğŸ¦ Twitter: @CEMI_edu\nğŸ’¼ LinkedIn: CEMI Centro Educativo\n\nÂ¡Enterate de novedades, promociones y eventos!",
+    pregunta: "¿Tienen redes sociales?",
+    respuesta: "¡Sí! Seguinos en nuestras redes:\n\n?? Facebook: /CEMIidiomas\n?? Instagram: @cemi_idiomas\n?? Twitter: @CEMI_edu\n?? LinkedIn: CEMI Centro Educativo\n\n¡Enterate de novedades, promociones y eventos!",
     acciones: []
   },
   {
     id: 17,
     categoria: "sobre_cemi",
-    keywords: ["opinion", "reseÃ±a", "comentarios", "testimonios", "experiencias"],
-    pregunta: "Â¿QuÃ© opinan los alumnos de CEMI?",
-    respuesta: "Nuestros estudiantes destacan:\n\nâ­ Excelente calidad de enseÃ±anza\nâ­ Profesores dedicados y pacientes\nâ­ Buen ambiente de estudio\nâ­ Flexibilidad horaria\nâ­ RÃ¡pido progreso en el idioma\n\nÂ¡PodÃ©s ver testimonios en nuestra web!",
+    keywords: ["opinion", "reseña", "comentarios", "testimonios", "experiencias"],
+    pregunta: "¿Qué opinan los alumnos de CEMI?",
+    respuesta: "Nuestros estudiantes destacan:\n\n? Excelente calidad de enseñanza\n? Profesores dedicados y pacientes\n? Buen ambiente de estudio\n? Flexibilidad horaria\n? Rápido progreso en el idioma\n\n¡Podés ver testimonios en nuestra web!",
     acciones: []
   },
   {
     id: 18,
     categoria: "sobre_cemi",
     keywords: ["garantia", "satisfaccion", "devolucion"],
-    pregunta: "Â¿Ofrecen alguna garantÃ­a?",
-    respuesta: "Nos comprometemos con tu satisfacciÃ³n:\n\nâœ… Clase de prueba gratuita\nâœ… Seguimiento personalizado de tu progreso\nâœ… Posibilidad de cambio de grupo/horario\nâœ… AtenciÃ³n a consultas y reclamos",
+    pregunta: "¿Ofrecen alguna garantía?",
+    respuesta: "Nos comprometemos con tu satisfacción:\n\n? Clase de prueba gratuita\n? Seguimiento personalizado de tu progreso\n? Posibilidad de cambio de grupo/horario\n? Atención a consultas y reclamos",
     acciones: []
   },
   {
     id: 19,
     categoria: "sobre_cemi",
     keywords: ["contacto rapido", "emergencia", "urgente"],
-    pregunta: "Â¿CÃ³mo contacto a CEMI urgentemente?",
-    respuesta: "Para consultas urgentes:\n\nğŸ“ TelÃ©fono: (0381) 446-4324\nğŸ“± WhatsApp: +54 9 381 446-3243\nğŸ“§ Email: info@cemi.edu.ar\n\nâ° Horario de atenciÃ³n: Lunes a Viernes 8:00 a 21:00",
+    pregunta: "¿Cómo contacto a CEMI urgentemente?",
+    respuesta: "Para consultas urgentes:\n\n?? Teléfono: (0381) 446-4324\n?? WhatsApp: +54 9 381 446-3243\n?? Email: info@cemi.edu.ar\n\n? Horario de atención: Lunes a Viernes 8:00 a 21:00",
     acciones: [{ texto: "Llamar ahora", link: "tel:+543814463243" }]
   },
   {
     id: 20,
     categoria: "sobre_cemi",
     keywords: ["newsletter", "novedades", "suscribir", "noticias"],
-    pregunta: "Â¿CÃ³mo me entero de las novedades?",
-    respuesta: "Mantenete informado:\n\nğŸ“§ Suscribite a nuestro newsletter en la web\nğŸ“± Seguinos en redes sociales\nğŸ”” ActivÃ¡ notificaciones en la plataforma\nğŸ“… ConsultÃ¡ el calendario de eventos",
+    pregunta: "¿Cómo me entero de las novedades?",
+    respuesta: "Mantenete informado:\n\n?? Suscribite a nuestro newsletter en la web\n?? Seguinos en redes sociales\n?? Activá notificaciones en la plataforma\n?? Consultá el calendario de eventos",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 2: IDIOMAS DISPONIBLES (25 respuestas)
+  // CATEGORÍA 2: IDIOMAS DISPONIBLES (25 respuestas)
   // ============================================
   {
     id: 21,
     categoria: "idiomas",
-    keywords: ["idiomas", "lenguas", "que enseÃ±an", "cursos idiomas", "ofrecen"],
-    pregunta: "Â¿QuÃ© idiomas enseÃ±an?",
-    respuesta: "En CEMI ofrecemos cursos de:\n\nğŸ‡¬ğŸ‡§ **InglÃ©s** - Todos los niveles\nğŸ‡§ğŸ‡· **PortuguÃ©s** - BrasileÃ±o y europeo\nğŸ‡«ğŸ‡· **FrancÃ©s** - General y negocios\nğŸ‡©ğŸ‡ª **AlemÃ¡n** - CertificaciÃ³n Goethe\nğŸ‡®ğŸ‡¹ **Italiano** - Cultura y ciudadanÃ­a\nğŸ‡¨ğŸ‡³ **Chino MandarÃ­n** - HSK\nğŸ‡¯ğŸ‡µ **JaponÃ©s** - JLPT",
+    keywords: ["idiomas", "lenguas", "que enseñan", "cursos idiomas", "ofrecen"],
+    pregunta: "¿Qué idiomas enseñan?",
+    respuesta: "En CEMI ofrecemos cursos de:\n\n???? **Inglés** - Todos los niveles\n???? **Portugués** - Brasileño y europeo\n???? **Francés** - General y negocios\n???? **Alemán** - Certificación Goethe\n???? **Italiano** - Cultura y ciudadanía\n???? **Chino Mandarín** - HSK\n???? **Japonés** - JLPT",
     acciones: [{ texto: "Ver cursos", link: "#cursos" }]
   },
   {
     id: 22,
     categoria: "idiomas",
     keywords: ["ingles", "english", "britanico", "americano"],
-    pregunta: "Â¿Tienen cursos de inglÃ©s?",
-    respuesta: "Â¡SÃ­! Nuestro programa de **InglÃ©s** incluye:\n\nğŸ“š InglÃ©s General (A1 a C2)\nğŸ‘¶ InglÃ©s para NiÃ±os (4-12 aÃ±os)\nğŸ“ InglÃ©s Adolescentes (13-17 aÃ±os)\nğŸ’¼ InglÃ©s de Negocios\nâœˆï¸ InglÃ©s para Viajeros\nğŸ“ PreparaciÃ³n IELTS, TOEFL, Cambridge",
-    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de InglÃ©s" }]
+    pregunta: "¿Tienen cursos de inglés?",
+    respuesta: "¡Sí! Nuestro programa de **Inglés** incluye:\n\n?? Inglés General (A1 a C2)\n?? Inglés para Niños (4-12 años)\n?? Inglés Adolescentes (13-17 años)\n?? Inglés de Negocios\n?? Inglés para Viajeros\n?? Preparación IELTS, TOEFL, Cambridge",
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Inglés" }]
   },
   {
     id: 23,
     categoria: "idiomas",
-    keywords: ["portugues", "brasil", "brasileÃ±o", "portugal"],
-    pregunta: "Â¿Tienen cursos de portuguÃ©s?",
-    respuesta: "Ofrecemos **PortuguÃ©s** en dos variantes:\n\nğŸ‡§ğŸ‡· **PortuguÃ©s BrasileÃ±o** - El mÃ¡s demandado en la regiÃ³n\nğŸ‡µğŸ‡¹ **PortuguÃ©s Europeo** - Para emigrar a Portugal\n\nğŸ“ PreparaciÃ³n para CELPE-Bras\nğŸ’¼ PortuguÃ©s para negocios",
-    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de PortuguÃ©s" }]
+    keywords: ["portugues", "brasil", "brasileño", "portugal"],
+    pregunta: "¿Tienen cursos de portugués?",
+    respuesta: "Ofrecemos **Portugués** en dos variantes:\n\n???? **Portugués Brasileño** - El más demandado en la región\n???? **Portugués Europeo** - Para emigrar a Portugal\n\n?? Preparación para CELPE-Bras\n?? Portugués para negocios",
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Portugués" }]
   },
   {
     id: 24,
     categoria: "idiomas",
     keywords: ["frances", "francia", "french"],
-    pregunta: "Â¿Tienen cursos de francÃ©s?",
-    respuesta: "Nuestro programa de **FrancÃ©s** ofrece:\n\nğŸ“š FrancÃ©s General (A1 a C1)\nğŸ“ PreparaciÃ³n DELF/DALF\nğŸ’¼ FrancÃ©s de Negocios\nğŸ‡¨ğŸ‡¦ FrancÃ©s para CanadÃ¡ (Quebec)\nğŸ¨ Cultura francÃ³fona",
-    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de FrancÃ©s" }]
+    pregunta: "¿Tienen cursos de francés?",
+    respuesta: "Nuestro programa de **Francés** ofrece:\n\n?? Francés General (A1 a C1)\n?? Preparación DELF/DALF\n?? Francés de Negocios\n???? Francés para Canadá (Quebec)\n?? Cultura francófona",
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Francés" }]
   },
   {
     id: 25,
     categoria: "idiomas",
     keywords: ["aleman", "alemania", "german", "deutsch"],
-    pregunta: "Â¿Tienen cursos de alemÃ¡n?",
-    respuesta: "Ofrecemos **AlemÃ¡n** con:\n\nğŸ“š AlemÃ¡n General (A1 a C1)\nğŸ“ PreparaciÃ³n Goethe-Zertifikat\nğŸ’¼ AlemÃ¡n para trabajo en Alemania/Austria/Suiza\nğŸ“ Certificaciones oficiales",
-    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de AlemÃ¡n" }]
+    pregunta: "¿Tienen cursos de alemán?",
+    respuesta: "Ofrecemos **Alemán** con:\n\n?? Alemán General (A1 a C1)\n?? Preparación Goethe-Zertifikat\n?? Alemán para trabajo en Alemania/Austria/Suiza\n?? Certificaciones oficiales",
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Alemán" }]
   },
   {
     id: 26,
     categoria: "idiomas",
     keywords: ["italiano", "italia", "italian"],
-    pregunta: "Â¿Tienen cursos de italiano?",
-    respuesta: "Nuestro programa de **Italiano** incluye:\n\nğŸ“š Italiano General (A1 a B2)\nğŸ“ PreparaciÃ³n CILS/CELI\nğŸ‡®ğŸ‡¹ Italiano para ciudadanÃ­a\nğŸ¨ Cultura y arte italiano",
+    pregunta: "¿Tienen cursos de italiano?",
+    respuesta: "Nuestro programa de **Italiano** incluye:\n\n?? Italiano General (A1 a B2)\n?? Preparación CILS/CELI\n???? Italiano para ciudadanía\n?? Cultura y arte italiano",
     acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Italiano" }]
   },
   {
     id: 27,
     categoria: "idiomas",
     keywords: ["chino", "mandarin", "china", "chinese"],
-    pregunta: "Â¿Tienen cursos de chino?",
-    respuesta: "Ofrecemos **Chino MandarÃ­n**:\n\nğŸ“š Niveles HSK 1 a HSK 4\nâœï¸ Caracteres simplificados\nğŸ—£ï¸ PronunciaciÃ³n y tonos\nğŸ’¼ Chino para negocios",
+    pregunta: "¿Tienen cursos de chino?",
+    respuesta: "Ofrecemos **Chino Mandarín**:\n\n?? Niveles HSK 1 a HSK 4\n?? Caracteres simplificados\n??? Pronunciación y tonos\n?? Chino para negocios",
     acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Chino" }]
   },
   {
     id: 28,
     categoria: "idiomas",
     keywords: ["japones", "japon", "japanese", "nihongo"],
-    pregunta: "Â¿Tienen cursos de japonÃ©s?",
-    respuesta: "Nuestro programa de **JaponÃ©s** ofrece:\n\nğŸ“š Niveles JLPT N5 a N3\nâœï¸ Hiragana, Katakana y Kanji\nğŸŒ Cultura japonesa\nğŸ® JaponÃ©s para anime/manga",
-    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de JaponÃ©s" }]
+    pregunta: "¿Tienen cursos de japonés?",
+    respuesta: "Nuestro programa de **Japonés** ofrece:\n\n?? Niveles JLPT N5 a N3\n?? Hiragana, Katakana y Kanji\n?? Cultura japonesa\n?? Japonés para anime/manga",
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Japonés" }]
   },
   {
     id: 29,
     categoria: "idiomas",
     keywords: ["coreano", "corea", "korean", "kpop"],
-    pregunta: "Â¿Tienen cursos de coreano?",
-    respuesta: "Ofrecemos **Coreano**:\n\nğŸ“š Niveles TOPIK I y II\nâœï¸ Alfabeto Hangul\nğŸµ Cultura K-pop y K-drama\nğŸ’¼ Coreano bÃ¡sico y conversacional",
+    pregunta: "¿Tienen cursos de coreano?",
+    respuesta: "Ofrecemos **Coreano**:\n\n?? Niveles TOPIK I y II\n?? Alfabeto Hangul\n?? Cultura K-pop y K-drama\n?? Coreano básico y conversacional",
     acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Coreano" }]
   },
   {
     id: 30,
     categoria: "idiomas",
     keywords: ["ruso", "rusia", "russian"],
-    pregunta: "Â¿Tienen cursos de ruso?",
-    respuesta: "SÃ­, ofrecemos **Ruso** en niveles iniciales:\n\nğŸ“š Alfabeto cirÃ­lico\nğŸ—£ï¸ ConversaciÃ³n bÃ¡sica\nğŸ“– Lectura y escritura\n\n*ConsultÃ¡ disponibilidad de grupos*",
+    pregunta: "¿Tienen cursos de ruso?",
+    respuesta: "Sí, ofrecemos **Ruso** en niveles iniciales:\n\n?? Alfabeto cirílico\n??? Conversación básica\n?? Lectura y escritura\n\n*Consultá disponibilidad de grupos*",
     acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243" }]
   },
   {
     id: 31,
     categoria: "idiomas",
     keywords: ["arabe", "arabia", "arabic"],
-    pregunta: "Â¿Tienen cursos de Ã¡rabe?",
-    respuesta: "Ofrecemos **Ãrabe** en modalidad especial:\n\nğŸ“š Ãrabe Moderno EstÃ¡ndar\nâœï¸ Escritura y caligrafÃ­a\nğŸ—£ï¸ ConversaciÃ³n bÃ¡sica\n\n*ConsultÃ¡ inicio de grupos*",
+    pregunta: "¿Tienen cursos de árabe?",
+    respuesta: "Ofrecemos **Árabe** en modalidad especial:\n\n?? Árabe Moderno Estándar\n?? Escritura y caligrafía\n??? Conversación básica\n\n*Consultá inicio de grupos*",
     acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243" }]
   },
   {
     id: 32,
     categoria: "idiomas",
     keywords: ["que idioma estudiar", "cual me recomiendan", "mejor idioma", "idioma facil"],
-    pregunta: "Â¿QuÃ© idioma me recomiendan estudiar?",
-    respuesta: "Depende de tus objetivos:\n\nğŸ’¼ **Trabajo internacional**: InglÃ©s, AlemÃ¡n\nâœˆï¸ **Viajar por SudamÃ©rica**: PortuguÃ©s\nğŸ‡ªğŸ‡º **Emigrar a Europa**: Italiano, FrancÃ©s, AlemÃ¡n\nğŸ“ˆ **Negocios con Asia**: Chino MandarÃ­n\nğŸŒ **Cultura pop**: JaponÃ©s, Coreano\n\nÂ¿QuerÃ©s asesoramiento personalizado?",
+    pregunta: "¿Qué idioma me recomiendan estudiar?",
+    respuesta: "Depende de tus objetivos:\n\n?? **Trabajo internacional**: Inglés, Alemán\n?? **Viajar por Sudamérica**: Portugués\n???? **Emigrar a Europa**: Italiano, Francés, Alemán\n?? **Negocios con Asia**: Chino Mandarín\n?? **Cultura pop**: Japonés, Coreano\n\n¿Querés asesoramiento personalizado?",
     acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243" }]
   },
   {
     id: 33,
     categoria: "idiomas",
     keywords: ["dos idiomas", "varios idiomas", "simultaneo", "a la vez"],
-    pregunta: "Â¿Puedo estudiar dos idiomas a la vez?",
-    respuesta: "Â¡SÃ­, es posible! Recomendaciones:\n\nâœ… Que uno estÃ© mÃ¡s avanzado que otro\nâœ… Elegir idiomas de familias diferentes\nâœ… Organizar bien los horarios\nâš ï¸ Requiere mayor dedicaciÃ³n\n\nConsultÃ¡ con nuestro equipo para armar tu plan.",
+    pregunta: "¿Puedo estudiar dos idiomas a la vez?",
+    respuesta: "¡Sí, es posible! Recomendaciones:\n\n? Que uno esté más avanzado que otro\n? Elegir idiomas de familias diferentes\n? Organizar bien los horarios\n?? Requiere mayor dedicación\n\nConsultá con nuestro equipo para armar tu plan.",
     acciones: []
   },
   {
     id: 34,
     categoria: "idiomas",
     keywords: ["idioma dificil", "mas dificil", "complicado"],
-    pregunta: "Â¿CuÃ¡l es el idioma mÃ¡s difÃ­cil?",
-    respuesta: "La dificultad depende de tu idioma nativo. Para hispanohablantes:\n\nğŸŸ¢ **MÃ¡s fÃ¡ciles**: PortuguÃ©s, Italiano, FrancÃ©s\nğŸŸ¡ **Intermedio**: InglÃ©s, AlemÃ¡n\nğŸ”´ **MÃ¡s desafiantes**: Chino, JaponÃ©s, Ãrabe\n\nÂ¡Pero con dedicaciÃ³n, todos son alcanzables!",
+    pregunta: "¿Cuál es el idioma más difícil?",
+    respuesta: "La dificultad depende de tu idioma nativo. Para hispanohablantes:\n\n?? **Más fáciles**: Portugués, Italiano, Francés\n?? **Intermedio**: Inglés, Alemán\n?? **Más desafiantes**: Chino, Japonés, Árabe\n\n¡Pero con dedicación, todos son alcanzables!",
     acciones: []
   },
   {
     id: 35,
     categoria: "idiomas",
     keywords: ["idioma rapido", "aprender rapido", "intensivo", "cuanto tiempo"],
-    pregunta: "Â¿En cuÃ¡nto tiempo aprendo un idioma?",
-    respuesta: "Tiempos estimados para nivel intermedio (B1):\n\nâ±ï¸ **PortuguÃ©s/Italiano**: 6-8 meses\nâ±ï¸ **InglÃ©s/FrancÃ©s**: 8-12 meses\nâ±ï¸ **AlemÃ¡n**: 12-18 meses\nâ±ï¸ **Chino/JaponÃ©s**: 18-24 meses\n\n*Con cursado regular y prÃ¡ctica constante*",
+    pregunta: "¿En cuánto tiempo aprendo un idioma?",
+    respuesta: "Tiempos estimados para nivel intermedio (B1):\n\n?? **Portugués/Italiano**: 6-8 meses\n?? **Inglés/Francés**: 8-12 meses\n?? **Alemán**: 12-18 meses\n?? **Chino/Japonés**: 18-24 meses\n\n*Con cursado regular y práctica constante*",
     acciones: []
   },
   {
     id: 36,
     categoria: "idiomas",
     keywords: ["nativo", "profesor nativo", "native speaker"],
-    pregunta: "Â¿Tienen profesores nativos?",
-    respuesta: "Contamos con:\n\nğŸ‘¨â€ğŸ« Profesores nativos certificados\nğŸ‘©â€ğŸ« Docentes bilingÃ¼es con experiencia\nğŸ“ Todos con formaciÃ³n pedagÃ³gica\nğŸ“œ Certificaciones internacionales\n\nEl equipo se asigna segÃºn el nivel y curso.",
+    pregunta: "¿Tienen profesores nativos?",
+    respuesta: "Contamos con:\n\n????? Profesores nativos certificados\n????? Docentes bilingües con experiencia\n?? Todos con formación pedagógica\n?? Certificaciones internacionales\n\nEl equipo se asigna según el nivel y curso.",
     acciones: []
   },
   {
     id: 37,
     categoria: "idiomas",
     keywords: ["online", "virtual", "distancia", "remoto"],
-    pregunta: "Â¿Tienen cursos online de idiomas?",
-    respuesta: "SÃ­, ofrecemos modalidad **online** para varios idiomas:\n\nğŸ’» Clases en vivo por videollamada\nğŸ“š Acceso a plataforma Classroom\nğŸ“– Material digital incluido\nğŸ• Flexibilidad horaria\n\n*ConsultÃ¡ disponibilidad para cada idioma*",
+    pregunta: "¿Tienen cursos online de idiomas?",
+    respuesta: "Sí, ofrecemos modalidad **online** para varios idiomas:\n\n?? Clases en vivo por videollamada\n?? Acceso a plataforma Classroom\n?? Material digital incluido\n?? Flexibilidad horaria\n\n*Consultá disponibilidad para cada idioma*",
     acciones: [{ texto: "Consultar por WhatsApp", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20cursos%20online" }]
   },
   {
     id: 38,
     categoria: "idiomas",
     keywords: ["presencial", "cara a cara", "en persona"],
-    pregunta: "Â¿Las clases son presenciales?",
-    respuesta: "Ofrecemos ambas modalidades:\n\nğŸ« **Presencial**: En nuestra sede\nğŸ’» **Online**: Clases en vivo virtuales\nğŸ”„ **HÃ­brido**: CombinaciÃ³n de ambas\n\nPodÃ©s elegir la que mejor se adapte a vos.",
+    pregunta: "¿Las clases son presenciales?",
+    respuesta: "Ofrecemos ambas modalidades:\n\n?? **Presencial**: En nuestra sede\n?? **Online**: Clases en vivo virtuales\n?? **Híbrido**: Combinación de ambas\n\nPodés elegir la que mejor se adapte a vos.",
     acciones: []
   },
   {
     id: 39,
     categoria: "idiomas",
-    keywords: ["lengua de seÃ±as", "seÃ±as", "lsn", "sordo"],
-    pregunta: "Â¿EnseÃ±an Lengua de SeÃ±as?",
-    respuesta: "Actualmente no contamos con cursos de Lengua de SeÃ±as Argentina (LSA). Sin embargo, estamos evaluando incorporarlo.\n\nğŸ“§ Si te interesa, dejanos tu contacto para avisarte cuando abramos inscripciÃ³n.",
-    acciones: [{ texto: "Dejar contacto", link: "mailto:info@cemi.edu.ar?subject=InterÃ©s en Lengua de SeÃ±as" }]
+    keywords: ["lengua de señas", "señas", "lsn", "sordo"],
+    pregunta: "¿Enseñan Lengua de Señas?",
+    respuesta: "Actualmente no contamos con cursos de Lengua de Señas Argentina (LSA). Sin embargo, estamos evaluando incorporarlo.\n\n?? Si te interesa, dejanos tu contacto para avisarte cuando abramos inscripción.",
+    acciones: [{ texto: "Dejar contacto", link: "mailto:info@cemi.edu.ar?subject=Interés en Lengua de Señas" }]
   },
   {
     id: 40,
     categoria: "idiomas",
     keywords: ["latin", "griego", "clasico", "antiguo"],
-    pregunta: "Â¿EnseÃ±an latÃ­n o griego?",
-    respuesta: "Actualmente no ofrecemos latÃ­n ni griego antiguo como cursos regulares. Nos especializamos en idiomas modernos.\n\n*Ocasionalmente ofrecemos talleres especiales de introducciÃ³n.*",
+    pregunta: "¿Enseñan latín o griego?",
+    respuesta: "Actualmente no ofrecemos latín ni griego antiguo como cursos regulares. Nos especializamos en idiomas modernos.\n\n*Ocasionalmente ofrecemos talleres especiales de introducción.*",
     acciones: []
   },
   {
     id: 41,
     categoria: "idiomas",
-    keywords: ["espaÃ±ol", "castellano", "extranjeros", "spanish"],
-    pregunta: "Â¿EnseÃ±an espaÃ±ol para extranjeros?",
-    respuesta: "Â¡SÃ­! Ofrecemos **EspaÃ±ol como Lengua Extranjera (ELE)**:\n\nğŸ“š Todos los niveles (A1-C2)\nğŸ“ PreparaciÃ³n DELE/SIELE\nğŸ’¼ EspaÃ±ol para negocios\nğŸŒ EspaÃ±ol latinoamericano",
-    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de EspaÃ±ol" }]
+    keywords: ["español", "castellano", "extranjeros", "spanish"],
+    pregunta: "¿Enseñan español para extranjeros?",
+    respuesta: "¡Sí! Ofrecemos **Español como Lengua Extranjera (ELE)**:\n\n?? Todos los niveles (A1-C2)\n?? Preparación DELE/SIELE\n?? Español para negocios\n?? Español latinoamericano",
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Español" }]
   },
   {
     id: 42,
     categoria: "idiomas",
     keywords: ["hebreo", "israel", "hebrew"],
-    pregunta: "Â¿Tienen cursos de hebreo?",
-    respuesta: "Ofrecemos **Hebreo moderno** bajo demanda:\n\nğŸ“š Nivel inicial\nâœï¸ Alfabeto hebreo\nğŸ—£ï¸ ConversaciÃ³n bÃ¡sica\n\n*ConsultÃ¡ formaciÃ³n de grupos*",
+    pregunta: "¿Tienen cursos de hebreo?",
+    respuesta: "Ofrecemos **Hebreo moderno** bajo demanda:\n\n?? Nivel inicial\n?? Alfabeto hebreo\n??? Conversación básica\n\n*Consultá formación de grupos*",
     acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta curso de Hebreo" }]
   },
   {
     id: 43,
     categoria: "idiomas",
     keywords: ["hindu", "hindi", "india"],
-    pregunta: "Â¿Tienen cursos de hindi?",
-    respuesta: "Actualmente no ofrecemos Hindi como curso regular. Nos enfocamos en los idiomas de mayor demanda.\n\nğŸ“§ Si hay suficiente interÃ©s, podemos abrir un grupo.",
-    acciones: [{ texto: "Expresar interÃ©s", link: "mailto:info@cemi.edu.ar?subject=InterÃ©s en curso de Hindi" }]
+    pregunta: "¿Tienen cursos de hindi?",
+    respuesta: "Actualmente no ofrecemos Hindi como curso regular. Nos enfocamos en los idiomas de mayor demanda.\n\n?? Si hay suficiente interés, podemos abrir un grupo.",
+    acciones: [{ texto: "Expresar interés", link: "mailto:info@cemi.edu.ar?subject=Interés en curso de Hindi" }]
   },
   {
     id: 44,
     categoria: "idiomas",
     keywords: ["turco", "turquia", "turkish"],
-    pregunta: "Â¿Tienen cursos de turco?",
-    respuesta: "Actualmente no ofrecemos Turco en nuestro programa regular.\n\nğŸ“§ Dejanos tu contacto si te interesa para considerar la apertura de un curso.",
-    acciones: [{ texto: "Expresar interÃ©s", link: "mailto:info@cemi.edu.ar?subject=InterÃ©s en curso de Turco" }]
+    pregunta: "¿Tienen cursos de turco?",
+    respuesta: "Actualmente no ofrecemos Turco en nuestro programa regular.\n\n?? Dejanos tu contacto si te interesa para considerar la apertura de un curso.",
+    acciones: [{ texto: "Expresar interés", link: "mailto:info@cemi.edu.ar?subject=Interés en curso de Turco" }]
   },
   {
     id: 45,
     categoria: "idiomas",
     keywords: ["polaco", "polonia", "polish"],
-    pregunta: "Â¿Tienen cursos de polaco?",
-    respuesta: "No contamos con Polaco actualmente. Nuestros cursos se centran en los idiomas de mayor demanda.\n\nğŸ“§ Si te interesa, podÃ©s dejarnos tu contacto.",
-    acciones: [{ texto: "Expresar interÃ©s", link: "mailto:info@cemi.edu.ar?subject=InterÃ©s en curso de Polaco" }]
+    pregunta: "¿Tienen cursos de polaco?",
+    respuesta: "No contamos con Polaco actualmente. Nuestros cursos se centran en los idiomas de mayor demanda.\n\n?? Si te interesa, podés dejarnos tu contacto.",
+    acciones: [{ texto: "Expresar interés", link: "mailto:info@cemi.edu.ar?subject=Interés en curso de Polaco" }]
   },
 
   // ============================================
-  // CATEGORÃA 3: CURSOS Y NIVELES (20 respuestas)
+  // CATEGORÍA 3: CURSOS Y NIVELES (20 respuestas)
   // ============================================
   {
     id: 46,
     categoria: "cursos",
     keywords: ["tipos de cursos", "cursos disponibles", "que cursos", "opciones"],
-    pregunta: "Â¿QuÃ© tipos de cursos tienen?",
-    respuesta: "Ofrecemos diferentes modalidades:\n\nğŸ‘¥ **Grupales**: 8-15 alumnos\nğŸ‘¤ **Individuales**: Clases particulares\nğŸ’¼ **Empresas**: In-company\nğŸš€ **Intensivos**: Aprendizaje acelerado\nğŸ“… **Extensivos**: Ritmo regular\nğŸ‘¶ **NiÃ±os**: 4-12 aÃ±os\nğŸ“ **Adolescentes**: 13-17 aÃ±os\nğŸ‘¨â€ğŸ“ **Adultos**: +18 aÃ±os",
+    pregunta: "¿Qué tipos de cursos tienen?",
+    respuesta: "Ofrecemos diferentes modalidades:\n\n?? **Grupales**: 8-15 alumnos\n?? **Individuales**: Clases particulares\n?? **Empresas**: In-company\n?? **Intensivos**: Aprendizaje acelerado\n?? **Extensivos**: Ritmo regular\n?? **Niños**: 4-12 años\n?? **Adolescentes**: 13-17 años\n????? **Adultos**: +18 años",
     acciones: [{ texto: "Ver cursos", link: "#cursos" }]
   },
   {
     id: 47,
     categoria: "cursos",
     keywords: ["niveles", "a1", "b1", "c1", "basico", "intermedio", "avanzado"],
-    pregunta: "Â¿QuÃ© niveles manejan?",
-    respuesta: "Seguimos el **Marco ComÃºn Europeo (MCER)**:\n\nğŸŸ¢ **A1-A2**: Nivel bÃ¡sico\nğŸŸ¡ **B1-B2**: Nivel intermedio\nğŸ”´ **C1-C2**: Nivel avanzado\n\nğŸ“ Realizamos test de nivelaciÃ³n gratuito para ubicarte correctamente.",
+    pregunta: "¿Qué niveles manejan?",
+    respuesta: "Seguimos el **Marco Común Europeo (MCER)**:\n\n?? **A1-A2**: Nivel básico\n?? **B1-B2**: Nivel intermedio\n?? **C1-C2**: Nivel avanzado\n\n?? Realizamos test de nivelación gratuito para ubicarte correctamente.",
     acciones: [{ texto: "Solicitar test", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 48,
     categoria: "cursos",
     keywords: ["duracion", "cuanto dura", "tiempo", "largo"],
-    pregunta: "Â¿CuÃ¡nto dura cada nivel?",
-    respuesta: "DuraciÃ³n aproximada por nivel:\n\nğŸ“… **Curso extensivo**: 4-5 meses por nivel\nâš¡ **Curso intensivo**: 2-3 meses por nivel\n\n*2-3 clases semanales de 1.5 horas cada una*",
+    pregunta: "¿Cuánto dura cada nivel?",
+    respuesta: "Duración aproximada por nivel:\n\n?? **Curso extensivo**: 4-5 meses por nivel\n? **Curso intensivo**: 2-3 meses por nivel\n\n*2-3 clases semanales de 1.5 horas cada una*",
     acciones: []
   },
   {
     id: 49,
     categoria: "cursos",
     keywords: ["certificado", "titulo", "diploma", "certificacion"],
-    pregunta: "Â¿Entregan certificado al finalizar?",
-    respuesta: "Â¡SÃ­! Al completar cada nivel recibirÃ¡s:\n\nğŸ“œ **Certificado CEMI** de aprobaciÃ³n\nğŸ“Š Detalle de nivel alcanzado (MCER)\nğŸ“ˆ Registro de calificaciones\n\nAdemÃ¡s, preparamos para certificaciones internacionales oficiales.",
+    pregunta: "¿Entregan certificado al finalizar?",
+    respuesta: "¡Sí! Al completar cada nivel recibirás:\n\n?? **Certificado CEMI** de aprobación\n?? Detalle de nivel alcanzado (MCER)\n?? Registro de calificaciones\n\nAdemás, preparamos para certificaciones internacionales oficiales.",
     acciones: []
   },
   {
     id: 50,
     categoria: "cursos",
-    keywords: ["grupal", "grupo", "compaÃ±eros", "cuantos alumnos"],
-    pregunta: "Â¿CuÃ¡ntos alumnos hay por grupo?",
-    respuesta: "Mantenemos **grupos reducidos**:\n\nğŸ‘¥ MÃ­nimo: 5 alumnos\nğŸ‘¥ MÃ¡ximo: 15 alumnos\nâ­ Ideal: 8-12 alumnos\n\nEsto garantiza atenciÃ³n personalizada y prÃ¡ctica oral para todos.",
+    keywords: ["grupal", "grupo", "compañeros", "cuantos alumnos"],
+    pregunta: "¿Cuántos alumnos hay por grupo?",
+    respuesta: "Mantenemos **grupos reducidos**:\n\n?? Mínimo: 5 alumnos\n?? Máximo: 15 alumnos\n? Ideal: 8-12 alumnos\n\nEsto garantiza atención personalizada y práctica oral para todos.",
     acciones: []
   },
   {
     id: 51,
     categoria: "cursos",
     keywords: ["individual", "particular", "privado", "uno a uno"],
-    pregunta: "Â¿Ofrecen clases individuales?",
-    respuesta: "Â¡SÃ­! Las **clases individuales** ofrecen:\n\nâœ… Horarios 100% flexibles\nâœ… Ritmo personalizado\nâœ… Contenido adaptado a tus necesidades\nâœ… Mayor prÃ¡ctica oral\nğŸ’° Costo diferenciado\n\n*Ideales para objetivos especÃ­ficos*",
+    pregunta: "¿Ofrecen clases individuales?",
+    respuesta: "¡Sí! Las **clases individuales** ofrecen:\n\n? Horarios 100% flexibles\n? Ritmo personalizado\n? Contenido adaptado a tus necesidades\n? Mayor práctica oral\n?? Costo diferenciado\n\n*Ideales para objetivos específicos*",
     acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
   },
   {
     id: 52,
     categoria: "cursos",
     keywords: ["intensivo", "rapido", "acelerar", "pocas semanas"],
-    pregunta: "Â¿Tienen cursos intensivos?",
-    respuesta: "SÃ­, ofrecemos **cursos intensivos**:\n\nâš¡ 4-5 clases por semana\nâ±ï¸ 2-3 horas diarias\nğŸ“… DuraciÃ³n: 2-3 meses por nivel\nğŸ¯ Ideal para viajes o trabajo prÃ³ximo\n\n*Requiere mayor dedicaciÃ³n y disponibilidad*",
+    pregunta: "¿Tienen cursos intensivos?",
+    respuesta: "Sí, ofrecemos **cursos intensivos**:\n\n? 4-5 clases por semana\n?? 2-3 horas diarias\n?? Duración: 2-3 meses por nivel\n?? Ideal para viajes o trabajo próximo\n\n*Requiere mayor dedicación y disponibilidad*",
     acciones: [{ texto: "Consultar fechas", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20cursos%20intensivos" }]
   },
   {
     id: 53,
     categoria: "cursos",
     keywords: ["extensivo", "regular", "normal", "tranquilo"],
-    pregunta: "Â¿QuÃ© es un curso extensivo?",
-    respuesta: "El **curso extensivo** es nuestra modalidad regular:\n\nğŸ“… 2-3 clases por semana\nâ±ï¸ 1.5 horas por clase\nğŸ“† DuraciÃ³n: 4-5 meses por nivel\nâœ… Permite compatibilizar con trabajo/estudio\n\n*Ideal para ritmo sostenido*",
+    pregunta: "¿Qué es un curso extensivo?",
+    respuesta: "El **curso extensivo** es nuestra modalidad regular:\n\n?? 2-3 clases por semana\n?? 1.5 horas por clase\n?? Duración: 4-5 meses por nivel\n? Permite compatibilizar con trabajo/estudio\n\n*Ideal para ritmo sostenido*",
     acciones: []
   },
   {
     id: 54,
     categoria: "cursos",
-    keywords: ["niÃ±os", "nenes", "chicos", "infantil", "kids"],
-    pregunta: "Â¿Tienen cursos para niÃ±os?",
-    respuesta: "Â¡SÃ­! Cursos para **niÃ±os de 4 a 12 aÃ±os**:\n\nğŸ® MetodologÃ­a lÃºdica y dinÃ¡mica\nğŸ¨ Juegos, canciones y actividades\nğŸ“š Material didÃ¡ctico especial\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§ ComunicaciÃ³n con padres\nğŸ“Š Seguimiento del progreso\n\n*Grupos reducidos por edad*",
-    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos para niÃ±os" }]
+    keywords: ["niños", "nenes", "chicos", "infantil", "kids"],
+    pregunta: "¿Tienen cursos para niños?",
+    respuesta: "¡Sí! Cursos para **niños de 4 a 12 años**:\n\n?? Metodología lúdica y dinámica\n?? Juegos, canciones y actividades\n?? Material didáctico especial\n???????? Comunicación con padres\n?? Seguimiento del progreso\n\n*Grupos reducidos por edad*",
+    acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos para niños" }]
   },
   {
     id: 55,
     categoria: "cursos",
     keywords: ["adolescentes", "teens", "jovenes", "secundario"],
-    pregunta: "Â¿Tienen cursos para adolescentes?",
-    respuesta: "Cursos para **adolescentes (13-17 aÃ±os)**:\n\nğŸ“± TemÃ¡ticas actuales y relevantes\nğŸ¯ PreparaciÃ³n para exÃ¡menes internacionales\nğŸ’¬ Enfoque comunicativo\nğŸ® Recursos multimedia\nğŸ“… Horarios compatibles con el colegio",
+    pregunta: "¿Tienen cursos para adolescentes?",
+    respuesta: "Cursos para **adolescentes (13-17 años)**:\n\n?? Temáticas actuales y relevantes\n?? Preparación para exámenes internacionales\n?? Enfoque comunicativo\n?? Recursos multimedia\n?? Horarios compatibles con el colegio",
     acciones: [{ texto: "Consultar", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos para adolescentes" }]
   },
   {
     id: 56,
     categoria: "cursos",
     keywords: ["adultos", "mayores", "grande", "tercera edad"],
-    pregunta: "Â¿Hay lÃ­mite de edad para estudiar?",
-    respuesta: "Â¡No hay lÃ­mite de edad! Tenemos alumnos desde 4 aÃ±os hasta adultos mayores.\n\nğŸ‘´ Grupos especiales para adultos mayores\nğŸ¢ Ritmo adaptado\nâ˜• Ambiente amigable\nğŸ§  Ejercicio mental saludable\n\n*Nunca es tarde para aprender*",
+    pregunta: "¿Hay límite de edad para estudiar?",
+    respuesta: "¡No hay límite de edad! Tenemos alumnos desde 4 años hasta adultos mayores.\n\n?? Grupos especiales para adultos mayores\n?? Ritmo adaptado\n? Ambiente amigable\n?? Ejercicio mental saludable\n\n*Nunca es tarde para aprender*",
     acciones: []
   },
   {
     id: 57,
     categoria: "cursos",
     keywords: ["empresas", "corporativo", "in company", "trabajo"],
-    pregunta: "Â¿Ofrecen cursos para empresas?",
-    respuesta: "SÃ­, ofrecemos **capacitaciÃ³n corporativa**:\n\nğŸ¢ Cursos in-company en tu empresa\nğŸ“‹ Programas a medida\nğŸ“Š EvaluaciÃ³n de personal\nğŸ’¼ Idioma para negocios\nğŸ“œ Informes de progreso\nğŸ’° Presupuestos especiales",
+    pregunta: "¿Ofrecen cursos para empresas?",
+    respuesta: "Sí, ofrecemos **capacitación corporativa**:\n\n?? Cursos in-company en tu empresa\n?? Programas a medida\n?? Evaluación de personal\n?? Idioma para negocios\n?? Informes de progreso\n?? Presupuestos especiales",
     acciones: [{ texto: "Solicitar presupuesto", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos para empresas" }]
   },
   {
     id: 58,
     categoria: "cursos",
     keywords: ["verano", "vacaciones", "enero", "febrero"],
-    pregunta: "Â¿Tienen cursos de verano?",
-    respuesta: "Â¡SÃ­! En verano ofrecemos:\n\nâ˜€ï¸ **Intensivos de verano**: Enero-Febrero\nğŸ–ï¸ Ideal para aprovechar las vacaciones\nâš¡ Avanzar un nivel rÃ¡pidamente\nğŸ‘¶ Opciones para niÃ±os y adultos\n\n*InscripciÃ³n en noviembre-diciembre*",
+    pregunta: "¿Tienen cursos de verano?",
+    respuesta: "¡Sí! En verano ofrecemos:\n\n?? **Intensivos de verano**: Enero-Febrero\n??? Ideal para aprovechar las vacaciones\n? Avanzar un nivel rápidamente\n?? Opciones para niños y adultos\n\n*Inscripción en noviembre-diciembre*",
     acciones: []
   },
   {
     id: 59,
     categoria: "cursos",
     keywords: ["sabado", "finde", "fin de semana", "domingo"],
-    pregunta: "Â¿Tienen cursos los fines de semana?",
-    respuesta: "Ofrecemos cursos los **sÃ¡bados**:\n\nğŸ“… Turno maÃ±ana: 9:00 a 12:00\nğŸ“… Turno tarde: 14:00 a 17:00\n\n*Ideal para quienes trabajan en la semana*\n\nâš ï¸ Los domingos permanecemos cerrados.",
+    pregunta: "¿Tienen cursos los fines de semana?",
+    respuesta: "Ofrecemos cursos los **sábados**:\n\n?? Turno mañana: 9:00 a 12:00\n?? Turno tarde: 14:00 a 17:00\n\n*Ideal para quienes trabajan en la semana*\n\n?? Los domingos permanecemos cerrados.",
     acciones: []
   },
   {
     id: 60,
     categoria: "cursos",
     keywords: ["conversacion", "hablar", "speaking", "oral"],
-    pregunta: "Â¿Tienen cursos solo de conversaciÃ³n?",
-    respuesta: "SÃ­, ofrecemos **talleres de conversaciÃ³n**:\n\nğŸ—£ï¸ 100% prÃ¡ctica oral\nâ˜• Ambiente relajado\nğŸ“° Temas de actualidad\nğŸ­ Role-playing y debates\n\n*Requisito: Nivel A2 mÃ­nimo*",
+    pregunta: "¿Tienen cursos solo de conversación?",
+    respuesta: "Sí, ofrecemos **talleres de conversación**:\n\n??? 100% práctica oral\n? Ambiente relajado\n?? Temas de actualidad\n?? Role-playing y debates\n\n*Requisito: Nivel A2 mínimo*",
     acciones: [{ texto: "Consultar", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20talleres%20de%20conversaci%C3%B3n" }]
   },
   {
     id: 61,
     categoria: "cursos",
     keywords: ["examen", "preparacion examen", "cambridge", "ielts", "toefl"],
-    pregunta: "Â¿Preparan para exÃ¡menes internacionales?",
-    respuesta: "Â¡SÃ­! Somos centro preparador para:\n\nğŸ‡¬ğŸ‡§ **Cambridge**: KET, PET, FCE, CAE, CPE\nğŸ“ **IELTS**: Academic y General\nğŸ‡ºğŸ‡¸ **TOEFL**: iBT\nğŸ‡«ğŸ‡· **DELF/DALF**: FrancÃ©s\nğŸ‡©ğŸ‡ª **Goethe**: AlemÃ¡n\nğŸ‡®ğŸ‡¹ **CILS**: Italiano\nğŸ‡§ğŸ‡· **CELPE-Bras**: PortuguÃ©s",
-    acciones: [{ texto: "Consultar exÃ¡menes", link: "mailto:info@cemi.edu.ar?subject=Consulta preparaciÃ³n exÃ¡menes internacionales" }]
+    pregunta: "¿Preparan para exámenes internacionales?",
+    respuesta: "¡Sí! Somos centro preparador para:\n\n???? **Cambridge**: KET, PET, FCE, CAE, CPE\n?? **IELTS**: Academic y General\n???? **TOEFL**: iBT\n???? **DELF/DALF**: Francés\n???? **Goethe**: Alemán\n???? **CILS**: Italiano\n???? **CELPE-Bras**: Portugués",
+    acciones: [{ texto: "Consultar exámenes", link: "mailto:info@cemi.edu.ar?subject=Consulta preparación exámenes internacionales" }]
   },
   {
     id: 62,
     categoria: "cursos",
     keywords: ["material", "libro", "libros", "recursos"],
-    pregunta: "Â¿QuÃ© material utilizan?",
-    respuesta: "Utilizamos:\n\nğŸ“š Libros de editoriales reconocidas (Cambridge, Pearson, etc.)\nğŸ’» Material digital en plataforma Classroom\nğŸ§ Audios y videos\nğŸ“ Ejercicios interactivos\nğŸ“– Material complementario propio\n\n*El costo del libro puede estar incluido o no segÃºn el curso*",
+    pregunta: "¿Qué material utilizan?",
+    respuesta: "Utilizamos:\n\n?? Libros de editoriales reconocidas (Cambridge, Pearson, etc.)\n?? Material digital en plataforma Classroom\n?? Audios y videos\n?? Ejercicios interactivos\n?? Material complementario propio\n\n*El costo del libro puede estar incluido o no según el curso*",
     acciones: []
   },
   {
     id: 63,
     categoria: "cursos",
     keywords: ["empezar", "cuando empiezo", "inicio", "comienzo"],
-    pregunta: "Â¿CuÃ¡ndo puedo empezar?",
-    respuesta: "Tenemos **ingresos flexibles**:\n\nğŸ“… Inicio de cuatrimestre: Marzo y Agosto\nğŸ”„ Ingreso permanente en grupos con cupo\nâœ¨ Cursos intensivos: Todo el aÃ±o\nğŸ‘¤ Clases individuales: Cuando quieras\n\n*ConsultÃ¡ disponibilidad actual*",
+    pregunta: "¿Cuándo puedo empezar?",
+    respuesta: "Tenemos **ingresos flexibles**:\n\n?? Inicio de cuatrimestre: Marzo y Agosto\n?? Ingreso permanente en grupos con cupo\n? Cursos intensivos: Todo el año\n?? Clases individuales: Cuando quieras\n\n*Consultá disponibilidad actual*",
     acciones: [{ texto: "Consultar inicio", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20saber%20cuando%20puedo%20empezar" }]
   },
   {
     id: 64,
     categoria: "cursos",
     keywords: ["prueba", "gratis", "demo", "probar"],
-    pregunta: "Â¿Puedo hacer una clase de prueba?",
-    respuesta: "Â¡SÃ­! Ofrecemos:\n\nğŸ†“ **Clase de prueba gratuita**\nğŸ“‹ Test de nivelaciÃ³n sin costo\nğŸ¤ Entrevista con coordinaciÃ³n\n\nAsÃ­ podÃ©s conocer nuestra metodologÃ­a antes de inscribirte.",
+    pregunta: "¿Puedo hacer una clase de prueba?",
+    respuesta: "¡Sí! Ofrecemos:\n\n?? **Clase de prueba gratuita**\n?? Test de nivelación sin costo\n?? Entrevista con coordinación\n\nAsí podés conocer nuestra metodología antes de inscribirte.",
     acciones: [{ texto: "Solicitar clase prueba", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20solicitar%20una%20clase%20de%20prueba" }]
   },
   {
     id: 65,
     categoria: "cursos",
     keywords: ["cambiar nivel", "subir nivel", "bajar nivel", "reubicacion"],
-    pregunta: "Â¿Puedo cambiar de nivel si no me corresponde?",
-    respuesta: "Â¡Por supuesto! Si sentÃ­s que:\n\nâ¬†ï¸ El nivel es muy fÃ¡cil\nâ¬‡ï¸ El nivel es muy difÃ­cil\n\nâœ… PodÃ©s solicitar reubicaciÃ³n\nâœ… Se evalÃºa con el docente y coordinaciÃ³n\nâœ… Sin costo adicional",
+    pregunta: "¿Puedo cambiar de nivel si no me corresponde?",
+    respuesta: "¡Por supuesto! Si sentís que:\n\n?? El nivel es muy fácil\n?? El nivel es muy difícil\n\n? Podés solicitar reubicación\n? Se evalúa con el docente y coordinación\n? Sin costo adicional",
     acciones: []
   },
 
 // ============================================
-  // CATEGORÃA 4: INSCRIPCIONES (18 respuestas)
+  // CATEGORÍA 4: INSCRIPCIONES (18 respuestas)
   // ============================================
   {
     id: 66,
     categoria: "inscripciones",
     keywords: ["inscribir", "inscripcion", "anotarme", "registrarme", "como me anoto"],
-    pregunta: "Â¿CÃ³mo me inscribo?",
-    respuesta: "Para inscribirte seguÃ­ estos pasos:\n\n1ï¸âƒ£ CompletÃ¡ el formulario online o venÃ­ a secretarÃ­a\n2ï¸âƒ£ RealizÃ¡ el test de nivelaciÃ³n (gratis)\n3ï¸âƒ£ ElegÃ­ el horario que te convenga\n4ï¸âƒ£ AbonÃ¡ la matrÃ­cula y primera cuota\n5ï¸âƒ£ Â¡Listo! Ya sos alumno CEMI\n\nğŸ“‹ Requisitos: DNI y datos de contacto",
+    pregunta: "¿Cómo me inscribo?",
+    respuesta: "Para inscribirte seguí estos pasos:\n\n1?? Completá el formulario online o vení a secretaría\n2?? Realizá el test de nivelación (gratis)\n3?? Elegí el horario que te convenga\n4?? Aboná la matrícula y primera cuota\n5?? ¡Listo! Ya sos alumno CEMI\n\n?? Requisitos: DNI y datos de contacto",
     acciones: [{ texto: "Inscribirme ahora", link: "/register.html" }]
   },
   {
     id: 67,
     categoria: "inscripciones",
     keywords: ["requisitos", "que necesito", "documentos", "papeles"],
-    pregunta: "Â¿QuÃ© necesito para inscribirme?",
-    respuesta: "DocumentaciÃ³n requerida:\n\nğŸ“„ **Mayores de 18**: DNI\nğŸ“„ **Menores**: DNI + DNI del tutor\nğŸ“§ Email vÃ¡lido\nğŸ“± TelÃ©fono de contacto\n\n*No se requiere documentaciÃ³n adicional para inscripciÃ³n*",
+    pregunta: "¿Qué necesito para inscribirme?",
+    respuesta: "Documentación requerida:\n\n?? **Mayores de 18**: DNI\n?? **Menores**: DNI + DNI del tutor\n?? Email válido\n?? Teléfono de contacto\n\n*No se requiere documentación adicional para inscripción*",
     acciones: []
   },
   {
     id: 68,
     categoria: "inscripciones",
     keywords: ["online", "internet", "web", "formulario"],
-    pregunta: "Â¿Puedo inscribirme online?",
-    respuesta: "Â¡SÃ­! PodÃ©s inscribirte 100% online:\n\nğŸ’» CompletÃ¡ el formulario en la web\nğŸ“§ RecibirÃ¡s confirmaciÃ³n por email\nğŸ’³ PagÃ¡ online o en secretarÃ­a\nğŸ“± Acceso inmediato a la plataforma\n\n*TambiÃ©n podÃ©s venir presencialmente*",
-    acciones: [{ texto: "InscripciÃ³n online", link: "/register.html" }]
+    pregunta: "¿Puedo inscribirme online?",
+    respuesta: "¡Sí! Podés inscribirte 100% online:\n\n?? Completá el formulario en la web\n?? Recibirás confirmación por email\n?? Pagá online o en secretaría\n?? Acceso inmediato a la plataforma\n\n*También podés venir presencialmente*",
+    acciones: [{ texto: "Inscripción online", link: "/register.html" }]
   },
   {
     id: 69,
     categoria: "inscripciones",
     keywords: ["cuando inscribirme", "fechas inscripcion", "periodo", "hasta cuando"],
-    pregunta: "Â¿CuÃ¡ndo puedo inscribirme?",
-    respuesta: "La inscripciÃ³n estÃ¡ abierta:\n\nğŸ“… **Todo el aÃ±o** para cursos con cupo\nğŸ“† **Noviembre-Febrero**: Ciclo anual\nğŸ“† **Julio**: Segundo cuatrimestre\n\nâš ï¸ Cupos limitados - Â¡Inscribite con tiempo!",
+    pregunta: "¿Cuándo puedo inscribirme?",
+    respuesta: "La inscripción está abierta:\n\n?? **Todo el año** para cursos con cupo\n?? **Noviembre-Febrero**: Ciclo anual\n?? **Julio**: Segundo cuatrimestre\n\n?? Cupos limitados - ¡Inscribite con tiempo!",
     acciones: []
   },
   {
     id: 70,
     categoria: "inscripciones",
     keywords: ["matricula", "inscripcion costo", "costo inscripcion"],
-    pregunta: "Â¿La inscripciÃ³n tiene costo?",
-    respuesta: "SÃ­, hay una **matrÃ­cula anual** que incluye:\n\nğŸ“‹ InscripciÃ³n administrativa\nğŸ“Š Test de nivelaciÃ³n\nğŸ’» Acceso a plataforma Classroom\nğŸ“§ Cuenta institucional\n\n*ConsultÃ¡ el monto actual en secretarÃ­a*",
+    pregunta: "¿La inscripción tiene costo?",
+    respuesta: "Sí, hay una **matrícula anual** que incluye:\n\n?? Inscripción administrativa\n?? Test de nivelación\n?? Acceso a plataforma Classroom\n?? Cuenta institucional\n\n*Consultá el monto actual en secretaría*",
     acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
   },
   {
     id: 71,
     categoria: "inscripciones",
     keywords: ["cupo", "lugar", "vacante", "hay lugar"],
-    pregunta: "Â¿Hay cupo disponible?",
-    respuesta: "Los cupos varÃ­an segÃºn:\n\nğŸ“š Idioma y nivel\nğŸ• Horario elegido\nğŸ“… Ã‰poca del aÃ±o\n\nâœ… ConsultÃ¡ disponibilidad actual en secretarÃ­a o por WhatsApp.\nâš ï¸ Reservamos tu lugar con el pago de matrÃ­cula.",
+    pregunta: "¿Hay cupo disponible?",
+    respuesta: "Los cupos varían según:\n\n?? Idioma y nivel\n?? Horario elegido\n?? Época del año\n\n? Consultá disponibilidad actual en secretaría o por WhatsApp.\n?? Reservamos tu lugar con el pago de matrícula.",
     acciones: [{ texto: "Consultar cupo", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20consultar%20disponibilidad%20de%20cupos" }]
   },
   {
     id: 72,
     categoria: "inscripciones",
     keywords: ["lista espera", "esperar", "no hay cupo", "lleno"],
-    pregunta: "Â¿QuÃ© pasa si no hay cupo?",
-    respuesta: "Si no hay cupo en el horario deseado:\n\nğŸ“‹ Te anotamos en **lista de espera**\nğŸ“ Te contactamos apenas haya lugar\nğŸ”„ Te ofrecemos horarios alternativos\nâ• Abrimos grupos nuevos si hay demanda",
+    pregunta: "¿Qué pasa si no hay cupo?",
+    respuesta: "Si no hay cupo en el horario deseado:\n\n?? Te anotamos en **lista de espera**\n?? Te contactamos apenas haya lugar\n?? Te ofrecemos horarios alternativos\n? Abrimos grupos nuevos si hay demanda",
     acciones: []
   },
   {
     id: 73,
     categoria: "inscripciones",
-    keywords: ["menor", "hijo", "niÃ±o inscripcion", "papa", "mama", "tutor"],
-    pregunta: "Â¿CÃ³mo inscribo a mi hijo?",
-    respuesta: "Para inscribir a un **menor de edad**:\n\nğŸ‘¶ TraÃ© el DNI del niÃ±o/a\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§ DNI del padre/madre/tutor\nğŸ“ CompletÃ¡ la ficha de inscripciÃ³n\nğŸ“ DejÃ¡ datos de contacto de emergencia\n\n*El tutor firma la autorizaciÃ³n*",
+    keywords: ["menor", "hijo", "niño inscripcion", "papa", "mama", "tutor"],
+    pregunta: "¿Cómo inscribo a mi hijo?",
+    respuesta: "Para inscribir a un **menor de edad**:\n\n?? Traé el DNI del niño/a\n???????? DNI del padre/madre/tutor\n?? Completá la ficha de inscripción\n?? Dejá datos de contacto de emergencia\n\n*El tutor firma la autorización*",
     acciones: [{ texto: "Inscribir menor", link: "/register.html" }]
   },
   {
     id: 74,
     categoria: "inscripciones",
     keywords: ["nivelacion", "test nivel", "evaluar nivel", "que nivel soy"],
-    pregunta: "Â¿CÃ³mo sÃ© quÃ© nivel me corresponde?",
-    respuesta: "Realizamos un **test de nivelaciÃ³n gratuito**:\n\nğŸ“ EvaluaciÃ³n escrita (30 min)\nğŸ—£ï¸ Entrevista oral breve\nğŸ“Š Resultado inmediato\nâœ… Te ubicamos en el nivel correcto\n\n*Si nunca estudiaste, empezÃ¡s en A1*",
+    pregunta: "¿Cómo sé qué nivel me corresponde?",
+    respuesta: "Realizamos un **test de nivelación gratuito**:\n\n?? Evaluación escrita (30 min)\n??? Entrevista oral breve\n?? Resultado inmediato\n? Te ubicamos en el nivel correcto\n\n*Si nunca estudiaste, empezás en A1*",
     acciones: [{ texto: "Solicitar test", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 75,
     categoria: "inscripciones",
     keywords: ["reinscripcion", "renovar", "siguiente nivel", "continuar"],
-    pregunta: "Â¿CÃ³mo me reinscribo para el siguiente nivel?",
-    respuesta: "Para continuar al siguiente nivel:\n\nâœ… Aprobar el nivel actual\nğŸ“‹ Completar ficha de reinscripciÃ³n\nğŸ’° Abonar nueva cuota\nğŸ **Beneficio**: Sin pagar matrÃ­cula nuevamente\n\n*TenÃ©s prioridad sobre nuevos inscriptos*",
+    pregunta: "¿Cómo me reinscribo para el siguiente nivel?",
+    respuesta: "Para continuar al siguiente nivel:\n\n? Aprobar el nivel actual\n?? Completar ficha de reinscripción\n?? Abonar nueva cuota\n?? **Beneficio**: Sin pagar matrícula nuevamente\n\n*Tenés prioridad sobre nuevos inscriptos*",
     acciones: []
   },
   {
     id: 76,
     categoria: "inscripciones",
     keywords: ["baja", "dejar", "abandonar", "darme de baja", "cancelar inscripcion"],
-    pregunta: "Â¿CÃ³mo me doy de baja?",
-    respuesta: "Para darte de baja:\n\nğŸ“ CompletÃ¡ el formulario de baja\nğŸ“… AvisÃ¡ con 15 dÃ­as de anticipaciÃ³n\nğŸ’° No hay reembolso de cuotas pagadas\nğŸ“‹ Se guarda tu historial acadÃ©mico\n\n*PodÃ©s reincorporarte cuando quieras*",
+    pregunta: "¿Cómo me doy de baja?",
+    respuesta: "Para darte de baja:\n\n?? Completá el formulario de baja\n?? Avisá con 15 días de anticipación\n?? No hay reembolso de cuotas pagadas\n?? Se guarda tu historial académico\n\n*Podés reincorporarte cuando quieras*",
     acciones: [{ texto: "Solicitar baja", link: "mailto:info@cemi.edu.ar?subject=Solicitud de baja" }]
   },
   {
     id: 77,
     categoria: "inscripciones",
     keywords: ["reserva", "guardar lugar", "asegurar"],
-    pregunta: "Â¿Puedo reservar mi lugar?",
-    respuesta: "SÃ­, podÃ©s **reservar tu lugar**:\n\nğŸ’³ Con el pago de la matrÃ­cula\nğŸ“… Se mantiene por 30 dÃ­as\nâœ… ConfirmÃ¡s al pagar primera cuota\n\nâš ï¸ Sin pago, no garantizamos el cupo.",
+    pregunta: "¿Puedo reservar mi lugar?",
+    respuesta: "Sí, podés **reservar tu lugar**:\n\n?? Con el pago de la matrícula\n?? Se mantiene por 30 días\n? Confirmás al pagar primera cuota\n\n?? Sin pago, no garantizamos el cupo.",
     acciones: []
   },
   {
     id: 78,
     categoria: "inscripciones",
     keywords: ["grupo", "amigos", "juntos", "mismo grupo"],
-    pregunta: "Â¿Puedo inscribirme con amigos en el mismo grupo?",
-    respuesta: "Â¡SÃ­! PodÃ©s solicitar estar en el mismo grupo:\n\nğŸ‘¥ Deben tener el mismo nivel\nğŸ• Deben coincidir en horario\nğŸ“‹ Indicalo al momento de inscripciÃ³n\n\n*Sujeto a disponibilidad de cupos*",
+    pregunta: "¿Puedo inscribirme con amigos en el mismo grupo?",
+    respuesta: "¡Sí! Podés solicitar estar en el mismo grupo:\n\n?? Deben tener el mismo nivel\n?? Deben coincidir en horario\n?? Indicalo al momento de inscripción\n\n*Sujeto a disponibilidad de cupos*",
     acciones: []
   },
   {
     id: 79,
     categoria: "inscripciones",
     keywords: ["transferir", "ceder", "pasar inscripcion"],
-    pregunta: "Â¿Puedo transferir mi inscripciÃ³n a otra persona?",
-    respuesta: "La inscripciÃ³n es **personal e intransferible**.\n\nâŒ No se puede ceder a terceros\nâœ… PodÃ©s solicitar baja y la otra persona inscribirse\n\n*ConsultÃ¡ opciones en secretarÃ­a*",
+    pregunta: "¿Puedo transferir mi inscripción a otra persona?",
+    respuesta: "La inscripción es **personal e intransferible**.\n\n? No se puede ceder a terceros\n? Podés solicitar baja y la otra persona inscribirse\n\n*Consultá opciones en secretaría*",
     acciones: []
   },
   {
     id: 80,
     categoria: "inscripciones",
     keywords: ["reincorporar", "volver", "retomar", "hace tiempo"],
-    pregunta: "DejÃ© de estudiar hace tiempo, Â¿puedo volver?",
-    respuesta: "Â¡Por supuesto! Para reincorporarte:\n\nğŸ“ RealizÃ¡ un nuevo test de nivelaciÃ³n\nğŸ“‹ Actualizamos tu ficha\nğŸ’° AbonÃ¡s matrÃ­cula y cuota\nğŸ”„ RetomÃ¡s desde tu nivel actual\n\n*Â¡Nunca es tarde para volver!*",
+    pregunta: "Dejé de estudiar hace tiempo, ¿puedo volver?",
+    respuesta: "¡Por supuesto! Para reincorporarte:\n\n?? Realizá un nuevo test de nivelación\n?? Actualizamos tu ficha\n?? Abonás matrícula y cuota\n?? Retomás desde tu nivel actual\n\n*¡Nunca es tarde para volver!*",
     acciones: [{ texto: "Reincorporarme", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20reincorporarme%20a%20CEMI" }]
   },
   {
     id: 81,
     categoria: "inscripciones",
     keywords: ["cambiar idioma", "otro idioma", "pasar a otro"],
-    pregunta: "Â¿Puedo cambiar a otro idioma?",
-    respuesta: "SÃ­, podÃ©s cambiar de idioma:\n\nğŸ“‹ AvisÃ¡ en secretarÃ­a\nğŸ“ HacÃ© test de nivel del nuevo idioma\nğŸ”„ Te reubicamos en un grupo\n\n*Sujeto a disponibilidad de cupos*",
+    pregunta: "¿Puedo cambiar a otro idioma?",
+    respuesta: "Sí, podés cambiar de idioma:\n\n?? Avisá en secretaría\n?? Hacé test de nivel del nuevo idioma\n?? Te reubicamos en un grupo\n\n*Sujeto a disponibilidad de cupos*",
     acciones: []
   },
   {
     id: 82,
     categoria: "inscripciones",
     keywords: ["segundo idioma", "agregar idioma", "otro idioma mas"],
-    pregunta: "Â¿Puedo agregar un segundo idioma?",
-    respuesta: "Â¡Claro! PodÃ©s estudiar mÃ¡s de un idioma:\n\nğŸ“š Inscribite en ambos cursos\nğŸ• ElegÃ­ horarios compatibles\nğŸ’° AbonÃ¡s cada curso por separado\nğŸ **Descuento** por segundo idioma (consultÃ¡)\n\n*Recomendamos no mÃ¡s de 2 simultÃ¡neos*",
+    pregunta: "¿Puedo agregar un segundo idioma?",
+    respuesta: "¡Claro! Podés estudiar más de un idioma:\n\n?? Inscribite en ambos cursos\n?? Elegí horarios compatibles\n?? Abonás cada curso por separado\n?? **Descuento** por segundo idioma (consultá)\n\n*Recomendamos no más de 2 simultáneos*",
     acciones: []
   },
   {
     id: 83,
     categoria: "inscripciones",
     keywords: ["extranjero", "no argentino", "otro pais", "turista"],
-    pregunta: "Â¿Pueden inscribirse extranjeros?",
-    respuesta: "Â¡SÃ­! Aceptamos estudiantes de cualquier nacionalidad:\n\nğŸŒ Pasaporte o documento de identidad\nğŸ“§ Email vÃ¡lido\nğŸ“± TelÃ©fono de contacto\n\n*Sin requisitos migratorios especiales*",
+    pregunta: "¿Pueden inscribirse extranjeros?",
+    respuesta: "¡Sí! Aceptamos estudiantes de cualquier nacionalidad:\n\n?? Pasaporte o documento de identidad\n?? Email válido\n?? Teléfono de contacto\n\n*Sin requisitos migratorios especiales*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 5: PAGOS Y ARANCELES (18 respuestas)
+  // CATEGORÍA 5: PAGOS Y ARANCELES (18 respuestas)
   // ============================================
   {
     id: 84,
     categoria: "pagos",
     keywords: ["cuanto cuesta", "precio", "valor", "costo", "aranceles"],
-    pregunta: "Â¿CuÃ¡nto cuestan los cursos?",
-    respuesta: "Los aranceles varÃ­an segÃºn:\n\nğŸ“š Tipo de curso (grupal/individual)\nğŸ• Cantidad de horas semanales\nğŸŒ Idioma elegido\n\nğŸ’° **Cuota mensual grupal**: Desde $50.000\nğŸ’° **Clase individual**: Desde $90.000/hora\n\n*ConsultÃ¡ valores actualizados*",
+    pregunta: "¿Cuánto cuestan los cursos?",
+    respuesta: "Los aranceles varían según:\n\n?? Tipo de curso (grupal/individual)\n?? Cantidad de horas semanales\n?? Idioma elegido\n\n?? **Cuota mensual grupal**: Desde $50.000\n?? **Clase individual**: Desde $90.000/hora\n\n*Consultá valores actualizados*",
     acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20consultar%20los%20aranceles" }]
   },
   {
     id: 85,
     categoria: "pagos",
     keywords: ["pagar", "como pago", "formas de pago", "medios de pago", "abonar"],
-    pregunta: "Â¿CÃ³mo puedo pagar?",
-    respuesta: "Aceptamos mÃºltiples medios de pago:\n\nğŸ’³ **Tarjeta de crÃ©dito/dÃ©bito**\nğŸ“± **MercadoPago** (desde la plataforma)\nğŸ¦ **Transferencia bancaria**\nğŸ’µ **Efectivo** en secretarÃ­a\nğŸ“² **QR** de MercadoPago\n\n*PagÃ¡ desde tu casa o presencialmente*",
+    pregunta: "¿Cómo puedo pagar?",
+    respuesta: "Aceptamos múltiples medios de pago:\n\n?? **Tarjeta de crédito/débito**\n?? **MercadoPago** (desde la plataforma)\n?? **Transferencia bancaria**\n?? **Efectivo** en secretaría\n?? **QR** de MercadoPago\n\n*Pagá desde tu casa o presencialmente*",
     acciones: [{ texto: "Pagar ahora", link: "/dashboard_alumno.html#pagos" }]
   },
   {
     id: 86,
     categoria: "pagos",
     keywords: ["mercadopago", "mp", "mercado pago"],
-    pregunta: "Â¿Puedo pagar con MercadoPago?",
-    respuesta: "Â¡SÃ­! MercadoPago es uno de nuestros mÃ©todos principales:\n\nâœ… Desde tu dashboard de alumno\nâœ… Con tarjeta o dinero en cuenta\nâœ… Comprobante automÃ¡tico\nâœ… Cuotas sin interÃ©s (segÃºn promo)\n\n*Link de pago tambiÃ©n disponible por WhatsApp*",
+    pregunta: "¿Puedo pagar con MercadoPago?",
+    respuesta: "¡Sí! MercadoPago es uno de nuestros métodos principales:\n\n? Desde tu dashboard de alumno\n? Con tarjeta o dinero en cuenta\n? Comprobante automático\n? Cuotas sin interés (según promo)\n\n*Link de pago también disponible por WhatsApp*",
     acciones: []
   },
   {
     id: 87,
     categoria: "pagos",
     keywords: ["tarjeta", "credito", "debito", "visa", "mastercard"],
-    pregunta: "Â¿Aceptan tarjeta de crÃ©dito?",
-    respuesta: "SÃ­, aceptamos tarjetas:\n\nğŸ’³ Visa, Mastercard, American Express\nğŸ’³ Tarjetas de dÃ©bito\nğŸ“± A travÃ©s de MercadoPago\nğŸª En secretarÃ­a con posnet\n\n*ConsultÃ¡ promociones de cuotas sin interÃ©s*",
+    pregunta: "¿Aceptan tarjeta de crédito?",
+    respuesta: "Sí, aceptamos tarjetas:\n\n?? Visa, Mastercard, American Express\n?? Tarjetas de débito\n?? A través de MercadoPago\n?? En secretaría con posnet\n\n*Consultá promociones de cuotas sin interés*",
     acciones: []
   },
   {
     id: 88,
     categoria: "pagos",
     keywords: ["transferencia", "cbu", "alias", "banco", "deposito"],
-    pregunta: "Â¿Puedo pagar por transferencia?",
-    respuesta: "SÃ­, aceptamos transferencias:\n\nğŸ¦ **Banco**: Banco Macro\nğŸ”¢ **CBU**: 9984066521875490002191000\nğŸ“ **Alias**: cemi.idiomas\nğŸ‘¤ **Titular**: CEMI S.A.\n\nâš ï¸ EnviÃ¡ el comprobante por email o WhatsApp",
+    pregunta: "¿Puedo pagar por transferencia?",
+    respuesta: "Sí, aceptamos transferencias:\n\n?? **Banco**: Banco Macro\n?? **CBU**: 9984066521875490002191000\n?? **Alias**: cemi.idiomas\n?? **Titular**: CEMI S.A.\n\n?? Enviá el comprobante por email o WhatsApp",
     acciones: []
   },
   {
     id: 89,
     categoria: "pagos",
     keywords: ["efectivo", "cash", "billetes", "contado"],
-    pregunta: "Â¿Puedo pagar en efectivo?",
-    respuesta: "SÃ­, podÃ©s pagar en efectivo:\n\nğŸ¢ En secretarÃ­a del instituto\nğŸ• Horario de atenciÃ³n\nğŸ§¾ Te damos recibo oficial\n\n*TraÃ© el monto exacto de ser posible*",
+    pregunta: "¿Puedo pagar en efectivo?",
+    respuesta: "Sí, podés pagar en efectivo:\n\n?? En secretaría del instituto\n?? Horario de atención\n?? Te damos recibo oficial\n\n*Traé el monto exacto de ser posible*",
     acciones: []
   },
   {
     id: 90,
     categoria: "pagos",
     keywords: ["vencimiento", "cuando vence", "fecha pago", "limite"],
-    pregunta: "Â¿CuÃ¡ndo vence la cuota?",
-    respuesta: "Las cuotas vencen:\n\nğŸ“… **DÃ­a 10** de cada mes\nâš ï¸ DespuÃ©s del 10: recargo por mora\nğŸ“§ Recordatorio por email antes del vencimiento\n\n*PodÃ©s activar dÃ©bito automÃ¡tico*",
+    pregunta: "¿Cuándo vence la cuota?",
+    respuesta: "Las cuotas vencen:\n\n?? **Día 10** de cada mes\n?? Después del 10: recargo por mora\n?? Recordatorio por email antes del vencimiento\n\n*Podés activar débito automático*",
     acciones: []
   },
   {
     id: 91,
     categoria: "pagos",
     keywords: ["recargo", "mora", "atraso", "pago tarde", "despues"],
-    pregunta: "Â¿Hay recargo por pagar tarde?",
-    respuesta: "SÃ­, despuÃ©s del vencimiento:\n\nğŸ“… Del 11 al 20: 10% de recargo\nğŸ“… DespuÃ©s del 20: 15% de recargo\n\nâš ï¸ Con 2+ cuotas impagas se suspende el acceso a clases.\n\n*Comunicate si tenÃ©s dificultades de pago*",
+    pregunta: "¿Hay recargo por pagar tarde?",
+    respuesta: "Sí, después del vencimiento:\n\n?? Del 11 al 20: 10% de recargo\n?? Después del 20: 15% de recargo\n\n?? Con 2+ cuotas impagas se suspende el acceso a clases.\n\n*Comunicate si tenés dificultades de pago*",
     acciones: []
   },
   {
     id: 92,
     categoria: "pagos",
     keywords: ["descuento", "promocion", "oferta", "rebaja"],
-    pregunta: "Â¿Tienen descuentos?",
-    respuesta: "Ofrecemos descuentos por:\n\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§ **Grupo familiar**: 10% segundo inscripto\nğŸ’¼ **Pago anual anticipado**: 15% off\nğŸ“ **Estudiantes universitarios**: 10%\nğŸ‘´ **Jubilados**: 10%\nğŸ¢ **Convenios empresas**: ConsultÃ¡\n\n*Los descuentos no son acumulables*",
+    pregunta: "¿Tienen descuentos?",
+    respuesta: "Ofrecemos descuentos por:\n\n???????? **Grupo familiar**: 10% segundo inscripto\n?? **Pago anual anticipado**: 15% off\n?? **Estudiantes universitarios**: 10%\n?? **Jubilados**: 10%\n?? **Convenios empresas**: Consultá\n\n*Los descuentos no son acumulables*",
     acciones: []
   },
   {
     id: 93,
     categoria: "pagos",
     keywords: ["beca", "ayuda economica", "no puedo pagar", "dificultad"],
-    pregunta: "Â¿Tienen becas?",
-    respuesta: "SÃ­, ofrecemos un programa de **becas**:\n\nğŸ“‹ PresentÃ¡ solicitud en secretarÃ­a\nğŸ“„ DocumentaciÃ³n socioeconÃ³mica\nğŸ“Š EvaluaciÃ³n caso por caso\nğŸ’° Becas parciales (30-50%)\n\n*Cupos limitados por perÃ­odo*",
+    pregunta: "¿Tienen becas?",
+    respuesta: "Sí, ofrecemos un programa de **becas**:\n\n?? Presentá solicitud en secretaría\n?? Documentación socioeconómica\n?? Evaluación caso por caso\n?? Becas parciales (30-50%)\n\n*Cupos limitados por período*",
     acciones: [{ texto: "Solicitar beca", link: "mailto:info@cemi.edu.ar?subject=Solicitud de beca" }]
   },
   {
     id: 94,
     categoria: "pagos",
     keywords: ["comprobante", "recibo", "factura", "boleta"],
-    pregunta: "Â¿Entregan comprobante de pago?",
-    respuesta: "SÃ­, siempre entregamos comprobante:\n\nğŸ§¾ **Pago online**: Comprobante por email automÃ¡tico\nğŸ§¾ **Efectivo**: Recibo en el momento\nğŸ“„ **Factura**: Disponible si la necesitÃ¡s\n\n*GuardÃ¡ tus comprobantes*",
+    pregunta: "¿Entregan comprobante de pago?",
+    respuesta: "Sí, siempre entregamos comprobante:\n\n?? **Pago online**: Comprobante por email automático\n?? **Efectivo**: Recibo en el momento\n?? **Factura**: Disponible si la necesitás\n\n*Guardá tus comprobantes*",
     acciones: []
   },
   {
     id: 95,
     categoria: "pagos",
     keywords: ["factura a", "factura b", "monotributo", "empresa"],
-    pregunta: "Â¿Hacen factura A o B?",
-    respuesta: "Emitimos:\n\nğŸ“„ **Factura B**: Para consumidores finales\nğŸ“„ **Factura A**: Para responsables inscriptos\n\nğŸ“ Solicitala indicando CUIT y datos fiscales.\n\n*Pedila antes de pagar*",
+    pregunta: "¿Hacen factura A o B?",
+    respuesta: "Emitimos:\n\n?? **Factura B**: Para consumidores finales\n?? **Factura A**: Para responsables inscriptos\n\n?? Solicitala indicando CUIT y datos fiscales.\n\n*Pedila antes de pagar*",
     acciones: []
   },
   {
     id: 96,
     categoria: "pagos",
     keywords: ["reembolso", "devolucion", "devolver plata", "cancelar"],
-    pregunta: "Â¿Puedo pedir reembolso?",
-    respuesta: "PolÃ­tica de reembolso:\n\nâŒ No se devuelve matrÃ­cula\nâŒ No se devuelven cuotas de meses cursados\nâœ… CrÃ©dito a favor por baja anticipada (casos excepcionales)\n\n*ConsultÃ¡ tu situaciÃ³n particular en secretarÃ­a*",
+    pregunta: "¿Puedo pedir reembolso?",
+    respuesta: "Política de reembolso:\n\n? No se devuelve matrícula\n? No se devuelven cuotas de meses cursados\n? Crédito a favor por baja anticipada (casos excepcionales)\n\n*Consultá tu situación particular en secretaría*",
     acciones: []
   },
   {
     id: 97,
     categoria: "pagos",
     keywords: ["cuotas", "plan cuotas", "financiar", "pagar en cuotas"],
-    pregunta: "Â¿Puedo pagar en cuotas?",
-    respuesta: "Opciones de financiamiento:\n\nğŸ’³ **Tarjeta de crÃ©dito**: Hasta 6 cuotas sin interÃ©s (segÃºn promo)\nğŸ“… **Cuota mensual**: Es el sistema regular\nğŸ’° **Pago anticipado**: Descuento especial\n\n*ConsultÃ¡ promociones vigentes*",
+    pregunta: "¿Puedo pagar en cuotas?",
+    respuesta: "Opciones de financiamiento:\n\n?? **Tarjeta de crédito**: Hasta 6 cuotas sin interés (según promo)\n?? **Cuota mensual**: Es el sistema regular\n?? **Pago anticipado**: Descuento especial\n\n*Consultá promociones vigentes*",
     acciones: []
   },
   {
     id: 98,
     categoria: "pagos",
     keywords: ["debito automatico", "automatico", "auto", "cobro automatico"],
-    pregunta: "Â¿Tienen dÃ©bito automÃ¡tico?",
-    respuesta: "SÃ­, podÃ©s activar **dÃ©bito automÃ¡tico**:\n\nğŸ’³ Con tarjeta de crÃ©dito o dÃ©bito\nğŸ“± Configuralo desde tu dashboard\nâœ… Te descontamos el dÃ­a del vencimiento\nğŸ”” NotificaciÃ³n previa\n\n*EvitÃ¡ recargos y olvidos*",
+    pregunta: "¿Tienen débito automático?",
+    respuesta: "Sí, podés activar **débito automático**:\n\n?? Con tarjeta de crédito o débito\n?? Configuralo desde tu dashboard\n? Te descontamos el día del vencimiento\n?? Notificación previa\n\n*Evitá recargos y olvidos*",
     acciones: []
   },
   {
     id: 99,
     categoria: "pagos",
     keywords: ["debo", "deuda", "cuotas adeudadas", "deber"],
-    pregunta: "Â¿CÃ³mo sÃ© si tengo cuotas adeudadas?",
-    respuesta: "PodÃ©s verificar tu estado de cuenta:\n\nğŸ’» Desde tu **Dashboard de alumno**\nğŸ“§ RecibirÃ¡s avisos por email\nğŸ“ Consultando en secretarÃ­a\nğŸ“± Por WhatsApp\n\n*RegularizÃ¡ tu situaciÃ³n para continuar cursando*",
+    pregunta: "¿Cómo sé si tengo cuotas adeudadas?",
+    respuesta: "Podés verificar tu estado de cuenta:\n\n?? Desde tu **Dashboard de alumno**\n?? Recibirás avisos por email\n?? Consultando en secretaría\n?? Por WhatsApp\n\n*Regularizá tu situación para continuar cursando*",
     acciones: []
   },
   {
     id: 100,
     categoria: "pagos",
     keywords: ["precio clases individuales", "particular precio", "costo privada"],
-    pregunta: "Â¿CuÃ¡nto cuestan las clases individuales?",
-    respuesta: "Las **clases individuales** tienen un costo por hora:\n\nğŸ’° Valor hora: Desde $90.000\nğŸ“¦ Pack 4 clases: Descuento del 10%\nğŸ“¦ Pack 8 clases: Descuento del 15%\n\n*Precio segÃºn idioma y nivel*",
+    pregunta: "¿Cuánto cuestan las clases individuales?",
+    respuesta: "Las **clases individuales** tienen un costo por hora:\n\n?? Valor hora: Desde $90.000\n?? Pack 4 clases: Descuento del 10%\n?? Pack 8 clases: Descuento del 15%\n\n*Precio según idioma y nivel*",
     acciones: [{ texto: "Consultar precios", link: "https://wa.me/543814463243?text=Hola!%20Consulta%20sobre%20clases%20individuales" }]
   },
   {
     id: 101,
     categoria: "pagos",
     keywords: ["libro aparte", "material costo", "libro incluido"],
-    pregunta: "Â¿El libro estÃ¡ incluido en la cuota?",
-    respuesta: "Depende del curso:\n\nğŸ“š **Cursos grupales**: Libro aparte (se compra una vez)\nğŸ“š **Cursos individuales**: Material digital incluido\nğŸ’» **Plataforma Classroom**: Incluida en todos\n\n*ConsultÃ¡ el costo del material para tu curso*",
+    pregunta: "¿El libro está incluido en la cuota?",
+    respuesta: "Depende del curso:\n\n?? **Cursos grupales**: Libro aparte (se compra una vez)\n?? **Cursos individuales**: Material digital incluido\n?? **Plataforma Classroom**: Incluida en todos\n\n*Consultá el costo del material para tu curso*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 6: DOCENTES (12 respuestas)
+  // CATEGORÍA 6: DOCENTES (12 respuestas)
   // ============================================
   {
     id: 129,
     categoria: "docentes",
-    keywords: ["profesores", "docentes", "maestros", "quienes enseÃ±an"],
-    pregunta: "Â¿QuiÃ©nes son los profesores?",
-    respuesta: "Nuestro equipo docente:\n\nğŸ‘¨â€ğŸ« Profesores con tÃ­tulo habilitante\nğŸŒ Docentes nativos y bilingÃ¼es\nğŸ“œ Certificaciones internacionales\nğŸ“ FormaciÃ³n pedagÃ³gica continua\nğŸ’¼ Experiencia en enseÃ±anza\n\n*Conocelos en nuestra web*",
+    keywords: ["profesores", "docentes", "maestros", "quienes enseñan"],
+    pregunta: "¿Quiénes son los profesores?",
+    respuesta: "Nuestro equipo docente:\n\n????? Profesores con título habilitante\n?? Docentes nativos y bilingües\n?? Certificaciones internacionales\n?? Formación pedagógica continua\n?? Experiencia en enseñanza\n\n*Conocelos en nuestra web*",
     acciones: []
   },
   {
     id: 130,
     categoria: "docentes",
     keywords: ["nativo", "native", "hablante nativo"],
-    pregunta: "Â¿Tienen profesores nativos?",
-    respuesta: "Contamos con:\n\nğŸŒ **Profesores nativos** certificados\nğŸ‘¨â€ğŸ« **BilingÃ¼es** con nivel nativo\nğŸ“š Todos con formaciÃ³n docente\n\n*Se asignan segÃºn nivel y disponibilidad*",
+    pregunta: "¿Tienen profesores nativos?",
+    respuesta: "Contamos con:\n\n?? **Profesores nativos** certificados\n????? **Bilingües** con nivel nativo\n?? Todos con formación docente\n\n*Se asignan según nivel y disponibilidad*",
     acciones: []
   },
   {
     id: 131,
     categoria: "docentes",
     keywords: ["titulo", "certificado profesor", "habilitado"],
-    pregunta: "Â¿Los profesores tienen tÃ­tulo?",
-    respuesta: "Todos nuestros docentes tienen:\n\nğŸ“œ TÃ­tulo de Profesor/Traductor\nğŸ“ Certificaciones internacionales (CAE, CPE, etc.)\nğŸ“š FormaciÃ³n pedagÃ³gica\nğŸ”„ CapacitaciÃ³n continua\n\n*Calidad educativa garantizada*",
+    pregunta: "¿Los profesores tienen título?",
+    respuesta: "Todos nuestros docentes tienen:\n\n?? Título de Profesor/Traductor\n?? Certificaciones internacionales (CAE, CPE, etc.)\n?? Formación pedagógica\n?? Capacitación continua\n\n*Calidad educativa garantizada*",
     acciones: []
   },
   {
     id: 132,
     categoria: "docentes",
     keywords: ["contactar profesor", "hablar profesor", "mail profesor"],
-    pregunta: "Â¿CÃ³mo contacto a mi profesor?",
-    respuesta: "PodÃ©s contactar a tu docente:\n\nğŸ’¬ Por el **chat de Classroom**\nğŸ“§ Email institucional del profesor\nğŸ« En persona antes/despuÃ©s de clase\nğŸ“‹ A travÃ©s de secretarÃ­a\n\n*UsÃ¡ siempre los canales oficiales*",
+    pregunta: "¿Cómo contacto a mi profesor?",
+    respuesta: "Podés contactar a tu docente:\n\n?? Por el **chat de Classroom**\n?? Email institucional del profesor\n?? En persona antes/después de clase\n?? A través de secretaría\n\n*Usá siempre los canales oficiales*",
     acciones: []
   },
   {
     id: 133,
     categoria: "docentes",
     keywords: ["cambiar profesor", "otro profesor", "no me gusta"],
-    pregunta: "Â¿Puedo cambiar de profesor?",
-    respuesta: "El cambio de profesor implica cambiar de grupo:\n\nğŸ“‹ Solicitalo en secretarÃ­a\nğŸ”„ Se evalÃºa disponibilidad\nğŸ‘¥ Otro grupo = otro docente\n\n*Escuchamos tus inquietudes*",
+    pregunta: "¿Puedo cambiar de profesor?",
+    respuesta: "El cambio de profesor implica cambiar de grupo:\n\n?? Solicitalo en secretaría\n?? Se evalúa disponibilidad\n?? Otro grupo = otro docente\n\n*Escuchamos tus inquietudes*",
     acciones: []
   },
   {
     id: 134,
     categoria: "docentes",
     keywords: ["tutoria", "consulta profesor", "ayuda extra", "clase apoyo"],
-    pregunta: "Â¿Hay tutorÃ­as con los profesores?",
-    respuesta: "SÃ­, ofrecemos apoyo adicional:\n\nğŸ“š **TutorÃ­as**: Consultas puntuales\nğŸ’¬ **Foro**: Preguntas en Classroom\nğŸ“§ **Email**: Consultas al docente\nğŸ« **Horario de consulta**: Antes/despuÃ©s de clase\n\n*Los profes estÃ¡n para ayudarte*",
+    pregunta: "¿Hay tutorías con los profesores?",
+    respuesta: "Sí, ofrecemos apoyo adicional:\n\n?? **Tutorías**: Consultas puntuales\n?? **Foro**: Preguntas en Classroom\n?? **Email**: Consultas al docente\n?? **Horario de consulta**: Antes/después de clase\n\n*Los profes están para ayudarte*",
     acciones: []
   },
   {
     id: 135,
     categoria: "docentes",
-    keywords: ["metodologia profesor", "como enseÃ±an", "forma de dar clase"],
-    pregunta: "Â¿CÃ³mo enseÃ±an los profesores?",
-    respuesta: "MetodologÃ­a de enseÃ±anza:\n\nğŸ—£ï¸ **Enfoque comunicativo**\nğŸ® Actividades dinÃ¡micas e interactivas\nğŸ’» Uso de tecnologÃ­a\nğŸ“š Material actualizado\nğŸ¯ Objetivos claros por clase\nğŸ‘¥ ParticipaciÃ³n activa del alumno",
+    keywords: ["metodologia profesor", "como enseñan", "forma de dar clase"],
+    pregunta: "¿Cómo enseñan los profesores?",
+    respuesta: "Metodología de enseñanza:\n\n??? **Enfoque comunicativo**\n?? Actividades dinámicas e interactivas\n?? Uso de tecnología\n?? Material actualizado\n?? Objetivos claros por clase\n?? Participación activa del alumno",
     acciones: []
   },
   {
     id: 136,
     categoria: "docentes",
     keywords: ["profesor falta", "suplente", "no vino el profesor"],
-    pregunta: "Â¿QuÃ© pasa si el profesor falta?",
-    respuesta: "En caso de ausencia del docente:\n\nğŸ‘¨â€ğŸ« Se asigna profesor suplente\nğŸ“§ Se avisa con anticipaciÃ³n (si es posible)\nğŸ“… Se reprograma la clase\nğŸ’° No se cobra clase no dada\n\n*Siempre hay alternativas*",
+    pregunta: "¿Qué pasa si el profesor falta?",
+    respuesta: "En caso de ausencia del docente:\n\n????? Se asigna profesor suplente\n?? Se avisa con anticipación (si es posible)\n?? Se reprograma la clase\n?? No se cobra clase no dada\n\n*Siempre hay alternativas*",
     acciones: []
   },
   {
     id: 137,
     categoria: "docentes",
     keywords: ["evaluar profesor", "opinion profesor", "feedback docente"],
-    pregunta: "Â¿Puedo evaluar al profesor?",
-    respuesta: "Â¡SÃ­! Valoramos tu opiniÃ³n:\n\nğŸ“‹ **Encuestas** al final de cada nivel\nğŸ’¬ **BuzÃ³n de sugerencias**\nğŸ« **Entrevista** con coordinaciÃ³n\n\n*Tu feedback nos ayuda a mejorar*",
+    pregunta: "¿Puedo evaluar al profesor?",
+    respuesta: "¡Sí! Valoramos tu opinión:\n\n?? **Encuestas** al final de cada nivel\n?? **Buzón de sugerencias**\n?? **Entrevista** con coordinación\n\n*Tu feedback nos ayuda a mejorar*",
     acciones: []
   },
   {
     id: 138,
     categoria: "docentes",
-    keywords: ["experiencia profesor", "aÃ±os profesor", "trayectoria"],
-    pregunta: "Â¿Los profesores tienen experiencia?",
-    respuesta: "Nuestros docentes cuentan con:\n\nğŸ“… MÃ­nimo 2 aÃ±os de experiencia\nğŸ“ FormaciÃ³n continua\nğŸ† Trayectoria comprobable\nğŸ“œ Referencias verificables\n\n*Seleccionamos los mejores profesionales*",
+    keywords: ["experiencia profesor", "años profesor", "trayectoria"],
+    pregunta: "¿Los profesores tienen experiencia?",
+    respuesta: "Nuestros docentes cuentan con:\n\n?? Mínimo 2 años de experiencia\n?? Formación continua\n?? Trayectoria comprobable\n?? Referencias verificables\n\n*Seleccionamos los mejores profesionales*",
     acciones: []
   },
   {
     id: 139,
     categoria: "docentes",
     keywords: ["cuantos profesores", "plantel", "equipo docente"],
-    pregunta: "Â¿CuÃ¡ntos profesores tienen?",
-    respuesta: "Contamos con un equipo de mÃ¡s de 20 profesores:\n\nğŸ‘¨â€ğŸ« Especialistas por idioma\nğŸŒ Nativos y bilingÃ¼es\nğŸ“š FormaciÃ³n diversa\nğŸ’¼ Tiempo completo y parcial\n\n*Equipo en constante crecimiento*",
+    pregunta: "¿Cuántos profesores tienen?",
+    respuesta: "Contamos con un equipo de más de 20 profesores:\n\n????? Especialistas por idioma\n?? Nativos y bilingües\n?? Formación diversa\n?? Tiempo completo y parcial\n\n*Equipo en constante crecimiento*",
     acciones: []
   },
   {
     id: 140,
     categoria: "docentes",
     keywords: ["capacitacion docente", "actualizacion", "formacion continua"],
-    pregunta: "Â¿Los profesores se capacitan?",
-    respuesta: "SÃ­, inversiÃ³n constante en formaciÃ³n:\n\nğŸ“š Cursos de actualizaciÃ³n\nğŸ“ Congresos y seminarios\nğŸŒ Certificaciones internacionales\nğŸ’» CapacitaciÃ³n en tecnologÃ­a educativa\n\n*Docentes siempre actualizados*",
+    pregunta: "¿Los profesores se capacitan?",
+    respuesta: "Sí, inversión constante en formación:\n\n?? Cursos de actualización\n?? Congresos y seminarios\n?? Certificaciones internacionales\n?? Capacitación en tecnología educativa\n\n*Docentes siempre actualizados*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 9: CERTIFICACIONES (14 respuestas)
+  // CATEGORÍA 9: CERTIFICACIONES (14 respuestas)
   // ============================================
   {
     id: 141,
     categoria: "certificaciones",
     keywords: ["certificado", "titulo", "diploma", "constancia"],
-    pregunta: "Â¿Entregan certificados?",
-    respuesta: "SÃ­, entregamos:\n\nğŸ“œ **Certificado** al completar cada nivel\nğŸ“ **Diploma** al terminar el programa\nğŸ“‹ **Constancias** de alumno regular\nğŸ“ **AnalÃ­ticos** con notas detalladas\n\n*Todos con validez institucional*",
+    pregunta: "¿Entregan certificados?",
+    respuesta: "Sí, entregamos:\n\n?? **Certificado** al completar cada nivel\n?? **Diploma** al terminar el programa\n?? **Constancias** de alumno regular\n?? **Analíticos** con notas detalladas\n\n*Todos con validez institucional*",
     acciones: []
   },
   {
     id: 142,
     categoria: "certificaciones",
     keywords: ["validez certificado", "oficial", "reconocido", "sirve para"],
-    pregunta: "Â¿El certificado tiene validez oficial?",
-    respuesta: "Nuestros certificados:\n\nâœ… **Validez institucional** reconocida\nğŸ¢ Aceptados por empresas\nğŸ“ Ãštiles para CV y entrevistas\nğŸ“‹ Especifican nivel alcanzado (A1-C2)\n\n*Para validez internacional, preparamos para exÃ¡menes internacionales*",
+    pregunta: "¿El certificado tiene validez oficial?",
+    respuesta: "Nuestros certificados:\n\n? **Validez institucional** reconocida\n?? Aceptados por empresas\n?? Útiles para CV y entrevistas\n?? Especifican nivel alcanzado (A1-C2)\n\n*Para validez internacional, preparamos para exámenes internacionales*",
     acciones: []
   },
   {
     id: 143,
     categoria: "certificaciones",
     keywords: ["examen internacional", "cambridge", "toefl", "ielts", "delf"],
-    pregunta: "Â¿Preparan para exÃ¡menes internacionales?",
-    respuesta: "SÃ­, preparamos para:\n\nğŸ‡¬ğŸ‡§ **InglÃ©s**: Cambridge (KET, PET, FCE, CAE, CPE), TOEFL, IELTS\nğŸ‡«ğŸ‡· **FrancÃ©s**: DELF, DALF\nğŸ‡©ğŸ‡ª **AlemÃ¡n**: Goethe-Zertifikat\nğŸ‡®ğŸ‡¹ **Italiano**: CELI, CILS\nğŸ‡µğŸ‡¹ **PortuguÃ©s**: CELPE-Bras\n\n*Cursos especÃ­ficos de preparaciÃ³n*",
+    pregunta: "¿Preparan para exámenes internacionales?",
+    respuesta: "Sí, preparamos para:\n\n???? **Inglés**: Cambridge (KET, PET, FCE, CAE, CPE), TOEFL, IELTS\n???? **Francés**: DELF, DALF\n???? **Alemán**: Goethe-Zertifikat\n???? **Italiano**: CELI, CILS\n???? **Portugués**: CELPE-Bras\n\n*Cursos específicos de preparación*",
     acciones: []
   },
   {
     id: 144,
     categoria: "certificaciones",
     keywords: ["first certificate", "fce", "b2", "cambridge b2"],
-    pregunta: "Â¿Preparan para el First Certificate?",
-    respuesta: "Â¡SÃ­! Curso de preparaciÃ³n **FCE (B2)**:\n\nğŸ“š Cobertura de las 4 habilidades\nâœï¸ PrÃ¡ctica de Writing\nğŸ—£ï¸ Simulacros de Speaking\nğŸ“– Estrategias de Reading y Use of English\nğŸ‘‚ PrÃ¡ctica de Listening\n\n*Fechas de examen: Marzo, Junio, Diciembre*",
+    pregunta: "¿Preparan para el First Certificate?",
+    respuesta: "¡Sí! Curso de preparación **FCE (B2)**:\n\n?? Cobertura de las 4 habilidades\n?? Práctica de Writing\n??? Simulacros de Speaking\n?? Estrategias de Reading y Use of English\n?? Práctica de Listening\n\n*Fechas de examen: Marzo, Junio, Diciembre*",
     acciones: []
   },
   {
     id: 145,
     categoria: "certificaciones",
     keywords: ["costo certificado", "precio diploma", "cuanto sale"],
-    pregunta: "Â¿Los certificados tienen costo?",
-    respuesta: "Costos de certificaciÃ³n:\n\nğŸ“œ **Certificado de nivel**: Incluido en la cuota\nğŸ“ **Diploma final**: Incluido\nğŸ“‹ **Constancias extra**: Costo mÃ­nimo\nğŸ“ **Duplicados**: Costo de emisiÃ³n\n\n*ExÃ¡menes internacionales: arancel aparte (Cambridge, etc.)*",
+    pregunta: "¿Los certificados tienen costo?",
+    respuesta: "Costos de certificación:\n\n?? **Certificado de nivel**: Incluido en la cuota\n?? **Diploma final**: Incluido\n?? **Constancias extra**: Costo mínimo\n?? **Duplicados**: Costo de emisión\n\n*Exámenes internacionales: arancel aparte (Cambridge, etc.)*",
     acciones: []
   },
   {
     id: 146,
     categoria: "certificaciones",
     keywords: ["cuanto tarda certificado", "cuando recibo", "demora certificado"],
-    pregunta: "Â¿CuÃ¡nto tarda en salir el certificado?",
-    respuesta: "Tiempos de entrega:\n\nğŸ“œ **Certificado de nivel**: 30 dÃ­as aprox.\nğŸ“‹ **Constancias**: 48-72hs\nğŸ“ **Diploma final**: 60 dÃ­as\nğŸŒ **ExÃ¡menes internacionales**: 4-8 semanas (depende del organismo)\n\n*Te avisamos cuando estÃ© listo*",
+    pregunta: "¿Cuánto tarda en salir el certificado?",
+    respuesta: "Tiempos de entrega:\n\n?? **Certificado de nivel**: 30 días aprox.\n?? **Constancias**: 48-72hs\n?? **Diploma final**: 60 días\n?? **Exámenes internacionales**: 4-8 semanas (depende del organismo)\n\n*Te avisamos cuando esté listo*",
     acciones: []
   },
   {
     id: 147,
     categoria: "certificaciones",
     keywords: ["requisitos certificado", "como obtengo", "que necesito"],
-    pregunta: "Â¿QuÃ© necesito para obtener el certificado?",
-    respuesta: "Requisitos para certificar:\n\nâœ… Aprobar el examen final del nivel\nâœ… Tener 75% de asistencia mÃ­nima\nâœ… Cuotas al dÃ­a\nâœ… Completar actividades requeridas\n\n*Cumpliendo esto, obtenÃ©s tu certificado automÃ¡ticamente*",
+    pregunta: "¿Qué necesito para obtener el certificado?",
+    respuesta: "Requisitos para certificar:\n\n? Aprobar el examen final del nivel\n? Tener 75% de asistencia mínima\n? Cuotas al día\n? Completar actividades requeridas\n\n*Cumpliendo esto, obtenés tu certificado automáticamente*",
     acciones: []
   },
   {
     id: 148,
     categoria: "certificaciones",
     keywords: ["perdi certificado", "duplicado", "otro certificado", "se me perdio"],
-    pregunta: "Â¿Puedo pedir un duplicado del certificado?",
-    respuesta: "SÃ­, podÃ©s solicitar duplicado:\n\nğŸ“‹ Solicitalo en secretarÃ­a\nğŸ“ CompletÃ¡ formulario\nğŸ’° Abona costo de emisiÃ³n\nâ±ï¸ Entrega en 7-10 dÃ­as hÃ¡biles\n\n*Guardamos registro de todos los certificados emitidos*",
+    pregunta: "¿Puedo pedir un duplicado del certificado?",
+    respuesta: "Sí, podés solicitar duplicado:\n\n?? Solicitalo en secretaría\n?? Completá formulario\n?? Abona costo de emisión\n?? Entrega en 7-10 días hábiles\n\n*Guardamos registro de todos los certificados emitidos*",
     acciones: []
   },
   {
     id: 149,
     categoria: "certificaciones",
     keywords: ["nivel marco europeo", "a1 a2 b1 b2", "cefr", "mcer"],
-    pregunta: "Â¿QuÃ© significa A1, B2, etc.?",
-    respuesta: "Son niveles del **Marco ComÃºn Europeo (MCER)**:\n\nğŸ”° **A1**: Principiante\nğŸ“— **A2**: Elemental\nğŸ“˜ **B1**: Intermedio\nğŸ“™ **B2**: Intermedio Alto\nğŸ“• **C1**: Avanzado\nğŸ““ **C2**: MaestrÃ­a/Nativo\n\n*Nuestros cursos estÃ¡n alineados al MCER*",
+    pregunta: "¿Qué significa A1, B2, etc.?",
+    respuesta: "Son niveles del **Marco Común Europeo (MCER)**:\n\n?? **A1**: Principiante\n?? **A2**: Elemental\n?? **B1**: Intermedio\n?? **B2**: Intermedio Alto\n?? **C1**: Avanzado\n?? **C2**: Maestría/Nativo\n\n*Nuestros cursos están alineados al MCER*",
     acciones: []
   },
   {
     id: 150,
     categoria: "certificaciones",
     keywords: ["equivalencia nivel", "cuanto tiempo nivel", "b2 cuanto"],
-    pregunta: "Â¿CuÃ¡nto tiempo para alcanzar cada nivel?",
-    respuesta: "Tiempo aproximado desde cero:\n\nğŸ”° **A1**: 2-3 meses\nğŸ“— **A2**: 4-6 meses\nğŸ“˜ **B1**: 8-12 meses\nğŸ“™ **B2**: 18-24 meses\nğŸ“• **C1**: 30-36 meses\n\n*Depende de dedicaciÃ³n e intensidad*",
+    pregunta: "¿Cuánto tiempo para alcanzar cada nivel?",
+    respuesta: "Tiempo aproximado desde cero:\n\n?? **A1**: 2-3 meses\n?? **A2**: 4-6 meses\n?? **B1**: 8-12 meses\n?? **B2**: 18-24 meses\n?? **C1**: 30-36 meses\n\n*Depende de dedicación e intensidad*",
     acciones: []
   },
   {
     id: 151,
     categoria: "certificaciones",
     keywords: ["centro examinador", "donde rinden", "sede examen"],
-    pregunta: "Â¿Son centro examinador oficial?",
-    respuesta: "Somos:\n\nâœ… Centro preparador autorizado\nğŸ¢ Los exÃ¡menes se rinden en centros oficiales\nğŸ“‹ Te asesoramos en inscripciÃ³n\nğŸ“… Coordinamos fechas\n\n*Te acompaÃ±amos en todo el proceso*",
+    pregunta: "¿Son centro examinador oficial?",
+    respuesta: "Somos:\n\n? Centro preparador autorizado\n?? Los exámenes se rinden en centros oficiales\n?? Te asesoramos en inscripción\n?? Coordinamos fechas\n\n*Te acompañamos en todo el proceso*",
     acciones: []
   },
   {
     id: 152,
     categoria: "certificaciones",
     keywords: ["curriculum", "cv", "como pongo certificado"],
-    pregunta: "Â¿CÃ³mo incluyo el certificado en mi CV?",
-    respuesta: "En tu CV ponÃ©:\n\nğŸ“ **Idioma**: InglÃ©s (u otro)\nğŸ“Š **Nivel**: B2 (Intermedio Alto)\nğŸ« **InstituciÃ³n**: CEMI\nğŸ“… **AÃ±o**: 2024\nğŸ“ **CertificaciÃ³n**: Cambridge FCE (si aplica)\n\n*Un nivel certificado suma mucho al CV*",
+    pregunta: "¿Cómo incluyo el certificado en mi CV?",
+    respuesta: "En tu CV poné:\n\n?? **Idioma**: Inglés (u otro)\n?? **Nivel**: B2 (Intermedio Alto)\n?? **Institución**: CEMI\n?? **Año**: 2024\n?? **Certificación**: Cambridge FCE (si aplica)\n\n*Un nivel certificado suma mucho al CV*",
     acciones: []
   },
   {
     id: 153,
     categoria: "certificaciones",
     keywords: ["empresa certificado", "para trabajo", "pide mi empresa"],
-    pregunta: "Mi empresa pide certificado, Â¿sirve el de CEMI?",
-    respuesta: "Nuestros certificados son:\n\nâœ… Reconocidos por empresas locales\nâœ… Especifican nivel MCER (A1-C2)\nğŸ“‹ Incluyen carga horaria y contenidos\nğŸ’¼ VÃ¡lidos para RRHH\n\n*Para multinacionales, recomendamos certificaciÃ³n internacional*",
+    pregunta: "Mi empresa pide certificado, ¿sirve el de CEMI?",
+    respuesta: "Nuestros certificados son:\n\n? Reconocidos por empresas locales\n? Especifican nivel MCER (A1-C2)\n?? Incluyen carga horaria y contenidos\n?? Válidos para RRHH\n\n*Para multinacionales, recomendamos certificación internacional*",
     acciones: []
   },
   {
     id: 154,
     categoria: "certificaciones",
     keywords: ["legalizar certificado", "apostillar", "validez exterior"],
-    pregunta: "Â¿Puedo legalizar/apostillar el certificado?",
-    respuesta: "Para uso en el exterior:\n\nğŸ“‹ Nuestros certificados institucionales no se apostillan\nğŸŒ Para validez internacional: exÃ¡menes Cambridge, TOEFL, DELF, etc.\nâœ… Esos SÃ tienen reconocimiento mundial\n\n*Te preparamos para esas certificaciones*",
+    pregunta: "¿Puedo legalizar/apostillar el certificado?",
+    respuesta: "Para uso en el exterior:\n\n?? Nuestros certificados institucionales no se apostillan\n?? Para validez internacional: exámenes Cambridge, TOEFL, DELF, etc.\n? Esos SÍ tienen reconocimiento mundial\n\n*Te preparamos para esas certificaciones*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 10: PLATAFORMA ONLINE (16 respuestas)
+  // CATEGORÍA 10: PLATAFORMA ONLINE (16 respuestas)
   // ============================================
   {
     id: 155,
     categoria: "plataforma",
     keywords: ["classroom", "plataforma", "aula virtual", "campus"],
-    pregunta: "Â¿QuÃ© es la plataforma Classroom?",
-    respuesta: "Es nuestra **aula virtual** integrada:\n\nğŸ“š Material de estudio\nğŸ“ Tareas y actividades\nğŸ“Š Notas y seguimiento\nğŸ’¬ Chat con profesores\nğŸ“¹ Clases grabadas\nğŸ“‹ Recursos descargables\n\n*AccedÃ©s con tu usuario y contraseÃ±a*",
+    pregunta: "¿Qué es la plataforma Classroom?",
+    respuesta: "Es nuestra **aula virtual** integrada:\n\n?? Material de estudio\n?? Tareas y actividades\n?? Notas y seguimiento\n?? Chat con profesores\n?? Clases grabadas\n?? Recursos descargables\n\n*Accedés con tu usuario y contraseña*",
     acciones: [{ texto: "Ir a Classroom", link: "/classroom-login.html" }]
   },
   {
     id: 156,
     categoria: "plataforma",
     keywords: ["como entro", "ingresar classroom", "acceder plataforma"],
-    pregunta: "Â¿CÃ³mo ingreso a Classroom?",
-    respuesta: "Para ingresar:\n\n1ï¸âƒ£ AndÃ¡ a la web del instituto\n2ï¸âƒ£ HacÃ© clic en **\"Classroom\"**\n3ï¸âƒ£ IngresÃ¡ tu **usuario y contraseÃ±a**\n4ï¸âƒ£ Â¡Listo!\n\n*Credenciales enviadas por email al inscribirte*",
+    pregunta: "¿Cómo ingreso a Classroom?",
+    respuesta: "Para ingresar:\n\n1?? Andá a la web del instituto\n2?? Hacé clic en **\"Classroom\"**\n3?? Ingresá tu **usuario y contraseña**\n4?? ¡Listo!\n\n*Credenciales enviadas por email al inscribirte*",
     acciones: [{ texto: "Ir a Classroom", link: "/classroom-login.html" }]
   },
   {
     id: 157,
     categoria: "plataforma",
-    keywords: ["olvide contraseÃ±a", "no puedo entrar", "recuperar clave", "restablecer"],
-    pregunta: "OlvidÃ© mi contraseÃ±a de Classroom",
-    respuesta: "Para recuperar tu contraseÃ±a:\n\n1ï¸âƒ£ En la pantalla de login, clic en **\"Â¿Olvidaste tu contraseÃ±a?\"**\n2ï¸âƒ£ IngresÃ¡ tu email registrado\n3ï¸âƒ£ RecibirÃ¡s un link de recuperaciÃ³n\n4ï¸âƒ£ CreÃ¡ una nueva contraseÃ±a\n\n*Si no funciona, contactÃ¡ a soporte*",
+    keywords: ["olvide contraseña", "no puedo entrar", "recuperar clave", "restablecer"],
+    pregunta: "Olvidé mi contraseña de Classroom",
+    respuesta: "Para recuperar tu contraseña:\n\n1?? En la pantalla de login, clic en **\"¿Olvidaste tu contraseña?\"**\n2?? Ingresá tu email registrado\n3?? Recibirás un link de recuperación\n4?? Creá una nueva contraseña\n\n*Si no funciona, contactá a soporte*",
     acciones: [{ texto: "Ir a login", link: "/login.html" }]
   },
   {
     id: 158,
     categoria: "plataforma",
     keywords: ["material", "archivos", "recursos", "donde descargo"],
-    pregunta: "Â¿DÃ³nde encuentro el material de estudio?",
-    respuesta: "En Classroom encontrÃ¡s:\n\nğŸ“‚ **Recursos**: Material por unidad\nğŸ“š **Biblioteca**: PDFs y documentos\nğŸ§ **Audios**: Listening practice\nğŸ¬ **Videos**: Contenido multimedia\n\n*Todo organizado por nivel y unidad*",
+    pregunta: "¿Dónde encuentro el material de estudio?",
+    respuesta: "En Classroom encontrás:\n\n?? **Recursos**: Material por unidad\n?? **Biblioteca**: PDFs y documentos\n?? **Audios**: Listening practice\n?? **Videos**: Contenido multimedia\n\n*Todo organizado por nivel y unidad*",
     acciones: [{ texto: "Ir a Classroom", link: "/classroom-login.html" }]
   },
   {
     id: 159,
     categoria: "plataforma",
     keywords: ["tarea", "entregar tarea", "subir tarea", "homework"],
-    pregunta: "Â¿CÃ³mo entrego las tareas?",
-    respuesta: "Para entregar tareas:\n\n1ï¸âƒ£ IngresÃ¡ a **Classroom**\n2ï¸âƒ£ AndÃ¡ a **\"Tareas pendientes\"**\n3ï¸âƒ£ AbrÃ­ la tarea asignada\n4ï¸âƒ£ SubÃ­ tu archivo o completÃ¡ online\n5ï¸âƒ£ Clic en **\"Entregar\"**\n\n*RespetÃ¡ las fechas de entrega*",
+    pregunta: "¿Cómo entrego las tareas?",
+    respuesta: "Para entregar tareas:\n\n1?? Ingresá a **Classroom**\n2?? Andá a **\"Tareas pendientes\"**\n3?? Abrí la tarea asignada\n4?? Subí tu archivo o completá online\n5?? Clic en **\"Entregar\"**\n\n*Respetá las fechas de entrega*",
     acciones: []
   },
   {
     id: 160,
     categoria: "plataforma",
     keywords: ["ver notas", "calificaciones", "como me fue", "resultados"],
-    pregunta: "Â¿DÃ³nde veo mis notas?",
-    respuesta: "Tus calificaciones estÃ¡n en:\n\nğŸ“Š **Classroom > Mi progreso**\nğŸ“ Notas por actividad\nğŸ“ˆ Promedio general\nğŸ¯ Comentarios del profesor\n\n*Se actualizan despuÃ©s de cada correcciÃ³n*",
+    pregunta: "¿Dónde veo mis notas?",
+    respuesta: "Tus calificaciones están en:\n\n?? **Classroom > Mi progreso**\n?? Notas por actividad\n?? Promedio general\n?? Comentarios del profesor\n\n*Se actualizan después de cada corrección*",
     acciones: []
   },
   {
     id: 161,
     categoria: "plataforma",
     keywords: ["clase grabada", "grabacion", "ver clase", "me perdi clase"],
-    pregunta: "Â¿Puedo ver las clases grabadas?",
-    respuesta: "SÃ­, clases grabadas disponibles:\n\nğŸ“¹ En **Classroom > Clases grabadas**\nâ±ï¸ Disponibles por 30 dÃ­as\nğŸ“š Organizadas por fecha\n\n*Solo para clases virtuales/hÃ­bridas*\n\nâš ï¸ Las clases presenciales no se graban",
+    pregunta: "¿Puedo ver las clases grabadas?",
+    respuesta: "Sí, clases grabadas disponibles:\n\n?? En **Classroom > Clases grabadas**\n?? Disponibles por 30 días\n?? Organizadas por fecha\n\n*Solo para clases virtuales/híbridas*\n\n?? Las clases presenciales no se graban",
     acciones: []
   },
   {
     id: 162,
     categoria: "plataforma",
     keywords: ["app celular", "aplicacion movil", "desde celular"],
-    pregunta: "Â¿Hay app para celular?",
-    respuesta: "SÃ­, tenemos **app mÃ³vil CEMI**:\n\nğŸ“± Disponible para Android\nğŸ”” Notificaciones de clases\nğŸ“š Acceso a materiales\nâœ… Consulta de notas\nğŸ’¬ Chat con profesores\n\n*Descargala desde el sitio o Play Store*",
+    pregunta: "¿Hay app para celular?",
+    respuesta: "Sí, tenemos **app móvil CEMI**:\n\n?? Disponible para Android\n?? Notificaciones de clases\n?? Acceso a materiales\n? Consulta de notas\n?? Chat con profesores\n\n*Descargala desde el sitio o Play Store*",
     acciones: []
   },
   {
     id: 163,
     categoria: "plataforma",
     keywords: ["no carga", "error plataforma", "problema classroom", "no funciona"],
-    pregunta: "La plataforma no funciona, Â¿quÃ© hago?",
-    respuesta: "ProbÃ¡ estos pasos:\n\n1ï¸âƒ£ **RefrescÃ¡** la pÃ¡gina (F5)\n2ï¸âƒ£ **BorrÃ¡ cookies** del navegador\n3ï¸âƒ£ ProbÃ¡ con **otro navegador**\n4ï¸âƒ£ VerificÃ¡ tu **conexiÃ³n a internet**\n\nSi persiste:\nğŸ“§ ContactÃ¡ a soporte@cemi.edu.ar",
+    pregunta: "La plataforma no funciona, ¿qué hago?",
+    respuesta: "Probá estos pasos:\n\n1?? **Refrescá** la página (F5)\n2?? **Borrá cookies** del navegador\n3?? Probá con **otro navegador**\n4?? Verificá tu **conexión a internet**\n\nSi persiste:\n?? Contactá a soporte@cemi.edu.ar",
     acciones: [{ texto: "Contactar soporte", link: "mailto:soporte@cemi.edu.ar" }]
   },
   {
     id: 164,
     categoria: "plataforma",
     keywords: ["navegador", "chrome", "firefox", "cual uso"],
-    pregunta: "Â¿QuÃ© navegador debo usar?",
-    respuesta: "Navegadores recomendados:\n\nâœ… **Google Chrome** (mejor opciÃ³n)\nâœ… **Firefox**\nâœ… **Edge**\nâš ï¸ **Safari**: Funciona pero con limitaciones\nğŸš« **Internet Explorer**: No soportado\n\n*MantenÃ© el navegador actualizado*",
+    pregunta: "¿Qué navegador debo usar?",
+    respuesta: "Navegadores recomendados:\n\n? **Google Chrome** (mejor opción)\n? **Firefox**\n? **Edge**\n?? **Safari**: Funciona pero con limitaciones\n?? **Internet Explorer**: No soportado\n\n*Mantené el navegador actualizado*",
     acciones: []
   },
   {
     id: 165,
     categoria: "plataforma",
     keywords: ["cambiar foto", "avatar", "foto perfil", "imagen perfil"],
-    pregunta: "Â¿CÃ³mo cambio mi foto de perfil?",
-    respuesta: "Para cambiar tu avatar:\n\n1ï¸âƒ£ IngresÃ¡ a **Classroom**\n2ï¸âƒ£ Clic en tu **nombre/foto** arriba\n3ï¸âƒ£ SeleccionÃ¡ **\"Editar perfil\"**\n4ï¸âƒ£ SubÃ­ tu nueva foto\n5ï¸âƒ£ GuardÃ¡ cambios\n\n*UsÃ¡ una foto apropiada*",
+    pregunta: "¿Cómo cambio mi foto de perfil?",
+    respuesta: "Para cambiar tu avatar:\n\n1?? Ingresá a **Classroom**\n2?? Clic en tu **nombre/foto** arriba\n3?? Seleccioná **\"Editar perfil\"**\n4?? Subí tu nueva foto\n5?? Guardá cambios\n\n*Usá una foto apropiada*",
     acciones: []
   },
   {
     id: 166,
     categoria: "plataforma",
     keywords: ["notificaciones", "avisos", "alertas", "me avisa"],
-    pregunta: "Â¿CÃ³mo recibo notificaciones?",
-    respuesta: "Te notificamos por:\n\nğŸ“§ **Email**: Tareas, notas, avisos\nğŸ”” **Push**: En la app mÃ³vil\nğŸ“± **Classroom**: Campana de notificaciones\n\n*ConfigurÃ¡ tus preferencias en el perfil*",
+    pregunta: "¿Cómo recibo notificaciones?",
+    respuesta: "Te notificamos por:\n\n?? **Email**: Tareas, notas, avisos\n?? **Push**: En la app móvil\n?? **Classroom**: Campana de notificaciones\n\n*Configurá tus preferencias en el perfil*",
     acciones: []
   },
   {
     id: 167,
     categoria: "plataforma",
     keywords: ["chat profesor", "mensaje profesor", "comunicarme"],
-    pregunta: "Â¿CÃ³mo me comunico con el profesor?",
-    respuesta: "Canales de comunicaciÃ³n:\n\nğŸ’¬ **Chat de Classroom**: Mensajes directos\nğŸ“§ **Email institucional**: Para consultas formales\nğŸ—£ï¸ **En clase**: Antes o despuÃ©s\nğŸ“‹ **Foro**: Dudas grupales\n\n*RespetÃ¡ los horarios de respuesta*",
+    pregunta: "¿Cómo me comunico con el profesor?",
+    respuesta: "Canales de comunicación:\n\n?? **Chat de Classroom**: Mensajes directos\n?? **Email institucional**: Para consultas formales\n??? **En clase**: Antes o después\n?? **Foro**: Dudas grupales\n\n*Respetá los horarios de respuesta*",
     acciones: []
   },
   {
     id: 168,
     categoria: "plataforma",
     keywords: ["zoom", "meet", "clase virtual", "videollamada"],
-    pregunta: "Â¿CÃ³mo accedo a las clases virtuales?",
-    respuesta: "Para clases online:\n\n1ï¸âƒ£ IngresÃ¡ a **Classroom**\n2ï¸âƒ£ En tu curso, buscÃ¡ **\"Unirse a clase\"**\n3ï¸âƒ£ Se abrirÃ¡ **Zoom/Meet** automÃ¡ticamente\n4ï¸âƒ£ UsÃ¡ audio y cÃ¡mara\n\n*El link estÃ¡ en el tablÃ³n del curso*",
+    pregunta: "¿Cómo accedo a las clases virtuales?",
+    respuesta: "Para clases online:\n\n1?? Ingresá a **Classroom**\n2?? En tu curso, buscá **\"Unirse a clase\"**\n3?? Se abrirá **Zoom/Meet** automáticamente\n4?? Usá audio y cámara\n\n*El link está en el tablón del curso*",
     acciones: []
   },
   {
     id: 169,
     categoria: "plataforma",
     keywords: ["descargar", "bajar material", "guardar pdf"],
-    pregunta: "Â¿Puedo descargar los materiales?",
-    respuesta: "SÃ­, podÃ©s descargar:\n\nğŸ“¥ PDFs y documentos\nğŸ§ Archivos de audio\nğŸ“‹ Ejercicios imprimibles\n\nâš ï¸ Algunos contenidos son solo online\nğŸ”’ Material solo para uso personal/educativo",
+    pregunta: "¿Puedo descargar los materiales?",
+    respuesta: "Sí, podés descargar:\n\n?? PDFs y documentos\n?? Archivos de audio\n?? Ejercicios imprimibles\n\n?? Algunos contenidos son solo online\n?? Material solo para uso personal/educativo",
     acciones: []
   },
   {
     id: 170,
     categoria: "plataforma",
     keywords: ["offline", "sin internet", "desconectado"],
-    pregunta: "Â¿Puedo usar Classroom sin internet?",
-    respuesta: "Opciones offline:\n\nğŸ“¥ DescargÃ¡ materiales cuando tengas conexiÃ³n\nğŸ“± App mÃ³vil permite ver contenido descargado\nğŸš« Tareas y chat requieren conexiÃ³n\n\n*Mejor experiencia: siempre conectado*",
+    pregunta: "¿Puedo usar Classroom sin internet?",
+    respuesta: "Opciones offline:\n\n?? Descargá materiales cuando tengas conexión\n?? App móvil permite ver contenido descargado\n?? Tareas y chat requieren conexión\n\n*Mejor experiencia: siempre conectado*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 11: CALENDARIO ACADÃ‰MICO (10 respuestas)
+  // CATEGORÍA 11: CALENDARIO ACADÉMICO (10 respuestas)
   // ============================================
   {
     id: 171,
     categoria: "calendario",
     keywords: ["calendario", "fechas importantes", "cronograma", "agenda"],
-    pregunta: "Â¿DÃ³nde veo el calendario acadÃ©mico?",
-    respuesta: "El calendario acadÃ©mico estÃ¡ disponible:\n\nğŸ“… En nuestra **web**: /calendario\nğŸ“± En la **app mÃ³vil**\nğŸ« En **secretarÃ­a** (impreso)\n\n*Incluye fechas de inicio, exÃ¡menes, feriados y recesos*",
+    pregunta: "¿Dónde veo el calendario académico?",
+    respuesta: "El calendario académico está disponible:\n\n?? En nuestra **web**: /calendario\n?? En la **app móvil**\n?? En **secretaría** (impreso)\n\n*Incluye fechas de inicio, exámenes, feriados y recesos*",
     acciones: [{ texto: "Consultar calendario", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20consultar%20el%20calendario%20acad%C3%A9mico" }]
   },
   {
     id: 172,
     categoria: "calendario",
     keywords: ["cuando empiezo", "inicio cursada", "arranco"],
-    pregunta: "Â¿CuÃ¡ndo empieza el prÃ³ximo ciclo?",
-    respuesta: "Inicios de cursada:\n\nğŸ“… **Marzo**: Ciclo anual\nğŸ“… **Agosto**: Segundo cuatrimestre\nğŸ“… **Enero**: Intensivo de verano\n\n*Fechas exactas en el calendario acadÃ©mico*",
+    pregunta: "¿Cuándo empieza el próximo ciclo?",
+    respuesta: "Inicios de cursada:\n\n?? **Marzo**: Ciclo anual\n?? **Agosto**: Segundo cuatrimestre\n?? **Enero**: Intensivo de verano\n\n*Fechas exactas en el calendario académico*",
     acciones: [{ texto: "Consultar fechas", link: "https://wa.me/543814463243?text=Hola!%20Quisiera%20saber%20cuando%20empiezan%20las%20clases" }]
   },
   {
     id: 173,
     categoria: "calendario",
     keywords: ["examen final", "fecha examen", "finales"],
-    pregunta: "Â¿CuÃ¡ndo son los exÃ¡menes finales?",
-    respuesta: "PerÃ­odos de exÃ¡menes:\n\nğŸ“ **Julio**: Fin primer cuatrimestre\nğŸ“ **Diciembre**: Fin segundo cuatrimestre\nğŸ“ **Febrero**: Mesa de recuperatorios\n\n*Fechas especÃ­ficas varÃ­an por nivel*",
+    pregunta: "¿Cuándo son los exámenes finales?",
+    respuesta: "Períodos de exámenes:\n\n?? **Julio**: Fin primer cuatrimestre\n?? **Diciembre**: Fin segundo cuatrimestre\n?? **Febrero**: Mesa de recuperatorios\n\n*Fechas específicas varían por nivel*",
     acciones: []
   },
   {
     id: 174,
     categoria: "calendario",
     keywords: ["vacaciones invierno", "julio", "receso julio"],
-    pregunta: "Â¿CuÃ¡ndo son las vacaciones de invierno?",
-    respuesta: "Receso de invierno:\n\nâ„ï¸ **Dos semanas en julio**\nğŸ“… Generalmente coincide con vacaciones escolares\nğŸ”„ Las clases se retoman la 3ra semana de julio\n\n*ConsultÃ¡ fechas exactas en el calendario*",
+    pregunta: "¿Cuándo son las vacaciones de invierno?",
+    respuesta: "Receso de invierno:\n\n?? **Dos semanas en julio**\n?? Generalmente coincide con vacaciones escolares\n?? Las clases se retoman la 3ra semana de julio\n\n*Consultá fechas exactas en el calendario*",
     acciones: []
   },
   {
     id: 175,
     categoria: "calendario",
     keywords: ["vacaciones verano", "diciembre", "enero febrero"],
-    pregunta: "Â¿CuÃ¡ndo son las vacaciones de verano?",
-    respuesta: "Receso de verano:\n\nâ˜€ï¸ **Diciembre a Febrero**\nğŸ“… Clases terminan en diciembre\nğŸ“… Reinicio en marzo\nğŸ“š Cursos intensivos opcionales en enero\n\n*SecretarÃ­a tiene horario reducido en enero*",
+    pregunta: "¿Cuándo son las vacaciones de verano?",
+    respuesta: "Receso de verano:\n\n?? **Diciembre a Febrero**\n?? Clases terminan en diciembre\n?? Reinicio en marzo\n?? Cursos intensivos opcionales en enero\n\n*Secretaría tiene horario reducido en enero*",
     acciones: []
   },
   {
     id: 176,
     categoria: "calendario",
     keywords: ["inscripcion cuando", "fecha inscripcion", "abren inscripcion"],
-    pregunta: "Â¿CuÃ¡ndo abren las inscripciones?",
-    respuesta: "PerÃ­odos de inscripciÃ³n:\n\nğŸ“‹ **Febrero-Marzo**: Para ciclo anual\nğŸ“‹ **Julio-Agosto**: Para 2do cuatrimestre\nğŸ“‹ **Diciembre**: Para intensivo de verano\nğŸ”„ **Todo el aÃ±o**: Si hay cupos disponibles\n\n*Inscribite temprano para asegurar lugar*",
+    pregunta: "¿Cuándo abren las inscripciones?",
+    respuesta: "Períodos de inscripción:\n\n?? **Febrero-Marzo**: Para ciclo anual\n?? **Julio-Agosto**: Para 2do cuatrimestre\n?? **Diciembre**: Para intensivo de verano\n?? **Todo el año**: Si hay cupos disponibles\n\n*Inscribite temprano para asegurar lugar*",
     acciones: [{ texto: "Inscribirme", link: "/register.html" }]
   },
   {
     id: 177,
     categoria: "calendario",
     keywords: ["cuatrimestre", "semestre", "duracion curso"],
-    pregunta: "Â¿CuÃ¡nto dura un cuatrimestre?",
-    respuesta: "DuraciÃ³n de los perÃ­odos:\n\nğŸ“† **1er Cuatrimestre**: Marzo a Julio (~4 meses)\nğŸ“† **2do Cuatrimestre**: Agosto a Diciembre (~4 meses)\nğŸ“† **Intensivo verano**: 6-8 semanas\n\n*Aproximadamente 16 semanas de clase por cuatrimestre*",
+    pregunta: "¿Cuánto dura un cuatrimestre?",
+    respuesta: "Duración de los períodos:\n\n?? **1er Cuatrimestre**: Marzo a Julio (~4 meses)\n?? **2do Cuatrimestre**: Agosto a Diciembre (~4 meses)\n?? **Intensivo verano**: 6-8 semanas\n\n*Aproximadamente 16 semanas de clase por cuatrimestre*",
     acciones: []
   },
   {
     id: 178,
     categoria: "calendario",
     keywords: ["evento", "actividad especial", "jornada"],
-    pregunta: "Â¿Hay eventos especiales durante el aÃ±o?",
-    respuesta: "Eventos y actividades:\n\nğŸ­ **Obras de teatro** en idiomas\nğŸ¬ **Ciclos de cine** subtitulado\nğŸ“š **Ferias del libro** en otros idiomas\nğŸ‰ **Fiestas temÃ¡ticas** (Halloween, Thanksgiving, etc.)\nğŸ† **Competencias** y concursos\n\n*Fechas en el calendario y redes*",
+    pregunta: "¿Hay eventos especiales durante el año?",
+    respuesta: "Eventos y actividades:\n\n?? **Obras de teatro** en idiomas\n?? **Ciclos de cine** subtitulado\n?? **Ferias del libro** en otros idiomas\n?? **Fiestas temáticas** (Halloween, Thanksgiving, etc.)\n?? **Competencias** y concursos\n\n*Fechas en el calendario y redes*",
     acciones: []
   },
   {
     id: 179,
     categoria: "calendario",
     keywords: ["dias habiles", "cuantas clases", "semanas"],
-    pregunta: "Â¿CuÃ¡ntas clases hay por cuatrimestre?",
-    respuesta: "Cantidad aproximada:\n\nğŸ“š **Cursada regular**: 32 clases (16 semanas x 2)\nğŸ“š **Intensivo**: MÃ¡s clases por semana\nğŸ“… Descontando feriados\n\n*VarÃ­a levemente cada aÃ±o*",
+    pregunta: "¿Cuántas clases hay por cuatrimestre?",
+    respuesta: "Cantidad aproximada:\n\n?? **Cursada regular**: 32 clases (16 semanas x 2)\n?? **Intensivo**: Más clases por semana\n?? Descontando feriados\n\n*Varía levemente cada año*",
     acciones: []
   },
   {
     id: 180,
     categoria: "calendario",
     keywords: ["recuperatorio", "segunda fecha", "mesa recuperatorio"],
-    pregunta: "Â¿Hay fechas de recuperatorio?",
-    respuesta: "SÃ­, hay instancias de recuperaciÃ³n:\n\nğŸ“ **Febrero**: Mesa de recuperatorios\nğŸ“ **Julio**: Para 1er cuatrimestre\nâœ… Una oportunidad de recuperar\nğŸ’° Sin costo extra\n\n*Requisito: Haber rendido el examen original*",
+    pregunta: "¿Hay fechas de recuperatorio?",
+    respuesta: "Sí, hay instancias de recuperación:\n\n?? **Febrero**: Mesa de recuperatorios\n?? **Julio**: Para 1er cuatrimestre\n? Una oportunidad de recuperar\n?? Sin costo extra\n\n*Requisito: Haber rendido el examen original*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 12: CUENTA Y ACCESO (12 respuestas)
+  // CATEGORÍA 12: CUENTA Y ACCESO (12 respuestas)
   // ============================================
   {
     id: 181,
     categoria: "cuenta",
     keywords: ["crear cuenta", "registrarme", "nuevo usuario"],
-    pregunta: "Â¿CÃ³mo creo mi cuenta?",
-    respuesta: "Tu cuenta se crea automÃ¡ticamente al inscribirte:\n\n1ï¸âƒ£ CompletÃ¡ la inscripciÃ³n\n2ï¸âƒ£ RecibirÃ¡s email con credenciales\n3ï¸âƒ£ Usuario: tu email\n4ï¸âƒ£ ContraseÃ±a: temporal (cambiarla al ingresar)\n\n*Si no recibiste el email, revisÃ¡ spam*",
+    pregunta: "¿Cómo creo mi cuenta?",
+    respuesta: "Tu cuenta se crea automáticamente al inscribirte:\n\n1?? Completá la inscripción\n2?? Recibirás email con credenciales\n3?? Usuario: tu email\n4?? Contraseña: temporal (cambiarla al ingresar)\n\n*Si no recibiste el email, revisá spam*",
     acciones: []
   },
   {
     id: 182,
     categoria: "cuenta",
-    keywords: ["cambiar contraseÃ±a", "nueva contraseÃ±a", "modificar clave"],
-    pregunta: "Â¿CÃ³mo cambio mi contraseÃ±a?",
-    respuesta: "Para cambiar tu contraseÃ±a:\n\n1ï¸âƒ£ IngresÃ¡ a **Classroom**\n2ï¸âƒ£ AndÃ¡ a **ConfiguraciÃ³n > Seguridad**\n3ï¸âƒ£ Clic en **\"Cambiar contraseÃ±a\"**\n4ï¸âƒ£ IngresÃ¡ la actual y la nueva\n5ï¸âƒ£ GuardÃ¡ cambios\n\n*UsÃ¡ una contraseÃ±a segura*",
+    keywords: ["cambiar contraseña", "nueva contraseña", "modificar clave"],
+    pregunta: "¿Cómo cambio mi contraseña?",
+    respuesta: "Para cambiar tu contraseña:\n\n1?? Ingresá a **Classroom**\n2?? Andá a **Configuración > Seguridad**\n3?? Clic en **\"Cambiar contraseña\"**\n4?? Ingresá la actual y la nueva\n5?? Guardá cambios\n\n*Usá una contraseña segura*",
     acciones: []
   },
   {
     id: 183,
     categoria: "cuenta",
     keywords: ["cambiar email", "otro correo", "actualizar mail"],
-    pregunta: "Â¿Puedo cambiar mi email?",
-    respuesta: "Para cambiar tu email:\n\nğŸ“‹ Solicitalo en **secretarÃ­a**\nğŸ“§ O escribÃ­ a soporte@cemi.edu.ar\nâœ… Verificamos tu identidad\nğŸ”„ Actualizamos en el sistema\n\n*El email es tu usuario de acceso*",
+    pregunta: "¿Puedo cambiar mi email?",
+    respuesta: "Para cambiar tu email:\n\n?? Solicitalo en **secretaría**\n?? O escribí a soporte@cemi.edu.ar\n? Verificamos tu identidad\n?? Actualizamos en el sistema\n\n*El email es tu usuario de acceso*",
     acciones: []
   },
   {
     id: 184,
     categoria: "cuenta",
     keywords: ["datos personales", "actualizar datos", "cambiar direccion", "telefono"],
-    pregunta: "Â¿CÃ³mo actualizo mis datos personales?",
-    respuesta: "PodÃ©s actualizar tus datos:\n\nğŸ“± En **Classroom > Mi perfil**\nğŸ« En **secretarÃ­a** (DNI, domicilio)\nğŸ“§ Por email a info@cemi.edu.ar\n\n*MantenÃ© tus datos actualizados*",
+    pregunta: "¿Cómo actualizo mis datos personales?",
+    respuesta: "Podés actualizar tus datos:\n\n?? En **Classroom > Mi perfil**\n?? En **secretaría** (DNI, domicilio)\n?? Por email a info@cemi.edu.ar\n\n*Mantené tus datos actualizados*",
     acciones: []
   },
   {
     id: 185,
     categoria: "cuenta",
     keywords: ["eliminar cuenta", "borrar cuenta", "darme de baja definitiva"],
-    pregunta: "Â¿Puedo eliminar mi cuenta?",
-    respuesta: "Para solicitar eliminaciÃ³n de cuenta:\n\nğŸ“‹ Solicitalo por escrito\nğŸ“§ Email a soporte@cemi.edu.ar\nâœ… Se procesan los datos segÃºn GDPR\nğŸ“œ Conservamos registros acadÃ©micos por ley\n\n*Proceso irreversible*",
+    pregunta: "¿Puedo eliminar mi cuenta?",
+    respuesta: "Para solicitar eliminación de cuenta:\n\n?? Solicitalo por escrito\n?? Email a soporte@cemi.edu.ar\n? Se procesan los datos según GDPR\n?? Conservamos registros académicos por ley\n\n*Proceso irreversible*",
     acciones: []
   },
   {
     id: 186,
     categoria: "cuenta",
     keywords: ["doble factor", "2fa", "seguridad cuenta", "verificacion"],
-    pregunta: "Â¿Tienen autenticaciÃ³n de dos factores?",
-    respuesta: "SÃ­, ofrecemos **2FA** opcional:\n\nğŸ” Activala en **ConfiguraciÃ³n > Seguridad**\nğŸ“± UsÃ¡ app como Google Authenticator\nğŸ”‘ CÃ³digos de respaldo disponibles\n\n*Recomendado para mayor seguridad*",
+    pregunta: "¿Tienen autenticación de dos factores?",
+    respuesta: "Sí, ofrecemos **2FA** opcional:\n\n?? Activala en **Configuración > Seguridad**\n?? Usá app como Google Authenticator\n?? Códigos de respaldo disponibles\n\n*Recomendado para mayor seguridad*",
     acciones: []
   },
   {
     id: 187,
     categoria: "cuenta",
     keywords: ["sesion abierta", "cerrar sesion", "otro dispositivo"],
-    pregunta: "Â¿CÃ³mo cierro sesiÃ³n en otros dispositivos?",
-    respuesta: "Para cerrar sesiones:\n\n1ï¸âƒ£ IngresÃ¡ a **Classroom**\n2ï¸âƒ£ **ConfiguraciÃ³n > Seguridad**\n3ï¸âƒ£ **\"Cerrar todas las sesiones\"**\n4ï¸âƒ£ ConfirmÃ¡\n\n*Ãštil si perdiste un dispositivo*",
+    pregunta: "¿Cómo cierro sesión en otros dispositivos?",
+    respuesta: "Para cerrar sesiones:\n\n1?? Ingresá a **Classroom**\n2?? **Configuración > Seguridad**\n3?? **\"Cerrar todas las sesiones\"**\n4?? Confirmá\n\n*Útil si perdiste un dispositivo*",
     acciones: []
   },
   {
@@ -1343,91 +1343,91 @@ const BASE_CONOCIMIENTO = [
     categoria: "cuenta",
     keywords: ["hackeo", "cuenta hackeada", "acceso no autorizado", "robaron cuenta"],
     pregunta: "Creo que hackearon mi cuenta",
-    respuesta: "Si sospechÃ¡s acceso no autorizado:\n\n1ï¸âƒ£ **CambiÃ¡ la contraseÃ±a** inmediatamente\n2ï¸âƒ£ **CerrÃ¡ todas las sesiones**\n3ï¸âƒ£ **ActivÃ¡ 2FA**\n4ï¸âƒ£ **ContactÃ¡ a soporte** urgente\n\nğŸ“§ soporte@cemi.edu.ar\nğŸ“± WhatsApp: +54 9 381 446-3243",
+    respuesta: "Si sospechás acceso no autorizado:\n\n1?? **Cambiá la contraseña** inmediatamente\n2?? **Cerrá todas las sesiones**\n3?? **Activá 2FA**\n4?? **Contactá a soporte** urgente\n\n?? soporte@cemi.edu.ar\n?? WhatsApp: +54 9 381 446-3243",
     acciones: [{ texto: "Contactar soporte", link: "mailto:soporte@cemi.edu.ar" }]
   },
   {
     id: 189,
     categoria: "cuenta",
     keywords: ["privacidad", "datos", "gdpr", "mis datos"],
-    pregunta: "Â¿CÃ³mo protegen mis datos personales?",
-    respuesta: "ProtecciÃ³n de datos:\n\nğŸ” EncriptaciÃ³n de informaciÃ³n\nğŸ“œ Cumplimiento de Ley de Datos Personales\nğŸŒ EstÃ¡ndares GDPR\nâœ… No compartimos datos con terceros\nğŸ“‹ PodÃ©s solicitar exportaciÃ³n/eliminaciÃ³n\n\n*Tu privacidad es prioridad*",
-    acciones: [{ texto: "Ver polÃ­tica de privacidad", link: "/privacidad.html" }]
+    pregunta: "¿Cómo protegen mis datos personales?",
+    respuesta: "Protección de datos:\n\n?? Encriptación de información\n?? Cumplimiento de Ley de Datos Personales\n?? Estándares GDPR\n? No compartimos datos con terceros\n?? Podés solicitar exportación/eliminación\n\n*Tu privacidad es prioridad*",
+    acciones: [{ texto: "Ver política de privacidad", link: "/privacidad.html" }]
   },
   {
     id: 190,
     categoria: "cuenta",
     keywords: ["exportar datos", "descargar mis datos", "copia datos"],
-    pregunta: "Â¿Puedo descargar mis datos?",
-    respuesta: "SÃ­, podÃ©s solicitar exportaciÃ³n:\n\nğŸ“‹ Desde **ConfiguraciÃ³n > Privacidad**\nğŸ“§ O por email a soporte@cemi.edu.ar\nğŸ“¦ RecibÃ­s un archivo con tus datos\nâ±ï¸ Procesamos en 48-72hs\n\n*Derecho GDPR garantizado*",
+    pregunta: "¿Puedo descargar mis datos?",
+    respuesta: "Sí, podés solicitar exportación:\n\n?? Desde **Configuración > Privacidad**\n?? O por email a soporte@cemi.edu.ar\n?? Recibís un archivo con tus datos\n?? Procesamos en 48-72hs\n\n*Derecho GDPR garantizado*",
     acciones: []
   },
   {
     id: 191,
     categoria: "cuenta",
     keywords: ["multiples dispositivos", "celular y computadora", "donde puedo entrar"],
-    pregunta: "Â¿Puedo usar mi cuenta en varios dispositivos?",
-    respuesta: "SÃ­, acceso desde mÃºltiples dispositivos:\n\nğŸ’» Computadora (navegador)\nğŸ“± Celular (app o navegador)\nğŸ“² Tablet\n\nâœ… Sesiones simultÃ¡neas permitidas\nğŸ”„ Datos sincronizados\n\n*Recomendamos cerrar sesiÃ³n en dispositivos pÃºblicos*",
+    pregunta: "¿Puedo usar mi cuenta en varios dispositivos?",
+    respuesta: "Sí, acceso desde múltiples dispositivos:\n\n?? Computadora (navegador)\n?? Celular (app o navegador)\n?? Tablet\n\n? Sesiones simultáneas permitidas\n?? Datos sincronizados\n\n*Recomendamos cerrar sesión en dispositivos públicos*",
     acciones: []
   },
   {
     id: 192,
     categoria: "cuenta",
-    keywords: ["olvidÃ© usuario", "cual es mi usuario", "no se mi usuario"],
-    pregunta: "OlvidÃ© mi nombre de usuario",
-    respuesta: "Tu usuario es:\n\nğŸ“§ **Tu email de registro**\n\nSi no recordÃ¡s quÃ© email usaste:\nğŸ“‹ ContactÃ¡ a secretarÃ­a con tu DNI\nğŸ“§ EscribÃ­ a soporte@cemi.edu.ar\n\n*Te ayudamos a recuperar el acceso*",
+    keywords: ["olvidé usuario", "cual es mi usuario", "no se mi usuario"],
+    pregunta: "Olvidé mi nombre de usuario",
+    respuesta: "Tu usuario es:\n\n?? **Tu email de registro**\n\nSi no recordás qué email usaste:\n?? Contactá a secretaría con tu DNI\n?? Escribí a soporte@cemi.edu.ar\n\n*Te ayudamos a recuperar el acceso*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 13: SOPORTE TÃ‰CNICO (12 respuestas)
+  // CATEGORÍA 13: SOPORTE TÉCNICO (12 respuestas)
   // ============================================
   {
     id: 193,
     categoria: "soporte",
     keywords: ["soporte", "ayuda tecnica", "problema tecnico", "no funciona"],
-    pregunta: "Â¿CÃ³mo contacto al soporte tÃ©cnico?",
-    respuesta: "Canales de soporte:\n\nğŸ“§ **Email**: soporte@cemi.edu.ar\nğŸ“± **WhatsApp**: +54 9 381 446-3243\nğŸ’¬ **Chat**: En la plataforma (horario hÃ¡bil)\nğŸ« **Presencial**: SecretarÃ­a\n\nâ° Respuesta en 24-48hs hÃ¡biles",
+    pregunta: "¿Cómo contacto al soporte técnico?",
+    respuesta: "Canales de soporte:\n\n?? **Email**: soporte@cemi.edu.ar\n?? **WhatsApp**: +54 9 381 446-3243\n?? **Chat**: En la plataforma (horario hábil)\n?? **Presencial**: Secretaría\n\n? Respuesta en 24-48hs hábiles",
     acciones: [{ texto: "Enviar email", link: "mailto:soporte@cemi.edu.ar" }]
   },
   {
     id: 194,
     categoria: "soporte",
     keywords: ["horario soporte", "cuando responden", "atienden soporte"],
-    pregunta: "Â¿CuÃ¡l es el horario de soporte?",
-    respuesta: "Horarios de atenciÃ³n tÃ©cnica:\n\nğŸ• **Lunes a Viernes**: 9:00 a 20:00\nğŸ• **SÃ¡bados**: 10:00 a 13:00\nğŸš« **Domingos y feriados**: Cerrado\n\n*Emails recibidos fuera de horario se responden al dÃ­a siguiente*",
+    pregunta: "¿Cuál es el horario de soporte?",
+    respuesta: "Horarios de atención técnica:\n\n?? **Lunes a Viernes**: 9:00 a 20:00\n?? **Sábados**: 10:00 a 13:00\n?? **Domingos y feriados**: Cerrado\n\n*Emails recibidos fuera de horario se responden al día siguiente*",
     acciones: []
   },
   {
     id: 195,
     categoria: "soporte",
     keywords: ["video no carga", "no reproduce", "error video"],
-    pregunta: "Los videos no cargan, Â¿quÃ© hago?",
-    respuesta: "ProbÃ¡ estas soluciones:\n\n1ï¸âƒ£ **RefrescÃ¡** la pÃ¡gina\n2ï¸âƒ£ VerificÃ¡ tu **conexiÃ³n a internet**\n3ï¸âƒ£ ProbÃ¡ con **otro navegador**\n4ï¸âƒ£ **DesactivÃ¡ bloqueadores** de anuncios\n5ï¸âƒ£ **ActualizÃ¡** el navegador\n\n*Si persiste, contactÃ¡ a soporte*",
+    pregunta: "Los videos no cargan, ¿qué hago?",
+    respuesta: "Probá estas soluciones:\n\n1?? **Refrescá** la página\n2?? Verificá tu **conexión a internet**\n3?? Probá con **otro navegador**\n4?? **Desactivá bloqueadores** de anuncios\n5?? **Actualizá** el navegador\n\n*Si persiste, contactá a soporte*",
     acciones: []
   },
   {
     id: 196,
     categoria: "soporte",
     keywords: ["audio no funciona", "no escucho", "problema sonido"],
-    pregunta: "No escucho el audio, Â¿quÃ© hago?",
-    respuesta: "VerificÃ¡ estos puntos:\n\nğŸ”Š Volumen de tu dispositivo\nğŸ”‡ Que no estÃ© en silencio\nğŸ§ ConexiÃ³n de auriculares\nğŸ”ˆ Permisos de audio en el navegador\nğŸ”„ RefrescÃ¡ la pÃ¡gina\n\n*ProbÃ¡ en otro dispositivo para descartar*",
+    pregunta: "No escucho el audio, ¿qué hago?",
+    respuesta: "Verificá estos puntos:\n\n?? Volumen de tu dispositivo\n?? Que no esté en silencio\n?? Conexión de auriculares\n?? Permisos de audio en el navegador\n?? Refrescá la página\n\n*Probá en otro dispositivo para descartar*",
     acciones: []
   },
   {
     id: 197,
     categoria: "soporte",
     keywords: ["camara no funciona", "no me ven", "video negro"],
-    pregunta: "Mi cÃ¡mara no funciona en las clases",
-    respuesta: "Soluciones para la cÃ¡mara:\n\n1ï¸âƒ£ VerificÃ¡ **permisos** del navegador\n2ï¸âƒ£ CerrÃ¡ otras apps que usen la cÃ¡mara\n3ï¸âƒ£ ProbÃ¡ en **otro navegador**\n4ï¸âƒ£ RevisÃ¡ configuraciÃ³n de **privacidad**\n5ï¸âƒ£ ActualizÃ¡ **drivers** de la cÃ¡mara\n\n*En Zoom/Meet: Clic en el Ã­cono de cÃ¡mara*",
+    pregunta: "Mi cámara no funciona en las clases",
+    respuesta: "Soluciones para la cámara:\n\n1?? Verificá **permisos** del navegador\n2?? Cerrá otras apps que usen la cámara\n3?? Probá en **otro navegador**\n4?? Revisá configuración de **privacidad**\n5?? Actualizá **drivers** de la cámara\n\n*En Zoom/Meet: Clic en el ícono de cámara*",
     acciones: []
   },
   {
     id: 198,
     categoria: "soporte",
     keywords: ["lento", "carga lento", "muy lento", "tarda mucho"],
-    pregunta: "La plataforma estÃ¡ muy lenta",
-    respuesta: "Para mejorar la velocidad:\n\nğŸŒ VerificÃ¡ tu **conexiÃ³n a internet**\nğŸ§¹ **BorrÃ¡ cachÃ©** del navegador\nğŸ”Œ ReiniciÃ¡ el **router**\nğŸ’» CerrÃ¡ otras **pestaÃ±as/aplicaciones**\nğŸ“± ProbÃ¡ desde **otro dispositivo**\n\n*Si es general, puede ser mantenimiento*",
+    pregunta: "La plataforma está muy lenta",
+    respuesta: "Para mejorar la velocidad:\n\n?? Verificá tu **conexión a internet**\n?? **Borrá caché** del navegador\n?? Reiniciá el **router**\n?? Cerrá otras **pestañas/aplicaciones**\n?? Probá desde **otro dispositivo**\n\n*Si es general, puede ser mantenimiento*",
     acciones: []
   },
   {
@@ -1435,15 +1435,15 @@ const BASE_CONOCIMIENTO = [
     categoria: "soporte",
     keywords: ["error", "mensaje error", "pantalla error"],
     pregunta: "Me aparece un error en pantalla",
-    respuesta: "Cuando aparece un error:\n\nğŸ“¸ **CapturÃ¡ pantalla** del mensaje\nğŸ”„ **RefrescÃ¡** la pÃ¡gina\nğŸ—‘ï¸ **BorrÃ¡ cookies** y cachÃ©\nğŸŒ ProbÃ¡ **otro navegador**\n\nSi persiste:\nğŸ“§ EnviÃ¡ la captura a soporte@cemi.edu.ar",
+    respuesta: "Cuando aparece un error:\n\n?? **Capturá pantalla** del mensaje\n?? **Refrescá** la página\n??? **Borrá cookies** y caché\n?? Probá **otro navegador**\n\nSi persiste:\n?? Enviá la captura a soporte@cemi.edu.ar",
     acciones: [{ texto: "Contactar soporte", link: "mailto:soporte@cemi.edu.ar" }]
   },
   {
     id: 200,
     categoria: "soporte",
     keywords: ["celular viejo", "requisitos", "que necesito para usar"],
-    pregunta: "Â¿QuÃ© requisitos tÃ©cnicos necesito?",
-    respuesta: "Requisitos mÃ­nimos:\n\nğŸ’» **PC/Mac**: Navegador actualizado, 4GB RAM\nğŸ“± **Celular**: Android 8+ o iOS 13+\nğŸŒ **Internet**: 5 Mbps mÃ­nimo\nğŸ§ **Audio**: Parlantes o auriculares\nğŸ“¹ **CÃ¡mara**: Para clases virtuales (opcional)\n\n*ConexiÃ³n estable recomendada*",
+    pregunta: "¿Qué requisitos técnicos necesito?",
+    respuesta: "Requisitos mínimos:\n\n?? **PC/Mac**: Navegador actualizado, 4GB RAM\n?? **Celular**: Android 8+ o iOS 13+\n?? **Internet**: 5 Mbps mínimo\n?? **Audio**: Parlantes o auriculares\n?? **Cámara**: Para clases virtuales (opcional)\n\n*Conexión estable recomendada*",
     acciones: []
   },
   {
@@ -1451,331 +1451,331 @@ const BASE_CONOCIMIENTO = [
     categoria: "soporte",
     keywords: ["zoom problema", "meet problema", "no puedo entrar clase"],
     pregunta: "No puedo entrar a la clase virtual",
-    respuesta: "Soluciones rÃ¡pidas:\n\n1ï¸âƒ£ VerificÃ¡ que sea la **hora correcta**\n2ï¸âƒ£ UsÃ¡ el **link actualizado** de Classroom\n3ï¸âƒ£ ActualizÃ¡ **Zoom/Meet**\n4ï¸âƒ£ ProbÃ¡ desde **navegador** en lugar de app\n5ï¸âƒ£ VerificÃ¡ **permisos** de cÃ¡mara/micrÃ³fono\n\n*AvisÃ¡ al profe si no podÃ©s entrar*",
+    respuesta: "Soluciones rápidas:\n\n1?? Verificá que sea la **hora correcta**\n2?? Usá el **link actualizado** de Classroom\n3?? Actualizá **Zoom/Meet**\n4?? Probá desde **navegador** en lugar de app\n5?? Verificá **permisos** de cámara/micrófono\n\n*Avisá al profe si no podés entrar*",
     acciones: []
   },
   {
     id: 202,
     categoria: "soporte",
     keywords: ["actualizar app", "version app", "app vieja"],
-    pregunta: "Â¿CÃ³mo actualizo la app?",
-    respuesta: "Para actualizar la app CEMI:\n\nğŸ“± **Android**: Play Store > Mis apps > Actualizar\nğŸ **iOS**: App Store > Actualizaciones\nğŸ”„ ActivÃ¡ **actualizaciones automÃ¡ticas**\n\n*Siempre usÃ¡ la Ãºltima versiÃ³n*",
+    pregunta: "¿Cómo actualizo la app?",
+    respuesta: "Para actualizar la app CEMI:\n\n?? **Android**: Play Store > Mis apps > Actualizar\n?? **iOS**: App Store > Actualizaciones\n?? Activá **actualizaciones automáticas**\n\n*Siempre usá la última versión*",
     acciones: []
   },
   {
     id: 203,
     categoria: "soporte",
     keywords: ["borrar cache", "limpiar cache", "cache navegador"],
-    pregunta: "Â¿CÃ³mo borro el cachÃ© del navegador?",
-    respuesta: "Para borrar cachÃ©:\n\n**Chrome**: Ctrl+Shift+Supr > \"Archivos en cachÃ©\"\n**Firefox**: Ctrl+Shift+Supr > \"CachÃ©\"\n**Edge**: Ctrl+Shift+Supr > \"Archivos en cachÃ©\"\n**Safari**: Preferencias > Privacidad > Gestionar datos\n\n*SeleccionÃ¡ \"Ãšltima hora\" o \"Todo el tiempo\"*",
+    pregunta: "¿Cómo borro el caché del navegador?",
+    respuesta: "Para borrar caché:\n\n**Chrome**: Ctrl+Shift+Supr > \"Archivos en caché\"\n**Firefox**: Ctrl+Shift+Supr > \"Caché\"\n**Edge**: Ctrl+Shift+Supr > \"Archivos en caché\"\n**Safari**: Preferencias > Privacidad > Gestionar datos\n\n*Seleccioná \"Última hora\" o \"Todo el tiempo\"*",
     acciones: []
   },
   {
     id: 204,
     categoria: "soporte",
     keywords: ["reporte bug", "reportar error", "encontre falla"],
-    pregunta: "Â¿CÃ³mo reporto un error de la plataforma?",
-    respuesta: "Para reportar bugs:\n\nğŸ“§ Email a **soporte@cemi.edu.ar**\nğŸ“ IncluÃ­:\n   - DescripciÃ³n del error\n   - Pasos para reproducirlo\n   - Captura de pantalla\n   - Navegador y dispositivo\n\n*Tu reporte nos ayuda a mejorar*",
+    pregunta: "¿Cómo reporto un error de la plataforma?",
+    respuesta: "Para reportar bugs:\n\n?? Email a **soporte@cemi.edu.ar**\n?? Incluí:\n   - Descripción del error\n   - Pasos para reproducirlo\n   - Captura de pantalla\n   - Navegador y dispositivo\n\n*Tu reporte nos ayuda a mejorar*",
     acciones: [{ texto: "Reportar error", link: "mailto:soporte@cemi.edu.ar?subject=Reporte de Error" }]
   },
 
   // ============================================
-  // CATEGORÃA 14: PREGUNTAS FRECUENTES GENERALES (15 respuestas)
+  // CATEGORÍA 14: PREGUNTAS FRECUENTES GENERALES (15 respuestas)
   // ============================================
   {
     id: 205,
     categoria: "faq",
     keywords: ["que es cemi", "quienes son", "sobre ustedes"],
-    pregunta: "Â¿QuÃ© es CEMI?",
-    respuesta: "**CEMI** es el Centro de Estudios de Idiomas:\n\nğŸ“ Instituto de enseÃ±anza de idiomas\nğŸ“š MÃ¡s de 10 aÃ±os de experiencia\nğŸ‘¥ Miles de alumnos egresados\nğŸŒ PreparaciÃ³n para exÃ¡menes internacionales\nğŸ’¼ Cursos para empresas\n\n*Tu mejor opciÃ³n para aprender idiomas*",
+    pregunta: "¿Qué es CEMI?",
+    respuesta: "**CEMI** es el Centro de Estudios de Idiomas:\n\n?? Instituto de enseñanza de idiomas\n?? Más de 10 años de experiencia\n?? Miles de alumnos egresados\n?? Preparación para exámenes internacionales\n?? Cursos para empresas\n\n*Tu mejor opción para aprender idiomas*",
     acciones: []
   },
   {
     id: 206,
     categoria: "faq",
     keywords: ["por que cemi", "por que elegir", "diferencia otros"],
-    pregunta: "Â¿Por quÃ© elegir CEMI?",
-    respuesta: "Nos diferenciamos por:\n\nâœ… **Grupos reducidos** (mÃ¡x. 12 alumnos)\nâœ… **Profesores certificados**\nâœ… **MetodologÃ­a comunicativa**\nâœ… **Plataforma online** integrada\nâœ… **Flexibilidad horaria**\nâœ… **Certificaciones reconocidas**\nâœ… **AtenciÃ³n personalizada**",
+    pregunta: "¿Por qué elegir CEMI?",
+    respuesta: "Nos diferenciamos por:\n\n? **Grupos reducidos** (máx. 12 alumnos)\n? **Profesores certificados**\n? **Metodología comunicativa**\n? **Plataforma online** integrada\n? **Flexibilidad horaria**\n? **Certificaciones reconocidas**\n? **Atención personalizada**",
     acciones: []
   },
   {
     id: 207,
     categoria: "faq",
     keywords: ["gratis", "sin costo", "free", "gratuito"],
-    pregunta: "Â¿Hay cursos gratis?",
-    respuesta: "Opciones sin costo:\n\nğŸ“š **Clase de prueba** gratuita\nğŸ¬ **Contenido en redes** (tips, vocabulario)\nğŸ“‹ **Test de nivel** sin cargo\n\nğŸ’° Los cursos completos tienen costo\nğŸ“ Pero ofrecemos becas y descuentos\n\n*ConsultÃ¡ opciones de financiaciÃ³n*",
+    pregunta: "¿Hay cursos gratis?",
+    respuesta: "Opciones sin costo:\n\n?? **Clase de prueba** gratuita\n?? **Contenido en redes** (tips, vocabulario)\n?? **Test de nivel** sin cargo\n\n?? Los cursos completos tienen costo\n?? Pero ofrecemos becas y descuentos\n\n*Consultá opciones de financiación*",
     acciones: []
   },
   {
     id: 208,
     categoria: "faq",
     keywords: ["beca", "becas", "ayuda economica", "descuento especial"],
-    pregunta: "Â¿Ofrecen becas?",
-    respuesta: "SÃ­, ofrecemos becas:\n\nğŸ“ **Beca por excelencia** acadÃ©mica\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§â€ğŸ‘¦ **Descuento familiar** (hermanos)\nğŸ¢ **Convenios empresariales**\nğŸ‘´ **Jubilados**: 20% descuento\n\n*ConsultÃ¡ requisitos en secretarÃ­a*",
+    pregunta: "¿Ofrecen becas?",
+    respuesta: "Sí, ofrecemos becas:\n\n?? **Beca por excelencia** académica\n??????????? **Descuento familiar** (hermanos)\n?? **Convenios empresariales**\n?? **Jubilados**: 20% descuento\n\n*Consultá requisitos en secretaría*",
     acciones: []
   },
   {
     id: 209,
     categoria: "faq",
     keywords: ["trabajo cemi", "trabajar aca", "empleo", "buscan profesores"],
-    pregunta: "Â¿Puedo trabajar en CEMI?",
-    respuesta: "Convocatorias docentes:\n\nğŸ‘¨â€ğŸ« Publicamos en nuestra web y redes\nğŸ“§ EnviÃ¡ CV a rrhh@cemi.edu.ar\nğŸ“‹ Requisitos: TÃ­tulo + experiencia\n\n*Actualmente buscamos docentes de alemÃ¡n*\n\n(Esto puede variar)",
+    pregunta: "¿Puedo trabajar en CEMI?",
+    respuesta: "Convocatorias docentes:\n\n????? Publicamos en nuestra web y redes\n?? Enviá CV a rrhh@cemi.edu.ar\n?? Requisitos: Título + experiencia\n\n*Actualmente buscamos docentes de alemán*\n\n(Esto puede variar)",
     acciones: [{ texto: "Enviar CV", link: "mailto:rrhh@cemi.edu.ar" }]
   },
   {
     id: 210,
     categoria: "faq",
     keywords: ["opinion alumnos", "testimonios", "comentarios"],
-    pregunta: "Â¿QuÃ© dicen los alumnos de CEMI?",
-    respuesta: "Opiniones de nuestros alumnos:\n\nâ­â­â­â­â­ 4.8/5 promedio\nğŸ’¬ \"Excelentes profesores\"\nğŸ’¬ \"MÃ©todo efectivo\"\nğŸ’¬ \"Buena atenciÃ³n\"\nğŸ’¬ \"AprendÃ­ rÃ¡pido\"\n\n*ConocÃ© mÃ¡s testimonios en nuestra web y Google*",
+    pregunta: "¿Qué dicen los alumnos de CEMI?",
+    respuesta: "Opiniones de nuestros alumnos:\n\n????? 4.8/5 promedio\n?? \"Excelentes profesores\"\n?? \"Método efectivo\"\n?? \"Buena atención\"\n?? \"Aprendí rápido\"\n\n*Conocé más testimonios en nuestra web y Google*",
     acciones: []
   },
   {
     id: 211,
     categoria: "faq",
     keywords: ["garantia", "devolucion", "no me gusto"],
-    pregunta: "Â¿QuÃ© pasa si no me gusta el curso?",
-    respuesta: "Nuestra polÃ­tica:\n\nğŸ“š **Clase de prueba** antes de inscribirte\nğŸ”„ **Primera semana**: DevoluciÃ³n completa\nğŸ“‹ **DespuÃ©s**: Sin devoluciÃ³n proporcional\nğŸ”„ PodÃ©s **cambiar de grupo/horario**\n\n*Te ayudamos a encontrar la mejor opciÃ³n*",
+    pregunta: "¿Qué pasa si no me gusta el curso?",
+    respuesta: "Nuestra política:\n\n?? **Clase de prueba** antes de inscribirte\n?? **Primera semana**: Devolución completa\n?? **Después**: Sin devolución proporcional\n?? Podés **cambiar de grupo/horario**\n\n*Te ayudamos a encontrar la mejor opción*",
     acciones: []
   },
   {
     id: 212,
     categoria: "faq",
     keywords: ["cuantos alumnos", "grupos grandes", "cantidad por grupo"],
-    pregunta: "Â¿CuÃ¡ntos alumnos hay por grupo?",
-    respuesta: "Grupos reducidos:\n\nğŸ‘¥ **MÃ¡ximo**: 12 alumnos\nğŸ‘¥ **Promedio**: 8-10 alumnos\nğŸ‘¤ **Individual**: 1 alumno\nğŸ‘¥ **Clases virtuales**: Hasta 15\n\n*Grupos pequeÃ±os = mÃ¡s prÃ¡ctica y atenciÃ³n*",
+    pregunta: "¿Cuántos alumnos hay por grupo?",
+    respuesta: "Grupos reducidos:\n\n?? **Máximo**: 12 alumnos\n?? **Promedio**: 8-10 alumnos\n?? **Individual**: 1 alumno\n?? **Clases virtuales**: Hasta 15\n\n*Grupos pequeños = más práctica y atención*",
     acciones: []
   },
   {
     id: 213,
     categoria: "faq",
     keywords: ["material propio", "libro incluido", "tengo que comprar"],
-    pregunta: "Â¿El material estÃ¡ incluido?",
-    respuesta: "Sobre los materiales:\n\nğŸ“š **Digital**: Incluido en Classroom\nğŸ“– **Libro fÃ­sico**: Costo adicional (opcional)\nğŸ“‹ **Fotocopias**: Incluidas\nğŸ§ **Audios/Videos**: Incluidos\n\n*ConsultÃ¡ por cada curso especÃ­fico*",
+    pregunta: "¿El material está incluido?",
+    respuesta: "Sobre los materiales:\n\n?? **Digital**: Incluido en Classroom\n?? **Libro físico**: Costo adicional (opcional)\n?? **Fotocopias**: Incluidas\n?? **Audios/Videos**: Incluidos\n\n*Consultá por cada curso específico*",
     acciones: []
   },
   {
     id: 214,
     categoria: "faq",
     keywords: ["viaje intercambio", "estudiar afuera", "exterior"],
-    pregunta: "Â¿Organizan viajes de intercambio?",
-    respuesta: "Experiencias internacionales:\n\nâœˆï¸ **Viajes grupales** opcionales\nğŸ« Convenios con instituciones del exterior\nğŸ“š Asesoramiento para estudiar afuera\nğŸŒ InformaciÃ³n sobre Work & Travel\n\n*Actividades extracurriculares optativas*",
+    pregunta: "¿Organizan viajes de intercambio?",
+    respuesta: "Experiencias internacionales:\n\n?? **Viajes grupales** opcionales\n?? Convenios con instituciones del exterior\n?? Asesoramiento para estudiar afuera\n?? Información sobre Work & Travel\n\n*Actividades extracurriculares optativas*",
     acciones: []
   },
   {
     id: 215,
     categoria: "faq",
     keywords: ["club conversacion", "practica oral", "hablar mas"],
-    pregunta: "Â¿Tienen club de conversaciÃ³n?",
-    respuesta: "Â¡SÃ­! Actividades extra:\n\nğŸ—£ï¸ **Club de conversaciÃ³n**: Semanal, gratuito\nâ˜• **Coffee talks**: Charlas informales\nğŸ¬ **Movie club**: Pelis en idioma original\nğŸ“– **Book club**: Lectura grupal\n\n*ParticipaciÃ³n opcional para alumnos*",
+    pregunta: "¿Tienen club de conversación?",
+    respuesta: "¡Sí! Actividades extra:\n\n??? **Club de conversación**: Semanal, gratuito\n? **Coffee talks**: Charlas informales\n?? **Movie club**: Pelis en idioma original\n?? **Book club**: Lectura grupal\n\n*Participación opcional para alumnos*",
     acciones: []
   },
   {
     id: 216,
     categoria: "faq",
     keywords: ["certificado digital", "online certificado", "pdf certificado"],
-    pregunta: "Â¿El certificado es digital o fÃ­sico?",
-    respuesta: "Formatos de certificados:\n\nğŸ“„ **Digital (PDF)**: Inmediato al aprobar\nğŸ“œ **FÃ­sico**: Entrega posterior en secretarÃ­a\nâœ… Ambos tienen igual validez\nğŸ“§ Digital con firma electrÃ³nica\n\n*ElegÃ­s el que prefieras*",
+    pregunta: "¿El certificado es digital o físico?",
+    respuesta: "Formatos de certificados:\n\n?? **Digital (PDF)**: Inmediato al aprobar\n?? **Físico**: Entrega posterior en secretaría\n? Ambos tienen igual validez\n?? Digital con firma electrónica\n\n*Elegís el que prefieras*",
     acciones: []
   },
   {
     id: 217,
     categoria: "faq",
     keywords: ["recomendacion", "que nivel empezar", "cual curso"],
-    pregunta: "Â¿QuÃ© curso me recomiendan?",
-    respuesta: "Para recomendarte:\n\n1ï¸âƒ£ HacÃ© el **test de nivel** gratuito\n2ï¸âƒ£ Contanos tus **objetivos** (trabajo, viaje, etc.)\n3ï¸âƒ£ Decinos tu **disponibilidad horaria**\n\nğŸ“ Llamanos o venÃ­ a secretarÃ­a\n*Te asesoramos personalmente*",
+    pregunta: "¿Qué curso me recomiendan?",
+    respuesta: "Para recomendarte:\n\n1?? Hacé el **test de nivel** gratuito\n2?? Contanos tus **objetivos** (trabajo, viaje, etc.)\n3?? Decinos tu **disponibilidad horaria**\n\n?? Llamanos o vení a secretaría\n*Te asesoramos personalmente*",
     acciones: [{ texto: "Solicitar test", link: "https://wa.me/543814463243?text=Hola!%20Quiero%20hacer%20el%20test%20de%20nivel" }]
   },
   {
     id: 218,
     categoria: "faq",
     keywords: ["constancia alumno regular", "certificado de alumno", "para trabajo"],
-    pregunta: "Â¿CÃ³mo pido una constancia de alumno regular?",
-    respuesta: "Para obtener constancia:\n\nğŸ« **Presencial**: SecretarÃ­a (24-48hs)\nğŸ“§ **Email**: SolicitÃ¡ a info@cemi.edu.ar\nğŸ’» **Classroom**: SecciÃ³n Documentos\nğŸ’° **Costo**: Gratuito (hasta 2 por cuatrimestre)\n\n*IndicÃ¡ para quÃ© la necesitÃ¡s*",
+    pregunta: "¿Cómo pido una constancia de alumno regular?",
+    respuesta: "Para obtener constancia:\n\n?? **Presencial**: Secretaría (24-48hs)\n?? **Email**: Solicitá a info@cemi.edu.ar\n?? **Classroom**: Sección Documentos\n?? **Costo**: Gratuito (hasta 2 por cuatrimestre)\n\n*Indicá para qué la necesitás*",
     acciones: []
   },
   {
     id: 219,
     categoria: "faq",
     keywords: ["quejas", "reclamos", "no estoy conforme", "problema con"],
-    pregunta: "Â¿CÃ³mo presento una queja o reclamo?",
-    respuesta: "Canales para reclamos:\n\nğŸ“‹ **Libro de quejas** en secretarÃ­a\nğŸ“§ **Email**: direccion@cemi.edu.ar\nğŸ« **Entrevista** con coordinaciÃ³n\nğŸ’¬ **Formulario** en la web\n\n*Respondemos en 48-72hs hÃ¡biles*\n*Tu opiniÃ³n nos importa*",
+    pregunta: "¿Cómo presento una queja o reclamo?",
+    respuesta: "Canales para reclamos:\n\n?? **Libro de quejas** en secretaría\n?? **Email**: direccion@cemi.edu.ar\n?? **Entrevista** con coordinación\n?? **Formulario** en la web\n\n*Respondemos en 48-72hs hábiles*\n*Tu opinión nos importa*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 15: BENEFICIOS Y EXTRAS (11 respuestas)
+  // CATEGORÍA 15: BENEFICIOS Y EXTRAS (11 respuestas)
   // ============================================
   {
     id: 220,
     categoria: "beneficios",
     keywords: ["descuento", "promo", "promocion", "oferta"],
-    pregunta: "Â¿Tienen descuentos o promociones?",
-    respuesta: "Descuentos vigentes:\n\nğŸ’° **Pago anual**: 15% descuento\nğŸ’° **Hermanos**: 10% c/u\nğŸ’° **Ex-alumnos**: 10%\nğŸ’° **Jubilados**: 20%\nğŸ’° **Promo referidos**: $$ por cada referido\n\n*ConsultÃ¡ promos actuales en secretarÃ­a*",
+    pregunta: "¿Tienen descuentos o promociones?",
+    respuesta: "Descuentos vigentes:\n\n?? **Pago anual**: 15% descuento\n?? **Hermanos**: 10% c/u\n?? **Ex-alumnos**: 10%\n?? **Jubilados**: 20%\n?? **Promo referidos**: $$ por cada referido\n\n*Consultá promos actuales en secretaría*",
     acciones: []
   },
   {
     id: 221,
     categoria: "beneficios",
     keywords: ["referido", "traer amigo", "recomendar"],
-    pregunta: "Â¿QuÃ© beneficio tengo si traigo un amigo?",
-    respuesta: "Programa **Referidos CEMI**:\n\nğŸ‘¥ ReferÃ­ un amigo\nâœ… Cuando se inscribe\nğŸ Vos recibÃ­s: 1 clase gratis o descuento\nğŸ Tu amigo: 10% descuento inscripciÃ³n\n\n*Sin lÃ­mite de referidos*",
+    pregunta: "¿Qué beneficio tengo si traigo un amigo?",
+    respuesta: "Programa **Referidos CEMI**:\n\n?? Referí un amigo\n? Cuando se inscribe\n?? Vos recibís: 1 clase gratis o descuento\n?? Tu amigo: 10% descuento inscripción\n\n*Sin límite de referidos*",
     acciones: []
   },
   {
     id: 222,
     categoria: "beneficios",
     keywords: ["convenio", "empresa convenio", "obra social"],
-    pregunta: "Â¿Tienen convenios con empresas?",
-    respuesta: "SÃ­, convenios corporativos:\n\nğŸ¢ Empresas asociadas\nğŸ’¼ Obras sociales\nğŸ“ Universidades\nğŸ“‹ Colegios profesionales\n\n*ConsultÃ¡ si tu empresa tiene convenio*\n*Descuentos especiales para empleados*",
+    pregunta: "¿Tienen convenios con empresas?",
+    respuesta: "Sí, convenios corporativos:\n\n?? Empresas asociadas\n?? Obras sociales\n?? Universidades\n?? Colegios profesionales\n\n*Consultá si tu empresa tiene convenio*\n*Descuentos especiales para empleados*",
     acciones: []
   },
   {
     id: 223,
     categoria: "beneficios",
     keywords: ["wifi", "internet instituto", "conexion"],
-    pregunta: "Â¿Hay WiFi en el instituto?",
-    respuesta: "Conectividad disponible:\n\nğŸ“¶ **WiFi gratuito** para alumnos\nğŸ”‘ Credenciales: PedÃ­ en secretarÃ­a\nğŸ’» Velocidad apta para clases\nâš¡ Cobertura en todo el edificio\n\n*Uso responsable*",
+    pregunta: "¿Hay WiFi en el instituto?",
+    respuesta: "Conectividad disponible:\n\n?? **WiFi gratuito** para alumnos\n?? Credenciales: Pedí en secretaría\n?? Velocidad apta para clases\n? Cobertura en todo el edificio\n\n*Uso responsable*",
     acciones: []
   },
   {
     id: 224,
     categoria: "beneficios",
     keywords: ["biblioteca", "libros prestar", "material consulta"],
-    pregunta: "Â¿Tienen biblioteca?",
-    respuesta: "Recursos bibliogrÃ¡ficos:\n\nğŸ“š **Biblioteca fÃ­sica**: En sede, consulta en sala\nğŸ“– **PrÃ©stamo**: Con carnet de alumno\nğŸ’» **Biblioteca digital**: En Classroom\nğŸ“’ Diccionarios, gramÃ¡ticas, readers\n\n*PrÃ©stamo por 7 dÃ­as, renovable*",
+    pregunta: "¿Tienen biblioteca?",
+    respuesta: "Recursos bibliográficos:\n\n?? **Biblioteca física**: En sede, consulta en sala\n?? **Préstamo**: Con carnet de alumno\n?? **Biblioteca digital**: En Classroom\n?? Diccionarios, gramáticas, readers\n\n*Préstamo por 7 días, renovable*",
     acciones: []
   },
   {
     id: 225,
     categoria: "beneficios",
     keywords: ["cafeteria", "buffet", "comer", "snack"],
-    pregunta: "Â¿Hay cafeterÃ­a en el instituto?",
-    respuesta: "Opciones para alimentarse:\n\nâ˜• **MÃ¡quina de cafÃ©** disponible\nğŸ¥¤ **Dispenser de agua**\nğŸ« **Vending** de snacks\nğŸš« No hay cafeterÃ­a completa\nğŸ• Locales cerca para comer\n\n*10 min de break entre clases largas*",
+    pregunta: "¿Hay cafetería en el instituto?",
+    respuesta: "Opciones para alimentarse:\n\n? **Máquina de café** disponible\n?? **Dispenser de agua**\n?? **Vending** de snacks\n?? No hay cafetería completa\n?? Locales cerca para comer\n\n*10 min de break entre clases largas*",
     acciones: []
   },
   {
     id: 226,
     categoria: "beneficios",
     keywords: ["actividad extra", "extracurricular", "ademas de clase"],
-    pregunta: "Â¿Hay actividades extracurriculares?",
-    respuesta: "Actividades extra para alumnos:\n\nğŸ—£ï¸ Club de conversaciÃ³n\nğŸ¬ Cine en idioma original\nğŸ­ Obras de teatro\nğŸ“– Club de lectura\nğŸ‰ Fiestas temÃ¡ticas\nğŸ† Competencias y concursos\n\n*ParticipaciÃ³n opcional y mayormente gratuita*",
+    pregunta: "¿Hay actividades extracurriculares?",
+    respuesta: "Actividades extra para alumnos:\n\n??? Club de conversación\n?? Cine en idioma original\n?? Obras de teatro\n?? Club de lectura\n?? Fiestas temáticas\n?? Competencias y concursos\n\n*Participación opcional y mayormente gratuita*",
     acciones: []
   },
   {
     id: 227,
     categoria: "beneficios",
     keywords: ["carnet", "credencial", "identificacion alumno"],
-    pregunta: "Â¿Me dan carnet de alumno?",
-    respuesta: "Credencial de alumno:\n\nğŸ« **Carnet fÃ­sico**: Se entrega al inscribirse\nğŸ“± **Credencial digital**: En la app\nâœ… Sirve para: Biblioteca, descuentos, identificaciÃ³n\nğŸ”„ RenovaciÃ³n anual\n\n*Cuidalo, tiene tus datos*",
+    pregunta: "¿Me dan carnet de alumno?",
+    respuesta: "Credencial de alumno:\n\n?? **Carnet físico**: Se entrega al inscribirse\n?? **Credencial digital**: En la app\n? Sirve para: Biblioteca, descuentos, identificación\n?? Renovación anual\n\n*Cuidalo, tiene tus datos*",
     acciones: []
   },
   {
     id: 228,
     categoria: "beneficios",
     keywords: ["descuento cine", "beneficio alumno", "descuentos externos"],
-    pregunta: "Â¿Tengo descuentos por ser alumno?",
-    respuesta: "Beneficios externos:\n\nğŸ¬ Descuentos en cines (verificar)\nğŸ“š LibrerÃ­as asociadas\nâ˜• CafeterÃ­as cercanas\nğŸ‹ï¸ Gimnasios con convenio\n\n*Mostrando carnet de alumno vigente*\n*Beneficios pueden variar*",
+    pregunta: "¿Tengo descuentos por ser alumno?",
+    respuesta: "Beneficios externos:\n\n?? Descuentos en cines (verificar)\n?? Librerías asociadas\n? Cafeterías cercanas\n??? Gimnasios con convenio\n\n*Mostrando carnet de alumno vigente*\n*Beneficios pueden variar*",
     acciones: []
   },
   {
     id: 229,
     categoria: "beneficios",
     keywords: ["newsletter", "novedades", "email noticias"],
-    pregunta: "Â¿CÃ³mo me entero de novedades?",
-    respuesta: "Mantenete informado:\n\nğŸ“§ **Newsletter**: Suscribite en la web\nğŸ“± **App**: Notificaciones push\nğŸ“˜ **Facebook**: /CEMIidiomas\nğŸ“¸ **Instagram**: @cemi_idiomas\nğŸ« **Cartelera**: En la sede\n\n*No te pierdas ninguna novedad*",
+    pregunta: "¿Cómo me entero de novedades?",
+    respuesta: "Mantenete informado:\n\n?? **Newsletter**: Suscribite en la web\n?? **App**: Notificaciones push\n?? **Facebook**: /CEMIidiomas\n?? **Instagram**: @cemi_idiomas\n?? **Cartelera**: En la sede\n\n*No te pierdas ninguna novedad*",
     acciones: []
   },
   {
     id: 230,
     categoria: "beneficios",
     keywords: ["experiencia alumni", "egresados", "comunidad ex"],
-    pregunta: "Â¿Hay comunidad de egresados?",
-    respuesta: "Comunidad CEMI Alumni:\n\nğŸ‘¥ Grupo de egresados\nğŸ“§ Newsletter especial\nğŸ“ Descuentos para volver\nğŸ“š Acceso a recursos\nğŸ¤ Networking profesional\n\n*Una vez CEMI, siempre CEMI*",
+    pregunta: "¿Hay comunidad de egresados?",
+    respuesta: "Comunidad CEMI Alumni:\n\n?? Grupo de egresados\n?? Newsletter especial\n?? Descuentos para volver\n?? Acceso a recursos\n?? Networking profesional\n\n*Una vez CEMI, siempre CEMI*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 16: EXÃMENES Y EVALUACIONES (25)
+  // CATEGORÍA 16: EXÁMENES Y EVALUACIONES (25)
   // ============================================
   {
     id: 231,
     categoria: "examenes",
     keywords: ["examen", "prueba", "evaluacion", "test"],
-    pregunta: "Â¿CÃ³mo son los exÃ¡menes?",
-    respuesta: "Sistema de evaluaciÃ³n:\n\nğŸ“ **Parciales**: Durante el cuatrimestre\nğŸ“‹ **Final**: Al cierre del nivel\nâœï¸ **Escritos y orales**\nğŸ“Š Escala: 1-10 (aprobaciÃ³n: 6)\n\n*EvaluaciÃ³n continua del proceso*",
+    pregunta: "¿Cómo son los exámenes?",
+    respuesta: "Sistema de evaluación:\n\n?? **Parciales**: Durante el cuatrimestre\n?? **Final**: Al cierre del nivel\n?? **Escritos y orales**\n?? Escala: 1-10 (aprobación: 6)\n\n*Evaluación continua del proceso*",
     acciones: []
   },
   {
     id: 232,
     categoria: "examenes",
     keywords: ["cuando examen", "fecha examen", "parcial cuando"],
-    pregunta: "Â¿CuÃ¡ndo son los exÃ¡menes?",
-    respuesta: "Cronograma de evaluaciones:\n\nğŸ“… **Parcial 1**: Semana 7-8\nğŸ“… **Parcial 2**: Semana 14-15\nğŸ“… **Final**: Ãšltima semana\nğŸ“§ Aviso previo por email\n\n*Fechas especÃ­ficas en Classroom*",
+    pregunta: "¿Cuándo son los exámenes?",
+    respuesta: "Cronograma de evaluaciones:\n\n?? **Parcial 1**: Semana 7-8\n?? **Parcial 2**: Semana 14-15\n?? **Final**: Última semana\n?? Aviso previo por email\n\n*Fechas específicas en Classroom*",
     acciones: []
   },
   {
     id: 233,
     categoria: "examenes",
     keywords: ["aprobar", "nota minima", "cuanto necesito"],
-    pregunta: "Â¿QuÃ© nota necesito para aprobar?",
-    respuesta: "Requisitos de aprobaciÃ³n:\n\nâœ… **Nota mÃ­nima**: 6/10\nâœ… **Asistencia**: 75% mÃ­nimo\nâœ… **Trabajos**: Entregados\nğŸ“Š Promedio de parciales + final\n\n*60% = aprobado*",
+    pregunta: "¿Qué nota necesito para aprobar?",
+    respuesta: "Requisitos de aprobación:\n\n? **Nota mínima**: 6/10\n? **Asistencia**: 75% mínimo\n? **Trabajos**: Entregados\n?? Promedio de parciales + final\n\n*60% = aprobado*",
     acciones: []
   },
   {
     id: 234,
     categoria: "examenes",
     keywords: ["reprobar", "desaprobar", "no aprobe", "me fue mal"],
-    pregunta: "Â¿QuÃ© pasa si no apruebo?",
-    respuesta: "Si no aprobÃ¡s:\n\nğŸ”„ **Recuperatorio**: 1 instancia extra\nğŸ“… Fecha: 2 semanas despuÃ©s del final\nğŸ“š PodÃ©s recursar el nivel\nğŸ’¬ Apoyo del docente\n\n*No te desanimes, es parte del proceso*",
+    pregunta: "¿Qué pasa si no apruebo?",
+    respuesta: "Si no aprobás:\n\n?? **Recuperatorio**: 1 instancia extra\n?? Fecha: 2 semanas después del final\n?? Podés recursar el nivel\n?? Apoyo del docente\n\n*No te desanimes, es parte del proceso*",
     acciones: []
   },
   {
     id: 235,
     categoria: "examenes",
     keywords: ["recuperatorio", "segunda chance", "volver rendir"],
-    pregunta: "Â¿CÃ³mo funciona el recuperatorio?",
-    respuesta: "Sistema de recuperaciÃ³n:\n\nğŸ“ 1 recuperatorio por materia\nğŸ“… 2 semanas post-examen\nğŸ’° Sin costo adicional\nğŸ“‹ Mismo formato que el original\nâœ… Nota mÃ¡xima: 10\n\n*AprovechÃ¡ esta oportunidad*",
+    pregunta: "¿Cómo funciona el recuperatorio?",
+    respuesta: "Sistema de recuperación:\n\n?? 1 recuperatorio por materia\n?? 2 semanas post-examen\n?? Sin costo adicional\n?? Mismo formato que el original\n? Nota máxima: 10\n\n*Aprovechá esta oportunidad*",
     acciones: []
   },
   {
     id: 236,
     categoria: "examenes",
     keywords: ["oral", "examen oral", "hablar examen"],
-    pregunta: "Â¿Hay examen oral?",
-    respuesta: "EvaluaciÃ³n oral:\n\nğŸ—£ï¸ **SÃ­**, hay componente oral\nğŸ“Š Porcentaje: 30-40% de la nota\nğŸ‘¥ Individual o en parejas\nâ±ï¸ DuraciÃ³n: 10-15 minutos\nğŸ“‹ Temas: ConversaciÃ³n, descripciÃ³n, opiniÃ³n\n\n*Practicamos en clase*",
+    pregunta: "¿Hay examen oral?",
+    respuesta: "Evaluación oral:\n\n??? **Sí**, hay componente oral\n?? Porcentaje: 30-40% de la nota\n?? Individual o en parejas\n?? Duración: 10-15 minutos\n?? Temas: Conversación, descripción, opinión\n\n*Practicamos en clase*",
     acciones: []
   },
   {
     id: 237,
     categoria: "examenes",
     keywords: ["escrito", "examen escrito", "writing"],
-    pregunta: "Â¿CÃ³mo es el examen escrito?",
-    respuesta: "Formato del examen escrito:\n\nğŸ“– **Reading**: ComprensiÃ³n lectora\nâœï¸ **Writing**: RedacciÃ³n\nğŸ“ **Grammar**: Ejercicios gramaticales\nğŸ”¤ **Vocabulary**: Vocabulario\nâ±ï¸ DuraciÃ³n: 90-120 minutos",
+    pregunta: "¿Cómo es el examen escrito?",
+    respuesta: "Formato del examen escrito:\n\n?? **Reading**: Comprensión lectora\n?? **Writing**: Redacción\n?? **Grammar**: Ejercicios gramaticales\n?? **Vocabulary**: Vocabulario\n?? Duración: 90-120 minutos",
     acciones: []
   },
   {
     id: 238,
     categoria: "examenes",
     keywords: ["listening", "audio examen", "escuchar"],
-    pregunta: "Â¿El examen tiene listening?",
-    respuesta: "SecciÃ³n de Listening:\n\nğŸ‘‚ **SÃ­**, hay comprensiÃ³n auditiva\nğŸ§ Audios con acentos variados\nğŸ“ Respuestas mÃºltiple choice\nğŸ”„ Se escucha 2 veces\nğŸ“Š 20-25% de la nota\n\n*Practicamos regularmente en clase*",
+    pregunta: "¿El examen tiene listening?",
+    respuesta: "Sección de Listening:\n\n?? **Sí**, hay comprensión auditiva\n?? Audios con acentos variados\n?? Respuestas múltiple choice\n?? Se escucha 2 veces\n?? 20-25% de la nota\n\n*Practicamos regularmente en clase*",
     acciones: []
   },
   {
     id: 239,
     categoria: "examenes",
     keywords: ["modelo examen", "ejemplo examen", "como es formato"],
-    pregunta: "Â¿Hay modelo de examen para practicar?",
-    respuesta: "Material de prÃ¡ctica:\n\nğŸ“š **Modelos**: Disponibles en Classroom\nğŸ“ ExÃ¡menes anteriores de prÃ¡ctica\nâœ… Respuestas incluidas\nğŸ‘¨â€ğŸ« Simulacros en clase\n\n*El profe te guÃ­a en la preparaciÃ³n*",
+    pregunta: "¿Hay modelo de examen para practicar?",
+    respuesta: "Material de práctica:\n\n?? **Modelos**: Disponibles en Classroom\n?? Exámenes anteriores de práctica\n? Respuestas incluidas\n????? Simulacros en clase\n\n*El profe te guía en la preparación*",
     acciones: []
   },
   {
     id: 240,
     categoria: "examenes",
     keywords: ["estudiar examen", "preparar examen", "como estudio"],
-    pregunta: "Â¿CÃ³mo me preparo para el examen?",
-    respuesta: "Tips para prepararte:\n\nğŸ“š RevisÃ¡ el material de clase\nğŸ“ HacÃ© los ejercicios del libro\nğŸ§ PracticÃ¡ listening diariamente\nâœï¸ EscribÃ­ textos de prÃ¡ctica\nğŸ—£ï¸ HablÃ¡ en voz alta\nğŸ“‹ UsÃ¡ los modelos de examen\n\n*Constancia > Intensidad*",
+    pregunta: "¿Cómo me preparo para el examen?",
+    respuesta: "Tips para prepararte:\n\n?? Revisá el material de clase\n?? Hacé los ejercicios del libro\n?? Practicá listening diariamente\n?? Escribí textos de práctica\n??? Hablá en voz alta\n?? Usá los modelos de examen\n\n*Constancia > Intensidad*",
     acciones: []
   },
   {
@@ -1783,263 +1783,263 @@ const BASE_CONOCIMIENTO = [
     categoria: "examenes",
     keywords: ["nervios examen", "ansiedad examen", "miedo examen"],
     pregunta: "Tengo nervios por el examen",
-    respuesta: "Consejos para los nervios:\n\nğŸ˜Œ **RespirÃ¡ profundo** antes de empezar\nğŸ“š EstudiÃ¡ con tiempo, no a Ãºltimo momento\nğŸ’¤ DormÃ­ bien la noche anterior\nğŸ DesayunÃ¡ bien\nâ±ï¸ LlegÃ¡ temprano\nğŸ’ª Â¡ConfiÃ¡ en tu preparaciÃ³n!\n\n*Es normal, pero podÃ©s manejarlo*",
+    respuesta: "Consejos para los nervios:\n\n?? **Respirá profundo** antes de empezar\n?? Estudiá con tiempo, no a último momento\n?? Dormí bien la noche anterior\n?? Desayuná bien\n?? Llegá temprano\n?? ¡Confiá en tu preparación!\n\n*Es normal, pero podés manejarlo*",
     acciones: []
   },
   {
     id: 242,
     categoria: "examenes",
     keywords: ["faltar examen", "no puedo ir examen", "ausente examen"],
-    pregunta: "Â¿QuÃ© pasa si falto al examen?",
-    respuesta: "En caso de ausencia:\n\nğŸ“‹ AvisÃ¡ con anticipaciÃ³n\nğŸ“„ PresentÃ¡ justificativo mÃ©dico\nğŸ“… Se reprograma para otra fecha\nâš ï¸ Sin justificativo: Ausente = 1\n\n*Comunicalo antes si es posible*",
+    pregunta: "¿Qué pasa si falto al examen?",
+    respuesta: "En caso de ausencia:\n\n?? Avisá con anticipación\n?? Presentá justificativo médico\n?? Se reprograma para otra fecha\n?? Sin justificativo: Ausente = 1\n\n*Comunicalo antes si es posible*",
     acciones: []
   },
   {
     id: 243,
     categoria: "examenes",
     keywords: ["ver nota", "resultado examen", "como me fue"],
-    pregunta: "Â¿DÃ³nde veo mi nota del examen?",
-    respuesta: "Resultados disponibles en:\n\nğŸ“Š **Classroom**: SecciÃ³n Calificaciones\nğŸ“§ NotificaciÃ³n por email\nğŸ‘¨â€ğŸ« El profe comunica en clase\nâ±ï¸ Tiempo: 7-10 dÃ­as hÃ¡biles\n\n*PodÃ©s consultar al docente*",
+    pregunta: "¿Dónde veo mi nota del examen?",
+    respuesta: "Resultados disponibles en:\n\n?? **Classroom**: Sección Calificaciones\n?? Notificación por email\n????? El profe comunica en clase\n?? Tiempo: 7-10 días hábiles\n\n*Podés consultar al docente*",
     acciones: []
   },
   {
     id: 244,
     categoria: "examenes",
     keywords: ["revisar examen", "ver examen", "correccion"],
-    pregunta: "Â¿Puedo ver mi examen corregido?",
-    respuesta: "RevisiÃ³n de examen:\n\nâœ… SÃ­, podÃ©s pedirlo\nğŸ‘¨â€ğŸ« CoordinÃ¡ con el profesor\nğŸ“‹ En horario de consulta\nğŸ’¬ ExplicaciÃ³n de errores\nğŸ“š Feedback para mejorar\n\n*Es tu derecho ver la correcciÃ³n*",
+    pregunta: "¿Puedo ver mi examen corregido?",
+    respuesta: "Revisión de examen:\n\n? Sí, podés pedirlo\n????? Coordiná con el profesor\n?? En horario de consulta\n?? Explicación de errores\n?? Feedback para mejorar\n\n*Es tu derecho ver la corrección*",
     acciones: []
   },
   {
     id: 245,
     categoria: "examenes",
     keywords: ["reclamar nota", "no estoy de acuerdo", "apelar"],
-    pregunta: "Â¿Puedo reclamar mi nota?",
-    respuesta: "Proceso de revisiÃ³n:\n\n1ï¸âƒ£ HablÃ¡ primero con el profesor\n2ï¸âƒ£ Si no hay acuerdo, pedÃ­ revisiÃ³n formal\n3ï¸âƒ£ CoordinaciÃ³n evalÃºa el caso\nâ±ï¸ Plazo: 5 dÃ­as hÃ¡biles post-nota\n\n*Siempre con respeto y fundamento*",
+    pregunta: "¿Puedo reclamar mi nota?",
+    respuesta: "Proceso de revisión:\n\n1?? Hablá primero con el profesor\n2?? Si no hay acuerdo, pedí revisión formal\n3?? Coordinación evalúa el caso\n?? Plazo: 5 días hábiles post-nota\n\n*Siempre con respeto y fundamento*",
     acciones: []
   },
   {
     id: 246,
     categoria: "examenes",
     keywords: ["promocion", "promocionar", "sin final"],
-    pregunta: "Â¿Se puede promocionar sin final?",
-    respuesta: "Sistema de promociÃ³n:\n\nâœ… Promedio de parciales â‰¥ 8\nâœ… Asistencia â‰¥ 80%\nâœ… Trabajos completos\nğŸ“ = PromociÃ³n directa\n\n*Esfuerzo durante el aÃ±o tiene premio*",
+    pregunta: "¿Se puede promocionar sin final?",
+    respuesta: "Sistema de promoción:\n\n? Promedio de parciales = 8\n? Asistencia = 80%\n? Trabajos completos\n?? = Promoción directa\n\n*Esfuerzo durante el año tiene premio*",
     acciones: []
   },
   {
     id: 247,
     categoria: "examenes",
     keywords: ["libre", "rendir libre", "sin cursar"],
-    pregunta: "Â¿Puedo rendir libre?",
-    respuesta: "Modalidad libre:\n\nğŸ“‹ ConsultÃ¡ disponibilidad\nğŸ“š Programa completo del nivel\nğŸ“ Examen escrito + oral\nğŸ’° Arancel especial\nâš ï¸ Mayor exigencia\n\n*Recomendamos cursar para mejor preparaciÃ³n*",
+    pregunta: "¿Puedo rendir libre?",
+    respuesta: "Modalidad libre:\n\n?? Consultá disponibilidad\n?? Programa completo del nivel\n?? Examen escrito + oral\n?? Arancel especial\n?? Mayor exigencia\n\n*Recomendamos cursar para mejor preparación*",
     acciones: []
   },
   {
     id: 248,
     categoria: "examenes",
     keywords: ["equivalencia", "materias aprobadas", "reconocimiento"],
-    pregunta: "Â¿Reconocen estudios previos?",
-    respuesta: "Equivalencias:\n\nğŸ“‹ PresentÃ¡ certificado de estudios\nğŸ“ Test de ubicaciÃ³n\nâœ… Reconocemos niveles aprobados\nğŸ« De instituciones reconocidas\n\n*EvitÃ¡ repetir lo que ya sabÃ©s*",
+    pregunta: "¿Reconocen estudios previos?",
+    respuesta: "Equivalencias:\n\n?? Presentá certificado de estudios\n?? Test de ubicación\n? Reconocemos niveles aprobados\n?? De instituciones reconocidas\n\n*Evitá repetir lo que ya sabés*",
     acciones: []
   },
   {
     id: 249,
     categoria: "examenes",
     keywords: ["nota promedio", "como calcula", "promedio"],
-    pregunta: "Â¿CÃ³mo se calcula el promedio?",
-    respuesta: "CÃ¡lculo del promedio:\n\nğŸ“Š Parcial 1: 25%\nğŸ“Š Parcial 2: 25%\nğŸ“Š Trabajos: 20%\nğŸ“Š Final: 30%\n\n*ParticipaciÃ³n y asistencia pueden sumar*",
+    pregunta: "¿Cómo se calcula el promedio?",
+    respuesta: "Cálculo del promedio:\n\n?? Parcial 1: 25%\n?? Parcial 2: 25%\n?? Trabajos: 20%\n?? Final: 30%\n\n*Participación y asistencia pueden sumar*",
     acciones: []
   },
   {
     id: 250,
     categoria: "examenes",
     keywords: ["fecha limite", "hasta cuando", "ultimo dia"],
-    pregunta: "Â¿Hasta cuÃ¡ndo puedo rendir?",
-    respuesta: "Fechas lÃ­mite:\n\nğŸ“… **Ordinario**: Fin del cuatrimestre\nğŸ“… **Recuperatorio**: 2 semanas despuÃ©s\nğŸ“… **Extraordinario**: Consultar\n\n*No dejes pasar las fechas*",
+    pregunta: "¿Hasta cuándo puedo rendir?",
+    respuesta: "Fechas límite:\n\n?? **Ordinario**: Fin del cuatrimestre\n?? **Recuperatorio**: 2 semanas después\n?? **Extraordinario**: Consultar\n\n*No dejes pasar las fechas*",
     acciones: []
   },
   {
     id: 251,
     categoria: "examenes",
     keywords: ["parcial domiciliario", "trabajo practico", "tp"],
-    pregunta: "Â¿Hay trabajos prÃ¡cticos?",
-    respuesta: "Trabajos durante la cursada:\n\nğŸ“ TPs individuales y grupales\nğŸ“… Fechas de entrega en Classroom\nğŸ“Š Cuentan para el promedio\nâœ… Obligatorios para aprobar\nğŸ’» Entrega online\n\n*RespetÃ¡ las fechas*",
+    pregunta: "¿Hay trabajos prácticos?",
+    respuesta: "Trabajos durante la cursada:\n\n?? TPs individuales y grupales\n?? Fechas de entrega en Classroom\n?? Cuentan para el promedio\n? Obligatorios para aprobar\n?? Entrega online\n\n*Respetá las fechas*",
     acciones: []
   },
   {
     id: 252,
     categoria: "examenes",
     keywords: ["presentacion oral", "exposicion", "presentar tema"],
-    pregunta: "Â¿Hay presentaciones orales?",
-    respuesta: "Presentaciones en clase:\n\nğŸ¤ SÃ­, hay exposiciones\nğŸ‘¥ Individuales o grupales\nğŸ“Š Temas asignados o a elecciÃ³n\nâ±ï¸ 5-10 minutos\nğŸ“‹ RÃºbrica de evaluaciÃ³n\n\n*Excelente prÃ¡ctica para el oral*",
+    pregunta: "¿Hay presentaciones orales?",
+    respuesta: "Presentaciones en clase:\n\n?? Sí, hay exposiciones\n?? Individuales o grupales\n?? Temas asignados o a elección\n?? 5-10 minutos\n?? Rúbrica de evaluación\n\n*Excelente práctica para el oral*",
     acciones: []
   },
   {
     id: 253,
     categoria: "examenes",
     keywords: ["portfolio", "carpeta", "evidencias"],
-    pregunta: "Â¿Debo armar un portfolio?",
-    respuesta: "Portfolio de aprendizaje:\n\nğŸ“ Opcional pero recomendado\nğŸ“ RecopilÃ¡ tus mejores trabajos\nğŸ“Š Muestra tu progreso\nğŸ¯ Ãštil para autoevaluaciÃ³n\nğŸ’¼ Sirve para el CV\n\n*Evidencia de tu aprendizaje*",
+    pregunta: "¿Debo armar un portfolio?",
+    respuesta: "Portfolio de aprendizaje:\n\n?? Opcional pero recomendado\n?? Recopilá tus mejores trabajos\n?? Muestra tu progreso\n?? Útil para autoevaluación\n?? Sirve para el CV\n\n*Evidencia de tu aprendizaje*",
     acciones: []
   },
   {
     id: 254,
     categoria: "examenes",
     keywords: ["autoevaluacion", "evaluar propio", "autocritica"],
-    pregunta: "Â¿Hay autoevaluaciÃ³n?",
-    respuesta: "Instancias de autoevaluaciÃ³n:\n\nğŸ“‹ Tests de prÃ¡ctica en Classroom\nğŸ¯ RÃºbricas de autochequeo\nğŸ’¬ ReflexiÃ³n post-examen\nğŸ“Š Seguimiento de progreso\n\n*Conocer tus fortalezas y debilidades*",
+    pregunta: "¿Hay autoevaluación?",
+    respuesta: "Instancias de autoevaluación:\n\n?? Tests de práctica en Classroom\n?? Rúbricas de autochequeo\n?? Reflexión post-examen\n?? Seguimiento de progreso\n\n*Conocer tus fortalezas y debilidades*",
     acciones: []
   },
   {
     id: 255,
     categoria: "examenes",
     keywords: ["fraude", "copiar", "trampa examen"],
-    pregunta: "Â¿QuÃ© pasa si copian en el examen?",
-    respuesta: "PolÃ­tica de integridad acadÃ©mica:\n\nğŸš« Copia = AnulaciÃ³n del examen\nâš ï¸ Primera vez: Advertencia + recuperatorio\nâŒ Reincidencia: Sanciones mayores\nğŸ“œ Acta de situaciÃ³n\n\n*Valoramos la honestidad*",
+    pregunta: "¿Qué pasa si copian en el examen?",
+    respuesta: "Política de integridad académica:\n\n?? Copia = Anulación del examen\n?? Primera vez: Advertencia + recuperatorio\n? Reincidencia: Sanciones mayores\n?? Acta de situación\n\n*Valoramos la honestidad*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 17: MATERIALES DE ESTUDIO (20)
+  // CATEGORÍA 17: MATERIALES DE ESTUDIO (20)
   // ============================================
   {
     id: 256,
     categoria: "materiales",
     keywords: ["libro", "manual", "que libro usan"],
-    pregunta: "Â¿QuÃ© libros usan?",
-    respuesta: "Material bibliogrÃ¡fico:\n\nğŸ“š Libros de editoriales reconocidas\nğŸ“– Cambridge, Oxford, Pearson\nğŸŒ SegÃºn el idioma\nğŸ“‹ Lista especÃ­fica por nivel\n\n*Te informamos al inscribirte*",
+    pregunta: "¿Qué libros usan?",
+    respuesta: "Material bibliográfico:\n\n?? Libros de editoriales reconocidas\n?? Cambridge, Oxford, Pearson\n?? Según el idioma\n?? Lista específica por nivel\n\n*Te informamos al inscribirte*",
     acciones: []
   },
   {
     id: 257,
     categoria: "materiales",
     keywords: ["comprar libro", "donde consigo", "libreria"],
-    pregunta: "Â¿DÃ³nde compro los libros?",
-    respuesta: "Opciones para adquirir material:\n\nğŸª LibrerÃ­a del instituto (mejor precio)\nğŸ“š LibrerÃ­as de la zona\nğŸ›’ Online: MercadoLibre, Amazon\nğŸ“– Usados: Grupos de alumnos\n\n*ConsultÃ¡ por material digitalizado*",
+    pregunta: "¿Dónde compro los libros?",
+    respuesta: "Opciones para adquirir material:\n\n?? Librería del instituto (mejor precio)\n?? Librerías de la zona\n?? Online: MercadoLibre, Amazon\n?? Usados: Grupos de alumnos\n\n*Consultá por material digitalizado*",
     acciones: []
   },
   {
     id: 258,
     categoria: "materiales",
     keywords: ["precio libro", "cuanto sale libro", "costo material"],
-    pregunta: "Â¿CuÃ¡nto cuestan los libros?",
-    respuesta: "Costos aproximados:\n\nğŸ“š **Libro principal**: $15.000-25.000\nğŸ“– **Workbook**: $8.000-15.000\nğŸ“‹ **Material digital**: Incluido\n\n*Precios referenciales, pueden variar*\n*Hay opciones usadas mÃ¡s econÃ³micas*",
+    pregunta: "¿Cuánto cuestan los libros?",
+    respuesta: "Costos aproximados:\n\n?? **Libro principal**: $15.000-25.000\n?? **Workbook**: $8.000-15.000\n?? **Material digital**: Incluido\n\n*Precios referenciales, pueden variar*\n*Hay opciones usadas más económicas*",
     acciones: []
   },
   {
     id: 259,
     categoria: "materiales",
     keywords: ["obligatorio libro", "necesario comprar", "sin libro"],
-    pregunta: "Â¿Es obligatorio comprar el libro?",
-    respuesta: "Sobre el material:\n\nğŸ“š **Recomendado** tenerlo\nğŸ’» Material digital complementario\nğŸ“– Fotocopias de apoyo incluidas\nğŸ“‹ Algunos niveles requieren libro\n\n*ConsultÃ¡ con tu profesor*",
+    pregunta: "¿Es obligatorio comprar el libro?",
+    respuesta: "Sobre el material:\n\n?? **Recomendado** tenerlo\n?? Material digital complementario\n?? Fotocopias de apoyo incluidas\n?? Algunos niveles requieren libro\n\n*Consultá con tu profesor*",
     acciones: []
   },
   {
     id: 260,
     categoria: "materiales",
     keywords: ["material digital", "pdf", "ebook"],
-    pregunta: "Â¿Hay material digital?",
-    respuesta: "Recursos digitales disponibles:\n\nğŸ’» PDFs en Classroom\nğŸ“± Acceso desde app\nğŸ§ Audios descargables\nğŸ¬ Videos complementarios\nğŸ“ Ejercicios interactivos\n\n*Incluido en tu matrÃ­cula*",
+    pregunta: "¿Hay material digital?",
+    respuesta: "Recursos digitales disponibles:\n\n?? PDFs en Classroom\n?? Acceso desde app\n?? Audios descargables\n?? Videos complementarios\n?? Ejercicios interactivos\n\n*Incluido en tu matrícula*",
     acciones: []
   },
   {
     id: 261,
     categoria: "materiales",
     keywords: ["fotocopia", "apunte", "resumen"],
-    pregunta: "Â¿Dan fotocopias?",
-    respuesta: "Material fotocopiado:\n\nğŸ“„ SÃ­, se proveen materiales\nğŸ“‹ Ejercicios extras\nğŸ“ GuÃ­as de estudio\nğŸ’° Incluido en la cuota\nğŸ“‚ TambiÃ©n disponible digital\n\n*Organizate con carpeta o bibliorato*",
+    pregunta: "¿Dan fotocopias?",
+    respuesta: "Material fotocopiado:\n\n?? Sí, se proveen materiales\n?? Ejercicios extras\n?? Guías de estudio\n?? Incluido en la cuota\n?? También disponible digital\n\n*Organizate con carpeta o bibliorato*",
     acciones: []
   },
   {
     id: 262,
     categoria: "materiales",
     keywords: ["diccionario", "traductor", "wordreference"],
-    pregunta: "Â¿Puedo usar diccionario en clase?",
-    respuesta: "Uso de diccionario:\n\nğŸ“– **En clase**: SÃ­, bilingÃ¼e o monolingÃ¼e\nğŸ“ **En exÃ¡menes**: Depende del nivel\nğŸ“± Apps recomendadas: WordReference, Linguee\nğŸš« Evitar Google Translate para todo\n\n*Mejor aprender a deducir del contexto*",
+    pregunta: "¿Puedo usar diccionario en clase?",
+    respuesta: "Uso de diccionario:\n\n?? **En clase**: Sí, bilingüe o monolingüe\n?? **En exámenes**: Depende del nivel\n?? Apps recomendadas: WordReference, Linguee\n?? Evitar Google Translate para todo\n\n*Mejor aprender a deducir del contexto*",
     acciones: []
   },
   {
     id: 263,
     categoria: "materiales",
     keywords: ["app aprender", "aplicacion idioma", "duolingo"],
-    pregunta: "Â¿Recomiendan apps para practicar?",
-    respuesta: "Apps complementarias:\n\nğŸ“± **Duolingo**: Vocabulario bÃ¡sico\nğŸ“± **Babbel**: ConversaciÃ³n\nğŸ“± **Anki**: Flashcards\nğŸ“± **Spotify**: Podcasts en idiomas\nğŸ“± **Netflix**: SubtÃ­tulos en idioma\n\n*Complemento, no reemplazo de clase*",
+    pregunta: "¿Recomiendan apps para practicar?",
+    respuesta: "Apps complementarias:\n\n?? **Duolingo**: Vocabulario básico\n?? **Babbel**: Conversación\n?? **Anki**: Flashcards\n?? **Spotify**: Podcasts en idiomas\n?? **Netflix**: Subtítulos en idioma\n\n*Complemento, no reemplazo de clase*",
     acciones: []
   },
   {
     id: 264,
     categoria: "materiales",
     keywords: ["pelicula", "serie", "ver en idioma"],
-    pregunta: "Â¿Recomiendan pelÃ­culas/series?",
-    respuesta: "Contenido audiovisual:\n\nğŸ¬ EmpezÃ¡ con subtÃ­tulos en espaÃ±ol\nğŸ“º PasÃ¡ a subtÃ­tulos en el idioma\nğŸ§ Finalmente sin subtÃ­tulos\nğŸ“‹ Lista de recomendados en Classroom\n\n*Excelente para listening y vocabulario*",
+    pregunta: "¿Recomiendan películas/series?",
+    respuesta: "Contenido audiovisual:\n\n?? Empezá con subtítulos en español\n?? Pasá a subtítulos en el idioma\n?? Finalmente sin subtítulos\n?? Lista de recomendados en Classroom\n\n*Excelente para listening y vocabulario*",
     acciones: []
   },
   {
     id: 265,
     categoria: "materiales",
     keywords: ["podcast", "audio", "escuchar practica"],
-    pregunta: "Â¿QuÃ© podcasts recomiendan?",
-    respuesta: "Podcasts por nivel:\n\nğŸ”° **Principiante**: 6 Minute English (BBC)\nğŸ“— **Intermedio**: TED Talks, NPR\nğŸ“™ **Avanzado**: Noticias, debates\nğŸ§ Disponibles en Spotify, Apple Podcasts\n\n*15 min diarios hacen diferencia*",
+    pregunta: "¿Qué podcasts recomiendan?",
+    respuesta: "Podcasts por nivel:\n\n?? **Principiante**: 6 Minute English (BBC)\n?? **Intermedio**: TED Talks, NPR\n?? **Avanzado**: Noticias, debates\n?? Disponibles en Spotify, Apple Podcasts\n\n*15 min diarios hacen diferencia*",
     acciones: []
   },
   {
     id: 266,
     categoria: "materiales",
     keywords: ["musica", "canciones", "letra"],
-    pregunta: "Â¿Sirve escuchar mÃºsica?",
-    respuesta: "MÃºsica para aprender:\n\nğŸµ Â¡Excelente recurso!\nğŸ“ BuscÃ¡ la letra (lyrics)\nğŸ¤ CantÃ¡ para pronunciaciÃ³n\nğŸ“‹ AnalizÃ¡ vocabulario\nğŸ§ DescubrÃ­ artistas del idioma\n\n*Aprender cantando es mÃ¡s divertido*",
+    pregunta: "¿Sirve escuchar música?",
+    respuesta: "Música para aprender:\n\n?? ¡Excelente recurso!\n?? Buscá la letra (lyrics)\n?? Cantá para pronunciación\n?? Analizá vocabulario\n?? Descubrí artistas del idioma\n\n*Aprender cantando es más divertido*",
     acciones: []
   },
   {
     id: 267,
     categoria: "materiales",
     keywords: ["libro lectura", "reader", "graded reader"],
-    pregunta: "Â¿Hay libros de lectura graduados?",
-    respuesta: "Lecturas graduadas:\n\nğŸ“– **Graded Readers** por nivel\nğŸ“š ClÃ¡sicos adaptados\nğŸ“• Historias originales\nğŸ« Disponibles en biblioteca\nğŸ“± Versiones digitales\n\n*Leer mejora vocabulario y gramÃ¡tica*",
+    pregunta: "¿Hay libros de lectura graduados?",
+    respuesta: "Lecturas graduadas:\n\n?? **Graded Readers** por nivel\n?? Clásicos adaptados\n?? Historias originales\n?? Disponibles en biblioteca\n?? Versiones digitales\n\n*Leer mejora vocabulario y gramática*",
     acciones: []
   },
   {
     id: 268,
     categoria: "materiales",
     keywords: ["gramatica", "libro gramatica", "explicacion"],
-    pregunta: "Â¿Recomiendan libro de gramÃ¡tica?",
-    respuesta: "Referencias gramaticales:\n\nğŸ“˜ **English Grammar in Use** (Murphy)\nğŸ“— **Essential Grammar in Use** (bÃ¡sico)\nğŸ“™ **Advanced Grammar in Use**\nğŸ’» Versiones con ejercicios online\n\n*El clÃ¡sico que todo estudiante deberÃ­a tener*",
+    pregunta: "¿Recomiendan libro de gramática?",
+    respuesta: "Referencias gramaticales:\n\n?? **English Grammar in Use** (Murphy)\n?? **Essential Grammar in Use** (básico)\n?? **Advanced Grammar in Use**\n?? Versiones con ejercicios online\n\n*El clásico que todo estudiante debería tener*",
     acciones: []
   },
   {
     id: 269,
     categoria: "materiales",
     keywords: ["vocabulario", "lista palabras", "flashcard"],
-    pregunta: "Â¿CÃ³mo aprendo vocabulario?",
-    respuesta: "Estrategias para vocabulario:\n\nğŸ“ **Flashcards**: FÃ­sicas o app Anki\nğŸ““ Cuaderno de vocabulario\nğŸ·ï¸ Post-its en casa\nğŸ“± App de palabras diarias\nğŸ” RepeticiÃ³n espaciada\n\n*Mejor en contexto que listas aisladas*",
+    pregunta: "¿Cómo aprendo vocabulario?",
+    respuesta: "Estrategias para vocabulario:\n\n?? **Flashcards**: Físicas o app Anki\n?? Cuaderno de vocabulario\n??? Post-its en casa\n?? App de palabras diarias\n?? Repetición espaciada\n\n*Mejor en contexto que listas aisladas*",
     acciones: []
   },
   {
     id: 270,
     categoria: "materiales",
     keywords: ["cuaderno", "carpeta", "como organizo"],
-    pregunta: "Â¿CÃ³mo organizo mis apuntes?",
-    respuesta: "OrganizaciÃ³n recomendada:\n\nğŸ““ Cuaderno o carpeta por materia\nğŸ—‚ï¸ Separadores por unidad\nğŸ“ Fecha en cada clase\nğŸ–ï¸ Colores para destacar\nğŸ“‹ SecciÃ³n de vocabulario\n\n*Orden = mejor estudio*",
+    pregunta: "¿Cómo organizo mis apuntes?",
+    respuesta: "Organización recomendada:\n\n?? Cuaderno o carpeta por materia\n??? Separadores por unidad\n?? Fecha en cada clase\n??? Colores para destacar\n?? Sección de vocabulario\n\n*Orden = mejor estudio*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 18: SALUDOS Y CORTESÃA (20)
+  // CATEGORÍA 18: SALUDOS Y CORTESÍA (20)
   // ============================================
   {
     id: 271,
     categoria: "saludos",
     keywords: ["hola", "buenos dias", "buenas tardes", "buenas noches"],
     pregunta: "Hola",
-    respuesta: "Â¡Hola! ğŸ‘‹ Bienvenido/a al asistente virtual de CEMI. Â¿En quÃ© puedo ayudarte hoy?\n\nPodÃ©s preguntarme sobre:\nğŸ“š Cursos e idiomas\nğŸ“ Inscripciones\nğŸ’° Pagos y cuotas\nğŸ“ UbicaciÃ³n y horarios\n\n*EscribÃ­ tu consulta*",
+    respuesta: "¡Hola! ?? Bienvenido/a al asistente virtual de CEMI. ¿En qué puedo ayudarte hoy?\n\nPodés preguntarme sobre:\n?? Cursos e idiomas\n?? Inscripciones\n?? Pagos y cuotas\n?? Ubicación y horarios\n\n*Escribí tu consulta*",
     acciones: []
   },
   {
     id: 272,
     categoria: "saludos",
     keywords: ["como estas", "que tal", "como andas", "como va"],
-    pregunta: "Â¿CÃ³mo estÃ¡s?",
-    respuesta: "Â¡Muy bien, gracias por preguntar! ğŸ˜Š\n\nEstoy aquÃ­ las 24hs para ayudarte con cualquier consulta sobre CEMI.\n\nÂ¿QuÃ© necesitÃ¡s saber?",
+    pregunta: "¿Cómo estás?",
+    respuesta: "¡Muy bien, gracias por preguntar! ??\n\nEstoy aquí las 24hs para ayudarte con cualquier consulta sobre CEMI.\n\n¿Qué necesitás saber?",
     acciones: []
   },
   {
@@ -2047,7 +2047,7 @@ const BASE_CONOCIMIENTO = [
     categoria: "saludos",
     keywords: ["gracias", "muchas gracias", "te agradezco", "gracia"],
     pregunta: "Gracias",
-    respuesta: "Â¡De nada! ğŸ˜Š Es un placer ayudarte.\n\nSi tenÃ©s mÃ¡s consultas, no dudes en escribirme.\n\nÂ¡Ã‰xitos en tu aprendizaje! ğŸ“",
+    respuesta: "¡De nada! ?? Es un placer ayudarte.\n\nSi tenés más consultas, no dudes en escribirme.\n\n¡Éxitos en tu aprendizaje! ??",
     acciones: []
   },
   {
@@ -2055,15 +2055,15 @@ const BASE_CONOCIMIENTO = [
     categoria: "saludos",
     keywords: ["chau", "adios", "hasta luego", "nos vemos", "bye"],
     pregunta: "Chau",
-    respuesta: "Â¡Hasta pronto! ğŸ‘‹\n\nGracias por consultar con CEMI. Cuando necesites ayuda, acÃ¡ estarÃ©.\n\nÂ¡Que tengas un excelente dÃ­a! ğŸŒŸ",
+    respuesta: "¡Hasta pronto! ??\n\nGracias por consultar con CEMI. Cuando necesites ayuda, acá estaré.\n\n¡Que tengas un excelente día! ??",
     acciones: []
   },
   {
     id: 275,
     categoria: "saludos",
     keywords: ["quien sos", "que sos", "sos humano", "sos robot"],
-    pregunta: "Â¿QuiÃ©n sos?",
-    respuesta: "Â¡Soy el **Asistente Virtual de CEMI**! ğŸ¤–\n\nğŸ’¬ Respondo consultas frecuentes\nğŸ“š InformaciÃ³n sobre cursos\nğŸ• Disponible 24/7\nğŸ§  Base de conocimiento actualizada\n\n*No soy humano, pero hago lo posible por ayudarte*",
+    pregunta: "¿Quién sos?",
+    respuesta: "¡Soy el **Asistente Virtual de CEMI**! ??\n\n?? Respondo consultas frecuentes\n?? Información sobre cursos\n?? Disponible 24/7\n?? Base de conocimiento actualizada\n\n*No soy humano, pero hago lo posible por ayudarte*",
     acciones: []
   },
   {
@@ -2071,15 +2071,15 @@ const BASE_CONOCIMIENTO = [
     categoria: "saludos",
     keywords: ["ayuda", "ayudame", "necesito ayuda", "help"],
     pregunta: "Necesito ayuda",
-    respuesta: "Â¡Claro, estoy para ayudarte! ğŸ’ª\n\nÂ¿QuÃ© necesitÃ¡s saber?\n\nğŸ“š **Cursos**: Idiomas, niveles, modalidades\nğŸ“ **InscripciÃ³n**: Requisitos, proceso\nğŸ’° **Pagos**: Cuotas, descuentos\nğŸ“ **Contacto**: UbicaciÃ³n, telÃ©fono\n\n*EscribÃ­ tu consulta especÃ­fica*",
+    respuesta: "¡Claro, estoy para ayudarte! ??\n\n¿Qué necesitás saber?\n\n?? **Cursos**: Idiomas, niveles, modalidades\n?? **Inscripción**: Requisitos, proceso\n?? **Pagos**: Cuotas, descuentos\n?? **Contacto**: Ubicación, teléfono\n\n*Escribí tu consulta específica*",
     acciones: []
   },
   {
     id: 277,
     categoria: "saludos",
     keywords: ["menu", "opciones", "que puedo preguntar", "temas"],
-    pregunta: "Â¿QuÃ© puedo preguntarte?",
-    respuesta: "Puedo ayudarte con:\n\nğŸ« **Instituto**: Sobre CEMI, metodologÃ­a\nğŸ“š **Cursos**: Idiomas, niveles, duracion\nğŸ“ **InscripciÃ³n**: Requisitos, proceso\nğŸ’° **Pagos**: Cuotas, descuentos, medios\nğŸ“ **UbicaciÃ³n**: DirecciÃ³n, cÃ³mo llegar\nğŸ• **Horarios**: Turnos, dÃ­as\nğŸ‘¨â€ğŸ« **Docentes**: Profesores, metodologÃ­a\nğŸ“œ **Certificados**: Validez, exÃ¡menes\nğŸ’» **Plataforma**: Classroom, app\nğŸ†˜ **Soporte**: Problemas tÃ©cnicos",
+    pregunta: "¿Qué puedo preguntarte?",
+    respuesta: "Puedo ayudarte con:\n\n?? **Instituto**: Sobre CEMI, metodología\n?? **Cursos**: Idiomas, niveles, duracion\n?? **Inscripción**: Requisitos, proceso\n?? **Pagos**: Cuotas, descuentos, medios\n?? **Ubicación**: Dirección, cómo llegar\n?? **Horarios**: Turnos, días\n????? **Docentes**: Profesores, metodología\n?? **Certificados**: Validez, exámenes\n?? **Plataforma**: Classroom, app\n?? **Soporte**: Problemas técnicos",
     acciones: []
   },
   {
@@ -2087,179 +2087,179 @@ const BASE_CONOCIMIENTO = [
     categoria: "saludos",
     keywords: ["no entiendo", "no entendi", "explicame mejor"],
     pregunta: "No entiendo",
-    respuesta: "Â¡Sin problema! Voy a ayudarte mejor. ğŸ¤”\n\nÂ¿PodrÃ­as decirme especÃ­ficamente quÃ© querÃ©s saber?\n\nPor ejemplo:\nâ€¢ \"Â¿CÃ³mo me inscribo?\"\nâ€¢ \"Â¿CuÃ¡nto cuesta?\"\nâ€¢ \"Â¿DÃ³nde estÃ¡n ubicados?\"\n\n*Mientras mÃ¡s especÃ­fico, mejor te ayudo*",
+    respuesta: "¡Sin problema! Voy a ayudarte mejor. ??\n\n¿Podrías decirme específicamente qué querés saber?\n\nPor ejemplo:\n• \"¿Cómo me inscribo?\"\n• \"¿Cuánto cuesta?\"\n• \"¿Dónde están ubicados?\"\n\n*Mientras más específico, mejor te ayudo*",
     acciones: []
   },
   {
     id: 279,
     categoria: "saludos",
     keywords: ["perdon", "disculpa", "perdoname", "lo siento"],
-    pregunta: "PerdÃ³n",
-    respuesta: "Â¡No hay problema! ğŸ˜Š\n\nÂ¿Hay algo en lo que pueda ayudarte?\n\nEstoy acÃ¡ para resolver tus dudas, no te preocupes.",
+    pregunta: "Perdón",
+    respuesta: "¡No hay problema! ??\n\n¿Hay algo en lo que pueda ayudarte?\n\nEstoy acá para resolver tus dudas, no te preocupes.",
     acciones: []
   },
   {
     id: 280,
     categoria: "saludos",
     keywords: ["genial", "excelente", "perfecto", "buenisimo", "copado"],
-    pregunta: "Â¡Genial!",
-    respuesta: "Â¡Me alegra poder ayudarte! ğŸ‰\n\nSi tenÃ©s mÃ¡s preguntas, seguÃ­ consultando.\n\nÂ¡Ã‰xitos! ğŸ’ª",
+    pregunta: "¡Genial!",
+    respuesta: "¡Me alegra poder ayudarte! ??\n\nSi tenés más preguntas, seguí consultando.\n\n¡Éxitos! ??",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 19: METODOLOGÃA (25)
+  // CATEGORÍA 19: METODOLOGÍA (25)
   // ============================================
   {
     id: 281,
     categoria: "metodologia",
     keywords: ["enfoque comunicativo", "metodo comunicativo", "comunicarse"],
-    pregunta: "Â¿QuÃ© es el enfoque comunicativo?",
-    respuesta: "El **enfoque comunicativo**:\n\nğŸ—£ï¸ Prioriza la comunicaciÃ³n real\nğŸ“š GramÃ¡tica en contexto\nğŸ¯ Situaciones de la vida cotidiana\nğŸ‘¥ InteracciÃ³n constante\nğŸ§  Aprender haciendo\n\n*HablÃ¡s desde el primer dÃ­a*",
+    pregunta: "¿Qué es el enfoque comunicativo?",
+    respuesta: "El **enfoque comunicativo**:\n\n??? Prioriza la comunicación real\n?? Gramática en contexto\n?? Situaciones de la vida cotidiana\n?? Interacción constante\n?? Aprender haciendo\n\n*Hablás desde el primer día*",
     acciones: []
   },
   {
     id: 282,
     categoria: "metodologia",
     keywords: ["hablar primera clase", "cuando hablo", "practica oral"],
-    pregunta: "Â¿CuÃ¡ndo empiezo a hablar?",
-    respuesta: "Â¡Desde el primer dÃ­a! ğŸ—£ï¸\n\nğŸ“š Frases Ãºtiles desde la clase 1\nğŸ‘¥ PrÃ¡ctica en parejas\nğŸ® Actividades interactivas\nğŸ”„ CorrecciÃ³n constructiva\n\n*Perder el miedo es el primer paso*",
+    pregunta: "¿Cuándo empiezo a hablar?",
+    respuesta: "¡Desde el primer día! ???\n\n?? Frases útiles desde la clase 1\n?? Práctica en parejas\n?? Actividades interactivas\n?? Corrección constructiva\n\n*Perder el miedo es el primer paso*",
     acciones: []
   },
   {
     id: 283,
     categoria: "metodologia",
     keywords: ["gramatica cuando", "reglas gramaticales", "estructura"],
-    pregunta: "Â¿CuÃ¡ndo aprendo gramÃ¡tica?",
-    respuesta: "GramÃ¡tica en contexto:\n\nğŸ“ Integrada en cada clase\nğŸ¯ DespuÃ©s de usar la estructura\nğŸ“š No memorizaciÃ³n aislada\nğŸ’¡ DeducciÃ³n antes que explicaciÃ³n\nâœï¸ PrÃ¡ctica escrita complementaria\n\n*Primero usÃ¡s, despuÃ©s entendÃ©s la regla*",
+    pregunta: "¿Cuándo aprendo gramática?",
+    respuesta: "Gramática en contexto:\n\n?? Integrada en cada clase\n?? Después de usar la estructura\n?? No memorización aislada\n?? Deducción antes que explicación\n?? Práctica escrita complementaria\n\n*Primero usás, después entendés la regla*",
     acciones: []
   },
   {
     id: 284,
     categoria: "metodologia",
     keywords: ["4 habilidades", "skills", "competencias"],
-    pregunta: "Â¿QuÃ© habilidades desarrollo?",
-    respuesta: "Las 4 habilidades lingÃ¼Ã­sticas:\n\nğŸ—£ï¸ **Speaking**: ExpresiÃ³n oral\nğŸ‘‚ **Listening**: ComprensiÃ³n auditiva\nğŸ“– **Reading**: ComprensiÃ³n lectora\nâœï¸ **Writing**: ExpresiÃ³n escrita\n\n*Desarrollo equilibrado de todas*",
+    pregunta: "¿Qué habilidades desarrollo?",
+    respuesta: "Las 4 habilidades lingüísticas:\n\n??? **Speaking**: Expresión oral\n?? **Listening**: Comprensión auditiva\n?? **Reading**: Comprensión lectora\n?? **Writing**: Expresión escrita\n\n*Desarrollo equilibrado de todas*",
     acciones: []
   },
   {
     id: 285,
     categoria: "metodologia",
-    keywords: ["inmersion", "solo idioma", "sin espaÃ±ol"],
-    pregunta: "Â¿Las clases son solo en el idioma?",
-    respuesta: "Uso del idioma en clase:\n\nğŸ”° **Principiantes**: Mix con espaÃ±ol\nğŸ“— **Intermedio**: Mayormente en idioma\nğŸ“™ **Avanzado**: 100% en idioma\nğŸ’¡ Instrucciones claras siempre\n\n*InmersiÃ³n gradual*",
+    keywords: ["inmersion", "solo idioma", "sin español"],
+    pregunta: "¿Las clases son solo en el idioma?",
+    respuesta: "Uso del idioma en clase:\n\n?? **Principiantes**: Mix con español\n?? **Intermedio**: Mayormente en idioma\n?? **Avanzado**: 100% en idioma\n?? Instrucciones claras siempre\n\n*Inmersión gradual*",
     acciones: []
   },
   {
     id: 286,
     categoria: "metodologia",
     keywords: ["errores", "equivocarse", "correccion"],
-    pregunta: "Â¿Me corrigen cuando me equivoco?",
-    respuesta: "CorrecciÃ³n constructiva:\n\nâœ… SÃ­, pero en el momento adecuado\nğŸ’¬ Sin interrumpir la comunicaciÃ³n\nğŸ“ Errores sistemÃ¡ticos: se trabajan\nğŸ¯ Foco en mejorar, no en juzgar\nğŸ’ª El error es parte del aprendizaje\n\n*Mejor equivocarse que quedarse callado*",
+    pregunta: "¿Me corrigen cuando me equivoco?",
+    respuesta: "Corrección constructiva:\n\n? Sí, pero en el momento adecuado\n?? Sin interrumpir la comunicación\n?? Errores sistemáticos: se trabajan\n?? Foco en mejorar, no en juzgar\n?? El error es parte del aprendizaje\n\n*Mejor equivocarse que quedarse callado*",
     acciones: []
   },
   {
     id: 287,
     categoria: "metodologia",
     keywords: ["actividades", "dinamica clase", "que hacemos"],
-    pregunta: "Â¿QuÃ© actividades hacemos en clase?",
-    respuesta: "Actividades variadas:\n\nğŸ’¬ Conversaciones y debates\nğŸ­ Role-plays y simulaciones\nğŸ® Juegos didÃ¡cticos\nğŸ§ Listening con audios/videos\nğŸ“– Lectura de textos\nâœï¸ Escritura guiada\nğŸ‘¥ Trabajo en grupos\n\n*Cada clase es diferente*",
+    pregunta: "¿Qué actividades hacemos en clase?",
+    respuesta: "Actividades variadas:\n\n?? Conversaciones y debates\n?? Role-plays y simulaciones\n?? Juegos didácticos\n?? Listening con audios/videos\n?? Lectura de textos\n?? Escritura guiada\n?? Trabajo en grupos\n\n*Cada clase es diferente*",
     acciones: []
   },
   {
     id: 288,
     categoria: "metodologia",
     keywords: ["tecnologia clase", "multimedia", "pantalla"],
-    pregunta: "Â¿Usan tecnologÃ­a en clase?",
-    respuesta: "Recursos tecnolÃ³gicos:\n\nğŸ’» Proyector y pantalla\nğŸ“± Apps educativas\nğŸ§ Audios de calidad\nğŸ¬ Videos y pelÃ­culas\nğŸ® Plataformas interactivas\nğŸ“‹ Classroom digital\n\n*TecnologÃ­a al servicio del aprendizaje*",
+    pregunta: "¿Usan tecnología en clase?",
+    respuesta: "Recursos tecnológicos:\n\n?? Proyector y pantalla\n?? Apps educativas\n?? Audios de calidad\n?? Videos y películas\n?? Plataformas interactivas\n?? Classroom digital\n\n*Tecnología al servicio del aprendizaje*",
     acciones: []
   },
   {
     id: 289,
     categoria: "metodologia",
     keywords: ["tarea", "deberes", "homework mucho"],
-    pregunta: "Â¿Hay mucha tarea?",
-    respuesta: "Sobre las tareas:\n\nğŸ“ SÃ­, hay tarea semanal\nâ±ï¸ 30-60 min estimados\nğŸ“š Refuerza lo visto en clase\nğŸ’» Mayormente online\nâœ… Importante para avanzar\n\n*Sin prÃ¡ctica no hay progreso*",
+    pregunta: "¿Hay mucha tarea?",
+    respuesta: "Sobre las tareas:\n\n?? Sí, hay tarea semanal\n?? 30-60 min estimados\n?? Refuerza lo visto en clase\n?? Mayormente online\n? Importante para avanzar\n\n*Sin práctica no hay progreso*",
     acciones: []
   },
   {
     id: 290,
     categoria: "metodologia",
     keywords: ["participar", "hablar clase", "timido"],
-    pregunta: "Soy tÃ­mido, Â¿me obligan a hablar?",
-    respuesta: "Para los tÃ­midos:\n\nğŸ¤— Ambiente de confianza\nğŸ‘¥ Actividades en parejas primero\nğŸ“ PodÃ©s preparar antes de hablar\nğŸ¯ ParticipaciÃ³n gradual\nğŸ’ª El profe te apoya\n\n*Nadie te juzga, todos estÃ¡n aprendiendo*",
+    pregunta: "Soy tímido, ¿me obligan a hablar?",
+    respuesta: "Para los tímidos:\n\n?? Ambiente de confianza\n?? Actividades en parejas primero\n?? Podés preparar antes de hablar\n?? Participación gradual\n?? El profe te apoya\n\n*Nadie te juzga, todos están aprendiendo*",
     acciones: []
   },
   {
     id: 291,
     categoria: "metodologia",
     keywords: ["ritmo clase", "muy rapido", "muy lento"],
-    pregunta: "Â¿El ritmo de clase se adapta?",
-    respuesta: "Ritmo de aprendizaje:\n\nğŸ“Š Se sigue al grupo mayoritario\nğŸ’¬ PodÃ©s pedir que repitan\nğŸ“ Material extra si vas adelantado\nğŸ†˜ Apoyo si te cuesta\nğŸ‘¨â€ğŸ« El profe ajusta segÃºn necesidad\n\n*ComunicÃ¡ si el ritmo no te funciona*",
+    pregunta: "¿El ritmo de clase se adapta?",
+    respuesta: "Ritmo de aprendizaje:\n\n?? Se sigue al grupo mayoritario\n?? Podés pedir que repitan\n?? Material extra si vas adelantado\n?? Apoyo si te cuesta\n????? El profe ajusta según necesidad\n\n*Comunicá si el ritmo no te funciona*",
     acciones: []
   },
   {
     id: 292,
     categoria: "metodologia",
     keywords: ["dudas clase", "preguntar", "no entendi tema"],
-    pregunta: "Â¿Puedo hacer preguntas en clase?",
-    respuesta: "Â¡Absolutamente! ğŸ™‹\n\nâœ… Las preguntas son bienvenidas\nğŸ’¬ En cualquier momento\nğŸ¤ Sin vergÃ¼enza\nğŸ’¡ Ayudan a todos\nğŸ‘¨â€ğŸ« El profe explica las veces que haga falta\n\n*Preguntar es aprender*",
+    pregunta: "¿Puedo hacer preguntas en clase?",
+    respuesta: "¡Absolutamente! ??\n\n? Las preguntas son bienvenidas\n?? En cualquier momento\n?? Sin vergüenza\n?? Ayudan a todos\n????? El profe explica las veces que haga falta\n\n*Preguntar es aprender*",
     acciones: []
   },
   {
     id: 293,
     categoria: "metodologia",
     keywords: ["cultura", "cultural", "paises idioma"],
-    pregunta: "Â¿Aprendo sobre la cultura tambiÃ©n?",
-    respuesta: "Contenido cultural:\n\nğŸŒ Cultura de paÃ­ses del idioma\nğŸ‰ Festividades y tradiciones\nğŸ½ï¸ GastronomÃ­a tÃ­pica\nğŸµ MÃºsica y arte\nğŸ“º Series y pelÃ­culas\nğŸ’¬ Expresiones coloquiales\n\n*El idioma y la cultura van juntos*",
+    pregunta: "¿Aprendo sobre la cultura también?",
+    respuesta: "Contenido cultural:\n\n?? Cultura de países del idioma\n?? Festividades y tradiciones\n??? Gastronomía típica\n?? Música y arte\n?? Series y películas\n?? Expresiones coloquiales\n\n*El idioma y la cultura van juntos*",
     acciones: []
   },
   {
     id: 294,
     categoria: "metodologia",
     keywords: ["pronunciacion", "acento", "como sueno"],
-    pregunta: "Â¿Trabajamos la pronunciaciÃ³n?",
-    respuesta: "Trabajo de pronunciaciÃ³n:\n\nğŸ—£ï¸ Desde el primer dÃ­a\nğŸ‘‚ Escuchar y repetir\nğŸ“± Grabaciones propias\nğŸ¯ Sonidos difÃ­ciles especÃ­ficos\nğŸŒ ExposiciÃ³n a acentos variados\n\n*El objetivo es ser entendido*",
+    pregunta: "¿Trabajamos la pronunciación?",
+    respuesta: "Trabajo de pronunciación:\n\n??? Desde el primer día\n?? Escuchar y repetir\n?? Grabaciones propias\n?? Sonidos difíciles específicos\n?? Exposición a acentos variados\n\n*El objetivo es ser entendido*",
     acciones: []
   },
   {
     id: 295,
     categoria: "metodologia",
     keywords: ["repetir", "memorizar", "de memoria"],
-    pregunta: "Â¿Hay que memorizar mucho?",
-    respuesta: "Sobre la memorizaciÃ³n:\n\nğŸ“ Vocabulario: SÃ­, es necesario\nğŸ§  GramÃ¡tica: MÃ¡s comprensiÃ³n que memoria\nğŸ”„ RepeticiÃ³n espaciada\nğŸ¯ En contexto, no listas\nğŸ’¡ Mnemotecnia ayuda\n\n*Mejor usar que memorizar*",
+    pregunta: "¿Hay que memorizar mucho?",
+    respuesta: "Sobre la memorización:\n\n?? Vocabulario: Sí, es necesario\n?? Gramática: Más comprensión que memoria\n?? Repetición espaciada\n?? En contexto, no listas\n?? Mnemotecnia ayuda\n\n*Mejor usar que memorizar*",
     acciones: []
   },
   {
     id: 296,
     categoria: "metodologia",
-    keywords: ["traduccion", "traducir", "pensar espaÃ±ol"],
-    pregunta: "Â¿Puedo traducir mentalmente?",
-    respuesta: "Sobre la traducciÃ³n:\n\nğŸ”° Al principio: Normal y esperado\nğŸ“— Con prÃ¡ctica: Disminuye\nğŸ§  Objetivo: Pensar en el idioma\nâ±ï¸ Es un proceso gradual\nğŸ’¡ No te frustres\n\n*Con el tiempo, fluye naturalmente*",
+    keywords: ["traduccion", "traducir", "pensar español"],
+    pregunta: "¿Puedo traducir mentalmente?",
+    respuesta: "Sobre la traducción:\n\n?? Al principio: Normal y esperado\n?? Con práctica: Disminuye\n?? Objetivo: Pensar en el idioma\n?? Es un proceso gradual\n?? No te frustres\n\n*Con el tiempo, fluye naturalmente*",
     acciones: []
   },
   {
     id: 297,
     categoria: "metodologia",
     keywords: ["practica fuera", "fuera clase", "practicar solo"],
-    pregunta: "Â¿CÃ³mo practico fuera de clase?",
-    respuesta: "PrÃ¡ctica autÃ³noma:\n\nğŸ§ MÃºsica y podcasts\nğŸ“º Series con subtÃ­tulos\nğŸ“± Apps como Duolingo\nğŸ“– Lecturas graduadas\nğŸ’¬ Buscar intercambio\nğŸ“ Escribir un diario\nğŸ—£ï¸ Hablar solo en voz alta\n\n*15 min diarios hacen diferencia*",
+    pregunta: "¿Cómo practico fuera de clase?",
+    respuesta: "Práctica autónoma:\n\n?? Música y podcasts\n?? Series con subtítulos\n?? Apps como Duolingo\n?? Lecturas graduadas\n?? Buscar intercambio\n?? Escribir un diario\n??? Hablar solo en voz alta\n\n*15 min diarios hacen diferencia*",
     acciones: []
   },
   {
     id: 298,
     categoria: "metodologia",
     keywords: ["objetivo clase", "logro", "que aprendo"],
-    pregunta: "Â¿Cada clase tiene un objetivo?",
-    respuesta: "PlanificaciÃ³n de clases:\n\nğŸ¯ Objetivo claro por clase\nğŸ“‹ Secuencia lÃ³gica\nğŸ”„ Repaso de lo anterior\nğŸ“š Nuevo contenido\nâœï¸ PrÃ¡ctica\nğŸ“ Cierre y resumen\n\n*SabÃ©s quÃ© aprendiste cada dÃ­a*",
+    pregunta: "¿Cada clase tiene un objetivo?",
+    respuesta: "Planificación de clases:\n\n?? Objetivo claro por clase\n?? Secuencia lógica\n?? Repaso de lo anterior\n?? Nuevo contenido\n?? Práctica\n?? Cierre y resumen\n\n*Sabés qué aprendiste cada día*",
     acciones: []
   },
   {
     id: 299,
     categoria: "metodologia",
     keywords: ["retroalimentacion", "feedback", "como voy"],
-    pregunta: "Â¿Recibo feedback de mi progreso?",
-    respuesta: "RetroalimentaciÃ³n constante:\n\nğŸ‘¨â€ğŸ« Del profesor en clase\nğŸ“Š Notas en Classroom\nğŸ“ Correcciones detalladas\nğŸ’¬ Comentarios constructivos\nğŸ“ˆ Seguimiento de progreso\n\n*SabÃ©s en quÃ© mejorar*",
+    pregunta: "¿Recibo feedback de mi progreso?",
+    respuesta: "Retroalimentación constante:\n\n????? Del profesor en clase\n?? Notas en Classroom\n?? Correcciones detalladas\n?? Comentarios constructivos\n?? Seguimiento de progreso\n\n*Sabés en qué mejorar*",
     acciones: []
   },
   {
@@ -2267,335 +2267,335 @@ const BASE_CONOCIMIENTO = [
     categoria: "metodologia",
     keywords: ["motivacion", "no avanzo", "me frustro"],
     pregunta: "Me frustro porque no avanzo",
-    respuesta: "Sobre la frustraciÃ³n:\n\nğŸ˜Š Es normal, a todos nos pasa\nğŸ“ˆ El progreso no es lineal\nğŸ¯ CelebrÃ¡ pequeÃ±os logros\nğŸ’ª La constancia gana\nğŸ‘¨â€ğŸ« HablÃ¡ con tu profe\nğŸ§˜ Paciencia contigo mismo\n\n*Aprender un idioma lleva tiempo*",
+    respuesta: "Sobre la frustración:\n\n?? Es normal, a todos nos pasa\n?? El progreso no es lineal\n?? Celebrá pequeños logros\n?? La constancia gana\n????? Hablá con tu profe\n?? Paciencia contigo mismo\n\n*Aprender un idioma lleva tiempo*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 20: NIÃ‘OS Y ADOLESCENTES (20)
+  // CATEGORÍA 20: NIÑOS Y ADOLESCENTES (20)
   // ============================================
   {
     id: 301,
     categoria: "ninos",
-    keywords: ["niÃ±os", "chicos", "nenes", "infantil"],
-    pregunta: "Â¿Tienen cursos para niÃ±os?",
-    respuesta: "Cursos para niÃ±os:\n\nğŸ‘¶ **Kids** (4-6 aÃ±os)\nğŸ§’ **Children** (7-10 aÃ±os)\nğŸ‘¦ **Pre-teens** (11-12 aÃ±os)\nğŸ® MetodologÃ­a lÃºdica\nğŸ¨ Juegos y canciones\nğŸ“š Material colorido\n\n*Aprender jugando*",
+    keywords: ["niños", "chicos", "nenes", "infantil"],
+    pregunta: "¿Tienen cursos para niños?",
+    respuesta: "Cursos para niños:\n\n?? **Kids** (4-6 años)\n?? **Children** (7-10 años)\n?? **Pre-teens** (11-12 años)\n?? Metodología lúdica\n?? Juegos y canciones\n?? Material colorido\n\n*Aprender jugando*",
     acciones: []
   },
   {
     id: 302,
     categoria: "ninos",
     keywords: ["adolescentes", "teens", "secundario"],
-    pregunta: "Â¿Hay cursos para adolescentes?",
-    respuesta: "Cursos para teens:\n\nğŸ‘¦ **Teens** (13-17 aÃ±os)\nğŸ“± Contenido actual y relevante\nğŸµ MÃºsica, series, redes\nğŸ“š Apoyo escolar integrado\nğŸ‘¥ Grupos por edad\n\n*Idiomas con onda para jÃ³venes*",
+    pregunta: "¿Hay cursos para adolescentes?",
+    respuesta: "Cursos para teens:\n\n?? **Teens** (13-17 años)\n?? Contenido actual y relevante\n?? Música, series, redes\n?? Apoyo escolar integrado\n?? Grupos por edad\n\n*Idiomas con onda para jóvenes*",
     acciones: []
   },
   {
     id: 303,
     categoria: "ninos",
-    keywords: ["edad minima", "cuantos aÃ±os", "desde que edad"],
-    pregunta: "Â¿Desde quÃ© edad aceptan?",
-    respuesta: "Edades de ingreso:\n\nğŸ‘¶ **MÃ­nimo**: 4 aÃ±os\nğŸ§’ Con madurez para grupo\nğŸ“‹ Entrevista previa\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§ ReuniÃ³n con padres\n\n*Evaluamos caso por caso*",
+    keywords: ["edad minima", "cuantos años", "desde que edad"],
+    pregunta: "¿Desde qué edad aceptan?",
+    respuesta: "Edades de ingreso:\n\n?? **Mínimo**: 4 años\n?? Con madurez para grupo\n?? Entrevista previa\n???????? Reunión con padres\n\n*Evaluamos caso por caso*",
     acciones: []
   },
   {
     id: 304,
     categoria: "ninos",
-    keywords: ["metodo niÃ±os", "como enseÃ±an niÃ±os", "juegan"],
-    pregunta: "Â¿CÃ³mo enseÃ±an a los niÃ±os?",
-    respuesta: "MetodologÃ­a infantil:\n\nğŸ® **Aprendizaje lÃºdico**\nğŸµ Canciones y rimas\nğŸ¨ Manualidades\nğŸ­ Teatro y role-play\nğŸ“º Videos y animaciones\nğŸƒ Movimiento y juegos\n\n*Aprenden sin darse cuenta*",
+    keywords: ["metodo niños", "como enseñan niños", "juegan"],
+    pregunta: "¿Cómo enseñan a los niños?",
+    respuesta: "Metodología infantil:\n\n?? **Aprendizaje lúdico**\n?? Canciones y rimas\n?? Manualidades\n?? Teatro y role-play\n?? Videos y animaciones\n?? Movimiento y juegos\n\n*Aprenden sin darse cuenta*",
     acciones: []
   },
   {
     id: 305,
     categoria: "ninos",
-    keywords: ["duracion clase niÃ±os", "cuanto dura clase chicos"],
-    pregunta: "Â¿CuÃ¡nto duran las clases de niÃ±os?",
-    respuesta: "DuraciÃ³n segÃºn edad:\n\nğŸ‘¶ **4-6 aÃ±os**: 45 minutos\nğŸ§’ **7-10 aÃ±os**: 60 minutos\nğŸ‘¦ **11-12 aÃ±os**: 75 minutos\nğŸ‘¦ **Teens**: 90 minutos\n\n*Adaptado a la atenciÃ³n de cada edad*",
+    keywords: ["duracion clase niños", "cuanto dura clase chicos"],
+    pregunta: "¿Cuánto duran las clases de niños?",
+    respuesta: "Duración según edad:\n\n?? **4-6 años**: 45 minutos\n?? **7-10 años**: 60 minutos\n?? **11-12 años**: 75 minutos\n?? **Teens**: 90 minutos\n\n*Adaptado a la atención de cada edad*",
     acciones: []
   },
   {
     id: 306,
     categoria: "ninos",
-    keywords: ["padres clase", "acompaÃ±ar", "quedarme"],
-    pregunta: "Â¿Los padres pueden quedarse?",
-    respuesta: "PolÃ­tica con padres:\n\nğŸ‘¶ **Primera clase**: SÃ­, para adaptaciÃ³n\nğŸ“‹ **DespuÃ©s**: Mejor que esperen afuera\nğŸ‘€ **Clases abiertas**: Ocasionales\nğŸ“± **ComunicaciÃ³n**: Por app/email\n\n*La independencia favorece el aprendizaje*",
+    keywords: ["padres clase", "acompañar", "quedarme"],
+    pregunta: "¿Los padres pueden quedarse?",
+    respuesta: "Política con padres:\n\n?? **Primera clase**: Sí, para adaptación\n?? **Después**: Mejor que esperen afuera\n?? **Clases abiertas**: Ocasionales\n?? **Comunicación**: Por app/email\n\n*La independencia favorece el aprendizaje*",
     acciones: []
   },
   {
     id: 307,
     categoria: "ninos",
-    keywords: ["profesor niÃ±os", "docente niÃ±os", "especializado"],
-    pregunta: "Â¿Los profes estÃ¡n capacitados para niÃ±os?",
-    respuesta: "Docentes especializados:\n\nğŸ‘¨â€ğŸ« FormaciÃ³n en enseÃ±anza infantil\nğŸ“ Experiencia con niÃ±os\nâ¤ï¸ VocaciÃ³n y paciencia\nğŸ® Manejo de dinÃ¡micas lÃºdicas\nğŸ‘ï¸ Cuidado y atenciÃ³n\n\n*Profesionales preparados*",
+    keywords: ["profesor niños", "docente niños", "especializado"],
+    pregunta: "¿Los profes están capacitados para niños?",
+    respuesta: "Docentes especializados:\n\n????? Formación en enseñanza infantil\n?? Experiencia con niños\n?? Vocación y paciencia\n?? Manejo de dinámicas lúdicas\n??? Cuidado y atención\n\n*Profesionales preparados*",
     acciones: []
   },
   {
     id: 308,
     categoria: "ninos",
-    keywords: ["grupo niÃ±os", "cuantos niÃ±os", "compaÃ±eritos"],
-    pregunta: "Â¿CuÃ¡ntos niÃ±os hay por grupo?",
-    respuesta: "TamaÃ±o de grupos infantiles:\n\nğŸ‘¶ **4-6 aÃ±os**: MÃ¡ximo 8\nğŸ§’ **7-10 aÃ±os**: MÃ¡ximo 10\nğŸ‘¦ **11-17 aÃ±os**: MÃ¡ximo 12\n\n*Grupos reducidos para mejor atenciÃ³n*",
+    keywords: ["grupo niños", "cuantos niños", "compañeritos"],
+    pregunta: "¿Cuántos niños hay por grupo?",
+    respuesta: "Tamaño de grupos infantiles:\n\n?? **4-6 años**: Máximo 8\n?? **7-10 años**: Máximo 10\n?? **11-17 años**: Máximo 12\n\n*Grupos reducidos para mejor atención*",
     acciones: []
   },
   {
     id: 309,
     categoria: "ninos",
-    keywords: ["tarea niÃ±os", "deberes chicos", "estudiar casa"],
-    pregunta: "Â¿Los niÃ±os llevan tarea?",
-    respuesta: "Tareas para niÃ±os:\n\nğŸ‘¶ **4-6**: No, solo refuerzo en casa\nğŸ§’ **7-10**: Poca, 15-20 min\nğŸ‘¦ **11-12**: Moderada, 30 min\nğŸ‘¦ **Teens**: Similar a adultos\n\n*Acorde a la edad*",
+    keywords: ["tarea niños", "deberes chicos", "estudiar casa"],
+    pregunta: "¿Los niños llevan tarea?",
+    respuesta: "Tareas para niños:\n\n?? **4-6**: No, solo refuerzo en casa\n?? **7-10**: Poca, 15-20 min\n?? **11-12**: Moderada, 30 min\n?? **Teens**: Similar a adultos\n\n*Acorde a la edad*",
     acciones: []
   },
   {
     id: 310,
     categoria: "ninos",
     keywords: ["informe padres", "avance hijo", "como va mi hijo"],
-    pregunta: "Â¿Informan a los padres del avance?",
-    respuesta: "ComunicaciÃ³n con familias:\n\nğŸ“§ Informe mensual por email\nğŸ“‹ Libreta de notas cuatrimestral\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§ Reuniones de padres\nğŸ“± App de comunicaciÃ³n\nğŸ’¬ Consultas cuando necesiten\n\n*Familia y escuela trabajamos juntos*",
+    pregunta: "¿Informan a los padres del avance?",
+    respuesta: "Comunicación con familias:\n\n?? Informe mensual por email\n?? Libreta de notas cuatrimestral\n???????? Reuniones de padres\n?? App de comunicación\n?? Consultas cuando necesiten\n\n*Familia y escuela trabajamos juntos*",
     acciones: []
   },
   {
     id: 311,
     categoria: "ninos",
     keywords: ["adaptacion", "primer dia", "llorar"],
-    pregunta: "Mi hijo llora, Â¿quÃ© hago?",
-    respuesta: "PerÃ­odo de adaptaciÃ³n:\n\nğŸ˜¢ Es normal al principio\nğŸ¤— Profes con experiencia\nğŸ‘‹ Despedida corta y positiva\nâ±ï¸ Generalmente dura poco\nğŸ’ª ConfiÃ¡ en el proceso\n\n*En 2-3 clases se adaptan*",
+    pregunta: "Mi hijo llora, ¿qué hago?",
+    respuesta: "Período de adaptación:\n\n?? Es normal al principio\n?? Profes con experiencia\n?? Despedida corta y positiva\n?? Generalmente dura poco\n?? Confiá en el proceso\n\n*En 2-3 clases se adaptan*",
     acciones: []
   },
   {
     id: 312,
     categoria: "ninos",
-    keywords: ["material niÃ±os", "libros chicos", "cuaderno"],
-    pregunta: "Â¿QuÃ© material necesitan los niÃ±os?",
-    respuesta: "Material para niÃ±os:\n\nğŸ“š Libro del curso (se indica)\nğŸ““ Cuaderno de actividades\nğŸ–ï¸ LÃ¡pices de colores\nâœ‚ï¸ Tijera y pegamento (chicos)\nğŸ“ Carpeta\n\n*Lista completa al inscribirse*",
+    keywords: ["material niños", "libros chicos", "cuaderno"],
+    pregunta: "¿Qué material necesitan los niños?",
+    respuesta: "Material para niños:\n\n?? Libro del curso (se indica)\n?? Cuaderno de actividades\n??? Lápices de colores\n?? Tijera y pegamento (chicos)\n?? Carpeta\n\n*Lista completa al inscribirse*",
     acciones: []
   },
   {
     id: 313,
     categoria: "ninos",
-    keywords: ["cumpleaÃ±os", "festejo", "celebrar clase"],
-    pregunta: "Â¿Pueden festejar cumpleaÃ±os en clase?",
-    respuesta: "CumpleaÃ±os en el aula:\n\nğŸ‚ SÃ­, coordinando con el profe\nğŸ° Torta simple permitida\nâ±ï¸ 15-20 min de festejo\nğŸ“§ Avisar con anticipaciÃ³n\nğŸˆ Sin decoraciÃ³n elaborada\n\n*Â¡Festejamos en inglÃ©s!*",
+    keywords: ["cumpleaños", "festejo", "celebrar clase"],
+    pregunta: "¿Pueden festejar cumpleaños en clase?",
+    respuesta: "Cumpleaños en el aula:\n\n?? Sí, coordinando con el profe\n?? Torta simple permitida\n?? 15-20 min de festejo\n?? Avisar con anticipación\n?? Sin decoración elaborada\n\n*¡Festejamos en inglés!*",
     acciones: []
   },
   {
     id: 314,
     categoria: "ninos",
     keywords: ["apoyo escolar", "ingles colegio", "ayuda escuela"],
-    pregunta: "Â¿Sirve como apoyo para el colegio?",
-    respuesta: "Apoyo escolar:\n\nâœ… Complementa inglÃ©s del colegio\nğŸ“š MÃ¡s prÃ¡ctica oral\nğŸ“ Refuerzo de contenidos\nğŸ¯ PreparaciÃ³n para exÃ¡menes\nğŸ’ª Ventaja en el aula\n\n*Van adelantados en el cole*",
+    pregunta: "¿Sirve como apoyo para el colegio?",
+    respuesta: "Apoyo escolar:\n\n? Complementa inglés del colegio\n?? Más práctica oral\n?? Refuerzo de contenidos\n?? Preparación para exámenes\n?? Ventaja en el aula\n\n*Van adelantados en el cole*",
     acciones: []
   },
   {
     id: 315,
     categoria: "ninos",
-    keywords: ["vacaciones niÃ±os", "verano chicos", "curso verano"],
-    pregunta: "Â¿Hay cursos de verano para niÃ±os?",
-    respuesta: "Cursos de verano:\n\nâ˜€ï¸ **Summer Camp** en enero\nğŸ® Intensivo lÃºdico\nâ±ï¸ 2-3 horas diarias\nğŸ¨ Actividades especiales\nğŸ–ï¸ TemÃ¡tica veraniega\n\n*Â¡Vacaciones aprendiendo!*",
+    keywords: ["vacaciones niños", "verano chicos", "curso verano"],
+    pregunta: "¿Hay cursos de verano para niños?",
+    respuesta: "Cursos de verano:\n\n?? **Summer Camp** en enero\n?? Intensivo lúdico\n?? 2-3 horas diarias\n?? Actividades especiales\n??? Temática veraniega\n\n*¡Vacaciones aprendiendo!*",
     acciones: []
   },
   {
     id: 316,
     categoria: "ninos",
-    keywords: ["examen niÃ±os", "evaluacion chicos", "prueba"],
-    pregunta: "Â¿Los niÃ±os tienen exÃ¡menes?",
-    respuesta: "EvaluaciÃ³n infantil:\n\nğŸ“ EvaluaciÃ³n continua\nğŸ® A travÃ©s de actividades\nğŸ“Š Sin presiÃ³n de notas\nğŸŒŸ Sistema de estrellas/stickers\nğŸ“‹ Informe cualitativo\n\n*Evaluamos sin estresar*",
+    keywords: ["examen niños", "evaluacion chicos", "prueba"],
+    pregunta: "¿Los niños tienen exámenes?",
+    respuesta: "Evaluación infantil:\n\n?? Evaluación continua\n?? A través de actividades\n?? Sin presión de notas\n?? Sistema de estrellas/stickers\n?? Informe cualitativo\n\n*Evaluamos sin estresar*",
     acciones: []
   },
   {
     id: 317,
     categoria: "ninos",
-    keywords: ["certificado niÃ±os", "diploma chicos"],
-    pregunta: "Â¿Los niÃ±os reciben certificado?",
-    respuesta: "Reconocimientos infantiles:\n\nğŸ“œ Diploma al finalizar nivel\nğŸ† Medallas de logros\nğŸŒŸ Certificado de participaciÃ³n\nğŸ‰ Acto de fin de aÃ±o\n\n*MotivaciÃ³n para seguir aprendiendo*",
+    keywords: ["certificado niños", "diploma chicos"],
+    pregunta: "¿Los niños reciben certificado?",
+    respuesta: "Reconocimientos infantiles:\n\n?? Diploma al finalizar nivel\n?? Medallas de logros\n?? Certificado de participación\n?? Acto de fin de año\n\n*Motivación para seguir aprendiendo*",
     acciones: []
   },
   {
     id: 318,
     categoria: "ninos",
     keywords: ["hermanos", "descuento hermanos", "dos hijos"],
-    pregunta: "Â¿Hay descuento por hermanos?",
-    respuesta: "Beneficio familiar:\n\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§â€ğŸ‘¦ **10% cada hermano**\nğŸ“‹ Aplica desde el 2do hijo\nâœ… Mismo aÃ±o lectivo\nğŸ’° Se descuenta de la cuota\n\n*Familia que aprende junta*",
+    pregunta: "¿Hay descuento por hermanos?",
+    respuesta: "Beneficio familiar:\n\n??????????? **10% cada hermano**\n?? Aplica desde el 2do hijo\n? Mismo año lectivo\n?? Se descuenta de la cuota\n\n*Familia que aprende junta*",
     acciones: []
   },
   {
     id: 319,
     categoria: "ninos",
     keywords: ["snack", "merienda", "comen clase"],
-    pregunta: "Â¿Los niÃ±os pueden merendar?",
-    respuesta: "Merienda en clase:\n\nğŸ¥¤ Pueden traer agua\nğŸ Snack saludable permitido\nâ±ï¸ Break de 5 min en clases largas\nğŸš« Sin golosinas ni comida chatarra\nğŸ§¹ Mantener limpio el aula\n\n*AlimentaciÃ³n saludable*",
+    pregunta: "¿Los niños pueden merendar?",
+    respuesta: "Merienda en clase:\n\n?? Pueden traer agua\n?? Snack saludable permitido\n?? Break de 5 min en clases largas\n?? Sin golosinas ni comida chatarra\n?? Mantener limpio el aula\n\n*Alimentación saludable*",
     acciones: []
   },
   {
     id: 320,
     categoria: "ninos",
     keywords: ["necesidades especiales", "tea", "tdah", "inclusion"],
-    pregunta: "Â¿Aceptan niÃ±os con necesidades especiales?",
-    respuesta: "InclusiÃ³n educativa:\n\nâœ… Evaluamos cada caso\nğŸ’¬ Entrevista con familia\nğŸ“‹ Adaptaciones posibles\nğŸ‘¨â€ğŸ« Docentes sensibilizados\nğŸ¤ Trabajo en equipo\n\n*Cada niÃ±o es Ãºnico*",
+    pregunta: "¿Aceptan niños con necesidades especiales?",
+    respuesta: "Inclusión educativa:\n\n? Evaluamos cada caso\n?? Entrevista con familia\n?? Adaptaciones posibles\n????? Docentes sensibilizados\n?? Trabajo en equipo\n\n*Cada niño es único*",
     acciones: []
   },
 
   // ============================================
-  // CATEGORÃA 21: EMPRESAS (20)
+  // CATEGORÍA 21: EMPRESAS (20)
   // ============================================
   {
     id: 321,
     categoria: "empresas",
     keywords: ["empresa", "corporativo", "in company", "oficina"],
-    pregunta: "Â¿Tienen cursos para empresas?",
-    respuesta: "Cursos corporativos:\n\nğŸ¢ **In-Company**: En tu empresa\nğŸ“š Programas a medida\nğŸ‘¥ Grupos o individuales\nâ° Horarios flexibles\nğŸ“Š Seguimiento de resultados\n\n*Capacitamos a tu equipo*",
+    pregunta: "¿Tienen cursos para empresas?",
+    respuesta: "Cursos corporativos:\n\n?? **In-Company**: En tu empresa\n?? Programas a medida\n?? Grupos o individuales\n? Horarios flexibles\n?? Seguimiento de resultados\n\n*Capacitamos a tu equipo*",
     acciones: [{ texto: "Solicitar info empresas", link: "mailto:info@cemi.edu.ar?subject=Consulta cursos corporativos" }]
   },
   {
     id: 322,
     categoria: "empresas",
     keywords: ["in company", "en empresa", "vienen a la empresa"],
-    pregunta: "Â¿Pueden dar clases en mi empresa?",
-    respuesta: "Modalidad In-Company:\n\nğŸ¢ Clases en tu oficina\nğŸ‘¨â€ğŸ« Profesor asignado\nğŸ“‹ Programa personalizado\nâ° Horario que convenga\nğŸ¯ Objetivos empresariales\n\n*Llevamos el idioma a vos*",
+    pregunta: "¿Pueden dar clases en mi empresa?",
+    respuesta: "Modalidad In-Company:\n\n?? Clases en tu oficina\n????? Profesor asignado\n?? Programa personalizado\n? Horario que convenga\n?? Objetivos empresariales\n\n*Llevamos el idioma a vos*",
     acciones: []
   },
   {
     id: 323,
     categoria: "empresas",
     keywords: ["programa a medida", "personalizado empresa", "necesidades"],
-    pregunta: "Â¿DiseÃ±an programas a medida?",
-    respuesta: "Programas personalizados:\n\nğŸ“Š DiagnÃ³stico inicial\nğŸ¯ Objetivos especÃ­ficos\nğŸ“š Contenido del rubro\nğŸ’¼ Vocabulario tÃ©cnico\nğŸ“ˆ MÃ©tricas de avance\n\n*Cada empresa es diferente*",
+    pregunta: "¿Diseñan programas a medida?",
+    respuesta: "Programas personalizados:\n\n?? Diagnóstico inicial\n?? Objetivos específicos\n?? Contenido del rubro\n?? Vocabulario técnico\n?? Métricas de avance\n\n*Cada empresa es diferente*",
     acciones: []
   },
   {
     id: 324,
     categoria: "empresas",
     keywords: ["ingles negocios", "business english", "comercial"],
-    pregunta: "Â¿EnseÃ±an inglÃ©s de negocios?",
-    respuesta: "Business English:\n\nğŸ’¼ Reuniones y negociaciones\nğŸ“§ Emails profesionales\nğŸ“ Llamadas y conferencias\nğŸ“Š Presentaciones\nâœˆï¸ Viajes de negocios\nğŸ¤ Networking\n\n*InglÃ©s para el mundo corporativo*",
+    pregunta: "¿Enseñan inglés de negocios?",
+    respuesta: "Business English:\n\n?? Reuniones y negociaciones\n?? Emails profesionales\n?? Llamadas y conferencias\n?? Presentaciones\n?? Viajes de negocios\n?? Networking\n\n*Inglés para el mundo corporativo*",
     acciones: []
   },
   {
     id: 325,
     categoria: "empresas",
     keywords: ["cotizacion", "presupuesto empresa", "cuanto cuesta"],
-    pregunta: "Â¿CuÃ¡nto cuesta para empresas?",
-    respuesta: "CotizaciÃ³n corporativa:\n\nğŸ“‹ SegÃºn cantidad de empleados\nâ° Horas mensuales\nğŸ“ Modalidad (presencial/online)\nğŸ“š Material incluido o no\n\n*PedÃ­ presupuesto sin compromiso*",
+    pregunta: "¿Cuánto cuesta para empresas?",
+    respuesta: "Cotización corporativa:\n\n?? Según cantidad de empleados\n? Horas mensuales\n?? Modalidad (presencial/online)\n?? Material incluido o no\n\n*Pedí presupuesto sin compromiso*",
     acciones: [{ texto: "Pedir presupuesto", link: "mailto:info@cemi.edu.ar?subject=Solicitud presupuesto corporativo" }]
   },
   {
     id: 326,
     categoria: "empresas",
     keywords: ["factura empresa", "facturacion", "razon social"],
-    pregunta: "Â¿Facturan a empresas?",
-    respuesta: "FacturaciÃ³n corporativa:\n\nâœ… Factura A o B\nğŸ¢ A nombre de la empresa\nğŸ“‹ Orden de compra si requieren\nğŸ’³ Pago por transferencia\nğŸ“§ Factura electrÃ³nica\n\n*TrÃ¡mite administrativo simple*",
+    pregunta: "¿Facturan a empresas?",
+    respuesta: "Facturación corporativa:\n\n? Factura A o B\n?? A nombre de la empresa\n?? Orden de compra si requieren\n?? Pago por transferencia\n?? Factura electrónica\n\n*Trámite administrativo simple*",
     acciones: []
   },
   {
     id: 327,
     categoria: "empresas",
     keywords: ["grupo empresa", "cantidad empleados", "minimo"],
-    pregunta: "Â¿CuÃ¡ntos empleados mÃ­nimo?",
-    respuesta: "Cantidad para armar grupo:\n\nğŸ‘¥ **MÃ­nimo**: 3-4 personas\nğŸ‘¤ **Individual**: TambiÃ©n disponible\nğŸ“Š **Ideal**: 6-10 personas\nğŸ¯ Niveles similares\n\n*Armamos grupos por nivel*",
+    pregunta: "¿Cuántos empleados mínimo?",
+    respuesta: "Cantidad para armar grupo:\n\n?? **Mínimo**: 3-4 personas\n?? **Individual**: También disponible\n?? **Ideal**: 6-10 personas\n?? Niveles similares\n\n*Armamos grupos por nivel*",
     acciones: []
   },
   {
     id: 328,
     categoria: "empresas",
     keywords: ["horario empresa", "almuerzo", "antes trabajo"],
-    pregunta: "Â¿QuÃ© horarios manejan para empresas?",
-    respuesta: "Horarios corporativos flexibles:\n\nğŸŒ… **Early morning**: 7:00-9:00\nğŸ½ï¸ **Almuerzo**: 12:00-14:00\nğŸŒ™ **After office**: 18:00-20:00\nğŸ“… Frecuencia a convenir\n\n*Nos adaptamos a ustedes*",
+    pregunta: "¿Qué horarios manejan para empresas?",
+    respuesta: "Horarios corporativos flexibles:\n\n?? **Early morning**: 7:00-9:00\n??? **Almuerzo**: 12:00-14:00\n?? **After office**: 18:00-20:00\n?? Frecuencia a convenir\n\n*Nos adaptamos a ustedes*",
     acciones: []
   },
   {
     id: 329,
     categoria: "empresas",
     keywords: ["evaluacion empleados", "test nivel", "diagnostico"],
-    pregunta: "Â¿EvalÃºan el nivel de los empleados?",
-    respuesta: "DiagnÃ³stico inicial:\n\nğŸ“ Test de nivel online\nğŸ—£ï¸ Entrevista oral opcional\nğŸ“Š Reporte por empleado\nğŸ¯ Agrupamiento por nivel\nğŸ“‹ Recomendaciones\n\n*Sin costo como parte del servicio*",
+    pregunta: "¿Evalúan el nivel de los empleados?",
+    respuesta: "Diagnóstico inicial:\n\n?? Test de nivel online\n??? Entrevista oral opcional\n?? Reporte por empleado\n?? Agrupamiento por nivel\n?? Recomendaciones\n\n*Sin costo como parte del servicio*",
     acciones: []
   },
   {
     id: 330,
     categoria: "empresas",
     keywords: ["seguimiento empresa", "reporte", "informe progreso"],
-    pregunta: "Â¿Informan el progreso a la empresa?",
-    respuesta: "Reportes corporativos:\n\nğŸ“Š Informe mensual de asistencia\nğŸ“ˆ Avance por empleado\nğŸ¯ Cumplimiento de objetivos\nğŸ“‹ Reporte cuatrimestral detallado\nğŸ’¬ Reuniones de feedback\n\n*Transparencia total*",
+    pregunta: "¿Informan el progreso a la empresa?",
+    respuesta: "Reportes corporativos:\n\n?? Informe mensual de asistencia\n?? Avance por empleado\n?? Cumplimiento de objetivos\n?? Reporte cuatrimestral detallado\n?? Reuniones de feedback\n\n*Transparencia total*",
     acciones: []
   },
   {
     id: 331,
     categoria: "empresas",
     keywords: ["cancelacion clase empresa", "ausencia", "falta grupo"],
-    pregunta: "Â¿QuÃ© pasa si cancelamos una clase?",
-    respuesta: "PolÃ­tica de cancelaciÃ³n:\n\nâ° Aviso 24hs antes: Se reprograma\nâš ï¸ Menos de 24hs: Se cobra\nğŸ”„ Clases de recuperaciÃ³n posibles\nğŸ“… Flexibilidad razonable\n\n*ComunicaciÃ³n clara*",
+    pregunta: "¿Qué pasa si cancelamos una clase?",
+    respuesta: "Política de cancelación:\n\n? Aviso 24hs antes: Se reprograma\n?? Menos de 24hs: Se cobra\n?? Clases de recuperación posibles\n?? Flexibilidad razonable\n\n*Comunicación clara*",
     acciones: []
   },
   {
     id: 332,
     categoria: "empresas",
     keywords: ["contrato empresa", "duracion convenio", "anual"],
-    pregunta: "Â¿CÃ³mo es el contrato?",
-    respuesta: "Convenios corporativos:\n\nğŸ“‹ Contrato anual o cuatrimestral\nğŸ”„ RenovaciÃ³n automÃ¡tica opcional\nğŸ“… PerÃ­odo de prueba: 1 mes\nâš–ï¸ Condiciones claras\nğŸ’¼ Ãrea de RRHH gestiona\n\n*TÃ©rminos negociables*",
+    pregunta: "¿Cómo es el contrato?",
+    respuesta: "Convenios corporativos:\n\n?? Contrato anual o cuatrimestral\n?? Renovación automática opcional\n?? Período de prueba: 1 mes\n?? Condiciones claras\n?? Área de RRHH gestiona\n\n*Términos negociables*",
     acciones: []
   },
   {
     id: 333,
     categoria: "empresas",
     keywords: ["online empresa", "virtual corporativo", "remoto"],
-    pregunta: "Â¿Hay opciÃ³n online para empresas?",
-    respuesta: "Clases virtuales corporativas:\n\nğŸ’» 100% online disponible\nğŸŒ Ideal para equipos remotos\nğŸ“¹ Plataformas profesionales\nğŸ“š Material digital\nğŸ¯ Misma calidad que presencial\n\n*Sin lÃ­mites geogrÃ¡ficos*",
+    pregunta: "¿Hay opción online para empresas?",
+    respuesta: "Clases virtuales corporativas:\n\n?? 100% online disponible\n?? Ideal para equipos remotos\n?? Plataformas profesionales\n?? Material digital\n?? Misma calidad que presencial\n\n*Sin límites geográficos*",
     acciones: []
   },
   {
     id: 334,
     categoria: "empresas",
     keywords: ["certificado empresa", "diploma empleado", "constancia"],
-    pregunta: "Â¿Entregan certificados a empleados?",
-    respuesta: "CertificaciÃ³n corporativa:\n\nğŸ“œ Certificado por nivel completado\nğŸ“‹ Constancia de participaciÃ³n\nğŸ“Š Especifica horas y contenidos\nğŸ¢ Logo de la empresa opcional\n\n*Valor agregado para el empleado*",
+    pregunta: "¿Entregan certificados a empleados?",
+    respuesta: "Certificación corporativa:\n\n?? Certificado por nivel completado\n?? Constancia de participación\n?? Especifica horas y contenidos\n?? Logo de la empresa opcional\n\n*Valor agregado para el empleado*",
     acciones: []
   },
   {
     id: 335,
     categoria: "empresas",
     keywords: ["idioma tecnico", "vocabulario sector", "especializado"],
-    pregunta: "Â¿EnseÃ±an vocabulario de mi sector?",
-    respuesta: "Vocabulario especializado:\n\nğŸ¥ MÃ©dico/Salud\nğŸ’» IT/TecnologÃ­a\nâš–ï¸ Legal\nğŸ¦ Finanzas/Banca\nğŸ›’ Comercio/Retail\nğŸ­ Industria\nâœˆï¸ Turismo/HotelerÃ­a\n\n*Personalizamos segÃºn tu rubro*",
+    pregunta: "¿Enseñan vocabulario de mi sector?",
+    respuesta: "Vocabulario especializado:\n\n?? Médico/Salud\n?? IT/Tecnología\n?? Legal\n?? Finanzas/Banca\n?? Comercio/Retail\n?? Industria\n?? Turismo/Hotelería\n\n*Personalizamos según tu rubro*",
     acciones: []
   },
   {
     id: 336,
     categoria: "empresas",
     keywords: ["rotacion", "cambio empleados", "nuevo integrante"],
-    pregunta: "Â¿QuÃ© pasa si hay rotaciÃ³n de personal?",
-    respuesta: "GestiÃ³n de rotaciÃ³n:\n\nğŸ”„ Nuevos empleados se integran\nğŸ“ EvaluaciÃ³n de nivel\nğŸ‘¥ Se ubican en grupo adecuado\nğŸ“š Material de nivelaciÃ³n\nğŸ’° Sin costo extra de incorporaciÃ³n\n\n*Flexibilidad ante cambios*",
+    pregunta: "¿Qué pasa si hay rotación de personal?",
+    respuesta: "Gestión de rotación:\n\n?? Nuevos empleados se integran\n?? Evaluación de nivel\n?? Se ubican en grupo adecuado\n?? Material de nivelación\n?? Sin costo extra de incorporación\n\n*Flexibilidad ante cambios*",
     acciones: []
   },
   {
     id: 337,
     categoria: "empresas",
     keywords: ["material empresa", "libro corporativo", "recursos"],
-    pregunta: "Â¿QuÃ© material usan en empresas?",
-    respuesta: "Material corporativo:\n\nğŸ“š Libros de Business English\nğŸ“‹ Material propio CEMI\nğŸ’¼ Casos del rubro\nğŸ“° ArtÃ­culos actuales\nğŸ“¹ Videos profesionales\n\n*Contenido relevante para el trabajo*",
+    pregunta: "¿Qué material usan en empresas?",
+    respuesta: "Material corporativo:\n\n?? Libros de Business English\n?? Material propio CEMI\n?? Casos del rubro\n?? Artículos actuales\n?? Videos profesionales\n\n*Contenido relevante para el trabajo*",
     acciones: []
   },
   {
     id: 338,
     categoria: "empresas",
     keywords: ["beneficio empleado", "perk", "bienestar"],
-    pregunta: "Â¿Sirve como beneficio para empleados?",
-    respuesta: "Idiomas como beneficio:\n\nğŸ Excelente perk laboral\nğŸ’¼ Desarrollo profesional\nğŸŒ Oportunidades internacionales\nğŸ˜Š Mejora clima laboral\nğŸ“ˆ RetenciÃ³n de talento\n\n*InversiÃ³n en tu equipo*",
+    pregunta: "¿Sirve como beneficio para empleados?",
+    respuesta: "Idiomas como beneficio:\n\n?? Excelente perk laboral\n?? Desarrollo profesional\n?? Oportunidades internacionales\n?? Mejora clima laboral\n?? Retención de talento\n\n*Inversión en tu equipo*",
     acciones: []
   },
   {
     id: 339,
     categoria: "empresas",
-    keywords: ["pyme", "pequeÃ±a empresa", "startup"],
-    pregunta: "Â¿Tienen opciones para PyMEs?",
-    respuesta: "Programas para PyMEs:\n\nğŸ’° Precios accesibles\nğŸ‘¥ Grupos pequeÃ±os\nğŸ“… Flexibilidad horaria\nğŸ¯ Objetivos concretos\nğŸ“ˆ Escalar segÃºn necesidad\n\n*Soluciones a medida de tu presupuesto*",
+    keywords: ["pyme", "pequeña empresa", "startup"],
+    pregunta: "¿Tienen opciones para PyMEs?",
+    respuesta: "Programas para PyMEs:\n\n?? Precios accesibles\n?? Grupos pequeños\n?? Flexibilidad horaria\n?? Objetivos concretos\n?? Escalar según necesidad\n\n*Soluciones a medida de tu presupuesto*",
     acciones: []
   },
   {
     id: 340,
     categoria: "empresas",
     keywords: ["referencia", "clientes", "quienes trabajaron"],
-    pregunta: "Â¿Tienen referencias de empresas?",
-    respuesta: "Nuestros clientes:\n\nğŸ¢ Empresas de diversos rubros\nğŸ“‹ Referencias disponibles\nâ­ Testimonios verificables\nğŸ¤ Relaciones de largo plazo\n\n*PedÃ­ referencias al solicitar presupuesto*",
+    pregunta: "¿Tienen referencias de empresas?",
+    respuesta: "Nuestros clientes:\n\n?? Empresas de diversos rubros\n?? Referencias disponibles\n? Testimonios verificables\n?? Relaciones de largo plazo\n\n*Pedí referencias al solicitar presupuesto*",
     acciones: []
   },
   
@@ -2603,403 +2603,403 @@ const BASE_CONOCIMIENTO = [
   {
     id: 341,
     categoria: "vida_estudiantil",
-    keywords: ["grupo", "estudio", "compaÃ±eros", "estudiar juntos"],
-    pregunta: "Â¿Hay grupos de estudio?",
-    respuesta: "SÃ­, fomentamos grupos de estudio:\n\nğŸ‘¥ Grupos WhatsApp por nivel\nğŸ“š Sesiones de prÃ¡ctica grupal\nğŸ—£ï¸ Conversation clubs\nğŸ¤ Intercambio entre alumnos\n\n*Se forman naturalmente en clase*",
+    keywords: ["grupo", "estudio", "compañeros", "estudiar juntos"],
+    pregunta: "¿Hay grupos de estudio?",
+    respuesta: "Sí, fomentamos grupos de estudio:\n\n?? Grupos WhatsApp por nivel\n?? Sesiones de práctica grupal\n??? Conversation clubs\n?? Intercambio entre alumnos\n\n*Se forman naturalmente en clase*",
     acciones: []
   },
   {
     id: 342,
     categoria: "vida_estudiantil",
     keywords: ["actividad", "extracurricular", "extra", "adicional"],
-    pregunta: "Â¿Hay actividades extracurriculares?",
-    respuesta: "Ofrecemos actividades extra:\n\nğŸ¬ Movie nights con pelÃ­culas\nâ˜• Coffee talks conversacionales\nğŸµ Karaoke en inglÃ©s\nğŸ® Game sessions didÃ¡cticos\nğŸ“– Book club mensual\n\n*Consulta el calendario de eventos*",
+    pregunta: "¿Hay actividades extracurriculares?",
+    respuesta: "Ofrecemos actividades extra:\n\n?? Movie nights con películas\n? Coffee talks conversacionales\n?? Karaoke en inglés\n?? Game sessions didácticos\n?? Book club mensual\n\n*Consulta el calendario de eventos*",
     acciones: []
   },
   {
     id: 343,
     categoria: "vida_estudiantil",
     keywords: ["amigo", "conocer", "gente", "socializar"],
-    pregunta: "Â¿Puedo conocer gente nueva?",
-    respuesta: "CEMI es una comunidad:\n\nğŸ‘‹ Ambiente amigable y acogedor\nğŸŒ Estudiantes de todas las edades\nğŸ¤ Actividades de integraciÃ³n\nğŸ’¬ Grupos de prÃ¡ctica\n\n*Muchos alumnos han hecho amistades duraderas aquÃ­*",
+    pregunta: "¿Puedo conocer gente nueva?",
+    respuesta: "CEMI es una comunidad:\n\n?? Ambiente amigable y acogedor\n?? Estudiantes de todas las edades\n?? Actividades de integración\n?? Grupos de práctica\n\n*Muchos alumnos han hecho amistades duraderas aquí*",
     acciones: []
   },
   {
     id: 344,
     categoria: "vida_estudiantil",
     keywords: ["intercambio", "cultural", "internacional"],
-    pregunta: "Â¿Tienen intercambios culturales?",
-    respuesta: "Experiencias interculturales:\n\nğŸŒ ConexiÃ³n con hablantes nativos\nğŸŒ CelebraciÃ³n de festividades internacionales\nğŸ“º ExposiciÃ³n a diferentes acentos\nğŸ½ï¸ Eventos gastronÃ³micos temÃ¡ticos\n\n*Aprender idiomas es abrir puertas al mundo*",
+    pregunta: "¿Tienen intercambios culturales?",
+    respuesta: "Experiencias interculturales:\n\n?? Conexión con hablantes nativos\n?? Celebración de festividades internacionales\n?? Exposición a diferentes acentos\n??? Eventos gastronómicos temáticos\n\n*Aprender idiomas es abrir puertas al mundo*",
     acciones: []
   },
   {
     id: 345,
     categoria: "vida_estudiantil",
     keywords: ["evento", "especial", "celebracion"],
-    pregunta: "Â¿Celebran eventos especiales?",
-    respuesta: "Nuestros eventos:\n\nğŸƒ Halloween party\nğŸ„ Christmas celebration\nğŸ­ Carnival activities\nğŸ“ Ceremonia de graduaciÃ³n\nğŸ“… Aniversario institucional\n\n*Te avisamos por email y redes*",
+    pregunta: "¿Celebran eventos especiales?",
+    respuesta: "Nuestros eventos:\n\n?? Halloween party\n?? Christmas celebration\n?? Carnival activities\n?? Ceremonia de graduación\n?? Aniversario institucional\n\n*Te avisamos por email y redes*",
     acciones: []
   },
   {
     id: 346,
     categoria: "vida_estudiantil",
     keywords: ["concurso", "competencia", "torneo"],
-    pregunta: "Â¿Hay concursos o competencias?",
-    respuesta: "Organizamos competencias:\n\nğŸ† Spelling bee (deletreo)\nğŸ¤ Speech contest (oratoria)\nâœï¸ Writing competition\nğŸ¯ Quiz nights\nğŸ“š Reading challenges\n\n*Son opcionales pero muy divertidas*",
+    pregunta: "¿Hay concursos o competencias?",
+    respuesta: "Organizamos competencias:\n\n?? Spelling bee (deletreo)\n?? Speech contest (oratoria)\n?? Writing competition\n?? Quiz nights\n?? Reading challenges\n\n*Son opcionales pero muy divertidas*",
     acciones: []
   },
   {
     id: 347,
     categoria: "vida_estudiantil",
     keywords: ["voluntario", "ayudar", "colaborar"],
-    pregunta: "Â¿Puedo colaborar como voluntario?",
-    respuesta: "Oportunidades de voluntariado:\n\nğŸ‘¨â€ğŸ« Tutor de compaÃ±eros\nğŸ“¢ Embajador estudiantil\nğŸª OrganizaciÃ³n de eventos\nğŸ“¸ Contenido para redes\n\n*HablÃ¡ con coordinaciÃ³n si te interesa*",
+    pregunta: "¿Puedo colaborar como voluntario?",
+    respuesta: "Oportunidades de voluntariado:\n\n????? Tutor de compañeros\n?? Embajador estudiantil\n?? Organización de eventos\n?? Contenido para redes\n\n*Hablá con coordinación si te interesa*",
     acciones: []
   },
   {
     id: 348,
     categoria: "vida_estudiantil",
     keywords: ["redes", "sociales", "instagram", "facebook"],
-    pregunta: "Â¿Tienen redes sociales?",
-    respuesta: "Seguinos en redes:\n\nğŸ“· Instagram: @cemi_idiomas\nğŸ‘¥ Facebook: CEMI Centro de Idiomas\nğŸ“º YouTube: CEMI Oficial\nğŸ’¼ LinkedIn: CEMI\n\n*Contenido educativo y novedades*",
+    pregunta: "¿Tienen redes sociales?",
+    respuesta: "Seguinos en redes:\n\n?? Instagram: @cemi_idiomas\n?? Facebook: CEMI Centro de Idiomas\n?? YouTube: CEMI Oficial\n?? LinkedIn: CEMI\n\n*Contenido educativo y novedades*",
     acciones: []
   },
   {
     id: 349,
     categoria: "vida_estudiantil",
     keywords: ["newsletter", "boletin", "novedades", "email"],
-    pregunta: "Â¿Tienen newsletter?",
-    respuesta: "BoletÃ­n informativo:\n\nğŸ“§ Newsletter mensual\nğŸ“° Novedades y eventos\nğŸ’¡ Tips de aprendizaje\nğŸ Promociones exclusivas\n\n*Te suscribÃ­s automÃ¡ticamente al inscribirte*",
+    pregunta: "¿Tienen newsletter?",
+    respuesta: "Boletín informativo:\n\n?? Newsletter mensual\n?? Novedades y eventos\n?? Tips de aprendizaje\n?? Promociones exclusivas\n\n*Te suscribís automáticamente al inscribirte*",
     acciones: []
   },
   {
     id: 350,
     categoria: "vida_estudiantil",
     keywords: ["alumni", "egresados", "ex alumnos"],
-    pregunta: "Â¿Hay comunidad de egresados?",
-    respuesta: "Red de egresados CEMI:\n\nğŸ‘¨â€ğŸ“ Grupo Alumni exclusivo\nğŸ¤ Networking profesional\nğŸ“¢ Ofertas laborales\nğŸ“ Eventos de reencuentro\nğŸ’¼ Bolsa de trabajo\n\n*Una vez CEMI, siempre CEMI*",
+    pregunta: "¿Hay comunidad de egresados?",
+    respuesta: "Red de egresados CEMI:\n\n????? Grupo Alumni exclusivo\n?? Networking profesional\n?? Ofertas laborales\n?? Eventos de reencuentro\n?? Bolsa de trabajo\n\n*Una vez CEMI, siempre CEMI*",
     acciones: []
   },
   {
     id: 351,
     categoria: "vida_estudiantil",
     keywords: ["cafeteria", "cafe", "snack", "comer"],
-    pregunta: "Â¿Hay cafeterÃ­a en el instituto?",
-    respuesta: "Servicios disponibles:\n\nâ˜• MÃ¡quina de cafÃ©\nğŸ’§ Dispenser de agua\nğŸª Snacks en recepciÃ³n\nğŸ“ Locales gastronÃ³micos cercanos\n\n*PodÃ©s traer tu comida y usar el espacio comÃºn*",
+    pregunta: "¿Hay cafetería en el instituto?",
+    respuesta: "Servicios disponibles:\n\n? Máquina de café\n?? Dispenser de agua\n?? Snacks en recepción\n?? Locales gastronómicos cercanos\n\n*Podés traer tu comida y usar el espacio común*",
     acciones: []
   },
   {
     id: 352,
     categoria: "vida_estudiantil",
     keywords: ["wifi", "internet", "conexion"],
-    pregunta: "Â¿Tienen WiFi para alumnos?",
-    respuesta: "Conectividad:\n\nğŸ“¶ WiFi gratuito de alta velocidad\nğŸ” Red segura para estudiantes\nğŸ’» Acceso en todas las aulas\nğŸ“± Ideal para clases online\n\n*PedÃ­ la clave en recepciÃ³n*",
+    pregunta: "¿Tienen WiFi para alumnos?",
+    respuesta: "Conectividad:\n\n?? WiFi gratuito de alta velocidad\n?? Red segura para estudiantes\n?? Acceso en todas las aulas\n?? Ideal para clases online\n\n*Pedí la clave en recepción*",
     acciones: []
   },
   {
     id: 353,
     categoria: "vida_estudiantil",
     keywords: ["biblioteca", "libros", "prestar"],
-    pregunta: "Â¿Tienen biblioteca?",
-    respuesta: "Recursos bibliogrÃ¡ficos:\n\nğŸ“š Biblioteca con material didÃ¡ctico\nğŸ“– Libros de lectura por nivel\nğŸ’¿ Material audiovisual\nğŸ“² PrÃ©stamos a domicilio\n\n*Presentando tu carnet de alumno*",
+    pregunta: "¿Tienen biblioteca?",
+    respuesta: "Recursos bibliográficos:\n\n?? Biblioteca con material didáctico\n?? Libros de lectura por nivel\n?? Material audiovisual\n?? Préstamos a domicilio\n\n*Presentando tu carnet de alumno*",
     acciones: []
   },
   {
     id: 354,
     categoria: "vida_estudiantil",
     keywords: ["estacionar", "auto", "parking"],
-    pregunta: "Â¿Hay estacionamiento?",
-    respuesta: "Opciones de estacionamiento:\n\nğŸš— No tenemos parking propio\nğŸ…¿ï¸ Estacionamientos pÃºblicos cercanos\nğŸšŒ FÃ¡cil acceso en transporte pÃºblico\nğŸš² Estacionamiento para bicicletas\n\n*Consulta ubicaciÃ³n de parkings cercanos*",
+    pregunta: "¿Hay estacionamiento?",
+    respuesta: "Opciones de estacionamiento:\n\n?? No tenemos parking propio\n??? Estacionamientos públicos cercanos\n?? Fácil acceso en transporte público\n?? Estacionamiento para bicicletas\n\n*Consulta ubicación de parkings cercanos*",
     acciones: []
   },
   {
     id: 355,
     categoria: "vida_estudiantil",
     keywords: ["mascota", "perro", "gato", "animal"],
-    pregunta: "Â¿Puedo ir con mascotas?",
-    respuesta: "PolÃ­tica de mascotas:\n\nğŸ¾ No se permiten mascotas en aulas\nğŸ¦® ExcepciÃ³n: perros de asistencia\nğŸ  Las clases online son pet-friendly ğŸ˜„\n\n*Tu mascota te espera en casa*",
+    pregunta: "¿Puedo ir con mascotas?",
+    respuesta: "Política de mascotas:\n\n?? No se permiten mascotas en aulas\n?? Excepción: perros de asistencia\n?? Las clases online son pet-friendly ??\n\n*Tu mascota te espera en casa*",
     acciones: []
   },
   {
     id: 356,
     categoria: "vida_estudiantil",
     keywords: ["fumar", "cigarro", "tabaco"],
-    pregunta: "Â¿Se puede fumar en el instituto?",
-    respuesta: "Espacio libre de humo:\n\nğŸš­ Prohibido fumar en todo el edificio\nâœ… Ãrea exterior designada\nğŸ’š Ambiente saludable\n\n*Respetamos la salud de todos*",
+    pregunta: "¿Se puede fumar en el instituto?",
+    respuesta: "Espacio libre de humo:\n\n?? Prohibido fumar en todo el edificio\n? Área exterior designada\n?? Ambiente saludable\n\n*Respetamos la salud de todos*",
     acciones: []
   },
   {
     id: 357,
     categoria: "vida_estudiantil",
     keywords: ["vestimenta", "ropa", "dress code"],
-    pregunta: "Â¿Hay cÃ³digo de vestimenta?",
-    respuesta: "Vestimenta:\n\nğŸ‘• No hay dress code formal\nğŸ‘– Ropa cÃ³moda y casual\nğŸ‘Ÿ VenÃ­ como te sientas bien\nğŸ¨ ExpresÃ¡ tu estilo\n\n*Lo importante es que estÃ©s cÃ³modo para aprender*",
+    pregunta: "¿Hay código de vestimenta?",
+    respuesta: "Vestimenta:\n\n?? No hay dress code formal\n?? Ropa cómoda y casual\n?? Vení como te sientas bien\n?? Expresá tu estilo\n\n*Lo importante es que estés cómodo para aprender*",
     acciones: []
   },
   {
     id: 358,
     categoria: "vida_estudiantil",
-    keywords: ["cumpleaÃ±os", "cumple", "festejar"],
-    pregunta: "Â¿Se festejan cumpleaÃ±os?",
-    respuesta: "Celebraciones:\n\nğŸ‚ Festejamos cumpleaÃ±os en clase\nğŸˆ Momentos de integraciÃ³n\nğŸ Sorpresas ocasionales\nğŸ“¸ Fotos grupales\n\n*Â¡Avisanos cuÃ¡ndo es tu cumple!*",
+    keywords: ["cumpleaños", "cumple", "festejar"],
+    pregunta: "¿Se festejan cumpleaños?",
+    respuesta: "Celebraciones:\n\n?? Festejamos cumpleaños en clase\n?? Momentos de integración\n?? Sorpresas ocasionales\n?? Fotos grupales\n\n*¡Avisanos cuándo es tu cumple!*",
     acciones: []
   },
   {
     id: 359,
     categoria: "vida_estudiantil",
     keywords: ["foto", "fotos", "fotografia", "filmar"],
-    pregunta: "Â¿Puedo tomar fotos en clase?",
-    respuesta: "PolÃ­tica de fotografÃ­a:\n\nğŸ“· Fotos del pizarrÃ³n: âœ…\nğŸ“¹ Grabar clase: solo con permiso\nğŸ¤³ Selfies grupales: Â¡claro!\nğŸ“¸ Uso en redes: consultar\n\n*Respetamos la privacidad de todos*",
+    pregunta: "¿Puedo tomar fotos en clase?",
+    respuesta: "Política de fotografía:\n\n?? Fotos del pizarrón: ?\n?? Grabar clase: solo con permiso\n?? Selfies grupales: ¡claro!\n?? Uso en redes: consultar\n\n*Respetamos la privacidad de todos*",
     acciones: []
   },
   {
     id: 360,
     categoria: "vida_estudiantil",
     keywords: ["celular", "telefono", "movil", "smartphone"],
-    pregunta: "Â¿Puedo usar el celular en clase?",
-    respuesta: "Uso de celular:\n\nğŸ“± Modo silencio durante clase\nğŸ“² Uso educativo permitido\nğŸ“µ Llamadas afuera del aula\nğŸ’¡ Apps de idiomas: Â¡bienvenidas!\n\n*El celular puede ser una herramienta de aprendizaje*",
+    pregunta: "¿Puedo usar el celular en clase?",
+    respuesta: "Uso de celular:\n\n?? Modo silencio durante clase\n?? Uso educativo permitido\n?? Llamadas afuera del aula\n?? Apps de idiomas: ¡bienvenidas!\n\n*El celular puede ser una herramienta de aprendizaje*",
     acciones: []
   },
   {
     id: 361,
     categoria: "vida_estudiantil",
     keywords: ["notebook", "laptop", "computadora", "tablet"],
-    pregunta: "Â¿Puedo llevar mi notebook?",
-    respuesta: "Dispositivos permitidos:\n\nğŸ’» Notebooks: âœ…\nğŸ“± Tablets: âœ…\nğŸ”Œ Enchufes disponibles\nğŸ“¶ WiFi incluido\n\n*Ideal para tomar notas y practicar*",
+    pregunta: "¿Puedo llevar mi notebook?",
+    respuesta: "Dispositivos permitidos:\n\n?? Notebooks: ?\n?? Tablets: ?\n?? Enchufes disponibles\n?? WiFi incluido\n\n*Ideal para tomar notas y practicar*",
     acciones: []
   },
   {
     id: 362,
     categoria: "vida_estudiantil",
     keywords: ["comida", "comer", "clase", "snack"],
-    pregunta: "Â¿Puedo comer en clase?",
-    respuesta: "Alimentos en clase:\n\nâ˜• Bebidas: âœ… (con tapa)\nğŸª Snacks discretos: âœ…\nğŸ• Comidas completas: âŒ\nğŸ§¹ Mantener limpio el espacio\n\n*Una galletita para el break estÃ¡ bien*",
+    pregunta: "¿Puedo comer en clase?",
+    respuesta: "Alimentos en clase:\n\n? Bebidas: ? (con tapa)\n?? Snacks discretos: ?\n?? Comidas completas: ?\n?? Mantener limpio el espacio\n\n*Una galletita para el break está bien*",
     acciones: []
   },
   {
     id: 363,
     categoria: "vida_estudiantil",
-    keywords: ["baÃ±o", "toilette", "sanitario"],
-    pregunta: "Â¿DÃ³nde estÃ¡n los baÃ±os?",
-    respuesta: "Instalaciones:\n\nğŸš» BaÃ±os en cada piso\nâ™¿ BaÃ±o accesible disponible\nğŸ§¼ Siempre equipados\nğŸš¿ Limpios y mantenidos\n\n*PodÃ©s ir cuando necesites*",
+    keywords: ["baño", "toilette", "sanitario"],
+    pregunta: "¿Dónde están los baños?",
+    respuesta: "Instalaciones:\n\n?? Baños en cada piso\n? Baño accesible disponible\n?? Siempre equipados\n?? Limpios y mantenidos\n\n*Podés ir cuando necesites*",
     acciones: []
   },
   {
     id: 364,
     categoria: "vida_estudiantil",
     keywords: ["locker", "guardar", "casillero"],
-    pregunta: "Â¿Tienen lockers?",
-    respuesta: "Almacenamiento:\n\nğŸ” No tenemos lockers individuales\nğŸ“¦ PodÃ©s dejar cosas en recepciÃ³n\nğŸ’ Llevar pertenencias a clase\n\n*No nos hacemos responsables por objetos olvidados*",
+    pregunta: "¿Tienen lockers?",
+    respuesta: "Almacenamiento:\n\n?? No tenemos lockers individuales\n?? Podés dejar cosas en recepción\n?? Llevar pertenencias a clase\n\n*No nos hacemos responsables por objetos olvidados*",
     acciones: []
   },
   {
     id: 365,
     categoria: "vida_estudiantil",
     keywords: ["perdido", "encontrado", "perdi", "olvide"],
-    pregunta: "Â¿DÃ³nde estÃ¡n objetos perdidos?",
-    respuesta: "Objetos perdidos:\n\nğŸ“¦ ConsultÃ¡ en recepciÃ³n\nâ° Guardamos 30 dÃ­as\nğŸ“§ Avisanos por email\nğŸ“± Te contactamos si encontramos algo\n\n*Siempre revisÃ¡ tus pertenencias*",
+    pregunta: "¿Dónde están objetos perdidos?",
+    respuesta: "Objetos perdidos:\n\n?? Consultá en recepción\n? Guardamos 30 días\n?? Avisanos por email\n?? Te contactamos si encontramos algo\n\n*Siempre revisá tus pertenencias*",
     acciones: []
   },
   
-  // ========== TRÃMITES ADMINISTRATIVOS (366-390) ==========
+  // ========== TRÁMITES ADMINISTRATIVOS (366-390) ==========
   {
     id: 366,
     categoria: "tramites",
     keywords: ["constancia", "alumno", "regular"],
-    pregunta: "Â¿CÃ³mo pido constancia de alumno regular?",
-    respuesta: "Constancia de alumno regular:\n\nğŸ“‹ Pedila en administraciÃ³n\nâ° Lista en 24-48 horas\nğŸ“„ Incluye: nombre, curso, horario\nğŸ’° Sin costo adicional\n\n*PresentÃ¡ tu DNI para retirarla*",
+    pregunta: "¿Cómo pido constancia de alumno regular?",
+    respuesta: "Constancia de alumno regular:\n\n?? Pedila en administración\n? Lista en 24-48 horas\n?? Incluye: nombre, curso, horario\n?? Sin costo adicional\n\n*Presentá tu DNI para retirarla*",
     acciones: []
   },
   {
     id: 367,
     categoria: "tramites",
     keywords: ["constancia", "notas", "calificaciones"],
-    pregunta: "Â¿CÃ³mo obtengo constancia de notas?",
-    respuesta: "Constancia de calificaciones:\n\nğŸ“Š SolicitÃ¡ en administraciÃ³n\nğŸ“‹ Incluye todas tus notas\nâ° 48-72 horas de elaboraciÃ³n\nâœ… Firmada y sellada\n\n*Ideal para trÃ¡mites externos*",
+    pregunta: "¿Cómo obtengo constancia de notas?",
+    respuesta: "Constancia de calificaciones:\n\n?? Solicitá en administración\n?? Incluye todas tus notas\n? 48-72 horas de elaboración\n? Firmada y sellada\n\n*Ideal para trámites externos*",
     acciones: []
   },
   {
     id: 368,
     categoria: "tramites",
     keywords: ["certificado", "estudio", "estudios"],
-    pregunta: "Â¿Emiten certificado de estudios?",
-    respuesta: "Certificado de estudios:\n\nğŸ“œ Detalle completo de cursada\nğŸ“Š Niveles completados\nâ° Horas de estudio\nâœ… Validez institucional\n\n*Costo: consultar en administraciÃ³n*",
+    pregunta: "¿Emiten certificado de estudios?",
+    respuesta: "Certificado de estudios:\n\n?? Detalle completo de cursada\n?? Niveles completados\n? Horas de estudio\n? Validez institucional\n\n*Costo: consultar en administración*",
     acciones: []
   },
   {
     id: 369,
     categoria: "tramites",
     keywords: ["reembolso", "devolucion", "devolver dinero"],
-    pregunta: "Â¿Hacen devoluciÃ³n de dinero?",
-    respuesta: "PolÃ­tica de reembolsos:\n\nğŸ“‹ Evaluamos caso por caso\nâ° Antes de iniciar: reembolso parcial\nâŒ Iniciado el curso: no hay devoluciÃ³n\nğŸ’³ CrÃ©dito a favor disponible\n\n*ConsultÃ¡ condiciones especÃ­ficas*",
+    pregunta: "¿Hacen devolución de dinero?",
+    respuesta: "Política de reembolsos:\n\n?? Evaluamos caso por caso\n? Antes de iniciar: reembolso parcial\n? Iniciado el curso: no hay devolución\n?? Crédito a favor disponible\n\n*Consultá condiciones específicas*",
     acciones: []
   },
   {
     id: 370,
     categoria: "tramites",
     keywords: ["factura", "comprobante", "fiscal"],
-    pregunta: "Â¿Emiten factura?",
-    respuesta: "FacturaciÃ³n:\n\nğŸ§¾ Factura B para particulares\nğŸ“‹ Factura A para empresas/monotributistas\nğŸ“§ EnvÃ­o digital por email\nğŸ“„ PodÃ©s pedirla en administraciÃ³n\n\n*IndicÃ¡ tus datos fiscales al pagar*",
+    pregunta: "¿Emiten factura?",
+    respuesta: "Facturación:\n\n?? Factura B para particulares\n?? Factura A para empresas/monotributistas\n?? Envío digital por email\n?? Podés pedirla en administración\n\n*Indicá tus datos fiscales al pagar*",
     acciones: []
   },
   {
     id: 371,
     categoria: "tramites",
     keywords: ["cambio", "datos", "actualizar", "direccion"],
-    pregunta: "Â¿CÃ³mo actualizo mis datos?",
-    respuesta: "ActualizaciÃ³n de datos:\n\nğŸ“§ Email: avisÃ¡ a administraciÃ³n\nğŸ“± TelÃ©fono: informÃ¡ el cambio\nğŸ  DirecciÃ³n: actualizala para entregas\nğŸ“‹ DNI: presentÃ¡ documentaciÃ³n\n\n*MantenÃ© tus datos actualizados*",
+    pregunta: "¿Cómo actualizo mis datos?",
+    respuesta: "Actualización de datos:\n\n?? Email: avisá a administración\n?? Teléfono: informá el cambio\n?? Dirección: actualizala para entregas\n?? DNI: presentá documentación\n\n*Mantené tus datos actualizados*",
     acciones: []
   },
   {
     id: 372,
     categoria: "tramites",
     keywords: ["carnet", "credencial", "tarjeta alumno"],
-    pregunta: "Â¿Dan carnet de estudiante?",
-    respuesta: "Credencial estudiantil:\n\nğŸ« Carnet CEMI incluido\nğŸ“· TraÃ© foto carnet o la sacamos\nğŸ’³ Formato prÃ¡ctico\nğŸ Beneficios con comercios asociados\n\n*Lo recibÃ­s al confirmar inscripciÃ³n*",
+    pregunta: "¿Dan carnet de estudiante?",
+    respuesta: "Credencial estudiantil:\n\n?? Carnet CEMI incluido\n?? Traé foto carnet o la sacamos\n?? Formato práctico\n?? Beneficios con comercios asociados\n\n*Lo recibís al confirmar inscripción*",
     acciones: []
   },
   {
     id: 373,
     categoria: "tramites",
     keywords: ["baja", "cancelar", "dar de baja"],
-    pregunta: "Â¿CÃ³mo doy de baja mi inscripciÃ³n?",
-    respuesta: "Proceso de baja:\n\nğŸ“§ AvisÃ¡ por email a administraciÃ³n\nâ° Con 10 dÃ­as de anticipaciÃ³n\nğŸ“‹ CompletÃ¡ formulario de baja\nğŸ’³ Si hay saldo: crÃ©dito a favor\n\n*Siempre podÃ©s volver cuando quieras*",
+    pregunta: "¿Cómo doy de baja mi inscripción?",
+    respuesta: "Proceso de baja:\n\n?? Avisá por email a administración\n? Con 10 días de anticipación\n?? Completá formulario de baja\n?? Si hay saldo: crédito a favor\n\n*Siempre podés volver cuando quieras*",
     acciones: []
   },
   {
     id: 374,
     categoria: "tramites",
     keywords: ["licencia", "pausar", "congelar"],
-    pregunta: "Â¿Puedo pausar mis estudios?",
-    respuesta: "Licencia temporal:\n\nâ¸ï¸ PodÃ©s pausar hasta 3 meses\nğŸ“‹ AvisÃ¡ con anticipaciÃ³n\nğŸ’° No se cobran cuotas\nğŸ”„ RetomÃ¡s en el mismo nivel\n\n*Ideal para viajes o situaciones especiales*",
+    pregunta: "¿Puedo pausar mis estudios?",
+    respuesta: "Licencia temporal:\n\n?? Podés pausar hasta 3 meses\n?? Avisá con anticipación\n?? No se cobran cuotas\n?? Retomás en el mismo nivel\n\n*Ideal para viajes o situaciones especiales*",
     acciones: []
   },
   {
     id: 375,
     categoria: "tramites",
     keywords: ["reincorporacion", "volver", "retomar"],
-    pregunta: "Â¿CÃ³mo me reincorporo despuÃ©s de una pausa?",
-    respuesta: "ReincorporaciÃ³n:\n\nğŸ“ ContactÃ¡ a administraciÃ³n\nğŸ“Š Evaluamos tu nivel actual\nğŸ“… Te ubicamos en grupo compatible\nğŸ’° RetomÃ¡s pagos normalmente\n\n*Si pasÃ³ mucho tiempo, hacemos nivelaciÃ³n*",
+    pregunta: "¿Cómo me reincorporo después de una pausa?",
+    respuesta: "Reincorporación:\n\n?? Contactá a administración\n?? Evaluamos tu nivel actual\n?? Te ubicamos en grupo compatible\n?? Retomás pagos normalmente\n\n*Si pasó mucho tiempo, hacemos nivelación*",
     acciones: []
   },
   {
     id: 376,
     categoria: "tramites",
     keywords: ["duplicado", "certificado", "perdido"],
-    pregunta: "Â¿CÃ³mo pido duplicado de certificado?",
-    respuesta: "Duplicado de certificado:\n\nğŸ“‹ SolicitÃ¡ en administraciÃ³n\nğŸ“ CompletÃ¡ formulario\nğŸ’° Costo: consultar\nâ° 5-7 dÃ­as hÃ¡biles\n\n*GuardÃ¡ siempre copias digitales*",
+    pregunta: "¿Cómo pido duplicado de certificado?",
+    respuesta: "Duplicado de certificado:\n\n?? Solicitá en administración\n?? Completá formulario\n?? Costo: consultar\n? 5-7 días hábiles\n\n*Guardá siempre copias digitales*",
     acciones: []
   },
   {
     id: 377,
     categoria: "tramites",
     keywords: ["carta", "recomendacion", "referencia laboral"],
-    pregunta: "Â¿Dan cartas de recomendaciÃ³n?",
-    respuesta: "Cartas de recomendaciÃ³n:\n\nâœ… Para alumnos destacados\nğŸ“‹ SolicitÃ¡ a tu profesor\nğŸ“ IndicÃ¡ el propÃ³sito\nâ° 3-5 dÃ­as de elaboraciÃ³n\n\n*Incluye evaluaciÃ³n de desempeÃ±o*",
+    pregunta: "¿Dan cartas de recomendación?",
+    respuesta: "Cartas de recomendación:\n\n? Para alumnos destacados\n?? Solicitá a tu profesor\n?? Indicá el propósito\n? 3-5 días de elaboración\n\n*Incluye evaluación de desempeño*",
     acciones: []
   },
   {
     id: 378,
     categoria: "tramites",
     keywords: ["apostilla", "legalizar", "exterior"],
-    pregunta: "Â¿Los certificados sirven para apostillar?",
-    respuesta: "Certificados para exterior:\n\nğŸ“œ Emitimos certificados oficiales\nâœ… Aptos para apostilla\nğŸ“‹ VerificÃ¡ requisitos del paÃ­s destino\nğŸ’° Apostilla: trÃ¡mite aparte\n\n*Te orientamos en el proceso*",
+    pregunta: "¿Los certificados sirven para apostillar?",
+    respuesta: "Certificados para exterior:\n\n?? Emitimos certificados oficiales\n? Aptos para apostilla\n?? Verificá requisitos del país destino\n?? Apostilla: trámite aparte\n\n*Te orientamos en el proceso*",
     acciones: []
   },
   {
     id: 379,
     categoria: "tramites",
     keywords: ["traduccion", "certificado", "traducir"],
-    pregunta: "Â¿Traducen certificados?",
-    respuesta: "TraducciÃ³n de documentos:\n\nğŸŒ No ofrecemos servicio de traducciÃ³n\nğŸ“‹ Podemos recomendar traductores\nâœ… Nuestros certificados son bilingÃ¼es\nğŸ“ Formato claro y profesional\n\n*ConsultÃ¡ sobre formato especÃ­fico*",
+    pregunta: "¿Traducen certificados?",
+    respuesta: "Traducción de documentos:\n\n?? No ofrecemos servicio de traducción\n?? Podemos recomendar traductores\n? Nuestros certificados son bilingües\n?? Formato claro y profesional\n\n*Consultá sobre formato específico*",
     acciones: []
   },
   {
     id: 380,
     categoria: "tramites",
     keywords: ["convenio", "universidad", "validez"],
-    pregunta: "Â¿Tienen convenios con universidades?",
-    respuesta: "Convenios institucionales:\n\nğŸ“ Acuerdos con universidades locales\nğŸ“‹ Reconocimiento de niveles\nğŸ’° Descuentos cruzados\nğŸŒ Red de instituciones amigas\n\n*ConsultÃ¡ convenios vigentes*",
+    pregunta: "¿Tienen convenios con universidades?",
+    respuesta: "Convenios institucionales:\n\n?? Acuerdos con universidades locales\n?? Reconocimiento de niveles\n?? Descuentos cruzados\n?? Red de instituciones amigas\n\n*Consultá convenios vigentes*",
     acciones: []
   },
   {
     id: 381,
     categoria: "tramites",
     keywords: ["seguro", "accidente", "cobertura"],
-    pregunta: "Â¿Tienen seguro de accidentes?",
-    respuesta: "Cobertura de seguro:\n\nğŸ¥ Seguro de accidentes en sede\nğŸ“‹ Cobertura durante clases\nğŸš‘ Asistencia de emergencia\nğŸ“ Parte de tu inscripciÃ³n\n\n*Detalle en reglamento institucional*",
+    pregunta: "¿Tienen seguro de accidentes?",
+    respuesta: "Cobertura de seguro:\n\n?? Seguro de accidentes en sede\n?? Cobertura durante clases\n?? Asistencia de emergencia\n?? Parte de tu inscripción\n\n*Detalle en reglamento institucional*",
     acciones: []
   },
   {
     id: 382,
     categoria: "tramites",
     keywords: ["queja", "reclamo", "disconforme"],
-    pregunta: "Â¿CÃ³mo hago un reclamo?",
-    respuesta: "Canal de reclamos:\n\nğŸ“§ Email a direcciÃ³n\nğŸ“‹ Libro de quejas disponible\nğŸ“ AtenciÃ³n personalizada\nâ° Respuesta en 48-72 horas\n\n*Tu opiniÃ³n nos ayuda a mejorar*",
+    pregunta: "¿Cómo hago un reclamo?",
+    respuesta: "Canal de reclamos:\n\n?? Email a dirección\n?? Libro de quejas disponible\n?? Atención personalizada\n? Respuesta en 48-72 horas\n\n*Tu opinión nos ayuda a mejorar*",
     acciones: []
   },
   {
     id: 383,
     categoria: "tramites",
     keywords: ["sugerencia", "idea", "propuesta"],
-    pregunta: "Â¿CÃ³mo hago sugerencias?",
-    respuesta: "BuzÃ³n de sugerencias:\n\nğŸ“§ Email a coordinaciÃ³n\nğŸ“ Formulario en recepciÃ³n\nğŸ’¬ HablÃ¡ con tu profesor\nğŸ“‹ Encuestas periÃ³dicas\n\n*Valoramos tu feedback*",
+    pregunta: "¿Cómo hago sugerencias?",
+    respuesta: "Buzón de sugerencias:\n\n?? Email a coordinación\n?? Formulario en recepción\n?? Hablá con tu profesor\n?? Encuestas periódicas\n\n*Valoramos tu feedback*",
     acciones: []
   },
   {
     id: 384,
     categoria: "tramites",
     keywords: ["deuda", "debo", "atrasado", "moroso"],
-    pregunta: "Â¿QuÃ© pasa si tengo deuda?",
-    respuesta: "GestiÃ³n de deudas:\n\nğŸ’° ConsultÃ¡ tu estado en administraciÃ³n\nğŸ“‹ Planes de regularizaciÃ³n\nğŸ¤ Flexibilidad segÃºn caso\nâš ï¸ Deuda limita acceso a certificados\n\n*Mejor resolver cuanto antes*",
+    pregunta: "¿Qué pasa si tengo deuda?",
+    respuesta: "Gestión de deudas:\n\n?? Consultá tu estado en administración\n?? Planes de regularización\n?? Flexibilidad según caso\n?? Deuda limita acceso a certificados\n\n*Mejor resolver cuanto antes*",
     acciones: []
   },
   {
     id: 385,
     categoria: "tramites",
     keywords: ["convenio", "pago", "obra social"],
-    pregunta: "Â¿Aceptan convenios de obra social?",
-    respuesta: "Convenios:\n\nğŸ¥ Algunas obras sociales tienen convenio\nğŸ“‹ ConsultÃ¡ si la tuya estÃ¡ incluida\nğŸ’° Reintegros segÃºn plan\nğŸ“ Te damos factura para presentar\n\n*Lista actualizada en administraciÃ³n*",
+    pregunta: "¿Aceptan convenios de obra social?",
+    respuesta: "Convenios:\n\n?? Algunas obras sociales tienen convenio\n?? Consultá si la tuya está incluida\n?? Reintegros según plan\n?? Te damos factura para presentar\n\n*Lista actualizada en administración*",
     acciones: []
   },
   {
     id: 386,
     categoria: "tramites",
     keywords: ["plan", "cuotas", "financiar"],
-    pregunta: "Â¿Financian cursos largos?",
-    respuesta: "FinanciaciÃ³n:\n\nğŸ’³ Pago en cuotas mensuales\nğŸ“… DÃ©bito automÃ¡tico disponible\nğŸ·ï¸ Descuento por pago anual\nğŸ“‹ Plan personalizado\n\n*Armamos plan segÃºn tu necesidad*",
+    pregunta: "¿Financian cursos largos?",
+    respuesta: "Financiación:\n\n?? Pago en cuotas mensuales\n?? Débito automático disponible\n??? Descuento por pago anual\n?? Plan personalizado\n\n*Armamos plan según tu necesidad*",
     acciones: []
   },
   {
     id: 387,
     categoria: "tramites",
     keywords: ["presupuesto", "cotizacion", "precio empresas"],
-    pregunta: "Â¿Hacen presupuestos para empresas?",
-    respuesta: "Presupuestos corporativos:\n\nğŸ“‹ CotizaciÃ³n personalizada\nğŸ’¼ SegÃºn cantidad de empleados\nğŸ¯ Objetivos especÃ­ficos\nğŸ“§ Enviamos propuesta formal\n\n*Solicitar a cursos@cemi.edu.ar*",
+    pregunta: "¿Hacen presupuestos para empresas?",
+    respuesta: "Presupuestos corporativos:\n\n?? Cotización personalizada\n?? Según cantidad de empleados\n?? Objetivos específicos\n?? Enviamos propuesta formal\n\n*Solicitar a cursos@cemi.edu.ar*",
     acciones: []
   },
   {
     id: 388,
     categoria: "tramites",
     keywords: ["comprobante", "pago", "recibo"],
-    pregunta: "Â¿Dan comprobante de pago?",
-    respuesta: "Comprobantes:\n\nğŸ§¾ Recibo por cada pago\nğŸ“§ VersiÃ³n digital por email\nğŸ“‹ Historial en tu cuenta\nğŸ’³ Detalle de transacciones\n\n*Guardalo para tus registros*",
+    pregunta: "¿Dan comprobante de pago?",
+    respuesta: "Comprobantes:\n\n?? Recibo por cada pago\n?? Versión digital por email\n?? Historial en tu cuenta\n?? Detalle de transacciones\n\n*Guardalo para tus registros*",
     acciones: []
   },
   {
     id: 389,
     categoria: "tramites",
     keywords: ["inscripcion", "formulario", "datos", "llenar"],
-    pregunta: "Â¿QuÃ© datos piden para inscribirse?",
-    respuesta: "Datos de inscripciÃ³n:\n\nğŸ“‹ Nombre completo y DNI\nğŸ“§ Email y telÃ©fono\nğŸ  DirecciÃ³n\nğŸ“… Fecha de nacimiento\nğŸ“Š Nivel de idioma previo\n\n*Proceso simple y rÃ¡pido*",
+    pregunta: "¿Qué datos piden para inscribirse?",
+    respuesta: "Datos de inscripción:\n\n?? Nombre completo y DNI\n?? Email y teléfono\n?? Dirección\n?? Fecha de nacimiento\n?? Nivel de idioma previo\n\n*Proceso simple y rápido*",
     acciones: []
   },
   {
     id: 390,
     categoria: "tramites",
     keywords: ["menor", "edad", "autorizacion", "padres"],
-    pregunta: "Â¿Menores necesitan autorizaciÃ³n?",
-    respuesta: "Menores de edad:\n\nğŸ“‹ AutorizaciÃ³n de padres/tutores\nğŸ“ Firma en formulario\nğŸ“ Datos de contacto adulto\nâœ… DNI del responsable\n\n*Requerido para inscripciÃ³n y exÃ¡menes*",
+    pregunta: "¿Menores necesitan autorización?",
+    respuesta: "Menores de edad:\n\n?? Autorización de padres/tutores\n?? Firma en formulario\n?? Datos de contacto adulto\n? DNI del responsable\n\n*Requerido para inscripción y exámenes*",
     acciones: []
   },
   
@@ -3008,806 +3008,806 @@ const BASE_CONOCIMIENTO = [
     id: 391,
     categoria: "cultura_viajes",
     keywords: ["viaje", "exterior", "estudiar afuera"],
-    pregunta: "Â¿Puedo estudiar en el exterior con CEMI?",
-    respuesta: "Estudiar en el exterior:\n\nğŸŒ Te preparamos para la experiencia\nğŸ“‹ Asesoramiento sobre destinos\nğŸ“ Cartas de recomendaciÃ³n\nğŸ¯ Nivel adecuado para el viaje\n\n*PlanificÃ¡ con tiempo tu aventura*",
+    pregunta: "¿Puedo estudiar en el exterior con CEMI?",
+    respuesta: "Estudiar en el exterior:\n\n?? Te preparamos para la experiencia\n?? Asesoramiento sobre destinos\n?? Cartas de recomendación\n?? Nivel adecuado para el viaje\n\n*Planificá con tiempo tu aventura*",
     acciones: []
   },
   {
     id: 392,
     categoria: "cultura_viajes",
     keywords: ["intercambio", "estudiante", "exchange"],
-    pregunta: "Â¿Ofrecen programas de intercambio?",
-    respuesta: "Intercambios:\n\nğŸŒ No gestionamos intercambios directamente\nğŸ“‹ Colaboramos con agencias especializadas\nâœ… PreparaciÃ³n lingÃ¼Ã­stica\nğŸ“ DocumentaciÃ³n necesaria\n\n*Te orientamos en el proceso*",
+    pregunta: "¿Ofrecen programas de intercambio?",
+    respuesta: "Intercambios:\n\n?? No gestionamos intercambios directamente\n?? Colaboramos con agencias especializadas\n? Preparación lingüística\n?? Documentación necesaria\n\n*Te orientamos en el proceso*",
     acciones: []
   },
   {
     id: 393,
     categoria: "cultura_viajes",
     keywords: ["visa", "trabajo", "exterior", "migrar"],
-    pregunta: "Â¿El certificado sirve para tramitar visa?",
-    respuesta: "Certificados y visas:\n\nğŸ“œ Certificamos tu nivel de idioma\nâœ… VÃ¡lido para algunas embajadas\nğŸ“‹ Consulta requisitos especÃ­ficos\nğŸ¯ PreparaciÃ³n para entrevistas\n\n*Cada paÃ­s tiene sus requisitos*",
+    pregunta: "¿El certificado sirve para tramitar visa?",
+    respuesta: "Certificados y visas:\n\n?? Certificamos tu nivel de idioma\n? Válido para algunas embajadas\n?? Consulta requisitos específicos\n?? Preparación para entrevistas\n\n*Cada país tiene sus requisitos*",
     acciones: []
   },
   {
     id: 394,
     categoria: "cultura_viajes",
     keywords: ["trabajar", "exterior", "emigrar"],
-    pregunta: "Â¿Me preparan para trabajar afuera?",
-    respuesta: "PreparaciÃ³n laboral internacional:\n\nğŸ“ CV en idioma extranjero\nğŸ¤ Entrevistas laborales\nğŸ’¼ Vocabulario profesional\nğŸŒ Cultura laboral de otros paÃ­ses\n\n*Clases especÃ­ficas disponibles*",
+    pregunta: "¿Me preparan para trabajar afuera?",
+    respuesta: "Preparación laboral internacional:\n\n?? CV en idioma extranjero\n?? Entrevistas laborales\n?? Vocabulario profesional\n?? Cultura laboral de otros países\n\n*Clases específicas disponibles*",
     acciones: []
   },
   {
     id: 395,
     categoria: "cultura_viajes",
     keywords: ["cultura", "pais", "costumbres"],
-    pregunta: "Â¿EnseÃ±an sobre la cultura de otros paÃ­ses?",
-    respuesta: "Contenido cultural:\n\nğŸŒ Costumbres y tradiciones\nğŸ‰ Festividades importantes\nğŸ½ï¸ GastronomÃ­a tÃ­pica\nğŸ­ Arte y entretenimiento\nğŸ“– Historia y sociedad\n\n*Idioma y cultura van de la mano*",
+    pregunta: "¿Enseñan sobre la cultura de otros países?",
+    respuesta: "Contenido cultural:\n\n?? Costumbres y tradiciones\n?? Festividades importantes\n??? Gastronomía típica\n?? Arte y entretenimiento\n?? Historia y sociedad\n\n*Idioma y cultura van de la mano*",
     acciones: []
   },
   {
     id: 396,
     categoria: "cultura_viajes",
     keywords: ["turismo", "viajar", "vacaciones"],
-    pregunta: "Â¿Hay cursos para turismo?",
-    respuesta: "InglÃ©s para viajeros:\n\nâœˆï¸ Vocabulario de aeropuerto\nğŸ¨ Reservas de hotel\nğŸ´ Restaurantes y pedidos\nğŸ—ºï¸ Indicaciones y transporte\nğŸ†˜ Emergencias bÃ¡sicas\n\n*Curso intensivo de supervivencia*",
+    pregunta: "¿Hay cursos para turismo?",
+    respuesta: "Inglés para viajeros:\n\n?? Vocabulario de aeropuerto\n?? Reservas de hotel\n?? Restaurantes y pedidos\n??? Indicaciones y transporte\n?? Emergencias básicas\n\n*Curso intensivo de supervivencia*",
     acciones: []
   },
   {
     id: 397,
     categoria: "cultura_viajes",
     keywords: ["acento", "britanico", "americano", "australiano"],
-    pregunta: "Â¿EnseÃ±an diferentes acentos?",
-    respuesta: "Variedad de acentos:\n\nğŸ‡ºğŸ‡¸ Americano (estÃ¡ndar)\nğŸ‡¬ğŸ‡§ BritÃ¡nico\nğŸ‡¦ğŸ‡º Australiano\nğŸ‡®ğŸ‡ª IrlandÃ©s\nğŸŒ ExposiciÃ³n a todos\n\n*Entrenamiento auditivo incluido*",
+    pregunta: "¿Enseñan diferentes acentos?",
+    respuesta: "Variedad de acentos:\n\n???? Americano (estándar)\n???? Británico\n???? Australiano\n???? Irlandés\n?? Exposición a todos\n\n*Entrenamiento auditivo incluido*",
     acciones: []
   },
   {
     id: 398,
     categoria: "cultura_viajes",
     keywords: ["modismo", "slang", "jerga", "coloquial"],
-    pregunta: "Â¿EnseÃ±an expresiones coloquiales?",
-    respuesta: "Lenguaje coloquial:\n\nğŸ’¬ Frases hechas comunes\nğŸ—£ï¸ Slang actualizado\nğŸ˜„ Expresiones informales\nğŸ¬ Lenguaje de pelÃ­culas/series\n\n*Fundamental para entender nativos*",
+    pregunta: "¿Enseñan expresiones coloquiales?",
+    respuesta: "Lenguaje coloquial:\n\n?? Frases hechas comunes\n??? Slang actualizado\n?? Expresiones informales\n?? Lenguaje de películas/series\n\n*Fundamental para entender nativos*",
     acciones: []
   },
   {
     id: 399,
     categoria: "cultura_viajes",
     keywords: ["frase", "viaje", "basico", "supervivencia"],
-    pregunta: "Â¿CuÃ¡les son las frases bÃ¡sicas para viajar?",
-    respuesta: "Frases esenciales:\n\nğŸ‘‹ Greetings / Saludos\nğŸ†˜ Help, please! / Â¡Ayuda!\nğŸ“ Where is...? / Â¿DÃ³nde estÃ¡...?\nğŸ’° How much? / Â¿CuÃ¡nto cuesta?\nğŸ™ Thank you / Gracias\n\n*Lo mÃ­nimo para sobrevivir*",
+    pregunta: "¿Cuáles son las frases básicas para viajar?",
+    respuesta: "Frases esenciales:\n\n?? Greetings / Saludos\n?? Help, please! / ¡Ayuda!\n?? Where is...? / ¿Dónde está...?\n?? How much? / ¿Cuánto cuesta?\n?? Thank you / Gracias\n\n*Lo mínimo para sobrevivir*",
     acciones: []
   },
   {
     id: 400,
     categoria: "cultura_viajes",
     keywords: ["historia", "idioma", "origen", "evolucion"],
-    pregunta: "Â¿EnseÃ±an historia del idioma?",
-    respuesta: "Historia lingÃ¼Ã­stica:\n\nğŸ“š Origen del inglÃ©s\nğŸŒ Influencias de otros idiomas\nğŸ“– EvoluciÃ³n histÃ³rica\nğŸ—£ï¸ Variantes regionales\n\n*Contenido opcional interesante*",
+    pregunta: "¿Enseñan historia del idioma?",
+    respuesta: "Historia lingüística:\n\n?? Origen del inglés\n?? Influencias de otros idiomas\n?? Evolución histórica\n??? Variantes regionales\n\n*Contenido opcional interesante*",
     acciones: []
   },
   {
     id: 401,
     categoria: "cultura_viajes",
     keywords: ["literatura", "clasico", "shakespeare"],
-    pregunta: "Â¿Estudian literatura clÃ¡sica?",
-    respuesta: "Literatura:\n\nğŸ“š Lectura adaptada por nivel\nğŸ­ Shakespeare para avanzados\nğŸ“– Novelas clÃ¡sicas\nâœï¸ PoesÃ­a en inglÃ©s\n\n*Opcional en niveles superiores*",
+    pregunta: "¿Estudian literatura clásica?",
+    respuesta: "Literatura:\n\n?? Lectura adaptada por nivel\n?? Shakespeare para avanzados\n?? Novelas clásicas\n?? Poesía en inglés\n\n*Opcional en niveles superiores*",
     acciones: []
   },
   {
     id: 402,
     categoria: "cultura_viajes",
     keywords: ["musica", "canciones", "aprender cantando"],
-    pregunta: "Â¿Usan mÃºsica para enseÃ±ar?",
-    respuesta: "MÃºsica en clase:\n\nğŸµ Canciones populares\nğŸ“ AnÃ¡lisis de letras\nğŸ¤ Karaoke didÃ¡ctico\nğŸ‘‚ Ejercicios de listening\nğŸ¶ Todos los gÃ©neros\n\n*La mÃºsica mejora la pronunciaciÃ³n*",
+    pregunta: "¿Usan música para enseñar?",
+    respuesta: "Música en clase:\n\n?? Canciones populares\n?? Análisis de letras\n?? Karaoke didáctico\n?? Ejercicios de listening\n?? Todos los géneros\n\n*La música mejora la pronunciación*",
     acciones: []
   },
   {
     id: 403,
     categoria: "cultura_viajes",
     keywords: ["pelicula", "serie", "netflix", "ver en ingles"],
-    pregunta: "Â¿Recomiendan series para aprender?",
-    respuesta: "Series recomendadas:\n\nğŸ“º Friends (principiantes)\nğŸ“º The Office (intermedio)\nğŸ“º Breaking Bad (avanzado)\nğŸ“º The Crown (britÃ¡nico)\nğŸ“º Documentales (variado)\n\n*EmpezÃ¡ con subtÃ­tulos en inglÃ©s*",
+    pregunta: "¿Recomiendan series para aprender?",
+    respuesta: "Series recomendadas:\n\n?? Friends (principiantes)\n?? The Office (intermedio)\n?? Breaking Bad (avanzado)\n?? The Crown (británico)\n?? Documentales (variado)\n\n*Empezá con subtítulos en inglés*",
     acciones: []
   },
   {
     id: 404,
     categoria: "cultura_viajes",
     keywords: ["libro", "lectura", "leer en ingles"],
-    pregunta: "Â¿QuÃ© libros recomiendan para principiantes?",
-    respuesta: "Lecturas recomendadas:\n\nğŸ“– Graded readers (por nivel)\nğŸ“š Cuentos infantiles clÃ¡sicos\nğŸ“• Novelas adaptadas\nğŸ“— CÃ³mics y graphic novels\n\n*EmpezÃ¡ con textos cortos*",
+    pregunta: "¿Qué libros recomiendan para principiantes?",
+    respuesta: "Lecturas recomendadas:\n\n?? Graded readers (por nivel)\n?? Cuentos infantiles clásicos\n?? Novelas adaptadas\n?? Cómics y graphic novels\n\n*Empezá con textos cortos*",
     acciones: []
   },
   {
     id: 405,
     categoria: "cultura_viajes",
     keywords: ["podcast", "audio", "escuchar ingles"],
-    pregunta: "Â¿QuÃ© podcasts recomiendan?",
-    respuesta: "Podcasts para aprender:\n\nğŸ§ 6 Minute English (BBC)\nğŸ§ All Ears English\nğŸ§ English Learning for Curious Minds\nğŸ§ Espresso English\nğŸ§ TED Talks (avanzado)\n\n*EscuchÃ¡ mientras viajÃ¡s*",
+    pregunta: "¿Qué podcasts recomiendan?",
+    respuesta: "Podcasts para aprender:\n\n?? 6 Minute English (BBC)\n?? All Ears English\n?? English Learning for Curious Minds\n?? Espresso English\n?? TED Talks (avanzado)\n\n*Escuchá mientras viajás*",
     acciones: []
   },
   {
     id: 406,
     categoria: "cultura_viajes",
     keywords: ["youtuber", "youtube", "canal", "videos"],
-    pregunta: "Â¿QuÃ© canales de YouTube recomiendan?",
-    respuesta: "Canales recomendados:\n\nğŸ“º EngVid (gramÃ¡tica)\nğŸ“º Rachel's English (pronunciaciÃ³n)\nğŸ“º English with Lucy\nğŸ“º BBC Learning English\nğŸ“º JenniferESL\n\n*Contenido gratuito de calidad*",
+    pregunta: "¿Qué canales de YouTube recomiendan?",
+    respuesta: "Canales recomendados:\n\n?? EngVid (gramática)\n?? Rachel's English (pronunciación)\n?? English with Lucy\n?? BBC Learning English\n?? JenniferESL\n\n*Contenido gratuito de calidad*",
     acciones: []
   },
   {
     id: 407,
     categoria: "cultura_viajes",
     keywords: ["app", "aplicacion", "duolingo", "babbel"],
-    pregunta: "Â¿QuÃ© apps recomiendan complementar?",
-    respuesta: "Apps recomendadas:\n\nğŸ“± Duolingo (vocabulario)\nğŸ“± Anki (flashcards)\nğŸ“± HelloTalk (chat nativos)\nğŸ“± Lyrics Training (canciones)\nğŸ“± BBC Learning English\n\n*Complementan pero no reemplazan clases*",
+    pregunta: "¿Qué apps recomiendan complementar?",
+    respuesta: "Apps recomendadas:\n\n?? Duolingo (vocabulario)\n?? Anki (flashcards)\n?? HelloTalk (chat nativos)\n?? Lyrics Training (canciones)\n?? BBC Learning English\n\n*Complementan pero no reemplazan clases*",
     acciones: []
   },
   {
     id: 408,
     categoria: "cultura_viajes",
     keywords: ["juego", "game", "divertido", "aprender jugando"],
-    pregunta: "Â¿Hay juegos para aprender inglÃ©s?",
-    respuesta: "Juegos educativos:\n\nğŸ® Scrabble (vocabulario)\nğŸ® Taboo (descripciÃ³n)\nğŸ® Pictionary (creatividad)\nğŸ® Videojuegos en inglÃ©s\nğŸ® Trivia nights\n\n*Aprender jugando es mÃ¡s efectivo*",
+    pregunta: "¿Hay juegos para aprender inglés?",
+    respuesta: "Juegos educativos:\n\n?? Scrabble (vocabulario)\n?? Taboo (descripción)\n?? Pictionary (creatividad)\n?? Videojuegos en inglés\n?? Trivia nights\n\n*Aprender jugando es más efectivo*",
     acciones: []
   },
   {
     id: 409,
     categoria: "cultura_viajes",
     keywords: ["pensar", "ingles", "traducir", "mental"],
-    pregunta: "Â¿CÃ³mo dejo de traducir mentalmente?",
-    respuesta: "Pensar en inglÃ©s:\n\nğŸ§  Practica describir tu dÃ­a\nğŸ’­ Nombra objetos mentalmente\nğŸ“ Lleva un diario en inglÃ©s\nğŸ—£ï¸ HablÃ¡ solo (en serio)\nâ° Aumenta exposiciÃ³n diaria\n\n*Lleva tiempo pero se logra*",
+    pregunta: "¿Cómo dejo de traducir mentalmente?",
+    respuesta: "Pensar en inglés:\n\n?? Practica describir tu día\n?? Nombra objetos mentalmente\n?? Lleva un diario en inglés\n??? Hablá solo (en serio)\n? Aumenta exposición diaria\n\n*Lleva tiempo pero se logra*",
     acciones: []
   },
   {
     id: 410,
     categoria: "cultura_viajes",
     keywords: ["miedo", "hablar", "verguenza", "timidez"],
-    pregunta: "Â¿CÃ³mo supero el miedo a hablar?",
-    respuesta: "Superar la timidez:\n\nğŸ˜Š Errores son parte del proceso\nğŸ‘¥ Ambiente sin juicio en clase\nğŸ—£ï¸ Practicar en voz alta solo\nğŸ“ˆ Empezar con frases simples\nğŸ¯ Celebrar pequeÃ±os logros\n\n*Todos pasamos por eso*",
+    pregunta: "¿Cómo supero el miedo a hablar?",
+    respuesta: "Superar la timidez:\n\n?? Errores son parte del proceso\n?? Ambiente sin juicio en clase\n??? Practicar en voz alta solo\n?? Empezar con frases simples\n?? Celebrar pequeños logros\n\n*Todos pasamos por eso*",
     acciones: []
   },
   {
     id: 411,
     categoria: "cultura_viajes",
     keywords: ["frustrar", "dificil", "no avanzo", "estancado"],
-    pregunta: "Â¿QuÃ© hago si me siento estancado?",
-    respuesta: "Superar el estancamiento:\n\nğŸ“Š Es normal en el aprendizaje\nğŸ”„ Cambia tu mÃ©todo de estudio\nğŸ¯ FijÃ¡ metas pequeÃ±as\nğŸ¬ VarÃ­a el contenido\nğŸ—£ï¸ HablÃ¡ con tu profesor\n\n*Los mesetas son parte del camino*",
+    pregunta: "¿Qué hago si me siento estancado?",
+    respuesta: "Superar el estancamiento:\n\n?? Es normal en el aprendizaje\n?? Cambia tu método de estudio\n?? Fijá metas pequeñas\n?? Varía el contenido\n??? Hablá con tu profesor\n\n*Los mesetas son parte del camino*",
     acciones: []
   },
   {
     id: 412,
     categoria: "cultura_viajes",
     keywords: ["motivacion", "ganas", "aburrido"],
-    pregunta: "Â¿CÃ³mo mantengo la motivaciÃ³n?",
-    respuesta: "Mantener motivaciÃ³n:\n\nğŸ¯ RecordÃ¡ por quÃ© empezaste\nğŸ“… Rutina de estudio fija\nğŸ† CelebrÃ¡ cada avance\nğŸŒ PensÃ¡ en tus metas\nğŸ‘¥ Estudia con otros\n\n*La constancia supera al talento*",
+    pregunta: "¿Cómo mantengo la motivación?",
+    respuesta: "Mantener motivación:\n\n?? Recordá por qué empezaste\n?? Rutina de estudio fija\n?? Celebrá cada avance\n?? Pensá en tus metas\n?? Estudia con otros\n\n*La constancia supera al talento*",
     acciones: []
   },
   {
     id: 413,
     categoria: "cultura_viajes",
     keywords: ["tiempo", "estudiar", "dedicar", "horas"],
-    pregunta: "Â¿CuÃ¡nto tiempo debo estudiar por dÃ­a?",
-    respuesta: "Tiempo de estudio:\n\nâ° MÃ­nimo: 15-30 min/dÃ­a\nğŸ“š Ideal: 1 hora/dÃ­a\nğŸ¯ Consistencia > Intensidad\nğŸ“… Mejor poco todos los dÃ­as\nğŸ§  Descansos son importantes\n\n*Calidad sobre cantidad*",
+    pregunta: "¿Cuánto tiempo debo estudiar por día?",
+    respuesta: "Tiempo de estudio:\n\n? Mínimo: 15-30 min/día\n?? Ideal: 1 hora/día\n?? Consistencia > Intensidad\n?? Mejor poco todos los días\n?? Descansos son importantes\n\n*Calidad sobre cantidad*",
     acciones: []
   },
   {
     id: 414,
     categoria: "cultura_viajes",
     keywords: ["rapido", "urgente", "acelerar", "intensivo"],
-    pregunta: "Â¿Puedo aprender rÃ¡pido?",
-    respuesta: "Aprendizaje acelerado:\n\nâš¡ Cursos intensivos disponibles\nğŸ“š MÃ¡s horas = mÃ¡s rÃ¡pido\nğŸ§  InmersiÃ³n total ayuda\nâ° Realista: 3-6 meses por nivel\nğŸ’¡ Depende de tu dedicaciÃ³n\n\n*No hay atajos mÃ¡gicos*",
+    pregunta: "¿Puedo aprender rápido?",
+    respuesta: "Aprendizaje acelerado:\n\n? Cursos intensivos disponibles\n?? Más horas = más rápido\n?? Inmersión total ayuda\n? Realista: 3-6 meses por nivel\n?? Depende de tu dedicación\n\n*No hay atajos mágicos*",
     acciones: []
   },
   {
     id: 415,
     categoria: "cultura_viajes",
     keywords: ["inmersion", "sumergirse", "rodearse"],
-    pregunta: "Â¿CÃ³mo hago inmersiÃ³n sin viajar?",
-    respuesta: "InmersiÃ³n en casa:\n\nğŸ“º Cambiar idioma del celular\nğŸ¬ Series/pelÃ­culas sin subtÃ­tulos\nğŸµ MÃºsica en inglÃ©s\nğŸ“± Redes en inglÃ©s\nğŸ“– Leer en inglÃ©s\nğŸ—£ï¸ Hablar solo\n\n*CreÃ¡ tu burbuja de inglÃ©s*",
+    pregunta: "¿Cómo hago inmersión sin viajar?",
+    respuesta: "Inmersión en casa:\n\n?? Cambiar idioma del celular\n?? Series/películas sin subtítulos\n?? Música en inglés\n?? Redes en inglés\n?? Leer en inglés\n??? Hablar solo\n\n*Creá tu burbuja de inglés*",
     acciones: []
   },
   
-  // ========== VOCABULARIO ESPECÃFICO (416-440) ==========
+  // ========== VOCABULARIO ESPECÍFICO (416-440) ==========
   {
     id: 416,
     categoria: "vocabulario",
     keywords: ["vocabulario", "palabras", "memorizar"],
-    pregunta: "Â¿CÃ³mo memorizo vocabulario?",
-    respuesta: "TÃ©cnicas de memorizaciÃ³n:\n\nğŸ“ Flashcards (Anki)\nğŸ”„ RepeticiÃ³n espaciada\nğŸ“– Leer en contexto\nğŸ—£ï¸ Usar palabras nuevas\nğŸ““ Llevar cuaderno de vocab\n\n*Aprender en contexto es clave*",
+    pregunta: "¿Cómo memorizo vocabulario?",
+    respuesta: "Técnicas de memorización:\n\n?? Flashcards (Anki)\n?? Repetición espaciada\n?? Leer en contexto\n??? Usar palabras nuevas\n?? Llevar cuaderno de vocab\n\n*Aprender en contexto es clave*",
     acciones: []
   },
   {
     id: 417,
     categoria: "vocabulario",
     keywords: ["cuantas", "palabras", "necesito", "suficiente"],
-    pregunta: "Â¿CuÃ¡ntas palabras necesito saber?",
-    respuesta: "Vocabulario por nivel:\n\nğŸ”° BÃ¡sico: 500-1000 palabras\nğŸ”· Intermedio: 2000-4000\nğŸ”¶ Avanzado: 5000-10000\nğŸ“– Nativo: 20000-35000\n\n*Con 3000 entendÃ©s el 90% de conversaciones*",
+    pregunta: "¿Cuántas palabras necesito saber?",
+    respuesta: "Vocabulario por nivel:\n\n?? Básico: 500-1000 palabras\n?? Intermedio: 2000-4000\n?? Avanzado: 5000-10000\n?? Nativo: 20000-35000\n\n*Con 3000 entendés el 90% de conversaciones*",
     acciones: []
   },
   {
     id: 418,
     categoria: "vocabulario",
     keywords: ["falso", "cognado", "false friend"],
-    pregunta: "Â¿QuÃ© son los false friends?",
-    respuesta: "False friends (falsos cognados):\n\nâŒ Actually â‰  Actualmente (= Currently)\nâŒ Embarassed â‰  Embarazada (= Pregnant)\nâŒ Sensible â‰  Sensible (= Sensitive)\nâŒ Library â‰  LibrerÃ­a (= Bookstore)\n\n*Cuidado con estos*",
+    pregunta: "¿Qué son los false friends?",
+    respuesta: "False friends (falsos cognados):\n\n? Actually ? Actualmente (= Currently)\n? Embarassed ? Embarazada (= Pregnant)\n? Sensible ? Sensible (= Sensitive)\n? Library ? Librería (= Bookstore)\n\n*Cuidado con estos*",
     acciones: []
   },
   {
     id: 419,
     categoria: "vocabulario",
     keywords: ["phrasal", "verb", "verbo fraseal"],
-    pregunta: "Â¿QuÃ© son los phrasal verbs?",
-    respuesta: "Phrasal verbs:\n\nğŸ“š Verbo + preposiciÃ³n/adverbio\nğŸ’¡ Cambian el significado\nğŸ”‘ Muy usados en conversaciÃ³n\nğŸ“ Ejemplos: get up, look for, give up\n\n*Los vemos desde nivel intermedio*",
+    pregunta: "¿Qué son los phrasal verbs?",
+    respuesta: "Phrasal verbs:\n\n?? Verbo + preposición/adverbio\n?? Cambian el significado\n?? Muy usados en conversación\n?? Ejemplos: get up, look for, give up\n\n*Los vemos desde nivel intermedio*",
     acciones: []
   },
   {
     id: 420,
     categoria: "vocabulario",
     keywords: ["idiom", "expresion", "frase hecha"],
-    pregunta: "Â¿QuÃ© son los idioms?",
-    respuesta: "Idioms (expresiones idiomÃ¡ticas):\n\nğŸŒ§ï¸ It's raining cats and dogs\nğŸ’¡ Break a leg (buena suerte)\nğŸ¯ Hit the nail on the head\nâ° Better late than never\n\n*No se traducen literalmente*",
+    pregunta: "¿Qué son los idioms?",
+    respuesta: "Idioms (expresiones idiomáticas):\n\n??? It's raining cats and dogs\n?? Break a leg (buena suerte)\n?? Hit the nail on the head\n? Better late than never\n\n*No se traducen literalmente*",
     acciones: []
   },
   {
     id: 421,
     categoria: "vocabulario",
     keywords: ["sinonimo", "antonimo", "palabras similares"],
-    pregunta: "Â¿EnseÃ±an sinÃ³nimos y antÃ³nimos?",
-    respuesta: "Vocabulario ampliado:\n\nğŸ“š SinÃ³nimos enriquecen el habla\nâ†”ï¸ AntÃ³nimos para contrastar\nğŸ“– Thesaurus recomendado\nğŸ¯ Evitar repeticiÃ³n\n\n*Fundamental para writing avanzado*",
+    pregunta: "¿Enseñan sinónimos y antónimos?",
+    respuesta: "Vocabulario ampliado:\n\n?? Sinónimos enriquecen el habla\n?? Antónimos para contrastar\n?? Thesaurus recomendado\n?? Evitar repetición\n\n*Fundamental para writing avanzado*",
     acciones: []
   },
   {
     id: 422,
     categoria: "vocabulario",
     keywords: ["formal", "informal", "registro"],
-    pregunta: "Â¿CuÃ¡l es la diferencia entre formal e informal?",
-    respuesta: "Registros del idioma:\n\nğŸ‘” Formal: trabajo, acadÃ©mico\nğŸ‘• Informal: amigos, familia\nğŸ“§ Emails segÃºn contexto\nğŸ—£ï¸ Saludos diferentes\n\n*Saber cuÃ¡ndo usar cada uno*",
+    pregunta: "¿Cuál es la diferencia entre formal e informal?",
+    respuesta: "Registros del idioma:\n\n?? Formal: trabajo, académico\n?? Informal: amigos, familia\n?? Emails según contexto\n??? Saludos diferentes\n\n*Saber cuándo usar cada uno*",
     acciones: []
   },
   {
     id: 423,
     categoria: "vocabulario",
     keywords: ["conectores", "linking", "palabras enlace"],
-    pregunta: "Â¿QuÃ© conectores debo aprender?",
-    respuesta: "Conectores esenciales:\n\nâ• However, Therefore, Moreover\nğŸ“ In addition, Furthermore\nâ†”ï¸ On the other hand\nğŸ”š In conclusion, Finally\n\n*Mejoran la coherencia del discurso*",
+    pregunta: "¿Qué conectores debo aprender?",
+    respuesta: "Conectores esenciales:\n\n? However, Therefore, Moreover\n?? In addition, Furthermore\n?? On the other hand\n?? In conclusion, Finally\n\n*Mejoran la coherencia del discurso*",
     acciones: []
   },
   {
     id: 424,
     categoria: "vocabulario",
     keywords: ["collocations", "combinacion", "palabras juntas"],
-    pregunta: "Â¿QuÃ© son las collocations?",
-    respuesta: "Collocations:\n\nğŸ”— Palabras que van juntas\nâœ… Make a decision (no do a decision)\nâœ… Take a photo (no make a photo)\nâœ… Heavy rain (no strong rain)\n\n*Suenan natural para nativos*",
+    pregunta: "¿Qué son las collocations?",
+    respuesta: "Collocations:\n\n?? Palabras que van juntas\n? Make a decision (no do a decision)\n? Take a photo (no make a photo)\n? Heavy rain (no strong rain)\n\n*Suenan natural para nativos*",
     acciones: []
   },
   {
     id: 425,
     categoria: "vocabulario",
     keywords: ["prefijo", "sufijo", "word formation"],
-    pregunta: "Â¿EnseÃ±an formaciÃ³n de palabras?",
-    respuesta: "Word formation:\n\nğŸ”¤ Prefijos: un-, re-, dis-\nğŸ”¤ Sufijos: -tion, -ment, -ly\nğŸ“š Familias de palabras\nğŸ§© Construir vocabulario\n\n*MultiplicÃ¡ tu vocabulario*",
+    pregunta: "¿Enseñan formación de palabras?",
+    respuesta: "Word formation:\n\n?? Prefijos: un-, re-, dis-\n?? Sufijos: -tion, -ment, -ly\n?? Familias de palabras\n?? Construir vocabulario\n\n*Multiplicá tu vocabulario*",
     acciones: []
   },
   {
     id: 426,
     categoria: "vocabulario",
     keywords: ["numeros", "contar", "fechas", "horas"],
-    pregunta: "Â¿EnseÃ±an nÃºmeros y fechas?",
-    respuesta: "NÃºmeros y tiempo:\n\nğŸ”¢ Cardinales y ordinales\nğŸ“… Fechas (formato diferente)\nâ° Decir la hora\nğŸ’° Precios y cantidades\nğŸ“Š Porcentajes\n\n*BÃ¡sico pero importante*",
+    pregunta: "¿Enseñan números y fechas?",
+    respuesta: "Números y tiempo:\n\n?? Cardinales y ordinales\n?? Fechas (formato diferente)\n? Decir la hora\n?? Precios y cantidades\n?? Porcentajes\n\n*Básico pero importante*",
     acciones: []
   },
   {
     id: 427,
     categoria: "vocabulario",
     keywords: ["familia", "parientes", "parentesco"],
-    pregunta: "Â¿Vocabulario de familia?",
-    respuesta: "Familia en inglÃ©s:\n\nğŸ‘¨â€ğŸ‘©â€ğŸ‘§ Parents, siblings, children\nğŸ‘´ Grandparents, grandchildren\nğŸ‘« In-laws, step-family\nğŸ¤ Relatives, ancestors\n\n*Tema de primer nivel*",
+    pregunta: "¿Vocabulario de familia?",
+    respuesta: "Familia en inglés:\n\n???????? Parents, siblings, children\n?? Grandparents, grandchildren\n?? In-laws, step-family\n?? Relatives, ancestors\n\n*Tema de primer nivel*",
     acciones: []
   },
   {
     id: 428,
     categoria: "vocabulario",
     keywords: ["comida", "alimentos", "cocina", "recetas"],
-    pregunta: "Â¿Vocabulario de comida?",
-    respuesta: "Food vocabulary:\n\nğŸ Fruits and vegetables\nğŸ¥© Meat and seafood\nğŸ³ Cooking verbs\nğŸ½ï¸ Restaurant vocabulary\nğŸ“‹ Recipes and ingredients\n\n*Tema muy prÃ¡ctico*",
+    pregunta: "¿Vocabulario de comida?",
+    respuesta: "Food vocabulary:\n\n?? Fruits and vegetables\n?? Meat and seafood\n?? Cooking verbs\n??? Restaurant vocabulary\n?? Recipes and ingredients\n\n*Tema muy práctico*",
     acciones: []
   },
   {
     id: 429,
     categoria: "vocabulario",
     keywords: ["ropa", "vestimenta", "moda"],
-    pregunta: "Â¿Vocabulario de ropa?",
-    respuesta: "Clothing vocabulary:\n\nğŸ‘” Shirt, pants, dress\nğŸ‘Ÿ Shoes, boots, sneakers\nğŸ§¥ Jacket, coat, sweater\nğŸ’ Accessories\nğŸ›ï¸ Shopping for clothes\n\n*Ãštil para compras*",
+    pregunta: "¿Vocabulario de ropa?",
+    respuesta: "Clothing vocabulary:\n\n?? Shirt, pants, dress\n?? Shoes, boots, sneakers\n?? Jacket, coat, sweater\n?? Accessories\n??? Shopping for clothes\n\n*Útil para compras*",
     acciones: []
   },
   {
     id: 430,
     categoria: "vocabulario",
     keywords: ["casa", "hogar", "habitaciones", "muebles"],
-    pregunta: "Â¿Vocabulario del hogar?",
-    respuesta: "Home vocabulary:\n\nğŸ  Rooms of the house\nğŸ›‹ï¸ Furniture\nğŸ”Œ Appliances\nğŸ§¹ Household chores\nğŸ¡ Describing your home\n\n*Tema de nivel inicial*",
+    pregunta: "¿Vocabulario del hogar?",
+    respuesta: "Home vocabulary:\n\n?? Rooms of the house\n??? Furniture\n?? Appliances\n?? Household chores\n?? Describing your home\n\n*Tema de nivel inicial*",
     acciones: []
   },
   {
     id: 431,
     categoria: "vocabulario",
     keywords: ["trabajo", "oficina", "profesion"],
-    pregunta: "Â¿Vocabulario de trabajo?",
-    respuesta: "Work vocabulary:\n\nğŸ’¼ Jobs and professions\nğŸ¢ Office vocabulary\nğŸ“§ Business emails\nğŸ“Š Meetings and presentations\nğŸ¤ Interviews\n\n*Esencial para Business English*",
+    pregunta: "¿Vocabulario de trabajo?",
+    respuesta: "Work vocabulary:\n\n?? Jobs and professions\n?? Office vocabulary\n?? Business emails\n?? Meetings and presentations\n?? Interviews\n\n*Esencial para Business English*",
     acciones: []
   },
   {
     id: 432,
     categoria: "vocabulario",
     keywords: ["salud", "medico", "hospital", "enfermedad"],
-    pregunta: "Â¿Vocabulario de salud?",
-    respuesta: "Health vocabulary:\n\nğŸ¥ Doctor visits\nğŸ’Š Symptoms and medicine\nğŸ©º Body parts\nğŸš‘ Emergencies\nğŸ˜· Common illnesses\n\n*Importante para viajes*",
+    pregunta: "¿Vocabulario de salud?",
+    respuesta: "Health vocabulary:\n\n?? Doctor visits\n?? Symptoms and medicine\n?? Body parts\n?? Emergencies\n?? Common illnesses\n\n*Importante para viajes*",
     acciones: []
   },
   {
     id: 433,
     categoria: "vocabulario",
     keywords: ["deporte", "ejercicio", "gym"],
-    pregunta: "Â¿Vocabulario de deportes?",
-    respuesta: "Sports vocabulary:\n\nâš½ Team sports\nğŸƒ Individual sports\nğŸ‹ï¸ Gym and fitness\nğŸ† Competitions\nğŸ“º Sports commentary\n\n*Para fans del deporte*",
+    pregunta: "¿Vocabulario de deportes?",
+    respuesta: "Sports vocabulary:\n\n? Team sports\n?? Individual sports\n??? Gym and fitness\n?? Competitions\n?? Sports commentary\n\n*Para fans del deporte*",
     acciones: []
   },
   {
     id: 434,
     categoria: "vocabulario",
     keywords: ["tecnologia", "computadora", "internet"],
-    pregunta: "Â¿Vocabulario de tecnologÃ­a?",
-    respuesta: "Tech vocabulary:\n\nğŸ’» Computer terms\nğŸ“± Mobile technology\nğŸŒ Internet and social media\nğŸ® Gaming vocabulary\nğŸ”§ Troubleshooting\n\n*Muy actual y Ãºtil*",
+    pregunta: "¿Vocabulario de tecnología?",
+    respuesta: "Tech vocabulary:\n\n?? Computer terms\n?? Mobile technology\n?? Internet and social media\n?? Gaming vocabulary\n?? Troubleshooting\n\n*Muy actual y útil*",
     acciones: []
   },
   {
     id: 435,
     categoria: "vocabulario",
     keywords: ["clima", "tiempo", "estaciones"],
-    pregunta: "Â¿Vocabulario del clima?",
-    respuesta: "Weather vocabulary:\n\nâ˜€ï¸ Sunny, cloudy, rainy\nğŸŒ¡ï¸ Temperature expressions\nğŸ‚ Seasons\nâ›ˆï¸ Extreme weather\nğŸ’¬ Small talk about weather\n\n*Tema clÃ¡sico de conversaciÃ³n*",
+    pregunta: "¿Vocabulario del clima?",
+    respuesta: "Weather vocabulary:\n\n?? Sunny, cloudy, rainy\n??? Temperature expressions\n?? Seasons\n?? Extreme weather\n?? Small talk about weather\n\n*Tema clásico de conversación*",
     acciones: []
   },
   {
     id: 436,
     categoria: "vocabulario",
     keywords: ["emociones", "sentimientos", "estado animo"],
-    pregunta: "Â¿Vocabulario de emociones?",
-    respuesta: "Emotions vocabulary:\n\nğŸ˜Š Happy, excited, pleased\nğŸ˜¢ Sad, disappointed, upset\nğŸ˜  Angry, frustrated, annoyed\nğŸ˜¨ Scared, worried, nervous\nğŸ˜® Surprised, amazed, shocked\n\n*Expresar sentimientos*",
+    pregunta: "¿Vocabulario de emociones?",
+    respuesta: "Emotions vocabulary:\n\n?? Happy, excited, pleased\n?? Sad, disappointed, upset\n?? Angry, frustrated, annoyed\n?? Scared, worried, nervous\n?? Surprised, amazed, shocked\n\n*Expresar sentimientos*",
     acciones: []
   },
   {
     id: 437,
     categoria: "vocabulario",
     keywords: ["ciudad", "transporte", "direcciones"],
-    pregunta: "Â¿Vocabulario de ciudad?",
-    respuesta: "City vocabulary:\n\nğŸ™ï¸ Places in a city\nğŸšŒ Transportation\nğŸ—ºï¸ Giving directions\nğŸª Shops and services\nğŸš¦ Traffic and streets\n\n*Esencial para viajar*",
+    pregunta: "¿Vocabulario de ciudad?",
+    respuesta: "City vocabulary:\n\n??? Places in a city\n?? Transportation\n??? Giving directions\n?? Shops and services\n?? Traffic and streets\n\n*Esencial para viajar*",
     acciones: []
   },
   {
     id: 438,
     categoria: "vocabulario",
     keywords: ["animales", "mascota", "naturaleza"],
-    pregunta: "Â¿Vocabulario de animales?",
-    respuesta: "Animal vocabulary:\n\nğŸ• Pets and domestic animals\nğŸ¦ Wild animals\nğŸ¦ Birds and insects\nğŸŸ Sea creatures\nğŸŒ² Nature and habitats\n\n*Tema popular en todos los niveles*",
+    pregunta: "¿Vocabulario de animales?",
+    respuesta: "Animal vocabulary:\n\n?? Pets and domestic animals\n?? Wild animals\n?? Birds and insects\n?? Sea creatures\n?? Nature and habitats\n\n*Tema popular en todos los niveles*",
     acciones: []
   },
   {
     id: 439,
     categoria: "vocabulario",
-    keywords: ["colores", "formas", "tamaÃ±os"],
-    pregunta: "Â¿Vocabulario de descripciones?",
-    respuesta: "Describing vocabulary:\n\nğŸ¨ Colors and shades\nğŸ“ Shapes and sizes\nğŸ“ Dimensions\nğŸ”˜ Textures and materials\nâœ¨ Adjectives order\n\n*Base para describir todo*",
+    keywords: ["colores", "formas", "tamaños"],
+    pregunta: "¿Vocabulario de descripciones?",
+    respuesta: "Describing vocabulary:\n\n?? Colors and shades\n?? Shapes and sizes\n?? Dimensions\n?? Textures and materials\n? Adjectives order\n\n*Base para describir todo*",
     acciones: []
   },
   {
     id: 440,
     categoria: "vocabulario",
     keywords: ["dinero", "banco", "finanzas"],
-    pregunta: "Â¿Vocabulario financiero?",
-    respuesta: "Financial vocabulary:\n\nğŸ’° Money and currency\nğŸ¦ Banking terms\nğŸ’³ Payments and transactions\nğŸ“ˆ Investments basics\nğŸ§¾ Bills and expenses\n\n*Ãštil para negocios*",
+    pregunta: "¿Vocabulario financiero?",
+    respuesta: "Financial vocabulary:\n\n?? Money and currency\n?? Banking terms\n?? Payments and transactions\n?? Investments basics\n?? Bills and expenses\n\n*Útil para negocios*",
     acciones: []
   },
   
-  // ========== GRAMÃTICA Y ESTRUCTURA (441-470) ==========
+  // ========== GRAMÁTICA Y ESTRUCTURA (441-470) ==========
   {
     id: 441,
     categoria: "gramatica",
     keywords: ["gramatica", "reglas", "estructura"],
-    pregunta: "Â¿La gramÃ¡tica es muy difÃ­cil?",
-    respuesta: "GramÃ¡tica inglesa:\n\nğŸ“š MÃ¡s simple que el espaÃ±ol\nâœ… Sin gÃ©nero gramatical\nğŸ“ Conjugaciones sencillas\nğŸ¯ Aprendizaje gradual\n\n*Se aprende con prÃ¡ctica*",
+    pregunta: "¿La gramática es muy difícil?",
+    respuesta: "Gramática inglesa:\n\n?? Más simple que el español\n? Sin género gramatical\n?? Conjugaciones sencillas\n?? Aprendizaje gradual\n\n*Se aprende con práctica*",
     acciones: []
   },
   {
     id: 442,
     categoria: "gramatica",
     keywords: ["verbo", "to be", "ser estar"],
-    pregunta: "Â¿QuÃ© es el verbo 'to be'?",
-    respuesta: "Verbo TO BE:\n\nğŸ”¤ I am, You are, He/She/It is\nğŸ”¤ We/They are\nğŸ“ = Ser y Estar\nğŸ¯ Base de todo el idioma\n\n*Primer verbo que aprenderÃ¡s*",
+    pregunta: "¿Qué es el verbo 'to be'?",
+    respuesta: "Verbo TO BE:\n\n?? I am, You are, He/She/It is\n?? We/They are\n?? = Ser y Estar\n?? Base de todo el idioma\n\n*Primer verbo que aprenderás*",
     acciones: []
   },
   {
     id: 443,
     categoria: "gramatica",
     keywords: ["presente", "simple", "present"],
-    pregunta: "Â¿QuÃ© es el Present Simple?",
-    respuesta: "Present Simple:\n\nğŸ“š Acciones habituales\nğŸ• Rutinas y costumbres\nğŸ“ I work, She works (+s en 3ra persona)\nâ“ Do/Does para preguntas\n\n*Primer tiempo verbal*",
+    pregunta: "¿Qué es el Present Simple?",
+    respuesta: "Present Simple:\n\n?? Acciones habituales\n?? Rutinas y costumbres\n?? I work, She works (+s en 3ra persona)\n? Do/Does para preguntas\n\n*Primer tiempo verbal*",
     acciones: []
   },
   {
     id: 444,
     categoria: "gramatica",
     keywords: ["presente", "continuo", "progressive", "ing"],
-    pregunta: "Â¿QuÃ© es el Present Continuous?",
-    respuesta: "Present Continuous:\n\nğŸ“š Acciones en progreso AHORA\nğŸ”„ Verbo + ing\nğŸ“ I am working, She is studying\nâ° Planes futuros tambiÃ©n\n\n*Segundo tiempo que aprenderÃ¡s*",
+    pregunta: "¿Qué es el Present Continuous?",
+    respuesta: "Present Continuous:\n\n?? Acciones en progreso AHORA\n?? Verbo + ing\n?? I am working, She is studying\n? Planes futuros también\n\n*Segundo tiempo que aprenderás*",
     acciones: []
   },
   {
     id: 445,
     categoria: "gramatica",
     keywords: ["pasado", "simple", "past", "ed"],
-    pregunta: "Â¿QuÃ© es el Past Simple?",
-    respuesta: "Past Simple:\n\nğŸ“š Acciones terminadas en el pasado\nğŸ“ Verbos regulares: +ed\nğŸ“ Verbos irregulares: memorizar\nâ“ Did para preguntas\n\n*Hay lista de verbos irregulares*",
+    pregunta: "¿Qué es el Past Simple?",
+    respuesta: "Past Simple:\n\n?? Acciones terminadas en el pasado\n?? Verbos regulares: +ed\n?? Verbos irregulares: memorizar\n? Did para preguntas\n\n*Hay lista de verbos irregulares*",
     acciones: []
   },
   {
     id: 446,
     categoria: "gramatica",
     keywords: ["futuro", "will", "going to"],
-    pregunta: "Â¿CÃ³mo se forma el futuro?",
-    respuesta: "Futuro en inglÃ©s:\n\nğŸ“ Will + verbo: decisiones espontÃ¡neas\nğŸ“ Going to: planes decididos\nğŸ“ Present Continuous: planes fijos\nğŸ¯ Contexto determina cuÃ¡l usar\n\n*Tres formas principales*",
+    pregunta: "¿Cómo se forma el futuro?",
+    respuesta: "Futuro en inglés:\n\n?? Will + verbo: decisiones espontáneas\n?? Going to: planes decididos\n?? Present Continuous: planes fijos\n?? Contexto determina cuál usar\n\n*Tres formas principales*",
     acciones: []
   },
   {
     id: 447,
     categoria: "gramatica",
     keywords: ["perfecto", "have", "has", "present perfect"],
-    pregunta: "Â¿QuÃ© es el Present Perfect?",
-    respuesta: "Present Perfect:\n\nğŸ“š Conecta pasado con presente\nğŸ“ Have/Has + participio\nâ° Experiencias de vida\nğŸ“ Acciones sin tiempo especÃ­fico\n\n*Uno de los mÃ¡s confusos*",
+    pregunta: "¿Qué es el Present Perfect?",
+    respuesta: "Present Perfect:\n\n?? Conecta pasado con presente\n?? Have/Has + participio\n? Experiencias de vida\n?? Acciones sin tiempo específico\n\n*Uno de los más confusos*",
     acciones: []
   },
   {
     id: 448,
     categoria: "gramatica",
     keywords: ["condicional", "if", "would", "conditional"],
-    pregunta: "Â¿QuÃ© son los condicionales?",
-    respuesta: "Condicionales:\n\nğŸ”µ Zero: verdades universales\nğŸŸ¢ First: situaciones reales\nğŸŸ¡ Second: situaciones hipotÃ©ticas\nğŸ”´ Third: pasado imposible\n\n*Nivel intermedio-avanzado*",
+    pregunta: "¿Qué son los condicionales?",
+    respuesta: "Condicionales:\n\n?? Zero: verdades universales\n?? First: situaciones reales\n?? Second: situaciones hipotéticas\n?? Third: pasado imposible\n\n*Nivel intermedio-avanzado*",
     acciones: []
   },
   {
     id: 449,
     categoria: "gramatica",
     keywords: ["pasiva", "passive", "voz pasiva"],
-    pregunta: "Â¿QuÃ© es la voz pasiva?",
-    respuesta: "Voz Pasiva:\n\nğŸ“ Objeto se vuelve sujeto\nğŸ”„ Be + participio pasado\nğŸ“š The book was written by...\nğŸ¯ Foco en la acciÃ³n, no en quiÃ©n\n\n*Muy usada en textos formales*",
+    pregunta: "¿Qué es la voz pasiva?",
+    respuesta: "Voz Pasiva:\n\n?? Objeto se vuelve sujeto\n?? Be + participio pasado\n?? The book was written by...\n?? Foco en la acción, no en quién\n\n*Muy usada en textos formales*",
     acciones: []
   },
   {
     id: 450,
     categoria: "gramatica",
     keywords: ["reported", "speech", "indirecto", "dijo que"],
-    pregunta: "Â¿QuÃ© es el Reported Speech?",
-    respuesta: "Reported Speech:\n\nğŸ“ Contar lo que alguien dijo\nğŸ”„ Cambio de tiempos verbales\nğŸ’¬ She said that...\nğŸ“– He told me that...\n\n*Nivel intermedio*",
+    pregunta: "¿Qué es el Reported Speech?",
+    respuesta: "Reported Speech:\n\n?? Contar lo que alguien dijo\n?? Cambio de tiempos verbales\n?? She said that...\n?? He told me that...\n\n*Nivel intermedio*",
     acciones: []
   },
   {
     id: 451,
     categoria: "gramatica",
     keywords: ["modal", "can", "could", "should", "must"],
-    pregunta: "Â¿QuÃ© son los verbos modales?",
-    respuesta: "Modal Verbs:\n\nğŸ“ Can/Could: habilidad\nğŸ“ Should: consejo\nğŸ“ Must: obligaciÃ³n\nğŸ“ May/Might: posibilidad\nğŸ¯ No cambian con la persona\n\n*Muy importantes*",
+    pregunta: "¿Qué son los verbos modales?",
+    respuesta: "Modal Verbs:\n\n?? Can/Could: habilidad\n?? Should: consejo\n?? Must: obligación\n?? May/Might: posibilidad\n?? No cambian con la persona\n\n*Muy importantes*",
     acciones: []
   },
   {
     id: 452,
     categoria: "gramatica",
     keywords: ["articulo", "a", "an", "the"],
-    pregunta: "Â¿CuÃ¡ndo uso a, an, the?",
-    respuesta: "ArtÃ­culos:\n\nğŸ“ A: antes de consonante\nğŸ“ An: antes de vocal (sonido)\nğŸ“ The: algo especÃ­fico/Ãºnico\nâ­• Sin artÃ­culo: generalidades\n\n*Reglas mÃ¡s simples que en espaÃ±ol*",
+    pregunta: "¿Cuándo uso a, an, the?",
+    respuesta: "Artículos:\n\n?? A: antes de consonante\n?? An: antes de vocal (sonido)\n?? The: algo específico/único\n? Sin artículo: generalidades\n\n*Reglas más simples que en español*",
     acciones: []
   },
   {
     id: 453,
     categoria: "gramatica",
     keywords: ["preposicion", "in", "on", "at"],
-    pregunta: "Â¿CuÃ¡ndo uso in, on, at?",
-    respuesta: "Preposiciones de lugar/tiempo:\n\nğŸ“ At: punto especÃ­fico (at home, at 5pm)\nğŸ“ On: superficie/dÃ­as (on Monday)\nğŸ“ In: dentro/meses/aÃ±os (in May)\n\n*Muchas excepciones, prÃ¡ctica*",
+    pregunta: "¿Cuándo uso in, on, at?",
+    respuesta: "Preposiciones de lugar/tiempo:\n\n?? At: punto específico (at home, at 5pm)\n?? On: superficie/días (on Monday)\n?? In: dentro/meses/años (in May)\n\n*Muchas excepciones, práctica*",
     acciones: []
   },
   {
     id: 454,
     categoria: "gramatica",
     keywords: ["pronombre", "he", "she", "they", "it"],
-    pregunta: "Â¿CuÃ¡les son los pronombres?",
-    respuesta: "Pronombres:\n\nğŸ‘¤ I, You, He, She, It, We, They\nğŸ“ Me, You, Him, Her, It, Us, Them\nğŸ“ My, Your, His, Her, Its, Our, Their\n\n*Base fundamental del idioma*",
+    pregunta: "¿Cuáles son los pronombres?",
+    respuesta: "Pronombres:\n\n?? I, You, He, She, It, We, They\n?? Me, You, Him, Her, It, Us, Them\n?? My, Your, His, Her, Its, Our, Their\n\n*Base fundamental del idioma*",
     acciones: []
   },
   {
     id: 455,
     categoria: "gramatica",
     keywords: ["adjetivo", "comparativo", "superlativo"],
-    pregunta: "Â¿CÃ³mo se comparan cosas?",
-    respuesta: "Comparativos y Superlativos:\n\nğŸ“Š +er/-est para cortos: bigger, biggest\nğŸ“Š More/Most para largos: more beautiful\nâš ï¸ Irregulares: good-better-best\n\n*Tema de nivel inicial*",
+    pregunta: "¿Cómo se comparan cosas?",
+    respuesta: "Comparativos y Superlativos:\n\n?? +er/-est para cortos: bigger, biggest\n?? More/Most para largos: more beautiful\n?? Irregulares: good-better-best\n\n*Tema de nivel inicial*",
     acciones: []
   },
   {
     id: 456,
     categoria: "gramatica",
     keywords: ["adverbio", "ly", "quickly", "slowly"],
-    pregunta: "Â¿CÃ³mo se forman los adverbios?",
-    respuesta: "Adverbios:\n\nğŸ“ Adjetivo + ly: quick â†’ quickly\nâš ï¸ Good â†’ Well (irregular)\nğŸ“ PosiciÃ³n en la oraciÃ³n\nğŸ¯ Modifican verbos, adjetivos, otros adverbios\n\n*Enriquecen el discurso*",
+    pregunta: "¿Cómo se forman los adverbios?",
+    respuesta: "Adverbios:\n\n?? Adjetivo + ly: quick ? quickly\n?? Good ? Well (irregular)\n?? Posición en la oración\n?? Modifican verbos, adjetivos, otros adverbios\n\n*Enriquecen el discurso*",
     acciones: []
   },
   {
     id: 457,
     categoria: "gramatica",
     keywords: ["pregunta", "question", "wh", "what", "where"],
-    pregunta: "Â¿CÃ³mo se hacen preguntas?",
-    respuesta: "Preguntas en inglÃ©s:\n\nâ“ WH questions: What, Where, When, Why, Who, How\nğŸ”„ InversiÃ³n: auxiliar + sujeto\nğŸ“ Do/Does/Did para present/past\n\n*Estructura diferente al espaÃ±ol*",
+    pregunta: "¿Cómo se hacen preguntas?",
+    respuesta: "Preguntas en inglés:\n\n? WH questions: What, Where, When, Why, Who, How\n?? Inversión: auxiliar + sujeto\n?? Do/Does/Did para present/past\n\n*Estructura diferente al español*",
     acciones: []
   },
   {
     id: 458,
     categoria: "gramatica",
     keywords: ["negacion", "not", "don't", "doesn't"],
-    pregunta: "Â¿CÃ³mo se niega en inglÃ©s?",
-    respuesta: "NegaciÃ³n:\n\nğŸ“ Auxiliar + not (don't, doesn't, didn't)\nğŸ“ Am/Is/Are + not\nğŸ“ Can't, Won't, Shouldn't\nâš ï¸ Doble negaciÃ³n no existe\n\n*MÃ¡s simple que en espaÃ±ol*",
+    pregunta: "¿Cómo se niega en inglés?",
+    respuesta: "Negación:\n\n?? Auxiliar + not (don't, doesn't, didn't)\n?? Am/Is/Are + not\n?? Can't, Won't, Shouldn't\n?? Doble negación no existe\n\n*Más simple que en español*",
     acciones: []
   },
   {
     id: 459,
     categoria: "gramatica",
     keywords: ["contable", "incontable", "some", "any", "much", "many"],
-    pregunta: "Â¿QuÃ© son sustantivos contables e incontables?",
-    respuesta: "Countable vs Uncountable:\n\nâœ… Contables: a car, two cars\nâœ… Incontables: water, money, advice\nğŸ“ Many/Few: contables\nğŸ“ Much/Little: incontables\n\n*Some/Any para ambos*",
+    pregunta: "¿Qué son sustantivos contables e incontables?",
+    respuesta: "Countable vs Uncountable:\n\n? Contables: a car, two cars\n? Incontables: water, money, advice\n?? Many/Few: contables\n?? Much/Little: incontables\n\n*Some/Any para ambos*",
     acciones: []
   },
   {
     id: 460,
     categoria: "gramatica",
     keywords: ["plural", "plurales", "irregulares"],
-    pregunta: "Â¿CÃ³mo se forma el plural?",
-    respuesta: "Plurales en inglÃ©s:\n\nğŸ“ +s: cars, books\nğŸ“ +es: boxes, watches\nğŸ“ yâ†’ies: cities\nâš ï¸ Irregulares: men, women, children, teeth\n\n*Menos reglas que en espaÃ±ol*",
+    pregunta: "¿Cómo se forma el plural?",
+    respuesta: "Plurales en inglés:\n\n?? +s: cars, books\n?? +es: boxes, watches\n?? y?ies: cities\n?? Irregulares: men, women, children, teeth\n\n*Menos reglas que en español*",
     acciones: []
   },
   {
     id: 461,
     categoria: "gramatica",
     keywords: ["genitivo", "posesivo", "apostrofe", "'s"],
-    pregunta: "Â¿CÃ³mo se indica posesiÃ³n?",
-    respuesta: "Genitivo sajÃ³n:\n\nğŸ“ Persona + 's + objeto\nğŸ“ John's car (el auto de John)\nğŸ“ Plural: The students' books\nğŸ“ Of: para cosas (the color of the car)\n\n*Muy usado en inglÃ©s*",
+    pregunta: "¿Cómo se indica posesión?",
+    respuesta: "Genitivo sajón:\n\n?? Persona + 's + objeto\n?? John's car (el auto de John)\n?? Plural: The students' books\n?? Of: para cosas (the color of the car)\n\n*Muy usado en inglés*",
     acciones: []
   },
   {
     id: 462,
     categoria: "gramatica",
     keywords: ["relativa", "which", "who", "that", "clause"],
-    pregunta: "Â¿QuÃ© son las relative clauses?",
-    respuesta: "Relative Clauses:\n\nğŸ“ Who: personas\nğŸ“ Which: cosas\nğŸ“ That: ambos (informal)\nğŸ“ Whose: posesiÃ³n\nğŸ“ Where: lugares\n\n*Dan informaciÃ³n adicional*",
+    pregunta: "¿Qué son las relative clauses?",
+    respuesta: "Relative Clauses:\n\n?? Who: personas\n?? Which: cosas\n?? That: ambos (informal)\n?? Whose: posesión\n?? Where: lugares\n\n*Dan información adicional*",
     acciones: []
   },
   {
     id: 463,
     categoria: "gramatica",
     keywords: ["gerundio", "infinitivo", "to", "ing diferencia"],
-    pregunta: "Â¿CuÃ¡ndo uso gerundio vs infinitivo?",
-    respuesta: "Gerund vs Infinitive:\n\nğŸ“ -ing despuÃ©s de: enjoy, avoid, finish\nğŸ“ To despuÃ©s de: want, need, decide\nğŸ“ Algunos cambian significado\nğŸ“ Stop smoking vs Stop to smoke\n\n*Hay que memorizar verbos*",
+    pregunta: "¿Cuándo uso gerundio vs infinitivo?",
+    respuesta: "Gerund vs Infinitive:\n\n?? -ing después de: enjoy, avoid, finish\n?? To después de: want, need, decide\n?? Algunos cambian significado\n?? Stop smoking vs Stop to smoke\n\n*Hay que memorizar verbos*",
     acciones: []
   },
   {
     id: 464,
     categoria: "gramatica",
     keywords: ["tag", "question", "verdad", "no"],
-    pregunta: "Â¿QuÃ© son las tag questions?",
-    respuesta: "Tag Questions:\n\nğŸ“ ConfirmaciÃ³n al final\nğŸ“ You're coming, aren't you?\nğŸ“ She can't swim, can she?\nğŸ”„ Positivo-Negativo o viceversa\n\n*Muy usado en conversaciÃ³n*",
+    pregunta: "¿Qué son las tag questions?",
+    respuesta: "Tag Questions:\n\n?? Confirmación al final\n?? You're coming, aren't you?\n?? She can't swim, can she?\n?? Positivo-Negativo o viceversa\n\n*Muy usado en conversación*",
     acciones: []
   },
   {
     id: 465,
     categoria: "gramatica",
     keywords: ["orden", "palabras", "estructura", "oracion"],
-    pregunta: "Â¿CuÃ¡l es el orden de las palabras?",
-    respuesta: "Orden en inglÃ©s:\n\nğŸ“ Sujeto + Verbo + Objeto\nğŸ“ I love English (no English love I)\nğŸ“ Adjetivo antes del sustantivo\nğŸ“ Adverbio flexible\n\n*MÃ¡s estricto que en espaÃ±ol*",
+    pregunta: "¿Cuál es el orden de las palabras?",
+    respuesta: "Orden en inglés:\n\n?? Sujeto + Verbo + Objeto\n?? I love English (no English love I)\n?? Adjetivo antes del sustantivo\n?? Adverbio flexible\n\n*Más estricto que en español*",
     acciones: []
   },
   {
     id: 466,
     categoria: "gramatica",
     keywords: ["contracciones", "I'm", "don't", "can't"],
-    pregunta: "Â¿QuÃ© son las contracciones?",
-    respuesta: "Contracciones:\n\nğŸ“ I am â†’ I'm\nğŸ“ Do not â†’ Don't\nğŸ“ Cannot â†’ Can't\nğŸ“ Would have â†’ Would've\n\n*Esenciales para sonar natural*",
+    pregunta: "¿Qué son las contracciones?",
+    respuesta: "Contracciones:\n\n?? I am ? I'm\n?? Do not ? Don't\n?? Cannot ? Can't\n?? Would have ? Would've\n\n*Esenciales para sonar natural*",
     acciones: []
   },
   {
     id: 467,
     categoria: "gramatica",
     keywords: ["used to", "would", "costumbre", "solia"],
-    pregunta: "Â¿CÃ³mo expreso costumbres pasadas?",
-    respuesta: "HÃ¡bitos pasados:\n\nğŸ“ Used to: antes hacÃ­a\nğŸ“ I used to play tennis\nğŸ“ Would: acciones repetidas\nğŸ“ Be used to: estar acostumbrado\n\n*Diferente estructura*",
+    pregunta: "¿Cómo expreso costumbres pasadas?",
+    respuesta: "Hábitos pasados:\n\n?? Used to: antes hacía\n?? I used to play tennis\n?? Would: acciones repetidas\n?? Be used to: estar acostumbrado\n\n*Diferente estructura*",
     acciones: []
   },
   {
     id: 468,
     categoria: "gramatica",
     keywords: ["wish", "if only", "deseo", "ojala"],
-    pregunta: "Â¿CÃ³mo expreso deseos?",
-    respuesta: "Expresar deseos:\n\nğŸ“ I wish + past simple: presente\nğŸ“ I wish + past perfect: pasado\nğŸ“ If only: mÃ¡s enfÃ¡tico\nğŸ’­ I wish I had more time\n\n*Nivel intermedio-avanzado*",
+    pregunta: "¿Cómo expreso deseos?",
+    respuesta: "Expresar deseos:\n\n?? I wish + past simple: presente\n?? I wish + past perfect: pasado\n?? If only: más enfático\n?? I wish I had more time\n\n*Nivel intermedio-avanzado*",
     acciones: []
   },
   {
     id: 469,
     categoria: "gramatica",
     keywords: ["there is", "there are", "hay"],
-    pregunta: "Â¿CÃ³mo digo 'hay' en inglÃ©s?",
-    respuesta: "There is / There are:\n\nğŸ“ There is: singular/incontable\nğŸ“ There are: plural\nğŸ“ There was/were: pasado\nğŸ“ There will be: futuro\n\n*Equivalente a 'hay'*",
+    pregunta: "¿Cómo digo 'hay' en inglés?",
+    respuesta: "There is / There are:\n\n?? There is: singular/incontable\n?? There are: plural\n?? There was/were: pasado\n?? There will be: futuro\n\n*Equivalente a 'hay'*",
     acciones: []
   },
   {
     id: 470,
     categoria: "gramatica",
     keywords: ["quantifiers", "all", "both", "each", "every"],
-    pregunta: "Â¿QuÃ© son los quantifiers?",
-    respuesta: "Quantifiers:\n\nğŸ“ All: todos\nğŸ“ Both: ambos (dos)\nğŸ“ Each: cada uno (individual)\nğŸ“ Every: todos (grupo)\nğŸ“ None: ninguno\n\n*Expresan cantidad*",
+    pregunta: "¿Qué son los quantifiers?",
+    respuesta: "Quantifiers:\n\n?? All: todos\n?? Both: ambos (dos)\n?? Each: cada uno (individual)\n?? Every: todos (grupo)\n?? None: ninguno\n\n*Expresan cantidad*",
     acciones: []
   },
   
-  // ========== PRONUNCIACIÃ“N (471-490) ==========
+  // ========== PRONUNCIACIÓN (471-490) ==========
   {
     id: 471,
     categoria: "pronunciacion",
     keywords: ["pronunciar", "pronunciacion", "como suena"],
-    pregunta: "Â¿La pronunciaciÃ³n es difÃ­cil?",
-    respuesta: "PronunciaciÃ³n inglesa:\n\nğŸ—£ï¸ Es diferente al espaÃ±ol\nğŸ“ Letras tienen mÃºltiples sonidos\nğŸ‘‚ ExposiciÃ³n mejora todo\nğŸ¯ Practica con audio/video\n\n*Se mejora con el tiempo*",
+    pregunta: "¿La pronunciación es difícil?",
+    respuesta: "Pronunciación inglesa:\n\n??? Es diferente al español\n?? Letras tienen múltiples sonidos\n?? Exposición mejora todo\n?? Practica con audio/video\n\n*Se mejora con el tiempo*",
     acciones: []
   },
   {
     id: 472,
     categoria: "pronunciacion",
     keywords: ["th", "sonido", "the", "think"],
-    pregunta: "Â¿CÃ³mo pronuncio el sonido TH?",
-    respuesta: "Sonido TH:\n\nğŸ‘… Lengua entre los dientes\nğŸ”Š /Ã°/ como en 'the' (sonoro)\nğŸ”‡ /Î¸/ como en 'think' (sordo)\nğŸ¯ Practica frente al espejo\n\n*Sonido que no existe en espaÃ±ol*",
+    pregunta: "¿Cómo pronuncio el sonido TH?",
+    respuesta: "Sonido TH:\n\n?? Lengua entre los dientes\n?? /ğ/ como en 'the' (sonoro)\n?? /?/ como en 'think' (sordo)\n?? Practica frente al espejo\n\n*Sonido que no existe en español*",
     acciones: []
   },
   {
     id: 473,
     categoria: "pronunciacion",
     keywords: ["r", "sonido", "diferente"],
-    pregunta: "Â¿CÃ³mo pronuncio la R en inglÃ©s?",
-    respuesta: "Sonido R:\n\nğŸ‘… No vibra como en espaÃ±ol\nğŸ”„ Lengua hacia atrÃ¡s\nğŸ“ Retroflex sound\nğŸ¯ Escucha y repite\n\n*PrÃ¡ctica con palabras: red, right, car*",
+    pregunta: "¿Cómo pronuncio la R en inglés?",
+    respuesta: "Sonido R:\n\n?? No vibra como en español\n?? Lengua hacia atrás\n?? Retroflex sound\n?? Escucha y repite\n\n*Práctica con palabras: red, right, car*",
     acciones: []
   },
   {
     id: 474,
     categoria: "pronunciacion",
     keywords: ["vocal", "larga", "corta", "sheep", "ship"],
-    pregunta: "Â¿QuÃ© son las vocales largas y cortas?",
-    respuesta: "Vocales largas vs cortas:\n\nğŸ“¢ Sheep (/iË/) vs Ship (/Éª/)\nğŸ“¢ Pool (/uË/) vs Pull (/ÊŠ/)\nğŸ“¢ Cart (/É‘Ë/) vs Cut (/ÊŒ/)\nğŸ¯ Cambian significado\n\n*Muy importante distinguirlas*",
+    pregunta: "¿Qué son las vocales largas y cortas?",
+    respuesta: "Vocales largas vs cortas:\n\n?? Sheep (/i?/) vs Ship (/?/)\n?? Pool (/u?/) vs Pull (/?/)\n?? Cart (/??/) vs Cut (/?/)\n?? Cambian significado\n\n*Muy importante distinguirlas*",
     acciones: []
   },
   {
     id: 475,
     categoria: "pronunciacion",
     keywords: ["schwa", "sonido", "a debil"],
-    pregunta: "Â¿QuÃ© es el sonido schwa?",
-    respuesta: "Schwa /É™/:\n\nğŸ”¤ Sonido mÃ¡s comÃºn en inglÃ©s\nğŸ“ 'a' en about, 'e' en taken\nğŸ”‰ Vocal muy relajada\nğŸ¯ Silabas no acentuadas\n\n*Clave para sonar natural*",
+    pregunta: "¿Qué es el sonido schwa?",
+    respuesta: "Schwa /?/:\n\n?? Sonido más común en inglés\n?? 'a' en about, 'e' en taken\n?? Vocal muy relajada\n?? Silabas no acentuadas\n\n*Clave para sonar natural*",
     acciones: []
   },
   {
     id: 476,
     categoria: "pronunciacion",
     keywords: ["acento", "stress", "silaba", "enfasis"],
-    pregunta: "Â¿CÃ³mo funciona el acento en inglÃ©s?",
-    respuesta: "Word Stress:\n\nğŸ’ª Una sÃ­laba mÃ¡s fuerte\nğŸ“ PHOtograph vs phoTOgraphy\nğŸ”„ Puede cambiar significado\nğŸ“– Diccionarios marcan el stress\n\n*Diferente al espaÃ±ol*",
+    pregunta: "¿Cómo funciona el acento en inglés?",
+    respuesta: "Word Stress:\n\n?? Una sílaba más fuerte\n?? PHOtograph vs phoTOgraphy\n?? Puede cambiar significado\n?? Diccionarios marcan el stress\n\n*Diferente al español*",
     acciones: []
   },
   {
     id: 477,
     categoria: "pronunciacion",
     keywords: ["entonacion", "intonation", "subir bajar"],
-    pregunta: "Â¿CÃ³mo funciona la entonaciÃ³n?",
-    respuesta: "Intonation:\n\nâ¬†ï¸ Sube en preguntas yes/no\nâ¬‡ï¸ Baja en afirmaciones\nğŸ”„ VarÃ­a en WH-questions\nğŸ­ Expresa emociones\n\n*Muy importante para comunicar*",
+    pregunta: "¿Cómo funciona la entonación?",
+    respuesta: "Intonation:\n\n?? Sube en preguntas yes/no\n?? Baja en afirmaciones\n?? Varía en WH-questions\n?? Expresa emociones\n\n*Muy importante para comunicar*",
     acciones: []
   },
   {
     id: 478,
     categoria: "pronunciacion",
     keywords: ["letras", "mudas", "silent", "letters"],
-    pregunta: "Â¿Por quÃ© hay letras que no se pronuncian?",
-    respuesta: "Silent Letters:\n\nğŸ”‡ K en knife, know\nğŸ”‡ B en comb, bomb\nğŸ”‡ G en gnome, sign\nğŸ”‡ W en write, wrong\nğŸ“ Razones histÃ³ricas\n\n*Hay que memorizarlas*",
+    pregunta: "¿Por qué hay letras que no se pronuncian?",
+    respuesta: "Silent Letters:\n\n?? K en knife, know\n?? B en comb, bomb\n?? G en gnome, sign\n?? W en write, wrong\n?? Razones históricas\n\n*Hay que memorizarlas*",
     acciones: []
   },
   {
     id: 479,
     categoria: "pronunciacion",
     keywords: ["linking", "unir", "palabras juntas"],
-    pregunta: "Â¿Por quÃ© los nativos unen palabras?",
-    respuesta: "Linking (uniÃ³n de palabras):\n\nğŸ”— Nativos conectan sonidos\nğŸ“ 'an apple' suena 'anapple'\nğŸ“ 'Did you' suena 'didju'\nğŸ¯ Escuchar mucho ayuda\n\n*Clave para comprensiÃ³n*",
+    pregunta: "¿Por qué los nativos unen palabras?",
+    respuesta: "Linking (unión de palabras):\n\n?? Nativos conectan sonidos\n?? 'an apple' suena 'anapple'\n?? 'Did you' suena 'didju'\n?? Escuchar mucho ayuda\n\n*Clave para comprensión*",
     acciones: []
   },
   {
     id: 480,
     categoria: "pronunciacion",
     keywords: ["minimos", "pares", "minimal pairs"],
-    pregunta: "Â¿QuÃ© son los minimal pairs?",
-    respuesta: "Minimal Pairs:\n\nğŸ”¤ Palabras casi iguales\nğŸ“ Ship/Sheep, Bat/Bet\nğŸ‘‚ Entrenan el oÃ­do\nğŸ—£ï¸ Mejoran pronunciaciÃ³n\n\n*Ejercicio muy Ãºtil*",
+    pregunta: "¿Qué son los minimal pairs?",
+    respuesta: "Minimal Pairs:\n\n?? Palabras casi iguales\n?? Ship/Sheep, Bat/Bet\n?? Entrenan el oído\n??? Mejoran pronunciación\n\n*Ejercicio muy útil*",
     acciones: []
   },
   {
     id: 481,
     categoria: "pronunciacion",
     keywords: ["trabalenguas", "tongue twister"],
-    pregunta: "Â¿Sirven los trabalenguas?",
-    respuesta: "Tongue Twisters:\n\nğŸ—£ï¸ Excelente prÃ¡ctica\nğŸ“ Peter Piper picked...\nğŸ“ She sells seashells...\nğŸ¯ Mejoran fluidez\nğŸ˜„ Â¡Y son divertidos!\n\n*Usamos varios en clase*",
+    pregunta: "¿Sirven los trabalenguas?",
+    respuesta: "Tongue Twisters:\n\n??? Excelente práctica\n?? Peter Piper picked...\n?? She sells seashells...\n?? Mejoran fluidez\n?? ¡Y son divertidos!\n\n*Usamos varios en clase*",
     acciones: []
   },
   {
     id: 482,
     categoria: "pronunciacion",
     keywords: ["diccionario", "fonetica", "IPA", "simbolos"],
-    pregunta: "Â¿QuÃ© es el IPA?",
-    respuesta: "International Phonetic Alphabet:\n\nğŸ“– SÃ­mbolos de pronunciaciÃ³n\nğŸ“ /hÉ™ËˆloÊŠ/ = hello\nğŸ” Diccionarios lo usan\nğŸ“š Ãštil para autoaprendizaje\n\n*Te enseÃ±amos a leerlo*",
+    pregunta: "¿Qué es el IPA?",
+    respuesta: "International Phonetic Alphabet:\n\n?? Símbolos de pronunciación\n?? /h?'lo?/ = hello\n?? Diccionarios lo usan\n?? Útil para autoaprendizaje\n\n*Te enseñamos a leerlo*",
     acciones: []
   },
   {
     id: 483,
     categoria: "pronunciacion",
     keywords: ["mejorar", "pronunciacion", "tips"],
-    pregunta: "Â¿CÃ³mo mejoro mi pronunciaciÃ³n?",
-    respuesta: "Tips para pronunciaciÃ³n:\n\nğŸ§ Escucha mucho inglÃ©s\nğŸ—£ï¸ Repite en voz alta\nğŸ“¹ GrÃ¡bate y escÃºchate\nğŸª Practica frente al espejo\nğŸ‘… Fijate en la boca\n\n*PrÃ¡ctica constante*",
+    pregunta: "¿Cómo mejoro mi pronunciación?",
+    respuesta: "Tips para pronunciación:\n\n?? Escucha mucho inglés\n??? Repite en voz alta\n?? Grábate y escúchate\n?? Practica frente al espejo\n?? Fijate en la boca\n\n*Práctica constante*",
     acciones: []
   },
   {
     id: 484,
     categoria: "pronunciacion",
     keywords: ["reduccion", "gonna", "wanna", "gotta"],
-    pregunta: "Â¿QuÃ© es gonna, wanna, gotta?",
-    respuesta: "Formas reducidas:\n\nğŸ—£ï¸ Gonna = Going to\nğŸ—£ï¸ Wanna = Want to\nğŸ—£ï¸ Gotta = Got to\nğŸ“ Uso informal/oral\nâš ï¸ No escribir en formal\n\n*Muy comÃºn en conversaciÃ³n*",
+    pregunta: "¿Qué es gonna, wanna, gotta?",
+    respuesta: "Formas reducidas:\n\n??? Gonna = Going to\n??? Wanna = Want to\n??? Gotta = Got to\n?? Uso informal/oral\n?? No escribir en formal\n\n*Muy común en conversación*",
     acciones: []
   },
   {
     id: 485,
     categoria: "pronunciacion",
     keywords: ["ritmo", "rhythm", "musicalidad"],
-    pregunta: "Â¿El inglÃ©s tiene ritmo especial?",
-    respuesta: "Ritmo en inglÃ©s:\n\nğŸµ Stress-timed language\nğŸ“Š SÃ­labas acentuadas regulares\nğŸ”„ No acentuadas se 'comen'\nğŸ¶ Como mÃºsica\n\n*Diferente al espaÃ±ol (syllable-timed)*",
+    pregunta: "¿El inglés tiene ritmo especial?",
+    respuesta: "Ritmo en inglés:\n\n?? Stress-timed language\n?? Sílabas acentuadas regulares\n?? No acentuadas se 'comen'\n?? Como música\n\n*Diferente al español (syllable-timed)*",
     acciones: []
   },
   {
     id: 486,
     categoria: "pronunciacion",
     keywords: ["ed", "pasado", "pronunciar", "-ed"],
-    pregunta: "Â¿CÃ³mo pronuncio el -ed del pasado?",
-    respuesta: "PronunciaciÃ³n de -ed:\n\nğŸ”Š /t/ despuÃ©s de sordos: walked\nğŸ”Š /d/ despuÃ©s de sonoros: played\nğŸ”Š /Éªd/ despuÃ©s de t/d: wanted\nğŸ¯ Regla de sonido, no letra\n\n*Muy importante para pasados*",
+    pregunta: "¿Cómo pronuncio el -ed del pasado?",
+    respuesta: "Pronunciación de -ed:\n\n?? /t/ después de sordos: walked\n?? /d/ después de sonoros: played\n?? /?d/ después de t/d: wanted\n?? Regla de sonido, no letra\n\n*Muy importante para pasados*",
     acciones: []
   },
   {
     id: 487,
     categoria: "pronunciacion",
     keywords: ["s", "plural", "pronunciar", "-s"],
-    pregunta: "Â¿CÃ³mo pronuncio la -s del plural?",
-    respuesta: "PronunciaciÃ³n de -s:\n\nğŸ”Š /s/ despuÃ©s de sordos: cats\nğŸ”Š /z/ despuÃ©s de sonoros: dogs\nğŸ”Š /Éªz/ despuÃ©s de s,z,sh,ch: boxes\n\n*Similar a regla de -ed*",
+    pregunta: "¿Cómo pronuncio la -s del plural?",
+    respuesta: "Pronunciación de -s:\n\n?? /s/ después de sordos: cats\n?? /z/ después de sonoros: dogs\n?? /?z/ después de s,z,sh,ch: boxes\n\n*Similar a regla de -ed*",
     acciones: []
   },
   {
     id: 488,
     categoria: "pronunciacion",
     keywords: ["homofono", "homophone", "suena igual"],
-    pregunta: "Â¿QuÃ© son los homophones?",
-    respuesta: "Homophones:\n\nğŸ”¤ Suenan igual, diferente significado\nğŸ“ Their/There/They're\nğŸ“ Your/You're\nğŸ“ To/Too/Two\nğŸ“ Right/Write\n\n*Cuidado en writing*",
+    pregunta: "¿Qué son los homophones?",
+    respuesta: "Homophones:\n\n?? Suenan igual, diferente significado\n?? Their/There/They're\n?? Your/You're\n?? To/Too/Two\n?? Right/Write\n\n*Cuidado en writing*",
     acciones: []
   },
   {
     id: 489,
     categoria: "pronunciacion",
     keywords: ["heteronimo", "heteronym", "escribe igual"],
-    pregunta: "Â¿QuÃ© son los heteronyms?",
-    respuesta: "Heteronyms:\n\nğŸ“ Misma escritura, diferente sonido\nğŸ“ Read (presente) vs Read (pasado)\nğŸ“ Live (vivir) vs Live (en vivo)\nğŸ“ Lead (guiar) vs Lead (plomo)\n\n*Contexto te dice cuÃ¡l es*",
+    pregunta: "¿Qué son los heteronyms?",
+    respuesta: "Heteronyms:\n\n?? Misma escritura, diferente sonido\n?? Read (presente) vs Read (pasado)\n?? Live (vivir) vs Live (en vivo)\n?? Lead (guiar) vs Lead (plomo)\n\n*Contexto te dice cuál es*",
     acciones: []
   },
   {
     id: 490,
     categoria: "pronunciacion",
     keywords: ["accent", "reducir", "acento extranjero"],
-    pregunta: "Â¿Puedo eliminar mi acento espaÃ±ol?",
-    respuesta: "Sobre el acento:\n\nğŸŒ Acento no es malo\nâœ… Lo importante es ser entendido\nğŸ¯ Se puede neutralizar\nâ° Lleva aÃ±os de prÃ¡ctica\nğŸ˜Š Tu acento es tu identidad\n\n*EnfÃ³cate en claridad*",
+    pregunta: "¿Puedo eliminar mi acento español?",
+    respuesta: "Sobre el acento:\n\n?? Acento no es malo\n? Lo importante es ser entendido\n?? Se puede neutralizar\n? Lleva años de práctica\n?? Tu acento es tu identidad\n\n*Enfócate en claridad*",
     acciones: []
   },
   
@@ -3816,8 +3816,8 @@ const BASE_CONOCIMIENTO = [
     id: 491,
     categoria: "despedidas",
     keywords: ["gracias", "agradezco", "agradecer"],
-    pregunta: "Gracias por la informaciÃ³n",
-    respuesta: "Â¡De nada! ğŸ˜Š\n\nEstoy aquÃ­ para ayudarte. Si tenÃ©s mÃ¡s consultas sobre CEMI, no dudes en preguntar.\n\n*Â¡Ã‰xitos en tu aprendizaje!*",
+    pregunta: "Gracias por la información",
+    respuesta: "¡De nada! ??\n\nEstoy aquí para ayudarte. Si tenés más consultas sobre CEMI, no dudes en preguntar.\n\n*¡Éxitos en tu aprendizaje!*",
     acciones: []
   },
   {
@@ -3825,7 +3825,7 @@ const BASE_CONOCIMIENTO = [
     categoria: "despedidas",
     keywords: ["chau", "adios", "hasta luego", "bye"],
     pregunta: "Chau, hasta luego",
-    respuesta: "Â¡Hasta pronto! ğŸ‘‹\n\nGracias por consultar con el asistente de CEMI. Te esperamos en nuestras clases.\n\n*Â¡Que tengas un excelente dÃ­a!*",
+    respuesta: "¡Hasta pronto! ??\n\nGracias por consultar con el asistente de CEMI. Te esperamos en nuestras clases.\n\n*¡Que tengas un excelente día!*",
     acciones: []
   },
   {
@@ -3833,23 +3833,23 @@ const BASE_CONOCIMIENTO = [
     categoria: "despedidas",
     keywords: ["nos vemos", "hasta pronto", "see you"],
     pregunta: "Nos vemos pronto",
-    respuesta: "Â¡Nos vemos! ğŸ˜Š\n\nRecordÃ¡ que podÃ©s consultar cualquier duda sobre CEMI cuando quieras.\n\n*Â¡Suerte con todo!*",
+    respuesta: "¡Nos vemos! ??\n\nRecordá que podés consultar cualquier duda sobre CEMI cuando quieras.\n\n*¡Suerte con todo!*",
     acciones: []
   },
   {
     id: 494,
     categoria: "despedidas",
     keywords: ["buena", "atencion", "util", "sirvio"],
-    pregunta: "Muy buena la atenciÃ³n",
-    respuesta: "Â¡QuÃ© bueno que te sirviÃ³! ğŸ‰\n\nEn CEMI nos esforzamos por dar la mejor atenciÃ³n.\n\n*Â¡Te esperamos pronto!*",
+    pregunta: "Muy buena la atención",
+    respuesta: "¡Qué bueno que te sirvió! ??\n\nEn CEMI nos esforzamos por dar la mejor atención.\n\n*¡Te esperamos pronto!*",
     acciones: []
   },
   {
     id: 495,
     categoria: "despedidas",
     keywords: ["excelente", "genial", "barbaro", "copado"],
-    pregunta: "Â¡Excelente informaciÃ³n!",
-    respuesta: "Â¡Me alegra mucho! ğŸ˜„\n\nCualquier otra consulta, aquÃ­ estarÃ©.\n\n*Â¡Ã‰xitos en tu camino al bilingÃ¼ismo!*",
+    pregunta: "¡Excelente información!",
+    respuesta: "¡Me alegra mucho! ??\n\nCualquier otra consulta, aquí estaré.\n\n*¡Éxitos en tu camino al bilingüismo!*",
     acciones: []
   },
   {
@@ -3857,15 +3857,15 @@ const BASE_CONOCIMIENTO = [
     categoria: "despedidas",
     keywords: ["inscribir", "quiero", "anotarme", "empezar"],
     pregunta: "Quiero inscribirme",
-    respuesta: "Â¡Genial que quieras sumarte a CEMI! ğŸ“\n\nğŸ“ Llamanos o visitanos\nğŸ“§ EnviÃ¡ email a info@cemi.edu.ar\nğŸŒ Formulario en la web\n\n*Â¡Te esperamos con los brazos abiertos!*",
+    respuesta: "¡Genial que quieras sumarte a CEMI! ??\n\n?? Llamanos o visitanos\n?? Enviá email a info@cemi.edu.ar\n?? Formulario en la web\n\n*¡Te esperamos con los brazos abiertos!*",
     acciones: []
   },
   {
     id: 497,
     categoria: "despedidas",
     keywords: ["voy", "ir", "pasar", "visitar"],
-    pregunta: "Voy a pasar por ahÃ­",
-    respuesta: "Â¡Te esperamos! ğŸ«\n\nğŸ“ Estamos en el centro\nğŸ• Lunes a viernes 9-21h, SÃ¡bados 9-13h\nâ˜• Te atendemos con gusto\n\n*Â¡VenÃ­ cuando quieras!*",
+    pregunta: "Voy a pasar por ahí",
+    respuesta: "¡Te esperamos! ??\n\n?? Estamos en el centro\n?? Lunes a viernes 9-21h, Sábados 9-13h\n? Te atendemos con gusto\n\n*¡Vení cuando quieras!*",
     acciones: []
   },
   {
@@ -3873,15 +3873,15 @@ const BASE_CONOCIMIENTO = [
     categoria: "despedidas",
     keywords: ["pensar", "pensarlo", "decidir", "evaluar"],
     pregunta: "Lo voy a pensar",
-    respuesta: "Â¡Por supuesto! ğŸ¤”\n\nTomate tu tiempo para decidir. Cuando estÃ©s listo/a, aquÃ­ estaremos.\n\n*Â¡Sin presiÃ³n, tu ritmo!*",
+    respuesta: "¡Por supuesto! ??\n\nTomate tu tiempo para decidir. Cuando estés listo/a, aquí estaremos.\n\n*¡Sin presión, tu ritmo!*",
     acciones: []
   },
   {
     id: 499,
     categoria: "despedidas",
     keywords: ["despues", "luego", "mas tarde", "otro momento"],
-    pregunta: "Consulto despuÃ©s",
-    respuesta: "Â¡Cuando quieras! ğŸ“²\n\nEste asistente estÃ¡ disponible 24/7 para responder tus dudas.\n\n*Â¡Te esperamos!*",
+    pregunta: "Consulto después",
+    respuesta: "¡Cuando quieras! ??\n\nEste asistente está disponible 24/7 para responder tus dudas.\n\n*¡Te esperamos!*",
     acciones: []
   },
   {
@@ -3889,7 +3889,7 @@ const BASE_CONOCIMIENTO = [
     categoria: "despedidas",
     keywords: ["listo", "todo", "suficiente", "era eso"],
     pregunta: "Eso era todo",
-    respuesta: "Â¡Perfecto! âœ¨\n\nGracias por usar el asistente virtual de CEMI. Esperamos haberte ayudado.\n\nğŸ“ Â¡Ã‰xitos en tu aprendizaje de idiomas!\n\n*Hasta la prÃ³xima* ğŸ‘‹",
+    respuesta: "¡Perfecto! ?\n\nGracias por usar el asistente virtual de CEMI. Esperamos haberte ayudado.\n\n?? ¡Éxitos en tu aprendizaje de idiomas!\n\n*Hasta la próxima* ??",
     acciones: []
   }
 ];
@@ -3930,8 +3930,8 @@ function buscarRespuesta(consulta) {
 }
 
 /**
- * Obtiene sugerencias basadas en la categorÃ­a
- * @param {string} categoria - CategorÃ­a actual
+ * Obtiene sugerencias basadas en la categoría
+ * @param {string} categoria - Categoría actual
  * @returns {Array} - Array de sugerencias
  */
 function obtenerSugerencias(categoria = null) {
@@ -4423,7 +4423,7 @@ function agregarEstilosAsistente() {
       to { opacity: 1; transform: translateX(0); }
     }
     .asistente-pregunta-btn::after {
-      content: 'â†’';
+      content: '?';
       position: absolute;
       right: 16px;
       top: 50%;
@@ -4571,14 +4571,14 @@ function inicializarEventos() {
   backdrop.id = 'asistente-backdrop';
   document.getElementById('asistente-cemi-container').appendChild(backdrop);
   
-  // FunciÃ³n para abrir modal
+  // Función para abrir modal
   function abrirModal() {
     modal.classList.add('active');
     backdrop.classList.add('active');
     toggle.classList.add('modal-open');
   }
   
-  // FunciÃ³n para cerrar modal con animaciÃ³n
+  // Función para cerrar modal con animación
   function cerrarModal() {
     modal.classList.add('closing');
     backdrop.classList.remove('active');
@@ -4699,3 +4699,4 @@ function inicializarAsistente() {
 }
 
 inicializarAsistente();
+

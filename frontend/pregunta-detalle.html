@@ -11,7 +11,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fa; color: #2d3748; line-height: 1.6; }
 
-    .help-header { background: linear-gradient(135deg, #547194 0%, #667eea 100%); position: sticky; top: 0; z-index: 100; }
+    .help-header { background: linear-gradient(135deg, #1A3A5C 0%, #0070F3 100%); position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; }
     .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
     .header-logo img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 4px; }
@@ -22,16 +22,16 @@
 
     .main-content { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
 
-    .back-link { display: inline-flex; align-items: center; gap: 8px; color: #667eea; text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 24px; transition: all 0.2s ease; }
-    .back-link:hover { color: #547194; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: #0070F3; text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 24px; transition: all 0.2s ease; }
+    .back-link:hover { color: #1A3A5C; }
     .back-link i { width: 18px; height: 18px; }
 
     .question-card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 24px; }
     .question-header { display: flex; gap: 16px; margin-bottom: 20px; }
-    .author-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #667eea; }
+    .author-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #0070F3; }
     .author-info { flex: 1; }
-    .author-name { font-size: 15px; font-weight: 600; color: #547194; }
-    .author-role { display: inline-block; font-size: 11px; padding: 2px 8px; background: rgba(102,126,234,0.15); color: #667eea; border-radius: 10px; margin-left: 8px; }
+    .author-name { font-size: 15px; font-weight: 600; color: #1A3A5C; }
+    .author-role { display: inline-block; font-size: 11px; padding: 2px 8px; background: rgba(102,126,234,0.15); color: #0070F3; border-radius: 10px; margin-left: 8px; }
     .question-date { font-size: 13px; color: #94a3b8; margin-top: 2px; }
     
     .question-badges { margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
@@ -40,21 +40,21 @@
     .badge.category { background: #f1f5f9; color: #64748b; }
     .badge.resolved { background: #d1fae5; color: #065f46; }
     .badge.closed { background: #fee2e2; color: #991b1b; }
-    .badge.announcement { background: linear-gradient(135deg, #547194, #667eea); color: white; }
-    .badge.featured { background: rgba(102,126,234,0.15); color: #547194; }
+    .badge.announcement { background: linear-gradient(135deg, #1A3A5C, #0070F3); color: white; }
+    .badge.featured { background: rgba(102,126,234,0.15); color: #1A3A5C; }
 
     .question-title { font-size: 24px; font-weight: 700; color: #1e293b; margin-bottom: 16px; line-height: 1.3; }
     .question-content { font-size: 15px; color: #475569; line-height: 1.8; white-space: pre-wrap; }
 
     .question-actions { display: flex; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
     .action-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; font-size: 14px; color: #64748b; cursor: pointer; transition: all 0.2s ease; }
-    .action-btn:hover { border-color: #667eea; color: #667eea; }
-    .action-btn.voted { background: #667eea; color: white; border-color: #667eea; }
+    .action-btn:hover { border-color: #0070F3; color: #0070F3; }
+    .action-btn.voted { background: #0070F3; color: white; border-color: #0070F3; }
     .action-btn i { width: 18px; height: 18px; }
 
     .answers-section { margin-top: 32px; }
-    .section-title { font-size: 18px; font-weight: 600; color: #547194; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-    .section-title i { width: 22px; height: 22px; color: #667eea; }
+    .section-title { font-size: 18px; font-weight: 600; color: #1A3A5C; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .section-title i { width: 22px; height: 22px; color: #0070F3; }
 
     .answer-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; margin-bottom: 16px; }
     .answer-card.recommended { border-left: 4px solid #059669; background: linear-gradient(to right, rgba(5,150,105,0.03), white); }
@@ -63,34 +63,34 @@
 
     .answer-header { display: flex; gap: 12px; margin-bottom: 16px; }
     .answer-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-    .answer-author-name { font-size: 14px; font-weight: 600; color: #547194; }
+    .answer-author-name { font-size: 14px; font-weight: 600; color: #1A3A5C; }
     .answer-date { font-size: 12px; color: #94a3b8; }
     .answer-content { font-size: 14px; color: #475569; line-height: 1.7; white-space: pre-wrap; }
 
     .answer-actions { display: flex; gap: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid #f1f5f9; }
     .answer-action { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: none; border: none; font-size: 13px; color: #64748b; cursor: pointer; border-radius: 6px; transition: all 0.2s ease; }
-    .answer-action:hover { background: #f1f5f9; color: #667eea; }
-    .answer-action.voted { color: #667eea; font-weight: 600; }
+    .answer-action:hover { background: #f1f5f9; color: #0070F3; }
+    .answer-action.voted { color: #0070F3; font-weight: 600; }
     .answer-action i { width: 16px; height: 16px; }
 
     .reply-form { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-top: 24px; }
-    .reply-form h3 { font-size: 16px; font-weight: 600; color: #547194; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-    .reply-form h3 i { width: 20px; height: 20px; color: #667eea; }
+    .reply-form h3 { font-size: 16px; font-weight: 600; color: #1A3A5C; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .reply-form h3 i { width: 20px; height: 20px; color: #0070F3; }
     .reply-textarea { width: 100%; min-height: 120px; padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; transition: all 0.2s ease; }
-    .reply-textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+    .reply-textarea:focus { outline: none; border-color: #0070F3; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
     .reply-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
     .btn { padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; border: none; }
-    .btn-primary { background: linear-gradient(135deg, #547194, #667eea); color: white; }
+    .btn-primary { background: linear-gradient(135deg, #1A3A5C, #0070F3); color: white; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
     .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
-    .login-prompt { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(84,113,148,0.1)); border: 1px dashed #667eea; border-radius: 12px; padding: 24px; text-align: center; }
-    .login-prompt p { color: #547194; margin-bottom: 12px; }
-    .login-prompt a { color: #667eea; font-weight: 600; text-decoration: none; }
+    .login-prompt { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(84,113,148,0.1)); border: 1px dashed #0070F3; border-radius: 12px; padding: 24px; text-align: center; }
+    .login-prompt p { color: #1A3A5C; margin-bottom: 12px; }
+    .login-prompt a { color: #0070F3; font-weight: 600; text-decoration: none; }
 
     .empty-answers { text-align: center; padding: 40px; color: #64748b; }
     .empty-answers i { width: 48px; height: 48px; color: #cbd5e1; margin-bottom: 12px; }
-    .empty-answers h4 { color: #547194; margin-bottom: 8px; }
+    .empty-answers h4 { color: #1A3A5C; margin-bottom: 8px; }
 
     .loading { text-align: center; padding: 60px; color: #64748b; }
     .loading i { animation: spin 1s linear infinite; width: 32px; height: 32px; }
@@ -467,3 +467,4 @@
   </script>
 </body>
 </html>
+

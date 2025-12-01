@@ -57,8 +57,8 @@ const descargarImagen = (url) => {
 // Colores institucionales CEMI (Azul)
 const colores = {
   azulOscuro: "#1e3a5f",
-  azulPrimario: "#2563eb",
-  azulClaro: "#3b82f6",
+  azulPrimario: "#0070F3",
+  azulClaro: "#3291FF",
   azulMuyClaro: "#dbeafe",
   texto: "#1f2937",
   textoSecundario: "#6b7280",
@@ -894,3 +894,4 @@ router.get("/test-pdf", async (req, res) => {
 });
 
 export default router;
+

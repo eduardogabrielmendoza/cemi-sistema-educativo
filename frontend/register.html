@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#1e3c72">
+  <meta name="theme-color" content="#0A2540">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.json">
@@ -240,11 +240,11 @@
       } else if (strength <= 75) {
         strengthFill.style.background = '#7e9ac8';
         strengthText.textContent = 'Buena';
-        strengthText.style.color = '#2a5298';
+        strengthText.style.color = '#1A3A5C';
       } else {
-        strengthFill.style.background = 'linear-gradient(135deg, #1e3c72, #2a5298)';
+        strengthFill.style.background = 'linear-gradient(135deg, #0A2540, #1A3A5C)';
         strengthText.textContent = 'Excelente';
-        strengthText.style.color = '#1e3c72';
+        strengthText.style.color = '#0A2540';
       }
     });
 
@@ -267,7 +267,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'El nombre es obligatorio',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -277,7 +277,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'El apellido es obligatorio',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -287,7 +287,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'El DNI es obligatorio',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -297,7 +297,7 @@
           icon: 'error',
           title: 'DNI inválido',
           text: 'El DNI debe tener 7 u 8 dígitos',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -307,7 +307,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'El teléfono es obligatorio',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -317,7 +317,7 @@
           icon: 'error',
           title: 'Teléfono inválido',
           text: 'El teléfono debe tener al menos 10 dígitos',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -327,7 +327,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'El email es obligatorio',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -337,7 +337,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'El usuario es obligatorio',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -347,7 +347,7 @@
           icon: 'error',
           title: 'Usuario inválido',
           text: 'El usuario debe tener al menos 3 caracteres',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -357,7 +357,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'La contraseña es obligatoria',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -367,7 +367,7 @@
           icon: 'error',
           title: 'Contraseña débil',
           text: 'La contraseña debe tener al menos 6 caracteres',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -377,7 +377,7 @@
           icon: 'error',
           title: 'Campo obligatorio',
           text: 'Debe confirmar la contraseña',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -387,7 +387,7 @@
           icon: 'error',
           title: 'Error',
           text: 'Las contraseñas no coinciden',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
         return;
       }
@@ -428,7 +428,7 @@
                 <p style="font-size: 16px; color: #333; margin-bottom: 15px;">
                   Para activar tu cuenta, te enviamos un correo de confirmación a:
                 </p>
-                <p style="font-size: 18px; font-weight: 600; color: #1976d2; background: #e3f2fd; padding: 12px 20px; border-radius: 8px; display: inline-block;">
+                <p style="font-size: 18px; font-weight: 600; color: #0070F3; background: #e3f2fd; padding: 12px 20px; border-radius: 8px; display: inline-block;">
                   📧 ${email}
                 </p>
                 <p style="font-size: 14px; color: #666; margin-top: 20px;">
@@ -439,7 +439,7 @@
                 </p>
               </div>
             `,
-            confirmButtonColor: '#1976d2',
+            confirmButtonColor: '#0070F3',
             confirmButtonText: 'Entendido',
             allowOutsideClick: false
           }).then(() => {
@@ -455,7 +455,7 @@
             icon: 'error',
             title: 'Error al registrar',
             text: data.message || 'Error al crear la cuenta',
-            confirmButtonColor: '#1e3c72'
+            confirmButtonColor: '#0A2540'
           });
         }
       } catch (error) {
@@ -464,10 +464,11 @@
           icon: 'error',
           title: 'Error de conexión',
           text: 'No se pudo conectar con el servidor',
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#0A2540'
         });
       }
     });
   </script>
 </body>
 </html>
+

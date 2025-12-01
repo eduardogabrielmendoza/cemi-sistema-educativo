@@ -1,7 +1,7 @@
 
 :root {
-  --primary-blue: #1976d2;
-  --primary-blue-dark: #1565c0;
+  --primary-blue: #0070F3;
+  --primary-blue-dark: #0A2540;
   --primary-blue-light: #42a5f5;
   --secondary-blue: #0288d1;
   --accent-blue: #03a9f4;
@@ -1414,3 +1414,4 @@ body.dark-mode .progress-card h3 {
     grid-column: 1;
   }
 }
+

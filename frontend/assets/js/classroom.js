@@ -57,7 +57,7 @@ async function cargarAvatarUsuario() {
 }
 
 
-function renderAvatarHTML(avatar, nombre, apellido = '', gradiente = 'linear-gradient(135deg, #667eea, #764ba2)') {
+function renderAvatarHTML(avatar, nombre, apellido = '', gradiente = 'linear-gradient(135deg, #0070F3, #1A3A5C)') {
   if (avatar) {
     const BASE_URL = window.BASE_URL || 'http://localhost:3000';
     const avatarUrl = avatar.startsWith('http') ? avatar : `${BASE_URL}${avatar}`;
@@ -97,7 +97,7 @@ function verificarAutenticacion() {
       text: 'Debes iniciar sesión para acceder a CEMI Classroom',
       icon: 'warning',
       confirmButtonText: 'Ir a Login',
-      confirmButtonColor: '#1976d2'
+      confirmButtonColor: '#0070F3'
     }).then(() => {
       window.location.href = 'login.html';
     });
@@ -287,7 +287,7 @@ function renderCourseDropdown() {
   if (!dropdown) return;
   
   const gradientes = [
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%)',
     'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
@@ -297,14 +297,14 @@ function renderCourseDropdown() {
   let html = `
     <div onclick="seleccionarCurso(null)" style="padding: 16px; cursor: pointer; transition: all 0.2s; border-bottom: 1px solid #f0f0f0; ${cursoActivo === null ? 'background: #f8f9ff;' : ''}">
       <div style="display: flex; align-items: center; gap: 12px;">
-        <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px;">
+        <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #0070F3, #1A3A5C); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px;">
           
         </div>
         <div style="flex: 1;">
           <div style="font-weight: 600; color: #2c3e50; font-size: 14px;">Todos los cursos</div>
           <div style="font-size: 12px; color: #999;">Ver contenido de todos tus cursos</div>
         </div>
-        ${cursoActivo === null ? '<i data-lucide="check" style="width: 20px; height: 20px; color: #667eea;"></i>' : ''}
+        ${cursoActivo === null ? '<i data-lucide="check" style="width: 20px; height: 20px; color: #0070F3;"></i>' : ''}
       </div>
     </div>
   `;
@@ -321,7 +321,7 @@ function renderCourseDropdown() {
             <div style="font-weight: 600; color: #2c3e50; font-size: 14px;">${curso.nombre_curso}</div>
             <div style="font-size: 12px; color: #777;">${curso.nombre_idioma}${curso.nivel ? ' - ' + curso.nivel : ''} • ${curso.total_alumnos || 0} alumnos</div>
           </div>
-          ${isActive ? '<i data-lucide="check" style="width: 20px; height: 20px; color: #667eea;"></i>' : ''}
+          ${isActive ? '<i data-lucide="check" style="width: 20px; height: 20px; color: #0070F3;"></i>' : ''}
         </div>
       </div>
     `;
@@ -611,7 +611,7 @@ function renderAnuncios(anuncios) {
       anuncio.profesor_avatar, 
       anuncio.profesor_nombre, 
       '', 
-      importante ? 'linear-gradient(135deg, #f59e0b, #dc2626)' : 'linear-gradient(135deg, #667eea, #764ba2)'
+      importante ? 'linear-gradient(135deg, #f59e0b, #dc2626)' : 'linear-gradient(135deg, #0070F3, #1A3A5C)'
     );
     
     const botonEliminar = isAdminClassroom ? `
@@ -628,7 +628,7 @@ function renderAnuncios(anuncios) {
           ${avatarHTML}
           <div class="card-info">
             <div class="card-title" style="cursor: pointer; transition: color 0.2s;" 
-                 onmouseover="this.style.color='#667eea'" 
+                 onmouseover="this.style.color='#0070F3'" 
                  onmouseout="this.style.color=''" 
                  onclick="event.stopPropagation(); verPerfilProfesor(${anuncio.id_profesor})">${anuncio.profesor_nombre}</div>
             <div class="card-meta">
@@ -643,12 +643,12 @@ function renderAnuncios(anuncios) {
           <h4>${anuncio.titulo}</h4>
           <p>${anuncio.contenido}</p>
           ${anuncio.link_url ? `
-            <div style="margin-top: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #667eea;">
+            <div style="margin-top: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #0070F3;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                <i data-lucide="link" style="width: 16px; height: 16px; color: #667eea;"></i>
+                <i data-lucide="link" style="width: 16px; height: 16px; color: #0070F3;"></i>
                 <span style="font-size: 12px; font-weight: 600; color: #495057;">Enlace adjunto</span>
               </div>
-              <a href="${anuncio.link_url}" target="_blank" style="color: #667eea; text-decoration: none; font-size: 14px; word-break: break-all;" onclick="event.stopPropagation();">
+              <a href="${anuncio.link_url}" target="_blank" style="color: #0070F3; text-decoration: none; font-size: 14px; word-break: break-all;" onclick="event.stopPropagation();">
                 ${anuncio.link_url}
               </a>
             </div>
@@ -675,9 +675,9 @@ function renderPoll(encuesta, idAnuncio) {
   const esAlumno = userRol.toLowerCase() === 'alumno';
   
   return `
-    <div class="poll-container" id="poll-${encuesta.id_encuesta}" style="margin-top: 16px; padding: 16px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #667eea;">
+    <div class="poll-container" id="poll-${encuesta.id_encuesta}" style="margin-top: 16px; padding: 16px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #0070F3;">
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-        <i data-lucide="bar-chart-2" style="width: 18px; height: 18px; color: #667eea;"></i>
+        <i data-lucide="bar-chart-2" style="width: 18px; height: 18px; color: #0070F3;"></i>
         <span style="font-size: 14px; font-weight: 600; color: #2c3e50;">${encuesta.pregunta}</span>
       </div>
       
@@ -689,18 +689,18 @@ function renderPoll(encuesta, idAnuncio) {
           if (!esAlumno) {
             return `
               <div style="position: relative; padding: 12px; background: white; border: 2px solid #e0e0e0; border-radius: 6px; overflow: hidden;">
-                <div style="position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, #667eea15, #764ba215); width: ${porcentaje}%; transition: width 0.3s;"></div>
+                <div style="position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, #0070F315, #1A3A5C15); width: ${porcentaje}%; transition: width 0.3s;"></div>
                 <div style="position: relative; display: flex; justify-content: space-between; align-items: center;">
                   <span style="font-size: 14px; color: #2c3e50;">${opcion.texto}</span>
-                  <span style="font-weight: 600; font-size: 14px; color: #667eea;">${porcentaje}%</span>
+                  <span style="font-weight: 600; font-size: 14px; color: #0070F3;">${porcentaje}%</span>
                 </div>
               </div>
             `;
           } else {
             return `
               <button onclick="votarEncuesta(${encuesta.id_encuesta}, ${opcion.id_opcion}, ${idAnuncio})" 
-                style="position: relative; padding: 12px; background: ${esVotoActual ? '#667eea' : 'white'}; border: 2px solid ${esVotoActual ? '#667eea' : '#e0e0e0'}; border-radius: 6px; cursor: pointer; text-align: left; font-size: 14px; color: ${esVotoActual ? 'white' : '#2c3e50'}; transition: all 0.2s; overflow: hidden;"
-                onmouseover="if (!${esVotoActual}) { this.style.borderColor='#667eea'; this.style.background='#667eea05'; }"
+                style="position: relative; padding: 12px; background: ${esVotoActual ? '#0070F3' : 'white'}; border: 2px solid ${esVotoActual ? '#0070F3' : '#e0e0e0'}; border-radius: 6px; cursor: pointer; text-align: left; font-size: 14px; color: ${esVotoActual ? 'white' : '#2c3e50'}; transition: all 0.2s; overflow: hidden;"
+                onmouseover="if (!${esVotoActual}) { this.style.borderColor='#0070F3'; this.style.background='#0070F305'; }"
                 onmouseout="if (!${esVotoActual}) { this.style.borderColor='#e0e0e0'; this.style.background='white'; }">
                 <div style="position: absolute; top: 0; left: 0; height: 100%; background: ${esVotoActual ? 'rgba(255,255,255,0.2)' : 'rgba(102, 126, 234, 0.1)'}; width: ${porcentaje}%; transition: width 0.3s;"></div>
                 <div style="position: relative; display: flex; justify-content: space-between; align-items: center;">
@@ -836,8 +836,8 @@ function renderTareas(tareas) {
             </div>
             <p class="task-description">${tarea.descripcion}</p>
             ${tarea.requerimientos ? `
-              <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-left: 3px solid #667eea; border-radius: 4px;">
-                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-weight: 600; color: #667eea; font-size: 13px;">
+              <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-left: 3px solid #0070F3; border-radius: 4px;">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-weight: 600; color: #0070F3; font-size: 13px;">
                   <i data-lucide="check-square" style="width: 14px; height: 14px;"></i>
                   <span>Requerimientos:</span>
                 </div>
@@ -846,7 +846,7 @@ function renderTareas(tareas) {
             ` : ''}
             <div style="display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap;">
               ${tarea.link_url ? `
-                <a href="${tarea.link_url}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: #667eea; text-decoration: none; font-size: 13px; padding: 6px 12px; background: #f0f4ff; border-radius: 6px; transition: all 0.2s;">
+                <a href="${tarea.link_url}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: #0070F3; text-decoration: none; font-size: 13px; padding: 6px 12px; background: #f0f4ff; border-radius: 6px; transition: all 0.2s;">
                   <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
                   <span>Material de referencia</span>
                 </a>
@@ -905,8 +905,8 @@ function renderTareas(tareas) {
             </div>
             <p class="task-description">${tarea.descripcion}</p>
             ${tarea.requerimientos ? `
-              <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-left: 3px solid #667eea; border-radius: 4px;">
-                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-weight: 600; color: #667eea; font-size: 13px;">
+              <div style="margin: 12px 0; padding: 12px; background: #f8f9fa; border-left: 3px solid #0070F3; border-radius: 4px;">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-weight: 600; color: #0070F3; font-size: 13px;">
                   <i data-lucide="check-square" style="width: 14px; height: 14px;"></i>
                   <span>Requerimientos:</span>
                 </div>
@@ -915,7 +915,7 @@ function renderTareas(tareas) {
             ` : ''}
             <div style="display: flex; gap: 8px; margin: 12px 0; flex-wrap: wrap;">
               ${tarea.link_url ? `
-                <a href="${tarea.link_url}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: #667eea; text-decoration: none; font-size: 13px; padding: 6px 12px; background: #f0f4ff; border-radius: 6px; transition: all 0.2s;">
+                <a href="${tarea.link_url}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; color: #0070F3; text-decoration: none; font-size: 13px; padding: 6px 12px; background: #f0f4ff; border-radius: 6px; transition: all 0.2s;">
                   <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
                   <span>Material de referencia</span>
                 </a>
@@ -1067,7 +1067,7 @@ function handleLogout() {
     text: '¿Estás seguro de que quieres salir de CEMI Classroom?',
     icon: 'question',
     showCancelButton: true,
-    confirmButtonColor: '#1976d2',
+    confirmButtonColor: '#0070F3',
     cancelButtonColor: '#757575',
     confirmButtonText: 'Sí, salir',
     cancelButtonText: 'Cancelar'
@@ -1084,7 +1084,7 @@ function showNotification(title, message, type = 'info') {
     title: title,
     text: message,
     icon: type,
-    confirmButtonColor: '#1976d2',
+    confirmButtonColor: '#0070F3',
     timer: 3000,
     timerProgressBar: true
   });
@@ -1109,7 +1109,7 @@ function renderClases(clases) {
   }
   
   const gradientes = [
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%)',
     'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
     'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
@@ -1128,22 +1128,22 @@ function renderClases(clases) {
       <div class="class-card-body" style="padding: 20px; background: white; border-radius: 0 0 12px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="user" style="width: 18px; height: 18px; color: #667eea;"></i>
+            <i data-lucide="user" style="width: 18px; height: 18px; color: #0070F3;"></i>
             <span>${clase.profesor_nombre || 'Sin profesor'}</span>
           </div>
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="users" style="width: 18px; height: 18px; color: #667eea;"></i>
+            <i data-lucide="users" style="width: 18px; height: 18px; color: #0070F3;"></i>
             <span><strong>${clase.total_alumnos || 0}</strong> ${(clase.total_alumnos || 0) === 1 ? 'alumno' : 'alumnos'}</span>
           </div>
           ${clase.horario ? `
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="clock" style="width: 18px; height: 18px; color: #667eea;"></i>
+            <i data-lucide="clock" style="width: 18px; height: 18px; color: #0070F3;"></i>
             <span>${clase.horario}</span>
           </div>
           ` : ''}
           ${clase.nombre_aula ? `
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="map-pin" style="width: 18px; height: 18px; color: #667eea;"></i>
+            <i data-lucide="map-pin" style="width: 18px; height: 18px; color: #0070F3;"></i>
             <span>${clase.nombre_aula}</span>
           </div>
           ` : ''}
@@ -1201,7 +1201,7 @@ async function verDetalleCurso(idCurso) {
       title: 'Error',
       text: 'No se pudo cargar la información del curso',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   } finally {
     hideLoader();
@@ -1211,7 +1211,7 @@ async function verDetalleCurso(idCurso) {
 function renderPanelCurso(curso, alumnos, tareas) {
   const panelBody = document.getElementById('coursePanelBody');
   
-  const gradiente = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+  const gradiente = 'linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%)';
   
   panelBody.innerHTML = `
     <!-- Header del curso -->
@@ -1230,28 +1230,28 @@ function renderPanelCurso(curso, alumnos, tareas) {
         <div class="course-info-item">
           <div class="course-info-label">Profesor</div>
           <div class="course-info-value">
-            <i data-lucide="user" style="width: 16px; height: 16px; color: #667eea;"></i>
+            <i data-lucide="user" style="width: 16px; height: 16px; color: #0070F3;"></i>
             ${curso.profesor_nombre || 'No asignado'}
           </div>
         </div>
         <div class="course-info-item">
           <div class="course-info-label">Total Alumnos</div>
           <div class="course-info-value">
-            <i data-lucide="users" style="width: 16px; height: 16px; color: #667eea;"></i>
+            <i data-lucide="users" style="width: 16px; height: 16px; color: #0070F3;"></i>
             ${curso.total_alumnos || 0}
           </div>
         </div>
         <div class="course-info-item">
           <div class="course-info-label">Horario</div>
           <div class="course-info-value">
-            <i data-lucide="clock" style="width: 16px; height: 16px; color: #667eea;"></i>
+            <i data-lucide="clock" style="width: 16px; height: 16px; color: #0070F3;"></i>
             ${curso.horario || 'Por definir'}
           </div>
         </div>
         <div class="course-info-item">
           <div class="course-info-label">Aula</div>
           <div class="course-info-value">
-            <i data-lucide="map-pin" style="width: 16px; height: 16px; color: #667eea;"></i>
+            <i data-lucide="map-pin" style="width: 16px; height: 16px; color: #0070F3;"></i>
             ${curso.nombre_aula || 'Sin asignar'}
           </div>
         </div>
@@ -1292,7 +1292,7 @@ function renderPanelCurso(curso, alumnos, tareas) {
         <div style="max-height: 400px; overflow-y: auto;">
           ${alumnos.map((alumno, index) => {
             const colores = [
-              'linear-gradient(135deg, #667eea, #764ba2)',
+              'linear-gradient(135deg, #0070F3, #1A3A5C)',
               'linear-gradient(135deg, #f093fb, #f5576c)',
               'linear-gradient(135deg, #4facfe, #00f2fe)',
               'linear-gradient(135deg, #43e97b, #38f9d7)',
@@ -1412,7 +1412,7 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
       `;
     } else {
       avatarHTML = `
-        <div class="profile-avatar-modal" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+        <div class="profile-avatar-modal" style="background: linear-gradient(135deg, #0070F3, #1A3A5C);">
           <span style="font-size: 48px; color: white; font-weight: 700;">${iniciales}</span>
         </div>
       `;
@@ -1422,7 +1422,7 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
       <div style="text-align: center;">
         ${avatarHTML}
         <h2 style="margin: 20px 0 8px 0; color: #2c3e50; font-size: 28px;">${perfil.nombre} ${perfil.apellido}</h2>
-        <p style="color: #667eea; font-size: 16px; font-weight: 600; margin: 0 0 8px 0; text-transform: capitalize;">${perfil.rol}</p>
+        <p style="color: #0070F3; font-size: 16px; font-weight: 600; margin: 0 0 8px 0; text-transform: capitalize;">${perfil.rol}</p>
         <p style="color: #6c757d; font-size: 14px; margin: 0 0 24px 0;">@${perfil.username}</p>
         
         <div style="background: #f8f9fa; padding: 24px; border-radius: 12px; margin-bottom: 20px; text-align: left;">
@@ -1430,14 +1430,14 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
             <div>
               <div style="font-size: 12px; color: #6c757d; margin-bottom: 4px; font-weight: 600;">Email</div>
               <div style="color: #2c3e50; font-size: 14px;">
-                <i data-lucide="mail" style="width: 14px; height: 14px; margin-right: 6px; color: #667eea;"></i>
+                <i data-lucide="mail" style="width: 14px; height: 14px; margin-right: 6px; color: #0070F3;"></i>
                 ${perfil.email || 'No disponible'}
               </div>
             </div>
             <div>
               <div style="font-size: 12px; color: #6c757d; margin-bottom: 4px; font-weight: 600;">Teléfono</div>
               <div style="color: #2c3e50; font-size: 14px;">
-                <i data-lucide="phone" style="width: 14px; height: 14px; margin-right: 6px; color: #667eea;"></i>
+                <i data-lucide="phone" style="width: 14px; height: 14px; margin-right: 6px; color: #0070F3;"></i>
                 ${perfil.telefono || 'No disponible'}
               </div>
             </div>
@@ -1502,7 +1502,7 @@ async function verAlumnosCurso(idCurso) {
         <div style="display: grid; gap: 12px; max-height: 400px; overflow-y: auto;">
           ${alumnos.map(alumno => `
             <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px;">
-              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0070F3, #1A3A5C); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
                 ${alumno.nombre.charAt(0)}${alumno.apellido.charAt(0)}
               </div>
               <div style="flex: 1;">
@@ -1515,7 +1515,7 @@ async function verAlumnosCurso(idCurso) {
       `;
     
     Swal.fire({
-      title: `<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="users" style="width: 24px; height: 24px; color: #667eea;"></i><span>Alumnos del Curso</span></div>`,
+      title: `<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="users" style="width: 24px; height: 24px; color: #0070F3;"></i><span>Alumnos del Curso</span></div>`,
       html: htmlAlumnos,
       showCloseButton: true,
       showConfirmButton: false,
@@ -1535,7 +1535,7 @@ async function verEstadisticasCurso(idCurso) {
     title: 'Estadísticas del Curso',
     html: '<p style="text-align: center; color: #999; padding: 20px;">Próximamente: Gráficos de rendimiento, asistencia y calificaciones</p>',
     icon: 'info',
-    confirmButtonColor: '#667eea'
+    confirmButtonColor: '#0070F3'
   });
 }
 
@@ -1587,7 +1587,7 @@ function renderCalificaciones(data) {
   `;
   
   const gradientes = [
-    'linear-gradient(135deg, #667eea, #764ba2)',
+    'linear-gradient(135deg, #0070F3, #1A3A5C)',
     'linear-gradient(135deg, #f093fb, #f5576c)',
     'linear-gradient(135deg, #4facfe, #00f2fe)',
     'linear-gradient(135deg, #43e97b, #38f9d7)'
@@ -1699,7 +1699,7 @@ async function verAlumnosCurso(idCurso) {
       html: tablaHTML,
       width: 900,
       confirmButtonText: 'Cerrar',
-      confirmButtonColor: '#1976d2'
+      confirmButtonColor: '#0070F3'
     });
   } catch (error) {
     console.error('Error al cargar alumnos:', error);
@@ -1739,7 +1739,7 @@ function createClass() {
       </select>
     `,
     confirmButtonText: 'Crear',
-    confirmButtonColor: '#1976d2',
+    confirmButtonColor: '#0070F3',
     showCancelButton: true,
     cancelButtonText: 'Cancelar',
     preConfirm: () => {
@@ -1772,7 +1772,7 @@ async function mostrarFormularioTarea() {
       title: 'Sin cursos',
       text: 'No tienes cursos asignados para crear tareas',
       icon: 'info',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
     return;
   }
@@ -1784,7 +1784,7 @@ async function mostrarFormularioTarea() {
   const hoy = new Date().toISOString().split('T')[0];
   
   Swal.fire({
-    title: '<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="clipboard-list" style="width: 28px; height: 28px; color: #667eea;"></i><span>Crear Tarea</span></div>',
+    title: '<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="clipboard-list" style="width: 28px; height: 28px; color: #0070F3;"></i><span>Crear Tarea</span></div>',
     html: `
       <div style="text-align: left; padding: 0 8px;">
         <!-- Selector de Curso -->
@@ -1793,7 +1793,7 @@ async function mostrarFormularioTarea() {
           Curso
         </label>
         <select id="swal-curso-tarea" style="width: 100%; margin: 0 0 20px 0; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; background: white; color: #2c3e50; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23667eea%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 40px; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
           <option value="" style="color: #2c3e50; background: white;">Selecciona un curso</option>
           ${cursosOptions}
@@ -1807,7 +1807,7 @@ async function mostrarFormularioTarea() {
         </label>
         <input id="swal-titulo-tarea" placeholder="Ej: Ensayo sobre literatura contemporánea" maxlength="100" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"
           oninput="document.getElementById('titulo-tarea-counter').textContent = this.value.length + '/100'">
         
@@ -1819,7 +1819,7 @@ async function mostrarFormularioTarea() {
         </label>
         <textarea id="swal-descripcion-tarea" placeholder="Describe las instrucciones y requerimientos de la tarea..." maxlength="1000"
           style="width: 100%; min-height: 120px; resize: vertical; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: inherit; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"
           oninput="document.getElementById('descripcion-tarea-counter').textContent = this.value.length + '/1000'"></textarea>
         
@@ -1831,7 +1831,7 @@ async function mostrarFormularioTarea() {
         </label>
         <textarea id="swal-requerimientos-tarea" placeholder="• Formato PDF&#10;• Mínimo 500 palabras&#10;• Incluir referencias..." maxlength="500"
           style="width: 100%; min-height: 80px; resize: vertical; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: inherit; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"></textarea>
         
         <!-- Fecha y Hora -->
@@ -1843,7 +1843,7 @@ async function mostrarFormularioTarea() {
             </label>
             <input type="date" id="swal-fecha-tarea" min="${hoy}" 
               style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
-              onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+              onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
               onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
           </div>
           <div>
@@ -1853,7 +1853,7 @@ async function mostrarFormularioTarea() {
             </label>
             <input type="time" id="swal-hora-tarea" value="23:59" 
               style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
-              onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+              onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
               onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
           </div>
         </div>
@@ -1865,7 +1865,7 @@ async function mostrarFormularioTarea() {
         </label>
         <input type="number" id="swal-puntos-tarea" value="100" min="1" max="1000" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
         
         <!-- Opciones adicionales -->
@@ -1874,18 +1874,18 @@ async function mostrarFormularioTarea() {
           <div style="margin-bottom: 12px;">
             <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #495057; padding: 10px; background: white; border-radius: 6px; transition: all 0.2s;">
               <input type="checkbox" id="swal-link-tarea" style="width: 18px; height: 18px; cursor: pointer;">
-              <i data-lucide="link" style="width: 16px; height: 16px; color: #667eea;"></i>
+              <i data-lucide="link" style="width: 16px; height: 16px; color: #0070F3;"></i>
               <span style="font-weight: 500;">Agregar enlace de referencia</span>
             </label>
             <div id="link-tarea-container" style="max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease; margin-top: 0;">
-              <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; border: 2px solid #667eea; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
+              <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; border: 2px solid #0070F3; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                  <i data-lucide="external-link" style="width: 14px; height: 14px; color: #667eea;"></i>
-                  <span style="font-size: 12px; font-weight: 600; color: #667eea;">URL de referencia (material de apoyo, documentos, etc.)</span>
+                  <i data-lucide="external-link" style="width: 14px; height: 14px; color: #0070F3;"></i>
+                  <span style="font-size: 12px; font-weight: 600; color: #0070F3;">URL de referencia (material de apoyo, documentos, etc.)</span>
                 </div>
                 <input id="swal-link-url-tarea" type="url" placeholder="https://ejemplo.com/documento" 
                   style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 13px; transition: border-color 0.2s;"
-                  onfocus="this.style.borderColor='#667eea';"
+                  onfocus="this.style.borderColor='#0070F3';"
                   onblur="this.style.borderColor='#e0e0e0';">
               </div>
             </div>
@@ -1895,19 +1895,19 @@ async function mostrarFormularioTarea() {
           <div style="margin-bottom: 12px;">
             <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #495057; padding: 10px; background: white; border-radius: 6px; transition: all 0.2s;">
               <input type="checkbox" id="swal-archivo-tarea" style="width: 18px; height: 18px; cursor: pointer;">
-              <i data-lucide="paperclip" style="width: 16px; height: 16px; color: #667eea;"></i>
+              <i data-lucide="paperclip" style="width: 16px; height: 16px; color: #0070F3;"></i>
               <span style="font-weight: 500;">Adjuntar archivo para los alumnos</span>
             </label>
             <div id="archivo-tarea-container" style="max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease; margin-top: 0;">
-              <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; border: 2px solid #667eea; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
+              <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; border: 2px solid #0070F3; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                  <i data-lucide="file-text" style="width: 14px; height: 14px; color: #667eea;"></i>
-                  <span style="font-size: 12px; font-weight: 600; color: #667eea;">Archivo de referencia (guías, plantillas, material de apoyo)</span>
+                  <i data-lucide="file-text" style="width: 14px; height: 14px; color: #0070F3;"></i>
+                  <span style="font-size: 12px; font-weight: 600; color: #0070F3;">Archivo de referencia (guías, plantillas, material de apoyo)</span>
                 </div>
                 
                 <!-- Opciones de archivo: URL o Subir -->
                 <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-                  <label style="flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f0f4ff; border: 2px solid #667eea; border-radius: 6px; cursor: pointer; transition: all 0.2s;">
+                  <label style="flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f0f4ff; border: 2px solid #0070F3; border-radius: 6px; cursor: pointer; transition: all 0.2s;">
                     <input type="radio" name="tipo-archivo" value="url" checked style="cursor: pointer;">
                     <i data-lucide="link-2" style="width: 14px; height: 14px;"></i>
                     <span style="font-size: 13px; font-weight: 500;">Enlace</span>
@@ -1923,9 +1923,9 @@ async function mostrarFormularioTarea() {
                 <div id="archivo-url-section" style="display: block;">
                   <input id="swal-archivo-url-tarea" type="url" placeholder="https://drive.google.com/file/..." 
                     style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 13px; transition: border-color 0.2s; box-sizing: border-box;"
-                    onfocus="this.style.borderColor='#667eea';"
+                    onfocus="this.style.borderColor='#0070F3';"
                     onblur="this.style.borderColor='#e0e0e0';">
-                  <div style="margin-top: 6px; padding: 6px; background: #f0f4ff; border-radius: 4px; font-size: 11px; color: #667eea;">
+                  <div style="margin-top: 6px; padding: 6px; background: #f0f4ff; border-radius: 4px; font-size: 11px; color: #0070F3;">
                     <i data-lucide="info" style="width: 12px; height: 12px; margin-right: 4px;"></i>
                     <span>Enlace desde Google Drive, Dropbox, OneDrive, etc.</span>
                   </div>
@@ -1940,9 +1940,9 @@ async function mostrarFormularioTarea() {
                   </div>
                   <div id="upload-progress" style="display: none; margin-top: 8px;">
                     <div style="background: #e0e0e0; border-radius: 4px; height: 6px; overflow: hidden;">
-                      <div id="upload-progress-bar" style="width: 0%; height: 100%; background: #667eea; transition: width 0.3s;"></div>
+                      <div id="upload-progress-bar" style="width: 0%; height: 100%; background: #0070F3; transition: width 0.3s;"></div>
                     </div>
-                    <span id="upload-status" style="font-size: 11px; color: #667eea; margin-top: 4px; display: block;"></span>
+                    <span id="upload-status" style="font-size: 11px; color: #0070F3; margin-top: 4px; display: block;"></span>
                   </div>
                   <div style="margin-top: 6px; padding: 6px; background: #f0fdf4; border-radius: 4px; font-size: 11px; color: #10b981;">
                     <i data-lucide="info" style="width: 12px; height: 12px; margin-right: 4px;"></i>
@@ -1959,7 +1959,7 @@ async function mostrarFormularioTarea() {
               onmouseover="this.style.background='#f0f4ff';"
               onmouseout="this.style.background='white';">
               <input type="checkbox" id="swal-notificar-tarea" checked style="width: 18px; height: 18px; cursor: pointer;">
-              <i data-lucide="bell" style="width: 16px; height: 16px; color: #667eea;"></i>
+              <i data-lucide="bell" style="width: 16px; height: 16px; color: #0070F3;"></i>
               <span style="font-weight: 500;">Notificar a los alumnos sobre esta tarea</span>
             </label>
           </div>
@@ -1969,7 +1969,7 @@ async function mostrarFormularioTarea() {
     showCancelButton: true,
     confirmButtonText: '<i data-lucide="check-circle" style="width: 16px; height: 16px; margin-right: 6px;"></i> Crear Tarea',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#667eea',
+    confirmButtonColor: '#0070F3',
     cancelButtonColor: '#6c757d',
     width: '700px',
     customClass: {
@@ -2029,7 +2029,7 @@ async function mostrarFormularioTarea() {
             const input = label.querySelector('input');
             if (input.checked) {
               label.style.background = '#f0f4ff';
-              label.style.borderColor = '#667eea';
+              label.style.borderColor = '#0070F3';
             } else {
               label.style.background = '#f8f9fa';
               label.style.borderColor = '#e0e0e0';
@@ -2171,10 +2171,10 @@ async function crearTarea(datos) {
         html: `<div style="text-align: center;">
           <i data-lucide="check-circle" style="width: 48px; height: 48px; color: #10b981; margin-bottom: 12px;"></i>
           <p style="margin: 0; color: #333;">La tarea ha sido asignada exitosamente</p>
-          ${datos.notificar ? '<p style="margin: 8px 0 0 0; font-size: 14px; color: #667eea;"><i data-lucide="bell" style="width: 14px; height: 14px;"></i> Los alumnos han sido notificados</p>' : ''}
+          ${datos.notificar ? '<p style="margin: 8px 0 0 0; font-size: 14px; color: #0070F3;"><i data-lucide="bell" style="width: 14px; height: 14px;"></i> Los alumnos han sido notificados</p>' : ''}
         </div>`,
         icon: 'success',
-        confirmButtonColor: '#667eea',
+        confirmButtonColor: '#0070F3',
         didOpen: () => {
           lucide.createIcons();
         }
@@ -2201,7 +2201,7 @@ async function crearTarea(datos) {
       title: 'Error',
       text: 'No se pudo crear la tarea. Intenta de nuevo.',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   }
 }
@@ -2238,7 +2238,7 @@ async function eliminarTarea(idTarea, titulo) {
           title: '¡Eliminada!',
           text: 'La tarea ha sido eliminada exitosamente',
           icon: 'success',
-          confirmButtonColor: '#667eea',
+          confirmButtonColor: '#0070F3',
           timer: 2000
         });
 
@@ -2256,7 +2256,7 @@ async function eliminarTarea(idTarea, titulo) {
         title: 'Error',
         text: 'No se pudo eliminar la tarea. Intenta de nuevo.',
         icon: 'error',
-        confirmButtonColor: '#667eea'
+        confirmButtonColor: '#0070F3'
       });
     }
   }
@@ -2265,11 +2265,11 @@ async function eliminarTarea(idTarea, titulo) {
 
 async function mostrarFormularioEntrega(idTarea, tituloTarea) {
   const { value: formValues } = await Swal.fire({
-    title: '<div style="display: flex; align-items: center; gap: 10px; justify-content: center;"><i data-lucide="send" style="width: 24px; height: 24px; color: #667eea;"></i><span>Entregar Tarea</span></div>',
+    title: '<div style="display: flex; align-items: center; gap: 10px; justify-content: center;"><i data-lucide="send" style="width: 24px; height: 24px; color: #0070F3;"></i><span>Entregar Tarea</span></div>',
     html: `
       <div style="text-align: left; padding: 0 8px;">
         <!-- Información de la tarea -->
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 16px; border-radius: 12px; margin-bottom: 24px; color: white;">
+        <div style="background: linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%); padding: 16px; border-radius: 12px; margin-bottom: 24px; color: white;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
             <i data-lucide="clipboard-check" style="width: 18px; height: 18px;"></i>
             <strong style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9;">Tarea</strong>
@@ -2280,14 +2280,14 @@ async function mostrarFormularioEntrega(idTarea, tituloTarea) {
         <!-- Comentario -->
         <div style="margin-bottom: 20px;">
           <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 14px;">
-            <i data-lucide="message-square" style="width: 16px; height: 16px; color: #667eea;"></i>
+            <i data-lucide="message-square" style="width: 16px; height: 16px; color: #0070F3;"></i>
             Comentario <span style="font-weight: 400; color: #6c757d; font-size: 12px;">(opcional)</span>
           </label>
           <textarea 
             id="comentarioEntrega" 
             placeholder="Escribe aquí cualquier comentario sobre tu entrega..."
             style="width: 100%; min-height: 110px; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; resize: vertical; font-family: inherit; transition: all 0.2s; box-sizing: border-box;"
-            onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+            onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
             onblur="this.style.borderColor='#e9ecef'; this.style.boxShadow='none';"
           ></textarea>
         </div>
@@ -2295,7 +2295,7 @@ async function mostrarFormularioEntrega(idTarea, tituloTarea) {
         <!-- Archivo adjunto -->
         <div style="margin-bottom: 8px;">
           <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 14px;">
-            <i data-lucide="paperclip" style="width: 16px; height: 16px; color: #667eea;"></i>
+            <i data-lucide="paperclip" style="width: 16px; height: 16px; color: #0070F3;"></i>
             Archivo adjunto <span style="font-weight: 400; color: #6c757d; font-size: 12px;">(opcional)</span>
           </label>
           <div style="position: relative;">
@@ -2303,12 +2303,12 @@ async function mostrarFormularioEntrega(idTarea, tituloTarea) {
               type="file" 
               id="archivoEntrega"
               style="width: 100%; padding: 12px; border: 2px dashed #cbd5e0; border-radius: 8px; font-size: 14px; background: #f8f9fa; cursor: pointer; box-sizing: border-box; transition: all 0.2s;"
-              onchange="this.style.borderColor='#667eea'; this.style.background='#f0f4ff';"
+              onchange="this.style.borderColor='#0070F3'; this.style.background='#f0f4ff';"
             />
           </div>
           <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; padding: 8px 12px; background: #e3f2fd; border-left: 3px solid #2196f3; border-radius: 4px;">
             <i data-lucide="info" style="width: 14px; height: 14px; color: #2196f3;"></i>
-            <small style="color: #1976d2; font-size: 12px;">
+            <small style="color: #0070F3; font-size: 12px;">
               Puedes adjuntar documentos, imágenes, PDFs, etc.
             </small>
           </div>
@@ -2320,7 +2320,7 @@ async function mostrarFormularioEntrega(idTarea, tituloTarea) {
     showCancelButton: true,
     confirmButtonText: '<i data-lucide="send" style="width: 16px; height: 16px; margin-right: 6px;"></i> Entregar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#667eea',
+    confirmButtonColor: '#0070F3',
     cancelButtonColor: '#6c757d',
     customClass: {
       confirmButton: 'swal-btn-confirm',
@@ -2372,7 +2372,7 @@ async function entregarTarea(idTarea, comentario, archivo) {
           title: 'Error al subir archivo',
           text: uploadError.message || 'No se pudo subir el archivo adjunto',
           icon: 'error',
-          confirmButtonColor: '#667eea'
+          confirmButtonColor: '#0070F3'
         });
         return;
       }
@@ -2398,7 +2398,7 @@ async function entregarTarea(idTarea, comentario, archivo) {
         title: '¡Entregada!',
         text: 'Tu tarea ha sido entregada exitosamente',
         icon: 'success',
-        confirmButtonColor: '#667eea',
+        confirmButtonColor: '#0070F3',
         timer: 2000
       });
 
@@ -2416,7 +2416,7 @@ async function entregarTarea(idTarea, comentario, archivo) {
       title: 'Error',
       text: 'No se pudo entregar la tarea. Intenta de nuevo.',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   } finally {
     hideLoader();
@@ -2463,7 +2463,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
       `;
     } else {
       estadoHTML = `
-        <div style="background: linear-gradient(135deg, #3b82f6, #2563eb); padding: 20px; border-radius: 12px; margin-bottom: 24px; color: white; text-align: center;">
+        <div style="background: linear-gradient(135deg, #0070F3, #0070F3); padding: 20px; border-radius: 12px; margin-bottom: 24px; color: white; text-align: center;">
           <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; margin-bottom: 8px;">
             <i data-lucide="clock" style="width: 16px; height: 16px;"></i> Estado
           </div>
@@ -2475,16 +2475,16 @@ async function verDetalleEntrega(idTarea, idAlumno) {
     }
     
     Swal.fire({
-      title: '<div style="display: flex; align-items: center; gap: 10px; justify-content: center;"><i data-lucide="file-check" style="width: 24px; height: 24px; color: #667eea;"></i><span>Detalles de Entrega</span></div>',
+      title: '<div style="display: flex; align-items: center; gap: 10px; justify-content: center;"><i data-lucide="file-check" style="width: 24px; height: 24px; color: #0070F3;"></i><span>Detalles de Entrega</span></div>',
       html: `
         <div style="text-align: left; padding: 0 8px;">
           ${estadoHTML}
           
           <!-- Información de la tarea -->
-          <div style="background: #f8f9fa; padding: 16px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+          <div style="background: #f8f9fa; padding: 16px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #0070F3;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-              <i data-lucide="clipboard" style="width: 16px; height: 16px; color: #667eea;"></i>
-              <strong style="font-size: 13px; color: #667eea; text-transform: uppercase; letter-spacing: 0.5px;">Tarea</strong>
+              <i data-lucide="clipboard" style="width: 16px; height: 16px; color: #0070F3;"></i>
+              <strong style="font-size: 13px; color: #0070F3; text-transform: uppercase; letter-spacing: 0.5px;">Tarea</strong>
             </div>
             <div style="font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 8px;">
               ${entrega.tarea_titulo}
@@ -2499,7 +2499,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
           ${entrega.contenido ? `
             <div style="margin-bottom: 20px;">
               <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px; font-weight: 600; color: #2c3e50; font-size: 14px;">
-                <i data-lucide="message-square" style="width: 16px; height: 16px; color: #667eea;"></i>
+                <i data-lucide="message-square" style="width: 16px; height: 16px; color: #0070F3;"></i>
                 Tu comentario
               </div>
               <div style="background: #ffffff; padding: 14px; border-radius: 8px; border: 2px solid #e9ecef; font-size: 14px; color: #495057; line-height: 1.6; white-space: pre-wrap;">
@@ -2512,7 +2512,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
           ${entrega.archivo_url ? `
             <div style="margin-bottom: 20px;">
               <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px; font-weight: 600; color: #2c3e50; font-size: 14px;">
-                <i data-lucide="paperclip" style="width: 16px; height: 16px; color: #667eea;"></i>
+                <i data-lucide="paperclip" style="width: 16px; height: 16px; color: #0070F3;"></i>
                 Archivo adjunto
               </div>
               <div style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; background: #e9ecef; border: 2px solid #ced4da; border-radius: 8px; color: #6c757d; font-weight: 600; font-size: 14px; opacity: 0.6; cursor: not-allowed;">
@@ -2542,7 +2542,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
       `,
       width: '650px',
       confirmButtonText: 'Cerrar',
-      confirmButtonColor: '#667eea',
+      confirmButtonColor: '#0070F3',
       didOpen: () => {
         lucide.createIcons();
       }
@@ -2554,7 +2554,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
       title: 'Error',
       text: 'No se pudieron cargar los detalles de la entrega',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   } finally {
     hideLoader();
@@ -2577,7 +2577,7 @@ async function verEntregasTarea(idTarea) {
         title: 'Sin entregas',
         text: 'Aún no hay entregas para esta tarea',
         icon: 'info',
-        confirmButtonColor: '#667eea'
+        confirmButtonColor: '#0070F3'
       });
       return;
     }
@@ -2599,11 +2599,11 @@ async function verEntregasTarea(idTarea) {
       return `
         <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 16px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s;" 
              onclick="calificarEntrega(${entrega.id_entrega})"
-             onmouseover="this.style.borderColor='#667eea'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.15)';"
+             onmouseover="this.style.borderColor='#0070F3'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.15)';"
              onmouseout="this.style.borderColor='#e9ecef'; this.style.boxShadow='none';">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0070F3, #1A3A5C); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px;">
                 ${entrega.alumno_nombre.split(' ').map(n => n.charAt(0)).join('').substring(0, 2).toUpperCase()}
               </div>
               <div>
@@ -2618,7 +2618,7 @@ async function verEntregasTarea(idTarea) {
           </div>
           
           ${entrega.contenido ? `
-            <div style="background: #f8f9fa; padding: 10px; border-radius: 6px; font-size: 13px; color: #495057; margin-bottom: 8px; border-left: 3px solid #667eea;">
+            <div style="background: #f8f9fa; padding: 10px; border-radius: 6px; font-size: 13px; color: #495057; margin-bottom: 8px; border-left: 3px solid #0070F3;">
               ${entrega.contenido.length > 100 ? entrega.contenido.substring(0, 100) + '...' : entrega.contenido}
             </div>
           ` : ''}
@@ -2648,12 +2648,12 @@ async function verEntregasTarea(idTarea) {
     
     Swal.fire({
       title: `<div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
-                <i data-lucide="users" style="width: 24px; height: 24px; color: #667eea;"></i>
+                <i data-lucide="users" style="width: 24px; height: 24px; color: #0070F3;"></i>
                 <span>Entregas de la Tarea</span>
               </div>`,
       html: `
         <div style="text-align: left; padding: 0 8px; max-height: 500px; overflow-y: auto;">
-          <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 16px; border-radius: 10px; margin-bottom: 20px; color: white; text-align: center;">
+          <div style="background: linear-gradient(135deg, #0070F3, #1A3A5C); padding: 16px; border-radius: 10px; margin-bottom: 20px; color: white; text-align: center;">
             <div style="font-size: 32px; font-weight: 700; margin-bottom: 4px;">${entregas.length}</div>
             <div style="font-size: 14px; opacity: 0.9;">Entrega${entregas.length !== 1 ? 's' : ''} recibida${entregas.length !== 1 ? 's' : ''}</div>
           </div>
@@ -2663,7 +2663,7 @@ async function verEntregasTarea(idTarea) {
       width: '700px',
       showConfirmButton: true,
       confirmButtonText: 'Cerrar',
-      confirmButtonColor: '#667eea',
+      confirmButtonColor: '#0070F3',
       didOpen: () => {
         lucide.createIcons();
       }
@@ -2675,7 +2675,7 @@ async function verEntregasTarea(idTarea) {
       title: 'Error',
       text: 'No se pudieron cargar las entregas',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   } finally {
     hideLoader();
@@ -2712,7 +2712,7 @@ window.calificarEntrega = async function(idEntrega) {
       html: `
         <div style="text-align: left; padding: 0 8px; max-height: 70vh; overflow-y: auto;">
           <!-- Información del alumno -->
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 16px; border-radius: 10px; margin-bottom: 20px; color: white;">
+          <div style="background: linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%); padding: 16px; border-radius: 10px; margin-bottom: 20px; color: white;">
             <div style="display: flex; align-items: center; gap: 12px;">
               <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; border: 2px solid white;">
                 ${entrega.alumno_nombre.charAt(0).toUpperCase()}
@@ -2729,10 +2729,10 @@ window.calificarEntrega = async function(idEntrega) {
           </div>
 
           <!-- Tarea -->
-          <div style="background: #f8f9fa; padding: 14px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #667eea;">
+          <div style="background: #f8f9fa; padding: 14px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #0070F3;">
             <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-              <i data-lucide="file-text" style="width: 14px; height: 14px; color: #667eea;"></i>
-              <strong style="font-size: 12px; color: #667eea; text-transform: uppercase; letter-spacing: 0.5px;">Tarea</strong>
+              <i data-lucide="file-text" style="width: 14px; height: 14px; color: #0070F3;"></i>
+              <strong style="font-size: 12px; color: #0070F3; text-transform: uppercase; letter-spacing: 0.5px;">Tarea</strong>
             </div>
             <div style="font-size: 14px; font-weight: 600; color: #2c3e50;">${entrega.tarea_titulo}</div>
             <div style="font-size: 12px; color: #6c757d; margin-top: 2px;">Puntos totales: ${entrega.tarea_puntos}</div>
@@ -2755,7 +2755,7 @@ window.calificarEntrega = async function(idEntrega) {
           ${entrega.archivo_url ? `
             <div style="margin-bottom: 20px;">
               <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 13px;">
-                <i data-lucide="paperclip" style="width: 14px; height: 14px; color: #3b82f6;"></i>
+                <i data-lucide="paperclip" style="width: 14px; height: 14px; color: #0070F3;"></i>
                 Archivo Adjunto
               </label>
               <a href="${entrega.archivo_url}" 
@@ -2788,7 +2788,7 @@ window.calificarEntrega = async function(idEntrega) {
               step="0.5"
               placeholder="Ingresa la calificación"
               style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px; font-weight: 600; text-align: center; box-sizing: border-box;"
-              onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+              onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
               onblur="this.style.borderColor='#e9ecef'; this.style.boxShadow='none';"
             />
             <small style="color: #6c757d; font-size: 12px; display: block; margin-top: 4px;">
@@ -2798,14 +2798,14 @@ window.calificarEntrega = async function(idEntrega) {
           
           <div style="margin-bottom: 8px;">
             <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 14px;">
-              <i data-lucide="message-square" style="width: 16px; height: 16px; color: #667eea;"></i>
+              <i data-lucide="message-square" style="width: 16px; height: 16px; color: #0070F3;"></i>
               Retroalimentación <span style="font-weight: 400; color: #6c757d; font-size: 12px;">(opcional)</span>
             </label>
             <textarea 
               id="comentarioProfesor" 
               placeholder="Escribe un comentario o retroalimentación para el alumno..."
               style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; resize: vertical; font-family: inherit; box-sizing: border-box;"
-              onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+              onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
               onblur="this.style.borderColor='#e9ecef'; this.style.boxShadow='none';"
             >${entrega.comentario_profesor || ''}</textarea>
           </div>
@@ -2815,7 +2815,7 @@ window.calificarEntrega = async function(idEntrega) {
       showCancelButton: true,
       confirmButtonText: 'Guardar Calificación',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#667eea',
+      confirmButtonColor: '#0070F3',
       cancelButtonColor: '#6c757d',
       focusConfirm: false,
       didOpen: () => {
@@ -2850,7 +2850,7 @@ window.calificarEntrega = async function(idEntrega) {
       icon: 'error',
       title: 'Error',
       text: 'No se pudo cargar la información de la entrega',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   }
 }
@@ -2877,7 +2877,7 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
         title: '¡Calificación guardada!',
         text: 'La calificación ha sido registrada y el alumno ha sido notificado',
         icon: 'success',
-        confirmButtonColor: '#667eea',
+        confirmButtonColor: '#0070F3',
         timer: 2000
       });
 
@@ -2895,7 +2895,7 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
       title: 'Error',
       text: 'No se pudo guardar la calificación. Intenta de nuevo.',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   } finally {
     hideLoader();
@@ -2913,7 +2913,7 @@ async function mostrarFormularioAnuncio() {
       title: 'Sin cursos',
       text: 'No tienes cursos asignados para crear anuncios',
       icon: 'info',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
     return;
   }
@@ -2923,7 +2923,7 @@ async function mostrarFormularioAnuncio() {
   ).join('');
   
   Swal.fire({
-    title: '<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="megaphone" style="width: 28px; height: 28px; color: #667eea;"></i><span>Crear Anuncio</span></div>',
+    title: '<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="megaphone" style="width: 28px; height: 28px; color: #0070F3;"></i><span>Crear Anuncio</span></div>',
     html: `
       <div style="text-align: left; padding: 0 8px;">
         <!-- Selector de Curso -->
@@ -2932,7 +2932,7 @@ async function mostrarFormularioAnuncio() {
           Curso
         </label>
         <select id="swal-curso" style="width: 100%; margin: 0 0 20px 0; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; background: white; color: #2c3e50; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23667eea%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px; padding-right: 40px; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
           <option value="" style="color: #2c3e50; background: white;">Selecciona un curso</option>
           ${cursosOptions}
@@ -2946,7 +2946,7 @@ async function mostrarFormularioAnuncio() {
         </label>
         <input id="swal-titulo" class="swal2-input" placeholder="Ej: Examen parcial próxima semana" maxlength="100" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"
           oninput="document.getElementById('titulo-counter').textContent = this.value.length + '/100'">
         
@@ -2958,7 +2958,7 @@ async function mostrarFormularioAnuncio() {
         </label>
         <textarea id="swal-contenido" placeholder="Escribe tu anuncio aquí..." maxlength="500"
           style="width: 100%; min-height: 120px; resize: vertical; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: inherit; transition: all 0.2s;"
-          onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+          onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"
           oninput="document.getElementById('contenido-counter').textContent = this.value.length + '/500'"></textarea>
         
@@ -2968,18 +2968,18 @@ async function mostrarFormularioAnuncio() {
           <div style="margin-bottom: 12px;">
             <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #495057; padding: 10px; background: white; border-radius: 6px; transition: all 0.2s;">
               <input type="checkbox" id="swal-link" style="width: 18px; height: 18px; cursor: pointer;">
-              <i data-lucide="link" style="width: 16px; height: 16px; color: #667eea;"></i>
+              <i data-lucide="link" style="width: 16px; height: 16px; color: #0070F3;"></i>
               <span style="font-weight: 500;">Agregar enlace</span>
             </label>
             <div id="link-container" style="max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease; margin-top: 0;">
-              <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; border: 2px solid #667eea; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
+              <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; border: 2px solid #0070F3; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                  <i data-lucide="external-link" style="width: 14px; height: 14px; color: #667eea;"></i>
-                  <span style="font-size: 12px; font-weight: 600; color: #667eea;">URL del enlace</span>
+                  <i data-lucide="external-link" style="width: 14px; height: 14px; color: #0070F3;"></i>
+                  <span style="font-size: 12px; font-weight: 600; color: #0070F3;">URL del enlace</span>
                 </div>
                 <input id="swal-link-url" type="url" placeholder="https://ejemplo.com/recurso" 
                   style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 13px; transition: border-color 0.2s;"
-                  onfocus="this.style.borderColor='#667eea';"
+                  onfocus="this.style.borderColor='#0070F3';"
                   onblur="this.style.borderColor='#e0e0e0';">
               </div>
             </div>
@@ -2989,42 +2989,42 @@ async function mostrarFormularioAnuncio() {
           <div style="margin-bottom: 12px;">
             <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #495057; padding: 10px; background: white; border-radius: 6px; transition: all 0.2s;">
               <input type="checkbox" id="swal-poll" style="width: 18px; height: 18px; cursor: pointer;">
-              <i data-lucide="bar-chart-2" style="width: 16px; height: 16px; color: #667eea;"></i>
+              <i data-lucide="bar-chart-2" style="width: 16px; height: 16px; color: #0070F3;"></i>
               <span style="font-weight: 500;">Agregar encuesta</span>
             </label>
             <div id="poll-container" style="max-height: 0; opacity: 0; overflow: hidden; transition: all 0.3s ease; margin-top: 0;">
-              <div style="margin-top: 12px; padding: 16px; background: white; border-radius: 6px; border: 2px solid #667eea; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
+              <div style="margin-top: 12px; padding: 16px; background: white; border-radius: 6px; border: 2px solid #0070F3; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                  <i data-lucide="help-circle" style="width: 14px; height: 14px; color: #667eea;"></i>
-                  <span style="font-size: 12px; font-weight: 600; color: #667eea;">Pregunta de la encuesta</span>
+                  <i data-lucide="help-circle" style="width: 14px; height: 14px; color: #0070F3;"></i>
+                  <span style="font-size: 12px; font-weight: 600; color: #0070F3;">Pregunta de la encuesta</span>
                 </div>
                 <input id="poll-question" type="text" placeholder="¿Cuál es tu opinión sobre...?" 
                   style="width: 100%; margin-bottom: 12px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 13px; transition: border-color 0.2s;"
-                  onfocus="this.style.borderColor='#667eea';"
+                  onfocus="this.style.borderColor='#0070F3';"
                   onblur="this.style.borderColor='#e0e0e0';">
                 
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                  <i data-lucide="list" style="width: 14px; height: 14px; color: #667eea;"></i>
-                  <span style="font-size: 12px; font-weight: 600; color: #667eea;">Opciones (mín. 2, máx. 6)</span>
+                  <i data-lucide="list" style="width: 14px; height: 14px; color: #0070F3;"></i>
+                  <span style="font-size: 12px; font-weight: 600; color: #0070F3;">Opciones (mín. 2, máx. 6)</span>
                 </div>
                 <div id="poll-options-container">
                   <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <span style="font-size: 12px; color: #999; min-width: 20px;">1.</span>
                     <input type="text" class="poll-option" placeholder="Primera opción" 
                       style="flex: 1; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;"
-                      onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+                      onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
                       onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
                   </div>
                   <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <span style="font-size: 12px; color: #999; min-width: 20px;">2.</span>
                     <input type="text" class="poll-option" placeholder="Segunda opción" 
                       style="flex: 1; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;"
-                      onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+                      onfocus="this.style.borderColor='#0070F3'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
                       onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
                   </div>
                 </div>
                 <button type="button" onclick="agregarOpcionPoll()" 
-                  style="margin-top: 8px; padding: 8px 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;"
+                  style="margin-top: 8px; padding: 8px 14px; background: linear-gradient(135deg, #0070F3, #1A3A5C); color: white; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;"
                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.4)';"
                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                   <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i>
@@ -3051,7 +3051,7 @@ async function mostrarFormularioAnuncio() {
               onmouseover="this.style.background='#f0f4ff';"
               onmouseout="this.style.background='white';">
               <input type="checkbox" id="swal-notificar" checked style="width: 18px; height: 18px; cursor: pointer;">
-              <i data-lucide="bell" style="width: 16px; height: 16px; color: #667eea;"></i>
+              <i data-lucide="bell" style="width: 16px; height: 16px; color: #0070F3;"></i>
               <span style="font-weight: 500;">Notificar a los alumnos</span>
             </label>
           </div>
@@ -3061,7 +3061,7 @@ async function mostrarFormularioAnuncio() {
     showCancelButton: true,
     confirmButtonText: '<i data-lucide="send" style="width: 16px; height: 16px; margin-right: 6px;"></i> Publicar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#667eea',
+    confirmButtonColor: '#0070F3',
     cancelButtonColor: '#6c757d',
     width: '700px',
     customClass: {
@@ -3182,7 +3182,7 @@ window.agregarOpcionPoll = function() {
   newOption.placeholder = `Opción ${optionCount}`;
   newOption.style.cssText = 'flex: 1; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;';
   newOption.onfocus = function() {
-    this.style.borderColor = '#667eea';
+    this.style.borderColor = '#0070F3';
     this.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
   };
   newOption.onblur = function() {
@@ -3265,7 +3265,7 @@ window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
       title: 'Error',
       text: error.message || 'No se pudo registrar tu voto',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   }
 }
@@ -3296,7 +3296,7 @@ async function crearAnuncio(datos) {
         title: '¡Publicado!',
         text: 'Tu anuncio ha sido publicado exitosamente',
         icon: 'success',
-        confirmButtonColor: '#667eea'
+        confirmButtonColor: '#0070F3'
       });
       
       const vistaActiva = document.querySelector('.content-view:not([style*="display: none"])');
@@ -3314,7 +3314,7 @@ async function crearAnuncio(datos) {
       title: 'Error',
       text: 'No se pudo publicar el anuncio. Intenta de nuevo.',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   }
 }
@@ -3348,7 +3348,7 @@ function renderAnunciosProfesor(anuncios) {
       anuncio.profesor_avatar, 
       anuncio.profesor_nombre, 
       '', 
-      importante ? 'linear-gradient(135deg, #f59e0b, #dc2626)' : 'linear-gradient(135deg, #667eea, #764ba2)'
+      importante ? 'linear-gradient(135deg, #f59e0b, #dc2626)' : 'linear-gradient(135deg, #0070F3, #1A3A5C)'
     );
     
     return `
@@ -3358,7 +3358,7 @@ function renderAnunciosProfesor(anuncios) {
           ${avatarHTML}
           <div class="card-info">
             <div class="card-title" style="cursor: pointer; transition: color 0.2s;" 
-                 onmouseover="this.style.color='#667eea'" 
+                 onmouseover="this.style.color='#0070F3'" 
                  onmouseout="this.style.color=''" 
                  onclick="event.stopPropagation(); verPerfilProfesor(${anuncio.id_profesor})">${anuncio.profesor_nombre}</div>
             <div class="card-meta">
@@ -3373,12 +3373,12 @@ function renderAnunciosProfesor(anuncios) {
           <h4>${anuncio.titulo}</h4>
           <p>${anuncio.contenido}</p>
           ${anuncio.link_url ? `
-            <div style="margin-top: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #667eea;">
+            <div style="margin-top: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #0070F3;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                <i data-lucide="link" style="width: 16px; height: 16px; color: #667eea;"></i>
+                <i data-lucide="link" style="width: 16px; height: 16px; color: #0070F3;"></i>
                 <span style="font-size: 12px; font-weight: 600; color: #495057;">Enlace adjunto</span>
               </div>
-              <a href="${anuncio.link_url}" target="_blank" style="color: #667eea; text-decoration: none; font-size: 14px; word-break: break-all;" onclick="event.stopPropagation();">
+              <a href="${anuncio.link_url}" target="_blank" style="color: #0070F3; text-decoration: none; font-size: 14px; word-break: break-all;" onclick="event.stopPropagation();">
                 ${anuncio.link_url}
               </a>
             </div>
@@ -3430,7 +3430,7 @@ window.abrirAnuncio = async function(idAnuncio) {
     } else {
       const iniciales = obtenerIniciales(anuncio.profesor_nombre);
       avatarElement = `
-        <div class="avatar-circle" style="width: 48px; height: 48px; min-width: 48px; font-size: 16px; background: linear-gradient(135deg, ${anuncio.importante ? '#f59e0b, #dc2626' : '#667eea, #764ba2'});">
+        <div class="avatar-circle" style="width: 48px; height: 48px; min-width: 48px; font-size: 16px; background: linear-gradient(135deg, ${anuncio.importante ? '#f59e0b, #dc2626' : '#0070F3, #1A3A5C'});">
           <span>${iniciales}</span>
         </div>
       `;
@@ -3443,7 +3443,7 @@ window.abrirAnuncio = async function(idAnuncio) {
           ${avatarElement}
           <div style="flex: 1;">
             <div style="font-weight: 600; font-size: 16px; color: #2c3e50; margin-bottom: 4px; cursor: pointer; transition: color 0.2s;" 
-                 onmouseover="this.style.color='#667eea'" 
+                 onmouseover="this.style.color='#0070F3'" 
                  onmouseout="this.style.color='#2c3e50'" 
                  onclick="verPerfilProfesor(${anuncio.id_profesor})">${anuncio.profesor_nombre}</div>
             <div style="font-size: 13px; color: #6c757d;">
@@ -3461,12 +3461,12 @@ window.abrirAnuncio = async function(idAnuncio) {
           <p style="margin: 0; color: #495057; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">${anuncio.contenido}</p>
           
           ${anuncio.link_url ? `
-            <div style="margin-top: 16px; padding: 14px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+            <div style="margin-top: 16px; padding: 14px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #0070F3;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <i data-lucide="link" style="width: 18px; height: 18px; color: #667eea;"></i>
+                <i data-lucide="link" style="width: 18px; height: 18px; color: #0070F3;"></i>
                 <span style="font-size: 13px; font-weight: 600; color: #495057;">Enlace adjunto</span>
               </div>
-              <a href="${anuncio.link_url}" target="_blank" style="color: #667eea; text-decoration: none; font-size: 14px; word-break: break-all;">
+              <a href="${anuncio.link_url}" target="_blank" style="color: #0070F3; text-decoration: none; font-size: 14px; word-break: break-all;">
                 ${anuncio.link_url}
               </a>
             </div>
@@ -3478,7 +3478,7 @@ window.abrirAnuncio = async function(idAnuncio) {
         <!-- Sección de comentarios -->
         <div style="border-top: 2px solid #e9ecef; padding-top: 20px;">
           <h4 style="margin: 0 0 16px 0; color: #2c3e50; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-            <i data-lucide="message-circle" style="width: 20px; height: 20px; color: #667eea;"></i>
+            <i data-lucide="message-circle" style="width: 20px; height: 20px; color: #0070F3;"></i>
             Comentarios (${comentarios.length})
           </h4>
           
@@ -3499,7 +3499,7 @@ window.abrirAnuncio = async function(idAnuncio) {
               } else {
                 const inicialesCom = obtenerIniciales(com.nombre_usuario);
                 avatarComentario = `
-                  <div class="avatar-circle" style="width: 36px; height: 36px; min-width: 36px; font-size: 12px; background: linear-gradient(135deg, #667eea, #764ba2) !important; border: none;">
+                  <div class="avatar-circle" style="width: 36px; height: 36px; min-width: 36px; font-size: 12px; background: linear-gradient(135deg, #0070F3, #1A3A5C) !important; border: none;">
                     <span>${inicialesCom}</span>
                   </div>
                 `;
@@ -3511,7 +3511,7 @@ window.abrirAnuncio = async function(idAnuncio) {
                   <div style="flex: 1;">
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                       <span style="font-weight: 600; font-size: 14px; color: #2c3e50; cursor: pointer; transition: color 0.2s;" 
-                            onmouseover="this.style.color='#667eea'" 
+                            onmouseover="this.style.color='#0070F3'" 
                             onmouseout="this.style.color='#2c3e50'" 
                             onclick="verPerfilComentario(${com.id_usuario}, '${com.tipo_usuario}')">${com.nombre_usuario}</span>
                       <span style="font-size: 12px; color: #6c757d;">${tiempo}</span>
@@ -3530,7 +3530,7 @@ window.abrirAnuncio = async function(idAnuncio) {
               maxlength="500"></textarea>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
               <span style="font-size: 12px; color: #6c757d;"><i data-lucide="info" style="width: 12px; height: 12px;"></i> Ctrl+Enter para enviar</span>
-              <button id="btnEnviarComentario" style="padding: 10px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">
+              <button id="btnEnviarComentario" style="padding: 10px 24px; background: #0070F3; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">
                 <i data-lucide="send" style="width: 16px; height: 16px;"></i>
                 Enviar
               </button>
@@ -3589,7 +3589,7 @@ window.abrirAnuncio = async function(idAnuncio) {
               if (tituloComentarios && tituloComentarios.textContent.includes('Comentarios')) {
                 const nuevoTotal = comentarios.length + 1;
                 tituloComentarios.innerHTML = `
-                  <i data-lucide="message-circle" style="width: 20px; height: 20px; color: #667eea;"></i>
+                  <i data-lucide="message-circle" style="width: 20px; height: 20px; color: #0070F3;"></i>
                   Comentarios (${nuevoTotal})
                 `;
                 lucide.createIcons();
@@ -3600,13 +3600,13 @@ window.abrirAnuncio = async function(idAnuncio) {
               
               const nuevoComentarioHTML = `
                 <div style="display: flex; gap: 12px; padding: 12px; background: #f8f9fa; border-radius: 8px; margin-bottom: 10px;">
-                  <div class="avatar-circle" style="width: 36px; height: 36px; min-width: 36px; font-size: 12px; background: linear-gradient(135deg, #667eea, #764ba2);">
+                  <div class="avatar-circle" style="width: 36px; height: 36px; min-width: 36px; font-size: 12px; background: linear-gradient(135deg, #0070F3, #1A3A5C);">
                     <span>${iniciales}</span>
                   </div>
                   <div style="flex: 1;">
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                       <span style="font-weight: 600; font-size: 14px; color: #2c3e50; cursor: pointer; transition: color 0.2s;" 
-                            onmouseover="this.style.color='#667eea'" 
+                            onmouseover="this.style.color='#0070F3'" 
                             onmouseout="this.style.color='#2c3e50'" 
                             onclick="verPerfilComentario(${result.comentario.id_usuario}, '${result.comentario.tipo_usuario}')">${result.comentario.nombre_usuario}</span>
                       <span style="font-size: 12px; color: #6c757d;">Ahora</span>
@@ -3661,7 +3661,7 @@ window.abrirAnuncio = async function(idAnuncio) {
       title: 'Error',
       text: 'No se pudo cargar el anuncio',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   }
 }
@@ -3768,15 +3768,15 @@ function getCalendarColors() {
     bgDay: isDark ? '#2d3748' : 'white',
     bgEmpty: 'transparent',
     borderNormal: isDark ? 'rgba(203, 213, 224, 0.15)' : '#e8eaf0',
-    borderToday: isDark ? '#7a9bbd' : '#667eea',
+    borderToday: isDark ? '#7a9bbd' : '#0070F3',
     textDay: isDark ? '#e4e7eb' : '#2c3e50',
-    textToday: isDark ? '#9ab8d6' : '#667eea',
-    accent: isDark ? '#7a9bbd' : '#667eea',
+    textToday: isDark ? '#9ab8d6' : '#0070F3',
+    accent: isDark ? '#7a9bbd' : '#0070F3',
     shadowNormal: isDark ? '0 2px 8px rgba(0, 0, 0, 0.3)' : '0 1px 3px rgba(0,0,0,0.05)',
     shadowHover: isDark ? '0 4px 16px rgba(0, 0, 0, 0.4)' : '0 4px 12px rgba(102, 126, 234, 0.15)',
     shadowToday: isDark ? '0 0 0 2px rgba(122, 155, 189, 0.3)' : '0 0 0 2px rgba(102, 126, 234, 0.2)',
     itemText: isDark ? '#cbd5e0' : '#2c3e50',
-    moreText: isDark ? '#9ab8d6' : '#667eea'
+    moreText: isDark ? '#9ab8d6' : '#0070F3'
   };
 }
 
@@ -3958,11 +3958,11 @@ function actualizarBotonesVista() {
   document.querySelectorAll('.view-btn').forEach(btn => {
     const vista = btn.getAttribute('data-calendar-view');
     if (vista === vistaCalendarioActual) {
-      btn.style.background = '#667eea';
+      btn.style.background = '#0070F3';
       btn.style.color = 'white';
     } else {
       btn.style.background = 'transparent';
-      btn.style.color = '#667eea';
+      btn.style.color = '#0070F3';
     }
   });
 }
@@ -4005,7 +4005,7 @@ function renderizarCalendarioSemana() {
     const diaElement = document.createElement('div');
     diaElement.style.cssText = `
       background: ${esHoy ? '#f0f4ff' : 'white'};
-      border: 2px solid ${esHoy ? '#667eea' : '#e9ecef'};
+      border: 2px solid ${esHoy ? '#0070F3' : '#e9ecef'};
       border-radius: 8px;
       padding: 16px;
       min-height: 300px;
@@ -4014,12 +4014,12 @@ function renderizarCalendarioSemana() {
     `;
     
     diaElement.innerHTML = `
-      <div style="font-weight: 700; color: ${esHoy ? '#667eea' : '#2c3e50'}; font-size: 20px; margin-bottom: 12px;">
+      <div style="font-weight: 700; color: ${esHoy ? '#0070F3' : '#2c3e50'}; font-size: 20px; margin-bottom: 12px;">
         ${dia} ${meses[mes]}
       </div>
       <div style="display: flex; flex-direction: column; gap: 6px;">
         ${eventosDelDia.map(e => `
-          <div style="background: #e3f2fd; padding: 8px; border-radius: 6px; font-size: 13px; color: #1976d2; border-left: 3px solid #1976d2;">
+          <div style="background: #e3f2fd; padding: 8px; border-radius: 6px; font-size: 13px; color: #0070F3; border-left: 3px solid #0070F3;">
              ${e.titulo}
           </div>
         `).join('')}
@@ -4068,14 +4068,14 @@ function renderizarCalendarioDia() {
   const diaElement = document.createElement('div');
   diaElement.style.cssText = `
     background: white;
-    border: 2px solid #667eea;
+    border: 2px solid #0070F3;
     border-radius: 12px;
     padding: 24px;
   `;
   
   diaElement.innerHTML = `
     <div style="margin-bottom: 24px;">
-      <h2 style="color: #667eea; margin: 0 0 8px 0; font-size: 32px; font-weight: 700;">
+      <h2 style="color: #0070F3; margin: 0 0 8px 0; font-size: 32px; font-weight: 700;">
         ${dia} de ${meses[mes]} de ${año}
       </h2>
       <p style="color: #6c757d; margin: 0; font-size: 16px;">
@@ -4086,13 +4086,13 @@ function renderizarCalendarioDia() {
     ${eventosDelDia.length > 0 ? `
       <div style="margin-bottom: 24px;">
         <h3 style="color: #2c3e50; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px;">
-          <i data-lucide="calendar" style="width: 20px; height: 20px; color: #1976d2;"></i>
+          <i data-lucide="calendar" style="width: 20px; height: 20px; color: #0070F3;"></i>
           Eventos (${eventosDelDia.length})
         </h3>
         <div style="display: flex; flex-direction: column; gap: 12px;">
           ${eventosDelDia.map(e => `
-            <div style="background: #e3f2fd; padding: 16px; border-radius: 8px; border-left: 4px solid #1976d2;">
-              <div style="font-weight: 600; color: #1976d2; font-size: 16px; margin-bottom: 4px;">${e.titulo}</div>
+            <div style="background: #e3f2fd; padding: 16px; border-radius: 8px; border-left: 4px solid #0070F3;">
+              <div style="font-weight: 600; color: #0070F3; font-size: 16px; margin-bottom: 4px;">${e.titulo}</div>
               <div style="color: #455a64; font-size: 14px;">${e.descripcion || 'Sin descripción'}</div>
             </div>
           `).join('')}
@@ -4155,7 +4155,7 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
   let htmlContent = `
     <div style="text-align: left;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h3 style="color: #667eea; margin: 0; font-size: 20px; display: flex; align-items: center; gap: 10px;">
+        <h3 style="color: #0070F3; margin: 0; font-size: 20px; display: flex; align-items: center; gap: 10px;">
           <i data-lucide="calendar" style="width: 24px; height: 24px;"></i>
           ${dia} de ${meses[calendarioActual.mes - 1]}
         </h3>
@@ -4180,7 +4180,7 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
             </div>
             ${esProfesor ? `
               <div style="display: flex; gap: 6px; margin-left: 12px;">
-                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #667eea; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">️</button>
+                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #0070F3; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">️</button>
                 <button onclick="eliminarNota(${nota.id_nota})" style="background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">️</button>
               </div>
             ` : ''}
@@ -4201,7 +4201,7 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
           <div style="font-weight: 600; color: #2c3e50; margin-bottom: 4px; font-size: 14px;">${evento.titulo}</div>
           <div style="font-size: 13px; color: #666; margin-bottom: 4px;">${evento.nombre_curso}</div>
           ${evento.descripcion ? `<div style="font-size: 12px; color: #777;">${evento.descripcion}</div>` : ''}
-          <div style="font-size: 12px; color: #667eea; margin-top: 6px;">
+          <div style="font-size: 12px; color: #0070F3; margin-top: 6px;">
             <i data-lucide="clock" style="width: 12px; height: 12px;"></i> ${hora}
           </div>
         </div>
@@ -4219,7 +4219,7 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
         <div style="padding: 12px; background: #f8f9fa; border-left: 4px solid ${tarea.color}; border-radius: 8px; margin-bottom: 10px;">
           <div style="font-weight: 600; color: #2c3e50; margin-bottom: 4px; font-size: 14px;">${tarea.titulo}</div>
           <div style="font-size: 13px; color: #666; margin-bottom: 4px;">${tarea.nombre_curso}</div>
-          <div style="font-size: 12px; color: #667eea;">
+          <div style="font-size: 12px; color: #0070F3;">
             <i data-lucide="clock" style="width: 12px; height: 12px;"></i> Límite: ${hora} • ${tarea.puntos} puntos
           </div>
         </div>
@@ -4293,7 +4293,7 @@ async function mostrarFormularioNota(fecha = null) {
     showCancelButton: true,
     confirmButtonText: ' Crear Pin',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#667eea',
+    confirmButtonColor: '#0070F3',
     width: '550px',
     preConfirm: () => {
       const fecha = document.getElementById('swal-fecha-nota').value;
@@ -4359,7 +4359,7 @@ async function crearNota(datos) {
         title: '¡Pin creado!',
         text: 'Tu nota ha sido agregada al calendario',
         icon: 'success',
-        confirmButtonColor: '#667eea',
+        confirmButtonColor: '#0070F3',
         timer: 1500,
         showConfirmButton: false
       });
@@ -4380,7 +4380,7 @@ async function crearNota(datos) {
       title: 'Error',
       text: mensajeError,
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   }
 }
@@ -4417,7 +4417,7 @@ async function editarNota(idNota, fecha) {
       showCancelButton: true,
       confirmButtonText: ' Guardar',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#667eea',
+      confirmButtonColor: '#0070F3',
       width: '550px',
       preConfirm: () => {
         const titulo = document.getElementById('swal-titulo-nota-edit').value;
@@ -4444,7 +4444,7 @@ async function editarNota(idNota, fecha) {
             title: '¡Actualizado!',
             text: 'Pin actualizado exitosamente',
             icon: 'success',
-            confirmButtonColor: '#667eea',
+            confirmButtonColor: '#0070F3',
             timer: 2000
           });
           await cargarCalendario();
@@ -4478,7 +4478,7 @@ async function eliminarNota(idNota) {
             title: '¡Eliminado!',
             text: 'Pin eliminado exitosamente',
             icon: 'success',
-            confirmButtonColor: '#667eea',
+            confirmButtonColor: '#0070F3',
             timer: 2000
           });
           await cargarCalendario();
@@ -4489,7 +4489,7 @@ async function eliminarNota(idNota) {
           title: 'Error',
           text: 'No se pudo eliminar el pin',
           icon: 'error',
-          confirmButtonColor: '#667eea'
+          confirmButtonColor: '#0070F3'
         });
       }
     }
@@ -4505,7 +4505,7 @@ async function mostrarFormularioEvento() {
       title: 'Sin cursos',
       text: 'No tienes cursos asignados',
       icon: 'info',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
     return;
   }
@@ -4517,7 +4517,7 @@ async function mostrarFormularioEvento() {
   const hoy = new Date().toISOString().split('T')[0];
   
   Swal.fire({
-    title: '<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="calendar-plus" style="width: 28px; height: 28px; color: #667eea;"></i><span>Crear Evento</span></div>',
+    title: '<div style="display: flex; align-items: center; gap: 12px;"><i data-lucide="calendar-plus" style="width: 28px; height: 28px; color: #0070F3;"></i><span>Crear Evento</span></div>',
     html: `
       <div style="text-align: left; padding: 0 8px;">
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Curso</label>
@@ -4557,14 +4557,14 @@ async function mostrarFormularioEvento() {
         </div>
         
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Color</label>
-        <input type="color" id="swal-color-evento" value="#667eea" 
+        <input type="color" id="swal-color-evento" value="#0070F3" 
           style="width: 100%; height: 50px; margin: 0 0 16px 0; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; cursor: pointer;">
       </div>
     `,
     showCancelButton: true,
     confirmButtonText: 'Crear Evento',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#667eea',
+    confirmButtonColor: '#0070F3',
     width: '600px',
     didOpen: () => {
       lucide.createIcons();
@@ -4620,7 +4620,7 @@ async function crearEvento(datos) {
         title: '¡Evento creado!',
         text: 'El evento ha sido agregado al calendario',
         icon: 'success',
-        confirmButtonColor: '#667eea'
+        confirmButtonColor: '#0070F3'
       });
       
       await cargarCalendario();
@@ -4633,7 +4633,7 @@ async function crearEvento(datos) {
       title: 'Error',
       text: 'No se pudo crear el evento',
       icon: 'error',
-      confirmButtonColor: '#667eea'
+      confirmButtonColor: '#0070F3'
     });
   }
 }
@@ -4820,7 +4820,7 @@ async function marcarTodasLeidas() {
       title: '¡Listo!',
       text: 'Todas las notificaciones marcadas como leídas',
       icon: 'success',
-      confirmButtonColor: '#667eea',
+      confirmButtonColor: '#0070F3',
       timer: 1500,
       showConfirmButton: false
     });
@@ -5323,7 +5323,7 @@ async function exportarTareasPDF() {
       logoImg.onerror = resolve;
     });
     
-    doc.setFillColor(30, 60, 114); // #1e3c72
+    doc.setFillColor(30, 60, 114); // #0A2540
     doc.rect(0, 0, 210, 50, 'F');
     
     try {
@@ -5587,7 +5587,7 @@ async function exportarCalificacionesPDF() {
       logoImg.onerror = resolve;
     });
     
-    doc.setFillColor(30, 60, 114); // #1e3c72
+    doc.setFillColor(30, 60, 114); // #0A2540
     doc.rect(0, 0, 210, 50, 'F');
     
     try {
@@ -6051,7 +6051,7 @@ function renderRecursoItem(recurso, isBiblioteca = false) {
   };
   
   const icono = iconos[recurso.tipo] || 'file';
-  const color = colores[recurso.tipo] || '#667eea';
+  const color = colores[recurso.tipo] || '#0070F3';
   const esEnlace = recurso.tipo === 'enlace';
   const urlRecurso = recurso.url || recurso.archivo || '#';
   
@@ -6512,3 +6512,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('CEMI Classroom inicializado correctamente');
+
