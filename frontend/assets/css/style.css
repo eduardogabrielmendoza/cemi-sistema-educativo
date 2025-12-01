@@ -3529,9 +3529,10 @@ footer i {
 }
 
 .footer-column h4 {
+  font-family: var(--font-heading);
   font-size: 1.2rem;
   margin-bottom: 20px;
-  font-weight: 600;
+  font-weight: 400;
   color: white;
 }
 

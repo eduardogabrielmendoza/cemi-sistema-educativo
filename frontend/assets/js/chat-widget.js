@@ -466,7 +466,6 @@ class ChatWidget {
     this.socket.emit('read', {
       id_conversacion: this.conversationId
     });
-  }
     this.updateNotificationBadge(0);
   }
   

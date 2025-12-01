@@ -657,21 +657,25 @@
     }
     
     // Mantener abierto cuando el mouse está en el dropdown content
-    dropdownContent.addEventListener('mouseenter', () => {
-      clearTimeout(closeTimeout);
-    });
-    
-    // Cerrar cuando el mouse sale del dropdown content
-    dropdownContent.addEventListener('mouseleave', () => {
-      closeTimeout = setTimeout(() => {
-        dropdownMenu.classList.remove('active');
-      }, 100);
-    });
+    if (dropdownContent) {
+      dropdownContent.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimeout);
+      });
+      
+      // Cerrar cuando el mouse sale del dropdown content
+      dropdownContent.addEventListener('mouseleave', () => {
+        closeTimeout = setTimeout(() => {
+          dropdownMenu.classList.remove('active');
+        }, 100);
+      });
+    }
     
     // Cerrar al hacer clic en backdrop
-    dropdownBackdrop.addEventListener('click', () => {
-      dropdownMenu.classList.remove('active');
-    });
+    if (dropdownBackdrop) {
+      dropdownBackdrop.addEventListener('click', () => {
+        dropdownMenu.classList.remove('active');
+      });
+    }
 
     // Dropdown de Seguridad - SEPARADO del de Más Información
     const securityBtn = document.getElementById('securityBtn');
@@ -1338,14 +1342,8 @@
   <!-- Asistente Virtual CEMI -->
   <script src="assets/js/asistente-cemi.js?v=1.0"></script>
   
-  <!-- Harvard-style Menu -->
+  <!-- Harvard-style Menu (se auto-inicializa) -->
   <script src="assets/js/harvard-menu.js?v=1.0"></script>
-  <script>
-    // Inicializar Harvard Menu
-    document.addEventListener('DOMContentLoaded', function() {
-      new HarvardMenu();
-    });
-  </script>
 </body>
 </html>
 
