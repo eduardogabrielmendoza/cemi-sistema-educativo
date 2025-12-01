@@ -1,12 +1,19 @@
 /* Estilos compartidos para páginas de seguridad */
+/* Paleta de colores sincronizada con terminos.css */
 
 :root {
-  --security-blue: #0071e3;
-  --security-blue-dark: #0077ed;
+  --security-primary: #547194;
+  --security-primary-light: #7a9bbd;
+  --security-primary-dark: #42638c;
+  --security-blue: #547194;
+  --security-blue-dark: #42638c;
   --security-yellow: #FFC107;
   --security-yellow-light: #FFD54F;
-  --security-gray: #5a6c7d;
-  --security-bg: #f8f9fa;
+  --security-gray: #718096;
+  --security-text-dark: #2d3748;
+  --security-text-medium: #4a5568;
+  --security-text-light: #718096;
+  --security-bg: #f5f7fa;
 }
 
 * {
@@ -24,7 +31,7 @@ body {
 
 /* Header con gradiente y patrón */
 .security-header {
-  background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
+  background: linear-gradient(135deg, #42638c 0%, #547194 100%);
   padding: 80px 20px;
   text-align: center;
   color: white;
@@ -166,18 +173,18 @@ body {
   margin-bottom: 30px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s;
-  border: 1px solid rgba(0, 113, 227, 0.1);
+  border: 1px solid rgba(84, 113, 148, 0.15);
 }
 
 .security-card:hover {
-  box-shadow: 0 8px 30px rgba(0, 113, 227, 0.15);
+  box-shadow: 0 8px 30px rgba(84, 113, 148, 0.18);
   transform: translateY(-2px);
 }
 
 .security-card h2 {
   font-size: 28px;
   margin-bottom: 20px;
-  color: #0071e3;
+  color: var(--security-primary);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -191,7 +198,7 @@ body {
 .security-card p {
   font-size: 16px;
   line-height: 1.8;
-  color: var(--security-gray);
+  color: var(--security-text-medium);
   margin-bottom: 15px;
 }
 
@@ -212,14 +219,14 @@ body {
 }
 
 .security-section:hover {
-  border-color: rgba(0, 113, 227, 0.2);
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.1);
+  border-color: rgba(84, 113, 148, 0.3);
+  box-shadow: 0 8px 25px rgba(84, 113, 148, 0.15);
 }
 
 .security-section h3 {
   font-size: 20px;
   margin-bottom: 15px;
-  color: #0071e3;
+  color: var(--security-primary);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -261,7 +268,7 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #0071e3 0%, #0077ed 100%);
+  background: linear-gradient(90deg, var(--security-primary) 0%, var(--security-primary-light) 100%);
   transform: scaleX(0);
   transition: transform 0.3s;
 }
@@ -271,15 +278,15 @@ body {
 }
 
 .security-action-btn:hover {
-  border-color: #0071e3;
-  box-shadow: 0 8px 25px rgba(0, 113, 227, 0.15);
+  border-color: var(--security-primary);
+  box-shadow: 0 8px 25px rgba(84, 113, 148, 0.2);
   transform: translateY(-4px);
 }
 
 .security-action-btn i {
   width: 28px;
   height: 28px;
-  color: #0071e3;
+  color: var(--security-primary);
 }
 
 .security-action-btn strong {
@@ -300,20 +307,20 @@ body {
   align-items: center;
   gap: 10px;
   padding: 16px 32px;
-  background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%);
+  background: linear-gradient(135deg, var(--security-primary-dark) 0%, var(--security-primary) 100%);
   color: white;
   text-decoration: none;
   border-radius: 12px;
   font-weight: 600;
   font-size: 16px;
-  box-shadow: 0 4px 15px rgba(0, 113, 227, 0.4);
+  box-shadow: 0 4px 15px rgba(84, 113, 148, 0.4);
   transition: all 0.3s;
   border: none;
   cursor: pointer;
 }
 
 .btn-primary-security:hover {
-  box-shadow: 0 6px 20px rgba(0, 113, 227, 0.5);
+  box-shadow: 0 6px 20px rgba(84, 113, 148, 0.5);
   transform: translateY(-2px);
 }
 
@@ -323,18 +330,18 @@ body {
   gap: 10px;
   padding: 16px 32px;
   background: white;
-  color: #0071e3;
+  color: var(--security-primary);
   text-decoration: none;
   border-radius: 12px;
   font-weight: 600;
   font-size: 16px;
-  border: 2px solid #0071e3;
+  border: 2px solid var(--security-primary);
   transition: all 0.3s;
   cursor: pointer;
 }
 
 .btn-secondary-security:hover {
-  background: #f8f9fa;
+  background: var(--security-bg);
   transform: translateY(-2px);
 }
 
@@ -395,7 +402,7 @@ body {
 }
 
 .security-footer-links a:hover {
-  color: #0071e3;
+  color: var(--security-primary);
 }
 
 .security-footer p {
