@@ -1297,13 +1297,11 @@ html {
 }
 
 .about-hero .hero-text h1 {
+  font-family: var(--font-heading);
   font-size: 2.8em;
   margin-bottom: 25px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
+  color: var(--color-primary);
+  font-weight: 400;
 }
 
 .about-hero .hero-text p {
@@ -1329,14 +1327,12 @@ html {
 }
 
 .about-section h2 {
+  font-family: var(--font-heading);
   text-align: center;
   font-size: 2.8em;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-primary);
   margin-bottom: 20px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .team-grid {
@@ -1378,10 +1374,11 @@ html {
 }
 
 .team-card h4 {
+  font-family: var(--font-heading);
   color: var(--color-text);
   font-size: 1.2em;
   margin-bottom: 8px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .team-card p {
@@ -3145,8 +3142,9 @@ footer i {
 }
 
 .stat-item h3 {
+  font-family: var(--font-heading);
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-primary);
   margin: 10px 0;
   line-height: 1;
@@ -3233,11 +3231,12 @@ footer i {
 }
 
 .features-section h2 {
+  font-family: var(--font-heading);
   text-align: center;
   font-size: 2.5rem;
   color: var(--color-primary);
   margin-bottom: 50px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .features-grid {
@@ -3288,10 +3287,11 @@ footer i {
 }
 
 .feature-card h3 {
+  font-family: var(--font-heading);
   font-size: 1.3rem;
   color: var(--color-primary);
   margin: 0;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .feature-card p {
@@ -3307,10 +3307,11 @@ footer i {
 }
 
 .tech-section h2 {
+  font-family: var(--font-heading);
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 15px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .tech-subtitle {
@@ -3369,9 +3370,10 @@ footer i {
 }
 
 .tech-item h4 {
+  font-family: var(--font-heading);
   font-size: 1.3rem;
   margin-bottom: 10px;
-  font-weight: 600;
+  font-weight: 400;
   color: white;
 }
 
@@ -3424,11 +3426,12 @@ footer i {
 }
 
 .faq-section h2 {
+  font-family: var(--font-heading);
   text-align: center;
   font-size: 2.5rem;
   color: var(--color-primary);
   margin-bottom: 50px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .faq-container {
@@ -3472,11 +3475,12 @@ footer i {
 }
 
 .faq-question h3 {
+  font-family: var(--font-heading);
   flex: 1;
   margin: 0;
   font-size: 1.15rem;
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .faq-toggle {
