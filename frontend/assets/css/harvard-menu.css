@@ -412,6 +412,31 @@
   }
 }
 
+/* Contenedor para paneles secundarios - posición fija */
+.mega-nav-secondary-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-secondary-container {
+    width: 320px;
+    margin-right: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mega-nav-secondary-container {
+    width: 356px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mega-nav-secondary-container {
+    width: 380px;
+  }
+}
+
 /* ===== COLUMNA PRIMARIA ===== */
 .mega-nav-primary {
   padding: 100px 24px 24px;
@@ -535,35 +560,28 @@
 
 @media (min-width: 768px) {
   .mega-nav-secondary {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: block;
     opacity: 0;
-    height: 0;
     overflow: hidden;
     backface-visibility: hidden;
-    margin-right: 40px;
-    width: 320px;
+    width: 100%;
     padding: 0;
+    pointer-events: none;
   }
-}
-
-@media (min-width: 1024px) {
-  .mega-nav-secondary { width: 356px; }
-}
-
-@media (min-width: 1200px) {
-  .mega-nav-secondary { width: 348px; }
 }
 
 .mega-nav-secondary.visible {
   display: block;
   visibility: visible;
-  height: auto;
   opacity: 1;
+  pointer-events: auto;
 }
 
 @media (min-width: 768px) {
   .mega-nav-secondary.visible {
-    height: 100%;
     overflow-y: auto;
     padding-top: 10px;
   }
@@ -648,6 +666,20 @@
 .mega-nav-secondary.visible .mega-sub-link:nth-child(4) { transition-delay: 0.25s; }
 .mega-nav-secondary.visible .mega-sub-link:nth-child(5) { transition-delay: 0.3s; }
 
+/* ===== CONTENEDOR TERCIARIO ===== */
+.mega-nav-tertiary-container {
+  position: relative;
+  flex-shrink: 0;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mega-nav-tertiary-container {
+    display: block;
+    width: 300px;
+  }
+}
+
 /* ===== COLUMNA TERCIARIA ===== */
 .mega-nav-tertiary {
   display: none;
@@ -657,25 +689,27 @@
 
 @media (min-width: 768px) {
   .mega-nav-tertiary {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: block;
     opacity: 0;
-    height: 0;
     overflow: hidden;
-    width: 300px;
+    width: 100%;
     padding: 0;
+    pointer-events: none;
   }
 }
 
 .mega-nav-tertiary.visible {
   display: block;
   visibility: visible;
-  height: auto;
   opacity: 1;
+  pointer-events: auto;
 }
 
 @media (min-width: 768px) {
   .mega-nav-tertiary.visible {
-    height: 100%;
     overflow-y: auto;
     padding-top: 10px;
   }
