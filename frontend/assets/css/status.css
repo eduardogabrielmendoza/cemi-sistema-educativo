@@ -118,13 +118,36 @@ body {
 .status-ring.outage { color: var(--color-error); }
 .status-ring.maintenance { color: var(--color-info); }
 
-.status-ring i {
-  width: 36px;
-  height: 36px;
+.status-ring i,
+.status-ring svg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.5;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 
 .status-icon-inner {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-icon-inner i,
+.status-icon-inner svg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.5;
 }
 
 .main-status h2 {
