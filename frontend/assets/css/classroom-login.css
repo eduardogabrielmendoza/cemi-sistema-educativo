@@ -396,7 +396,8 @@ body {
 
 .input-prefix {
   position: absolute;
-  left: 14px;
+  right: 14px;
+  left: auto;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -425,7 +426,7 @@ body {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
-  padding: 14px 14px 14px 44px;
+  padding: 14px 44px 14px 16px;
   width: 100%;
 }
 
