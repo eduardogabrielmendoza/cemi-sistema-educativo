@@ -102,6 +102,9 @@
   margin: 0 0 32px 0 !important;
   position: relative !important;
   overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* Animated ring around icon */
