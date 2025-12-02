@@ -112,26 +112,22 @@
   content: '' !important;
   display: block !important;
   position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+  inset: 0 !important;
   border: 2px solid rgba(255, 255, 255, 0.6) !important;
   border-radius: 22px !important;
   animation: iconAuraShoot 2.5s ease-out infinite !important;
+  pointer-events: none !important;
 }
 
 .side-panel-icon::after {
   content: '' !important;
   display: block !important;
   position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+  inset: 0 !important;
   border: 2px solid rgba(255, 255, 255, 0.4) !important;
   border-radius: 22px !important;
   animation: iconAuraShoot 2.5s ease-out 1.25s infinite !important;
+  pointer-events: none !important;
 }
 
 @keyframes iconAuraShoot {
@@ -140,7 +136,7 @@
     opacity: 0.8;
   }
   100% {
-    transform: scale(1.5);
+    transform: scale(1.6);
     opacity: 0;
   }
 }

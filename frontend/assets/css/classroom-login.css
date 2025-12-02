@@ -185,37 +185,31 @@ body {
 .brand-logo::before {
   content: '';
   position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  animation: brandRingPulse 3s ease-in-out infinite;
-  opacity: 0;
+  inset: 0;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  animation: brandAuraShoot 2.5s ease-out infinite;
+  pointer-events: none;
 }
 
 .brand-logo::after {
   content: '';
   position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 24px;
-  animation: brandRingPulse 3s ease-in-out 1.5s infinite;
-  opacity: 0;
+  inset: 0;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  animation: brandAuraShoot 2.5s ease-out 1.25s infinite;
+  pointer-events: none;
 }
 
-@keyframes brandRingPulse {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  50% {
-    opacity: 0.6;
+@keyframes brandAuraShoot {
+  0% {
     transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
   }
 }
 
