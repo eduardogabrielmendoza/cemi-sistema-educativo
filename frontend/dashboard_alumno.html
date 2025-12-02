@@ -39,9 +39,8 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <img src="images/logo.png" alt="Logo CEMI">
-      <h2>CEMI</h2>
+    <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 20px 16px;">
+      <img src="images/logodashboard.png" alt="Logo CEMI" style="max-width: 160px; height: auto;">
     </div>
     <nav class="sidebar-menu">
       <button id="btnCursos"><i data-lucide="book-open"></i> Mis Cursos</button>
@@ -3007,41 +3006,48 @@
   </div> <!-- cierre credit-card-modal -->
 </div> <!-- cierre credit-card-modal-overlay -->
 
-<div class="transfer-modal-overlay" id="transferModal" onclick="if(event.target === this) this.classList.remove('active')">
-  <div class="transfer-modal">
-    <div class="transfer-header">
-      <h2><i data-lucide="landmark"></i> Datos para Transferencia</h2>
-      <button class="transfer-close" onclick="document.getElementById('transferModal').classList.remove('active')">
-        <i data-lucide="x"></i>
+<div id="transferModal" onclick="if(event.target === this) this.classList.remove('active')" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 10000;">
+  <div style="background: #ffffff; border-radius: 20px; width: 100%; max-width: 440px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15);">
+    <div style="background: #4a5259; padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+      <h2 style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 12px;">
+        <i data-lucide="landmark" style="width: 22px; height: 22px;"></i>
+        Datos para Transferencia
+      </h2>
+      <button onclick="document.getElementById('transferModal').classList.remove('active')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;" onmouseenter="this.style.background='rgba(255,255,255,0.25)'" onmouseleave="this.style.background='rgba(255,255,255,0.15)'">
+        <i data-lucide="x" style="width: 20px; height: 20px; color: #ffffff;"></i>
       </button>
     </div>
-    <div class="transfer-content">
-      <div class="transfer-info-card">
-        <div class="transfer-field">
-          <label>Alias</label>
-          <div class="transfer-value">
-            <span>educacion.cemi</span>
-            <button class="copy-btn" onclick="copyToClipboard('educacion.cemi', this)">
-              <i data-lucide="copy"></i>
+    <div style="padding: 28px;">
+      <div style="background: #f9fafb; border-radius: 14px; padding: 20px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; color: #6b7280; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 600;">Alias</label>
+          <div style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 2px solid #e5e7eb; border-radius: 10px; padding: 14px 16px;">
+            <span style="color: #1e1e1e; font-size: 15px; font-weight: 600; font-family: monospace;">educacion.cemi</span>
+            <button onclick="copyToClipboard('educacion.cemi', this)" style="background: #4a5259; border: none; border-radius: 8px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;" onmouseenter="this.style.background='#3d444a'" onmouseleave="this.style.background='#4a5259'">
+              <i data-lucide="copy" style="width: 18px; height: 18px; color: #ffffff;"></i>
             </button>
           </div>
         </div>
-        <div class="transfer-field">
-          <label>CBU</label>
-          <div class="transfer-value">
-            <span>0008466199055723490</span>
-            <button class="copy-btn" onclick="copyToClipboard('0008466199055723490', this)">
-              <i data-lucide="copy"></i>
+        <div>
+          <label style="display: block; color: #6b7280; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 600;">CBU</label>
+          <div style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 2px solid #e5e7eb; border-radius: 10px; padding: 14px 16px;">
+            <span style="color: #1e1e1e; font-size: 15px; font-weight: 600; font-family: monospace;">0008466199055723490</span>
+            <button onclick="copyToClipboard('0008466199055723490', this)" style="background: #4a5259; border: none; border-radius: 8px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;" onmouseenter="this.style.background='#3d444a'" onmouseleave="this.style.background='#4a5259'">
+              <i data-lucide="copy" style="width: 18px; height: 18px; color: #ffffff;"></i>
             </button>
           </div>
         </div>
       </div>
-      <div class="transfer-instructions">
-        <p><i data-lucide="info"></i> Realiza la transferencia y envía el comprobante por correo o WhatsApp.</p>
+      <div style="background: rgba(74, 82, 89, 0.06); border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px;">
+        <i data-lucide="info" style="width: 18px; height: 18px; color: #4a5259; flex-shrink: 0; margin-top: 2px;"></i>
+        <p style="margin: 0; color: #4a5259; font-size: 13px; line-height: 1.5;">Realiza la transferencia y envía el comprobante por correo o WhatsApp.</p>
       </div>
     </div>
   </div>
 </div>
+<style>
+  #transferModal.active { display: flex !important; }
+</style>
 
 <script src="https://unpkg.com/imask"></script>
 <script src="assets/js/credit-card.js"></script>
