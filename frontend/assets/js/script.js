@@ -3064,59 +3064,65 @@ function generateTable(section, data) {
             const cuposMax = c.cupo_maximo || 30;
             const inscritos = c.alumnos_inscritos || 0;
             const porcentaje = (inscritos / cuposMax) * 100;
-            let barClass = '';
-            if (porcentaje >= 90) barClass = 'danger';
-            else if (porcentaje >= 70) barClass = 'warning';
+            let barColor = '#22c55e';
+            if (porcentaje >= 90) barColor = '#ef4444';
+            else if (porcentaje >= 70) barColor = '#f59e0b';
 
             return `
-            <div class="curso-card" data-id="${c.id_curso}" data-name="${c.nombre_curso}">
-              <div class="curso-card-header">
-                <div class="curso-icon">
-                  <i data-lucide="book-open"></i>
+            <div class="curso-card-new" data-id="${c.id_curso}" data-name="${c.nombre_curso}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+              
+              <div style="position: absolute; top: 12px; right: 12px; background: rgba(74, 82, 89, 0.1); color: #4a5259; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${c.nivel || "Sin nivel"}</div>
+              
+              <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="book-open" style="width: 28px; height: 28px; color: #4a5259;"></i>
                 </div>
-                <div class="curso-card-title">
-                  <h3>${c.nombre_curso}</h3>
-                  <div class="idioma">${c.nombre_idioma || "Sin idioma"}</div>
-                  <span class="curso-badge">${c.nivel || "Nivel no especificado"}</span>
+                <div style="flex: 1; min-width: 0;">
+                  <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; font-family: 'Inter', sans-serif; padding-right: 60px;">${c.nombre_curso}</h3>
+                  <p style="margin: 0; color: #6b7280; font-size: 13px;">${c.nombre_idioma || "Sin idioma"}</p>
                 </div>
               </div>
               
-              <div class="curso-card-info">
-                <div class="info-row">
-                  <i data-lucide="user"></i>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="user" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${c.profesor || "Sin profesor asignado"}</span>
                 </div>
-                <div class="info-row">
-                  <i data-lucide="clock"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="clock" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${c.horario || "Horario por definir"}</span>
                 </div>
-                <div class="info-row">
-                  <i data-lucide="map-pin"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="map-pin" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${c.nombre_aula || "Sin aula asignada"}</span>
                 </div>
               </div>
               
-              <div class="curso-card-footer">
-                <div class="cupos-info">
-                  <div class="cupos-text">${inscritos} / ${cuposMax} alumnos</div>
-                  <div class="cupos-bar">
-                    <div class="cupos-bar-fill ${barClass}" style="width: ${Math.min(porcentaje, 100)}%"></div>
-                  </div>
+              <div style="margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <span style="color: #6b7280; font-size: 12px;">Capacidad</span>
+                  <span style="color: #1e1e1e; font-size: 12px; font-weight: 500;">${inscritos} / ${cuposMax}</span>
                 </div>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                  <button class="btn-icon-success" onclick="event.stopPropagation(); asignarProfesorACurso(${c.id_curso}, '${c.nombre_curso}')" title="Asignar Profesor">
-                    <i data-lucide="user-check"></i>
-                  </button>
-                  <button class="btn-icon-primary" onclick="event.stopPropagation(); openCursoPanel(${c.id_curso})" title="Ver detalles">
-                    <i data-lucide="eye"></i>
-                  </button>
-                  <button class="btn-icon-edit" onclick="event.stopPropagation(); editarCurso(${c.id_curso})" title="Editar">
-                    <i data-lucide="edit-2"></i>
-                  </button>
-                  <button class="btn-icon-danger" onclick="event.stopPropagation(); eliminarCurso(${c.id_curso}, '${c.nombre_curso}')" title="Eliminar">
-                    <i data-lucide="trash-2"></i>
-                  </button>
+                <div style="height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
+                  <div style="height: 100%; width: ${Math.min(porcentaje, 100)}%; background: ${barColor}; border-radius: 3px; transition: width 0.3s ease;"></div>
                 </div>
+              </div>
+              
+              <div style="height: 1px; background: #e5e7eb; margin: 16px 0;"></div>
+              
+              <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn-icon-success" onclick="event.stopPropagation(); asignarProfesorACurso(${c.id_curso}, '${c.nombre_curso}')" title="Asignar Profesor">
+                  <i data-lucide="user-check"></i>
+                </button>
+                <button class="btn-icon-primary" onclick="event.stopPropagation(); openCursoPanel(${c.id_curso})" title="Ver detalles">
+                  <i data-lucide="eye"></i>
+                </button>
+                <button class="btn-icon-edit" onclick="event.stopPropagation(); editarCurso(${c.id_curso})" title="Editar">
+                  <i data-lucide="edit-2"></i>
+                </button>
+                <button class="btn-icon-danger" onclick="event.stopPropagation(); eliminarCurso(${c.id_curso}, '${c.nombre_curso}')" title="Eliminar">
+                  <i data-lucide="trash-2"></i>
+                </button>
               </div>
             </div>
           `}).join('')}
