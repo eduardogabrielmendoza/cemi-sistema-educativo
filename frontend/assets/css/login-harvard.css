@@ -58,6 +58,8 @@
   gap: 0 !important;
   max-width: 1000px !important;
   padding: 24px !important;
+  display: flex !important;
+  align-items: stretch !important;
 }
 
 /* ===== Side Panel (Left - with Image) ===== */
@@ -67,8 +69,9 @@
   border-radius: 16px 0 0 16px !important;
   border: none !important;
   box-shadow: none !important;
-  min-height: 580px !important;
+  min-height: 600px !important;
   padding: 40px 36px !important;
+  align-self: stretch !important;
 }
 
 .login-side-panel::before {
@@ -97,18 +100,64 @@
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 16px !important;
   margin: 0 0 20px 0 !important;
+  position: relative !important;
+  overflow: visible !important;
 }
 
-.side-panel-icon::before,
+/* Animated ring around icon */
+.side-panel-icon::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: -4px !important;
+  left: -4px !important;
+  right: -4px !important;
+  bottom: -4px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 20px !important;
+  animation: iconRingPulse 3s ease-in-out infinite !important;
+  opacity: 0 !important;
+}
+
 .side-panel-icon::after {
-  display: none !important;
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: -8px !important;
+  left: -8px !important;
+  right: -8px !important;
+  bottom: -8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 24px !important;
+  animation: iconRingPulse 3s ease-in-out 1.5s infinite !important;
+  opacity: 0 !important;
+}
+
+@keyframes iconRingPulse {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
 }
 
 .side-panel-icon i,
 .side-panel-icon svg {
   width: 28px !important;
   height: 28px !important;
-  animation: none !important;
+  animation: iconFloat 4s ease-in-out infinite !important;
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .login-side-panel h2 {
@@ -175,9 +224,14 @@
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08) !important;
   padding: 44px 40px !important;
   max-width: 420px !important;
+  min-height: 600px !important;
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-self: stretch !important;
 }
 
 .login-header {
