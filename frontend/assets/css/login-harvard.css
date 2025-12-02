@@ -69,7 +69,7 @@
   border-radius: 16px 0 0 16px !important;
   border: none !important;
   box-shadow: none !important;
-  min-height: 640px !important;
+  min-height: 720px !important;
   padding: 40px 36px !important;
   align-self: stretch !important;
 }
@@ -225,7 +225,7 @@
   padding: 48px 50px !important;
   width: 100% !important;
   max-width: 480px !important;
-  min-height: 640px !important;
+  min-height: 720px !important;
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
@@ -310,6 +310,7 @@
   justify-content: center !important;
   color: var(--color-text-secondary) !important;
   pointer-events: none !important;
+  z-index: 2 !important;
 }
 
 .input-prefix i,
@@ -317,6 +318,14 @@
   width: 18px !important;
   height: 18px !important;
   stroke-width: 1.5 !important;
+  display: block !important;
+}
+
+/* Especificidad extra para login-admin */
+#loginAdminForm .input-with-icon .input-prefix,
+#loginForm .input-with-icon .input-prefix {
+  right: 14px !important;
+  left: auto !important;
 }
 
 .input-with-icon:focus-within .input-prefix {
