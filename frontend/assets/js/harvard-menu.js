@@ -192,11 +192,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const targetPanel = document.getElementById(panelId);
     if (targetPanel) {
       targetPanel.classList.add('visible');
-    }
-    
-    // Ocultar imagen de fondo al cambiar de sección
-    if (bgImage) {
-      bgImage.classList.remove('visible');
+      
+      // Si el panel tiene imagen de fondo, mostrarla automáticamente
+      const panelImage = targetPanel.dataset.image;
+      if (panelImage) {
+        showBackgroundImage(panelImage);
+      } else {
+        // Ocultar imagen de fondo si no tiene
+        if (bgImage) {
+          bgImage.classList.remove('visible');
+        }
+      }
+    } else {
+      // Ocultar imagen de fondo al cambiar de sección
+      if (bgImage) {
+        bgImage.classList.remove('visible');
+      }
     }
     
     // Resetear sub-links activos
