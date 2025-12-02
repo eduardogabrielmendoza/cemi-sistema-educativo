@@ -207,7 +207,7 @@
         <div class="profesor-cursos-container">
           <div class="profesor-header-section">
             <div>
-              <h2 style="color: #1e3c72; margin: 0 0 8px 0;">
+              <h2 style="color: #1e1e1e; margin: 0 0 8px 0;">
                 <i data-lucide="graduation-cap" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;"></i>
                 Mis Cursos
               </h2>
@@ -237,7 +237,7 @@
       <div class="profesor-cursos-container">
         <div class="profesor-header-section">
           <div>
-            <h2 style="color: #1e3c72; margin: 0 0 8px 0;">
+            <h2 style="color: #1e1e1e; margin: 0 0 8px 0;">
               <i data-lucide="graduation-cap" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;"></i>
               Mis Cursos
             </h2>
@@ -286,48 +286,57 @@
         <div class="cursos-grid">
           ${data.map(curso => {
             const porcentajeCupo = ((curso.alumnos_inscritos / curso.cupo_maximo) * 100).toFixed(0);
-            let cupoClass = '';
-            if (porcentajeCupo >= 90) cupoClass = 'danger';
-            else if (porcentajeCupo >= 70) cupoClass = 'warning';
+            let barColor = '#22c55e';
+            if (porcentajeCupo >= 90) barColor = '#ef4444';
+            else if (porcentajeCupo >= 70) barColor = '#f59e0b';
             
             return `
-              <div class="curso-card" onclick="openCursoDetalle(${curso.id_curso})">
-                <div class="curso-card-header">
-                  <div class="curso-icon">
-                    <i data-lucide="book-open"></i>
+              <div class="profesor-curso-card-new" onclick="openCursoDetalle(${curso.id_curso})" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+                
+                <div style="position: absolute; top: 12px; right: 12px; background: rgba(74, 82, 89, 0.1); color: #4a5259; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${curso.nivel || 'Sin nivel'}</div>
+                
+                <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px;">
+                  <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <i data-lucide="book-open" style="width: 28px; height: 28px; color: #4a5259;"></i>
                   </div>
-                  <div class="curso-card-title">
-                    <h3>${curso.nombre_curso}</h3>
-                    <div class="idioma">${curso.nombre_idioma}</div>
-                    <span class="curso-badge">${curso.nivel || 'Sin nivel'}</span>
+                  <div style="flex: 1; min-width: 0;">
+                    <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; font-family: 'Inter', sans-serif; padding-right: 60px;">${curso.nombre_curso}</h3>
+                    <p style="margin: 0; color: #6b7280; font-size: 13px;">${curso.nombre_idioma}</p>
                   </div>
                 </div>
-                <div class="curso-card-info">
-                  <div class="info-row">
-                    <i data-lucide="clock"></i>
+                
+                <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                  <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                    <i data-lucide="clock" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                     <span>${curso.horario || 'Horario por definir'}</span>
                   </div>
-                  <div class="info-row">
-                    <i data-lucide="door-open"></i>
+                  <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                    <i data-lucide="door-open" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                     <span>${curso.nombre_aula || 'Sin aula asignada'}</span>
                   </div>
-                  <div class="info-row">
-                    <i data-lucide="users"></i>
+                  <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                    <i data-lucide="users" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                     <span>${curso.alumnos_inscritos} de ${curso.cupo_maximo} alumnos</span>
                   </div>
                 </div>
-                <div class="curso-card-footer">
-                  <div class="cupos-info">
-                    <div class="cupos-bar">
-                      <div class="cupos-bar-fill ${cupoClass}" style="width: ${porcentajeCupo}%"></div>
-                    </div>
-                    <span class="cupos-text">${porcentajeCupo}% ocupado</span>
+                
+                <div style="margin-bottom: 16px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="color: #6b7280; font-size: 12px;">Capacidad</span>
+                    <span style="color: #1e1e1e; font-size: 12px; font-weight: 500;">${porcentajeCupo}% ocupado</span>
                   </div>
-                  <div class="card-actions">
-                    <button class="icon-btn" onclick="event.stopPropagation(); openCursoDetalle(${curso.id_curso})" title="Ver detalles">
-                      <i data-lucide="eye"></i>
-                    </button>
+                  <div style="height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
+                    <div style="height: 100%; width: ${Math.min(porcentajeCupo, 100)}%; background: ${barColor}; border-radius: 3px; transition: width 0.3s ease;"></div>
                   </div>
+                </div>
+                
+                <div style="height: 1px; background: #e5e7eb; margin: 16px 0;"></div>
+                
+                <div style="display: flex; justify-content: flex-end;">
+                  <button style="padding: 8px 16px; background: #1e1e1e; color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px;" onclick="event.stopPropagation(); openCursoDetalle(${curso.id_curso})">
+                    <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                    Ver detalles
+                  </button>
                 </div>
               </div>
             `;
@@ -361,7 +370,7 @@
             <div class="calificaciones-container-profesor">
               <div class="profesor-header-section">
                 <div>
-                  <h2 style="color: #1e3c72; margin: 0 0 8px 0;">
+                  <h2 style="color: #1e1e1e; margin: 0 0 8px 0;">
                     <i data-lucide="clipboard-list" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;"></i>
                     Gestión de Calificaciones
                   </h2>
@@ -370,7 +379,7 @@
               </div>
               
               <div class="calificaciones-curso-selector">
-                <h3 style="color: #1e3c72; margin: 0 0 20px 0; font-size: 18px;">
+                <h3 style="color: #1e1e1e; margin: 0 0 20px 0; font-size: 18px;">
                   <i data-lucide="target" style="width: 20px; height: 20px; vertical-align: middle;"></i>
                   Selecciona un Curso
                 </h3>
@@ -389,16 +398,8 @@
                     };
                     const icon = idiomaIcons[curso.nombre_idioma] || 'book';
                     
-                    // Colores por índice
-                    const colors = [
-                      { primary: '#1976d2', light: '#e3f2fd' },
-                      { primary: '#7b1fa2', light: '#f3e5f5' },
-                      { primary: '#0097a7', light: '#e0f7fa' },
-                      { primary: '#d84315', light: '#fbe9e7' },
-                      { primary: '#388e3c', light: '#e8f5e9' },
-                      { primary: '#f57c00', light: '#fff3e0' }
-                    ];
-                    const color = colors[index % colors.length];
+                    // Colores Harvard minimalista
+                    const color = { primary: '#4a5259', light: 'rgba(74, 82, 89, 0.08)' };
                     
                     return `
                     <div class="curso-selector-card-enhanced" onclick="cargarCalificacionesCurso(${curso.id_curso}, '${curso.nombre_curso}')" style="border-left: 4px solid ${color.primary};">
@@ -406,7 +407,7 @@
                         <i data-lucide="${icon}" style="color: ${color.primary};"></i>
                       </div>
                       <div class="curso-card-content">
-                        <h4 style="color: #1e3c72;">${curso.nombre_curso}</h4>
+                        <h4 style="color: #1e1e1e;">${curso.nombre_curso}</h4>
                         <div class="curso-card-meta">
                           <span class="curso-badge" style="background: ${color.light}; color: ${color.primary};">
                             <i data-lucide="globe-2"></i>
@@ -468,7 +469,7 @@
             <div class="asistencias-container-profesor">
               <div class="profesor-header-section">
                 <div>
-                  <h2 style="color: #1e3c72; margin: 0 0 8px 0;">
+                  <h2 style="color: #1e1e1e; margin: 0 0 8px 0;">
                     <i data-lucide="calendar-check" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;"></i>
                     Control de Asistencias
                   </h2>
@@ -477,7 +478,7 @@
               </div>
               
               <div class="asistencias-selector-cursos">
-                <h3 style="color: #1e3c72; margin: 0 0 20px 0; font-size: 18px;">
+                <h3 style="color: #1e1e1e; margin: 0 0 20px 0; font-size: 18px;">
                   <i data-lucide="target" style="width: 20px; height: 20px; vertical-align: middle;"></i>
                   Selecciona un Curso
                 </h3>
@@ -496,16 +497,8 @@
                     };
                     const icon = idiomaIcons[curso.nombre_idioma] || 'book';
                     
-                    // Colores por índice
-                    const colors = [
-                      { primary: '#43a047', light: '#e8f5e9' },
-                      { primary: '#fb8c00', light: '#fff3e0' },
-                      { primary: '#00acc1', light: '#e0f7fa' },
-                      { primary: '#5e35b1', light: '#ede7f6' },
-                      { primary: '#e53935', light: '#ffebee' },
-                      { primary: '#6d4c41', light: '#efebe9' }
-                    ];
-                    const color = colors[index % colors.length];
+                    // Colores Harvard minimalista
+                    const color = { primary: '#4a5259', light: 'rgba(74, 82, 89, 0.08)' };
                     
                     return `
                     <div class="curso-selector-card-enhanced" onclick="cargarAsistenciasCurso(${curso.id_curso}, '${curso.nombre_curso}')" style="border-left: 4px solid ${color.primary};">
@@ -513,9 +506,9 @@
                         <i data-lucide="${icon}" style="color: ${color.primary};"></i>
                       </div>
                       <div class="curso-card-content">
-                        <h4 style="color: #1e3c72;">${curso.nombre_curso}</h4>
+                        <h4 style="color: #1e1e1e;">${curso.nombre_curso}</h4>
                         <div class="curso-card-meta">
-                          <span class="curso-badge" style="background: ${color.light}; color: ${color.primary};">
+                          <span class="curso-badge" style="background: rgba(74, 82, 89, 0.1); color: #4a5259;">
                             <i data-lucide="globe-2"></i>
                             ${curso.nombre_idioma}
                           </span>
@@ -640,8 +633,8 @@
                   
                   <div class="perfil-stats-profesional">
                     <div class="stat-profesional-card">
-                      <div class="stat-profesional-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                        <i data-lucide="calendar"></i>
+                      <div class="stat-profesional-icon" style="background: rgba(74, 82, 89, 0.08);">
+                        <i data-lucide="calendar" style="color: #4a5259;"></i>
                       </div>
                       <div class="stat-profesional-content">
                         <div class="stat-profesional-label">Fecha de Ingreso</div>
@@ -650,8 +643,8 @@
                     </div>
 
                     <div class="stat-profesional-card">
-                      <div class="stat-profesional-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                        <i data-lucide="book-open"></i>
+                      <div class="stat-profesional-icon" style="background: rgba(74, 82, 89, 0.08);">
+                        <i data-lucide="book-open" style="color: #4a5259;"></i>
                       </div>
                       <div class="stat-profesional-content">
                         <div class="stat-profesional-label">Cursos Asignados</div>
@@ -660,8 +653,8 @@
                     </div>
 
                     <div class="stat-profesional-card">
-                      <div class="stat-profesional-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                        <i data-lucide="users"></i>
+                      <div class="stat-profesional-icon" style="background: rgba(74, 82, 89, 0.08);">
+                        <i data-lucide="users" style="color: #4a5259;"></i>
                       </div>
                       <div class="stat-profesional-content">
                         <div class="stat-profesional-label">Total de Alumnos</div>

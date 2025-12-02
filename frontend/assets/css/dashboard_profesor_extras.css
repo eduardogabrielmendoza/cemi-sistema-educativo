@@ -28,18 +28,18 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border-left: 4px solid #0A2540;
+  border-left: 4px solid #4a5259;
 }
 
 .curso-info-card.primary {
-  border-left-color: #0A2540;
-  background: linear-gradient(135deg, #fff 0%, #e3f2fd 100%);
+  border-left-color: #4a5259;
+  background: white;
 }
 
 .info-card-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #0A2540, #42a5f5);
+  background: rgba(74, 82, 89, 0.08);
   border-radius: 12px;
   display: inline-flex;
   align-items: center;
@@ -50,12 +50,12 @@
 .info-card-icon i {
   width: 26px;
   height: 26px;
-  color: white;
+  color: #4a5259;
 }
 
 .info-card-content h4 {
   margin: 0 0 12px 0;
-  color: #0A2540;
+  color: #4a5259;
   font-size: 16px;
   font-weight: 600;
 }
@@ -96,23 +96,23 @@
 }
 
 .curso-stat-box-enhanced.primary {
-  border-left-color: #0A2540;
+  border-left-color: #4a5259;
 }
 
 .curso-stat-box-enhanced.success {
-  border-left-color: #43a047;
+  border-left-color: #4a5259;
 }
 
 .curso-stat-box-enhanced.danger {
-  border-left-color: #e53935;
+  border-left-color: #4a5259;
 }
 
 .curso-stat-box-enhanced.warning {
-  border-left-color: #fb8c00;
+  border-left-color: #4a5259;
 }
 
 .curso-stat-box-enhanced.neutral {
-  border-left-color: #9e9e9e;
+  border-left-color: #4a5259;
 }
 
 .curso-stat-box-enhanced .stat-icon {
@@ -126,51 +126,51 @@
 }
 
 .curso-stat-box-enhanced.primary .stat-icon {
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .curso-stat-box-enhanced.primary .stat-icon i {
-  color: #0A2540;
+  color: #4a5259;
   width: 24px;
   height: 24px;
 }
 
 .curso-stat-box-enhanced.success .stat-icon {
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .curso-stat-box-enhanced.success .stat-icon i {
-  color: #43a047;
+  color: #4a5259;
   width: 24px;
   height: 24px;
 }
 
 .curso-stat-box-enhanced.danger .stat-icon {
-  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .curso-stat-box-enhanced.danger .stat-icon i {
-  color: #e53935;
+  color: #4a5259;
   width: 24px;
   height: 24px;
 }
 
 .curso-stat-box-enhanced.warning .stat-icon {
-  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .curso-stat-box-enhanced.warning .stat-icon i {
-  color: #fb8c00;
+  color: #4a5259;
   width: 24px;
   height: 24px;
 }
 
 .curso-stat-box-enhanced.neutral .stat-icon {
-  background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .curso-stat-box-enhanced.neutral .stat-icon i {
-  color: #757575;
+  color: #4a5259;
   width: 24px;
   height: 24px;
 }
@@ -179,7 +179,7 @@
   margin: 0 0 4px 0;
   font-size: 28px;
   font-weight: 700;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .stat-info p {
@@ -200,7 +200,7 @@
   flex: 1;
   min-width: 200px;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #0A2540, #1A3A5C);
+  background: linear-gradient(135deg, #4a5259, #1A3A5C);
   color: white;
   border: none;
   border-radius: 10px;
@@ -273,7 +273,7 @@
 .filtro-item label i {
   width: 14px;
   height: 14px;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .filtro-item input,
@@ -288,7 +288,7 @@
 .filtro-item input:focus,
 .filtro-item select:focus {
   outline: none;
-  border-color: #0A2540;
+  border-color: #4a5259;
   box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.1);
 }
 
@@ -437,7 +437,7 @@
 
 .btn-ver-historial {
   padding: 8px 16px;
-  background: linear-gradient(135deg, #0A2540, #1A3A5C);
+  background: linear-gradient(135deg, #4a5259, #1A3A5C);
   color: white;
   border: none;
   border-radius: 8px;
@@ -474,13 +474,13 @@
   background: linear-gradient(135deg, #f8f9fa, #ffffff);
   border-radius: 12px;
   padding: 20px;
-  border-left: 4px solid #0A2540;
+  border-left: 4px solid #4a5259;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .historial-info-card h4 {
   margin: 0 0 12px 0;
-  color: #0A2540;
+  color: #4a5259;
   font-size: 16px;
   font-weight: 600;
   display: flex;
@@ -491,7 +491,7 @@
 .historial-info-card h4 i {
   width: 18px;
   height: 18px;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .historial-info-card p {
@@ -515,7 +515,7 @@
 }
 
 .historial-stat.primary {
-  border-top-color: #0A2540;
+  border-top-color: #4a5259;
 }
 
 .historial-stat.success {
@@ -531,14 +531,14 @@
 }
 
 .historial-stat.info {
-  border-top-color: #0A2540;
+  border-top-color: #4a5259;
 }
 
 .historial-stat h4 {
   margin: 0 0 6px 0;
   font-size: 26px;
   font-weight: 700;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .historial-stat p {
@@ -558,7 +558,7 @@
 }
 
 .historial-table thead {
-  background: linear-gradient(135deg, #0A2540, #1A3A5C);
+  background: linear-gradient(135deg, #4a5259, #1A3A5C);
   color: white;
 }
 
@@ -615,7 +615,7 @@
 
 .estado-badge.justificado {
   background: #e0f7fa;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 @media (max-width: 768px) {
@@ -663,12 +663,12 @@
 .section-header-profesor .header-title i {
   width: 32px;
   height: 32px;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .section-header-profesor h2 {
   margin: 0;
-  color: #0A2540;
+  color: #4a5259;
   font-size: 28px;
   font-weight: 600;
 }
@@ -705,12 +705,12 @@
 .perfil-section-header i {
   width: 24px;
   height: 24px;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .perfil-section-header h3 {
   margin: 0;
-  color: #0A2540;
+  color: #4a5259;
   font-size: 20px;
   font-weight: 600;
 }
@@ -744,12 +744,12 @@
 .dato-valor i {
   width: 18px;
   height: 18px;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .dato-valor span {
   font-size: 15px;
-  color: #0A2540;
+  color: #4a5259;
   font-weight: 500;
 }
 
@@ -805,7 +805,7 @@
 
 .stat-profesional-value {
   font-size: 24px;
-  color: #0A2540;
+  color: #4a5259;
   font-weight: 700;
 }
 
@@ -822,7 +822,7 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: #0A2540;
+  color: #4a5259;
   margin-bottom: 8px;
   font-weight: 500;
 }
@@ -830,7 +830,7 @@
 .form-group-perfil label i {
   width: 18px;
   height: 18px;
-  color: #0A2540;
+  color: #4a5259;
 }
 
 .form-group-perfil input {
@@ -845,7 +845,7 @@
 
 .form-group-perfil input:focus {
   outline: none;
-  border-color: #0A2540;
+  border-color: #4a5259;
   box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.1);
 }
 
@@ -858,7 +858,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #0A2540 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #1A3A5C 100%);
   color: white;
   border: none;
   border-radius: 8px;

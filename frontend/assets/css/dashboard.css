@@ -3359,29 +3359,29 @@
 
 .profesor-stat-card-enhanced.primary {
   border-color: #4a5259;
-  background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+  background: white;
 }
 
 .profesor-stat-card-enhanced.primary .stat-icon-wrapper {
-  background: linear-gradient(135deg, #4a5259, #6b7280);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .profesor-stat-card-enhanced.success {
-  border-color: #43a047;
-  background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+  border-color: #4a5259;
+  background: white;
 }
 
 .profesor-stat-card-enhanced.success .stat-icon-wrapper {
-  background: linear-gradient(135deg, #43a047, #66bb6a);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .profesor-stat-card-enhanced.info {
-  border-color: #00acc1;
-  background: linear-gradient(135deg, #ffffff 0%, #e0f7fa 100%);
+  border-color: #4a5259;
+  background: white;
 }
 
 .profesor-stat-card-enhanced.info .stat-icon-wrapper {
-  background: linear-gradient(135deg, #00acc1, #26c6da);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .stat-icon-wrapper {
@@ -3392,13 +3392,13 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: none;
 }
 
 .stat-icon-wrapper i {
   width: 36px;
   height: 36px;
-  color: white;
+  color: #4a5259;
 }
 
 .stat-content-wrapper {
