@@ -1180,36 +1180,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-  transition: filter 0.3s var(--ease-smooth);
-}
-
-/* Blur de fondo cuando hay modales/alertas abiertos */
-body.modal-open,
-body.swal2-shown {
-  overflow: hidden;
-}
-
-/* SweetAlert2 con blur de fondo - solo en el container */
-.swal2-container {
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  background: rgba(0, 0, 0, 0.4) !important;
-  z-index: 99999 !important;
-}
-
-.swal2-popup {
-  animation: modalSlideIn 0.4s var(--ease-smooth) !important;
-  z-index: 100000 !important;
-}
-
-/* Asegurar que el botón de cerrar de SweetAlert funcione */
-.swal2-close {
-  z-index: 100001 !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
 }
 
 body::before {
