@@ -1741,7 +1741,7 @@ function renderStatusSection() {
       }
 
       .status-hero {
-        background: linear-gradient(135deg, #547194 0%, #3d5a7a 100%);
+        background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
         border-radius: 16px;
         padding: 30px;
         margin-bottom: 25px;
@@ -1791,7 +1791,7 @@ function renderStatusSection() {
 
       .status-btn-primary {
         background: white;
-        color: #547194;
+        color: #4a5259;
       }
 
       .status-btn-primary:hover {
@@ -1845,7 +1845,7 @@ function renderStatusSection() {
         gap: 10px;
       }
 
-      .status-card-title i { width: 20px; height: 20px; color: #547194; }
+      .status-card-title i { width: 20px; height: 20px; color: #4a5259; }
 
       /* Estado Global */
       .global-status-display {
@@ -2160,7 +2160,7 @@ function renderStatusSection() {
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #547194, #3b82f6, #8b5cf6);
+        background: linear-gradient(90deg, #4a5259, #3b82f6, #8b5cf6);
         animation: shimmer 2s infinite;
         z-index: 10;
       }
@@ -2192,7 +2192,7 @@ function renderStatusSection() {
         content: '';
         width: 4px;
         height: 24px;
-        background: linear-gradient(135deg, #547194, #3b82f6);
+        background: linear-gradient(135deg, #4a5259, #3b82f6);
         border-radius: 2px;
       }
 
@@ -2270,7 +2270,7 @@ function renderStatusSection() {
       .status-form-group label i {
         width: 16px;
         height: 16px;
-        color: #547194;
+        color: #4a5259;
       }
 
       .status-form-group input,
@@ -2297,7 +2297,7 @@ function renderStatusSection() {
       .status-form-group textarea:focus,
       .status-form-group select:focus {
         outline: none;
-        border-color: #547194;
+        border-color: #4a5259;
         box-shadow: 0 0 0 4px rgba(84, 113, 148, 0.15);
       }
 
@@ -2348,7 +2348,7 @@ function renderStatusSection() {
       }
 
       .status-checkbox-item:has(input:checked) {
-        border-color: #547194;
+        border-color: #4a5259;
         background: linear-gradient(145deg, #eff6ff, #dbeafe);
       }
 
@@ -2356,7 +2356,7 @@ function renderStatusSection() {
         width: 18px; 
         height: 18px; 
         cursor: pointer;
-        accent-color: #547194;
+        accent-color: #4a5259;
       }
 
       .status-checkbox-item span { 
@@ -2440,7 +2440,7 @@ function renderStatusSection() {
       }
 
       .status-modal-btn.submit {
-        background: linear-gradient(135deg, #547194, #3d5a7a);
+        background: linear-gradient(135deg, #4a5259, #3d444a);
         color: white;
         box-shadow: 0 4px 15px rgba(84, 113, 148, 0.3);
       }
@@ -2448,7 +2448,7 @@ function renderStatusSection() {
       .status-modal-btn.submit:hover {
         transform: translateY(-3px);
         box-shadow: 0 8px 25px rgba(84, 113, 148, 0.4);
-        background: linear-gradient(135deg, #3d5a7a, #2d4a6a);
+        background: linear-gradient(135deg, #3d444a, #2d4a6a);
       }
 
       .status-modal-btn.submit:active {
@@ -2556,7 +2556,7 @@ function renderStatusSection() {
         width: 40px;
         height: 40px;
         border: 3px solid #e2e8f0;
-        border-top-color: #547194;
+        border-top-color: #4a5259;
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin: 0 auto 15px;
@@ -3517,7 +3517,7 @@ case "pagos":
         </div>
         <div class="aulas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map(a => {
-            const capacidadColor = a.capacidad >= 40 ? '#2e7d32' : a.capacidad >= 25 ? '#ed6c02' : '#4a5259';
+            const capacidadColor = '#4a5259';
             const capacidadIcon = a.capacidad >= 40 ? 'users' : a.capacidad >= 25 ? 'user-check' : 'user';
             
             return `
@@ -10098,7 +10098,7 @@ async function renderInvestigacionSection() {
         .investigacion-title > i {
           width: 48px;
           height: 48px;
-          color: #547194;
+          color: #4a5259;
         }
         
         .investigacion-title h2 {
@@ -10194,7 +10194,7 @@ async function renderInvestigacionSection() {
         .list-header h3 i {
           width: 20px;
           height: 20px;
-          color: #547194;
+          color: #4a5259;
         }
         
         .search-input {
@@ -10208,7 +10208,7 @@ async function renderInvestigacionSection() {
         
         .search-input:focus {
           outline: none;
-          border-color: #547194;
+          border-color: #4a5259;
         }
         
         .encuestas-list {
@@ -10455,7 +10455,7 @@ async function renderInvestigacionSection() {
         .pdf-viewer-header h3 i {
           width: 22px;
           height: 22px;
-          color: #547194;
+          color: #4a5259;
         }
         
         .btn-close-modal {

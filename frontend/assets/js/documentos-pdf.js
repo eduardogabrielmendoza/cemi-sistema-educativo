@@ -290,7 +290,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               align-items: center;
               gap: 15px;
               padding: 18px 20px;
-              background: linear-gradient(135deg, #1e3a5f 0%, #0070F3 100%);
+              background: linear-gradient(135deg, #4a5259 0%, #6b7280 100%);
               border: 2px solid #1e40af;
               border-radius: 14px;
               cursor: pointer;
