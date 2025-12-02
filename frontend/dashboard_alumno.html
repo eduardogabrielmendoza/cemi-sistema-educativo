@@ -39,8 +39,8 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 20px 16px;">
-      <img src="images/logodashboard.png" alt="Logo CEMI" style="max-width: 160px; height: auto;">
+    <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
+      <img src="images/logodashboard.png" alt="Logo CEMI" style="width: 100%; max-width: 200px; height: auto;">
     </div>
     <nav class="sidebar-menu">
       <button id="btnCursos"><i data-lucide="book-open"></i> Mis Cursos</button>
@@ -757,10 +757,10 @@
                           }
                           
                           return `
-                            <div style="background: ${bgColor}; border-radius: 10px; padding: 10px 6px; text-align: center; cursor: ${mes.estado === 'pagado' || mes.estado === 'pendiente' || mes.estado === 'impago' ? 'pointer' : 'default'}; transition: transform 0.2s;" 
+                            <div style="background: ${bgColor}; border-radius: 10px; padding: 10px 6px; text-align: center; cursor: ${mes.estado === 'pagado' || mes.estado === 'pendiente' || mes.estado === 'impago' ? 'pointer' : 'default'}; transition: all 0.2s ease;" 
                                  onclick="${mes.estado === 'pagado' ? `generarComprobantePago(${mes.id_pago})` : (mes.estado === 'pendiente' || mes.estado === 'impago' ? `window.abrirModalSeleccionMes(${curso.id_curso}, '${curso.nombre_curso}', '${mes.mes}', ${mes.monto})` : '')}"
                                  ${mes.estado === 'pagado' ? 'title="Descargar comprobante"' : ''}
-                                 onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+                                 onmouseenter="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.15)'; this.style.filter='brightness(0.95)'" onmouseleave="this.style.boxShadow='none'; this.style.filter='brightness(1)'">
                               <i data-lucide="${estadoIcon}" style="width: 18px; height: 18px; color: ${iconColor}; margin-bottom: 4px;"></i>
                               <span style="display: block; color: #4a5259; font-size: 11px; font-weight: 500;">${mes.mes === 'Matricula' ? 'Mat' : mes.mes.substring(0, 3)}</span>
                               ${mes.estado === 'pagado' ? `<span style="display: block; color: #16a34a; font-size: 9px; margin-top: 2px;">${new Date(mes.fecha_pago).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit'})}</span>` : ''}
@@ -2204,14 +2204,17 @@
   window.cerrarModalSeleccionMes = function() {
     const modal = document.getElementById('modalSeleccionMes');
     if (modal) {
-      modal.classList.remove('active');
-      setTimeout(() => modal.remove(), 300);
+      modal.style.opacity = '0';
+      setTimeout(() => modal.remove(), 200);
     }
   };
 
   window.confirmarPagoMes = function(idCurso, mesCuota, monto) {
-    // Cerrar modal de selección
-    cerrarModalSeleccionMes();
+    // Cerrar modal de selección inmediatamente
+    const modalSeleccion = document.getElementById('modalSeleccionMes');
+    if (modalSeleccion) {
+      modalSeleccion.remove();
+    }
     
     // Guardar datos del pago para enviar después
     window.datosPagoActual = {
@@ -2223,7 +2226,7 @@
     // Determinar el concepto correcto
     const conceptoPago = mesCuota === 'Matricula' ? 'Matricula' : `Cuota ${mesCuota}`;
     
-    // Abrir el modal de métodos de pago existente
+    // Abrir el modal de métodos de pago inmediatamente
     window.creditCardForm.openModal({
       amount: monto,
       concepto: conceptoPago,
