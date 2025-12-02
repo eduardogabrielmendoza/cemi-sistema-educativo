@@ -1180,6 +1180,33 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+  transition: filter 0.3s var(--ease-smooth);
+}
+
+/* Blur de fondo cuando hay modales/alertas abiertos */
+body.modal-open,
+body.swal2-shown {
+  overflow: hidden;
+}
+
+body.modal-open .classroom-container,
+body.modal-open .classroom-header,
+body.modal-open .classroom-sidebar,
+body.swal2-shown .classroom-container,
+body.swal2-shown .classroom-header,
+body.swal2-shown .classroom-sidebar {
+  filter: blur(3px);
+  transition: filter 0.4s var(--ease-smooth);
+}
+
+/* SweetAlert2 con blur de fondo */
+.swal2-container {
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+}
+
+.swal2-popup {
+  animation: modalSlideIn 0.4s var(--ease-smooth) !important;
 }
 
 body::before {
@@ -1196,22 +1223,20 @@ body::before {
   100% { background-position: 0% 50%; }
 }
 
-/* Pirueta dramática del sombrero - Harvard Alive */
+/* Pirueta elegante del sombrero - automática cada 3s */
 @keyframes hatSpin {
-  0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(-15deg) scale(1.1); }
-  50% { transform: rotate(360deg) scale(1.15); }
-  75% { transform: rotate(375deg) scale(1.1); }
+  0%, 85% { transform: rotate(0deg) scale(1); }
+  90% { transform: rotate(-8deg) scale(1.05); }
+  94% { transform: rotate(365deg) scale(1.08); }
+  97% { transform: rotate(358deg) scale(1.03); }
   100% { transform: rotate(360deg) scale(1); }
 }
 
 @keyframes hatWiggle {
   0%, 100% { transform: rotate(0deg) scale(1); }
-  15% { transform: rotate(-12deg) scale(1.05); }
-  30% { transform: rotate(10deg) scale(1.08); }
-  45% { transform: rotate(-8deg) scale(1.05); }
-  60% { transform: rotate(6deg) scale(1.02); }
-  75% { transform: rotate(-4deg) scale(1); }
+  25% { transform: rotate(-5deg) scale(1.02); }
+  50% { transform: rotate(5deg) scale(1.04); }
+  75% { transform: rotate(-3deg) scale(1.02); }
 }
 
 /* Fade in con slide suave */
@@ -1302,29 +1327,25 @@ body::before {
   }
 }
 
-/* Bounce dramático para badges */
+/* Bounce suave para badges */
 @keyframes bounceIn {
-  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
-  40% { transform: scale(1.3) rotate(5deg); opacity: 1; }
-  60% { transform: scale(0.9) rotate(-3deg); }
-  80% { transform: scale(1.1) rotate(2deg); }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 @keyframes popIn {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.25); }
-  70% { transform: scale(0.95); }
+  0% { transform: scale(0.9); opacity: 0; }
+  60% { transform: scale(1.03); }
   100% { transform: scale(1); opacity: 1; }
 }
 
 @keyframes wobble {
   0%, 100% { transform: translateX(0); }
-  15% { transform: translateX(-8px) rotate(-3deg); }
-  30% { transform: translateX(6px) rotate(2deg); }
-  45% { transform: translateX(-4px) rotate(-1deg); }
-  60% { transform: translateX(3px) rotate(1deg); }
-  75% { transform: translateX(-2px); }
+  20% { transform: translateX(-4px) rotate(-1deg); }
+  40% { transform: translateX(3px) rotate(1deg); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(1px); }
 }
 
 /* Shimmer para loading */
@@ -1436,18 +1457,15 @@ body {
   height: 28px;
   color: var(--hw-white);
   background: none !important;
-  transition: all 0.6s var(--ease-bounce);
+  transition: all 0.5s var(--ease-smooth);
   cursor: pointer;
+  animation: hatSpin 3s var(--ease-smooth) infinite;
 }
 
 .logo-icon:hover {
-  animation: hatWiggle 0.8s var(--ease-bounce);
-  transform: scale(1.2);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-}
-
-.logo-section:hover .logo-icon {
-  animation: hatSpin 0.8s var(--ease-out-back) forwards;
+  animation-play-state: paused;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
 }
 
 .logo-section h1 {
@@ -1766,8 +1784,8 @@ body {
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 500;
-  transition: all 0.3s var(--ease-out-back);
-  border-radius: 10px;
+  transition: all 0.25s var(--ease-smooth);
+  border-radius: 8px;
   position: relative;
   overflow: hidden;
 }
@@ -1778,11 +1796,11 @@ body {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 4px;
+  width: 3px;
   height: 0;
   background: var(--hw-graphite);
-  border-radius: 0 3px 3px 0;
-  transition: all 0.35s var(--ease-out-back);
+  border-radius: 0 2px 2px 0;
+  transition: height 0.3s var(--ease-smooth);
 }
 
 .nav-item::after {
@@ -1792,19 +1810,18 @@ body {
   top: 0;
   width: 0;
   height: 100%;
-  background: linear-gradient(90deg, rgba(101, 111, 119, 0.1), transparent);
-  transition: width 0.4s var(--ease-smooth);
+  background: linear-gradient(90deg, rgba(101, 111, 119, 0.08), transparent);
+  transition: width 0.3s var(--ease-smooth);
 }
 
 .nav-item:hover {
   background: var(--accent-hover);
   color: var(--hw-charcoal);
-  transform: translateX(8px);
-  box-shadow: -4px 0 0 var(--hw-graphite);
+  transform: translateX(4px);
 }
 
 .nav-item:hover::before {
-  height: 80%;
+  height: 60%;
 }
 
 .nav-item:hover::after {
@@ -1966,8 +1983,8 @@ body {
   position: relative;
   overflow: hidden;
   height: 200px;
-  transition: all 0.5s var(--ease-smooth);
-  cursor: pointer;
+  transition: all 0.6s var(--ease-smooth);
+  cursor: default;
 }
 
 .welcome-section::before {
@@ -1977,23 +1994,23 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, rgba(30, 30, 30, 0.65) 0%, rgba(30, 30, 30, 0.25) 100%);
+  background: linear-gradient(to right, rgba(30, 30, 30, 0.7) 0%, rgba(30, 30, 30, 0.35) 100%);
   z-index: 1;
-  transition: all 0.6s var(--ease-smooth);
+  transition: all 0.8s var(--ease-smooth);
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
 }
 
-/* Efecto blur suave y elegante al hover en el banner */
+/* Efecto blur suave sin aclarar */
 .welcome-section:hover {
-  box-shadow: 0 12px 40px rgba(30, 30, 30, 0.25);
-  transform: translateY(-4px) scale(1.005);
+  box-shadow: 0 10px 35px rgba(30, 30, 30, 0.2);
+  transform: translateY(-2px);
 }
 
 .welcome-section:hover::before {
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  background: linear-gradient(to right, rgba(30, 30, 30, 0.5) 0%, rgba(30, 30, 30, 0.15) 100%);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  background: linear-gradient(to right, rgba(30, 30, 30, 0.72) 0%, rgba(30, 30, 30, 0.38) 100%);
 }
 
 .welcome-banner-overlay {
@@ -2288,32 +2305,29 @@ body.dark-mode .btn-research:hover {
   padding: 20px;
   margin-bottom: 16px;
   box-shadow: var(--shadow-sm);
-  transition: all 0.35s var(--ease-out-back);
+  transition: all 0.3s var(--ease-smooth);
   border: 1px solid var(--border-color);
   border-left: 4px solid var(--hw-graphite);
   position: relative;
   font-family: var(--font-body);
-  animation: fadeInUp 0.5s var(--ease-out-back) backwards;
+  animation: fadeInUp 0.4s var(--ease-smooth) backwards;
 }
 
 /* Stagger animation para activity cards */
 .activity-card:nth-child(1) { animation-delay: 0ms; }
-.activity-card:nth-child(2) { animation-delay: 60ms; }
-.activity-card:nth-child(3) { animation-delay: 120ms; }
-.activity-card:nth-child(4) { animation-delay: 180ms; }
-.activity-card:nth-child(5) { animation-delay: 240ms; }
+.activity-card:nth-child(2) { animation-delay: 50ms; }
+.activity-card:nth-child(3) { animation-delay: 100ms; }
+.activity-card:nth-child(4) { animation-delay: 150ms; }
+.activity-card:nth-child(5) { animation-delay: 200ms; }
 
 .activity-card:hover {
-  box-shadow: 0 10px 30px rgba(30, 30, 30, 0.15);
+  box-shadow: 0 6px 20px rgba(30, 30, 30, 0.12);
   border-left-color: var(--hw-charcoal);
-  border-left-width: 6px;
-  transform: translateY(-5px) translateX(4px);
-  background: linear-gradient(135deg, var(--hw-white) 0%, rgba(101, 111, 119, 0.03) 100%);
+  transform: translateY(-3px);
 }
 
 .activity-card:active {
-  transform: translateY(-2px) translateX(2px);
-  transition: all 0.1s ease;
+  transform: translateY(-1px);
 }
 
 .activity-card.announcement {
@@ -2342,8 +2356,8 @@ body.dark-mode .btn-research:hover {
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 600;
-  animation: bounceIn var(--duration-slow) var(--ease-bounce) backwards;
-  animation-delay: 300ms;
+  animation: fadeInScale 0.4s var(--ease-smooth) backwards;
+  animation-delay: 200ms;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -2703,30 +2717,29 @@ body.dark-mode .btn-research:hover {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: all 0.4s var(--ease-out-back);
+  transition: all 0.3s var(--ease-smooth);
   cursor: pointer;
   position: relative;
   border: 1px solid var(--border-color);
-  animation: fadeInUp 0.6s var(--ease-out-back) backwards;
+  animation: fadeInUp 0.4s var(--ease-smooth) backwards;
 }
 
 /* Stagger animation for class cards */
 .class-card:nth-child(1) { animation-delay: 0ms; }
-.class-card:nth-child(2) { animation-delay: 100ms; }
-.class-card:nth-child(3) { animation-delay: 200ms; }
-.class-card:nth-child(4) { animation-delay: 300ms; }
-.class-card:nth-child(5) { animation-delay: 400ms; }
-.class-card:nth-child(6) { animation-delay: 500ms; }
+.class-card:nth-child(2) { animation-delay: 60ms; }
+.class-card:nth-child(3) { animation-delay: 120ms; }
+.class-card:nth-child(4) { animation-delay: 180ms; }
+.class-card:nth-child(5) { animation-delay: 240ms; }
+.class-card:nth-child(6) { animation-delay: 300ms; }
 
 .class-card:hover {
-  box-shadow: 0 15px 40px rgba(30, 30, 30, 0.2);
-  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(30, 30, 30, 0.15);
+  transform: translateY(-4px);
   border-color: var(--hw-graphite);
 }
 
 .class-card:active {
-  transform: translateY(-4px) scale(0.99);
-  transition: all 0.1s ease;
+  transform: translateY(-2px);
 }
 
 .class-card-header {
@@ -3411,13 +3424,14 @@ body.dark-mode .btn-research:hover {
   bottom: 0;
   left: 0;
   z-index: 10000;
-  display: none;
+  display: block;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .course-side-panel.active {
-  display: block;
   pointer-events: all;
+  visibility: visible;
 }
 
 .course-panel-overlay {
@@ -3427,8 +3441,10 @@ body.dark-mode .btn-research:hover {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s var(--ease-smooth);
 }
 
 .course-side-panel.active .course-panel-overlay {
@@ -3443,9 +3459,9 @@ body.dark-mode .btn-research:hover {
   width: 100%;
   max-width: 600px;
   background: white;
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.2);
   transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s var(--ease-smooth);
   display: flex;
   flex-direction: column;
   overflow: hidden;
