@@ -70,9 +70,9 @@
 }
 
 .curso-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(91, 155, 213, 0.25);
-  border-color: #8eb8db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.12);
 }
 
 .curso-card-header {
@@ -80,23 +80,24 @@
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 0;
-  background: linear-gradient(135deg, #547194 0%, #7a9bbd 100%);
+  background: #4a5259;
   padding: 20px;
-  border-radius: 12px 12px 0 0;
+  border-radius: 16px 16px 0 0;
 }
 
 .curso-icon {
   width: 48px;
   height: 48px;
-  background: #5a7a99;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffffff;
   font-size: 22px;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .curso-card-title {
@@ -106,12 +107,13 @@
 .curso-card-title h3 {
   margin: 0 0 4px 0;
   font-size: 17px;
-  color: #2d3748;
-  font-weight: 600;
+  color: #ffffff;
+  font-weight: 400;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 .curso-card-title .idioma {
-  color: rgba(45, 55, 72, 0.7);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 13px;
   font-weight: 400;
   margin-bottom: 8px;
@@ -120,14 +122,14 @@
 .curso-badge {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 11px;
   font-weight: 600;
-  background: white;
-  color: #2d3748;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e1e1e;
   margin-top: 6px;
   letter-spacing: 0.3px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
 .curso-card-info {
@@ -157,10 +159,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
-  border-top: 1px solid rgba(66, 99, 140, 0.08);
-  gap: 16px;
-  min-height: 68px;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  gap: 12px;
+  min-height: 72px;
 }
 
 .curso-card-footer .card-actions,
@@ -194,16 +196,16 @@
 
 .cupos-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4caf50, #81c784);
+  background: #166534;
   transition: width 0.3s ease;
 }
 
 .cupos-bar-fill.warning {
-  background: linear-gradient(90deg, #ff9800, #ffb74d);
+  background: #92400e;
 }
 
 .cupos-bar-fill.danger {
-  background: linear-gradient(90deg, #f44336, #ef5350);
+  background: #991b1b;
 }
 
 .icon-btn {

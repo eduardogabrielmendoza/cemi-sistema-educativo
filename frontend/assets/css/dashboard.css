@@ -928,7 +928,7 @@
   align-items: flex-start;
   gap: 16px;
   margin-bottom: 0;
-  background: #1e1e1e;
+  background: #4a5259;
   padding: 20px;
   border-radius: 16px 16px 0 0;
   position: relative;
@@ -1015,7 +1015,7 @@
   margin: 0 0 4px 0;
   font-size: 17px;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 400;
   font-family: Georgia, 'Times New Roman', serif;
   text-shadow: none;
   transition: none;
@@ -1078,16 +1078,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
+  padding: 16px 20px;
   border-top: 1px solid rgba(66, 99, 140, 0.08);
   gap: 16px;
-  min-height: 68px;
+  min-height: 76px;
 }
 
 .curso-card-footer .card-actions,
 .curso-card-footer > div:last-child {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
   flex-shrink: 0;
 }
@@ -3540,7 +3540,8 @@
 .curso-card-footer {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+  padding: 16px 20px;
 }
 
 .curso-alumnos-count {
@@ -5024,7 +5025,7 @@
 
 .curso-card-header {
   padding: 20px;
-  background: linear-gradient(135deg, #547194 0%, #7a9bbd 100%);
+  background: #4a5259;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -5033,12 +5034,13 @@
 .curso-card-header .curso-icon {
   width: 48px;
   height: 48px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .curso-card-header .curso-icon i {
@@ -5048,11 +5050,11 @@
 
 .curso-card-header .curso-badge {
   background: rgba(255, 255, 255, 0.95);
-  color: #42638c;
+  color: #1e1e1e;
   padding: 6px 14px;
-  border-radius: 20px;
+  border-radius: 8px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -5064,8 +5066,9 @@
 .curso-card-body h3 {
   margin: 0 0 16px;
   font-size: 20px;
-  font-weight: 600;
-  color: #212121;
+  font-weight: 400;
+  color: #1e1e1e;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 .curso-info-item {
@@ -5131,7 +5134,7 @@
 }
 
 .curso-card-footer {
-  padding: 16px 24px;
+  padding: 20px 24px;
   background: #fafafa;
   border-top: 1px solid #f0f0f0;
 }
