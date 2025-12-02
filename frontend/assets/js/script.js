@@ -3150,10 +3150,10 @@ function generateTable(section, data) {
             return `
             <div class="curso-card alumno-card" data-id="${a.id_alumno}">
               <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : ''}" style="${avatarUrl ? '' : 'background: linear-gradient(135deg, #1976d2, #42a5f5);'}">
+                <div class="curso-icon ${avatarUrl ? 'has-avatar' : 'no-avatar'}" ${avatarUrl ? '' : ''}>
                   ${avatarUrl 
                     ? `<img src="${avatarUrl}" alt="${a.nombre}">`
-                    : `<span style="font-size: 18px; font-weight: 700; color: white;">${iniciales}</span>`
+                    : `<span class="avatar-iniciales">${iniciales}</span>`
                   }
                 </div>
                 <div class="curso-card-title">
