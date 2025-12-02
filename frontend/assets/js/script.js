@@ -3148,44 +3148,44 @@ function generateTable(section, data) {
             const avatarUrl = a.avatar ? a.avatar : null;
             
             return `
-            <div class="curso-card alumno-card" data-id="${a.id_alumno}">
-              <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : 'no-avatar'}" ${avatarUrl ? '' : ''}>
+            <div class="persona-card" data-id="${a.id_alumno}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+              
+              <div style="position: absolute; top: 12px; right: 12px; background: ${estado === 'activo' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; color: ${estado === 'activo' ? '#16a34a' : '#dc2626'}; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${estado.charAt(0).toUpperCase() + estado.slice(1)}</div>
+              
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                <div style="background: ${avatarUrl ? 'transparent' : 'rgba(74, 82, 89, 0.08)'}; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; ${avatarUrl ? 'border: 2px solid #e5e7eb;' : ''}">
                   ${avatarUrl 
-                    ? `<img src="${avatarUrl}" alt="${a.nombre}">`
-                    : `<span class="avatar-iniciales">${iniciales}</span>`
+                    ? `<img src="${avatarUrl}" alt="${a.nombre}" style="width: 100%; height: 100%; object-fit: cover;">`
+                    : `<span style="color: #4a5259; font-size: 18px; font-weight: 500; font-family: 'Inter', sans-serif;">${iniciales}</span>`
                   }
                 </div>
-                <div class="curso-card-title">
-                  <h3>${a.nombre} ${a.apellido}</h3>
-                  <div class="idioma">Legajo: ${a.legajo}</div>
-                  <span class="alumno-estado-badge ${estado}">${estado.charAt(0).toUpperCase() + estado.slice(1)}</span>
+                <div>
+                  <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; font-family: 'Inter', sans-serif;">${a.nombre} ${a.apellido}</h3>
+                  <p style="margin: 0; color: #6b7280; font-size: 13px;">Legajo: ${a.legajo}</p>
                 </div>
               </div>
               
-              <div class="curso-card-info">
-                <div class="info-row">
-                  <i data-lucide="mail"></i>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="mail" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${a.mail}</span>
                 </div>
                 ${a.dni ? `
-                <div class="info-row">
-                  <i data-lucide="credit-card"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="credit-card" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>DNI: ${a.dni}</span>
                 </div>` : ''}
                 ${a.telefono ? `
-                <div class="info-row">
-                  <i data-lucide="phone"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="phone" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${a.telefono}</span>
                 </div>` : ''}
-                <div class="info-row">
-                  <i data-lucide="calendar"></i>
-                  <span>Registro: ${a.fecha_registro ? new Date(a.fecha_registro).toLocaleDateString() : 'N/A'}</span>
-                </div>
               </div>
               
-              <div class="curso-card-footer" style="justify-content: space-between;">
-                <span class="cursos-badge">
+              <div style="height: 1px; background: #e5e7eb; margin: 16px 0;"></div>
+              
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="display: flex; align-items: center; gap: 6px; color: #6b7280; font-size: 13px;">
                   <i data-lucide="book-open" style="width: 14px; height: 14px;"></i>
                   ${cursos} ${cursos === 1 ? 'curso' : 'cursos'}
                 </span>
@@ -3240,44 +3240,48 @@ function generateTable(section, data) {
             const avatarUrl = p.avatar ? p.avatar : null;
             
             return `
-            <div class="curso-card profesor-card" data-id="${p.id_profesor}" data-idioma="${idiomas}">
-              <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : 'no-avatar'}">
+            <div class="persona-card" data-id="${p.id_profesor}" data-idioma="${idiomas}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+              
+              <div style="position: absolute; top: 12px; right: 12px; background: ${estado === 'activo' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; color: ${estado === 'activo' ? '#16a34a' : '#dc2626'}; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${estado.charAt(0).toUpperCase() + estado.slice(1)}</div>
+              
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                <div style="background: ${avatarUrl ? 'transparent' : 'rgba(74, 82, 89, 0.08)'}; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; ${avatarUrl ? 'border: 2px solid #e5e7eb;' : ''}">
                   ${avatarUrl 
-                    ? `<img src="${avatarUrl}" alt="${p.nombre}">`
-                    : `<span class="avatar-iniciales">${iniciales}</span>`
+                    ? `<img src="${avatarUrl}" alt="${p.nombre}" style="width: 100%; height: 100%; object-fit: cover;">`
+                    : `<span style="color: #4a5259; font-size: 18px; font-weight: 500; font-family: 'Inter', sans-serif;">${iniciales}</span>`
                   }
                 </div>
-                <div class="curso-card-title">
-                  <h3>${p.nombre} ${p.apellido}</h3>
-                  <div class="idioma">${p.especialidad || 'Sin especialidad'}</div>
-                  <span class="profesor-estado-badge ${estado}">${estado.charAt(0).toUpperCase() + estado.slice(1)}</span>
+                <div>
+                  <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; font-family: 'Inter', sans-serif;">${p.nombre} ${p.apellido}</h3>
+                  <p style="margin: 0; color: #6b7280; font-size: 13px;">${p.especialidad || 'Sin especialidad'}</p>
                 </div>
               </div>
               
-              <div class="curso-card-info">
-                <div class="info-row">
-                  <i data-lucide="mail"></i>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="mail" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${p.mail}</span>
                 </div>
                 ${p.dni ? `
-                <div class="info-row">
-                  <i data-lucide="credit-card"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="credit-card" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>DNI: ${p.dni}</span>
                 </div>` : ''}
                 ${p.telefono ? `
-                <div class="info-row">
-                  <i data-lucide="phone"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="phone" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${p.telefono}</span>
                 </div>` : ''}
-                <div class="info-row">
-                  <i data-lucide="languages"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="languages" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${idiomas}</span>
                 </div>
               </div>
               
-              <div class="curso-card-footer" style="justify-content: space-between;">
-                <span class="cursos-badge">
+              <div style="height: 1px; background: #e5e7eb; margin: 16px 0;"></div>
+              
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="display: flex; align-items: center; gap: 6px; color: #6b7280; font-size: 13px;">
                   <i data-lucide="book-open" style="width: 14px; height: 14px;"></i>
                   ${cursos} ${cursos === 1 ? 'curso' : 'cursos'}
                 </span>
@@ -3318,54 +3322,56 @@ function generateTable(section, data) {
             const avatarUrl = admin.avatar ? admin.avatar : null;
             
             return `
-            <div class="curso-card profesor-card" data-id="${admin.id_persona}">
-              <div class="curso-card-header">
-                <div class="curso-icon ${avatarUrl ? 'has-avatar' : 'no-avatar'}">
+            <div class="persona-card" data-id="${admin.id_persona}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+              
+              <div style="position: absolute; top: 12px; right: 12px; background: ${estado === 'activo' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; color: ${estado === 'activo' ? '#16a34a' : '#dc2626'}; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${estado === 'activo' ? 'Activo' : 'Sin acceso'}</div>
+              
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                <div style="background: ${avatarUrl ? 'transparent' : 'rgba(74, 82, 89, 0.08)'}; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; ${avatarUrl ? 'border: 2px solid #e5e7eb;' : ''}">
                   ${avatarUrl 
-                    ? `<img src="${avatarUrl}" alt="${admin.nombre}">`
-                    : `<span class="avatar-iniciales">${iniciales}</span>`
+                    ? `<img src="${avatarUrl}" alt="${admin.nombre}" style="width: 100%; height: 100%; object-fit: cover;">`
+                    : `<span style="color: #4a5259; font-size: 18px; font-weight: 500; font-family: 'Inter', sans-serif;">${iniciales}</span>`
                   }
                 </div>
-                <div class="curso-card-title">
-                  <h3>${admin.nombre} ${admin.apellido}</h3>
-                  <div class="idioma">Administrador</div>
-                  <span class="profesor-estado-badge ${estado}">${estado === 'activo' ? 'Activo' : 'Sin acceso'}</span>
+                <div>
+                  <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; font-family: 'Inter', sans-serif;">${admin.nombre} ${admin.apellido}</h3>
+                  <p style="margin: 0; color: #6b7280; font-size: 13px;">Administrador</p>
                 </div>
               </div>
               
-              <div class="curso-card-info">
-                <div class="info-row">
-                  <i data-lucide="mail"></i>
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="mail" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${admin.mail}</span>
                 </div>
                 ${admin.telefono ? `
-                <div class="info-row">
-                  <i data-lucide="phone"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="phone" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>${admin.telefono}</span>
                 </div>` : ''}
                 ${admin.dni ? `
-                <div class="info-row">
-                  <i data-lucide="credit-card"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="credit-card" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>DNI: ${admin.dni}</span>
                 </div>` : ''}
-                <div class="info-row">
-                  <i data-lucide="user"></i>
+                <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                  <i data-lucide="user" style="width: 14px; height: 14px; color: #9ca3af;"></i>
                   <span>@${admin.username || 'Sin usuario'}</span>
                 </div>
               </div>
               
-              <div class="curso-card-footer" style="justify-content: flex-end;">
-                <div style="display: flex; gap: 8px;">
-                  <button class="btn-icon-edit" onclick="event.stopPropagation(); editarAdministrador(${admin.id_persona})" title="Editar">
-                    <i data-lucide="edit-2"></i>
-                  </button>
-                  <button class="btn-icon-warning" onclick="event.stopPropagation(); abrirModalCredencialesAdministrador(${admin.id_persona})" title="Editar Credenciales">
-                    <i data-lucide="key"></i>
-                  </button>
-                  <button class="btn-icon-danger" onclick="event.stopPropagation(); eliminarAdministrador(${admin.id_persona}, '${admin.nombre} ${admin.apellido}')" title="Eliminar">
-                    <i data-lucide="trash-2"></i>
-                  </button>
-                </div>
+              <div style="height: 1px; background: #e5e7eb; margin: 16px 0;"></div>
+              
+              <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button class="btn-icon-edit" onclick="event.stopPropagation(); editarAdministrador(${admin.id_persona})" title="Editar">
+                  <i data-lucide="edit-2"></i>
+                </button>
+                <button class="btn-icon-warning" onclick="event.stopPropagation(); abrirModalCredencialesAdministrador(${admin.id_persona})" title="Editar Credenciales">
+                  <i data-lucide="key"></i>
+                </button>
+                <button class="btn-icon-danger" onclick="event.stopPropagation(); eliminarAdministrador(${admin.id_persona}, '${admin.nombre} ${admin.apellido}')" title="Eliminar">
+                  <i data-lucide="trash-2"></i>
+                </button>
               </div>
             </div>
           `}).join('')}
