@@ -3576,29 +3576,20 @@ case "pagos":
         </div>
         <div class="idiomas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map((idioma, index) => {
-            const colors = [
-              { bg: '#4a5259', light: '#6b7280', icon: 'globe-2' },
-              { bg: '#7b1fa2', light: '#ba68c8', icon: 'book-open' },
-              { bg: '#0097a7', light: '#4dd0e1', icon: 'message-circle' },
-              { bg: '#d84315', light: '#ff7043', icon: 'volume-2' },
-              { bg: '#388e3c', light: '#66bb6a', icon: 'award' },
-              { bg: '#f57c00', light: '#ffb74d', icon: 'flag' }
-            ];
-            const colorScheme = colors[index % colors.length];
             const isPopular = idiomasStats.populares.includes(idioma.nombre_idioma);
             
             return `
-            <div class="idioma-card" style="background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s ease; position: relative; overflow: hidden;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.15)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'; this.style.transform='translateY(0)';">
-              ${isPopular ? '<div style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #ffd700, #ffed4e); color: #f57c00; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; display: flex; align-items: center; gap: 4px;"><i data-lucide="star" style="width: 12px; height: 12px;"></i> Popular</div>' : ''}
+            <div class="idioma-card" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+              ${isPopular ? '<div style="position: absolute; top: 12px; right: 12px; background: rgba(74, 82, 89, 0.1); color: #4a5259; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px; display: flex; align-items: center; gap: 4px;"><i data-lucide="star" style="width: 12px; height: 12px;"></i> Popular</div>' : ''}
               
-              <div style="background: linear-gradient(135deg, ${colorScheme.bg}, ${colorScheme.light}); border-radius: 10px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
-                <i data-lucide="${colorScheme.icon}" style="width: 30px; height: 30px; color: white;"></i>
+              <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                <i data-lucide="languages" style="width: 28px; height: 28px; color: #4a5259;"></i>
               </div>
               
-              <h3 style="margin: 0 0 8px 0; color: #4a5259; font-size: 20px; font-weight: 600;">${idioma.nombre_idioma}</h3>
-              <p style="margin: 0 0 15px 0; color: #999; font-size: 13px;">ID: ${idioma.id_idioma}</p>
+              <h3 style="margin: 0 0 6px 0; color: #1e1e1e; font-size: 18px; font-weight: 500; font-family: 'Inter', sans-serif;">${idioma.nombre_idioma}</h3>
+              <p style="margin: 0 0 16px 0; color: #6b7280; font-size: 13px;">ID: ${idioma.id_idioma}</p>
               
-              <div style="height: 1px; background: #e0e0e0; margin: 15px 0;"></div>
+              <div style="height: 1px; background: #e5e7eb; margin: 16px 0;"></div>
               
               <div style="display: flex; gap: 8px; justify-content: flex-end;">
                 <button class="btn-icon-edit" onclick="editarIdioma(${idioma.id_idioma}, '${idioma.nombre_idioma}')" title="Editar">
@@ -3609,7 +3600,7 @@ case "pagos":
                 </button>
               </div>
             </div>
-          `}).join('') : '<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"><i data-lucide="languages" style="width: 48px; height: 48px; color: #ccc; margin-bottom: 15px;"></i><p style="color: #999; font-size: 16px;">No hay idiomas registrados</p><p style="color: #ccc; font-size: 14px;">Comienza agregando un nuevo idioma</p></div>'}
+          `}).join('') : '<div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: white; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;"><div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;"><i data-lucide="languages" style="width: 28px; height: 28px; color: #6b7280;"></i></div><p style="color: #6b7280; font-size: 16px; margin: 0 0 4px 0;">No hay idiomas registrados</p><p style="color: #9ca3af; font-size: 14px; margin: 0;">Comienza agregando un nuevo idioma</p></div>'}
         </div>
       `;
       
