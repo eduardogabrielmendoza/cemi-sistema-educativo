@@ -108,46 +108,37 @@
 }
 
 /* Animated ring around icon */
-.side-panel-icon::before {
-  content: '' !important;
-  display: block !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  width: 100% !important;
-  height: 100% !important;
-  transform: translate(-50%, -50%) scale(1) !important;
-  transform-origin: center center !important;
-  border: 2px solid rgba(255, 255, 255, 0.6) !important;
-  border-radius: 22px !important;
-  animation: iconAuraShoot 2.5s ease-out infinite !important;
-  pointer-events: none !important;
-}
-
+.side-panel-icon::before,
 .side-panel-icon::after {
   content: '' !important;
   display: block !important;
   position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  width: 100% !important;
-  height: 100% !important;
-  transform: translate(-50%, -50%) scale(1) !important;
-  transform-origin: center center !important;
-  border: 2px solid rgba(255, 255, 255, 0.4) !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
   border-radius: 22px !important;
-  animation: iconAuraShoot 2.5s ease-out 1.25s infinite !important;
   pointer-events: none !important;
+}
+
+.side-panel-icon::before {
+  border: 2px solid rgba(255, 255, 255, 0.6) !important;
+  animation: iconAuraShoot 2.5s ease-out infinite !important;
+}
+
+.side-panel-icon::after {
+  border: 2px solid rgba(255, 255, 255, 0.4) !important;
+  animation: iconAuraShoot 2.5s ease-out 1.25s infinite !important;
 }
 
 @keyframes iconAuraShoot {
   0% {
-    transform: translate(-50%, -50%) scale(1);
     opacity: 0.8;
+    transform: scale(1);
   }
   100% {
-    transform: translate(-50%, -50%) scale(1.6);
     opacity: 0;
+    transform: scale(1.6);
   }
 }
 
