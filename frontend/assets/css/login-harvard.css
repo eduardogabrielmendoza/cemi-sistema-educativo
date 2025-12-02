@@ -99,26 +99,27 @@
   background: rgba(255, 255, 255, 0.15) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 22px !important;
-  margin: 0 0 32px 16px !important;
+  margin: 0 0 32px 0 !important;
   position: relative !important;
   overflow: visible !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  isolation: isolate !important;
 }
 
 /* Animated ring around icon */
 .side-panel-icon::before,
 .side-panel-icon::after {
   content: '' !important;
-  display: block !important;
   position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  border-radius: 22px !important;
+  top: -2px !important;
+  left: -2px !important;
+  width: calc(100% + 4px) !important;
+  height: calc(100% + 4px) !important;
+  border-radius: 24px !important;
   pointer-events: none !important;
+  box-sizing: border-box !important;
 }
 
 .side-panel-icon::before {
@@ -138,7 +139,7 @@
   }
   100% {
     opacity: 0;
-    transform: scale(1.6);
+    transform: scale(1.5);
   }
 }
 
