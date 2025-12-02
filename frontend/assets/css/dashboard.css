@@ -8943,4 +8943,63 @@
   }
 }
 
+/* ========================================
+   SWEETALERT2 - FORZAR COLORES HARVARD
+   ======================================== */
+
+/* Botones de SweetAlert2 */
+.swal2-confirm.swal2-styled {
+  background-color: #4a5259 !important;
+  border: none !important;
+  --swal2-action-button-focus-box-shadow: 0 0 0 3px rgba(74, 82, 89, 0.5) !important;
+}
+
+.swal2-confirm.swal2-styled:focus {
+  box-shadow: 0 0 0 3px rgba(74, 82, 89, 0.5) !important;
+}
+
+.swal2-confirm.swal2-styled:hover {
+  background-color: #3d444a !important;
+}
+
+.swal2-cancel.swal2-styled {
+  background-color: #6b7280 !important;
+  border: none !important;
+}
+
+.swal2-cancel.swal2-styled:focus {
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.5) !important;
+}
+
+.swal2-deny.swal2-styled {
+  background-color: #dc2626 !important;
+}
+
+/* ========================================
+   CHECKBOXES - FORZAR COLOR HARVARD
+   ======================================== */
+
+/* Checkboxes nativos */
+input[type="checkbox"] {
+  accent-color: #4a5259 !important;
+}
+
+/* Checkboxes en modales de SweetAlert2 */
+.swal2-popup input[type="checkbox"] {
+  accent-color: #4a5259 !important;
+  cursor: pointer;
+}
+
+/* Checkboxes en sección de pagos */
+.pagos-container input[type="checkbox"],
+.cuotas-grid input[type="checkbox"],
+.cuota-checkbox input[type="checkbox"] {
+  accent-color: #4a5259 !important;
+}
+
+/* Custom checkbox styling para mejor apariencia */
+input[type="checkbox"]:checked {
+  background-color: #4a5259 !important;
+  border-color: #4a5259 !important;
+}
 
