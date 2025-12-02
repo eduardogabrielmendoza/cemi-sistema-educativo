@@ -29,9 +29,9 @@ body {
   background: var(--security-bg);
 }
 
-/* Header con gradiente y patrón */
+/* Header con color sólido */
 .security-header {
-  background: linear-gradient(135deg, var(--security-primary) 0%, var(--security-accent) 100%);
+  background: var(--security-primary);
   padding: 80px 20px;
   text-align: center;
   color: white;
@@ -212,7 +212,7 @@ body {
 }
 
 .security-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: var(--security-bg-alt);
   border-radius: 12px;
   padding: 30px;
   border: 2px solid transparent;
@@ -270,7 +270,7 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--security-primary) 0%, var(--security-accent) 100%);
+  background: var(--security-primary);
   transform: scaleX(0);
   transition: transform 0.3s;
 }
@@ -309,7 +309,7 @@ body {
   align-items: center;
   gap: 10px;
   padding: 16px 32px;
-  background: linear-gradient(135deg, var(--security-primary) 0%, var(--security-accent) 100%);
+  background: var(--security-primary);
   color: white;
   text-decoration: none;
   border-radius: 12px;
@@ -349,7 +349,7 @@ body {
 
 /* Alert box */
 .security-alert {
-  background: linear-gradient(135deg, #fff3cd 0%, #fff8e1 100%);
+  background: #fff8e1;
   border-left: 4px solid var(--security-yellow);
   padding: 20px;
   border-radius: 8px;
