@@ -18,7 +18,7 @@
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
+  background: #4a5259;
   color: white;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .user-chat-message.mine .message-bubble {
-  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
+  background: #4a5259;
   color: white;
 }
 
@@ -126,7 +126,7 @@
   height: 42px;
   border: none;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
+  background: #4a5259;
   color: white;
   cursor: pointer;
   display: flex;
@@ -217,7 +217,7 @@
 }
 
 .admin-conversation-item.active {
-  background: #ede9fe;
+  background: rgba(74, 82, 89, 0.08);
   border-left: 3px solid #4a5259;
 }
 
@@ -225,8 +225,8 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
-  color: white;
+  background: rgba(74, 82, 89, 0.1);
+  color: #4a5259;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -398,7 +398,7 @@
   height: 42px;
   border: none;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
+  background: #4a5259;
   color: white;
   cursor: pointer;
   display: flex;

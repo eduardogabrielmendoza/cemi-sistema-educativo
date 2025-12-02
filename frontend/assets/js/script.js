@@ -1741,7 +1741,7 @@ function renderStatusSection() {
       }
 
       .status-hero {
-        background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
+        background: #4a5259;
         border-radius: 16px;
         padding: 30px;
         margin-bottom: 25px;
@@ -2192,7 +2192,7 @@ function renderStatusSection() {
         content: '';
         width: 4px;
         height: 24px;
-        background: linear-gradient(135deg, #4a5259, #4a5259);
+        background: rgba(74, 82, 89, 0.1);
         border-radius: 2px;
       }
 
@@ -9948,13 +9948,13 @@ async function renderInvestigacionSection() {
       <div class="investigacion-container">
         <div class="investigacion-header">
           <div class="investigacion-title">
-            <i data-lucide="flask-conical" style="color: #1e3a5f;"></i>
+            <i data-lucide="flask-conical" style="color: #4a5259;"></i>
             <div>
-              <h2 style="color: #1e3a5f;">Investigación CEMI</h2>
+              <h2 style="color: #4a5259;">Investigación CEMI</h2>
               <p>Centro de recopilación de datos de experiencia de usuario</p>
             </div>
           </div>
-          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1e3a5f, #4a5259);">
+          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(74, 82, 89, 0.1);">
             <i data-lucide="external-link"></i>
             Ver Landing de Encuesta
           </a>
@@ -9963,7 +9963,7 @@ async function renderInvestigacionSection() {
         <!-- Estadísticas -->
         <div class="investigacion-stats">
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #1e3a5f, #4a5259);">
+            <div class="stat-icon" style="background: rgba(74, 82, 89, 0.1);">
               <i data-lucide="file-text"></i>
             </div>
             <div class="stat-info">
@@ -9972,7 +9972,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #4a5259, #4a5259);">
+            <div class="stat-icon" style="background: rgba(74, 82, 89, 0.1);">
               <i data-lucide="star"></i>
             </div>
             <div class="stat-info">
@@ -9990,7 +9990,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #4a5259, #1e3a5f);">
+            <div class="stat-icon" style="background: rgba(74, 82, 89, 0.1);">
               <i data-lucide="calendar"></i>
             </div>
             <div class="stat-info">
@@ -10018,7 +10018,7 @@ async function renderInvestigacionSection() {
               </div>
             ` : encuestas.encuestas.map(enc => `
               <div class="encuesta-item" data-id="${enc.id}">
-                <div class="encuesta-avatar" style="background: linear-gradient(135deg, #1e3a5f, #4a5259);">
+                <div class="encuesta-avatar" style="background: rgba(74, 82, 89, 0.1);">
                   <span>${enc.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}</span>
                 </div>
                 <div class="encuesta-info">
@@ -10217,7 +10217,7 @@ async function renderInvestigacionSection() {
         }
         
         .encuesta-item:hover {
-          background-color: #f8f9ff;
+          background-color: #f5f5f7;
         }
         
         .encuesta-avatar {
@@ -10273,7 +10273,7 @@ async function renderInvestigacionSection() {
           font-size: 12px;
           font-weight: 600;
           background: #e5e7eb;
-          color: #1e3a5f;
+          color: #4a5259;
         }
         
         .satisfaction-badge i {
@@ -10282,7 +10282,7 @@ async function renderInvestigacionSection() {
         }
         
         .satisfaction-10, .satisfaction-9, .satisfaction-8 {
-          background: #1e3a5f;
+          background: #4a5259;
           color: white;
         }
         
@@ -10297,8 +10297,8 @@ async function renderInvestigacionSection() {
         }
         
         .satisfaction-3, .satisfaction-2, .satisfaction-1 {
-          background: #93c5fd;
-          color: #1e3a5f;
+          background: #9ca3af;
+          color: #4a5259;
         }
         
         .satisfaction-na {
@@ -10344,11 +10344,11 @@ async function renderInvestigacionSection() {
         
         .btn-view {
           background: #e5e7eb;
-          color: #1e3a5f;
+          color: #4a5259;
         }
         
         .btn-view:hover {
-          background: #1e3a5f;
+          background: #4a5259;
           color: white;
         }
         
