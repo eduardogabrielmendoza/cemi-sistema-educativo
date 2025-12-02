@@ -69,7 +69,7 @@
   border-radius: 16px 0 0 16px !important;
   border: none !important;
   box-shadow: none !important;
-  min-height: 600px !important;
+  min-height: 640px !important;
   padding: 40px 36px !important;
   align-self: stretch !important;
 }
@@ -222,9 +222,9 @@
   border: 1px solid var(--color-border) !important;
   border-left: none !important;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08) !important;
-  padding: 44px 40px !important;
-  max-width: 420px !important;
-  min-height: 600px !important;
+  padding: 48px 44px !important;
+  max-width: 440px !important;
+  min-height: 640px !important;
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
@@ -235,13 +235,13 @@
 }
 
 .login-header {
-  margin-bottom: 28px !important;
+  margin-bottom: 32px !important;
 }
 
 .login-logo {
-  width: 56px !important;
-  height: 56px !important;
-  margin-bottom: 16px !important;
+  width: 64px !important;
+  height: 64px !important;
+  margin-bottom: 18px !important;
   animation: none !important;
 }
 
@@ -251,80 +251,140 @@
 
 .login-header h1 {
   font-family: var(--font-heading) !important;
-  font-size: 1.5rem !important;
+  font-size: 1.75rem !important;
   font-weight: 400 !important;
   color: var(--color-text) !important;
   letter-spacing: -0.3px !important;
-  margin-bottom: 6px !important;
+  margin-bottom: 8px !important;
   animation: none !important;
   opacity: 1 !important;
 }
 
 .login-header p {
   font-family: var(--font-body) !important;
-  font-size: 0.9rem !important;
+  font-size: 0.95rem !important;
   color: var(--color-text-secondary) !important;
   animation: none !important;
   opacity: 1 !important;
 }
 
-/* Form */
-#loginForm,
-#loginAdminForm {
-  animation: none !important;
-  opacity: 1 !important;
+/* Form Group Spacing */
+.form-group {
+  margin-bottom: 20px !important;
 }
 
 .form-label {
   font-family: var(--font-body) !important;
-  font-size: 0.875rem !important;
+  font-size: 0.9rem !important;
   font-weight: 500 !important;
   color: var(--color-text) !important;
-  margin-bottom: 8px !important;
+  margin-bottom: 10px !important;
   display: block !important;
 }
 
-#loginForm input,
-#loginAdminForm input {
-  font-family: var(--font-body) !important;
+/* Input with prefix icon */
+.input-with-icon {
+  display: flex !important;
+  align-items: center !important;
+  background: var(--color-bg) !important;
   border: 1px solid var(--color-border) !important;
   border-radius: 12px !important;
-  background: var(--color-bg) !important;
-  padding: 13px 44px 13px 16px !important;
-  font-size: 0.95rem !important;
-  color: var(--color-text) !important;
+  transition: all 0.2s ease !important;
 }
 
-#loginForm input:focus,
-#loginAdminForm input:focus {
+.input-with-icon:focus-within {
   border-color: var(--color-accent) !important;
   box-shadow: 0 0 0 3px rgba(101, 111, 119, 0.1) !important;
   background: var(--color-surface) !important;
 }
 
-.input-icon {
-  left: auto !important;
-  right: 14px !important;
+.input-prefix {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 0 0 14px !important;
   color: var(--color-text-secondary) !important;
 }
 
-#loginForm input:focus ~ .input-icon,
-#loginAdminForm input:focus ~ .input-icon {
+.input-prefix i,
+.input-prefix svg {
+  width: 18px !important;
+  height: 18px !important;
+  stroke-width: 1.5 !important;
+}
+
+.input-with-icon:focus-within .input-prefix {
   color: var(--color-accent) !important;
 }
 
-/* Password toggle adjustment */
-.input-wrapper .toggle-password {
-  right: 12px !important;
+.input-with-icon input {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 14px 14px !important;
+  flex: 1 !important;
 }
 
-.input-wrapper .toggle-password ~ .input-icon {
+.input-with-icon input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Regular input wrapper (password field) */
+#loginForm .input-wrapper:not(.input-with-icon) input,
+#loginAdminForm .input-wrapper:not(.input-with-icon) input {
+  font-family: var(--font-body) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 12px !important;
+  background: var(--color-bg) !important;
+  padding: 14px 48px 14px 16px !important;
+  font-size: 0.95rem !important;
+  color: var(--color-text) !important;
+  width: 100% !important;
+}
+
+#loginForm .input-wrapper:not(.input-with-icon) input:focus,
+#loginAdminForm .input-wrapper:not(.input-with-icon) input:focus {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 3px rgba(101, 111, 119, 0.1) !important;
+  background: var(--color-surface) !important;
+  outline: none !important;
+}
+
+.input-icon {
   display: none !important;
 }
 
 /* Form Options */
 .form-options {
-  margin: 12px 0 20px 0 !important;
+  margin: 16px 0 24px 0 !important;
+}
+
+/* Toggle Password */
+.toggle-password {
+  position: absolute !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: none !important;
+  border: none !important;
+  color: var(--color-text-secondary) !important;
+  cursor: pointer !important;
+  padding: 6px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.toggle-password:hover {
+  color: var(--color-accent) !important;
+  background: var(--color-bg) !important;
+}
+
+.toggle-password i,
+.toggle-password svg {
+  width: 18px !important;
+  height: 18px !important;
+  stroke-width: 1.5 !important;
 }
 
 .forgot-password {

@@ -377,6 +377,54 @@ body {
   position: relative;
 }
 
+/* Input with prefix icon */
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.input-with-icon:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(101, 111, 119, 0.1);
+  background: var(--color-surface);
+}
+
+.input-prefix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 0 14px;
+  color: var(--color-text-secondary);
+}
+
+.input-prefix i,
+.input-prefix svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5;
+}
+
+.input-with-icon:focus-within .input-prefix {
+  color: var(--color-accent);
+}
+
+.input-with-icon input {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 14px 14px;
+  flex: 1;
+}
+
+.input-with-icon input:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
 .input-wrapper input {
   width: 100%;
   padding: 14px 44px 14px 16px;
