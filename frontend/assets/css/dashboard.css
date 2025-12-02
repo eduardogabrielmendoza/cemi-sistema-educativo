@@ -298,14 +298,14 @@
 .loader::before {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   opacity: 0.8;
 }
 
 .loader::after {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #2a5298 0%, #42638c 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #5d646b 100%);
   animation-delay: 1s;
 }
 
@@ -1577,7 +1577,7 @@
 
 .search-box-wrapper .search-input-with-icon:focus {
   outline: none;
-  border-color: #1976d2;
+  border-color: #4a5259;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -1983,7 +1983,7 @@
   background: #f8f9fa;
   padding: 16px;
   border-radius: 8px;
-  border-left: 4px solid #1976d2;
+  border-left: 4px solid #4a5259;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2008,7 +2008,7 @@
 .curso-item-calificacion .promedio {
   font-size: 24px;
   font-weight: 700;
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .curso-item-calificacion .label {
@@ -2029,7 +2029,7 @@
   padding: 20px;
   border-radius: 10px;
   text-align: center;
-  border-left: 4px solid #1976d2;
+  border-left: 4px solid #4a5259;
 }
 
 .stat-box.success {
@@ -2043,7 +2043,7 @@
 .stat-number {
   font-size: 36px;
   font-weight: 700;
-  color: #1976d2;
+  color: #4a5259;
   margin-bottom: 4px;
 }
 
@@ -2071,7 +2071,7 @@
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #1976d2, #42a5f5);
+  background: linear-gradient(90deg, #4a5259, #6b7280);
   transition: width 0.3s ease;
 }
 
@@ -2338,7 +2338,7 @@
 
 .carga-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #1976d2, #42a5f5);
+  background: linear-gradient(90deg, #4a5259, #6b7280);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -2371,7 +2371,7 @@
   background: #f8f9fa;
   padding: 16px;
   border-radius: 8px;
-  border-left: 4px solid #1976d2;
+  border-left: 4px solid #4a5259;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 16px;
@@ -2397,7 +2397,7 @@
 .profesor-curso-stats .numero {
   font-size: 20px;
   font-weight: 700;
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .profesor-curso-stats .label {
@@ -2430,7 +2430,7 @@
 }
 
 .panel-actions .btn-edit {
-  background: #1976d2;
+  background: #4a5259;
   color: white;
 }
 
@@ -3131,7 +3131,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #1976d2, transparent);
+  background: linear-gradient(to bottom, #4a5259, transparent);
 }
 
 .historial-item {
@@ -3358,12 +3358,12 @@
 }
 
 .profesor-stat-card-enhanced.primary {
-  border-color: #1976d2;
+  border-color: #4a5259;
   background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
 }
 
 .profesor-stat-card-enhanced.primary .stat-icon-wrapper {
-  background: linear-gradient(135deg, #1976d2, #42a5f5);
+  background: linear-gradient(135deg, #4a5259, #6b7280);
 }
 
 .profesor-stat-card-enhanced.success {
@@ -3408,7 +3408,7 @@
 .stat-number {
   font-size: 36px;
   font-weight: 700;
-  color: #42638c;
+  color: #5d646b;
   line-height: 1;
   margin-bottom: 8px;
 }
@@ -3459,11 +3459,11 @@
 .estado-vacio-icon i {
   width: 50px;
   height: 50px;
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .estado-vacio-profesor h3 {
-  color: #42638c;
+  color: #5d646b;
   font-size: 24px;
   margin: 0 0 12px 0;
 }
@@ -3497,7 +3497,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  border-left: 4px solid #1976d2;
+  border-left: 4px solid #4a5259;
   position: relative;
 }
 
@@ -3529,7 +3529,7 @@
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 12px 0;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .curso-card-meta {
@@ -3573,7 +3573,7 @@
 .curso-alumnos-count i {
   width: 16px;
   height: 16px;
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .curso-card-arrow {
@@ -3595,7 +3595,7 @@
 }
 
 .curso-selector-card-enhanced:hover .curso-card-arrow {
-  background: #1976d2;
+  background: #4a5259;
   transform: translateX(4px);
 }
 
@@ -4054,7 +4054,7 @@
 
 .calificaciones-curso-selector h3 {
   font-size: 20px;
-  color: #42638c;
+  color: #5d646b;
   margin: 0 0 24px 0;
   font-weight: 600;
   display: flex;
@@ -4063,7 +4063,7 @@
 }
 
 .calificaciones-curso-selector h3 i {
-  color: #2a5298;
+  color: #4a5259;
 }
 
 .calificaciones-cursos-grid {
@@ -4089,14 +4089,14 @@
 .calificacion-curso-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(30,60,114,0.2);
-  border-color: #2a5298;
+  border-color: #4a5259;
 }
 
 .calificacion-curso-icon {
   width: 56px;
   height: 56px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4128,7 +4128,7 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: #42638c;
+  color: #5d646b;
   background: rgba(30,60,114,0.1);
   padding: 6px 12px;
   border-radius: 14px;
@@ -4141,7 +4141,7 @@
 }
 
 .calificacion-curso-arrow {
-  color: #2a5298;
+  color: #4a5259;
   font-size: 22px;
   transition: transform 0.3s ease;
 }
@@ -4179,7 +4179,7 @@
 
 .calificaciones-titulo h3 {
   font-size: 24px;
-  color: #42638c;
+  color: #5d646b;
   margin: 0;
   display: flex;
   align-items: center;
@@ -4188,7 +4188,7 @@
 }
 
 .calificaciones-titulo h3 i {
-  color: #2a5298;
+  color: #4a5259;
 }
 
 .btn-volver-cursos {
@@ -4196,7 +4196,7 @@
   background: rgba(240,244,248,0.8);
   border: 2px solid rgba(30,60,114,0.2);
   border-radius: 10px;
-  color: #42638c;
+  color: #5d646b;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -4207,8 +4207,8 @@
 
 .btn-volver-cursos:hover {
   background: rgba(30,60,114,0.1);
-  border-color: #2a5298;
-  color: #2a5298;
+  border-color: #4a5259;
+  color: #4a5259;
 }
 
 .calificaciones-stats-row {
@@ -4224,7 +4224,7 @@
   padding: 18px;
   border-radius: 14px;
   text-align: center;
-  border-left: 4px solid #42638c;
+  border-left: 4px solid #5d646b;
   box-shadow: 0 4px 12px rgba(30,60,114,0.1);
   transition: all 0.3s ease;
 }
@@ -4235,7 +4235,7 @@
 }
 
 .calif-stat-mini.success {
-  border-left-color: #2a5298;
+  border-left-color: #4a5259;
 }
 
 .calif-stat-mini.warning {
@@ -4249,12 +4249,12 @@
 .calif-stat-mini h4 {
   font-size: 30px;
   font-weight: 700;
-  color: #42638c;
+  color: #5d646b;
   margin: 0 0 5px 0;
 }
 
 .calif-stat-mini.success h4 {
-  color: #2a5298;
+  color: #4a5259;
 }
 
 .calif-stat-mini.warning h4 {
@@ -4297,7 +4297,7 @@
 
 .btn-modo-edicion {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   color: white;
   border: none;
   border-radius: 10px;
@@ -4335,7 +4335,7 @@
 }
 
 .calificaciones-table-profesor thead {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   color: white;
 }
 
@@ -4388,7 +4388,7 @@
 
 .nota-input:focus {
   outline: none;
-  border-color: #1976d2;
+  border-color: #4a5259;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -4488,7 +4488,7 @@
 
 .asistencias-titulo-row h3 {
   font-size: 24px;
-  color: #42638c;
+  color: #5d646b;
   margin: 0;
   display: flex;
   align-items: center;
@@ -4497,7 +4497,7 @@
 }
 
 .asistencias-titulo-row h3 i {
-  color: #2a5298;
+  color: #4a5259;
 }
 
 .asistencias-stats-mini {
@@ -4513,7 +4513,7 @@
   padding: 18px;
   border-radius: 14px;
   text-align: center;
-  border-left: 4px solid #42638c;
+  border-left: 4px solid #5d646b;
   box-shadow: 0 4px 12px rgba(30,60,114,0.1);
   transition: all 0.3s ease;
 }
@@ -4524,7 +4524,7 @@
 }
 
 .asist-stat-card.success {
-  border-left-color: #2a5298;
+  border-left-color: #4a5259;
 }
 
 .asist-stat-card.danger {
@@ -4536,18 +4536,18 @@
 }
 
 .asist-stat-card.info {
-  border-left-color: #42638c;
+  border-left-color: #5d646b;
 }
 
 .asist-stat-card h4 {
   font-size: 28px;
   font-weight: 700;
-  color: #42638c;
+  color: #5d646b;
   margin: 0 0 5px 0;
 }
 
 .asist-stat-card.success h4 {
-  color: #2a5298;
+  color: #4a5259;
 }
 
 .asist-stat-card.danger h4 {
@@ -4559,7 +4559,7 @@
 }
 
 .asist-stat-card.info h4 {
-  color: #42638c;
+  color: #5d646b;
 }
 
 .asist-stat-card p {
@@ -4599,7 +4599,7 @@
 
 .btn-guardar-asistencias {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   color: white;
   border: none;
   border-radius: 10px;
@@ -4627,7 +4627,7 @@
 
 .btn-ver-estadisticas {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #2a5298, #7e9ac8);
+  background: linear-gradient(135deg, #4a5259, #7e9ac8);
   color: white;
   border: none;
   border-radius: 10px;
@@ -4661,7 +4661,7 @@
 }
 
 .asistencias-table thead {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   color: white;
 }
 
@@ -4723,14 +4723,14 @@
 }
 
 .btn-estado-asistencia.presente {
-  border-color: #2a5298;
-  color: #2a5298;
+  border-color: #4a5259;
+  color: #4a5259;
 }
 
 .btn-estado-asistencia.presente.active {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   color: white;
-  border-color: #42638c;
+  border-color: #5d646b;
 }
 
 .btn-estado-asistencia.ausente {
@@ -4756,14 +4756,14 @@
 }
 
 .btn-estado-asistencia.justificado {
-  border-color: #42638c;
-  color: #42638c;
+  border-color: #5d646b;
+  color: #5d646b;
 }
 
 .btn-estado-asistencia.justificado.active {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   color: white;
-  border-color: #42638c;
+  border-color: #5d646b;
 }
 
 .btn-estado-asistencia:hover {
@@ -4782,7 +4782,7 @@
 
 .observaciones-input:focus {
   outline: none;
-  border-color: #1976d2;
+  border-color: #4a5259;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -4812,7 +4812,7 @@
 }
 
 .estadisticas-modal-header {
-  background: linear-gradient(135deg, #1976d2, #1565c0);
+  background: linear-gradient(135deg, #4a5259, #1565c0);
   color: white;
   padding: 25px 30px;
   border-radius: 16px 16px 0 0;
@@ -5037,7 +5037,7 @@
 .curso-card-alumno:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  border-color: #42638c;
+  border-color: #5d646b;
 }
 
 .curso-card-header {
@@ -5100,7 +5100,7 @@
 .curso-info-item i {
   width: 18px;
   height: 18px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .curso-promedio {
@@ -5159,7 +5159,7 @@
 .btn-ver-detalle {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -5263,7 +5263,7 @@
 }
 
 .notification.info {
-  background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #6b7280 100%);
 }
 
 @keyframes slideInRight {
@@ -5313,7 +5313,7 @@
 }
 
 .panel-header-alumno {
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   color: white;
   padding: 32px 28px;
   display: flex;
@@ -5395,7 +5395,7 @@
 .companeros-section h3 svg {
   width: 20px;
   height: 20px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .info-grid {
@@ -5439,8 +5439,8 @@
 }
 
 .nota-item.promedio-final {
-  background: linear-gradient(135deg, #42638c15 0%, #2a529815 100%);
-  border: 1px solid #42638c30;
+  background: linear-gradient(135deg, #5d646b15 0%, #4a525915 100%);
+  border: 1px solid #5d646b30;
   font-weight: 600;
   margin-top: 8px;
 }
@@ -5451,7 +5451,7 @@
 }
 
 .nota-valor.destacado {
-  color: #42638c;
+  color: #5d646b;
   font-size: 18px;
 }
 
@@ -5479,7 +5479,7 @@
 .companero-avatar {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -5590,7 +5590,7 @@
 .calificaciones-tabla-container > h3 svg {
   width: 24px;
   height: 24px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .tabla-calificaciones-wrapper {
@@ -5605,7 +5605,7 @@
 }
 
 .tabla-calificaciones-alumno thead {
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
 }
 
 .tabla-calificaciones-alumno thead th {
@@ -5652,7 +5652,7 @@
   align-items: center;
   gap: 10px;
   font-weight: 600;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .tabla-calificaciones-alumno .curso-nombre svg {
@@ -5694,7 +5694,7 @@
 
 .estado-badge.estado-pendiente {
   background: #e3f2fd;
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .leyenda-calificaciones {
@@ -5702,7 +5702,7 @@
   padding: 20px;
   background: #f8f9fa;
   border-radius: 12px;
-  border-left: 4px solid #42638c;
+  border-left: 4px solid #5d646b;
 }
 
 .leyenda-calificaciones h4 {
@@ -5718,7 +5718,7 @@
 .leyenda-calificaciones h4 svg {
   width: 18px;
   height: 18px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .leyenda-items {
@@ -5833,7 +5833,7 @@
 }
 
 .stat-pago-card.cantidad-pagos {
-  border-left: 4px solid #42638c;
+  border-left: 4px solid #5d646b;
 }
 
 .stat-pago-icon {
@@ -5858,7 +5858,7 @@
 
 .cantidad-pagos .stat-pago-icon {
   background: #e3f2fd;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .stat-pago-icon svg {
@@ -5904,7 +5904,7 @@
 .historial-pagos-section h3 svg {
   width: 24px;
   height: 24px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .pagos-pendientes-grid {
@@ -5924,7 +5924,7 @@
 .pago-pendiente-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: #42638c;
+  border-color: #5d646b;
 }
 
 .pago-pendiente-card.vencido {
@@ -5954,7 +5954,7 @@
 .pago-periodo svg {
   width: 18px;
   height: 18px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .badge-vencido,
@@ -6013,13 +6013,13 @@
 .pago-monto {
   font-size: 24px;
   font-weight: 700;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .btn-pagar {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -6079,7 +6079,7 @@
 }
 
 .tabla-historial-pagos thead {
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
 }
 
 .tabla-historial-pagos thead th {
@@ -6125,7 +6125,7 @@
   gap: 6px;
   padding: 4px 10px;
   background: #e3f2fd;
-  color: #1976d2;
+  color: #4a5259;
   border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
@@ -6186,7 +6186,7 @@
 }
 
 .modal-pago-header {
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   color: white;
   padding: 24px 28px;
   display: flex;
@@ -6241,7 +6241,7 @@
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 24px;
-  border-left: 4px solid #42638c;
+  border-left: 4px solid #5d646b;
 }
 
 .info-row {
@@ -6269,7 +6269,7 @@
 
 .monto-destacado {
   font-size: 24px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .metodo-pago-selector {
@@ -6289,7 +6289,7 @@
 .metodo-pago-selector label svg {
   width: 20px;
   height: 20px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .metodos-pago-grid {
@@ -6312,20 +6312,20 @@
 }
 
 .metodo-option:hover {
-  border-color: #42638c;
+  border-color: #5d646b;
   background: #f0f4ff;
 }
 
 .metodo-option.selected {
-  border-color: #42638c;
-  background: linear-gradient(135deg, #42638c15 0%, #2a529815 100%);
+  border-color: #5d646b;
+  background: linear-gradient(135deg, #5d646b15 0%, #4a525915 100%);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
 }
 
 .metodo-option svg {
   width: 32px;
   height: 32px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .metodo-option span {
@@ -6355,7 +6355,7 @@
 .formulario-tarjeta h4 svg {
   width: 18px;
   height: 18px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .form-group {
@@ -6382,7 +6382,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #42638c;
+  border-color: #5d646b;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -6499,7 +6499,7 @@
 .detalle-row.total {
   margin-top: 8px;
   padding-top: 16px;
-  border-top: 2px solid #42638c;
+  border-top: 2px solid #5d646b;
 }
 
 .detalle-row span {
@@ -6521,7 +6521,7 @@
   width: calc(100% - 56px);
   margin: 0 28px 28px;
   padding: 14px;
-  background: #42638c;
+  background: #5d646b;
   color: white;
   border: none;
   border-radius: 8px;
@@ -6622,7 +6622,7 @@
 }
 
 .stat-icon.blue {
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
 }
 
 .stat-icon.purple {
@@ -6655,7 +6655,7 @@
 .stat-info .stat-number {
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #42638c 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -6696,7 +6696,7 @@
 .dashboard-table-card h3 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #42638c;
+  color: #5d646b;
   margin: 0 0 20px 0;
   display: flex;
   align-items: center;
@@ -6706,7 +6706,7 @@
 .dashboard-table-card h3 svg {
   width: 24px;
   height: 24px;
-  color: #2a5298;
+  color: #4a5259;
 }
 
 .mini-table {
@@ -6723,7 +6723,7 @@
   text-align: left;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #42638c;
+  color: #5d646b;
   border-bottom: 2px solid rgba(30,60,114,0.1);
 }
 
@@ -6748,7 +6748,7 @@
 
 .badge-tipo.alumno {
   background: rgba(30,60,114,0.1);
-  color: #42638c;
+  color: #5d646b;
 }
 
 .badge-tipo.profesor {
@@ -7032,7 +7032,7 @@
 }
 
 .curso-pago-header {
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #1565c0 100%);
   padding: 24px;
   color: white;
   display: flex;
@@ -7179,7 +7179,7 @@
 }
 
 .mes-item.pendiente svg {
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .mes-item.proximo {
@@ -7213,7 +7213,7 @@
 
 .progreso-fill {
   height: 100%;
-  background: linear-gradient(90deg, #1976d2 0%, #1565c0 100%);
+  background: linear-gradient(90deg, #4a5259 0%, #1565c0 100%);
   transition: width 0.6s ease;
   border-radius: 10px;
 }
@@ -7306,7 +7306,7 @@
 }
 
 .modal-seleccion-mes-header {
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #1565c0 100%);
   padding: 24px;
   color: white;
   display: flex;
@@ -7391,7 +7391,7 @@
 .mes-confirmacion .mes-icono svg {
   width: 32px;
   height: 32px;
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .mes-detalle {
@@ -7434,7 +7434,7 @@
 .monto-valor {
   font-size: 28px;
   font-weight: 700;
-  color: #1976d2;
+  color: #4a5259;
 }
 
 .acciones-confirmacion {
@@ -7473,7 +7473,7 @@
 }
 
 .btn-confirmar-pago {
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #1565c0 100%);
   color: white;
   box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
 }
@@ -7517,7 +7517,7 @@
 .mobile-menu-toggle i {
   width: 20px;
   height: 20px;
-  color: #42638c;
+  color: #5d646b;
 }
 
 .sidebar-overlay {

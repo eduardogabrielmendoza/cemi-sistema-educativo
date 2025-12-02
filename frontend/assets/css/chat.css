@@ -18,7 +18,7 @@
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .user-chat-message.mine .message-bubble {
-  background: linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
 }
 
@@ -118,7 +118,7 @@
 }
 
 .user-chat-input input:focus {
-  border-color: #0070F3;
+  border-color: #4a5259;
 }
 
 .user-chat-input button {
@@ -126,7 +126,7 @@
   height: 42px;
   border: none;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
   cursor: pointer;
   display: flex;
@@ -218,14 +218,14 @@
 
 .admin-conversation-item.active {
   background: #ede9fe;
-  border-left: 3px solid #0070F3;
+  border-left: 3px solid #4a5259;
 }
 
 .conv-avatar {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -390,7 +390,7 @@
 }
 
 .admin-chat-input input:focus {
-  border-color: #0070F3;
+  border-color: #4a5259;
 }
 
 .admin-chat-input button {
@@ -398,7 +398,7 @@
   height: 42px;
   border: none;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0070F3 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
   cursor: pointer;
   display: flex;

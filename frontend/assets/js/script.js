@@ -3507,7 +3507,7 @@ case "pagos":
       return `
         <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">Gestión de Aulas</h2>
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevaAulaModal()">
@@ -3517,7 +3517,7 @@ case "pagos":
         </div>
         <div class="aulas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map(a => {
-            const capacidadColor = a.capacidad >= 40 ? '#2e7d32' : a.capacidad >= 25 ? '#ed6c02' : '#1976d2';
+            const capacidadColor = a.capacidad >= 40 ? '#2e7d32' : a.capacidad >= 25 ? '#ed6c02' : '#4a5259';
             const capacidadIcon = a.capacidad >= 40 ? 'users' : a.capacidad >= 25 ? 'user-check' : 'user';
             
             return `
@@ -3527,7 +3527,7 @@ case "pagos":
                   <i data-lucide="door-open" style="width: 24px; height: 24px; color: ${capacidadColor};"></i>
                 </div>
                 <div style="flex: 1;">
-                  <h3 style="margin: 0 0 5px 0; color: #1e3c72; font-size: 18px;">${a.nombre_aula}</h3>
+                  <h3 style="margin: 0 0 5px 0; color: #4a5259; font-size: 18px;">${a.nombre_aula}</h3>
                   <p style="margin: 0; color: #666; font-size: 13px;">Aula ${a.id_aula}</p>
                 </div>
               </div>
@@ -3566,7 +3566,7 @@ case "pagos":
       return `
         <div class="idiomas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #1e3c72; margin: 0 0 5px 0;">Gestión de Idiomas</h2>
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Idiomas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} idioma${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevoIdiomaModal()">
@@ -3577,7 +3577,7 @@ case "pagos":
         <div class="idiomas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map((idioma, index) => {
             const colors = [
-              { bg: '#1976d2', light: '#42a5f5', icon: 'globe-2' },
+              { bg: '#4a5259', light: '#6b7280', icon: 'globe-2' },
               { bg: '#7b1fa2', light: '#ba68c8', icon: 'book-open' },
               { bg: '#0097a7', light: '#4dd0e1', icon: 'message-circle' },
               { bg: '#d84315', light: '#ff7043', icon: 'volume-2' },
@@ -3595,7 +3595,7 @@ case "pagos":
                 <i data-lucide="${colorScheme.icon}" style="width: 30px; height: 30px; color: white;"></i>
               </div>
               
-              <h3 style="margin: 0 0 8px 0; color: #1e3c72; font-size: 20px; font-weight: 600;">${idioma.nombre_idioma}</h3>
+              <h3 style="margin: 0 0 8px 0; color: #4a5259; font-size: 20px; font-weight: 600;">${idioma.nombre_idioma}</h3>
               <p style="margin: 0 0 15px 0; color: #999; font-size: 13px;">ID: ${idioma.id_idioma}</p>
               
               <div style="height: 1px; background: #e0e0e0; margin: 15px 0;"></div>
@@ -5000,7 +5000,7 @@ async function openProfesorPanel(idProfesor) {
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           ${profesor.idiomas && profesor.idiomas.length > 0 ? 
             profesor.idiomas.map(idioma => `
-              <span style="background: #e3f2fd; color: #1976d2; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;">
+              <span style="background: #f0f1f2; color: #4a5259; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;">
                 ${idioma}
               </span>
             `).join('') :
@@ -5168,7 +5168,7 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
           const idioma = idiomas.find(i => i.id_idioma === id);
           if (idioma) {
             const tag = document.createElement('span');
-            tag.style.cssText = 'background: #1e3c72; color: white; padding: 4px 10px; border-radius: 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;';
+            tag.style.cssText = 'background: #4a5259; color: white; padding: 4px 10px; border-radius: 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;';
             tag.innerHTML = `
               ${idioma.nombre_idioma}
               <button type="button" onclick="event.stopPropagation(); this.parentElement.remove(); document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').checked = false; document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').dispatchEvent(new Event('change'));" 
@@ -6402,7 +6402,7 @@ async function openRegistrarPagoModal() {
     ).join('');
 
     const { value: formValues } = await Swal.fire({
-      title: '<div style="display: flex; align-items: center; gap: 12px;"><i class="lucide-credit-card" style="width: 28px; height: 28px; color: #1976d2;"></i> Registrar Pago Manual</div>',
+      title: '<div style="display: flex; align-items: center; gap: 12px;"><i class="lucide-credit-card" style="width: 28px; height: 28px; color: #4a5259;"></i> Registrar Pago Manual</div>',
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 20px;">
@@ -6453,7 +6453,7 @@ async function openRegistrarPagoModal() {
             </select>
           </div>
 
-          <div style="background: #e3f2fd; border-left: 4px solid #1976d2; padding: 12px; border-radius: 4px; margin-top: 20px;">
+          <div style="background: #f0f1f2; border-left: 4px solid #4a5259; padding: 12px; border-radius: 4px; margin-top: 20px;">
             <p style="margin: 0; font-size: 13px; color: #1565c0;">
               <i class="lucide-info" style="width: 14px; height: 14px;"></i> 
               Este pago se registrará como pagado en la fecha actual
@@ -6604,7 +6604,7 @@ async function openRegistrarPagoModal() {
             
             const infoParts = [];
             if (mesesPagados.length > 0) {
-              infoParts.push(`<div style="color: #1565c0; background: #e3f2fd; padding: 8px; border-radius: 4px; margin-bottom: 4px;">
+              infoParts.push(`<div style="color: #1565c0; background: #f0f1f2; padding: 8px; border-radius: 4px; margin-bottom: 4px;">
                 <i class="lucide-check" style="width: 14px; height: 14px;"></i> Ya pagado: ${mesesPagados.join(', ')}
               </div>`);
             }
