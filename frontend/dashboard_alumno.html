@@ -476,95 +476,104 @@
         const cursos = data.cursos || [];
 
         mainContent.innerHTML = `
-          <div class="alumno-calificaciones-container">
-            <div class="section-header-alumno">
-              <div class="header-title">
-                <i data-lucide="clipboard-list"></i>
-                <h2>Mis Calificaciones</h2>
+          <div style="padding: 0;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+              <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="clipboard-list" style="width: 22px; height: 22px; color: #4a5259;"></i>
+              </div>
+              <h2 style="margin: 0; color: #1e1e1e; font-size: 22px; font-weight: 600;">Mis Calificaciones</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px;">
+              <div style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 16px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="book-open" style="width: 24px; height: 24px; color: #4a5259;"></i>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 24px; font-weight: 600;">${cursos.length}</h3>
+                  <p style="margin: 4px 0 0 0; color: #6b7280; font-size: 13px;">Cursos Activos</p>
+                </div>
+              </div>
+
+              <div style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 16px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="bar-chart-3" style="width: 24px; height: 24px; color: #4a5259;"></i>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 24px; font-weight: 600;">${parseFloat(data.promedio_general) > 0 ? parseFloat(data.promedio_general).toFixed(1) : 'S/N'}</h3>
+                  <p style="margin: 4px 0 0 0; color: #6b7280; font-size: 13px;">Promedio General</p>
+                </div>
+              </div>
+
+              <div style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 16px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="trending-up" style="width: 24px; height: 24px; color: #4a5259;"></i>
+                </div>
+                <div>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 24px; font-weight: 600;">${cursos.filter(c => c.promedio && c.promedio >= 7).length}</h3>
+                  <p style="margin: 4px 0 0 0; color: #6b7280; font-size: 13px;">Cursos Aprobados</p>
+                </div>
               </div>
             </div>
 
-            <div class="calificaciones-resumen">
-              <div class="resumen-card">
-                <div class="resumen-icon" style="background: rgba(74, 82, 89, 0.08);">
-                  <i data-lucide="book-open" style="color: #4a5259;"></i>
-                </div>
-                <div class="resumen-info">
-                  <h3>${cursos.length}</h3>
-                  <p>Cursos Activos</p>
-                </div>
-              </div>
-
-              <div class="resumen-card">
-                <div class="resumen-icon" style="background: rgba(74, 82, 89, 0.08);">
-                  <i data-lucide="bar-chart-3" style="color: #4a5259;"></i>
-                </div>
-                <div class="resumen-info">
-                  <h3>${parseFloat(data.promedio_general) > 0 ? parseFloat(data.promedio_general).toFixed(1) : 'S/N'}</h3>
-                  <p>Promedio General</p>
-                </div>
-              </div>
-
-              <div class="resumen-card">
-                <div class="resumen-icon" style="background: rgba(74, 82, 89, 0.08);">
-                  <i data-lucide="trending-up" style="color: #4a5259;"></i>
-                </div>
-                <div class="resumen-info">
-                  <h3>${cursos.filter(c => c.promedio && c.promedio >= 7).length}</h3>
-                  <p>Cursos Aprobados</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="calificaciones-tabla-container">
-              <h3><i data-lucide="list"></i> Detalle de Calificaciones</h3>
+            <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
+              <h3 style="margin: 0 0 20px 0; color: #1e1e1e; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="list" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                Detalle de Calificaciones
+              </h3>
               
               ${cursos.length > 0 ? `
-                <div class="tabla-calificaciones-wrapper">
-                  <table class="tabla-calificaciones-alumno">
+                <div style="overflow-x: auto; border-radius: 12px; border: 1px solid #e5e7eb;">
+                  <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
                     <thead>
-                      <tr>
-                        <th>Curso</th>
-                        <th>Idioma</th>
-                        <th>Parcial 1</th>
-                        <th>Parcial 2</th>
-                        <th>Final</th>
-                        <th>Promedio</th>
-                        <th>Estado</th>
+                      <tr style="background: #f9fafb;">
+                        <th style="padding: 14px 16px; text-align: left; color: #4a5259; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb;">Curso</th>
+                        <th style="padding: 14px 16px; text-align: left; color: #4a5259; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb;">Idioma</th>
+                        <th style="padding: 14px 16px; text-align: center; color: #4a5259; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb;">Parcial 1</th>
+                        <th style="padding: 14px 16px; text-align: center; color: #4a5259; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb;">Parcial 2</th>
+                        <th style="padding: 14px 16px; text-align: center; color: #4a5259; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb;">Final</th>
+                        <th style="padding: 14px 16px; text-align: center; color: #4a5259; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb;">Promedio</th>
+                        <th style="padding: 14px 16px; text-align: center; color: #4a5259; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e7eb;">Estado</th>
                       </tr>
                     </thead>
                     <tbody>
                       ${cursos.map(curso => {
                         const promedio = parseFloat(curso.promedio) || 0;
-                        let estadoClase = 'estado-pendiente';
+                        let estadoBg = 'rgba(156, 163, 175, 0.1)';
+                        let estadoColor = '#9ca3af';
                         let estadoTexto = 'Pendiente';
                         
                         if (promedio >= 7) {
-                          estadoClase = 'estado-aprobado';
+                          estadoBg = 'rgba(74, 82, 89, 0.1)';
+                          estadoColor = '#4a5259';
                           estadoTexto = 'Aprobado';
                         } else if (promedio >= 4) {
-                          estadoClase = 'estado-regular';
+                          estadoBg = 'rgba(107, 114, 128, 0.1)';
+                          estadoColor = '#6b7280';
                           estadoTexto = 'Regular';
                         } else if (promedio > 0) {
-                          estadoClase = 'estado-reprobado';
+                          estadoBg = 'rgba(156, 163, 175, 0.15)';
+                          estadoColor = '#9ca3af';
                           estadoTexto = 'Reprobado';
                         }
 
                         return `
-                          <tr onclick="verDetalleCalificacion(${curso.id_curso}, '${curso.nombre_curso}')">
-                            <td class="curso-nombre">
-                              <i data-lucide="book"></i>
-                              <span>${curso.nombre_curso}</span>
+                          <tr style="border-bottom: 1px solid #e5e7eb; transition: background 0.2s;" onmouseenter="this.style.background='#f9fafb'" onmouseleave="this.style.background='transparent'" onclick="verDetalleCalificacion(${curso.id_curso}, '${curso.nombre_curso}')">
+                            <td style="padding: 14px 16px; color: #1e1e1e; font-size: 14px; cursor: pointer;">
+                              <div style="display: flex; align-items: center; gap: 10px;">
+                                <i data-lucide="book" style="width: 16px; height: 16px; color: #6b7280;"></i>
+                                <span style="font-weight: 500;">${curso.nombre_curso}</span>
+                              </div>
                             </td>
-                            <td>${curso.nombre_idioma || 'N/A'}</td>
-                            <td class="nota-valor">${curso.parcial1 || '-'}</td>
-                            <td class="nota-valor">${curso.parcial2 || '-'}</td>
-                            <td class="nota-valor">${curso.final || '-'}</td>
-                            <td class="promedio-valor ${promedio >= 7 ? 'aprobado' : promedio >= 4 ? 'regular' : promedio > 0 ? 'desaprobado' : ''}">
-                              ${promedio > 0 ? promedio.toFixed(1) : '-'}
+                            <td style="padding: 14px 16px; color: #6b7280; font-size: 14px;">${curso.nombre_idioma || 'N/A'}</td>
+                            <td style="padding: 14px 16px; color: #4a5259; font-size: 14px; text-align: center; font-weight: 500;">${curso.parcial1 || '-'}</td>
+                            <td style="padding: 14px 16px; color: #4a5259; font-size: 14px; text-align: center; font-weight: 500;">${curso.parcial2 || '-'}</td>
+                            <td style="padding: 14px 16px; color: #4a5259; font-size: 14px; text-align: center; font-weight: 500;">${curso.final || '-'}</td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                              <span style="font-size: 15px; font-weight: 600; color: ${promedio >= 7 ? '#4a5259' : promedio >= 4 ? '#6b7280' : '#9ca3af'};">${promedio > 0 ? promedio.toFixed(1) : '-'}</span>
                             </td>
-                            <td>
-                              <span class="estado-badge ${estadoClase}">
+                            <td style="padding: 14px 16px; text-align: center;">
+                              <span style="background: ${estadoBg}; color: ${estadoColor}; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;">
                                 ${estadoTexto}
                               </span>
                             </td>
@@ -575,28 +584,31 @@
                   </table>
                 </div>
                 
-                <div class="leyenda-calificaciones">
-                  <h4><i data-lucide="info"></i> Escala de Calificaciones</h4>
-                  <div class="leyenda-items">
-                    <div class="leyenda-item">
-                      <span class="leyenda-dot" style="background: #43a047;"></span>
-                      <span>Aprobado: 7.0 - 10.0</span>
+                <div style="margin-top: 20px; padding: 16px; background: #f9fafb; border-radius: 12px;">
+                  <h4 style="margin: 0 0 12px 0; color: #4a5259; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="info" style="width: 16px; height: 16px;"></i>
+                    Escala de Calificaciones
+                  </h4>
+                  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="width: 10px; height: 10px; border-radius: 50%; background: #4a5259;"></span>
+                      <span style="color: #6b7280; font-size: 13px;">Aprobado: 7.0 - 10.0</span>
                     </div>
-                    <div class="leyenda-item">
-                      <span class="leyenda-dot" style="background: #fb8c00;"></span>
-                      <span>Regular: 4.0 - 6.9</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="width: 10px; height: 10px; border-radius: 50%; background: #6b7280;"></span>
+                      <span style="color: #6b7280; font-size: 13px;">Regular: 4.0 - 6.9</span>
                     </div>
-                    <div class="leyenda-item">
-                      <span class="leyenda-dot" style="background: #e53935;"></span>
-                      <span>Reprobado: 0.0 - 3.9</span>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="width: 10px; height: 10px; border-radius: 50%; background: #9ca3af;"></span>
+                      <span style="color: #6b7280; font-size: 13px;">Reprobado: 0.0 - 3.9</span>
                     </div>
                   </div>
                 </div>
               ` : `
-                <div class="empty-state-calificaciones">
-                  <i data-lucide="clipboard-x"></i>
-                  <h3>No hay calificaciones disponibles</h3>
-                  <p>Aún no tienes cursos con calificaciones registradas.</p>
+                <div style="text-align: center; padding: 40px 20px;">
+                  <i data-lucide="clipboard-x" style="width: 48px; height: 48px; color: #9ca3af; margin-bottom: 16px;"></i>
+                  <h3 style="margin: 0 0 8px 0; color: #4a5259; font-size: 16px; font-weight: 600;">No hay calificaciones disponibles</h3>
+                  <p style="margin: 0; color: #6b7280; font-size: 14px;">Aún no tienes cursos con calificaciones registradas.</p>
                 </div>
               `}
             </div>
@@ -645,120 +657,130 @@
         };
 
         mainContent.innerHTML = `
-          <div class="alumno-pagos-container">
-            <div class="section-header-alumno">
-              <div class="header-title">
-                <i data-lucide="credit-card"></i>
-                <h2>Mis Pagos</h2>
+          <div style="padding: 0;">
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+                  <i data-lucide="credit-card" style="width: 22px; height: 22px; color: #4a5259;"></i>
+                </div>
+                <h2 style="margin: 0; color: #1e1e1e; font-size: 22px; font-weight: 600;">Mis Pagos</h2>
               </div>
-              <p class="section-subtitle">Gestiona los pagos de tus cursos activos</p>
+              <p style="margin: 0 0 0 56px; color: #6b7280; font-size: 14px;">Gestiona los pagos de tus cursos activos</p>
             </div>
 
-            <div class="pagos-stats-grid">
-              <div class="stat-pago-card total-pagado">
-                <div class="stat-pago-icon">
-                  <i data-lucide="check-circle"></i>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px;">
+              <div style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 16px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="check-circle" style="width: 24px; height: 24px; color: #4a5259;"></i>
                 </div>
-                <div class="stat-pago-info">
-                  <p>Total Pagado</p>
-                  <h3>$${estadisticas.total_pagado.toLocaleString('es-AR', {minimumFractionDigits: 2})}</h3>
-                </div>
-              </div>
-
-              <div class="stat-pago-card total-pendiente">
-                <div class="stat-pago-icon">
-                  <i data-lucide="clock"></i>
-                </div>
-                <div class="stat-pago-info">
-                  <p>Total Pendiente</p>
-                  <h3>$${estadisticas.total_pendiente.toLocaleString('es-AR', {minimumFractionDigits: 2})}</h3>
+                <div>
+                  <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 13px;">Total Pagado</p>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 20px; font-weight: 600;">$${estadisticas.total_pagado.toLocaleString('es-AR', {minimumFractionDigits: 2})}</h3>
                 </div>
               </div>
 
-              <div class="stat-pago-card cuotas-vencidas">
-                <div class="stat-pago-icon">
-                  <i data-lucide="alert-triangle"></i>
+              <div style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 16px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="clock" style="width: 24px; height: 24px; color: #4a5259;"></i>
                 </div>
-                <div class="stat-pago-info">
-                  <p>Cuotas Impagas</p>
-                  <h3>${estadisticas.cuotas_impagas || 0}</h3>
+                <div>
+                  <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 13px;">Total Pendiente</p>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 20px; font-weight: 600;">$${estadisticas.total_pendiente.toLocaleString('es-AR', {minimumFractionDigits: 2})}</h3>
+                </div>
+              </div>
+
+              <div style="background: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 16px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i data-lucide="alert-triangle" style="width: 24px; height: 24px; color: #4a5259;"></i>
+                </div>
+                <div>
+                  <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 13px;">Cuotas Impagas</p>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 20px; font-weight: 600;">${estadisticas.cuotas_impagas || 0}</h3>
                 </div>
               </div>
             </div>
 
             ${cursos.length > 0 ? `
-              <div class="cursos-pagos-section">
-                <h3><i data-lucide="graduation-cap"></i> Pagos por Curso</h3>
+              <div>
+                <h3 style="margin: 0 0 16px 0; color: #1e1e1e; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                  <i data-lucide="graduation-cap" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                  Pagos por Curso
+                </h3>
                 
-                <div class="cursos-cards-grid">
+                <div style="display: grid; gap: 20px;">
                   ${cursos.map(curso => `
-                    <div class="curso-pago-card">
-                      <div class="curso-pago-header">
-                        <div class="curso-info">
-                          <div class="curso-nombre">
-                            <i data-lucide="book-open"></i>
-                            <span>${curso.nombre_curso}</span>
+                    <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;">
+                        <div>
+                          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                            <i data-lucide="book-open" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                            <span style="color: #1e1e1e; font-size: 16px; font-weight: 600;">${curso.nombre_curso}</span>
                           </div>
-                          <div class="curso-profesor">
-                            <i data-lucide="user"></i>
+                          <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
+                            <i data-lucide="user" style="width: 14px; height: 14px;"></i>
                             <span>${curso.profesor}</span>
                           </div>
                         </div>
-                        <div class="curso-stats">
-                          <div class="curso-stat">
-                            <span class="stat-label">Pagadas</span>
-                            <span class="stat-value pagadas">${curso.estadisticas.cuotas_pagadas}/10</span>
+                        <div style="display: flex; gap: 20px;">
+                          <div style="text-align: center;">
+                            <span style="display: block; color: #6b7280; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Pagadas</span>
+                            <span style="color: #4a5259; font-size: 15px; font-weight: 600;">${curso.estadisticas.cuotas_pagadas}/10</span>
                           </div>
-                          <div class="curso-stat">
-                            <span class="stat-label">Monto</span>
-                            <span class="stat-value">$${parseFloat(curso.costo_mensual).toLocaleString('es-AR')}</span>
+                          <div style="text-align: center;">
+                            <span style="display: block; color: #6b7280; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Monto</span>
+                            <span style="color: #4a5259; font-size: 15px; font-weight: 600;">$${parseFloat(curso.costo_mensual).toLocaleString('es-AR')}</span>
                           </div>
                         </div>
                       </div>
 
-                      <div class="meses-grid">
+                      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(55px, 1fr)); gap: 8px; margin-bottom: 20px;">
                         ${curso.meses.map(mes => {
                           let estadoIcon = '';
-                          let estadoClass = '';
+                          let bgColor = '';
+                          let iconColor = '';
                           
                           if (mes.estado === 'pagado') {
                             estadoIcon = 'check-circle';
-                            estadoClass = 'pagado';
+                            bgColor = 'rgba(74, 82, 89, 0.1)';
+                            iconColor = '#4a5259';
                           } else if (mes.estado === 'impago') {
                             estadoIcon = 'x-circle';
-                            estadoClass = 'impago';
+                            bgColor = 'rgba(156, 163, 175, 0.15)';
+                            iconColor = '#9ca3af';
                           } else if (mes.estado === 'pendiente') {
                             estadoIcon = 'clock';
-                            estadoClass = 'pendiente';
+                            bgColor = 'rgba(107, 114, 128, 0.1)';
+                            iconColor = '#6b7280';
                           } else {
                             estadoIcon = 'circle';
-                            estadoClass = 'proximo';
+                            bgColor = 'rgba(229, 231, 235, 0.5)';
+                            iconColor = '#d1d5db';
                           }
                           
                           return `
-                            <div class="mes-item ${estadoClass}" 
+                            <div style="background: ${bgColor}; border-radius: 10px; padding: 10px 6px; text-align: center; cursor: ${mes.estado === 'pagado' || mes.estado === 'pendiente' || mes.estado === 'impago' ? 'pointer' : 'default'}; transition: transform 0.2s;" 
                                  onclick="${mes.estado === 'pagado' ? `generarComprobantePago(${mes.id_pago})` : (mes.estado === 'pendiente' || mes.estado === 'impago' ? `window.abrirModalSeleccionMes(${curso.id_curso}, '${curso.nombre_curso}', '${mes.mes}', ${mes.monto})` : '')}"
-                                 style="${mes.estado === 'pagado' || mes.estado === 'pendiente' || mes.estado === 'impago' ? 'cursor: pointer;' : ''}"
-                                 ${mes.estado === 'pagado' ? 'title="Descargar comprobante"' : ''}>
-                              <i data-lucide="${estadoIcon}"></i>
-                              <span class="mes-nombre">${mes.mes === 'Matricula' ? 'Mat' : mes.mes.substring(0, 3)}</span>
-                              ${mes.estado === 'pagado' ? `<span class="mes-fecha">${new Date(mes.fecha_pago).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit'})}</span>` : ''}
+                                 ${mes.estado === 'pagado' ? 'title="Descargar comprobante"' : ''}
+                                 onmouseenter="this.style.transform='scale(1.05)'" onmouseleave="this.style.transform='scale(1)'">
+                              <i data-lucide="${estadoIcon}" style="width: 18px; height: 18px; color: ${iconColor}; margin-bottom: 4px;"></i>
+                              <span style="display: block; color: #4a5259; font-size: 11px; font-weight: 500;">${mes.mes === 'Matricula' ? 'Mat' : mes.mes.substring(0, 3)}</span>
+                              ${mes.estado === 'pagado' ? `<span style="display: block; color: #6b7280; font-size: 9px; margin-top: 2px;">${new Date(mes.fecha_pago).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit'})}</span>` : ''}
                             </div>
                           `;
                         }).join('')}
                       </div>
 
-                      <div class="curso-pago-footer">
-                        <div class="progreso-info">
-                          <div class="progreso-bar">
-                            <div class="progreso-fill" style="width: ${(curso.estadisticas.cuotas_pagadas / 10) * 100}%"></div>
+                      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                        <div style="flex: 1; min-width: 200px;">
+                          <div style="height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; margin-bottom: 6px;">
+                            <div style="height: 100%; background: #4a5259; border-radius: 3px; width: ${(curso.estadisticas.cuotas_pagadas / 10) * 100}%; transition: width 0.3s;"></div>
                           </div>
-                          <span class="progreso-text">${Math.round((curso.estadisticas.cuotas_pagadas / 10) * 100)}% completado</span>
+                          <span style="color: #6b7280; font-size: 12px;">${Math.round((curso.estadisticas.cuotas_pagadas / 10) * 100)}% completado</span>
                         </div>
                         ${curso.estadisticas.cuotas_impagas > 0 ? `
-                          <div class="alerta-vencido">
-                            <i data-lucide="alert-triangle"></i>
-                            <span>${curso.estadisticas.cuotas_impagas} cuota${curso.estadisticas.cuotas_impagas > 1 ? 's' : ''} impaga${curso.estadisticas.cuotas_impagas > 1 ? 's' : ''}</span>
+                          <div style="display: flex; align-items: center; gap: 6px; background: rgba(156, 163, 175, 0.1); padding: 6px 12px; border-radius: 20px;">
+                            <i data-lucide="alert-triangle" style="width: 14px; height: 14px; color: #9ca3af;"></i>
+                            <span style="color: #6b7280; font-size: 12px;">${curso.estadisticas.cuotas_impagas} cuota${curso.estadisticas.cuotas_impagas > 1 ? 's' : ''} impaga${curso.estadisticas.cuotas_impagas > 1 ? 's' : ''}</span>
                           </div>
                         ` : ''}
                       </div>
@@ -767,10 +789,10 @@
                 </div>
               </div>
             ` : `
-              <div class="no-cursos-activos">
-                <i data-lucide="inbox"></i>
-                <h4>No tienes cursos activos</h4>
-                <p>Inscríbete a un curso para comenzar a gestionar tus pagos.</p>
+              <div style="text-align: center; padding: 40px 20px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb;">
+                <i data-lucide="inbox" style="width: 48px; height: 48px; color: #9ca3af; margin-bottom: 16px;"></i>
+                <h4 style="margin: 0 0 8px 0; color: #4a5259; font-size: 16px; font-weight: 600;">No tienes cursos activos</h4>
+                <p style="margin: 0; color: #6b7280; font-size: 14px;">Inscríbete a un curso para comenzar a gestionar tus pagos.</p>
               </div>
             `}
           </div>
@@ -805,81 +827,83 @@
         const perfil = await response.json();
 
         mainContent.innerHTML = `
-          <div class="alumno-perfil-container">
-            <div class="section-header-alumno">
-              <div class="header-title">
-                <i data-lucide="user"></i>
-                <h2>Mi Perfil</h2>
+          <div style="padding: 0;">
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+                <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+                  <i data-lucide="user" style="width: 22px; height: 22px; color: #4a5259;"></i>
+                </div>
+                <h2 style="margin: 0; color: #1e1e1e; font-size: 22px; font-weight: 600;">Mi Perfil</h2>
               </div>
-              <p class="section-subtitle">Administra tu información personal</p>
+              <p style="margin: 0 0 0 56px; color: #6b7280; font-size: 14px;">Administra tu información personal</p>
             </div>
 
-            <div class="perfil-content">
-              <div class="perfil-section">
-                <div class="perfil-section-header">
-                  <i data-lucide="user-circle"></i>
-                  <h3>Datos Personales</h3>
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+              <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                  <i data-lucide="user-circle" style="width: 20px; height: 20px; color: #4a5259;"></i>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">Datos Personales</h3>
                 </div>
                 
-                <div style="background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
-                  <i data-lucide="lock" style="color: #f59e0b; width: 16px; height: 16px; flex-shrink: 0;"></i>
-                  <span style="color: #666; font-size: 13px;">No podés editar esta información</span>
+                <div style="background: rgba(74, 82, 89, 0.05); border-left: 3px solid #4a5259; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                  <i data-lucide="lock" style="color: #6b7280; width: 16px; height: 16px; flex-shrink: 0;"></i>
+                  <span style="color: #6b7280; font-size: 13px;">Esta información no puede ser editada</span>
                 </div>
                 
-                <div class="perfil-datos-grid">
-                  <div class="perfil-dato">
-                    <label>Nombre Completo</label>
-                    <div class="dato-valor">
-                      <i data-lucide="user"></i>
-                      <span>${perfil.nombre || 'No especificado'} ${perfil.apellido || ''}</span>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                  <div style="background: #f9fafb; border-radius: 12px; padding: 16px;">
+                    <label style="display: block; color: #6b7280; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Nombre Completo</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <i data-lucide="user" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                      <span style="color: #1e1e1e; font-size: 15px; font-weight: 500;">${perfil.nombre || 'No especificado'} ${perfil.apellido || ''}</span>
                     </div>
                   </div>
 
-                  <div class="perfil-dato">
-                    <label>DNI</label>
-                    <div class="dato-valor">
-                      <i data-lucide="id-card"></i>
-                      <span>${perfil.dni || 'No especificado'}</span>
+                  <div style="background: #f9fafb; border-radius: 12px; padding: 16px;">
+                    <label style="display: block; color: #6b7280; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">DNI</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <i data-lucide="id-card" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                      <span style="color: #1e1e1e; font-size: 15px; font-weight: 500;">${perfil.dni || 'No especificado'}</span>
                     </div>
                   </div>
 
-                  <div class="perfil-dato">
-                    <label>Legajo</label>
-                    <div class="dato-valor">
-                      <i data-lucide="bookmark"></i>
-                      <span>${perfil.legajo || 'No especificado'}</span>
+                  <div style="background: #f9fafb; border-radius: 12px; padding: 16px;">
+                    <label style="display: block; color: #6b7280; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Legajo</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <i data-lucide="bookmark" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                      <span style="color: #1e1e1e; font-size: 15px; font-weight: 500;">${perfil.legajo || 'No especificado'}</span>
                     </div>
                   </div>
 
-                  <div class="perfil-dato">
-                    <label>Email</label>
-                    <div class="dato-valor">
-                      <i data-lucide="mail"></i>
-                      <span>${perfil.mail || 'No especificado'}</span>
+                  <div style="background: #f9fafb; border-radius: 12px; padding: 16px;">
+                    <label style="display: block; color: #6b7280; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Email</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <i data-lucide="mail" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                      <span style="color: #1e1e1e; font-size: 15px; font-weight: 500;">${perfil.mail || 'No especificado'}</span>
                     </div>
                   </div>
 
-                  <div class="perfil-dato">
-                    <label>Estado</label>
-                    <div class="dato-valor">
-                      <span class="estado-badge ${perfil.estado || 'inactivo'}">${perfil.estado || 'Sin estado'}</span>
+                  <div style="background: #f9fafb; border-radius: 12px; padding: 16px;">
+                    <label style="display: block; color: #6b7280; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Estado</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="background: ${perfil.estado === 'activo' ? 'rgba(74, 82, 89, 0.1)' : 'rgba(156, 163, 175, 0.15)'}; color: ${perfil.estado === 'activo' ? '#4a5259' : '#9ca3af'}; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;">${perfil.estado || 'Sin estado'}</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="perfil-section">
-                <div class="perfil-section-header">
-                  <i data-lucide="info"></i>
-                  <h3>Información Adicional</h3>
+              <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                  <i data-lucide="info" style="width: 20px; height: 20px; color: #4a5259;"></i>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">Información Adicional</h3>
                 </div>
                 
-                <div class="perfil-datos-grid">
-                  <div class="perfil-dato">
-                    <label>Fecha de Registro</label>
-                    <div class="dato-valor">
-                      <i data-lucide="calendar-plus"></i>
-                      <span>${perfil.fecha_registro ? new Date(perfil.fecha_registro).toLocaleDateString('es-ES') : 'No disponible'}</span>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                  <div style="background: #f9fafb; border-radius: 12px; padding: 16px;">
+                    <label style="display: block; color: #6b7280; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Fecha de Registro</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <i data-lucide="calendar-plus" style="width: 18px; height: 18px; color: #4a5259;"></i>
+                      <span style="color: #1e1e1e; font-size: 15px; font-weight: 500;">${perfil.fecha_registro ? new Date(perfil.fecha_registro).toLocaleDateString('es-ES') : 'No disponible'}</span>
                     </div>
                   </div>
                 </div>
