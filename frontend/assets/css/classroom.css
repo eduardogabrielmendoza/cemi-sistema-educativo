@@ -2056,9 +2056,9 @@ body {
   display: flex;
   align-items: center;
   gap: 24px;
-  background: #ffffff;
-  border: 1px solid rgba(101, 111, 119, 0.15);
-  border-left: 4px solid #1e1e1e;
+  background: #f0f1f3;
+  border: 1px solid rgba(101, 111, 119, 0.12);
+  border-left: 4px solid #f5a623;
   border-radius: 12px;
   padding: 24px 32px;
   margin-bottom: 24px;
@@ -2066,8 +2066,19 @@ body {
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  animation: bannerSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Oculto inicialmente - aparece con JS después de 4s */
+  opacity: 0;
+  transform: translateX(-40px);
+  visibility: hidden;
+}
+
+.research-banner.visible {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+  animation: bannerSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .research-banner:hover {
@@ -2078,11 +2089,15 @@ body {
 @keyframes bannerSlideIn {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-50px) scale(0.98);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(8px) scale(1.01);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
   }
 }
 
@@ -2136,18 +2151,24 @@ body {
 .research-icon-bg {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, #4a90d9 0%, #6ba3e0 100%);
+  background: linear-gradient(135deg, #ff9500 0%, #ffb340 100%);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(74, 144, 217, 0.3);
+  box-shadow: 0 4px 16px rgba(255, 149, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 .research-banner:hover .research-icon-bg {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(74, 144, 217, 0.4);
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 149, 0, 0.4);
 }
 
 .research-icon-bg svg {
@@ -2162,20 +2183,22 @@ body {
   right: -6px;
   width: 26px;
   height: 26px;
-  background: linear-gradient(135deg, #f5a623 0%, #f7b84b 100%);
+  background: linear-gradient(135deg, #ffb84d 0%, #ffd280 100%);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.4);
+  box-shadow: 0 2px 8px rgba(255, 184, 77, 0.5);
   transform: rotate(12deg);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: accentPulse 3s ease-in-out infinite;
+  animation: accentBounce 2.5s ease-in-out infinite;
 }
 
-@keyframes accentPulse {
+@keyframes accentBounce {
   0%, 100% { transform: rotate(12deg) scale(1); }
-  50% { transform: rotate(12deg) scale(1.1); }
+  25% { transform: rotate(8deg) scale(1.05); }
+  50% { transform: rotate(16deg) scale(1.1); }
+  75% { transform: rotate(10deg) scale(1.05); }
 }
 
 .research-icon-accent svg {
@@ -2195,7 +2218,7 @@ body {
   color: #1e1e1e;
   margin-bottom: 6px;
   line-height: 1.4;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .research-banner-content p {
@@ -2267,22 +2290,22 @@ body {
 
 /* Dark mode */
 body.dark-mode .research-banner {
-  background: #1a1a1a;
-  border-color: rgba(101, 111, 119, 0.2);
-  border-left-color: #f8f9fa;
+  background: #2a2a2a;
+  border-color: rgba(255, 149, 0, 0.2);
+  border-left-color: #ff9500;
 }
 
 body.dark-mode .research-icon-bg {
-  background: #f8f9fa;
-  box-shadow: 0 4px 16px rgba(248, 249, 250, 0.15);
+  background: linear-gradient(135deg, #ff9500 0%, #ffb340 100%);
+  box-shadow: 0 4px 16px rgba(255, 149, 0, 0.25);
 }
 
 body.dark-mode .research-icon-bg svg {
-  color: #1e1e1e;
+  color: white;
 }
 
 body.dark-mode .research-icon-accent {
-  background: #656f77;
+  background: linear-gradient(135deg, #ffb84d 0%, #ffd280 100%);
 }
 
 body.dark-mode .research-banner-content h3 {
@@ -2294,14 +2317,15 @@ body.dark-mode .research-banner-content p {
 }
 
 body.dark-mode .btn-research {
-  background: #f8f9fa;
-  color: #1e1e1e;
-  border-color: #f8f9fa;
+  background: #656f77;
+  color: white;
+  border-color: #656f77;
 }
 
 body.dark-mode .btn-research:hover {
-  background: transparent;
-  color: #f8f9fa;
+  background: #ff9500;
+  border-color: #ff9500;
+  color: white;
 }
 
 body.dark-mode .research-banner-close {

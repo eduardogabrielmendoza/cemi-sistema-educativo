@@ -6490,19 +6490,46 @@ function mostrarErrorRecursos() {
 function cerrarBannerInvestigacion() {
   const banner = document.getElementById('researchBanner');
   if (banner) {
-    banner.style.animation = 'fadeOutUp 0.3s ease-out forwards';
+    banner.style.animation = 'fadeOutUp 0.4s ease-out forwards';
     setTimeout(() => {
       banner.style.display = 'none';
-    }, 300);
-    // Recordar que se cerró por esta sesión
-    sessionStorage.setItem('researchBannerClosed', 'true');
+    }, 400);
+    // Recordar que se cerró permanentemente (localStorage para persistencia)
+    localStorage.setItem('researchBannerClosed', 'true');
   }
+}
+
+function mostrarBannerInvestigacion() {
+  const banner = document.getElementById('researchBanner');
+  if (!banner) return;
+  
+  // Verificar si ya se cerró o si ya llenó la encuesta
+  const bannerCerrado = localStorage.getItem('researchBannerClosed') === 'true';
+  const encuestaCompletada = localStorage.getItem('encuestaCompletada') === 'true';
+  
+  if (bannerCerrado || encuestaCompletada) {
+    banner.style.display = 'none';
+    return;
+  }
+  
+  // Mostrar después de 4 segundos con animación
+  setTimeout(() => {
+    banner.classList.add('visible');
+  }, 4000);
 }
 
 function verificarBannerInvestigacion() {
   const banner = document.getElementById('researchBanner');
-  if (banner && sessionStorage.getItem('researchBannerClosed') === 'true') {
+  if (!banner) return;
+  
+  const bannerCerrado = localStorage.getItem('researchBannerClosed') === 'true';
+  const encuestaCompletada = localStorage.getItem('encuestaCompletada') === 'true';
+  
+  if (bannerCerrado || encuestaCompletada) {
     banner.style.display = 'none';
+  } else {
+    // Programar aparición después de 4 segundos
+    mostrarBannerInvestigacion();
   }
 }
 
