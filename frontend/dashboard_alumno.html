@@ -359,49 +359,58 @@
 
       try {
         mainContent.innerHTML = `
-          <div id="cursado-section" class="cursado-container">
-            <div class="section-header-alumno">
-              <div class="header-title">
-                <i data-lucide="graduation-cap"></i>
-                <h2>Catálogo de Cursos</h2>
+          <div id="cursado-section" style="padding: 20px;">
+            <!-- Header -->
+            <div style="margin-bottom: 24px;">
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <i data-lucide="graduation-cap" style="width: 28px; height: 28px; color: #4a5259;"></i>
+                <h2 style="margin: 0; color: #1e1e1e; font-size: 24px; font-weight: 500; font-family: 'Inter', sans-serif;">Catálogo de Cursos</h2>
               </div>
-              <p class="section-subtitle">Explora todos los cursos disponibles y solicita tu inscripción</p>
+              <p style="margin: 0; color: #6b7280; font-size: 14px;">Explora todos los cursos disponibles y solicita tu inscripción</p>
             </div>
 
-            <div class="mis-cursos-actuales-mini">
-              <h3><i data-lucide="book-open"></i> Mis Cursos Actuales</h3>
-              <div id="mis-cursos-container" class="mis-cursos-mini-grid">
-                <div class="loading-container">
-                  <div class="spinner-border text-primary" role="status"></div>
+            <!-- Mis Cursos Actuales -->
+            <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
+              <h3 style="margin: 0 0 16px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="book-open" style="width: 20px; height: 20px; color: #4a5259;"></i>
+                Mis Cursos Actuales
+              </h3>
+              <div id="mis-cursos-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
+                <div style="text-align: center; padding: 20px; color: #6b7280;">
                   <p>Cargando...</p>
                 </div>
               </div>
             </div>
 
-            <hr class="section-divider">
+            <div style="height: 1px; background: #e5e7eb; margin: 24px 0;"></div>
 
-            <div class="filtros-section">
-              <h3><i data-lucide="search"></i> Buscar Cursos</h3>
-              <div class="filtros-grid">
-                <div class="form-group" style="grid-column: 1 / -1;">
-                  <input 
-                    type="text" 
-                    id="busqueda-curso" 
-                    class="form-control" 
-                    placeholder="Buscar por nombre de curso, idioma o profesor..."
-                    style="font-size: 1rem; padding: 12px 16px;">
-                </div>
-              </div>
+            <!-- Buscador -->
+            <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
+              <h3 style="margin: 0 0 16px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="search" style="width: 20px; height: 20px; color: #4a5259;"></i>
+                Buscar Cursos
+              </h3>
+              <input 
+                type="text" 
+                id="busqueda-curso" 
+                placeholder="Buscar por nombre de curso, idioma o profesor..."
+                style="width: 100%; padding: 14px 18px; border: 1px solid #e5e7eb; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; outline: none; transition: all 0.2s;"
+                onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(74, 82, 89, 0.1)'"
+                onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
             </div>
 
-            <div class="resultados-header">
-              <h3><i data-lucide="book"></i> Cursos Disponibles</h3>
-              <span id="total-cursos-count" class="resultados-count">Cargando...</span>
+            <!-- Resultados Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="book" style="width: 20px; height: 20px; color: #4a5259;"></i>
+                Cursos Disponibles
+              </h3>
+              <span id="total-cursos-count" style="background: rgba(74, 82, 89, 0.1); color: #4a5259; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;">Cargando...</span>
             </div>
 
-            <div id="catalogo-cursos-container" class="catalogo-cursos-grid">
-              <div class="loading-container">
-                <div class="spinner-border text-primary" role="status"></div>
+            <!-- Catálogo Grid -->
+            <div id="catalogo-cursos-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px;">
+              <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6b7280;">
                 <p>Cargando catálogo de cursos...</p>
               </div>
             </div>

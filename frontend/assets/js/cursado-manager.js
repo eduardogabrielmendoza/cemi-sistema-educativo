@@ -109,8 +109,9 @@ class CursadoManager {
 
         if (this.misCursos.length === 0) {
             container.innerHTML = `
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i> No estás inscrito en ningún curso actualmente
+                <div style="grid-column: 1 / -1; padding: 20px; text-align: center; color: #6b7280; font-size: 14px;">
+                    <i data-lucide="info" style="width: 20px; height: 20px; margin-bottom: 8px; color: #9ca3af;"></i>
+                    <p style="margin: 0;">No estás inscrito en ningún curso actualmente</p>
                 </div>
             `;
             return;
@@ -118,19 +119,17 @@ class CursadoManager {
 
         container.innerHTML = this.misCursos.map(curso => {
             return `
-                <div class="curso-mini-badge" title="${curso.nombre_curso}">
-                    <div class="mini-badge-icon">
-                        <i data-lucide="book-open"></i>
+                <div style="background: rgba(74, 82, 89, 0.05); border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; border: 1px solid #e5e7eb;">
+                    <div style="background: rgba(74, 82, 89, 0.1); border-radius: 8px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="book-open" style="width: 20px; height: 20px; color: #4a5259;"></i>
                     </div>
-                    <div class="mini-badge-content">
-                        <h4>${curso.nombre_curso}</h4>
-                        <div class="mini-badge-meta">
-                            <span class="mini-idioma">${curso.idioma || 'Curso'}</span>
-                            <span class="mini-nivel">${curso.nivel || 'N/A'}</span>
-                            ${curso.horario ? `<span class="mini-horario"><i data-lucide="clock"></i>${curso.horario}</span>` : ''}
+                    <div style="flex: 1; min-width: 0;">
+                        <h4 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${curso.nombre_curso}</h4>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: rgba(74, 82, 89, 0.1); color: #4a5259; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 500;">${curso.idioma || 'Curso'}</span>
+                            <span style="background: rgba(74, 82, 89, 0.1); color: #4a5259; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 500;">${curso.nivel || 'N/A'}</span>
                         </div>
                     </div>
-                </div>
                 </div>
             `;
         }).join('');
@@ -167,7 +166,7 @@ class CursadoManager {
     }
 
     crearCursoCard(curso) {
-        const estadoBadge = this.getEstadoBadge(curso.estado);
+        const estadoBadge = this.getEstadoBadgeInline(curso.estado);
         
         const porcentajeOcupacion = curso.porcentaje_ocupacion || 0;
         const porcentajeDisponible = curso.porcentaje_disponible !== undefined 
@@ -178,47 +177,57 @@ class CursadoManager {
         const avatarProfesor = curso.profesor.avatar || '/images/default-avatar.png';
 
         return `
-            <div class="curso-card">
-                <div class="curso-card-header">
-                    <div class="curso-icon">
-                        <i data-lucide="book-open"></i>
+            <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px;">
+                    <div style="background: rgba(74, 82, 89, 0.08); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="book-open" style="width: 24px; height: 24px; color: #4a5259;"></i>
                     </div>
-                    <div class="curso-card-title">
-                        <h3>${curso.nombre_curso}</h3>
-                        <div class="idioma">${curso.idioma.nombre}</div>
-                        <span class="curso-badge">${curso.nivel.descripcion}</span>
+                    <div style="flex: 1; min-width: 0;">
+                        <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">${curso.nombre_curso}</h3>
+                        <div style="color: #6b7280; font-size: 13px; margin-bottom: 8px;">${curso.idioma.nombre}</div>
+                        <span style="background: rgba(74, 82, 89, 0.1); color: #4a5259; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;">${curso.nivel.descripcion}</span>
                     </div>
                 </div>
 
-                <div class="curso-card-info">
-                    <div class="info-row">
-                        <i data-lucide="clock"></i>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; padding: 16px; background: #f9fafb; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 10px; color: #4a5259; font-size: 13px;">
+                        <i data-lucide="clock" style="width: 16px; height: 16px; color: #6b7280;"></i>
                         <span>${curso.horario}</span>
                     </div>
 
-                    <div class="info-row">
-                        <i data-lucide="user"></i>
+                    <div style="display: flex; align-items: center; gap: 10px; color: #4a5259; font-size: 13px;">
+                        <i data-lucide="user" style="width: 16px; height: 16px; color: #6b7280;"></i>
                         <span>${curso.profesor.nombre}</span>
                     </div>
 
-                    <div class="info-row">
-                        <i data-lucide="door-open"></i>
+                    <div style="display: flex; align-items: center; gap: 10px; color: #4a5259; font-size: 13px;">
+                        <i data-lucide="door-open" style="width: 16px; height: 16px; color: #6b7280;"></i>
                         <span>${curso.aula ? curso.aula.nombre : 'Aula por confirmar'}</span>
                     </div>
                 </div>
 
-                <div class="curso-card-footer">
-                    <div class="cupos-info">
-                        <div class="cupos-bar">
-                            <div class="cupos-bar-fill ${porcentajeBarra <= 20 ? 'danger' : porcentajeBarra <= 50 ? 'warning' : ''}" 
-                                 style="width: ${porcentajeBarra}%"></div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; flex-direction: column; gap: 6px;">
+                        <div style="height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
+                            <div style="height: 100%; background: #4a5259; border-radius: 3px; width: ${porcentajeBarra}%; transition: width 0.3s ease;"></div>
                         </div>
-                        <span class="cupos-text">${curso.cupos_disponibles} cupos disponibles de ${curso.cupo_maximo}</span>
+                        <span style="color: #6b7280; font-size: 12px;">${curso.cupos_disponibles} cupos disponibles de ${curso.cupo_maximo}</span>
                     </div>
                     ${estadoBadge}
                 </div>
             </div>
         `;
+    }
+
+    getEstadoBadgeInline(estado) {
+        const estados = {
+            'activo': { texto: 'Activo', bg: 'rgba(74, 82, 89, 0.1)', color: '#4a5259' },
+            'proximo': { texto: 'Próximo', bg: 'rgba(107, 114, 128, 0.1)', color: '#6b7280' },
+            'lleno': { texto: 'Lleno', bg: 'rgba(156, 163, 175, 0.15)', color: '#9ca3af' },
+            'cerrado': { texto: 'Cerrado', bg: 'rgba(156, 163, 175, 0.15)', color: '#9ca3af' }
+        };
+        const config = estados[estado] || estados['activo'];
+        return `<span style="background: ${config.bg}; color: ${config.color}; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; text-align: center;">${config.texto}</span>`;
     }
 
     mostrarModalDetalle(curso) {
