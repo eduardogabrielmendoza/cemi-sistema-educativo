@@ -1373,6 +1373,7 @@ body {
   transform: translateY(-10px) scale(0.95);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1001;
+  font-family: var(--font-body);
 }
 
 .user-dropdown.show {
@@ -1532,6 +1533,7 @@ body {
   padding: 12px;
   background: var(--hw-off-white);
   border-radius: 8px;
+  font-family: var(--font-body);
 }
 
 .storage-header {
@@ -1638,14 +1640,15 @@ body {
 }
 
 .welcome-section h2 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 6px;
   letter-spacing: -0.02em;
 }
 
 .welcome-section p {
+  font-family: var(--font-body);
   font-size: 1rem;
   opacity: 0.9;
   font-weight: 400;
@@ -1908,6 +1911,7 @@ body.dark-mode .btn-research:hover {
   border: 1px solid var(--border-color);
   border-left: 3px solid var(--hw-graphite);
   position: relative;
+  font-family: var(--font-body);
 }
 
 .activity-card:hover {
