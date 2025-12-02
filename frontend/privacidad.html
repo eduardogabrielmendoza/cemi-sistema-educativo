@@ -3,28 +3,241 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A2540">
+  <link rel="icon" type="image/png" href="images/logo.png">
   <title>Política de Privacidad - CEMI</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/harvard-menu.css">
   <link rel="stylesheet" href="assets/css/terminos.css">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
-        <img src="images/logo.png" alt="Logo CEMI">
-        <span>CEMI</span>
+  <!-- ===== HARVARD-STYLE HEADER ===== -->
+  <header class="harvard-header">
+    <div class="harvard-header-inner">
+      <a href="index.html" class="harvard-branding">
+        <img src="images/logo.png" alt="Logo CEMI" class="harvard-logo-img">
+        <span class="harvard-dot"></span>
+        <span class="harvard-brand-text">CEMI - Centro Municipal de Idiomas</span>
+      </a>
+      
+      <div class="harvard-actions">
+        <div class="harvard-search-wrapper" id="harvardSearchWrapper">
+          <input type="text" class="harvard-search-field" id="harvardSearchField" placeholder="Buscar en CEMI" autocomplete="off">
+          <div class="harvard-search-icons">
+            <button class="harvard-search-submit" id="harvardSearchSubmit" aria-label="Buscar">
+              <i data-lucide="search"></i>
+            </button>
+            <button class="harvard-search-close" id="harvardSearchClose" aria-label="Cerrar búsqueda">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="harvard-search-quicklink">
+            <span>QUICK LINKS</span>
+            <a href="a-to-z.html">Ir a Índice A-Z</a>
+          </div>
+        </div>
+        <button class="harvard-az-btn" id="harvardAzBtn" aria-label="Índice A-Z">
+          <span>A-Z</span>
+        </button>
+        <button class="harvard-menu-btn" id="harvardMenuBtn">
+          <span>Menu</span>
+          <div class="harvard-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
       </div>
-      <ul class="nav-links">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="index.html#classroom">Classroom</a></li>
-        <li><a href="index.html#dashboard">Dashboard</a></li>
-        <li><a href="index.html#soporte">Soporte</a></li>
-      </ul>
-      <button class="login-btn" onclick="window.location.href='login.html'">Iniciar Sesión</button>
     </div>
-  </nav>
+  </header>
+
+  <!-- ===== MEGA MENU FULLSCREEN ===== -->
+  <div class="harvard-mega-menu" id="harvardMegaMenu">
+    <div class="mega-menu-backdrop"></div>
+    
+    <div class="mega-menu-bg-image" id="megaMenuBgImage">
+      <img src="images/STOCK1.jpg" alt="">
+    </div>
+    
+    <div class="mega-menu-header">
+      <a href="index.html" class="mega-menu-logo">
+        <img src="images/logolong.png" alt="Logo CEMI" class="mega-logo-long">
+      </a>
+      <button class="mega-menu-close" id="megaMenuClose">
+        <span>Cerrar</span>
+        <span class="close-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+      </button>
+    </div>
+    
+    <div class="mega-menu-content">
+      <nav class="mega-nav-primary">
+        <a href="#" class="mega-nav-item" data-panel="panel-classroom"><span class="mega-nav-item-text">Classroom</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-dashboard"><span class="mega-nav-item-text">Dashboard</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-nosotros"><span class="mega-nav-item-text">Nosotros</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-soporte"><span class="mega-nav-item-text">Soporte</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-seguridad"><span class="mega-nav-item-text">Seguridad</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-recursos"><span class="mega-nav-item-text">Recursos</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-accesibilidad"><span class="mega-nav-item-text">Accesibilidad</span></a>
+      </nav>
+      
+      <div class="mega-nav-secondary-container">
+        <div class="mega-nav-secondary" id="panel-classroom">
+          <a href="classroom-login.html" class="mega-sub-title">Classroom <span class="arrow">→</span></a>
+          <p class="mega-sub-description">El aula virtual más intuitiva. Tareas, calificaciones, anuncios y más.</p>
+          <div class="mega-sub-links">
+            <a href="#" class="mega-sub-link has-children" data-tertiary="tertiary-funciones" data-image="images/STOCK2.jpg">Funciones Principales <span class="chevron">›</span></a>
+            <a href="guia.html" class="mega-sub-link">Guía de Uso</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-dashboard">
+          <a href="login-selector.html" class="mega-sub-title">Dashboard <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Gestión completa de alumnos, profesores, cursos, pagos y estadísticas.</p>
+          <div class="mega-sub-links">
+            <a href="#" class="mega-sub-link has-children" data-tertiary="tertiary-paneles" data-image="images/STOCK3.webp">Paneles por Rol <span class="chevron">›</span></a>
+            <a href="index.html#modulos" class="mega-sub-link">Ver Módulos</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-nosotros" data-image="images/menu/nosotros.jpg">
+          <a href="index.html#nosotros" class="mega-sub-title">Nosotros <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Conoce nuestra historia, misión y el equipo detrás de CEMI.</p>
+          <div class="mega-sub-links">
+            <a href="index.html#historia" class="mega-sub-link">Nuestra Historia</a>
+            <a href="index.html#filosofia" class="mega-sub-link">Misión y Visión</a>
+            <a href="index.html#valores" class="mega-sub-link">Nuestros Valores</a>
+            <a href="index.html#equipo" class="mega-sub-link">El Equipo</a>
+            <a href="index.html#tecnologias" class="mega-sub-link">Tecnologías</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-soporte" data-image="images/menu/soporte.jpg">
+          <a href="ayuda.html" class="mega-sub-title">Soporte <span class="arrow">→</span></a>
+          <p class="mega-sub-description">¿Necesitas ayuda? Estamos aquí para asistirte.</p>
+          <div class="mega-sub-links">
+            <a href="index.html#faq" class="mega-sub-link">Preguntas Frecuentes</a>
+            <a href="mailto:soporte@cemi.edu" class="mega-sub-link">Contactar Soporte</a>
+            <a href="status.html" class="mega-sub-link">Estado del Sistema</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-seguridad" data-image="images/menu/seguridad.jpg">
+          <a href="reportar-seguridad.html" class="mega-sub-title">Seguridad <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Reporta vulnerabilidades o infracciones de forma segura.</p>
+          <div class="mega-sub-links">
+            <a href="cemi-seguridad.html" class="mega-sub-link">Centro de Ayuda de Seguridad</a>
+            <a href="reportar-copyright.html" class="mega-sub-link">Reportar Infracción de Copyright</a>
+            <a href="privacidad.html" class="mega-sub-link">Política de Privacidad</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-recursos" data-image="images/menu/recursos.webp">
+          <a href="guia.html" class="mega-sub-title">Recursos <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Documentación, descargas y más recursos útiles.</p>
+          <div class="mega-sub-links">
+            <a href="https://cemi.up.railway.app/downloads/cemi-app-v1.2.apk" class="mega-sub-link">Descargar App Android</a>
+            <a href="index.html#caracteristicas" class="mega-sub-link">Características del Sistema</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-accesibilidad" data-image="images/menu/accesibilidad.jpg">
+          <a href="accesibilidad.html" class="mega-sub-title">Accesibilidad <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Herramientas de acceso y administración institucional.</p>
+          <div class="mega-sub-links">
+            <a href="login-selector.html" class="mega-sub-link">Acceso Público</a>
+            <a href="login-admin.html" class="mega-sub-link">Acceso Administrativo</a>
+            <a href="reglamento-institucional.html" class="mega-sub-link">Reglamento Institucional</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mega-nav-tertiary-container">
+        <div class="mega-nav-tertiary" id="tertiary-funciones">
+          <div class="mega-tertiary-header">
+            <h4>Funciones del Classroom</h4>
+            <p>Explora todas las herramientas disponibles para el aprendizaje.</p>
+          </div>
+          <div class="mega-tertiary-links">
+            <div class="mega-tertiary-item" data-image="images/menu/tareas.webp">
+              <button class="mega-tertiary-link">Tareas y Entregas</button>
+              <div class="mega-tertiary-info">
+                <p>Gestiona tus tareas pendientes, sube entregas y revisa el historial de trabajos completados.</p>
+                <a href="classroom-login.html" class="mega-tertiary-action">Ir al Classroom →</a>
+              </div>
+            </div>
+            <div class="mega-tertiary-item" data-image="images/menu/calificaciones.jpg">
+              <button class="mega-tertiary-link">Calificaciones</button>
+              <div class="mega-tertiary-info">
+                <p>Consulta tus notas por materia, promedios parciales y finales.</p>
+                <a href="classroom-login.html" class="mega-tertiary-action">Ir al Classroom →</a>
+              </div>
+            </div>
+            <div class="mega-tertiary-item" data-image="images/menu/anuncios.jpg">
+              <button class="mega-tertiary-link">Anuncios</button>
+              <div class="mega-tertiary-info">
+                <p>Mantente informado con las últimas novedades de tus cursos.</p>
+                <a href="classroom-login.html" class="mega-tertiary-action">Ir al Classroom →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mega-nav-tertiary" id="tertiary-paneles">
+          <div class="mega-tertiary-header">
+            <h4>Paneles por Rol</h4>
+            <p>Accede al panel correspondiente a tu perfil.</p>
+          </div>
+          <div class="mega-tertiary-links">
+            <div class="mega-tertiary-item" data-image="images/menu/panel-alumno.jpg">
+              <button class="mega-tertiary-link">Panel del Alumno</button>
+              <div class="mega-tertiary-info">
+                <p>Tu espacio personal para gestionar inscripciones y ver tu historial académico.</p>
+                <a href="login.html" class="mega-tertiary-action">Iniciar Sesión →</a>
+              </div>
+            </div>
+            <div class="mega-tertiary-item" data-image="images/menu/panel-profesor.jpg">
+              <button class="mega-tertiary-link">Panel del Profesor</button>
+              <div class="mega-tertiary-info">
+                <p>Administra tus cursos, carga calificaciones y gestiona asistencia.</p>
+                <a href="login.html" class="mega-tertiary-action">Iniciar Sesión →</a>
+              </div>
+            </div>
+            <div class="mega-tertiary-item" data-image="images/menu/panel-administrador.jpg">
+              <button class="mega-tertiary-link">Panel Administrativo</button>
+              <div class="mega-tertiary-info">
+                <p>Control total del sistema: gestión de usuarios y reportes institucionales.</p>
+                <a href="login-admin.html" class="mega-tertiary-action">Acceso Admin →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mega-menu-footer">
+      <div class="mega-footer-inner">
+        <span class="mega-footer-label">
+          Enlaces rápidos <span class="chevron">›</span>
+        </span>
+        <div class="mega-footer-links">
+          <a href="terminos.html" class="mega-footer-link">Términos de Servicio</a>
+          <a href="privacidad.html" class="mega-footer-link">Privacidad</a>
+          <a href="ayuda.html" class="mega-footer-link">Ayuda</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="terms-container">
     
@@ -410,17 +623,50 @@
     </main>
   </div>
 
-  <footer class="footer-global">
+  <!-- ===== FOOTER ===== -->
+  <footer class="professional-footer">
+    <div class="footer-main">
+      <div class="footer-column">
+        <div class="footer-logo">
+          <img src="images/logolong.png" alt="Logo CEMI" class="footer-logo-long">
+        </div>
+        <p class="footer-description">Sistema de Gestión Académica Integral para instituciones educativas modernas.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Contacto</h4>
+        <ul class="footer-contact">
+          <li><i data-lucide="mail"></i> contacto@cemi.edu.ar</li>
+          <li><i data-lucide="phone"></i> +54 381 4463243</li>
+          <li><i data-lucide="map-pin"></i> Sarmiento y Marconi<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bella Vista, Tucumán</li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Síguenos</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/p/CEMI-Bella-Vista-61573420844539/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i data-lucide="facebook"></i>
+          </a>
+        </div>
+        <button class="footer-cta" onclick="window.location.href='register.html'">
+          <i data-lucide="user-plus"></i> Registrarse
+        </button>
+      </div>
+    </div>
+    
     <div class="footer-bottom">
       <p>&copy; 2025 CEMI - Sistema de Gestión Académica. Todos los derechos reservados.</p>
-      <div class="footer-links">
+      <p class="footer-tech">Desarrollado con Node.js, MySQL y tecnologías modernas</p>
+      <div class="footer-links-bottom">
         <a href="terminos.html">Términos de Servicio</a>
         <a href="privacidad.html">Privacidad</a>
-        <a href="index.html#soporte">Ayuda</a>
+        <a href="ayuda.html">Ayuda</a>
       </div>
     </div>
   </footer>
 
+  <script src="assets/js/harvard-menu.js"></script>
   <script>
     // Inicializar Lucide icons
     lucide.createIcons();
