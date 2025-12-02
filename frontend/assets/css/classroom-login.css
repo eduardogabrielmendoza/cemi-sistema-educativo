@@ -657,14 +657,15 @@ body {
 /* Footer */
 .login-footer {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 24px;
   border-top: 1px solid var(--color-border);
+  margin-top: 8px;
 }
 
 .login-footer p {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .login-footer a {
