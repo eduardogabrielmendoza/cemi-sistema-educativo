@@ -88,8 +88,8 @@
 
     /* Pulse animation for attention */
     @keyframes helpPulse {
-      0%, 100% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 0 rgba(245, 166, 35, 0.4); }
-      50% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 12px rgba(245, 166, 35, 0); }
+      0%, 100% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 0 rgba(101, 111, 119, 0.4); }
+      50% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 12px rgba(101, 111, 119, 0); }
     }
     
     .cemi-help-btn.pulse {
@@ -199,7 +199,7 @@
       transform: translateY(-50%);
       width: 3px;
       height: 0;
-      background: var(--hw-accent-orange);
+      background: var(--hw-charcoal);
       transition: height 0.3s ease;
       border-radius: 0 2px 2px 0;
     }
@@ -222,7 +222,7 @@
     }
     
     .cemi-help-dropdown-item:hover svg { 
-      color: var(--hw-accent-orange); 
+      color: var(--hw-charcoal); 
       transform: scale(1.1);
     }
     
@@ -287,7 +287,7 @@
     .cemi-help-panel-title svg { 
       width: 24px; 
       height: 24px;
-      color: var(--hw-accent-orange);
+      color: var(--hw-silver);
     }
     
     .cemi-help-panel-title h3 { 
@@ -485,7 +485,7 @@
     .cemi-help-panel-footer a svg { 
       width: 18px; 
       height: 18px;
-      color: var(--hw-accent-orange);
+      color: var(--hw-silver);
     }
 
     /* ==========================================
@@ -578,7 +578,7 @@
     .cemi-feedback-header h3 svg { 
       width: 24px; 
       height: 24px; 
-      color: var(--hw-accent-orange); 
+      color: var(--hw-graphite); 
     }
     
     .cemi-feedback-close { 
