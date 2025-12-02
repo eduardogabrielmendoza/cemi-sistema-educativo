@@ -45,15 +45,15 @@
 }
 
 .alumno-stat-card-enhanced.primary .stat-decoration {
-  background: linear-gradient(135deg, #0A2540, #2E5077);
+  background: rgba(74, 82, 89, 0.1);
 }
 
 .alumno-stat-card-enhanced.success .stat-decoration {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: rgba(74, 82, 89, 0.1);
 }
 
 .alumno-stat-card-enhanced.info .stat-decoration {
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  background: rgba(74, 82, 89, 0.1);
 }
 
 .stat-icon-wrapper {
@@ -67,15 +67,15 @@
 }
 
 .alumno-stat-card-enhanced.primary .stat-icon-wrapper {
-  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .alumno-stat-card-enhanced.success .stat-icon-wrapper {
-  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .alumno-stat-card-enhanced.info .stat-icon-wrapper {
-  background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .stat-icon-wrapper i {
@@ -84,15 +84,15 @@
 }
 
 .alumno-stat-card-enhanced.primary .stat-icon-wrapper i {
-  color: #4A6FA5;
+  color: #4a5259;
 }
 
 .alumno-stat-card-enhanced.success .stat-icon-wrapper i {
-  color: #10b981;
+  color: #4a5259;
 }
 
 .alumno-stat-card-enhanced.info .stat-icon-wrapper i {
-  color: #8b5cf6;
+  color: #4a5259;
 }
 
 .stat-content-wrapper {
@@ -144,7 +144,7 @@
 
 .curso-card-header-enhanced {
   padding: 1.5rem;
-  background: linear-gradient(135deg, #1A3A5C, #0A2540);
+  background: linear-gradient(135deg, #4a5259, #4a5259);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -207,7 +207,7 @@
 .curso-info-item-enhanced i {
   width: 16px;
   height: 16px;
-  color: #4A6FA5;
+  color: #4a5259;
   flex-shrink: 0;
 }
 
@@ -394,7 +394,7 @@
 }
 
 .asistencia-stat-card.total .stat-decoration {
-  background: linear-gradient(135deg, #0A2540, #2E5077);
+  background: linear-gradient(135deg, #4a5259, #6b7280);
 }
 
 .asistencia-stat-card.presente .stat-decoration {
@@ -446,7 +446,7 @@
 }
 
 .asistencia-stat-card.total .asistencia-stat-icon i {
-  color: #4A6FA5;
+  color: #4a5259;
 }
 
 .asistencia-stat-card.presente .asistencia-stat-icon i {
@@ -498,7 +498,7 @@
 .asistencia-por-curso-section h3 i {
   width: 24px;
   height: 24px;
-  color: #4A6FA5;
+  color: #4a5259;
 }
 
 .cursos-asistencia-grid {
@@ -750,7 +750,7 @@
 .perfil-section-header i {
   width: 24px;
   height: 24px;
-  color: #4A6FA5;
+  color: #4a5259;
 }
 
 .perfil-section-header h3 {
@@ -795,7 +795,7 @@
 .dato-valor i {
   width: 18px;
   height: 18px;
-  color: #4A6FA5;
+  color: #4a5259;
   flex-shrink: 0;
 }
 
@@ -843,7 +843,7 @@
 .form-group-perfil label i {
   width: 18px;
   height: 18px;
-  color: #4A6FA5;
+  color: #4a5259;
 }
 
 .form-group-perfil input {
@@ -857,7 +857,7 @@
 
 .form-group-perfil input:focus {
   outline: none;
-  border-color: #4A6FA5;
+  border-color: #4a5259;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -874,7 +874,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background: linear-gradient(135deg, #1A3A5C, #0A2540);
+  background: linear-gradient(135deg, #4a5259, #4a5259);
   color: white;
   border: none;
   border-radius: 10px;
@@ -885,7 +885,7 @@
 }
 
 .btn-guardar-perfil:hover {
-  background: linear-gradient(135deg, #0A2540, #1d4ed8);
+  background: linear-gradient(135deg, #4a5259, #1d4ed8);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }

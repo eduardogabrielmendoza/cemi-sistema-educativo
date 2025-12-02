@@ -5825,15 +5825,15 @@
 }
 
 .stat-pago-card.total-pagado {
-  border-left: 4px solid #43a047;
+  border-left: 4px solid #4a5259;
 }
 
 .stat-pago-card.total-pendiente {
-  border-left: 4px solid #fb8c00;
+  border-left: 4px solid #4a5259;
 }
 
 .stat-pago-card.cantidad-pagos {
-  border-left: 4px solid #5d646b;
+  border-left: 4px solid #4a5259;
 }
 
 .stat-pago-icon {
@@ -5847,18 +5847,18 @@
 }
 
 .total-pagado .stat-pago-icon {
-  background: #e8f5e9;
-  color: #43a047;
+  background: rgba(74, 82, 89, 0.08);
+  color: #4a5259;
 }
 
 .total-pendiente .stat-pago-icon {
-  background: #fff3e0;
-  color: #fb8c00;
+  background: rgba(74, 82, 89, 0.08);
+  color: #4a5259;
 }
 
 .cantidad-pagos .stat-pago-icon {
-  background: #e3f2fd;
-  color: #5d646b;
+  background: rgba(74, 82, 89, 0.08);
+  color: #4a5259;
 }
 
 .stat-pago-icon svg {
@@ -6986,12 +6986,12 @@
 
 
 .stat-pago-card.cuotas-vencidas {
-  border-left: 4px solid #ef5350;
+  border-left: 4px solid #4a5259;
 }
 
 .cuotas-vencidas .stat-pago-icon {
-  background: #ffebee;
-  color: #ef5350;
+  background: rgba(74, 82, 89, 0.08);
+  color: #4a5259;
 }
 
 .cursos-pagos-section {
@@ -7023,16 +7023,16 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  border: 1px solid #e3f2fd;
+  border: 1px solid #e5e7eb;
 }
 
 .curso-pago-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(25, 118, 210, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .curso-pago-header {
-  background: linear-gradient(135deg, #4a5259 0%, #1565c0 100%);
+  background: #4a5259;
   padding: 24px;
   color: white;
   display: flex;

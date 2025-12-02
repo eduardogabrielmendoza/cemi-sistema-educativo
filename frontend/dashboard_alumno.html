@@ -477,8 +477,8 @@
 
             <div class="calificaciones-resumen">
               <div class="resumen-card">
-                <div class="resumen-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                  <i data-lucide="book-open"></i>
+                <div class="resumen-icon" style="background: rgba(74, 82, 89, 0.08);">
+                  <i data-lucide="book-open" style="color: #4a5259;"></i>
                 </div>
                 <div class="resumen-info">
                   <h3>${cursos.length}</h3>
@@ -487,8 +487,8 @@
               </div>
 
               <div class="resumen-card">
-                <div class="resumen-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                  <i data-lucide="bar-chart-3"></i>
+                <div class="resumen-icon" style="background: rgba(74, 82, 89, 0.08);">
+                  <i data-lucide="bar-chart-3" style="color: #4a5259;"></i>
                 </div>
                 <div class="resumen-info">
                   <h3>${parseFloat(data.promedio_general) > 0 ? parseFloat(data.promedio_general).toFixed(1) : 'S/N'}</h3>
@@ -497,8 +497,8 @@
               </div>
 
               <div class="resumen-card">
-                <div class="resumen-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                  <i data-lucide="trending-up"></i>
+                <div class="resumen-icon" style="background: rgba(74, 82, 89, 0.08);">
+                  <i data-lucide="trending-up" style="color: #4a5259;"></i>
                 </div>
                 <div class="resumen-info">
                   <h3>${cursos.filter(c => c.promedio && c.promedio >= 7).length}</h3>
