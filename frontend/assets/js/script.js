@@ -1726,7 +1726,7 @@ const STATUS_CONFIG = {
     operational: '#16a34a',
     degraded: '#d97706',
     outage: '#dc2626',
-    maintenance: '#2563eb'
+    maintenance: '#4a5259'
   }
 };
 
@@ -1858,7 +1858,7 @@ function renderStatusSection() {
       .global-status-display.operational { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
       .global-status-display.degraded { background: linear-gradient(135deg, #fef3c7, #fde68a); }
       .global-status-display.outage { background: linear-gradient(135deg, #fee2e2, #fecaca); }
-      .global-status-display.maintenance { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+      .global-status-display.maintenance { background: linear-gradient(135deg, #e5e7eb, #bfdbfe); }
 
       .global-status-icon {
         width: 60px;
@@ -1876,7 +1876,7 @@ function renderStatusSection() {
       .global-status-icon.operational i { color: #16a34a; }
       .global-status-icon.degraded i { color: #d97706; }
       .global-status-icon.outage i { color: #dc2626; }
-      .global-status-icon.maintenance i { color: #2563eb; }
+      .global-status-icon.maintenance i { color: #4a5259; }
 
       .global-status-text {
         font-size: 1.25rem;
@@ -1886,7 +1886,7 @@ function renderStatusSection() {
       .global-status-text.operational { color: #16a34a; }
       .global-status-text.degraded { color: #d97706; }
       .global-status-text.outage { color: #dc2626; }
-      .global-status-text.maintenance { color: #2563eb; }
+      .global-status-text.maintenance { color: #4a5259; }
 
       .global-status-time {
         font-size: 0.85rem;
@@ -1932,7 +1932,7 @@ function renderStatusSection() {
       .service-status-badge.operational { background: #dcfce7; color: #16a34a; }
       .service-status-badge.degraded { background: #fef3c7; color: #d97706; }
       .service-status-badge.outage { background: #fee2e2; color: #dc2626; }
-      .service-status-badge.maintenance { background: #dbeafe; color: #2563eb; }
+      .service-status-badge.maintenance { background: #e5e7eb; color: #4a5259; }
 
       /* Incidente Activo */
       .active-incident-card {
@@ -1949,8 +1949,8 @@ function renderStatusSection() {
       }
 
       .active-incident-card.maintenance {
-        background: #eff6ff;
-        border-color: #3b82f6;
+        background: #f5f5f7;
+        border-color: #4a5259;
       }
 
       .incident-badge {
@@ -1967,7 +1967,7 @@ function renderStatusSection() {
 
       .incident-badge.degraded { background: #fef3c7; color: #b45309; }
       .incident-badge.outage { background: #fee2e2; color: #b91c1c; }
-      .incident-badge.maintenance { background: #dbeafe; color: #1d4ed8; }
+      .incident-badge.maintenance { background: #e5e7eb; color: #1d4ed8; }
 
       .incident-title {
         font-size: 1rem;
@@ -2059,7 +2059,7 @@ function renderStatusSection() {
 
       .history-item.degraded { border-color: #f59e0b; }
       .history-item.outage { border-color: #ef4444; }
-      .history-item.maintenance { border-color: #3b82f6; }
+      .history-item.maintenance { border-color: #4a5259; }
 
       .history-item-header {
         display: flex;
@@ -2160,7 +2160,7 @@ function renderStatusSection() {
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #4a5259, #3b82f6, #8b5cf6);
+        background: linear-gradient(90deg, #4a5259, #4a5259, #6b7280);
         animation: shimmer 2s infinite;
         z-index: 10;
       }
@@ -2192,7 +2192,7 @@ function renderStatusSection() {
         content: '';
         width: 4px;
         height: 24px;
-        background: linear-gradient(135deg, #4a5259, #3b82f6);
+        background: linear-gradient(135deg, #4a5259, #4a5259);
         border-radius: 2px;
       }
 
@@ -2349,7 +2349,7 @@ function renderStatusSection() {
 
       .status-checkbox-item:has(input:checked) {
         border-color: #4a5259;
-        background: linear-gradient(145deg, #eff6ff, #dbeafe);
+        background: linear-gradient(145deg, #f5f5f7, #e5e7eb);
       }
 
       .status-checkbox-item input { 
@@ -2510,15 +2510,15 @@ function renderStatusSection() {
       }
 
       .banner-preview-content.maintenance {
-        background: linear-gradient(145deg, #dbeafe, #bfdbfe);
-        border-color: #3b82f6;
+        background: linear-gradient(145deg, #e5e7eb, #bfdbfe);
+        border-color: #4a5259;
         box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
       }
 
       .banner-preview-content i { width: 22px; height: 22px; }
       .banner-preview-content.degraded i { color: #d97706; }
       .banner-preview-content.outage i { color: #dc2626; }
-      .banner-preview-content.maintenance i { color: #2563eb; }
+      .banner-preview-content.maintenance i { color: #4a5259; }
 
       .banner-preview-text {
         flex: 1;
@@ -3374,7 +3374,7 @@ function generateTable(section, data) {
 case "pagos":
   return `
     <div class="pagos-tabs" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb;">
-      <button class="pagos-tab active" data-tab="activos" onclick="switchPagosTab('activos')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid #667eea; color: #667eea; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+      <button class="pagos-tab active" data-tab="activos" onclick="switchPagosTab('activos')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid #4a5259; color: #4a5259; font-weight: 600; cursor: pointer; transition: all 0.3s;">
         <i data-lucide="list"></i> Pagos Activos
       </button>
       <button class="pagos-tab" data-tab="archivo" onclick="switchPagosTab('archivo')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid transparent; color: #666; font-weight: 600; cursor: pointer; transition: all 0.3s;">
@@ -5425,8 +5425,8 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       title: 'Editar Credenciales',
       html: `
         <div style="text-align: left;">
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
-            <p style="margin: 0; font-size: 13px; color: #1e40af;">
+          <div style="background: #f5f5f7; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4a5259;">
+            <p style="margin: 0; font-size: 13px; color: #4a5259;">
               Estas credenciales se usan para <strong>Dashboard y Classroom</strong>
             </p>
           </div>
@@ -5993,8 +5993,8 @@ function switchPagosTab(tab) {
   document.querySelectorAll('.pagos-tab').forEach(t => {
     if (t.dataset.tab === tab) {
       t.classList.add('active');
-      t.style.borderBottomColor = '#667eea';
-      t.style.color = '#667eea';
+      t.style.borderBottomColor = '#4a5259';
+      t.style.color = '#4a5259';
     } else {
       t.classList.remove('active');
       t.style.borderBottomColor = 'transparent';
@@ -7421,8 +7421,8 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       title: 'Editar Credenciales',
       html: `
         <div style="text-align: left;">
-          <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #3b82f6;">
-            <p style="margin: 0; font-size: 13px; color: #1e40af;">
+          <div style="background: #f5f5f7; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4a5259;">
+            <p style="margin: 0; font-size: 13px; color: #4a5259;">
               Estas credenciales se usan para <strong>Dashboard y Classroom</strong>
             </p>
           </div>
@@ -8238,7 +8238,7 @@ async function openNuevoAdministradorModal() {
           title: '¡Administrador creado!',
           html: `
             <p>El administrador <strong>${formValues.nombre} ${formValues.apellido}</strong> ha sido creado correctamente.</p>
-            <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
+            <div style="background: #f5f5f7; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Usuario:</strong> ${formValues.username}</p>
               <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${formValues.password}</p>
             </div>
@@ -8597,7 +8597,7 @@ async function cambiarPasswordAdministrador(id, nombre) {
           title: 'Contraseña actualizada',
           html: `
             <p>La contraseña de <strong>${nombre}</strong> ha sido actualizada.</p>
-            <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
+            <div style="background: #f5f5f7; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Nueva contraseña:</strong> ${password}</p>
             </div>
             <p style="margin-top: 15px; font-size: 13px; color: #666;">Asegúrate de compartir esta información de forma segura.</p>
@@ -9204,7 +9204,7 @@ async function loadCuotasGestion() {
         <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px;">
           <div style="flex: 1;">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-              <div style="background: #667eea; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+              <div style="background: #4a5259; color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                 <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
               </div>
               <div>
@@ -9401,8 +9401,8 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
               </label>
             `).join('')}
           </div>
-          <div style="margin-top: 20px; padding: 16px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px;">
-            <p style="margin: 0; font-size: 14px; color: #1e40af;">
+          <div style="margin-top: 20px; padding: 16px; background: #f5f5f7; border-left: 4px solid #4a5259; border-radius: 8px;">
+            <p style="margin: 0; font-size: 14px; color: #4a5259;">
                <strong>Tip:</strong> Los alumnos solo verán y podrán pagar las cuotas seleccionadas.
             </p>
           </div>
@@ -9963,7 +9963,7 @@ async function renderInvestigacionSection() {
               <p>Centro de recopilación de datos de experiencia de usuario</p>
             </div>
           </div>
-          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1e3a5f, #2563eb);">
+          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #1e3a5f, #4a5259);">
             <i data-lucide="external-link"></i>
             Ver Landing de Encuesta
           </a>
@@ -9972,7 +9972,7 @@ async function renderInvestigacionSection() {
         <!-- Estadísticas -->
         <div class="investigacion-stats">
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #1e3a5f, #4a5259);">
               <i data-lucide="file-text"></i>
             </div>
             <div class="stat-info">
@@ -9981,7 +9981,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #4a5259, #4a5259);">
               <i data-lucide="star"></i>
             </div>
             <div class="stat-info">
@@ -9990,7 +9990,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #4a5259, #6b7280);">
               <i data-lucide="smile"></i>
             </div>
             <div class="stat-info">
@@ -9999,7 +9999,7 @@ async function renderInvestigacionSection() {
             </div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon" style="background: linear-gradient(135deg, #1e40af, #1e3a5f);">
+            <div class="stat-icon" style="background: linear-gradient(135deg, #4a5259, #1e3a5f);">
               <i data-lucide="calendar"></i>
             </div>
             <div class="stat-info">
@@ -10027,7 +10027,7 @@ async function renderInvestigacionSection() {
               </div>
             ` : encuestas.encuestas.map(enc => `
               <div class="encuesta-item" data-id="${enc.id}">
-                <div class="encuesta-avatar" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
+                <div class="encuesta-avatar" style="background: linear-gradient(135deg, #1e3a5f, #4a5259);">
                   <span>${enc.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}</span>
                 </div>
                 <div class="encuesta-info">
@@ -10233,7 +10233,7 @@ async function renderInvestigacionSection() {
           width: 48px;
           height: 48px;
           border-radius: 12px;
-          background: linear-gradient(135deg, #667eea, #764ba2);
+          background: linear-gradient(135deg, #4a5259, #3d444a);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -10281,7 +10281,7 @@ async function renderInvestigacionSection() {
           border-radius: 12px;
           font-size: 12px;
           font-weight: 600;
-          background: #dbeafe;
+          background: #e5e7eb;
           color: #1e3a5f;
         }
         
@@ -10296,12 +10296,12 @@ async function renderInvestigacionSection() {
         }
         
         .satisfaction-7, .satisfaction-6 {
-          background: #2563eb;
+          background: #4a5259;
           color: white;
         }
         
         .satisfaction-5, .satisfaction-4 {
-          background: #60a5fa;
+          background: #6b7280;
           color: white;
         }
         
@@ -10352,7 +10352,7 @@ async function renderInvestigacionSection() {
         }
         
         .btn-view {
-          background: #dbeafe;
+          background: #e5e7eb;
           color: #1e3a5f;
         }
         
@@ -10362,12 +10362,12 @@ async function renderInvestigacionSection() {
         }
         
         .btn-download {
-          background: #dbeafe;
-          color: #2563eb;
+          background: #e5e7eb;
+          color: #4a5259;
         }
         
         .btn-download:hover {
-          background: #2563eb;
+          background: #4a5259;
           color: white;
         }
         
