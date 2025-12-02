@@ -1342,14 +1342,17 @@
 .alumno-avatar {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #547194 0%, #7a9bbd 100%);
+  background: rgba(74, 82, 89, 0.15);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-weight: 600;
+  color: #4a5259;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   flex-shrink: 0;
+  border: 1px solid rgba(74, 82, 89, 0.2);
 }
 
 .alumno-info {
@@ -1391,25 +1394,25 @@
 }
 
 .panel-btn.primary {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: #4a5259;
   color: white;
-  box-shadow: 0 2px 8px rgba(66, 99, 140, 0.3);
+  box-shadow: 0 2px 8px rgba(74, 82, 89, 0.2);
 }
 
 .panel-btn.primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(66, 99, 140, 0.4);
+  background: #3d444a;
+  box-shadow: 0 4px 12px rgba(74, 82, 89, 0.25);
 }
 
 .panel-btn.secondary {
   background: white;
-  color: #42638c;
-  border: 2px solid #2a5298;
+  color: #4a5259;
+  border: 1px solid #4a5259;
 }
 
 .panel-btn.secondary:hover {
-  background: rgba(66, 99, 140, 0.05);
-  border-color: #42638c;
+  background: rgba(74, 82, 89, 0.05);
+  border-color: #3d444a;
 }
 
 .panel-btn.danger {
