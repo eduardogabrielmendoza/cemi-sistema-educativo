@@ -405,6 +405,7 @@ body {
   justify-content: center;
   color: var(--color-text-secondary);
   pointer-events: none;
+  z-index: 2;
 }
 
 .input-prefix i,
@@ -412,6 +413,7 @@ body {
   width: 18px;
   height: 18px;
   stroke-width: 1.5;
+  display: block;
 }
 
 .input-with-icon:focus-within .input-prefix {
