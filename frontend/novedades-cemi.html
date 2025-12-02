@@ -8,36 +8,43 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
+    :root { --hw-charcoal: #1e1e1e; --hw-graphite: #656f77; --hw-light-gray: #8c939a; --hw-silver: #b8bdc2; --hw-off-white: #f8f9fa; --hw-cream: #f5f5f7; --hw-accent-orange: #f5a623; --hw-success: #10b981; --hw-purple: #8b5cf6; --hw-danger: #ef4444; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fa; color: #2d3748; line-height: 1.6; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--hw-off-white); color: var(--hw-charcoal); line-height: 1.6; }
+    body::before { content: ''; position: fixed; top: 15%; right: 10%; width: 200px; height: 200px; border: 1px solid rgba(101, 111, 119, 0.05); border-radius: 50%; pointer-events: none; }
 
-    .help-header { background: linear-gradient(135deg, #547194 0%, #667eea 100%); position: sticky; top: 0; z-index: 100; }
+    .help-header { background: var(--hw-charcoal); position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; }
     .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
-    .header-logo img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .header-logo span { font-size: 18px; font-weight: 600; }
+    .header-logo img { width: 40px; height: 40px; border-radius: 10px; background: white; padding: 4px; }
+    .header-logo span { font-family: 'Georgia', serif; font-size: 18px; font-weight: 400; }
     .header-nav { display: flex; gap: 8px; }
-    .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
-    .header-nav a:hover, .header-nav a.active { background: rgba(255,255,255,0.15); color: white; }
+    .header-nav a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 500; transition: all 0.3s ease; position: relative; }
+    .header-nav a::after { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--hw-accent-orange); transition: width 0.3s ease; }
+    .header-nav a:hover::after, .header-nav a.active::after { width: 30px; }
+    .header-nav a:hover, .header-nav a.active { color: white; }
 
-    .hero-section { background: linear-gradient(135deg, #547194 0%, #667eea 100%); padding: 20px 40px 16px; text-align: center; position: relative; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; max-height: 500px; }
+    .hero-section { background: var(--hw-charcoal); padding: 30px 40px 24px; text-align: center; position: relative; overflow: hidden; transition: max-height 0.5s ease, padding 0.5s ease; max-height: 300px; }
+    .hero-section::before { content: ''; position: absolute; top: -80px; right: -80px; width: 250px; height: 250px; border: 2px solid rgba(255,255,255,0.03); border-radius: 50%; }
     .hero-section.hidden { max-height: 0; padding-top: 0; padding-bottom: 0; }
-    .hero-section h1 { color: white; font-size: 22px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-    .hero-section h1 i { width: 24px; height: 24px; }
-    .hero-section p { color: rgba(255,255,255,0.9); font-size: 14px; max-width: 500px; margin: 0 auto; }
+    .hero-section h1 { font-family: 'Georgia', serif; color: white; font-size: 26px; font-weight: 400; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 12px; animation: fadeIn 0.6s ease; }
+    .hero-section h1 i { width: 28px; height: 28px; color: var(--hw-accent-orange); }
+    .hero-section p { color: rgba(255,255,255,0.75); font-size: 15px; animation: fadeIn 0.6s ease 0.1s both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-    .main-content { max-width: 900px; margin: 0 auto; padding: 40px; }
+    .main-content { max-width: 900px; margin: 0 auto; padding: 50px 40px; }
 
-    .filter-tabs { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
-    .filter-tab { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 30px; font-size: 14px; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.2s ease; }
-    .filter-tab:hover { border-color: #667eea; color: #667eea; }
-    .filter-tab.active { background: linear-gradient(135deg, #547194, #667eea); color: white; border-color: transparent; }
+    .filter-tabs { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; animation: fadeIn 0.6s ease 0.2s both; }
+    .filter-tab { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: white; border: 1px solid rgba(101, 111, 119, 0.1); border-radius: 30px; font-size: 14px; font-weight: 500; color: var(--hw-graphite); cursor: pointer; transition: all 0.3s ease; }
+    .filter-tab:hover { border-color: var(--hw-charcoal); color: var(--hw-charcoal); transform: translateY(-2px); }
+    .filter-tab.active { background: var(--hw-charcoal); color: white; border-color: transparent; }
     .filter-tab i { width: 16px; height: 16px; }
 
     .timeline { position: relative; }
-    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #667eea, rgba(102,126,234,0.3)); }
+    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: var(--hw-charcoal); }
 
-    .timeline-item { position: relative; padding-left: 70px; padding-bottom: 40px; animation: fadeInUp 0.5s ease forwards; opacity: 0; }
+    .timeline-item { position: relative; padding-left: 70px; padding-bottom: 45px; animation: timelineFadeIn 0.6s ease forwards; opacity: 0; }
+    @keyframes timelineFadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
     .timeline-item:nth-child(1) { animation-delay: 0.1s; }
     .timeline-item:nth-child(2) { animation-delay: 0.2s; }
     .timeline-item:nth-child(3) { animation-delay: 0.3s; }
@@ -45,68 +52,65 @@
     .timeline-item:nth-child(5) { animation-delay: 0.5s; }
     .timeline-item:nth-child(6) { animation-delay: 0.6s; }
 
-    .timeline-marker { position: absolute; left: 12px; top: 4px; width: 26px; height: 26px; background: linear-gradient(135deg, #547194, #667eea); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid #f5f7fa; box-shadow: 0 2px 8px rgba(102,126,234,0.3); }
+    .timeline-marker { position: absolute; left: 12px; top: 4px; width: 26px; height: 26px; background: var(--hw-charcoal); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid var(--hw-off-white); box-shadow: 0 2px 8px rgba(30, 30, 30, 0.15); }
     .timeline-marker i { width: 12px; height: 12px; color: white; }
-    .timeline-marker.nueva-funcion { background: linear-gradient(135deg, #059669, #10b981); }
-    .timeline-marker.mejora { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
-    .timeline-marker.correccion { background: linear-gradient(135deg, #dc2626, #f87171); }
+    .timeline-marker.nueva-funcion { background: var(--hw-success); }
+    .timeline-marker.mejora { background: var(--hw-purple); }
+    .timeline-marker.correccion { background: var(--hw-danger); }
 
-    .timeline-date { font-size: 13px; color: #64748b; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-    .timeline-date i { width: 14px; height: 14px; }
+    .timeline-date { font-size: 13px; color: var(--hw-graphite); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .timeline-date i { width: 14px; height: 14px; color: var(--hw-light-gray); }
 
-    .timeline-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
-    .timeline-card:hover { border-color: #667eea; box-shadow: 0 8px 30px rgba(102,126,234,0.12); transform: translateX(4px); }
+    .timeline-card { background: white; border-radius: 18px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid rgba(101, 111, 119, 0.08); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .timeline-card:hover { border-color: rgba(101, 111, 119, 0.15); box-shadow: 0 15px 45px rgba(0,0,0,0.08); transform: translateX(8px); }
 
-    .timeline-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 12px; }
-    .timeline-badge.nueva-funcion { background: #d1fae5; color: #065f46; }
-    .timeline-badge.mejora { background: #ede9fe; color: #5b21b6; }
-    .timeline-badge.correccion { background: #fee2e2; color: #991b1b; }
+    .timeline-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .timeline-badge.nueva-funcion { background: rgba(16, 185, 129, 0.1); color: #059669; }
+    .timeline-badge.mejora { background: rgba(139, 92, 246, 0.1); color: #7c3aed; }
+    .timeline-badge.correccion { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
     .timeline-badge i { width: 12px; height: 12px; }
 
-    .timeline-title { font-size: 18px; font-weight: 600; color: #547194; margin-bottom: 12px; line-height: 1.4; }
-    .timeline-description { font-size: 14px; color: #64748b; line-height: 1.7; margin-bottom: 16px; }
+    .timeline-title { font-family: 'Georgia', serif; font-size: 19px; font-weight: 400; color: var(--hw-charcoal); margin-bottom: 12px; line-height: 1.4; }
+    .timeline-description { font-size: 14px; color: var(--hw-graphite); line-height: 1.7; margin-bottom: 18px; }
 
-    .timeline-features { list-style: none; margin-top: 16px; }
-    .timeline-features li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 14px; color: #475569; border-bottom: 1px solid #f1f5f9; }
+    .timeline-features { list-style: none; margin-top: 18px; }
+    .timeline-features li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; font-size: 14px; color: var(--hw-graphite); border-bottom: 1px solid rgba(101, 111, 119, 0.06); }
     .timeline-features li:last-child { border-bottom: none; }
-    .timeline-features li i { width: 16px; height: 16px; color: #667eea; margin-top: 2px; flex-shrink: 0; }
+    .timeline-features li i { width: 16px; height: 16px; color: var(--hw-success); margin-top: 2px; flex-shrink: 0; }
 
-    .timeline-link { display: inline-flex; align-items: center; gap: 6px; color: #667eea; text-decoration: none; font-size: 14px; font-weight: 500; margin-top: 12px; transition: all 0.2s ease; }
-    .timeline-link:hover { color: #547194; }
+    .timeline-link { display: inline-flex; align-items: center; gap: 8px; color: var(--hw-charcoal); text-decoration: none; font-size: 14px; font-weight: 500; margin-top: 14px; transition: all 0.3s ease; padding: 8px 0; }
+    .timeline-link:hover { color: var(--hw-accent-orange); transform: translateX(4px); }
     .timeline-link i { width: 16px; height: 16px; }
 
-    .subscribe-section { background: linear-gradient(135deg, #547194 0%, #667eea 100%); border-radius: 20px; padding: 40px; margin-top: 50px; text-align: center; position: relative; overflow: hidden; }
-    .subscribe-section::before { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%); pointer-events: none; }
-    .subscribe-section h3 { color: white; font-size: 22px; margin-bottom: 12px; }
-    .subscribe-section p { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 24px; }
-    .subscribe-form { display: flex; gap: 12px; max-width: 400px; margin: 0 auto; }
-    .subscribe-form input { flex: 1; padding: 14px 20px; border: none; border-radius: 10px; font-size: 14px; font-family: inherit; }
-    .subscribe-form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
-    .subscribe-form button { padding: 14px 24px; background: white; color: #547194; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
-    .subscribe-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-    .subscribe-form button i { width: 16px; height: 16px; }
+    .subscribe-section { background: var(--hw-charcoal); border-radius: 24px; padding: 50px; margin-top: 60px; text-align: center; position: relative; overflow: hidden; }
+    .subscribe-section::before { content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; border: 2px solid rgba(255,255,255,0.03); border-radius: 50%; pointer-events: none; }
+    .subscribe-section::after { content: ''; position: absolute; bottom: -50px; left: 50px; width: 150px; height: 150px; border: 1px solid rgba(255,255,255,0.02); border-radius: 50%; pointer-events: none; }
+    .subscribe-section h3 { font-family: 'Georgia', serif; color: white; font-size: 24px; font-weight: 400; margin-bottom: 12px; position: relative; z-index: 1; }
+    .subscribe-section p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 28px; position: relative; z-index: 1; }
+    .subscribe-form { display: flex; gap: 12px; max-width: 420px; margin: 0 auto; position: relative; z-index: 1; }
+    .subscribe-form input { flex: 1; padding: 16px 22px; border: none; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; background: rgba(255,255,255,0.95); }
+    .subscribe-form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.2); }
+    .subscribe-form button { padding: 16px 28px; background: var(--hw-accent-orange); color: var(--hw-charcoal); border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+    .subscribe-form button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(245, 166, 35, 0.35); }
+    .subscribe-form button i { width: 18px; height: 18px; }
 
-    .help-footer { background: white; border-top: 1px solid #e2e8f0; padding: 30px 40px; margin-top: 60px; }
+    .help-footer { background: white; border-top: 1px solid rgba(101, 111, 119, 0.1); padding: 30px 40px; margin-top: 60px; }
     .footer-content { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: #64748b; text-decoration: none; font-size: 13px; transition: color 0.2s ease; }
-    .footer-links a:hover { color: #667eea; }
-    .footer-copy { color: #94a3b8; font-size: 13px; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: var(--hw-graphite); text-decoration: none; font-size: 13px; transition: color 0.3s ease; }
+    .footer-links a:hover { color: var(--hw-charcoal); }
+    .footer-copy { color: var(--hw-light-gray); font-size: 13px; }
 
-    @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 20px; } .timeline::before { left: 16px; } .timeline-item { padding-left: 50px; } .timeline-marker { left: 4px; width: 24px; height: 24px; } .subscribe-form { flex-direction: column; } }
+    @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 22px; } .main-content { padding: 30px 20px; } .timeline::before { left: 16px; } .timeline-item { padding-left: 55px; } .timeline-marker { left: 4px; width: 24px; height: 24px; } .subscribe-form { flex-direction: column; } }
 
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(102,126,234,0.4); } 50% { box-shadow: 0 0 0 10px rgba(102,126,234,0); } }
-    .timeline-item:first-child .timeline-marker { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4); } 50% { box-shadow: 0 0 0 12px rgba(245, 166, 35, 0); } }
+    .timeline-item:first-child .timeline-marker { animation: pulse 2s ease-in-out infinite; }
   </style>
 </head>
 <body>
   <header class="help-header">
     <div class="header-top">
-      <a href="classroom.html" class="header-logo">
-        <img src="images/logo.png" alt="CEMI">
-        <span>Novedades CEMI</span>
-      </a>
+      <a href="classroom.html" class="header-logo"><img src="images/logo.png" alt="CEMI"><span>Novedades CEMI</span></a>
       <nav class="header-nav">
         <a href="ayuda-classroom.html">Centro de Ayuda</a>
         <a href="comunidad-ayuda.html">Comunidad</a>
@@ -116,7 +120,6 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
   <div class="hero-section" id="heroSection">
     <h1><i data-lucide="sparkles"></i>Novedades de CEMI Classroom</h1>
     <p>Manténte al día con las últimas actualizaciones y mejoras de la plataforma</p>
@@ -135,7 +138,7 @@
         <div class="timeline-marker nueva-funcion"><i data-lucide="plus"></i></div>
         <span class="timeline-date"><i data-lucide="calendar"></i>25 de Noviembre, 2025</span>
         <div class="timeline-card">
-          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>NUEVA FUNCIÓN</span>
+          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>Nueva Función</span>
           <h3 class="timeline-title">Sistema de Encuestas con Generación de PDF</h3>
           <p class="timeline-description">Ahora los profesores pueden crear encuestas personalizadas para recopilar feedback de sus alumnos. El sistema incluye generación automática de reportes en PDF con gráficos estadísticos.</p>
           <ul class="timeline-features">
@@ -152,7 +155,7 @@
         <div class="timeline-marker mejora"><i data-lucide="trending-up"></i></div>
         <span class="timeline-date"><i data-lucide="calendar"></i>20 de Noviembre, 2025</span>
         <div class="timeline-card">
-          <span class="timeline-badge mejora"><i data-lucide="zap"></i>MEJORA</span>
+          <span class="timeline-badge mejora"><i data-lucide="zap"></i>Mejora</span>
           <h3 class="timeline-title">Nuevo diseño del Dashboard</h3>
           <p class="timeline-description">Hemos renovado completamente la interfaz del dashboard para una experiencia más intuitiva y moderna. Navegación mejorada, accesos rápidos y mejor visualización de información.</p>
           <ul class="timeline-features">
@@ -167,7 +170,7 @@
         <div class="timeline-marker nueva-funcion"><i data-lucide="plus"></i></div>
         <span class="timeline-date"><i data-lucide="calendar"></i>15 de Noviembre, 2025</span>
         <div class="timeline-card">
-          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>NUEVA FUNCIÓN</span>
+          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>Nueva Función</span>
           <h3 class="timeline-title">Sistema de Archivo de Pagos</h3>
           <p class="timeline-description">Los administradores ahora pueden archivar pagos antiguos para mantener un historial limpio sin perder información importante.</p>
           <ul class="timeline-features">
@@ -182,7 +185,7 @@
         <div class="timeline-marker correccion"><i data-lucide="wrench"></i></div>
         <span class="timeline-date"><i data-lucide="calendar"></i>10 de Noviembre, 2025</span>
         <div class="timeline-card">
-          <span class="timeline-badge correccion"><i data-lucide="check-circle"></i>CORRECCIÓN</span>
+          <span class="timeline-badge correccion"><i data-lucide="check-circle"></i>Corrección</span>
           <h3 class="timeline-title">Correcciones de estabilidad</h3>
           <p class="timeline-description">Solucionamos varios problemas reportados por usuarios para mejorar la estabilidad general de la plataforma.</p>
           <ul class="timeline-features">
@@ -197,7 +200,7 @@
         <div class="timeline-marker nueva-funcion"><i data-lucide="plus"></i></div>
         <span class="timeline-date"><i data-lucide="calendar"></i>5 de Noviembre, 2025</span>
         <div class="timeline-card">
-          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>NUEVA FUNCIÓN</span>
+          <span class="timeline-badge nueva-funcion"><i data-lucide="sparkles"></i>Nueva Función</span>
           <h3 class="timeline-title">Biblioteca de Recursos Compartidos</h3>
           <p class="timeline-description">Nueva sección para compartir recursos educativos entre profesores. Comparte partituras, grabaciones, ejercicios y más con toda la comunidad CEMI.</p>
           <ul class="timeline-features">
@@ -212,7 +215,7 @@
         <div class="timeline-marker mejora"><i data-lucide="trending-up"></i></div>
         <span class="timeline-date"><i data-lucide="calendar"></i>1 de Noviembre, 2025</span>
         <div class="timeline-card">
-          <span class="timeline-badge mejora"><i data-lucide="zap"></i>MEJORA</span>
+          <span class="timeline-badge mejora"><i data-lucide="zap"></i>Mejora</span>
           <h3 class="timeline-title">Aplicación Móvil Actualizada</h3>
           <p class="timeline-description">Nueva versión de la aplicación móvil CEMI con mejoras de rendimiento y nuevas funcionalidades offline.</p>
           <ul class="timeline-features">
@@ -252,13 +255,12 @@
         document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
         this.classList.add('active');
         const filter = this.dataset.filter;
-        const items = document.querySelectorAll('.timeline-item');
-        items.forEach(item => {
+        document.querySelectorAll('.timeline-item').forEach(item => {
           if (filter === 'all' || item.dataset.type === filter) {
             item.style.display = 'block';
             item.style.animation = 'none';
             item.offsetHeight;
-            item.style.animation = 'fadeInUp 0.5s ease forwards';
+            item.style.animation = 'timelineFadeIn 0.5s ease forwards';
           } else {
             item.style.display = 'none';
           }
@@ -275,14 +277,9 @@
 
     document.addEventListener('DOMContentLoaded', function() { lucide.createIcons(); });
 
-    // Hide hero on scroll
     const heroSection = document.getElementById('heroSection');
     window.addEventListener('scroll', function() {
-      if (window.scrollY > 80) {
-        heroSection.classList.add('hidden');
-      } else {
-        heroSection.classList.remove('hidden');
-      }
+      heroSection.classList.toggle('hidden', window.scrollY > 80);
     }, { passive: true });
   </script>
 </body>
