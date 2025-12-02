@@ -255,6 +255,7 @@ body {
 .features-section {
   position: relative;
   z-index: 3;
+  margin-top: 36px;
 }
 
 .feature-item {
@@ -394,11 +395,15 @@ body {
 }
 
 .input-prefix {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0 0 14px;
   color: var(--color-text-secondary);
+  pointer-events: none;
 }
 
 .input-prefix i,
@@ -412,12 +417,16 @@ body {
   color: var(--color-accent);
 }
 
+.input-with-icon {
+  position: relative;
+}
+
 .input-with-icon input {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
-  padding: 14px 14px;
-  flex: 1;
+  padding: 14px 14px 14px 44px;
+  width: 100%;
 }
 
 .input-with-icon input:focus {
