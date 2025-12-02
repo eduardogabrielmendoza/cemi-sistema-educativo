@@ -2803,63 +2803,69 @@
   });
 </script>
 
-<div class="payment-method-modal-overlay" id="paymentMethodModal" onclick="if(event.target === this) this.classList.remove('active')">
-  <div class="payment-method-modal">
-    <div class="payment-method-header">
-      <h2><i data-lucide="wallet"></i> Seleccionar Método de Pago</h2>
-      <button class="payment-close" onclick="document.getElementById('paymentMethodModal').classList.remove('active')">
-        <i data-lucide="x"></i>
+<div id="paymentMethodModal" onclick="if(event.target === this) this.classList.remove('active')" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 10000;">
+  <div style="background: #ffffff; border-radius: 20px; width: 100%; max-width: 480px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15);">
+    <div style="background: #4a5259; padding: 24px; display: flex; align-items: center; justify-content: space-between;">
+      <h2 style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 12px;">
+        <i data-lucide="wallet" style="width: 22px; height: 22px;"></i>
+        Seleccionar Método de Pago
+      </h2>
+      <button onclick="document.getElementById('paymentMethodModal').classList.remove('active')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;" onmouseenter="this.style.background='rgba(255,255,255,0.25)'" onmouseleave="this.style.background='rgba(255,255,255,0.15)'">
+        <i data-lucide="x" style="width: 20px; height: 20px; color: #ffffff;"></i>
       </button>
     </div>
 
-    <div class="payment-info-summary">
-      <div class="payment-info-row">
-        <span class="payment-info-label">Concepto:</span>
-        <span class="payment-info-value" id="methodPaymentConcepto">Cuota Mensual</span>
+    <div style="padding: 24px; border-bottom: 1px solid #e5e7eb;">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f3f4f6;">
+        <span style="color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Concepto:</span>
+        <span style="color: #1e1e1e; font-size: 14px; font-weight: 500;" id="methodPaymentConcepto">Cuota Mensual</span>
       </div>
-      <div class="payment-info-row">
-        <span class="payment-info-label">Período:</span>
-        <span class="payment-info-value" id="methodPaymentPeriodo">-</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f3f4f6;">
+        <span style="color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Período:</span>
+        <span style="color: #1e1e1e; font-size: 14px; font-weight: 500;" id="methodPaymentPeriodo">-</span>
       </div>
-      <div class="payment-info-row">
-        <span class="payment-info-label">Monto a Pagar:</span>
-        <span class="payment-info-value payment-amount-highlight" id="methodPaymentAmount">$0.00</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 0;">
+        <span style="color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Monto a Pagar:</span>
+        <span style="color: #16a34a; font-size: 22px; font-weight: 700;" id="methodPaymentAmount">$0.00</span>
       </div>
     </div>
 
-    <div class="payment-methods-grid">
-      <button class="payment-method-option" id="btnCardPayment">
-        <div class="payment-method-icon">
-          <i data-lucide="credit-card"></i>
+    <div style="padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+      <button id="btnCardPayment" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s; text-align: left;" onmouseenter="this.style.borderColor='#4a5259'; this.style.background='#f9fafb'" onmouseleave="this.style.borderColor='#e5e7eb'; this.style.background='#ffffff'">
+        <div style="background: rgba(74, 82, 89, 0.1); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <i data-lucide="credit-card" style="width: 24px; height: 24px; color: #4a5259;"></i>
         </div>
         <div>
-          <h3>Tarjeta de Crédito/Débito</h3>
-          <p>Pago instantáneo con tarjeta</p>
+          <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 15px; font-weight: 600;">Tarjeta de Crédito/Débito</h3>
+          <p style="margin: 0; color: #6b7280; font-size: 13px;">Pago instantáneo con tarjeta</p>
         </div>
       </button>
 
-      <button class="payment-method-option" id="btnTransferPayment" onclick="document.getElementById('paymentMethodModal').classList.remove('active'); document.getElementById('transferModal').classList.add('active'); if(typeof lucide !== 'undefined') lucide.createIcons();">
-        <div class="payment-method-icon">
-          <i data-lucide="landmark"></i>
+      <button id="btnTransferPayment" onclick="document.getElementById('paymentMethodModal').classList.remove('active'); document.getElementById('transferModal').classList.add('active'); if(typeof lucide !== 'undefined') lucide.createIcons();" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s; text-align: left;" onmouseenter="this.style.borderColor='#4a5259'; this.style.background='#f9fafb'" onmouseleave="this.style.borderColor='#e5e7eb'; this.style.background='#ffffff'">
+        <div style="background: rgba(74, 82, 89, 0.1); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <i data-lucide="landmark" style="width: 24px; height: 24px; color: #4a5259;"></i>
         </div>
         <div>
-          <h3>Transferencia Bancaria</h3>
-          <p>Transferir desde tu banco</p>
+          <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 15px; font-weight: 600;">Transferencia Bancaria</h3>
+          <p style="margin: 0; color: #6b7280; font-size: 13px;">Transferir desde tu banco</p>
         </div>
       </button>
 
-      <button class="payment-method-option" id="btnCashPayment">
-        <div class="payment-method-icon">
-          <i data-lucide="banknote"></i>
+      <button id="btnCashPayment" style="background: #ffffff; border: 2px solid #e5e7eb; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s; text-align: left;" onmouseenter="this.style.borderColor='#4a5259'; this.style.background='#f9fafb'" onmouseleave="this.style.borderColor='#e5e7eb'; this.style.background='#ffffff'">
+        <div style="background: rgba(74, 82, 89, 0.1); border-radius: 12px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <i data-lucide="banknote" style="width: 24px; height: 24px; color: #4a5259;"></i>
         </div>
         <div>
-          <h3>Efectivo</h3>
-          <p>Pagar en la institución</p>
+          <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 15px; font-weight: 600;">Efectivo</h3>
+          <p style="margin: 0; color: #6b7280; font-size: 13px;">Pagar en la institución</p>
         </div>
       </button>
     </div>
   </div>
 </div>
+<style>
+  #paymentMethodModal.active { display: flex !important; }
+</style>
 
 <div class="credit-card-modal-overlay" id="creditCardModal">
   <div class="credit-card-modal">
