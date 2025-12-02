@@ -1853,8 +1853,6 @@ body {
 .nav-item i {
   width: 20px;
   height: 20px;
-  transition: transform 0.3s var(--ease-out-back);
-}
   color: var(--hw-graphite);
   transition: all var(--duration-fast) var(--ease-smooth);
 }
@@ -2138,18 +2136,18 @@ body {
 .research-icon-bg {
   width: 56px;
   height: 56px;
-  background: #1e1e1e;
+  background: linear-gradient(135deg, #4a90d9 0%, #6ba3e0 100%);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(30, 30, 30, 0.2);
+  box-shadow: 0 4px 16px rgba(74, 144, 217, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .research-banner:hover .research-icon-bg {
   transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(30, 30, 30, 0.25);
+  box-shadow: 0 6px 20px rgba(74, 144, 217, 0.4);
 }
 
 .research-icon-bg svg {
@@ -2164,12 +2162,12 @@ body {
   right: -6px;
   width: 26px;
   height: 26px;
-  background: #656f77;
+  background: linear-gradient(135deg, #f5a623 0%, #f7b84b 100%);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(101, 111, 119, 0.3);
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.4);
   transform: rotate(12deg);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: accentPulse 3s ease-in-out infinite;
@@ -2218,12 +2216,12 @@ body {
   justify-content: center;
   gap: 8px;
   padding: 12px 24px;
-  background: #1e1e1e;
+  background: #656f77;
   color: white;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  border: 2px solid #1e1e1e;
+  border: 2px solid #656f77;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2232,10 +2230,11 @@ body {
 }
 
 .btn-research:hover {
-  background: transparent;
-  color: #1e1e1e;
+  background: #1e1e1e;
+  border-color: #1e1e1e;
+  color: white;
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(30, 30, 30, 0.15);
+  box-shadow: 0 8px 20px rgba(30, 30, 30, 0.2);
 }
 
 .btn-research:active {
