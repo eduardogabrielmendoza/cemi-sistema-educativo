@@ -131,12 +131,14 @@
               opacity 0.3s ease,
               padding 0.3s ease;
   background: var(--hw-color-wrought-iron);
+  position: relative;
 }
 
 .harvard-search-wrapper.active {
   max-width: 400px;
   opacity: 1;
   padding-left: 20px;
+  overflow: visible;
 }
 
 @media (min-width: 768px) {
@@ -210,24 +212,17 @@
 .harvard-search-quicklink {
   position: absolute;
   top: 100%;
+  left: 0;
   right: 0;
   background: var(--hw-color-wrought-iron);
   padding: 16px 24px 20px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transition: all 0.3s ease 0.1s;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  min-width: 280px;
-  width: max-content;
   border-radius: 0 0 4px 4px;
   z-index: 100;
-}
-
-@media (min-width: 768px) {
-  .harvard-search-quicklink {
-    min-width: 320px;
-  }
 }
 
 .harvard-search-wrapper.active .harvard-search-quicklink {
