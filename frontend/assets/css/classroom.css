@@ -1187,6 +1187,31 @@ body::before {
 }
 
 /* ============================================================
+   MODAL BLUR EFFECT - Sin bloquear clicks
+   ============================================================ */
+
+/* SweetAlert2 - fondo oscuro con blur sutil */
+.swal2-container {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Modal de recursos */
+.modal-recursos-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Panel lateral de cursos */
+.course-panel-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ============================================================
    HARVARD ALIVE - KEYFRAMES & ANIMATIONS
    ============================================================ */
 
