@@ -3122,15 +3122,16 @@ body.dark-mode .btn-research:hover {
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #4a5259, #4a5259);
-  color: white;
+  background: rgba(101, 111, 119, 0.15);
+  color: var(--hw-graphite);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 14px;
   overflow: hidden;
   flex-shrink: 0;
+  border: 1px solid var(--border-color);
 }
 
 .student-avatar img {
@@ -5649,23 +5650,22 @@ body.dark-mode .toggle-password-btn:hover {
 
 .btn-submit {
   padding: 14px 28px;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: var(--hw-charcoal);
   color: white;
   border: none;
-  border-radius: 14px;
+  border-radius: 6px;
+  font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(84, 113, 148, 0.35);
+  transition: var(--transition);
 }
 
 .btn-submit:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(84, 113, 148, 0.45);
+  background: var(--hw-wrought-iron);
 }
 
 .btn-submit:disabled {

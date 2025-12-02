@@ -1109,41 +1109,41 @@ function renderClases(clases) {
   }
   
   const gradientes = [
-    '#4a5259',
-    '#6b7280',
-    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-    'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
-    'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)'
+    '#1e1e1e',
+    '#1e1e1e',
+    '#1e1e1e',
+    '#1e1e1e',
+    '#1e1e1e',
+    '#1e1e1e',
+    '#1e1e1e',
+    '#1e1e1e'
   ];
   
   container.innerHTML = clases.map((clase, index) => `
     <div class="class-card" onclick="verDetalleCurso(${clase.id_curso})" style="cursor: pointer; transition: all 0.3s;">
-      <div class="class-card-header" style="background: ${gradientes[index % gradientes.length]}; padding: 24px; border-radius: 12px 12px 0 0; position: relative;">
-        <h3 style="margin: 0 0 8px 0; color: white; font-size: 22px; font-weight: 700;">${clase.nombre_curso}</h3>
-        <p style="margin: 0; color: rgba(255,255,255,0.9); font-size: 14px;">${clase.nombre_idioma}${clase.nivel ? ' - ' + clase.nivel : ''}</p>
+      <div class="class-card-header" style="background: #1e1e1e; padding: 24px; border-radius: 8px 8px 0 0; position: relative;">
+        <h3 style="margin: 0 0 8px 0; color: white; font-family: Inter, -apple-system, sans-serif; font-size: 1.125rem; font-weight: 600;">${clase.nombre_curso}</h3>
+        <p style="margin: 0; color: rgba(255,255,255,0.85); font-family: Inter, -apple-system, sans-serif; font-size: 0.875rem; font-weight: 400;">${clase.nombre_idioma}${clase.nivel ? ' - ' + clase.nivel : ''}</p>
       </div>
-      <div class="class-card-body" style="padding: 20px; background: white; border-radius: 0 0 12px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-        <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="class-card-body" style="padding: 20px; background: white; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb; border-top: none;">
+        <div style="display: flex; flex-direction: column; gap: 12px; font-family: Inter, -apple-system, sans-serif;">
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="user" style="width: 18px; height: 18px; color: #4a5259;"></i>
+            <i data-lucide="user" style="width: 18px; height: 18px; color: #656f77;"></i>
             <span>${clase.profesor_nombre || 'Sin profesor'}</span>
           </div>
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="users" style="width: 18px; height: 18px; color: #4a5259;"></i>
+            <i data-lucide="users" style="width: 18px; height: 18px; color: #656f77;"></i>
             <span><strong>${clase.total_alumnos || 0}</strong> ${(clase.total_alumnos || 0) === 1 ? 'alumno' : 'alumnos'}</span>
           </div>
           ${clase.horario ? `
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="clock" style="width: 18px; height: 18px; color: #4a5259;"></i>
+            <i data-lucide="clock" style="width: 18px; height: 18px; color: #656f77;"></i>
             <span>${clase.horario}</span>
           </div>
           ` : ''}
           ${clase.nombre_aula ? `
           <div style="display: flex; align-items: center; gap: 12px; color: #555; font-size: 14px;">
-            <i data-lucide="map-pin" style="width: 18px; height: 18px; color: #4a5259;"></i>
+            <i data-lucide="map-pin" style="width: 18px; height: 18px; color: #656f77;"></i>
             <span>${clase.nombre_aula}</span>
           </div>
           ` : ''}
@@ -1155,8 +1155,8 @@ function renderClases(clases) {
   const cards = container.querySelectorAll('.class-card');
   cards.forEach(card => {
     card.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateY(-4px)';
-      this.style.boxShadow = '0 8px 24px rgba(102, 126, 234, 0.2)';
+      this.style.transform = 'translateY(-2px)';
+      this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
     });
     card.addEventListener('mouseleave', function() {
       this.style.transform = 'translateY(0)';
