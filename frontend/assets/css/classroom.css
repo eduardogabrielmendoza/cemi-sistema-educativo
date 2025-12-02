@@ -3122,8 +3122,8 @@ body.dark-mode .btn-research:hover {
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: rgba(101, 111, 119, 0.15);
-  color: var(--hw-graphite);
+  background: rgba(101, 111, 119, 0.15) !important;
+  color: var(--hw-graphite) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3460,7 +3460,7 @@ input[type="checkbox"]:checked {
 
 .class-card-header[style],
 div.class-card-header[style*="background"] {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
+  background: var(--hw-charcoal) !important;
 }
 
 .class-card-header h3[style],
@@ -3495,14 +3495,16 @@ i[data-lucide] {
 
 div[style*="40px"][style*="background: linear-gradient"],
 div[style*="40px"][style*="background:linear-gradient"] {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
+  background: rgba(101, 111, 119, 0.15) !important;
+  color: var(--hw-graphite) !important;
 }
 
 div[style*="linear-gradient"][style*="f093fb"],
 div[style*="linear-gradient"][style*="f5576c"],
 div[style*="linear-gradient"][style*="84fab0"],
 div[style*="linear-gradient"][style*="8fd3f4"] {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%) !important;
+  background: rgba(101, 111, 119, 0.15) !important;
+  color: var(--hw-graphite) !important;
 }
 
 
@@ -6765,6 +6767,56 @@ body.dark-mode .toggle-password-btn:hover {
   .activity-feed {
     -webkit-overflow-scrolling: touch;
   }
+}
+
+/* =============================================
+   FORZAR ESTILOS HARVARD - OVERRIDE INLINE STYLES
+   ============================================= */
+
+/* Forzar avatares con transparencia cuando no hay imagen */
+.student-avatar[style*="background"],
+div.student-avatar[style*="background"],
+.avatar-circle[style*="background"],
+div[class*="avatar"][style*="background: #"],
+div[class*="avatar"][style*="background:#"] {
+  background: rgba(101, 111, 119, 0.15) !important;
+  color: var(--hw-graphite) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* Forzar class-card-header con color sólido Harvard */
+.class-card .class-card-header,
+.class-card-header[style*="background"],
+div.class-card-header {
+  background: var(--hw-charcoal) !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+/* Forzar tipografía Inter en cards */
+.class-card-header h3,
+.class-card-header p,
+.class-card-body,
+.class-card-body span {
+  font-family: var(--font-body) !important;
+}
+
+.class-card-header h3 {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+}
+
+.class-card-header p {
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+}
+
+/* Forzar class-card-body con estilo limpio */
+.class-card .class-card-body,
+.class-card-body[style] {
+  border: 1px solid var(--border-color) !important;
+  border-top: none !important;
+  box-shadow: none !important;
+  border-radius: 0 0 8px 8px !important;
 }
 
 
