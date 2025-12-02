@@ -1189,20 +1189,11 @@ body.swal2-shown {
   overflow: hidden;
 }
 
-body.modal-open .classroom-container,
-body.modal-open .classroom-header,
-body.modal-open .classroom-sidebar,
-body.swal2-shown .classroom-container,
-body.swal2-shown .classroom-header,
-body.swal2-shown .classroom-sidebar {
-  filter: blur(3px);
-  transition: filter 0.4s var(--ease-smooth);
-}
-
-/* SweetAlert2 con blur de fondo */
+/* SweetAlert2 con blur de fondo - solo en el container */
 .swal2-container {
-  backdrop-filter: blur(6px) !important;
-  -webkit-backdrop-filter: blur(6px) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  background: rgba(0, 0, 0, 0.4) !important;
 }
 
 .swal2-popup {
@@ -1223,12 +1214,12 @@ body::before {
   100% { background-position: 0% 50%; }
 }
 
-/* Pirueta elegante del sombrero - automática cada 3s */
+/* Pirueta elegante del sombrero - automática cada 5s */
 @keyframes hatSpin {
-  0%, 85% { transform: rotate(0deg) scale(1); }
-  90% { transform: rotate(-8deg) scale(1.05); }
-  94% { transform: rotate(365deg) scale(1.08); }
-  97% { transform: rotate(358deg) scale(1.03); }
+  0%, 70% { transform: rotate(0deg) scale(1); }
+  75% { transform: rotate(-10deg) scale(1.05); }
+  85% { transform: rotate(370deg) scale(1.08); }
+  92% { transform: rotate(355deg) scale(1.04); }
   100% { transform: rotate(360deg) scale(1); }
 }
 
@@ -1459,7 +1450,7 @@ body {
   background: none !important;
   transition: all 0.5s var(--ease-smooth);
   cursor: pointer;
-  animation: hatSpin 3s var(--ease-smooth) infinite;
+  animation: hatSpin 5s var(--ease-smooth) infinite;
 }
 
 .logo-icon:hover {
