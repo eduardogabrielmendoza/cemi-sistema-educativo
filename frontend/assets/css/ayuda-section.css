@@ -34,78 +34,29 @@
   text-align: center;
   margin-bottom: 40px;
   padding: 40px;
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
-  border-radius: 20px;
+  background: #4a5259;
+  border-radius: 16px;
   position: relative;
   overflow: hidden;
 }
 
-/* Efecto shimmer animado en header */
-.ayuda-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(255,255,255,0.08) 45%,
-    rgba(255,255,255,0.15) 50%,
-    rgba(255,255,255,0.08) 55%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: headerShimmer 6s ease-in-out infinite;
-  pointer-events: none;
-}
+/* Eliminado efecto shimmer para diseño minimalista */
 
-/* Círculos decorativos flotantes */
-.ayuda-header::after {
-  content: '';
-  position: absolute;
-  top: -40%;
-  right: -15%;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  animation: floatCircle 8s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes floatCircle {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.6;
-  }
-  25% {
-    transform: translate(-20px, 15px) scale(1.05);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translate(-10px, 25px) scale(1.1);
-    opacity: 1;
-  }
-  75% {
-    transform: translate(-25px, 10px) scale(1.03);
-    opacity: 0.7;
-  }
-}
+/* Eliminado decoración flotante para diseño minimalista */
 
 .ayuda-header h2 {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  font-size: 2rem;
+  font-size: 1.75rem;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
   color: #fff;
   margin-bottom: 12px;
   position: relative;
   z-index: 1;
-  animation: fadeSlideDown 0.6s ease-out;
+  letter-spacing: 0.01em;
 }
 
 @keyframes fadeSlideDown {
@@ -121,33 +72,24 @@
 
 .ayuda-header h2 svg,
 .ayuda-header h2 i {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   padding: 8px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 12px;
-  animation: iconPulseGlow 2.5s ease-in-out infinite;
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
   box-sizing: content-box;
 }
 
-@keyframes iconPulseGlow {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255,255,255,0.3);
-  }
-  50% {
-    transform: scale(1.08);
-    box-shadow: 0 0 20px 5px rgba(255,255,255,0.2);
-  }
-}
+/* Eliminada animación iconPulseGlow para diseño minimalista */
 
 .ayuda-header p {
-  color: rgba(255,255,255,0.9);
-  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
   position: relative;
   z-index: 1;
   margin-bottom: 20px;
-  animation: fadeSlideDown 0.6s ease-out 0.15s both;
 }
 
 /* Estadísticas en Header */
@@ -182,16 +124,16 @@
 }
 
 .ayuda-stat-number {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
   color: #fff;
   line-height: 1;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .ayuda-stat-item:hover .ayuda-stat-number {
-  transform: scale(1.15);
+  transform: scale(1.05);
 }
 
 .ayuda-stat-label {
@@ -232,7 +174,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
+  background: rgba(74, 82, 89, 0.1);
   border-radius: 12px;
   flex-shrink: 0;
 }
@@ -240,7 +182,7 @@
 .quick-access-card .qa-icon i {
   width: 22px;
   height: 22px;
-  color: #fff;
+  color: #4a5259;
 }
 
 .quick-access-card .qa-text h4 {
@@ -377,8 +319,8 @@
   justify-content: space-between;
   padding: 22px 26px;
   cursor: pointer;
-  background: linear-gradient(135deg, #fff 0%, var(--ayuda-bg-light) 100%);
-  transition: all 0.3s var(--ayuda-transition);
+  background: #ffffff;
+  transition: all 0.2s ease;
   user-select: none;
   position: relative;
 }
@@ -389,10 +331,10 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
-  background: linear-gradient(180deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
+  width: 3px;
+  background: #4a5259;
   opacity: 0;
-  transition: opacity 0.3s var(--ayuda-transition);
+  transition: opacity 0.2s ease;
 }
 
 .ayuda-accordion.open .accordion-header::before,
@@ -401,7 +343,7 @@
 }
 
 .accordion-header:hover {
-  background: linear-gradient(135deg, var(--ayuda-bg-light) 0%, #fff 100%);
+  background: #f9fafb;
 }
 
 .accordion-title {
@@ -414,24 +356,24 @@
 }
 
 .accordion-title .cat-icon {
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
+  background: rgba(74, 82, 89, 0.1);
   border-radius: 12px;
-  transition: transform 0.3s var(--ayuda-transition);
+  transition: transform 0.2s ease;
 }
 
 .ayuda-accordion:hover .accordion-title .cat-icon {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .accordion-title .cat-icon i {
-  width: 24px;
-  height: 24px;
-  color: #fff;
+  width: 22px;
+  height: 22px;
+  color: #4a5259;
 }
 
 .accordion-title-text {
@@ -532,25 +474,24 @@
 
 .guia-icon {
   flex-shrink: 0;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.25);
-  transition: transform 0.3s var(--ayuda-transition);
+  background: rgba(74, 82, 89, 0.1);
+  border-radius: 12px;
+  transition: transform 0.2s ease;
 }
 
 .guia-item:hover .guia-icon {
-  transform: scale(1.08) rotate(-3deg);
+  transform: scale(1.02);
 }
 
 .guia-icon i {
-  width: 24px;
-  height: 24px;
-  color: #fff;
+  width: 22px;
+  height: 22px;
+  color: #4a5259;
 }
 
 .guia-content {
@@ -626,26 +567,28 @@
 .ayuda-tips {
   margin-top: 40px;
   padding: 30px;
-  background: linear-gradient(135deg, rgba(30, 60, 114, 0.04) 0%, rgba(42, 82, 152, 0.08) 100%);
-  border-radius: 20px;
-  border: 1px solid var(--ayuda-border);
+  background: #f9fafb;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
 }
 
 .ayuda-tips h3 {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.1rem;
-  color: var(--ayuda-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  color: #1e1e1e;
   margin-bottom: 20px;
 }
 
 .ayuda-tips h3 i {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   padding: 6px;
-  background: var(--ayuda-primary);
-  color: #fff;
+  background: rgba(74, 82, 89, 0.1);
+  color: #4a5259;
   border-radius: 8px;
 }
 
@@ -986,62 +929,27 @@
   width: 100%;
   max-height: 65vh;
   overflow: hidden;
-  transform: scale(0.85) translateY(40px);
+  transform: scale(0.95) translateY(20px);
   opacity: 0;
-  transition: none;
-  /* Aura dorada sutil */
-  box-shadow: 
-    0 0 30px rgba(255, 193, 7, 0.15),
-    0 0 60px rgba(255, 193, 7, 0.1),
-    0 25px 60px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 193, 7, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
 }
 
 .guia-modal-overlay.active .guia-modal {
-  animation: modalSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-             modalGlow 3s ease-in-out infinite 0.5s;
+  transform: scale(1) translateY(0);
+  opacity: 1;
 }
 
 .guia-modal-header {
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
-  padding: 14px 18px;
+  background: #4a5259;
+  padding: 18px 20px;
   position: relative;
-  overflow: hidden;
 }
 
-/* Efecto shimmer en el header */
-.guia-modal-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,0.08) 25%,
-    rgba(255,255,255,0.15) 50%,
-    rgba(255,255,255,0.08) 75%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: headerShimmer 4s ease-in-out infinite;
-  pointer-events: none;
-}
+/* Eliminado efecto shimmer del modal para diseño minimalista */
 
-/* Círculo decorativo flotante */
-.guia-modal-header::after {
-  content: '';
-  position: absolute;
-  top: -30%;
-  right: -10%;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
-  animation: iconFloat 6s ease-in-out infinite;
-  pointer-events: none;
-}
+/* Eliminado decoración flotante del modal */
 
 .guia-modal-close {
   position: absolute;
@@ -1080,17 +988,12 @@
 .guia-modal-icon {
   width: 36px;
   height: 36px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.15);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
-  animation: iconFloat 3s ease-in-out infinite;
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.1);
-  position: relative;
-  z-index: 2;
+  margin-bottom: 10px;
 }
 
 .guia-modal-icon i {
@@ -1103,13 +1006,10 @@
 .guia-modal-header h3 {
   color: #fff;
   font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 3px;
-  position: relative;
-  z-index: 2;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.15);
-  opacity: 0;
-  animation: stepFadeIn 0.4s ease forwards 0.2s;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 4px;
+  letter-spacing: 0.01em;
 }
 
 .guia-modal-header p {
@@ -1219,22 +1119,20 @@
 .step-number {
   width: 20px;
   height: 20px;
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
+  background: #4a5259;
   color: #fff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(30, 60, 114, 0.25);
-  transition: all 0.3s ease;
 }
 
 .guia-modal-steps li:hover .step-number {
-  transform: scale(1.1);
-  box-shadow: 0 3px 10px rgba(30, 60, 114, 0.35);
+  background: #1e1e1e;
 }
 
 .step-content {
@@ -1260,36 +1158,21 @@
 }
 
 .guia-modal-tip {
-  background: linear-gradient(135deg, rgba(255, 193, 7, 0.12) 0%, rgba(255, 193, 7, 0.05) 100%);
-  border-left: 2px solid #f0b429;
+  background: #f9fafb;
+  border-left: 2px solid #4a5259;
   border-radius: 0 8px 8px 0;
-  padding: 8px 10px;
+  padding: 10px 12px;
   display: flex;
   align-items: flex-start;
-  gap: 6px;
-  position: relative;
-  overflow: hidden;
-  animation: tipPulse 3s ease-in-out infinite;
-}
-
-.guia-modal-tip::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 50px;
-  height: 50px;
-  background: radial-gradient(circle, rgba(255, 193, 7, 0.15) 0%, transparent 70%);
-  pointer-events: none;
+  gap: 8px;
 }
 
 .guia-modal-tip i {
   width: 14px;
   height: 14px;
-  color: #d69e0c;
+  color: #4a5259;
   flex-shrink: 0;
   margin-top: 1px;
-  filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.4));
 }
 
 .guia-modal-tip p {
@@ -1323,69 +1206,47 @@
 }
 
 .guia-modal-tags .guia-tag {
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
-  color: #fff;
+  background: rgba(74, 82, 89, 0.1);
+  color: #4a5259;
   padding: 6px 14px;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 0.75rem;
   font-weight: 500;
-  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
 }
 
 .guia-modal-tags .guia-tag:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+  background: #4a5259;
+  color: white;
 }
 
 .guia-modal-action {
-  background: linear-gradient(135deg, var(--ayuda-primary) 0%, var(--ayuda-primary-light) 100%);
+  background: #1e1e1e;
   color: #fff;
   border: none;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: 10px;
   font-size: 0.9rem;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.guia-modal-action::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.guia-modal-action:hover::before {
-  left: 100%;
+  transition: all 0.2s ease;
 }
 
 .guia-modal-action:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(30, 60, 114, 0.35);
+  background: #4a5259;
 }
 
 .guia-modal-action:active {
-  transform: translateY(-1px) scale(0.98);
+  transform: scale(0.98);
 }
 
 .guia-modal-action i {
   width: 18px;
   height: 18px;
-  transition: transform 0.3s ease;
-}
-
-.guia-modal-action:hover i {
-  transform: scale(1.15);
 }
 
 /* Guia Item Clickeable */

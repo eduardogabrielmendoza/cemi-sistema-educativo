@@ -35,11 +35,13 @@
 
 .user-chat-conversations-header h3 {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
   display: flex;
   align-items: center;
   gap: 10px;
+  letter-spacing: 0.01em;
 }
 
 .user-chat-conversations-list {
@@ -66,18 +68,18 @@
 }
 
 .user-chat-conv-avatar {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: white;
-  color: var(--chat-primary);
+  background: rgba(74, 82, 89, 0.08);
+  color: #4a5259;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(74, 82, 89, 0.15);
 }
 
 .user-chat-conv-info {
@@ -94,9 +96,10 @@
 }
 
 .user-chat-conv-name {
-  font-weight: 600;
-  font-size: 15px;
-  color: #1f2937;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #1e1e1e;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -150,8 +153,10 @@
 
 .user-chat-header h3 {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.01em;
 }
 
 .user-chat-status {
@@ -191,28 +196,26 @@
 }
 
 .user-chat-message-avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: white;
+  background: rgba(74, 82, 89, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--chat-primary);
-  font-weight: 600;
-  font-size: 14px;
+  color: #4a5259;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(74, 82, 89, 0.15);
 }
 
 .user-chat-message.sent .user-chat-message-avatar {
-  background: white;
-  box-shadow: 0 2px 4px rgba(74, 82, 89, 0.15);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .user-chat-message.received .user-chat-message-avatar {
-  background: white;
-  box-shadow: 0 2px 4px rgba(74, 82, 89, 0.15);
+  background: rgba(74, 82, 89, 0.08);
 }
 
 .user-chat-message-content {
@@ -223,9 +226,10 @@
 }
 
 .user-chat-message-sender {
-  font-size: 12px;
-  font-weight: 600;
-  color: #4b5563;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  color: #6b7280;
   padding: 0 4px;
 }
 
@@ -282,42 +286,41 @@
 .user-chat-input {
   flex: 1;
   padding: 12px 16px;
-  border: 2px solid #e5e7eb;
+  border: 1px solid #e5e7eb;
   border-radius: 24px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
+  font-weight: 400;
   outline: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .user-chat-input:focus {
-  border-color: var(--chat-primary);
-  box-shadow: 0 0 0 3px rgba(74, 82, 89, 0.15);
+  border-color: #4a5259;
+  box-shadow: none;
 }
 
 .user-chat-send-btn {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--chat-primary);
+  background: #1e1e1e;
   color: white;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .user-chat-send-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(74, 82, 89, 0.4);
+  background: #4a5259;
 }
 
 .user-chat-send-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
-  transform: scale(1);
 }
 
 .user-chat-typing {

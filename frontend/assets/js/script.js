@@ -9954,7 +9954,7 @@ async function renderInvestigacionSection() {
               <p>Centro de recopilación de datos de experiencia de usuario</p>
             </div>
           </div>
-          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(74, 82, 89, 0.1);">
+          <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: #1e1e1e; color: white;">
             <i data-lucide="external-link"></i>
             Ver Landing de Encuesta
           </a>
