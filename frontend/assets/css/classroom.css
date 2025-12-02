@@ -2058,26 +2058,33 @@ body {
   display: flex;
   align-items: center;
   gap: 24px;
-  background: var(--hw-off-white);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 20px 28px;
+  background: #ffffff;
+  border: 1px solid rgba(101, 111, 119, 0.15);
+  border-left: 4px solid #1e1e1e;
+  border-radius: 12px;
+  padding: 24px 32px;
   margin-bottom: 24px;
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid rgba(84, 113, 148, 0.1);
-  animation: fadeInUp 0.5s ease-out;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  animation: bannerSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes fadeInUp {
+.research-banner:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+@keyframes bannerSlideIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(-30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -2098,24 +2105,27 @@ body {
   right: 12px;
   background: transparent;
   border: none;
-  color: var(--text-light);
+  color: #656f77;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
   border-radius: 50%;
-  transition: var(--transition);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
 }
 
 .research-banner-close:hover {
-  background: rgba(0, 0, 0, 0.05);
-  color: var(--text-primary);
+  background: rgba(30, 30, 30, 0.08);
+  color: #1e1e1e;
+  transform: rotate(90deg);
 }
 
-.research-banner-close i {
-  width: 20px;
-  height: 20px;
+.research-banner-close svg {
+  width: 18px;
+  height: 18px;
 }
 
 .research-banner-icon {
@@ -2128,38 +2138,51 @@ body {
 .research-icon-bg {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, #90caf9 0%, #64b5f6 100%);
-  border-radius: 16px;
+  background: #1e1e1e;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(100, 181, 246, 0.3);
+  box-shadow: 0 4px 16px rgba(30, 30, 30, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.research-icon-bg i {
-  width: 28px;
-  height: 28px;
+.research-banner:hover .research-icon-bg {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(30, 30, 30, 0.25);
+}
+
+.research-icon-bg svg {
+  width: 26px;
+  height: 26px;
   color: white;
 }
 
 .research-icon-accent {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 28px;
-  height: 28px;
-  background: linear-gradient(135deg, #ffb74d 0%, #ffa726 100%);
+  top: -6px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  background: #656f77;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(255, 167, 38, 0.4);
+  box-shadow: 0 2px 8px rgba(101, 111, 119, 0.3);
   transform: rotate(12deg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: accentPulse 3s ease-in-out infinite;
 }
 
-.research-icon-accent i {
-  width: 14px;
-  height: 14px;
+@keyframes accentPulse {
+  0%, 100% { transform: rotate(12deg) scale(1); }
+  50% { transform: rotate(12deg) scale(1.1); }
+}
+
+.research-icon-accent svg {
+  width: 12px;
+  height: 12px;
   color: white;
 }
 
@@ -2171,16 +2194,18 @@ body {
 .research-banner-content h3 {
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #1e1e1e;
   margin-bottom: 6px;
   line-height: 1.4;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 .research-banner-content p {
   font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
+  color: #656f77;
+  line-height: 1.6;
   margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .research-banner-action {
@@ -2191,23 +2216,30 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
-  background: transparent;
-  color: var(--primary-color);
+  gap: 8px;
+  padding: 12px 24px;
+  background: #1e1e1e;
+  color: white;
   font-size: 14px;
   font-weight: 600;
-  border: 2px solid var(--primary-color);
-  border-radius: 24px;
+  letter-spacing: 0.3px;
+  border: 2px solid #1e1e1e;
+  border-radius: 8px;
   text-decoration: none;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .btn-research:hover {
-  background: var(--primary-color);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(84, 113, 148, 0.3);
+  background: transparent;
+  color: #1e1e1e;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(30, 30, 30, 0.15);
+}
+
+.btn-research:active {
+  transform: translateY(-1px);
 }
 
 /* Responsive para el banner */
@@ -2215,8 +2247,8 @@ body {
   .research-banner {
     flex-direction: column;
     text-align: center;
-    padding: 24px 20px;
-    gap: 16px;
+    padding: 28px 24px;
+    gap: 20px;
   }
   
   .research-banner-content {
@@ -2224,19 +2256,38 @@ body {
   }
   
   .research-banner-close {
-    top: 8px;
-    right: 8px;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .btn-research {
+    width: 100%;
+    padding: 14px 24px;
   }
 }
 
 /* Dark mode */
 body.dark-mode .research-banner {
-  background: linear-gradient(135deg, #1e3a5f 0%, #1a3352 50%, #152d47 100%);
-  border-color: rgba(144, 202, 249, 0.15);
+  background: #1a1a1a;
+  border-color: rgba(101, 111, 119, 0.2);
+  border-left-color: #f8f9fa;
+}
+
+body.dark-mode .research-icon-bg {
+  background: #f8f9fa;
+  box-shadow: 0 4px 16px rgba(248, 249, 250, 0.15);
+}
+
+body.dark-mode .research-icon-bg svg {
+  color: #1e1e1e;
+}
+
+body.dark-mode .research-icon-accent {
+  background: #656f77;
 }
 
 body.dark-mode .research-banner-content h3 {
-  color: #e4e7eb;
+  color: #f8f9fa;
 }
 
 body.dark-mode .research-banner-content p {
@@ -2244,13 +2295,23 @@ body.dark-mode .research-banner-content p {
 }
 
 body.dark-mode .btn-research {
-  color: #90caf9;
-  border-color: #90caf9;
+  background: #f8f9fa;
+  color: #1e1e1e;
+  border-color: #f8f9fa;
 }
 
 body.dark-mode .btn-research:hover {
-  background: #90caf9;
-  color: #1a202c;
+  background: transparent;
+  color: #f8f9fa;
+}
+
+body.dark-mode .research-banner-close {
+  color: #a0aec0;
+}
+
+body.dark-mode .research-banner-close:hover {
+  background: rgba(248, 249, 250, 0.1);
+  color: #f8f9fa;
 }
 
 
