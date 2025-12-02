@@ -23,28 +23,31 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
-    /* Status Banner Styles - DISEÑO MODERNO */
+    /* Status Banner Styles - DISEÑO MODERNO - POSICIÓN INFERIOR */
     .system-status-banner {
       position: fixed;
-      top: 72px;
-      left: 0;
-      right: 0;
-      z-index: 999;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: bannerSlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      animation: bannerSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 16px;
+      max-width: calc(100% - 48px);
+      width: auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05);
     }
 
-    @keyframes bannerSlideDown {
+    @keyframes bannerSlideUp {
       from { 
-        transform: translateY(-100%); 
+        transform: translateX(-50%) translateY(120%); 
         opacity: 0; 
       }
       to { 
-        transform: translateY(0); 
+        transform: translateX(-50%) translateY(0); 
         opacity: 1; 
       }
     }
@@ -52,19 +55,19 @@
     .system-status-banner.degraded {
       background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%);
       background-size: 200% 200%;
-      animation: bannerSlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), gradientShift 3s ease infinite;
+      animation: bannerSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1), gradientShift 3s ease infinite;
     }
 
     .system-status-banner.outage {
       background: linear-gradient(135deg, #fee2e2 0%, #fecaca 50%, #fee2e2 100%);
       background-size: 200% 200%;
-      animation: bannerSlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), gradientShift 3s ease infinite;
+      animation: bannerSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1), gradientShift 3s ease infinite;
     }
 
     .system-status-banner.maintenance {
       background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #dbeafe 100%);
       background-size: 200% 200%;
-      animation: bannerSlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), gradientShift 3s ease infinite;
+      animation: bannerSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1), gradientShift 3s ease infinite;
     }
 
     @keyframes gradientShift {
@@ -236,16 +239,13 @@
       transform: rotate(90deg);
     }
 
-    /* Ajustar navbar cuando el banner está visible */
-    body.has-status-banner .navbar {
-      top: 64px;
-    }
-
-    body.has-status-banner .hero-main {
-      padding-top: calc(100px + 64px);
-    }
-
     @media (max-width: 768px) {
+      .system-status-banner {
+        bottom: 16px;
+        max-width: calc(100% - 32px);
+        border-radius: 14px;
+      }
+
       .status-banner-inner {
         padding: 12px 16px;
         flex-wrap: wrap;
@@ -274,20 +274,14 @@
       .status-banner-link {
         font-size: 0.8rem;
         padding: 8px 14px;
+        flex: 1;
+        justify-content: center;
       }
 
       .status-banner-close {
         position: absolute;
         top: 10px;
         right: 10px;
-      }
-
-      body.has-status-banner .navbar {
-        top: 90px;
-      }
-
-      body.has-status-banner .hero-main {
-        padding-top: calc(100px + 90px);
       }
     }
   </style>
@@ -1379,7 +1373,6 @@
       
       // Mostrar banner con animación
       banner.style.display = 'flex';
-      document.body.classList.add('has-status-banner');
       
       // Recrear iconos
       lucide.createIcons();
@@ -1388,11 +1381,10 @@
     function hideStatusBanner() {
       const banner = document.getElementById('systemStatusBanner');
       banner.style.opacity = '0';
-      banner.style.transform = 'translateY(-100%)';
+      banner.style.transform = 'translateY(100%)'; // Desliza hacia abajo (banner está en bottom)
       
       setTimeout(() => {
         banner.style.display = 'none';
-        document.body.classList.remove('has-status-banner');
       }, 300);
       
       // Guardar en sessionStorage para no mostrar de nuevo en esta sesión
