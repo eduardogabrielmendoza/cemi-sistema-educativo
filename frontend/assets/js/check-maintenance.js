@@ -122,7 +122,7 @@ function showStatusBanner(status, incident) {
     },
     maintenance: {
       bgColor: '#dbeafe',
-      borderColor: '#0070F3',
+      borderColor: '#4a5259',
       textColor: '#1e40af',
       icon: '🔧',
       title: 'Mantenimiento en Curso',

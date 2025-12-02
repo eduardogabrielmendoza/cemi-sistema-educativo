@@ -951,7 +951,7 @@ class AdminChatManager {
       }
     }
     
-    return '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #0070F3;">' + iniciales + '</div>';
+    return '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #4a5259;">' + iniciales + '</div>';
   }
   
   showTypingIndicator(nombre, isTyping) {

@@ -4943,12 +4943,12 @@
 .section-header-alumno .header-title i {
   width: 32px;
   height: 32px;
-  color: #1e3c72;
+  color: #4a5259;
 }
 
 .section-header-alumno h2 {
   margin: 0;
-  color: #1e3c72;
+  color: #4a5259;
   font-size: 28px;
   font-weight: 600;
 }
@@ -6626,15 +6626,15 @@
 }
 
 .stat-icon.purple {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
 }
 
 .stat-icon.green {
-  background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
 }
 
 .stat-icon.orange {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
 }
 
 .stat-icon svg {
@@ -6675,7 +6675,7 @@
 }
 
 .stat-change.negative {
-  color: #f5576c;
+  color: #6b7280;
 }
 
 .dashboard-tables {
@@ -6752,8 +6752,8 @@
 }
 
 .badge-tipo.profesor {
-  background: rgba(102,126,234,0.1);
-  color: #667eea;
+  background: rgba(74, 82, 89, 0.1);
+  color: #4a5259;
 }
 
 .empty-state {
@@ -6820,7 +6820,7 @@
 }
 
 .historial-info-card {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: #4a5259;
   padding: 20px;
   border-radius: 12px;
   color: white;
@@ -6858,7 +6858,7 @@
 }
 
 .historial-stat.primary {
-  border-left-color: #3b82f6;
+  border-left-color: #4a5259;
 }
 
 .historial-stat.success {
@@ -6896,11 +6896,11 @@
 }
 
 .historial-stat.info h4 {
-  color: #8b5cf6;
+  color: #6b7280;
 }
 
 .historial-stat.primary h4 {
-  color: #3b82f6;
+  color: #4a5259;
 }
 
 .historial-stat p {

@@ -200,7 +200,7 @@
   flex: 1;
   min-width: 200px;
   padding: 14px 24px;
-  background: linear-gradient(135deg, #4a5259, #1A3A5C);
+  background: linear-gradient(135deg, #4a5259, #4a5259);
   color: white;
   border: none;
   border-radius: 10px;
@@ -218,7 +218,7 @@
 .btn-accion-rapida:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(10, 37, 64, 0.4);
-  background: linear-gradient(135deg, #1A3A5C, #0d47a1);
+  background: linear-gradient(135deg, #4a5259, #0d47a1);
 }
 
 .btn-accion-rapida i {
@@ -437,7 +437,7 @@
 
 .btn-ver-historial {
   padding: 8px 16px;
-  background: linear-gradient(135deg, #4a5259, #1A3A5C);
+  background: linear-gradient(135deg, #4a5259, #4a5259);
   color: white;
   border: none;
   border-radius: 8px;
@@ -453,7 +453,7 @@
 }
 
 .btn-ver-historial:hover {
-  background: linear-gradient(135deg, #1A3A5C, #0d47a1);
+  background: linear-gradient(135deg, #4a5259, #0d47a1);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(10, 37, 64, 0.3);
 }
@@ -558,7 +558,7 @@
 }
 
 .historial-table thead {
-  background: linear-gradient(135deg, #4a5259, #1A3A5C);
+  background: linear-gradient(135deg, #4a5259, #4a5259);
   color: white;
 }
 
@@ -858,7 +858,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #4a5259 0%, #1A3A5C 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #4a5259 100%);
   color: white;
   border: none;
   border-radius: 8px;

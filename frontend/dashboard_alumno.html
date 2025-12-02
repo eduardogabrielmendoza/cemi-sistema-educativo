@@ -2359,7 +2359,7 @@
     
     modalTicket.innerHTML = `
       <div class="modal-pago-content" style="max-width: 500px;">
-        <div class="modal-pago-header" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <div class="modal-pago-header" style="background: #4a5259;">
           <h2 style="color: white;"><i data-lucide="banknote"></i> Pago en Efectivo</h2>
           <button class="btn-cerrar-modal" onclick="cerrarModalTicket()" style="color: white;">
             <i data-lucide="x"></i>
@@ -2367,7 +2367,7 @@
         </div>
         
         <div class="modal-pago-body" style="text-align: center; padding: 30px;">
-          <div style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; position: relative;">
+          <div style="background: #4a5259; color: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; position: relative;">
             <button onclick="descargarTicketPDF('${numeroTicket}')" 
                     style="position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; backdrop-filter: blur(10px);" 
                     onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='scale(1.05)'" 
@@ -2383,14 +2383,14 @@
             </p>
           </div>
           
-          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #1e3c72; margin-bottom: 20px;">
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #4a5259; margin-bottom: 20px;">
             <p style="margin: 0; color: #333; line-height: 1.8; font-size: 15px;">
-              <strong style="color: #1e3c72;"> Acercate a una de nuestras oficinas</strong><br>
+              <strong style="color: #4a5259;"> Acercate a una de nuestras oficinas</strong><br>
               <span style="color: #666;">Lunes a Viernes de 7:00 a 14:00 hs</span>
             </p>
           </div>
           
-          <button onclick="cerrarModalTicket()" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s;">
+          <button onclick="cerrarModalTicket()" style="background: #4a5259; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s;">
             Entendido
           </button>
         </div>

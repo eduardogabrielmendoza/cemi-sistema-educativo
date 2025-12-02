@@ -2611,14 +2611,14 @@ footer i {
   gap: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: #1e3c72;
+  color: #4a5259;
   margin-bottom: 8px;
 }
 
 .form-group label i {
   width: 16px;
   height: 16px;
-  color: #2a5298;
+  color: #5d646b;
 }
 
 .form-group input {
@@ -3778,7 +3778,7 @@ footer i {
 
 .floating-menu-wrapper.active .floating-menu-toggle {
   transform: rotate(135deg);
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: #4a5259;
 }
 
 .floating-menu-item {
@@ -4000,11 +4000,11 @@ footer i {
 }
 
 .admin-submit {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #5d646b 100%);
 }
 
 .admin-submit:hover {
-  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
   box-shadow: 0 8px 24px rgba(30, 60, 114, 0.4);
 }
 

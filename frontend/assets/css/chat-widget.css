@@ -87,7 +87,7 @@
 }
 
 .chat-widget-header {
-  background: linear-gradient(135deg, #0070F3 0%, #0A2540 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
   padding: 20px;
   display: flex;
@@ -209,7 +209,7 @@
 .chat-form-group input:focus,
 .chat-form-group textarea:focus {
   outline: none;
-  border-color: #0070F3;
+  border-color: #4a5259;
 }
 
 .chat-form-group textarea {
@@ -218,7 +218,7 @@
 }
 
 .chat-start-button {
-  background: linear-gradient(135deg, #0070F3 0%, #0A2540 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
   border: none;
   padding: 14px 24px;
@@ -294,7 +294,7 @@
 }
 
 .chat-message.sent .chat-message-avatar {
-  background: #0070F3;
+  background: #4a5259;
   color: white;
 }
 
@@ -307,7 +307,7 @@
 }
 
 .chat-message.sent .chat-message-bubble {
-  background: linear-gradient(135deg, #0070F3 0%, #0A2540 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   color: white;
 }
 
@@ -422,7 +422,7 @@
 .chat-send-button {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, #0070F3 0%, #0A2540 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
   border: none;
   border-radius: 50%;
   color: white;
