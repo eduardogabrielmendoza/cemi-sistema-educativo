@@ -6490,10 +6490,15 @@ function mostrarErrorRecursos() {
 function cerrarBannerInvestigacion() {
   const banner = document.getElementById('researchBanner');
   if (banner) {
-    banner.style.animation = 'fadeOutUp 0.4s ease-out forwards';
+    // Añadir clase para animación de cierre suave
+    banner.classList.remove('visible');
+    banner.classList.add('closing');
+    
+    // Remover del DOM después de la animación
     setTimeout(() => {
       banner.style.display = 'none';
-    }, 400);
+    }, 600);
+    
     // Recordar que se cerró permanentemente (localStorage para persistencia)
     localStorage.setItem('researchBannerClosed', 'true');
   }
@@ -6512,7 +6517,7 @@ function mostrarBannerInvestigacion() {
     return;
   }
   
-  // Mostrar después de 4 segundos con animación
+  // Mostrar después de 4 segundos con animación suave
   setTimeout(() => {
     banner.classList.add('visible');
   }, 4000);
