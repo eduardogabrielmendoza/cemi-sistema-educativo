@@ -2903,12 +2903,12 @@ async function submitIncident() {
   });
   
   if (!title) {
-    Swal.fire({ icon: 'warning', title: 'Título requerido', text: 'Ingresa un título para el incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'warning', title: 'Título requerido', text: 'Ingresa un título para el incidente.', confirmButtonColor: '#4a5259' });
     return;
   }
   
   if (!severity) {
-    Swal.fire({ icon: 'warning', title: 'Severidad requerida', text: 'Selecciona la severidad del incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'warning', title: 'Severidad requerida', text: 'Selecciona la severidad del incidente.', confirmButtonColor: '#4a5259' });
     return;
   }
   
@@ -2932,14 +2932,14 @@ async function submitIncident() {
         icon: 'success',
         title: 'Incidente publicado',
         text: showBanner ? 'El banner se mostrará en la página de inicio.' : 'El incidente ha sido registrado.',
-        confirmButtonColor: '#547194'
+        confirmButtonColor: '#4a5259'
       });
     } else {
       const error = await response.json();
       throw new Error(error.error);
     }
   } catch (error) {
-    Swal.fire({ icon: 'error', title: 'Error', text: error.message, confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'error', title: 'Error', text: error.message, confirmButtonColor: '#4a5259' });
   }
 }
 
@@ -2974,7 +2974,7 @@ async function resolveIncident(id) {
       });
     }
   } catch (error) {
-    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo resolver el incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo resolver el incidente.', confirmButtonColor: '#4a5259' });
   }
 }
 
@@ -3004,7 +3004,7 @@ async function deleteIncident(id) {
       });
     }
   } catch (error) {
-    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo eliminar el incidente.', confirmButtonColor: '#547194' });
+    Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo eliminar el incidente.', confirmButtonColor: '#4a5259' });
   }
 }
 
@@ -3016,7 +3016,7 @@ function openUpdateModal(id) {
     showCancelButton: true,
     confirmButtonText: 'Publicar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#547194',
+    confirmButtonColor: '#4a5259',
     inputValidator: (value) => {
       if (!value) return 'Escribe un mensaje';
     }
@@ -3039,7 +3039,7 @@ function openUpdateModal(id) {
           });
         }
       } catch (error) {
-        Swal.fire({ icon: 'error', title: 'Error', confirmButtonColor: '#547194' });
+        Swal.fire({ icon: 'error', title: 'Error', confirmButtonColor: '#4a5259' });
       }
     }
   });
@@ -5476,7 +5476,7 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       showCancelButton: true,
       confirmButtonText: 'Guardar Cambios',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#4a5259',
       didOpen: () => {
         lucide.createIcons();
         
@@ -6466,8 +6466,8 @@ async function openRegistrarPagoModal() {
       showCancelButton: true,
       confirmButtonText: '<i class="lucide-check" style="width: 16px; height: 16px;"></i> Registrar Pago',
       cancelButtonText: '<i class="lucide-x" style="width: 16px; height: 16px;"></i> Cancelar',
-      confirmButtonColor: '#1976d2',
-      cancelButtonColor: '#757575',
+      confirmButtonColor: '#4a5259',
+      cancelButtonColor: '#6b7280',
       didOpen: () => {
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
@@ -6696,7 +6696,7 @@ async function openRegistrarPagoModal() {
                 <p style="margin: 0;"><strong>Fecha:</strong> ${new Date(data.comprobante.fecha).toLocaleDateString('es-ES')}</p>
               </div>
             `,
-            confirmButtonColor: '#1976d2'
+            confirmButtonColor: '#4a5259'
           });
 
           await loadPagosData();
@@ -6714,7 +6714,7 @@ async function openRegistrarPagoModal() {
           icon: 'error',
           title: 'Error',
           text: error.message || 'No se pudo registrar el pago',
-          confirmButtonColor: '#1976d2'
+          confirmButtonColor: '#4a5259'
         });
       }
     }
@@ -6744,7 +6744,7 @@ async function openNuevaAulaModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     preConfirm: () => {
       const nombre = document.getElementById('nombre_aula').value;
       const capacidad = document.getElementById('capacidad').value;
@@ -6806,7 +6806,7 @@ async function editarAula(id, nombre, capacidad) {
     showCancelButton: true,
     confirmButtonText: 'Guardar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     preConfirm: () => {
       const nombre = document.getElementById('nombre_aula').value;
       const capacidad = document.getElementById('capacidad').value;
@@ -6856,7 +6856,7 @@ async function eliminarAula(id, nombre) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    cancelButtonColor: '#6b7280',
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
@@ -6889,7 +6889,7 @@ async function openNuevoIdiomaModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     inputValidator: (value) => {
       if (!value) {
         return 'El nombre es obligatorio';
@@ -6929,7 +6929,7 @@ async function editarIdioma(id, nombreActual) {
     showCancelButton: true,
     confirmButtonText: 'Guardar',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     inputValidator: (value) => {
       if (!value) {
         return 'El nombre es obligatorio';
@@ -6967,7 +6967,7 @@ async function eliminarIdioma(id, nombre) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    cancelButtonColor: '#6b7280',
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
@@ -7025,7 +7025,7 @@ async function openNuevaInscripcionModal() {
       showCancelButton: true,
       confirmButtonText: 'Inscribir',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#4a5259',
       preConfirm: () => {
         const id_alumno = document.getElementById('id_alumno').value;
         const id_curso = document.getElementById('id_curso').value;
@@ -7071,7 +7071,7 @@ async function eliminarInscripcion(id, alumno, curso) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    cancelButtonColor: '#6b7280',
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
@@ -7131,7 +7131,7 @@ async function openNuevoAlumnoModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     preConfirm: () => {
       const nombre = document.getElementById('nombre').value;
       const apellido = document.getElementById('apellido').value;
@@ -7234,7 +7234,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
     confirmButtonText: 'Crear Credenciales',
     denyButtonText: 'Omitir (crear después)',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     preConfirm: () => {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
@@ -7283,7 +7283,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
               ️ Guarda estas credenciales de forma segura
             </p>
           `,
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#4a5259'
         });
       } else {
         Swal.fire('Error', data.message || 'Error al crear credenciales', 'error');
@@ -7345,7 +7345,7 @@ async function editarAlumno(id) {
       confirmButtonText: 'Guardar',
       denyButtonText: '<i data-lucide="key"></i> Editar Credenciales',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#4a5259',
       denyButtonColor: '#6b7280',
       didOpen: () => {
         if (typeof lucide !== 'undefined') {
@@ -7472,7 +7472,7 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       showCancelButton: true,
       confirmButtonText: 'Guardar Cambios',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#4a5259',
       didOpen: () => {
         lucide.createIcons();
         
@@ -7579,7 +7579,7 @@ async function eliminarAlumno(id, nombre) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    cancelButtonColor: '#6b7280',
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
@@ -7623,7 +7623,7 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
     showCancelButton: true,
     confirmButtonText: 'Cambiar Contraseña',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     preConfirm: () => {
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
@@ -7690,7 +7690,7 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
     showCancelButton: true,
     confirmButtonText: 'Cambiar Contraseña',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#2575fc',
+    confirmButtonColor: '#4a5259',
     preConfirm: () => {
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
@@ -7785,7 +7785,7 @@ async function openNuevoProfesorModal() {
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     didOpen: async () => {
       try {
         const resp = await fetch(`${API_URL}/idiomas`);
@@ -7915,7 +7915,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
     confirmButtonText: 'Crear Credenciales',
     denyButtonText: 'Omitir (crear después)',
     cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#1e3c72',
+    confirmButtonColor: '#4a5259',
     preConfirm: () => {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
@@ -7964,7 +7964,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
               ️ Guarda estas credenciales de forma segura
             </p>
           `,
-          confirmButtonColor: '#1e3c72'
+          confirmButtonColor: '#4a5259'
         });
       } else {
         Swal.fire('Error', data.message || 'Error al crear credenciales', 'error');
@@ -8040,7 +8040,7 @@ async function editarProfesor(id) {
       confirmButtonText: 'Guardar',
       denyButtonText: '<i data-lucide="key"></i> Editar Credenciales',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#4a5259',
       denyButtonColor: '#6b7280',
       didOpen: () => {
         if (typeof lucide !== 'undefined') {
@@ -8103,7 +8103,7 @@ async function eliminarProfesor(id, nombre) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    cancelButtonColor: '#6b7280',
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
@@ -8622,7 +8622,7 @@ async function eliminarAdministrador(id, nombre) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    cancelButtonColor: '#6b7280',
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
@@ -8711,7 +8711,7 @@ async function openNuevoCursoModal() {
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#4a5259',
       preConfirm: () => {
         const nombre_curso = document.getElementById('nombre_curso').value;
         const id_idioma = document.getElementById('id_idioma').value;
@@ -8824,7 +8824,7 @@ async function editarCurso(id) {
       showCancelButton: true,
       confirmButtonText: 'Guardar',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1e3c72',
+      confirmButtonColor: '#4a5259',
       preConfirm: () => {
         const nombre_curso = document.getElementById('nombre_curso').value;
         const id_idioma = document.getElementById('id_idioma').value;
@@ -8872,7 +8872,7 @@ async function eliminarCurso(id, nombre) {
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
+    cancelButtonColor: '#6b7280',
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   });
@@ -8931,7 +8931,7 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
       showCancelButton: true,
       confirmButtonText: 'Asignar',
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#1976d2',
+      confirmButtonColor: '#4a5259',
       preConfirm: () => {
         const select = document.getElementById('swal-profesor-select');
         if (!select.value) {
@@ -9325,8 +9325,8 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
       showCancelButton: true,
       confirmButtonText: '<i class="lucide-unlock" style="width: 16px; height: 16px;"></i> Acceder',
       cancelButtonText: '<i class="lucide-x" style="width: 16px; height: 16px;"></i> Cancelar',
-      confirmButtonColor: '#1976d2',
-      cancelButtonColor: '#757575',
+      confirmButtonColor: '#4a5259',
+      cancelButtonColor: '#6b7280',
       focusConfirm: false,
       didOpen: () => {
         if (typeof lucide !== 'undefined') {
