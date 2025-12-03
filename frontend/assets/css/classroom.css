@@ -1946,7 +1946,10 @@ body {
   box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width: 75%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
   aspect-ratio: 4 / 1;
   transition: box-shadow 0.5s var(--ease-smooth);
   cursor: default;
