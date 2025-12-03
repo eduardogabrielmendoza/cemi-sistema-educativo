@@ -1946,7 +1946,10 @@ body {
   box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
-  height: 180px;
+  height: 280px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
   transition: box-shadow 0.5s var(--ease-smooth);
   cursor: default;
 }
