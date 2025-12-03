@@ -5266,6 +5266,22 @@ function togglePerfilPublico() {
   }
 }
 
+// ============================================
+// PALETA DE COLORES HARVARD PARA CLASSROOM
+// ============================================
+const HARVARD_PDF = {
+  charcoal: [30, 30, 30],
+  wroughtIron: [74, 74, 74],
+  graphite: [101, 111, 119],
+  silver: [160, 160, 160],
+  lightGray: [245, 245, 245],
+  white: [255, 255, 255],
+  text: [45, 45, 45],
+  success: [16, 185, 129],
+  warning: [245, 158, 11],
+  error: [239, 68, 68],
+};
+
 async function exportarTareasPDF() {
   if (!userRol || userRol.toLowerCase() !== 'alumno') {
     Swal.fire({
@@ -5314,6 +5330,8 @@ async function exportarTareasPDF() {
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
     
     const logoImg = new Image();
     logoImg.src = 'images/logo.png';
@@ -5323,188 +5341,226 @@ async function exportarTareasPDF() {
       logoImg.onerror = resolve;
     });
     
-    doc.setFillColor(30, 60, 114); // #3d444a
-    doc.rect(0, 0, 210, 50, 'F');
+    // ===== HEADER HARVARD =====
+    doc.setFillColor(...HARVARD_PDF.charcoal);
+    doc.rect(0, 0, 210, 38, 'F');
+    
+    // Línea de acento
+    doc.setFillColor(...HARVARD_PDF.wroughtIron);
+    doc.rect(0, 38, 210, 3, 'F');
     
     try {
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(168, 8, 28, 28, 2, 2, 'F');
-      doc.addImage(logoImg, 'PNG', 170, 10, 24, 24);
+      doc.setFillColor(...HARVARD_PDF.white);
+      doc.circle(22, 19, 11, 'F');
+      doc.addImage(logoImg, 'PNG', 11, 8, 22, 22);
     } catch (e) {
       console.warn('No se pudo cargar el logo');
     }
     
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(22);
-    doc.setFont(undefined, 'bold');
-    doc.text('REPORTE DE TAREAS', 20, 22);
+    // Título CEMI
+    doc.setTextColor(...HARVARD_PDF.white);
+    doc.setFontSize(18);
+    doc.setFont('times', 'bold');
+    doc.text('CEMI', 40, 16);
     
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_PDF.silver);
+    doc.text('Centro de Enseñanza Multilingüe Internacional', 40, 23);
+    
+    // Título del documento
+    doc.setFontSize(12);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_PDF.white);
+    doc.text('REPORTE DE TAREAS', pageWidth - 20, 16, { align: 'right' });
+    
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_PDF.silver);
+    doc.text(new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }), pageWidth - 20, 24, { align: 'right' });
+    
+    // ===== DATOS DEL ESTUDIANTE =====
+    let y = 50;
+    doc.setFillColor(...HARVARD_PDF.lightGray);
+    doc.roundedRect(20, y, 170, 18, 2, 2, 'F');
+    
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_PDF.graphite);
+    doc.text('ESTUDIANTE:', 25, y + 7);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_PDF.charcoal);
     doc.setFontSize(10);
-    doc.setFont(undefined, 'normal');
-    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 20, 32);
+    doc.text(userName, 52, y + 7);
     
-    doc.setDrawColor(103, 126, 234);
-    doc.setLineWidth(2);
-    doc.line(20, 42, 190, 42);
-    
-    doc.setFillColor(248, 249, 250);
-    doc.roundedRect(20, 58, 170, 22, 2, 2, 'F');
-    
-    doc.setDrawColor(220, 220, 220);
-    doc.setLineWidth(0.5);
-    doc.roundedRect(20, 58, 170, 22, 2, 2, 'D');
-    
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
-    doc.text('Estudiante:', 25, 66);
-    doc.setFont(undefined, 'normal');
-    doc.text(userName, 50, 66);
-    
-    doc.setFont(undefined, 'bold');
-    doc.text('Fecha:', 25, 74);
-    doc.setFont(undefined, 'normal');
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_PDF.graphite);
+    doc.text('FECHA:', 25, y + 13);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_PDF.text);
     doc.text(new Date().toLocaleDateString('es-ES', { 
       day: '2-digit', 
       month: 'long', 
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }), 50, 74);
+      year: 'numeric'
+    }), 43, y + 13);
     
-    let y = 92;
-    const pageHeight = doc.internal.pageSize.height;
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_PDF.graphite);
+    doc.text('TOTAL TAREAS:', 120, y + 10);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_PDF.charcoal);
+    doc.setFontSize(12);
+    doc.text(String(tareas.length), 155, y + 10);
     
+    y = 76;
+    
+    // ===== LISTA DE TAREAS =====
     tareas.forEach((tarea, index) => {
-      if (y > pageHeight - 60) {
+      if (y > pageHeight - 50) {
+        // Nueva página con header secundario
         doc.addPage();
         
-        doc.setFillColor(30, 60, 114);
-        doc.rect(0, 0, 210, 25, 'F');
+        doc.setFillColor(...HARVARD_PDF.charcoal);
+        doc.rect(0, 0, 210, 18, 'F');
         
-        try {
-          doc.setFillColor(255, 255, 255);
-          doc.roundedRect(168, 5, 28, 15, 2, 2, 'F');
-          doc.addImage(logoImg, 'PNG', 170, 6, 24, 13);
-        } catch (e) {}
+        doc.setFontSize(9);
+        doc.setFont('times', 'bold');
+        doc.setTextColor(...HARVARD_PDF.white);
+        doc.text('CEMI', 15, 12);
         
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(14);
-        doc.setFont(undefined, 'bold');
-        doc.text('REPORTE DE TAREAS - CEMI', 20, 15);
+        doc.setFontSize(8);
+        doc.setTextColor(...HARVARD_PDF.silver);
+        doc.text('REPORTE DE TAREAS', pageWidth - 15, 12, { align: 'right' });
         
-        y = 35;
+        y = 28;
       }
       
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(20, y, 170, 10, 3, 3, 'F');
+      // Recuadro de tarea
+      doc.setFillColor(...HARVARD_PDF.lightGray);
+      doc.setDrawColor(...HARVARD_PDF.wroughtIron);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(20, y, 170, 8, 1, 1, 'FD');
       
-      doc.setDrawColor(200, 210, 220);
-      doc.setLineWidth(0.8);
-      doc.roundedRect(20, y, 170, 10, 3, 3, 'D');
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...HARVARD_PDF.charcoal);
+      doc.text(`${index + 1}. ${tarea.titulo}`, 24, y + 5.5);
       
-      doc.setFontSize(10);
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text(`${index + 1}. ${tarea.titulo}`, 25, y + 6);
+      y += 10;
       
-      y += 12;
-      
-      doc.setFontSize(8);
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(60, 60, 60);
-      doc.text('Curso:', 25, y);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(0, 0, 0);
-      doc.text(tarea.nombre_curso, 38, y);
+      // Detalles de la tarea
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...HARVARD_PDF.graphite);
+      doc.text('Curso:', 24, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...HARVARD_PDF.text);
+      doc.text(tarea.nombre_curso, 37, y);
       
       if (tarea.profesor_nombre) {
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(60, 60, 60);
-        doc.text('Profesor:', 110, y);
-        doc.setFont(undefined, 'normal');
-        doc.setTextColor(0, 0, 0);
-        doc.text(tarea.profesor_nombre, 128, y);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...HARVARD_PDF.graphite);
+        doc.text('Profesor:', 100, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...HARVARD_PDF.text);
+        doc.text(tarea.profesor_nombre, 118, y);
       }
       
-      y += 6;
+      y += 5;
       
+      // Descripción
       if (tarea.descripcion && tarea.descripcion !== 'Sin descripción') {
-        doc.setFontSize(8);
-        doc.setTextColor(70, 70, 70);
-        const descripcionLines = doc.splitTextToSize(tarea.descripcion, 160);
-        doc.text(descripcionLines, 28, y);
-        y += (descripcionLines.length * 3.5) + 3;
+        doc.setFontSize(7);
+        doc.setTextColor(...HARVARD_PDF.graphite);
+        const descripcionLines = doc.splitTextToSize(tarea.descripcion, 158);
+        doc.text(descripcionLines.slice(0, 2), 26, y);
+        y += (Math.min(descripcionLines.length, 2) * 3.5) + 2;
       }
       
-      doc.setDrawColor(230, 230, 230);
-      doc.setLineWidth(0.3);
-      doc.line(28, y, 185, y);
+      // Línea separadora
+      doc.setDrawColor(...HARVARD_PDF.silver);
+      doc.setLineWidth(0.15);
+      doc.line(26, y, 185, y);
       y += 4;
       
-      doc.setFontSize(8);
+      // Detalles finales
+      doc.setFontSize(7);
       
       if (tarea.fecha_limite) {
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(60, 60, 60);
-        doc.text('Vence:', 28, y);
-        doc.setFont(undefined, 'normal');
-        doc.setTextColor(0, 0, 0);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...HARVARD_PDF.graphite);
+        doc.text('Vence:', 26, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...HARVARD_PDF.text);
         doc.text(new Date(tarea.fecha_limite).toLocaleDateString('es-ES', {
           day: '2-digit',
           month: 'short',
           year: 'numeric'
-        }), 43, y);
+        }), 40, y);
       }
       
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(60, 60, 60);
-      doc.text('Puntos:', 90, y);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(0, 0, 0);
-      doc.text(String(tarea.puntos || 0), 105, y);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...HARVARD_PDF.graphite);
+      doc.text('Puntos:', 85, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...HARVARD_PDF.text);
+      doc.text(String(tarea.puntos || 0), 100, y);
       
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(60, 60, 60);
-      doc.text('Estado:', 125, y);
-      doc.setFont(undefined, 'normal');
+      // Estado
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...HARVARD_PDF.graphite);
+      doc.text('Estado:', 120, y);
       
       const estado = tarea.estado || 'Pendiente';
       if (estado === 'entregada') {
-        doc.setTextColor(16, 185, 129);
+        doc.setTextColor(...HARVARD_PDF.success);
+        doc.text('● Entregada', 136, y);
       } else if (estado === 'vencida') {
-        doc.setTextColor(239, 68, 68);
+        doc.setTextColor(...HARVARD_PDF.error);
+        doc.text('● Vencida', 136, y);
       } else {
-        doc.setTextColor(251, 146, 60);
+        doc.setTextColor(...HARVARD_PDF.warning);
+        doc.text('● Pendiente', 136, y);
       }
-      doc.text(estado.charAt(0).toUpperCase() + estado.slice(1), 142, y);
-      doc.setTextColor(0, 0, 0);
       
-      y += 5;
+      y += 4;
       
+      // Calificación
       if (tarea.calificacion !== null && tarea.calificacion !== undefined) {
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(60, 60, 60);
-        doc.text('Calificación:', 28, y);
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(16, 185, 129);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...HARVARD_PDF.graphite);
+        doc.text('Calificación:', 26, y);
+        doc.setFont('times', 'bold');
+        doc.setTextColor(...HARVARD_PDF.success);
         doc.setFontSize(9);
-        doc.text(String(tarea.calificacion), 52, y);
-        doc.setTextColor(0, 0, 0);
-        doc.setFontSize(8);
-        y += 5;
+        doc.text(String(tarea.calificacion), 50, y);
+        y += 4;
       }
       
-      y += 8;
+      y += 6;
     });
     
+    // ===== FOOTER EN TODAS LAS PÁGINAS =====
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.setFontSize(8);
-      doc.setTextColor(150, 150, 150);
-      doc.text(`Página ${i} de ${totalPages}`, 105, pageHeight - 10, { align: 'center' });
-      doc.text('Documento generado por CEMI Classroom', 105, pageHeight - 5, { align: 'center' });
+      
+      // Footer Harvard
+      doc.setFillColor(...HARVARD_PDF.charcoal);
+      doc.rect(0, pageHeight - 15, 210, 15, 'F');
+      
+      doc.setFontSize(7);
+      doc.setFont('times', 'bold');
+      doc.setTextColor(...HARVARD_PDF.white);
+      doc.text('CEMI', 20, pageHeight - 7);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...HARVARD_PDF.graphite);
+      doc.text('Documento generado por CEMI Classroom', 105, pageHeight - 7, { align: 'center' });
+      
+      doc.setTextColor(...HARVARD_PDF.white);
+      doc.text(`${i} / ${totalPages}`, pageWidth - 20, pageHeight - 7, { align: 'right' });
     }
     
     const nombreArchivo = `Tareas_${userName.replace(/\s+/g, '_')}_${new Date().toLocaleDateString('es-ES').replace(/\//g, '-')}.pdf`;
@@ -5576,9 +5632,25 @@ async function exportarCalificacionesPDF() {
       return;
     }
 
+    // Harvard Color Palette
+    const HARVARD_COLORS = {
+      charcoal: [30, 30, 30],
+      wroughtIron: [74, 74, 74],
+      graphite: [101, 111, 119],
+      silver: [160, 160, 160],
+      lightGray: [245, 245, 245],
+      success: [16, 185, 129],
+      warning: [245, 158, 11],
+      error: [239, 68, 68],
+      white: [255, 255, 255]
+    };
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
     
+    // Cargar logo
     const logoImg = new Image();
     logoImg.src = 'images/logo.png';
     
@@ -5586,203 +5658,283 @@ async function exportarCalificacionesPDF() {
       logoImg.onload = resolve;
       logoImg.onerror = resolve;
     });
+
+    // ===== FUNCIÓN HEADER HARVARD =====
+    const addHarvardHeader = (isFirstPage = true) => {
+      const headerHeight = isFirstPage ? 52 : 28;
+      
+      // Fondo header charcoal
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.rect(0, 0, pageWidth, headerHeight, 'F');
+      
+      // Icono de escudo académico
+      doc.setFillColor(...HARVARD_COLORS.wroughtIron);
+      doc.roundedRect(14, isFirstPage ? 10 : 5, 18, isFirstPage ? 22 : 16, 2, 2, 'F');
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.roundedRect(16, isFirstPage ? 13 : 7, 14, isFirstPage ? 16 : 11, 1, 1, 'F');
+      doc.setDrawColor(...HARVARD_COLORS.silver);
+      doc.setLineWidth(0.5);
+      doc.line(23, isFirstPage ? 14 : 8, 23, isFirstPage ? 28 : 17);
+      doc.line(18, isFirstPage ? 20 : 11, 28, isFirstPage ? 20 : 11);
+      
+      // Logo CEMI
+      try {
+        doc.setFillColor(...HARVARD_COLORS.white);
+        doc.roundedRect(pageWidth - 42, isFirstPage ? 8 : 4, 32, isFirstPage ? 32 : 18, 3, 3, 'F');
+        doc.addImage(logoImg, 'PNG', pageWidth - 40, isFirstPage ? 10 : 5, isFirstPage ? 28 : 15, isFirstPage ? 28 : 15);
+      } catch (e) {
+        console.warn('No se pudo cargar el logo');
+      }
+      
+      // Título
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.setFont('times', 'bold');
+      doc.setFontSize(isFirstPage ? 20 : 13);
+      doc.text('REPORTE DE CALIFICACIONES', 38, isFirstPage ? 22 : 14);
+      
+      if (isFirstPage) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(...HARVARD_COLORS.silver);
+        doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 38, 32);
+        
+        // Línea decorativa
+        doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+        doc.setLineWidth(2.5);
+        doc.line(14, 44, pageWidth - 14, 44);
+        doc.setDrawColor(...HARVARD_COLORS.graphite);
+        doc.setLineWidth(0.8);
+        doc.line(14, 48, pageWidth - 14, 48);
+      }
+      
+      return headerHeight + (isFirstPage ? 12 : 10);
+    };
+
+    // ===== PRIMERA PÁGINA =====
+    let y = addHarvardHeader(true);
     
-    doc.setFillColor(30, 60, 114); // #3d444a
-    doc.rect(0, 0, 210, 50, 'F');
-    
-    try {
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(168, 8, 28, 28, 2, 2, 'F');
-      doc.addImage(logoImg, 'PNG', 170, 10, 24, 24);
-    } catch (e) {
-      console.warn('No se pudo cargar el logo');
-    }
-    
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(22);
-    doc.setFont(undefined, 'bold');
-    doc.text('REPORTE DE CALIFICACIONES', 20, 22);
-    
-    doc.setFontSize(10);
-    doc.setFont(undefined, 'normal');
-    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 20, 32);
-    
-    doc.setDrawColor(103, 126, 234);
-    doc.setLineWidth(2);
-    doc.line(20, 42, 190, 42);
-    
-    doc.setFillColor(248, 249, 250);
-    doc.roundedRect(20, 58, 170, 28, 2, 2, 'F');
-    
-    doc.setDrawColor(220, 220, 220);
+    // Tarjeta de información del estudiante
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.roundedRect(14, y, pageWidth - 28, 38, 4, 4, 'F');
+    doc.setDrawColor(...HARVARD_COLORS.silver);
     doc.setLineWidth(0.5);
-    doc.roundedRect(20, 58, 170, 28, 2, 2, 'D');
+    doc.roundedRect(14, y, pageWidth - 28, 38, 4, 4, 'D');
     
-    doc.setTextColor(0, 0, 0);
+    // Línea decorativa superior
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.rect(14, y, pageWidth - 28, 3, 'F');
+    
+    y += 12;
+    
+    // Información del estudiante
+    doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
-    doc.text('Estudiante:', 25, 66);
-    doc.setFont(undefined, 'normal');
-    doc.text(userName, 50, 66);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('ESTUDIANTE', 22, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.setFontSize(11);
+    doc.text(userName, 22, y + 6);
     
-    doc.setFont(undefined, 'bold');
-    doc.text('Fecha:', 25, 74);
-    doc.setFont(undefined, 'normal');
+    // Fecha
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('FECHA DE GENERACIÓN', 100, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.setFontSize(10);
     doc.text(new Date().toLocaleDateString('es-ES', { 
       day: '2-digit', 
       month: 'long', 
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }), 50, 74);
+      year: 'numeric'
+    }), 100, y + 6);
     
+    // Estadísticas si existen
     if (data.estadisticas) {
-      doc.setFont(undefined, 'bold');
-      doc.text('Promedio General:', 25, 82);
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(16, 185, 129);
-      doc.setFontSize(11);
-      doc.text(String(data.estadisticas.promedio_general), 60, 82);
-      doc.setTextColor(0, 0, 0);
-      doc.setFontSize(9);
+      y += 14;
       
-      doc.setFont(undefined, 'bold');
-      doc.text('Evaluaciones:', 110, 82);
-      doc.setFont(undefined, 'normal');
-      doc.text(String(data.estadisticas.tareas_completadas), 138, 82);
+      // Promedio General
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text('PROMEDIO GENERAL', 22, y);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...HARVARD_COLORS.success);
+      doc.setFontSize(14);
+      doc.text(String(data.estadisticas.promedio_general), 22, y + 8);
+      
+      // Total Evaluaciones
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text('EVALUACIONES COMPLETADAS', 100, y);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.setFontSize(14);
+      doc.text(String(data.estadisticas.tareas_completadas), 100, y + 8);
     }
     
-    let y = 98;
-    const pageHeight = doc.internal.pageSize.height;
+    y += 22;
     
+    // Título de sección
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.rect(14, y, 4, 14, 'F');
+    doc.setFont('times', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text('Detalle de Calificaciones por Curso', 24, y + 10);
+    
+    y += 22;
+    
+    // ===== RENDERIZAR CALIFICACIONES =====
     calificaciones.forEach((cal, index) => {
-      if (y > pageHeight - 60) {
+      // Verificar espacio para nueva página
+      if (y > pageHeight - 65) {
+        // Footer de página actual
+        doc.setDrawColor(...HARVARD_COLORS.silver);
+        doc.setLineWidth(0.3);
+        doc.line(14, pageHeight - 18, pageWidth - 14, pageHeight - 18);
+        
         doc.addPage();
-        
-        doc.setFillColor(30, 60, 114);
-        doc.rect(0, 0, 210, 25, 'F');
-        
-        try {
-          doc.setFillColor(255, 255, 255);
-          doc.roundedRect(168, 5, 28, 15, 2, 2, 'F');
-          doc.addImage(logoImg, 'PNG', 170, 6, 24, 13);
-        } catch (e) {}
-        
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(14);
-        doc.setFont(undefined, 'bold');
-        doc.text('REPORTE DE CALIFICACIONES - CEMI', 20, 15);
-        
-        y = 35;
+        y = addHarvardHeader(false);
       }
       
-      doc.setFillColor(255, 255, 255);
-      doc.roundedRect(20, y, 170, 10, 3, 3, 'F');
+      // Tarjeta del curso
+      doc.setFillColor(...HARVARD_COLORS.white);
+      doc.roundedRect(14, y, pageWidth - 28, 45, 3, 3, 'F');
+      doc.setDrawColor(...HARVARD_COLORS.silver);
+      doc.setLineWidth(0.5);
+      doc.roundedRect(14, y, pageWidth - 28, 45, 3, 3, 'D');
       
-      doc.setDrawColor(200, 210, 220);
-      doc.setLineWidth(0.8);
-      doc.roundedRect(20, y, 170, 10, 3, 3, 'D');
+      // Barra lateral de color
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.rect(14, y, 4, 45, 'F');
       
-      doc.setFontSize(10);
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text(`${index + 1}. ${cal.nombre_curso}`, 25, y + 6);
+      // Número y nombre del curso
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.circle(28, y + 8, 5, 'F');
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.text(String(index + 1), 28, y + 10, { align: 'center' });
       
-      y += 12;
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.text(cal.nombre_curso, 38, y + 10);
       
+      // Idioma y nivel
       const idiomaNivel = `${cal.nombre_idioma || ''}${cal.nivel ? ' - Nivel ' + cal.nivel : ''}`;
       if (idiomaNivel.trim()) {
-        doc.setFontSize(8);
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(60, 60, 60);
-        doc.text('Idioma:', 25, y);
-        doc.setFont(undefined, 'normal');
-        doc.setTextColor(70, 70, 70);
-        doc.text(idiomaNivel, 40, y);
-        doc.setTextColor(0, 0, 0);
-        y += 6;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(...HARVARD_COLORS.graphite);
+        doc.text(idiomaNivel, 38, y + 17);
       }
       
-      const tableX = 25;
-      const colWidth = 36;
-      const rowHeight = 7;
+      // Tabla de calificaciones
+      const tableY = y + 22;
+      const tableX = 22;
+      const colWidth = 40;
+      const rowHeight = 8;
       
-      doc.setFillColor(103, 126, 234);
-      doc.rect(tableX, y, colWidth * 4, rowHeight, 'F');
+      // Header de tabla
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.rect(tableX, tableY, colWidth * 4, rowHeight, 'F');
       
-      doc.setDrawColor(103, 126, 234);
-      doc.setLineWidth(0.5);
-      doc.rect(tableX, y, colWidth * 4, rowHeight, 'D');
-      
-      doc.setTextColor(255, 255, 255);
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
-      doc.setFont(undefined, 'bold');
-      doc.text('Parcial 1', tableX + (colWidth / 2), y + 4.5, { align: 'center' });
-      doc.text('Parcial 2', tableX + colWidth + (colWidth / 2), y + 4.5, { align: 'center' });
-      doc.text('Examen Final', tableX + (colWidth * 2) + (colWidth / 2), y + 4.5, { align: 'center' });
-      doc.text('Promedio', tableX + (colWidth * 3) + (colWidth / 2), y + 4.5, { align: 'center' });
+      doc.text('PARCIAL 1', tableX + (colWidth / 2), tableY + 5.5, { align: 'center' });
+      doc.text('PARCIAL 2', tableX + colWidth + (colWidth / 2), tableY + 5.5, { align: 'center' });
+      doc.text('EXAMEN FINAL', tableX + (colWidth * 2) + (colWidth / 2), tableY + 5.5, { align: 'center' });
+      doc.text('PROMEDIO', tableX + (colWidth * 3) + (colWidth / 2), tableY + 5.5, { align: 'center' });
       
-      y += rowHeight;
+      // Fila de datos
+      doc.setFillColor(...HARVARD_COLORS.lightGray);
+      doc.rect(tableX, tableY + rowHeight, colWidth * 4, rowHeight + 2, 'F');
+      doc.setDrawColor(...HARVARD_COLORS.silver);
+      doc.setLineWidth(0.3);
+      doc.rect(tableX, tableY + rowHeight, colWidth * 4, rowHeight + 2, 'D');
       
-      doc.setFillColor(255, 255, 255);
-      doc.rect(tableX, y, colWidth * 4, rowHeight + 1, 'F');
-      
-      doc.setDrawColor(220, 220, 220);
-      doc.setLineWidth(0.5);
-      doc.rect(tableX, y, colWidth * 4, rowHeight + 1, 'D');
-      
+      // Líneas divisorias verticales
       for (let i = 1; i < 4; i++) {
-        doc.line(tableX + (colWidth * i), y, tableX + (colWidth * i), y + rowHeight + 1);
+        doc.line(tableX + (colWidth * i), tableY + rowHeight, tableX + (colWidth * i), tableY + (rowHeight * 2) + 2);
       }
       
-      doc.setTextColor(0, 0, 0);
-      doc.setFont(undefined, 'normal');
-      doc.setFontSize(9);
+      // Valores de calificaciones
+      const p1 = cal.parcial1 !== null && cal.parcial1 !== undefined ? String(cal.parcial1) : '—';
+      const p2 = cal.parcial2 !== null && cal.parcial2 !== undefined ? String(cal.parcial2) : '—';
+      const final = cal.final !== null && cal.final !== undefined ? String(cal.final) : '—';
+      const promedio = cal.promedio !== null && cal.promedio !== undefined && cal.promedio > 0 ? String(cal.promedio) : '—';
       
-      const p1 = cal.parcial1 !== null && cal.parcial1 !== undefined ? String(cal.parcial1) : '-';
-      const p2 = cal.parcial2 !== null && cal.parcial2 !== undefined ? String(cal.parcial2) : '-';
-      const final = cal.final !== null && cal.final !== undefined ? String(cal.final) : '-';
-      const promedio = cal.promedio !== null && cal.promedio !== undefined && cal.promedio > 0 ? String(cal.promedio) : '-';
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
       
-      doc.text(p1, tableX + (colWidth / 2), y + 5, { align: 'center' });
-      doc.text(p2, tableX + colWidth + (colWidth / 2), y + 5, { align: 'center' });
-      doc.text(final, tableX + (colWidth * 2) + (colWidth / 2), y + 5, { align: 'center' });
+      doc.text(p1, tableX + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
+      doc.text(p2, tableX + colWidth + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
+      doc.text(final, tableX + (colWidth * 2) + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
       
-      if (promedio !== '-') {
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(16, 185, 129);
-        doc.setFontSize(10);
+      // Promedio con color especial
+      if (promedio !== '—') {
+        const promedioNum = parseFloat(promedio);
+        if (promedioNum >= 7) {
+          doc.setTextColor(...HARVARD_COLORS.success);
+        } else if (promedioNum >= 5) {
+          doc.setTextColor(...HARVARD_COLORS.warning);
+        } else {
+          doc.setTextColor(...HARVARD_COLORS.error);
+        }
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
       }
-      doc.text(promedio, tableX + (colWidth * 3) + (colWidth / 2), y + 5, { align: 'center' });
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(0, 0, 0);
-      doc.setFontSize(8);
+      doc.text(promedio, tableX + (colWidth * 3) + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
       
-      y += rowHeight + 4;
-      
+      // Fecha de actualización
       if (cal.fecha_actualizacion) {
+        doc.setFont('helvetica', 'italic');
         doc.setFontSize(7);
-        doc.setTextColor(120, 120, 120);
-        doc.text(`Última actualización: ${new Date(cal.fecha_actualizacion).toLocaleDateString('es-ES', {
+        doc.setTextColor(...HARVARD_COLORS.silver);
+        doc.text(`Actualizado: ${new Date(cal.fecha_actualizacion).toLocaleDateString('es-ES', {
           day: '2-digit',
           month: 'short',
           year: 'numeric'
-        })}`, 28, y);
-        doc.setTextColor(0, 0, 0);
-        doc.setFontSize(8);
-        y += 3;
+        })}`, pageWidth - 22, y + 42, { align: 'right' });
       }
       
-      y += 9;
+      y += 52;
     });
     
+    // ===== FOOTER EN TODAS LAS PÁGINAS =====
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
-      doc.setFontSize(8);
-      doc.setTextColor(150, 150, 150);
-      doc.text(`Página ${i} de ${totalPages}`, 105, pageHeight - 10, { align: 'center' });
-      doc.text('Documento generado por CEMI Classroom', 105, pageHeight - 5, { align: 'center' });
+      
+      // Línea superior del footer
+      doc.setDrawColor(...HARVARD_COLORS.silver);
+      doc.setLineWidth(0.3);
+      doc.line(14, pageHeight - 20, pageWidth - 14, pageHeight - 20);
+      
+      // Texto del footer
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...HARVARD_COLORS.silver);
+      doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 14, pageHeight - 14);
+      doc.text('Documento oficial de calificaciones', 14, pageHeight - 9);
+      
+      // Número de página
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text(`${i} / ${totalPages}`, pageWidth - 14, pageHeight - 12, { align: 'right' });
+      
+      // Fecha de generación
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...HARVARD_COLORS.silver);
+      doc.text(`Generado: ${new Date().toLocaleString('es-ES')}`, pageWidth - 14, pageHeight - 7, { align: 'right' });
     }
     
     const nombreArchivo = `Calificaciones_${userName.replace(/\s+/g, '_')}_${new Date().toLocaleDateString('es-ES').replace(/\//g, '-')}.pdf`;

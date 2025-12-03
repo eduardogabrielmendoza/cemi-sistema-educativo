@@ -2459,108 +2459,140 @@
     try {
       const { jsPDF } = window.jspdf;
       
+      // Harvard Color Palette
+      const HARVARD_COLORS = {
+        charcoal: [30, 30, 30],
+        wroughtIron: [74, 74, 74],
+        graphite: [101, 111, 119],
+        silver: [160, 160, 160],
+        lightGray: [245, 245, 245],
+        success: [16, 185, 129],
+        white: [255, 255, 255]
+      };
+      
       // Crear PDF en formato ticket (80mm de ancho)
       const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
-        format: [80, 150] // Ticket térmico
+        format: [80, 160] // Ticket térmico elegante
       });
       
-      let yPos = 15;
+      const ticketWidth = 80;
+      const centerX = ticketWidth / 2;
+      
+      // ===== HEADER ELEGANTE =====
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.rect(0, 0, ticketWidth, 42, 'F');
       
       // Logo
+      let yPos = 8;
       const img = new Image();
       img.src = '/images/logo.png';
       await new Promise((resolve) => {
         img.onload = () => {
-          doc.addImage(img, 'PNG', 25, yPos, 30, 30);
+          try {
+            doc.setFillColor(...HARVARD_COLORS.white);
+            doc.roundedRect(centerX - 12, yPos, 24, 24, 2, 2, 'F');
+            doc.addImage(img, 'PNG', centerX - 10, yPos + 2, 20, 20);
+          } catch (e) {}
           resolve();
         };
         img.onerror = resolve;
       });
       
-      yPos += 35;
+      yPos += 28;
       
       // Título CEMI
-      doc.setFontSize(18);
-      doc.setFont('helvetica', 'bold');
-      doc.text('CEMI', 40, yPos, { align: 'center' });
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.setFont('times', 'bold');
+      doc.setFontSize(14);
+      doc.text('CEMI', centerX, yPos, { align: 'center' });
+      yPos += 4;
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...HARVARD_COLORS.silver);
+      doc.text('Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
+      
+      // Línea decorativa
+      yPos = 44;
+      doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+      doc.setLineWidth(1.5);
+      doc.line(8, yPos, ticketWidth - 8, yPos);
+      doc.setDrawColor(...HARVARD_COLORS.graphite);
+      doc.setLineWidth(0.5);
+      doc.line(8, yPos + 2, ticketWidth - 8, yPos + 2);
+      
+      yPos += 10;
+      
+      // ===== TÍTULO DEL TICKET =====
+      doc.setFont('times', 'bold');
+      doc.setFontSize(13);
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.text('TICKET DE PAGO', centerX, yPos, { align: 'center' });
       yPos += 5;
       
-      doc.setFontSize(10);
       doc.setFont('helvetica', 'normal');
-      doc.text('Sistema Educativo', 40, yPos, { align: 'center' });
-      yPos += 10;
-      
-      // Línea separadora
-      doc.setDrawColor(30, 60, 114);
-      doc.setLineWidth(0.5);
-      doc.line(10, yPos, 70, yPos);
-      yPos += 8;
-      
-      // Título del ticket
-      doc.setFontSize(14);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text('TICKET DE PAGO', 40, yPos, { align: 'center' });
-      yPos += 6;
-      
-      doc.setFontSize(12);
-      doc.setTextColor(0);
-      doc.text('Pago en Efectivo', 40, yPos, { align: 'center' });
-      yPos += 10;
-      
-      // Línea separadora
-      doc.setDrawColor(200);
-      doc.setLineWidth(0.3);
-      doc.line(10, yPos, 70, yPos);
-      yPos += 8;
-      
-      // Número de ticket (destacado)
-      doc.setFillColor(30, 60, 114);
-      doc.roundedRect(10, yPos, 60, 18, 3, 3, 'F');
-      
       doc.setFontSize(9);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(255, 255, 255);
-      doc.text('Tu número de ticket es', 40, yPos + 5, { align: 'center' });
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text('Pago en Efectivo', centerX, yPos, { align: 'center' });
+      yPos += 10;
       
+      // ===== NÚMERO DE TICKET DESTACADO =====
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.roundedRect(8, yPos, ticketWidth - 16, 22, 3, 3, 'F');
+      
+      // Icono decorativo (círculo)
+      doc.setFillColor(...HARVARD_COLORS.wroughtIron);
+      doc.circle(centerX, yPos + 6, 3, 'F');
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.circle(centerX, yPos + 6, 2, 'F');
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(...HARVARD_COLORS.silver);
+      doc.text('Tu número de ticket', centerX, yPos + 12, { align: 'center' });
+      
+      doc.setFont('times', 'bold');
       doc.setFontSize(16);
-      doc.setFont('helvetica', 'bold');
-      doc.text(`Nº ${numeroTicket}`, 40, yPos + 13, { align: 'center' });
-      yPos += 24;
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.text(`Nº ${numeroTicket}`, centerX, yPos + 19, { align: 'center' });
+      yPos += 28;
       
-      // Fecha y hora
-      doc.setTextColor(0);
-      doc.setFontSize(8);
+      // ===== FECHA Y HORA =====
+      doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
       const ahora = new Date();
       const fecha = ahora.toLocaleDateString('es-ES', {
         day: '2-digit',
-        month: '2-digit',
+        month: 'long',
         year: 'numeric'
       });
       const hora = ahora.toLocaleTimeString('es-ES', {
         hour: '2-digit',
         minute: '2-digit'
       });
-      doc.text(`Generado: ${fecha} - ${hora}`, 40, yPos, { align: 'center' });
-      yPos += 8;
+      doc.text(`Generado: ${fecha}`, centerX, yPos, { align: 'center' });
+      doc.text(`${hora} hrs`, centerX, yPos + 4, { align: 'center' });
+      yPos += 10;
       
       // Línea separadora
-      doc.line(10, yPos, 70, yPos);
+      doc.setDrawColor(...HARVARD_COLORS.silver);
+      doc.setLineWidth(0.3);
+      doc.line(12, yPos, ticketWidth - 12, yPos);
       yPos += 6;
       
-      // Instrucciones
-      doc.setFontSize(9);
+      // ===== INSTRUCCIONES =====
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text('INSTRUCCIONES DE PAGO', 40, yPos, { align: 'center' });
-      yPos += 6;
-      
       doc.setFontSize(8);
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.text('INSTRUCCIONES', centerX, yPos, { align: 'center' });
+      yPos += 5;
+      
       doc.setFont('helvetica', 'normal');
-      doc.setTextColor(0);
+      doc.setFontSize(7);
+      doc.setTextColor(...HARVARD_COLORS.wroughtIron);
       
       const instrucciones = [
         '1. Acercate a nuestras oficinas',
@@ -2573,39 +2605,43 @@
         doc.text(linea, 12, yPos);
         yPos += 4;
       });
-      yPos += 2;
+      yPos += 3;
       
-      // Horarios
-      doc.setFillColor(248, 249, 250);
-      doc.roundedRect(10, yPos, 60, 12, 2, 2, 'F');
+      // ===== HORARIOS =====
+      doc.setFillColor(...HARVARD_COLORS.lightGray);
+      doc.roundedRect(8, yPos, ticketWidth - 16, 14, 2, 2, 'F');
+      doc.setDrawColor(...HARVARD_COLORS.silver);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(8, yPos, ticketWidth - 16, 14, 2, 2, 'D');
       
-      doc.setFontSize(8);
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text(' Horario de Atención', 40, yPos + 4, { align: 'center' });
+      doc.setFontSize(7);
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.text('Horario de Atención', centerX, yPos + 4, { align: 'center' });
       
       doc.setFont('helvetica', 'normal');
-      doc.setTextColor(100);
-      doc.text('Lunes a Viernes', 40, yPos + 8, { align: 'center' });
-      doc.text('7:00 a 14:00 hs', 40, yPos + 11, { align: 'center' });
-      yPos += 18;
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text('Lunes a Viernes: 7:00 - 14:00 hrs', centerX, yPos + 9, { align: 'center' });
+      doc.text('Sábados: 8:00 - 12:00 hrs', centerX, yPos + 12, { align: 'center' });
+      yPos += 20;
       
-      // Footer
-      doc.setDrawColor(200);
-      doc.line(10, yPos, 70, yPos);
-      yPos += 4;
+      // ===== FOOTER ELEGANTE =====
+      doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+      doc.setLineWidth(0.5);
+      doc.line(8, yPos, ticketWidth - 8, yPos);
+      yPos += 5;
       
-      doc.setFontSize(7);
       doc.setFont('helvetica', 'italic');
-      doc.setTextColor(150);
-      doc.text('Conservá este ticket hasta completar el pago', 40, yPos, { align: 'center' });
+      doc.setFontSize(6);
+      doc.setTextColor(...HARVARD_COLORS.silver);
+      doc.text('Conservá este ticket hasta completar el pago', centerX, yPos, { align: 'center' });
       yPos += 3;
-      doc.text('www.cemi-educativo.com', 40, yPos, { align: 'center' });
+      doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
       
       // Descargar PDF
       doc.save(`Ticket-Pago-Efectivo-${numeroTicket}.pdf`);
       
-      console.log(' Ticket PDF generado correctamente');
+      console.log('Ticket PDF generado correctamente');
       
       // Mostrar notificación
       Swal.fire({
@@ -2617,7 +2653,7 @@
       });
       
     } catch (error) {
-      console.error(' Error al generar ticket PDF:', error);
+      console.error('Error al generar ticket PDF:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -3359,6 +3395,17 @@ async function generarComprobantePago(idPago) {
   try {
     const { jsPDF } = window.jspdf;
     
+    // Harvard Color Palette
+    const HARVARD_COLORS = {
+      charcoal: [30, 30, 30],
+      wroughtIron: [74, 74, 74],
+      graphite: [101, 111, 119],
+      silver: [160, 160, 160],
+      lightGray: [245, 245, 245],
+      success: [16, 185, 129],
+      white: [255, 255, 255]
+    };
+    
     // Obtener datos del pago
     const response = await fetch(`${API_URL}/pagos/${idPago}`);
     const pago = await response.json();
@@ -3367,164 +3414,220 @@ async function generarComprobantePago(idPago) {
       throw new Error('No se encontró el pago');
     }
     
-    // Crear PDF en formato ticket (más angosto)
+    // Crear PDF en formato ticket elegante
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
-      format: [80, 200] // Ancho de ticket térmico
+      format: [80, 210] // Ticket térmico elegante
     });
     
-    let yPos = 15;
+    const ticketWidth = 80;
+    const centerX = ticketWidth / 2;
     
-    // Logo (más pequeño para ticket)
+    // ===== HEADER HARVARD ELEGANTE =====
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.rect(0, 0, ticketWidth, 45, 'F');
+    
+    // Logo
+    let yPos = 8;
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
       img.onload = () => {
-        doc.addImage(img, 'PNG', 25, yPos, 30, 30);
+        try {
+          doc.setFillColor(...HARVARD_COLORS.white);
+          doc.roundedRect(centerX - 12, yPos, 24, 24, 2, 2, 'F');
+          doc.addImage(img, 'PNG', centerX - 10, yPos + 2, 20, 20);
+        } catch (e) {}
         resolve();
       };
       img.onerror = resolve;
     });
     
-    yPos += 35;
+    yPos += 28;
     
-    // Título
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text('COMPROBANTE DE PAGO', 40, yPos, { align: 'center' });
-    yPos += 8;
-    
-    // Línea separadora
-    doc.setDrawColor(200);
-    doc.line(10, yPos, 70, yPos);
-    yPos += 8;
-    
-    // Número de comprobante
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.text('N° Comprobante:', 40, yPos, { align: 'center' });
-    yPos += 5;
+    // Título CEMI
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.setFont('times', 'bold');
     doc.setFontSize(14);
-    doc.setTextColor(25, 118, 210);
-    doc.text(`#${String(pago.id_pago).padStart(6, '0')}`, 40, yPos, { align: 'center' });
-    doc.setTextColor(0);
-    yPos += 10;
-    
-    // Fecha
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Fecha: ${new Date(pago.fecha_pago).toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })}`, 40, yPos, { align: 'center' });
-    yPos += 10;
-    
-    // Línea separadora
-    doc.line(10, yPos, 70, yPos);
-    yPos += 5;
-    
-    // Información del alumno
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.text('DATOS DEL ALUMNO', 40, yPos, { align: 'center' });
-    yPos += 5;
-    
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.text('Alumno:', 12, yPos);
-    doc.setFont('helvetica', 'bold');
-    const nombreLines = doc.splitTextToSize(pago.alumno || '-', 46);
-    doc.text(nombreLines, 68, yPos, { align: 'right' });
-    yPos += nombreLines.length * 3.5 + 1;
-    
-    doc.setFont('helvetica', 'normal');
-    doc.text('Legajo:', 12, yPos);
-    doc.setFont('helvetica', 'bold');
-    doc.text(pago.legajo || '-', 68, yPos, { align: 'right' });
+    doc.text('CEMI', centerX, yPos, { align: 'center' });
     yPos += 4;
     
     doc.setFont('helvetica', 'normal');
-    doc.text('DNI:', 12, yPos);
-    doc.setFont('helvetica', 'bold');
-    doc.text(String(pago.dni) || '-', 68, yPos, { align: 'right' });
-    yPos += 6;
+    doc.setFontSize(7);
+    doc.setTextColor(...HARVARD_COLORS.silver);
+    doc.text('Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
     
-    // Línea separadora
-    doc.line(10, yPos, 70, yPos);
+    // Líneas decorativas Harvard
+    yPos = 47;
+    doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+    doc.setLineWidth(1.5);
+    doc.line(8, yPos, ticketWidth - 8, yPos);
+    doc.setDrawColor(...HARVARD_COLORS.graphite);
+    doc.setLineWidth(0.5);
+    doc.line(8, yPos + 2, ticketWidth - 8, yPos + 2);
+    
+    yPos += 10;
+    
+    // ===== TÍTULO DEL COMPROBANTE =====
+    doc.setFont('times', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text('COMPROBANTE DE PAGO', centerX, yPos, { align: 'center' });
+    yPos += 8;
+    
+    // ===== NÚMERO DE COMPROBANTE DESTACADO =====
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.roundedRect(8, yPos, ticketWidth - 16, 18, 3, 3, 'F');
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(...HARVARD_COLORS.silver);
+    doc.text('N° Comprobante', centerX, yPos + 5, { align: 'center' });
+    
+    doc.setFont('times', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text(`#${String(pago.id_pago).padStart(6, '0')}`, centerX, yPos + 13, { align: 'center' });
+    yPos += 24;
+    
+    // Fecha del comprobante
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text(`Fecha: ${new Date(pago.fecha_pago).toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    })}`, centerX, yPos, { align: 'center' });
+    yPos += 8;
+    
+    // ===== SECCIÓN DATOS DEL ALUMNO =====
+    doc.setDrawColor(...HARVARD_COLORS.silver);
+    doc.setLineWidth(0.3);
+    doc.line(8, yPos, ticketWidth - 8, yPos);
     yPos += 5;
     
-    // Detalles del pago
-    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.text('DETALLES DEL PAGO', 40, yPos, { align: 'center' });
+    doc.setFontSize(8);
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text('DATOS DEL ALUMNO', centerX, yPos, { align: 'center' });
+    yPos += 5;
+    
+    // Datos alineados
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('Alumno:', 10, yPos);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    const nombreLines = doc.splitTextToSize(pago.alumno || '-', 40);
+    doc.text(nombreLines, 70, yPos, { align: 'right' });
+    yPos += nombreLines.length * 3.5 + 1;
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('Legajo:', 10, yPos);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text(pago.legajo || '-', 70, yPos, { align: 'right' });
+    yPos += 4;
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('DNI:', 10, yPos);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text(String(pago.dni) || '-', 70, yPos, { align: 'right' });
+    yPos += 6;
+    
+    // ===== SECCIÓN DETALLES DEL PAGO =====
+    doc.setDrawColor(...HARVARD_COLORS.silver);
+    doc.line(8, yPos, ticketWidth - 8, yPos);
+    yPos += 5;
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text('DETALLES DEL PAGO', centerX, yPos, { align: 'center' });
     yPos += 5;
     
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.text('Concepto:', 12, yPos);
+    doc.setFontSize(7);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('Concepto:', 10, yPos);
     doc.setFont('helvetica', 'bold');
-    doc.text(pago.concepto || '-', 68, yPos, { align: 'right' });
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text(pago.concepto || '-', 70, yPos, { align: 'right' });
     yPos += 4;
     
     if (pago.mes_cuota) {
       doc.setFont('helvetica', 'normal');
-      doc.text('Cuota:', 12, yPos);
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text('Cuota:', 10, yPos);
       doc.setFont('helvetica', 'bold');
-      doc.text(pago.mes_cuota, 68, yPos, { align: 'right' });
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.text(pago.mes_cuota, 70, yPos, { align: 'right' });
       yPos += 4;
     }
     
     if (pago.periodo) {
       doc.setFont('helvetica', 'normal');
-      doc.text('Período:', 12, yPos);
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text('Período:', 10, yPos);
       doc.setFont('helvetica', 'bold');
-      doc.text(pago.periodo, 68, yPos, { align: 'right' });
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.text(pago.periodo, 70, yPos, { align: 'right' });
       yPos += 4;
     }
     
     doc.setFont('helvetica', 'normal');
-    doc.text('Medio de Pago:', 12, yPos);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('Medio de Pago:', 10, yPos);
     doc.setFont('helvetica', 'bold');
-    doc.text(pago.medio_pago || '-', 68, yPos, { align: 'right' });
-    yPos += 6;
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text(pago.medio_pago || '-', 70, yPos, { align: 'right' });
+    yPos += 8;
     
-    // Monto destacado
-    doc.setFillColor(25, 118, 210);
-    doc.rect(10, yPos, 60, 10, 'F');
-    doc.setTextColor(255);
-    doc.setFontSize(9);
+    // ===== MONTO TOTAL DESTACADO =====
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.roundedRect(8, yPos, ticketWidth - 16, 14, 2, 2, 'F');
+    
     doc.setFont('helvetica', 'bold');
-    doc.text('TOTAL PAGADO', 15, yPos + 4);
-    doc.setFontSize(12);
-    doc.text(`$${parseFloat(pago.monto).toLocaleString('es-AR', {minimumFractionDigits: 2})}`, 65, yPos + 6.5, { align: 'right' });
-    doc.setTextColor(0);
+    doc.setFontSize(8);
+    doc.setTextColor(...HARVARD_COLORS.silver);
+    doc.text('TOTAL PAGADO', 14, yPos + 5);
+    
+    doc.setFont('times', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text(`$${parseFloat(pago.monto).toLocaleString('es-AR', {minimumFractionDigits: 2})}`, 66, yPos + 9.5, { align: 'right' });
+    yPos += 20;
+    
+    // ===== ESTADO CONFIRMADO =====
+    doc.setFillColor(...HARVARD_COLORS.success);
+    doc.roundedRect(18, yPos, ticketWidth - 36, 8, 2, 2, 'F');
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text('PAGO CONFIRMADO', centerX, yPos + 5.5, { align: 'center' });
     yPos += 14;
     
-    // Estado
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(76, 175, 80);
-    doc.text(' PAGO CONFIRMADO', 40, yPos, { align: 'center' });
-    doc.setTextColor(0);
-    yPos += 7;
-    
-    // Línea separadora
-    doc.setDrawColor(200);
-    doc.line(10, yPos, 70, yPos);
+    // ===== FOOTER ELEGANTE =====
+    doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+    doc.setLineWidth(0.5);
+    doc.line(8, yPos, ticketWidth - 8, yPos);
     yPos += 5;
     
-    // Información adicional
-    doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
-    doc.setTextColor(100);
-    doc.text('Centro de enseñanza de idiomas - CEMI', 40, yPos, { align: 'center' });
-    yPos += 4;
-    doc.text(`Comprobante generado el ${new Date().toLocaleDateString('es-ES')}`, 40, yPos, { align: 'center' });
-    yPos += 3;
     doc.setFontSize(6);
-    doc.text('Este documento es un comprobante válido de pago', 40, yPos, { align: 'center' });
+    doc.setTextColor(...HARVARD_COLORS.silver);
+    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
+    yPos += 3;
+    doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')} - ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`, centerX, yPos, { align: 'center' });
+    yPos += 3;
+    doc.text('Este documento es un comprobante válido de pago', centerX, yPos, { align: 'center' });
     
     // Descargar
     const nombreArchivo = `Comprobante_${String(pago.id_pago).padStart(6, '0')}_${pago.alumno.replace(/\s+/g, '_')}.pdf`;

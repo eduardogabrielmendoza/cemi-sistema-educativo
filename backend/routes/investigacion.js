@@ -54,17 +54,19 @@ const descargarImagen = (url) => {
   });
 };
 
-// Colores institucionales CEMI (Azul)
+// Colores institucionales CEMI - Estilo Harvard
 const colores = {
-  azulOscuro: "#1e3a5f",
-  azulPrimario: "#0070F3",
-  azulClaro: "#3291FF",
-  azulMuyClaro: "#dbeafe",
-  texto: "#1f2937",
-  textoSecundario: "#6b7280",
+  charcoal: "#1e1e1e",
+  wroughtIron: "#4a4a4a",
+  graphite: "#656f77",
+  silver: "#a0a0a0",
+  lightGray: "#f5f5f5",
+  texto: "#1e1e1e",
+  textoSecundario: "#656f77",
   blanco: "#ffffff",
-  grisClaro: "#f3f4f6",
-  borde: "#e5e7eb"
+  grisClaro: "#f5f5f5",
+  borde: "#e5e7eb",
+  success: "#10b981"
 };
 
 // Traducciones
@@ -199,14 +201,24 @@ router.post("/encuesta", async (req, res) => {
       console.log("No se pudo cargar el logo:", err.message);
     }
 
-    // ===== ENCABEZADO AZUL INSTITUCIONAL =====
-    doc.rect(0, 0, doc.page.width, 120).fill(colores.azulOscuro);
+    // ===== ENCABEZADO HARVARD ELEGANTE =====
+    doc.rect(0, 0, doc.page.width, 110).fill(colores.charcoal);
+    
+    // Lineas decorativas Harvard
+    doc.rect(0, 110, doc.page.width, 4).fill(colores.wroughtIron);
+    doc.rect(0, 114, doc.page.width, 1.5).fill(colores.graphite);
+    
+    // Icono de escudo academico
+    doc.rect(45, 25, 30, 36).fillAndStroke(colores.wroughtIron, colores.wroughtIron);
+    doc.rect(48, 30, 24, 26).fill(colores.charcoal);
+    doc.moveTo(60, 32).lineTo(60, 54).strokeColor(colores.silver).lineWidth(0.8).stroke();
+    doc.moveTo(50, 43).lineTo(70, 43).strokeColor(colores.silver).lineWidth(0.8).stroke();
     
     // Circulo blanco para el logo
     if (logoBuffer) {
-      doc.circle(75, 60, 40).fill(colores.blanco);
+      doc.circle(doc.page.width - 75, 55, 35).fill(colores.blanco);
       try {
-        doc.image(logoBuffer, 45, 30, { width: 60, height: 60 });
+        doc.image(logoBuffer, doc.page.width - 105, 25, { width: 60, height: 60 });
       } catch (err) {
         console.log("Error al insertar logo:", err.message);
       }
@@ -214,15 +226,15 @@ router.post("/encuesta", async (req, res) => {
 
     // Titulo CEMI
     doc.fillColor(colores.blanco)
-       .fontSize(32)
-       .font("Helvetica-Bold")
-       .text("CEMI", logoBuffer ? 130 : 50, 35);
+       .fontSize(28)
+       .font("Times-Bold")
+       .text("ENCUESTA DE USUARIO", 85, 35);
 
     // Subtitulo
-    doc.fillColor(colores.azulMuyClaro)
-       .fontSize(14)
+    doc.fillColor(colores.silver)
+       .fontSize(12)
        .font("Helvetica")
-       .text("Encuesta de Experiencia de Usuario", logoBuffer ? 130 : 50, 72);
+       .text("Centro de Enseñanza de Múltiples Idiomas", 85, 68);
 
     // Fecha
     const fechaActual = new Date().toLocaleDateString("es-AR", {
@@ -231,29 +243,30 @@ router.post("/encuesta", async (req, res) => {
       year: "numeric"
     });
     
-    doc.fillColor(colores.azulMuyClaro)
+    doc.fillColor(colores.silver)
        .fontSize(10)
-       .text(`Generado el ${fechaActual}`, logoBuffer ? 130 : 50, 92);
+       .text(`Generado el ${fechaActual}`, 85, 88);
 
-    let yPos = 140;
+    let yPos = 135;
 
     // ===== FUNCION PARA SECCIONES =====
     const agregarSeccion = (titulo) => {
       if (yPos > 700) {
         doc.addPage();
-        // Barra superior en nuevas paginas
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        // Barra superior Harvard en nuevas paginas
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
       
-      // Linea azul decorativa
-      doc.rect(50, yPos, 4, 20).fill(colores.azulPrimario);
+      // Barra lateral Harvard
+      doc.rect(50, yPos, 4, 20).fill(colores.charcoal);
       
-      doc.fillColor(colores.azulOscuro)
+      doc.fillColor(colores.charcoal)
          .fontSize(14)
-         .font("Helvetica-Bold")
+         .font("Times-Bold")
          .text(titulo, 62, yPos + 3);
       
       yPos += 32;
@@ -263,8 +276,9 @@ router.post("/encuesta", async (req, res) => {
     const agregarCampo = (etiqueta, valor) => {
       if (yPos > 720) {
         doc.addPage();
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
@@ -286,8 +300,9 @@ router.post("/encuesta", async (req, res) => {
     const agregarCamposLinea = (campos) => {
       if (yPos > 720) {
         doc.addPage();
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
@@ -315,8 +330,9 @@ router.post("/encuesta", async (req, res) => {
     const agregarCajaTexto = (texto) => {
       if (yPos > 650) {
         doc.addPage();
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
@@ -325,10 +341,13 @@ router.post("/encuesta", async (req, res) => {
          .lineWidth(1)
          .fillAndStroke(colores.grisClaro, colores.borde);
       
+      // Linea decorativa superior
+      doc.rect(62, yPos, pageWidth - 24, 3).fill(colores.charcoal);
+      
       doc.fillColor(colores.texto)
          .fontSize(10)
          .font("Helvetica")
-         .text(texto || "Sin comentarios", 72, yPos + 10, { 
+         .text(texto || "Sin comentarios", 72, yPos + 14, { 
            width: pageWidth - 44,
            height: 45,
            ellipsis: true
@@ -428,17 +447,19 @@ router.post("/encuesta", async (req, res) => {
       agregarCajaTexto(datos.comments);
     }
 
-    // ===== PIE DE PAGINA =====
+    // ===== PIE DE PAGINA HARVARD =====
     const agregarPie = () => {
       const pieY = doc.page.height - 35;
       
-      doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.azulOscuro);
+      // Footer Harvard con linea decorativa
+      doc.rect(0, pieY - 8, doc.page.width, 2).fill(colores.wroughtIron);
+      doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.charcoal);
       
-      doc.fillColor(colores.blanco)
+      doc.fillColor(colores.silver)
          .fontSize(8)
          .font("Helvetica")
          .text(
-           "CEMI | Documento confidencial generado automaticamente | " + fechaActual,
+           "CEMI | Documento confidencial | " + fechaActual,
            50,
            pieY + 5,
            { align: "center", width: pageWidth }
@@ -679,27 +700,33 @@ router.get("/test-pdf", async (req, res) => {
       console.log("No se pudo cargar el logo:", err.message);
     }
 
-    // Encabezado
-    doc.rect(0, 0, doc.page.width, 120).fill(colores.azulOscuro);
+    // Encabezado Harvard
+    doc.rect(0, 0, doc.page.width, 110).fill(colores.charcoal);
+    doc.rect(0, 110, doc.page.width, 4).fill(colores.wroughtIron);
+    doc.rect(0, 114, doc.page.width, 1.5).fill(colores.graphite);
+    
+    // Icono de escudo
+    doc.rect(45, 25, 30, 36).fillAndStroke(colores.wroughtIron, colores.wroughtIron);
+    doc.rect(48, 30, 24, 26).fill(colores.charcoal);
     
     if (logoBuffer) {
-      doc.circle(75, 60, 40).fill(colores.blanco);
+      doc.circle(doc.page.width - 75, 55, 35).fill(colores.blanco);
       try {
-        doc.image(logoBuffer, 45, 30, { width: 60, height: 60 });
+        doc.image(logoBuffer, doc.page.width - 105, 25, { width: 60, height: 60 });
       } catch (err) {
         console.log("Error al insertar logo:", err.message);
       }
     }
 
     doc.fillColor(colores.blanco)
-       .fontSize(32)
-       .font("Helvetica-Bold")
-       .text("CEMI", logoBuffer ? 130 : 50, 35);
+       .fontSize(28)
+       .font("Times-Bold")
+       .text("ENCUESTA DE USUARIO", 85, 35);
 
-    doc.fillColor(colores.azulMuyClaro)
-       .fontSize(14)
+    doc.fillColor(colores.silver)
+       .fontSize(12)
        .font("Helvetica")
-       .text("Encuesta de Experiencia de Usuario", logoBuffer ? 130 : 50, 72);
+       .text("Centro de Enseñanza de Múltiples Idiomas", 85, 68);
 
     const fechaActual = new Date().toLocaleDateString("es-AR", {
       day: "2-digit",
@@ -707,25 +734,26 @@ router.get("/test-pdf", async (req, res) => {
       year: "numeric"
     });
     
-    doc.fillColor(colores.azulMuyClaro)
+    doc.fillColor(colores.silver)
        .fontSize(10)
-       .text(`Generado el ${fechaActual}`, logoBuffer ? 130 : 50, 92);
+       .text(`Generado el ${fechaActual}`, 85, 88);
 
-    let yPos = 140;
+    let yPos = 135;
 
     const agregarSeccion = (titulo) => {
       if (yPos > 700) {
         doc.addPage();
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
       
-      doc.rect(50, yPos, 4, 20).fill(colores.azulPrimario);
-      doc.fillColor(colores.azulOscuro)
+      doc.rect(50, yPos, 4, 20).fill(colores.charcoal);
+      doc.fillColor(colores.charcoal)
          .fontSize(14)
-         .font("Helvetica-Bold")
+         .font("Times-Bold")
          .text(titulo, 62, yPos + 3);
       yPos += 32;
     };
@@ -733,8 +761,9 @@ router.get("/test-pdf", async (req, res) => {
     const agregarCampo = (etiqueta, valor) => {
       if (yPos > 720) {
         doc.addPage();
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
@@ -755,8 +784,9 @@ router.get("/test-pdf", async (req, res) => {
     const agregarCamposLinea = (campos) => {
       if (yPos > 720) {
         doc.addPage();
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
@@ -783,8 +813,9 @@ router.get("/test-pdf", async (req, res) => {
     const agregarCajaTexto = (texto) => {
       if (yPos > 650) {
         doc.addPage();
-        doc.rect(0, 0, doc.page.width, 30).fill(colores.azulOscuro);
-        doc.fillColor(colores.blanco).fontSize(10).font("Helvetica-Bold")
+        doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
+        doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
+        doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
            .text("CEMI - Encuesta de Usuario", 50, 10);
         yPos = 50;
       }
@@ -793,10 +824,12 @@ router.get("/test-pdf", async (req, res) => {
          .lineWidth(1)
          .fillAndStroke(colores.grisClaro, colores.borde);
       
+      doc.rect(62, yPos, pageWidth - 24, 3).fill(colores.charcoal);
+      
       doc.fillColor(colores.texto)
          .fontSize(10)
          .font("Helvetica")
-         .text(texto || "Sin comentarios", 72, yPos + 10, { 
+         .text(texto || "Sin comentarios", 72, yPos + 14, { 
            width: pageWidth - 44,
            height: 45,
            ellipsis: true
@@ -861,14 +894,15 @@ router.get("/test-pdf", async (req, res) => {
     agregarSeccion("COMENTARIOS ADICIONALES");
     agregarCajaTexto(datos.comments);
 
-    // Pie de pagina
+    // Pie de pagina Harvard
     const pieY = doc.page.height - 35;
-    doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.azulOscuro);
-    doc.fillColor(colores.blanco)
+    doc.rect(0, pieY - 8, doc.page.width, 2).fill(colores.wroughtIron);
+    doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.charcoal);
+    doc.fillColor(colores.silver)
        .fontSize(8)
        .font("Helvetica")
        .text(
-         "CEMI | Documento confidencial generado automaticamente | " + fechaActual,
+         "CEMI | Documento confidencial | " + fechaActual,
          50,
          pieY + 5,
          { align: "center", width: pageWidth }

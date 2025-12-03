@@ -369,91 +369,186 @@ function closeDocumentosModal() {
   }
 }
 
-// Función auxiliar para agregar header a los PDFs
+// ============================================
+// PALETA DE COLORES HARVARD
+// ============================================
+const HARVARD_COLORS = {
+  charcoal: [30, 30, 30],        // #1e1e1e - Headers, fondos oscuros
+  wroughtIron: [74, 74, 74],     // #4a4a4a - Secundario
+  graphite: [101, 111, 119],     // #656f77 - Texto secundario
+  silver: [160, 160, 160],       // #a0a0a0 - Terciario
+  lightGray: [245, 245, 245],    // #f5f5f5 - Fondos claros
+  white: [255, 255, 255],        // #ffffff - Blanco
+  text: [45, 45, 45],            // #2d2d2d - Texto principal
+  accent: [74, 82, 89],          // #4a5259 - Acentos
+  success: [16, 185, 129],       // #10b981 - Verde éxito
+  warning: [245, 158, 11],       // #f59e0b - Amarillo advertencia
+  error: [239, 68, 68],          // #ef4444 - Rojo error
+};
+
+// Función auxiliar para agregar header Harvard a los PDFs
 async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
   const pageWidth = doc.internal.pageSize.getWidth();
   
-  // Fondo del header
-  doc.setFillColor(30, 60, 114);
-  doc.rect(0, 0, pageWidth, 45, 'F');
+  // ===== HEADER PRINCIPAL - Estilo Harvard =====
+  // Fondo charcoal principal
+  doc.setFillColor(...HARVARD_COLORS.charcoal);
+  doc.rect(0, 0, pageWidth, 38, 'F');
   
-  // Degradado decorativo
-  doc.setFillColor(42, 82, 152);
-  doc.rect(0, 35, pageWidth, 10, 'F');
+  // Línea de acento inferior (wrought iron)
+  doc.setFillColor(...HARVARD_COLORS.wroughtIron);
+  doc.rect(0, 38, pageWidth, 3, 'F');
+  
+  // Línea fina decorativa
+  doc.setFillColor(...HARVARD_COLORS.graphite);
+  doc.rect(0, 41, pageWidth, 0.5, 'F');
   
   // Intentar agregar logo
   try {
     const logoBase64 = await cargarLogoCEMI();
     if (logoBase64) {
-      // Esfera blanca detrás del logo para mejor estética
-      doc.setFillColor(255, 255, 255);
-      doc.circle(24, 22.5, 12, 'F');
+      // Círculo blanco sutil detrás del logo
+      doc.setFillColor(...HARVARD_COLORS.white);
+      doc.circle(22, 19, 11, 'F');
       
-      // Logo más pequeño centrado en la esfera
-      doc.addImage(logoBase64, 'PNG', 12, 10.5, 24, 24);
+      // Logo centrado en el círculo
+      doc.addImage(logoBase64, 'PNG', 11, 8, 22, 22);
       
-      // Texto CEMI al lado del logo
-      doc.setFontSize(18);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(255, 255, 255);
-      doc.text('CEMI', 42, 20);
+      // Texto CEMI - Tipografía elegante
+      doc.setFontSize(20);
+      doc.setFont('times', 'bold'); // Times = serif similar a Georgia
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.text('CEMI', 40, 17);
+      
+      // Subtítulo institucional
       doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
-      doc.text('Centro de Enseñanza Multilingüe Internacional', 42, 27);
+      doc.setTextColor(...HARVARD_COLORS.silver);
+      doc.text('Centro de Enseñanza Multilingüe Internacional', 40, 24);
+      
+      // Línea vertical separadora elegante
+      doc.setDrawColor(...HARVARD_COLORS.graphite);
+      doc.setLineWidth(0.3);
+      doc.line(40, 28, 80, 28);
     } else {
-      // Fallback: solo texto
-      doc.setFontSize(24);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(255, 255, 255);
-      doc.text('CEMI', 20, 25);
-      doc.setFontSize(8);
+      // Fallback: solo texto con estilo Harvard
+      doc.setFontSize(22);
+      doc.setFont('times', 'bold');
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.text('CEMI', 20, 18);
+      doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
-      doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 32);
+      doc.setTextColor(...HARVARD_COLORS.silver);
+      doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 25);
     }
   } catch (e) {
     // Fallback: solo texto
-    doc.setFontSize(24);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(255, 255, 255);
-    doc.text('CEMI', 20, 25);
-    doc.setFontSize(8);
+    doc.setFontSize(22);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text('CEMI', 20, 18);
+    doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
-    doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 32);
+    doc.setTextColor(...HARVARD_COLORS.silver);
+    doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 25);
   }
   
-  // Título del documento
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 255, 255);
-  doc.text(titulo, pageWidth - 20, 22, { align: 'right' });
+  // ===== TÍTULO DEL DOCUMENTO (lado derecho) =====
+  doc.setFontSize(13);
+  doc.setFont('times', 'bold');
+  doc.setTextColor(...HARVARD_COLORS.white);
+  doc.text(titulo.toUpperCase(), pageWidth - 20, 16, { align: 'right' });
   
   if (subtitulo) {
-    doc.setFontSize(9);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text(subtitulo, pageWidth - 20, 30, { align: 'right' });
+    doc.setTextColor(...HARVARD_COLORS.silver);
+    doc.text(subtitulo, pageWidth - 20, 24, { align: 'right' });
   }
   
-  return 55; // Retorna la posición Y después del header
+  // ===== FECHA EN HEADER =====
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...HARVARD_COLORS.graphite);
+  const fechaHeader = new Date().toLocaleDateString('es-ES', { 
+    day: '2-digit', 
+    month: 'short', 
+    year: 'numeric' 
+  });
+  doc.text(fechaHeader, pageWidth - 20, 32, { align: 'right' });
+  
+  return 52; // Retorna la posición Y después del header
 }
 
-// Función auxiliar para agregar footer a los PDFs
+// Función auxiliar para agregar footer Harvard a los PDFs
 function agregarFooterPDF(doc) {
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   
-  // Línea separadora
-  doc.setDrawColor(200, 200, 200);
-  doc.setLineWidth(0.5);
-  doc.line(20, pageHeight - 25, pageWidth - 20, pageHeight - 25);
+  // ===== FOOTER HARVARD ELEGANTE =====
+  // Fondo del footer
+  doc.setFillColor(...HARVARD_COLORS.charcoal);
+  doc.rect(0, pageHeight - 22, pageWidth, 22, 'F');
   
-  // Texto del footer
-  doc.setFontSize(8);
+  // Línea superior del footer
+  doc.setFillColor(...HARVARD_COLORS.wroughtIron);
+  doc.rect(0, pageHeight - 22, pageWidth, 0.5, 'F');
+  
+  // Logo miniatura y texto CEMI
+  doc.setFontSize(9);
+  doc.setFont('times', 'bold');
+  doc.setTextColor(...HARVARD_COLORS.white);
+  doc.text('CEMI', 20, pageHeight - 12);
+  
+  doc.setFontSize(6);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(128, 128, 128);
-  doc.text('CEMI - Centro de Enseñanza Multilingüe Internacional', pageWidth / 2, pageHeight - 18, { align: 'center' });
-  doc.text(`Documento generado el ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })} a las ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`, pageWidth / 2, pageHeight - 12, { align: 'center' });
+  doc.setTextColor(...HARVARD_COLORS.silver);
+  doc.text('Centro de Enseñanza Multilingüe Internacional', 20, pageHeight - 7);
+  
+  // Fecha y hora de generación (centro)
+  doc.setFontSize(6);
+  doc.setTextColor(...HARVARD_COLORS.graphite);
+  const fechaGen = new Date().toLocaleDateString('es-ES', { 
+    day: '2-digit', 
+    month: 'long', 
+    year: 'numeric' 
+  });
+  const horaGen = new Date().toLocaleTimeString('es-ES', { 
+    hour: '2-digit', 
+    minute: '2-digit' 
+  });
+  doc.text(`Generado: ${fechaGen} - ${horaGen}`, pageWidth / 2, pageHeight - 12, { align: 'center' });
+  
+  // Texto de validez
+  doc.setFontSize(5.5);
+  doc.setTextColor(...HARVARD_COLORS.silver);
+  doc.text('Documento con validez institucional', pageWidth / 2, pageHeight - 7, { align: 'center' });
+  
+  // Número de página (derecha)
+  const pageNumber = doc.internal.getNumberOfPages ? doc.internal.getCurrentPageInfo().pageNumber : 1;
+  const totalPages = doc.internal.getNumberOfPages ? doc.internal.getNumberOfPages() : 1;
   doc.setFontSize(7);
-  doc.text('Este documento tiene validez institucional', pageWidth / 2, pageHeight - 7, { align: 'center' });
+  doc.setTextColor(...HARVARD_COLORS.white);
+  doc.text(`${pageNumber} / ${totalPages}`, pageWidth - 20, pageHeight - 10, { align: 'right' });
+}
+
+// Función para agregar header en páginas secundarias (más compacto)
+function agregarHeaderSecundario(doc, titulo) {
+  const pageWidth = doc.internal.pageSize.getWidth();
+  
+  doc.setFillColor(...HARVARD_COLORS.charcoal);
+  doc.rect(0, 0, pageWidth, 18, 'F');
+  
+  doc.setFontSize(10);
+  doc.setFont('times', 'bold');
+  doc.setTextColor(...HARVARD_COLORS.white);
+  doc.text('CEMI', 15, 12);
+  
+  doc.setFontSize(8);
+  doc.setTextColor(...HARVARD_COLORS.silver);
+  doc.text(titulo, pageWidth - 15, 12, { align: 'right' });
+  
+  return 28; // Posición Y después del header secundario
 }
 
 // GENERADOR DE CÓDIGOS DE RECUPERACIÓN 2FA (Visual)
@@ -698,7 +793,7 @@ function generarNuevosCodigos(nombreAlumno) {
   showToast('Nuevos códigos generados', 'success');
 }
 
-// 1. CONSTANCIA DE ALUMNO REGULAR
+// 1. CONSTANCIA DE ALUMNO REGULAR - Estilo Harvard
 async function generarConstanciaAlumnoRegular(idAlumno) {
   try {
     closeDocumentosModal();
@@ -718,109 +813,147 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     const pageWidth = doc.internal.pageSize.getWidth();
     let yPos = await agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
     
-    // Número de constancia
+    // ===== NÚMERO DE CONSTANCIA - Estilo elegante =====
     const numeroConstancia = `CONST-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text(`N° ${numeroConstancia}`, pageWidth - 20, yPos, { align: 'right' });
-    
-    yPos += 20;
-    
-    // Título principal
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
-    doc.text('CONSTANCIA DE ALUMNO REGULAR', pageWidth / 2, yPos, { align: 'center' });
-    
-    yPos += 20;
-    
-    // Cuerpo de la constancia
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
-    
-    const textoConstancia = `Por medio de la presente, el Centro de Enseñanza Multilingüe Internacional (CEMI) certifica que:`;
-    doc.text(textoConstancia, 20, yPos, { maxWidth: pageWidth - 40 });
-    
-    yPos += 20;
-    
-    // Datos del alumno en recuadro
-    doc.setFillColor(248, 250, 252);
-    doc.setDrawColor(30, 60, 114);
-    doc.setLineWidth(0.5);
-    doc.roundedRect(20, yPos, pageWidth - 40, 50, 3, 3, 'FD');
-    
-    yPos += 12;
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
-    doc.text(`${alumno.nombre} ${alumno.apellido}`, pageWidth / 2, yPos, { align: 'center' });
-    
-    yPos += 10;
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(80, 80, 80);
-    doc.text(`DNI: ${alumno.dni || 'No registrado'}`, pageWidth / 2, yPos, { align: 'center' });
-    
-    yPos += 8;
-    doc.text(`Legajo: ${alumno.legajo}`, pageWidth / 2, yPos, { align: 'center' });
-    
-    yPos += 8;
-    doc.text(`Fecha de Registro: ${alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES') : 'No registrada'}`, pageWidth / 2, yPos, { align: 'center' });
-    
-    yPos += 25;
-    
-    // Texto de confirmación
-    doc.setFontSize(12);
-    doc.setTextColor(50, 50, 50);
-    const textoConfirmacion = `Se encuentra regularmente inscripto/a como alumno/a de esta institución, cursando actualmente ${alumno.cursos_activos || 0} curso(s) de idiomas.`;
-    doc.text(textoConfirmacion, 20, yPos, { maxWidth: pageWidth - 40 });
-    
-    yPos += 20;
-    
-    // Cursos activos
-    if (alumno.cursos && alumno.cursos.length > 0) {
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text('Cursos en los que se encuentra inscripto:', 20, yPos);
-      
-      yPos += 8;
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(80, 80, 80);
-      
-      alumno.cursos.forEach((curso, index) => {
-        doc.text(`• ${curso.nombre_curso} - ${curso.nombre_idioma} (Nivel ${curso.id_nivel})`, 25, yPos);
-        yPos += 6;
-      });
-    }
     
     yPos += 15;
     
-    // Texto final
+    // ===== TÍTULO PRINCIPAL - Tipografía Harvard =====
+    doc.setFontSize(16);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text('CONSTANCIA DE ALUMNO REGULAR', pageWidth / 2, yPos, { align: 'center' });
+    
+    // Línea decorativa bajo el título
+    yPos += 5;
+    doc.setDrawColor(...HARVARD_COLORS.graphite);
+    doc.setLineWidth(0.4);
+    doc.line(pageWidth / 2 - 50, yPos, pageWidth / 2 + 50, yPos);
+    
+    yPos += 18;
+    
+    // ===== CUERPO INTRODUCTORIO =====
     doc.setFontSize(11);
-    doc.setTextColor(50, 50, 50);
-    doc.text('Se extiende la presente constancia a pedido del interesado para ser presentada', 20, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.text);
+    doc.text('Por medio de la presente, el Centro de Enseñanza Multilingüe Internacional', 20, yPos);
     yPos += 6;
-    doc.text('ante quien corresponda.', 20, yPos);
+    doc.text('(CEMI) certifica que:', 20, yPos);
+    
+    yPos += 15;
+    
+    // ===== RECUADRO DE DATOS DEL ALUMNO - Estilo Harvard =====
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.setDrawColor(...HARVARD_COLORS.charcoal);
+    doc.setLineWidth(0.8);
+    doc.roundedRect(25, yPos, pageWidth - 50, 48, 2, 2, 'FD');
+    
+    // Barra superior del recuadro
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.rect(25, yPos, pageWidth - 50, 8, 'F');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text('DATOS DEL ALUMNO', pageWidth / 2, yPos + 5.5, { align: 'center' });
+    
+    yPos += 18;
+    
+    // Nombre completo
+    doc.setFontSize(14);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text(`${alumno.nombre} ${alumno.apellido}`, pageWidth / 2, yPos, { align: 'center' });
+    
+    yPos += 10;
+    
+    // Datos en línea
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.wroughtIron);
+    
+    const dniText = `DNI: ${alumno.dni || 'No registrado'}`;
+    const legajoText = `Legajo: ${alumno.legajo}`;
+    doc.text(dniText, pageWidth / 2 - 35, yPos, { align: 'center' });
+    doc.text('|', pageWidth / 2, yPos, { align: 'center' });
+    doc.text(legajoText, pageWidth / 2 + 35, yPos, { align: 'center' });
+    
+    yPos += 8;
+    doc.setFontSize(9);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text(`Fecha de Registro: ${alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) : 'No registrada'}`, pageWidth / 2, yPos, { align: 'center' });
     
     yPos += 25;
     
-    // Fecha y lugar
-    doc.setFont('helvetica', 'italic');
-    doc.text(`San Miguel de Tucumán, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 20, yPos, { align: 'right' });
+    // ===== TEXTO DE CERTIFICACIÓN =====
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.text);
+    const textoConfirmacion = `Se encuentra regularmente inscripto/a como alumno/a de esta institución, cursando actualmente ${alumno.cursos_activos || 0} curso(s) de idiomas.`;
+    const lineasConf = doc.splitTextToSize(textoConfirmacion, pageWidth - 40);
+    doc.text(lineasConf, 20, yPos);
     
-    // Espacio para firma
-    yPos += 30;
-    doc.setDrawColor(100, 100, 100);
-    doc.setLineWidth(0.3);
-    doc.line(pageWidth / 2 - 40, yPos, pageWidth / 2 + 40, yPos);
+    yPos += lineasConf.length * 6 + 12;
+    
+    // ===== CURSOS ACTIVOS =====
+    if (alumno.cursos && alumno.cursos.length > 0) {
+      doc.setFontSize(10);
+      doc.setFont('times', 'bold');
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      doc.text('Cursos inscriptos:', 20, yPos);
+      
+      yPos += 8;
+      
+      alumno.cursos.forEach((curso, index) => {
+        // Viñeta elegante
+        doc.setFillColor(...HARVARD_COLORS.wroughtIron);
+        doc.circle(24, yPos - 1.5, 1.2, 'F');
+        
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...HARVARD_COLORS.text);
+        doc.text(`${curso.nombre_curso} — ${curso.nombre_idioma} (Nivel ${curso.id_nivel})`, 28, yPos);
+        yPos += 7;
+      });
+    }
+    
+    yPos += 12;
+    
+    // ===== TEXTO FINAL =====
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.text);
+    doc.text('Se extiende la presente constancia a pedido del interesado para ser presentada', 20, yPos);
+    yPos += 5;
+    doc.text('ante quien corresponda.', 20, yPos);
+    
+    yPos += 20;
+    
+    // ===== FECHA Y LUGAR =====
+    doc.setFontSize(10);
+    doc.setFont('times', 'italic');
+    doc.setTextColor(...HARVARD_COLORS.wroughtIron);
+    doc.text(`San Miguel de Tucumán, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
+    
+    // ===== ESPACIO PARA FIRMA =====
+    yPos += 28;
+    
+    // Línea de firma con estilo
+    doc.setDrawColor(...HARVARD_COLORS.charcoal);
+    doc.setLineWidth(0.5);
+    doc.line(pageWidth / 2 - 35, yPos, pageWidth / 2 + 35, yPos);
+    
     yPos += 5;
     doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text('Firma y Sello', pageWidth / 2, yPos, { align: 'center' });
     yPos += 4;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text('Dirección CEMI', pageWidth / 2, yPos, { align: 'center' });
     
     agregarFooterPDF(doc);
@@ -835,7 +968,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
   }
 }
 
-// 2. CERTIFICADO DE CALIFICACIONES
+// 2. CERTIFICADO DE CALIFICACIONES - Estilo Harvard
 async function generarCertificadoCalificaciones(idAlumno) {
   try {
     closeDocumentosModal();
@@ -855,170 +988,212 @@ async function generarCertificadoCalificaciones(idAlumno) {
     const pageWidth = doc.internal.pageSize.getWidth();
     let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
     
-    // Número de certificado
+    // ===== NÚMERO DE CERTIFICADO =====
     const numeroCertificado = `CERT-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text(`N° ${numeroCertificado}`, pageWidth - 20, yPos, { align: 'right' });
     
-    yPos += 15;
+    yPos += 12;
     
-    // Título
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
+    // ===== TÍTULO PRINCIPAL =====
+    doc.setFontSize(15);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text('CERTIFICADO DE CALIFICACIONES', pageWidth / 2, yPos, { align: 'center' });
     
-    yPos += 15;
+    // Línea decorativa
+    yPos += 4;
+    doc.setDrawColor(...HARVARD_COLORS.graphite);
+    doc.setLineWidth(0.4);
+    doc.line(pageWidth / 2 - 45, yPos, pageWidth / 2 + 45, yPos);
     
-    // Datos del alumno
-    doc.setFillColor(248, 250, 252);
-    doc.setDrawColor(30, 60, 114);
-    doc.roundedRect(20, yPos, pageWidth - 40, 28, 3, 3, 'FD');
+    yPos += 12;
+    
+    // ===== DATOS DEL ALUMNO - Estilo Harvard =====
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.setDrawColor(...HARVARD_COLORS.charcoal);
+    doc.setLineWidth(0.6);
+    doc.roundedRect(20, yPos, pageWidth - 40, 32, 2, 2, 'FD');
     
     yPos += 10;
-    doc.setFontSize(11);
+    
+    // Fila 1
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text('ALUMNO:', 25, yPos);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`${alumno.nombre} ${alumno.apellido}`, 50, yPos);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.setFontSize(11);
+    doc.text(`${alumno.nombre} ${alumno.apellido}`, 48, yPos);
     
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
-    doc.text('DNI:', 120, yPos);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('DNI:', 130, yPos);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`${alumno.dni || 'N/R'}`, 132, yPos);
+    doc.setTextColor(...HARVARD_COLORS.text);
+    doc.text(`${alumno.dni || 'N/R'}`, 142, yPos);
     
     yPos += 10;
+    
+    // Fila 2
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text('LEGAJO:', 25, yPos);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`${alumno.legajo}`, 50, yPos);
+    doc.setTextColor(...HARVARD_COLORS.text);
+    doc.text(`${alumno.legajo}`, 48, yPos);
     
     if (alumno.promedio_general) {
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text('PROMEDIO GENERAL:', 120, yPos);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(16, 185, 129);
-      doc.text(`${alumno.promedio_general}`, 172, yPos);
+      doc.setTextColor(...HARVARD_COLORS.graphite);
+      doc.text('PROMEDIO GENERAL:', 130, yPos);
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(...HARVARD_COLORS.success);
+      doc.text(`${alumno.promedio_general}`, 175, yPos);
     }
     
-    yPos += 20;
+    yPos += 22;
     
-    // Tabla de calificaciones
+    // ===== TABLA DE CALIFICACIONES - Estilo Harvard =====
     if (alumno.cursos && alumno.cursos.length > 0) {
-      doc.setFontSize(12);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
+      doc.setFontSize(10);
+      doc.setFont('times', 'bold');
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
       doc.text('DETALLE DE CALIFICACIONES POR CURSO', 20, yPos);
       
       yPos += 8;
       
-      // Headers de la tabla
-      const colWidths = [60, 25, 25, 25, 30];
+      // Headers de la tabla con estilo Harvard
+      const colWidths = [65, 25, 25, 25, 25];
       const headers = ['Curso', 'Parcial 1', 'Parcial 2', 'Final', 'Promedio'];
       
-      doc.setFillColor(30, 60, 114);
-      doc.rect(20, yPos, pageWidth - 40, 10, 'F');
+      doc.setFillColor(...HARVARD_COLORS.charcoal);
+      doc.rect(20, yPos, pageWidth - 40, 9, 'F');
       
-      doc.setFontSize(9);
+      doc.setFontSize(8);
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(255, 255, 255);
+      doc.setTextColor(...HARVARD_COLORS.white);
       
-      let xPos = 22;
+      let xPos = 24;
       headers.forEach((header, i) => {
-        doc.text(header, xPos, yPos + 7);
+        if (i === 0) {
+          doc.text(header, xPos, yPos + 6);
+        } else {
+          doc.text(header, xPos + colWidths[i]/2, yPos + 6, { align: 'center' });
+        }
         xPos += colWidths[i];
       });
       
-      yPos += 12;
+      yPos += 11;
       
       // Filas de la tabla
-      doc.setFont('helvetica', 'normal');
       alumno.cursos.forEach((curso, index) => {
         // Alternar colores de fila
         if (index % 2 === 0) {
-          doc.setFillColor(248, 250, 252);
-          doc.rect(20, yPos - 2, pageWidth - 40, 10, 'F');
+          doc.setFillColor(...HARVARD_COLORS.lightGray);
+        } else {
+          doc.setFillColor(255, 255, 255);
         }
+        doc.rect(20, yPos - 3, pageWidth - 40, 9, 'F');
         
-        doc.setTextColor(50, 50, 50);
-        xPos = 22;
+        // Línea separadora sutil
+        doc.setDrawColor(...HARVARD_COLORS.silver);
+        doc.setLineWidth(0.1);
+        doc.line(20, yPos + 6, pageWidth - 20, yPos + 6);
         
-        // Nombre del curso (truncado si es muy largo)
-        const nombreCurso = curso.nombre_curso.length > 25 ? curso.nombre_curso.substring(0, 22) + '...' : curso.nombre_curso;
-        doc.text(nombreCurso, xPos, yPos + 5);
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...HARVARD_COLORS.text);
+        xPos = 24;
+        
+        // Nombre del curso
+        const nombreCurso = curso.nombre_curso.length > 28 ? curso.nombre_curso.substring(0, 25) + '...' : curso.nombre_curso;
+        doc.text(nombreCurso, xPos, yPos + 3);
         xPos += colWidths[0];
         
-        // Parcial 1
-        doc.text(curso.parcial1 ? curso.parcial1.toString() : '-', xPos + 8, yPos + 5);
+        // Parciales y Final
+        doc.text(curso.parcial1 ? curso.parcial1.toString() : '—', xPos + colWidths[1]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[1];
         
-        // Parcial 2
-        doc.text(curso.parcial2 ? curso.parcial2.toString() : '-', xPos + 8, yPos + 5);
+        doc.text(curso.parcial2 ? curso.parcial2.toString() : '—', xPos + colWidths[2]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[2];
         
-        // Final
-        doc.text(curso.final ? curso.final.toString() : '-', xPos + 5, yPos + 5);
+        doc.text(curso.final ? curso.final.toString() : '—', xPos + colWidths[3]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[3];
         
-        // Promedio
-        const promedio = curso.promedio ? parseFloat(curso.promedio).toFixed(2) : '-';
+        // Promedio con colores Harvard
+        const promedio = curso.promedio ? parseFloat(curso.promedio).toFixed(1) : '—';
         doc.setFont('helvetica', 'bold');
-        if (promedio !== '-' && parseFloat(promedio) >= 7) {
-          doc.setTextColor(16, 185, 129);
-        } else if (promedio !== '-' && parseFloat(promedio) >= 4) {
-          doc.setTextColor(245, 158, 11);
-        } else if (promedio !== '-') {
-          doc.setTextColor(239, 68, 68);
+        if (promedio !== '—') {
+          if (parseFloat(promedio) >= 7) {
+            doc.setTextColor(...HARVARD_COLORS.success);
+          } else if (parseFloat(promedio) >= 4) {
+            doc.setTextColor(...HARVARD_COLORS.warning);
+          } else {
+            doc.setTextColor(...HARVARD_COLORS.error);
+          }
         }
-        doc.text(promedio, xPos + 5, yPos + 5);
-        doc.setFont('helvetica', 'normal');
+        doc.text(promedio, xPos + colWidths[4]/2, yPos + 3, { align: 'center' });
         
-        yPos += 10;
+        yPos += 9;
       });
       
-      // Borde de la tabla
-      doc.setDrawColor(200, 200, 200);
-      doc.setLineWidth(0.3);
-      doc.rect(20, yPos - (alumno.cursos.length * 10) - 12, pageWidth - 40, (alumno.cursos.length * 10) + 12);
+      // Borde exterior de la tabla
+      doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+      doc.setLineWidth(0.5);
+      doc.rect(20, yPos - (alumno.cursos.length * 9) - 11, pageWidth - 40, (alumno.cursos.length * 9) + 11);
       
     } else {
-      doc.setFontSize(11);
-      doc.setTextColor(100, 100, 100);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.text('No hay calificaciones registradas.', pageWidth / 2, yPos + 10, { align: 'center' });
       yPos += 20;
     }
     
-    yPos += 20;
-    
-    // Leyenda
-    doc.setFontSize(9);
-    doc.setTextColor(100, 100, 100);
-    doc.text('Escala de calificación: 1 a 10 | Nota mínima de aprobación: 7 (siete)', 20, yPos);
-    
     yPos += 15;
     
-    // Fecha y firma
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'italic');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`Emitido en San Miguel de Tucumán, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 20, yPos, { align: 'right' });
-    
-    yPos += 25;
-    doc.setDrawColor(100, 100, 100);
-    doc.line(pageWidth / 2 - 40, yPos, pageWidth / 2 + 40, yPos);
-    yPos += 5;
-    doc.setFontSize(9);
+    // ===== LEYENDA =====
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.roundedRect(20, yPos, pageWidth - 40, 12, 1, 1, 'F');
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text('Firma y Sello - Dirección Académica', pageWidth / 2, yPos, { align: 'center' });
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('Escala de calificación: 1 a 10  |  Nota mínima de aprobación: 7 (siete)  |  Aprobado ', pageWidth / 2, yPos + 5, { align: 'center' });
+    doc.setFillColor(...HARVARD_COLORS.success);
+    doc.circle(pageWidth / 2 + 60, yPos + 4, 2, 'F');
+    doc.text(' Recuperación ', pageWidth / 2 + 70, yPos + 5);
+    doc.setFillColor(...HARVARD_COLORS.warning);
+    doc.circle(pageWidth / 2 + 85, yPos + 4, 2, 'F');
+    
+    yPos += 22;
+    
+    // ===== FECHA Y FIRMA =====
+    doc.setFontSize(9);
+    doc.setFont('times', 'italic');
+    doc.setTextColor(...HARVARD_COLORS.wroughtIron);
+    doc.text(`Emitido en San Miguel de Tucumán, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
+    
+    yPos += 22;
+    
+    // Línea de firma
+    doc.setDrawColor(...HARVARD_COLORS.charcoal);
+    doc.setLineWidth(0.5);
+    doc.line(pageWidth / 2 - 35, yPos, pageWidth / 2 + 35, yPos);
+    yPos += 4;
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text('Firma y Sello', pageWidth / 2, yPos, { align: 'center' });
+    yPos += 4;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('Dirección Académica CEMI', pageWidth / 2, yPos, { align: 'center' });
     
     agregarFooterPDF(doc);
     
@@ -1032,7 +1207,7 @@ async function generarCertificadoCalificaciones(idAlumno) {
   }
 }
 
-// 3. ESTADO DE CUENTA
+// 3. ESTADO DE CUENTA - Estilo Harvard
 async function generarEstadoCuenta(idAlumno) {
   try {
     closeDocumentosModal();
@@ -1060,46 +1235,50 @@ async function generarEstadoCuenta(idAlumno) {
     const pageWidth = doc.internal.pageSize.getWidth();
     let yPos = await agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
     
-    // Número de documento
+    // ===== NÚMERO DE DOCUMENTO =====
     const numeroDoc = `EC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(idAlumno).padStart(5, '0')}`;
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text(`N° ${numeroDoc}`, pageWidth - 20, yPos, { align: 'right' });
     
-    yPos += 10;
+    yPos += 8;
     
-    // Datos del alumno
-    doc.setFillColor(248, 250, 252);
-    doc.setDrawColor(30, 60, 114);
-    doc.roundedRect(20, yPos, pageWidth - 40, 22, 3, 3, 'FD');
+    // ===== DATOS DEL ALUMNO - Estilo Harvard =====
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.setDrawColor(...HARVARD_COLORS.charcoal);
+    doc.setLineWidth(0.6);
+    doc.roundedRect(20, yPos, pageWidth - 40, 20, 2, 2, 'FD');
     
     yPos += 8;
-    doc.setFontSize(11);
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text('ALUMNO:', 25, yPos);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`${alumno.nombre} ${alumno.apellido}`, 50, yPos);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.setFontSize(10);
+    doc.text(`${alumno.nombre} ${alumno.apellido}`, 48, yPos);
+    
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text('LEGAJO:', 130, yPos);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
+    doc.setTextColor(...HARVARD_COLORS.text);
     doc.text(`${alumno.legajo}`, 152, yPos);
     
-    yPos += 8;
+    yPos += 7;
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text('EMAIL:', 25, yPos);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`${alumno.mail || 'No registrado'}`, 45, yPos);
+    doc.setTextColor(...HARVARD_COLORS.text);
+    doc.text(`${alumno.mail || 'No registrado'}`, 43, yPos);
     
     yPos += 18;
     
-    // Resumen general - usar estadisticas_globales del endpoint
+    // ===== CÁLCULO DE TOTALES =====
     let totalPagado = 0;
     let totalPendiente = 0;
     let cuotasPagadas = 0;
@@ -1121,177 +1300,195 @@ async function generarEstadoCuenta(idAlumno) {
       });
     }
     
-    // Cajas de resumen
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
-    doc.text('RESUMEN GENERAL', 20, yPos);
+    // ===== RESUMEN FINANCIERO - Estilo Harvard =====
+    doc.setFontSize(10);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text('RESUMEN FINANCIERO', 20, yPos);
     
     yPos += 8;
     
+    // Cajas de resumen con estilo Harvard elegante
+    const boxWidth = 52;
+    const boxHeight = 26;
+    const spacing = 7;
+    
     // Caja Total Pagado
-    doc.setFillColor(220, 252, 231);
-    doc.setDrawColor(16, 185, 129);
-    doc.roundedRect(20, yPos, 55, 28, 3, 3, 'FD');
-    doc.setFontSize(9);
-    doc.setTextColor(16, 185, 129);
-    doc.text('TOTAL PAGADO', 47.5, yPos + 8, { align: 'center' });
-    doc.setFontSize(14);
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.setDrawColor(...HARVARD_COLORS.success);
+    doc.setLineWidth(1.5);
+    doc.roundedRect(20, yPos, boxWidth, boxHeight, 2, 2, 'FD');
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.text(`$${totalPagado.toLocaleString('es-AR')}`, 47.5, yPos + 20, { align: 'center' });
+    doc.setTextColor(...HARVARD_COLORS.success);
+    doc.text('TOTAL PAGADO', 20 + boxWidth/2, yPos + 8, { align: 'center' });
+    doc.setFontSize(13);
+    doc.setFont('times', 'bold');
+    doc.text(`$${totalPagado.toLocaleString('es-AR')}`, 20 + boxWidth/2, yPos + 18, { align: 'center' });
     
     // Caja Total Pendiente
-    doc.setFillColor(254, 243, 199);
-    doc.setDrawColor(245, 158, 11);
-    doc.roundedRect(80, yPos, 55, 28, 3, 3, 'FD');
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(217, 119, 6);
-    doc.text('PENDIENTE', 107.5, yPos + 8, { align: 'center' });
-    doc.setFontSize(14);
+    doc.setDrawColor(...HARVARD_COLORS.warning);
+    doc.roundedRect(20 + boxWidth + spacing, yPos, boxWidth, boxHeight, 2, 2, 'FD');
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.text(`$${totalPendiente.toLocaleString('es-AR')}`, 107.5, yPos + 20, { align: 'center' });
+    doc.setTextColor(...HARVARD_COLORS.warning);
+    doc.text('PENDIENTE', 20 + boxWidth + spacing + boxWidth/2, yPos + 8, { align: 'center' });
+    doc.setFontSize(13);
+    doc.setFont('times', 'bold');
+    doc.text(`$${totalPendiente.toLocaleString('es-AR')}`, 20 + boxWidth + spacing + boxWidth/2, yPos + 18, { align: 'center' });
     
     // Caja Cuotas
-    doc.setFillColor(239, 246, 255);
-    doc.setDrawColor(59, 130, 246);
-    doc.roundedRect(140, yPos, 50, 28, 3, 3, 'FD');
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(37, 99, 235);
-    doc.text('CUOTAS', 165, yPos + 8, { align: 'center' });
-    doc.setFontSize(12);
+    doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+    doc.roundedRect(20 + (boxWidth + spacing) * 2, yPos, boxWidth, boxHeight, 2, 2, 'FD');
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${cuotasPagadas}/${cuotasTotales}`, 165, yPos + 20, { align: 'center' });
+    doc.setTextColor(...HARVARD_COLORS.wroughtIron);
+    doc.text('CUOTAS ABONADAS', 20 + (boxWidth + spacing) * 2 + boxWidth/2, yPos + 8, { align: 'center' });
+    doc.setFontSize(13);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text(`${cuotasPagadas} / ${cuotasTotales}`, 20 + (boxWidth + spacing) * 2 + boxWidth/2, yPos + 18, { align: 'center' });
     
-    yPos += 38;
+    yPos += 36;
     
-    // Detalle por curso
+    // ===== DETALLE POR CURSO =====
     const pageHeight = doc.internal.pageSize.getHeight();
-    const margenInferior = 35; // Espacio para footer
+    const margenInferior = 30;
     
-    // Función para verificar y agregar nueva página si es necesario
     const verificarNuevaPagina = (espacioNecesario = 15) => {
       if (yPos + espacioNecesario > pageHeight - margenInferior) {
         agregarFooterPDF(doc);
         doc.addPage();
-        yPos = 20; // Reiniciar posición Y en nueva página
+        yPos = agregarHeaderSecundario(doc, 'ESTADO DE CUENTA');
         return true;
       }
       return false;
     };
     
     if (pagosData.cursos && pagosData.cursos.length > 0) {
-      doc.setFontSize(11);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
+      doc.setFontSize(10);
+      doc.setFont('times', 'bold');
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
       doc.text('DETALLE POR CURSO', 20, yPos);
       
       yPos += 8;
       
       pagosData.cursos.forEach((curso, index) => {
-        // Verificar si hay espacio para el header del curso + al menos 3 filas
         verificarNuevaPagina(40);
         
-        // Header del curso
-        doc.setFillColor(241, 245, 249);
-        doc.rect(20, yPos, pageWidth - 40, 8, 'F');
-        doc.setFontSize(10);
+        // Header del curso - Estilo Harvard
+        doc.setFillColor(...HARVARD_COLORS.charcoal);
+        doc.rect(20, yPos, pageWidth - 40, 7, 'F');
+        doc.setFontSize(9);
         doc.setFont('helvetica', 'bold');
-        doc.setTextColor(30, 60, 114);
+        doc.setTextColor(...HARVARD_COLORS.white);
         const nombreCurso = curso.nombre_curso || 'Curso';
-        doc.text(nombreCurso, 25, yPos + 6);
+        doc.text(nombreCurso.toUpperCase(), 25, yPos + 5);
         
-        yPos += 12;
+        yPos += 10;
         
-        // Cuotas del curso - usar curso.meses del endpoint
+        // Headers de tabla de cuotas
         if (curso.meses && curso.meses.length > 0) {
-          doc.setFontSize(8);
-          doc.setFont('helvetica', 'normal');
+          doc.setFillColor(...HARVARD_COLORS.lightGray);
+          doc.rect(20, yPos, pageWidth - 40, 6, 'F');
           
-          // Headers de cuotas
-          doc.setTextColor(100, 100, 100);
-          doc.text('Cuota', 25, yPos);
-          doc.text('Monto', 70, yPos);
-          doc.text('Estado', 100, yPos);
-          doc.text('Fecha Pago', 140, yPos);
+          doc.setFontSize(7);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(...HARVARD_COLORS.graphite);
+          doc.text('CUOTA', 28, yPos + 4);
+          doc.text('MONTO', 75, yPos + 4);
+          doc.text('ESTADO', 110, yPos + 4);
+          doc.text('FECHA PAGO', 155, yPos + 4);
           
-          yPos += 5;
-          doc.setDrawColor(200, 200, 200);
-          doc.line(25, yPos, pageWidth - 25, yPos);
-          yPos += 4;
+          yPos += 8;
           
-          curso.meses.forEach(mes => {
-            // Verificar espacio antes de cada fila
-            if (verificarNuevaPagina(8)) {
-              // Repetir headers en nueva página
+          curso.meses.forEach((mes, mesIndex) => {
+            if (verificarNuevaPagina(6)) {
               doc.setFontSize(8);
               doc.setFont('helvetica', 'bold');
-              doc.setTextColor(30, 60, 114);
+              doc.setTextColor(...HARVARD_COLORS.charcoal);
               doc.text(`${nombreCurso} (continuación)`, 25, yPos);
+              yPos += 7;
+              
+              doc.setFillColor(...HARVARD_COLORS.lightGray);
+              doc.rect(20, yPos, pageWidth - 40, 6, 'F');
+              doc.setFontSize(7);
+              doc.setTextColor(...HARVARD_COLORS.graphite);
+              doc.text('CUOTA', 28, yPos + 4);
+              doc.text('MONTO', 75, yPos + 4);
+              doc.text('ESTADO', 110, yPos + 4);
+              doc.text('FECHA PAGO', 155, yPos + 4);
               yPos += 8;
-              doc.setFont('helvetica', 'normal');
-              doc.setTextColor(100, 100, 100);
-              doc.text('Cuota', 25, yPos);
-              doc.text('Monto', 70, yPos);
-              doc.text('Estado', 100, yPos);
-              doc.text('Fecha Pago', 140, yPos);
-              yPos += 5;
-              doc.setDrawColor(200, 200, 200);
-              doc.line(25, yPos, pageWidth - 25, yPos);
-              yPos += 4;
+            }
+            
+            // Alternar filas
+            if (mesIndex % 2 === 0) {
+              doc.setFillColor(252, 252, 252);
+              doc.rect(20, yPos - 3, pageWidth - 40, 6, 'F');
             }
             
             doc.setFontSize(8);
-            doc.setTextColor(50, 50, 50);
-            doc.text(mes.mes || '', 25, yPos);
-            doc.text(`$${(mes.monto || 15000).toLocaleString('es-AR')}`, 70, yPos);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(...HARVARD_COLORS.text);
+            doc.text(mes.mes || '', 28, yPos);
+            doc.text(`$${(mes.monto || 15000).toLocaleString('es-AR')}`, 75, yPos);
             
+            // Estado con colores
             if (mes.estado === 'pagado') {
-              doc.setTextColor(16, 185, 129);
-              doc.text('Pagado', 100, yPos);
-              doc.setTextColor(100, 100, 100);
-              doc.text(mes.fecha_pago ? new Date(mes.fecha_pago).toLocaleDateString('es-ES') : '-', 140, yPos);
+              doc.setTextColor(...HARVARD_COLORS.success);
+              doc.setFont('helvetica', 'bold');
+              doc.text('● Pagado', 110, yPos);
+              doc.setFont('helvetica', 'normal');
+              doc.setTextColor(...HARVARD_COLORS.text);
+              doc.text(mes.fecha_pago ? new Date(mes.fecha_pago).toLocaleDateString('es-ES') : '—', 155, yPos);
             } else if (mes.estado === 'impago') {
-              doc.setTextColor(239, 68, 68);
-              doc.text('Impago', 100, yPos);
-              doc.setTextColor(100, 100, 100);
-              doc.text('-', 140, yPos);
+              doc.setTextColor(...HARVARD_COLORS.error);
+              doc.setFont('helvetica', 'bold');
+              doc.text('● Impago', 110, yPos);
+              doc.setTextColor(...HARVARD_COLORS.graphite);
+              doc.text('—', 155, yPos);
             } else if (mes.estado === 'pendiente') {
-              doc.setTextColor(245, 158, 11);
-              doc.text('Pendiente', 100, yPos);
-              doc.setTextColor(100, 100, 100);
-              doc.text('-', 140, yPos);
+              doc.setTextColor(...HARVARD_COLORS.warning);
+              doc.setFont('helvetica', 'bold');
+              doc.text('● Pendiente', 110, yPos);
+              doc.setTextColor(...HARVARD_COLORS.graphite);
+              doc.text('—', 155, yPos);
             } else {
-              doc.setTextColor(156, 163, 175);
-              doc.text('Próximo', 100, yPos);
-              doc.setTextColor(100, 100, 100);
-              doc.text('-', 140, yPos);
+              doc.setTextColor(...HARVARD_COLORS.silver);
+              doc.text('○ Próximo', 110, yPos);
+              doc.text('—', 155, yPos);
             }
             
-            yPos += 5;
+            yPos += 6;
           });
+          
+          // Línea separadora entre cursos
+          doc.setDrawColor(...HARVARD_COLORS.silver);
+          doc.setLineWidth(0.2);
+          doc.line(20, yPos + 2, pageWidth - 20, yPos + 2);
         }
         
         yPos += 8;
       });
     } else {
-      doc.setFontSize(11);
-      doc.setTextColor(100, 100, 100);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.text('No hay registros de pagos para este alumno.', pageWidth / 2, yPos + 10, { align: 'center' });
     }
     
-    // Verificar espacio para notas finales
+    // ===== NOTAS FINALES =====
     verificarNuevaPagina(20);
-    yPos += 5;
+    yPos += 8;
     
-    // Nota
-    doc.setFontSize(8);
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.roundedRect(20, yPos, pageWidth - 40, 14, 1, 1, 'F');
+    
+    doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
-    doc.setTextColor(100, 100, 100);
-    doc.text('* Los montos están expresados en pesos argentinos (ARS)', 20, yPos);
-    yPos += 4;
-    doc.text('* Para consultas sobre pagos, comunicarse con administración', 20, yPos);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('* Los montos están expresados en pesos argentinos (ARS)', 25, yPos + 5);
+    doc.text('* Para consultas sobre pagos, comunicarse con el área de administración', 25, yPos + 10);
     
     agregarFooterPDF(doc);
     
@@ -1305,7 +1502,7 @@ async function generarEstadoCuenta(idAlumno) {
   }
 }
 
-// 4. FICHA DE INSCRIPCIÓN
+// 4. FICHA DE INSCRIPCIÓN - Estilo Harvard
 async function generarFichaInscripcion(idAlumno) {
   try {
     closeDocumentosModal();
@@ -1325,7 +1522,6 @@ async function generarFichaInscripcion(idAlumno) {
     
     // Combinar datos: usar alumno.cursos para idioma/nivel, agregar profesor de pagos
     const cursosCombinados = (alumno.cursos || []).map(curso => {
-      // Buscar el profesor en cursosConProfesor
       const cursoPago = cursosConProfesor.find(cp => cp.id_curso === curso.id_curso);
       return {
         ...curso,
@@ -1341,173 +1537,197 @@ async function generarFichaInscripcion(idAlumno) {
     });
     
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Datos del Alumno');
+    let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Registro Académico');
     
-    // Número de ficha
+    // ===== NÚMERO DE FICHA =====
     const numeroFicha = `FI-${alumno.legajo}`;
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
+    doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text(`N° ${numeroFicha}`, pageWidth - 20, yPos, { align: 'right' });
     
-    yPos += 10;
+    yPos += 8;
     
-    // Sección: Datos Personales
-    doc.setFillColor(30, 60, 114);
-    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
-    doc.setFontSize(10);
+    // ===== SECCIÓN: DATOS PERSONALES =====
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.rect(20, yPos, pageWidth - 40, 7, 'F');
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(255, 255, 255);
-    doc.text('DATOS PERSONALES', 25, yPos + 6);
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text('DATOS PERSONALES', 25, yPos + 5);
     
-    yPos += 14;
+    yPos += 12;
     
-    // Grid de datos personales
+    // Grid de datos personales - Estilo Harvard
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.roundedRect(20, yPos, pageWidth - 40, 38, 2, 2, 'F');
+    
     const datosPersonales = [
       { label: 'Nombre Completo', value: `${alumno.nombre || ''} ${alumno.apellido || ''}`.trim() || 'No registrado' },
       { label: 'DNI', value: alumno.dni || 'No registrado' },
       { label: 'Legajo', value: alumno.legajo || 'No asignado' },
       { label: 'Email', value: alumno.mail || 'No registrado' },
       { label: 'Teléfono', value: alumno.telefono || 'No registrado' },
-      { label: 'Fecha de Registro', value: alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES') : 'No registrada' },
+      { label: 'Fecha de Registro', value: alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }) : 'No registrada' },
       { label: 'Estado', value: alumno.estado ? alumno.estado.charAt(0).toUpperCase() + alumno.estado.slice(1) : 'Activo' },
       { label: 'Usuario', value: alumno.usuario || 'No asignado' }
     ];
     
-    doc.setFontSize(9);
+    yPos += 6;
+    doc.setFontSize(8);
     let col = 0;
     datosPersonales.forEach((dato, index) => {
       const xBase = col === 0 ? 25 : 115;
       
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
+      doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.text(`${dato.label}:`, xBase, yPos);
       
       doc.setFont('helvetica', 'normal');
-      doc.setTextColor(50, 50, 50);
-      const maxWidth = col === 0 ? 60 : 70;
-      const valorTruncado = dato.value.length > 35 ? dato.value.substring(0, 32) + '...' : dato.value;
-      doc.text(valorTruncado, xBase + 35, yPos);
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
+      const valorTruncado = dato.value.length > 32 ? dato.value.substring(0, 29) + '...' : dato.value;
+      doc.text(valorTruncado, xBase + 32, yPos);
       
       col++;
       if (col === 2) {
         col = 0;
-        yPos += 8;
+        yPos += 7;
       }
     });
     
-    if (col !== 0) yPos += 8;
-    yPos += 8;
+    if (col !== 0) yPos += 7;
+    yPos += 10;
     
-    // Sección: Cursos Inscriptos
-    doc.setFillColor(30, 60, 114);
-    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
-    doc.setFontSize(10);
+    // ===== SECCIÓN: CURSOS INSCRIPTOS =====
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.rect(20, yPos, pageWidth - 40, 7, 'F');
+    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(255, 255, 255);
-    doc.text('CURSOS INSCRIPTOS', 25, yPos + 6);
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text('CURSOS INSCRIPTOS', 25, yPos + 5);
     
-    yPos += 14;
+    yPos += 12;
     
     if (cursosCombinados.length > 0) {
-      const cursos = cursosCombinados;
-      
-      // Headers de tabla
-      doc.setFillColor(241, 245, 249);
-      doc.rect(20, yPos, pageWidth - 40, 8, 'F');
-      doc.setFontSize(8);
+      // Headers de tabla - Estilo Harvard
+      doc.setFillColor(...HARVARD_COLORS.wroughtIron);
+      doc.rect(20, yPos, pageWidth - 40, 7, 'F');
+      doc.setFontSize(7);
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(30, 60, 114);
-      doc.text('Curso', 25, yPos + 6);
-      doc.text('Idioma', 75, yPos + 6);
-      doc.text('Nivel', 110, yPos + 6);
-      doc.text('Profesor', 135, yPos + 6);
+      doc.setTextColor(...HARVARD_COLORS.white);
+      doc.text('CURSO', 25, yPos + 5);
+      doc.text('IDIOMA', 80, yPos + 5);
+      doc.text('NIVEL', 115, yPos + 5);
+      doc.text('PROFESOR', 140, yPos + 5);
       
-      yPos += 12;
+      yPos += 9;
       
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(50, 50, 50);
-      
-      cursos.forEach((curso, index) => {
+      cursosCombinados.forEach((curso, index) => {
+        // Alternar filas
         if (index % 2 === 0) {
-          doc.setFillColor(248, 250, 252);
-          doc.rect(20, yPos - 3, pageWidth - 40, 8, 'F');
+          doc.setFillColor(...HARVARD_COLORS.lightGray);
+        } else {
+          doc.setFillColor(255, 255, 255);
         }
+        doc.rect(20, yPos - 3, pageWidth - 40, 7, 'F');
         
-        const nombreCurso = (curso.nombre_curso || '').length > 25 ? (curso.nombre_curso || '').substring(0, 22) + '...' : (curso.nombre_curso || 'N/A');
-        doc.text(nombreCurso, 25, yPos + 2);
-        doc.text(curso.nombre_idioma || 'N/A', 75, yPos + 2);
-        doc.text(curso.nivel || curso.id_nivel?.toString() || 'N/A', 110, yPos + 2);
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...HARVARD_COLORS.text);
         
-        const profesor = (curso.profesor || '').length > 20 ? (curso.profesor || '').substring(0, 17) + '...' : (curso.profesor || 'No asignado');
-        doc.text(profesor, 135, yPos + 2);
+        const nombreCurso = (curso.nombre_curso || '').length > 28 ? (curso.nombre_curso || '').substring(0, 25) + '...' : (curso.nombre_curso || 'N/A');
+        doc.text(nombreCurso, 25, yPos + 1);
+        doc.text(curso.nombre_idioma || 'N/A', 80, yPos + 1);
+        doc.text(curso.nivel || curso.id_nivel?.toString() || 'N/A', 115, yPos + 1);
         
-        yPos += 8;
+        const profesor = (curso.profesor || '').length > 22 ? (curso.profesor || '').substring(0, 19) + '...' : (curso.profesor || 'No asignado');
+        doc.text(profesor, 140, yPos + 1);
+        
+        yPos += 7;
       });
       
       // Borde de tabla
-      doc.setDrawColor(200, 200, 200);
-      doc.rect(20, yPos - (cursos.length * 8) - 12, pageWidth - 40, (cursos.length * 8) + 12);
+      doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+      doc.setLineWidth(0.5);
+      doc.rect(20, yPos - (cursosCombinados.length * 7) - 9, pageWidth - 40, (cursosCombinados.length * 7) + 9);
       
     } else {
-      doc.setFontSize(10);
-      doc.setTextColor(100, 100, 100);
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'italic');
+      doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.text('No hay cursos inscriptos actualmente.', pageWidth / 2, yPos, { align: 'center' });
       yPos += 10;
     }
     
-    yPos += 15;
+    yPos += 12;
     
-    // Sección: Información Académica
-    doc.setFillColor(30, 60, 114);
-    doc.rect(20, yPos, pageWidth - 40, 8, 'F');
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(255, 255, 255);
-    doc.text('INFORMACIÓN ACADÉMICA', 25, yPos + 6);
-    
-    yPos += 14;
-    
+    // ===== SECCIÓN: INFORMACIÓN ACADÉMICA =====
+    doc.setFillColor(...HARVARD_COLORS.charcoal);
+    doc.rect(20, yPos, pageWidth - 40, 7, 'F');
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
-    doc.text('Total de Cursos Activos:', 25, yPos);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`${alumno.cursos_activos || 0}`, 80, yPos);
+    doc.setTextColor(...HARVARD_COLORS.white);
+    doc.text('INFORMACIÓN ACADÉMICA', 25, yPos + 5);
     
-    yPos += 8;
+    yPos += 12;
+    
+    // Cajas de información académica
+    const boxW = 80;
+    
+    // Caja Cursos Activos
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
+    doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(20, yPos, boxW, 18, 2, 2, 'FD');
+    
+    doc.setFontSize(7);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 60, 114);
-    doc.text('Promedio General:', 25, yPos);
-    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('CURSOS ACTIVOS', 20 + boxW/2, yPos + 6, { align: 'center' });
+    
+    doc.setFontSize(14);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
+    doc.text(`${alumno.cursos_activos || 0}`, 20 + boxW/2, yPos + 14, { align: 'center' });
+    
+    // Caja Promedio General
+    doc.roundedRect(20 + boxW + 10, yPos, boxW, 18, 2, 2, 'FD');
+    
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('PROMEDIO GENERAL', 20 + boxW + 10 + boxW/2, yPos + 6, { align: 'center' });
+    
+    doc.setFontSize(14);
+    doc.setFont('times', 'bold');
     if (alumno.promedio_general && parseFloat(alumno.promedio_general) >= 7) {
-      doc.setTextColor(16, 185, 129);
+      doc.setTextColor(...HARVARD_COLORS.success);
     } else if (alumno.promedio_general && parseFloat(alumno.promedio_general) >= 4) {
-      doc.setTextColor(245, 158, 11);
+      doc.setTextColor(...HARVARD_COLORS.warning);
     } else {
-      doc.setTextColor(50, 50, 50);
+      doc.setTextColor(...HARVARD_COLORS.charcoal);
     }
-    doc.text(`${alumno.promedio_general || 'Sin calificaciones'}`, 80, yPos);
+    doc.text(`${alumno.promedio_general || '—'}`, 20 + boxW + 10 + boxW/2, yPos + 14, { align: 'center' });
     
-    yPos += 25;
+    yPos += 30;
     
-    // Fecha y firma
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'italic');
-    doc.setTextColor(50, 50, 50);
-    doc.text(`Ficha generada el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 20, yPos, { align: 'right' });
+    // ===== FECHA =====
+    doc.setFontSize(9);
+    doc.setFont('times', 'italic');
+    doc.setTextColor(...HARVARD_COLORS.wroughtIron);
+    doc.text(`Ficha generada el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
     
-    yPos += 20;
+    yPos += 22;
     
-    // Firmas
-    doc.setDrawColor(100, 100, 100);
-    doc.setLineWidth(0.3);
+    // ===== FIRMAS =====
+    doc.setDrawColor(...HARVARD_COLORS.charcoal);
+    doc.setLineWidth(0.5);
     
     // Firma alumno
     doc.line(30, yPos, 90, yPos);
     doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text('Firma del Alumno', 60, yPos + 5, { align: 'center' });
     
     // Firma institución
