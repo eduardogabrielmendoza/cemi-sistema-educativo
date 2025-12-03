@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e1e1e">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="apple-touch-icon" href="images/logo.png">
+  <title>¿Por qué elegir CEMI? - Centro Municipal de Idiomas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/harvard-menu.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ============================================================
+       PORQUE CEMI - HERO SECTION
+       ============================================================ */
+    .porque-hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+      overflow: hidden;
+    }
+
+    .porque-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('images/STOCK1.jpg') center/cover no-repeat;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .porque-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 40px;
+    }
+
+    .porque-hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards 0.2s;
+    }
+
+    .porque-hero h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: 4.5rem;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards 0.4s;
+    }
+
+    .porque-hero p {
+      font-size: 1.35rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards 0.6s;
+    }
+
+    .porque-hero-scroll {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards 0.8s;
+    }
+
+    .porque-hero-scroll a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .porque-hero-scroll a:hover {
+      color: #ffffff;
+      transform: translateY(3px);
+    }
+
+    .porque-hero-scroll i {
+      animation: bounceDown 2s ease-in-out infinite;
+    }
+
+    @keyframes bounceDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ============================================================
+       QUOTE SECTION - Estilo Harvard
+       ============================================================ */
+    .porque-quote-section {
+      background: #f8f9fa;
+      padding: 100px 40px;
+    }
+
+    .porque-quote-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .porque-quote {
+      font-family: 'Inter', sans-serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: #1e1e1e;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .porque-quote::before {
+      content: '"';
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 6rem;
+      color: rgba(30, 30, 30, 0.1);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .porque-quote-author {
+      font-size: 1.1rem;
+      color: #656f77;
+      font-weight: 500;
+    }
+
+    .porque-quote-author span {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       STATS SECTION - By the Numbers
+       ============================================================ */
+    .porque-stats-section {
+      background: #ffffff;
+      padding: 100px 40px;
+    }
+
+    .porque-stats-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .porque-stats-header h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: #1e1e1e;
+      letter-spacing: -0.02em;
+    }
+
+    .porque-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .porque-stat-item {
+      text-align: center;
+      padding: 40px 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .porque-stat-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .porque-stat-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 4rem;
+      font-weight: 600;
+      color: #1e1e1e;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .porque-stat-label {
+      font-size: 1.1rem;
+      color: #656f77;
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       FEATURE CARDS - Split Sections
+       ============================================================ */
+    .porque-feature-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+
+    .porque-feature-section.reverse {
+      direction: rtl;
+    }
+
+    .porque-feature-section.reverse > * {
+      direction: ltr;
+    }
+
+    .porque-feature-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .porque-feature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .porque-feature-section:hover .porque-feature-image img {
+      transform: scale(1.05);
+    }
+
+    .porque-feature-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px;
+      background: #ffffff;
+    }
+
+    .porque-feature-section.dark .porque-feature-content {
+      background: #1e1e1e;
+    }
+
+    .porque-feature-section.dark .porque-feature-content h3,
+    .porque-feature-section.dark .porque-feature-content p {
+      color: #ffffff;
+    }
+
+    .porque-feature-section.dark .porque-feature-content p {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .porque-feature-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: #1e1e1e;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .porque-feature-content p {
+      font-size: 1.15rem;
+      color: #656f77;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .porque-feature-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e1e1e;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .porque-feature-section.dark .porque-feature-link {
+      color: #ffffff;
+    }
+
+    .porque-feature-link:hover {
+      gap: 12px;
+    }
+
+    /* ============================================================
+       CTA SECTION
+       ============================================================ */
+    .porque-cta-section {
+      background: linear-gradient(135deg, #1e1e1e 0%, #333333 100%);
+      padding: 120px 40px;
+      text-align: center;
+    }
+
+    .porque-cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .porque-cta-section h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 3rem;
+      font-weight: 400;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .porque-cta-section p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+    }
+
+    .porque-cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .porque-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .porque-cta-btn.primary {
+      background: #ffffff;
+      color: #1e1e1e;
+    }
+
+    .porque-cta-btn.primary:hover {
+      background: #f0f0f0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .porque-cta-btn.outline {
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .porque-cta-btn.outline:hover {
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 992px) {
+      .porque-hero h1 {
+        font-size: 3rem;
+      }
+
+      .porque-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .porque-feature-section {
+        grid-template-columns: 1fr;
+      }
+
+      .porque-feature-section.reverse {
+        direction: ltr;
+      }
+
+      .porque-feature-image {
+        min-height: 300px;
+      }
+
+      .porque-feature-content {
+        padding: 60px 40px;
+      }
+
+      .porque-feature-content h3 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .porque-hero {
+        min-height: 70vh;
+      }
+
+      .porque-hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .porque-hero p {
+        font-size: 1.1rem;
+      }
+
+      .porque-quote {
+        font-size: 1.4rem;
+      }
+
+      .porque-stats-header h2 {
+        font-size: 2rem;
+      }
+
+      .porque-stat-number {
+        font-size: 3rem;
+      }
+
+      .porque-feature-content {
+        padding: 40px 24px;
+      }
+
+      .porque-cta-section h2 {
+        font-size: 2rem;
+      }
+
+      .porque-cta-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== HARVARD-STYLE HEADER ===== -->
+  <header class="harvard-header">
+    <div class="harvard-header-inner">
+      <!-- Logo y nombre a la izquierda -->
+      <a href="index.html" class="harvard-branding">
+        <img src="images/logolongblack.png" alt="Logo CEMI" class="harvard-logo-img" style="width: 166px; height: 42px;">
+        <span class="harvard-dot"></span>
+        <span class="harvard-brand-text" style="pointer-events: none;">Aprende porque elegir CEMI</span>
+      </a>
+      
+      <!-- Botones a la derecha -->
+      <div class="harvard-actions">
+        <div class="harvard-search-wrapper" id="harvardSearchWrapper">
+          <input type="text" class="harvard-search-field" id="harvardSearchField" placeholder="Buscar en CEMI" autocomplete="off">
+          <div class="harvard-search-icons">
+            <button class="harvard-search-submit" id="harvardSearchSubmit" aria-label="Buscar">
+              <i data-lucide="search"></i>
+            </button>
+            <button class="harvard-search-close" id="harvardSearchClose" aria-label="Cerrar búsqueda">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="harvard-search-quicklink">
+            <span>QUICK LINKS</span>
+            <a href="a-to-z.html">Ir a Índice A-Z</a>
+          </div>
+        </div>
+        <button class="harvard-az-btn" id="harvardAzBtn" aria-label="Índice A-Z">
+          <span>A-Z</span>
+        </button>
+        <button class="harvard-menu-btn" id="harvardMenuBtn">
+          <span>Menu</span>
+          <div class="harvard-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="porque-hero">
+    <div class="porque-hero-content">
+      <span class="porque-hero-badge">Centro Municipal de Idiomas</span>
+      <h1>Defendiendo la excelencia en la enseñanza de idiomas</h1>
+      <p>Desde hace más de una década, CEMI ha sido el centro de referencia en Bella Vista para quienes buscan aprender idiomas con metodología profesional y docentes comprometidos.</p>
+      <div class="porque-hero-scroll">
+        <a href="#quote">
+          Descubre más
+          <i data-lucide="chevron-down" style="width: 20px; height: 20px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section class="porque-quote-section" id="quote">
+    <div class="porque-quote-inner">
+      <p class="porque-quote">
+        "El aprendizaje de un idioma no es solo memorizar palabras, es abrir puertas a nuevas culturas, oportunidades y formas de pensar. En CEMI, cultivamos esa transformación."
+      </p>
+      <p class="porque-quote-author">
+        Dirección CEMI
+        <span>Centro Municipal de Idiomas - Bella Vista</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="porque-stats-section">
+    <div class="porque-stats-header">
+      <h2>En números</h2>
+    </div>
+    <div class="porque-stats-grid">
+      <div class="porque-stat-item">
+        <div class="porque-stat-number">500+</div>
+        <div class="porque-stat-label">Alumnos activos en nuestros programas de idiomas</div>
+      </div>
+      <div class="porque-stat-item">
+        <div class="porque-stat-number">15+</div>
+        <div class="porque-stat-label">Años de experiencia formando estudiantes en idiomas</div>
+      </div>
+      <div class="porque-stat-item">
+        <div class="porque-stat-number">4</div>
+        <div class="porque-stat-label">Idiomas disponibles: Inglés, Portugués, Italiano y Francés</div>
+      </div>
+      <div class="porque-stat-item">
+        <div class="porque-stat-number">20+</div>
+        <div class="porque-stat-label">Profesores calificados y con experiencia internacional</div>
+      </div>
+      <div class="porque-stat-item">
+        <div class="porque-stat-number">95%</div>
+        <div class="porque-stat-label">Tasa de satisfacción de nuestros estudiantes</div>
+      </div>
+      <div class="porque-stat-item">
+        <div class="porque-stat-number">8</div>
+        <div class="porque-stat-label">Niveles de aprendizaje, desde principiante hasta avanzado</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Section 1 -->
+  <section class="porque-feature-section">
+    <div class="porque-feature-image">
+      <img src="images/STOCK2.jpg" alt="Metodología de enseñanza">
+    </div>
+    <div class="porque-feature-content">
+      <h3>Metodología probada</h3>
+      <p>Nuestro enfoque comunicativo prioriza la práctica oral y la inmersión lingüística. Cada clase está diseñada para que el alumno use el idioma desde el primer día, desarrollando confianza y fluidez de manera natural.</p>
+      <a href="guia.html" class="porque-feature-link">
+        Conoce nuestra metodología
+        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Feature Section 2 -->
+  <section class="porque-feature-section reverse dark">
+    <div class="porque-feature-image">
+      <img src="images/STOCK3.webp" alt="Tecnología educativa">
+    </div>
+    <div class="porque-feature-content">
+      <h3>Tecnología al servicio del aprendizaje</h3>
+      <p>Con nuestro sistema Classroom, los alumnos acceden a materiales, tareas y recursos desde cualquier lugar. Seguimiento de progreso en tiempo real, calificaciones actualizadas y comunicación directa con profesores.</p>
+      <a href="classroom-login.html" class="porque-feature-link">
+        Explorar el Classroom
+        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Feature Section 3 -->
+  <section class="porque-feature-section">
+    <div class="porque-feature-image">
+      <img src="images/STOCK4.jpg" alt="Comunidad CEMI">
+    </div>
+    <div class="porque-feature-content">
+      <h3>Una comunidad que te acompaña</h3>
+      <p>Más que una institución, somos una familia de estudiantes y docentes apasionados por los idiomas. Eventos culturales, intercambios y actividades extracurriculares complementan tu experiencia de aprendizaje.</p>
+      <a href="#nosotros" class="porque-feature-link">
+        Conoce nuestra comunidad
+        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="porque-cta-section">
+    <div class="porque-cta-inner">
+      <h2>Comienza tu camino en CEMI</h2>
+      <p>Únete a cientos de estudiantes que ya están transformando su futuro a través del aprendizaje de idiomas.</p>
+      <div class="porque-cta-buttons">
+        <a href="register.html" class="porque-cta-btn primary">
+          <i data-lucide="user-plus" style="width: 20px; height: 20px;"></i>
+          Registrarse ahora
+        </a>
+        <a href="index.html" class="porque-cta-btn outline">
+          Volver al inicio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="professional-footer">
+    <div class="footer-main">
+      <div class="footer-column">
+        <div class="footer-logo">
+          <img src="images/logolong.png" alt="Logo CEMI" class="footer-logo-long">
+        </div>
+        <p class="footer-description">Sistema de Gestión Académica Integral para instituciones educativas modernas.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Contacto</h4>
+        <ul class="footer-contact">
+          <li><i data-lucide="mail"></i> contacto@cemi.edu.ar</li>
+          <li><i data-lucide="phone"></i> +54 381 4463243</li>
+          <li><i data-lucide="map-pin"></i> Sarmiento y Marconi<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bella Vista, Tucumán</li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Síguenos</h4>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/p/CEMI-Bella-Vista-61573420844539/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i data-lucide="facebook"></i>
+          </a>
+        </div>
+        <button class="footer-cta" onclick="window.location.href='register.html'">
+          <i data-lucide="user-plus"></i> Registrarse
+        </button>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 CEMI - Sistema de Gestión Académica. Todos los derechos reservados.</p>
+      <p class="footer-tech">Desarrollado con Node.js, MySQL y tecnologías modernas</p>
+      <div class="footer-links-bottom">
+        <a href="terminos.html">Términos de Servicio</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="ayuda.html">Ayuda</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // Intersection Observer para animaciones de scroll
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observar elementos de stats
+    document.querySelectorAll('.porque-stat-item').forEach((item, index) => {
+      item.style.transitionDelay = `${index * 0.1}s`;
+      observer.observe(item);
+    });
+  </script>
+
+  <!-- Harvard-style Menu -->
+  <script src="assets/js/harvard-menu.js?v=1.0"></script>
+</body>
+</html>
