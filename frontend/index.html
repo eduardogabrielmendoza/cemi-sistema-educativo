@@ -1246,18 +1246,20 @@
       offset: 100
     });
 
-    // ===== SCROLL REVEAL - Split Banners =====
+    // ===== SCROLL REVEAL BIDIRECCIONAL - Split Banners =====
     const scrollRevealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // Entrando al viewport - mostrar con animación
           entry.target.classList.add('visible');
-          // Una vez visible, dejar de observar
-          scrollRevealObserver.unobserve(entry.target);
+        } else {
+          // Saliendo del viewport - ocultar para reanimar al volver
+          entry.target.classList.remove('visible');
         }
       });
     }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.1,
+      rootMargin: '0px 0px -80px 0px'
     });
 
     // Observar todos los elementos con animación
