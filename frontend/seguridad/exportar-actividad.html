@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
             <div style="display: flex; align-items: start; gap: 20px;">
                 <i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #FFC107; flex-shrink: 0; margin-top: 4px;"></i>
                 <div>
-                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">⚠️ Exportación Controlada</strong>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">️ Exportación Controlada</strong>
                     <p style="margin: 0; color: #856404; line-height: 1.6;">Los registros de actividad deben ser solicitados al administrador. El proceso puede tomar 24-48 horas dependiendo del volumen de datos.</p>
                 </div>
             </div>
@@ -68,7 +68,6 @@
             <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">Selecciona qué datos deseas exportar y en qué formato:</p>
             
             <form id="exportForm" style="background: white; padding: 30px; border-radius: 12px; color: #2c3e50;">
-                <!-- Tipo de actividad -->
                 <div style="margin-bottom: 30px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 15px; color: #2c3e50; font-size: 16px;">
                         <i data-lucide="check-square" style="width: 18px; height: 18px; display: inline; vertical-align: middle;"></i> Tipos de actividad a incluir *
@@ -77,56 +76,55 @@
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="logins" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">🔐 Inicios de sesión</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Inicios de sesión</strong>
                                 <small style="color: #5a6c7d;">Accesos exitosos y fallidos con ubicación, dispositivo, IP y timestamp</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="security" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">🛡️ Eventos de seguridad</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">️ Eventos de seguridad</strong>
                                 <small style="color: #5a6c7d;">Cambios de contraseña, activación/desactivación 2FA, recuperación de cuenta</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="settings" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">⚙️ Cambios de configuración</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">️ Cambios de configuración</strong>
                                 <small style="color: #5a6c7d;">Modificaciones en perfil, privacidad, notificaciones, preferencias</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="files" style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">📁 Actividad de archivos</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Actividad de archivos</strong>
                                 <small style="color: #5a6c7d;">Subidas, descargas, compartidos, eliminaciones de archivos</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="messages" style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">💬 Mensajería</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Mensajería</strong>
                                 <small style="color: #5a6c7d;">Mensajes enviados/recibidos (solo metadatos: fecha, destinatarios, no contenido)</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="apps" style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">🔌 Aplicaciones conectadas</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Aplicaciones conectadas</strong>
                                 <small style="color: #5a6c7d;">Conexiones/desconexiones OAuth, tokens API generados/revocados</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="academic" style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">📚 Actividad académica</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Actividad académica</strong>
                                 <small style="color: #5a6c7d;">Entregas de tareas, participación en foros, visualización de materiales</small>
                             </div>
                         </label>
                     </div>
                 </div>
 
-                <!-- Rango de fechas -->
                 <div style="margin-bottom: 30px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="calendar-range" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Rango de fechas *
@@ -150,7 +148,6 @@
                     </div>
                 </div>
 
-                <!-- Formato de exportación -->
                 <div style="margin-bottom: 30px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="file-type" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Formato de archivo *
@@ -158,23 +155,22 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
                         <label style="border: 2px solid #0071e3; background: #e3f2fd; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s; text-align: center;">
                             <input type="radio" name="format" value="csv" checked style="margin-right: 8px;">
-                            <strong style="display: block; color: #0071e3; font-size: 15px; margin-top: 8px;">📊 CSV</strong>
+                            <strong style="display: block; color: #0071e3; font-size: 15px; margin-top: 8px;"> CSV</strong>
                             <small style="color: #5a6c7d; font-size: 12px; display: block; margin-top: 5px;">Excel, análisis de datos</small>
                         </label>
                         <label style="border: 2px solid #e0e6ed; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s; text-align: center;">
                             <input type="radio" name="format" value="json" style="margin-right: 8px;">
-                            <strong style="display: block; color: #2c3e50; font-size: 15px; margin-top: 8px;">🔧 JSON</strong>
+                            <strong style="display: block; color: #2c3e50; font-size: 15px; margin-top: 8px;"> JSON</strong>
                             <small style="color: #5a6c7d; font-size: 12px; display: block; margin-top: 5px;">APIs, scripts, desarrollo</small>
                         </label>
                         <label style="border: 2px solid #e0e6ed; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s; text-align: center;">
                             <input type="radio" name="format" value="pdf" style="margin-right: 8px;">
-                            <strong style="display: block; color: #2c3e50; font-size: 15px; margin-top: 8px;">📄 PDF</strong>
+                            <strong style="display: block; color: #2c3e50; font-size: 15px; margin-top: 8px;"> PDF</strong>
                             <small style="color: #5a6c7d; font-size: 12px; display: block; margin-top: 5px;">Auditorías, informes legales</small>
                         </label>
                     </div>
                 </div>
 
-                <!-- Opciones adicionales -->
                 <div style="margin-bottom: 30px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 15px; color: #2c3e50;">
                         <i data-lucide="settings" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Opciones adicionales
@@ -195,7 +191,6 @@
                     </div>
                 </div>
 
-                <!-- Exportación recurrente -->
                 <div style="margin-bottom: 30px;">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
                         <label style="position: relative; display: inline-block; width: 60px; height: 30px; cursor: pointer;">
@@ -228,7 +223,6 @@
             </form>
         </div>
 
-        <!-- Vista previa de datos -->
         <div class="security-card">
             <h2><i data-lucide="eye"></i> Vista previa de datos</h2>
             <p style="margin-bottom: 20px;">Ejemplo de cómo se verán tus datos exportados:</p>
@@ -301,9 +295,9 @@
                 <div style="flex: 1;">
                     <strong style="display: block; color: #2c3e50; margin-bottom: 8px;">actividad_abril_2024.csv</strong>
                     <div style="color: #5a6c7d; font-size: 13px; line-height: 1.6;">
-                        <span>📅 Generado: 01/05/2024 10:20</span> • 
-                        <span>📊 1,832 eventos</span> • 
-                        <span>💾 245 KB</span> • 
+                        <span> Generado: 01/05/2024 10:20</span> • 
+                        <span> 1,832 eventos</span> • 
+                        <span> 245 KB</span> • 
                         <span style="color: #28a745; font-weight: 600;">⏳ Expira: 31/05/2024</span>
                     </div>
                 </div>
@@ -317,9 +311,9 @@
                 <div style="flex: 1;">
                     <strong style="display: block; color: #2c3e50; margin-bottom: 8px;">security_log_Q1_2024.json</strong>
                     <div style="color: #5a6c7d; font-size: 13px; line-height: 1.6;">
-                        <span>📅 Generado: 05/04/2024 08:15</span> • 
-                        <span>📊 5,421 eventos</span> • 
-                        <span>💾 1.2 MB</span> • 
+                        <span> Generado: 05/04/2024 08:15</span> • 
+                        <span> 5,421 eventos</span> • 
+                        <span> 1.2 MB</span> • 
                         <span style="color: #28a745; font-weight: 600;">⏳ Expira: 05/06/2024</span>
                     </div>
                 </div>
@@ -394,14 +388,14 @@
                 .map(cb => cb.value);
             
             if (checkedTypes.length === 0) {
-                alert('⚠️ Debes seleccionar al menos un tipo de actividad para exportar.');
+                alert('️ Debes seleccionar al menos un tipo de actividad para exportar.');
                 return;
             }
             
             const format = document.querySelector('input[name="format"]:checked').value.toUpperCase();
             const exportId = 'EXP-' + Math.floor(Math.random() * 90000 + 10000);
             
-            alert('✅ Exportación iniciada\\n\\nID: #' + exportId + '\\nFormato: ' + format + '\\nTipos: ' + checkedTypes.length + ' categorías\\n\\nRecibirás un email cuando esté lista (aprox. 2-3 minutos).');
+            alert(' Exportación iniciada\\n\\nID: #' + exportId + '\\nFormato: ' + format + '\\nTipos: ' + checkedTypes.length + ' categorías\\n\\nRecibirás un email cuando esté lista (aprox. 2-3 minutos).');
         });
     </script>
 </body>

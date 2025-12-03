@@ -1,9 +1,4 @@
-/* ================================================
-   Login Pages - Estilo Harvard CEMI
-   Overrides para login.html y login-admin.html
-   ================================================ */
-
-/* ===== Variables ===== */
+﻿
 .login-body {
   --color-bg: #f5f5f7;
   --color-surface: #ffffff;
@@ -16,7 +11,6 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* ===== Body Background ===== */
 .login-body {
   background: var(--color-bg) !important;
   font-family: var(--font-body);
@@ -26,7 +20,6 @@
   display: none !important;
 }
 
-/* ===== Floating Icons (Animated Background) ===== */
 .login-background .floating-icon {
   background: rgba(101, 111, 119, 0.04) !important;
   border: 1px solid rgba(101, 111, 119, 0.06) !important;
@@ -53,7 +46,6 @@
   }
 }
 
-/* ===== Wrapper ===== */
 .login-wrapper {
   gap: 0 !important;
   max-width: 1000px !important;
@@ -62,7 +54,6 @@
   align-items: stretch !important;
 }
 
-/* ===== Side Panel (Left - with Image) ===== */
 .login-side-panel {
   display: flex !important;
   flex: 1 !important;
@@ -108,7 +99,6 @@
   isolation: isolate !important;
 }
 
-/* Animated ring around icon */
 .side-panel-icon::before,
 .side-panel-icon::after {
   content: '' !important;
@@ -177,7 +167,6 @@
   margin-bottom: 48px !important;
 }
 
-/* Features */
 .login-features {
   margin: 0 !important;
 }
@@ -209,12 +198,10 @@
   font-weight: 400 !important;
 }
 
-/* Stats */
 .login-stats {
   display: none !important;
 }
 
-/* ===== Login Box (Right - Form) ===== */
 .login-box {
   background: var(--color-surface) !important;
   border-radius: 0 16px 16px 0 !important;
@@ -268,7 +255,6 @@
   opacity: 1 !important;
 }
 
-/* Form Group Spacing */
 .form-group {
   margin-bottom: 20px !important;
 }
@@ -282,7 +268,6 @@
   display: block !important;
 }
 
-/* Input with prefix icon */
 .input-with-icon {
   display: flex !important;
   align-items: center !important;
@@ -320,7 +305,6 @@
   display: block !important;
 }
 
-/* Especificidad extra para login-admin */
 #loginAdminForm .input-with-icon .input-prefix,
 #loginForm .input-with-icon .input-prefix {
   right: 14px !important;
@@ -348,7 +332,6 @@
   box-shadow: none !important;
 }
 
-/* Regular input wrapper (password field) */
 #loginForm .input-wrapper:not(.input-with-icon) input,
 #loginAdminForm .input-wrapper:not(.input-with-icon) input {
   font-family: var(--font-body) !important;
@@ -373,12 +356,10 @@
   display: none !important;
 }
 
-/* Form Options */
 .form-options {
   margin: 16px 0 24px 0 !important;
 }
 
-/* Toggle Password */
 .toggle-password {
   position: absolute !important;
   right: 12px !important;
@@ -416,7 +397,6 @@
   opacity: 1 !important;
 }
 
-/* Submit Button */
 .login-submit {
   background: var(--color-text) !important;
   color: var(--color-surface) !important;
@@ -453,12 +433,10 @@
   transform: translateX(3px) !important;
 }
 
-/* Admin Submit Button */
 .admin-submit {
   background: var(--color-text) !important;
 }
 
-/* Login Message */
 .login-message {
   font-size: 0.875rem !important;
   margin: 12px 0 !important;
@@ -467,7 +445,6 @@
 .login-message.success { color: #34c759 !important; }
 .login-message.error { color: #ff3b30 !important; }
 
-/* Divider */
 .login-divider {
   margin: 24px 0 !important;
   text-align: center !important;
@@ -492,7 +469,6 @@
   position: relative !important;
 }
 
-/* Register Text */
 .register-text {
   font-size: 0.9rem !important;
   color: var(--color-text-secondary) !important;
@@ -509,7 +485,6 @@
   color: var(--color-text) !important;
 }
 
-/* Footer */
 .login-footer {
   display: flex !important;
   justify-content: space-between !important;
@@ -562,7 +537,6 @@
   stroke-width: 1.5 !important;
 }
 
-/* ===== Admin Panel Specific ===== */
 .admin-panel {
   background-image: url('../../images/STOCK3.webp') !important;
 }
@@ -600,7 +574,6 @@
   text-align: left !important;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 900px) {
   .login-wrapper {
     flex-direction: column !important;
@@ -663,7 +636,6 @@
   }
 }
 
-/* Touch devices */
 @media (hover: none) and (pointer: coarse) {
   .login-submit:hover {
     transform: none !important;

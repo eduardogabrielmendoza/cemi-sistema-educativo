@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 let userId = null;
@@ -133,7 +133,6 @@ function cambiarSeccion(seccionId) {
   document.querySelectorAll('.perfil-section').forEach(sec => sec.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
   
-  // Activar la sección seleccionada
   const seccion = document.getElementById(seccionId);
   const navItem = document.querySelector(`[data-section="${seccionId}"]`);
   
@@ -206,7 +205,6 @@ function mostrarDatosEnUI(perfil) {
   const avatarInitials = document.getElementById('avatarInitials');
   
   if (perfil.avatar) {
-    // Guardar avatar en localStorage para uso en chat y otras secciones
     localStorage.setItem('avatar', perfil.avatar);
     
     const avatarUrl = perfil.avatar.startsWith('http') 
@@ -224,7 +222,6 @@ function mostrarDatosEnUI(perfil) {
       avatarInitials.style.display = 'none';
     }
   } else {
-    // Limpiar avatar de localStorage si no tiene
     localStorage.removeItem('avatar');
     if (avatarContainer) {
       avatarContainer.style.backgroundImage = 'none';
@@ -391,7 +388,6 @@ async function cambiarAvatar(event) {
     if (response.ok && data.success) {
       console.log(' Avatar subido exitosamente');
       
-      // Guardar avatar en localStorage para uso en chat
       localStorage.setItem('avatar', data.avatar);
       
       const avatarContainer = document.getElementById('profileAvatar');

@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 let userRol = '';
@@ -188,7 +188,6 @@ function initClassroom() {
 
   loadDashboardData();
   
-  // Mostrar la vista de Inicio (activity) por defecto
   switchView('activity');
 }
 
@@ -1481,7 +1480,6 @@ async function abrirCourseRoom(idCurso) {
   
   switchView('home');
   
-  // Activar el nav item de inicio
   navItems.forEach(item => {
     if (item.getAttribute('data-view') === 'home') {
       item.classList.add('active');
@@ -2184,7 +2182,6 @@ async function crearTarea(datos) {
       if (currentView === 'tasks') {
         await seleccionarCurso(parseInt(datos.curso));
       } else {
-        // Si no estamos en la vista de tareas, solo desactivar el filtro para que aparezcan todas
         cursoActivo = null;
         const btnCourseSelector = document.getElementById('btnCourseSelector');
         const currentCourseName = document.getElementById('currentCourseName');
@@ -5021,7 +5018,6 @@ function cargarConfiguracionesGuardadas() {
 function cambiarTab(tabName) {
   console.log('Cambiando a tab:', tabName);
   
-  // Desactivar todos los tabs
   document.querySelectorAll('.config-tab-btn').forEach(btn => {
     btn.classList.remove('active');
   });
@@ -5029,7 +5025,6 @@ function cambiarTab(tabName) {
     content.classList.remove('active');
   });
 
-  // Activar tab seleccionada usando data-tab
   const btnActivo = document.querySelector(`.config-tab-btn[data-tab="${tabName}"]`);
   if (btnActivo) {
     btnActivo.classList.add('active');
@@ -5065,7 +5060,6 @@ function cambiarTema(tema) {
     card.classList.remove('active');
   });
 
-  // Activar el seleccionado usando data-theme
   const cardSeleccionado = document.querySelector(`.theme-card[data-theme="${tema}"]`);
   if (cardSeleccionado) {
     cardSeleccionado.classList.add('active');
@@ -5117,7 +5111,6 @@ function cambiarTamañoFuente(tamaño) {
     btn.classList.remove('active');
   });
 
-  // Activar el seleccionado
   const btnSeleccionado = document.querySelector(`[data-size="${tamaño}"]`);
   if (btnSeleccionado) {
     btnSeleccionado.classList.add('active');
@@ -5266,9 +5259,6 @@ function togglePerfilPublico() {
   }
 }
 
-// ============================================
-// PALETA DE COLORES HARVARD PARA CLASSROOM
-// ============================================
 const HARVARD_PDF = {
   charcoal: [30, 30, 30],
   wroughtIron: [74, 74, 74],
@@ -5341,11 +5331,9 @@ async function exportarTareasPDF() {
       logoImg.onerror = resolve;
     });
     
-    // ===== HEADER HARVARD =====
     doc.setFillColor(...HARVARD_PDF.charcoal);
     doc.rect(0, 0, 210, 38, 'F');
     
-    // Línea de acento
     doc.setFillColor(...HARVARD_PDF.wroughtIron);
     doc.rect(0, 38, 210, 3, 'F');
     
@@ -5357,7 +5345,6 @@ async function exportarTareasPDF() {
       console.warn('No se pudo cargar el logo');
     }
     
-    // Título CEMI
     doc.setTextColor(...HARVARD_PDF.white);
     doc.setFontSize(18);
     doc.setFont('times', 'bold');
@@ -5368,7 +5355,6 @@ async function exportarTareasPDF() {
     doc.setTextColor(...HARVARD_PDF.silver);
     doc.text('Centro de Enseñanza Multilingüe Internacional', 40, 23);
     
-    // Título del documento
     doc.setFontSize(12);
     doc.setFont('times', 'bold');
     doc.setTextColor(...HARVARD_PDF.white);
@@ -5379,7 +5365,6 @@ async function exportarTareasPDF() {
     doc.setTextColor(...HARVARD_PDF.silver);
     doc.text(new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }), pageWidth - 20, 24, { align: 'right' });
     
-    // ===== DATOS DEL ESTUDIANTE =====
     let y = 50;
     doc.setFillColor(...HARVARD_PDF.lightGray);
     doc.roundedRect(20, y, 170, 18, 2, 2, 'F');
@@ -5415,10 +5400,8 @@ async function exportarTareasPDF() {
     
     y = 76;
     
-    // ===== LISTA DE TAREAS =====
     tareas.forEach((tarea, index) => {
       if (y > pageHeight - 50) {
-        // Nueva página con header secundario
         doc.addPage();
         
         doc.setFillColor(...HARVARD_PDF.charcoal);
@@ -5436,7 +5419,6 @@ async function exportarTareasPDF() {
         y = 28;
       }
       
-      // Recuadro de tarea
       doc.setFillColor(...HARVARD_PDF.lightGray);
       doc.setDrawColor(...HARVARD_PDF.wroughtIron);
       doc.setLineWidth(0.3);
@@ -5449,7 +5431,6 @@ async function exportarTareasPDF() {
       
       y += 10;
       
-      // Detalles de la tarea
       doc.setFontSize(7);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...HARVARD_PDF.graphite);
@@ -5469,7 +5450,6 @@ async function exportarTareasPDF() {
       
       y += 5;
       
-      // Descripción
       if (tarea.descripcion && tarea.descripcion !== 'Sin descripción') {
         doc.setFontSize(7);
         doc.setTextColor(...HARVARD_PDF.graphite);
@@ -5478,13 +5458,11 @@ async function exportarTareasPDF() {
         y += (Math.min(descripcionLines.length, 2) * 3.5) + 2;
       }
       
-      // Línea separadora
       doc.setDrawColor(...HARVARD_PDF.silver);
       doc.setLineWidth(0.15);
       doc.line(26, y, 185, y);
       y += 4;
       
-      // Detalles finales
       doc.setFontSize(7);
       
       if (tarea.fecha_limite) {
@@ -5507,7 +5485,6 @@ async function exportarTareasPDF() {
       doc.setTextColor(...HARVARD_PDF.text);
       doc.text(String(tarea.puntos || 0), 100, y);
       
-      // Estado
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...HARVARD_PDF.graphite);
       doc.text('Estado:', 120, y);
@@ -5526,7 +5503,6 @@ async function exportarTareasPDF() {
       
       y += 4;
       
-      // Calificación
       if (tarea.calificacion !== null && tarea.calificacion !== undefined) {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(...HARVARD_PDF.graphite);
@@ -5541,12 +5517,10 @@ async function exportarTareasPDF() {
       y += 6;
     });
     
-    // ===== FOOTER EN TODAS LAS PÁGINAS =====
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
       
-      // Footer Harvard
       doc.setFillColor(...HARVARD_PDF.charcoal);
       doc.rect(0, pageHeight - 15, 210, 15, 'F');
       
@@ -5632,7 +5606,6 @@ async function exportarCalificacionesPDF() {
       return;
     }
 
-    // Harvard Color Palette
     const HARVARD_COLORS = {
       charcoal: [30, 30, 30],
       wroughtIron: [74, 74, 74],
@@ -5650,7 +5623,6 @@ async function exportarCalificacionesPDF() {
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
     
-    // Cargar logo
     const logoImg = new Image();
     logoImg.src = 'images/logo.png';
     
@@ -5659,15 +5631,12 @@ async function exportarCalificacionesPDF() {
       logoImg.onerror = resolve;
     });
 
-    // ===== FUNCIÓN HEADER HARVARD =====
     const addHarvardHeader = (isFirstPage = true) => {
       const headerHeight = isFirstPage ? 52 : 28;
       
-      // Fondo header charcoal
       doc.setFillColor(...HARVARD_COLORS.charcoal);
       doc.rect(0, 0, pageWidth, headerHeight, 'F');
       
-      // Logo CEMI a la izquierda
       try {
         doc.setFillColor(...HARVARD_COLORS.white);
         doc.roundedRect(12, isFirstPage ? 8 : 4, isFirstPage ? 32 : 18, isFirstPage ? 32 : 18, 3, 3, 'F');
@@ -5676,7 +5645,6 @@ async function exportarCalificacionesPDF() {
         console.warn('No se pudo cargar el logo');
       }
       
-      // Título
       doc.setTextColor(...HARVARD_COLORS.white);
       doc.setFont('times', 'bold');
       doc.setFontSize(isFirstPage ? 20 : 13);
@@ -5688,7 +5656,6 @@ async function exportarCalificacionesPDF() {
         doc.setTextColor(...HARVARD_COLORS.silver);
         doc.text('CEMI - Centro de Ensenanza de Multiples Idiomas', 50, 32);
         
-        // Línea decorativa
         doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
         doc.setLineWidth(2.5);
         doc.line(14, 44, pageWidth - 14, 44);
@@ -5700,23 +5667,19 @@ async function exportarCalificacionesPDF() {
       return headerHeight + (isFirstPage ? 12 : 10);
     };
 
-    // ===== PRIMERA PÁGINA =====
     let y = addHarvardHeader(true);
     
-    // Tarjeta de información del estudiante
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.roundedRect(14, y, pageWidth - 28, 38, 4, 4, 'F');
     doc.setDrawColor(...HARVARD_COLORS.silver);
     doc.setLineWidth(0.5);
     doc.roundedRect(14, y, pageWidth - 28, 38, 4, 4, 'D');
     
-    // Línea decorativa superior
     doc.setFillColor(...HARVARD_COLORS.charcoal);
     doc.rect(14, y, pageWidth - 28, 3, 'F');
     
     y += 12;
     
-    // Información del estudiante
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
     doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -5726,7 +5689,6 @@ async function exportarCalificacionesPDF() {
     doc.setFontSize(11);
     doc.text(userName, 22, y + 6);
     
-    // Fecha
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
     doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -5740,11 +5702,9 @@ async function exportarCalificacionesPDF() {
       year: 'numeric'
     }), 100, y + 6);
     
-    // Estadísticas si existen
     if (data.estadisticas) {
       y += 14;
       
-      // Promedio General
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(9);
       doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -5754,7 +5714,6 @@ async function exportarCalificacionesPDF() {
       doc.setFontSize(14);
       doc.text(String(data.estadisticas.promedio_general), 22, y + 8);
       
-      // Total Evaluaciones
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(9);
       doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -5767,7 +5726,6 @@ async function exportarCalificacionesPDF() {
     
     y += 22;
     
-    // Título de sección
     doc.setFillColor(...HARVARD_COLORS.charcoal);
     doc.rect(14, y, 4, 14, 'F');
     doc.setFont('times', 'bold');
@@ -5777,11 +5735,8 @@ async function exportarCalificacionesPDF() {
     
     y += 22;
     
-    // ===== RENDERIZAR CALIFICACIONES =====
     calificaciones.forEach((cal, index) => {
-      // Verificar espacio para nueva página
       if (y > pageHeight - 65) {
-        // Footer de página actual
         doc.setDrawColor(...HARVARD_COLORS.silver);
         doc.setLineWidth(0.3);
         doc.line(14, pageHeight - 18, pageWidth - 14, pageHeight - 18);
@@ -5790,18 +5745,15 @@ async function exportarCalificacionesPDF() {
         y = addHarvardHeader(false);
       }
       
-      // Tarjeta del curso
       doc.setFillColor(...HARVARD_COLORS.white);
       doc.roundedRect(14, y, pageWidth - 28, 45, 3, 3, 'F');
       doc.setDrawColor(...HARVARD_COLORS.silver);
       doc.setLineWidth(0.5);
       doc.roundedRect(14, y, pageWidth - 28, 45, 3, 3, 'D');
       
-      // Barra lateral de color
       doc.setFillColor(...HARVARD_COLORS.charcoal);
       doc.rect(14, y, 4, 45, 'F');
       
-      // Número y nombre del curso
       doc.setFillColor(...HARVARD_COLORS.charcoal);
       doc.circle(28, y + 8, 5, 'F');
       doc.setTextColor(...HARVARD_COLORS.white);
@@ -5814,7 +5766,6 @@ async function exportarCalificacionesPDF() {
       doc.setTextColor(...HARVARD_COLORS.charcoal);
       doc.text(cal.nombre_curso, 38, y + 10);
       
-      // Idioma y nivel
       const idiomaNivel = `${cal.nombre_idioma || ''}${cal.nivel ? ' - Nivel ' + cal.nivel : ''}`;
       if (idiomaNivel.trim()) {
         doc.setFont('helvetica', 'normal');
@@ -5823,13 +5774,11 @@ async function exportarCalificacionesPDF() {
         doc.text(idiomaNivel, 38, y + 17);
       }
       
-      // Tabla de calificaciones
       const tableY = y + 22;
       const tableX = 22;
       const colWidth = 40;
       const rowHeight = 8;
       
-      // Header de tabla
       doc.setFillColor(...HARVARD_COLORS.charcoal);
       doc.rect(tableX, tableY, colWidth * 4, rowHeight, 'F');
       
@@ -5841,19 +5790,16 @@ async function exportarCalificacionesPDF() {
       doc.text('EXAMEN FINAL', tableX + (colWidth * 2) + (colWidth / 2), tableY + 5.5, { align: 'center' });
       doc.text('PROMEDIO', tableX + (colWidth * 3) + (colWidth / 2), tableY + 5.5, { align: 'center' });
       
-      // Fila de datos
       doc.setFillColor(...HARVARD_COLORS.lightGray);
       doc.rect(tableX, tableY + rowHeight, colWidth * 4, rowHeight + 2, 'F');
       doc.setDrawColor(...HARVARD_COLORS.silver);
       doc.setLineWidth(0.3);
       doc.rect(tableX, tableY + rowHeight, colWidth * 4, rowHeight + 2, 'D');
       
-      // Líneas divisorias verticales
       for (let i = 1; i < 4; i++) {
         doc.line(tableX + (colWidth * i), tableY + rowHeight, tableX + (colWidth * i), tableY + (rowHeight * 2) + 2);
       }
       
-      // Valores de calificaciones
       const p1 = cal.parcial1 !== null && cal.parcial1 !== undefined ? String(cal.parcial1) : '—';
       const p2 = cal.parcial2 !== null && cal.parcial2 !== undefined ? String(cal.parcial2) : '—';
       const final = cal.final !== null && cal.final !== undefined ? String(cal.final) : '—';
@@ -5867,7 +5813,6 @@ async function exportarCalificacionesPDF() {
       doc.text(p2, tableX + colWidth + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
       doc.text(final, tableX + (colWidth * 2) + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
       
-      // Promedio con color especial
       if (promedio !== '—') {
         const promedioNum = parseFloat(promedio);
         if (promedioNum >= 7) {
@@ -5882,7 +5827,6 @@ async function exportarCalificacionesPDF() {
       }
       doc.text(promedio, tableX + (colWidth * 3) + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
       
-      // Fecha de actualización
       if (cal.fecha_actualizacion) {
         doc.setFont('helvetica', 'italic');
         doc.setFontSize(7);
@@ -5897,30 +5841,25 @@ async function exportarCalificacionesPDF() {
       y += 52;
     });
     
-    // ===== FOOTER EN TODAS LAS PÁGINAS =====
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
       
-      // Línea superior del footer
       doc.setDrawColor(...HARVARD_COLORS.silver);
       doc.setLineWidth(0.3);
       doc.line(14, pageHeight - 20, pageWidth - 14, pageHeight - 20);
       
-      // Texto del footer
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(...HARVARD_COLORS.silver);
       doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 14, pageHeight - 14);
       doc.text('Documento oficial de calificaciones', 14, pageHeight - 9);
       
-      // Número de página
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(9);
       doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.text(`${i} / ${totalPages}`, pageWidth - 14, pageHeight - 12, { align: 'right' });
       
-      // Fecha de generación
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(...HARVARD_COLORS.silver);
@@ -6066,16 +6005,13 @@ function aplicarTamañoFuente(tamaño) {
   }
 }
 
-// =============================================
-// SISTEMA DE RECURSOS CLASSROOM
-// =============================================
 
 let recursosData = null;
 
 async function loadRecursos() {
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-    console.log(`📚 Cargando recursos para ${tipo} ID: ${userId}`);
+    console.log(` Cargando recursos para ${tipo} ID: ${userId}`);
     
     const response = await fetch(`${API_URL}/classroom/recursos/${tipo}/${userId}`);
     const data = await response.json();
@@ -6085,7 +6021,6 @@ async function loadRecursos() {
       renderRecursos(data);
       setupRecursosEventListeners();
       
-      // Mostrar botón de subir solo para profesores
       const btnSubir = document.getElementById('btnSubirRecurso');
       if (btnSubir && userRol.toLowerCase() === 'profesor') {
         btnSubir.style.display = 'flex';
@@ -6104,7 +6039,6 @@ function renderRecursos(data) {
   const gridCursos = document.getElementById('gridRecursosCursos');
   const gridBiblioteca = document.getElementById('gridBibliotecaGeneral');
   
-  // Renderizar recursos por curso
   if (data.recursosPorCurso && data.recursosPorCurso.length > 0) {
     gridCursos.innerHTML = data.recursosPorCurso.map(curso => renderCursoCard(curso)).join('');
   } else {
@@ -6117,7 +6051,6 @@ function renderRecursos(data) {
     `;
   }
   
-  // Renderizar biblioteca general
   if (data.bibliotecaGeneral && data.bibliotecaGeneral.length > 0) {
     gridBiblioteca.innerHTML = `
       <div class="resources-list">
@@ -6137,7 +6070,6 @@ function renderRecursos(data) {
 }
 
 function renderCursoCard(curso) {
-  // Color institucional único para todos los headers
   const hasRecursos = curso.recursos && curso.recursos.length > 0;
   
   return `
@@ -6203,7 +6135,6 @@ function renderRecursoItem(recurso, isBiblioteca = false) {
     year: 'numeric'
   });
   
-  // Profesores pueden eliminar recursos (incluyendo biblioteca pública)
   const puedeEliminar = userRol.toLowerCase() === 'profesor';
   
   return `
@@ -6239,7 +6170,6 @@ function renderRecursoItem(recurso, isBiblioteca = false) {
 }
 
 function setupRecursosEventListeners() {
-  // Búsqueda de recursos
   const searchInput = document.getElementById('searchRecursos');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -6247,7 +6177,6 @@ function setupRecursosEventListeners() {
     });
   }
   
-  // Filtro por tipo
   const filterTipo = document.getElementById('filterTipoRecurso');
   if (filterTipo) {
     filterTipo.addEventListener('change', (e) => {
@@ -6255,7 +6184,6 @@ function setupRecursosEventListeners() {
     });
   }
   
-  // Botón subir recurso
   const btnSubir = document.getElementById('btnSubirRecurso');
   if (btnSubir) {
     btnSubir.addEventListener('click', () => abrirModalSubirRecurso(null, 'Biblioteca General'));
@@ -6279,16 +6207,13 @@ function filtrarRecursos(busqueda, tipo) {
     recurso.style.display = (matchSearch && matchTipo) ? 'flex' : 'none';
   });
   
-  // Mostrar/ocultar carpetas vacías después de filtrar
   carpetas.forEach(carpeta => {
     const recursosVisibles = carpeta.querySelectorAll('.recurso-item[style*="display: flex"], .recurso-item:not([style*="display"])');
     const hayVisibles = Array.from(recursosVisibles).some(r => r.style.display !== 'none');
-    // No ocultamos carpetas, solo mostramos mensaje si está vacía después de filtrar
   });
 }
 
 function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca General') {
-  // Remover modal existente si hay uno
   const existingModal = document.getElementById('modalSubirRecurso');
   if (existingModal) existingModal.remove();
   
@@ -6328,12 +6253,12 @@ function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca Genera
             <div class="form-group">
               <label for="recursoTipo">Tipo de recurso *</label>
               <select id="recursoTipo" required onchange="toggleRecursoInput()">
-                <option value="enlace">🔗 Enlace web</option>
-                <option value="pdf">📄 PDF</option>
-                <option value="documento">📝 Documento</option>
-                <option value="audio">🎧 Audio</option>
-                <option value="video">🎬 Video</option>
-                <option value="imagen">🖼️ Imagen</option>
+                <option value="enlace"> Enlace web</option>
+                <option value="pdf"> PDF</option>
+                <option value="documento"> Documento</option>
+                <option value="audio"> Audio</option>
+                <option value="video"> Video</option>
+                <option value="imagen">️ Imagen</option>
               </select>
             </div>
           </div>
@@ -6368,19 +6293,15 @@ function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca Genera
   document.body.insertAdjacentHTML('beforeend', modalHTML);
   lucide.createIcons();
   
-  // Si viene con curso preseleccionado
   if (idCurso) {
     document.getElementById('recursoCurso').value = idCurso;
   }
   
-  // Event listeners del form
   const form = document.getElementById('formSubirRecurso');
   form.addEventListener('submit', handleSubirRecurso);
   
-  // Drag and drop
   setupDragAndDrop();
   
-  // Animación de entrada
   setTimeout(() => {
     document.getElementById('modalSubirRecurso').classList.add('show');
   }, 10);
@@ -6410,7 +6331,6 @@ function setupDragAndDrop() {
   
   if (!dropZone || !fileInput) return;
   
-  // Prevenir eventos por defecto
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     dropZone.addEventListener(eventName, (e) => {
       e.preventDefault();
@@ -6429,7 +6349,6 @@ function setupDragAndDrop() {
   dropZone.addEventListener('drop', (e) => {
     const files = e.dataTransfer.files;
     if (files.length > 0) {
-      // Crear un nuevo FileList para asignar al input
       const dataTransfer = new DataTransfer();
       dataTransfer.items.add(files[0]);
       fileInput.files = dataTransfer.files;
@@ -6437,14 +6356,12 @@ function setupDragAndDrop() {
     }
   });
   
-  // Manejar cambio de archivo
   fileInput.addEventListener('change', (e) => {
     if (e.target.files && e.target.files.length > 0) {
       mostrarNombreArchivo(e.target.files[0].name);
     }
   });
   
-  // Click en zona para abrir selector - prevenir propagación
   dropZone.addEventListener('click', (e) => {
     if (e.target !== fileInput) {
       e.preventDefault();
@@ -6457,7 +6374,7 @@ function setupDragAndDrop() {
 function mostrarNombreArchivo(nombre) {
   const span = document.getElementById('nombreArchivo');
   if (span) {
-    span.textContent = `📎 ${nombre}`;
+    span.textContent = ` ${nombre}`;
     span.style.display = 'block';
     span.style.display = 'block';
   }
@@ -6504,7 +6421,6 @@ async function handleSubirRecurso(e) {
   const btnSubmit = document.querySelector('#formSubirRecurso .btn-submit');
   
   try {
-    // Deshabilitar botón inmediatamente
     if (btnSubmit) {
       btnSubmit.disabled = true;
       btnSubmit.style.opacity = '0.7';
@@ -6528,7 +6444,6 @@ async function handleSubirRecurso(e) {
   } catch (error) {
     console.error('Error al subir recurso:', error);
     showNotification('Error', error.message || 'No se pudo subir el recurso', 'error');
-    // Rehabilitar botón en caso de error
     if (btnSubmit) {
       btnSubmit.disabled = false;
       btnSubmit.style.opacity = '1';
@@ -6550,7 +6465,6 @@ function cerrarModalRecurso() {
 
 async function descargarRecurso(idRecurso, url) {
   try {
-    // Para URLs de Cloudinary, obtener URL firmada
     if (url.includes('cloudinary.com')) {
       const response = await fetch(`${API_URL}/classroom/recursos/${idRecurso}/download-url`);
       const data = await response.json();
@@ -6561,14 +6475,12 @@ async function descargarRecurso(idRecurso, url) {
       }
     }
     
-    // Para URLs locales o fallback
     await fetch(`${API_URL}/classroom/recursos/${idRecurso}/descarga`, {
       method: 'POST'
     });
     window.open(url, '_blank');
   } catch (error) {
     console.error('Error al descargar:', error);
-    // Fallback: intentar abrir la URL original
     window.open(url, '_blank');
   }
 }
@@ -6626,22 +6538,16 @@ function mostrarErrorRecursos() {
   lucide.createIcons();
 }
 
-// ==========================================
-// BANNER DE INVESTIGACIÓN
-// ==========================================
 function cerrarBannerInvestigacion() {
   const banner = document.getElementById('researchBanner');
   if (banner) {
-    // Añadir clase para animación de cierre suave
     banner.classList.remove('visible');
     banner.classList.add('closing');
     
-    // Remover del DOM después de la animación
     setTimeout(() => {
       banner.style.display = 'none';
     }, 600);
     
-    // Recordar que se cerró permanentemente (localStorage para persistencia)
     localStorage.setItem('researchBannerClosed', 'true');
   }
 }
@@ -6650,7 +6556,6 @@ function mostrarBannerInvestigacion() {
   const banner = document.getElementById('researchBanner');
   if (!banner) return;
   
-  // Verificar si ya se cerró o si ya llenó la encuesta
   const bannerCerrado = localStorage.getItem('researchBannerClosed') === 'true';
   const encuestaCompletada = localStorage.getItem('encuestaCompletada') === 'true';
   
@@ -6659,7 +6564,6 @@ function mostrarBannerInvestigacion() {
     return;
   }
   
-  // Mostrar después de 4 segundos con animación suave
   setTimeout(() => {
     banner.classList.add('visible');
   }, 4000);
@@ -6675,12 +6579,10 @@ function verificarBannerInvestigacion() {
   if (bannerCerrado || encuestaCompletada) {
     banner.style.display = 'none';
   } else {
-    // Programar aparición después de 4 segundos
     mostrarBannerInvestigacion();
   }
 }
 
-// Verificar al cargar la vista de actividad
 document.addEventListener('DOMContentLoaded', () => {
   verificarBannerInvestigacion();
 });

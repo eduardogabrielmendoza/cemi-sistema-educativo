@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +11,6 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="apple-touch-icon" href="images/logo.png">
   <title>CEMI - Sistema de Gestión Académica</title>
-  <!-- Google Fonts - Inter (similar a GT America de Harvard) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -317,10 +316,8 @@
     </div>
   </div>
 
-  <!-- ===== HARVARD-STYLE HEADER ===== -->
   <header class="harvard-header">
     <div class="harvard-header-inner">
-      <!-- Logo y nombre a la izquierda -->
       <div class="harvard-branding">
         <a href="index.html">
           <img src="images/logolongblack.png" alt="Logo CEMI" class="harvard-logo-img" style="width: 226px; height: 79px; object-fit: contain;">
@@ -329,9 +326,7 @@
         <a href="porque-cemi.html" class="harvard-brand-text">Aprende porque elegir CEMI</a>
       </div>
       
-      <!-- Botones a la derecha -->
       <div class="harvard-actions">
-        <!-- Buscador estilo Harvard - inline en la barra -->
         <div class="harvard-search-wrapper" id="harvardSearchWrapper">
           <input type="text" class="harvard-search-field" id="harvardSearchField" placeholder="Buscar en CEMI" autocomplete="off">
           <div class="harvard-search-icons">
@@ -342,13 +337,11 @@
               <i data-lucide="x"></i>
             </button>
           </div>
-          <!-- Quick link debajo del buscador -->
           <div class="harvard-search-quicklink">
             <span>QUICK LINKS</span>
             <a href="a-to-z.html">Ir a Índice A-Z</a>
           </div>
         </div>
-        <!-- Botón A-Z que activa el buscador -->
         <button class="harvard-az-btn" id="harvardAzBtn" aria-label="Índice A-Z">
           <span>A-Z</span>
         </button>
@@ -364,16 +357,13 @@
     </div>
   </header>
 
-  <!-- ===== MEGA MENU FULLSCREEN ===== -->
   <div class="harvard-mega-menu" id="harvardMegaMenu">
     <div class="mega-menu-backdrop"></div>
     
-    <!-- Imagen de fondo decorativa -->
     <div class="mega-menu-bg-image" id="megaMenuBgImage">
       <img src="images/STOCK1.jpg" alt="">
     </div>
     
-    <!-- Header del mega menu -->
     <div class="mega-menu-header">
       <a href="index.html" class="mega-menu-logo">
         <img src="images/logolong.png" alt="Logo CEMI" class="mega-logo-long">
@@ -389,9 +379,7 @@
       </button>
     </div>
     
-    <!-- Contenido del mega menu -->
     <div class="mega-menu-content">
-      <!-- Columna 1: Navegación principal -->
       <nav class="mega-nav-primary">
         <a href="#" class="mega-nav-item" data-panel="panel-classroom"><span class="mega-nav-item-text">Classroom</span></a>
         <a href="#" class="mega-nav-item" data-panel="panel-dashboard"><span class="mega-nav-item-text">Dashboard</span></a>
@@ -402,9 +390,7 @@
         <a href="#" class="mega-nav-item" data-panel="panel-accesibilidad"><span class="mega-nav-item-text">Accesibilidad</span></a>
       </nav>
       
-      <!-- Columna 2: Contenedor de Submenús secundarios -->
       <div class="mega-nav-secondary-container">
-        <!-- Panel Classroom -->
         <div class="mega-nav-secondary" id="panel-classroom">
           <a href="classroom-login.html" class="mega-sub-title">Classroom <span class="arrow">→</span></a>
           <p class="mega-sub-description">El aula virtual más intuitiva. Tareas, calificaciones, anuncios y más.</p>
@@ -414,7 +400,6 @@
           </div>
         </div>
         
-        <!-- Panel Dashboard -->
         <div class="mega-nav-secondary" id="panel-dashboard">
           <a href="login-selector.html" class="mega-sub-title">Dashboard <span class="arrow">→</span></a>
           <p class="mega-sub-description">Gestión completa de alumnos, profesores, cursos, pagos y estadísticas.</p>
@@ -424,7 +409,6 @@
           </div>
         </div>
         
-        <!-- Panel Nosotros -->
         <div class="mega-nav-secondary" id="panel-nosotros" data-image="images/menu/nosotros.jpg">
           <a href="#nosotros" class="mega-sub-title">Nosotros <span class="arrow">→</span></a>
           <p class="mega-sub-description">Conoce nuestra historia, misión y el equipo detrás de CEMI.</p>
@@ -437,7 +421,6 @@
           </div>
         </div>
         
-        <!-- Panel Soporte -->
         <div class="mega-nav-secondary" id="panel-soporte" data-image="images/menu/soporte.jpg">
           <a href="ayuda.html" class="mega-sub-title">Soporte <span class="arrow">→</span></a>
           <p class="mega-sub-description">¿Necesitas ayuda? Estamos aquí para asistirte.</p>
@@ -448,7 +431,6 @@
           </div>
         </div>
         
-        <!-- Panel Seguridad -->
         <div class="mega-nav-secondary" id="panel-seguridad" data-image="images/menu/seguridad.jpg">
           <a href="reportar-seguridad.html" class="mega-sub-title">Seguridad <span class="arrow">→</span></a>
           <p class="mega-sub-description">Reporta vulnerabilidades o infracciones de forma segura.</p>
@@ -459,7 +441,6 @@
           </div>
         </div>
         
-        <!-- Panel Recursos -->
         <div class="mega-nav-secondary" id="panel-recursos" data-image="images/menu/recursos.webp">
           <a href="guia.html" class="mega-sub-title">Recursos <span class="arrow">→</span></a>
           <p class="mega-sub-description">Documentación, descargas y más recursos útiles.</p>
@@ -469,7 +450,6 @@
           </div>
         </div>
         
-        <!-- Panel Accesibilidad -->
         <div class="mega-nav-secondary" id="panel-accesibilidad" data-image="images/menu/accesibilidad.jpg">
           <a href="accesibilidad.html" class="mega-sub-title">Accesibilidad <span class="arrow">→</span></a>
           <p class="mega-sub-description">Herramientas de acceso y administración institucional.</p>
@@ -481,7 +461,6 @@
         </div>
       </div>
       
-      <!-- Columna 3: Contenedor de Submenús terciarios -->
       <div class="mega-nav-tertiary-container">
         <div class="mega-nav-tertiary" id="tertiary-funciones">
           <div class="mega-tertiary-header">
@@ -559,7 +538,6 @@
       </div>
     </div>
     
-    <!-- Footer del mega menu -->
     <div class="mega-menu-footer">
       <div class="mega-footer-inner">
         <span class="mega-footer-label">
@@ -574,7 +552,6 @@
     </div>
   </div>
 
-  <!-- Banner de Status del Sistema -->
   <div id="systemStatusBanner" class="system-status-banner" style="display: none;">
     <div class="status-banner-inner">
       <div class="status-banner-content">
@@ -610,7 +587,6 @@
     </div>
   </section>
 
-  <!-- Classroom Banner - Imagen izquierda, Contenido derecha -->
   <section class="split-banner split-banner-img-left" id="classroom">
     <div class="split-banner-image scroll-reveal-image">
       <img src="images/classroombanner.png" alt="Classroom CEMI">
@@ -623,7 +599,6 @@
     </div>
   </section>
 
-  <!-- Dashboard Banner - Contenido izquierda, Imagen derecha -->
   <section class="split-banner split-banner-img-right" id="dashboard">
     <div class="split-banner-content">
       <h2 class="split-banner-title scroll-reveal">Dashboard</h2>
@@ -680,7 +655,6 @@
     </div>
   </section>
 
-  <!-- Android App Banner - Imagen derecha, Contenido izquierda -->
   <section class="split-banner split-banner-img-right split-banner-android" id="android-app">
     <div class="split-banner-content">
       <h2 class="split-banner-title scroll-reveal">App Móvil</h2>
@@ -1184,7 +1158,6 @@
     </div>
   </footer>
 
-  <!-- Menú flotante eliminado - reemplazado por Asistente CEMI -->
 
   <div id="mapaModal" class="mapa-modal" onclick="cerrarMapa()">
     <div class="mapa-modal-content" onclick="event.stopPropagation()">
@@ -1441,7 +1414,6 @@
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <script src="assets/js/cookie-modal.js"></script>
   
-  <!-- Harvard-style Menu (se auto-inicializa) -->
   <script src="assets/js/harvard-menu.js?v=1.0"></script>
 </body>
 </html>

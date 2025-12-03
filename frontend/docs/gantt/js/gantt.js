@@ -1,11 +1,9 @@
-// Gantt Chart Generator - CEMI Sistema Gestor
-document.addEventListener('DOMContentLoaded', function() {
+﻿document.addEventListener('DOMContentLoaded', function() {
     generateGanttChart();
     initTooltips();
     animateProgressBar();
 });
 
-// Generar el diagrama de Gantt
 function generateGanttChart() {
     const tbody = document.getElementById('ganttBody');
     if (!tbody) return;
@@ -13,7 +11,6 @@ function generateGanttChart() {
     let html = '';
 
     projectData.phases.forEach(phase => {
-        // Fila de fase
         html += `
             <tr class="phase-row">
                 <td colspan="10">
@@ -24,11 +21,9 @@ function generateGanttChart() {
             </tr>
         `;
 
-        // Filas de tareas
         phase.tasks.forEach(task => {
             html += `<tr class="task-row">`;
             
-            // Nombre de la tarea
             const taskNameStyle = task.final ? 'font-weight: 700;' : '';
             html += `
                 <td style="${taskNameStyle}">
@@ -37,7 +32,6 @@ function generateGanttChart() {
                 </td>
             `;
 
-            // Celdas de semanas (9 columnas)
             for (let week = 1; week <= 9; week++) {
                 html += `<td class="week-cell">`;
                 
@@ -80,7 +74,6 @@ function generateGanttChart() {
     tbody.innerHTML = html;
 }
 
-// Inicializar tooltips
 function initTooltips() {
     const tooltip = document.getElementById('tooltip');
     const tooltipTitle = document.getElementById('tooltipTitle');
@@ -90,7 +83,6 @@ function initTooltips() {
 
     if (!tooltip) return;
 
-    // Event delegation para mejor rendimiento
     document.addEventListener('mouseover', function(e) {
         const target = e.target.closest('.task-bar, .milestone-marker');
         if (!target) return;
@@ -121,7 +113,6 @@ function initTooltips() {
     });
 }
 
-// Posicionar tooltip cerca del mouse
 function positionTooltip(e) {
     const tooltip = document.getElementById('tooltip');
     if (!tooltip) return;
@@ -135,17 +126,14 @@ function positionTooltip(e) {
     let left = e.clientX + offset;
     let top = e.clientY + offset;
 
-    // Ajustar si se sale por la derecha
     if (left + tooltipWidth > windowWidth - 20) {
         left = e.clientX - tooltipWidth - offset;
     }
 
-    // Ajustar si se sale por abajo
     if (top + tooltipHeight > windowHeight - 20) {
         top = e.clientY - tooltipHeight - offset;
     }
 
-    // Asegurar que no se salga por arriba o izquierda
     if (left < 10) left = 10;
     if (top < 10) top = 10;
 
@@ -153,7 +141,6 @@ function positionTooltip(e) {
     tooltip.style.top = top + 'px';
 }
 
-// Animar barra de progreso
 function animateProgressBar() {
     const progressBar = document.getElementById('progressBar');
     if (!progressBar) return;
@@ -169,7 +156,6 @@ function animateProgressBar() {
     }, 300);
 }
 
-// Función para imprimir
 function printGantt() {
     window.print();
 }

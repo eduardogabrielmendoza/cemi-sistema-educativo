@@ -1,5 +1,4 @@
-// Datos del proyecto CEMI
-const projectData = {
+﻿const projectData = {
     phases: [
         {
             id: 0,

@@ -1,4 +1,4 @@
-import multer from 'multer';
+﻿import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -7,7 +7,6 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Storage para tareas
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const dir = path.join(__dirname, '../../uploads/tareas');
@@ -22,7 +21,6 @@ const storage = multer.diskStorage({
   }
 });
 
-// Storage para recursos del classroom
 const recursosStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     const dir = path.join(__dirname, '../../uploads/recursos');
@@ -70,7 +68,6 @@ const upload = multer({
   }
 });
 
-// Upload para recursos del classroom
 export const uploadRecursos = multer({
   storage: recursosStorage,
   fileFilter: fileFilter,

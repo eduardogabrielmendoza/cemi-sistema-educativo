@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -37,28 +37,26 @@
             <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">Completa todos los campos para que podamos ayudarte rápidamente. Campos con * son obligatorios.</p>
             
             <form id="reportForm" style="background: white; padding: 30px; border-radius: 12px; color: #2c3e50;">
-                <!-- Tipo de problema -->
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="tag" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Tipo de problema *
                     </label>
                     <select required style="width: 100%; padding: 12px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 14px; background: white;">
                         <option value="">-- Selecciona un tipo --</option>
-                        <option value="acceso">🔒 No puedo iniciar sesión</option>
-                        <option value="password">🔑 Error al cambiar contraseña</option>
-                        <option value="2fa">📱 Problema con verificación en dos pasos</option>
-                        <option value="recovery">🆘 No puedo recuperar mi cuenta</option>
-                        <option value="sesion">👤 Sesión cerrada inesperadamente</option>
-                        <option value="dispositivo">💻 Dispositivo no reconocido/bloqueado</option>
-                        <option value="email">📧 No recibo emails de verificación</option>
-                        <option value="datos">📊 Error al descargar mis datos</option>
-                        <option value="privacidad">🔐 Configuración de privacidad no funciona</option>
-                        <option value="sospechoso">⚠️ Actividad sospechosa en mi cuenta</option>
-                        <option value="otro">❓ Otro problema</option>
+                        <option value="acceso"> No puedo iniciar sesión</option>
+                        <option value="password"> Error al cambiar contraseña</option>
+                        <option value="2fa"> Problema con verificación en dos pasos</option>
+                        <option value="recovery"> No puedo recuperar mi cuenta</option>
+                        <option value="sesion"> Sesión cerrada inesperadamente</option>
+                        <option value="dispositivo"> Dispositivo no reconocido/bloqueado</option>
+                        <option value="email"> No recibo emails de verificación</option>
+                        <option value="datos"> Error al descargar mis datos</option>
+                        <option value="privacidad"> Configuración de privacidad no funciona</option>
+                        <option value="sospechoso">️ Actividad sospechosa en mi cuenta</option>
+                        <option value="otro"> Otro problema</option>
                     </select>
                 </div>
 
-                <!-- Descripción -->
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="message-square" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Descripción del problema *
@@ -67,7 +65,6 @@
                     <small style="color: #5a6c7d; display: block; margin-top: 5px;">Mínimo 50 caracteres. Incluye todos los detalles relevantes.</small>
                 </div>
 
-                <!-- Frecuencia -->
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="repeat" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> ¿Con qué frecuencia ocurre? *
@@ -82,7 +79,6 @@
                     </select>
                 </div>
 
-                <!-- Dispositivo -->
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="monitor" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Dispositivo y navegador *
@@ -91,7 +87,6 @@
                     <small style="color: #5a6c7d; display: block; margin-top: 5px;">Incluye sistema operativo y navegador/app</small>
                 </div>
 
-                <!-- Captura de pantalla -->
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="image" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Captura de pantalla (opcional)
@@ -102,11 +97,10 @@
                         <small style="color: #5a6c7d; display: block; margin-top: 5px;">Formatos: JPG, PNG, GIF (máx. 5MB)</small>
                     </div>
                     <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-top: 10px; border-left: 4px solid #FFC107;">
-                        <small style="color: #856404;"><strong>⚠️ Privacidad:</strong> Asegúrate de ocultar información sensible (contraseñas, emails completos, DNI) antes de subir.</small>
+                        <small style="color: #856404;"><strong>️ Privacidad:</strong> Asegúrate de ocultar información sensible (contraseñas, emails completos, DNI) antes de subir.</small>
                     </div>
                 </div>
 
-                <!-- Gravedad -->
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="thermometer" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Urgencia *
@@ -114,23 +108,22 @@
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                         <label style="border: 2px solid #e0e6ed; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s;">
                             <input type="radio" name="urgency" value="baja" style="margin-right: 10px;">
-                            <strong style="color: #28a745; display: block; margin-bottom: 5px;">🟢 Baja</strong>
+                            <strong style="color: #28a745; display: block; margin-bottom: 5px;"> Baja</strong>
                             <small style="color: #5a6c7d; font-size: 12px;">Puedo trabajar normalmente</small>
                         </label>
                         <label style="border: 2px solid #e0e6ed; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s;">
                             <input type="radio" name="urgency" value="media" style="margin-right: 10px;">
-                            <strong style="color: #FFC107; display: block; margin-bottom: 5px;">🟡 Media</strong>
+                            <strong style="color: #FFC107; display: block; margin-bottom: 5px;"> Media</strong>
                             <small style="color: #5a6c7d; font-size: 12px;">Afecta mi uso, pero puedo esperar</small>
                         </label>
                         <label style="border: 2px solid #e0e6ed; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s;">
                             <input type="radio" name="urgency" value="alta" style="margin-right: 10px;">
-                            <strong style="color: #dc3545; display: block; margin-bottom: 5px;">🔴 Alta</strong>
+                            <strong style="color: #dc3545; display: block; margin-bottom: 5px;"> Alta</strong>
                             <small style="color: #5a6c7d; font-size: 12px;">No puedo acceder/usar la plataforma</small>
                         </label>
                     </div>
                 </div>
 
-                <!-- Email de contacto -->
                 <div style="margin-bottom: 25px;">
                     <label style="display: block; font-weight: 700; margin-bottom: 10px; color: #2c3e50;">
                         <i data-lucide="mail" style="width: 16px; height: 16px; display: inline; vertical-align: middle;"></i> Email de contacto *
@@ -139,7 +132,6 @@
                     <small style="color: #5a6c7d; display: block; margin-top: 5px;">Te contactaremos a este email. Si es un problema de acceso, usa un email alternativo.</small>
                 </div>
 
-                <!-- Botón enviar -->
                 <button type="submit" style="width: 100%; background: linear-gradient(135deg, #28a745 0%, #218838 100%); color: white; border: none; padding: 15px; font-size: 16px; font-weight: 700; border-radius: 8px; cursor: pointer; margin-top: 10px;">
                     <i data-lucide="send" style="width: 20px; height: 20px; display: inline; vertical-align: middle;"></i> Enviar reporte
                 </button>
@@ -161,9 +153,9 @@
                     <div>
                         <strong style="display: block; color: #2c3e50; margin-bottom: 8px;">Revisión por el equipo</strong>
                         <p style="color: #5a6c7d; margin: 0; font-size: 14px;">Nuestro equipo de soporte revisará tu caso según urgencia:
-                            <br>🔴 Alta: 1-2 horas
-                            <br>🟡 Media: 4-8 horas
-                            <br>🟢 Baja: 24-48 horas
+                            <br> Alta: 1-2 horas
+                            <br> Media: 4-8 horas
+                            <br> Baja: 24-48 horas
                         </p>
                     </div>
                 </div>
@@ -175,7 +167,7 @@
                     </div>
                 </div>
                 <div style="display: flex; gap: 15px;">
-                    <div style="background: #28a745; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0;">✓</div>
+                    <div style="background: #28a745; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; flex-shrink: 0;"></div>
                     <div>
                         <strong style="display: block; color: #2c3e50; margin-bottom: 8px;">Cierre del caso</strong>
                         <p style="color: #5a6c7d; margin: 0; font-size: 14px;">Una vez resuelto, te pediremos confirmar que todo funciona. Podrás calificar la atención recibida.</p>
@@ -253,7 +245,7 @@
         document.getElementById('reportForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const ticketNumber = 'PROB-' + Math.floor(Math.random() * 90000 + 10000);
-            alert('✅ Reporte enviado exitosamente\\n\\nNúmero de ticket: #' + ticketNumber + '\\n\\nRecibirás un email de confirmación en 1 minuto. Te contactaremos pronto.');
+            alert(' Reporte enviado exitosamente\\n\\nNúmero de ticket: #' + ticketNumber + '\\n\\nRecibirás un email de confirmación en 1 minuto. Te contactaremos pronto.');
             this.reset();
         });
     </script>

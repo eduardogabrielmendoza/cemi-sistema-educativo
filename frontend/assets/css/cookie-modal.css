@@ -1,7 +1,4 @@
-/* =====================================================
-   COOKIE BANNER - Estilo minimalista CEMI
-   ===================================================== */
-
+﻿
 .cookie-banner {
   position: fixed;
   bottom: 0;
@@ -174,7 +171,6 @@
   transform: scale(0.98);
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .cookie-banner-inner {
     flex-direction: column;

@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import PDFDocument from "pdfkit";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
@@ -12,10 +12,8 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Ruta del registro JSON
 const registroPath = path.join(__dirname, "../../uploads/investigacion/registro.json");
 
-// Asegurar que existe el directorio
 const ensureDir = () => {
   const dir = path.dirname(registroPath);
   if (!fs.existsSync(dir)) {
@@ -26,7 +24,6 @@ const ensureDir = () => {
   }
 };
 
-// Leer registro
 const leerRegistro = () => {
   ensureDir();
   try {
@@ -36,13 +33,11 @@ const leerRegistro = () => {
   }
 };
 
-// Guardar registro
 const guardarRegistro = (data) => {
   ensureDir();
   fs.writeFileSync(registroPath, JSON.stringify(data, null, 2));
 };
 
-// Descargar imagen como buffer
 const descargarImagen = (url) => {
   return new Promise((resolve, reject) => {
     https.get(url, (response) => {
@@ -54,7 +49,6 @@ const descargarImagen = (url) => {
   });
 };
 
-// Colores institucionales CEMI - Estilo Harvard
 const colores = {
   charcoal: "#1e1e1e",
   wroughtIron: "#4a4a4a",
@@ -69,7 +63,6 @@ const colores = {
   success: "#10b981"
 };
 
-// Traducciones
 const traducciones = {
   gender: {
     "male": "Hombre",
@@ -157,7 +150,6 @@ const traducciones = {
   }
 };
 
-// Funcion para traducir valores
 const traducir = (categoria, valor) => {
   if (!valor) return "No especificado";
   if (Array.isArray(valor)) {
@@ -166,13 +158,11 @@ const traducir = (categoria, valor) => {
   return traducciones[categoria]?.[valor] || valor;
 };
 
-// POST - Recibir encuesta y generar PDF
 router.post("/encuesta", async (req, res) => {
   try {
     const datos = req.body;
     console.log("Datos de encuesta recibidos:", datos);
 
-    // Crear PDF con diseno profesional
     const doc = new PDFDocument({
       size: "A4",
       margins: { top: 40, bottom: 40, left: 50, right: 50 },
@@ -193,7 +183,6 @@ router.post("/encuesta", async (req, res) => {
 
     const pageWidth = doc.page.width - 100;
 
-    // Intentar cargar el logo desde Cloudinary
     let logoBuffer = null;
     try {
       logoBuffer = await descargarImagen("https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png");
@@ -201,20 +190,16 @@ router.post("/encuesta", async (req, res) => {
       console.log("No se pudo cargar el logo:", err.message);
     }
 
-    // ===== ENCABEZADO HARVARD ELEGANTE =====
     doc.rect(0, 0, doc.page.width, 110).fill(colores.charcoal);
     
-    // Lineas decorativas Harvard
     doc.rect(0, 110, doc.page.width, 4).fill(colores.wroughtIron);
     doc.rect(0, 114, doc.page.width, 1.5).fill(colores.graphite);
     
-    // Icono de escudo academico
     doc.rect(45, 25, 30, 36).fillAndStroke(colores.wroughtIron, colores.wroughtIron);
     doc.rect(48, 30, 24, 26).fill(colores.charcoal);
     doc.moveTo(60, 32).lineTo(60, 54).strokeColor(colores.silver).lineWidth(0.8).stroke();
     doc.moveTo(50, 43).lineTo(70, 43).strokeColor(colores.silver).lineWidth(0.8).stroke();
     
-    // Circulo blanco para el logo
     if (logoBuffer) {
       doc.circle(doc.page.width - 75, 55, 35).fill(colores.blanco);
       try {
@@ -224,19 +209,16 @@ router.post("/encuesta", async (req, res) => {
       }
     }
 
-    // Titulo CEMI
     doc.fillColor(colores.blanco)
        .fontSize(28)
        .font("Times-Bold")
        .text("ENCUESTA DE USUARIO", 85, 35);
 
-    // Subtitulo
     doc.fillColor(colores.silver)
        .fontSize(12)
        .font("Helvetica")
        .text("Centro de Enseñanza de Múltiples Idiomas", 85, 68);
 
-    // Fecha
     const fechaActual = new Date().toLocaleDateString("es-AR", {
       day: "2-digit",
       month: "long",
@@ -249,11 +231,9 @@ router.post("/encuesta", async (req, res) => {
 
     let yPos = 135;
 
-    // ===== FUNCION PARA SECCIONES =====
     const agregarSeccion = (titulo) => {
       if (yPos > 700) {
         doc.addPage();
-        // Barra superior Harvard en nuevas paginas
         doc.rect(0, 0, doc.page.width, 28).fill(colores.charcoal);
         doc.rect(0, 28, doc.page.width, 2).fill(colores.wroughtIron);
         doc.fillColor(colores.blanco).fontSize(10).font("Times-Bold")
@@ -261,7 +241,6 @@ router.post("/encuesta", async (req, res) => {
         yPos = 50;
       }
       
-      // Barra lateral Harvard
       doc.rect(50, yPos, 4, 20).fill(colores.charcoal);
       
       doc.fillColor(colores.charcoal)
@@ -272,7 +251,6 @@ router.post("/encuesta", async (req, res) => {
       yPos += 32;
     };
 
-    // ===== FUNCION PARA CAMPOS =====
     const agregarCampo = (etiqueta, valor) => {
       if (yPos > 720) {
         doc.addPage();
@@ -296,7 +274,6 @@ router.post("/encuesta", async (req, res) => {
       yPos += 32;
     };
 
-    // ===== FUNCION PARA CAMPOS EN LINEA =====
     const agregarCamposLinea = (campos) => {
       if (yPos > 720) {
         doc.addPage();
@@ -326,7 +303,6 @@ router.post("/encuesta", async (req, res) => {
       yPos += 32;
     };
 
-    // ===== FUNCION PARA CAJA DE TEXTO =====
     const agregarCajaTexto = (texto) => {
       if (yPos > 650) {
         doc.addPage();
@@ -341,7 +317,6 @@ router.post("/encuesta", async (req, res) => {
          .lineWidth(1)
          .fillAndStroke(colores.grisClaro, colores.borde);
       
-      // Linea decorativa superior
       doc.rect(62, yPos, pageWidth - 24, 3).fill(colores.charcoal);
       
       doc.fillColor(colores.texto)
@@ -356,9 +331,7 @@ router.post("/encuesta", async (req, res) => {
       yPos += 72;
     };
 
-    // ===== CONTENIDO DEL PDF =====
 
-    // Seccion: Informacion Personal
     agregarSeccion("INFORMACION PERSONAL");
     
     agregarCamposLinea([
@@ -373,7 +346,6 @@ router.post("/encuesta", async (req, res) => {
       { etiqueta: "Fecha de Nacimiento", valor: datos.birthdate }
     ]);
 
-    // Seccion: Ubicacion
     agregarSeccion("UBICACION");
     
     agregarCamposLinea([
@@ -386,7 +358,6 @@ router.post("/encuesta", async (req, res) => {
       { etiqueta: "Genero", valor: traducir("gender", datos.gender) }
     ]);
 
-    // Seccion: Perfil de Usuario
     agregarSeccion("PERFIL DE USUARIO");
     
     agregarCamposLinea([
@@ -394,7 +365,6 @@ router.post("/encuesta", async (req, res) => {
       { etiqueta: "Frecuencia de Uso", valor: traducir("frequency", datos.frequency) }
     ]);
 
-    // Seccion: Productos Utilizados
     agregarSeccion("PRODUCTOS Y SERVICIOS");
     
     if (datos.products && datos.products.length > 0) {
@@ -403,7 +373,6 @@ router.post("/encuesta", async (req, res) => {
       agregarCampo("Productos utilizados", "Ninguno seleccionado");
     }
 
-    // Seccion: Satisfaccion
     agregarSeccion("SATISFACCION");
     
     const satisfaccionTexto = {
@@ -422,36 +391,30 @@ router.post("/encuesta", async (req, res) => {
     const valorSatisfaccion = datos.satisfaction ? satisfaccionTexto[datos.satisfaction] || `${datos.satisfaction}/10` : "No especificado";
     agregarCampo("Nivel de satisfaccion general", valorSatisfaccion);
 
-    // NPS
     if (datos.nps) {
       agregarCampo("Probabilidad de recomendar CEMI", `${datos.nps}/10`);
     }
 
-    // Seccion: Mejoras
     const mejorasTexto = traducir("improvements", datos.improvements);
     if (mejorasTexto && mejorasTexto !== "No especificado") {
       agregarSeccion("AREAS DE MEJORA SUGERIDAS");
       agregarCajaTexto(mejorasTexto);
     }
 
-    // Seccion: Funciones Futuras
     const funcionesTexto = traducir("features", datos.features);
     if (funcionesTexto && funcionesTexto !== "No especificado") {
       agregarSeccion("FUNCIONES SOLICITADAS");
       agregarCajaTexto(funcionesTexto);
     }
 
-    // Seccion: Comentarios
     if (datos.comments && datos.comments.trim()) {
       agregarSeccion("COMENTARIOS ADICIONALES");
       agregarCajaTexto(datos.comments);
     }
 
-    // ===== PIE DE PAGINA HARVARD =====
     const agregarPie = () => {
       const pieY = doc.page.height - 35;
       
-      // Footer Harvard con linea decorativa
       doc.rect(0, pieY - 8, doc.page.width, 2).fill(colores.wroughtIron);
       doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.charcoal);
       
@@ -468,12 +431,10 @@ router.post("/encuesta", async (req, res) => {
 
     agregarPie();
 
-    // Finalizar PDF
     doc.end();
 
     const pdfBuffer = await pdfPromise;
 
-    // Subir a Cloudinary
     const uploadResult = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
@@ -492,7 +453,6 @@ router.post("/encuesta", async (req, res) => {
 
     console.log("PDF subido a Cloudinary:", uploadResult.secure_url);
 
-    // Guardar en registro local
     const registro = leerRegistro();
     const nuevoRegistro = {
       id: Date.now().toString(),
@@ -508,7 +468,6 @@ router.post("/encuesta", async (req, res) => {
     registro.push(nuevoRegistro);
     guardarRegistro(registro);
 
-    // Enviar email de agradecimiento (no bloqueante)
     try {
       const emailHtml = encuestaAgradecimientoTemplate(datos.firstName);
       await sendEmail(
@@ -519,7 +478,6 @@ router.post("/encuesta", async (req, res) => {
       console.log(`Email de agradecimiento enviado a: ${datos.email}`);
     } catch (emailError) {
       console.error("Error al enviar email de agradecimiento:", emailError.message);
-      // No interrumpimos el flujo si falla el email
     }
 
     res.json({
@@ -539,7 +497,6 @@ router.post("/encuesta", async (req, res) => {
   }
 });
 
-// GET - Listar todas las encuestas
 router.get("/encuestas", (req, res) => {
   try {
     const registro = leerRegistro();
@@ -557,7 +514,6 @@ router.get("/encuestas", (req, res) => {
   }
 });
 
-// GET - Estadisticas
 router.get("/estadisticas", (req, res) => {
   try {
     const registro = leerRegistro();
@@ -606,7 +562,6 @@ router.get("/estadisticas", (req, res) => {
   }
 });
 
-// DELETE - Eliminar encuesta
 router.delete("/encuesta/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -622,7 +577,6 @@ router.delete("/encuesta/:id", async (req, res) => {
 
     const encuesta = registro[index];
 
-    // Eliminar de Cloudinary
     if (encuesta.cloudinaryId) {
       try {
         await cloudinary.uploader.destroy(encuesta.cloudinaryId, { resource_type: "raw" });
@@ -631,7 +585,6 @@ router.delete("/encuesta/:id", async (req, res) => {
       }
     }
 
-    // Eliminar del registro
     registro.splice(index, 1);
     guardarRegistro(registro);
 
@@ -650,10 +603,8 @@ router.delete("/encuesta/:id", async (req, res) => {
   }
 });
 
-// GET - Generar PDF de prueba
 router.get("/test-pdf", async (req, res) => {
   try {
-    // Datos de prueba
     const datos = {
       firstName: "Juan",
       lastName: "Perez",
@@ -674,7 +625,6 @@ router.get("/test-pdf", async (req, res) => {
       comments: "El sistema es muy util para gestionar las clases. Me gustaria ver mejoras en la aplicacion movil y que se agreguen videollamadas integradas."
     };
 
-    // Simular la generacion del PDF (reutilizar logica)
     const PDFDocument = (await import("pdfkit")).default;
     
     const doc = new PDFDocument({
@@ -692,7 +642,6 @@ router.get("/test-pdf", async (req, res) => {
 
     const pageWidth = doc.page.width - 100;
 
-    // Logo
     let logoBuffer = null;
     try {
       logoBuffer = await descargarImagen("https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png");
@@ -700,12 +649,10 @@ router.get("/test-pdf", async (req, res) => {
       console.log("No se pudo cargar el logo:", err.message);
     }
 
-    // Encabezado Harvard
     doc.rect(0, 0, doc.page.width, 110).fill(colores.charcoal);
     doc.rect(0, 110, doc.page.width, 4).fill(colores.wroughtIron);
     doc.rect(0, 114, doc.page.width, 1.5).fill(colores.graphite);
     
-    // Icono de escudo
     doc.rect(45, 25, 30, 36).fillAndStroke(colores.wroughtIron, colores.wroughtIron);
     doc.rect(48, 30, 24, 26).fill(colores.charcoal);
     
@@ -838,7 +785,6 @@ router.get("/test-pdf", async (req, res) => {
       yPos += 72;
     };
 
-    // Contenido
     agregarSeccion("INFORMACION PERSONAL");
     agregarCamposLinea([
       { etiqueta: "Nombre", valor: datos.firstName },
@@ -894,7 +840,6 @@ router.get("/test-pdf", async (req, res) => {
     agregarSeccion("COMENTARIOS ADICIONALES");
     agregarCajaTexto(datos.comments);
 
-    // Pie de pagina Harvard
     const pieY = doc.page.height - 35;
     doc.rect(0, pieY - 8, doc.page.width, 2).fill(colores.wroughtIron);
     doc.rect(0, pieY - 5, doc.page.width, 40).fill(colores.charcoal);
@@ -912,7 +857,6 @@ router.get("/test-pdf", async (req, res) => {
 
     const pdfBuffer = await pdfPromise;
 
-    // Enviar PDF directamente
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", "inline; filename=encuesta-test-cemi.pdf");
     res.send(pdfBuffer);

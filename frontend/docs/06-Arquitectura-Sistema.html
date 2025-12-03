@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -11,14 +11,12 @@
     <div class="container">
         <a href="../documentacion.html" class="back-link">← Volver a Documentación</a>
         
-        <!-- PORTADA -->
         <div class="cover">
             <h1>ARQUITECTURA DEL SISTEMA</h1>
             <p class="subtitle">CEMI Sistema de Gestión Académica</p>
             <p style="margin-top: 20px; opacity: 0.8;">Documentación de Arquitectura de Software</p>
         </div>
 
-        <!-- ÍNDICE -->
         <div class="toc">
             <h2 style="margin-top: 0;">Contenido</h2>
             <ul>
@@ -33,7 +31,6 @@
             </ul>
         </div>
 
-        <!-- VISIÓN GENERAL -->
         <h1 id="vision">1. Visión General</h1>
         <p>
             El sistema CEMI implementa una arquitectura web moderna basada en el patrón cliente-servidor con una API RESTful. Esta arquitectura permite la separación clara de responsabilidades, facilitando el mantenimiento, la escalabilidad y la evolución del sistema.
@@ -86,7 +83,6 @@
             </tr>
         </table>
 
-        <!-- PATRÓN ARQUITECTÓNICO -->
         <h1 id="patron">2. Patrón Arquitectónico</h1>
 
         <h2>2.1 Arquitectura MVC Adaptada</h2>
@@ -98,19 +94,19 @@
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph View["🖥️ VIEW (Frontend)"]
+    subgraph View["️ VIEW (Frontend)"]
         HTML["HTML5 Pages"]
         CSS["CSS3 Styles"]
         JS["JavaScript Client"]
     end
     
-    subgraph Controller["⚙️ CONTROLLER (Backend)"]
+    subgraph Controller["️ CONTROLLER (Backend)"]
         Express["Express.js Router"]
         Routes["API Routes"]
         Middleware["Middleware Stack"]
     end
     
-    subgraph Model["📊 MODEL (Data Layer)"]
+    subgraph Model[" MODEL (Data Layer)"]
         MySQL["MySQL Database"]
         Queries["SQL Queries"]
     end
@@ -135,38 +131,37 @@ flowchart TB
             </ul>
         </div>
 
-        <!-- ARQUITECTURA POR CAPAS -->
         <h1 id="capas">3. Arquitectura por Capas</h1>
 
         <div class="diagram-title">Diagrama de Capas</div>
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph Presentation["📱 CAPA DE PRESENTACIÓN"]
+    subgraph Presentation[" CAPA DE PRESENTACIÓN"]
         direction LR
         Browser["Browser/PWA"]
         Mobile["Mobile App (Capacitor)"]
     end
     
-    subgraph Application["⚙️ CAPA DE APLICACIÓN"]
+    subgraph Application["️ CAPA DE APLICACIÓN"]
         direction TB
-        subgraph Security["🔒 Seguridad"]
+        subgraph Security[" Seguridad"]
             Helmet["Helmet.js"]
             CORS["CORS"]
             RateLimit["Rate Limit"]
         end
-        subgraph API["🔌 API REST"]
+        subgraph API[" API REST"]
             Auth["/api/auth"]
             Alumnos["/api/alumnos"]
             Cursos["/api/cursos"]
             Pagos["/api/pagos"]
         end
-        subgraph Realtime["🔄 Real-time"]
+        subgraph Realtime[" Real-time"]
             SocketIO["Socket.IO Server"]
         end
     end
     
-    subgraph Data["💾 CAPA DE DATOS"]
+    subgraph Data[" CAPA DE DATOS"]
         Pool["Connection Pool"]
         MySQL[(MySQL Database)]
         Cloudinary[(Cloudinary CDN)]
@@ -288,14 +283,13 @@ flowchart TB
             </div>
         </div>
 
-        <!-- DIAGRAMA DE COMPONENTES -->
         <h1 id="componentes">4. Diagrama de Componentes</h1>
 
         <div class="diagram-title">Componentes del Sistema</div>
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph Frontend["🖥️ FRONTEND"]
+    subgraph Frontend["️ FRONTEND"]
         direction TB
         Index["index.html<br/>(Landing)"]
         Login["login.html<br/>(Auth)"]
@@ -305,7 +299,7 @@ flowchart TB
         Classroom["classroom.html"]
     end
     
-    subgraph Backend["⚙️ BACKEND (server.js)"]
+    subgraph Backend["️ BACKEND (server.js)"]
         direction TB
         subgraph Middleware["Middleware"]
             M1["helmet()"]
@@ -328,7 +322,7 @@ flowchart TB
         end
     end
     
-    subgraph Database["💾 DATABASE"]
+    subgraph Database[" DATABASE"]
         DB[(MySQL)]
     end
     
@@ -363,23 +357,22 @@ flowchart TB
             <tr><td><code>/api/aulas</code></td><td>aulas.js</td><td>Espacios físicos</td></tr>
         </table>
 
-        <!-- DIAGRAMA DE DESPLIEGUE -->
         <h1 id="despliegue">5. Diagrama de Despliegue</h1>
 
         <div class="diagram-title">Infraestructura de Despliegue</div>
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph Client["👤 CLIENTE"]
-        Browser["🌐 Browser"]
-        MobileApp["📱 App Móvil"]
+    subgraph Client[" CLIENTE"]
+        Browser[" Browser"]
+        MobileApp[" App Móvil"]
     end
     
-    subgraph CDN["🌍 CDN"]
+    subgraph CDN[" CDN"]
         Cloudinary["Cloudinary<br/>(Media Assets)"]
     end
     
-    subgraph Railway["☁️ RAILWAY PLATFORM"]
+    subgraph Railway["️ RAILWAY PLATFORM"]
         subgraph Container["Docker Container"]
             Node["Node.js Runtime"]
             Express["Express Server<br/>:3000"]
@@ -387,11 +380,11 @@ flowchart TB
         end
     end
     
-    subgraph DBService["💾 DATABASE SERVICE"]
+    subgraph DBService[" DATABASE SERVICE"]
         MySQL["MySQL 8.0<br/>Railway MySQL"]
     end
     
-    subgraph DNS["🔗 DNS"]
+    subgraph DNS[" DNS"]
         Domain["cemi.up.railway.app"]
     end
     
@@ -439,22 +432,21 @@ flowchart TB
             </tr>
         </table>
 
-        <!-- FLUJO DE DATOS -->
         <h1 id="flujo">6. Flujo de Datos</h1>
 
         <h2>6.1 Request HTTP Típico</h2>
         <div class="api-flow">
-            <div class="api-box">👤<br/>Cliente</div>
+            <div class="api-box"><br/>Cliente</div>
             <span class="api-arrow">→</span>
-            <div class="api-box">🔒<br/>HTTPS</div>
+            <div class="api-box"><br/>HTTPS</div>
             <span class="api-arrow">→</span>
-            <div class="api-box">🛡️<br/>Middleware</div>
+            <div class="api-box">️<br/>Middleware</div>
             <span class="api-arrow">→</span>
-            <div class="api-box">🔀<br/>Router</div>
+            <div class="api-box"><br/>Router</div>
             <span class="api-arrow">→</span>
-            <div class="api-box">📊<br/>Controller</div>
+            <div class="api-box"><br/>Controller</div>
             <span class="api-arrow">→</span>
-            <div class="api-box">💾<br/>MySQL</div>
+            <div class="api-box"><br/>MySQL</div>
         </div>
 
         <h2>6.2 Flujo de Autenticación</h2>
@@ -483,29 +475,28 @@ sequenceDiagram
             </div>
         </div>
 
-        <!-- ARQUITECTURA DE SEGURIDAD -->
         <h1 id="seguridad">7. Arquitectura de Seguridad</h1>
 
         <div class="diagram-title">Capas de Seguridad</div>
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph Transport["🔒 TRANSPORTE"]
+    subgraph Transport[" TRANSPORTE"]
         HTTPS["HTTPS/TLS 1.3"]
     end
     
-    subgraph Application["🛡️ APLICACIÓN"]
+    subgraph Application["️ APLICACIÓN"]
         Helmet["Helmet.js<br/>(HTTP Headers)"]
         CORS["CORS<br/>(Origin Control)"]
         Rate["Rate Limiting<br/>(1000 req/15min)"]
     end
     
-    subgraph Auth["🔐 AUTENTICACIÓN"]
+    subgraph Auth[" AUTENTICACIÓN"]
         Bcrypt["bcrypt<br/>(Password Hashing)"]
         Session["Session Management"]
     end
     
-    subgraph Data["💾 DATOS"]
+    subgraph Data[" DATOS"]
         Param["Parameterized Queries"]
         Validation["Input Validation"]
     end
@@ -560,7 +551,6 @@ flowchart TB
             </tr>
         </table>
 
-        <!-- ESCALABILIDAD -->
         <h1 id="escalabilidad">8. Escalabilidad y Rendimiento</h1>
 
         <h2>8.1 Estrategias de Escalabilidad</h2>
@@ -602,22 +592,22 @@ flowchart TB
             <tr>
                 <td>Tiempo de respuesta API</td>
                 <td>< 200ms</td>
-                <td>✅ ~150ms promedio</td>
+                <td> ~150ms promedio</td>
             </tr>
             <tr>
                 <td>Time to First Byte</td>
                 <td>< 500ms</td>
-                <td>✅ ~300ms</td>
+                <td> ~300ms</td>
             </tr>
             <tr>
                 <td>Uptime</td>
                 <td>99.5%</td>
-                <td>✅ 99.8%</td>
+                <td> 99.8%</td>
             </tr>
             <tr>
                 <td>Concurrent Users</td>
                 <td>100+</td>
-                <td>✅ Probado hasta 150</td>
+                <td> Probado hasta 150</td>
             </tr>
         </table>
 

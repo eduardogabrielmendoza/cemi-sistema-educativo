@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="assets/css/user-chat-manager.css" />
   <link rel="stylesheet" href="assets/css/ayuda-section.css" />
   
-  <!-- Verificación de mantenimiento del sistema -->
   <script src="assets/js/config.js?v=1.1"></script>
   <script src="assets/js/check-maintenance.js"></script>
   
@@ -123,13 +122,13 @@
   // Cargar avatar del usuario
   async function cargarAvatarHeader() {
     try {
-      console.log('🎨 Iniciando carga de avatar...');
+      console.log(' Iniciando carga de avatar...');
       
       // Detectar tipo de usuario según qué ID existe en localStorage
       let tipoUsuario = 'profesor';
       let idUsuario = localStorage.getItem('id_profesor');
       
-      console.log('📋 id_profesor:', idUsuario);
+      console.log(' id_profesor:', idUsuario);
       
       if (!idUsuario) {
         idUsuario = localStorage.getItem('id_alumno');
@@ -139,7 +138,7 @@
       }
       
       if (!idUsuario) {
-        console.log('❌ No se encontró ID de usuario');
+        console.log(' No se encontró ID de usuario');
         return;
       }
       
@@ -185,7 +184,7 @@
         console.log('Respuesta no valida o usuario no encontrado');
       }
     } catch (error) {
-      console.error('💥 Error al cargar avatar:', error);
+      console.error(' Error al cargar avatar:', error);
     }
   }
   
@@ -772,7 +771,6 @@
 
             <div class="ayuda-categorias" id="ayudaCategorias">
               
-              <!-- Primeros Pasos -->
               <div class="ayuda-accordion" data-category="inicio">
                 <div class="accordion-header">
                   <div class="accordion-title">
@@ -817,7 +815,6 @@
                 </div>
               </div>
 
-              <!-- Mis Cursos -->
               <div class="ayuda-accordion" data-category="cursos">
                 <div class="accordion-header">
                   <div class="accordion-title">
@@ -862,7 +859,6 @@
                 </div>
               </div>
 
-              <!-- Calificaciones -->
               <div class="ayuda-accordion" data-category="calificaciones">
                 <div class="accordion-header">
                   <div class="accordion-title">
@@ -918,7 +914,6 @@
                 </div>
               </div>
 
-              <!-- Asistencias -->
               <div class="ayuda-accordion" data-category="asistencias">
                 <div class="accordion-header">
                   <div class="accordion-title">
@@ -963,7 +958,6 @@
                 </div>
               </div>
 
-              <!-- Mi Perfil -->
               <div class="ayuda-accordion" data-category="perfil">
                 <div class="accordion-header">
                   <div class="accordion-title">
@@ -1008,7 +1002,6 @@
                 </div>
               </div>
 
-              <!-- Classroom -->
               <div class="ayuda-accordion" data-category="classroom">
                 <div class="accordion-header">
                   <div class="accordion-title">
@@ -1053,7 +1046,6 @@
                 </div>
               </div>
 
-              <!-- Chat Soporte -->
               <div class="ayuda-accordion" data-category="chat">
                 <div class="accordion-header">
                   <div class="accordion-title">
@@ -1098,7 +1090,6 @@
                 </div>
               </div>
 
-              <!-- FAQ -->
               <div class="ayuda-accordion" data-category="faq">
                 <div class="accordion-header">
                   <div class="accordion-title">

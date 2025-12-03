@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
             <div style="display: flex; align-items: start; gap: 20px;">
                 <i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #FFC107; flex-shrink: 0; margin-top: 4px;"></i>
                 <div>
-                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">⚠️ Requiere Aprobación de Administrador</strong>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">️ Requiere Aprobación de Administrador</strong>
                     <p style="margin: 0; color: #856404; line-height: 1.6;">Los códigos de recuperación deben ser solicitados al administrador del sistema. No se pueden generar de forma independiente por seguridad.</p>
                 </div>
             </div>
@@ -55,7 +55,6 @@
             </div>
         </div>
 
-        <!-- Modal para solicitar códigos 2FA -->
         <div id="modal2FA" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 999999; backdrop-filter: blur(5px); align-items: center; justify-content: center;">
             <div style="background: white; border-radius: 16px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.25); animation: modalSlideIn 0.3s ease;">
                 <div style="background: linear-gradient(135deg, #0071e3 0%, #0077ed 100%); padding: 25px 30px; border-radius: 16px 16px 0 0;">
@@ -119,7 +118,7 @@
                     
                     <div style="background: #fff3cd; border-left: 4px solid #FFC107; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 25px;">
                         <p style="margin: 0; color: #856404; font-size: 14px;">
-                            <strong>⚠️ Nota:</strong> Un administrador verificará tu identidad antes de generar los códigos.
+                            <strong>️ Nota:</strong> Un administrador verificará tu identidad antes de generar los códigos.
                         </p>
                     </div>
                     
@@ -164,7 +163,7 @@
         <div class="security-alert" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); border-left-color: #dc3545;">
             <i data-lucide="alert-octagon" style="color: white;"></i>
             <div>
-                <strong style="color: white;">🚨 Crítico: Guarda estos códigos en un lugar seguro</strong>
+                <strong style="color: white;"> Crítico: Guarda estos códigos en un lugar seguro</strong>
                 <p style="color: rgba(255,255,255,0.9);">Estos códigos son tu ÚNICA forma de acceder si pierdes tu dispositivo 2FA. Cada código se puede usar solo una vez.</p>
             </div>
         </div>
@@ -216,7 +215,7 @@
             <div class="security-grid" style="margin-top: 30px;">
                 <div style="background: #e8f5e9; padding: 25px; border-radius: 12px; border-left: 4px solid #28a745;">
                     <i data-lucide="check-circle" style="width: 28px; height: 28px; color: #28a745; margin-bottom: 15px;"></i>
-                    <strong style="display: block; margin-bottom: 10px; color: #28a745;">✅ Formas seguras</strong>
+                    <strong style="display: block; margin-bottom: 10px; color: #28a745;"> Formas seguras</strong>
                     <ul style="margin-left: 20px; color: #5a6c7d; font-size: 14px; line-height: 1.8;">
                         <li>Imprimir y guardar en caja fuerte</li>
                         <li>Gestor de contraseñas cifrado</li>
@@ -226,7 +225,7 @@
                 </div>
                 <div style="background: #ffebee; padding: 25px; border-radius: 12px; border-left: 4px solid #dc3545;">
                     <i data-lucide="x-circle" style="width: 28px; height: 28px; color: #dc3545; margin-bottom: 15px;"></i>
-                    <strong style="display: block; margin-bottom: 10px; color: #dc3545;">❌ NUNCA hagas esto</strong>
+                    <strong style="display: block; margin-bottom: 10px; color: #dc3545;"> NUNCA hagas esto</strong>
                     <ul style="margin-left: 20px; color: #5a6c7d; font-size: 14px; line-height: 1.8;">
                         <li>Captura de pantalla sin cifrar</li>
                         <li>Email sin protección</li>
@@ -242,7 +241,7 @@
             <p style="margin-bottom: 30px;">Puedes generar nuevos códigos en cualquier momento. Los códigos antiguos dejarán de funcionar.</p>
             
             <div style="background: #fff3cd; padding: 25px; border-radius: 12px; border-left: 4px solid #FFC107; margin-bottom: 30px;">
-                <strong style="color: #856404; display: block; margin-bottom: 15px;">⚠️ Cuándo regenerar:</strong>
+                <strong style="color: #856404; display: block; margin-bottom: 15px;">️ Cuándo regenerar:</strong>
                 <ul style="margin-left: 20px; color: #856404; line-height: 2;">
                     <li>Usaste la mayoría de tus códigos</li>
                     <li>Crees que alguien los vio</li>
@@ -267,7 +266,7 @@
             <p style="margin-bottom: 20px;">Así se ven los códigos de recuperación (estos son solo ejemplos):</p>
             
             <div style="background: #2c3e50; padding: 30px; border-radius: 12px; font-family: 'Courier New', monospace;">
-                <div style="color: white; font-size: 18px; font-weight: 700; margin-bottom: 20px;">🔑 Códigos de Recuperación de CEMI</div>
+                <div style="color: white; font-size: 18px; font-weight: 700; margin-bottom: 20px;"> Códigos de Recuperación de CEMI</div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
                     <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; color: white; font-size: 16px; text-align: center;">1234-5678</div>
                     <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; color: white; font-size: 16px; text-align: center;">8765-4321</div>
@@ -280,7 +279,7 @@
                     <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; color: white; font-size: 16px; text-align: center;">9999-0000</div>
                     <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; color: white; font-size: 16px; text-align: center;">1357-2468</div>
                 </div>
-                <div style="color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 20px; text-align: center;">⚠️ Cada código solo se puede usar UNA vez</div>
+                <div style="color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 20px; text-align: center;">️ Cada código solo se puede usar UNA vez</div>
             </div>
         </div>
 
@@ -373,7 +372,7 @@
                 if (data.success) {
                     resultado.innerHTML = `
                         <div style="background: #e8f5e9; border-left: 4px solid #28a745; padding: 20px; border-radius: 0 8px 8px 0;">
-                            <strong style="color: #28a745; display: block; margin-bottom: 10px;">✅ ¡Solicitud enviada correctamente!</strong>
+                            <strong style="color: #28a745; display: block; margin-bottom: 10px;"> ¡Solicitud enviada correctamente!</strong>
                             <p style="color: #2e7d32; margin: 5px 0; font-size: 14px;"><strong>Referencia:</strong> #${data.data.referencia}</p>
                             <p style="color: #2e7d32; margin: 5px 0; font-size: 14px;"><strong>Nombre:</strong> ${data.data.nombre}</p>
                             <p style="color: #2e7d32; margin: 5px 0; font-size: 14px;"><strong>Tiempo estimado:</strong> ${data.data.estimado}</p>
@@ -392,7 +391,7 @@
                 } else {
                     resultado.innerHTML = `
                         <div style="background: #ffebee; border-left: 4px solid #dc3545; padding: 15px; border-radius: 0 8px 8px 0;">
-                            <strong style="color: #dc3545;">❌ ${data.message || 'Error al procesar la solicitud'}</strong>
+                            <strong style="color: #dc3545;"> ${data.message || 'Error al procesar la solicitud'}</strong>
                         </div>
                     `;
                     btn.innerHTML = originalText;
@@ -403,7 +402,7 @@
                 console.error('Error:', error);
                 resultado.innerHTML = `
                     <div style="background: #ffebee; border-left: 4px solid #dc3545; padding: 15px; border-radius: 0 8px 8px 0;">
-                        <strong style="color: #dc3545;">❌ Error de conexión. Intenta nuevamente.</strong>
+                        <strong style="color: #dc3545;"> Error de conexión. Intenta nuevamente.</strong>
                     </div>
                 `;
                 btn.innerHTML = originalText;

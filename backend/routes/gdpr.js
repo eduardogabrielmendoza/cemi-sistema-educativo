@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import pool from "../utils/db.js";
 import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
@@ -6,10 +6,6 @@ import { gdprSolicitudUsuarioTemplate, gdprNotificacionAdminTemplate } from "../
 
 const router = express.Router();
 
-/**
- * POST /api/gdpr/solicitar-exportacion
- * Procesa una solicitud de exportación de datos GDPR
- */
 router.post("/solicitar-exportacion",
   [
     body('email')
@@ -35,7 +31,6 @@ router.post("/solicitar-exportacion",
     console.log('[GDPR] Buscando email:', email);
 
     try {
-      // Buscar al usuario por email en la tabla personas (búsqueda flexible)
       const [personas] = await pool.query(
         `SELECT 
           p.id_persona,
@@ -64,7 +59,6 @@ router.post("/solicitar-exportacion",
 
       const persona = personas[0];
 
-      // Si es alumno, obtener datos adicionales
       let datosAlumno = null;
       if (persona.rol === 'alumno') {
         const [alumnos] = await pool.query(
@@ -76,10 +70,8 @@ router.post("/solicitar-exportacion",
         }
       }
 
-      // Generar número de referencia único
       const referencia = `GDPR-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
-      // Preparar datos para los emails
       const datosEmail = {
         nombre: persona.nombre,
         apellido: persona.apellido,
@@ -93,22 +85,19 @@ router.post("/solicitar-exportacion",
         idAlumno: datosAlumno?.id_alumno
       };
 
-      // Enviar email de confirmación al usuario
       const emailUsuario = await sendEmail(
         persona.mail,
         `Solicitud GDPR Recibida - Ref: #${referencia}`,
         gdprSolicitudUsuarioTemplate(datosEmail)
       );
 
-      // Enviar email de notificación al administrador
       const emailAdmin = await sendEmail(
         ADMIN_EMAIL,
-        `🔐 Nueva Solicitud GDPR: Exportación de Datos - #${referencia}`,
+        ` Nueva Solicitud GDPR: Exportación de Datos - #${referencia}`,
         gdprNotificacionAdminTemplate(datosEmail)
       );
 
-      // Registrar la solicitud en logs (opcional)
-      console.log(`📋 Solicitud GDPR registrada:`, {
+      console.log(` Solicitud GDPR registrada:`, {
         referencia,
         tipo: 'exportar',
         usuario: persona.username,
@@ -139,10 +128,6 @@ router.post("/solicitar-exportacion",
   }
 );
 
-/**
- * POST /api/gdpr/solicitar-eliminacion
- * Procesa una solicitud de eliminación de cuenta GDPR
- */
 router.post("/solicitar-eliminacion",
   [
     body('email')
@@ -162,7 +147,6 @@ router.post("/solicitar-eliminacion",
     const { email } = req.body;
 
     try {
-      // Buscar al usuario
       const [personas] = await pool.query(
         `SELECT 
           p.id_persona, p.nombre, p.apellido, p.mail, p.dni,
@@ -185,7 +169,6 @@ router.post("/solicitar-eliminacion",
       const persona = personas[0];
       const referencia = `GDPR-DEL-${Date.now().toString(36).toUpperCase()}`;
 
-      // Obtener datos de alumno si aplica
       let datosAlumno = null;
       if (persona.rol === 'alumno') {
         const [alumnos] = await pool.query(
@@ -207,9 +190,8 @@ router.post("/solicitar-eliminacion",
         idAlumno: datosAlumno?.id_alumno
       };
 
-      // Enviar emails
       await sendEmail(persona.mail, `Solicitud de Eliminación Recibida - Ref: #${referencia}`, gdprSolicitudUsuarioTemplate(datosEmail));
-      await sendEmail(ADMIN_EMAIL, `🗑️ Solicitud GDPR: Eliminación de Cuenta - #${referencia}`, gdprNotificacionAdminTemplate(datosEmail));
+      await sendEmail(ADMIN_EMAIL, `️ Solicitud GDPR: Eliminación de Cuenta - #${referencia}`, gdprNotificacionAdminTemplate(datosEmail));
 
       res.json({
         success: true,

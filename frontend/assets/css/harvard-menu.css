@@ -1,9 +1,4 @@
-/* =====================================================
-   HARVARD-STYLE MEGA MENU - CEMI
-   Basado en CSS originales de harvard.edu
-   ===================================================== */
-
-/* ===== VARIABLES DE COLOR (basadas en Harvard) ===== */
+﻿
 :root {
   --hw-color-wrought-iron: #1e1e1e;
   --hw-color-blackboard: #0e0e0e;
@@ -16,7 +11,6 @@
   --hw-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* ===== HEADER PRINCIPAL ===== */
 .harvard-header {
   position: fixed;
   top: 0;
@@ -29,7 +23,6 @@
   will-change: transform;
 }
 
-/* Header oculto al hacer scroll hacia abajo */
 .harvard-header.header-hidden {
   transform: translateY(-100%);
 }
@@ -50,7 +43,6 @@
   }
 }
 
-/* ===== BRANDING (Logo + Nombre) ===== */
 .harvard-branding {
   display: none;
   align-items: center;
@@ -99,7 +91,6 @@
   }
 }
 
-/* ===== BOTONES DEL HEADER ===== */
 .harvard-actions {
   display: flex;
   align-items: center;
@@ -114,9 +105,7 @@
   }
 }
 
-/* ===== BUSCADOR A-Z ESTILO HARVARD ===== */
 
-/* Wrapper del buscador - inline en la barra */
 .harvard-search-wrapper {
   display: flex;
   align-items: center;
@@ -145,7 +134,6 @@
   }
 }
 
-/* Campo de búsqueda */
 .harvard-search-field {
   flex: 1;
   border: none;
@@ -171,7 +159,6 @@
   }
 }
 
-/* Iconos del buscador */
 .harvard-search-icons {
   display: flex;
   align-items: center;
@@ -205,7 +192,6 @@
   height: 20px;
 }
 
-/* Quick link debajo del buscador */
 .harvard-search-quicklink {
   position: absolute;
   top: 100%;
@@ -253,7 +239,6 @@
   text-decoration: underline;
 }
 
-/* Botón A-Z */
 .harvard-az-btn {
   display: inline-flex;
   align-items: center;
@@ -275,7 +260,6 @@
   color: var(--hw-color-graphite);
 }
 
-/* Ocultar botón A-Z cuando buscador está activo */
 .harvard-az-btn.hidden {
   display: none;
 }
@@ -299,7 +283,6 @@
   }
 }
 
-/* Botón Menu */
 .harvard-menu-btn {
   display: inline-flex;
   align-items: center;
@@ -353,7 +336,6 @@
   }
 }
 
-/* Icono Hamburguesa */
 .harvard-hamburger {
   display: flex;
   flex-direction: column;
@@ -387,7 +369,6 @@
 .harvard-hamburger span:nth-child(2) { top: 50%; transform: translate(-50%, -50%); }
 .harvard-hamburger span:nth-child(3) { bottom: 8px; }
 
-/* Animación X cuando menú abierto */
 .harvard-header.menu-open .harvard-hamburger span:nth-child(1) {
   top: 50%;
   transform: translate(-50%, -50%) rotate(45deg);
@@ -404,7 +385,6 @@
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* ===== MEGA MENU FULLSCREEN ===== */
 .harvard-mega-menu {
   background-color: var(--hw-color-wrought-iron) !important;
   position: fixed;
@@ -435,7 +415,6 @@
   transform: translate3d(0, 0, 0);
 }
 
-/* Animación de cierre (drop down inverso) */
 .harvard-mega-menu.closing {
   transform: translate3d(0, -100%, 0);
   transition: transform 0.35s cubic-bezier(0.52, 0.16, 0.24, 1), 
@@ -448,7 +427,6 @@
   display: none;
 }
 
-/* Imagen de fondo */
 .mega-menu-bg-image {
   display: none;
   visibility: hidden;
@@ -505,7 +483,6 @@
   opacity: 1;
 }
 
-/* ===== HEADER DEL MENU ===== */
 .mega-menu-header {
   height: 72px;
   line-height: 72px;
@@ -544,7 +521,6 @@
   text-decoration: none;
 }
 
-/* Logo largo en mega menu */
 .mega-menu-logo .mega-logo-long {
   height: 50px;
   width: auto;
@@ -566,7 +542,6 @@
   }
 }
 
-/* Círculo blanco detrás del logo */
 .mega-logo-circle {
   display: flex;
   align-items: center;
@@ -604,7 +579,6 @@
   color: var(--hw-color-white);
 }
 
-/* Botón cerrar */
 .mega-menu-close {
   color: var(--hw-color-white);
   display: inline-flex;
@@ -636,7 +610,6 @@
   }
 }
 
-/* Círculo alrededor de la X - Estilo Harvard */
 .close-icon-circle {
   width: 36px;
   height: 36px;
@@ -659,7 +632,6 @@
   border-color: #fff;
 }
 
-/* ===== CONTENIDO DEL MENU ===== */
 .mega-menu-content {
   position: relative;
   z-index: 5;
@@ -682,7 +654,6 @@
   }
 }
 
-/* Contenedor para paneles secundarios - posición fija */
 .mega-nav-secondary-container {
   position: relative;
   flex-shrink: 0;
@@ -707,7 +678,6 @@
   }
 }
 
-/* ===== COLUMNA PRIMARIA ===== */
 .mega-nav-primary {
   padding: 140px 24px 24px;
   height: auto;
@@ -739,7 +709,6 @@
   }
 }
 
-/* Items de navegación primaria */
 .mega-nav-item {
   display: block;
   text-decoration: none;
@@ -757,7 +726,6 @@
   white-space: nowrap;
 }
 
-/* FORZAR Georgia en items de navegación */
 .harvard-mega-menu .mega-nav-item,
 .harvard-mega-menu .mega-nav-item span,
 .harvard-mega-menu .mega-nav-item .mega-nav-item-text,
@@ -795,7 +763,6 @@
   margin-top: 25px;
 }
 
-/* Underline animation - estilo Harvard */
 .mega-nav-item-text {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
@@ -809,7 +776,6 @@
   background-size: 100% 1px;
 }
 
-/* Items grises cuando hay activo */
 .mega-nav-primary.has-active .mega-nav-item {
   color: var(--hw-color-slate);
 }
@@ -830,7 +796,6 @@
   background-size: 100% 1px !important;
 }
 
-/* ===== COLUMNA SECUNDARIA ===== */
 .mega-nav-secondary {
   display: none;
   visibility: hidden;
@@ -870,7 +835,6 @@
   display: none;
 }
 
-/* Título principal del panel con flecha (como Harvard "Academics →") */
 .mega-sub-title {
   display: inline-flex;
   align-items: center;
@@ -919,7 +883,6 @@
   gap: 0;
 }
 
-/* Links secundarios */
 .mega-sub-link {
   display: inline-flex;
   align-items: center;
@@ -939,7 +902,6 @@
   border: 0;
 }
 
-/* Chevron para enlaces con submenú */
 .mega-sub-link .chevron {
   font-size: 24px;
   font-weight: 400;
@@ -959,7 +921,6 @@
   color: var(--hw-color-white);
 }
 
-/* Animaciones de entrada */
 .mega-nav-secondary .mega-sub-link,
 .mega-nav-secondary .mega-sub-description {
   opacity: 0;
@@ -977,7 +938,6 @@
   }
 }
 
-/* Animación de entrada para título */
 .mega-nav-secondary .mega-sub-title {
   opacity: 0;
   transform: translate3d(0, 15px, 0);
@@ -1005,7 +965,6 @@
 .mega-nav-secondary.visible .mega-sub-link:nth-child(4) { transition-delay: 0.25s; }
 .mega-nav-secondary.visible .mega-sub-link:nth-child(5) { transition-delay: 0.3s; }
 
-/* ===== CONTENEDOR TERCIARIO ===== */
 .mega-nav-tertiary-container {
   position: relative;
   flex-shrink: 0;
@@ -1019,7 +978,6 @@
   }
 }
 
-/* ===== COLUMNA TERCIARIA ===== */
 .mega-nav-tertiary {
   display: none;
   visibility: hidden;
@@ -1082,7 +1040,6 @@
   gap: 0;
 }
 
-/* ===== TERTIARY ITEMS EXPANDIBLES ===== */
 .mega-tertiary-item {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1126,7 +1083,6 @@
   color: var(--hw-color-shade);
 }
 
-/* Info expandible */
 .mega-tertiary-info {
   max-height: 0;
   overflow: hidden;
@@ -1168,7 +1124,6 @@
   background: rgba(255, 255, 255, 0.18);
 }
 
-/* ===== QUICK LINKS FOOTER ===== */
 .mega-menu-footer {
   color: #b0b0b0 !important;
   background: #1e1e1e !important;
@@ -1270,7 +1225,6 @@
   color: var(--hw-color-white);
 }
 
-/* ===== OCULTAR FABs CUANDO MENU ESTÁ ABIERTO ===== */
 .harvard-mega-menu.active ~ .chat-float-button,
 .harvard-mega-menu.active ~ #asistente-container,
 body:has(.harvard-mega-menu.active) .chat-float-button,
@@ -1281,7 +1235,6 @@ body:has(.harvard-mega-menu.active) .asistente-fab {
   visibility: hidden !important;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 767px) {
   .mega-nav-secondary,
   .mega-nav-tertiary {

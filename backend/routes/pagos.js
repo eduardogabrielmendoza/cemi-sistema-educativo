@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import pool from "../utils/db.js";
 import { body, param, validationResult } from "express-validator";
 
@@ -207,7 +207,6 @@ router.get("/alumno/:id", async (req, res) => {
             };
           }
           
-          // Para los demás meses (Marzo=index 1, Abril=index 2, etc.)
           const mesAcademicoActual = mesActual - 2; // Marzo = 0, Abril = 1, etc.
           const indexMesReal = index - 1; // Ajustar por Matricula
           
@@ -437,7 +436,6 @@ router.post("/realizar",
 
     const id_medio_pago = medios[0].id_medio_pago;
 
-    // Matricula = 1, Cuota Mensual = 2
     const id_concepto = mes_cuota === 'Matricula' ? 1 : 2;
 
     const detalle_pago = mes_cuota === 'Matricula' 
@@ -581,7 +579,6 @@ router.put("/:id/confirmar",
     }
 });
 
-// PUT /pagos/:id/archivar - Archivar un pago anulado
 router.put("/:id/archivar", 
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
@@ -615,7 +612,6 @@ router.put("/:id/archivar",
         });
       }
 
-      // Archivar el pago
       await pool.query(
         'UPDATE pagos SET archivado = 1 WHERE id_pago = ?', 
         [id]
@@ -636,7 +632,6 @@ router.put("/:id/archivar",
     }
 });
 
-// PUT /pagos/:id/desarchivar - Devolver un pago archivado a pagos activos
 router.put("/:id/desarchivar", 
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
@@ -670,7 +665,6 @@ router.put("/:id/desarchivar",
         });
       }
 
-      // Desarchivar el pago (volver a pagos activos, mantiene estado anulado)
       await pool.query(
         'UPDATE pagos SET archivado = 0 WHERE id_pago = ?', 
         [id]

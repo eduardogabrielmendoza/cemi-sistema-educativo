@@ -1,12 +1,7 @@
-/* ============================================
-   CEMI Documentation - Harvard Gray Style
-   Font: Inter | Colors: Gray Harvard Palette
-   ============================================ */
-
+﻿
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* Harvard Gray Palette */
     --hw-charcoal: #1e1e1e;
     --hw-dark: #2d2d2d;
     --hw-graphite: #4a4a4a;
@@ -17,7 +12,6 @@
     --hw-white: #ffffff;
     --hw-border: #e0e0e0;
     
-    /* Functional Colors */
     --accent-dark: #3a3a3a;
     --success: #4a7c59;
     --warning: #b8860b;
@@ -43,18 +37,12 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ============================================
-   CONTAINER
-   ============================================ */
 .container {
     max-width: 920px;
     margin: 0 auto;
     padding: 0 40px 60px;
 }
 
-/* ============================================
-   BACK LINK - Fixed Position
-   ============================================ */
 .back-link {
     position: fixed;
     top: 20px;
@@ -80,9 +68,6 @@ body {
     transform: translateX(-3px);
 }
 
-/* ============================================
-   COVER / HEADER - Light Gray Harvard Style
-   ============================================ */
 .cover {
     text-align: center;
     padding: 100px 50px 80px;
@@ -152,9 +137,6 @@ body {
     font-size: 0.95rem;
 }
 
-/* ============================================
-   HEADINGS
-   ============================================ */
 h1, h2, h3, h4 { 
     color: var(--hw-charcoal);
     font-weight: 600;
@@ -192,9 +174,6 @@ h4 {
     color: var(--hw-gray);
 }
 
-/* ============================================
-   PARAGRAPHS & TEXT
-   ============================================ */
 p { 
     margin: 15px 0;
     text-align: justify;
@@ -206,9 +185,6 @@ strong {
     color: var(--hw-charcoal);
 }
 
-/* ============================================
-   TABLE OF CONTENTS
-   ============================================ */
 .toc {
     background: var(--hw-off-white);
     padding: 35px 40px;
@@ -258,9 +234,6 @@ strong {
     padding-left: 8px;
 }
 
-/* ============================================
-   INFO BOXES
-   ============================================ */
 .info-box, .warning-box, .success-box {
     padding: 20px 25px;
     margin: 25px 0;
@@ -282,9 +255,6 @@ strong {
     background: #f5f9f6;
 }
 
-/* ============================================
-   TABLES
-   ============================================ */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -320,9 +290,6 @@ tr:hover td {
     background: #eef0eb;
 }
 
-/* ============================================
-   STEPS
-   ============================================ */
 .step {
     display: flex;
     align-items: flex-start;
@@ -365,9 +332,6 @@ tr:hover td {
     color: var(--hw-gray);
 }
 
-/* ============================================
-   LISTS
-   ============================================ */
 ul, ol {
     margin: 18px 0 18px 25px;
 }
@@ -381,9 +345,6 @@ li::marker {
     color: var(--hw-gray);
 }
 
-/* ============================================
-   CODE BLOCKS
-   ============================================ */
 code {
     font-family: 'SF Mono', 'Consolas', monospace;
     background: #f0f1ec;
@@ -405,9 +366,6 @@ pre {
     border-left: 4px solid var(--hw-gray);
 }
 
-/* ============================================
-   TECH STACK GRID
-   ============================================ */
 .tech-stack {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -445,9 +403,6 @@ pre {
     color: var(--hw-gray);
 }
 
-/* ============================================
-   DIAGRAMS (Mermaid)
-   ============================================ */
 .diagram-content, .mermaid {
     background: var(--hw-off-white);
     padding: 30px;
@@ -467,9 +422,6 @@ pre {
     border-left: 4px solid var(--hw-graphite);
 }
 
-/* ============================================
-   MOCKUPS / PROTOTYPES
-   ============================================ */
 .mockup-container, .wireframe {
     background: var(--hw-off-white);
     border: 1px solid var(--hw-border);
@@ -492,9 +444,6 @@ pre {
     font-size: 0.9rem;
 }
 
-/* ============================================
-   TEST CASES
-   ============================================ */
 .test-case {
     background: var(--hw-white);
     border: 1px solid var(--hw-border);
@@ -532,9 +481,6 @@ pre {
     color: #c62828;
 }
 
-/* ============================================
-   BIBLIOGRAPHY / REFERENCES
-   ============================================ */
 .reference, .reference-item {
     padding: 18px 20px;
     margin: 15px 0;
@@ -556,9 +502,6 @@ pre {
     font-size: 0.9rem;
 }
 
-/* ============================================
-   BADGES
-   ============================================ */
 .tech-badge, .actor-badge, .status-badge {
     display: inline-block;
     padding: 5px 12px;
@@ -589,9 +532,6 @@ pre {
 .actor-admin { background: #3a4a5a; }
 .actor-gestor { background: #2a3a4a; }
 
-/* ============================================
-   LEGENDS
-   ============================================ */
 .legend {
     background: var(--hw-off-white);
     padding: 20px;
@@ -609,9 +549,6 @@ pre {
     padding-left: 20px;
 }
 
-/* ============================================
-   ARCHITECTURE COMPONENTS
-   ============================================ */
 .layer-box, .component-box {
     background: var(--hw-off-white);
     border: 1px solid var(--hw-border);
@@ -624,9 +561,6 @@ pre {
     color: var(--hw-charcoal);
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
 .footer {
     margin-top: 60px;
     padding: 25px 0;
@@ -641,9 +575,6 @@ pre {
     text-align: center;
 }
 
-/* ============================================
-   PRINT STYLES
-   ============================================ */
 @media print {
     .back-link {
         display: none !important;
@@ -668,9 +599,6 @@ pre {
     }
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
 @media (max-width: 768px) {
     .container {
         padding: 0 20px 40px;

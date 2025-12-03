@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -7,10 +7,8 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Ruta del archivo JSON de comunidad
 const dataPath = path.join(__dirname, "../../frontend/assets/data/comunidad-data.json");
 
-// Asegurar que existe el archivo
 const ensureDataFile = () => {
     const dir = path.dirname(dataPath);
     if (!fs.existsSync(dir)) {
@@ -29,7 +27,6 @@ const ensureDataFile = () => {
     }
 };
 
-// Leer datos
 const leerDatos = () => {
     ensureDataFile();
     try {
@@ -41,7 +38,6 @@ const leerDatos = () => {
     }
 };
 
-// Guardar datos
 const guardarDatos = (data) => {
     try {
         fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
@@ -52,23 +48,17 @@ const guardarDatos = (data) => {
     }
 };
 
-// Generar ID único
 const generarId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 };
 
-// Agregar participante único
 const agregarParticipante = (stats, participanteId) => {
     if (!stats.participantes.includes(participanteId)) {
         stats.participantes.push(participanteId);
     }
 };
 
-// ============================================
-// PREGUNTAS
-// ============================================
 
-// Obtener todas las preguntas
 router.get('/preguntas', (req, res) => {
     try {
         const { categoria, destacado, estado } = req.query;
@@ -76,22 +66,18 @@ router.get('/preguntas', (req, res) => {
         
         let preguntas = [...data.preguntas];
         
-        // Filtrar por categoría
         if (categoria && categoria !== 'all') {
             preguntas = preguntas.filter(p => p.categoria === categoria);
         }
         
-        // Filtrar destacados
         if (destacado === 'true') {
             preguntas = preguntas.filter(p => p.destacado || p.esAnuncio);
         }
         
-        // Filtrar por estado
         if (estado) {
             preguntas = preguntas.filter(p => p.estado === estado);
         }
         
-        // Ordenar: anuncios primero, luego destacados, luego por fecha
         preguntas.sort((a, b) => {
             if (a.esAnuncio && !b.esAnuncio) return -1;
             if (!a.esAnuncio && b.esAnuncio) return 1;
@@ -100,7 +86,6 @@ router.get('/preguntas', (req, res) => {
             return new Date(b.fechaCreacion) - new Date(a.fechaCreacion);
         });
         
-        // Calcular número de respuestas para cada pregunta
         preguntas = preguntas.map(p => ({
             ...p,
             numRespuestas: p.respuestas ? p.respuestas.length : 0
@@ -121,7 +106,6 @@ router.get('/preguntas', (req, res) => {
     }
 });
 
-// Obtener una pregunta con sus respuestas
 router.get('/preguntas/:id', (req, res) => {
     try {
         const { id } = req.params;
@@ -133,7 +117,6 @@ router.get('/preguntas/:id', (req, res) => {
             return res.status(404).json({ success: false, error: 'Pregunta no encontrada' });
         }
         
-        // Ordenar respuestas: recomendadas primero, luego por votos
         const respuestas = (pregunta.respuestas || []).sort((a, b) => {
             if (a.esRecomendada && !b.esRecomendada) return -1;
             if (!a.esRecomendada && b.esRecomendada) return 1;
@@ -151,7 +134,6 @@ router.get('/preguntas/:id', (req, res) => {
     }
 });
 
-// Crear nueva pregunta
 router.post('/preguntas', (req, res) => {
     try {
         const { titulo, descripcion, categoria, autorTipo, autorId, autorNombre, autorAvatar } = req.body;
@@ -200,11 +182,7 @@ router.post('/preguntas', (req, res) => {
     }
 });
 
-// ============================================
-// RESPUESTAS
-// ============================================
 
-// Agregar respuesta a una pregunta
 router.post('/preguntas/:id/respuestas', (req, res) => {
     try {
         const { id } = req.params;
@@ -263,11 +241,7 @@ router.post('/preguntas/:id/respuestas', (req, res) => {
     }
 });
 
-// ============================================
-// VOTOS
-// ============================================
 
-// Votar pregunta
 router.post('/preguntas/:id/votar', (req, res) => {
     try {
         const { id } = req.params;
@@ -292,13 +266,11 @@ router.post('/preguntas/:id/votar', (req, res) => {
         const yaVoto = pregunta.votantes.includes(votanteKey);
         
         if (yaVoto) {
-            // Quitar voto
             pregunta.votantes = pregunta.votantes.filter(v => v !== votanteKey);
             pregunta.votos = Math.max(0, pregunta.votos - 1);
             guardarDatos(data);
             res.json({ success: true, action: 'removed', votos: pregunta.votos });
         } else {
-            // Agregar voto
             pregunta.votantes.push(votanteKey);
             pregunta.votos++;
             guardarDatos(data);
@@ -310,7 +282,6 @@ router.post('/preguntas/:id/votar', (req, res) => {
     }
 });
 
-// Votar respuesta
 router.post('/preguntas/:preguntaId/respuestas/:respuestaId/votar', (req, res) => {
     try {
         const { preguntaId, respuestaId } = req.params;
@@ -357,11 +328,7 @@ router.post('/preguntas/:preguntaId/respuestas/:respuestaId/votar', (req, res) =
     }
 });
 
-// ============================================
-// ADMINISTRACIÓN
-// ============================================
 
-// Marcar respuesta como recomendada
 router.put('/preguntas/:preguntaId/respuestas/:respuestaId/recomendar', (req, res) => {
     try {
         const { preguntaId, respuestaId } = req.params;
@@ -389,7 +356,6 @@ router.put('/preguntas/:preguntaId/respuestas/:respuestaId/recomendar', (req, re
     }
 });
 
-// Destacar pregunta
 router.put('/preguntas/:id/destacar', (req, res) => {
     try {
         const { id } = req.params;
@@ -411,7 +377,6 @@ router.put('/preguntas/:id/destacar', (req, res) => {
     }
 });
 
-// Cambiar estado de pregunta
 router.put('/preguntas/:id/estado', (req, res) => {
     try {
         const { id } = req.params;
@@ -437,7 +402,6 @@ router.put('/preguntas/:id/estado', (req, res) => {
     }
 });
 
-// Eliminar pregunta (solo admin o autor)
 router.delete('/preguntas/:id', (req, res) => {
     try {
         const { id } = req.params;
@@ -452,7 +416,6 @@ router.delete('/preguntas/:id', (req, res) => {
         
         const pregunta = data.preguntas[preguntaIndex];
         
-        // Verificar permisos (admin o autor)
         if (autorTipo !== 'admin' && !(pregunta.autorTipo === autorTipo && pregunta.autorId === parseInt(autorId))) {
             return res.status(403).json({ success: false, error: 'No tienes permisos para eliminar esta pregunta' });
         }

@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from 'cloudinary';
+﻿import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -10,7 +10,6 @@ cloudinary.config({
   secure: true
 });
 
-// Función para generar URL firmada (para archivos raw/privados)
 export function getSignedUrl(publicId, resourceType = 'raw') {
   return cloudinary.url(publicId, {
     resource_type: resourceType,

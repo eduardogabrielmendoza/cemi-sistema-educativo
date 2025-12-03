@@ -1,6 +1,4 @@
-/* ===== HARVARD-STYLE INTERNAL PAGES ===== */
-/* Inspired by harvard.edu/privacy-statement/ */
-
+﻿
 :root {
   --hp-bg: #ffffff;
   --hp-text: #1e1e1e;
@@ -14,7 +12,6 @@
   --hp-font-body: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ===== PAGE STRUCTURE ===== */
 .harvard-page {
   display: flex;
   flex-direction: column;
@@ -26,7 +23,6 @@
   flex: 1;
 }
 
-/* ===== HEADER ===== */
 .harvard-internal-header {
   background: var(--hp-header-bg);
   padding: 0;
@@ -102,7 +98,6 @@
   color: #fff;
 }
 
-/* ===== HERO BANNER ===== */
 .harvard-hero-banner {
   background: var(--hp-header-bg);
   padding: 60px 24px 80px;
@@ -150,7 +145,6 @@
   line-height: 1.6;
 }
 
-/* ===== MAIN CONTENT ===== */
 .harvard-main-content {
   max-width: 900px;
   margin: 0 auto;
@@ -163,7 +157,6 @@
   }
 }
 
-/* ===== TYPOGRAPHY ===== */
 .harvard-main-content h2 {
   font-family: var(--hp-font-heading);
   font-size: 1.75rem;
@@ -224,7 +217,6 @@
   opacity: 0.7;
 }
 
-/* ===== SECTION DIVIDER ===== */
 .harvard-section {
   padding-bottom: 32px;
   margin-bottom: 32px;
@@ -237,7 +229,6 @@
   padding-bottom: 0;
 }
 
-/* ===== INFO BOX ===== */
 .harvard-info-box {
   display: flex;
   gap: 16px;
@@ -267,7 +258,6 @@
   margin: 0;
 }
 
-/* ===== BACK LINK ===== */
 .harvard-back-link {
   display: inline-flex;
   align-items: center;
@@ -289,7 +279,6 @@
   height: 16px;
 }
 
-/* ===== EFFECTIVE DATE ===== */
 .harvard-effective-date {
   font-family: var(--hp-font-body);
   font-size: 0.9rem;
@@ -299,7 +288,6 @@
   border-top: 1px solid var(--hp-border);
 }
 
-/* ===== FOOTER ===== */
 .harvard-internal-footer {
   background: var(--hp-footer-bg);
   padding: 48px 24px;
@@ -416,7 +404,6 @@
   height: 20px;
 }
 
-/* ===== QUICK LINKS IN FOOTER ===== */
 .harvard-footer-quick-links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -447,7 +434,6 @@
   color: #fff;
 }
 
-/* ===== TABLE STYLES ===== */
 .harvard-main-content table {
   width: 100%;
   border-collapse: collapse;
@@ -477,7 +463,6 @@
   background: #fafafa;
 }
 
-/* ===== KBD STYLES ===== */
 .harvard-main-content kbd {
   display: inline-block;
   padding: 4px 8px;
@@ -489,7 +474,6 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* ===== STEP LIST ===== */
 .harvard-step-list {
   list-style: none;
   padding: 0;
@@ -536,7 +520,6 @@
   margin: 0;
 }
 
-/* ===== TOC - TABLE OF CONTENTS ===== */
 .harvard-toc {
   background: #f8f8f8;
   padding: 24px 32px;

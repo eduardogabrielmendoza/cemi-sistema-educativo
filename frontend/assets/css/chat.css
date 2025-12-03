@@ -1,6 +1,4 @@
-/* frontend/assets/css/chat.css - Estilos minimalistas para Socket.IO Chat */
-
-/* ===== USER CHAT (Profesor/Alumno) ===== */
+﻿
 .user-chat-wrapper {
   display: flex;
   flex-direction: column;
@@ -153,7 +151,6 @@
   animation: fadeIn 0.3s;
 }
 
-/* ===== ADMIN CHAT ===== */
 .admin-chat-wrapper {
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -411,7 +408,6 @@
   transform: scale(1.05);
 }
 
-/* ===== SCROLLBARS ===== */
 .user-chat-messages::-webkit-scrollbar,
 .admin-chat-conversations::-webkit-scrollbar,
 .admin-chat-messages::-webkit-scrollbar {
@@ -431,13 +427,11 @@
   border-radius: 3px;
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .admin-chat-wrapper {
     grid-template-columns: 1fr;

@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import pool from "../utils/db.js";
 import upload, { uploadRecursos } from "../config/multer.js";
 import cloudinary, { getSignedUrl } from "../config/cloudinary.js";
@@ -1863,22 +1863,16 @@ router.delete("/poll/:id", async (req, res) => {
   }
 });
 
-// =============================================
-// ENDPOINTS DE RECURSOS CLASSROOM
-// Usa tabla 'anuncios' con columna es_recurso=1
-// =============================================
 
-// Obtener recursos para un usuario (alumno o profesor)
 router.get("/recursos/:tipo/:id", async (req, res) => {
   try {
     const { tipo, id } = req.params;
     
-    console.log(`📚 Obteniendo recursos para ${tipo} ID: ${id}`);
+    console.log(` Obteniendo recursos para ${tipo} ID: ${id}`);
     
     let cursosUsuario = [];
     
     if (tipo === 'profesor') {
-      // Obtener cursos del profesor
       const [cursos] = await pool.query(`
         SELECT c.id_curso, c.nombre_curso, i.nombre_idioma, n.descripcion AS nivel
         FROM cursos c
@@ -1888,7 +1882,6 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
       `, [id]);
       cursosUsuario = cursos;
     } else if (tipo === 'alumno') {
-      // Obtener cursos del alumno
       const [cursos] = await pool.query(`
         SELECT c.id_curso, c.nombre_curso, i.nombre_idioma, n.descripcion AS nivel
         FROM inscripciones ins
@@ -1900,10 +1893,8 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
       cursosUsuario = cursos;
     }
     
-    // Obtener IDs de cursos
     const cursosIds = cursosUsuario.map(c => c.id_curso);
     
-    // Obtener recursos de esos cursos (anuncios con es_recurso=1)
     let recursosCursos = [];
     if (cursosIds.length > 0) {
       const [recursos] = await pool.query(`
@@ -1934,7 +1925,6 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
       recursosCursos = recursos;
     }
     
-    // Obtener recursos de biblioteca general (id_curso = NULL, es_recurso = 1)
     const [bibliotecaGeneral] = await pool.query(`
       SELECT 
         a.id_anuncio AS id_recurso,
@@ -1955,7 +1945,6 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
       ORDER BY a.fecha_creacion DESC
     `);
     
-    // Agrupar recursos por curso
     const recursosPorCurso = {};
     cursosUsuario.forEach(curso => {
       recursosPorCurso[curso.id_curso] = {
@@ -1984,18 +1973,16 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
   }
 });
 
-// Subir nuevo recurso (solo profesores) - Inserta en anuncios con es_recurso=1
 router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
   try {
     const { titulo, descripcion, tipo, url, id_curso, id_profesor } = req.body;
     
-    console.log(`📤 Subiendo recurso: ${titulo}`);
+    console.log(` Subiendo recurso: ${titulo}`);
     
     let archivoPath = null;
     
     if (req.file) {
       if (isProduction) {
-        // En producción: subir a Cloudinary
         const ext = path.extname(req.file.originalname).toLowerCase();
         const resourceType = ['.jpg', '.jpeg', '.png', '.gif', '.webp'].includes(ext) ? 'image' : 'raw';
         
@@ -2009,18 +1996,16 @@ router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
         
         archivoPath = uploadResult.secure_url;
         
-        // Eliminar archivo temporal
         try {
           fs.unlinkSync(req.file.path);
         } catch (err) {
           console.error('Error al eliminar archivo temporal:', err);
         }
         
-        console.log('☁️ Recurso subido a Cloudinary:', archivoPath);
+        console.log('️ Recurso subido a Cloudinary:', archivoPath);
       } else {
-        // En desarrollo: guardar localmente
         archivoPath = `/uploads/recursos/${req.file.filename}`;
-        console.log('💾 Recurso guardado localmente:', archivoPath);
+        console.log(' Recurso guardado localmente:', archivoPath);
       }
     }
     
@@ -2055,13 +2040,12 @@ router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
   }
 });
 
-// Actualizar recurso
 router.put("/recursos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { titulo, descripcion, tipo, url, id_curso } = req.body;
     
-    console.log(`✏️ Actualizando recurso ${id}`);
+    console.log(`️ Actualizando recurso ${id}`);
     
     const cursoValue = id_curso === 'null' || id_curso === '' || !id_curso ? null : id_curso;
     
@@ -2092,12 +2076,11 @@ router.put("/recursos/:id", async (req, res) => {
   }
 });
 
-// Eliminar recurso (hard delete ya que usamos anuncios)
 router.delete("/recursos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     
-    console.log(`🗑️ Eliminando recurso ${id}`);
+    console.log(`️ Eliminando recurso ${id}`);
     
     await pool.query(`DELETE FROM anuncios WHERE id_anuncio = ? AND es_recurso = 1`, [id]);
     
@@ -2115,7 +2098,6 @@ router.delete("/recursos/:id", async (req, res) => {
   }
 });
 
-// Incrementar contador de descargas
 router.post("/recursos/:id/descarga", async (req, res) => {
   try {
     const { id } = req.params;
@@ -2129,7 +2111,6 @@ router.post("/recursos/:id/descarga", async (req, res) => {
   }
 });
 
-// Obtener URL firmada para descarga (solo en producción para Cloudinary)
 router.get("/recursos/:id/download-url", async (req, res) => {
   try {
     const { id } = req.params;
@@ -2145,21 +2126,16 @@ router.get("/recursos/:id/download-url", async (req, res) => {
     
     let downloadUrl = rows[0].archivo_recurso;
     
-    // Si es URL de Cloudinary, generar URL firmada
     if (downloadUrl.includes('cloudinary.com')) {
-      // Extraer el public_id del URL
       // URL ejemplo: https://res.cloudinary.com/xxx/raw/upload/v123/cemi/recursos/recurso-123-archivo.pdf
       const urlParts = downloadUrl.split('/upload/');
       if (urlParts.length > 1) {
-        // Obtener la parte después de /upload/ y quitar la versión
         let publicIdWithVersion = urlParts[1];
-        // Quitar versión (v1234567890/)
         const versionMatch = publicIdWithVersion.match(/^v\d+\//);
         let publicId = versionMatch 
           ? publicIdWithVersion.substring(versionMatch[0].length)
           : publicIdWithVersion;
         
-        // Determinar tipo de recurso
         const isRaw = downloadUrl.includes('/raw/');
         const resourceType = isRaw ? 'raw' : 'image';
         
@@ -2167,7 +2143,6 @@ router.get("/recursos/:id/download-url", async (req, res) => {
       }
     }
     
-    // Incrementar contador de descargas
     await pool.query(`UPDATE anuncios SET descargas = descargas + 1 WHERE id_anuncio = ? AND es_recurso = 1`, [id]);
     
     res.json({ success: true, url: downloadUrl });

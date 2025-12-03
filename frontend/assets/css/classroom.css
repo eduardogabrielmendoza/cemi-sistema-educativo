@@ -1,8 +1,4 @@
-/* ============================================================
-   CEMI Classroom - Harvard Style Theme
-   "Harvard Alive" - Professional Animations & Transitions
-   ============================================================ */
-
+﻿
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 * {
@@ -12,11 +8,9 @@
 }
 
 :root {
-  /* Harvard Typography */
   --font-heading: Georgia, 'Times New Roman', Times, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   
-  /* Harvard Color Palette */
   --hw-charcoal: #1e1e1e;
   --hw-graphite: #656f77;
   --hw-wrought-iron: #4a4a4a;
@@ -24,13 +18,11 @@
   --hw-off-white: #f8f9fa;
   --hw-light-gray: #e9ecef;
   
-  /* Accent Colors for Life */
   --accent-graphite: #656f77;
   --accent-hover: rgba(101, 111, 119, 0.1);
   --accent-active: rgba(101, 111, 119, 0.15);
   --accent-border: rgba(101, 111, 119, 0.3);
   
-  /* Animation Variables - Harvard Alive */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -41,7 +33,6 @@
   --duration-slow: 400ms;
   --duration-slower: 600ms;
   
-  /* Mapped to existing variables */
   --primary-color: #1e1e1e;
   --primary-light: #4a4a4a;
   --primary-dark: #1e1e1e;
@@ -69,7 +60,6 @@
 
 body.dark-mode {
   --primary-color: #3291FF;
-  /* Dark Mode - Harvard Style */
   --hw-charcoal: #1a202c;
   --hw-graphite: #a0aec0;
   --hw-wrought-iron: #2d3748;
@@ -1186,34 +1176,25 @@ body::before {
   display: none;
 }
 
-/* ============================================================
-   MODAL BLUR EFFECT - Sin bloquear clicks
-   ============================================================ */
 
-/* SweetAlert2 - fondo oscuro con blur sutil */
 .swal2-container {
   background: rgba(0, 0, 0, 0.5) !important;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* Modal de recursos */
 .modal-recursos-overlay {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* Panel lateral de cursos */
 .course-panel-overlay {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* ============================================================
-   HARVARD ALIVE - KEYFRAMES & ANIMATIONS
-   ============================================================ */
 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
@@ -1221,7 +1202,6 @@ body::before {
   100% { background-position: 0% 50%; }
 }
 
-/* Pirueta elegante del sombrero - automática cada 5s */
 @keyframes hatSpin {
   0%, 70% { transform: rotate(0deg) scale(1); }
   75% { transform: rotate(-10deg) scale(1.05); }
@@ -1237,7 +1217,6 @@ body::before {
   75% { transform: rotate(-3deg) scale(1.02); }
 }
 
-/* Fade in con slide suave */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -1271,7 +1250,6 @@ body::before {
   }
 }
 
-/* Modal entrance - dramática y elegante */
 @keyframes modalIn {
   0% {
     opacity: 0;
@@ -1297,7 +1275,6 @@ body::before {
   }
 }
 
-/* Pulse vivo para elementos activos */
 @keyframes pulse {
   0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(101, 111, 119, 0.4); }
   50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(101, 111, 119, 0); }
@@ -1313,7 +1290,6 @@ body::before {
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* Slide para sidebar items */
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -1325,7 +1301,6 @@ body::before {
   }
 }
 
-/* Bounce suave para badges */
 @keyframes bounceIn {
   0% { transform: scale(0.8); opacity: 0; }
   50% { transform: scale(1.05); opacity: 1; }
@@ -1346,19 +1321,16 @@ body::before {
   80% { transform: translateX(1px); }
 }
 
-/* Shimmer para loading */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 
-/* Glow para focus states */
 @keyframes glowPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(101, 111, 119, 0.4); }
   50% { box-shadow: 0 0 0 4px rgba(101, 111, 119, 0.1); }
 }
 
-/* Notification bell shake */
 @keyframes bellShake {
   0%, 100% { transform: rotate(0); }
   10% { transform: rotate(14deg); }
@@ -1368,7 +1340,6 @@ body::before {
   50% { transform: rotate(0); }
 }
 
-/* Stagger animation for lists */
 @keyframes staggerFadeIn {
   from {
     opacity: 0;
@@ -1380,14 +1351,12 @@ body::before {
   }
 }
 
-/* Checkbox tick animation */
 @keyframes checkTick {
   0% { transform: scale(0) rotate(45deg); }
   50% { transform: scale(1.2) rotate(45deg); }
   100% { transform: scale(1) rotate(45deg); }
 }
 
-/* Apply Harvard typography globally */
 body {
   font-family: var(--font-body);
 }
@@ -1527,7 +1496,6 @@ body {
   transition: all 0.1s ease;
 }
 
-/* Notification bell animation when has notifications */
 .header-icon-btn.has-notifications i {
   animation: bellShake 0.6s var(--ease-bounce) infinite;
   animation-iteration-count: 3;
@@ -1997,7 +1965,6 @@ body {
   -webkit-backdrop-filter: blur(0px);
 }
 
-/* Efecto blur dramático y suave en hover */
 .welcome-section:hover {
   box-shadow: 0 12px 40px rgba(30, 30, 30, 0.25);
 }
@@ -2047,9 +2014,6 @@ body {
   opacity: 1;
 }
 
-/* ==========================================
-   BANNER DE INVESTIGACIÓN/ENCUESTA
-   ========================================== */
 .research-banner {
   position: relative;
   display: flex;
@@ -2065,7 +2029,6 @@ body {
   margin-right: auto;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  /* Oculto inicialmente - sin ocupar espacio */
   opacity: 0;
   max-height: 0;
   padding-top: 0;
@@ -2097,7 +2060,6 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* Keyframes eliminados - usando transiciones CSS */
 
 .research-banner-close {
   position: absolute;
@@ -2251,7 +2213,6 @@ body {
   transform: translateY(-1px);
 }
 
-/* Responsive para el banner */
 @media (max-width: 768px) {
   .research-banner {
     flex-direction: column;
@@ -2275,7 +2236,6 @@ body {
   }
 }
 
-/* Dark mode */
 body.dark-mode .research-banner {
   background: #2a2a2a;
   border-color: rgba(255, 149, 0, 0.2);
@@ -2382,7 +2342,6 @@ body.dark-mode .research-banner-close:hover {
   animation: fadeInUp 0.4s var(--ease-smooth) backwards;
 }
 
-/* Stagger animation para activity cards */
 .activity-card:nth-child(1) { animation-delay: 0ms; }
 .activity-card:nth-child(2) { animation-delay: 50ms; }
 .activity-card:nth-child(3) { animation-delay: 100ms; }
@@ -2793,7 +2752,6 @@ body.dark-mode .research-banner-close:hover {
   animation: fadeInUp 0.4s var(--ease-smooth) backwards;
 }
 
-/* Stagger animation for class cards */
 .class-card:nth-child(1) { animation-delay: 0ms; }
 .class-card:nth-child(2) { animation-delay: 60ms; }
 .class-card:nth-child(3) { animation-delay: 120ms; }
@@ -3975,7 +3933,6 @@ input[type="checkbox"]:checked {
   animation: checkBounce var(--duration-normal) var(--ease-bounce);
 }
 
-/* Los iconos lucide heredan color del contexto */
 
 #btnMesAnterior,
 #btnMesSiguiente {
@@ -5377,11 +5334,7 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* =============================================
-   CENTRO DE RECURSOS - ESTILOS INSTITUCIONALES
-   ============================================= */
 
-/* Header de Recursos */
 .resources-header {
   background: var(--hw-white);
   border-radius: 8px;
@@ -5530,14 +5483,12 @@ body.dark-mode .toggle-password-btn:hover {
   height: 18px;
 }
 
-/* Container de Recursos */
 .resources-container {
   display: flex;
   flex-direction: column;
   gap: 36px;
 }
 
-/* Secciones de Recursos */
 .resources-section {
   background: var(--hw-white);
   border-radius: 8px;
@@ -5604,14 +5555,12 @@ body.dark-mode .toggle-password-btn:hover {
   100% { transform: scale(1); }
 }
 
-/* Grid de Recursos */
 .resources-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 24px;
 }
 
-/* Carpeta de Curso */
 .curso-folder {
   display: flex;
   flex-direction: column;
@@ -5687,7 +5636,6 @@ body.dark-mode .toggle-password-btn:hover {
   background: rgba(255, 255, 255, 0.35);
 }
 
-/* Wrapper para altura fija de cards */
 .folder-content-wrapper {
   flex: 1;
   min-height: 180px;
@@ -5755,7 +5703,6 @@ body.dark-mode .toggle-password-btn:hover {
   height: 18px;
 }
 
-/* Items de Recurso */
 .resources-list {
   display: flex;
   flex-direction: column;
@@ -5892,7 +5839,6 @@ body.dark-mode .toggle-password-btn:hover {
   height: 17px;
 }
 
-/* Estados vacíos y errores */
 .empty-resources,
 .error-recursos,
 .loading-resources {
@@ -5985,7 +5931,6 @@ body.dark-mode .toggle-password-btn:hover {
   height: 18px;
 }
 
-/* Modal de Subir Recurso - Harvard Alive */
 .modal-recursos-overlay {
   position: fixed;
   top: 0;
@@ -6301,7 +6246,6 @@ body.dark-mode .toggle-password-btn:hover {
   height: 20px;
 }
 
-/* Responsive para Recursos */
 @media (max-width: 768px) {
   .resources-header {
     flex-direction: column;
@@ -6352,9 +6296,7 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* ===== CLASSROOM RESPONSIVE - MEJORAS ADICIONALES ===== */
 
-/* Mejoras para sidebar móvil */
 @media (max-width: 768px) {
   .mobile-sidebar-toggle {
     display: flex;
@@ -6381,7 +6323,6 @@ body.dark-mode .toggle-password-btn:hover {
     display: block;
   }
 
-  /* Header mejorado */
   .classroom-header {
     flex-wrap: wrap;
     gap: 12px;
@@ -6402,7 +6343,6 @@ body.dark-mode .toggle-password-btn:hover {
     flex-wrap: wrap;
   }
 
-  /* Cards de clase en grid móvil */
   .classes-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -6421,7 +6361,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 16px;
   }
 
-  /* Tareas en móvil */
   .tasks-container {
     padding: 0 4px;
   }
@@ -6431,7 +6370,6 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 12px;
   }
 
-  /* Modal de configuración responsive */
   .modal-config-container {
     width: 100%;
     height: 100%;
@@ -6463,7 +6401,6 @@ body.dark-mode .toggle-password-btn:hover {
     white-space: nowrap;
   }
 
-  /* Perfil en móvil */
   .profile-header {
     flex-direction: column;
     text-align: center;
@@ -6479,7 +6416,6 @@ body.dark-mode .toggle-password-btn:hover {
     text-align: center;
   }
 
-  /* Calificaciones en móvil */
   .grades-table-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -6492,7 +6428,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 13px;
   }
 
-  /* Sección de entregas */
   .submissions-container {
     padding: 12px;
   }
@@ -6502,7 +6437,6 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 10px;
   }
 
-  /* Chat/Mensajes */
   .chat-container {
     height: calc(100vh - 140px);
   }
@@ -6517,13 +6451,11 @@ body.dark-mode .toggle-password-btn:hover {
 }
 
 @media (max-width: 480px) {
-  /* Sidebar aún más pequeño */
   .classroom-sidebar {
     width: 90%;
     max-width: 300px;
   }
 
-  /* Header compacto */
   .classroom-header {
     padding: 10px 12px;
   }
@@ -6532,7 +6464,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 16px;
   }
 
-  /* Botones de acción más pequeños */
   .header-actions .btn-icon {
     width: 36px;
     height: 36px;
@@ -6543,7 +6474,6 @@ body.dark-mode .toggle-password-btn:hover {
     height: 18px;
   }
 
-  /* Cards más compactas */
   .class-card-header {
     padding: 12px;
   }
@@ -6556,7 +6486,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 15px;
   }
 
-  /* Estadísticas compactas */
   .stat-card {
     padding: 14px 12px;
   }
@@ -6569,7 +6498,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 11px;
   }
 
-  /* Modal full screen */
   .modal-content,
   .modal-recursos-content {
     width: 100%;
@@ -6588,14 +6516,12 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 0;
   }
 
-  /* Formularios iOS-safe */
   .form-group input,
   .form-group select,
   .form-group textarea {
     font-size: 16px !important; /* Previene zoom en iOS */
   }
 
-  /* Calendario compacto */
   .calendar-day {
     min-height: 40px;
     padding: 2px;
@@ -6605,7 +6531,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 11px;
   }
 
-  /* Toggle de tema */
   .theme-toggle {
     position: fixed;
     bottom: 20px;
@@ -6614,9 +6539,7 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* ===== MOBILE MEDIUM - iPhone XR/11/12/13/14 (414-430px) ===== */
 @media (max-width: 430px) {
-  /* === BASE === */
   html, body {
     overflow-x: hidden;
     width: 100%;
@@ -6633,7 +6556,6 @@ body.dark-mode .toggle-password-btn:hover {
     overflow-x: hidden;
   }
 
-  /* === HEADER === */
   .classroom-header {
     padding: 12px 14px;
     gap: 10px;
@@ -6698,7 +6620,6 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 10px;
   }
 
-  /* === SIDEBAR === */
   .classroom-sidebar {
     width: 85vw;
     max-width: 320px;
@@ -6740,7 +6661,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 14px 12px;
   }
 
-  /* === MAIN CONTENT === */
   .classroom-main,
   .main-content {
     padding: 68px 14px 24px 14px;
@@ -6749,7 +6669,6 @@ body.dark-mode .toggle-password-btn:hover {
     overflow-x: hidden;
   }
 
-  /* === PAGE HEADER === */
   .page-header,
   .content-header {
     padding: 14px;
@@ -6768,7 +6687,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 0.88rem;
   }
 
-  /* === CLASSES GRID === */
   .classes-grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -6819,7 +6737,6 @@ body.dark-mode .toggle-password-btn:hover {
     text-align: center;
   }
 
-  /* === TABS === */
   .content-tabs,
   .tabs-container {
     overflow-x: auto;
@@ -6838,7 +6755,6 @@ body.dark-mode .toggle-password-btn:hover {
     min-height: 42px;
   }
 
-  /* === TASKS === */
   .tasks-container,
   .activities-container {
     gap: 12px;
@@ -6902,7 +6818,6 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 8px;
   }
 
-  /* === STATS === */
   .stats-row,
   .stats-grid {
     grid-template-columns: 1fr 1fr;
@@ -6934,7 +6849,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 0.72rem;
   }
 
-  /* === ANNOUNCEMENTS === */
   .announcements-container {
     gap: 12px;
   }
@@ -6969,7 +6883,6 @@ body.dark-mode .toggle-password-btn:hover {
     line-height: 1.5;
   }
 
-  /* === RESOURCES === */
   .resources-grid {
     grid-template-columns: 1fr;
     gap: 12px;
@@ -7013,7 +6926,6 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 8px;
   }
 
-  /* === CALENDAR === */
   .calendar-container {
     padding: 14px;
     border-radius: 14px;
@@ -7058,7 +6970,6 @@ body.dark-mode .toggle-password-btn:hover {
     height: 5px;
   }
 
-  /* === GRADES TABLE === */
   .grades-container {
     margin: 0 -14px;
     border-radius: 0;
@@ -7081,7 +6992,6 @@ body.dark-mode .toggle-password-btn:hover {
     white-space: nowrap;
   }
 
-  /* === PROFILE === */
   .profile-container {
     padding: 0;
   }
@@ -7116,7 +7026,6 @@ body.dark-mode .toggle-password-btn:hover {
     margin-bottom: 14px;
   }
 
-  /* === MODALS === */
   .modal {
     padding: 0;
   }
@@ -7176,7 +7085,6 @@ body.dark-mode .toggle-password-btn:hover {
     padding: 13px;
   }
 
-  /* === FORMS === */
   .form-group {
     margin-bottom: 16px;
   }
@@ -7198,7 +7106,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 0.75rem;
   }
 
-  /* === BUTTONS === */
   .btn-primary {
     padding: 14px 20px;
     font-size: 0.95rem;
@@ -7218,7 +7125,6 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 10px;
   }
 
-  /* === NOTIFICATIONS === */
   .notifications-dropdown,
   .notifications-panel {
     width: calc(100vw - 28px);
@@ -7240,7 +7146,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 0.72rem;
   }
 
-  /* === USER DROPDOWN === */
   .user-dropdown {
     width: calc(100vw - 28px);
     max-width: 280px;
@@ -7253,7 +7158,6 @@ body.dark-mode .toggle-password-btn:hover {
     min-height: 48px;
   }
 
-  /* === CONFIG TABS MOBILE === */
   .config-tabs-mobile {
     padding: 12px 14px;
     gap: 8px;
@@ -7268,7 +7172,6 @@ body.dark-mode .toggle-password-btn:hover {
     flex-shrink: 0;
   }
 
-  /* === EMPTY STATES === */
   .empty-state {
     padding: 40px 20px;
   }
@@ -7287,7 +7190,6 @@ body.dark-mode .toggle-password-btn:hover {
     font-size: 0.88rem;
   }
 
-  /* === BADGES === */
   .badge,
   .status-badge {
     padding: 5px 10px;
@@ -7295,7 +7197,6 @@ body.dark-mode .toggle-password-btn:hover {
     border-radius: 8px;
   }
 
-  /* === FILE UPLOAD === */
   .file-upload-area {
     padding: 24px 16px;
     border-radius: 12px;
@@ -7316,7 +7217,6 @@ body.dark-mode .toggle-password-btn:hover {
     gap: 10px;
   }
 
-  /* === THEME TOGGLE === */
   .theme-toggle {
     position: fixed;
     bottom: 16px;
@@ -7348,7 +7248,6 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* Mejoras táctiles para Classroom */
 @media (hover: none) and (pointer: coarse) {
   .sidebar-nav a {
     min-height: 48px;
@@ -7362,7 +7261,6 @@ body.dark-mode .toggle-password-btn:hover {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Desactivar hover en touch */
   .class-card:hover,
   .task-card:hover {
     transform: none;
@@ -7374,14 +7272,12 @@ body.dark-mode .toggle-password-btn:hover {
     transition: transform 0.1s;
   }
 
-  /* Botones táctiles más grandes */
   .btn-icon,
   .btn-action {
     min-width: 44px;
     min-height: 44px;
   }
 
-  /* Scroll suave en contenedores */
   .tasks-container,
   .classes-grid,
   .activity-feed {
@@ -7389,11 +7285,7 @@ body.dark-mode .toggle-password-btn:hover {
   }
 }
 
-/* =============================================
-   FORZAR ESTILOS HARVARD - OVERRIDE INLINE STYLES
-   ============================================= */
 
-/* Forzar avatares con transparencia cuando no hay imagen */
 .student-avatar[style*="background"],
 div.student-avatar[style*="background"],
 .avatar-circle[style*="background"],
@@ -7404,7 +7296,6 @@ div[class*="avatar"][style*="background:#"] {
   border: 1px solid var(--border-color) !important;
 }
 
-/* Forzar class-card-header con color sólido Harvard */
 .class-card .class-card-header,
 .class-card-header[style*="background"],
 div.class-card-header {
@@ -7412,7 +7303,6 @@ div.class-card-header {
   border-radius: 8px 8px 0 0 !important;
 }
 
-/* Forzar tipografía Inter en cards */
 .class-card-header h3,
 .class-card-header p,
 .class-card-body,
@@ -7430,7 +7320,6 @@ div.class-card-header {
   font-weight: 400 !important;
 }
 
-/* Forzar class-card-body con estilo limpio */
 .class-card .class-card-body,
 .class-card-body[style] {
   border: 1px solid var(--border-color) !important;

@@ -1,5 +1,4 @@
-// frontend/assets/js/user-chat.js - Socket.IO User Chat Manager
-class UserChat {
+﻿class UserChat {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
     this.socket = null;
@@ -32,14 +31,14 @@ class UserChat {
     });
     
     this.socket.on('connect', () => {
-      console.log('[UserChat] ✓ Conectado a Socket.IO');
+      console.log('[UserChat]  Conectado a Socket.IO');
       this.isConnected = true;
       this.authenticate();
       this.loadConversation();
     });
     
     this.socket.on('authenticated', (data) => {
-      console.log('[UserChat] ✓ Autenticado:', data);
+      console.log('[UserChat]  Autenticado:', data);
     });
     
     this.socket.on('new_message', (data) => {
@@ -306,7 +305,6 @@ class UserChat {
   }
 }
 
-// Exportar para uso global
 window.UserChat = UserChat;
 
 

@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -93,7 +93,6 @@ function handleLogout() {
   window.location.href = "login.html";
 }
 
-// ===== ADMIN DASHBOARD SPA ===== //
 
 document.addEventListener("DOMContentLoaded", () => {
   if (document.body.classList.contains("admin")) {
@@ -282,9 +281,6 @@ function recargarSeccionActiva() {
   }
 }
 
-// =====================================================
-// SECCIÓN DE AYUDA PARA ADMINISTRADOR
-// =====================================================
 
 function renderAdminAyuda() {
   return `
@@ -820,7 +816,6 @@ function renderAdminAyuda() {
 }
 
 function initAyudaInteractivity() {
-  // Acordeones
   document.querySelectorAll('.accordion-header').forEach(header => {
     header.addEventListener('click', () => {
       const accordion = header.parentElement;
@@ -828,7 +823,6 @@ function initAyudaInteractivity() {
     });
   });
 
-  // Buscador
   const searchInput = document.getElementById('ayudaSearchInput');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -837,7 +831,6 @@ function initAyudaInteractivity() {
     });
   }
 
-  // Modales de guía - hacer clic en cada guia-item
   document.querySelectorAll('.guia-item').forEach(item => {
     item.addEventListener('click', () => {
       openGuiaModal(item);
@@ -845,9 +838,7 @@ function initAyudaInteractivity() {
   });
 }
 
-// Datos detallados para cada guía
 const guiasDetalladas = {
-  // Navegación del Panel
   'Navegación del Panel': {
     descripcion: 'El menú lateral izquierdo es tu centro de control. Desde aquí puedes acceder a todas las funcionalidades del sistema de manera organizada y eficiente.',
     pasos: [
@@ -858,7 +849,6 @@ const guiasDetalladas = {
     ],
     tip: 'En dispositivos móviles, el menú se oculta automáticamente. Usa el ícono de menú para desplegarlo.'
   },
-  // Funciones del Administrador
   'Funciones del Administrador': {
     descripcion: 'Como administrador tienes acceso completo a todas las funciones del sistema. Tu rol es fundamental para mantener la operación del instituto.',
     pasos: [
@@ -869,7 +859,6 @@ const guiasDetalladas = {
     ],
     tip: 'Realiza respaldos periódicos de información importante exportando PDFs de las listas de usuarios.'
   },
-  // Crear Nuevo Curso
   'Crear Nuevo Curso': {
     descripcion: 'El proceso de creación de cursos es simple y te permite configurar todos los aspectos necesarios para que el curso funcione correctamente.',
     pasos: [
@@ -880,7 +869,6 @@ const guiasDetalladas = {
     ],
     tip: 'Puedes asignar un profesor después de crear el curso usando el botón de asignación.'
   },
-  // Editar Curso
   'Editar Curso': {
     descripcion: 'Modifica cualquier aspecto de un curso existente sin afectar a los alumnos ya inscritos.',
     pasos: [
@@ -891,7 +879,6 @@ const guiasDetalladas = {
     ],
     tip: 'Los cambios de horario se reflejan inmediatamente en los dashboards de profesores y alumnos.'
   },
-  // Eliminar Curso
   'Eliminar Curso': {
     descripcion: 'Elimina cursos que ya no se dictan. Esta acción requiere confirmación para evitar eliminaciones accidentales.',
     pasos: [
@@ -902,7 +889,6 @@ const guiasDetalladas = {
     ],
     tip: 'Si necesitas eliminar un curso con alumnos, primero transfiere o desvincula a los estudiantes.'
   },
-  // Asignar Profesor
   'Asignar Profesor': {
     descripcion: 'Vincula un profesor a un curso para que pueda gestionar calificaciones y asistencias de ese curso.',
     pasos: [
@@ -913,7 +899,6 @@ const guiasDetalladas = {
     ],
     tip: 'Un profesor puede tener múltiples cursos asignados. Verifica su carga horaria antes de asignar.'
   },
-  // Ver Detalles del Curso
   'Ver Detalles del Curso': {
     descripcion: 'Accede a toda la información del curso incluyendo lista de alumnos, calificaciones y estadísticas.',
     pasos: [
@@ -924,7 +909,6 @@ const guiasDetalladas = {
     ],
     tip: 'Desde los detalles puedes ver el progreso general del curso y estadísticas de rendimiento.'
   },
-  // Registrar Alumno
   'Registrar Alumno': {
     descripcion: 'El registro de alumnos es el primer paso para incorporar estudiantes al sistema. Los datos se validan automáticamente.',
     pasos: [
@@ -935,7 +919,6 @@ const guiasDetalladas = {
     ],
     tip: 'Las credenciales iniciales usan el DNI como usuario y contraseña. El alumno puede cambiarlas.'
   },
-  // Editar Información (Alumno)
   'Editar Información': {
     descripcion: 'Actualiza los datos de un alumno cuando sea necesario. Los cambios se aplican inmediatamente.',
     pasos: [
@@ -946,7 +929,6 @@ const guiasDetalladas = {
     ],
     tip: 'El legajo y DNI solo pueden modificarse por motivos de corrección de errores.'
   },
-  // Cambiar Estado
   'Cambiar Estado': {
     descripcion: 'Gestiona el estado de los usuarios: activos pueden acceder al sistema, inactivos no.',
     pasos: [
@@ -957,7 +939,6 @@ const guiasDetalladas = {
     ],
     tip: 'Los usuarios inactivos conservan todos sus datos históricos para futuras consultas.'
   },
-  // Descargar PDF
   'Descargar PDF': {
     descripcion: 'Genera documentos PDF con listas de usuarios, útiles para reportes impresos o archivos.',
     pasos: [
@@ -968,7 +949,6 @@ const guiasDetalladas = {
     ],
     tip: 'Los PDFs incluyen fecha de generación para control de versiones.'
   },
-  // Buscar y Filtrar
   'Buscar y Filtrar': {
     descripcion: 'Encuentra rápidamente usuarios o información específica usando los potentes filtros del sistema.',
     pasos: [
@@ -979,7 +959,6 @@ const guiasDetalladas = {
     ],
     tip: 'La búsqueda no distingue mayúsculas/minúsculas y busca coincidencias parciales.'
   },
-  // Registrar Profesor
   'Registrar Profesor': {
     descripcion: 'Agrega nuevos profesores al sistema para que puedan gestionar sus cursos asignados.',
     pasos: [
@@ -990,7 +969,6 @@ const guiasDetalladas = {
     ],
     tip: 'Después del registro, asigna cursos al profesor desde la sección Cursos.'
   },
-  // Asignar a Cursos
   'Asignar a Cursos': {
     descripcion: 'Vincula profesores con cursos para que puedan gestionar sus clases.',
     pasos: [
@@ -1001,7 +979,6 @@ const guiasDetalladas = {
     ],
     tip: 'Verifica que el profesor no tenga conflictos de horario antes de asignar.'
   },
-  // Crear Nuevo Administrador
   'Crear Nuevo Administrador': {
     descripcion: 'Agrega otros administradores que compartirán las responsabilidades de gestión del sistema.',
     pasos: [
@@ -1012,7 +989,6 @@ const guiasDetalladas = {
     ],
     tip: 'Limita el número de administradores a los estrictamente necesarios por seguridad.'
   },
-  // Permisos de Acceso
   'Permisos de Acceso': {
     descripcion: 'Comprende cómo funciona el sistema de permisos y roles en la plataforma.',
     pasos: [
@@ -1023,7 +999,6 @@ const guiasDetalladas = {
     ],
     tip: 'Revisa periódicamente los accesos y desactiva usuarios que ya no deban tener acceso.'
   },
-  // Ver Historial de Pagos
   'Ver Historial de Pagos': {
     descripcion: 'Consulta todos los pagos realizados con diferentes estados y filtros disponibles.',
     pasos: [
@@ -1034,7 +1009,6 @@ const guiasDetalladas = {
     ],
     tip: 'Usa los filtros de estado para encontrar rápidamente pagos pendientes de confirmar.'
   },
-  // Confirmar Pago en Efectivo
   'Confirmar Pago en Efectivo': {
     descripcion: 'Cuando un alumno paga en efectivo con su ticket, debes confirmar el pago en el sistema.',
     pasos: [
@@ -1045,7 +1019,6 @@ const guiasDetalladas = {
     ],
     tip: 'Guarda los tickets físicos por al menos 30 días para cualquier reclamo.'
   },
-  // Archivo de Pagos
   'Archivo de Pagos': {
     descripcion: 'Mantén la lista de pagos organizada archivando los pagos antiguos ya procesados.',
     pasos: [
@@ -1056,7 +1029,6 @@ const guiasDetalladas = {
     ],
     tip: 'Archiva mensualmente para mantener un historial ordenado y fácil de consultar.'
   },
-  // Crear Nueva Aula
   'Crear Nueva Aula': {
     descripcion: 'Registra los espacios físicos disponibles para dictar clases en el instituto.',
     pasos: [
@@ -1067,7 +1039,6 @@ const guiasDetalladas = {
     ],
     tip: 'La capacidad del aula debe ser igual o mayor al cupo máximo de los cursos que se dicten allí.'
   },
-  // Asignar a Cursos (Aulas)
   'Asignar a Cursos': {
     descripcion: 'Vincula aulas con cursos para definir dónde se dictarán las clases.',
     pasos: [
@@ -1078,7 +1049,6 @@ const guiasDetalladas = {
     ],
     tip: 'Evita asignar la misma aula a cursos con horarios superpuestos.'
   },
-  // Agregar Idiomas
   'Agregar Idiomas': {
     descripcion: 'Configura los idiomas que se enseñan en el instituto para clasificar los cursos.',
     pasos: [
@@ -1089,7 +1059,6 @@ const guiasDetalladas = {
     ],
     tip: 'Usa nombres estandarizados para mantener consistencia en todo el sistema.'
   },
-  // Configurar Niveles
   'Configurar Niveles': {
     descripcion: 'Los niveles clasifican la dificultad de los cursos para orientar a los alumnos.',
     pasos: [
@@ -1100,7 +1069,6 @@ const guiasDetalladas = {
     ],
     tip: 'Define criterios claros para cada nivel y comunícalos a profesores y alumnos.'
   },
-  // Responder Mensajes
   'Responder Mensajes': {
     descripcion: 'Atiende las consultas de alumnos y profesores a través del sistema de chat integrado.',
     pasos: [
@@ -1111,7 +1079,6 @@ const guiasDetalladas = {
     ],
     tip: 'Responde lo antes posible. Los usuarios valoran la atención rápida.'
   },
-  // Gestionar Conversaciones
   'Gestionar Conversaciones': {
     descripcion: 'Organiza y prioriza las consultas de usuarios para una atención eficiente.',
     pasos: [
@@ -1122,7 +1089,6 @@ const guiasDetalladas = {
     ],
     tip: 'Crea respuestas frecuentes para agilizar la atención de consultas comunes.'
   },
-  // Notificaciones
   'Notificaciones': {
     descripcion: 'El sistema de notificaciones te mantiene informado sobre actividad importante.',
     pasos: [
@@ -1133,7 +1099,6 @@ const guiasDetalladas = {
     ],
     tip: 'Las notificaciones push funcionan incluso con el navegador minimizado.'
   },
-  // ¿Cómo restablezco contraseña de un usuario?
   '¿Cómo restablezco contraseña de un usuario?': {
     descripcion: 'Cuando un usuario olvida su contraseña, puedes generar una nueva temporal.',
     pasos: [
@@ -1144,7 +1109,6 @@ const guiasDetalladas = {
     ],
     tip: 'Comunica la nueva contraseña de forma segura y pide que la cambie al ingresar.'
   },
-  // ¿No puedo eliminar un curso?
   '¿No puedo eliminar un curso?': {
     descripcion: 'Los cursos con alumnos inscritos están protegidos contra eliminación accidental.',
     pasos: [
@@ -1155,7 +1119,6 @@ const guiasDetalladas = {
     ],
     tip: 'Considera desactivar cursos en lugar de eliminarlos para conservar el historial.'
   },
-  // ¿Se hacen respaldos automáticos?
   '¿Se hacen respaldos automáticos?': {
     descripcion: 'Railway, nuestra plataforma de hosting, realiza respaldos automáticos de la base de datos.',
     pasos: [
@@ -1166,7 +1129,6 @@ const guiasDetalladas = {
     ],
     tip: 'Aunque hay respaldos automáticos, mantén copias locales de información sensible.'
   },
-  // ¿Encontré un error en el sistema?
   '¿Encontré un error en el sistema?': {
     descripcion: 'Los errores deben reportarse para que el equipo técnico pueda solucionarlos.',
     pasos: [
@@ -1177,7 +1139,6 @@ const guiasDetalladas = {
     ],
     tip: 'Cuanto más detallada sea tu descripción, más rápido podremos solucionarlo.'
   },
-  // === GUÍAS PARA ALUMNOS ===
   'Entender tu Dashboard': {
     descripcion: 'Tu dashboard es tu centro de información. Aquí ves un resumen de todo lo importante de un vistazo.',
     pasos: [
@@ -1448,7 +1409,6 @@ const guiasDetalladas = {
     ],
     tip: 'Consulta sobre períodos de baja sin penalización antes de decidir.'
   },
-  // === GUÍAS PARA PROFESORES ===
   'Tu Primer Día': {
     descripcion: 'Guía para comenzar a usar el sistema como profesor.',
     pasos: [
@@ -1557,7 +1517,6 @@ function openGuiaModal(item) {
   const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
   const tags = item.querySelectorAll('.guia-tag');
   
-  // Buscar datos detallados o usar genéricos
   const datos = guiasDetalladas[title] || {
     descripcion: description,
     pasos: [
@@ -1569,13 +1528,11 @@ function openGuiaModal(item) {
     tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
   };
   
-  // Generar tags HTML
   let tagsHTML = '';
   tags.forEach(tag => {
     tagsHTML += `<span class="guia-tag">${tag.textContent}</span>`;
   });
   
-  // Crear el modal
   const modalHTML = `
     <div class="guia-modal-overlay active" onclick="closeGuiaModal(event)">
       <div class="guia-modal" onclick="event.stopPropagation()">
@@ -1619,11 +1576,9 @@ function openGuiaModal(item) {
     </div>
   `;
   
-  // Insertar modal en el DOM
   document.body.insertAdjacentHTML('beforeend', modalHTML);
   lucide.createIcons();
   
-  // Cerrar con Escape
   document.addEventListener('keydown', handleEscapeKey);
 }
 
@@ -1652,7 +1607,6 @@ function filterAyudaContent(query) {
   let totalVisible = 0;
 
   if (!query) {
-    // Sin búsqueda: mostrar todo normal
     accordions.forEach(acc => {
       acc.classList.remove('hidden', 'open');
     });
@@ -1664,7 +1618,6 @@ function filterAyudaContent(query) {
     return;
   }
 
-  // Con búsqueda: filtrar
   accordions.forEach(accordion => {
     const items = accordion.querySelectorAll('.guia-item');
     let hasVisibleItems = false;
@@ -1694,7 +1647,6 @@ function filterAyudaContent(query) {
     }
   });
 
-  // Mostrar mensaje si no hay resultados
   if (totalVisible === 0) {
     noResults.classList.add('visible');
     resultsCount.classList.remove('visible');
@@ -1705,9 +1657,6 @@ function filterAyudaContent(query) {
   }
 }
 
-// ========================================
-// SECCIÓN DE STATUS DEL SISTEMA - ADMIN
-// ========================================
 
 const STATUS_CONFIG = {
   labels: {
@@ -1847,7 +1796,6 @@ function renderStatusSection() {
 
       .status-card-title i { width: 20px; height: 20px; color: #4a5259; }
 
-      /* Estado Global */
       .global-status-display {
         text-align: center;
         padding: 30px 20px;
@@ -1894,7 +1842,6 @@ function renderStatusSection() {
         margin-top: 8px;
       }
 
-      /* Servicios */
       .service-item {
         display: flex;
         justify-content: space-between;
@@ -1934,7 +1881,6 @@ function renderStatusSection() {
       .service-status-badge.outage { background: #fee2e2; color: #dc2626; }
       .service-status-badge.maintenance { background: #e5e7eb; color: #4a5259; }
 
-      /* Incidente Activo */
       .active-incident-card {
         background: #fffbeb;
         border: 2px solid #fbbf24;
@@ -2043,7 +1989,6 @@ function renderStatusSection() {
 
       .incident-action-btn.delete:hover { background: #fecaca; }
 
-      /* Historial */
       .history-list {
         max-height: 400px;
         overflow-y: auto;
@@ -2096,7 +2041,6 @@ function renderStatusSection() {
 
       .no-history i { width: 40px; height: 40px; margin-bottom: 10px; opacity: 0.5; }
 
-      /* Modal de Incidente - DISEÑO MODERNO */
       .status-modal-overlay {
         position: fixed;
         top: 0;
@@ -2455,7 +2399,6 @@ function renderStatusSection() {
         transform: translateY(-1px);
       }
 
-      /* Banner Preview */
       .banner-preview {
         margin-top: 24px;
         padding: 20px;
@@ -2527,7 +2470,6 @@ function renderStatusSection() {
         font-weight: 500;
       }
 
-      /* Scrollbar Styling */
       .status-modal::-webkit-scrollbar {
         width: 8px;
       }
@@ -2546,7 +2488,6 @@ function renderStatusSection() {
         background: #94a3b8;
       }
 
-      /* Loading */
       .status-loading {
         text-align: center;
         padding: 40px;
@@ -2656,9 +2597,9 @@ function renderStatusSection() {
             <label>Severidad *</label>
             <select id="incidentSeverity" onchange="updateBannerPreview()">
               <option value="">Selecciona la severidad...</option>
-              <option value="degraded">⚠️ Degradado - Rendimiento reducido</option>
-              <option value="outage">🔴 Interrupción - Servicio no disponible</option>
-              <option value="maintenance">🔧 Mantenimiento - Trabajo programado</option>
+              <option value="degraded">️ Degradado - Rendimiento reducido</option>
+              <option value="outage"> Interrupción - Servicio no disponible</option>
+              <option value="maintenance"> Mantenimiento - Trabajo programado</option>
             </select>
           </div>
 
@@ -2717,7 +2658,6 @@ function renderStatusUI() {
 
   const { global_status, services, active_incident, incidents_history, last_updated } = currentStatusData;
 
-  // Estado Global
   const globalDisplay = document.getElementById('globalStatusDisplay');
   globalDisplay.className = `global-status-display ${global_status}`;
   globalDisplay.innerHTML = `
@@ -2728,7 +2668,6 @@ function renderStatusUI() {
     <div class="global-status-time">Última actualización: ${formatStatusTime(last_updated)}</div>
   `;
 
-  // Incidente Activo
   const incidentContainer = document.getElementById('activeIncidentContainer');
   if (active_incident) {
     incidentContainer.innerHTML = `
@@ -2763,7 +2702,6 @@ function renderStatusUI() {
     incidentContainer.innerHTML = '';
   }
 
-  // Servicios
   const servicesList = document.getElementById('servicesList');
   servicesList.innerHTML = services.map(s => `
     <div class="service-item">
@@ -2778,7 +2716,6 @@ function renderStatusUI() {
     </div>
   `).join('');
 
-  // Historial
   const historyList = document.getElementById('historyList');
   if (incidents_history.length === 0) {
     historyList.innerHTML = `
@@ -2801,7 +2738,6 @@ function renderStatusUI() {
     `).join('');
   }
 
-  // Actualizar checkboxes del modal
   const checkboxContainer = document.getElementById('servicesCheckboxes');
   if (checkboxContainer) {
     checkboxContainer.innerHTML = services.map(s => `
@@ -2859,7 +2795,6 @@ function openNewIncidentModal() {
   document.getElementById('showBanner').checked = true;
   document.getElementById('bannerPreview').style.display = 'none';
   
-  // Limpiar checkboxes
   document.querySelectorAll('input[name="affected_service"]').forEach(cb => cb.checked = false);
   
   document.getElementById('incidentModalTitle').textContent = 'Reportar Incidente';
@@ -3045,9 +2980,6 @@ function openUpdateModal(id) {
   });
 }
 
-// ========================================
-// FIN SECCIÓN STATUS
-// ========================================
 
 function generateTable(section, data) {
   switch (section) {
@@ -3621,7 +3553,6 @@ case "pagos":
   }
 }
 
-// ===== DASHBOARD HOME ===== //
 async function generateDashboardHome() {
   try {
     const [statsRes, registrosRes, pagosRes] = await Promise.all([
@@ -5946,7 +5877,6 @@ function renderPagosTable(pagos) {
         </button>
       `;
     } else if (estado === 'anulado' && archivado === 1) {
-      // Pagos archivados muestran botón de desarchivar y eliminar
       const alumnoEscaped = p.alumno.replace(/'/g, "\\'");
       const conceptoEscaped = p.concepto.replace(/'/g, "\\'");
       
@@ -6261,7 +6191,6 @@ async function anularPago(idPago, nombreAlumno, concepto) {
   }
 }
 
-// Archivar pago anulado
 async function archivarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
     '¿Archivar pago?',
@@ -6291,7 +6220,6 @@ async function archivarPago(idPago, nombreAlumno, concepto) {
   }
 }
 
-// Desarchivar pago (devolver a pagos activos)
 async function desarchivarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
     '¿Devolver a pagos activos?',
@@ -6727,7 +6655,6 @@ async function openRegistrarPagoModal() {
   }
 }
 
-// ===== GESTIÓN DE AULAS ===== //
 async function openNuevaAulaModal() {
   const { value: formValues } = await Swal.fire({
     title: 'Nueva Aula',
@@ -6882,7 +6809,6 @@ async function eliminarAula(id, nombre) {
   }
 }
 
-// ===== GESTIÓN DE IDIOMAS ===== //
 async function openNuevoIdiomaModal() {
   const { value: nombre } = await Swal.fire({
     title: 'Nuevo Idioma',
@@ -6993,7 +6919,6 @@ async function eliminarIdioma(id, nombre) {
   }
 }
 
-// ===== GESTIÓN DE INSCRIPCIONES ===== //
 async function openNuevaInscripcionModal() {
   try {
     const [alumnosRes, cursosRes] = await Promise.all([
@@ -7097,7 +7022,6 @@ async function eliminarInscripcion(id, alumno, curso) {
   }
 }
 
-// ===== GESTIÓN DE ALUMNOS ===== //
 async function openNuevoAlumnoModal() {
   const { value: formValues } = await Swal.fire({
     title: 'Nuevo Alumno',
@@ -7388,7 +7312,6 @@ async function editarAlumno(id) {
       
       if (updateRes.ok && data.success) {
         await Swal.fire('¡Listo!', 'Alumno actualizado correctamente', 'success');
-        // Recargar la sección de alumnos
         document.getElementById('btnAlumnos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar alumno', 'error');
@@ -7745,7 +7668,6 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
   }
 }
 
-// ===== GESTIÓN DE PROFESORES ===== //
 async function openNuevoProfesorModal() {
   const { value: formValues } = await Swal.fire({
     title: 'Nuevo Profesor',
@@ -8648,7 +8570,6 @@ async function eliminarAdministrador(id, nombre) {
   }
 }
 
-// ===== GESTIÓN DE CURSOS ===== //
 async function openNuevoCursoModal() {
   try {
     const [idiomasRes, nivelesRes, profesoresRes, aulasRes] = await Promise.all([
@@ -8993,14 +8914,12 @@ if (window.location.pathname.includes('index.html') || window.location.pathname 
       });
     }, observerOptions);
 
-    // Observar secciones
     const sections = document.querySelectorAll('.section-content, .about-content, .stats-grid, .faq-item');
     sections.forEach(section => {
       section.classList.add('scroll-animate');
       observer.observe(section);
     });
 
-    // Observar cards (feature, role, module)
     const cards = document.querySelectorAll('.feature-card, .role-card, .module-card');
     cards.forEach(card => {
       observer.observe(card);
@@ -9568,7 +9487,6 @@ rippleStyle.textContent = `
 `;
 document.head.appendChild(rippleStyle);
 
-// ===== GENERACIÓN DE PDFs ===== //
 
 async function descargarPDFAlumnos() {
   try {
@@ -9774,7 +9692,6 @@ async function descargarPDFProfesores() {
   }
 }
 
-// ===== GENERACIÓN DE COMPROBANTE DE PAGO ===== //
 
 async function generarComprobantePago(idPago) {
   try {
@@ -9787,7 +9704,6 @@ async function generarComprobantePago(idPago) {
       throw new Error('No se encontro el pago');
     }
     
-    // Harvard Color Palette
     const HARVARD = {
       charcoal: [30, 30, 30],
       wroughtIron: [74, 74, 74],
@@ -9807,11 +9723,9 @@ async function generarComprobantePago(idPago) {
     const centerX = 40;
     let yPos = 0;
     
-    // ===== HEADER CHARCOAL =====
     doc.setFillColor(...HARVARD.charcoal);
     doc.rect(0, 0, 80, 32, 'F');
     
-    // Logo
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
@@ -9826,14 +9740,12 @@ async function generarComprobantePago(idPago) {
     
     yPos = 38;
     
-    // Titulo
     doc.setFont('times', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(...HARVARD.charcoal);
     doc.text('COMPROBANTE DE PAGO', centerX, yPos, { align: 'center' });
     yPos += 5;
     
-    // Linea decorativa
     doc.setDrawColor(...HARVARD.charcoal);
     doc.setLineWidth(1);
     doc.line(15, yPos, 65, yPos);
@@ -9842,7 +9754,6 @@ async function generarComprobantePago(idPago) {
     doc.line(15, yPos + 1.5, 65, yPos + 1.5);
     yPos += 8;
     
-    // Numero de comprobante
     doc.setFillColor(...HARVARD.lightGray);
     doc.roundedRect(10, yPos, 60, 14, 2, 2, 'F');
     doc.setFont('helvetica', 'bold');
@@ -9854,7 +9765,6 @@ async function generarComprobantePago(idPago) {
     doc.text(`#${String(pago.id_pago).padStart(6, '0')}`, centerX, yPos + 11, { align: 'center' });
     yPos += 18;
     
-    // Fecha
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD.graphite);
@@ -9865,13 +9775,11 @@ async function generarComprobantePago(idPago) {
     })}`, centerX, yPos, { align: 'center' });
     yPos += 7;
     
-    // Separador
     doc.setDrawColor(...HARVARD.silver);
     doc.setLineWidth(0.2);
     doc.line(10, yPos, 70, yPos);
     yPos += 6;
     
-    // Seccion datos alumno
     doc.setFillColor(...HARVARD.charcoal);
     doc.rect(10, yPos, 60, 5, 'F');
     doc.setFont('helvetica', 'bold');
@@ -9901,12 +9809,10 @@ async function generarComprobantePago(idPago) {
     doc.text(String(pago.dni) || '-', 68, yPos, { align: 'right' });
     yPos += 6;
     
-    // Separador
     doc.setDrawColor(...HARVARD.silver);
     doc.line(10, yPos, 70, yPos);
     yPos += 4;
     
-    // Seccion detalles del pago
     doc.setFillColor(...HARVARD.charcoal);
     doc.rect(10, yPos, 60, 5, 'F');
     doc.setFont('helvetica', 'bold');
@@ -9945,7 +9851,6 @@ async function generarComprobantePago(idPago) {
     doc.text(pago.medio_pago || '-', 68, yPos, { align: 'right' });
     yPos += 7;
     
-    // Total con estilo Harvard
     doc.setFillColor(...HARVARD.charcoal);
     doc.roundedRect(10, yPos, 60, 12, 2, 2, 'F');
     doc.setTextColor(...HARVARD.white);
@@ -9956,7 +9861,6 @@ async function generarComprobantePago(idPago) {
     doc.text(`$${parseFloat(pago.monto).toLocaleString('es-AR', {minimumFractionDigits: 2})}`, 65, yPos + 8, { align: 'right' });
     yPos += 17;
     
-    // Estado confirmado
     doc.setFillColor(...HARVARD.success);
     doc.roundedRect(20, yPos, 40, 7, 2, 2, 'F');
     doc.setTextColor(...HARVARD.white);
@@ -9965,7 +9869,6 @@ async function generarComprobantePago(idPago) {
     doc.text('PAGO CONFIRMADO', centerX, yPos + 5, { align: 'center' });
     yPos += 12;
     
-    // Footer
     doc.setDrawColor(...HARVARD.silver);
     doc.setLineWidth(0.2);
     doc.line(10, yPos, 70, yPos);
@@ -9991,9 +9894,6 @@ async function generarComprobantePago(idPago) {
   }
 }
 
-// =====================================================
-// SECCIÓN DE INVESTIGACIÓN CEMI
-// =====================================================
 
 async function renderInvestigacionSection() {
   try {
@@ -10456,7 +10356,6 @@ async function renderInvestigacionSection() {
           font-size: 14px;
         }
         
-        /* PDF Viewer Modal */
         .pdf-viewer-modal {
           display: none;
           position: fixed;
@@ -10574,7 +10473,6 @@ async function renderInvestigacionSection() {
 }
 
 function initInvestigacionInteractivity() {
-  // Buscador
   const searchInput = document.getElementById('searchEncuestas');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -10596,7 +10494,6 @@ function initInvestigacionInteractivity() {
 }
 
 function verEncuestaPDF(pdfUrl) {
-  // Abrir PDF en nueva ventana ya que los iframes tienen problemas con Cloudinary
   window.open(pdfUrl, '_blank');
   showToast('Abriendo PDF en nueva ventana...', 'info');
 }
@@ -10652,7 +10549,6 @@ async function eliminarEncuesta(id) {
           showConfirmButton: false
         });
         
-        // Recargar la sección
         document.getElementById('btnInvestigacion').click();
       } else {
         throw new Error(data.error || 'Error al eliminar');
@@ -10668,7 +10564,6 @@ async function eliminarEncuesta(id) {
   }
 }
 
-// Cerrar modal con ESC
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     cerrarPDFViewer();

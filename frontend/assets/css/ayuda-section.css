@@ -1,8 +1,4 @@
-/* ========================================
-   AYUDA SECTION - Estilos Institucionales CEMI
-   Versión 2.0 - Diseño Premium
-   ======================================== */
-
+﻿
 :root {
   --ayuda-primary: #4a5259;
   --ayuda-primary-light: #5d646b;
@@ -22,14 +18,12 @@
   --ayuda-transition: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Container Principal */
 .ayuda-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 30px;
 }
 
-/* Header Mejorado */
 .ayuda-header {
   text-align: center;
   margin-bottom: 40px;
@@ -40,9 +34,7 @@
   overflow: hidden;
 }
 
-/* Eliminado efecto shimmer para diseño minimalista */
 
-/* Eliminado decoración flotante para diseño minimalista */
 
 .ayuda-header h2 {
   display: flex;
@@ -80,7 +72,6 @@
   box-sizing: content-box;
 }
 
-/* Eliminada animación iconPulseGlow para diseño minimalista */
 
 .ayuda-header p {
   color: rgba(255,255,255,0.85);
@@ -92,7 +83,6 @@
   margin-bottom: 20px;
 }
 
-/* Estadísticas en Header */
 .ayuda-stats {
   display: flex;
   justify-content: center;
@@ -142,7 +132,6 @@
   margin-top: 4px;
 }
 
-/* Accesos Rápidos */
 .ayuda-quick-access {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -197,7 +186,6 @@
   color: var(--ayuda-text-light);
 }
 
-/* Buscador Mejorado */
 .ayuda-search-container {
   position: relative;
   max-width: 700px;
@@ -244,7 +232,6 @@
   color: var(--ayuda-text-light);
 }
 
-/* Sugerencias de búsqueda */
 .search-suggestions {
   display: flex;
   flex-wrap: wrap;
@@ -287,14 +274,12 @@
   animation: fadeIn 0.3s var(--ayuda-transition);
 }
 
-/* Categorías Grid */
 .ayuda-categorias {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* Acordeón Mejorado */
 .ayuda-accordion {
   background: var(--ayuda-bg-card);
   border-radius: 16px;
@@ -436,7 +421,6 @@
   background: var(--ayuda-bg-light);
 }
 
-/* Guías dentro del acordeón */
 .guia-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -513,7 +497,6 @@
   margin: 0;
 }
 
-/* Tags en las guías */
 .guia-tags {
   display: flex;
   flex-wrap: wrap;
@@ -530,7 +513,6 @@
   font-weight: 500;
 }
 
-/* Mensaje sin resultados */
 .no-results-message {
   text-align: center;
   padding: 60px 30px;
@@ -563,7 +545,6 @@
   font-size: 0.95rem;
 }
 
-/* Tips Section Mejorada */
 .ayuda-tips {
   margin-top: 40px;
   padding: 30px;
@@ -625,7 +606,6 @@
   flex-shrink: 0;
 }
 
-/* Footer de Ayuda */
 .ayuda-footer {
   margin-top: 40px;
   padding: 30px;
@@ -676,7 +656,6 @@
   height: 18px;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .guia-list {
     grid-template-columns: 1fr;
@@ -768,7 +747,6 @@
   }
 }
 
-/* Animaciones */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -817,7 +795,6 @@
 .quick-access-card:nth-child(3) { animation-delay: 0.2s; }
 .quick-access-card:nth-child(4) { animation-delay: 0.25s; }
 
-/* Pulse animation for icons */
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -827,11 +804,7 @@
   animation: pulse 2s infinite;
 }
 
-/* ========================================
-   MODAL DE GUÍA DETALLADA
-   ======================================== */
 
-/* Keyframes para animaciones del modal */
 @keyframes modalGlow {
   0%, 100% {
     box-shadow: 
@@ -947,9 +920,7 @@
   position: relative;
 }
 
-/* Eliminado efecto shimmer del modal para diseño minimalista */
 
-/* Eliminado decoración flotante del modal */
 
 .guia-modal-close {
   position: absolute;
@@ -1026,7 +997,6 @@
   padding: 12px 16px;
   overflow-y: auto;
   max-height: calc(65vh - 120px);
-  /* Scrollbar elegante */
   scrollbar-width: thin;
   scrollbar-color: var(--ayuda-primary-pale) transparent;
 }
@@ -1249,7 +1219,6 @@
   height: 18px;
 }
 
-/* Guia Item Clickeable */
 .guia-item {
   cursor: pointer;
 }
@@ -1276,7 +1245,6 @@
   right: 15px;
 }
 
-/* Responsive Modal */
 @media (max-width: 600px) {
   .guia-modal {
     max-height: 90vh;

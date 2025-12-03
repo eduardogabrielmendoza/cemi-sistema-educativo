@@ -1,12 +1,7 @@
-/**
- * Plantillas de email para el sistema CEMI
- * Estilo Harvard - Colores institucionales
- */
-
+﻿
 const LOGO_URL = 'https://cemi.up.railway.app/images/logolong.png';
 const SITE_URL = 'https://cemi.up.railway.app';
 
-// Harvard Color Palette
 const COLORS = {
   charcoal: '#1e1e1e',
   wroughtIron: '#4a4a4a',
@@ -27,9 +22,6 @@ const COLORS = {
   border: '#e5e5e5'
 };
 
-/**
- * Estilos base para todos los emails - Estilo Harvard
- */
 const baseStyles = `
   <style>
     body { font-family: 'Georgia', 'Times New Roman', serif; margin: 0; padding: 0; background: ${COLORS.background}; }
@@ -71,9 +63,6 @@ const baseStyles = `
   </style>
 `;
 
-/**
- * Footer comun para todos los emails
- */
 const footerTemplate = `
   <div class="footer">
     <p class="footer-brand">Centro Educativo Multilingue Integral</p>
@@ -96,9 +85,6 @@ const footerTemplate = `
   </div>
 `;
 
-/**
- * Email 1: Confirmacion al usuario de que su solicitud fue recibida
- */
 export function solicitudRecibidaTemplate(nombreUsuario, email) {
   return `
     <!DOCTYPE html>
@@ -117,21 +103,21 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
         <div class="header-accent"></div>
         <div class="content">
           <div style="text-align: center;">
-            <div class="success-icon">📩</div>
+            <div class="success-icon"></div>
           </div>
           <h2>Hola ${nombreUsuario || 'Usuario'},</h2>
           <p>Hemos recibido tu solicitud de recuperacion de contrasena para tu cuenta en el <strong>Centro Educativo Multilingue Integral (CEMI)</strong>.</p>
           
           <div class="info-box">
-            <p><strong>📧 Email registrado:</strong> ${email}</p>
-            <p><strong>📅 Fecha de solicitud:</strong> ${new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'short' })}</p>
-            <p><strong>🔢 Numero de referencia:</strong> #${Date.now().toString().slice(-8)}</p>
+            <p><strong> Email registrado:</strong> ${email}</p>
+            <p><strong> Fecha de solicitud:</strong> ${new Date().toLocaleString('es-ES', { dateStyle: 'full', timeStyle: 'short' })}</p>
+            <p><strong> Numero de referencia:</strong> #${Date.now().toString().slice(-8)}</p>
           </div>
           
           <p>Un administrador revisara tu solicitud y te enviara tus nuevas credenciales de acceso a este mismo correo electronico.</p>
           
           <div class="warning">
-            <p>⚠️ <strong>Importante:</strong> Si no solicitaste este cambio, por favor ignora este mensaje o contacta inmediatamente con soporte.</p>
+            <p>️ <strong>Importante:</strong> Si no solicitaste este cambio, por favor ignora este mensaje o contacta inmediatamente con soporte.</p>
           </div>
           
           <p>Te notificaremos cuando tus credenciales hayan sido actualizadas. Este proceso suele tomar entre 24-48 horas habiles.</p>
@@ -147,9 +133,6 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
   `;
 }
 
-/**
- * Email 2: Notificacion al administrador de nueva solicitud
- */
 export function notificacionAdminTemplate(usuario) {
   return `
     <!DOCTYPE html>
@@ -199,9 +182,6 @@ export function notificacionAdminTemplate(usuario) {
   `;
 }
 
-/**
- * Email 3: Credenciales nuevas para el usuario
- */
 export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
   return `
     <!DOCTYPE html>
@@ -257,9 +237,6 @@ export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
   `;
 }
 
-/**
- * Email 4: Agradecimiento por completar encuesta de investigacion
- */
 export function encuestaAgradecimientoTemplate(nombre) {
   return `
     <!DOCTYPE html>
@@ -319,9 +296,6 @@ export function encuestaAgradecimientoTemplate(nombre) {
   `;
 }
 
-/**
- * Email 5: Bienvenida a nuevo alumno registrado - Confirmación de cuenta
- */
 export function bienvenidaAlumnoTemplate(datos) {
   const { nombre, apellido, username, legajo } = datos;
   
@@ -402,9 +376,6 @@ export default {
   bienvenidaAlumnoTemplate
 };
 
-/**
- * Email 6: Confirmación al usuario de solicitud GDPR recibida
- */
 export function gdprSolicitudUsuarioTemplate(datos) {
   const { nombre, apellido, email, tipoSolicitud, referencia } = datos;
   
@@ -468,9 +439,6 @@ export function gdprSolicitudUsuarioTemplate(datos) {
   `;
 }
 
-/**
- * Email 7: Notificación al administrador de solicitud GDPR
- */
 export function gdprNotificacionAdminTemplate(datos) {
   const { nombre, apellido, email, dni, legajo, tipoSolicitud, formato, referencia, idUsuario, idAlumno } = datos;
   
@@ -544,9 +512,6 @@ export function gdprNotificacionAdminTemplate(datos) {
   `;
 }
 
-/**
- * Email 8: Confirmación al usuario de solicitud de códigos de recuperación 2FA
- */
 export function codigosRecuperacionUsuarioTemplate(datos) {
   const { nombre, apellido, email, referencia } = datos;
   
@@ -610,9 +575,6 @@ export function codigosRecuperacionUsuarioTemplate(datos) {
   `;
 }
 
-/**
- * Email 9: Notificación al administrador de solicitud de códigos de recuperación
- */
 export function codigosRecuperacionAdminTemplate(datos) {
   const { nombre, apellido, email, dni, usuario, motivo, referencia, idUsuario } = datos;
   

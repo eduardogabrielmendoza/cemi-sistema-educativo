@@ -1,7 +1,4 @@
-/* ================================================
-   Classroom Login - Estilo Harvard CEMI
-   ================================================ */
-
+﻿
 :root {
   --color-bg: #f5f5f7;
   --color-surface: #ffffff;
@@ -43,7 +40,6 @@ body {
   overflow: hidden;
 }
 
-/* ===== ANIMATED BACKGROUND ===== */
 .particles-background {
   position: fixed;
   top: 0;
@@ -93,7 +89,6 @@ body {
   }
 }
 
-/* ===== MAIN CONTAINER ===== */
 .classroom-login-container {
   position: relative;
   z-index: 1;
@@ -115,7 +110,6 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== LEFT PANEL (Image) ===== */
 .login-left-panel {
   flex: 1;
   background-image: url('../../images/STOCK4.jpg');
@@ -160,7 +154,6 @@ body {
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* Brand Section */
 .brand-section {
   position: relative;
   z-index: 3;
@@ -181,7 +174,6 @@ body {
   overflow: visible;
 }
 
-/* Animated ring around icon */
 .brand-logo::before {
   content: '';
   position: absolute;
@@ -253,7 +245,6 @@ body {
   font-weight: 400;
 }
 
-/* Features Section */
 .features-section {
   position: relative;
   z-index: 3;
@@ -309,12 +300,10 @@ body {
   line-height: 1.4;
 }
 
-/* Decorative Elements */
 .decorative-elements {
   display: none;
 }
 
-/* ===== RIGHT PANEL (Form) ===== */
 .login-right-panel {
   flex: 1;
   padding: 48px 44px;
@@ -329,7 +318,6 @@ body {
   max-width: 380px;
 }
 
-/* Welcome Header */
 .welcome-header {
   margin-bottom: 32px;
 }
@@ -350,7 +338,6 @@ body {
   line-height: 1.5;
 }
 
-/* Form */
 .login-form {
   margin-bottom: 24px;
 }
@@ -380,7 +367,6 @@ body {
   position: relative;
 }
 
-/* Input with prefix icon */
 .input-with-icon {
   display: flex;
   align-items: center;
@@ -505,7 +491,6 @@ body {
   stroke-width: 1.5;
 }
 
-/* Form Options */
 .form-options {
   display: flex;
   align-items: center;
@@ -541,7 +526,6 @@ body {
   color: var(--color-text);
 }
 
-/* Login Message */
 .login-message {
   min-height: 20px;
   margin-bottom: 16px;
@@ -552,7 +536,6 @@ body {
 .login-message.success { color: var(--color-success); }
 .login-message.error { color: var(--color-error); }
 
-/* Submit Button */
 .btn-login {
   width: 100%;
   padding: 14px 24px;
@@ -592,7 +575,6 @@ body {
   transform: translateX(3px);
 }
 
-/* Divider */
 .divider {
   margin: 28px 0;
   text-align: center;
@@ -617,7 +599,6 @@ body {
   position: relative;
 }
 
-/* Alternative Actions */
 .alternative-actions {
   display: flex;
   gap: 12px;
@@ -654,7 +635,6 @@ body {
   stroke-width: 1.5;
 }
 
-/* Footer */
 .login-footer {
   text-align: center;
   padding-top: 24px;
@@ -696,7 +676,6 @@ body {
   font-weight: 400;
 }
 
-/* ===== LOADER ===== */
 .loader-overlay {
   position: fixed;
   top: 0;
@@ -748,7 +727,6 @@ body {
   font-weight: 500;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .classroom-login-container {
     flex-direction: column;
@@ -858,7 +836,6 @@ body {
   }
 }
 
-/* Touch devices */
 @media (hover: none) and (pointer: coarse) {
   .btn-login:hover {
     transform: none;

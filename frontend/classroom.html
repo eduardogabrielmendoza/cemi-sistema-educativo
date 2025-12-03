@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,6 @@
   <title>CEMI Classroom - Plataforma Educativa</title>
   <link rel="stylesheet" href="assets/css/classroom.css">
   
-  <!-- Verificación de mantenimiento del sistema -->
   <script src="assets/js/config.js"></script>
   <script src="assets/js/check-maintenance.js"></script>
   
@@ -171,7 +170,6 @@
     </aside>
 
     <main class="classroom-main" id="mainContent">
-      <!-- VISTA INICIO - Centro de Recursos -->
       <div class="content-view" id="viewHome">
         <div class="resources-header">
           <div class="resources-title-section">
@@ -190,12 +188,12 @@
             </div>
             <select class="filter-select-resources" id="filterTipoRecurso">
               <option value="">Todos los tipos</option>
-              <option value="pdf">📄 PDFs</option>
-              <option value="documento">📝 Documentos</option>
-              <option value="enlace">🔗 Enlaces</option>
-              <option value="audio">🎧 Audio</option>
-              <option value="video">🎬 Video</option>
-              <option value="imagen">🖼️ Imágenes</option>
+              <option value="pdf"> PDFs</option>
+              <option value="documento"> Documentos</option>
+              <option value="enlace"> Enlaces</option>
+              <option value="audio"> Audio</option>
+              <option value="video"> Video</option>
+              <option value="imagen">️ Imágenes</option>
             </select>
             <button class="btn-upload-resource" id="btnSubirRecurso" style="display: none;">
               <i data-lucide="upload-cloud"></i>
@@ -205,7 +203,6 @@
         </div>
 
         <div class="resources-container" id="resourcesContainer">
-          <!-- Recursos por curso -->
           <div class="resources-section" id="recursosPorCurso">
             <div class="section-header">
               <i data-lucide="graduation-cap"></i>
@@ -219,7 +216,6 @@
             </div>
           </div>
 
-          <!-- Biblioteca General -->
           <div class="resources-section" id="bibliotecaGeneral">
             <div class="section-header">
               <i data-lucide="library"></i>
@@ -236,7 +232,6 @@
         </div>
       </div>
 
-      <!-- VISTA ACTIVIDAD - Feed (antes era Inicio) -->
       <div class="content-view" id="viewActivity" style="display: none;">
         <div class="welcome-section">
           <div class="welcome-banner-overlay">
@@ -245,7 +240,6 @@
           </div>
         </div>
 
-        <!-- Banner de Investigación/Encuesta -->
         <div class="research-banner" id="researchBanner">
           <button class="research-banner-close" onclick="cerrarBannerInvestigacion()" title="Cerrar">
             <i data-lucide="x"></i>
@@ -595,7 +589,6 @@
     lucide.createIcons();
   </script>
   
-  <!-- Help Widget -->
   <script src="assets/js/help-widget.js"></script>
 </body>
 </html>

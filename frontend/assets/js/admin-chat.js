@@ -1,5 +1,4 @@
-// frontend/assets/js/admin-chat.js - Socket.IO Admin Chat Manager
-class AdminChat {
+﻿class AdminChat {
   constructor() {
     this.socket = null;
     this.isConnected = false;
@@ -32,14 +31,14 @@ class AdminChat {
     });
     
     this.socket.on('connect', () => {
-      console.log('[AdminChat] ✓ Conectado a Socket.IO');
+      console.log('[AdminChat]  Conectado a Socket.IO');
       this.isConnected = true;
       this.authenticate();
       this.loadConversations();
     });
     
     this.socket.on('authenticated', (data) => {
-      console.log('[AdminChat] ✓ Autenticado:', data);
+      console.log('[AdminChat]  Autenticado:', data);
     });
     
     this.socket.on('new_message', (data) => {
@@ -423,7 +422,6 @@ class AdminChat {
   }
 }
 
-// Exportar para uso global
 window.AdminChat = AdminChat;
 
 

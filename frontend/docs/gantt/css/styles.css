@@ -1,10 +1,5 @@
-/* ========================================
-   CEMI Sistema Gestor - Diagrama de Gantt
-   Harvard Gray Style
-   ======================================== */
-
+﻿
 :root {
-    /* Harvard Gray Palette */
     --hw-charcoal: #1e1e1e;
     --hw-dark: #2d2d2d;
     --hw-graphite: #4a4a4a;
@@ -16,7 +11,6 @@
     --hw-border: #e0e0e0;
     --hw-gold: #a89968;
 
-    /* Colores de Fases - Escala de Grises */
     --fase0: #1e1e1e;
     --fase1: #2d2d2d;
     --fase2: #3a3a3a;
@@ -26,7 +20,6 @@
     --fase6: #8c939a;
 }
 
-/* Reset y Base */
 * {
     margin: 0;
     padding: 0;
@@ -47,7 +40,6 @@ body {
     padding: 30px 20px;
 }
 
-/* ========== HEADER ========== */
 header {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
@@ -114,7 +106,6 @@ header {
     color: var(--hw-silver);
 }
 
-/* Stats Grid */
 .stats-grid {
     display: flex;
     justify-content: center;
@@ -155,7 +146,6 @@ header {
     margin-top: 5px;
 }
 
-/* ========== TEAM SECTION ========== */
 .team-section {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -214,7 +204,6 @@ header {
     font-size: 1rem;
 }
 
-/* ========== GANTT SECTION ========== */
 .gantt-section {
     background: rgba(255, 255, 255, 0.97);
     border-radius: 20px;
@@ -280,7 +269,6 @@ header {
     height: 10px;
 }
 
-/* Timeline Table */
 .timeline-wrapper {
     overflow-x: auto;
     border-radius: 12px;
@@ -311,7 +299,6 @@ header {
     width: 280px;
 }
 
-/* Phase Rows */
 .phase-row td {
     background: linear-gradient(90deg, var(--hw-graphite), var(--hw-charcoal));
     color: white;
@@ -335,7 +322,6 @@ header {
     font-size: 0.85rem;
 }
 
-/* Task Rows */
 .task-row td {
     padding: 0;
     border: 1px solid #e8e8e8;
@@ -364,7 +350,6 @@ header {
     border-left-color: var(--hw-charcoal);
 }
 
-/* Week Cells */
 .week-cell {
     position: relative;
     background: #fff;
@@ -375,7 +360,6 @@ header {
     background: #fafafa;
 }
 
-/* Task Bars */
 .task-bar {
     height: 30px;
     border-radius: 6px;
@@ -410,7 +394,6 @@ header {
     z-index: 10;
 }
 
-/* Milestone Marker */
 .milestone-marker {
     width: 24px;
     height: 24px;
@@ -436,7 +419,6 @@ header {
     color: white;
 }
 
-/* ========== HOURS SUMMARY ========== */
 .hours-summary {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -496,7 +478,6 @@ header {
     text-align: right;
 }
 
-/* ========== PROGRESS SECTION ========== */
 .progress-section {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -542,7 +523,6 @@ header {
     box-shadow: 0 0 20px rgba(140, 147, 154, 0.4);
 }
 
-/* ========== FOOTER ========== */
 footer {
     text-align: center;
     padding: 25px;
@@ -568,7 +548,6 @@ footer a:hover {
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* ========== TOOLTIP ========== */
 .tooltip {
     position: fixed;
     background: var(--hw-charcoal);
@@ -617,7 +596,6 @@ footer a:hover {
     font-size: 0.8rem;
 }
 
-/* ========== RESPONSIVE ========== */
 @media (max-width: 1200px) {
     .team-section {
         grid-template-columns: repeat(2, 1fr);
@@ -674,7 +652,6 @@ footer a:hover {
     }
 }
 
-/* ========== PRINT STYLES ========== */
 @media print {
     body {
         background: white;

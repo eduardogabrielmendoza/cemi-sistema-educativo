@@ -1,14 +1,7 @@
-/**
- * CEMI Classroom Help Widget
- * Widget de ayuda flotante - Harvard Style Treatment
- */
-(function() {
+﻿(function() {
   'use strict';
 
   const widgetStyles = `
-    /* ==========================================
-       HARVARD PALETTE & VARIABLES
-       ========================================== */
     :root {
       --hw-charcoal: #1e1e1e;
       --hw-graphite: #656f77;
@@ -19,9 +12,6 @@
       --hw-accent-orange: #f5a623;
     }
 
-    /* ==========================================
-       HELP WIDGET BUTTON - HARVARD STYLE
-       ========================================== */
     .cemi-help-widget { 
       position: fixed; 
       bottom: 24px; 
@@ -86,7 +76,6 @@
       transform: rotate(180deg); 
     }
 
-    /* Pulse animation for attention */
     @keyframes helpPulse {
       0%, 100% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 0 rgba(101, 111, 119, 0.4); }
       50% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 12px rgba(101, 111, 119, 0); }
@@ -96,9 +85,6 @@
       animation: helpPulse 2s ease-in-out infinite;
     }
 
-    /* ==========================================
-       DROPDOWN MENU - HARVARD STYLE
-       ========================================== */
     .cemi-help-dropdown { 
       position: absolute; 
       bottom: 70px; 
@@ -129,7 +115,6 @@
       overflow: hidden;
     }
     
-    /* Elementos decorativos minimalistas */
     .cemi-help-dropdown-header::before {
       content: '';
       position: absolute;
@@ -232,9 +217,6 @@
       margin: 8px 24px; 
     }
 
-    /* ==========================================
-       HELP PANEL - HARVARD STYLE
-       ========================================== */
     .cemi-help-panel { 
       position: fixed; 
       top: 0; 
@@ -488,9 +470,6 @@
       color: var(--hw-silver);
     }
 
-    /* ==========================================
-       OVERLAY - BLUR EFFECT
-       ========================================== */
     .cemi-help-overlay { 
       position: fixed; 
       top: 0; 
@@ -511,9 +490,6 @@
       visibility: visible; 
     }
 
-    /* ==========================================
-       FEEDBACK MODAL - HARVARD STYLE
-       ========================================== */
     .cemi-feedback-modal { 
       position: fixed; 
       top: 0; 
@@ -690,9 +666,6 @@
       box-shadow: 0 10px 30px rgba(30, 30, 30, 0.25); 
     }
 
-    /* ==========================================
-       RESPONSIVE
-       ========================================== */
     @media (max-width: 480px) { 
       .cemi-help-panel { width: 100%; right: -100%; } 
       .cemi-help-dropdown { min-width: 260px; right: -10px; } 

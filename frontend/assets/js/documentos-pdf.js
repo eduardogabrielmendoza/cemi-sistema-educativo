@@ -1,15 +1,8 @@
-// ========================================
-// SISTEMA DE GENERACIÓN DE DOCUMENTOS PDF
-// CEMI - Centro de Enseñanza Multilingüe Internacional
-// ========================================
-
-// API Base URL (usar la misma que script.js)
+﻿
 const API_URL_DOCS = typeof API_URL !== 'undefined' ? API_URL : '/api';
 
-// Logo CEMI en Base64 (se cargará dinámicamente)
 let CEMI_LOGO_BASE64 = null;
 
-// Cargar logo CEMI
 async function cargarLogoCEMI() {
   if (CEMI_LOGO_BASE64) return CEMI_LOGO_BASE64;
   
@@ -30,9 +23,7 @@ async function cargarLogoCEMI() {
   }
 }
 
-// Abrir modal de selección de documentos
 function openDocumentosModal(idAlumno, nombreAlumno) {
-  // Crear modal
   const modalHTML = `
     <div id="documentosModal" class="modal-overlay" style="
       position: fixed;
@@ -350,7 +341,6 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
   document.body.insertAdjacentHTML('beforeend', modalHTML);
   lucide.createIcons();
   
-  // Cerrar con Escape
   const closeOnEscape = (e) => {
     if (e.key === 'Escape') {
       closeDocumentosModal();
@@ -360,7 +350,6 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
   document.addEventListener('keydown', closeOnEscape);
 }
 
-// Cerrar modal de documentos
 function closeDocumentosModal() {
   const modal = document.getElementById('documentosModal');
   if (modal) {
@@ -369,9 +358,6 @@ function closeDocumentosModal() {
   }
 }
 
-// ============================================
-// PALETA DE COLORES HARVARD
-// ============================================
 const HARVARD_COLORS = {
   charcoal: [30, 30, 30],        // #1e1e1e - Headers, fondos oscuros
   wroughtIron: [74, 74, 74],     // #4a4a4a - Secundario
@@ -386,52 +372,40 @@ const HARVARD_COLORS = {
   error: [239, 68, 68],          // #ef4444 - Rojo error
 };
 
-// Función auxiliar para agregar header Harvard a los PDFs
 async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
   const pageWidth = doc.internal.pageSize.getWidth();
   
-  // ===== HEADER PRINCIPAL - Estilo Harvard =====
-  // Fondo charcoal principal
   doc.setFillColor(...HARVARD_COLORS.charcoal);
   doc.rect(0, 0, pageWidth, 38, 'F');
   
-  // Línea de acento inferior (wrought iron)
   doc.setFillColor(...HARVARD_COLORS.wroughtIron);
   doc.rect(0, 38, pageWidth, 3, 'F');
   
-  // Línea fina decorativa
   doc.setFillColor(...HARVARD_COLORS.graphite);
   doc.rect(0, 41, pageWidth, 0.5, 'F');
   
-  // Intentar agregar logo
   try {
     const logoBase64 = await cargarLogoCEMI();
     if (logoBase64) {
-      // Círculo blanco sutil detrás del logo
       doc.setFillColor(...HARVARD_COLORS.white);
       doc.circle(22, 19, 11, 'F');
       
-      // Logo centrado en el círculo
       doc.addImage(logoBase64, 'PNG', 11, 8, 22, 22);
       
-      // Texto CEMI - Tipografía elegante
       doc.setFontSize(20);
       doc.setFont('times', 'bold'); // Times = serif similar a Georgia
       doc.setTextColor(...HARVARD_COLORS.white);
       doc.text('CEMI', 40, 17);
       
-      // Subtítulo institucional
       doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...HARVARD_COLORS.silver);
       doc.text('Centro de Enseñanza Multilingüe Internacional', 40, 24);
       
-      // Línea vertical separadora elegante
       doc.setDrawColor(...HARVARD_COLORS.graphite);
       doc.setLineWidth(0.3);
       doc.line(40, 28, 80, 28);
     } else {
-      // Fallback: solo texto con estilo Harvard
       doc.setFontSize(22);
       doc.setFont('times', 'bold');
       doc.setTextColor(...HARVARD_COLORS.white);
@@ -442,7 +416,6 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
       doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 25);
     }
   } catch (e) {
-    // Fallback: solo texto
     doc.setFontSize(22);
     doc.setFont('times', 'bold');
     doc.setTextColor(...HARVARD_COLORS.white);
@@ -453,7 +426,6 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
     doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 25);
   }
   
-  // ===== TÍTULO DEL DOCUMENTO (lado derecho) =====
   doc.setFontSize(13);
   doc.setFont('times', 'bold');
   doc.setTextColor(...HARVARD_COLORS.white);
@@ -466,7 +438,6 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
     doc.text(subtitulo, pageWidth - 20, 24, { align: 'right' });
   }
   
-  // ===== FECHA EN HEADER =====
   doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -480,21 +451,16 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
   return 52; // Retorna la posición Y después del header
 }
 
-// Función auxiliar para agregar footer Harvard a los PDFs
 function agregarFooterPDF(doc) {
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   
-  // ===== FOOTER HARVARD ELEGANTE =====
-  // Fondo del footer
   doc.setFillColor(...HARVARD_COLORS.charcoal);
   doc.rect(0, pageHeight - 22, pageWidth, 22, 'F');
   
-  // Línea superior del footer
   doc.setFillColor(...HARVARD_COLORS.wroughtIron);
   doc.rect(0, pageHeight - 22, pageWidth, 0.5, 'F');
   
-  // Logo miniatura y texto CEMI
   doc.setFontSize(9);
   doc.setFont('times', 'bold');
   doc.setTextColor(...HARVARD_COLORS.white);
@@ -505,7 +471,6 @@ function agregarFooterPDF(doc) {
   doc.setTextColor(...HARVARD_COLORS.silver);
   doc.text('Centro de Enseñanza Multilingüe Internacional', 20, pageHeight - 7);
   
-  // Fecha y hora de generación (centro)
   doc.setFontSize(6);
   doc.setTextColor(...HARVARD_COLORS.graphite);
   const fechaGen = new Date().toLocaleDateString('es-ES', { 
@@ -519,12 +484,10 @@ function agregarFooterPDF(doc) {
   });
   doc.text(`Generado: ${fechaGen} - ${horaGen}`, pageWidth / 2, pageHeight - 12, { align: 'center' });
   
-  // Texto de validez
   doc.setFontSize(5.5);
   doc.setTextColor(...HARVARD_COLORS.silver);
   doc.text('Documento con validez institucional', pageWidth / 2, pageHeight - 7, { align: 'center' });
   
-  // Número de página (derecha)
   const pageNumber = doc.internal.getNumberOfPages ? doc.internal.getCurrentPageInfo().pageNumber : 1;
   const totalPages = doc.internal.getNumberOfPages ? doc.internal.getNumberOfPages() : 1;
   doc.setFontSize(7);
@@ -532,7 +495,6 @@ function agregarFooterPDF(doc) {
   doc.text(`${pageNumber} / ${totalPages}`, pageWidth - 20, pageHeight - 10, { align: 'right' });
 }
 
-// Función para agregar header en páginas secundarias (más compacto)
 function agregarHeaderSecundario(doc, titulo) {
   const pageWidth = doc.internal.pageSize.getWidth();
   
@@ -551,9 +513,7 @@ function agregarHeaderSecundario(doc, titulo) {
   return 28; // Posición Y después del header secundario
 }
 
-// GENERADOR DE CÓDIGOS DE RECUPERACIÓN 2FA (Visual)
 function generarCodigosRecuperacion(nombreAlumno) {
-  // Función para generar un código aleatorio de 8 caracteres
   function generarCodigo() {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Sin I, O, 0, 1 para evitar confusión
     let codigo = '';
@@ -564,13 +524,11 @@ function generarCodigosRecuperacion(nombreAlumno) {
     return codigo;
   }
   
-  // Generar 5 códigos únicos
   const codigos = [];
   for (let i = 0; i < 5; i++) {
     codigos.push(generarCodigo());
   }
   
-  // Crear modal para mostrar los códigos
   const modalHTML = `
     <div id="codigosRecuperacionModal" style="
       position: fixed;
@@ -646,7 +604,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
             margin-bottom: 20px;
           ">
             <p style="margin: 0 0 15px 0; color: #1e40af; font-size: 13px; text-align: center; font-weight: 500;">
-              🔐 Códigos generados aleatoriamente
+               Códigos generados aleatoriamente
             </p>
             <div style="display: grid; gap: 10px;">
               ${codigos.map((codigo, i) => `
@@ -709,19 +667,19 @@ function generarCodigosRecuperacion(nombreAlumno) {
             <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #92400e; flex-shrink: 0; margin-top: 2px;"></i>
             <div>
               <p style="margin: 0; color: #92400e; font-size: 12px; line-height: 1.5;">
-                <strong>⚠️ Importante:</strong> Cada código solo puede usarse UNA vez. Guárdalos en un lugar seguro fuera de tu dispositivo.
+                <strong>️ Importante:</strong> Cada código solo puede usarse UNA vez. Guárdalos en un lugar seguro fuera de tu dispositivo.
               </p>
             </div>
           </div>
           
           <div style="display: flex; gap: 12px;">
             <button onclick="
-              const texto = '🔐 Códigos de Recuperación 2FA - CEMI\\n' +
+              const texto = ' Códigos de Recuperación 2FA - CEMI\\n' +
                            '${nombreAlumno}\\n' +
                            '━━━━━━━━━━━━━━━━━━━━━━━━\\n' +
                            '${codigos.map((c, i) => (i+1) + '. ' + c).join('\\n')}\\n' +
                            '━━━━━━━━━━━━━━━━━━━━━━━━\\n' +
-                           '⚠️ Cada código es de un solo uso.\\n' +
+                           '️ Cada código es de un solo uso.\\n' +
                            'Generado: ' + new Date().toLocaleString('es-AR');
               navigator.clipboard.writeText(texto);
               showToast('Códigos copiados al portapapeles', 'success');
@@ -778,7 +736,6 @@ function generarCodigosRecuperacion(nombreAlumno) {
     </style>
   `;
   
-  // Remover modal anterior si existe
   const existingModal = document.getElementById('codigosRecuperacionModal');
   if (existingModal) existingModal.remove();
   
@@ -786,14 +743,12 @@ function generarCodigosRecuperacion(nombreAlumno) {
   lucide.createIcons();
 }
 
-// Función para regenerar códigos
 function generarNuevosCodigos(nombreAlumno) {
   document.getElementById('codigosRecuperacionModal').remove();
   generarCodigosRecuperacion(nombreAlumno);
   showToast('Nuevos códigos generados', 'success');
 }
 
-// 1. CONSTANCIA DE ALUMNO REGULAR - Estilo Harvard
 async function generarConstanciaAlumnoRegular(idAlumno) {
   try {
     closeDocumentosModal();
@@ -813,7 +768,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     const pageWidth = doc.internal.pageSize.getWidth();
     let yPos = await agregarHeaderPDF(doc, 'CONSTANCIA', 'Alumno Regular');
     
-    // ===== NÚMERO DE CONSTANCIA - Estilo elegante =====
     const numeroConstancia = `CONST-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
@@ -822,13 +776,11 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 15;
     
-    // ===== TÍTULO PRINCIPAL - Tipografía Harvard =====
     doc.setFontSize(16);
     doc.setFont('times', 'bold');
     doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text('CONSTANCIA DE ALUMNO REGULAR', pageWidth / 2, yPos, { align: 'center' });
     
-    // Línea decorativa bajo el título
     yPos += 5;
     doc.setDrawColor(...HARVARD_COLORS.graphite);
     doc.setLineWidth(0.4);
@@ -836,7 +788,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 18;
     
-    // ===== CUERPO INTRODUCTORIO =====
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.text);
@@ -846,13 +797,11 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 15;
     
-    // ===== RECUADRO DE DATOS DEL ALUMNO - Estilo Harvard =====
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.setDrawColor(...HARVARD_COLORS.charcoal);
     doc.setLineWidth(0.8);
     doc.roundedRect(25, yPos, pageWidth - 50, 48, 2, 2, 'FD');
     
-    // Barra superior del recuadro
     doc.setFillColor(...HARVARD_COLORS.charcoal);
     doc.rect(25, yPos, pageWidth - 50, 8, 'F');
     doc.setFontSize(9);
@@ -862,7 +811,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 18;
     
-    // Nombre completo
     doc.setFontSize(14);
     doc.setFont('times', 'bold');
     doc.setTextColor(...HARVARD_COLORS.charcoal);
@@ -870,7 +818,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 10;
     
-    // Datos en línea
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.wroughtIron);
@@ -888,7 +835,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 25;
     
-    // ===== TEXTO DE CERTIFICACIÓN =====
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.text);
@@ -898,7 +844,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += lineasConf.length * 6 + 12;
     
-    // ===== CURSOS ACTIVOS =====
     if (alumno.cursos && alumno.cursos.length > 0) {
       doc.setFontSize(10);
       doc.setFont('times', 'bold');
@@ -908,7 +853,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
       yPos += 8;
       
       alumno.cursos.forEach((curso, index) => {
-        // Viñeta elegante
         doc.setFillColor(...HARVARD_COLORS.wroughtIron);
         doc.circle(24, yPos - 1.5, 1.2, 'F');
         
@@ -922,7 +866,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 12;
     
-    // ===== TEXTO FINAL =====
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.text);
@@ -932,16 +875,13 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     
     yPos += 20;
     
-    // ===== FECHA Y LUGAR =====
     doc.setFontSize(10);
     doc.setFont('times', 'italic');
     doc.setTextColor(...HARVARD_COLORS.wroughtIron);
     doc.text(`San Miguel de Tucumán, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
     
-    // ===== ESPACIO PARA FIRMA =====
     yPos += 28;
     
-    // Línea de firma con estilo
     doc.setDrawColor(...HARVARD_COLORS.charcoal);
     doc.setLineWidth(0.5);
     doc.line(pageWidth / 2 - 35, yPos, pageWidth / 2 + 35, yPos);
@@ -968,7 +908,6 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
   }
 }
 
-// 2. CERTIFICADO DE CALIFICACIONES - Estilo Harvard
 async function generarCertificadoCalificaciones(idAlumno) {
   try {
     closeDocumentosModal();
@@ -988,7 +927,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     const pageWidth = doc.internal.pageSize.getWidth();
     let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Académicas');
     
-    // ===== NÚMERO DE CERTIFICADO =====
     const numeroCertificado = `CERT-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
@@ -997,13 +935,11 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 12;
     
-    // ===== TÍTULO PRINCIPAL =====
     doc.setFontSize(15);
     doc.setFont('times', 'bold');
     doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text('CERTIFICADO DE CALIFICACIONES', pageWidth / 2, yPos, { align: 'center' });
     
-    // Línea decorativa
     yPos += 4;
     doc.setDrawColor(...HARVARD_COLORS.graphite);
     doc.setLineWidth(0.4);
@@ -1011,7 +947,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 12;
     
-    // ===== DATOS DEL ALUMNO - Estilo Harvard =====
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.setDrawColor(...HARVARD_COLORS.charcoal);
     doc.setLineWidth(0.6);
@@ -1019,7 +954,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 10;
     
-    // Fila 1
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -1039,7 +973,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 10;
     
-    // Fila 2
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...HARVARD_COLORS.graphite);
     doc.text('LEGAJO:', 25, yPos);
@@ -1059,7 +992,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 22;
     
-    // ===== TABLA DE CALIFICACIONES - Estilo Harvard =====
     if (alumno.cursos && alumno.cursos.length > 0) {
       doc.setFontSize(10);
       doc.setFont('times', 'bold');
@@ -1068,7 +1000,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
       
       yPos += 8;
       
-      // Headers de la tabla con estilo Harvard
       const colWidths = [65, 25, 25, 25, 25];
       const headers = ['Curso', 'Parcial 1', 'Parcial 2', 'Final', 'Promedio'];
       
@@ -1091,9 +1022,7 @@ async function generarCertificadoCalificaciones(idAlumno) {
       
       yPos += 11;
       
-      // Filas de la tabla
       alumno.cursos.forEach((curso, index) => {
-        // Alternar colores de fila
         if (index % 2 === 0) {
           doc.setFillColor(...HARVARD_COLORS.lightGray);
         } else {
@@ -1101,7 +1030,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
         }
         doc.rect(20, yPos - 3, pageWidth - 40, 9, 'F');
         
-        // Línea separadora sutil
         doc.setDrawColor(...HARVARD_COLORS.silver);
         doc.setLineWidth(0.1);
         doc.line(20, yPos + 6, pageWidth - 20, yPos + 6);
@@ -1111,12 +1039,10 @@ async function generarCertificadoCalificaciones(idAlumno) {
         doc.setTextColor(...HARVARD_COLORS.text);
         xPos = 24;
         
-        // Nombre del curso
         const nombreCurso = curso.nombre_curso.length > 28 ? curso.nombre_curso.substring(0, 25) + '...' : curso.nombre_curso;
         doc.text(nombreCurso, xPos, yPos + 3);
         xPos += colWidths[0];
         
-        // Parciales y Final
         doc.text(curso.parcial1 ? curso.parcial1.toString() : '—', xPos + colWidths[1]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[1];
         
@@ -1126,7 +1052,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
         doc.text(curso.final ? curso.final.toString() : '—', xPos + colWidths[3]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[3];
         
-        // Promedio con colores Harvard
         const promedio = curso.promedio ? parseFloat(curso.promedio).toFixed(1) : '—';
         doc.setFont('helvetica', 'bold');
         if (promedio !== '—') {
@@ -1143,7 +1068,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
         yPos += 9;
       });
       
-      // Borde exterior de la tabla
       doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
       doc.setLineWidth(0.5);
       doc.rect(20, yPos - (alumno.cursos.length * 9) - 11, pageWidth - 40, (alumno.cursos.length * 9) + 11);
@@ -1158,7 +1082,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 15;
     
-    // ===== LEYENDA =====
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.roundedRect(20, yPos, pageWidth - 40, 12, 1, 1, 'F');
     doc.setFontSize(8);
@@ -1173,7 +1096,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 22;
     
-    // ===== FECHA Y FIRMA =====
     doc.setFontSize(9);
     doc.setFont('times', 'italic');
     doc.setTextColor(...HARVARD_COLORS.wroughtIron);
@@ -1181,7 +1103,6 @@ async function generarCertificadoCalificaciones(idAlumno) {
     
     yPos += 22;
     
-    // Línea de firma
     doc.setDrawColor(...HARVARD_COLORS.charcoal);
     doc.setLineWidth(0.5);
     doc.line(pageWidth / 2 - 35, yPos, pageWidth / 2 + 35, yPos);
@@ -1207,18 +1128,15 @@ async function generarCertificadoCalificaciones(idAlumno) {
   }
 }
 
-// 3. ESTADO DE CUENTA - Estilo Harvard
 async function generarEstadoCuenta(idAlumno) {
   try {
     closeDocumentosModal();
     showToast('Generando estado de cuenta...', 'info');
     
-    // Obtener datos del alumno
     const alumnoResponse = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
     if (!alumnoResponse.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await alumnoResponse.json();
     
-    // Obtener pagos del alumno
     const pagosResponse = await fetch(`${API_URL_DOCS}/pagos/alumno/${idAlumno}`);
     let pagosData = { cursos: [] };
     if (pagosResponse.ok) {
@@ -1235,7 +1153,6 @@ async function generarEstadoCuenta(idAlumno) {
     const pageWidth = doc.internal.pageSize.getWidth();
     let yPos = await agregarHeaderPDF(doc, 'ESTADO DE CUENTA', 'Resumen Financiero');
     
-    // ===== NÚMERO DE DOCUMENTO =====
     const numeroDoc = `EC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(idAlumno).padStart(5, '0')}`;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
@@ -1244,7 +1161,6 @@ async function generarEstadoCuenta(idAlumno) {
     
     yPos += 8;
     
-    // ===== DATOS DEL ALUMNO - Estilo Harvard =====
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.setDrawColor(...HARVARD_COLORS.charcoal);
     doc.setLineWidth(0.6);
@@ -1278,7 +1194,6 @@ async function generarEstadoCuenta(idAlumno) {
     
     yPos += 18;
     
-    // ===== CÁLCULO DE TOTALES =====
     let totalPagado = 0;
     let totalPendiente = 0;
     let cuotasPagadas = 0;
@@ -1300,7 +1215,6 @@ async function generarEstadoCuenta(idAlumno) {
       });
     }
     
-    // ===== RESUMEN FINANCIERO - Estilo Harvard =====
     doc.setFontSize(10);
     doc.setFont('times', 'bold');
     doc.setTextColor(...HARVARD_COLORS.charcoal);
@@ -1308,12 +1222,10 @@ async function generarEstadoCuenta(idAlumno) {
     
     yPos += 8;
     
-    // Cajas de resumen con estilo Harvard elegante
     const boxWidth = 52;
     const boxHeight = 26;
     const spacing = 7;
     
-    // Caja Total Pagado
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.setDrawColor(...HARVARD_COLORS.success);
     doc.setLineWidth(1.5);
@@ -1326,7 +1238,6 @@ async function generarEstadoCuenta(idAlumno) {
     doc.setFont('times', 'bold');
     doc.text(`$${totalPagado.toLocaleString('es-AR')}`, 20 + boxWidth/2, yPos + 18, { align: 'center' });
     
-    // Caja Total Pendiente
     doc.setDrawColor(...HARVARD_COLORS.warning);
     doc.roundedRect(20 + boxWidth + spacing, yPos, boxWidth, boxHeight, 2, 2, 'FD');
     doc.setFontSize(8);
@@ -1337,7 +1248,6 @@ async function generarEstadoCuenta(idAlumno) {
     doc.setFont('times', 'bold');
     doc.text(`$${totalPendiente.toLocaleString('es-AR')}`, 20 + boxWidth + spacing + boxWidth/2, yPos + 18, { align: 'center' });
     
-    // Caja Cuotas
     doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
     doc.roundedRect(20 + (boxWidth + spacing) * 2, yPos, boxWidth, boxHeight, 2, 2, 'FD');
     doc.setFontSize(8);
@@ -1351,7 +1261,6 @@ async function generarEstadoCuenta(idAlumno) {
     
     yPos += 36;
     
-    // ===== DETALLE POR CURSO =====
     const pageHeight = doc.internal.pageSize.getHeight();
     const margenInferior = 30;
     
@@ -1376,7 +1285,6 @@ async function generarEstadoCuenta(idAlumno) {
       pagosData.cursos.forEach((curso, index) => {
         verificarNuevaPagina(40);
         
-        // Header del curso - Estilo Harvard
         doc.setFillColor(...HARVARD_COLORS.charcoal);
         doc.rect(20, yPos, pageWidth - 40, 7, 'F');
         doc.setFontSize(9);
@@ -1387,7 +1295,6 @@ async function generarEstadoCuenta(idAlumno) {
         
         yPos += 10;
         
-        // Headers de tabla de cuotas
         if (curso.meses && curso.meses.length > 0) {
           doc.setFillColor(...HARVARD_COLORS.lightGray);
           doc.rect(20, yPos, pageWidth - 40, 6, 'F');
@@ -1421,7 +1328,6 @@ async function generarEstadoCuenta(idAlumno) {
               yPos += 8;
             }
             
-            // Alternar filas
             if (mesIndex % 2 === 0) {
               doc.setFillColor(252, 252, 252);
               doc.rect(20, yPos - 3, pageWidth - 40, 6, 'F');
@@ -1433,7 +1339,6 @@ async function generarEstadoCuenta(idAlumno) {
             doc.text(mes.mes || '', 28, yPos);
             doc.text(`$${(mes.monto || 15000).toLocaleString('es-AR')}`, 75, yPos);
             
-            // Estado con colores
             if (mes.estado === 'pagado') {
               doc.setTextColor(...HARVARD_COLORS.success);
               doc.setFont('helvetica', 'bold');
@@ -1462,7 +1367,6 @@ async function generarEstadoCuenta(idAlumno) {
             yPos += 6;
           });
           
-          // Línea separadora entre cursos
           doc.setDrawColor(...HARVARD_COLORS.silver);
           doc.setLineWidth(0.2);
           doc.line(20, yPos + 2, pageWidth - 20, yPos + 2);
@@ -1477,7 +1381,6 @@ async function generarEstadoCuenta(idAlumno) {
       doc.text('No hay registros de pagos para este alumno.', pageWidth / 2, yPos + 10, { align: 'center' });
     }
     
-    // ===== NOTAS FINALES =====
     verificarNuevaPagina(20);
     yPos += 8;
     
@@ -1502,7 +1405,6 @@ async function generarEstadoCuenta(idAlumno) {
   }
 }
 
-// 4. FICHA DE INSCRIPCIÓN - Estilo Harvard
 async function generarFichaInscripcion(idAlumno) {
   try {
     closeDocumentosModal();
@@ -1512,7 +1414,6 @@ async function generarFichaInscripcion(idAlumno) {
     if (!response.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await response.json();
     
-    // Obtener información adicional de cursos con profesores desde pagos
     const pagosResponse = await fetch(`${API_URL_DOCS}/pagos/alumno/${idAlumno}`);
     let cursosConProfesor = [];
     if (pagosResponse.ok) {
@@ -1520,7 +1421,6 @@ async function generarFichaInscripcion(idAlumno) {
       cursosConProfesor = pagosData.cursos || [];
     }
     
-    // Combinar datos: usar alumno.cursos para idioma/nivel, agregar profesor de pagos
     const cursosCombinados = (alumno.cursos || []).map(curso => {
       const cursoPago = cursosConProfesor.find(cp => cp.id_curso === curso.id_curso);
       return {
@@ -1539,7 +1439,6 @@ async function generarFichaInscripcion(idAlumno) {
     const pageWidth = doc.internal.pageSize.getWidth();
     let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCIÓN', 'Registro Académico');
     
-    // ===== NÚMERO DE FICHA =====
     const numeroFicha = `FI-${alumno.legajo}`;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
@@ -1548,7 +1447,6 @@ async function generarFichaInscripcion(idAlumno) {
     
     yPos += 8;
     
-    // ===== SECCIÓN: DATOS PERSONALES =====
     doc.setFillColor(...HARVARD_COLORS.charcoal);
     doc.rect(20, yPos, pageWidth - 40, 7, 'F');
     doc.setFontSize(9);
@@ -1558,7 +1456,6 @@ async function generarFichaInscripcion(idAlumno) {
     
     yPos += 12;
     
-    // Grid de datos personales - Estilo Harvard
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.roundedRect(20, yPos, pageWidth - 40, 38, 2, 2, 'F');
     
@@ -1598,7 +1495,6 @@ async function generarFichaInscripcion(idAlumno) {
     if (col !== 0) yPos += 7;
     yPos += 10;
     
-    // ===== SECCIÓN: CURSOS INSCRIPTOS =====
     doc.setFillColor(...HARVARD_COLORS.charcoal);
     doc.rect(20, yPos, pageWidth - 40, 7, 'F');
     doc.setFontSize(9);
@@ -1609,7 +1505,6 @@ async function generarFichaInscripcion(idAlumno) {
     yPos += 12;
     
     if (cursosCombinados.length > 0) {
-      // Headers de tabla - Estilo Harvard
       doc.setFillColor(...HARVARD_COLORS.wroughtIron);
       doc.rect(20, yPos, pageWidth - 40, 7, 'F');
       doc.setFontSize(7);
@@ -1623,7 +1518,6 @@ async function generarFichaInscripcion(idAlumno) {
       yPos += 9;
       
       cursosCombinados.forEach((curso, index) => {
-        // Alternar filas
         if (index % 2 === 0) {
           doc.setFillColor(...HARVARD_COLORS.lightGray);
         } else {
@@ -1646,7 +1540,6 @@ async function generarFichaInscripcion(idAlumno) {
         yPos += 7;
       });
       
-      // Borde de tabla
       doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
       doc.setLineWidth(0.5);
       doc.rect(20, yPos - (cursosCombinados.length * 7) - 9, pageWidth - 40, (cursosCombinados.length * 7) + 9);
@@ -1661,7 +1554,6 @@ async function generarFichaInscripcion(idAlumno) {
     
     yPos += 12;
     
-    // ===== SECCIÓN: INFORMACIÓN ACADÉMICA =====
     doc.setFillColor(...HARVARD_COLORS.charcoal);
     doc.rect(20, yPos, pageWidth - 40, 7, 'F');
     doc.setFontSize(9);
@@ -1671,10 +1563,8 @@ async function generarFichaInscripcion(idAlumno) {
     
     yPos += 12;
     
-    // Cajas de información académica
     const boxW = 80;
     
-    // Caja Cursos Activos
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
     doc.setLineWidth(0.5);
@@ -1690,7 +1580,6 @@ async function generarFichaInscripcion(idAlumno) {
     doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text(`${alumno.cursos_activos || 0}`, 20 + boxW/2, yPos + 14, { align: 'center' });
     
-    // Caja Promedio General
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.roundedRect(20 + boxW + 10, yPos, boxW, 18, 2, 2, 'FD');
     
@@ -1712,7 +1601,6 @@ async function generarFichaInscripcion(idAlumno) {
     
     yPos += 30;
     
-    // ===== FECHA =====
     doc.setFontSize(9);
     doc.setFont('times', 'italic');
     doc.setTextColor(...HARVARD_COLORS.wroughtIron);
@@ -1720,18 +1608,15 @@ async function generarFichaInscripcion(idAlumno) {
     
     yPos += 22;
     
-    // ===== FIRMAS =====
     doc.setDrawColor(...HARVARD_COLORS.charcoal);
     doc.setLineWidth(0.5);
     
-    // Firma alumno
     doc.line(30, yPos, 90, yPos);
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text('Firma del Alumno', 60, yPos + 5, { align: 'center' });
     
-    // Firma institución
     doc.line(120, yPos, 180, yPos);
     doc.text('Sello Institucional', 150, yPos + 5, { align: 'center' });
     
@@ -1747,18 +1632,15 @@ async function generarFichaInscripcion(idAlumno) {
   }
 }
 
-// 5. GENERAR TODOS LOS PDFs EN UN ZIP
 async function generarTodosLosPDFs(idAlumno) {
   try {
     closeDocumentosModal();
     showToast('Generando paquete de documentos...', 'info');
     
-    // Obtener datos del alumno
     const response = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
     if (!response.ok) throw new Error('Error al obtener datos del alumno');
     const alumno = await response.json();
     
-    // Obtener datos de pagos
     const pagosResponse = await fetch(`${API_URL_DOCS}/pagos/alumno/${idAlumno}`);
     let pagosData = { cursos: [] };
     if (pagosResponse.ok) {
@@ -1768,7 +1650,6 @@ async function generarTodosLosPDFs(idAlumno) {
     const zip = new JSZip();
     const { jsPDF } = window.jspdf;
     
-    // Generar cada PDF
     showToast('Generando Constancia de Alumno Regular...', 'info');
     const pdfConstancia = await generarPDFConstancia(alumno);
     zip.file(`01_Constancia_Alumno_Regular_${alumno.legajo}.pdf`, pdfConstancia);
@@ -1785,7 +1666,6 @@ async function generarTodosLosPDFs(idAlumno) {
     const pdfFicha = await generarPDFFicha(alumno, pagosData);
     zip.file(`04_Ficha_Inscripcion_${alumno.legajo}.pdf`, pdfFicha);
     
-    // Generar y descargar ZIP
     showToast('Comprimiendo archivos...', 'info');
     const contenidoZip = await zip.generateAsync({ type: 'blob' });
     
@@ -1802,7 +1682,6 @@ async function generarTodosLosPDFs(idAlumno) {
   }
 }
 
-// Funciones auxiliares para generar PDFs como blobs (para ZIP)
 async function generarPDFConstancia(alumno) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
@@ -1968,7 +1847,6 @@ async function generarPDFEstadoCuenta(alumno, pagosData) {
   doc.text(alumno.legajo || 'N/A', 155, yPos + 8);
   yPos += 30;
   
-  // Usar estadisticas_globales del endpoint
   let totalPagado = 0, totalPendiente = 0, cuotasPagadas = 0, cuotasTotales = 0;
   
   if (pagosData.estadisticas_globales) {
@@ -2092,7 +1970,6 @@ async function generarPDFFicha(alumno, pagosData) {
   doc.text('CURSOS INSCRIPTOS', 25, yPos + 6);
   yPos += 14;
   
-  // Combinar datos: usar alumno.cursos para idioma/nivel, agregar profesor de pagos
   const cursosConProfesor = pagosData.cursos || [];
   const cursosCombinados = (alumno.cursos || []).map(curso => {
     const cursoPago = cursosConProfesor.find(cp => cp.id_curso === curso.id_curso);
@@ -2140,7 +2017,7 @@ async function generarPDFFicha(alumno, pagosData) {
   return doc.output('blob');
 }
 
-console.log('✅ Sistema de Documentos PDF cargado correctamente');
+console.log(' Sistema de Documentos PDF cargado correctamente');
 
 
 

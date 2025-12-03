@@ -1,4 +1,4 @@
-import { Server } from 'socket.io';
+﻿import { Server } from 'socket.io';
 import pool from './db.js';
 
 class ChatServer {
@@ -259,11 +259,9 @@ class ChatServer {
       ]);      
       const id_mensaje = result.insertId;
       
-      // Obtener avatar del remitente según su tipo
       let avatar_remitente = null;
       
       if (userInfo.tipo === 'admin' && id_remitente) {
-        // Para admin, buscar por id_usuario
         const [avatarResult] = await pool.query(`
           SELECT p.avatar
           FROM personas p
@@ -275,7 +273,6 @@ class ChatServer {
           avatar_remitente = avatarResult[0].avatar;
         }
       } else if (userInfo.tipo === 'profesor' && userInfo.id_especifico) {
-        // Para profesor, buscar por id_profesor
         const [avatarResult] = await pool.query(`
           SELECT p.avatar
           FROM personas p
@@ -287,7 +284,6 @@ class ChatServer {
           avatar_remitente = avatarResult[0].avatar;
         }
       } else if (userInfo.tipo === 'alumno' && userInfo.id_especifico) {
-        // Para alumno, buscar por id_alumno
         const [avatarResult] = await pool.query(`
           SELECT p.avatar
           FROM personas p
@@ -533,14 +529,11 @@ class ChatServer {
   
   
   broadcastToConversation(id_conversacion, message) {
-    // Socket.IO: emitir a todos en el room excepto el emisor
     const room = `conversation_${id_conversacion}`;
     
-    // Si message tiene la estructura antigua {type, data}, extraer data
     const eventData = message.data || message;
     const eventType = message.type === 'message' ? 'new_message' : message.type;
     
-    // Emitir a todos en el room
     this.io.to(room).emit(eventType, eventData);
     
     console.log(` Broadcast a room ${room}: ${eventType}`, eventData);

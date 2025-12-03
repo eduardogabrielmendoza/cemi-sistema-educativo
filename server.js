@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
@@ -60,7 +60,6 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('combined')); // Formato completo para producción
 }
 
-// Confiar en el proxy de Railway
 app.set('trust proxy', 1);
 
 const limiter = rateLimit({

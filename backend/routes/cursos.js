@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import pool from "../utils/db.js";
 
 const router = express.Router();
@@ -680,9 +680,6 @@ router.put("/:id/cuotas", async (req, res) => {
       });
     }
 
-    // NULL = todas habilitadas (por defecto)
-    // Array vacío [] = ninguna habilitada
-    // Array con valores = solo esas cuotas habilitadas
     
     console.log('Cuotas a guardar:', cuotas);
     console.log('Ejecutando UPDATE...');
@@ -779,7 +776,6 @@ router.get("/:id/cuotas", async (req, res) => {
     let cuotasHabilitadas;
     
     if (rawCuotas === null || rawCuotas === undefined) {
-      // null = todas habilitadas
       cuotasHabilitadas = null;
     } else if (typeof rawCuotas === 'object' && Array.isArray(rawCuotas)) {
       cuotasHabilitadas = rawCuotas;

@@ -1,11 +1,9 @@
-
+﻿
 (function() {
-  // Solo activar en localhost
   if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
     return;
   }
 
-  // Solo activar si estamos en puerto 8080 (dev server)
   if (window.location.port !== '8080') {
     console.log('ℹ️ Hot-reload desactivado (no estás en dev server)');
     return;

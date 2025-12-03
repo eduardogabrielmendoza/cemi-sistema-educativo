@@ -1,4 +1,4 @@
-
+﻿
 import express from "express";
 import pool from "../utils/db.js";
 import multer from "multer";
@@ -235,7 +235,6 @@ router.get("/conversacion/:id", async (req, res) => {
       })));
     }
     
-    // Desactivar caché para esta respuesta
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
@@ -608,7 +607,6 @@ router.get("/mi-conversacion", async (req, res) => {
       avatar: m.avatar_remitente
     })));
     
-    // Desactivar caché para esta respuesta
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
@@ -798,14 +796,11 @@ router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
         fecha_envio: new Date().toISOString()
       };
       
-      // Emitir el mensaje a la conversación (Socket.IO) - esto ya notifica a todos en el room
       chatServerInstance.broadcastToConversation(id_conversacion, {
         type: 'message',
         data: mensajeWS
       });
       
-      // NO notificar a admins aquí - ya reciben el mensaje via broadcastToConversation
-      // porque están en el room conversation_${id_conversacion}
     }
     
     res.json({

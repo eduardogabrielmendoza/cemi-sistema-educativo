@@ -1,4 +1,4 @@
-class UserChatManager {
+﻿class UserChatManager {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
     this.socket = null;
@@ -45,7 +45,7 @@ class UserChatManager {
     
     try {
       if (!this.audioContext) {
-        console.log('⚠️ AudioContext no disponible');
+        console.log('️ AudioContext no disponible');
         return;
       }
       
@@ -53,7 +53,7 @@ class UserChatManager {
         this.audioContext.resume().then(() => {
           this.playSoundEffect();
         }).catch(err => {
-          console.log('⚠️ No se pudo reanudar AudioContext:', err);
+          console.log('️ No se pudo reanudar AudioContext:', err);
         });
       } else {
         this.playSoundEffect();
@@ -172,7 +172,6 @@ class UserChatManager {
     
     console.log(' Usuario cargado:', this.userInfo);
     
-    // Si no hay avatar en localStorage, intentar cargarlo desde el servidor
     if (!this.userInfo.avatar && this.userInfo.id_usuario) {
       await this.cargarAvatarDesdeServidor();
     }
@@ -319,12 +318,10 @@ class UserChatManager {
     });
   }
   
-  // handleWebSocketMessage eliminado - ahora usamos eventos Socket.IO individuales
   
   handleNewMessage(data) {
     console.log(' Nuevo mensaje recibido:', data);
     
-    // Verificar si es mensaje propio comparando con id_especifico
     const esMensajePropio = data.tipo_remitente === this.userType && 
                             (data.id_especifico == this.userInfo.id_especifico || 
                              data.id_remitente == this.userInfo.id_especifico);
@@ -601,19 +598,18 @@ class UserChatManager {
                             (msg.id_especifico == this.userInfo.id_especifico || 
                              msg.id_remitente == this.userInfo.id_especifico);
         
-        // TEMPORAL: Si es del mismo tipo que yo, usar mi avatar (mensajes sin id_especifico)
         if (msg.tipo_remitente === this.userType) {
           avatarParaMostrar = this.userInfo.avatar || msg.avatar_remitente;
-          console.log('🔵 Mensaje de mi tipo (alumno/profesor) - usando MI avatar:', avatarParaMostrar);
+          console.log(' Mensaje de mi tipo (alumno/profesor) - usando MI avatar:', avatarParaMostrar);
         } else {
           avatarParaMostrar = msg.avatar_remitente;
-          console.log('🟢 Mensaje de admin - usando avatar de BD:', avatarParaMostrar);
+          console.log(' Mensaje de admin - usando avatar de BD:', avatarParaMostrar);
         }
       }
       
-      console.log('🎯 Antes de renderAvatar - avatarParaMostrar:', avatarParaMostrar);
+      console.log(' Antes de renderAvatar - avatarParaMostrar:', avatarParaMostrar);
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
-      console.log('🎯 Después de renderAvatar - avatarContent:', avatarContent);
+      console.log(' Después de renderAvatar - avatarContent:', avatarContent);
       
       let mensajeContent = '';
       if (msg.archivo_adjunto) {
@@ -624,7 +620,7 @@ class UserChatManager {
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>⚠️ Imagen no disponible</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>️ Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -818,7 +814,6 @@ class UserChatManager {
           showConfirmButton: false
         });
         
-        // No recargar mensajes - el mensaje llegará via Socket.IO new_message
         console.log(' Archivo subido exitosamente, esperando evento Socket.IO...');
       } else {
         throw new Error(result.message || 'Error al subir archivo');

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -598,10 +598,8 @@
         El sistema se encuentra temporalmente fuera de servicio. Por favor, intenta nuevamente en unos minutos.
       </p>
 
-      <!-- Servicios afectados -->
       <div class="affected-services" id="affectedServices"></div>
 
-      <!-- Actualizaciones del incidente -->
       <div class="updates-section" id="updatesSection" style="display: none;">
         <div class="updates-title">
           <i data-lucide="message-circle"></i>
@@ -696,7 +694,7 @@
         incidentTitle.textContent = '¿Qué estamos haciendo?';
       } else if (status === 'outage') {
         body.className = 'outage';
-        statusText.textContent = '⚠️ Interrupción del Servicio';
+        statusText.textContent = '️ Interrupción del Servicio';
         mainIcon.setAttribute('data-lucide', 'alert-triangle');
         messageIcon.setAttribute('data-lucide', 'alert-octagon');
         mainTitle.textContent = 'Servicio No Disponible';

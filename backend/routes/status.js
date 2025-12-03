@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -9,7 +9,6 @@ const __dirname = path.dirname(__filename);
 
 const STATUS_FILE_PATH = path.join(__dirname, '../../frontend/assets/data/system-status.json');
 
-// Leer estado del sistema
 function readStatus() {
   try {
     if (fs.existsSync(STATUS_FILE_PATH)) {
@@ -23,7 +22,6 @@ function readStatus() {
   }
 }
 
-// Escribir estado del sistema
 function writeStatus(data) {
   try {
     const dir = path.dirname(STATUS_FILE_PATH);
@@ -39,7 +37,6 @@ function writeStatus(data) {
   }
 }
 
-// Estado por defecto
 function getDefaultStatus() {
   return {
     global_status: "operational",
@@ -56,7 +53,6 @@ function getDefaultStatus() {
   };
 }
 
-// Calcular estado global basado en servicios
 function calculateGlobalStatus(services, activeIncident) {
   if (activeIncident) {
     return activeIncident.severity === 'maintenance' ? 'maintenance' : 
@@ -70,7 +66,6 @@ function calculateGlobalStatus(services, activeIncident) {
   return 'operational';
 }
 
-// GET /api/status - Obtener estado actual (público)
 router.get('/', (req, res) => {
   try {
     const status = readStatus();
@@ -81,7 +76,6 @@ router.get('/', (req, res) => {
   }
 });
 
-// GET /api/status/banner - Obtener solo info del banner (para index)
 router.get('/banner', (req, res) => {
   try {
     const status = readStatus();
@@ -102,7 +96,6 @@ router.get('/banner', (req, res) => {
   }
 });
 
-// POST /api/status/incident - Crear nuevo incidente (admin)
 router.post('/incident', (req, res) => {
   try {
     const { title, message, severity, affected_services, show_banner } = req.body;
@@ -113,14 +106,12 @@ router.post('/incident', (req, res) => {
     
     const status = readStatus();
     
-    // Si hay un incidente activo, moverlo al historial
     if (status.active_incident) {
       status.active_incident.resolved_at = new Date().toISOString();
       status.active_incident.resolved = true;
       status.incidents_history.unshift(status.active_incident);
     }
     
-    // Crear nuevo incidente
     const newIncident = {
       id: Date.now(),
       title,
@@ -134,7 +125,6 @@ router.post('/incident', (req, res) => {
     
     status.active_incident = newIncident;
     
-    // Actualizar estado de servicios afectados
     if (affected_services && affected_services.length > 0) {
       status.services = status.services.map(service => {
         if (affected_services.includes(service.id)) {
@@ -157,7 +147,6 @@ router.post('/incident', (req, res) => {
   }
 });
 
-// PUT /api/status/incident/:id - Actualizar incidente (admin)
 router.put('/incident/:id', (req, res) => {
   try {
     const { id } = req.params;
@@ -169,7 +158,6 @@ router.put('/incident/:id', (req, res) => {
       return res.status(404).json({ error: 'Incidente no encontrado' });
     }
     
-    // Agregar actualización
     if (update_message) {
       status.active_incident.updates.push({
         message: update_message,
@@ -177,24 +165,20 @@ router.put('/incident/:id', (req, res) => {
       });
     }
     
-    // Actualizar severidad si se proporciona
     if (severity) {
       status.active_incident.severity = severity;
     }
     
-    // Actualizar show_banner si se proporciona
     if (typeof show_banner === 'boolean') {
       status.active_incident.show_banner = show_banner;
     }
     
-    // Resolver incidente
     if (resolve) {
       status.active_incident.resolved = true;
       status.active_incident.resolved_at = new Date().toISOString();
       status.incidents_history.unshift(status.active_incident);
       status.active_incident = null;
       
-      // Restaurar todos los servicios a operativo
       status.services = status.services.map(service => ({
         ...service,
         status: 'operational'
@@ -214,7 +198,6 @@ router.put('/incident/:id', (req, res) => {
   }
 });
 
-// DELETE /api/status/incident/:id - Eliminar incidente sin resolver (admin)
 router.delete('/incident/:id', (req, res) => {
   try {
     const { id } = req.params;
@@ -223,7 +206,6 @@ router.delete('/incident/:id', (req, res) => {
     if (status.active_incident && status.active_incident.id == id) {
       status.active_incident = null;
       
-      // Restaurar servicios
       status.services = status.services.map(service => ({
         ...service,
         status: 'operational'
@@ -245,7 +227,6 @@ router.delete('/incident/:id', (req, res) => {
   }
 });
 
-// PUT /api/status/services - Actualizar estado de servicios individualmente (admin)
 router.put('/services', (req, res) => {
   try {
     const { services } = req.body;
@@ -276,7 +257,6 @@ router.put('/services', (req, res) => {
   }
 });
 
-// DELETE /api/status/history/:id - Eliminar del historial (admin)
 router.delete('/history/:id', (req, res) => {
   try {
     const { id } = req.params;

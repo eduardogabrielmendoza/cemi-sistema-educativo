@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
@@ -127,9 +127,6 @@ router.post("/login",
   }
 });
 
-// ============================================
-// RECUPERACION DE CONTRASENA
-// ============================================
 router.post("/forgot-password",
   [
     body('email')
@@ -150,7 +147,6 @@ router.post("/forgot-password",
     const { email } = req.body;
 
     try {
-      // Buscar usuario por email
       const [rows] = await pool.query(
         `SELECT 
           u.id_usuario,
@@ -177,22 +173,18 @@ router.post("/forgot-password",
       const usuario = rows[0];
       const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`.trim();
 
-      // Responder inmediatamente al usuario (no esperar emails)
       res.json({
         success: true,
         message: "Solicitud recibida. Si el email existe en nuestro sistema, recibiras instrucciones pronto."
       });
 
-      // Enviar emails en background (no bloquea la respuesta)
       try {
-        // Email 1: Confirmacion al usuario
         await sendEmail(
           email,
           'Solicitud de Recuperacion de Contrasena - CEMI',
           solicitudRecibidaTemplate(nombreCompleto, email)
         );
 
-        // Email 2: Notificacion al administrador
         await sendEmail(
           ADMIN_EMAIL,
           `Solicitud de Recuperacion: ${nombreCompleto}`,
@@ -344,7 +336,6 @@ router.post("/register",
         await connection.commit();
         connection.release();
 
-        // Enviar email de bienvenida al alumno (no bloqueante)
         try {
           const emailHtml = bienvenidaAlumnoTemplate({
             nombre: nombre.trim(),
@@ -360,7 +351,6 @@ router.post("/register",
           console.log(`Email de bienvenida enviado a: ${email.trim()}`);
         } catch (emailError) {
           console.error("Error al enviar email de bienvenida:", emailError.message);
-          // No interrumpimos el flujo si falla el email
         }
 
         return res.status(201).json({
@@ -675,7 +665,6 @@ router.post("/admin-cambiar-password-classroom",
     try {
       console.log(` Admin actualizando credenciales para id_persona: ${id_persona}`);
 
-      // Obtener datos del usuario para el email
       const [personaData] = await pool.query(
         `SELECT p.nombre, p.apellido, p.mail as email FROM personas p WHERE p.id_persona = ?`,
         [id_persona]
@@ -722,7 +711,6 @@ router.post("/admin-cambiar-password-classroom",
 
         console.log(` Password actualizada para id_persona: ${id_persona}`);
 
-        // Enviar email si se solicitó
         if (enviarEmail && personaData.length > 0 && personaData[0].email) {
           const persona = personaData[0];
           const nombreCompleto = `${persona.nombre} ${persona.apellido}`.trim();
@@ -935,7 +923,6 @@ router.get("/usuario-classroom/:id", async (req, res) => {
   }
 });
 
-// Endpoint para obtener avatar del usuario por id_usuario
 router.get("/usuario/:id_usuario", async (req, res) => {
   const { id_usuario } = req.params;
   

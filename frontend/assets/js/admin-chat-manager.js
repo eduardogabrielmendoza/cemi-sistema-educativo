@@ -1,4 +1,4 @@
-class AdminChatManager {
+﻿class AdminChatManager {
   constructor() {
     this.socket = null;
     this.isConnected = false;
@@ -117,7 +117,6 @@ class AdminChatManager {
   }
   
   async loadAdminInfo() {
-    // Intentar obtener avatar de localStorage (se actualiza desde perfil-classroom)
     const avatar = localStorage.getItem('avatar') || sessionStorage.getItem('avatar') || null;
     const id_usuario = localStorage.getItem('id_usuario');
     
@@ -130,7 +129,6 @@ class AdminChatManager {
     
     console.log(' Admin info cargada, avatar:', avatar);
     
-    // Si no hay avatar en localStorage, intentar cargarlo desde el servidor
     if (!avatar && id_usuario) {
       await this.cargarAvatarDesdeServidor();
     }
@@ -518,7 +516,7 @@ class AdminChatManager {
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>⚠️ Imagen no disponible</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>️ Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -595,7 +593,6 @@ class AdminChatManager {
     
     const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
     
-    // Renderizar contenido según si hay archivo adjunto
     let mensajeContent = '';
     if (data.archivo_adjunto) {
       if (data.tipo_archivo === 'image') {
@@ -605,7 +602,7 @@ class AdminChatManager {
                  alt="Imagen adjunta" 
                  class="chat-image-preview" 
                  onclick="window.open('${data.archivo_adjunto}', '_blank')" 
-                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>⚠️ Imagen no disponible</div>';" />
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>️ Imagen no disponible</div>';" />
           </div>
         `;
       } else if (data.tipo_archivo === 'pdf') {
@@ -646,7 +643,6 @@ class AdminChatManager {
     
     container.insertAdjacentHTML('beforeend', messageHTML);
     
-    // Inicializar íconos de Lucide si hay PDFs
     if (data.tipo_archivo === 'pdf' && typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
@@ -764,7 +760,6 @@ class AdminChatManager {
           showConfirmButton: false
         });
         
-        // Agregar el mensaje con archivo adjunto a la UI inmediatamente
         const messageData = {
           id_mensaje: result.data.id_mensaje,
           id_conversacion: this.activeConversation.id_conversacion,
@@ -779,7 +774,6 @@ class AdminChatManager {
         this.addMessageToUI(messageData);
         this.scrollToBottom();
         
-        // Actualizar conversación en la lista
         const conv = this.conversations.find(c => c.id_conversacion === this.activeConversation.id_conversacion);
         if (conv) {
           conv.ultimo_mensaje = messageData.mensaje;

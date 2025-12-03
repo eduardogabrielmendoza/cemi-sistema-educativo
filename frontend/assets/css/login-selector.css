@@ -1,7 +1,4 @@
-/* ================================================
-   Login Selector - Estilo Harvard CEMI
-   ================================================ */
-
+﻿
 :root {
   --color-bg: #f5f5f7;
   --color-surface: #ffffff;
@@ -36,7 +33,6 @@ body {
   padding: 0;
 }
 
-/* ===== BODY ===== */
 .selector-body {
   min-height: 100vh;
   width: 100%;
@@ -49,7 +45,6 @@ body {
   padding: 40px 20px;
 }
 
-/* ===== ANIMATED BACKGROUND ===== */
 .selector-background {
   position: absolute;
   top: 0;
@@ -115,7 +110,6 @@ body {
   }
 }
 
-/* ===== BACK BUTTON ===== */
 .back-button {
   position: fixed;
   top: 24px;
@@ -147,7 +141,6 @@ body {
   stroke-width: 1.5;
 }
 
-/* ===== WRAPPER ===== */
 .selector-wrapper {
   position: relative;
   z-index: 1;
@@ -161,12 +154,10 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== HEADER ===== */
 .selector-header {
   display: none;
 }
 
-/* ===== TITLE ===== */
 .selector-title {
   text-align: center;
   margin-bottom: 40px;
@@ -188,7 +179,6 @@ body {
   font-weight: 400;
 }
 
-/* ===== CARDS GRID ===== */
 .selector-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -196,7 +186,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* ===== CARD ===== */
 .selector-card {
   position: relative;
   border-radius: var(--radius-lg);
@@ -217,7 +206,6 @@ body {
   border-color: var(--color-border-hover);
 }
 
-/* Card Background with Image */
 .card-background {
   position: absolute;
   top: 0;
@@ -264,7 +252,6 @@ body {
   background-image: url('../../images/STOCK4.jpg');
 }
 
-/* Card Content */
 .card-content {
   position: relative;
   z-index: 3;
@@ -278,7 +265,6 @@ body {
   transform: translateY(-4px);
 }
 
-/* Card Icon */
 .card-icon {
   width: 56px;
   height: 56px;
@@ -305,7 +291,6 @@ body {
   stroke-width: 1.5;
 }
 
-/* Card Title */
 .card-content h3 {
   font-family: var(--font-heading);
   font-size: 1.5rem;
@@ -322,7 +307,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Card Features */
 .card-features {
   list-style: none;
   margin-bottom: 24px;
@@ -350,7 +334,6 @@ body {
   opacity: 0.9;
 }
 
-/* Card Action Button */
 .card-action {
   display: inline-flex;
   align-items: center;
@@ -383,7 +366,6 @@ body {
   transform: translateX(4px);
 }
 
-/* ===== FOOTER ===== */
 .selector-footer {
   text-align: center;
 }
@@ -422,7 +404,6 @@ body {
   transform: translateX(-3px);
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .selector-body {
     padding: 30px 16px;
@@ -531,7 +512,6 @@ body {
   }
 }
 
-/* Touch devices */
 @media (hover: none) and (pointer: coarse) {
   .selector-card:hover {
     transform: none;

@@ -1,34 +1,25 @@
-/* ============================================
-   HARVARD ALIVE - Animation System
-   Elegant, minimalist, professional animations
-   ============================================ */
-
+﻿
 :root {
-  /* Harvard Alive Animation Variables */
   --hw-charcoal: #1e1e1e;
   --hw-graphite: #656f77;
   --hw-off-white: #f8f9fa;
   --hw-cream: #f5f5f7;
   
-  /* Timing Functions */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
   
-  /* Animation Durations */
   --duration-fast: 150ms;
   --duration-normal: 250ms;
   --duration-slow: 400ms;
   --duration-slower: 600ms;
   
-  /* Shadows */
   --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
   --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.16);
 }
 
-/* Harvard Alive Keyframes */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -150,7 +141,6 @@
   position: relative;
 }
 
-/* Harvard-style Typography */
 .dashboard-body h1,
 .dashboard-body h2,
 .dashboard-body h3,
@@ -312,7 +302,6 @@
   }
 }
 
-/* Staggered animation for nav items */
 .sidebar-menu button:nth-child(1) { animation-delay: 50ms; }
 .sidebar-menu button:nth-child(2) { animation-delay: 100ms; }
 .sidebar-menu button:nth-child(3) { animation-delay: 150ms; }
@@ -738,7 +727,6 @@
   height: 18px;
 }
 
-/* Botón de Documentos PDF */
 .btn-icon-docs {
   background: #cbd5e0;
   color: #718096;
@@ -1143,7 +1131,6 @@
   }
 }
 
-/* Staggered animation for curso cards */
 .curso-card:nth-child(1) { animation-delay: 100ms; }
 .curso-card:nth-child(2) { animation-delay: 180ms; }
 .curso-card:nth-child(3) { animation-delay: 260ms; }
@@ -1186,7 +1173,6 @@
   overflow: hidden;
 }
 
-/* Círculo decorativo flotante */
 .curso-card-header::after {
   display: none;
 }
@@ -1556,7 +1542,6 @@
   }
 }
 
-/* Staggered animation for stat cards */
 .stat-card:nth-child(1) { animation-delay: 80ms; }
 .stat-card:nth-child(2) { animation-delay: 160ms; }
 .stat-card:nth-child(3) { animation-delay: 240ms; }
@@ -1628,7 +1613,6 @@
   animation: slideInLeft var(--duration-slow) var(--ease-smooth) backwards;
 }
 
-/* Staggered animation for alumno items */
 .alumno-item:nth-child(1) { animation-delay: 50ms; }
 .alumno-item:nth-child(2) { animation-delay: 100ms; }
 .alumno-item:nth-child(3) { animation-delay: 150ms; }
@@ -3706,7 +3690,6 @@
   animation: cardSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
-/* Staggered animation for profesor stats */
 .profesor-stat-card-enhanced:nth-child(1) { animation-delay: 80ms; }
 .profesor-stat-card-enhanced:nth-child(2) { animation-delay: 160ms; }
 .profesor-stat-card-enhanced:nth-child(3) { animation-delay: 240ms; }
@@ -8521,9 +8504,7 @@
   }
 }
 
-/* ===== MOBILE MEDIUM - iPhone XR/11/12/13/14 (414-430px) ===== */
 @media (max-width: 430px) {
-  /* === BASE CONTAINER === */
   html, body {
     overflow-x: hidden;
     width: 100%;
@@ -8540,7 +8521,6 @@
     overflow-x: hidden;
   }
 
-  /* === HEADER === */
   .dashboard-header {
     padding: 14px 14px;
     gap: 10px;
@@ -8593,7 +8573,6 @@
     height: 22px;
   }
 
-  /* === MAIN CONTENT === */
   .dashboard-main {
     padding: 68px 14px 20px 14px;
     width: 100%;
@@ -8607,7 +8586,6 @@
     max-width: 100%;
   }
 
-  /* === TABS === */
   .tabs-container,
   .dashboard-tabs {
     overflow-x: auto;
@@ -8629,7 +8607,6 @@
     display: none;
   }
 
-  /* === STATS GRID === */
   .stats-grid,
   .stats-row {
     grid-template-columns: 1fr 1fr;
@@ -8665,7 +8642,6 @@
     font-size: 0.72rem;
   }
 
-  /* === PAGOS STATS === */
   .pagos-stats-grid,
   .alumno-pagos-stats {
     grid-template-columns: 1fr 1fr;
@@ -8685,7 +8661,6 @@
     font-size: 0.72rem;
   }
 
-  /* === CUOTAS GRID === */
   .cuotas-grid,
   .meses-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -8704,7 +8679,6 @@
     font-size: 0.68rem;
   }
 
-  /* === SEARCH & FILTERS === */
   .search-container,
   .filter-bar {
     flex-direction: column;
@@ -8740,7 +8714,6 @@
     text-align: center;
   }
 
-  /* === CARDS GRID === */
   .cursos-grid,
   .alumnos-grid,
   .profesores-grid,
@@ -8810,7 +8783,6 @@
     border-radius: 8px;
   }
 
-  /* === PANELS === */
   .curso-panel,
   .alumno-panel,
   .profesor-panel,
@@ -8852,7 +8824,6 @@
     margin-bottom: 12px;
   }
 
-  /* === FORMS === */
   .form-container {
     padding: 0;
   }
@@ -8889,7 +8860,6 @@
     margin-top: 4px;
   }
 
-  /* === BUTTONS === */
   .btn-primary,
   .btn-submit {
     width: 100%;
@@ -8919,7 +8889,6 @@
     width: 100%;
   }
 
-  /* === MODALS === */
   .modal {
     padding: 0;
   }
@@ -8975,7 +8944,6 @@
     flex: 1;
   }
 
-  /* === TABLES === */
   .table-container {
     margin: 0 -14px;
     padding: 0;
@@ -8999,7 +8967,6 @@
     font-weight: 600;
   }
 
-  /* === SIDEBAR === */
   .sidebar {
     width: 280px;
     max-width: 82vw;
@@ -9039,7 +9006,6 @@
     border-top: 1px solid rgba(0,0,0,0.08);
   }
 
-  /* === UTILITIES === */
   .badge,
   .status-badge {
     padding: 4px 10px;
@@ -9077,9 +9043,7 @@
   }
 }
 
-/* ===== DASHBOARD RESPONSIVE - MEJORAS ADICIONALES ===== */
 
-/* Sidebar móvil mejorado */
 @media (max-width: 768px) {
   .sidebar-overlay {
     display: none;
@@ -9089,14 +9053,12 @@
     display: block;
   }
 
-  /* Mejoras para el header del dashboard */
   .dashboard-header {
     margin: 0 0 20px 0;
     border-radius: 12px;
     position: relative;
   }
 
-  /* Tabs responsive */
   .tabs-container {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -9106,21 +9068,18 @@
     display: none;
   }
 
-  /* Grid de stats mejorado */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
-  /* Cards de curso más compactas */
   .curso-card,
   .alumno-card,
   .profesor-card {
     border-radius: 12px;
   }
 
-  /* Botones de acción táctiles */
   .btn-icon-primary,
   .btn-icon-edit,
   .btn-icon-danger,
@@ -9130,14 +9089,12 @@
     min-height: 40px;
   }
 
-  /* Dropdown/menu items táctiles */
   .dropdown-item,
   .menu-item {
     min-height: 44px;
     padding: 12px 16px;
   }
 
-  /* Search box responsive */
   .search-box {
     width: 100%;
   }
@@ -9146,20 +9103,17 @@
     width: 100%;
   }
 
-  /* Actions bar responsive */
   .actions-bar,
   .toolbar {
     flex-wrap: wrap;
     gap: 10px;
   }
 
-  /* Cuotas grid móvil */
   .cuotas-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  /* Panel lateral slide-in mejorado */
   .curso-panel,
   .alumno-panel,
   .profesor-panel,
@@ -9200,31 +9154,26 @@
 }
 
 @media (max-width: 480px) {
-  /* Stats grid en columna única */
   .stats-grid,
   .pagos-stats-grid,
   .alumno-pagos-stats {
     grid-template-columns: 1fr;
   }
 
-  /* Formularios full width */
   .form-group input,
   .form-group select,
   .form-group textarea {
     font-size: 16px !important; /* Previene zoom en iOS */
   }
 
-  /* Cuotas en columna única */
   .cuotas-grid {
     grid-template-columns: 1fr;
   }
 
-  /* Meses grid compacto */
   .meses-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Modal full screen */
   .modal-content {
     width: 100%;
     height: 100%;
@@ -9241,13 +9190,11 @@
     background: white;
   }
 
-  /* Sidebar más estrecha */
   .sidebar {
     width: 280px;
     max-width: 85vw;
   }
 
-  /* Toggle botón más visible */
   .mobile-menu-toggle {
     width: 48px;
     height: 48px;
@@ -9286,7 +9233,6 @@
   }
 }
 
-/* Mejoras táctiles para dashboards */
 @media (hover: none) and (pointer: coarse) {
   .sidebar-menu button {
     min-height: 48px;
@@ -9303,44 +9249,35 @@
     min-height: 44px;
   }
 
-  /* Desactivar hover effects en touch */
   .curso-card:hover,
   .alumno-card:hover,
   .stat-card:hover {
     transform: none;
   }
 
-  /* Mejor scroll en tablas */
   .table-container {
     -webkit-overflow-scrolling: touch;
   }
 }
 
-/* ========================================
-   SWEETALERT2 - HARVARD ALIVE STYLING
-   ======================================== */
 
-/* Backdrop blur elegante para SweetAlert2 */
 .swal2-container {
   backdrop-filter: blur(5px) !important;
   -webkit-backdrop-filter: blur(5px) !important;
   background: rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Popup con animación elegante */
 .swal2-popup {
   border-radius: 16px !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Título con tipografía Harvard */
 .swal2-title {
   font-family: Georgia, 'Times New Roman', serif !important;
   font-weight: 400 !important;
   color: var(--hw-charcoal) !important;
 }
 
-/* Icono con animación sutil */
 .swal2-icon {
   animation: swalIconPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s backwards !important;
 }
@@ -9356,7 +9293,6 @@
   }
 }
 
-/* Botones de SweetAlert2 */
 .swal2-confirm.swal2-styled {
   background-color: var(--hw-charcoal) !important;
   border: none !important;
@@ -9408,11 +9344,7 @@
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3) !important;
 }
 
-/* ========================================
-   CHECKBOXES - FORZAR COLOR HARVARD
-   ======================================== */
 
-/* Checkboxes nativos */
 input[type="checkbox"] {
   accent-color: #4a5259 !important;
   transition: transform var(--duration-fast) var(--ease-smooth);
@@ -9422,35 +9354,27 @@ input[type="checkbox"]:hover {
   transform: scale(1.1);
 }
 
-/* Checkboxes en modales de SweetAlert2 */
 .swal2-popup input[type="checkbox"] {
   accent-color: #4a5259 !important;
   cursor: pointer;
 }
 
-/* Checkboxes en sección de pagos */
 .pagos-container input[type="checkbox"],
 .cuotas-grid input[type="checkbox"],
 .cuota-checkbox input[type="checkbox"] {
   accent-color: #4a5259 !important;
 }
 
-/* Custom checkbox styling para mejor apariencia */
 input[type="checkbox"]:checked {
   background-color: #4a5259 !important;
   border-color: #4a5259 !important;
 }
 
-/* ========================================
-   HARVARD ALIVE - Global Animation Enhancements
-   ======================================== */
 
-/* Links with smooth transitions */
 a {
   transition: color var(--duration-fast) var(--ease-smooth);
 }
 
-/* All interactive elements get smooth transitions */
 button, 
 .btn,
 [role="button"],
@@ -9458,7 +9382,6 @@ button,
   transition: all var(--duration-normal) var(--ease-smooth);
 }
 
-/* Smooth focus states for accessibility */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
@@ -9468,14 +9391,12 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* Subtle hover lift for all cards */
 .card:hover,
 .panel:hover,
 [class*="-card"]:hover {
   transform: translateY(-3px);
 }
 
-/* Loading shimmer effect utility class */
 .shimmer {
   background: linear-gradient(
     90deg,
@@ -9487,7 +9408,6 @@ textarea:focus-visible {
   animation: shimmer 1.5s infinite;
 }
 
-/* Animate icons on hover */
 button:hover i,
 button:hover svg,
 .btn:hover i,
@@ -9496,13 +9416,11 @@ button:hover svg,
   transition: transform var(--duration-normal) var(--ease-smooth);
 }
 
-/* Smooth transitions for all transforms */
 * {
   transition-property: transform, opacity, box-shadow, background-color, border-color;
   transition-timing-function: var(--ease-smooth);
 }
 
-/* Except animations which need their own timing */
 [class*="animate"],
 [class*="Animation"] {
   transition-property: none;

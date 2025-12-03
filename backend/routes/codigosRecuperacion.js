@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import pool from "../utils/db.js";
 import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
@@ -6,10 +6,6 @@ import { codigosRecuperacionUsuarioTemplate, codigosRecuperacionAdminTemplate } 
 
 const router = express.Router();
 
-/**
- * POST /api/codigos-recuperacion/solicitar
- * Procesa una solicitud de códigos de recuperación 2FA
- */
 router.post("/solicitar",
   [
     body('email')
@@ -41,7 +37,6 @@ router.post("/solicitar",
     console.log('[2FA-RECOVERY] Buscando email:', email);
 
     try {
-      // Buscar al usuario por email en la tabla personas
       const [personas] = await pool.query(
         `SELECT 
           p.id_persona,
@@ -70,10 +65,8 @@ router.post("/solicitar",
 
       const persona = personas[0];
 
-      // Generar número de referencia único
       const referencia = `2FA-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
-      // Preparar datos para los emails
       const datosEmail = {
         nombre: persona.nombre,
         apellido: persona.apellido,
@@ -85,22 +78,19 @@ router.post("/solicitar",
         idUsuario: persona.id_usuario
       };
 
-      // Enviar email de confirmación al usuario
       const emailUsuario = await sendEmail(
         persona.mail,
-        `🔑 Solicitud de Códigos de Recuperación - Ref: #${referencia}`,
+        ` Solicitud de Códigos de Recuperación - Ref: #${referencia}`,
         codigosRecuperacionUsuarioTemplate(datosEmail)
       );
 
-      // Enviar email de notificación al administrador
       const emailAdmin = await sendEmail(
         ADMIN_EMAIL,
-        `🔐 Solicitud de Códigos 2FA - ${persona.nombre} ${persona.apellido} - #${referencia}`,
+        ` Solicitud de Códigos 2FA - ${persona.nombre} ${persona.apellido} - #${referencia}`,
         codigosRecuperacionAdminTemplate(datosEmail)
       );
 
-      // Registrar la solicitud en logs
-      console.log(`🔑 Solicitud de códigos 2FA registrada:`, {
+      console.log(` Solicitud de códigos 2FA registrada:`, {
         referencia,
         usuario: persona.username,
         email: persona.mail,

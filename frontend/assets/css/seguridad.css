@@ -1,7 +1,4 @@
-/* Estilos compartidos para páginas de seguridad */
-/* Paleta CEMI: #1e1e1e (primary), #656f77 (accent), #ffffff (bg), #f5f5f7 (bg-alt), #e5e5e5 (border) */
-/* Fuentes: Georgia (headings), Inter (body) */
-
+﻿
 :root {
   --security-primary: #1e1e1e;
   --security-accent: #656f77;
@@ -29,7 +26,6 @@ body {
   background: var(--security-bg);
 }
 
-/* Header con color sólido */
 .security-header {
   background: var(--security-primary);
   padding: 80px 20px;
@@ -39,7 +35,6 @@ body {
   overflow: hidden;
 }
 
-/* Header con imagen de fondo y efecto blur */
 .security-header-blur {
   position: relative;
   min-height: 300px;
@@ -69,7 +64,6 @@ body {
   filter: blur(6px);
 }
 
-/* Overlay oscuro sutil para legibilidad del texto */
 .security-header-blur::after {
   content: '';
   position: absolute;
@@ -86,7 +80,6 @@ body {
   z-index: 2;
 }
 
-/* Imágenes específicas para cada página */
 .bg-password::before { background-image: url('../images/security-password.jpeg'); }
 .bg-2fa::before { background-image: url('../images/security-2fa.jpg'); }
 .bg-codes::before { background-image: url('../images/security-codes.jpg'); }
@@ -99,7 +92,6 @@ body {
 .bg-api::before { background-image: url('../images/security-api.jpg'); }
 .bg-logs::before { background-image: url('../images/security-logs.jpeg'); }
 
-/* Rutas para páginas en subcarpeta seguridad/ */
 .seguridad .bg-password::before { background-image: url('../../images/security-password.jpeg'); }
 .seguridad .bg-2fa::before { background-image: url('../../images/security-2fa.jpg'); }
 .seguridad .bg-codes::before { background-image: url('../../images/security-codes.jpg'); }
@@ -159,14 +151,12 @@ body {
   margin: 0 auto;
 }
 
-/* Container principal */
 .security-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 60px 20px;
 }
 
-/* Cards con gradiente sutil */
 .security-card {
   background: white;
   border-radius: 16px;
@@ -205,7 +195,6 @@ body {
   margin-bottom: 15px;
 }
 
-/* Grid de secciones */
 .security-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -242,7 +231,6 @@ body {
   height: 24px;
 }
 
-/* Botones de acción */
 .security-button-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -306,7 +294,6 @@ body {
   line-height: 1.5;
 }
 
-/* Botones principales */
 .btn-primary-security {
   display: inline-flex;
   align-items: center;
@@ -350,7 +337,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Alert box */
 .security-alert {
   background: #fff8e1;
   border-left: 4px solid var(--security-yellow);
@@ -382,7 +368,6 @@ body {
   margin: 0;
 }
 
-/* Footer */
 .security-footer {
   background: var(--security-bg-alt);
   padding: 40px 20px;
@@ -415,7 +400,6 @@ body {
   font-size: 14px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .security-header {
     padding: 60px 20px;
