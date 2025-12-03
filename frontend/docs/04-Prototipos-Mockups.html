@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipos de Interfaz - CEMI Sistema Gestor</title>
+    <link rel="stylesheet" href="harvard-doc-styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../documentacion.html" class="back-link">← Volver a Documentación</a>
+        
+        <!-- PORTADA -->
+        <div class="cover">
+            <h1>PROTOTIPOS DE INTERFAZ</h1>
+            <p class="subtitle">CEMI Sistema de Gestión Académica</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Wireframes & Mockups de las principales pantallas</p>
+        </div>
+
+        <!-- ÍNDICE -->
+        <div class="toc">
+            <h2 style="margin-top: 0;">Contenido</h2>
+            <ul>
+                <li><a href="#intro">1. Introducción</a></li>
+                <li><a href="#login">2. Pantalla de Login</a></li>
+                <li><a href="#dashboard-admin">3. Dashboard Administrativo</a></li>
+                <li><a href="#dashboard-alumno">4. Dashboard Alumno</a></li>
+                <li><a href="#classroom">5. Aula Virtual (Classroom)</a></li>
+                <li><a href="#pagos">6. Módulo de Pagos</a></li>
+                <li><a href="#mobile">7. Vista Móvil</a></li>
+            </ul>
+        </div>
+
+        <!-- INTRODUCCIÓN -->
+        <h1 id="intro">1. Introducción</h1>
+        <p>
+            Este documento presenta los prototipos de interfaz (wireframes y mockups) de las principales pantallas del sistema CEMI. Los diseños siguen los principios de usabilidad, accesibilidad y la identidad visual institucional.
+        </p>
+
+        <div class="annotation">
+            <strong>Notas de Diseño:</strong>
+            <ul style="margin-top: 10px;">
+                <li><strong>Paleta de colores:</strong> Azul institucional (#1e3c72), Verde éxito (#2ecc71), Amarillo alerta (#f1c40f)</li>
+                <li><strong>Tipografía:</strong> Inter (Google Fonts) para legibilidad</li>
+                <li><strong>Diseño:</strong> Responsive, Mobile-First</li>
+                <li><strong>Accesibilidad:</strong> Contraste WCAG AA, navegación por teclado</li>
+            </ul>
+        </div>
+
+        <!-- LOGIN -->
+        <h1 id="login">2. Pantalla de Login</h1>
+        <p>Punto de entrada al sistema. Permite autenticación de usuarios según su rol.</p>
+
+        <div class="mockup-container">
+            <div class="browser-frame">
+                <div class="browser-dot red"></div>
+                <div class="browser-dot yellow"></div>
+                <div class="browser-dot green"></div>
+                <div class="browser-url">🔒 https://cemi.up.railway.app/login</div>
+            </div>
+            <div class="mockup-screen" style="display: flex; min-height: 450px;">
+                <!-- Left Panel -->
+                <div style="flex: 1; background: linear-gradient(135deg, #1e3c72, #2a5298); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; padding: 40px;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🎓</div>
+                    <h2 style="color: white; margin: 0; font-size: 1.8rem;">CEMI</h2>
+                    <p style="opacity: 0.8; text-align: center; margin-top: 10px;">Centro de Estudios<br>Multilingüe Integral</p>
+                </div>
+                <!-- Right Panel - Form -->
+                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 50px;">
+                    <h2 style="margin-top: 0; color: #1e3c72;">Iniciar Sesión</h2>
+                    <p style="color: #666; margin-bottom: 30px;">Ingresa tus credenciales para acceder</p>
+                    
+                    <div class="wire-form-group">
+                        <label class="wire-label">👤 Usuario / Email</label>
+                        <input type="text" class="wire-input" placeholder="usuario@ejemplo.com">
+                    </div>
+                    
+                    <div class="wire-form-group">
+                        <label class="wire-label">🔒 Contraseña</label>
+                        <input type="password" class="wire-input" placeholder="••••••••">
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                        <label style="font-size: 0.85rem; color: #666;">
+                            <input type="checkbox"> Recordarme
+                        </label>
+                        <a href="#" style="font-size: 0.85rem; color: #3498db;">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    
+                    <button class="wire-btn wire-btn-primary" style="width: 100%; padding: 12px; font-size: 1rem;">
+                        Ingresar →
+                    </button>
+                    
+                    <p style="text-align: center; margin-top: 25px; font-size: 0.85rem; color: #666;">
+                        ¿No tienes cuenta? <a href="#" style="color: #3498db;">Registrarse</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="annotation">
+            <strong>Elementos clave:</strong> Split-screen design, validación en tiempo real, mensajes de error claros, enlace de recuperación de contraseña.
+        </div>
+
+        <!-- DASHBOARD ADMIN -->
+        <h1 id="dashboard-admin">3. Dashboard Administrativo</h1>
+        <p>Panel principal para el personal administrativo con acceso a todas las funcionalidades de gestión.</p>
+
+        <div class="mockup-container">
+            <div class="browser-frame">
+                <div class="browser-dot red"></div>
+                <div class="browser-dot yellow"></div>
+                <div class="browser-dot green"></div>
+                <div class="browser-url">🔒 https://cemi.up.railway.app/dashboard_admin</div>
+            </div>
+            <div class="mockup-screen" style="position: relative; min-height: 500px;">
+                <!-- Header -->
+                <div class="wire-header">
+                    <div class="wire-logo">
+                        <span style="font-size: 1.5rem;">🎓</span>
+                        CEMI Sistema
+                    </div>
+                    <div class="wire-nav">
+                        <div class="wire-nav-item active">Dashboard</div>
+                        <div class="wire-nav-item">Reportes</div>
+                        <div class="wire-nav-item">Configuración</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 1.2rem;">🔔</span>
+                        <div class="wire-avatar">AD</div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="wire-sidebar">
+                    <div class="wire-sidebar-item active">📊 Dashboard</div>
+                    <div class="wire-sidebar-item">👨‍🎓 Alumnos</div>
+                    <div class="wire-sidebar-item">👩‍🏫 Profesores</div>
+                    <div class="wire-sidebar-item">📚 Cursos</div>
+                    <div class="wire-sidebar-item">📝 Inscripciones</div>
+                    <div class="wire-sidebar-item">💰 Pagos</div>
+                    <div class="wire-sidebar-item">🏫 Aulas</div>
+                    <div class="wire-sidebar-item">📈 Estadísticas</div>
+                </div>
+                
+                <!-- Content -->
+                <div class="wire-content">
+                    <h2 style="margin-top: 0; margin-bottom: 5px;">👋 Bienvenido, Administrador</h2>
+                    <p style="color: #666; margin: 0 0 20px 0;">Panel de control del sistema CEMI</p>
+                    
+                    <!-- Stats -->
+                    <div class="wire-stats">
+                        <div class="wire-stat-card">
+                            <div class="wire-stat-value">156</div>
+                            <div class="wire-stat-label">Alumnos Activos</div>
+                        </div>
+                        <div class="wire-stat-card">
+                            <div class="wire-stat-value">12</div>
+                            <div class="wire-stat-label">Cursos Activos</div>
+                        </div>
+                        <div class="wire-stat-card">
+                            <div class="wire-stat-value">8</div>
+                            <div class="wire-stat-label">Profesores</div>
+                        </div>
+                        <div class="wire-stat-card">
+                            <div class="wire-stat-value" style="color: #e74c3c;">23</div>
+                            <div class="wire-stat-label">Pagos Pendientes</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="wire-card">
+                        <div class="wire-card-header">
+                            <h3>⚡ Acciones Rápidas</h3>
+                        </div>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <button class="wire-btn wire-btn-primary">+ Nuevo Alumno</button>
+                            <button class="wire-btn wire-btn-success">+ Nueva Inscripción</button>
+                            <button class="wire-btn wire-btn-outline">📝 Registrar Pago</button>
+                            <button class="wire-btn wire-btn-outline">📊 Ver Reportes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD ALUMNO -->
+        <h1 id="dashboard-alumno">4. Dashboard Alumno</h1>
+        <p>Vista personalizada para estudiantes con acceso a sus cursos, calificaciones y pagos.</p>
+
+        <div class="mockup-container">
+            <div class="browser-frame">
+                <div class="browser-dot red"></div>
+                <div class="browser-dot yellow"></div>
+                <div class="browser-dot green"></div>
+                <div class="browser-url">🔒 https://cemi.up.railway.app/dashboard_alumno</div>
+            </div>
+            <div class="mockup-screen" style="position: relative; min-height: 500px;">
+                <!-- Header -->
+                <div class="wire-header">
+                    <div class="wire-logo">
+                        <span style="font-size: 1.5rem;">🎓</span>
+                        CEMI
+                    </div>
+                    <div class="wire-nav">
+                        <div class="wire-nav-item active">Mis Cursos</div>
+                        <div class="wire-nav-item">Calificaciones</div>
+                        <div class="wire-nav-item">Pagos</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span style="font-size: 1.2rem;">🔔</span>
+                        <div class="wire-avatar">JD</div>
+                        <span style="font-size: 0.9rem;">Juan Díaz</span>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div style="padding: 25px;">
+                    <h2 style="margin-top: 0;">👋 Hola, Juan</h2>
+                    <p style="color: #666;">Aquí tienes un resumen de tu actividad académica</p>
+                    
+                    <!-- Cursos -->
+                    <div class="wire-card">
+                        <div class="wire-card-header">
+                            <h3>📚 Mis Cursos Activos</h3>
+                            <span class="wire-badge wire-badge-info">3 cursos</span>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                            <!-- Curso 1 -->
+                            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px;">
+                                <div style="font-size: 2rem; margin-bottom: 10px;">🇬🇧</div>
+                                <strong>Inglés Intermedio</strong>
+                                <p style="font-size: 0.85rem; opacity: 0.8; margin: 5px 0;">Prof. García</p>
+                                <p style="font-size: 0.8rem; opacity: 0.7;">Lun y Mié - 18:00</p>
+                                <button class="wire-btn" style="background: rgba(255,255,255,0.2); color: white; margin-top: 10px; width: 100%;">
+                                    Ir al Classroom →
+                                </button>
+                            </div>
+                            
+                            <!-- Curso 2 -->
+                            <div style="background: linear-gradient(135deg, #11998e, #38ef7d); color: white; padding: 20px; border-radius: 10px;">
+                                <div style="font-size: 2rem; margin-bottom: 10px;">🇫🇷</div>
+                                <strong>Francés Básico</strong>
+                                <p style="font-size: 0.85rem; opacity: 0.8; margin: 5px 0;">Prof. Martínez</p>
+                                <p style="font-size: 0.8rem; opacity: 0.7;">Mar y Jue - 19:00</p>
+                                <button class="wire-btn" style="background: rgba(255,255,255,0.2); color: white; margin-top: 10px; width: 100%;">
+                                    Ir al Classroom →
+                                </button>
+                            </div>
+                            
+                            <!-- Curso 3 -->
+                            <div style="background: linear-gradient(135deg, #ee0979, #ff6a00); color: white; padding: 20px; border-radius: 10px;">
+                                <div style="font-size: 2rem; margin-bottom: 10px;">🇩🇪</div>
+                                <strong>Alemán Inicial</strong>
+                                <p style="font-size: 0.85rem; opacity: 0.8; margin: 5px 0;">Prof. Weber</p>
+                                <p style="font-size: 0.8rem; opacity: 0.7;">Vie - 17:00</p>
+                                <button class="wire-btn" style="background: rgba(255,255,255,0.2); color: white; margin-top: 10px; width: 100%;">
+                                    Ir al Classroom →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estado de Pagos -->
+                    <div class="wire-card">
+                        <div class="wire-card-header">
+                            <h3>💰 Estado de Pagos</h3>
+                        </div>
+                        <table class="wire-table">
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Vencimiento</th>
+                                <th>Monto</th>
+                                <th>Estado</th>
+                            </tr>
+                            <tr>
+                                <td>Cuota Noviembre - Inglés</td>
+                                <td>10/11/2025</td>
+                                <td>$15.000</td>
+                                <td><span class="wire-badge wire-badge-success">Pagado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cuota Noviembre - Francés</td>
+                                <td>10/11/2025</td>
+                                <td>$15.000</td>
+                                <td><span class="wire-badge wire-badge-warning">Pendiente</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLASSROOM -->
+        <h1 id="classroom">5. Aula Virtual (Classroom)</h1>
+        <p>Espacio de interacción educativa entre profesores y alumnos para cada curso.</p>
+
+        <div class="mockup-container">
+            <div class="browser-frame">
+                <div class="browser-dot red"></div>
+                <div class="browser-dot yellow"></div>
+                <div class="browser-dot green"></div>
+                <div class="browser-url">🔒 https://cemi.up.railway.app/classroom</div>
+            </div>
+            <div class="mockup-screen" style="min-height: 550px;">
+                <!-- Header del curso -->
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p style="opacity: 0.8; margin: 0;">← Volver a Mis Cursos</p>
+                            <h2 style="color: white; margin: 10px 0 5px; font-size: 1.5rem;">🇬🇧 Inglés Intermedio B1</h2>
+                            <p style="opacity: 0.8; margin: 0;">Prof. María García • Lunes y Miércoles 18:00-19:30</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="wire-btn" style="background: rgba(255,255,255,0.2); color: white;">👥 26 Alumnos</button>
+                            <button class="wire-btn" style="background: rgba(255,255,255,0.2); color: white;">💬 Chat</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div style="background: #f8f9fa; padding: 0 25px; border-bottom: 1px solid #ddd; display: flex; gap: 5px;">
+                    <div style="padding: 15px 25px; border-bottom: 3px solid #1e3c72; color: #1e3c72; font-weight: 500;">📢 Tablón</div>
+                    <div style="padding: 15px 25px; color: #666;">📁 Materiales</div>
+                    <div style="padding: 15px 25px; color: #666;">📝 Tareas</div>
+                    <div style="padding: 15px 25px; color: #666;">📊 Calificaciones</div>
+                </div>
+                
+                <!-- Content -->
+                <div style="display: flex; padding: 25px; gap: 25px;">
+                    <!-- Main Feed -->
+                    <div style="flex: 2;">
+                        <!-- Crear anuncio -->
+                        <div class="wire-card" style="display: flex; gap: 15px; align-items: center;">
+                            <div class="wire-avatar" style="width: 45px; height: 45px;">MG</div>
+                            <input class="wire-input" placeholder="Publica un anuncio para tu clase..." style="flex: 1;">
+                            <button class="wire-btn wire-btn-primary">Publicar</button>
+                        </div>
+                        
+                        <!-- Anuncio -->
+                        <div class="wire-card">
+                            <div style="display: flex; gap: 15px;">
+                                <div class="wire-avatar" style="width: 45px; height: 45px; background: linear-gradient(135deg, #1e3c72, #2a5298);">MG</div>
+                                <div style="flex: 1;">
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <strong>Prof. María García</strong>
+                                        <span style="color: #999; font-size: 0.85rem;">Hace 2 horas</span>
+                                    </div>
+                                    <p style="margin: 10px 0; color: #333;">
+                                        📚 Recordatorio: Mañana tenemos examen de presente perfecto. Revisen los ejercicios del material "Unit 5 - Present Perfect".
+                                    </p>
+                                    <div style="display: flex; gap: 15px; color: #666; font-size: 0.85rem;">
+                                        <span>👍 12</span>
+                                        <span>💬 5 comentarios</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tarea publicada -->
+                        <div class="wire-card" style="border-left: 4px solid #3498db;">
+                            <div style="display: flex; gap: 15px;">
+                                <div style="font-size: 2rem;">📝</div>
+                                <div style="flex: 1;">
+                                    <span class="wire-badge wire-badge-info">TAREA</span>
+                                    <h4 style="margin: 10px 0 5px; color: #1e3c72;">Essay: My Daily Routine</h4>
+                                    <p style="color: #666; font-size: 0.9rem;">Escribe un ensayo de 200 palabras sobre tu rutina diaria usando presente simple.</p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                        <span style="color: #e74c3c; font-size: 0.85rem;">📅 Fecha límite: 15/11/2025</span>
+                                        <button class="wire-btn wire-btn-primary">Ver tarea →</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <div style="flex: 1;">
+                        <div class="wire-card">
+                            <h4 style="margin: 0 0 15px; color: #1e3c72;">📅 Próximas Entregas</h4>
+                            <div style="border-left: 3px solid #e74c3c; padding-left: 15px; margin: 10px 0;">
+                                <strong style="font-size: 0.9rem;">Essay: My Daily Routine</strong>
+                                <p style="color: #999; font-size: 0.8rem; margin: 5px 0 0;">15 Nov - 23:59</p>
+                            </div>
+                            <div style="border-left: 3px solid #f1c40f; padding-left: 15px; margin: 10px 0;">
+                                <strong style="font-size: 0.9rem;">Quiz: Verb Tenses</strong>
+                                <p style="color: #999; font-size: 0.8rem; margin: 5px 0 0;">20 Nov - 18:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGOS -->
+        <h1 id="pagos">6. Módulo de Pagos</h1>
+        <p>Gestión de cuotas, registro de pagos y consulta de deudores.</p>
+
+        <div class="mockup-container">
+            <div class="browser-frame">
+                <div class="browser-dot red"></div>
+                <div class="browser-dot yellow"></div>
+                <div class="browser-dot green"></div>
+                <div class="browser-url">🔒 https://cemi.up.railway.app/dashboard_admin#pagos</div>
+            </div>
+            <div class="mockup-screen" style="position: relative; min-height: 480px;">
+                <!-- Header -->
+                <div class="wire-header">
+                    <div class="wire-logo">🎓 CEMI Sistema</div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="wire-avatar">AD</div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="wire-sidebar">
+                    <div class="wire-sidebar-item">📊 Dashboard</div>
+                    <div class="wire-sidebar-item">👨‍🎓 Alumnos</div>
+                    <div class="wire-sidebar-item">👩‍🏫 Profesores</div>
+                    <div class="wire-sidebar-item">📚 Cursos</div>
+                    <div class="wire-sidebar-item active">💰 Pagos</div>
+                    <div class="wire-sidebar-item">📈 Reportes</div>
+                </div>
+                
+                <!-- Content -->
+                <div class="wire-content">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="margin: 0;">💰 Gestión de Pagos</h2>
+                        <button class="wire-btn wire-btn-success">+ Registrar Pago</button>
+                    </div>
+                    
+                    <!-- Filtros -->
+                    <div class="wire-card" style="margin-top: 20px;">
+                        <div style="display: flex; gap: 15px; align-items: end;">
+                            <div class="wire-form-group" style="flex: 1; margin: 0;">
+                                <label class="wire-label">Buscar Alumno</label>
+                                <input class="wire-input" placeholder="Nombre, DNI o email...">
+                            </div>
+                            <div class="wire-form-group" style="width: 150px; margin: 0;">
+                                <label class="wire-label">Estado</label>
+                                <select class="wire-input">
+                                    <option>Todos</option>
+                                    <option>Pendiente</option>
+                                    <option>Pagado</option>
+                                    <option>Vencido</option>
+                                </select>
+                            </div>
+                            <button class="wire-btn wire-btn-primary">🔍 Buscar</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabla de pagos -->
+                    <div class="wire-card">
+                        <table class="wire-table">
+                            <tr>
+                                <th>Alumno</th>
+                                <th>Curso</th>
+                                <th>Concepto</th>
+                                <th>Monto</th>
+                                <th>Vencimiento</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="wire-avatar" style="width: 30px; height: 30px; font-size: 0.7rem;">JD</div>
+                                        Juan Díaz
+                                    </div>
+                                </td>
+                                <td>Inglés Int.</td>
+                                <td>Cuota Nov</td>
+                                <td>$15.000</td>
+                                <td>10/11/25</td>
+                                <td><span class="wire-badge wire-badge-danger">Vencido</span></td>
+                                <td>
+                                    <button class="wire-btn wire-btn-success" style="padding: 5px 12px; font-size: 0.8rem;">Pagar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="wire-avatar" style="width: 30px; height: 30px; font-size: 0.7rem;">ML</div>
+                                        María López
+                                    </div>
+                                </td>
+                                <td>Francés Bás.</td>
+                                <td>Cuota Nov</td>
+                                <td>$15.000</td>
+                                <td>10/11/25</td>
+                                <td><span class="wire-badge wire-badge-warning">Pendiente</span></td>
+                                <td>
+                                    <button class="wire-btn wire-btn-success" style="padding: 5px 12px; font-size: 0.8rem;">Pagar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <div class="wire-avatar" style="width: 30px; height: 30px; font-size: 0.7rem;">CP</div>
+                                        Carlos Pérez
+                                    </div>
+                                </td>
+                                <td>Alemán Ini.</td>
+                                <td>Cuota Nov</td>
+                                <td>$15.000</td>
+                                <td>10/11/25</td>
+                                <td><span class="wire-badge wire-badge-success">Pagado</span></td>
+                                <td>
+                                    <button class="wire-btn wire-btn-outline" style="padding: 5px 12px; font-size: 0.8rem;">Ver</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE -->
+        <h1 id="mobile">7. Vista Móvil</h1>
+        <p>El sistema está diseñado para ser completamente responsive. A continuación se muestra el diseño adaptado para dispositivos móviles.</p>
+
+        <div style="display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;">
+            <!-- Mobile Login -->
+            <div>
+                <h3 style="text-align: center; margin-bottom: 15px;">Login Móvil</h3>
+                <div class="mobile-frame">
+                    <div class="mobile-notch"></div>
+                    <div class="mobile-screen">
+                        <div class="mobile-header" style="padding-top: 60px;">
+                            <div style="font-size: 3rem; margin-bottom: 15px;">🎓</div>
+                            <h2 style="color: white; margin: 0; font-size: 1.5rem;">CEMI</h2>
+                            <p style="opacity: 0.8;">Iniciar Sesión</p>
+                        </div>
+                        <div class="mobile-content">
+                            <div class="wire-form-group">
+                                <label class="wire-label">Usuario</label>
+                                <input class="wire-input" placeholder="Email o usuario">
+                            </div>
+                            <div class="wire-form-group">
+                                <label class="wire-label">Contraseña</label>
+                                <input class="wire-input" type="password" placeholder="••••••••">
+                            </div>
+                            <button class="wire-btn wire-btn-primary" style="width: 100%; margin-top: 20px;">
+                                Ingresar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile Dashboard -->
+            <div>
+                <h3 style="text-align: center; margin-bottom: 15px;">Dashboard Móvil</h3>
+                <div class="mobile-frame">
+                    <div class="mobile-notch"></div>
+                    <div class="mobile-screen">
+                        <div class="mobile-header" style="padding: 50px 20px 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <p style="opacity: 0.8; margin: 0; font-size: 0.9rem;">👋 Hola,</p>
+                                    <h3 style="color: white; margin: 0;">Juan Díaz</h3>
+                                </div>
+                                <div class="wire-avatar" style="width: 45px; height: 45px;">JD</div>
+                            </div>
+                        </div>
+                        <div class="mobile-content">
+                            <h4 style="margin: 0 0 15px; color: #1e3c72;">Mis Cursos</h4>
+                            
+                            <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px; border-radius: 10px; margin-bottom: 10px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <strong>🇬🇧 Inglés Int.</strong>
+                                        <p style="font-size: 0.8rem; opacity: 0.8; margin: 5px 0 0;">Lun/Mié 18:00</p>
+                                    </div>
+                                    <span style="font-size: 1.5rem;">→</span>
+                                </div>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #11998e, #38ef7d); color: white; padding: 15px; border-radius: 10px; margin-bottom: 10px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <strong>🇫🇷 Francés Bás.</strong>
+                                        <p style="font-size: 0.8rem; opacity: 0.8; margin: 5px 0 0;">Mar/Jue 19:00</p>
+                                    </div>
+                                    <span style="font-size: 1.5rem;">→</span>
+                                </div>
+                            </div>
+                            
+                            <h4 style="margin: 20px 0 10px; color: #1e3c72;">Próximas Entregas</h4>
+                            <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; border-left: 3px solid #e74c3c;">
+                                <strong style="font-size: 0.9rem;">📝 Essay</strong>
+                                <p style="color: #999; font-size: 0.8rem; margin: 5px 0 0;">15 Nov</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="annotation" style="margin-top: 40px;">
+            <strong>Consideraciones de Diseño Móvil:</strong>
+            <ul style="margin-top: 10px;">
+                <li>Menú hamburguesa para navegación</li>
+                <li>Botones con área táctil mínima de 44x44px</li>
+                <li>Tipografía legible (mínimo 16px)</li>
+                <li>Gestos nativos (swipe, pull-to-refresh)</li>
+                <li>Carga progresiva de contenido</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p><strong>CEMI Sistema de Gestión Académica</strong></p>
+            <p>Prototipos de Interfaz - Versión 1.0</p>
+            <p>© 2025 - UTN Tecnicatura Universitaria en Programación</p>
+        </div>
+    </div>
+</body>
+</html>

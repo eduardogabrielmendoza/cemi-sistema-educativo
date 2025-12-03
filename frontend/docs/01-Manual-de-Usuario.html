@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - CEMI Sistema Gestor</title>
+    <link rel="stylesheet" href="harvard-doc-styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../documentacion.html" class="back-link">← Volver a Documentación</a>
+        
+        <!-- PORTADA -->
+        <div class="cover">
+            <h1>MANUAL DE USUARIO</h1>
+            <p class="subtitle">CEMI Sistema de Gestión Académica</p>
+            <p>Centro de Estudios de Idiomas</p>
+            <div class="version">Versión 1.0 — Noviembre 2025</div>
+            <p class="institution">
+                UTN - Tecnicatura Universitaria en Programación<br>
+                Bella Vista, Tucumán
+            </p>
+        </div>
+
+        <!-- ÍNDICE -->
+        <div class="toc">
+            <h2>Índice de Contenidos</h2>
+            <ul>
+                <li><a href="#intro">Introducción al Sistema</a></li>
+                <li><a href="#requisitos">Requisitos del Sistema</a></li>
+                <li><a href="#acceso">Acceso al Sistema</a></li>
+                <li><a href="#roles">Perfiles de Usuario</a></li>
+                <li><a href="#alumno">Guía para Alumnos</a></li>
+                <li><a href="#profesor">Guía para Profesores</a></li>
+                <li><a href="#admin">Guía para Administrativos</a></li>
+                <li><a href="#classroom">Uso del Classroom</a></li>
+                <li><a href="#pagos">Gestión de Pagos</a></li>
+                <li><a href="#soporte">Soporte y Ayuda</a></li>
+            </ul>
+        </div>
+
+        <!-- CONTENIDO -->
+        <h1 id="intro">1. Introducción al Sistema</h1>
+        <p>
+            <strong>CEMI Sistema Gestor</strong> es una plataforma web integral diseñada para la gestión académica y administrativa del Centro de Estudios de Idiomas (CEMI). El sistema permite centralizar todas las operaciones relacionadas con alumnos, profesores, cursos, pagos y comunicación educativa.
+        </p>
+        
+        <div class="info-box">
+            <strong>🎯 Objetivo del Sistema:</strong> Digitalizar y optimizar los procesos de administración académica, mejorando la eficiencia operativa y la calidad del servicio educativo.
+        </div>
+
+        <h3>Características Principales</h3>
+        <ul>
+            <li><strong>Dashboard Administrativo:</strong> Panel de control para gestión completa de datos</li>
+            <li><strong>Classroom Virtual:</strong> Espacio para tareas, anuncios y comunicación</li>
+            <li><strong>Gestión de Pagos:</strong> Control de cuotas, matrículas y estados financieros</li>
+            <li><strong>Chat en Tiempo Real:</strong> Comunicación directa entre usuarios</li>
+            <li><strong>Reportes y Estadísticas:</strong> Información consolidada para toma de decisiones</li>
+        </ul>
+
+        <h1 id="requisitos">2. Requisitos del Sistema</h1>
+        
+        <h3>Requisitos Mínimos</h3>
+        <table>
+            <tr>
+                <th>Componente</th>
+                <th>Requisito</th>
+            </tr>
+            <tr>
+                <td>Navegador Web</td>
+                <td>Google Chrome 90+, Firefox 88+, Edge 90+, Safari 14+</td>
+            </tr>
+            <tr>
+                <td>Conexión a Internet</td>
+                <td>Banda ancha estable (mínimo 1 Mbps)</td>
+            </tr>
+            <tr>
+                <td>Resolución de Pantalla</td>
+                <td>1280x720 píxeles o superior (recomendado)</td>
+            </tr>
+            <tr>
+                <td>JavaScript</td>
+                <td>Habilitado en el navegador</td>
+            </tr>
+        </table>
+
+        <div class="warning-box">
+            <strong>⚠️ Importante:</strong> Internet Explorer NO es compatible con el sistema. Utilice navegadores modernos para una experiencia óptima.
+        </div>
+
+        <h1 id="acceso">3. Acceso al Sistema</h1>
+        
+        <h3>URL de Acceso</h3>
+        <p>Para acceder al sistema, ingrese a: <strong>https://cemi.up.railway.app</strong></p>
+
+        <h3>Proceso de Inicio de Sesión</h3>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Ingrese a la página principal</h4>
+                <p>Abra su navegador y escriba la URL del sistema. Verá la página de bienvenida con las opciones de acceso.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Seleccione su tipo de acceso</h4>
+                <p>Elija entre "Iniciar Sesión" para alumnos/profesores o "Acceso Administrativo" para personal administrativo.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Ingrese sus credenciales</h4>
+                <p>Complete el formulario con su <strong>nombre de usuario</strong> y <strong>contraseña</strong> proporcionados por la administración.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Acceda al Dashboard</h4>
+                <p>Si las credenciales son correctas, será redirigido automáticamente a su panel de control según su rol.</p>
+            </div>
+        </div>
+
+        <h1 id="roles">4. Perfiles de Usuario</h1>
+        
+        <p>El sistema cuenta con cuatro tipos de perfiles, cada uno con funcionalidades específicas:</p>
+
+        <table>
+            <tr>
+                <th>Perfil</th>
+                <th>Descripción</th>
+                <th>Acceso Principal</th>
+            </tr>
+            <tr>
+                <td><strong>Alumno</strong></td>
+                <td>Estudiante inscrito en cursos de idiomas</td>
+                <td>Classroom, Pagos, Perfil</td>
+            </tr>
+            <tr>
+                <td><strong>Profesor</strong></td>
+                <td>Docente que imparte cursos</td>
+                <td>Classroom, Gestión de cursos, Calificaciones</td>
+            </tr>
+            <tr>
+                <td><strong>Administrativo</strong></td>
+                <td>Personal de gestión del CEMI</td>
+                <td>Dashboard completo, Pagos, Inscripciones</td>
+            </tr>
+            <tr>
+                <td><strong>Gestor</strong></td>
+                <td>Administrador del sistema</td>
+                <td>Acceso total, Configuración, Reportes</td>
+            </tr>
+        </table>
+
+        <h1 id="alumno">5. Guía para Alumnos</h1>
+
+        <h3>5.1 Dashboard del Alumno</h3>
+        <p>Al iniciar sesión, el alumno accede a su panel personal donde puede ver:</p>
+        <ul>
+            <li>Cursos inscritos y horarios</li>
+            <li>Estado de pagos (cuotas pendientes)</li>
+            <li>Calificaciones y progreso académico</li>
+            <li>Acceso rápido al Classroom</li>
+        </ul>
+
+        <h3>5.2 Acceso al Classroom</h3>
+        <p>El Classroom es el espacio virtual de aprendizaje donde podrá:</p>
+        <ul>
+            <li><strong>Ver anuncios:</strong> Información publicada por el profesor</li>
+            <li><strong>Consultar tareas:</strong> Actividades asignadas con fechas límite</li>
+            <li><strong>Entregar trabajos:</strong> Subir archivos de tareas</li>
+            <li><strong>Participar en chat:</strong> Comunicarse con compañeros y profesores</li>
+            <li><strong>Ver calificaciones:</strong> Notas de evaluaciones</li>
+        </ul>
+
+        <h3>5.3 Consulta de Pagos</h3>
+        <p>En la sección de pagos puede visualizar:</p>
+        <ul>
+            <li>Historial de pagos realizados</li>
+            <li>Cuotas pendientes de pago</li>
+            <li>Estado de matrícula</li>
+            <li>Comprobantes de pago</li>
+        </ul>
+
+        <h1 id="profesor">6. Guía para Profesores</h1>
+
+        <h3>6.1 Gestión de Cursos</h3>
+        <p>El profesor puede administrar los cursos asignados:</p>
+        <ul>
+            <li>Ver lista de alumnos inscritos</li>
+            <li>Registrar asistencias</li>
+            <li>Cargar calificaciones</li>
+            <li>Publicar anuncios y tareas</li>
+        </ul>
+
+        <h3>6.2 Publicación de Tareas</h3>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Acceda al Classroom del curso</h4>
+                <p>Seleccione el curso donde desea publicar la tarea.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Cree una nueva tarea</h4>
+                <p>Complete el título, descripción, fecha límite y adjunte archivos si es necesario.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Publique la tarea</h4>
+                <p>Los alumnos recibirán una notificación automática.</p>
+            </div>
+        </div>
+
+        <h3>6.3 Carga de Calificaciones</h3>
+        <p>Para registrar notas de los alumnos:</p>
+        <ol>
+            <li>Acceda al módulo de Calificaciones</li>
+            <li>Seleccione el curso y evaluación</li>
+            <li>Ingrese las notas para cada alumno</li>
+            <li>Guarde los cambios</li>
+        </ol>
+
+        <h1 id="admin">7. Guía para Administrativos</h1>
+
+        <h3>7.1 Panel de Administración</h3>
+        <p>El dashboard administrativo ofrece acceso completo a:</p>
+
+        <table>
+            <tr>
+                <th>Módulo</th>
+                <th>Funcionalidades</th>
+            </tr>
+            <tr>
+                <td>Alumnos</td>
+                <td>Alta, baja, modificación de datos personales</td>
+            </tr>
+            <tr>
+                <td>Profesores</td>
+                <td>Gestión de docentes y asignaciones</td>
+            </tr>
+            <tr>
+                <td>Cursos</td>
+                <td>Creación, edición, asignación de aulas y horarios</td>
+            </tr>
+            <tr>
+                <td>Inscripciones</td>
+                <td>Matriculación de alumnos en cursos</td>
+            </tr>
+            <tr>
+                <td>Pagos</td>
+                <td>Registro y consulta de pagos</td>
+            </tr>
+            <tr>
+                <td>Aulas</td>
+                <td>Gestión de espacios físicos y capacidades</td>
+            </tr>
+            <tr>
+                <td>Estadísticas</td>
+                <td>Reportes y métricas del sistema</td>
+            </tr>
+        </table>
+
+        <h3>7.2 Registro de Alumnos</h3>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Acceda al módulo Alumnos</h4>
+                <p>Desde el menú lateral, seleccione "Alumnos".</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Haga clic en "Agregar Alumno"</h4>
+                <p>Se abrirá un modal con el formulario de registro.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Complete los datos requeridos</h4>
+                <p>Nombre, apellido, DNI, email, teléfono y datos de usuario.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Guarde el registro</h4>
+                <p>El sistema validará los datos y creará el alumno.</p>
+            </div>
+        </div>
+
+        <h3>7.3 Inscripción a Cursos</h3>
+        <div class="warning-box">
+            <strong>Validaciones automáticas:</strong>
+            <ul>
+                <li>El sistema verifica que no haya solapamiento de horarios</li>
+                <li>Controla que el aula tenga capacidad disponible</li>
+                <li>Valida que el alumno no esté ya inscrito en el curso</li>
+            </ul>
+        </div>
+
+        <h3>7.4 Registro de Pagos</h3>
+        <p>Para registrar un pago:</p>
+        <ol>
+            <li>Acceda al módulo de Pagos</li>
+            <li>Busque al alumno por nombre o DNI</li>
+            <li>Seleccione la cuota pendiente a registrar</li>
+            <li>Indique el medio de pago (Efectivo, Transferencia, Tarjeta)</li>
+            <li>Complete el monto y confirme</li>
+        </ol>
+
+        <h1 id="classroom">8. Uso del Classroom</h1>
+
+        <h3>8.1 Navegación del Classroom</h3>
+        <p>El Classroom está organizado en secciones:</p>
+        <ul>
+            <li><strong>Inicio:</strong> Vista general con anuncios recientes</li>
+            <li><strong>Tareas:</strong> Lista de actividades y entregas</li>
+            <li><strong>Chat:</strong> Mensajería en tiempo real</li>
+            <li><strong>Calificaciones:</strong> Registro de notas</li>
+            <li><strong>Recursos:</strong> Materiales de estudio</li>
+        </ul>
+
+        <h3>8.2 Entrega de Tareas (Alumnos)</h3>
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Seleccione la tarea</h4>
+                <p>Haga clic en la tarea que desea entregar.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Adjunte su archivo</h4>
+                <p>Use el botón "Adjuntar archivo" para subir su trabajo.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Confirme la entrega</h4>
+                <p>Haga clic en "Entregar" para enviar su tarea.</p>
+            </div>
+        </div>
+
+        <div class="success-box">
+            <strong>Confirmación:</strong> Recibirá una notificación cuando su entrega sea registrada exitosamente.
+        </div>
+
+        <h1 id="pagos">9. Gestión de Pagos</h1>
+
+        <h3>9.1 Tipos de Pago</h3>
+        <table>
+            <tr>
+                <th>Tipo</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td>Matrícula</td>
+                <td>Pago inicial de inscripción al CEMI</td>
+            </tr>
+            <tr>
+                <td>Cuota Mensual</td>
+                <td>Pago mensual por curso activo</td>
+            </tr>
+        </table>
+
+        <h3>9.2 Medios de Pago Aceptados</h3>
+        <ul>
+            <li><strong>Efectivo:</strong> Pago en oficina administrativa</li>
+            <li><strong>Transferencia Bancaria:</strong> Depósito a cuenta del CEMI</li>
+            <li><strong>Tarjeta de Débito/Crédito:</strong> Pago electrónico</li>
+        </ul>
+
+        <h3>9.3 Estados de Pago</h3>
+        <ul>
+            <li><strong style="color: green;">Pagado:</strong> Cuota abonada y verificada</li>
+            <li><strong style="color: orange;">Pendiente:</strong> Cuota aún no abonada</li>
+            <li><strong style="color: red;">En Mora:</strong> Cuota vencida sin pagar</li>
+        </ul>
+
+        <h1 id="soporte">10. Soporte y Ayuda</h1>
+
+        <h3>10.1 Preguntas Frecuentes</h3>
+        
+        <p><strong>¿Olvidé mi contraseña?</strong></p>
+        <p>Contacte al personal administrativo para solicitar un restablecimiento de contraseña.</p>
+
+        <p><strong>¿Cómo cambio mi foto de perfil?</strong></p>
+        <p>Acceda a su perfil desde el menú superior y seleccione "Editar perfil" para subir una nueva imagen.</p>
+
+        <p><strong>¿Puedo inscribirme en más de un curso?</strong></p>
+        <p>Sí, siempre que los horarios no se superpongan. El sistema validará automáticamente la disponibilidad.</p>
+
+        <h3>10.2 Contacto de Soporte</h3>
+        <div class="info-box">
+            <p><strong>Email:</strong> soporte@cemi.edu.ar</p>
+            <p><strong>Teléfono:</strong> (0379) 4XX-XXXX</p>
+            <p><strong>Horario de atención:</strong> Lunes a Viernes de 8:00 a 18:00 hs</p>
+        </div>
+
+        <h3>10.3 Chat de Soporte</h3>
+        <p>Utilice el botón de chat flotante en la esquina inferior derecha para comunicarse directamente con el equipo de soporte técnico.</p>
+
+        <div class="footer">
+            <p><strong>CEMI Sistema de Gestión Académica</strong></p>
+            <p>Manual de Usuario - Versión 1.0</p>
+            <p>© 2025 - UTN Tecnicatura Universitaria en Programación</p>
+        </div>
+    </div>
+</body>
+</html>

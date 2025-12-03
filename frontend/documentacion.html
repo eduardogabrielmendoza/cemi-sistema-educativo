@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación del Proyecto - CEMI</title>
+    <link rel="icon" type="image/png" href="images/logocuadrado.png">
+    <link rel="stylesheet" href="assets/css/harvard-menu.css">
+    <link rel="stylesheet" href="assets/css/harvard-pages.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #f5f5f0;
+            color: #1e1e1e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hero Section */
+        .doc-hero {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 50%, #3a3a3a 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+
+        .doc-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .doc-hero p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .doc-main {
+            flex: 1;
+            max-width: 1000px;
+            margin: -40px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Documents Grid */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .doc-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #a51c30;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .doc-card:hover::before {
+            opacity: 1;
+        }
+
+        .doc-number {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .doc-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #1e1e1e;
+            margin-bottom: 12px;
+        }
+
+        .doc-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #a51c30;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .doc-link:hover {
+            gap: 12px;
+        }
+
+        .doc-link i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: white;
+            border: 1px solid #e0e0e0;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #1e1e1e;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* Info Box */
+        .doc-info {
+            background: #f8f8f5;
+            border: 1px solid #e0e0e0;
+            padding: 25px 30px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .doc-info i {
+            width: 40px;
+            height: 40px;
+            color: #a51c30;
+            flex-shrink: 0;
+        }
+
+        .doc-info-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e1e1e;
+            margin-bottom: 5px;
+        }
+
+        .doc-info-content p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .back-link i {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Footer */
+        .doc-footer {
+            background: #1e1e1e;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+        }
+
+        .doc-footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .doc-footer a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .doc-hero {
+                padding: 60px 20px 50px;
+            }
+
+            .doc-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .doc-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Harvard Header -->
+    <header class="harvard-header">
+        <div class="harvard-header-top">
+            <div class="harvard-container">
+                <a href="index.html" class="harvard-logo-link">
+                    <div class="harvard-logo-oval">
+                        <img src="images/logocuadrado.png" alt="CEMI Logo">
+                    </div>
+                    <div class="harvard-brand">
+                        <span class="harvard-brand-name">CEMI</span>
+                        <span class="harvard-brand-separator"></span>
+                        <span class="harvard-brand-tagline">Sistema Gestor</span>
+                    </div>
+                </a>
+                <nav class="harvard-nav-top">
+                    <a href="a-to-z.html">A-Z</a>
+                    <a href="ayuda.html">Ayuda</a>
+                    <a href="login-selector.html">Acceder</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="doc-hero">
+        <a href="index.html" class="back-link">
+            <i data-lucide="arrow-left"></i>
+            Volver al inicio
+        </a>
+        <h1>Documentación del Proyecto</h1>
+        <p>Acceso completo a la documentación técnica y manuales del Sistema de Gestión Académica CEMI</p>
+    </section>
+
+    <!-- Main Content -->
+    <main class="doc-main">
+        <div class="section-title">
+            <h2>Documentos Disponibles</h2>
+            <p>Selecciona un documento para visualizarlo</p>
+        </div>
+
+        <div class="documents-grid">
+            <article class="doc-card">
+                <span class="doc-number">Documento 01</span>
+                <h3>Manual de Usuario</h3>
+                <p>Guía completa para usuarios del sistema. Incluye instrucciones detalladas sobre navegación, funcionalidades y uso diario de la plataforma.</p>
+                <a href="docs/01-Manual-de-Usuario.html" class="doc-link">
+                    Ver documento <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <article class="doc-card">
+                <span class="doc-number">Documento 02</span>
+                <h3>Manual Técnico</h3>
+                <p>Documentación técnica del sistema. Arquitectura, configuración del servidor, base de datos y requisitos de instalación.</p>
+                <a href="docs/02-Manual-Tecnico.html" class="doc-link">
+                    Ver documento <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <article class="doc-card">
+                <span class="doc-number">Documento 03</span>
+                <h3>Diagramas UML</h3>
+                <p>Diagramas de modelado del sistema. Casos de uso, diagramas de clases, secuencia y arquitectura del software.</p>
+                <a href="docs/03-Diagramas-UML.html" class="doc-link">
+                    Ver documento <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <article class="doc-card">
+                <span class="doc-number">Documento 04</span>
+                <h3>Prototipos y Mockups</h3>
+                <p>Diseños iniciales de la interfaz. Prototipos de baja y alta fidelidad que guiaron el desarrollo visual.</p>
+                <a href="docs/04-Prototipos-Mockups.html" class="doc-link">
+                    Ver documento <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <article class="doc-card">
+                <span class="doc-number">Documento 05</span>
+                <h3>Plan de Pruebas</h3>
+                <p>Estrategia de testing del sistema. Casos de prueba, criterios de aceptación y resultados de validación.</p>
+                <a href="docs/05-Plan-de-Pruebas.html" class="doc-link">
+                    Ver documento <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <article class="doc-card">
+                <span class="doc-number">Documento 06</span>
+                <h3>Arquitectura del Sistema</h3>
+                <p>Visión general de la arquitectura. Componentes, servicios, integraciones y flujo de datos del sistema.</p>
+                <a href="docs/06-Arquitectura-Sistema.html" class="doc-link">
+                    Ver documento <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
+            <article class="doc-card">
+                <span class="doc-number">Documento 07</span>
+                <h3>Bibliografía APA7</h3>
+                <p>Referencias bibliográficas del proyecto. Fuentes consultadas y citadas según normas APA 7ma edición.</p>
+                <a href="docs/07-Bibliografia-APA7.html" class="doc-link">
+                    Ver documento <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+        </div>
+
+        <div class="doc-info">
+            <i data-lucide="info"></i>
+            <div class="doc-info-content">
+                <h4>Nota sobre los documentos</h4>
+                <p>Estos documentos forman parte del Proyecto Final de desarrollo del Sistema de Gestión Académica CEMI. Para consultas técnicas, contactar al equipo de desarrollo.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="doc-footer">
+        <p>&copy; 2025 CEMI - Sistema de Gestión Académica | <a href="index.html">Volver al inicio</a></p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

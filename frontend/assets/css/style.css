@@ -3998,6 +3998,20 @@ footer i {
   color: white;
 }
 
+/* Link oculto de documentación */
+.doc-hidden-link {
+  display: block;
+  margin-top: 20px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.25);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.doc-hidden-link:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .floating-menu-wrapper {
   position: fixed !important;
   bottom: 30px !important;

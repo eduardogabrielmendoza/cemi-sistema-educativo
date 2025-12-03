@@ -1,0 +1,335 @@
+/* Harvard Documentation Styles - CEMI */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --harvard-crimson: #a51c30;
+    --harvard-black: #1e1e1e;
+    --harvard-dark: #2d2d2d;
+    --harvard-gray: #4a4a4a;
+    --harvard-light: #f5f5f0;
+    --harvard-white: #ffffff;
+    --harvard-border: #e0e0e0;
+    --accent-gold: #c5b358;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Crimson Pro', 'Georgia', 'Times New Roman', serif;
+    line-height: 1.8;
+    color: var(--harvard-black);
+    background: var(--harvard-white);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 50px;
+}
+
+/* Cover - Harvard Style */
+.cover {
+    text-align: center;
+    padding: 80px 40px;
+    background: linear-gradient(135deg, var(--harvard-black) 0%, var(--harvard-dark) 50%, var(--harvard-gray) 100%);
+    color: white;
+    border-radius: 0;
+    margin: -40px -50px 40px;
+    page-break-after: always;
+    position: relative;
+}
+
+.cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--harvard-crimson);
+}
+
+.cover h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.cover .subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.cover .version {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: inline-block;
+    padding: 8px 25px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.cover .institution {
+    margin-top: 60px;
+    font-size: 1rem;
+    opacity: 0.7;
+    font-weight: 300;
+}
+
+/* Headings */
+h1, h2, h3, h4 { 
+    color: var(--harvard-black); 
+    margin-top: 30px; 
+    font-weight: 500;
+}
+
+h1 { 
+    font-size: 1.8rem; 
+    border-bottom: 2px solid var(--harvard-crimson); 
+    padding-bottom: 12px; 
+}
+
+h2 { 
+    font-size: 1.4rem; 
+    border-left: 3px solid var(--harvard-crimson); 
+    padding-left: 15px; 
+    margin-top: 40px; 
+}
+
+h3 { 
+    font-size: 1.15rem; 
+    color: var(--harvard-gray); 
+}
+
+p { 
+    margin: 15px 0; 
+    text-align: justify; 
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--harvard-light);
+    padding: 30px;
+    margin: 30px 0;
+    page-break-after: always;
+    border: 1px solid var(--harvard-border);
+}
+
+.toc h2 { 
+    margin-top: 0; 
+    border: none; 
+    padding: 0; 
+    margin-bottom: 20px; 
+    text-align: center;
+}
+
+.toc ul {
+    list-style: none;
+    counter-reset: toc-counter;
+}
+
+.toc li {
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--harvard-border);
+    counter-increment: toc-counter;
+}
+
+.toc li::before {
+    content: counter(toc-counter) ". ";
+    color: var(--harvard-crimson);
+    font-weight: 600;
+}
+
+.toc a {
+    color: var(--harvard-black);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.toc a:hover {
+    color: var(--harvard-crimson);
+}
+
+/* Info Boxes */
+.info-box {
+    background: #f8f8f5;
+    border-left: 3px solid var(--harvard-gray);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.warning-box {
+    background: #fef9e7;
+    border-left: 3px solid var(--accent-gold);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.success-box {
+    background: #f0f5f0;
+    border-left: 3px solid #4a7c59;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+}
+
+th, td {
+    border: 1px solid var(--harvard-border);
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background: var(--harvard-black);
+    color: white;
+    font-weight: 500;
+}
+
+tr:nth-child(even) { 
+    background: var(--harvard-light); 
+}
+
+/* Steps */
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--harvard-light);
+    border: 1px solid var(--harvard-border);
+}
+
+.step-number {
+    background: var(--harvard-crimson);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 20px;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.step-content h4 { 
+    margin-top: 0; 
+    color: var(--harvard-black); 
+}
+
+/* Lists */
+ul, ol {
+    margin: 15px 0 15px 30px;
+}
+
+li { 
+    margin: 8px 0; 
+}
+
+/* Screenshots placeholder */
+.screenshot {
+    background: var(--harvard-light);
+    border: 1px solid var(--harvard-border);
+    padding: 40px;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--harvard-gray);
+    font-style: italic;
+}
+
+/* Footer */
+.footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 2px solid var(--harvard-border);
+    text-align: center;
+    color: var(--harvard-gray);
+    font-size: 0.9rem;
+}
+
+/* Back to docs link */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    background: var(--harvard-black);
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.3s ease;
+}
+
+.back-link:hover {
+    background: var(--harvard-crimson);
+}
+
+/* Print Styles */
+@media print {
+    .container { 
+        padding: 20px; 
+    }
+    .cover { 
+        margin: -20px -20px 20px; 
+    }
+    h2 { 
+        page-break-before: auto; 
+    }
+    .step, .info-box, .warning-box { 
+        break-inside: avoid; 
+    }
+    .back-link {
+        display: none;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .cover {
+        margin: -20px -20px 30px;
+        padding: 50px 20px;
+    }
+    
+    .cover h1 {
+        font-size: 1.8rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .step {
+        flex-direction: column;
+    }
+    
+    .step-number {
+        margin-bottom: 15px;
+    }
+    
+    table {
+        font-size: 0.85rem;
+    }
+    
+    th, td {
+        padding: 8px 10px;
+    }
+}
