@@ -652,8 +652,8 @@
 
   <!-- Feature Section 1 -->
   <section class="porque-feature-section">
-    <div class="porque-feature-image scroll-reveal-scale">
-      <img src="images/STOCK2.jpg" alt="Metodología de enseñanza" class="parallax-image">
+    <div class="porque-feature-image">
+      <img src="images/STOCK2.jpg" alt="Metodología de enseñanza">
     </div>
     <div class="porque-feature-content scroll-reveal-right">
       <h3>Metodología probada</h3>
@@ -667,8 +667,8 @@
 
   <!-- Feature Section 2 -->
   <section class="porque-feature-section reverse dark">
-    <div class="porque-feature-image scroll-reveal-scale">
-      <img src="images/STOCK3.webp" alt="Tecnología educativa" class="parallax-image">
+    <div class="porque-feature-image">
+      <img src="images/STOCK3.webp" alt="Tecnología educativa">
     </div>
     <div class="porque-feature-content scroll-reveal-left">
       <h3>Tecnología al servicio del aprendizaje</h3>
@@ -682,8 +682,8 @@
 
   <!-- Feature Section 3 -->
   <section class="porque-feature-section">
-    <div class="porque-feature-image scroll-reveal-scale">
-      <img src="images/STOCK4.jpg" alt="Comunidad CEMI" class="parallax-image">
+    <div class="porque-feature-image">
+      <img src="images/STOCK4.jpg" alt="Comunidad CEMI">
     </div>
     <div class="porque-feature-content scroll-reveal-right">
       <h3>Una comunidad que te acompaña</h3>
@@ -782,27 +782,6 @@
     // Observar todos los elementos con clases de scroll-reveal
     document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-rotate').forEach((el) => {
       observer.observe(el);
-    });
-
-    // Parallax suave para imágenes al hacer scroll
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrolled = window.pageYOffset;
-          document.querySelectorAll('.parallax-image').forEach(img => {
-            const rect = img.getBoundingClientRect();
-            const parentRect = img.parentElement.getBoundingClientRect();
-            if (parentRect.top < window.innerHeight && parentRect.bottom > 0) {
-              const speed = 0.15;
-              const yPos = (rect.top - window.innerHeight / 2) * speed;
-              img.style.transform = `translateY(${yPos}px) scale(1.1)`;
-            }
-          });
-          ticking = false;
-        });
-        ticking = true;
-      }
     });
   </script>
 
