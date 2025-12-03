@@ -615,26 +615,26 @@
   <!-- Classroom Banner - Texto izquierda, Imagen derecha -->
   <section class="split-banner" id="classroom">
     <div class="split-banner-content">
-      <h2 class="split-banner-title">Classroom</h2>
-      <p class="split-banner-subtitle">El aula virtual más intuitiva.</p>
-      <p class="split-banner-description">Tareas, calificaciones, anuncios y más. Todo en un solo lugar diseñado para la educación moderna.</p>
-      <button class="split-banner-btn" onclick="window.location.href='classroom-login.html'">Acceder al Classroom</button>
+      <h2 class="split-banner-title scroll-reveal">Classroom</h2>
+      <p class="split-banner-subtitle scroll-reveal" data-delay="1">El aula virtual más intuitiva.</p>
+      <p class="split-banner-description scroll-reveal" data-delay="2">Tareas, calificaciones, anuncios y más. Todo en un solo lugar diseñado para la educación moderna.</p>
+      <button class="split-banner-btn split-banner-btn-outline scroll-reveal" data-delay="3" onclick="window.location.href='classroom-login.html'">Ir al Classroom</button>
     </div>
-    <div class="split-banner-image">
+    <div class="split-banner-image scroll-reveal-image">
       <img src="images/classroombanner.png" alt="Classroom CEMI">
     </div>
   </section>
 
   <!-- Dashboard Banner - Imagen izquierda, Texto derecha -->
   <section class="split-banner split-banner-reverse" id="dashboard">
-    <div class="split-banner-image">
+    <div class="split-banner-image scroll-reveal-image">
       <img src="images/dashboardbanner.png" alt="Dashboard CEMI">
     </div>
     <div class="split-banner-content">
-      <h2 class="split-banner-title">Dashboard</h2>
-      <p class="split-banner-subtitle">Gestión completa.</p>
-      <p class="split-banner-description">Administra alumnos, profesores, cursos, pagos y estadísticas desde un panel de control intuitivo.</p>
-      <button class="split-banner-btn split-banner-btn-outline" onclick="window.location.href='login.html'">Ir al Dashboard</button>
+      <h2 class="split-banner-title scroll-reveal">Dashboard</h2>
+      <p class="split-banner-subtitle scroll-reveal" data-delay="1">Gestión completa.</p>
+      <p class="split-banner-description scroll-reveal" data-delay="2">Administra alumnos, profesores, cursos, pagos y estadísticas desde un panel de control intuitivo.</p>
+      <button class="split-banner-btn split-banner-btn-outline scroll-reveal" data-delay="3" onclick="window.location.href='login.html'">Ir al Dashboard</button>
     </div>
   </section>
 
@@ -1244,6 +1244,25 @@
       easing: 'ease-in-out',
       once: true,
       offset: 100
+    });
+
+    // ===== SCROLL REVEAL - Split Banners =====
+    const scrollRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Una vez visible, dejar de observar
+          scrollRevealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar todos los elementos con animación
+    document.querySelectorAll('.scroll-reveal, .scroll-reveal-image').forEach(el => {
+      scrollRevealObserver.observe(el);
     });
 
     // Menú flotante removido - Asistente CEMI lo reemplaza
