@@ -393,6 +393,89 @@
     }
 
     /* ============================================================
+       SCROLL REVEAL ANIMATIONS - Elegantes y Notorias
+       ============================================================ */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-reveal-left {
+      opacity: 0;
+      transform: translateX(-80px);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scroll-reveal-right {
+      opacity: 0;
+      transform: translateX(80px);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scroll-reveal-scale {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .scroll-reveal-rotate {
+      opacity: 0;
+      transform: translateY(40px) rotate(-3deg);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-reveal-rotate.visible {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+
+    /* Parallax effect for images */
+    .parallax-image {
+      transition: transform 0.1s ease-out;
+    }
+
+    /* Quote animation */
+    .porque-quote-section .scroll-reveal-scale {
+      transition-delay: 0.2s;
+    }
+
+    /* Feature section animations */
+    .porque-feature-content.scroll-reveal-left,
+    .porque-feature-content.scroll-reveal-right {
+      transition-delay: 0.3s;
+    }
+
+    .porque-feature-image.scroll-reveal-scale {
+      transition-delay: 0.1s;
+    }
+
+    /* CTA section */
+    .porque-cta-section .scroll-reveal {
+      transition-delay: 0.2s;
+    }
+
+    /* ============================================================
        RESPONSIVE
        ============================================================ */
     @media (max-width: 992px) {
@@ -469,11 +552,9 @@
   <!-- ===== HARVARD-STYLE HEADER ===== -->
   <header class="harvard-header">
     <div class="harvard-header-inner">
-      <!-- Logo y nombre a la izquierda -->
+      <!-- Logo solamente -->
       <a href="index.html" class="harvard-branding">
-        <img src="images/logolongblack.png" alt="Logo CEMI" class="harvard-logo-img" style="width: 166px; height: 42px;">
-        <span class="harvard-dot"></span>
-        <span class="harvard-brand-text" style="pointer-events: none;">Aprende porque elegir CEMI</span>
+        <img src="images/logolongblack.png" alt="Logo CEMI" class="harvard-logo-img" style="width: 226px; height: 79px; object-fit: contain;">
       </a>
       
       <!-- Botones a la derecha -->
@@ -525,7 +606,7 @@
 
   <!-- Quote Section -->
   <section class="porque-quote-section" id="quote">
-    <div class="porque-quote-inner">
+    <div class="porque-quote-inner scroll-reveal-scale">
       <p class="porque-quote">
         "El aprendizaje de un idioma no es solo memorizar palabras, es abrir puertas a nuevas culturas, oportunidades y formas de pensar. En CEMI, cultivamos esa transformación."
       </p>
@@ -538,7 +619,7 @@
 
   <!-- Stats Section -->
   <section class="porque-stats-section">
-    <div class="porque-stats-header">
+    <div class="porque-stats-header scroll-reveal">
       <h2>En números</h2>
     </div>
     <div class="porque-stats-grid">
@@ -571,10 +652,10 @@
 
   <!-- Feature Section 1 -->
   <section class="porque-feature-section">
-    <div class="porque-feature-image">
-      <img src="images/STOCK2.jpg" alt="Metodología de enseñanza">
+    <div class="porque-feature-image scroll-reveal-scale">
+      <img src="images/STOCK2.jpg" alt="Metodología de enseñanza" class="parallax-image">
     </div>
-    <div class="porque-feature-content">
+    <div class="porque-feature-content scroll-reveal-right">
       <h3>Metodología probada</h3>
       <p>Nuestro enfoque comunicativo prioriza la práctica oral y la inmersión lingüística. Cada clase está diseñada para que el alumno use el idioma desde el primer día, desarrollando confianza y fluidez de manera natural.</p>
       <a href="guia.html" class="porque-feature-link">
@@ -586,10 +667,10 @@
 
   <!-- Feature Section 2 -->
   <section class="porque-feature-section reverse dark">
-    <div class="porque-feature-image">
-      <img src="images/STOCK3.webp" alt="Tecnología educativa">
+    <div class="porque-feature-image scroll-reveal-scale">
+      <img src="images/STOCK3.webp" alt="Tecnología educativa" class="parallax-image">
     </div>
-    <div class="porque-feature-content">
+    <div class="porque-feature-content scroll-reveal-left">
       <h3>Tecnología al servicio del aprendizaje</h3>
       <p>Con nuestro sistema Classroom, los alumnos acceden a materiales, tareas y recursos desde cualquier lugar. Seguimiento de progreso en tiempo real, calificaciones actualizadas y comunicación directa con profesores.</p>
       <a href="classroom-login.html" class="porque-feature-link">
@@ -601,10 +682,10 @@
 
   <!-- Feature Section 3 -->
   <section class="porque-feature-section">
-    <div class="porque-feature-image">
-      <img src="images/STOCK4.jpg" alt="Comunidad CEMI">
+    <div class="porque-feature-image scroll-reveal-scale">
+      <img src="images/STOCK4.jpg" alt="Comunidad CEMI" class="parallax-image">
     </div>
-    <div class="porque-feature-content">
+    <div class="porque-feature-content scroll-reveal-right">
       <h3>Una comunidad que te acompaña</h3>
       <p>Más que una institución, somos una familia de estudiantes y docentes apasionados por los idiomas. Eventos culturales, intercambios y actividades extracurriculares complementan tu experiencia de aprendizaje.</p>
       <a href="#nosotros" class="porque-feature-link">
@@ -616,7 +697,7 @@
 
   <!-- CTA Section -->
   <section class="porque-cta-section">
-    <div class="porque-cta-inner">
+    <div class="porque-cta-inner scroll-reveal-rotate">
       <h2>Comienza tu camino en CEMI</h2>
       <p>Únete a cientos de estudiantes que ya están transformando su futuro a través del aprendizaje de idiomas.</p>
       <div class="porque-cta-buttons">
@@ -678,10 +759,10 @@
   <script>
     lucide.createIcons();
 
-    // Intersection Observer para animaciones de scroll
+    // Intersection Observer para animaciones de scroll - Elegantes y Notorias
     const observerOptions = {
-      threshold: 0.2,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.15,
+      rootMargin: '0px 0px -80px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -692,10 +773,36 @@
       });
     }, observerOptions);
 
-    // Observar elementos de stats
+    // Observar elementos de stats con delay escalonado
     document.querySelectorAll('.porque-stat-item').forEach((item, index) => {
-      item.style.transitionDelay = `${index * 0.1}s`;
+      item.style.transitionDelay = `${index * 0.15}s`;
       observer.observe(item);
+    });
+
+    // Observar todos los elementos con clases de scroll-reveal
+    document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-rotate').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Parallax suave para imágenes al hacer scroll
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.pageYOffset;
+          document.querySelectorAll('.parallax-image').forEach(img => {
+            const rect = img.getBoundingClientRect();
+            const parentRect = img.parentElement.getBoundingClientRect();
+            if (parentRect.top < window.innerHeight && parentRect.bottom > 0) {
+              const speed = 0.15;
+              const yPos = (rect.top - window.innerHeight / 2) * speed;
+              img.style.transform = `translateY(${yPos}px) scale(1.1)`;
+            }
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     });
   </script>
 
