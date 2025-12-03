@@ -808,36 +808,37 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 60px 80px;
-  text-align: left;
+  text-align: center;
 }
 
 .split-banner-title {
   font-family: var(--font-heading);
-  font-size: 3.5rem;
+  font-size: 4.5rem;
   font-weight: 400;
   color: #1e1e1e;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .split-banner-subtitle {
   font-family: var(--font-body);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   color: #656f77;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 
 .split-banner-description {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #86868b;
-  margin-bottom: 32px;
+  margin-bottom: 36px;
   line-height: 1.7;
-  max-width: 450px;
+  max-width: 480px;
   letter-spacing: -0.01em;
 }
 
