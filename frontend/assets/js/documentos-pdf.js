@@ -1437,26 +1437,26 @@ async function generarEstadoCuenta(idAlumno) {
             if (mes.estado === 'pagado') {
               doc.setTextColor(...HARVARD_COLORS.success);
               doc.setFont('helvetica', 'bold');
-              doc.text('● Pagado', 110, yPos);
+              doc.text('Pagado', 110, yPos);
               doc.setFont('helvetica', 'normal');
               doc.setTextColor(...HARVARD_COLORS.text);
-              doc.text(mes.fecha_pago ? new Date(mes.fecha_pago).toLocaleDateString('es-ES') : '—', 155, yPos);
+              doc.text(mes.fecha_pago ? new Date(mes.fecha_pago).toLocaleDateString('es-ES') : '-', 155, yPos);
             } else if (mes.estado === 'impago') {
               doc.setTextColor(...HARVARD_COLORS.error);
               doc.setFont('helvetica', 'bold');
-              doc.text('● Impago', 110, yPos);
+              doc.text('Impago', 110, yPos);
               doc.setTextColor(...HARVARD_COLORS.graphite);
-              doc.text('—', 155, yPos);
+              doc.text('-', 155, yPos);
             } else if (mes.estado === 'pendiente') {
               doc.setTextColor(...HARVARD_COLORS.warning);
               doc.setFont('helvetica', 'bold');
-              doc.text('● Pendiente', 110, yPos);
+              doc.text('Pendiente', 110, yPos);
               doc.setTextColor(...HARVARD_COLORS.graphite);
-              doc.text('—', 155, yPos);
+              doc.text('-', 155, yPos);
             } else {
               doc.setTextColor(...HARVARD_COLORS.silver);
-              doc.text('○ Próximo', 110, yPos);
-              doc.text('—', 155, yPos);
+              doc.text('Proximo', 110, yPos);
+              doc.text('-', 155, yPos);
             }
             
             yPos += 6;
@@ -1691,6 +1691,7 @@ async function generarFichaInscripcion(idAlumno) {
     doc.text(`${alumno.cursos_activos || 0}`, 20 + boxW/2, yPos + 14, { align: 'center' });
     
     // Caja Promedio General
+    doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.roundedRect(20 + boxW + 10, yPos, boxW, 18, 2, 2, 'FD');
     
     doc.setFontSize(7);
