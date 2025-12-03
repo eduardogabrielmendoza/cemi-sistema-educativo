@@ -854,6 +854,28 @@ html {
   box-shadow: 0 8px 25px rgba(30, 30, 30, 0.25);
 }
 
+/* Botón Android - Verde */
+.split-banner-btn-android {
+  gap: 10px;
+  background: #3ddc84;
+  color: #ffffff;
+  border: 2px solid #3ddc84;
+  text-decoration: none;
+}
+
+.split-banner-btn-android:hover {
+  background: #32c973;
+  border-color: #32c973;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(61, 220, 132, 0.35);
+}
+
+/* Android banner - fondo blanco */
+.split-banner-android {
+  background: #ffffff;
+}
+
 .split-banner-image {
   display: flex;
   align-items: center;
