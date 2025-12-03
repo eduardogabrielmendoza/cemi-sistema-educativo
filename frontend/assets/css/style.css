@@ -792,18 +792,6 @@ html {
   background: #ffffff;
 }
 
-.split-banner-reverse {
-  background: #f8f9fa;
-}
-
-.split-banner-reverse .split-banner-content {
-  order: 2;
-}
-
-.split-banner-reverse .split-banner-image {
-  order: 1;
-}
-
 .split-banner-content {
   display: flex;
   flex-direction: column;
@@ -878,26 +866,35 @@ html {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 220px;
-  background: linear-gradient(to bottom, 
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 1) 15%,
-    rgba(255, 255, 255, 0.85) 35%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0) 100%);
+  bottom: 0;
+  width: 200px;
   pointer-events: none;
   z-index: 1;
 }
 
-/* Para Dashboard (fondo gris claro) */
-.split-banner-reverse .split-banner-image::after {
-  background: linear-gradient(to bottom, 
+/* Classroom: Imagen izquierda, gradiente ataca desde la derecha */
+.split-banner-img-left .split-banner-image::after {
+  right: 0;
+  left: auto;
+  background: linear-gradient(to left, 
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.9) 20%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%);
+}
+
+/* Dashboard: Imagen derecha, gradiente ataca desde la izquierda */
+.split-banner-img-right {
+  background: #f8f9fa;
+}
+
+.split-banner-img-right .split-banner-image::after {
+  left: 0;
+  right: auto;
+  background: linear-gradient(to right, 
     rgba(248, 249, 250, 1) 0%,
-    rgba(248, 249, 250, 1) 15%,
-    rgba(248, 249, 250, 0.85) 35%,
-    rgba(248, 249, 250, 0.5) 60%,
+    rgba(248, 249, 250, 0.9) 20%,
+    rgba(248, 249, 250, 0.6) 50%,
     rgba(248, 249, 250, 0) 100%);
 }
 
