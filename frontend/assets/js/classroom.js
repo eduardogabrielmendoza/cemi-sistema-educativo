@@ -85,7 +85,30 @@ document.addEventListener('DOMContentLoaded', () => {
   initClassroom();
   setupEventListeners();
   lucide.createIcons();
+  
+  // Configurar video del banner con hover
+  setupBannerVideo();
 });
+
+// Función para controlar el video del banner en hover
+function setupBannerVideo() {
+  const welcomeSection = document.querySelector('.welcome-section');
+  const bannerVideo = document.querySelector('.welcome-video');
+  
+  if (welcomeSection && bannerVideo) {
+    // Precargar el video
+    bannerVideo.load();
+    
+    welcomeSection.addEventListener('mouseenter', () => {
+      bannerVideo.currentTime = 0;
+      bannerVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+    });
+    
+    welcomeSection.addEventListener('mouseleave', () => {
+      bannerVideo.pause();
+    });
+  }
+}
 
 function verificarAutenticacion() {
   const nombre = localStorage.getItem('nombre');
