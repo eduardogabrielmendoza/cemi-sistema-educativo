@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentación del Proyecto - CEMI</title>
     <link rel="icon" type="image/png" href="images/logocuadrado.png">
-    <link rel="stylesheet" href="assets/css/harvard-menu.css">
-    <link rel="stylesheet" href="assets/css/harvard-pages.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            --hw-charcoal: #1e1e1e;
+            --hw-dark: #2d2d2d;
+            --hw-graphite: #4a4a4a;
+            --hw-gray: #656f77;
+            --hw-light-gray: #8c939a;
+            --hw-off-white: #f5f5f0;
+            --hw-white: #ffffff;
+            --hw-border: #e0e0e0;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,56 +26,93 @@
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background-color: #f5f5f0;
-            color: #1e1e1e;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--hw-off-white);
+            color: var(--hw-charcoal);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Hero Section */
         .doc-hero {
-            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 50%, #3a3a3a 100%);
+            background: linear-gradient(145deg, var(--hw-charcoal) 0%, var(--hw-dark) 40%, var(--hw-graphite) 100%);
             color: white;
-            padding: 80px 20px 60px;
+            padding: 80px 20px 70px;
             text-align: center;
+            position: relative;
+        }
+
+        .doc-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--hw-gray), var(--hw-graphite), var(--hw-gray));
         }
 
         .doc-hero h1 {
-            font-size: 2.5rem;
-            font-weight: 400;
+            font-size: 2.2rem;
+            font-weight: 300;
             margin-bottom: 15px;
-            letter-spacing: 1px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         .doc-hero p {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            max-width: 600px;
+            font-size: 1rem;
+            opacity: 0.8;
+            max-width: 550px;
             margin: 0 auto;
+            font-weight: 300;
         }
 
         /* Main Content */
         .doc-main {
             flex: 1;
-            max-width: 1000px;
-            margin: -40px auto 60px;
-            padding: 0 20px;
+            max-width: 1100px;
+            margin: -35px auto 60px;
+            padding: 0 25px;
             width: 100%;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 28px 20px;
+            background: var(--hw-white);
+            border: 1px solid var(--hw-border);
+        }
+
+        .section-title h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--hw-charcoal);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .section-title p {
+            color: var(--hw-gray);
+            font-size: 0.9rem;
+            font-weight: 400;
         }
 
         /* Documents Grid */
         .documents-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .doc-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            padding: 30px;
+            background: var(--hw-white);
+            border: 1px solid var(--hw-border);
+            padding: 28px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -78,55 +125,93 @@
             left: 0;
             width: 4px;
             height: 100%;
-            background: #a51c30;
+            background: var(--hw-graphite);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .doc-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-color: var(--hw-gray);
         }
 
         .doc-card:hover::before {
             opacity: 1;
         }
 
+        /* Featured card for Gantt */
+        .doc-card.featured {
+            grid-column: span 2;
+            background: linear-gradient(145deg, var(--hw-charcoal), var(--hw-dark));
+            color: var(--hw-white);
+            border: none;
+        }
+
+        .doc-card.featured .doc-number {
+            color: var(--hw-light-gray);
+        }
+
+        .doc-card.featured h3 {
+            color: var(--hw-white);
+        }
+
+        .doc-card.featured p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .doc-card.featured .doc-link {
+            color: var(--hw-white);
+            background: rgba(255,255,255,0.1);
+            padding: 10px 18px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .doc-card.featured .doc-link:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .doc-card.featured::before {
+            background: var(--hw-gray);
+        }
+
         .doc-number {
-            font-size: 0.8rem;
-            color: #666;
+            font-size: 0.75rem;
+            color: var(--hw-gray);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 10px;
+            font-weight: 500;
         }
 
         .doc-card h3 {
-            font-size: 1.3rem;
-            font-weight: 500;
-            color: #1e1e1e;
-            margin-bottom: 12px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--hw-charcoal);
+            margin-bottom: 10px;
         }
 
         .doc-card p {
-            font-size: 0.95rem;
-            color: #555;
+            font-size: 0.88rem;
+            color: var(--hw-gray);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .doc-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #a51c30;
+            color: var(--hw-graphite);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
-            transition: gap 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .doc-link:hover {
             gap: 12px;
+            color: var(--hw-charcoal);
         }
 
         .doc-link i {
@@ -134,55 +219,34 @@
             height: 16px;
         }
 
-        /* Section Title */
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 0;
-            background: white;
-            border: 1px solid #e0e0e0;
-        }
-
-        .section-title h2 {
-            font-size: 1.8rem;
-            font-weight: 400;
-            color: #1e1e1e;
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: #666;
-            font-size: 1rem;
-        }
-
         /* Info Box */
         .doc-info {
-            background: #f8f8f5;
-            border: 1px solid #e0e0e0;
-            padding: 25px 30px;
-            margin-top: 40px;
+            background: var(--hw-white);
+            border: 1px solid var(--hw-border);
+            padding: 22px 28px;
+            margin-top: 35px;
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
         .doc-info i {
-            width: 40px;
-            height: 40px;
-            color: #a51c30;
+            width: 32px;
+            height: 32px;
+            color: var(--hw-gray);
             flex-shrink: 0;
         }
 
         .doc-info-content h4 {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #1e1e1e;
-            margin-bottom: 5px;
+            color: var(--hw-charcoal);
+            margin-bottom: 4px;
         }
 
         .doc-info-content p {
-            font-size: 0.9rem;
-            color: #555;
+            font-size: 0.85rem;
+            color: var(--hw-gray);
             margin: 0;
         }
 
@@ -191,34 +255,37 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-            transition: color 0.3s ease;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            font-weight: 400;
         }
 
         .back-link:hover {
             color: white;
+            transform: translateX(-3px);
         }
 
         .back-link i {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
         }
 
         /* Footer */
         .doc-footer {
-            background: #1e1e1e;
-            color: rgba(255,255,255,0.6);
+            background: var(--hw-charcoal);
+            color: rgba(255,255,255,0.5);
             text-align: center;
-            padding: 30px 20px;
-            font-size: 0.85rem;
+            padding: 25px 20px;
+            font-size: 0.8rem;
         }
 
         .doc-footer a {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
+            transition: color 0.2s;
         }
 
         .doc-footer a:hover {
@@ -226,13 +293,20 @@
         }
 
         /* Responsive */
+        @media (max-width: 900px) {
+            .doc-card.featured {
+                grid-column: span 1;
+            }
+        }
+
         @media (max-width: 768px) {
             .doc-hero {
-                padding: 60px 20px 50px;
+                padding: 60px 20px 55px;
             }
 
             .doc-hero h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
+                letter-spacing: 2px;
             }
 
             .documents-grid {
@@ -247,29 +321,6 @@
     </style>
 </head>
 <body>
-    <!-- Harvard Header -->
-    <header class="harvard-header">
-        <div class="harvard-header-top">
-            <div class="harvard-container">
-                <a href="index.html" class="harvard-logo-link">
-                    <div class="harvard-logo-oval">
-                        <img src="images/logocuadrado.png" alt="CEMI Logo">
-                    </div>
-                    <div class="harvard-brand">
-                        <span class="harvard-brand-name">CEMI</span>
-                        <span class="harvard-brand-separator"></span>
-                        <span class="harvard-brand-tagline">Sistema Gestor</span>
-                    </div>
-                </a>
-                <nav class="harvard-nav-top">
-                    <a href="a-to-z.html">A-Z</a>
-                    <a href="ayuda.html">Ayuda</a>
-                    <a href="login-selector.html">Acceder</a>
-                </nav>
-            </div>
-        </div>
-    </header>
-
     <!-- Hero Section -->
     <section class="doc-hero">
         <a href="index.html" class="back-link">
@@ -277,7 +328,7 @@
             Volver al inicio
         </a>
         <h1>Documentación del Proyecto</h1>
-        <p>Acceso completo a la documentación técnica y manuales del Sistema de Gestión Académica CEMI</p>
+        <p>Documentación técnica y manuales del Sistema de Gestión Académica CEMI</p>
     </section>
 
     <!-- Main Content -->
@@ -288,10 +339,20 @@
         </div>
 
         <div class="documents-grid">
+            <!-- Gantt Featured -->
+            <article class="doc-card featured">
+                <span class="doc-number">Cronograma</span>
+                <h3>Diagrama de Gantt</h3>
+                <p>Cronograma completo del proyecto. Visualización interactiva de las fases, tareas, hitos y distribución de trabajo del equipo de desarrollo.</p>
+                <a href="docs/gantt/index.html" class="doc-link">
+                    Ver diagrama <i data-lucide="arrow-right"></i>
+                </a>
+            </article>
+
             <article class="doc-card">
                 <span class="doc-number">Documento 01</span>
                 <h3>Manual de Usuario</h3>
-                <p>Guía completa para usuarios del sistema. Incluye instrucciones detalladas sobre navegación, funcionalidades y uso diario de la plataforma.</p>
+                <p>Guía completa para usuarios del sistema con instrucciones de navegación y uso.</p>
                 <a href="docs/01-Manual-de-Usuario.html" class="doc-link">
                     Ver documento <i data-lucide="arrow-right"></i>
                 </a>
@@ -300,7 +361,7 @@
             <article class="doc-card">
                 <span class="doc-number">Documento 02</span>
                 <h3>Manual Técnico</h3>
-                <p>Documentación técnica del sistema. Arquitectura, configuración del servidor, base de datos y requisitos de instalación.</p>
+                <p>Documentación técnica: arquitectura, configuración y requisitos de instalación.</p>
                 <a href="docs/02-Manual-Tecnico.html" class="doc-link">
                     Ver documento <i data-lucide="arrow-right"></i>
                 </a>
@@ -309,7 +370,7 @@
             <article class="doc-card">
                 <span class="doc-number">Documento 03</span>
                 <h3>Diagramas UML</h3>
-                <p>Diagramas de modelado del sistema. Casos de uso, diagramas de clases, secuencia y arquitectura del software.</p>
+                <p>Casos de uso, diagramas de clases, secuencia y arquitectura del software.</p>
                 <a href="docs/03-Diagramas-UML.html" class="doc-link">
                     Ver documento <i data-lucide="arrow-right"></i>
                 </a>
@@ -318,7 +379,7 @@
             <article class="doc-card">
                 <span class="doc-number">Documento 04</span>
                 <h3>Prototipos y Mockups</h3>
-                <p>Diseños iniciales de la interfaz. Prototipos de baja y alta fidelidad que guiaron el desarrollo visual.</p>
+                <p>Diseños iniciales de la interfaz y prototipos visuales del sistema.</p>
                 <a href="docs/04-Prototipos-Mockups.html" class="doc-link">
                     Ver documento <i data-lucide="arrow-right"></i>
                 </a>
@@ -327,7 +388,7 @@
             <article class="doc-card">
                 <span class="doc-number">Documento 05</span>
                 <h3>Plan de Pruebas</h3>
-                <p>Estrategia de testing del sistema. Casos de prueba, criterios de aceptación y resultados de validación.</p>
+                <p>Casos de prueba, criterios de aceptación y resultados de validación.</p>
                 <a href="docs/05-Plan-de-Pruebas.html" class="doc-link">
                     Ver documento <i data-lucide="arrow-right"></i>
                 </a>
@@ -336,7 +397,7 @@
             <article class="doc-card">
                 <span class="doc-number">Documento 06</span>
                 <h3>Arquitectura del Sistema</h3>
-                <p>Visión general de la arquitectura. Componentes, servicios, integraciones y flujo de datos del sistema.</p>
+                <p>Componentes, servicios, integraciones y flujo de datos del sistema.</p>
                 <a href="docs/06-Arquitectura-Sistema.html" class="doc-link">
                     Ver documento <i data-lucide="arrow-right"></i>
                 </a>
@@ -345,7 +406,7 @@
             <article class="doc-card">
                 <span class="doc-number">Documento 07</span>
                 <h3>Bibliografía APA7</h3>
-                <p>Referencias bibliográficas del proyecto. Fuentes consultadas y citadas según normas APA 7ma edición.</p>
+                <p>Referencias bibliográficas citadas según normas APA 7ma edición.</p>
                 <a href="docs/07-Bibliografia-APA7.html" class="doc-link">
                     Ver documento <i data-lucide="arrow-right"></i>
                 </a>
@@ -355,15 +416,15 @@
         <div class="doc-info">
             <i data-lucide="info"></i>
             <div class="doc-info-content">
-                <h4>Nota sobre los documentos</h4>
-                <p>Estos documentos forman parte del Proyecto Final de desarrollo del Sistema de Gestión Académica CEMI. Para consultas técnicas, contactar al equipo de desarrollo.</p>
+                <h4>Proyecto Final</h4>
+                <p>Documentación del Sistema de Gestión Académica CEMI - UTN Tecnicatura en Programación, Bella Vista 2025.</p>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="doc-footer">
-        <p>&copy; 2025 CEMI - Sistema de Gestión Académica | <a href="index.html">Volver al inicio</a></p>
+        <p>&copy; 2025 CEMI Sistema de Gestión Académica | <a href="index.html">Volver al inicio</a></p>
     </footer>
 
     <script>
