@@ -126,6 +126,104 @@
     }
 
     /* ============================================================
+       PROGRAMS CARDS - CEMI Niños y Jóvenes
+       ============================================================ */
+    .porque-programs-section {
+      background: #1e1e1e;
+      padding: 80px 40px;
+    }
+
+    .porque-programs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .porque-program-card {
+      position: relative;
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .porque-program-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .porque-program-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .porque-program-card:hover .porque-program-image img {
+      transform: scale(1.08);
+    }
+
+    .porque-program-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+      z-index: 2;
+    }
+
+    .porque-program-overlay h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .porque-program-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .porque-program-link i {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .porque-program-card:hover .porque-program-link {
+      color: #ffffff;
+    }
+
+    .porque-program-card:hover .porque-program-link i {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 768px) {
+      .porque-programs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .porque-program-overlay h3 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* ============================================================
        QUOTE SECTION - Estilo Harvard
        ============================================================ */
     .porque-quote-section {
@@ -617,6 +715,36 @@
     </div>
   </section>
 
+  <!-- Programs Cards Section - CEMI Niños y Jóvenes -->
+  <section class="porque-programs-section">
+    <div class="porque-programs-grid">
+      <a href="cemi-ninos.html" class="porque-program-card scroll-reveal-left">
+        <div class="porque-program-image">
+          <img src="images/niñosaprendiendo.webp" alt="CEMI Niños">
+        </div>
+        <div class="porque-program-overlay">
+          <h3>CEMI Niños</h3>
+          <span class="porque-program-link">
+            <i data-lucide="arrow-right"></i>
+            Conoce más
+          </span>
+        </div>
+      </a>
+      <a href="cemi-jovenes.html" class="porque-program-card scroll-reveal-right">
+        <div class="porque-program-image">
+          <img src="images/jovenesaprendiendo.jpg" alt="CEMI Jóvenes">
+        </div>
+        <div class="porque-program-overlay">
+          <h3>CEMI Jóvenes</h3>
+          <span class="porque-program-link">
+            <i data-lucide="arrow-right"></i>
+            Conoce más
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- Stats Section -->
   <section class="porque-stats-section">
     <div class="porque-stats-header scroll-reveal">
@@ -688,7 +816,7 @@
     <div class="porque-feature-content scroll-reveal-right">
       <h3>Una comunidad que te acompaña</h3>
       <p>Más que una institución, somos una familia de estudiantes y docentes apasionados por los idiomas. Eventos culturales, intercambios y actividades extracurriculares complementan tu experiencia de aprendizaje.</p>
-      <a href="#nosotros" class="porque-feature-link">
+      <a href="comunidad-cemi.html" class="porque-feature-link">
         Conoce nuestra comunidad
         <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
       </a>
