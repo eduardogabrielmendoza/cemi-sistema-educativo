@@ -871,9 +871,40 @@ html {
   box-shadow: 0 8px 25px rgba(61, 220, 132, 0.35);
 }
 
-/* Android banner - fondo blanco */
+/* Android banner - fondo claro */
 .split-banner-android {
-  background: #ffffff;
+  background: #fcfcfe;
+}
+
+/* Imagen Android con botón posicionado */
+.split-banner-image-android {
+  position: relative;
+}
+
+.android-download-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 80%);
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  background: transparent;
+  color: #1e1e1e;
+  border: 2px solid #1e1e1e;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.android-download-btn:hover {
+  background: #1e1e1e;
+  color: #ffffff;
+  transform: translate(-50%, 80%) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 30, 30, 0.25);
 }
 
 .split-banner-image {
