@@ -782,6 +782,170 @@ html {
   letter-spacing: -0.01em;
 }
 
+/* ============================================================
+   SPLIT BANNER - Classroom & Dashboard
+   ============================================================ */
+.split-banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 500px;
+  background: #ffffff;
+}
+
+.split-banner-reverse {
+  background: #f8f9fa;
+}
+
+.split-banner-reverse .split-banner-content {
+  order: 2;
+}
+
+.split-banner-reverse .split-banner-image {
+  order: 1;
+}
+
+.split-banner-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px;
+  text-align: left;
+}
+
+.split-banner-title {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: #1e1e1e;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.split-banner-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: #656f77;
+  margin-bottom: 20px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.split-banner-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #86868b;
+  margin-bottom: 32px;
+  line-height: 1.7;
+  max-width: 450px;
+  letter-spacing: -0.01em;
+}
+
+.split-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: fit-content;
+  background: #1e1e1e;
+  color: #ffffff;
+  border: 2px solid #1e1e1e;
+}
+
+.split-banner-btn:hover {
+  background: #4a4a4a;
+  border-color: #4a4a4a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 30, 30, 0.25);
+}
+
+.split-banner-btn-outline {
+  background: transparent;
+  color: #1e1e1e;
+  border: 2px solid #1e1e1e;
+}
+
+.split-banner-btn-outline:hover {
+  background: #1e1e1e;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 30, 30, 0.25);
+}
+
+.split-banner-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.split-banner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.split-banner:hover .split-banner-image img {
+  transform: scale(1.03);
+}
+
+/* Responsive - Split Banner */
+@media (max-width: 992px) {
+  .split-banner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  
+  .split-banner-content {
+    padding: 50px 40px;
+    order: 2 !important;
+    text-align: center;
+  }
+  
+  .split-banner-image {
+    order: 1 !important;
+    min-height: 300px;
+  }
+  
+  .split-banner-title {
+    font-size: 2.5rem;
+  }
+  
+  .split-banner-description {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .split-banner-btn {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .split-banner-content {
+    padding: 40px 24px;
+  }
+  
+  .split-banner-title {
+    font-size: 2rem;
+  }
+  
+  .split-banner-image {
+    min-height: 250px;
+  }
+}
+
+/* ============================================================ */
+
 .section-description {
   font-family: var(--font-body);
   font-size: 1.1rem;
