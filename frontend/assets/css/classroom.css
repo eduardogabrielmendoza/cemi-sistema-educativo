@@ -1971,23 +1971,8 @@ body {
   transition: opacity 0s;
 }
 
-.welcome-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(30, 30, 30, 0.35) 0%, rgba(30, 30, 30, 0.15) 100%);
-  z-index: 1;
-}
-
 .welcome-section:hover {
   box-shadow: 0 12px 40px rgba(30, 30, 30, 0.25);
-}
-
-.welcome-section:hover::before {
-  background: linear-gradient(to right, rgba(30, 30, 30, 0.35) 0%, rgba(30, 30, 30, 0.15) 100%);
 }
 
 .welcome-banner-overlay {
