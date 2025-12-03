@@ -3,7 +3,7 @@
  * Estilo Harvard - Colores institucionales
  */
 
-const LOGO_URL = 'https://cemi.up.railway.app/images/logo.png';
+const LOGO_URL = 'https://cemi.up.railway.app/images/logolong.png';
 const SITE_URL = 'https://cemi.up.railway.app';
 
 // Harvard Color Palette
@@ -34,10 +34,9 @@ const baseStyles = `
   <style>
     body { font-family: 'Georgia', 'Times New Roman', serif; margin: 0; padding: 0; background: ${COLORS.background}; }
     .container { max-width: 600px; margin: 0 auto; background: ${COLORS.white}; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-    .header { background: ${COLORS.charcoal}; padding: 35px 30px; text-align: center; }
-    .logo-container { background: ${COLORS.white}; width: 80px; height: 80px; border-radius: 12px; display: inline-block; text-align: center; margin-bottom: 18px; padding: 10px; box-sizing: border-box; }
-    .logo-container img { width: 60px; height: 60px; object-fit: contain; }
-    .header h1 { color: ${COLORS.white}; margin: 0; font-size: 22px; font-weight: 600; font-family: 'Times New Roman', Georgia, serif; letter-spacing: 0.5px; }
+    .header { background: ${COLORS.charcoal}; padding: 30px 30px; text-align: center; }
+    .header img { height: 50px; width: auto; }
+    .header h1 { color: ${COLORS.white}; margin: 20px 0 0 0; font-size: 22px; font-weight: 600; font-family: 'Times New Roman', Georgia, serif; letter-spacing: 0.5px; }
     .header-accent { height: 4px; background: ${COLORS.wroughtIron}; }
     .content { padding: 40px 30px; }
     .content h2 { color: ${COLORS.charcoal}; margin-bottom: 20px; font-size: 20px; font-family: 'Times New Roman', Georgia, serif; }
@@ -112,11 +111,10 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Solicitud Recibida</h1>
         </div>
+        <div class="header-accent"></div>
         <div class="content">
           <div style="text-align: center;">
             <div class="success-icon">📩</div>
@@ -164,9 +162,7 @@ export function notificacionAdminTemplate(usuario) {
     <body>
       <div class="container">
         <div class="header" style="background: ${COLORS.charcoal};">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Nueva Solicitud de Recuperacion</h1>
         </div>
         <div class="header-accent"></div>
@@ -218,9 +214,7 @@ export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
     <body>
       <div class="container">
         <div class="header" style="background: ${COLORS.charcoal};">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Contrasena Restablecida</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.success};"></div>
@@ -278,9 +272,7 @@ export function encuestaAgradecimientoTemplate(nombre) {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Gracias por Participar</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.success};"></div>
@@ -344,9 +336,7 @@ export function bienvenidaAlumnoTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Confirma tu Cuenta</h1>
         </div>
         <div class="header-accent"></div>
@@ -435,9 +425,7 @@ export function gdprSolicitudUsuarioTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Solicitud GDPR Recibida</h1>
         </div>
         <div class="header-accent"></div>
@@ -503,9 +491,7 @@ export function gdprNotificacionAdminTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Nueva Solicitud GDPR</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.warning};"></div>
@@ -575,9 +561,7 @@ export function codigosRecuperacionUsuarioTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Solicitud de Codigos Recibida</h1>
         </div>
         <div class="header-accent"></div>
@@ -643,9 +627,7 @@ export function codigosRecuperacionAdminTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <div class="logo-container">
-            <img src="${LOGO_URL}" alt="CEMI Logo">
-          </div>
+          <img src="${LOGO_URL}" alt="CEMI">
           <h1>Solicitud de Codigos 2FA</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.warning};"></div>
