@@ -10,8 +10,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: #1e1e1e;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-radius: 0;
+        }
+        .back-link:hover {
+            background: #4a4a4a;
+            transform: translateX(-3px);
+        }
+    </style>
 </head>
 <body>
+    <a href="../../documentacion.html" class="back-link">← Volver a Documentación</a>
     <div class="container">
         <!-- HEADER -->
         <header>
