@@ -5515,13 +5515,13 @@ async function exportarTareasPDF() {
       const estado = tarea.estado || 'Pendiente';
       if (estado === 'entregada') {
         doc.setTextColor(...HARVARD_PDF.success);
-        doc.text('● Entregada', 136, y);
+        doc.text('Entregada', 136, y);
       } else if (estado === 'vencida') {
         doc.setTextColor(...HARVARD_PDF.error);
-        doc.text('● Vencida', 136, y);
+        doc.text('Vencida', 136, y);
       } else {
         doc.setTextColor(...HARVARD_PDF.warning);
-        doc.text('● Pendiente', 136, y);
+        doc.text('Pendiente', 136, y);
       }
       
       y += 4;
@@ -5667,21 +5667,11 @@ async function exportarCalificacionesPDF() {
       doc.setFillColor(...HARVARD_COLORS.charcoal);
       doc.rect(0, 0, pageWidth, headerHeight, 'F');
       
-      // Icono de escudo académico
-      doc.setFillColor(...HARVARD_COLORS.wroughtIron);
-      doc.roundedRect(14, isFirstPage ? 10 : 5, 18, isFirstPage ? 22 : 16, 2, 2, 'F');
-      doc.setFillColor(...HARVARD_COLORS.charcoal);
-      doc.roundedRect(16, isFirstPage ? 13 : 7, 14, isFirstPage ? 16 : 11, 1, 1, 'F');
-      doc.setDrawColor(...HARVARD_COLORS.silver);
-      doc.setLineWidth(0.5);
-      doc.line(23, isFirstPage ? 14 : 8, 23, isFirstPage ? 28 : 17);
-      doc.line(18, isFirstPage ? 20 : 11, 28, isFirstPage ? 20 : 11);
-      
-      // Logo CEMI
+      // Logo CEMI a la izquierda
       try {
         doc.setFillColor(...HARVARD_COLORS.white);
-        doc.roundedRect(pageWidth - 42, isFirstPage ? 8 : 4, 32, isFirstPage ? 32 : 18, 3, 3, 'F');
-        doc.addImage(logoImg, 'PNG', pageWidth - 40, isFirstPage ? 10 : 5, isFirstPage ? 28 : 15, isFirstPage ? 28 : 15);
+        doc.roundedRect(12, isFirstPage ? 8 : 4, isFirstPage ? 32 : 18, isFirstPage ? 32 : 18, 3, 3, 'F');
+        doc.addImage(logoImg, 'PNG', 14, isFirstPage ? 10 : 5, isFirstPage ? 28 : 15, isFirstPage ? 28 : 15);
       } catch (e) {
         console.warn('No se pudo cargar el logo');
       }
@@ -5690,13 +5680,13 @@ async function exportarCalificacionesPDF() {
       doc.setTextColor(...HARVARD_COLORS.white);
       doc.setFont('times', 'bold');
       doc.setFontSize(isFirstPage ? 20 : 13);
-      doc.text('REPORTE DE CALIFICACIONES', 38, isFirstPage ? 22 : 14);
+      doc.text('REPORTE DE CALIFICACIONES', isFirstPage ? 50 : 36, isFirstPage ? 22 : 14);
       
       if (isFirstPage) {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
         doc.setTextColor(...HARVARD_COLORS.silver);
-        doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', 38, 32);
+        doc.text('CEMI - Centro de Ensenanza de Multiples Idiomas', 50, 32);
         
         // Línea decorativa
         doc.setDrawColor(...HARVARD_COLORS.wroughtIron);

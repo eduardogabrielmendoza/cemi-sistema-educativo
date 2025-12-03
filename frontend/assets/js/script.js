@@ -9784,70 +9784,108 @@ async function generarComprobantePago(idPago) {
     const pago = await response.json();
     
     if (!pago || !pago.id_pago) {
-      throw new Error('No se encontró el pago');
+      throw new Error('No se encontro el pago');
     }
+    
+    // Harvard Color Palette
+    const HARVARD = {
+      charcoal: [30, 30, 30],
+      wroughtIron: [74, 74, 74],
+      graphite: [101, 111, 119],
+      silver: [160, 160, 160],
+      lightGray: [245, 245, 245],
+      success: [16, 185, 129],
+      white: [255, 255, 255]
+    };
     
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
-      format: [80, 200] // Ancho de ticket térmico
+      format: [80, 200]
     });
     
-    let yPos = 15;
+    const centerX = 40;
+    let yPos = 0;
     
+    // ===== HEADER CHARCOAL =====
+    doc.setFillColor(...HARVARD.charcoal);
+    doc.rect(0, 0, 80, 32, 'F');
+    
+    // Logo
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
       img.onload = () => {
-        doc.addImage(img, 'PNG', 25, yPos, 30, 30);
+        doc.setFillColor(...HARVARD.white);
+        doc.roundedRect(24, 4, 32, 24, 2, 2, 'F');
+        doc.addImage(img, 'PNG', 26, 6, 28, 20);
         resolve();
       };
       img.onerror = resolve;
     });
     
-    yPos += 35;
+    yPos = 38;
     
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text('COMPROBANTE DE PAGO', 40, yPos, { align: 'center' });
-    yPos += 8;
-    
-    doc.setDrawColor(200);
-    doc.line(10, yPos, 70, yPos);
-    yPos += 8;
-    
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.text('N° Comprobante:', 40, yPos, { align: 'center' });
+    // Titulo
+    doc.setFont('times', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(...HARVARD.charcoal);
+    doc.text('COMPROBANTE DE PAGO', centerX, yPos, { align: 'center' });
     yPos += 5;
-    doc.setFontSize(14);
-    doc.setTextColor(25, 118, 210);
-    doc.text(`#${String(pago.id_pago).padStart(6, '0')}`, 40, yPos, { align: 'center' });
-    doc.setTextColor(0);
-    yPos += 10;
     
-    doc.setFontSize(9);
+    // Linea decorativa
+    doc.setDrawColor(...HARVARD.charcoal);
+    doc.setLineWidth(1);
+    doc.line(15, yPos, 65, yPos);
+    doc.setDrawColor(...HARVARD.graphite);
+    doc.setLineWidth(0.3);
+    doc.line(15, yPos + 1.5, 65, yPos + 1.5);
+    yPos += 8;
+    
+    // Numero de comprobante
+    doc.setFillColor(...HARVARD.lightGray);
+    doc.roundedRect(10, yPos, 60, 14, 2, 2, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(...HARVARD.graphite);
+    doc.text('N. Comprobante', centerX, yPos + 5, { align: 'center' });
+    doc.setFontSize(13);
+    doc.setTextColor(...HARVARD.charcoal);
+    doc.text(`#${String(pago.id_pago).padStart(6, '0')}`, centerX, yPos + 11, { align: 'center' });
+    yPos += 18;
+    
+    // Fecha
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...HARVARD.graphite);
     doc.text(`Fecha: ${new Date(pago.fecha_pago).toLocaleDateString('es-ES', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'
-    })}`, 40, yPos, { align: 'center' });
-    yPos += 10;
-    
-    doc.line(10, yPos, 70, yPos);
+    })}`, centerX, yPos, { align: 'center' });
     yPos += 7;
     
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.text('DATOS DEL ALUMNO', 40, yPos, { align: 'center' });
-    yPos += 5;
+    // Separador
+    doc.setDrawColor(...HARVARD.silver);
+    doc.setLineWidth(0.2);
+    doc.line(10, yPos, 70, yPos);
+    yPos += 6;
     
+    // Seccion datos alumno
+    doc.setFillColor(...HARVARD.charcoal);
+    doc.rect(10, yPos, 60, 5, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.setTextColor(...HARVARD.white);
+    doc.text('DATOS DEL ALUMNO', centerX, yPos + 3.5, { align: 'center' });
+    yPos += 8;
+    
+    doc.setTextColor(...HARVARD.charcoal);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.text('Alumno:', 12, yPos);
     doc.setFont('helvetica', 'bold');
-    const nombreLines = doc.splitTextToSize(pago.alumno || '-', 46);
+    const nombreLines = doc.splitTextToSize(pago.alumno || '-', 42);
     doc.text(nombreLines, 68, yPos, { align: 'right' });
     yPos += nombreLines.length * 3.5 + 1;
     
@@ -9863,14 +9901,21 @@ async function generarComprobantePago(idPago) {
     doc.text(String(pago.dni) || '-', 68, yPos, { align: 'right' });
     yPos += 6;
     
+    // Separador
+    doc.setDrawColor(...HARVARD.silver);
     doc.line(10, yPos, 70, yPos);
-    yPos += 5;
+    yPos += 4;
     
-    doc.setFontSize(9);
+    // Seccion detalles del pago
+    doc.setFillColor(...HARVARD.charcoal);
+    doc.rect(10, yPos, 60, 5, 'F');
     doc.setFont('helvetica', 'bold');
-    doc.text('DETALLES DEL PAGO', 40, yPos, { align: 'center' });
-    yPos += 5;
+    doc.setFontSize(7);
+    doc.setTextColor(...HARVARD.white);
+    doc.text('DETALLES DEL PAGO', centerX, yPos + 3.5, { align: 'center' });
+    yPos += 8;
     
+    doc.setTextColor(...HARVARD.charcoal);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.text('Concepto:', 12, yPos);
@@ -9888,7 +9933,7 @@ async function generarComprobantePago(idPago) {
     
     if (pago.periodo) {
       doc.setFont('helvetica', 'normal');
-      doc.text('Período:', 12, yPos);
+      doc.text('Periodo:', 12, yPos);
       doc.setFont('helvetica', 'bold');
       doc.text(pago.periodo, 68, yPos, { align: 'right' });
       yPos += 4;
@@ -9898,39 +9943,43 @@ async function generarComprobantePago(idPago) {
     doc.text('Medio de Pago:', 12, yPos);
     doc.setFont('helvetica', 'bold');
     doc.text(pago.medio_pago || '-', 68, yPos, { align: 'right' });
-    yPos += 6;
-    
-    doc.setFillColor(25, 118, 210);
-    doc.rect(10, yPos, 60, 10, 'F');
-    doc.setTextColor(255);
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.text('TOTAL PAGADO', 15, yPos + 4);
-    doc.setFontSize(12);
-    doc.text(`$${parseFloat(pago.monto).toLocaleString('es-AR', {minimumFractionDigits: 2})}`, 65, yPos + 6.5, { align: 'right' });
-    doc.setTextColor(0);
-    yPos += 14;
-    
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(76, 175, 80);
-    doc.text(' PAGO CONFIRMADO', 40, yPos, { align: 'center' });
-    doc.setTextColor(0);
     yPos += 7;
     
-    doc.setDrawColor(200);
+    // Total con estilo Harvard
+    doc.setFillColor(...HARVARD.charcoal);
+    doc.roundedRect(10, yPos, 60, 12, 2, 2, 'F');
+    doc.setTextColor(...HARVARD.white);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.text('TOTAL PAGADO', 15, yPos + 5);
+    doc.setFontSize(13);
+    doc.text(`$${parseFloat(pago.monto).toLocaleString('es-AR', {minimumFractionDigits: 2})}`, 65, yPos + 8, { align: 'right' });
+    yPos += 17;
+    
+    // Estado confirmado
+    doc.setFillColor(...HARVARD.success);
+    doc.roundedRect(20, yPos, 40, 7, 2, 2, 'F');
+    doc.setTextColor(...HARVARD.white);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PAGO CONFIRMADO', centerX, yPos + 5, { align: 'center' });
+    yPos += 12;
+    
+    // Footer
+    doc.setDrawColor(...HARVARD.silver);
+    doc.setLineWidth(0.2);
     doc.line(10, yPos, 70, yPos);
     yPos += 5;
     
     doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
-    doc.setTextColor(100);
-    doc.text('Centro de enseñanza de idiomas - CEMI', 40, yPos, { align: 'center' });
+    doc.setTextColor(...HARVARD.graphite);
+    doc.text('CEMI - Centro de Ensenanza de Idiomas', centerX, yPos, { align: 'center' });
     yPos += 4;
-    doc.text(`Comprobante generado el ${new Date().toLocaleDateString('es-ES')}`, 40, yPos, { align: 'center' });
+    doc.text(`Generado el ${new Date().toLocaleDateString('es-ES')}`, centerX, yPos, { align: 'center' });
     yPos += 3;
     doc.setFontSize(6);
-    doc.text('Este documento es un comprobante válido de pago', 40, yPos, { align: 'center' });
+    doc.text('Comprobante valido de pago', centerX, yPos, { align: 'center' });
     
     const nombreArchivo = `Comprobante_${String(pago.id_pago).padStart(6, '0')}_${pago.alumno.replace(/\s+/g, '_')}.pdf`;
     doc.save(nombreArchivo);
