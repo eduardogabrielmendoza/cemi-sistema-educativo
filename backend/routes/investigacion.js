@@ -7,6 +7,7 @@ import { fileURLToPath } from "url";
 import https from "https";
 import { sendEmail } from "../config/mailer.js";
 import { encuestaAgradecimientoTemplate } from "../utils/emailTemplates.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -158,7 +159,7 @@ const traducir = (categoria, valor) => {
   return traducciones[categoria]?.[valor] || valor;
 };
 
-router.post("/encuesta", async (req, res) => {
+router.post("/encuesta", verificarToken, async (req, res) => {
   try {
     const datos = req.body;
     console.log("Datos de encuesta recibidos:", datos);
@@ -497,7 +498,7 @@ router.post("/encuesta", async (req, res) => {
   }
 });
 
-router.get("/encuestas", (req, res) => {
+router.get("/encuestas", verificarToken, (req, res) => {
   try {
     const registro = leerRegistro();
     res.json({
@@ -514,7 +515,7 @@ router.get("/encuestas", (req, res) => {
   }
 });
 
-router.get("/estadisticas", (req, res) => {
+router.get("/estadisticas", verificarToken, (req, res) => {
   try {
     const registro = leerRegistro();
     
@@ -562,7 +563,7 @@ router.get("/estadisticas", (req, res) => {
   }
 });
 
-router.delete("/encuesta/:id", async (req, res) => {
+router.delete("/encuesta/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     const registro = leerRegistro();
@@ -603,7 +604,7 @@ router.delete("/encuesta/:id", async (req, res) => {
   }
 });
 
-router.get("/test-pdf", async (req, res) => {
+router.get("/test-pdf", verificarToken, async (req, res) => {
   try {
     const datos = {
       firstName: "Juan",

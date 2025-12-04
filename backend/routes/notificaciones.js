@@ -1,9 +1,10 @@
 import express from 'express';
 import pool from "../utils/db.js";
+import { verificarToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get('/:tipo/:id', async (req, res) => {
+router.get('/:tipo/:id', verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
     const { limit = 20 } = req.query;
@@ -23,7 +24,7 @@ router.get('/:tipo/:id', async (req, res) => {
   }
 });
 
-router.get('/:tipo/:id/sin-leer', async (req, res) => {
+router.get('/:tipo/:id/sin-leer', verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
 
@@ -40,7 +41,7 @@ router.get('/:tipo/:id/sin-leer', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', verificarToken, async (req, res) => {
   try {
     const { id_usuario, tipo_usuario, tipo_notificacion, titulo, mensaje, link, id_referencia } = req.body;
 
@@ -62,7 +63,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id/marcar-leida', async (req, res) => {
+router.put('/:id/marcar-leida', verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -78,7 +79,7 @@ router.put('/:id/marcar-leida', async (req, res) => {
   }
 });
 
-router.put('/:tipo/:id/marcar-todas-leidas', async (req, res) => {
+router.put('/:tipo/:id/marcar-todas-leidas', verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
 
@@ -94,7 +95,7 @@ router.put('/:tipo/:id/marcar-todas-leidas', async (req, res) => {
   }
 });
 
-router.delete('/limpiar/:tipo/:id', async (req, res) => {
+router.delete('/limpiar/:tipo/:id', verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
 

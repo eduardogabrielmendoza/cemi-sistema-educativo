@@ -2,6 +2,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -59,7 +60,7 @@ const agregarParticipante = (stats, participanteId) => {
 };
 
 
-router.get('/preguntas', (req, res) => {
+router.get('/preguntas', verificarToken, (req, res) => {
     try {
         const { categoria, destacado, estado } = req.query;
         const data = leerDatos();
@@ -106,7 +107,7 @@ router.get('/preguntas', (req, res) => {
     }
 });
 
-router.get('/preguntas/:id', (req, res) => {
+router.get('/preguntas/:id', verificarToken, (req, res) => {
     try {
         const { id } = req.params;
         const data = leerDatos();
@@ -134,7 +135,7 @@ router.get('/preguntas/:id', (req, res) => {
     }
 });
 
-router.post('/preguntas', (req, res) => {
+router.post('/preguntas', verificarToken, (req, res) => {
     try {
         const { titulo, descripcion, categoria, autorTipo, autorId, autorNombre, autorAvatar } = req.body;
         
@@ -183,7 +184,7 @@ router.post('/preguntas', (req, res) => {
 });
 
 
-router.post('/preguntas/:id/respuestas', (req, res) => {
+router.post('/preguntas/:id/respuestas', verificarToken, (req, res) => {
     try {
         const { id } = req.params;
         const { contenido, autorTipo, autorId, autorNombre, autorAvatar } = req.body;
@@ -242,7 +243,7 @@ router.post('/preguntas/:id/respuestas', (req, res) => {
 });
 
 
-router.post('/preguntas/:id/votar', (req, res) => {
+router.post('/preguntas/:id/votar', verificarToken, (req, res) => {
     try {
         const { id } = req.params;
         const { votanteTipo, votanteId } = req.body;
@@ -282,7 +283,7 @@ router.post('/preguntas/:id/votar', (req, res) => {
     }
 });
 
-router.post('/preguntas/:preguntaId/respuestas/:respuestaId/votar', (req, res) => {
+router.post('/preguntas/:preguntaId/respuestas/:respuestaId/votar', verificarToken, (req, res) => {
     try {
         const { preguntaId, respuestaId } = req.params;
         const { votanteTipo, votanteId } = req.body;
@@ -329,7 +330,7 @@ router.post('/preguntas/:preguntaId/respuestas/:respuestaId/votar', (req, res) =
 });
 
 
-router.put('/preguntas/:preguntaId/respuestas/:respuestaId/recomendar', (req, res) => {
+router.put('/preguntas/:preguntaId/respuestas/:respuestaId/recomendar', verificarToken, (req, res) => {
     try {
         const { preguntaId, respuestaId } = req.params;
         const { recomendar } = req.body;
@@ -356,7 +357,7 @@ router.put('/preguntas/:preguntaId/respuestas/:respuestaId/recomendar', (req, re
     }
 });
 
-router.put('/preguntas/:id/destacar', (req, res) => {
+router.put('/preguntas/:id/destacar', verificarToken, (req, res) => {
     try {
         const { id } = req.params;
         const { destacar } = req.body;
@@ -377,7 +378,7 @@ router.put('/preguntas/:id/destacar', (req, res) => {
     }
 });
 
-router.put('/preguntas/:id/estado', (req, res) => {
+router.put('/preguntas/:id/estado', verificarToken, (req, res) => {
     try {
         const { id } = req.params;
         const { estado } = req.body;
@@ -402,7 +403,7 @@ router.put('/preguntas/:id/estado', (req, res) => {
     }
 });
 
-router.delete('/preguntas/:id', (req, res) => {
+router.delete('/preguntas/:id', verificarToken, (req, res) => {
     try {
         const { id } = req.params;
         const { autorTipo, autorId } = req.body;

@@ -147,7 +147,7 @@
       const url = `${API_URL}/classroom/perfil/${idUsuario}?tipo=${tipoUsuario}`;
       console.log('URL:', url);
       
-      const response = await fetch(url);
+      const response = await fetchWithAuth(url);
       const data = await response.json();
       
       console.log('Respuesta del servidor:', { status: response.status, data });
@@ -198,7 +198,7 @@
       console.log("ID Alumno:", id_alumno); // Debug
       
       try {
-        const response = await fetch(`${API_URL}/alumnos/${id_alumno}`);
+        const response = await fetchWithAuth(`${API_URL}/alumnos/${id_alumno}`);
         
         console.log("Response status:", response.status); // Debug
         
@@ -456,7 +456,7 @@
       mainContent.classList.remove("active");
 
       try {
-        const response = await fetch(`${API_URL}/alumnos/${id_alumno}`);
+        const response = await fetchWithAuth(`${API_URL}/alumnos/${id_alumno}`);
         
         if (!response.ok) {
           throw new Error(`Error al cargar calificaciones: ${response.status}`);
@@ -629,7 +629,7 @@
       mainContent.classList.remove("active");
 
       try {
-        const response = await fetch(`${API_URL}/pagos/alumno/${id_alumno}`);
+        const response = await fetchWithAuth(`${API_URL}/pagos/alumno/${id_alumno}`);
         
         if (!response.ok) {
           throw new Error(`Error al cargar pagos: ${response.status}`);
@@ -813,7 +813,7 @@
       mainContent.classList.remove("active");
 
       try {
-        const response = await fetch(`${API_URL}/alumnos/${id_alumno}/perfil`);
+        const response = await fetchWithAuth(`${API_URL}/alumnos/${id_alumno}/perfil`);
         const perfil = await response.json();
 
         mainContent.innerHTML = `
@@ -1982,7 +1982,7 @@
       loader.classList.remove('hidden');
       
       const id_alumno = localStorage.getItem("id_alumno");
-      const response = await fetch(`${API_URL}/cursos/${idCurso}/detalles`);
+      const response = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/detalles`);
       const data = await response.json();
       
       // Buscar las calificaciones del alumno actual
@@ -2695,7 +2695,7 @@
       // Obtener datos del pago actual (id_curso y mes_cuota)
       const datosPago = window.datosPagoActual || {};
       
-      const response = await fetch(`${API_URL}/pagos/realizar`, {
+      const response = await fetchWithAuth(`${API_URL}/pagos/realizar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -3389,7 +3389,7 @@ async function generarComprobantePago(idPago) {
     };
     
     // Obtener datos del pago
-    const response = await fetch(`${API_URL}/pagos/${idPago}`);
+    const response = await fetchWithAuth(`${API_URL}/pagos/${idPago}`);
     const pago = await response.json();
     
     if (!pago || !pago.id_pago) {

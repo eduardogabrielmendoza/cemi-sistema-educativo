@@ -137,7 +137,7 @@
   async cargarAvatarDesdeServidor() {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/auth/usuario/${this.adminInfo.id_usuario}`);
+      const response = await fetchWithAuth(`${API_URL}/auth/usuario/${this.adminInfo.id_usuario}`);
       
       if (response.ok) {
         const data = await response.json();
@@ -311,7 +311,7 @@
   async loadConversations() {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversaciones`);
+      const response = await fetchWithAuth(`${API_URL}/chat/conversaciones`);
       const result = await response.json();
       
       if (result.success) {
@@ -433,7 +433,7 @@
   async loadMessages(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversacion/${id}`);
+      const response = await fetchWithAuth(`${API_URL}/chat/conversacion/${id}`);
       const result = await response.json();
       
       if (result.success) {
@@ -744,7 +744,7 @@
       formData.append('nombre_remitente', this.adminInfo.nombre);
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/upload`, {
+      const response = await fetchWithAuth(`${API_URL}/chat/upload`, {
         method: 'POST',
         body: formData
       });
@@ -797,7 +797,7 @@
   async markAsRead(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      await fetch(`${API_URL}/chat/conversacion/${id}/leer`, {
+      await fetchWithAuth(`${API_URL}/chat/conversacion/${id}/leer`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tipo_lector: 'admin' })
@@ -848,7 +848,7 @@
       const idUsuario = this.activeConversation.id_usuario;
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversacion/${idConversacion}`, {
+      const response = await fetchWithAuth(`${API_URL}/chat/conversacion/${idConversacion}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

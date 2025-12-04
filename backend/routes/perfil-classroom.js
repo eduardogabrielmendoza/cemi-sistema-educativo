@@ -5,6 +5,7 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from 'url';
 import cloudinary from '../config/cloudinary.js';
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -49,7 +50,7 @@ const upload = multer({
 });
 
 
-router.get("/perfil/:userId", async (req, res) => {
+router.get("/perfil/:userId", verificarToken, async (req, res) => {
   const { userId } = req.params;
   const { tipo } = req.query; // Obtener tipo de la query string
   console.log(` [GET /perfil/:userId] Buscando perfil para userId: ${userId}, tipo: ${tipo || 'no especificado'}`);
@@ -228,7 +229,7 @@ router.get("/perfil/:userId", async (req, res) => {
 });
 
 
-router.put("/perfil/:userId", async (req, res) => {
+router.put("/perfil/:userId", verificarToken, async (req, res) => {
   const { userId } = req.params;
   const { nombre, apellido, email, telefono, fecha_nacimiento, direccion, biografia } = req.body;
   
@@ -373,7 +374,7 @@ router.put("/perfil/:userId", async (req, res) => {
 });
 
 
-router.post("/perfil/:userId/avatar", (req, res) => {
+router.post("/perfil/:userId/avatar", verificarToken, (req, res) => {
   console.log(` [POST /perfil/:userId/avatar] Subiendo avatar para userId: ${req.params.userId}`);
   
   if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {

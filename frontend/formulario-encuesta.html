@@ -1365,6 +1365,21 @@
       ? 'http://localhost:3000/api'
       : '/api';
 
+    // Función para obtener token de autenticación
+    function getAuthToken() {
+      return localStorage.getItem('authToken');
+    }
+
+    // Fetch con autenticación
+    async function fetchWithAuthLocal(url, options = {}) {
+      const token = getAuthToken();
+      const headers = {
+        ...options.headers,
+        'Authorization': token ? `Bearer ${token}` : ''
+      };
+      return fetch(url, { ...options, headers });
+    }
+
     function updateProgress() {
       const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
       document.getElementById('progressBar').style.width = progress + '%';
@@ -1524,7 +1539,7 @@
       try {
         const formData = collectFormData();
         
-        const response = await fetch(`${API_URL}/investigacion/encuesta`, {
+        const response = await fetchWithAuthLocal(`${API_URL}/investigacion/encuesta`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -53,8 +53,10 @@ async function handleLogin(e) {
         localStorage.setItem("id_usuario", data.id_usuario);
         localStorage.setItem("nombre", data.nombre);
         localStorage.setItem("username", data.username);
+        if (data.token) localStorage.setItem("token", data.token);
         if (data.id_profesor) localStorage.setItem("id_profesor", data.id_profesor);
         if (data.id_alumno) localStorage.setItem("id_alumno", data.id_alumno);
+        if (data.id_administrador) localStorage.setItem("id_administrador", data.id_administrador);
         
       message.style.color = "green";
       message.textContent = "Inicio de sesión exitoso";
@@ -217,7 +219,7 @@ function initAdminSPA() {
       }
 
       if (endpoint) {
-        const res = await fetch(endpoint);
+        const res = await fetchWithAuth(endpoint);
         const data = await res.json();
 
         if (section === 'pagos') {
@@ -2643,7 +2645,7 @@ async function initStatusInteractivity() {
 
 async function loadStatusData() {
   try {
-    const response = await fetch('/api/status');
+    const response = await fetchWithAuth('/api/status');
     if (response.ok) {
       currentStatusData = await response.json();
       renderStatusUI();
@@ -2848,7 +2850,7 @@ async function submitIncident() {
   }
   
   try {
-    const response = await fetch('/api/status/incident', {
+    const response = await fetchWithAuth('/api/status/incident', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -2892,7 +2894,7 @@ async function resolveIncident(id) {
   if (!result.isConfirmed) return;
   
   try {
-    const response = await fetch(`/api/status/incident/${id}`, {
+    const response = await fetchWithAuth(`/api/status/incident/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ resolve: true })
@@ -2927,7 +2929,7 @@ async function deleteIncident(id) {
   if (!result.isConfirmed) return;
   
   try {
-    const response = await fetch(`/api/status/incident/${id}`, { method: 'DELETE' });
+    const response = await fetchWithAuth(`/api/status/incident/${id}`, { method: 'DELETE' });
     
     if (response.ok) {
       await loadStatusData();
@@ -2958,7 +2960,7 @@ function openUpdateModal(id) {
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`/api/status/incident/${id}`, {
+        const response = await fetchWithAuth(`/api/status/incident/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ update_message: result.value })
@@ -3556,9 +3558,9 @@ case "pagos":
 async function generateDashboardHome() {
   try {
     const [statsRes, registrosRes, pagosRes] = await Promise.all([
-      fetch(`${API_URL}/stats/general`),
-      fetch(`${API_URL}/stats/ultimos-registros`),
-      fetch(`${API_URL}/stats/ultimos-pagos`)
+      fetchWithAuth(`${API_URL}/stats/general`),
+      fetchWithAuth(`${API_URL}/stats/ultimos-registros`),
+      fetchWithAuth(`${API_URL}/stats/ultimos-pagos`)
     ]);
 
     const stats = await statsRes.json();
@@ -3781,7 +3783,7 @@ async function cargarAlumnosInscritos(idCurso) {
   container.innerHTML = '<p style="text-align:center;padding:20px;">Cargando...</p>';
 
   try {
-    const res = await fetch(`${API_URL}/inscripciones/curso/${idCurso}`);
+    const res = await fetchWithAuth(`${API_URL}/inscripciones/curso/${idCurso}`);
     const inscritos = await res.json();
 
     document.getElementById('badgeInscritos').textContent = inscritos.length;
@@ -3832,8 +3834,8 @@ async function cargarAlumnosDisponibles(idCurso) {
 
   try {
     const [resAlumnos, resInscritos] = await Promise.all([
-      fetch(`${API_URL}/alumnos`),
-      fetch(`${API_URL}/inscripciones/curso/${idCurso}`)
+      fetchWithAuth(`${API_URL}/alumnos`),
+      fetchWithAuth(`${API_URL}/inscripciones/curso/${idCurso}`)
     ]);
 
     const todosAlumnos = await resAlumnos.json();
@@ -3894,7 +3896,7 @@ async function cargarAlumnosDisponibles(idCurso) {
       }
 
       try {
-        const resp = await fetch(`${API_URL}/inscripciones`, {
+        const resp = await fetchWithAuth(`${API_URL}/inscripciones`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id_curso: idCurso, alumnos: seleccionados })
@@ -3940,7 +3942,7 @@ async function darDeBajaAlumno(idCurso, idAlumno, nombreAlumno) {
   if (!confirm(`¿Estás seguro de dar de baja a ${nombreAlumno}?`)) return;
 
   try {
-    const resp = await fetch(`${API_URL}/inscripciones/${idCurso}/${idAlumno}`, {
+    const resp = await fetchWithAuth(`${API_URL}/inscripciones/${idCurso}/${idAlumno}`, {
       method: 'DELETE'
     });
 
@@ -4035,8 +4037,8 @@ async function openCursoPanel(idCurso) {
 
   try {
     const [resCurso, resInscritos] = await Promise.all([
-      fetch(`${API_URL}/cursos/${idCurso}`),
-      fetch(`${API_URL}/inscripciones/curso/${idCurso}`)
+      fetchWithAuth(`${API_URL}/cursos/${idCurso}`),
+      fetchWithAuth(`${API_URL}/inscripciones/curso/${idCurso}`)
     ]);
 
     const curso = await resCurso.json();
@@ -4201,12 +4203,12 @@ async function openEditarCursoModal(curso) {
   const modal = document.getElementById('modalEditarCurso');
 
   try {
-    const resCursoCompleto = await fetch(`${API_URL}/cursos/${curso.id_curso}`);
+    const resCursoCompleto = await fetchWithAuth(`${API_URL}/cursos/${curso.id_curso}`);
     const cursoCompleto = await resCursoCompleto.json();
 
     const [resIdiomas, resProfesores] = await Promise.all([
-      fetch(`${API_URL}/idiomas`),
-      fetch(`${API_URL}/profesores`)
+      fetchWithAuth(`${API_URL}/idiomas`),
+      fetchWithAuth(`${API_URL}/profesores`)
     ]);
 
     const idiomas = await resIdiomas.json();
@@ -4258,7 +4260,7 @@ async function openEditarCursoModal(curso) {
       };
 
       try {
-        const resp = await fetch(`${API_URL}/cursos/${curso.id_curso}`, {
+        const resp = await fetchWithAuth(`${API_URL}/cursos/${curso.id_curso}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(datosActualizados)
@@ -4306,7 +4308,7 @@ async function initProfesorDashboard() {
     btnCursos: async () => {
       loader.classList.remove("hidden");
       try {
-        const res = await fetch(`${API_URL}/cursos?id_profesor=${idProfesor}`);
+        const res = await fetchWithAuth(`${API_URL}/cursos?id_profesor=${idProfesor}`);
         const data = await res.json();
         loader.classList.add("hidden");
 
@@ -4343,7 +4345,7 @@ async function initProfesorDashboard() {
       loader.classList.remove("hidden");
       mainContent.classList.remove("active");
       try {
-        const resCursos = await fetch(`${API_URL}/cursos?id_profesor=${idProfesor}`);
+        const resCursos = await fetchWithAuth(`${API_URL}/cursos?id_profesor=${idProfesor}`);
         const cursos = await resCursos.json();
         
         mainContent.innerHTML = `
@@ -4392,7 +4394,7 @@ async function initProfesorDashboard() {
           }
 
           try {
-            const res = await fetch(`${API_URL}/calificaciones/curso/${cursoId}`);
+            const res = await fetchWithAuth(`${API_URL}/calificaciones/curso/${cursoId}`);
             const alumnos = await res.json();
             
             document.getElementById('calificacionesBody').innerHTML = alumnos.map(alumno => `
@@ -4480,7 +4482,7 @@ async function verMisInscripciones() {
   const table = document.getElementById("tablaMisInscripciones");
   table.innerHTML = "<tr><td>Cargando inscripciones...</td></tr>";
   try {
-    const res = await fetch(`${API_URL}/inscripciones`);
+    const res = await fetchWithAuth(`${API_URL}/inscripciones`);
     const data = await res.json();
     table.innerHTML = `
       <tr><th>ID</th><th>Curso</th><th>Fecha</th><th>Estado</th></tr>
@@ -4502,7 +4504,7 @@ async function verMisPagos() {
   const table = document.getElementById("tablaMisPagos");
   table.innerHTML = "<tr><td>Cargando pagos...</td></tr>";
   try {
-    const res = await fetch(`${API_URL}/pagos`);
+    const res = await fetchWithAuth(`${API_URL}/pagos`);
     const data = await res.json();
     const nombreAlumno = localStorage.getItem("nombre");
     const propios = data.filter(p => p.alumno?.includes(nombreAlumno));
@@ -4591,7 +4593,7 @@ async function openAlumnoPanel(idAlumno) {
   overlay.classList.add('active');
 
   try {
-    const resAlumno = await fetch(`${API_URL}/alumnos/${idAlumno}`);
+    const resAlumno = await fetchWithAuth(`${API_URL}/alumnos/${idAlumno}`);
     const alumno = await resAlumno.json();
 
     const iniciales = `${alumno.nombre.charAt(0)}${alumno.apellido.charAt(0)}`.toUpperCase();
@@ -4810,7 +4812,7 @@ async function openProfesorPanel(idProfesor) {
   overlay.classList.add('active');
 
   try {
-    const resProfesor = await fetch(`${API_URL}/profesores/${idProfesor}`);
+    const resProfesor = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resProfesor.json();
 
     const iniciales = `${profesor.nombre.charAt(0)}${profesor.apellido.charAt(0)}`.toUpperCase();
@@ -5045,7 +5047,7 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
   let selectedIdiomas = new Set(selectedIds);
   
   try {
-    const resp = await fetch(`${API_URL}/idiomas`);
+    const resp = await fetchWithAuth(`${API_URL}/idiomas`);
     const idiomas = await resp.json();
     
     console.log(' Idiomas cargados:', idiomas.length);
@@ -5272,7 +5274,7 @@ function ensureEditarProfesorModal() {
     }
 
     try {
-      const resp = await fetch(`${API_URL}/profesores/${idProfesor}`, {
+      const resp = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -5307,7 +5309,7 @@ async function openEditarProfesorModal(idProfesor) {
   const modal = document.getElementById('modalEditarProfesor');
 
   try {
-    const resp = await fetch(`${API_URL}/profesores/${idProfesor}`);
+    const resp = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resp.json();
     
     console.log('Datos del profesor:', profesor);
@@ -5337,14 +5339,14 @@ async function openEditarProfesorModal(idProfesor) {
 
 async function abrirModalCredencialesProfesor(idProfesor) {
   try {
-    const resp = await fetch(`${API_URL}/profesores/${idProfesor}`);
+    const resp = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resp.json();
     
     let usuarioActual = '';
     let passwordActual = '';
     let tienePassword = false;
     try {
-      const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${profesor.id_persona}`);
+      const respUsuario = await fetchWithAuth(`${API_URL}/auth/usuario-classroom/${profesor.id_persona}`);
       if (respUsuario.ok) {
         const usuario = await respUsuario.json();
         usuarioActual = usuario.username || '';
@@ -5481,7 +5483,7 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           bodyData.password = password;
         }
         
-        const response = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
+        const response = await fetchWithAuth(`${API_URL}/auth/admin-cambiar-password-classroom`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(bodyData)
@@ -5528,7 +5530,7 @@ async function cambiarEstadoProfesor(idProfesor, estadoActual) {
   if (!confirmed) return;
 
   try {
-    const resp = await fetch(`${API_URL}/profesores/${idProfesor}/estado`, {
+    const resp = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}/estado`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ estado: cambio.siguiente })
@@ -5595,7 +5597,7 @@ async function cambiarPasswordProfesorDashboard(idProfesor) {
   if (!formValues) return;
 
   try {
-    const resp = await fetch(`${API_URL}/profesores/${idProfesor}/cambiar-password-dashboard`, {
+    const resp = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}/cambiar-password-dashboard`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: formValues.password })
@@ -5617,7 +5619,7 @@ async function cambiarPasswordProfesorDashboard(idProfesor) {
 async function cambiarPasswordProfesorClassroom(idProfesor) {
   let idPersona;
   try {
-    const resp = await fetch(`${API_URL}/profesores/${idProfesor}`);
+    const resp = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}`);
     const profesor = await resp.json();
     idPersona = profesor.id_persona;
   } catch (error) {
@@ -5666,7 +5668,7 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
   if (!formValues) return;
 
   try {
-    const resp = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
+    const resp = await fetchWithAuth(`${API_URL}/auth/admin-cambiar-password-classroom`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
@@ -5699,7 +5701,7 @@ async function darDeBajaProfesor(idProfesor, nombre) {
   if (!confirmed) return;
 
   try {
-    const resp = await fetch(`${API_URL}/profesores/${idProfesor}/estado`, {
+    const resp = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}/estado`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ estado: 'inactivo' })
@@ -5775,7 +5777,7 @@ let pagosStats = {};
 async function loadPagosData(queryParams = '') {
   try {
     console.log('Cargando datos de pagos con query:', queryParams);
-    const resp = await fetch(`${API_URL}/pagos${queryParams}`);
+    const resp = await fetchWithAuth(`${API_URL}/pagos${queryParams}`);
     console.log('Response status:', resp.status);
     
     const data = await resp.json();
@@ -6041,8 +6043,8 @@ async function openPagoPanel(idAlumno) {
 
   try {
     const [alumnoResp, pagosResp] = await Promise.all([
-      fetch(`${API_URL}/alumnos/${idAlumno}`),
-      fetch(`${API_URL}/pagos/alumno/${idAlumno}/historial`)
+      fetchWithAuth(`${API_URL}/alumnos/${idAlumno}`),
+      fetchWithAuth(`${API_URL}/pagos/alumno/${idAlumno}/historial`)
     ]);
     
     const alumno = await alumnoResp.json();
@@ -6144,7 +6146,7 @@ async function confirmarPago(idPago, nombreAlumno, concepto) {
   if (!confirmed) return;
 
   try {
-    const resp = await fetch(`${API_URL}/pagos/${idPago}/confirmar`, {
+    const resp = await fetchWithAuth(`${API_URL}/pagos/${idPago}/confirmar`, {
       method: 'PUT'
     });
 
@@ -6173,7 +6175,7 @@ async function anularPago(idPago, nombreAlumno, concepto) {
   if (!confirmed) return;
 
   try {
-    const resp = await fetch(`${API_URL}/pagos/${idPago}/anular`, {
+    const resp = await fetchWithAuth(`${API_URL}/pagos/${idPago}/anular`, {
       method: 'PUT'
     });
 
@@ -6202,7 +6204,7 @@ async function archivarPago(idPago, nombreAlumno, concepto) {
   if (!confirmed) return;
 
   try {
-    const resp = await fetch(`${API_URL}/pagos/${idPago}/archivar`, {
+    const resp = await fetchWithAuth(`${API_URL}/pagos/${idPago}/archivar`, {
       method: 'PUT'
     });
 
@@ -6231,7 +6233,7 @@ async function desarchivarPago(idPago, nombreAlumno, concepto) {
   if (!confirmed) return;
 
   try {
-    const resp = await fetch(`${API_URL}/pagos/${idPago}/desarchivar`, {
+    const resp = await fetchWithAuth(`${API_URL}/pagos/${idPago}/desarchivar`, {
       method: 'PUT'
     });
 
@@ -6285,7 +6287,7 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
 
   try {
     console.log('Eliminando pago ID:', idPago);
-    const resp = await fetch(`${API_URL}/pagos/${idPago}`, {
+    const resp = await fetchWithAuth(`${API_URL}/pagos/${idPago}`, {
       method: 'DELETE'
     });
 
@@ -6309,7 +6311,7 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
 
 async function openRegistrarPagoModal() {
   try {
-    const responseInscripciones = await fetch(`${API_URL}/inscripciones`);
+    const responseInscripciones = await fetchWithAuth(`${API_URL}/inscripciones`);
     const todasInscripciones = await responseInscripciones.json();
     
     if (!todasInscripciones || todasInscripciones.length === 0) {
@@ -6429,7 +6431,7 @@ async function openRegistrarPagoModal() {
             cursoSelect.innerHTML = '<option value="">Cargando cursos...</option>';
             cursoSelect.disabled = true;
 
-            const response = await fetch(`${API_URL}/inscripciones/alumno/${idAlumno}`);
+            const response = await fetchWithAuth(`${API_URL}/inscripciones/alumno/${idAlumno}`);
             const inscripciones = await response.json();
 
             if (!inscripciones || inscripciones.length === 0) {
@@ -6446,7 +6448,7 @@ async function openRegistrarPagoModal() {
               return;
             }
 
-            const responsePagos = await fetch(`${API_URL}/pagos/alumno/${idAlumno}`);
+            const responsePagos = await fetchWithAuth(`${API_URL}/pagos/alumno/${idAlumno}`);
             const datosPagos = await responsePagos.json();
 
             pagosPorCurso = {};
@@ -6489,7 +6491,7 @@ async function openRegistrarPagoModal() {
 
           let cuotasHabilitadas = [];
           try {
-            const respCuotas = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`);
+            const respCuotas = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/cuotas`);
             const dataCuotas = await respCuotas.json();
             cuotasHabilitadas = dataCuotas.cuotasHabilitadas || [];
             console.log(`Cuotas habilitadas para curso ${idCurso}:`, cuotasHabilitadas);
@@ -6606,7 +6608,7 @@ async function openRegistrarPagoModal() {
           allowOutsideClick: false
         });
 
-        const response = await fetch(`${API_URL}/pagos/realizar`, {
+        const response = await fetchWithAuth(`${API_URL}/pagos/realizar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formValues)
@@ -6693,7 +6695,7 @@ async function openNuevaAulaModal() {
 
   if (formValues) {
     try {
-      const res = await fetch(`${API_URL}/aulas`, {
+      const res = await fetchWithAuth(`${API_URL}/aulas`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -6755,7 +6757,7 @@ async function editarAula(id, nombre, capacidad) {
 
   if (formValues) {
     try {
-      const res = await fetch(`${API_URL}/aulas/${id}`, {
+      const res = await fetchWithAuth(`${API_URL}/aulas/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -6793,7 +6795,7 @@ async function eliminarAula(id, nombre) {
 
   if (result.isConfirmed) {
     try {
-      const res = await fetch(`${API_URL}/aulas/${id}`, { method: 'DELETE' });
+      const res = await fetchWithAuth(`${API_URL}/aulas/${id}`, { method: 'DELETE' });
       const data = await res.json();
       
       if (res.ok && data.success) {
@@ -6828,7 +6830,7 @@ async function openNuevoIdiomaModal() {
 
   if (nombre) {
     try {
-      const res = await fetch(`${API_URL}/idiomas`, {
+      const res = await fetchWithAuth(`${API_URL}/idiomas`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre_idioma: nombre })
@@ -6868,7 +6870,7 @@ async function editarIdioma(id, nombreActual) {
 
   if (nombre) {
     try {
-      const res = await fetch(`${API_URL}/idiomas/${id}`, {
+      const res = await fetchWithAuth(`${API_URL}/idiomas/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre_idioma: nombre })
@@ -6903,7 +6905,7 @@ async function eliminarIdioma(id, nombre) {
 
   if (result.isConfirmed) {
     try {
-      const res = await fetch(`${API_URL}/idiomas/${id}`, { method: 'DELETE' });
+      const res = await fetchWithAuth(`${API_URL}/idiomas/${id}`, { method: 'DELETE' });
       const data = await res.json();
       
       if (res.ok && data.success) {
@@ -6922,8 +6924,8 @@ async function eliminarIdioma(id, nombre) {
 async function openNuevaInscripcionModal() {
   try {
     const [alumnosRes, cursosRes] = await Promise.all([
-      fetch(`${API_URL}/alumnos`),
-      fetch(`${API_URL}/cursos`)
+      fetchWithAuth(`${API_URL}/alumnos`),
+      fetchWithAuth(`${API_URL}/cursos`)
     ]);
     
     const alumnos = await alumnosRes.json();
@@ -6971,7 +6973,7 @@ async function openNuevaInscripcionModal() {
     });
 
     if (formValues) {
-      const res = await fetch(`${API_URL}/inscripciones`, {
+      const res = await fetchWithAuth(`${API_URL}/inscripciones`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -7006,7 +7008,7 @@ async function eliminarInscripcion(id, alumno, curso) {
 
   if (result.isConfirmed) {
     try {
-      const res = await fetch(`${API_URL}/inscripciones/${id}`, { method: 'DELETE' });
+      const res = await fetchWithAuth(`${API_URL}/inscripciones/${id}`, { method: 'DELETE' });
       const data = await res.json();
       
       if (res.ok && data.success) {
@@ -7097,7 +7099,7 @@ async function openNuevoAlumnoModal() {
 
   if (formValues) {
     try {
-      const res = await fetch(`${API_URL}/alumnos`, {
+      const res = await fetchWithAuth(`${API_URL}/alumnos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -7188,7 +7190,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
 
   if (credenciales) {
     try {
-      const res = await fetch(`${API_URL}/alumnos/${idAlumno}/credenciales`, {
+      const res = await fetchWithAuth(`${API_URL}/alumnos/${idAlumno}/credenciales`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credenciales)
@@ -7225,7 +7227,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
 
 async function editarAlumno(id) {
   try {
-    const res = await fetch(`${API_URL}/alumnos/${id}`);
+    const res = await fetchWithAuth(`${API_URL}/alumnos/${id}`);
     const alumno = await res.json();
     
     const { value: formValues, isDenied } = await Swal.fire({
@@ -7302,7 +7304,7 @@ async function editarAlumno(id) {
     }
 
     if (formValues) {
-      const updateRes = await fetch(`${API_URL}/alumnos/${id}`, {
+      const updateRes = await fetchWithAuth(`${API_URL}/alumnos/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -7325,14 +7327,14 @@ async function editarAlumno(id) {
 
 async function abrirModalCredencialesAlumno(idAlumno) {
   try {
-    const resp = await fetch(`${API_URL}/alumnos/${idAlumno}`);
+    const resp = await fetchWithAuth(`${API_URL}/alumnos/${idAlumno}`);
     const alumno = await resp.json();
     
     let usuarioActual = '';
     let passwordActual = '';
     let tienePassword = false;
     try {
-      const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${alumno.id_persona}`);
+      const respUsuario = await fetchWithAuth(`${API_URL}/auth/usuario-classroom/${alumno.id_persona}`);
       if (respUsuario.ok) {
         const usuario = await respUsuario.json();
         usuarioActual = usuario.username || '';
@@ -7469,7 +7471,7 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           bodyData.password = password;
         }
         
-        const response = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
+        const response = await fetchWithAuth(`${API_URL}/auth/admin-cambiar-password-classroom`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(bodyData)
@@ -7512,7 +7514,7 @@ async function eliminarAlumno(id, nombre) {
 
   if (result.isConfirmed) {
     try {
-      const res = await fetch(`${API_URL}/alumnos/${id}`, { method: 'DELETE' });
+      const res = await fetchWithAuth(`${API_URL}/alumnos/${id}`, { method: 'DELETE' });
       const data = await res.json();
       
       if (res.ok && data.success) {
@@ -7575,7 +7577,7 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
 
   if (formValues) {
     try {
-      const res = await fetch(`${API_URL}/alumnos/${idAlumno}/cambiar-password-dashboard`, {
+      const res = await fetchWithAuth(`${API_URL}/alumnos/${idAlumno}/cambiar-password-dashboard`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -7642,10 +7644,10 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
 
   if (formValues) {
     try {
-      const alumnoRes = await fetch(`${API_URL}/alumnos/${idAlumno}`);
+      const alumnoRes = await fetchWithAuth(`${API_URL}/alumnos/${idAlumno}`);
       const alumno = await alumnoRes.json();
       
-      const res = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
+      const res = await fetchWithAuth(`${API_URL}/auth/admin-cambiar-password-classroom`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -7713,7 +7715,7 @@ async function openNuevoProfesorModal() {
     confirmButtonColor: '#4a5259',
     didOpen: async () => {
       try {
-        const resp = await fetch(`${API_URL}/idiomas`);
+        const resp = await fetchWithAuth(`${API_URL}/idiomas`);
         const idiomas = await resp.json();
         
         const container = document.getElementById('idiomasContainerNuevo');
@@ -7773,7 +7775,7 @@ async function openNuevoProfesorModal() {
   if (formValues) {
     try {
       console.log('Enviando datos de profesor:', formValues);
-      const res = await fetch(`${API_URL}/profesores`, {
+      const res = await fetchWithAuth(`${API_URL}/profesores`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -7867,7 +7869,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
 
   if (credenciales) {
     try {
-      const res = await fetch(`${API_URL}/profesores/${idProfesor}/credenciales`, {
+      const res = await fetchWithAuth(`${API_URL}/profesores/${idProfesor}/credenciales`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credenciales)
@@ -7903,10 +7905,10 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
 
 async function editarProfesor(id) {
   try {
-    const res = await fetch(`${API_URL}/profesores/${id}`);
+    const res = await fetchWithAuth(`${API_URL}/profesores/${id}`);
     const profesor = await res.json();
     
-    const idiomasRes = await fetch(`${API_URL}/idiomas`);
+    const idiomasRes = await fetchWithAuth(`${API_URL}/idiomas`);
     const idiomas = await idiomasRes.json();
     
     const { value: formValues, isDenied } = await Swal.fire({
@@ -7999,7 +8001,7 @@ async function editarProfesor(id) {
     }
 
     if (formValues) {
-      const updateRes = await fetch(`${API_URL}/profesores/${id}`, {
+      const updateRes = await fetchWithAuth(`${API_URL}/profesores/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -8036,7 +8038,7 @@ async function eliminarProfesor(id, nombre) {
   if (result.isConfirmed) {
     try {
       console.log('Eliminando profesor ID:', id);
-      const res = await fetch(`${API_URL}/profesores/${id}`, { method: 'DELETE' });
+      const res = await fetchWithAuth(`${API_URL}/profesores/${id}`, { method: 'DELETE' });
       console.log('Respuesta del servidor:', res.status, res.statusText);
       const data = await res.json();
       console.log('Datos recibidos:', data);
@@ -8149,7 +8151,7 @@ async function openNuevoAdministradorModal() {
 
   if (formValues) {
     try {
-      const res = await fetch(`${API_URL}/administradores`, {
+      const res = await fetchWithAuth(`${API_URL}/administradores`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -8185,7 +8187,7 @@ async function openNuevoAdministradorModal() {
 
 async function editarAdministrador(id) {
   try {
-    const res = await fetch(`${API_URL}/administradores/${id}`);
+    const res = await fetchWithAuth(`${API_URL}/administradores/${id}`);
     const admin = await res.json();
 
     const { value: formValues, isDenied } = await Swal.fire({
@@ -8251,7 +8253,7 @@ async function editarAdministrador(id) {
     }
 
     if (formValues) {
-      const updateRes = await fetch(`${API_URL}/administradores/${id}`, {
+      const updateRes = await fetchWithAuth(`${API_URL}/administradores/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -8274,13 +8276,13 @@ async function editarAdministrador(id) {
 
 async function abrirModalCredencialesAdministrador(idAdmin) {
   try {
-    const response = await fetch(`${API_URL}/administradores/${idAdmin}`);
+    const response = await fetchWithAuth(`${API_URL}/administradores/${idAdmin}`);
     if (!response.ok) throw new Error('Error al cargar datos del administrador');
     const admin = await response.json();
 
     let passwordActual = '';
     try {
-      const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${admin.id_persona}`);
+      const respUsuario = await fetchWithAuth(`${API_URL}/auth/usuario-classroom/${admin.id_persona}`);
       if (respUsuario.ok) {
         const usuario = await respUsuario.json();
         passwordActual = usuario.password_plain || '';
@@ -8417,7 +8419,7 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
       const { usuarioDashboard, passwordDashboard, enviarEmail } = formValues;
 
       try {
-        const responseUsuario = await fetch(`${API_URL}/administradores/${idAdmin}/usuario`, {
+        const responseUsuario = await fetchWithAuth(`${API_URL}/administradores/${idAdmin}/usuario`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ usuario: usuarioDashboard })
@@ -8437,7 +8439,7 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
 
       if (passwordDashboard && passwordDashboard.length > 0) {
         try {
-          const responsePassword = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
+          const responsePassword = await fetchWithAuth(`${API_URL}/auth/admin-cambiar-password-classroom`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -8508,7 +8510,7 @@ async function cambiarPasswordAdministrador(id, nombre) {
 
   if (password) {
     try {
-      const res = await fetch(`${API_URL}/administradores/${id}/password`, {
+      const res = await fetchWithAuth(`${API_URL}/administradores/${id}/password`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })
@@ -8554,7 +8556,7 @@ async function eliminarAdministrador(id, nombre) {
 
   if (result.isConfirmed) {
     try {
-      const res = await fetch(`${API_URL}/administradores/${id}`, { method: 'DELETE' });
+      const res = await fetchWithAuth(`${API_URL}/administradores/${id}`, { method: 'DELETE' });
       const data = await res.json();
       
       if (res.ok && data.success) {
@@ -8573,10 +8575,10 @@ async function eliminarAdministrador(id, nombre) {
 async function openNuevoCursoModal() {
   try {
     const [idiomasRes, nivelesRes, profesoresRes, aulasRes] = await Promise.all([
-      fetch(`${API_URL}/idiomas`),
-      fetch(`${API_URL}/niveles`),
-      fetch(`${API_URL}/profesores`),
-      fetch(`${API_URL}/aulas`)
+      fetchWithAuth(`${API_URL}/idiomas`),
+      fetchWithAuth(`${API_URL}/niveles`),
+      fetchWithAuth(`${API_URL}/profesores`),
+      fetchWithAuth(`${API_URL}/aulas`)
     ]);
 
     const idiomas = await idiomasRes.json();
@@ -8662,7 +8664,7 @@ async function openNuevoCursoModal() {
     });
 
     if (formValues) {
-      const res = await fetch(`${API_URL}/cursos`, {
+      const res = await fetchWithAuth(`${API_URL}/cursos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -8686,11 +8688,11 @@ async function openNuevoCursoModal() {
 async function editarCurso(id) {
   try {
     const [cursoRes, idiomasRes, nivelesRes, profesoresRes, aulasRes] = await Promise.all([
-      fetch(`${API_URL}/cursos/${id}`),
-      fetch(`${API_URL}/idiomas`),
-      fetch(`${API_URL}/niveles`),
-      fetch(`${API_URL}/profesores`),
-      fetch(`${API_URL}/aulas`)
+      fetchWithAuth(`${API_URL}/cursos/${id}`),
+      fetchWithAuth(`${API_URL}/idiomas`),
+      fetchWithAuth(`${API_URL}/niveles`),
+      fetchWithAuth(`${API_URL}/profesores`),
+      fetchWithAuth(`${API_URL}/aulas`)
     ]);
 
     const curso = await cursoRes.json();
@@ -8767,7 +8769,7 @@ async function editarCurso(id) {
     });
 
     if (formValues) {
-      const updateRes = await fetch(`${API_URL}/cursos/${id}`, {
+      const updateRes = await fetchWithAuth(`${API_URL}/cursos/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formValues)
@@ -8803,7 +8805,7 @@ async function eliminarCurso(id, nombre) {
 
   if (result.isConfirmed) {
     try {
-      const res = await fetch(`${API_URL}/cursos/${id}`, { method: 'DELETE' });
+      const res = await fetchWithAuth(`${API_URL}/cursos/${id}`, { method: 'DELETE' });
       const data = await res.json();
       
       if (res.ok && data.success) {
@@ -8821,7 +8823,7 @@ async function eliminarCurso(id, nombre) {
 
 async function asignarProfesorACurso(idCurso, nombreCurso) {
   try {
-    const res = await fetch(`${API_URL}/profesores`);
+    const res = await fetchWithAuth(`${API_URL}/profesores`);
     const profesores = await res.json();
     
     if (!profesores || profesores.length === 0) {
@@ -8867,7 +8869,7 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
     });
 
     if (idProfesor) {
-      const updateRes = await fetch(`${API_URL}/cursos/${idCurso}/profesor`, {
+      const updateRes = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/profesor`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id_profesor: idProfesor })
@@ -9106,7 +9108,7 @@ async function loadCuotasGestion() {
   if (typeof lucide !== 'undefined') lucide.createIcons();
 
   try {
-    const response = await fetch(`${API_URL}/cursos`);
+    const response = await fetchWithAuth(`${API_URL}/cursos`);
     const cursos = await response.json();
 
     const listaCursos = document.getElementById('cursosListaCuotas');
@@ -9160,7 +9162,7 @@ async function loadCuotasGestion() {
 
     cursos.forEach(async (curso) => {
       try {
-        const resC = await fetch(`${API_URL}/cursos/${curso.id_curso}/cuotas`);
+        const resC = await fetchWithAuth(`${API_URL}/cursos/${curso.id_curso}/cuotas`);
         const dataCuotas = await resC.json();
         const preview = document.getElementById(`cuotasPreview_${curso.id_curso}`);
         
@@ -9209,7 +9211,7 @@ async function loadCuotasGestion() {
 
 async function gestionarCuotasCurso(idCurso, nombreCurso) {
   try {
-    const passwordResponse = await fetch(`${API_URL}/config/cobranzas-password`);
+    const passwordResponse = await fetchWithAuth(`${API_URL}/config/cobranzas-password`);
     const passwordData = await passwordResponse.json();
     const claveCorrecta = passwordData.password || 'tesoreria';
 
@@ -9301,7 +9303,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
       return;
     }
 
-    const response = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`);
+    const response = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/cuotas`);
     const data = await response.json();
 
     const todasLasCuotas = ['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'];
@@ -9347,7 +9349,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
     if (result.isConfirmed) {
       const cuotasSeleccionadas = result.value || [];
 
-      const saveResponse = await fetch(`${API_URL}/cursos/${idCurso}/cuotas`, {
+      const saveResponse = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/cuotas`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cuotas: cuotasSeleccionadas })
@@ -9429,7 +9431,7 @@ async function liberarCuotasTodasLosCursos() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/cursos/cuotas/todos`, {
+      const response = await fetchWithAuth(`${API_URL}/cursos/cuotas/todos`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cuotas: cuotasSeleccionadas })
@@ -9493,10 +9495,10 @@ async function descargarPDFAlumnos() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    const responseAlumnos = await fetch(`${API_URL}/alumnos`);
+    const responseAlumnos = await fetchWithAuth(`${API_URL}/alumnos`);
     const alumnos = await responseAlumnos.json();
     
-    const responseInscripciones = await fetch(`${API_URL}/inscripciones`);
+    const responseInscripciones = await fetchWithAuth(`${API_URL}/inscripciones`);
     const inscripciones = await responseInscripciones.json();
     
     const inscripcionesPorAlumno = {};
@@ -9596,10 +9598,10 @@ async function descargarPDFProfesores() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    const responseProfesores = await fetch(`${API_URL}/profesores`);
+    const responseProfesores = await fetchWithAuth(`${API_URL}/profesores`);
     const profesores = await responseProfesores.json();
     
-    const responseCursos = await fetch(`${API_URL}/cursos`);
+    const responseCursos = await fetchWithAuth(`${API_URL}/cursos`);
     const cursos = await responseCursos.json();
     
     const cursosPorProfesor = {};
@@ -9697,7 +9699,7 @@ async function generarComprobantePago(idPago) {
   try {
     const { jsPDF } = window.jspdf;
     
-    const response = await fetch(`${API_URL}/pagos/${idPago}`);
+    const response = await fetchWithAuth(`${API_URL}/pagos/${idPago}`);
     const pago = await response.json();
     
     if (!pago || !pago.id_pago) {
@@ -9898,8 +9900,8 @@ async function generarComprobantePago(idPago) {
 async function renderInvestigacionSection() {
   try {
     const [statsRes, encuestasRes] = await Promise.all([
-      fetch(`${API_URL}/investigacion/estadisticas`),
-      fetch(`${API_URL}/investigacion/encuestas`)
+      fetchWithAuth(`${API_URL}/investigacion/estadisticas`),
+      fetchWithAuth(`${API_URL}/investigacion/encuestas`)
     ]);
     
     const stats = await statsRes.json();
@@ -10534,7 +10536,7 @@ async function eliminarEncuesta(id) {
   
   if (result.isConfirmed) {
     try {
-      const res = await fetch(`${API_URL}/investigacion/encuesta/${id}`, {
+      const res = await fetchWithAuth(`${API_URL}/investigacion/encuesta/${id}`, {
         method: 'DELETE'
       });
       

@@ -1,9 +1,10 @@
 import express from "express";
 import pool from "../utils/db.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM idiomas ORDER BY nombre_idioma");
     res.json(rows);
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { nombre_idioma } = req.body;
     
@@ -36,7 +37,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { nombre_idioma } = req.body;
     
@@ -58,7 +59,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     await pool.query("DELETE FROM Idiomas WHERE id_idioma = ?", [req.params.id]);
     

@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function cargarPerfil() {
   try {
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}?tipo=${userType}`);
+    const response = await fetchWithAuth(`${API_URL}/classroom/perfil/${userId}?tipo=${userType}`);
     const data = await response.json();
     
     if (!response.ok || !data.success) {

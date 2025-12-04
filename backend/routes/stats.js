@@ -1,9 +1,10 @@
 import express from "express";
 import pool from "../utils/db.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/general", async (req, res) => {
+router.get("/general", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [alumnos] = await pool.query("SELECT COUNT(*) as total FROM Alumnos WHERE estado = 'activo'");
     
@@ -31,7 +32,7 @@ router.get("/general", async (req, res) => {
   }
 });
 
-router.get("/ultimos-registros", async (req, res) => {
+router.get("/ultimos-registros", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [rows] = await pool.query(`
       (SELECT 
@@ -65,7 +66,7 @@ router.get("/ultimos-registros", async (req, res) => {
   }
 });
 
-router.get("/ultimos-pagos", async (req, res) => {
+router.get("/ultimos-pagos", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT 
@@ -88,7 +89,7 @@ router.get("/ultimos-pagos", async (req, res) => {
   }
 });
 
-router.get("/ingresos-mensuales", async (req, res) => {
+router.get("/ingresos-mensuales", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT 

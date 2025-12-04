@@ -287,7 +287,7 @@ class ChatWidget {
     
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/iniciar`, {
+      const response = await fetchWithAuth(`${API_URL}/chat/iniciar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -333,7 +333,7 @@ class ChatWidget {
     
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(
+      const response = await fetchWithAuth(
         `${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userInfo.tipo}&id_usuario=${this.userInfo.id_usuario}`
       );
       
@@ -355,7 +355,7 @@ class ChatWidget {
     
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversacion/${this.conversationId}`);
+      const response = await fetchWithAuth(`${API_URL}/chat/conversacion/${this.conversationId}`);
       const result = await response.json();
       
       if (result.success) {

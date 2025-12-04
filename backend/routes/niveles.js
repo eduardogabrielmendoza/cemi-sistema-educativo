@@ -1,9 +1,10 @@
 import express from "express";
 import pool from "../utils/db.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM niveles ORDER BY id_nivel');
     res.json(rows);

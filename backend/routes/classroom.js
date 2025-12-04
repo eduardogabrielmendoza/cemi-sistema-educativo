@@ -4,11 +4,12 @@ import upload, { uploadRecursos } from "../config/multer.js";
 import cloudinary, { getSignedUrl } from "../config/cloudinary.js";
 import fs from "fs";
 import path from "path";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 const isProduction = process.env.NODE_ENV === 'production';
 
-router.get("/clases/:tipo/:id", async (req, res) => {
+router.get("/clases/:tipo/:id", verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params; // tipo: 'profesor' o 'alumno'
     
@@ -74,7 +75,7 @@ router.get("/clases/:tipo/:id", async (req, res) => {
   }
 });
 
-router.get("/feed/:tipo/:id", async (req, res) => {
+router.get("/feed/:tipo/:id", verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
     const feed = [];
@@ -109,7 +110,7 @@ router.get("/feed/:tipo/:id", async (req, res) => {
   }
 });
 
-router.get("/tareas/:tipo/:id", async (req, res) => {
+router.get("/tareas/:tipo/:id", verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
     
@@ -163,7 +164,7 @@ router.get("/tareas/:tipo/:id", async (req, res) => {
   }
 });
 
-router.get("/calificaciones/alumno/:id", async (req, res) => {
+router.get("/calificaciones/alumno/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -219,7 +220,7 @@ router.get("/calificaciones/alumno/:id", async (req, res) => {
   }
 });
 
-router.get("/curso/:id/alumnos", async (req, res) => {
+router.get("/curso/:id/alumnos", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -254,7 +255,7 @@ router.get("/curso/:id/alumnos", async (req, res) => {
   }
 });
 
-router.get("/estadisticas/profesor/:id", async (req, res) => {
+router.get("/estadisticas/profesor/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -294,7 +295,7 @@ router.get("/estadisticas/profesor/:id", async (req, res) => {
   }
 });
 
-router.post("/anuncios", async (req, res) => {
+router.post("/anuncios", verificarToken, async (req, res) => {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -380,7 +381,7 @@ router.post("/anuncios", async (req, res) => {
   }
 });
 
-router.get("/anuncios/curso/:idCurso", async (req, res) => {
+router.get("/anuncios/curso/:idCurso", verificarToken, async (req, res) => {
   try {
     const { idCurso } = req.params;
     
@@ -452,7 +453,7 @@ router.get("/anuncios/curso/:idCurso", async (req, res) => {
   }
 });
 
-router.get("/anuncios/:tipo/:id", async (req, res) => {
+router.get("/anuncios/:tipo/:id", verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
     
@@ -558,7 +559,7 @@ router.get("/anuncios/:tipo/:id", async (req, res) => {
   }
 });
 
-router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
+router.get("/anuncio/:idAnuncio/:userId", verificarToken, async (req, res) => {
   try {
     const { idAnuncio, userId } = req.params;
     
@@ -632,7 +633,7 @@ router.get("/anuncio/:idAnuncio/:userId", async (req, res) => {
   }
 });
 
-router.get("/tareas/curso/:idCurso/:tipo/:idUsuario", async (req, res) => {
+router.get("/tareas/curso/:idCurso/:tipo/:idUsuario", verificarToken, async (req, res) => {
   try {
     const { idCurso, tipo, idUsuario } = req.params;
     
@@ -705,7 +706,7 @@ router.get("/tareas/curso/:idCurso/:tipo/:idUsuario", async (req, res) => {
   }
 });
 
-router.get("/curso/:idCurso/alumnos", async (req, res) => {
+router.get("/curso/:idCurso/alumnos", verificarToken, async (req, res) => {
   try {
     const { idCurso } = req.params;
     
@@ -733,7 +734,7 @@ router.get("/curso/:idCurso/alumnos", async (req, res) => {
   }
 });
 
-router.post("/upload-archivo", upload.single('archivo'), async (req, res) => {
+router.post("/upload-archivo", verificarToken, upload.single('archivo'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: "No se ha enviado ningún archivo" });
@@ -755,7 +756,7 @@ router.post("/upload-archivo", upload.single('archivo'), async (req, res) => {
   }
 });
 
-router.post("/tareas", async (req, res) => {
+router.post("/tareas", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_curso, id_profesor, titulo, descripcion, requerimientos, fecha_limite, puntos, link_url, archivo_adjunto, notificar } = req.body;
 
@@ -814,7 +815,7 @@ router.post("/tareas", async (req, res) => {
   }
 });
 
-router.delete("/tareas/:id", async (req, res) => {
+router.delete("/tareas/:id", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -832,7 +833,7 @@ router.delete("/tareas/:id", async (req, res) => {
   }
 });
 
-router.get("/tareas-lista/:tipo/:id", async (req, res) => {
+router.get("/tareas-lista/:tipo/:id", verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
     
@@ -907,7 +908,7 @@ router.get("/tareas-lista/:tipo/:id", async (req, res) => {
   }
 });
 
-router.post("/encuestas/votar", async (req, res) => {
+router.post("/encuestas/votar", verificarToken, async (req, res) => {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -984,7 +985,7 @@ router.post("/encuestas/votar", async (req, res) => {
   }
 });
 
-router.get("/encuestas/:idEncuesta/:idAlumno", async (req, res) => {
+router.get("/encuestas/:idEncuesta/:idAlumno", verificarToken, async (req, res) => {
   try {
     const { idEncuesta, idAlumno } = req.params;
     
@@ -1027,7 +1028,7 @@ router.get("/encuestas/:idEncuesta/:idAlumno", async (req, res) => {
   }
 });
 
-router.get("/comentarios/:idAnuncio", async (req, res) => {
+router.get("/comentarios/:idAnuncio", verificarToken, async (req, res) => {
   try {
     const { idAnuncio } = req.params;
     
@@ -1062,7 +1063,7 @@ router.get("/comentarios/:idAnuncio", async (req, res) => {
   }
 });
 
-router.post("/comentarios", async (req, res) => {
+router.post("/comentarios", verificarToken, async (req, res) => {
   const connection = await pool.getConnection();
   try {
     await connection.beginTransaction();
@@ -1163,7 +1164,7 @@ router.post("/comentarios", async (req, res) => {
   }
 });
 
-router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
+router.get("/calendario/:tipo/:id/:year/:month", verificarToken, async (req, res) => {
   try {
     const { tipo, id, year, month } = req.params;
     
@@ -1285,7 +1286,7 @@ router.get("/calendario/:tipo/:id/:year/:month", async (req, res) => {
   }
 });
 
-router.post("/calendario/eventos", async (req, res) => {
+router.post("/calendario/eventos", verificarToken, async (req, res) => {
   try {
     const { id_curso, id_profesor, titulo, descripcion, tipo, fecha_inicio, fecha_fin, color, notificar } = req.body;
     
@@ -1312,7 +1313,7 @@ router.post("/calendario/eventos", async (req, res) => {
 });
 
 
-router.get('/notas/:tipo/:id/:year/:month', async (req, res) => {
+router.get('/notas/:tipo/:id/:year/:month', verificarToken, async (req, res) => {
   try {
     const { tipo, id, year, month } = req.params;
     
@@ -1336,7 +1337,7 @@ router.get('/notas/:tipo/:id/:year/:month', async (req, res) => {
   }
 });
 
-router.post('/notas', async (req, res) => {
+router.post('/notas', verificarToken, async (req, res) => {
   try {
     const { id_usuario, tipo_usuario, fecha, titulo, contenido, color } = req.body;
     
@@ -1361,7 +1362,7 @@ router.post('/notas', async (req, res) => {
   }
 });
 
-router.put('/notas/:id', async (req, res) => {
+router.put('/notas/:id', verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { titulo, contenido, color } = req.body;
@@ -1383,7 +1384,7 @@ router.put('/notas/:id', async (req, res) => {
   }
 });
 
-router.delete('/notas/:id', async (req, res) => {
+router.delete('/notas/:id', verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -1400,7 +1401,7 @@ router.delete('/notas/:id', async (req, res) => {
 });
 
 
-router.post('/entregas', async (req, res) => {
+router.post('/entregas', verificarToken, async (req, res) => {
   try {
     const { id_tarea, id_alumno, contenido, archivo_url } = req.body;
 
@@ -1453,7 +1454,7 @@ router.post('/entregas', async (req, res) => {
   }
 });
 
-router.get('/entregas/:idTarea', async (req, res) => {
+router.get('/entregas/:idTarea', verificarToken, async (req, res) => {
   try {
     const { idTarea } = req.params;
 
@@ -1477,7 +1478,7 @@ router.get('/entregas/:idTarea', async (req, res) => {
   }
 });
 
-router.get('/entregas/:idTarea/alumno/:idAlumno', async (req, res) => {
+router.get('/entregas/:idTarea/alumno/:idAlumno', verificarToken, async (req, res) => {
   try {
     const { idTarea, idAlumno } = req.params;
 
@@ -1506,7 +1507,7 @@ router.get('/entregas/:idTarea/alumno/:idAlumno', async (req, res) => {
   }
 });
 
-router.get('/entrega/:idEntrega', async (req, res) => {
+router.get('/entrega/:idEntrega', verificarToken, async (req, res) => {
   try {
     const { idEntrega } = req.params;
 
@@ -1543,7 +1544,7 @@ router.get('/entrega/:idEntrega', async (req, res) => {
   }
 });
 
-router.put('/entregas/:idEntrega/calificar', async (req, res) => {
+router.put('/entregas/:idEntrega/calificar', verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { idEntrega } = req.params;
     const { calificacion, comentario_profesor } = req.body;
@@ -1592,7 +1593,7 @@ router.put('/entregas/:idEntrega/calificar', async (req, res) => {
 });
 
 
-router.get("/admin/todos-cursos", async (req, res) => {
+router.get("/admin/todos-cursos", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const query = `
       SELECT 
@@ -1625,7 +1626,7 @@ router.get("/admin/todos-cursos", async (req, res) => {
   }
 });
 
-router.get("/admin/todos-anuncios", async (req, res) => {
+router.get("/admin/todos-anuncios", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [anuncios] = await pool.query(`
       SELECT 
@@ -1648,7 +1649,7 @@ router.get("/admin/todos-anuncios", async (req, res) => {
   }
 });
 
-router.get("/admin/todas-tareas", async (req, res) => {
+router.get("/admin/todas-tareas", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [tareas] = await pool.query(`
       SELECT 
@@ -1673,7 +1674,7 @@ router.get("/admin/todas-tareas", async (req, res) => {
   }
 });
 
-router.get("/admin/todos-polls", async (req, res) => {
+router.get("/admin/todos-polls", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [polls] = await pool.query(`
       SELECT 
@@ -1704,7 +1705,7 @@ router.get("/admin/todos-polls", async (req, res) => {
   }
 });
 
-router.get("/admin/todos-comentarios", async (req, res) => {
+router.get("/admin/todos-comentarios", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [comentarios] = await pool.query(`
       SELECT 
@@ -1733,7 +1734,7 @@ router.get("/admin/todos-comentarios", async (req, res) => {
   }
 });
 
-router.get("/admin/actividad-completa", async (req, res) => {
+router.get("/admin/actividad-completa", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const actividad = [];
     
@@ -1809,7 +1810,7 @@ router.get("/admin/actividad-completa", async (req, res) => {
 });
 
 
-router.delete("/anuncio/:id", async (req, res) => {
+router.delete("/anuncio/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -1827,7 +1828,7 @@ router.delete("/anuncio/:id", async (req, res) => {
   }
 });
 
-router.delete("/tarea/:id", async (req, res) => {
+router.delete("/tarea/:id", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -1845,7 +1846,7 @@ router.delete("/tarea/:id", async (req, res) => {
   }
 });
 
-router.delete("/poll/:id", async (req, res) => {
+router.delete("/poll/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -1864,7 +1865,7 @@ router.delete("/poll/:id", async (req, res) => {
 });
 
 
-router.get("/recursos/:tipo/:id", async (req, res) => {
+router.get("/recursos/:tipo/:id", verificarToken, async (req, res) => {
   try {
     const { tipo, id } = req.params;
     
@@ -1973,7 +1974,7 @@ router.get("/recursos/:tipo/:id", async (req, res) => {
   }
 });
 
-router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
+router.post("/recursos", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), uploadRecursos.single('archivo'), async (req, res) => {
   try {
     const { titulo, descripcion, tipo, url, id_curso, id_profesor } = req.body;
     
@@ -2040,7 +2041,7 @@ router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
   }
 });
 
-router.put("/recursos/:id", async (req, res) => {
+router.put("/recursos/:id", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id } = req.params;
     const { titulo, descripcion, tipo, url, id_curso } = req.body;
@@ -2076,7 +2077,7 @@ router.put("/recursos/:id", async (req, res) => {
   }
 });
 
-router.delete("/recursos/:id", async (req, res) => {
+router.delete("/recursos/:id", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -2098,7 +2099,7 @@ router.delete("/recursos/:id", async (req, res) => {
   }
 });
 
-router.post("/recursos/:id/descarga", async (req, res) => {
+router.post("/recursos/:id/descarga", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -2111,7 +2112,7 @@ router.post("/recursos/:id/descarga", async (req, res) => {
   }
 });
 
-router.get("/recursos/:id/download-url", async (req, res) => {
+router.get("/recursos/:id/download-url", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     

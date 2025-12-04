@@ -69,7 +69,7 @@
   async loadConversations() {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversaciones`);
+      const response = await fetchWithAuth(`${API_URL}/chat/conversaciones`);
       const result = await response.json();
       
       if (result.success) {
@@ -185,7 +185,7 @@
   async selectConversation(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversacion/${id}`);
+      const response = await fetchWithAuth(`${API_URL}/chat/conversacion/${id}`);
       const result = await response.json();
       
       if (result.success) {
@@ -267,7 +267,7 @@
     
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/mensaje`, {
+      const response = await fetchWithAuth(`${API_URL}/chat/mensaje`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -306,7 +306,7 @@
   async takeConversation(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      await fetch(`${API_URL}/chat/conversacion/${id}/tomar`, {
+      await fetchWithAuth(`${API_URL}/chat/conversacion/${id}/tomar`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id_admin: this.adminInfo.id_usuario })
@@ -329,7 +329,7 @@
     
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      await fetch(`${API_URL}/chat/conversacion/${this.activeConversation.id_conversacion}`, {
+      await fetchWithAuth(`${API_URL}/chat/conversacion/${this.activeConversation.id_conversacion}`, {
         method: 'DELETE'
       });
       
@@ -362,7 +362,7 @@
   async markAsRead(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      await fetch(`${API_URL}/chat/conversacion/${id}/leer`, {
+      await fetchWithAuth(`${API_URL}/chat/conversacion/${id}/leer`, {
         method: 'PATCH'
       });
       

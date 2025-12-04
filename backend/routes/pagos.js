@@ -1,10 +1,11 @@
 ﻿import express from "express";
 import pool from "../utils/db.js";
 import { body, param, validationResult } from "express-validator";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { archivo } = req.query; // archivo=true para pagos archivados
     
@@ -102,9 +103,17 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/alumno/:id", async (req, res) => {
+router.get("/alumno/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
+    const idSolicitado = parseInt(id);
+    const usuario = req.usuario;
+    const esAdmin = usuario.rol === 'admin' || usuario.rol === 'administrador';
+    const esPropietario = usuario.id_alumno === idSolicitado;
+    
+    if (!esAdmin && !esPropietario) {
+      return res.status(403).json({ success: false, message: "No tiene permisos" });
+    }
 
     console.log(`[pagos] Consultando pagos para alumno ID: ${id}`);
 
@@ -272,7 +281,7 @@ router.get("/alumno/:id", async (req, res) => {
   }
 });
 
-router.get("/alumno/:id/historial", async (req, res) => {
+router.get("/alumno/:id/historial", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -319,7 +328,7 @@ router.get("/alumno/:id/historial", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -367,6 +376,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/realizar",
+  verificarToken,
   [
     body('id_alumno')
       .isInt({ min: 1 }).withMessage('ID de alumno inválido')
@@ -484,6 +494,8 @@ router.post("/realizar",
 });
 
 router.put("/:id/anular",
+  verificarToken,
+  verificarRol(['admin', 'administrador']),
   [
     param('id')
       .isInt({ min: 1 }).withMessage('ID de pago inválido')
@@ -530,6 +542,8 @@ router.put("/:id/anular",
 });
 
 router.put("/:id/confirmar",
+  verificarToken,
+  verificarRol(['admin', 'administrador']),
   [
     param('id')
       .isInt({ min: 1 }).withMessage('ID de pago inválido')
@@ -580,6 +594,8 @@ router.put("/:id/confirmar",
 });
 
 router.put("/:id/archivar", 
+  verificarToken,
+  verificarRol(['admin', 'administrador']),
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
     const errors = validationResult(req);
@@ -633,6 +649,8 @@ router.put("/:id/archivar",
 });
 
 router.put("/:id/desarchivar", 
+  verificarToken,
+  verificarRol(['admin', 'administrador']),
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
     const errors = validationResult(req);
@@ -686,6 +704,8 @@ router.put("/:id/desarchivar",
 });
 
 router.delete("/:id", 
+  verificarToken,
+  verificarRol(['admin', 'administrador']),
   param("id").isInt().withMessage("ID inválido"),
   async (req, res) => {
     const errors = validationResult(req);

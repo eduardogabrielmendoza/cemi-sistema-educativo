@@ -1,9 +1,10 @@
 ﻿import express from "express";
 import pool from "../utils/db.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, async (req, res) => {
   try {
     const { id_profesor } = req.query; // viene del frontend
 
@@ -37,7 +38,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/profesor/:idProfesor", async (req, res) => {
+router.get("/profesor/:idProfesor", verificarToken, async (req, res) => {
   try {
     const { idProfesor } = req.params;
     console.log(` [GET /cursos/profesor/:id] Obteniendo cursos del profesor ${idProfesor}`);
@@ -78,7 +79,7 @@ router.get("/profesor/:idProfesor", async (req, res) => {
 });
 
 
-router.get('/catalogo', async (req, res) => {
+router.get('/catalogo', verificarToken, async (req, res) => {
     try {
         const { id_alumno, idioma, nivel, profesor } = req.query;
 
@@ -211,7 +212,7 @@ router.get('/catalogo', async (req, res) => {
     }
 });
 
-router.get('/filtros/opciones', async (req, res) => {
+router.get('/filtros/opciones', verificarToken, async (req, res) => {
     try {
         const [idiomas] = await pool.query(`
             SELECT DISTINCT i.id_idioma, i.nombre_idioma
@@ -258,7 +259,7 @@ router.get('/filtros/opciones', async (req, res) => {
     }
 });
 
-router.get('/mis-cursos/:id_alumno', async (req, res) => {
+router.get('/mis-cursos/:id_alumno', verificarToken, async (req, res) => {
     try {
         const { id_alumno } = req.params;
 
@@ -316,7 +317,7 @@ router.get('/mis-cursos/:id_alumno', async (req, res) => {
 });
 
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -357,7 +358,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id/detalles", async (req, res) => {
+router.get("/:id/detalles", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -442,7 +443,7 @@ router.get("/:id/detalles", async (req, res) => {
   }
 });
 
-router.get("/:id/alumnos", async (req, res) => {
+router.get("/:id/alumnos", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -468,7 +469,7 @@ router.get("/:id/alumnos", async (req, res) => {
   }
 });
 
-router.put("/:id/profesor", async (req, res) => {
+router.put("/:id/profesor", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { id_profesor } = req.body;
@@ -517,7 +518,7 @@ router.put("/:id/profesor", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre_curso, horario, cupo_maximo, id_aula, id_idioma, id_nivel, id_profesor } = req.body;
@@ -556,7 +557,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { nombre_curso, id_idioma, id_nivel, id_profesor, horario, cupo_maximo, id_aula } = req.body;
 
@@ -595,7 +596,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const id_curso = req.params.id;
 
@@ -638,10 +639,10 @@ router.delete("/:id", async (req, res) => {
 });
 
 
-router.put("/:id/cuotas", async (req, res) => {
+router.put("/:id/cuotas", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
-    const { cuotas } = req.body; // Array: ['Matricula', 'Marzo', 'Abril', ...]
+    const { cuotas } = req.body;
     
     console.log('\n=== PUT /cursos/:id/cuotas ===');
     console.log('ID curso:', id);
@@ -711,9 +712,9 @@ router.put("/:id/cuotas", async (req, res) => {
   }
 });
 
-router.put("/cuotas/todos", async (req, res) => {
+router.put("/cuotas/todos", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
-    const { cuotas } = req.body; // Array: ['Matricula', 'Marzo', 'Abril', ...]
+    const { cuotas } = req.body;
     
     if (!Array.isArray(cuotas)) {
       return res.status(400).json({ 
@@ -756,7 +757,7 @@ router.put("/cuotas/todos", async (req, res) => {
   }
 });
 
-router.get("/:id/cuotas", async (req, res) => {
+router.get("/:id/cuotas", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     

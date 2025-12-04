@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
 import { solicitudRecibidaTemplate, notificacionAdminTemplate, credencialesActualizadasTemplate, bienvenidaAlumnoTemplate } from "../utils/emailTemplates.js";
+import { generarToken } from "../middleware/auth.js";
 
 dotenv.config();
 
@@ -119,6 +120,19 @@ router.post("/login",
     } else if (rol === 'alumno') {
       response.id_alumno = id_especifico;
     }
+
+    const tokenPayload = {
+      id_usuario: user.id_usuario,
+      id_persona: user.id_persona,
+      username: user.username,
+      rol: rol,
+      id_alumno: rol === 'alumno' ? id_especifico : null,
+      id_profesor: rol === 'profesor' ? id_especifico : null,
+      id_administrador: (rol === 'administrador' || rol === 'admin') ? id_especifico : null
+    };
+
+    const token = generarToken(tokenPayload);
+    response.token = token;
 
     return res.json(response);
   } catch (error) {

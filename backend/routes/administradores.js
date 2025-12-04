@@ -1,9 +1,11 @@
 import express from "express";
 import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
+
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT 
@@ -33,7 +35,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT 
@@ -64,7 +66,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre, apellido, mail, dni, telefono } = req.body;
@@ -124,7 +126,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { nombre, apellido, dni, mail, telefono, username, password } = req.body;
 
@@ -240,7 +242,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -280,7 +282,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id/password", async (req, res) => {
+router.put("/:id/password", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { password } = req.body;
@@ -319,7 +321,7 @@ router.put("/:id/password", async (req, res) => {
   }
 });
 
-router.patch("/:id/usuario", async (req, res) => {
+router.patch("/:id/usuario", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { usuario } = req.body;
@@ -358,7 +360,7 @@ router.patch("/:id/usuario", async (req, res) => {
   }
 });
 
-router.post("/:id/cambiar-password", async (req, res) => {
+router.post("/:id/cambiar-password", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { password } = req.body;

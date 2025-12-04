@@ -1,9 +1,10 @@
 import express from "express";
 import db from "../utils/db.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/curso/:id_curso/fecha/:fecha", async (req, res) => {
+router.get("/curso/:id_curso/fecha/:fecha", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_curso, fecha } = req.params;
 
@@ -49,7 +50,7 @@ router.get("/curso/:id_curso/fecha/:fecha", async (req, res) => {
   }
 });
 
-router.get("/curso/:id_curso/estadisticas", async (req, res) => {
+router.get("/curso/:id_curso/estadisticas", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_curso } = req.params;
 
@@ -103,7 +104,7 @@ router.get("/curso/:id_curso/estadisticas", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_curso, id_alumno, fecha, estado, observaciones } = req.body;
 
@@ -140,7 +141,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/lote", async (req, res) => {
+router.post("/lote", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_curso, fecha, asistencias } = req.body;
 
@@ -183,7 +184,7 @@ router.post("/lote", async (req, res) => {
   }
 });
 
-router.get("/curso/:id_curso/fechas", async (req, res) => {
+router.get("/curso/:id_curso/fechas", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_curso } = req.params;
 
@@ -201,7 +202,7 @@ router.get("/curso/:id_curso/fechas", async (req, res) => {
   }
 });
 
-router.delete("/curso/:id_curso", async (req, res) => {
+router.delete("/curso/:id_curso", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id_curso } = req.params;
 
@@ -220,7 +221,7 @@ router.delete("/curso/:id_curso", async (req, res) => {
   }
 });
 
-router.delete("/curso/:id_curso/fecha/:fecha", async (req, res) => {
+router.delete("/curso/:id_curso/fecha/:fecha", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_curso, fecha } = req.params;
 
@@ -239,7 +240,7 @@ router.delete("/curso/:id_curso/fecha/:fecha", async (req, res) => {
   }
 });
 
-router.get("/alumno/:id_alumno/curso/:id_curso/estadisticas", async (req, res) => {
+router.get("/alumno/:id_alumno/curso/:id_curso/estadisticas", verificarToken, async (req, res) => {
   try {
     const { id_alumno, id_curso } = req.params;
 
@@ -276,7 +277,7 @@ router.get("/alumno/:id_alumno/curso/:id_curso/estadisticas", async (req, res) =
   }
 });
 
-router.get("/alumno/:id_alumno/curso/:id_curso/historial", async (req, res) => {
+router.get("/alumno/:id_alumno/curso/:id_curso/historial", verificarToken, async (req, res) => {
   try {
     const { id_alumno, id_curso } = req.params;
     console.log(' GET /historial - Params:', { id_alumno, id_curso });

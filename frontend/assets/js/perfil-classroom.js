@@ -154,7 +154,7 @@ function cambiarSeccion(seccionId) {
 async function cargarPerfilCompleto() {
   try {
     console.log(` Cargando perfil para userId: ${userId}`);
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}`);
+    const response = await fetchWithAuth(`${API_URL}/classroom/perfil/${userId}`);
     const data = await response.json();
     
     console.log(' Respuesta del servidor:', data);
@@ -294,7 +294,7 @@ async function guardarDatosPersonales(e) {
   
   try {
     console.log(` PUT request a: ${API_URL}/classroom/perfil/${userId}`);
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
+    const response = await fetchWithAuth(`${API_URL}/classroom/perfil/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -378,7 +378,7 @@ async function cambiarAvatar(event) {
   console.log(' Subiendo avatar...');
   
   try {
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}/avatar`, {
+    const response = await fetchWithAuth(`${API_URL}/classroom/perfil/${userId}/avatar`, {
       method: 'POST',
       body: formData
     });
@@ -436,7 +436,7 @@ async function guardarBiografia() {
   console.log(' Guardando biografía...');
   
   try {
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
+    const response = await fetchWithAuth(`${API_URL}/classroom/perfil/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

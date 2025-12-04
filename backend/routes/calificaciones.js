@@ -1,9 +1,10 @@
 import express from "express";
 import pool from "../utils/db.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/todas", async (req, res) => {
+router.post("/todas", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_alumno, id_curso, parcial1, parcial2, final } = req.body;
 
@@ -40,7 +41,7 @@ router.post("/todas", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, async (req, res) => {
   try {
     const { id_profesor } = req.query;
     const query = `
@@ -68,7 +69,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/curso/:id_curso", async (req, res) => {
+router.get("/curso/:id_curso", verificarToken, async (req, res) => {
   try {
     const { id_curso } = req.params;
     const query = `
@@ -94,7 +95,7 @@ router.get("/curso/:id_curso", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarRol(['admin', 'administrador', 'profesor']), async (req, res) => {
   try {
     const { id_alumno, id_curso, tipo, valor } = req.body;
     

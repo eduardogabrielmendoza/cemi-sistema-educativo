@@ -1,9 +1,10 @@
 import express from "express";
 import pool from "../utils/db.js";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT 
@@ -26,7 +27,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/alumno/:id", async (req, res) => {
+router.get("/alumno/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -58,7 +59,7 @@ router.get("/alumno/:id", async (req, res) => {
   }
 });
 
-router.get("/curso/:id", async (req, res) => {
+router.get("/curso/:id", verificarToken, async (req, res) => {
   try {
     const id_profesor = req.query.id_profesor;
     
@@ -95,7 +96,7 @@ router.get("/curso/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id_curso, alumnos } = req.body;
 
@@ -156,7 +157,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id_curso/:id_alumno", async (req, res) => {
+router.delete("/:id_curso/:id_alumno", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id_curso, id_alumno } = req.params;
 

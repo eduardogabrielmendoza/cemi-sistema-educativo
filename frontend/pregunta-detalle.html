@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="assets/js/config.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fa; color: #2d3748; line-height: 1.6; }
@@ -175,7 +176,7 @@
       }
 
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}`);
+        const response = await fetchWithAuth(`/api/comunidad/preguntas/${preguntaId}`);
         const data = await response.json();
 
         if (data.success) {
@@ -354,7 +355,7 @@
     async function votarPregunta() {
       if (!currentUser) { alert('Debes iniciar sesion para votar'); return; }
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/votar`, {
+        const response = await fetchWithAuth(`/api/comunidad/preguntas/${preguntaId}/votar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ votanteTipo: currentUser.tipo, votanteId: currentUser.id })
@@ -379,7 +380,7 @@
     async function votarRespuesta(respuestaId) {
       if (!currentUser) { alert('Debes iniciar sesion para votar'); return; }
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/votar`, {
+        const response = await fetchWithAuth(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/votar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ votanteTipo: currentUser.tipo, votanteId: currentUser.id })
@@ -406,7 +407,7 @@
 
     async function toggleRecomendar(respuestaId, recomendar) {
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/recomendar`, {
+        const response = await fetchWithAuth(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/recomendar`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ recomendar })
@@ -430,7 +431,7 @@
       lucide.createIcons();
 
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas`, {
+        const response = await fetchWithAuth(`/api/comunidad/preguntas/${preguntaId}/respuestas`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

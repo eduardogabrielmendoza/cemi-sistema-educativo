@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import cloudinary from '../config/cloudinary.js';
+import { verificarToken, verificarRol } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -63,7 +64,7 @@ const uploadChatFile = multer({
 });
 
 
-router.post("/iniciar", async (req, res) => {
+router.post("/iniciar", verificarToken, async (req, res) => {
   try {
     let { tipo_usuario, id_usuario, nombre, mensaje_inicial } = req.body;
     
@@ -177,7 +178,7 @@ router.post("/iniciar", async (req, res) => {
 });
 
 
-router.get("/conversacion/:id", async (req, res) => {
+router.get("/conversacion/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -257,7 +258,7 @@ router.get("/conversacion/:id", async (req, res) => {
 });
 
 
-router.get("/conversaciones", async (req, res) => {
+router.get("/conversaciones", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { estado, atendido_por } = req.query;
     
@@ -327,7 +328,7 @@ router.get("/conversaciones", async (req, res) => {
 });
 
 
-router.put("/conversacion/:id/tomar", async (req, res) => {
+router.put("/conversacion/:id/tomar", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { id_admin } = req.body;
@@ -360,7 +361,7 @@ router.put("/conversacion/:id/tomar", async (req, res) => {
 });
 
 
-router.put("/conversacion/:id/cerrar", async (req, res) => {
+router.put("/conversacion/:id/cerrar", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -405,7 +406,7 @@ router.put("/conversacion/:id/cerrar", async (req, res) => {
 });
 
 
-router.post("/mensaje", async (req, res) => {
+router.post("/mensaje", verificarToken, async (req, res) => {
   try {
     const { id_conversacion, tipo_remitente, id_remitente, nombre_remitente, mensaje } = req.body;
     
@@ -450,7 +451,7 @@ router.post("/mensaje", async (req, res) => {
 });
 
 
-router.put("/conversacion/:id/leer", async (req, res) => {
+router.put("/conversacion/:id/leer", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { tipo_lector } = req.body; // 'admin' o 'usuario'
@@ -500,7 +501,7 @@ router.put("/conversacion/:id/leer", async (req, res) => {
 });
 
 
-router.get("/estadisticas", async (req, res) => {
+router.get("/estadisticas", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [stats] = await pool.query(`
       SELECT 
@@ -540,7 +541,7 @@ router.get("/estadisticas", async (req, res) => {
 });
 
 
-router.get("/mi-conversacion", async (req, res) => {
+router.get("/mi-conversacion", verificarToken, async (req, res) => {
   try {
     const { tipo_usuario, id_usuario } = req.query;
     
@@ -629,7 +630,7 @@ router.get("/mi-conversacion", async (req, res) => {
 });
 
 
-router.delete("/conversacion/:id", async (req, res) => {
+router.delete("/conversacion/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { id_admin } = req.body; // ID del administrador que elimina
@@ -673,7 +674,7 @@ router.delete("/conversacion/:id", async (req, res) => {
 });
 
 
-router.post("/upload", uploadChatFile.single('file'), async (req, res) => {
+router.post("/upload", verificarToken, uploadChatFile.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({

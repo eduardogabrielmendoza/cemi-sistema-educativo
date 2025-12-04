@@ -147,7 +147,7 @@
       const url = `${API_URL}/classroom/perfil/${idUsuario}?tipo=${tipoUsuario}`;
       console.log('URL:', url);
       
-      const response = await fetch(url);
+      const response = await fetchWithAuth(url);
       const data = await response.json();
       
       console.log('Respuesta del servidor:', { status: response.status, data });
@@ -196,7 +196,7 @@
     const id_profesor = localStorage.getItem("id_profesor");
     console.log(" Enviando request:", `${API_URL}/cursos?id_profesor=${id_profesor}`);
     
-    const res = await fetch(`${API_URL}/cursos?id_profesor=${id_profesor}`);
+    const res = await fetchWithAuth(`${API_URL}/cursos?id_profesor=${id_profesor}`);
     const data = await res.json();
     loader.classList.add("hidden");
 
@@ -361,7 +361,7 @@
             throw new Error("No se encontró el ID del profesor");
           }
 
-          const resCursos = await fetch(`${API_URL}/cursos?id_profesor=${id_profesor}`);
+          const resCursos = await fetchWithAuth(`${API_URL}/cursos?id_profesor=${id_profesor}`);
           const cursos = await resCursos.json();
 
           mainContent.innerHTML = `
@@ -460,7 +460,7 @@
             throw new Error("No se encontró el ID del profesor");
           }
 
-          const resCursos = await fetch(`${API_URL}/cursos?id_profesor=${id_profesor}`);
+          const resCursos = await fetchWithAuth(`${API_URL}/cursos?id_profesor=${id_profesor}`);
           const cursos = await resCursos.json();
 
           mainContent.innerHTML = `
@@ -556,7 +556,7 @@
         mainContent.classList.remove("active");
 
         try {
-          const response = await fetch(`${API_URL}/profesores/${id_profesor}/perfil`);
+          const response = await fetchWithAuth(`${API_URL}/profesores/${id_profesor}/perfil`);
           const perfil = await response.json();
 
           mainContent.innerHTML = `
@@ -1668,7 +1668,7 @@
 
     async function guardarCalificacion(idAlumno, tipo, valor, idCurso) {
       try {
-        const response = await fetch(`${API_URL}/calificaciones`, {
+        const response = await fetchWithAuth(`${API_URL}/calificaciones`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1697,7 +1697,7 @@
 
     async function cargarCalificacionesCurso(cursoId) {
       try {
-        const res = await fetch(`${API_URL}/inscripciones/curso/${cursoId}`);
+        const res = await fetchWithAuth(`${API_URL}/inscripciones/curso/${cursoId}`);
         const alumnos = await res.json();
         
         const calificacionesBody = document.getElementById('calificacionesBody');
@@ -1757,7 +1757,7 @@
           final: inputs[2].value || null
         };
 
-        const response = await fetch(`${API_URL}/calificaciones/todas`, {
+        const response = await fetchWithAuth(`${API_URL}/calificaciones/todas`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -1818,7 +1818,7 @@
         loader.classList.remove('hidden');
 
         // Obtener detalles del curso
-        const res = await fetch(`${API_URL}/cursos/${idCurso}/detalles`);
+        const res = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/detalles`);
         const data = await res.json();
         
         loader.classList.add('hidden');
@@ -2033,7 +2033,7 @@
         loader.classList.remove('hidden');
 
         // Obtener detalles del curso con alumnos y estadísticas
-        const res = await fetch(`${API_URL}/cursos/${idCurso}/detalles`);
+        const res = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/detalles`);
         const data = await res.json();
         
         const { alumnos, estadisticas } = data;
@@ -2315,7 +2315,7 @@
         const parcial2 = inputs[1].value ? parseFloat(inputs[1].value) : null;
         const final = inputs[2].value ? parseFloat(inputs[2].value) : null;
 
-        const response = await fetch(`${API_URL}/calificaciones/todas`, {
+        const response = await fetchWithAuth(`${API_URL}/calificaciones/todas`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2441,7 +2441,7 @@
         asistenciasContent.style.display = 'block';
 
         // Obtener estadísticas generales del curso
-        const resEstadisticas = await fetch(`${API_URL}/asistencias/curso/${idCurso}/estadisticas`);
+        const resEstadisticas = await fetchWithAuth(`${API_URL}/asistencias/curso/${idCurso}/estadisticas`);
         const { generales } = await resEstadisticas.json();
 
         asistenciasContent.innerHTML = `
@@ -2574,7 +2574,7 @@
         const fecha = document.getElementById('fechaAsistencia').value;
         fechaAsistenciaActual = fecha;
 
-        const res = await fetch(`${API_URL}/asistencias/curso/${idCurso}/fecha/${fecha}`);
+        const res = await fetchWithAuth(`${API_URL}/asistencias/curso/${idCurso}/fecha/${fecha}`);
         const alumnos = await res.json();
 
         const tbody = document.getElementById('asistenciasTableBody');
@@ -2709,7 +2709,7 @@
 
         loader.classList.remove('hidden');
 
-        const response = await fetch(`${API_URL}/asistencias/lote`, {
+        const response = await fetchWithAuth(`${API_URL}/asistencias/lote`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2758,7 +2758,7 @@
         loader.classList.remove('hidden');
 
         const url = `${API_URL}/asistencias/alumno/${idAlumno}/curso/${idCurso}/estadisticas`;
-        const res = await fetch(url);
+        const res = await fetchWithAuth(url);
         
         if (!res.ok) {
           throw new Error(`Error ${res.status}: ${res.statusText}`);
@@ -2823,7 +2823,7 @@
       try {
         loader.classList.remove('hidden');
 
-        const res = await fetch(`${API_URL}/asistencias/curso/${idCurso}/estadisticas`);
+        const res = await fetchWithAuth(`${API_URL}/asistencias/curso/${idCurso}/estadisticas`);
         const { por_alumno, generales } = await res.json();
 
         // Crear modal si no existe
@@ -2952,7 +2952,7 @@
       try {
         loader.classList.remove('hidden');
 
-        const response = await fetch(`${API_URL}/asistencias/curso/${idCurso}`, {
+        const response = await fetchWithAuth(`${API_URL}/asistencias/curso/${idCurso}`, {
           method: 'DELETE'
         });
 

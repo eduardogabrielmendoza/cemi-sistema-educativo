@@ -1,9 +1,11 @@
 import express from "express";
 import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
+import { verificarToken, verificarRol } from "../middleware/auth.js";
+
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT 
@@ -35,8 +37,17 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verificarToken, async (req, res) => {
   try {
+    const idSolicitado = parseInt(req.params.id);
+    const usuario = req.usuario;
+    const esAdmin = usuario.rol === 'admin' || usuario.rol === 'administrador';
+    const esPropietario = usuario.id_profesor === idSolicitado;
+    
+    if (!esAdmin && !esPropietario) {
+      return res.status(403).json({ success: false, message: "No tiene permisos" });
+    }
+    
     const [profesorRows] = await pool.query(`
       SELECT 
         p.id_profesor,
@@ -132,7 +143,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { nombre, apellido, mail, dni, especialidad, telefono, estado, idiomas } = req.body;
@@ -183,7 +194,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id/estado", async (req, res) => {
+router.patch("/:id/estado", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { estado } = req.body;
@@ -208,7 +219,7 @@ router.patch("/:id/estado", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { nombre, apellido, dni, mail, especialidad, telefono, username, password } = req.body;
 
@@ -302,7 +313,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/:id/credenciales", async (req, res) => {
+router.post("/:id/credenciales", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const { id } = req.params;
     const { username, password } = req.body;
@@ -384,7 +395,7 @@ router.post("/:id/credenciales", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, verificarRol(['admin', 'administrador']), async (req, res) => {
   try {
     const id_profesor = req.params.id;
 
@@ -428,9 +439,17 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id/perfil", async (req, res) => {
+router.get("/:id/perfil", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
+    const idSolicitado = parseInt(id);
+    const usuario = req.usuario;
+    const esAdmin = usuario.rol === 'admin' || usuario.rol === 'administrador';
+    const esPropietario = usuario.id_profesor === idSolicitado;
+    
+    if (!esAdmin && !esPropietario) {
+      return res.status(403).json({ success: false, message: "No tiene permisos" });
+    }
 
     const [profesor] = await pool.query(`
       SELECT 
@@ -472,9 +491,18 @@ router.get("/:id/perfil", async (req, res) => {
   }
 });
 
-router.put("/:id/perfil", async (req, res) => {
+router.put("/:id/perfil", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
+    const idSolicitado = parseInt(id);
+    const usuario = req.usuario;
+    const esAdmin = usuario.rol === 'admin' || usuario.rol === 'administrador';
+    const esPropietario = usuario.id_profesor === idSolicitado;
+    
+    if (!esAdmin && !esPropietario) {
+      return res.status(403).json({ success: false, message: "No tiene permisos" });
+    }
+    
     const { telefono } = req.body;
 
     await pool.query(`
@@ -497,9 +525,17 @@ router.put("/:id/perfil", async (req, res) => {
   }
 });
 
-router.post("/:id/cambiar-password-dashboard", async (req, res) => {
+router.post("/:id/cambiar-password-dashboard", verificarToken, async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
+  const idSolicitado = parseInt(id);
+  const usuario = req.usuario;
+  const esAdmin = usuario.rol === 'admin' || usuario.rol === 'administrador';
+  const esPropietario = usuario.id_profesor === idSolicitado;
+  
+  if (!esAdmin && !esPropietario) {
+    return res.status(403).json({ success: false, message: "No tiene permisos" });
+  }
 
   if (!password || password.length < 6) {
     return res.status(400).json({
@@ -532,10 +568,18 @@ router.post("/:id/cambiar-password-dashboard", async (req, res) => {
   }
 });
 
-router.patch("/:id/usuario", async (req, res) => {
+router.patch("/:id/usuario", verificarToken, async (req, res) => {
   try {
     const { usuario } = req.body;
     const idProfesor = req.params.id;
+    const idSolicitado = parseInt(idProfesor);
+    const usuarioAuth = req.usuario;
+    const esAdmin = usuarioAuth.rol === 'admin' || usuarioAuth.rol === 'administrador';
+    const esPropietario = usuarioAuth.id_profesor === idSolicitado;
+    
+    if (!esAdmin && !esPropietario) {
+      return res.status(403).json({ success: false, message: "No tiene permisos" });
+    }
 
     if (!usuario || usuario.trim().length === 0) {
       return res.status(400).json({
