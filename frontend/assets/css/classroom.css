@@ -1716,7 +1716,7 @@ body {
 
 
 .classroom-sidebar {
-  width: 260px;
+  width: clamp(220px, 15vw, 280px);
   background: var(--hw-white);
   border-right: 1px solid var(--border-color);
   display: flex;
@@ -1726,12 +1726,12 @@ body {
   top: 64px;
   bottom: 0;
   overflow-y: auto;
-  transition: transform var(--duration-slow) var(--ease-smooth);
+  transition: transform var(--duration-slow) var(--ease-smooth), width 0.3s ease;
   z-index: 999;
 }
 
 .classroom-sidebar.collapsed {
-  transform: translateX(-260px);
+  transform: translateX(-100%);
 }
 
 .sidebar-nav {
@@ -1906,12 +1906,14 @@ body {
 
 .classroom-main {
   flex: 1;
-  margin-left: 280px;
+  margin-left: clamp(220px, 15vw, 280px);
   padding: 32px;
-  max-width: calc(100% - 280px);
+  padding: clamp(16px, 3vw, 32px);
+  max-width: calc(100% - clamp(220px, 15vw, 280px));
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   z-index: 1;
+  overflow-x: hidden;
 }
 
 .classroom-sidebar.collapsed ~ .classroom-main {
@@ -3296,6 +3298,143 @@ body.dark-mode .research-banner-close:hover {
 }
 
 
+/* ========================================
+   RESPONSIVE BREAKPOINTS - CLASSROOM SISTEMA COMPLETO
+   ======================================== */
+
+/* Large Desktop (1440px - 1919px) */
+@media (max-width: 1919px) {
+  .classroom-sidebar {
+    width: clamp(200px, 14vw, 260px);
+  }
+  
+  .classroom-main {
+    margin-left: clamp(200px, 14vw, 260px);
+    max-width: calc(100% - clamp(200px, 14vw, 260px));
+    padding: clamp(20px, 2.5vw, 32px);
+  }
+  
+  .welcome-section {
+    width: 80%;
+  }
+  
+  .classes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+/* Medium Desktop / Large Laptop (1366px - 1439px) */
+@media (max-width: 1439px) {
+  .classroom-sidebar {
+    width: 220px;
+  }
+  
+  .classroom-main {
+    margin-left: 220px;
+    max-width: calc(100% - 220px);
+    padding: 24px;
+  }
+  
+  .nav-item {
+    padding: 9px 16px;
+    font-size: 0.85rem;
+  }
+  
+  .welcome-section {
+    width: 85%;
+    aspect-ratio: 4.5 / 1;
+  }
+  
+  .classes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  
+  .activity-card {
+    padding: 16px;
+  }
+}
+
+/* Standard Laptop (1280px - 1365px) */
+@media (max-width: 1365px) {
+  .classroom-sidebar {
+    width: 200px;
+  }
+  
+  .classroom-main {
+    margin-left: 200px;
+    max-width: calc(100% - 200px);
+    padding: 20px;
+  }
+  
+  .nav-item {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    gap: 10px;
+  }
+  
+  .nav-item i {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .welcome-section {
+    width: 90%;
+    aspect-ratio: 5 / 1;
+  }
+  
+  .classes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  
+  .grades-summary {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+/* Small Laptop / Large Tablet (1024px - 1279px) */
+@media (max-width: 1279px) {
+  .classroom-sidebar {
+    width: 180px;
+  }
+  
+  .classroom-main {
+    margin-left: 180px;
+    max-width: calc(100% - 180px);
+    padding: 16px;
+  }
+  
+  .nav-item {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    gap: 8px;
+    margin: 2px 8px;
+  }
+  
+  .nav-item i {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .welcome-section {
+    width: 95%;
+  }
+  
+  .classes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  
+  .storage-info {
+    padding: 10px;
+    font-size: 0.75rem;
+  }
+  
+  .sidebar-footer {
+    padding: 12px;
+  }
+}
+
 @media (max-width: 1024px) {
   .calendar-container {
     grid-template-columns: 1fr;
@@ -3308,7 +3447,8 @@ body.dark-mode .research-banner-close:hover {
 
 @media (max-width: 768px) {
   .classroom-sidebar {
-    transform: translateX(-280px);
+    transform: translateX(-100%);
+    width: 280px;
   }
 
   .classroom-sidebar.show {
@@ -3317,6 +3457,7 @@ body.dark-mode .research-banner-close:hover {
 
   .classroom-main {
     margin-left: 0;
+    max-width: 100%;
     padding: 16px;
   }
 
