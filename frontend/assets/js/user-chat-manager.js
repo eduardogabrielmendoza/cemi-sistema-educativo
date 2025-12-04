@@ -190,7 +190,7 @@
       const API_URL = window.API_URL || 'http://localhost:3000/api';
       
       try {
-        const response = await fetch(`${API_URL}/auth/verify`, {
+        const response = await fetchWithAuth(`${API_URL}/auth/verify`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username })
@@ -218,7 +218,7 @@
         const idValue = localStorage.getItem(idKey);
         
         if (idValue) {
-          const response = await fetch(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
+          const response = await fetchWithAuth(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
           if (response.ok) {
             const result = await response.json();
             console.log(' Conversación cargada, id_usuario debería estar disponible en el contexto');
@@ -236,7 +236,7 @@
   async cargarAvatarDesdeServidor() {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/auth/usuario/${this.userInfo.id_usuario}`);
+      const response = await fetchWithAuth(`${API_URL}/auth/usuario/${this.userInfo.id_usuario}`);
       
       if (response.ok) {
         const data = await response.json();
@@ -391,7 +391,7 @@
       console.log(' Cargando conversaciones para:', this.userType, 'id_usuario:', idValue);
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
+      const response = await fetchWithAuth(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
       
       if (response.ok) {
         const result = await response.json();
@@ -534,7 +534,7 @@
     
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversacion/${this.activeConversation.id_conversacion}`);
+      const response = await fetchWithAuth(`${API_URL}/chat/conversacion/${this.activeConversation.id_conversacion}`);
       const result = await response.json();
       
       if (result.success) {
@@ -798,7 +798,7 @@
       formData.append('nombre_remitente', this.userInfo.nombre);
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/upload`, {
+      const response = await fetchWithAuth(`${API_URL}/chat/upload`, {
         method: 'POST',
         body: formData
       });
@@ -834,7 +834,7 @@
       const idKey = this.userType === 'profesor' ? 'id_profesor' : 'id_alumno';
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/iniciar`, {
+      const response = await fetchWithAuth(`${API_URL}/chat/iniciar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -925,7 +925,7 @@
   async markAsRead(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      await fetch(`${API_URL}/chat/conversacion/${id}/leer`, {
+      await fetchWithAuth(`${API_URL}/chat/conversacion/${id}/leer`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tipo_lector: 'usuario' })
