@@ -27,8 +27,8 @@
     return; // No hacer nada en páginas públicas
   }
   
-  // Obtener token
-  const token = localStorage.getItem('authToken');
+  // Obtener token (usar 'token' que es como se guarda en el login)
+  const token = localStorage.getItem('token');
   
   // Si no hay token, redirigir al login
   if (!token) {
@@ -95,7 +95,7 @@
   }
   
   function clearAuthData() {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
     localStorage.removeItem('id_usuario');
     localStorage.removeItem('id_persona');
     localStorage.removeItem('id_alumno');
@@ -103,6 +103,7 @@
     localStorage.removeItem('id_administrador');
     localStorage.removeItem('rol');
     localStorage.removeItem('nombre');
+    localStorage.removeItem('username');
   }
   
   function redirectToLogin() {
