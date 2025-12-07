@@ -843,9 +843,22 @@ router.post("/classroom-login", async (req, res) => {
       rolFinal = 'admin';
     }
 
+    const tokenPayload = {
+      id_usuario: user.id_usuario,
+      id_persona: user.id_persona,
+      rol: rolFinal,
+      username: user.username
+    };
+
+    if (id_profesor) tokenPayload.id_profesor = id_profesor;
+    if (id_alumno) tokenPayload.id_alumno = id_alumno;
+
+    const token = generarToken(tokenPayload);
+
     const response = {
       success: true,
       message: "Login exitoso",
+      token,
       id_usuario: user.id_usuario,
       rol: rolFinal,
       nombre: `${user.nombre} ${user.apellido}`.trim(),

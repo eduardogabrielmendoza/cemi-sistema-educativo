@@ -221,11 +221,16 @@
           }
           
           // Guardar sesión
-          sessionStorage.setItem('usuario', data.username);
-          sessionStorage.setItem('nombre', data.nombre);
-          sessionStorage.setItem('rol', data.rol);
-          sessionStorage.setItem('idUsuario', data.id_usuario);
-          sessionStorage.setItem('idPersona', data.id_persona);
+          if (data.token) {
+            localStorage.setItem('token', data.token);
+          }
+          localStorage.setItem('rol', data.rol);
+          localStorage.setItem('id_usuario', data.id_usuario);
+          localStorage.setItem('nombre', data.nombre);
+          localStorage.setItem('username', data.username);
+          if (data.id_administrador) {
+            localStorage.setItem('id_administrador', data.id_administrador);
+          }
           
           messageEl.textContent = '¡Bienvenido! Redirigiendo...';
           messageEl.className = 'login-message success';
