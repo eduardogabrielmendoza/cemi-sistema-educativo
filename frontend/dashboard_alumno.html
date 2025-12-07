@@ -16,7 +16,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Panel del Alumno - CEMI</title>
+  <title>Panel del Alumno - Ce.mi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -44,7 +44,7 @@
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
-      <img src="images/logodashboard.png" alt="Logo CEMI" style="width: 100%; max-width: 200px; height: auto;">
+      <img src="images/logodashboard.png" alt="Logo Ce.mi" style="width: 100%; max-width: 200px; height: auto;">
     </div>
     <nav class="sidebar-menu">
       <button id="btnCursos"><i data-lucide="book-open"></i> Mis Cursos</button>
@@ -2623,7 +2623,7 @@
       doc.setTextColor(...HARVARD_COLORS.silver);
       doc.text('Conservá este ticket hasta completar el pago', centerX, yPos, { align: 'center' });
       yPos += 3;
-      doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
+      doc.text('Ce.mi - Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
       
       // Descargar PDF
       doc.save(`Ticket-Pago-Efectivo-${numeroTicket}.pdf`);
@@ -3610,7 +3610,7 @@ async function generarComprobantePago(idPago) {
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(6);
     doc.setTextColor(...HARVARD_COLORS.silver);
-    doc.text('CEMI - Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
+    doc.text('Ce.mi - Centro de Enseñanza de Múltiples Idiomas', centerX, yPos, { align: 'center' });
     yPos += 3;
     doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')} - ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`, centerX, yPos, { align: 'center' });
     yPos += 3;

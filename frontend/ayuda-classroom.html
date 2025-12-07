@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Centro de Ayuda - CEMI Classroom</title>
+  <title>Centro de Ayuda - Ce.mi Classroom</title>
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -178,7 +178,7 @@
 <body>
   <header class="help-header">
     <div class="header-top">
-      <a href="classroom.html" class="header-logo"><img src="images/logo.png" alt="CEMI"><span>Ayuda CEMI Classroom</span></a>
+      <a href="classroom.html" class="header-logo"><img src="images/logo.png" alt="CEMI"><span>Ayuda Ce.mi Classroom</span></a>
       <nav class="header-nav">
         <a href="ayuda-classroom.html" class="active">Centro de Ayuda</a>
         <a href="comunidad-ayuda.html">Comunidad</a>
@@ -189,7 +189,7 @@
   </header>
   <div class="hero-section" id="heroSection">
     <h1>¿Cómo podemos ayudarte?</h1>
-    <p>Encuentra respuestas, tutoriales y recursos para aprovechar al máximo CEMI Classroom</p>
+    <p>Encuentra respuestas, tutoriales y recursos para aprovechar al máximo Ce.mi Classroom</p>
     <div class="search-container">
       <div class="search-wrapper">
         <i data-lucide="search" class="search-icon"></i>
@@ -227,7 +227,7 @@
     </div>
   </div>
   <div class="help-widget"><button class="help-widget-btn" onclick="toggleHelpWidget()" id="helpWidgetBtn"><i data-lucide="help-circle"></i></button><div class="help-widget-menu" id="helpWidgetMenu"><a href="comunidad-ayuda.html" class="help-widget-item"><i data-lucide="users"></i><span>Ir a la Comunidad</span></a><a href="guia.html" class="help-widget-item"><i data-lucide="book-open"></i><span>Guía de Usuario</span></a><a href="mailto:soporte@cemi.edu" class="help-widget-item"><i data-lucide="mail"></i><span>Contactar Soporte</span></a><div class="help-widget-item" onclick="openSearchFromWidget()"><i data-lucide="search"></i><span>Buscar ayuda</span></div></div></div>
-  <footer class="help-footer"><div class="footer-content"><div class="footer-links"><a href="comunidad-ayuda.html">Comunidad</a><a href="privacidad.html">Política de Privacidad</a><a href="terminos.html">Términos de Servicio</a></div><div class="footer-copy">© 2025 CEMI - Centro Educativo Multilingüe Integral</div></div></footer>
+  <footer class="help-footer"><div class="footer-content"><div class="footer-links"><a href="comunidad-ayuda.html">Comunidad</a><a href="privacidad.html">Política de Privacidad</a><a href="terminos.html">Términos de Servicio</a></div><div class="footer-copy">© 2025 Ce.mi - Centro Educativo Multilingüe Integral</div></div></footer>
   <script>
     let helpData = null, allArticles = [], currentArticle = null;
     async function loadHelpData() { try { const response = await fetch('assets/data/help-data.json'); helpData = await response.json(); helpData.categorias.forEach(cat => { cat.articulos.forEach(art => { allArticles.push({ ...art, categoria: cat.nombre, categoriaId: cat.id, categoriaIcono: cat.icono }); }); }); renderCategories(); renderPopularArticles(); } catch (error) { console.error('Error cargando datos:', error); } }

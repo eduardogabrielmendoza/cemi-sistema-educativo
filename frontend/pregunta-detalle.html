@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pregunta - Comunidad CEMI</title>
+  <title>Pregunta - Comunidad Ce.mi</title>
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -114,8 +114,8 @@
   <header class="help-header">
     <div class="header-top">
       <a href="classroom.html" class="header-logo">
-        <img src="images/logo.png" alt="CEMI">
-        <span>Comunidad CEMI</span>
+        <img src="images/logo.png" alt="Ce.mi">
+        <span>Comunidad Ce.mi</span>
       </a>
       <nav class="header-nav">
         <a href="ayuda-classroom.html">Centro de Ayuda</a>
@@ -181,7 +181,7 @@
         if (data.success) {
           pregunta = data.pregunta;
           respuestas = data.respuestas || [];
-          document.title = `${pregunta.titulo} - Comunidad CEMI`;
+          document.title = `${pregunta.titulo} - Comunidad Ce.mi`;
           renderContent();
         } else {
           showError(data.error || 'Pregunta no encontrada');
