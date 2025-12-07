@@ -29,7 +29,7 @@
   background: rgba(30, 30, 30, 0.88);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-top: 1px solid rgba(56, 58, 152, 0.55);
+  border-top: 1px solid rgba(165, 28, 48, 0.55);
   padding: 24px 0;
 }
 
@@ -61,7 +61,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: rgba(56, 58, 152, 0.85);
+  color: rgba(165, 28, 48, 0.85);
   animation: cookieWiggle 2.5s ease-in-out infinite;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .cookie-message a:hover {
-  color: #383a98;
+  color: #a51c30;
 }
 
 .cookie-banner-actions {
@@ -160,12 +160,12 @@
 .cookie-btn-accept {
   background: #656f77;
   color: #ffffff;
-  border: 1px solid rgba(56, 58, 152, 0.45);
+  border: 1px solid rgba(165, 28, 48, 0.45);
 }
 
 .cookie-btn-accept:hover {
   background: #4a5259;
-  box-shadow: 0 4px 12px rgba(56, 58, 152, 0.2);
+  box-shadow: 0 4px 12px rgba(165, 28, 48, 0.2);
 }
 
 .cookie-btn:active {

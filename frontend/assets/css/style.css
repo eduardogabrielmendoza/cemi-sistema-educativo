@@ -503,7 +503,7 @@ html {
 .cta-btn:hover {
   transform: scale(1.05);
   background: var(--color-accent-hover);
-  box-shadow: 0 8px 24px rgba(56, 58, 152, 0.35);
+  box-shadow: 0 8px 24px rgba(165, 28, 48, 0.35);
 }
 
 .cta-btn-apk {
@@ -3941,7 +3941,7 @@ footer i {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 30px;
-  border-top: 1px solid #383a98;
+  border-top: 1px solid #a51c30;
   text-align: center;
 }
 
