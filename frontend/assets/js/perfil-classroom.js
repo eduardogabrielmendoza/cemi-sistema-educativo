@@ -1,6 +1,39 @@
 ﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
+function getAuthHeaders() {
+  const token = localStorage.getItem('token');
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+}
+
+async function authFetch(url, options = {}) {
+  const defaultHeaders = getAuthHeaders();
+  
+  if (options.body instanceof FormData) {
+    delete defaultHeaders['Content-Type'];
+  }
+  
+  options.headers = { ...defaultHeaders, ...options.headers };
+  
+  const response = await authFetch(url, options);
+  
+  if (response.status === 401) {
+    const data = await response.clone().json().catch(() => ({}));
+    if (data.expired || data.message?.includes('Token')) {
+      localStorage.clear();
+      alert('Tu sesion ha expirado. Por favor inicia sesion nuevamente.');
+      window.location.href = 'classroom-login.html';
+      return response;
+    }
+  }
+  
+  return response;
+}
+
 let userId = null;
 let userRol = null;
 let userData = null;
@@ -154,7 +187,7 @@ function cambiarSeccion(seccionId) {
 async function cargarPerfilCompleto() {
   try {
     console.log(` Cargando perfil para userId: ${userId}`);
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}`);
+    const response = await authFetch(`${API_URL}/classroom/perfil/${userId}`);
     const data = await response.json();
     
     console.log(' Respuesta del servidor:', data);
@@ -294,7 +327,7 @@ async function guardarDatosPersonales(e) {
   
   try {
     console.log(` PUT request a: ${API_URL}/classroom/perfil/${userId}`);
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
+    const response = await authFetch(`${API_URL}/classroom/perfil/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -378,7 +411,7 @@ async function cambiarAvatar(event) {
   console.log(' Subiendo avatar...');
   
   try {
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}/avatar`, {
+    const response = await authFetch(`${API_URL}/classroom/perfil/${userId}/avatar`, {
       method: 'POST',
       body: formData
     });
@@ -436,7 +469,7 @@ async function guardarBiografia() {
   console.log(' Guardando biografía...');
   
   try {
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
+    const response = await authFetch(`${API_URL}/classroom/perfil/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

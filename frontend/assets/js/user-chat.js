@@ -1,4 +1,31 @@
-﻿class UserChat {
+﻿function getAuthHeaders() {
+  const token = localStorage.getItem('token');
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+}
+
+async function authFetch(url, options = {}) {
+  const defaultHeaders = getAuthHeaders();
+  if (options.body instanceof FormData) {
+    delete defaultHeaders['Content-Type'];
+  }
+  options.headers = { ...defaultHeaders, ...options.headers };
+  const response = await authFetch(url, options);
+  if (response.status === 401) {
+    const data = await response.clone().json().catch(() => ({}));
+    if (data.expired || data.message?.includes('Token')) {
+      localStorage.clear();
+      alert('Tu sesion ha expirado. Por favor inicia sesion nuevamente.');
+      window.location.href = 'classroom-login.html';
+    }
+  }
+  return response;
+}
+
+class UserChat {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
     this.socket = null;
@@ -85,7 +112,7 @@
   async loadConversation() {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${this.userInfo.id_usuario}`);
+      const response = await authFetch(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${this.userInfo.id_usuario}`);
       const result = await response.json();
       
       if (result.success && result.data) {
@@ -204,7 +231,7 @@
   async startNewConversation(mensaje) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/conversacion`, {
+      const response = await authFetch(`${API_URL}/chat/conversacion`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -232,7 +259,7 @@
   async sendExistingMessage(mensaje) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await fetch(`${API_URL}/chat/mensaje`, {
+      const response = await authFetch(`${API_URL}/chat/mensaje`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

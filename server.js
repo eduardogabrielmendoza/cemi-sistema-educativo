@@ -32,6 +32,7 @@ import gdprRoutes from "./backend/routes/gdpr.js";
 import codigosRecuperacionRoutes from "./backend/routes/codigosRecuperacion.js";
 import ChatServer from "./backend/utils/chat-server.js";
 import http from "http";
+import { verificarToken } from "./backend/utils/authMiddleware.js";
 
 dotenv.config();
 const app = express();
@@ -151,28 +152,29 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/alumnos", alumnosRoutes);
-app.use("/api/profesores", profesoresRoutes);
-app.use("/api/administradores", administradoresRoutes);
-app.use("/api/cursos", cursosRoutes);
-app.use("/api/pagos", pagosRoutes);
-app.use("/api/idiomas", idiomasRoutes);
-app.use("/api/aulas", aulasRoutes);
-app.use("/api/niveles", nivelesRoutes);
-app.use("/api/inscripciones", inscripcionesRoutes);
-app.use("/api/calificaciones", calificacionesRoutes);
-app.use("/api/asistencias", asistenciasRoutes);
-app.use("/api/stats", statsRoutes);
-app.use("/api/classroom", classroomRoutes);
-app.use("/api/classroom", perfilClassroomRoutes);
-app.use("/api/notificaciones", notificacionesRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/config", configRoutes);
-app.use("/api/investigacion", investigacionRoutes);
-app.use("/api/comunidad", comunidadRoutes);
 app.use("/api/status", statusRoutes);
-app.use("/api/gdpr", gdprRoutes);
-app.use("/api/codigos-recuperacion", codigosRecuperacionRoutes);
+app.use("/api/config", configRoutes);
+
+app.use("/api/alumnos", verificarToken, alumnosRoutes);
+app.use("/api/profesores", verificarToken, profesoresRoutes);
+app.use("/api/administradores", verificarToken, administradoresRoutes);
+app.use("/api/cursos", verificarToken, cursosRoutes);
+app.use("/api/pagos", verificarToken, pagosRoutes);
+app.use("/api/idiomas", verificarToken, idiomasRoutes);
+app.use("/api/aulas", verificarToken, aulasRoutes);
+app.use("/api/niveles", verificarToken, nivelesRoutes);
+app.use("/api/inscripciones", verificarToken, inscripcionesRoutes);
+app.use("/api/calificaciones", verificarToken, calificacionesRoutes);
+app.use("/api/asistencias", verificarToken, asistenciasRoutes);
+app.use("/api/stats", verificarToken, statsRoutes);
+app.use("/api/classroom", verificarToken, classroomRoutes);
+app.use("/api/classroom", verificarToken, perfilClassroomRoutes);
+app.use("/api/notificaciones", verificarToken, notificacionesRoutes);
+app.use("/api/chat", verificarToken, chatRoutes);
+app.use("/api/investigacion", verificarToken, investigacionRoutes);
+app.use("/api/comunidad", verificarToken, comunidadRoutes);
+app.use("/api/gdpr", verificarToken, gdprRoutes);
+app.use("/api/codigos-recuperacion", verificarToken, codigosRecuperacionRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: "frontend" });

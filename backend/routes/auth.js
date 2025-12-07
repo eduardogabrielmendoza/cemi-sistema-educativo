@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
 import { solicitudRecibidaTemplate, notificacionAdminTemplate, credencialesActualizadasTemplate, bienvenidaAlumnoTemplate } from "../utils/emailTemplates.js";
+import { generarToken } from "../utils/authMiddleware.js";
 
 dotenv.config();
 
@@ -119,6 +120,15 @@ router.post("/login",
     } else if (rol === 'alumno') {
       response.id_alumno = id_especifico;
     }
+
+    const tokenPayload = {
+      id_usuario: user.id_usuario,
+      id_persona: user.id_persona,
+      username: user.username,
+      rol: rol,
+      id_especifico: id_especifico
+    };
+    response.token = generarToken(tokenPayload);
 
     return res.json(response);
   } catch (error) {
@@ -837,6 +847,16 @@ router.post("/classroom-login", async (req, res) => {
 
     if (id_profesor) response.id_profesor = id_profesor;
     if (id_alumno) response.id_alumno = id_alumno;
+
+    const tokenPayload = {
+      id_usuario: user.id_usuario,
+      id_persona: user.id_persona,
+      username: user.username,
+      rol: rolFinal,
+      id_profesor: id_profesor,
+      id_alumno: id_alumno
+    };
+    response.token = generarToken(tokenPayload);
 
     return res.json(response);
   } catch (error) {
