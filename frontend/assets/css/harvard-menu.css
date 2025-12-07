@@ -71,7 +71,7 @@
 .harvard-dot {
   width: 8px;
   height: 8px;
-  background-color: rgba(165, 28, 48, 0.6);
+  background-color: #a51c30;
   border-radius: 50%;
   flex-shrink: 0;
 }
