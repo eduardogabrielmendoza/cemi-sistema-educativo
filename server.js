@@ -1,4 +1,4 @@
-ï»¿import express from "express";
+import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
@@ -58,7 +58,7 @@ app.use(helmet({
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev')); // Formato corto para desarrollo
 } else {
-  app.use(morgan('combined')); // Formato completo para producciÃ³n
+  app.use(morgan('combined')); // Formato completo para producción
 }
 
 app.set('trust proxy', 1);
@@ -66,7 +66,7 @@ app.set('trust proxy', 1);
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 1000, // Aumentado a 1000 requests por IP
-  message: 'Demasiadas peticiones desde esta IP, por favor intente mÃ¡s tarde.',
+  message: 'Demasiadas peticiones desde esta IP, por favor intente más tarde.',
   standardHeaders: true,
   legacyHeaders: false,
   skip: (req) => {
@@ -135,7 +135,7 @@ app.use(express.static('frontend'));
 const verificarConexion = async () => {
   try {
     const [rows] = await pool.query("SELECT 1");
-    console.log(" ConexiÃ³n con MySQL establecida correctamente.");
+    console.log(" Conexión con MySQL establecida correctamente.");
   } catch (error) {
     console.error(" Error al conectar con MySQL:", error.message);
   }
