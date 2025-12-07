@@ -130,7 +130,7 @@ body {
 }
 
 .back-button:hover {
-  border-color: var(--color-border-hover);
+  border-color: rgba(165, 28, 48, 0.5);
   transform: translateX(-2px);
   box-shadow: var(--shadow-hover);
 }
@@ -203,7 +203,7 @@ body {
 .selector-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
-  border-color: var(--color-border-hover);
+  border-color: rgba(165, 28, 48, 0.5);
 }
 
 .card-background {
@@ -282,6 +282,7 @@ body {
 .selector-card:hover .card-icon {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
+  border-color: rgba(165, 28, 48, 0.7);
 }
 
 .card-icon svg {
@@ -352,7 +353,7 @@ body {
 
 .selector-card:hover .card-action {
   background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(165, 28, 48, 0.6);
 }
 
 .card-action svg {
@@ -388,7 +389,7 @@ body {
 }
 
 .btn-back:hover {
-  border-color: var(--color-border-hover);
+  border-color: rgba(165, 28, 48, 0.5);
   box-shadow: var(--shadow-hover);
   transform: translateY(-2px);
 }
