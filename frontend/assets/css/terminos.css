@@ -86,12 +86,12 @@ body {
 
 .terms-nav .nav-link:hover {
   background: var(--bg-light);
-  color: rgba(165, 28, 48, 0.6);
+  color: rgba(165, 28, 48, 0.8);
   transform: translateX(4px);
 }
 
 .terms-nav .nav-link.active {
-  background: rgba(165, 28, 48, 0.7);
+  background: rgba(165, 28, 48, 0.9);
   color: white;
   font-weight: 500;
 }
@@ -104,7 +104,7 @@ body {
   transform: translateY(-50%);
   width: 4px;
   height: 24px;
-  background: rgba(165, 28, 48, 0.7);
+  background: rgba(165, 28, 48, 0.9);
   border-radius: 0 4px 4px 0;
 }
 
@@ -150,7 +150,7 @@ body {
 .terms-header {
   margin-bottom: 60px;
   padding-bottom: 30px;
-  border-bottom: 2px solid rgba(165, 28, 48, 0.3);
+  border-bottom: 2px solid rgba(165, 28, 48, 0.5);
 }
 
 .terms-header h1 {
