@@ -35,7 +35,7 @@
     .search-container { max-width: 520px; margin: 0 auto 20px; position: relative; z-index: 10; animation: fadeSlideDown 0.6s ease 0.2s both; }
     .search-wrapper { position: relative; }
     .search-input { width: 100%; padding: 16px 24px 16px 52px; border: none; border-radius: 14px; font-size: 15px; font-family: 'Inter', sans-serif; box-shadow: 0 10px 40px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); background: white; }
-    .search-input:focus { outline: none; box-shadow: 0 15px 50px rgba(0,0,0,0.25); transform: translateY(-2px); }
+    .search-input:focus { outline: none; box-shadow: 0 15px 50px rgba(0,0,0,0.25), 0 0 0 3px rgba(165, 28, 48, 0.2); transform: translateY(-2px); }
     .search-input::placeholder { color: var(--hw-light-gray); }
     .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--hw-graphite); width: 20px; height: 20px; }
     .search-shortcut { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: var(--hw-cream); padding: 5px 12px; border-radius: 8px; font-size: 12px; color: var(--hw-graphite); font-weight: 500; }
@@ -54,7 +54,7 @@
 
     .quick-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; position: relative; z-index: 1; animation: fadeSlideDown 0.6s ease 0.3s both; }
     .quick-action { display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; color: white; text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.3s ease; cursor: pointer; }
-    .quick-action:hover { background: rgba(255,255,255,0.2); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+    .quick-action:hover { background: rgba(165, 28, 48, 0.3); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(165, 28, 48, 0.25); }
     .quick-action i { width: 16px; height: 16px; }
 
     .main-content { max-width: 1200px; margin: 0 auto; padding: 50px 40px; position: relative; z-index: 1; }
@@ -102,7 +102,7 @@
     .contact-section > p { color: var(--hw-graphite); font-size: 15px; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
     .contact-options { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; position: relative; z-index: 1; }
     .contact-option { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 28px 36px; background: white; border-radius: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; min-width: 180px; text-decoration: none; border: 1px solid transparent; }
-    .contact-option:hover { transform: translateY(-6px); box-shadow: 0 15px 45px rgba(0,0,0,0.1); border-color: rgba(101, 111, 119, 0.1); }
+    .contact-option:hover { transform: translateY(-6px); box-shadow: 0 15px 45px rgba(165, 28, 48, 0.15); border-color: rgba(165, 28, 48, 0.3); }
     .contact-option-icon { width: 56px; height: 56px; background: var(--hw-charcoal); border-radius: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
     .contact-option:hover .contact-option-icon { transform: rotate(5deg) scale(1.05); }
     .contact-option-icon i { width: 26px; height: 26px; color: white; }
@@ -169,7 +169,7 @@
     .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 28px; }
     .footer-links a { color: var(--hw-graphite); text-decoration: none; font-size: 14px; transition: color 0.3s ease; }
-    .footer-links a:hover { color: var(--hw-charcoal); }
+    .footer-links a:hover { color: #a51c30; }
     .footer-copy { color: var(--hw-light-gray); font-size: 13px; }
 
     @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 30px 20px; } .categories-grid { grid-template-columns: 1fr; } .popular-section { padding: 24px; } .contact-section { padding: 30px 20px; } .help-widget { bottom: 20px; right: 20px; } }
@@ -182,7 +182,7 @@
       <nav class="header-nav">
         <a href="ayuda-classroom.html" class="active">Centro de Ayuda</a>
         <a href="comunidad-ayuda.html">Comunidad</a>
-        <a href="novedades-Cemihtml">Novedades</a>
+        <a href="novedades-cemi.html">Novedades</a>
         <a href="classroom.html">Volver a Classroom</a>
       </nav>
     </div>
@@ -201,7 +201,7 @@
     <div class="quick-actions">
       <a class="quick-action" href="comunidad-ayuda.html"><i data-lucide="users"></i><span>Comunidad</span></a>
       <div class="quick-action" onclick="scrollToContact()"><i data-lucide="mail"></i><span>Contactar Soporte</span></div>
-      <a class="quick-action" href="novedades-Cemihtml"><i data-lucide="sparkles"></i><span>Novedades</span></a>
+      <a class="quick-action" href="novedades-cemi.html"><i data-lucide="sparkles"></i><span>Novedades</span></a>
     </div>
   </div>
   <main class="main-content">

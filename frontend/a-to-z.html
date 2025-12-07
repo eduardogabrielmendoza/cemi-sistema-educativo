@@ -80,8 +80,8 @@
     }
     
     .az-search-box input:focus {
-      border-color: #0A2540;
-      box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.1);
+      border-color: #a51c30;
+      box-shadow: 0 0 0 3px rgba(165, 28, 48, 0.15);
     }
     
     .az-search-box i {
@@ -120,7 +120,7 @@
     }
     
     .alphabet-nav a:hover {
-      background: #0A2540;
+      background: #a51c30;
       color: white;
     }
     
@@ -141,7 +141,7 @@
       gap: 16px;
       margin-bottom: 20px;
       padding-bottom: 12px;
-      border-bottom: 2px solid #0A2540;
+      border-bottom: 2px solid #a51c30;
     }
     
     .letter-header h2 {
@@ -177,8 +177,8 @@
     }
     
     .az-link:hover {
-      background: #f8f9fa;
-      border-color: #e5e5e5;
+      background: rgba(165, 28, 48, 0.08);
+      border-color: rgba(165, 28, 48, 0.3);
     }
     
     .az-link i {
@@ -186,6 +186,11 @@
       height: 18px;
       color: #656f77;
       flex-shrink: 0;
+      transition: color 0.15s ease;
+    }
+    
+    .az-link:hover i {
+      color: #a51c30;
     }
     
     .az-link span {
@@ -225,9 +230,10 @@
     
     /* Destacar resultados de búsqueda */
     .highlight {
-      background: #fff3cd;
+      background: rgba(165, 28, 48, 0.15);
       padding: 2px 4px;
       border-radius: 2px;
+      color: #a51c30;
     }
   </style>
 </head>
