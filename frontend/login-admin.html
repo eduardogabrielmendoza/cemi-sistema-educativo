@@ -220,11 +220,7 @@
             return;
           }
           
-          // Guardar sesion
-          if (data.token) {
-            localStorage.setItem('token', data.token);
-            sessionStorage.setItem('token', data.token);
-          }
+          // Guardar sesión
           sessionStorage.setItem('usuario', data.username);
           sessionStorage.setItem('nombre', data.nombre);
           sessionStorage.setItem('rol', data.rol);

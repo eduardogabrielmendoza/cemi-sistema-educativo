@@ -1,31 +1,4 @@
-﻿function getAuthHeaders() {
-  const token = localStorage.getItem('token');
-  const headers = { 'Content-Type': 'application/json' };
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-  return headers;
-}
-
-async function authFetch(url, options = {}) {
-  const defaultHeaders = getAuthHeaders();
-  if (options.body instanceof FormData) {
-    delete defaultHeaders['Content-Type'];
-  }
-  options.headers = { ...defaultHeaders, ...options.headers };
-  const response = await authFetch(url, options);
-  if (response.status === 401) {
-    const data = await response.clone().json().catch(() => ({}));
-    if (data.expired || data.message?.includes('Token')) {
-      localStorage.clear();
-      alert('Tu sesion ha expirado. Por favor inicia sesion nuevamente.');
-      window.location.href = 'login.html';
-    }
-  }
-  return response;
-}
-
-class AdminChatManager {
+﻿class AdminChatManager {
   constructor() {
     this.socket = null;
     this.isConnected = false;
@@ -164,7 +137,7 @@ class AdminChatManager {
   async cargarAvatarDesdeServidor() {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await authFetch(`${API_URL}/auth/usuario/${this.adminInfo.id_usuario}`);
+      const response = await fetch(`${API_URL}/auth/usuario/${this.adminInfo.id_usuario}`);
       
       if (response.ok) {
         const data = await response.json();
@@ -338,7 +311,7 @@ class AdminChatManager {
   async loadConversations() {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await authFetch(`${API_URL}/chat/conversaciones`);
+      const response = await fetch(`${API_URL}/chat/conversaciones`);
       const result = await response.json();
       
       if (result.success) {
@@ -460,7 +433,7 @@ class AdminChatManager {
   async loadMessages(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await authFetch(`${API_URL}/chat/conversacion/${id}`);
+      const response = await fetch(`${API_URL}/chat/conversacion/${id}`);
       const result = await response.json();
       
       if (result.success) {
@@ -771,7 +744,7 @@ class AdminChatManager {
       formData.append('nombre_remitente', this.adminInfo.nombre);
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await authFetch(`${API_URL}/chat/upload`, {
+      const response = await fetch(`${API_URL}/chat/upload`, {
         method: 'POST',
         body: formData
       });
@@ -824,7 +797,7 @@ class AdminChatManager {
   async markAsRead(id) {
     try {
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      await authFetch(`${API_URL}/chat/conversacion/${id}/leer`, {
+      await fetch(`${API_URL}/chat/conversacion/${id}/leer`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tipo_lector: 'admin' })
@@ -875,7 +848,7 @@ class AdminChatManager {
       const idUsuario = this.activeConversation.id_usuario;
       
       const API_URL = window.API_URL || 'http://localhost:3000/api';
-      const response = await authFetch(`${API_URL}/chat/conversacion/${idConversacion}`, {
+      const response = await fetch(`${API_URL}/chat/conversacion/${idConversacion}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

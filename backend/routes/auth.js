@@ -102,9 +102,27 @@ router.post("/login",
       id_especifico = alums[0]?.id_alumno;
     }
 
+    const tokenPayload = {
+      id_usuario: user.id_usuario,
+      id_persona: user.id_persona,
+      rol: rol,
+      username: user.username
+    };
+
+    if (rol === 'administrador' || rol === 'admin') {
+      tokenPayload.id_administrador = id_especifico;
+    } else if (rol === 'profesor') {
+      tokenPayload.id_profesor = id_especifico;
+    } else if (rol === 'alumno') {
+      tokenPayload.id_alumno = id_especifico;
+    }
+
+    const token = generarToken(tokenPayload);
+
     const response = {
       success: true,
       message: "Login exitoso",
+      token,
       rol,
       nombre: `${user.nombre} ${user.apellido}`.trim(),
       username: user.username,
@@ -120,15 +138,6 @@ router.post("/login",
     } else if (rol === 'alumno') {
       response.id_alumno = id_especifico;
     }
-
-    const tokenPayload = {
-      id_usuario: user.id_usuario,
-      id_persona: user.id_persona,
-      username: user.username,
-      rol: rol,
-      id_especifico: id_especifico
-    };
-    response.token = generarToken(tokenPayload);
 
     return res.json(response);
   } catch (error) {
@@ -847,16 +856,6 @@ router.post("/classroom-login", async (req, res) => {
 
     if (id_profesor) response.id_profesor = id_profesor;
     if (id_alumno) response.id_alumno = id_alumno;
-
-    const tokenPayload = {
-      id_usuario: user.id_usuario,
-      id_persona: user.id_persona,
-      username: user.username,
-      rol: rolFinal,
-      id_profesor: id_profesor,
-      id_alumno: id_alumno
-    };
-    response.token = generarToken(tokenPayload);
 
     return res.json(response);
   } catch (error) {

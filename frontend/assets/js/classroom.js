@@ -1,39 +1,6 @@
 ﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
-function getAuthHeaders() {
-  const token = localStorage.getItem('token');
-  const headers = { 'Content-Type': 'application/json' };
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-  return headers;
-}
-
-async function authFetch(url, options = {}) {
-  const defaultHeaders = getAuthHeaders();
-  
-  if (options.body instanceof FormData) {
-    delete defaultHeaders['Content-Type'];
-  }
-  
-  options.headers = { ...defaultHeaders, ...options.headers };
-  
-  const response = await authFetch(url, options);
-  
-  if (response.status === 401) {
-    const data = await response.clone().json().catch(() => ({}));
-    if (data.expired || data.message?.includes('Token')) {
-      localStorage.clear();
-      alert('Tu sesion ha expirado. Por favor inicia sesion nuevamente.');
-      window.location.href = 'classroom-login.html';
-      return response;
-    }
-  }
-  
-  return response;
-}
-
 let userRol = '';
 let userId = '';
 let userName = '';
@@ -62,7 +29,7 @@ async function cargarAvatarUsuario() {
     
     console.log(`️ Cargando avatar para usuario: ${idUsuario}`);
     
-    const response = await authFetch(`${API_URL}/classroom/perfil/${idUsuario}`);
+    const response = await fetch(`${API_URL}/classroom/perfil/${idUsuario}`);
     const data = await response.json();
     
     if (response.ok && data.success) {
@@ -292,12 +259,12 @@ async function initCourseSelector() {
     const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
     
     if (isAdminClassroom) {
-      const res = await authFetch(`${API_URL}/classroom/admin/todos-cursos`);
+      const res = await fetch(`${API_URL}/classroom/admin/todos-cursos`);
       cursosDisponibles = await res.json();
       console.log(` Admin: ${cursosDisponibles.length} cursos cargados del sistema`);
     } else {
       const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-      const res = await authFetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
+      const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
       cursosDisponibles = await res.json();
     }
     
@@ -560,12 +527,12 @@ async function loadClases() {
     let clases;
     
     if (isAdminClassroom) {
-      const res = await authFetch(`${API_URL}/classroom/admin/todos-cursos`);
+      const res = await fetch(`${API_URL}/classroom/admin/todos-cursos`);
       clases = await res.json();
       console.log(` Admin: ${clases.length} cursos del sistema cargados`);
     } else {
       const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-      const res = await authFetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
+      const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
       clases = await res.json();
     }
     
@@ -603,12 +570,12 @@ async function loadFeed() {
     
     if (isAdminClassroom) {
       if (cursoActivo !== null) {
-        const res = await authFetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
+        const res = await fetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
         const data = await res.json();
         anuncios = Array.isArray(data) ? data : (data.anuncios || []);
         console.log(` Admin: ${anuncios.length} anuncios del curso ${cursoActivo}`);
       } else {
-        const res = await authFetch(`${API_URL}/classroom/admin/todos-anuncios`);
+        const res = await fetch(`${API_URL}/classroom/admin/todos-anuncios`);
         const data = await res.json();
         anuncios = Array.isArray(data) ? data : (data.anuncios || []);
         console.log(` Admin: ${anuncios.length} anuncios del sistema cargados`);
@@ -616,11 +583,11 @@ async function loadFeed() {
     } else {
       const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
       if (cursoActivo !== null) {
-        const res = await authFetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
+        const res = await fetch(`${API_URL}/classroom/anuncios/curso/${cursoActivo}`);
         const data = await res.json();
         anuncios = Array.isArray(data) ? data : (data.anuncios || []);
       } else {
-        const res = await authFetch(`${API_URL}/classroom/anuncios/${tipo}/${userId}`);
+        const res = await fetch(`${API_URL}/classroom/anuncios/${tipo}/${userId}`);
         const data = await res.json();
         anuncios = Array.isArray(data) ? data : (data.anuncios || []);
       }
@@ -813,19 +780,19 @@ async function loadTareas() {
     
     if (isAdminClassroom) {
       if (cursoActivo !== null) {
-        const res = await authFetch(`${API_URL}/classroom/tareas/curso/${cursoActivo}/${tipo}/${userId}`);
+        const res = await fetch(`${API_URL}/classroom/tareas/curso/${cursoActivo}/${tipo}/${userId}`);
         tareas = await res.json();
       } else {
-        const res = await authFetch(`${API_URL}/classroom/admin/todas-tareas`);
+        const res = await fetch(`${API_URL}/classroom/admin/todas-tareas`);
         tareas = await res.json();
         console.log(` Admin: ${tareas.length} tareas del sistema cargadas`);
       }
     } else {
       if (cursoActivo !== null) {
-        const res = await authFetch(`${API_URL}/classroom/tareas/curso/${cursoActivo}/${tipo}/${userId}`);
+        const res = await fetch(`${API_URL}/classroom/tareas/curso/${cursoActivo}/${tipo}/${userId}`);
         tareas = await res.json();
       } else {
-        const res = await authFetch(`${API_URL}/classroom/tareas-lista/${tipo}/${userId}`);
+        const res = await fetch(`${API_URL}/classroom/tareas-lista/${tipo}/${userId}`);
         tareas = await res.json();
       }
     }
@@ -1022,7 +989,7 @@ async function loadCalificaciones() {
   try {
     if (userRol.toLowerCase() !== 'alumno') return;
     
-    const res = await authFetch(`${API_URL}/classroom/calificaciones/alumno/${userId}`);
+    const res = await fetch(`${API_URL}/classroom/calificaciones/alumno/${userId}`);
     const data = await res.json();
     
     const dataFiltrada = cursoActivo !== null 
@@ -1041,7 +1008,7 @@ async function loadEstadisticas() {
   try {
     if (userRol.toLowerCase() !== 'profesor') return;
     
-    const res = await authFetch(`${API_URL}/classroom/estadisticas/profesor/${userId}`);
+    const res = await fetch(`${API_URL}/classroom/estadisticas/profesor/${userId}`);
     const stats = await res.json();
     
     console.log('Estadísticas profesor:', stats);
@@ -1229,9 +1196,9 @@ async function verDetalleCurso(idCurso) {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
     
     const [resCurso, resAlumnos, resTareas] = await Promise.all([
-      authFetch(`${API_URL}/classroom/clases/${tipo}/${userId}`),
-      authFetch(`${API_URL}/cursos/${idCurso}/alumnos`),
-      authFetch(`${API_URL}/classroom/tareas/curso/${idCurso}/${tipo}/${userId}`)
+      fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`),
+      fetch(`${API_URL}/cursos/${idCurso}/alumnos`),
+      fetch(`${API_URL}/classroom/tareas/curso/${idCurso}/${tipo}/${userId}`)
     ]);
     
     const cursos = await resCurso.json();
@@ -1446,7 +1413,7 @@ window.verPerfilComentario = function(idUsuario, tipoUsuario) {
 
 async function abrirPerfilEspectador(idPersona, tipoUsuario) {
   try {
-    const response = await authFetch(`${API_URL}/classroom/perfil/${idPersona}`);
+    const response = await fetch(`${API_URL}/classroom/perfil/${idPersona}`);
     const data = await response.json();
     
     if (!response.ok || !data.success) {
@@ -1547,7 +1514,7 @@ async function abrirCourseRoom(idCurso) {
 
 async function verAlumnosCurso(idCurso) {
   try {
-    const res = await authFetch(`${API_URL}/classroom/curso/${idCurso}/alumnos`);
+    const res = await fetch(`${API_URL}/classroom/curso/${idCurso}/alumnos`);
     const alumnos = await res.json();
     
     const htmlAlumnos = alumnos.length === 0 ? 
@@ -1710,7 +1677,7 @@ function getGradeClass(nota) {
 
 async function verAlumnosCurso(idCurso) {
   try {
-    const res = await authFetch(`${API_URL}/classroom/curso/${idCurso}/alumnos`);
+    const res = await fetch(`${API_URL}/classroom/curso/${idCurso}/alumnos`);
     const alumnos = await res.json();
     
     let tablaHTML = `
@@ -1818,7 +1785,7 @@ function createClass() {
 
 async function mostrarFormularioTarea() {
   const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-  const res = await authFetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
+  const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
   const cursos = await res.json();
   
   if (cursos.length === 0) {
@@ -2162,7 +2129,7 @@ async function mostrarFormularioTarea() {
             const formData = new FormData();
             formData.append('archivo', file);
             
-            const uploadResponse = await authFetch(`${API_URL}/classroom/upload-archivo`, {
+            const uploadResponse = await fetch(`${API_URL}/classroom/upload-archivo`, {
               method: 'POST',
               body: formData
             });
@@ -2198,7 +2165,7 @@ async function crearTarea(datos) {
   try {
     const fechaLimite = `${datos.fecha} ${datos.hora}:00`;
     
-    const response = await authFetch(`${API_URL}/classroom/tareas`, {
+    const response = await fetch(`${API_URL}/classroom/tareas`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -2280,7 +2247,7 @@ async function eliminarTarea(idTarea, titulo) {
 
   if (result.isConfirmed) {
     try {
-      const response = await authFetch(`${API_URL}/classroom/tareas/${idTarea}`, {
+      const response = await fetch(`${API_URL}/classroom/tareas/${idTarea}`, {
         method: 'DELETE'
       });
 
@@ -2407,7 +2374,7 @@ async function entregarTarea(idTarea, comentario, archivo) {
         const formData = new FormData();
         formData.append('archivo', archivo);
         
-        const uploadResponse = await authFetch(`${API_URL}/classroom/upload-archivo`, {
+        const uploadResponse = await fetch(`${API_URL}/classroom/upload-archivo`, {
           method: 'POST',
           body: formData
         });
@@ -2431,7 +2398,7 @@ async function entregarTarea(idTarea, comentario, archivo) {
       }
     }
     
-    const response = await authFetch(`${API_URL}/classroom/entregas`, {
+    const response = await fetch(`${API_URL}/classroom/entregas`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -2480,7 +2447,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
   try {
     showLoader();
     
-    const response = await authFetch(`${API_URL}/classroom/entregas/${idTarea}/alumno/${idAlumno}`);
+    const response = await fetch(`${API_URL}/classroom/entregas/${idTarea}/alumno/${idAlumno}`);
     const entrega = await response.json();
     
     if (!response.ok) {
@@ -2618,7 +2585,7 @@ async function verEntregasTarea(idTarea) {
   try {
     showLoader();
     
-    const response = await authFetch(`${API_URL}/classroom/entregas/${idTarea}`);
+    const response = await fetch(`${API_URL}/classroom/entregas/${idTarea}`);
     const entregas = await response.json();
     
     if (!response.ok) {
@@ -2739,7 +2706,7 @@ window.calificarEntrega = async function(idEntrega) {
   try {
     showLoader();
     
-    const response = await authFetch(`${API_URL}/classroom/entrega/${idEntrega}`);
+    const response = await fetch(`${API_URL}/classroom/entrega/${idEntrega}`);
 
     if (!response.ok) {
       throw new Error('Error al obtener la entrega');
@@ -2912,7 +2879,7 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
   try {
     showLoader();
     
-    const response = await authFetch(`${API_URL}/classroom/entregas/${idEntrega}/calificar`, {
+    const response = await fetch(`${API_URL}/classroom/entregas/${idEntrega}/calificar`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -2958,7 +2925,7 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
 
 async function mostrarFormularioAnuncio() {
   const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-  const res = await authFetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
+  const res = await fetch(`${API_URL}/classroom/clases/${tipo}/${userId}`);
   const cursos = await res.json();
   
   if (cursos.length === 0) {
@@ -3264,7 +3231,7 @@ window.agregarOpcionPoll = function() {
 
 window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
   try {
-    const response = await authFetch(`${API_URL}/classroom/encuestas/votar`, {
+    const response = await fetch(`${API_URL}/classroom/encuestas/votar`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -3279,7 +3246,7 @@ window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
     const result = await response.json();
 
     if (response.ok) {
-      const resEncuesta = await authFetch(`${API_URL}/classroom/encuestas/${idEncuesta}/${userId}`);
+      const resEncuesta = await fetch(`${API_URL}/classroom/encuestas/${idEncuesta}/${userId}`);
       const encuestaActualizada = await resEncuesta.json();
       
       const pollContainer = document.getElementById(`poll-${idEncuesta}`);
@@ -3325,7 +3292,7 @@ window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
 
 async function crearAnuncio(datos) {
   try {
-    const response = await authFetch(`${API_URL}/classroom/anuncios`, {
+    const response = await fetch(`${API_URL}/classroom/anuncios`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -3374,7 +3341,7 @@ async function crearAnuncio(datos) {
 
 async function loadAnunciosProfesor() {
   try {
-    const res = await authFetch(`${API_URL}/classroom/anuncios/profesor/${userId}`);
+    const res = await fetch(`${API_URL}/classroom/anuncios/profesor/${userId}`);
     const anuncios = await res.json();
     renderAnunciosProfesor(anuncios);
   } catch (error) {
@@ -3453,13 +3420,13 @@ function renderAnunciosProfesor(anuncios) {
 
 window.abrirAnuncio = async function(idAnuncio) {
   try {
-    const resAnuncio = await authFetch(`${API_URL}/classroom/anuncio/${idAnuncio}/${userId}`);
+    const resAnuncio = await fetch(`${API_URL}/classroom/anuncio/${idAnuncio}/${userId}`);
     const anuncio = await resAnuncio.json();
     
     console.log(' Datos del anuncio:', anuncio);
     console.log('‍ ID Profesor:', anuncio.id_profesor);
     
-    const resComentarios = await authFetch(`${API_URL}/classroom/comentarios/${idAnuncio}`);
+    const resComentarios = await fetch(`${API_URL}/classroom/comentarios/${idAnuncio}`);
     const comentarios = await resComentarios.json();
     
     const fecha = new Date(anuncio.fecha_creacion);
@@ -3618,7 +3585,7 @@ window.abrirAnuncio = async function(idAnuncio) {
           try {
             const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
             
-            const response = await authFetch(`${API_URL}/classroom/comentarios`, {
+            const response = await fetch(`${API_URL}/classroom/comentarios`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -3795,7 +3762,7 @@ async function cargarCalendario() {
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
     
-    const resCalendario = await authFetch(`${API_URL}/classroom/calendario/${tipo}/${userId}/${calendarioActual.año}/${calendarioActual.mes}`);
+    const resCalendario = await fetch(`${API_URL}/classroom/calendario/${tipo}/${userId}/${calendarioActual.año}/${calendarioActual.mes}`);
     const dataCalendario = await resCalendario.json();
     
     eventosDelMes = cursoActivo !== null
@@ -3806,7 +3773,7 @@ async function cargarCalendario() {
       ? (dataCalendario.tareas || []).filter(tarea => tarea.id_curso === cursoActivo)
       : (dataCalendario.tareas || []);
     
-    const resNotas = await authFetch(`${API_URL}/classroom/notas/${tipo}/${userId}/${calendarioActual.año}/${calendarioActual.mes}`);
+    const resNotas = await fetch(`${API_URL}/classroom/notas/${tipo}/${userId}/${calendarioActual.año}/${calendarioActual.mes}`);
     notasDelMes = await resNotas.json();
     
     renderizarCalendario();
@@ -4386,7 +4353,7 @@ async function crearNota(datos) {
       color: datos.color
     });
     
-    const response = await authFetch(`${API_URL}/classroom/notas`, {
+    const response = await fetch(`${API_URL}/classroom/notas`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -4486,7 +4453,7 @@ async function editarNota(idNota, fecha) {
       }
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await authFetch(`${API_URL}/classroom/notas/${idNota}`, {
+        const response = await fetch(`${API_URL}/classroom/notas/${idNota}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(result.value)
@@ -4522,7 +4489,7 @@ async function eliminarNota(idNota) {
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        const response = await authFetch(`${API_URL}/classroom/notas/${idNota}`, {
+        const response = await fetch(`${API_URL}/classroom/notas/${idNota}`, {
           method: 'DELETE'
         });
         
@@ -4550,7 +4517,7 @@ async function eliminarNota(idNota) {
 }
 
 async function mostrarFormularioEvento() {
-  const res = await authFetch(`${API_URL}/classroom/clases/profesor/${userId}`);
+  const res = await fetch(`${API_URL}/classroom/clases/profesor/${userId}`);
   const cursos = await res.json();
   
   if (cursos.length === 0) {
@@ -4649,7 +4616,7 @@ async function crearEvento(datos) {
   try {
     const fechaInicio = `${datos.fecha} ${datos.hora}:00`;
     
-    const response = await authFetch(`${API_URL}/classroom/calendario/eventos`, {
+    const response = await fetch(`${API_URL}/classroom/calendario/eventos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -4734,7 +4701,7 @@ async function initNotifications() {
 async function cargarNotificaciones() {
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-    const res = await authFetch(`${API_URL}/notificaciones/${tipo}/${userId}?limit=20`);
+    const res = await fetch(`${API_URL}/notificaciones/${tipo}/${userId}?limit=20`);
     const notificaciones = await res.json();
     
     renderNotificaciones(notificaciones);
@@ -4793,7 +4760,7 @@ function renderNotificaciones(notificaciones) {
 async function actualizarContador() {
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-    const res = await authFetch(`${API_URL}/notificaciones/${tipo}/${userId}/sin-leer`);
+    const res = await fetch(`${API_URL}/notificaciones/${tipo}/${userId}/sin-leer`);
     const data = await res.json();
     
     const badge = document.getElementById('notificationBadge');
@@ -4812,7 +4779,7 @@ async function actualizarContador() {
 
 async function clickNotificacion(idNotificacion, tipoNotificacion, idReferencia) {
   try {
-    await authFetch(`${API_URL}/notificaciones/${idNotificacion}/marcar-leida`, {
+    await fetch(`${API_URL}/notificaciones/${idNotificacion}/marcar-leida`, {
       method: 'PUT'
     });
     
@@ -4863,7 +4830,7 @@ async function clickNotificacion(idNotificacion, tipoNotificacion, idReferencia)
 async function marcarTodasLeidas() {
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
-    await authFetch(`${API_URL}/notificaciones/${tipo}/${userId}/marcar-todas-leidas`, {
+    await fetch(`${API_URL}/notificaciones/${tipo}/${userId}/marcar-todas-leidas`, {
       method: 'PUT'
     });
     
@@ -4917,7 +4884,7 @@ async function eliminarAnuncioAdmin(idAnuncio) {
   if (!result.isConfirmed) return;
   
   try {
-    const res = await authFetch(`${API_URL}/classroom/anuncio/${idAnuncio}`, {
+    const res = await fetch(`${API_URL}/classroom/anuncio/${idAnuncio}`, {
       method: 'DELETE'
     });
     
@@ -4965,7 +4932,7 @@ async function eliminarTareaAdmin(idTarea, titulo, nombreCurso) {
   if (!result.isConfirmed) return;
   
   try {
-    const res = await authFetch(`${API_URL}/classroom/tarea/${idTarea}`, {
+    const res = await fetch(`${API_URL}/classroom/tarea/${idTarea}`, {
       method: 'DELETE'
     });
     
@@ -5241,7 +5208,7 @@ async function cambiarPasswordClassroom(event) {
 
   try {
     const API_URL = window.API_URL || 'http://localhost:3000/api';
-    const response = await authFetch(`${API_URL}/auth/cambiar-password-classroom`, {
+    const response = await fetch(`${API_URL}/auth/cambiar-password-classroom`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -5351,7 +5318,7 @@ async function exportarTareasPDF() {
     const apiUrl = `${API_URL}/classroom/tareas-lista/alumno/${idAlumno}`;
     console.log('URL completa:', apiUrl);
     
-    const response = await authFetch(apiUrl);
+    const response = await fetch(apiUrl);
     
     console.log('Response status:', response.status);
     console.log('Response URL:', response.url);
@@ -5636,7 +5603,7 @@ async function exportarCalificacionesPDF() {
     const apiUrl = `${API_URL}/classroom/calificaciones/alumno/${idAlumno}`;
     console.log('URL completa:', apiUrl);
     
-    const response = await authFetch(apiUrl);
+    const response = await fetch(apiUrl);
     
     console.log('Response status:', response.status);
     console.log('Response URL:', response.url);
@@ -6069,7 +6036,7 @@ async function loadRecursos() {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
     console.log(` Cargando recursos para ${tipo} ID: ${userId}`);
     
-    const response = await authFetch(`${API_URL}/classroom/recursos/${tipo}/${userId}`);
+    const response = await fetch(`${API_URL}/classroom/recursos/${tipo}/${userId}`);
     const data = await response.json();
     
     if (data.success) {
@@ -6483,7 +6450,7 @@ async function handleSubirRecurso(e) {
       btnSubmit.innerHTML = '<span class="loading-spinner-small"></span> Subiendo...';
     }
     
-    const response = await authFetch(`${API_URL}/classroom/recursos`, {
+    const response = await fetch(`${API_URL}/classroom/recursos`, {
       method: 'POST',
       body: formData
     });
@@ -6522,7 +6489,7 @@ function cerrarModalRecurso() {
 async function descargarRecurso(idRecurso, url) {
   try {
     if (url.includes('cloudinary.com')) {
-      const response = await authFetch(`${API_URL}/classroom/recursos/${idRecurso}/download-url`);
+      const response = await fetch(`${API_URL}/classroom/recursos/${idRecurso}/download-url`);
       const data = await response.json();
       
       if (data.success && data.url) {
@@ -6531,7 +6498,7 @@ async function descargarRecurso(idRecurso, url) {
       }
     }
     
-    await authFetch(`${API_URL}/classroom/recursos/${idRecurso}/descarga`, {
+    await fetch(`${API_URL}/classroom/recursos/${idRecurso}/descarga`, {
       method: 'POST'
     });
     window.open(url, '_blank');
@@ -6556,7 +6523,7 @@ async function eliminarRecurso(idRecurso) {
   if (!result.isConfirmed) return;
   
   try {
-    const response = await authFetch(`${API_URL}/classroom/recursos/${idRecurso}`, {
+    const response = await fetch(`${API_URL}/classroom/recursos/${idRecurso}`, {
       method: 'DELETE'
     });
     
