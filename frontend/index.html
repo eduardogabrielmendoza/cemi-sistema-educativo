@@ -1415,6 +1415,44 @@
   <script src="assets/js/cookie-modal.js"></script>
   
   <script src="assets/js/harvard-menu.js?v=1.0"></script>
+
+  <div id="authRequiredModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 99999; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
+    <div style="background: #ffffff; border-radius: 16px; padding: 40px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2); animation: modalSlideIn 0.3s ease-out; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
+      <div style="width: 72px; height: 72px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h2 style="margin: 0 0 12px; font-size: 24px; font-weight: 600; color: #1e1e1e;">Acceso restringido</h2>
+      <p style="margin: 0 0 32px; font-size: 15px; color: #6b7280; line-height: 1.6;">Debes iniciar sesion para acceder a esta seccion del sistema.</p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button onclick="document.getElementById('authRequiredModal').style.display='none'; history.replaceState(null, '', window.location.pathname);" style="padding: 12px 24px; border: 1px solid #e5e7eb; background: #ffffff; color: #374151; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: inherit;">Cerrar</button>
+        <button onclick="window.location.href='login.html'" style="padding: 12px 24px; border: none; background: #1e1e1e; color: #ffffff; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: inherit;">Iniciar Sesion</button>
+      </div>
+    </div>
+  </div>
+  <style>
+    @keyframes modalSlideIn {
+      from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    #authRequiredModal button:hover {
+      transform: translateY(-1px);
+    }
+    #authRequiredModal button:first-of-type:hover {
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+    #authRequiredModal button:last-of-type:hover {
+      background: #374151;
+    }
+  </style>
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('auth') === 'required') {
+        document.getElementById('authRequiredModal').style.display = 'flex';
+      }
+    })();
+  </script>
 </body>
 </html>
 
