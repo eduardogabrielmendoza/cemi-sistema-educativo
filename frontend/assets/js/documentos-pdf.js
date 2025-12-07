@@ -51,7 +51,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
       ">
         <!-- Header del Modal -->
         <div style="
-          background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+          background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
           padding: 25px 30px;
           border-radius: 20px 20px 0 0;
           position: relative;
@@ -121,11 +121,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(165, 28, 48, 0.6)'; this.style.background='linear-gradient(135deg, rgba(165, 28, 48, 0.08) 0%, rgba(165, 28, 48, 0.12) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(182, 176, 156, 0.65)'; this.style.background='linear-gradient(135deg, rgba(182, 176, 156, 0.12) 0%, rgba(182, 176, 156, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -153,11 +153,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(165, 28, 48, 0.6)'; this.style.background='linear-gradient(135deg, rgba(165, 28, 48, 0.08) 0%, rgba(165, 28, 48, 0.12) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(182, 176, 156, 0.65)'; this.style.background='linear-gradient(135deg, rgba(182, 176, 156, 0.12) 0%, rgba(182, 176, 156, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -185,11 +185,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(165, 28, 48, 0.6)'; this.style.background='linear-gradient(135deg, rgba(165, 28, 48, 0.08) 0%, rgba(165, 28, 48, 0.12) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(182, 176, 156, 0.65)'; this.style.background='linear-gradient(135deg, rgba(182, 176, 156, 0.12) 0%, rgba(182, 176, 156, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -217,11 +217,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(165, 28, 48, 0.6)'; this.style.background='linear-gradient(135deg, rgba(165, 28, 48, 0.08) 0%, rgba(165, 28, 48, 0.12) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(182, 176, 156, 0.65)'; this.style.background='linear-gradient(135deg, rgba(182, 176, 156, 0.12) 0%, rgba(182, 176, 156, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -249,11 +249,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(165, 28, 48, 0.6)'; this.style.background='linear-gradient(135deg, rgba(165, 28, 48, 0.08) 0%, rgba(165, 28, 48, 0.12) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(182, 176, 156, 0.65)'; this.style.background='linear-gradient(135deg, rgba(182, 176, 156, 0.12) 0%, rgba(182, 176, 156, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -281,13 +281,13 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               align-items: center;
               gap: 15px;
               padding: 18px 20px;
-              background: linear-gradient(135deg, #a51c30 0%, #7d1524 100%);
-              border: 2px solid #a51c30;
+              background: linear-gradient(135deg, #b6b09c 0%, #8a8475 100%);
+              border: 2px solid #b6b09c;
               border-radius: 14px;
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 4px 15px rgba(165, 28, 48, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+            " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 4px 15px rgba(182, 176, 156, 0.45)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
               <div style="
                 width: 50px;
                 height: 50px;
@@ -366,7 +366,7 @@ const HARVARD_COLORS = {
   lightGray: [245, 245, 245],    // #f5f5f5 - Fondos claros
   white: [255, 255, 255],        // #ffffff - Blanco
   text: [45, 45, 45],            // #2d2d2d - Texto principal
-  accent: [165, 28, 48],         // #a51c30 - Crimson Harvard
+  accent: [182, 176, 156],       // #b6b09c - Sage accent
   success: [16, 185, 129],       // #10b981 - Verde éxito
   warning: [245, 158, 11],       // #f59e0b - Amarillo advertencia
   error: [239, 68, 68],          // #ef4444 - Rojo error
@@ -555,7 +555,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
       ">
         <!-- Header -->
         <div style="
-          background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+          background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
           padding: 25px 30px;
           position: relative;
         ">
@@ -618,7 +618,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
                   box-shadow: 0 2px 8px rgba(30, 60, 114, 0.1);
                 ">
                   <span style="
-                    background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+                    background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
                     color: white;
                     width: 28px;
                     height: 28px;
@@ -704,7 +704,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
             <button onclick="generarNuevosCodigos('${nombreAlumno}')" style="
               flex: 1;
               padding: 14px;
-              background: linear-gradient(135deg, #a51c30 0%, #8b1728 100%);
+              background: linear-gradient(135deg, #b6b09c 0%, #9a9583 100%);
               border: none;
               border-radius: 12px;
               font-size: 14px;

@@ -1276,8 +1276,8 @@ body::before {
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(165, 28, 48, 0.4); }
-  50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(165, 28, 48, 0); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(182, 176, 156, 0.45); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(182, 176, 156, 0); }
 }
 
 @keyframes pulseBig {
@@ -1327,8 +1327,8 @@ body::before {
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(165, 28, 48, 0.4); }
-  50% { box-shadow: 0 0 0 4px rgba(165, 28, 48, 0.1); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(182, 176, 156, 0.45); }
+  50% { box-shadow: 0 0 0 4px rgba(182, 176, 156, 0.15); }
 }
 
 @keyframes bellShake {
@@ -1483,7 +1483,7 @@ body {
 .header-icon-btn:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-3px) scale(1.08);
-  box-shadow: 0 5px 15px rgba(165, 28, 48, 0.2);
+  box-shadow: 0 5px 15px rgba(182, 176, 156, 0.25);
 }
 
 .header-icon-btn:hover::before {
@@ -1591,7 +1591,7 @@ body {
 
 .user-avatar:hover {
   transform: scale(1.12);
-  box-shadow: 0 5px 20px rgba(165, 28, 48, 0.2);
+  box-shadow: 0 5px 20px rgba(182, 176, 156, 0.25);
 }
 
 .user-avatar:hover::before {
@@ -1680,13 +1680,13 @@ body {
   top: 0;
   height: 100%;
   width: 4px;
-  background: #a51c30;
+  background: #b6b09c;
   transform: scaleY(0);
   transition: transform 0.3s var(--ease-out-back);
 }
 
 .dropdown-item:hover {
-  background: rgba(165, 28, 48, 0.08);
+  background: rgba(182, 176, 156, 0.12);
   transform: translateX(6px);
   color: var(--hw-charcoal);
 }
@@ -1803,7 +1803,7 @@ body {
   color: var(--hw-white);
   font-weight: 500;
   transform: translateX(0);
-  box-shadow: 0 4px 15px rgba(165, 28, 48, 0.2);
+  box-shadow: 0 4px 15px rgba(182, 176, 156, 0.25);
 }
 
 .nav-item.active::before {
@@ -1976,7 +1976,7 @@ body {
 }
 
 .welcome-section:hover {
-  box-shadow: 0 12px 40px rgba(165, 28, 48, 0.15);
+  box-shadow: 0 12px 40px rgba(182, 176, 156, 0.2);
 }
 
 .welcome-banner-overlay {
@@ -2327,8 +2327,8 @@ body.dark-mode .research-banner-close:hover {
 
 .filter-select:focus {
   outline: none;
-  border-color: rgba(165, 28, 48, 0.5);
-  box-shadow: 0 0 0 3px rgba(165, 28, 48, 0.1);
+  border-color: rgba(182, 176, 156, 0.55);
+  box-shadow: 0 0 0 3px rgba(182, 176, 156, 0.15);
 }
 
 
@@ -2353,8 +2353,8 @@ body.dark-mode .research-banner-close:hover {
 .activity-card:nth-child(5) { animation-delay: 200ms; }
 
 .activity-card:hover {
-  box-shadow: 0 6px 20px rgba(165, 28, 48, 0.12);
-  border-left-color: #a51c30;
+  box-shadow: 0 6px 20px rgba(182, 176, 156, 0.18);
+  border-left-color: #b6b09c;
   transform: translateY(-3px);
 }
 
@@ -2527,8 +2527,8 @@ body.dark-mode .research-banner-close:hover {
 }
 
 .file-item:hover {
-  background: rgba(165, 28, 48, 0.06);
-  border-color: rgba(165, 28, 48, 0.3);
+  background: rgba(182, 176, 156, 0.1);
+  border-color: rgba(182, 176, 156, 0.35);
   transform: translateX(2px);
 }
 
@@ -4599,8 +4599,8 @@ input:checked + .toggle-slider:before {
 
 .config-input:focus {
   outline: none;
-  border-color: rgba(165, 28, 48, 0.5);
-  box-shadow: 0 0 0 4px rgba(165, 28, 48, 0.12), 0 4px 12px rgba(165, 28, 48, 0.08);
+  border-color: rgba(182, 176, 156, 0.55);
+  box-shadow: 0 0 0 4px rgba(182, 176, 156, 0.18), 0 4px 12px rgba(182, 176, 156, 0.12);
   transform: translateY(-1px);
   background: white;
 }
@@ -5437,8 +5437,8 @@ body.dark-mode .toggle-password-btn:hover {
 
 .search-box-resources input:focus {
   outline: none;
-  border-color: rgba(165, 28, 48, 0.5);
-  box-shadow: 0 0 0 4px rgba(165, 28, 48, 0.1);
+  border-color: rgba(182, 176, 156, 0.55);
+  box-shadow: 0 0 0 4px rgba(182, 176, 156, 0.15);
 }
 
 .search-box-resources input:focus + i,
@@ -6096,8 +6096,8 @@ body.dark-mode .toggle-password-btn:hover {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: rgba(165, 28, 48, 0.5);
-  box-shadow: 0 0 0 3px rgba(165, 28, 48, 0.12);
+  border-color: rgba(182, 176, 156, 0.55);
+  box-shadow: 0 0 0 3px rgba(182, 176, 156, 0.18);
   animation: glowPulse 2s ease-in-out infinite;
 }
 
