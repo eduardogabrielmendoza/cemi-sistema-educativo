@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Centro de Ayuda - Cemi. Classroom</title>
+  <title>Centro de Ayuda - Cemi Classroom</title>
   <link rel="icon" type="image/png" href="images/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -178,18 +178,18 @@
 <body>
   <header class="help-header">
     <div class="header-top">
-      <a href="classroom.html" class="header-logo"><img src="images/logo.png" alt="CEMI"><span>Ayuda Cemi. Classroom</span></a>
+      <a href="classroom.html" class="header-logo"><img src="images/logo.png" alt="CEMI"><span>Ayuda Cemi Classroom</span></a>
       <nav class="header-nav">
         <a href="ayuda-classroom.html" class="active">Centro de Ayuda</a>
         <a href="comunidad-ayuda.html">Comunidad</a>
-        <a href="novedades-cemi.html">Novedades</a>
+        <a href="novedades-Cemihtml">Novedades</a>
         <a href="classroom.html">Volver a Classroom</a>
       </nav>
     </div>
   </header>
   <div class="hero-section" id="heroSection">
     <h1>¿Cómo podemos ayudarte?</h1>
-    <p>Encuentra respuestas, tutoriales y recursos para aprovechar al máximo Cemi. Classroom</p>
+    <p>Encuentra respuestas, tutoriales y recursos para aprovechar al máximo Cemi Classroom</p>
     <div class="search-container">
       <div class="search-wrapper">
         <i data-lucide="search" class="search-icon"></i>
@@ -201,7 +201,7 @@
     <div class="quick-actions">
       <a class="quick-action" href="comunidad-ayuda.html"><i data-lucide="users"></i><span>Comunidad</span></a>
       <div class="quick-action" onclick="scrollToContact()"><i data-lucide="mail"></i><span>Contactar Soporte</span></div>
-      <a class="quick-action" href="novedades-cemi.html"><i data-lucide="sparkles"></i><span>Novedades</span></a>
+      <a class="quick-action" href="novedades-Cemihtml"><i data-lucide="sparkles"></i><span>Novedades</span></a>
     </div>
   </div>
   <main class="main-content">
@@ -213,7 +213,7 @@
       <p>Nuestro equipo de soporte está listo para ayudarte.</p>
       <div class="contact-options">
         <a href="comunidad-ayuda.html" class="contact-option"><div class="contact-option-icon"><i data-lucide="message-circle"></i></div><span>Preguntar en Comunidad</span><small>Respuesta de la comunidad</small></a>
-        <a href="mailto:soporte@cemi.edu" class="contact-option"><div class="contact-option-icon"><i data-lucide="mail"></i></div><span>Enviar Email</span><small>soporte@cemi.edu</small></a>
+        <a href="mailto:soporte@Cemiedu" class="contact-option"><div class="contact-option-icon"><i data-lucide="mail"></i></div><span>Enviar Email</span><small>soporte@Cemiedu</small></a>
         <a href="https://wa.me/5491234567890" target="_blank" class="contact-option"><div class="contact-option-icon"><i data-lucide="phone"></i></div><span>WhatsApp</span><small>Respuesta rápida</small></a>
       </div>
     </section>
@@ -226,8 +226,8 @@
       <div class="modal-footer"><div class="helpful-section"><span class="helpful-text">¿Te resultó útil?</span><div class="helpful-buttons"><button class="helpful-btn" onclick="markHelpful(true, this)"><i data-lucide="thumbs-up"></i>Sí</button><button class="helpful-btn" onclick="markHelpful(false, this)"><i data-lucide="thumbs-down"></i>No</button></div></div><button class="share-btn" onclick="shareArticle()"><i data-lucide="share-2"></i>Compartir</button></div>
     </div>
   </div>
-  <div class="help-widget"><button class="help-widget-btn" onclick="toggleHelpWidget()" id="helpWidgetBtn"><i data-lucide="help-circle"></i></button><div class="help-widget-menu" id="helpWidgetMenu"><a href="comunidad-ayuda.html" class="help-widget-item"><i data-lucide="users"></i><span>Ir a la Comunidad</span></a><a href="guia.html" class="help-widget-item"><i data-lucide="book-open"></i><span>Guía de Usuario</span></a><a href="mailto:soporte@cemi.edu" class="help-widget-item"><i data-lucide="mail"></i><span>Contactar Soporte</span></a><div class="help-widget-item" onclick="openSearchFromWidget()"><i data-lucide="search"></i><span>Buscar ayuda</span></div></div></div>
-  <footer class="help-footer"><div class="footer-content"><div class="footer-links"><a href="comunidad-ayuda.html">Comunidad</a><a href="privacidad.html">Política de Privacidad</a><a href="terminos.html">Términos de Servicio</a></div><div class="footer-copy">© 2025 Cemi. - Centro Educativo Multilingüe Integral</div></div></footer>
+  <div class="help-widget"><button class="help-widget-btn" onclick="toggleHelpWidget()" id="helpWidgetBtn"><i data-lucide="help-circle"></i></button><div class="help-widget-menu" id="helpWidgetMenu"><a href="comunidad-ayuda.html" class="help-widget-item"><i data-lucide="users"></i><span>Ir a la Comunidad</span></a><a href="guia.html" class="help-widget-item"><i data-lucide="book-open"></i><span>Guía de Usuario</span></a><a href="mailto:soporte@Cemiedu" class="help-widget-item"><i data-lucide="mail"></i><span>Contactar Soporte</span></a><div class="help-widget-item" onclick="openSearchFromWidget()"><i data-lucide="search"></i><span>Buscar ayuda</span></div></div></div>
+  <footer class="help-footer"><div class="footer-content"><div class="footer-links"><a href="comunidad-ayuda.html">Comunidad</a><a href="privacidad.html">Política de Privacidad</a><a href="terminos.html">Términos de Servicio</a></div><div class="footer-copy">© 2025 Cemi - Centro Educativo Multilingüe Integral</div></div></footer>
   <script>
     let helpData = null, allArticles = [], currentArticle = null;
     async function loadHelpData() { try { const response = await fetch('assets/data/help-data.json'); helpData = await response.json(); helpData.categorias.forEach(cat => { cat.articulos.forEach(art => { allArticles.push({ ...art, categoria: cat.nombre, categoriaId: cat.id, categoriaIcono: cat.icono }); }); }); renderCategories(); renderPopularArticles(); } catch (error) { console.error('Error cargando datos:', error); } }
