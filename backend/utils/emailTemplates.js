@@ -78,9 +78,9 @@ const footerTemplate = `
     <div class="divider" style="margin: 15px auto; max-width: 200px;"></div>
     
     <p class="footer-legal">
-      Este es un correo automatico enviado por el sistema CEMI.<br>
+      Este es un correo automatico enviado por el sistema Ce.Mi.<br>
       Por favor no responda directamente a este mensaje.<br>
-      &copy; ${new Date().getFullYear()} CEMI - Todos los derechos reservados.
+      &copy; ${new Date().getFullYear()} Ce.Mi - Todos los derechos reservados.
     </p>
   </div>
 `;
@@ -97,7 +97,7 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Solicitud Recibida</h1>
         </div>
         <div class="header-accent"></div>
@@ -106,7 +106,7 @@ export function solicitudRecibidaTemplate(nombreUsuario, email) {
             <div class="success-icon"></div>
           </div>
           <h2>Hola ${nombreUsuario || 'Usuario'},</h2>
-          <p>Hemos recibido tu solicitud de recuperacion de contrasena para tu cuenta en el <strong>Centro Educativo Multilingue Integral (CEMI)</strong>.</p>
+          <p>Hemos recibido tu solicitud de recuperacion de contrasena para tu cuenta en el <strong>Centro Educativo Multilingue Integral (Ce.Mi)</strong>.</p>
           
           <div class="info-box">
             <p><strong> Email registrado:</strong> ${email}</p>
@@ -145,7 +145,7 @@ export function notificacionAdminTemplate(usuario) {
     <body>
       <div class="container">
         <div class="header" style="background: ${COLORS.charcoal};">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Nueva Solicitud de Recuperacion</h1>
         </div>
         <div class="header-accent"></div>
@@ -194,7 +194,7 @@ export function credencialesActualizadasTemplate(usuario, nuevasCredenciales) {
     <body>
       <div class="container">
         <div class="header" style="background: ${COLORS.charcoal};">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Contrasena Restablecida</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.success};"></div>
@@ -249,7 +249,7 @@ export function encuestaAgradecimientoTemplate(nombre) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Gracias por Participar</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.success};"></div>
@@ -261,7 +261,7 @@ export function encuestaAgradecimientoTemplate(nombre) {
           <p>Queremos agradecerte sinceramente por tomarte el tiempo de completar nuestra <strong>encuesta de investigacion</strong>.</p>
           
           <div class="info-box">
-            <p style="margin: 0; font-size: 15px;">Tu opinion es fundamental para nosotros. Cada respuesta nos ayuda a entender mejor las necesidades de nuestra comunidad educativa y a mejorar continuamente <strong>CEMI Classroom</strong>.</p>
+            <p style="margin: 0; font-size: 15px;">Tu opinion es fundamental para nosotros. Cada respuesta nos ayuda a entender mejor las necesidades de nuestra comunidad educativa y a mejorar continuamente <strong>Ce.Mi Classroom</strong>.</p>
           </div>
           
           <h3>Que sigue ahora?</h3>
@@ -270,7 +270,7 @@ export function encuestaAgradecimientoTemplate(nombre) {
           <ul>
             <li>Seras considerado/a para futuros estudios y encuestas</li>
             <li>Recibiras invitaciones exclusivas para probar nuevas funcionalidades</li>
-            <li>Podras influir directamente en el desarrollo de CEMI</li>
+            <li>Podras influir directamente en el desarrollo de Ce.Mi</li>
             <li>Tendras acceso prioritario a novedades y actualizaciones</li>
           </ul>
           
@@ -282,12 +282,12 @@ export function encuestaAgradecimientoTemplate(nombre) {
           <p>Si tienes alguna pregunta, sugerencia o comentario adicional, no dudes en contactarnos. Estamos emocionados de contar contigo en nuestra comunidad!</p>
           
           <div style="text-align: center; margin-top: 25px;">
-            <a href="${SITE_URL}/classroom.html" class="btn">Explorar CEMI Classroom</a>
+            <a href="${SITE_URL}/classroom.html" class="btn">Explorar Ce.Mi Classroom</a>
           </div>
           
           <div class="divider"></div>
           
-          <p style="margin-top: 20px;">Con gratitud,<br><strong style="color: ${COLORS.charcoal};">El equipo de CEMI</strong></p>
+          <p style="margin-top: 20px;">Con gratitud,<br><strong style="color: ${COLORS.charcoal};">El equipo de Ce.Mi</strong></p>
         </div>
         ${footerTemplate}
       </div>
@@ -310,7 +310,7 @@ export function bienvenidaAlumnoTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Confirma tu Cuenta</h1>
         </div>
         <div class="header-accent"></div>
@@ -359,7 +359,7 @@ export function bienvenidaAlumnoTemplate(datos) {
           </div>
           
           <p style="margin-top: 25px;">Te esperamos dentro!</p>
-          <p>Saludos cordiales,<br><strong style="color: ${COLORS.charcoal};">El equipo de CEMI</strong></p>
+          <p>Saludos cordiales,<br><strong style="color: ${COLORS.charcoal};">El equipo de Ce.Mi</strong></p>
         </div>
         ${footerTemplate}
       </div>
@@ -396,7 +396,7 @@ export function gdprSolicitudUsuarioTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Solicitud GDPR Recibida</h1>
         </div>
         <div class="header-accent"></div>
@@ -430,7 +430,7 @@ export function gdprSolicitudUsuarioTemplate(datos) {
           </div>
           
           <p style="margin-top: 25px;">Gracias por confiar en nosotros.</p>
-          <p>Atentamente,<br><strong style="color: ${COLORS.charcoal};">El equipo de CEMI</strong></p>
+          <p>Atentamente,<br><strong style="color: ${COLORS.charcoal};">El equipo de Ce.Mi</strong></p>
         </div>
         ${footerTemplate}
       </div>
@@ -459,7 +459,7 @@ export function gdprNotificacionAdminTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Nueva Solicitud GDPR</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.warning};"></div>
@@ -526,7 +526,7 @@ export function codigosRecuperacionUsuarioTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Solicitud de Codigos Recibida</h1>
         </div>
         <div class="header-accent"></div>
@@ -566,7 +566,7 @@ export function codigosRecuperacionUsuarioTemplate(datos) {
           </ul>
           
           <p style="margin-top: 25px;">Gracias por mantener tu cuenta segura.</p>
-          <p>Atentamente,<br><strong style="color: ${COLORS.charcoal};">El equipo de CEMI</strong></p>
+          <p>Atentamente,<br><strong style="color: ${COLORS.charcoal};">El equipo de Ce.Mi</strong></p>
         </div>
         ${footerTemplate}
       </div>
@@ -589,7 +589,7 @@ export function codigosRecuperacionAdminTemplate(datos) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${LOGO_URL}" alt="CEMI">
+          <img src="${LOGO_URL}" alt="Ce.Mi">
           <h1>Solicitud de Codigos 2FA</h1>
         </div>
         <div class="header-accent" style="background: ${COLORS.warning};"></div>
