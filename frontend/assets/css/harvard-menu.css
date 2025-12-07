@@ -549,7 +549,6 @@
   width: 42px;
   height: 42px;
   background-color: var(--hw-color-white);
-  border-radius: 50%;
   flex-shrink: 0;
 }
 
