@@ -1,4 +1,4 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -11,7 +11,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Panel del Profesor - CEMI</title>
+  <title>Panel del Profesor - Ce.mi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
-      <img src="images/logodashboard.png" alt="Logo CEMI" style="width: 100%; max-width: 200px; height: auto;">
+      <img src="images/logodashboard.png" alt="Logo Ce.mi" style="width: 100%; max-width: 200px; height: auto;">
     </div>
     <nav class="sidebar-menu">
       <button id="btnCursos"><i data-lucide="book-open"></i> Mis Cursos</button>
@@ -51,7 +51,7 @@
         <span id="chatNotificationBadge" class="notification-badge" style="display: none;"></span>
       </button>
       <button id="btnAyuda"><i data-lucide="help-circle"></i> Ayuda</button>
-      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesi√≥n</button>
+      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesiÛn</button>
     </nav>
   </aside>
 
@@ -72,7 +72,7 @@
   </main>
 
   <script>
-    // Cargar "Mis Cursos" despu√©s de que todo est√© listo
+    // Cargar "Mis Cursos" despuÈs de que todo estÈ listo
     window.addEventListener("load", () => {
       const btnCursos = document.getElementById("btnCursos");
       if (btnCursos) {
@@ -90,7 +90,7 @@
   const id_profesor = localStorage.getItem("id_profesor");
   
   if (!id_profesor) {
-    console.error("No se encontr√≥ el ID del profesor");
+    console.error("No se encontrÛ el ID del profesor");
     window.location.href = "login.html";
   }
 
@@ -108,7 +108,7 @@
         // Inicializar Socket.IO inmediatamente para recibir notificaciones
         window.userChatManager.init();
       } else {
-        console.error(' UserChatManager no est√° definido');
+        console.error(' UserChatManager no est· definido');
       }
     };
     chatScript.onerror = () => {
@@ -117,7 +117,7 @@
     document.head.appendChild(chatScript);
   };
   document.head.appendChild(socketScript);    // =====================================================
-    // Mostrar saludo din√°mico con nombre guardado
+    // Mostrar saludo din·mico con nombre guardado
     const nombreProfesor = localStorage.getItem("nombre") || "Profesor";
     welcomeMessage.textContent = `Bienvenido, ${nombreProfesor} `;
 
@@ -126,7 +126,7 @@
     try {
       console.log(' Iniciando carga de avatar...');
       
-      // Detectar tipo de usuario seg√∫n qu√© ID existe en localStorage
+      // Detectar tipo de usuario seg˙n quÈ ID existe en localStorage
       let tipoUsuario = 'profesor';
       let idUsuario = localStorage.getItem('id_profesor');
       
@@ -140,7 +140,7 @@
       }
       
       if (!idUsuario) {
-        console.log(' No se encontr√≥ ID de usuario');
+        console.log(' No se encontrÛ ID de usuario');
         return;
       }
       
@@ -190,7 +190,7 @@
     }
   }
   
-  cargarAvatarHeader();    // Secciones din√°micas
+  cargarAvatarHeader();    // Secciones din·micas
     const sections = {
       btnCursos: async () => {
   loader.classList.remove("hidden");
@@ -221,14 +221,14 @@
             </div>
             <h3>No tienes cursos asignados</h3>
             <p>Actualmente no hay cursos asignados a tu perfil.</p>
-            <p class="estado-vacio-hint">Contacta con el administrador para m√°s informaci√≥n.</p>
+            <p class="estado-vacio-hint">Contacta con el administrador para m·s informaciÛn.</p>
           </div>
         </div>`;
       lucide.createIcons();
       return;
     }
 
-    // Calcular estad√≠sticas
+    // Calcular estadÌsticas
     const totalCursos = data.length;
     const totalAlumnos = data.reduce((sum, c) => sum + parseInt(c.alumnos_inscritos || 0), 0);
     const promedioAlumnos = (totalAlumnos / totalCursos).toFixed(1);
@@ -253,7 +253,7 @@
             <div class="stat-content-wrapper">
               <div class="stat-number">${totalCursos}</div>
               <div class="stat-label">Cursos Asignados</div>
-              <div class="stat-sublabel">Activos este per√≠odo</div>
+              <div class="stat-sublabel">Activos este perÌodo</div>
             </div>
             <div class="stat-decoration"></div>
           </div>
@@ -360,7 +360,7 @@
         try {
           const id_profesor = localStorage.getItem("id_profesor");
           if (!id_profesor) {
-            throw new Error("No se encontr√≥ el ID del profesor");
+            throw new Error("No se encontrÛ el ID del profesor");
           }
 
           const resCursos = await fetchWithAuth(`${API_URL}/cursos?id_profesor=${id_profesor}`);
@@ -372,7 +372,7 @@
                 <div>
                   <h2 style="color: #1e1e1e; margin: 0 0 8px 0;">
                     <i data-lucide="clipboard-list" style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;"></i>
-                    Gesti√≥n de Calificaciones
+                    GestiÛn de Calificaciones
                   </h2>
                   <p style="color: #666; margin: 0; font-size: 15px;">Registra y visualiza las calificaciones de tus alumnos</p>
                 </div>
@@ -385,14 +385,14 @@
                 </h3>
                 <div class="cursos-selector-grid-enhanced">
                   ${cursos.map((curso, index) => {
-                    // Iconos din√°micos por idioma
+                    // Iconos din·micos por idioma
                     const idiomaIcons = {
-                      'Ingl√©s': 'book-open',
-                      'Franc√©s': 'coffee',
-                      'Alem√°n': 'beer',
+                      'InglÈs': 'book-open',
+                      'FrancÈs': 'coffee',
+                      'Alem·n': 'beer',
                       'Italiano': 'pizza',
-                      'Portugu√©s': 'globe',
-                      'Japon√©s': 'star',
+                      'PortuguÈs': 'globe',
+                      'JaponÈs': 'star',
                       'Chino': 'circle',
                       'Coreano': 'heart'
                     };
@@ -459,7 +459,7 @@
         try {
           const id_profesor = localStorage.getItem("id_profesor");
           if (!id_profesor) {
-            throw new Error("No se encontr√≥ el ID del profesor");
+            throw new Error("No se encontrÛ el ID del profesor");
           }
 
           const resCursos = await fetchWithAuth(`${API_URL}/cursos?id_profesor=${id_profesor}`);
@@ -484,14 +484,14 @@
                 </h3>
                 <div class="cursos-selector-grid-enhanced">
                   ${cursos.map((curso, index) => {
-                    // Iconos din√°micos por idioma
+                    // Iconos din·micos por idioma
                     const idiomaIcons = {
-                      'Ingl√©s': 'book-open',
-                      'Franc√©s': 'coffee',
-                      'Alem√°n': 'beer',
+                      'InglÈs': 'book-open',
+                      'FrancÈs': 'coffee',
+                      'Alem·n': 'beer',
                       'Italiano': 'pizza',
-                      'Portugu√©s': 'globe',
-                      'Japon√©s': 'star',
+                      'PortuguÈs': 'globe',
+                      'JaponÈs': 'star',
                       'Chino': 'circle',
                       'Coreano': 'heart'
                     };
@@ -552,7 +552,7 @@
         }
       },
 
-      // Secci√≥n: Mi Perfil
+      // SecciÛn: Mi Perfil
       btnPerfil: async () => {
         loader.classList.remove("hidden");
         mainContent.classList.remove("active");
@@ -568,7 +568,7 @@
                   <i data-lucide="user"></i>
                   <h2>Mi Perfil</h2>
                 </div>
-                <p class="section-subtitle">Informaci√≥n personal y profesional</p>
+                <p class="section-subtitle">InformaciÛn personal y profesional</p>
               </div>
 
               <div class="perfil-content">
@@ -580,7 +580,7 @@
                   
                   <div style="background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
                     <i data-lucide="lock" style="color: #f59e0b; width: 16px; height: 16px; flex-shrink: 0;"></i>
-                    <span style="color: #666; font-size: 13px;">No pod√©s editar esta informaci√≥n</span>
+                    <span style="color: #666; font-size: 13px;">No podÈs editar esta informaciÛn</span>
                   </div>
                   
                   <div class="perfil-datos-grid">
@@ -628,7 +628,7 @@
                 <div class="perfil-section">
                   <div class="perfil-section-header">
                     <i data-lucide="briefcase"></i>
-                    <h3>Informaci√≥n Profesional</h3>
+                    <h3>InformaciÛn Profesional</h3>
                   </div>
                   
                   <div class="perfil-stats-profesional">
@@ -677,7 +677,7 @@
             <div class="error-container">
               <i data-lucide="alert-circle"></i>
               <h3>Error al cargar perfil</h3>
-              <p>Por favor, intenta nuevamente m√°s tarde.</p>
+              <p>Por favor, intenta nuevamente m·s tarde.</p>
             </div>
           `;
           lucide.createIcons();
@@ -692,7 +692,7 @@
         setTimeout(() => {
           if (window.userChatManager) {
             window.userChatManager.renderChatView();
-            // Ya NO llamamos init() aqu√≠ - se llam√≥ autom√°ticamente al cargar la p√°gina
+            // Ya NO llamamos init() aquÌ - se llamÛ autom·ticamente al cargar la p·gina
           }
           mainContent.classList.add("active");
           lucide.createIcons();
@@ -705,15 +705,15 @@
           <div class="ayuda-container">
             <div class="ayuda-header">
               <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
-              <p>Gu√≠as completas para gestionar tus cursos y alumnos en CEMI</p>
+              <p>GuÌas completas para gestionar tus cursos y alumnos en CEMI</p>
               <div class="ayuda-stats">
                 <div class="ayuda-stat-item">
                   <div class="ayuda-stat-number">20+</div>
-                  <div class="ayuda-stat-label">Gu√≠as disponibles</div>
+                  <div class="ayuda-stat-label">GuÌas disponibles</div>
                 </div>
                 <div class="ayuda-stat-item">
                   <div class="ayuda-stat-number">8</div>
-                  <div class="ayuda-stat-label">Categor√≠as</div>
+                  <div class="ayuda-stat-label">CategorÌas</div>
                 </div>
                 <div class="ayuda-stat-item">
                   <div class="ayuda-stat-number">24/7</div>
@@ -724,7 +724,7 @@
 
             <div class="ayuda-search-container">
               <i data-lucide="search" class="search-icon"></i>
-              <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="¬øQu√© necesitas aprender hoy?" autocomplete="off">
+              <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="øQuÈ necesitas aprender hoy?" autocomplete="off">
               <div class="search-suggestions">
                 <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='notas'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Calificaciones</span>
                 <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='asistencia'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Asistencias</span>
@@ -737,7 +737,7 @@
             <div class="no-results-message" id="noResultsMessage">
               <i data-lucide="search-x"></i>
               <h3>No se encontraron resultados</h3>
-              <p>Intenta con otros t√©rminos de b√∫squeda o explora las categor√≠as</p>
+              <p>Intenta con otros tÈrminos de b˙squeda o explora las categorÌas</p>
             </div>
 
             <div class="ayuda-quick-access">
@@ -783,7 +783,7 @@
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">2 gu√≠as</span>
+                    <span class="accordion-count">2 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
@@ -793,22 +793,22 @@
                       <div class="guia-item" data-keywords="inicio bienvenida panel dashboard navegacion menu profesor">
                         <div class="guia-icon"><i data-lucide="layout-dashboard"></i></div>
                         <div class="guia-content">
-                          <h4>Navegaci√≥n del Panel</h4>
-                          <p>El men√∫ lateral izquierdo te permite acceder a todas las secciones: Mis Cursos, Calificaciones, Asistencias, Perfil y m√°s. Haz clic en cualquier opci√≥n para cargar esa secci√≥n.</p>
+                          <h4>NavegaciÛn del Panel</h4>
+                          <p>El men˙ lateral izquierdo te permite acceder a todas las secciones: Mis Cursos, Calificaciones, Asistencias, Perfil y m·s. Haz clic en cualquier opciÛn para cargar esa secciÛn.</p>
                           <div class="guia-tags">
-                            <span class="guia-tag">B√°sico</span>
-                            <span class="guia-tag">Navegaci√≥n</span>
+                            <span class="guia-tag">B·sico</span>
+                            <span class="guia-tag">NavegaciÛn</span>
                           </div>
                         </div>
                       </div>
                       <div class="guia-item" data-keywords="primer dia comenzar profesor nuevo empezar configurar">
                         <div class="guia-icon"><i data-lucide="rocket"></i></div>
                         <div class="guia-content">
-                          <h4>Tu Primer D√≠a</h4>
-                          <p>Comienza revisando la secci√≥n "Mis Cursos" para ver qu√© cursos tienes asignados. Luego configura tu perfil y avatar para personalizar tu cuenta.</p>
+                          <h4>Tu Primer DÌa</h4>
+                          <p>Comienza revisando la secciÛn "Mis Cursos" para ver quÈ cursos tienes asignados. Luego configura tu perfil y avatar para personalizar tu cuenta.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Inicio</span>
-                            <span class="guia-tag">Configuraci√≥n</span>
+                            <span class="guia-tag">ConfiguraciÛn</span>
                           </div>
                         </div>
                       </div>
@@ -827,7 +827,7 @@
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">2 gu√≠as</span>
+                    <span class="accordion-count">2 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
@@ -838,18 +838,18 @@
                         <div class="guia-icon"><i data-lucide="book-open"></i></div>
                         <div class="guia-content">
                           <h4>Ver Cursos Asignados</h4>
-                          <p>En esta secci√≥n encontrar√°s todos los cursos que te han sido asignados por administraci√≥n. Cada tarjeta muestra el nombre del curso, idioma, nivel y horario.</p>
+                          <p>En esta secciÛn encontrar·s todos los cursos que te han sido asignados por administraciÛn. Cada tarjeta muestra el nombre del curso, idioma, nivel y horario.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Cursos</span>
-                            <span class="guia-tag">Asignaci√≥n</span>
+                            <span class="guia-tag">AsignaciÛn</span>
                           </div>
                         </div>
                       </div>
                       <div class="guia-item" data-keywords="informacion curso detalles horario aula alumnos cantidad inscritos">
                         <div class="guia-icon"><i data-lucide="info"></i></div>
                         <div class="guia-content">
-                          <h4>Informaci√≥n del Curso</h4>
-                          <p>Cada curso muestra: horario de clases, aula asignada, cantidad de alumnos inscritos y nivel del curso. Esta informaci√≥n te ayuda a organizar tus clases.</p>
+                          <h4>InformaciÛn del Curso</h4>
+                          <p>Cada curso muestra: horario de clases, aula asignada, cantidad de alumnos inscritos y nivel del curso. Esta informaciÛn te ayuda a organizar tus clases.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Detalles</span>
                             <span class="guia-tag">Horarios</span>
@@ -871,7 +871,7 @@
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">3 gu√≠as</span>
+                    <span class="accordion-count">3 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
@@ -893,10 +893,10 @@
                         <div class="guia-icon"><i data-lucide="pencil"></i></div>
                         <div class="guia-content">
                           <h4>Editar Calificaciones</h4>
-                          <p>Puedes modificar las notas en cualquier momento. Selecciona el alumno, cambia los valores y guarda los cambios. El sistema recalcula autom√°ticamente el promedio.</p>
+                          <p>Puedes modificar las notas en cualquier momento. Selecciona el alumno, cambia los valores y guarda los cambios. El sistema recalcula autom·ticamente el promedio.</p>
                           <div class="guia-tags">
-                            <span class="guia-tag">Edici√≥n</span>
-                            <span class="guia-tag">Correcci√≥n</span>
+                            <span class="guia-tag">EdiciÛn</span>
+                            <span class="guia-tag">CorrecciÛn</span>
                           </div>
                         </div>
                       </div>
@@ -904,10 +904,10 @@
                         <div class="guia-icon"><i data-lucide="calculator"></i></div>
                         <div class="guia-content">
                           <h4>Ver Promedio de Alumnos</h4>
-                          <p>El sistema calcula autom√°ticamente el promedio de cada alumno basado en las notas ingresadas. Puedes ver esta informaci√≥n en la tabla de calificaciones.</p>
+                          <p>El sistema calcula autom·ticamente el promedio de cada alumno basado en las notas ingresadas. Puedes ver esta informaciÛn en la tabla de calificaciones.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Promedios</span>
-                            <span class="guia-tag">C√°lculo</span>
+                            <span class="guia-tag">C·lculo</span>
                           </div>
                         </div>
                       </div>
@@ -926,7 +926,7 @@
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">2 gu√≠as</span>
+                    <span class="accordion-count">2 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
@@ -937,7 +937,7 @@
                         <div class="guia-icon"><i data-lucide="user-check"></i></div>
                         <div class="guia-content">
                           <h4>Tomar Asistencia</h4>
-                          <p>Selecciona el curso y la fecha, luego marca a cada alumno como Presente, Ausente o Tarde. Los cambios se guardan autom√°ticamente.</p>
+                          <p>Selecciona el curso y la fecha, luego marca a cada alumno como Presente, Ausente o Tarde. Los cambios se guardan autom·ticamente.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Registro</span>
                             <span class="guia-tag">Diario</span>
@@ -970,7 +970,7 @@
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">2 gu√≠as</span>
+                    <span class="accordion-count">2 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
@@ -991,8 +991,8 @@
                       <div class="guia-item" data-keywords="datos personales editar informacion telefono email contacto actualizar">
                         <div class="guia-icon"><i data-lucide="edit"></i></div>
                         <div class="guia-content">
-                          <h4>Editar Informaci√≥n Personal</h4>
-                          <p>Actualiza tu informaci√≥n de contacto como tel√©fono y email. Algunos datos solo pueden ser modificados por administraci√≥n.</p>
+                          <h4>Editar InformaciÛn Personal</h4>
+                          <p>Actualiza tu informaciÛn de contacto como telÈfono y email. Algunos datos solo pueden ser modificados por administraciÛn.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Datos</span>
                             <span class="guia-tag">Contacto</span>
@@ -1014,7 +1014,7 @@
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">2 gu√≠as</span>
+                    <span class="accordion-count">2 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
@@ -1036,9 +1036,9 @@
                         <div class="guia-icon"><i data-lucide="link"></i></div>
                         <div class="guia-content">
                           <h4>Vincular Google Classroom</h4>
-                          <p>Para acceder necesitas iniciar sesi√≥n con tu cuenta de Google. Una vez vinculada, podr√°s gestionar tus clases desde la plataforma.</p>
+                          <p>Para acceder necesitas iniciar sesiÛn con tu cuenta de Google. Una vez vinculada, podr·s gestionar tus clases desde la plataforma.</p>
                           <div class="guia-tags">
-                            <span class="guia-tag">Vinculaci√≥n</span>
+                            <span class="guia-tag">VinculaciÛn</span>
                             <span class="guia-tag">Cuenta</span>
                           </div>
                         </div>
@@ -1054,11 +1054,11 @@
                     <div class="cat-icon"><i data-lucide="message-circle"></i></div>
                     <div class="accordion-title-text">
                       <span>Chat de Soporte</span>
-                      <small>Comun√≠cate con el equipo de administraci√≥n</small>
+                      <small>ComunÌcate con el equipo de administraciÛn</small>
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">2 gu√≠as</span>
+                    <span class="accordion-count">2 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
@@ -1068,8 +1068,8 @@
                       <div class="guia-item" data-keywords="contactar administracion mensaje soporte ayuda consulta escribir">
                         <div class="guia-icon"><i data-lucide="send"></i></div>
                         <div class="guia-content">
-                          <h4>Contactar Administraci√≥n</h4>
-                          <p>Usa el Chat de Soporte para comunicarte con el equipo administrativo. Puedes enviar consultas sobre horarios, aulas, alumnos o cualquier tema acad√©mico.</p>
+                          <h4>Contactar AdministraciÛn</h4>
+                          <p>Usa el Chat de Soporte para comunicarte con el equipo administrativo. Puedes enviar consultas sobre horarios, aulas, alumnos o cualquier tema acadÈmico.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Contacto</span>
                             <span class="guia-tag">Consultas</span>
@@ -1080,7 +1080,7 @@
                         <div class="guia-icon"><i data-lucide="message-square"></i></div>
                         <div class="guia-content">
                           <h4>Ver Historial de Mensajes</h4>
-                          <p>El chat guarda el historial de tus conversaciones con administraci√≥n, permiti√©ndote revisar respuestas anteriores cuando lo necesites.</p>
+                          <p>El chat guarda el historial de tus conversaciones con administraciÛn, permitiÈndote revisar respuestas anteriores cuando lo necesites.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Historial</span>
                             <span class="guia-tag">Mensajes</span>
@@ -1098,24 +1098,24 @@
                     <div class="cat-icon"><i data-lucide="message-square-text"></i></div>
                     <div class="accordion-title-text">
                       <span>Preguntas Frecuentes</span>
-                      <small>Respuestas r√°pidas a dudas comunes</small>
+                      <small>Respuestas r·pidas a dudas comunes</small>
                     </div>
                   </div>
                   <div class="accordion-meta">
-                    <span class="accordion-count">4 gu√≠as</span>
+                    <span class="accordion-count">4 guÌas</span>
                     <i data-lucide="chevron-down" class="accordion-icon"></i>
                   </div>
                 </div>
                 <div class="accordion-content">
                   <div class="accordion-body">
                     <div class="guia-list">
-                      <div class="guia-item" data-keywords="contrase√±a olvid√© recuperar acceso login clave restablecer">
+                      <div class="guia-item" data-keywords="contraseÒa olvidÈ recuperar acceso login clave restablecer">
                         <div class="guia-icon"><i data-lucide="key"></i></div>
                         <div class="guia-content">
-                          <h4>¬øOlvid√© mi contrase√±a?</h4>
-                          <p>Contacta a administraci√≥n a trav√©s del formulario de ayuda o acude presencialmente a secretar√≠a para solicitar el restablecimiento de tu contrase√±a.</p>
+                          <h4>øOlvidÈ mi contraseÒa?</h4>
+                          <p>Contacta a administraciÛn a travÈs del formulario de ayuda o acude presencialmente a secretarÌa para solicitar el restablecimiento de tu contraseÒa.</p>
                           <div class="guia-tags">
-                            <span class="guia-tag">Contrase√±a</span>
+                            <span class="guia-tag">ContraseÒa</span>
                             <span class="guia-tag">Acceso</span>
                           </div>
                         </div>
@@ -1123,19 +1123,19 @@
                       <div class="guia-item" data-keywords="curso no aparece falta asignado error verificar lista">
                         <div class="guia-icon"><i data-lucide="alert-circle"></i></div>
                         <div class="guia-content">
-                          <h4>¬øNo veo un curso asignado?</h4>
-                          <p>Si un curso que deber√≠as tener no aparece en tu lista, contacta a administraci√≥n para verificar la asignaci√≥n en el sistema.</p>
+                          <h4>øNo veo un curso asignado?</h4>
+                          <p>Si un curso que deberÌas tener no aparece en tu lista, contacta a administraciÛn para verificar la asignaciÛn en el sistema.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Cursos</span>
-                            <span class="guia-tag">Asignaci√≥n</span>
+                            <span class="guia-tag">AsignaciÛn</span>
                           </div>
                         </div>
                       </div>
                       <div class="guia-item" data-keywords="calificaciones no guarda error notas persistir guardar problema">
                         <div class="guia-icon"><i data-lucide="save"></i></div>
                         <div class="guia-content">
-                          <h4>¬øLas calificaciones no se guardan?</h4>
-                          <p>Aseg√∫rate de hacer clic en "Guardar" despu√©s de ingresar las notas. Si el problema persiste, recarga la p√°gina e intenta nuevamente o contacta soporte.</p>
+                          <h4>øLas calificaciones no se guardan?</h4>
+                          <p>Aseg˙rate de hacer clic en "Guardar" despuÈs de ingresar las notas. Si el problema persiste, recarga la p·gina e intenta nuevamente o contacta soporte.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Error</span>
                             <span class="guia-tag">Guardado</span>
@@ -1145,8 +1145,8 @@
                       <div class="guia-item" data-keywords="problema error funciona mal bug reporte tecnico sistema">
                         <div class="guia-icon"><i data-lucide="bug"></i></div>
                         <div class="guia-content">
-                          <h4>¬øEncontr√© un error en el sistema?</h4>
-                          <p>Rep√≥rtalo a trav√©s del Chat de Soporte describiendo qu√© sucedi√≥ y en qu√© secci√≥n. Incluye capturas de pantalla si es posible.</p>
+                          <h4>øEncontrÈ un error en el sistema?</h4>
+                          <p>RepÛrtalo a travÈs del Chat de Soporte describiendo quÈ sucediÛ y en quÈ secciÛn. Incluye capturas de pantalla si es posible.</p>
                           <div class="guia-tags">
                             <span class="guia-tag">Error</span>
                             <span class="guia-tag">Reporte</span>
@@ -1161,17 +1161,17 @@
             </div>
 
             <div class="ayuda-tips">
-              <h3><i data-lucide="lightbulb"></i> Tips R√°pidos para Profesores</h3>
+              <h3><i data-lucide="lightbulb"></i> Tips R·pidos para Profesores</h3>
               <div class="tips-list">
-                <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la p√°gina si algo no carga correctamente</div>
+                <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la p·gina si algo no carga correctamente</div>
                 <div class="tip-badge"><i data-lucide="save"></i> Guarda cambios frecuentemente al cargar notas</div>
                 <div class="tip-badge"><i data-lucide="smartphone"></i> El sistema funciona perfectamente desde tu celular</div>
-                <div class="tip-badge"><i data-lucide="message-circle"></i> El chat de soporte es el canal m√°s r√°pido para ayuda</div>
+                <div class="tip-badge"><i data-lucide="message-circle"></i> El chat de soporte es el canal m·s r·pido para ayuda</div>
               </div>
             </div>
 
             <div class="ayuda-footer">
-              <p>¬øNo encontraste lo que buscabas? Estamos aqu√≠ para ayudarte.</p>
+              <p>øNo encontraste lo que buscabas? Estamos aquÌ para ayudarte.</p>
               <div class="ayuda-footer-links">
                 <span class="ayuda-footer-link" onclick="document.getElementById('btnChatSoporte').click()">
                   <i data-lucide="message-circle"></i> Abrir Chat de Soporte
@@ -1192,7 +1192,7 @@
       }
     };
 
-    // Funci√≥n para inicializar interactividad de la secci√≥n Ayuda
+    // FunciÛn para inicializar interactividad de la secciÛn Ayuda
     function initAyudaInteractivity() {
       // Acordeones
       document.querySelectorAll('.accordion-header').forEach(header => {
@@ -1211,7 +1211,7 @@
         });
       }
       
-      // Modales de gu√≠a
+      // Modales de guÌa
       document.querySelectorAll('.guia-item').forEach(item => {
         item.addEventListener('click', () => {
           openGuiaModal(item);
@@ -1219,35 +1219,35 @@
       });
     }
 
-    // Datos detallados para gu√≠as de profesor
+    // Datos detallados para guÌas de profesor
     const guiasDetalladas = {
-      'Navegaci√≥n del Panel': {
-        descripcion: 'El men√∫ lateral izquierdo es tu centro de control docente. Desde aqu√≠ accedes a todas las herramientas para gestionar tus cursos.',
+      'NavegaciÛn del Panel': {
+        descripcion: 'El men˙ lateral izquierdo es tu centro de control docente. Desde aquÌ accedes a todas las herramientas para gestionar tus cursos.',
         pasos: [
-          { titulo: 'Localiza el men√∫ lateral', desc: 'Est√° ubicado en el lado izquierdo de la pantalla.' },
-          { titulo: 'Explora las secciones', desc: 'Cada √≠cono representa una funci√≥n docente diferente.' },
-          { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevar√° a la secci√≥n seleccionada.' },
+          { titulo: 'Localiza el men˙ lateral', desc: 'Est· ubicado en el lado izquierdo de la pantalla.' },
+          { titulo: 'Explora las secciones', desc: 'Cada Ìcono representa una funciÛn docente diferente.' },
+          { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevar· a la secciÛn seleccionada.' },
           { titulo: 'Observa los indicadores', desc: 'Los badges rojos indican acciones pendientes.' }
         ],
-        tip: 'El men√∫ se adapta a tu rol de profesor, mostrando solo las funciones que necesitas.'
+        tip: 'El men˙ se adapta a tu rol de profesor, mostrando solo las funciones que necesitas.'
       },
       'Entender tu Dashboard': {
         descripcion: 'Tu dashboard muestra un resumen de tus cursos, alumnos y acciones pendientes.',
         pasos: [
-          { titulo: 'Tarjetas de estad√≠sticas', desc: 'Cursos activos, total de alumnos, clases hoy.' },
-          { titulo: 'Cursos destacados', desc: 'Acceso r√°pido a los cursos que impartes.' },
+          { titulo: 'Tarjetas de estadÌsticas', desc: 'Cursos activos, total de alumnos, clases hoy.' },
+          { titulo: 'Cursos destacados', desc: 'Acceso r·pido a los cursos que impartes.' },
           { titulo: 'Alertas pendientes', desc: 'Notas por cargar o tareas por revisar.' },
-          { titulo: 'Calendario resumido', desc: 'Vista r√°pida de tu agenda de clases.' }
+          { titulo: 'Calendario resumido', desc: 'Vista r·pida de tu agenda de clases.' }
         ],
-        tip: 'Revisa tu dashboard al inicio de cada d√≠a para planificar mejor.'
+        tip: 'Revisa tu dashboard al inicio de cada dÌa para planificar mejor.'
       },
       'Ver Cursos Asignados': {
-        descripcion: 'Consulta todos los cursos donde eres profesor y su informaci√≥n.',
+        descripcion: 'Consulta todos los cursos donde eres profesor y su informaciÛn.',
         pasos: [
-          { titulo: 'Ve a Mis Cursos', desc: 'Desde el men√∫ lateral.' },
-          { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra informaci√≥n b√°sica.' },
-          { titulo: 'Consulta alumnos inscritos', desc: 'N√∫mero de estudiantes por curso.' },
-          { titulo: 'Accede a gesti√≥n', desc: 'Haz clic para administrar el curso.' }
+          { titulo: 'Ve a Mis Cursos', desc: 'Desde el men˙ lateral.' },
+          { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra informaciÛn b·sica.' },
+          { titulo: 'Consulta alumnos inscritos', desc: 'N˙mero de estudiantes por curso.' },
+          { titulo: 'Accede a gestiÛn', desc: 'Haz clic para administrar el curso.' }
         ],
         tip: 'Los colores de estado indican si hay acciones pendientes en cada curso.'
       },
@@ -1255,18 +1255,18 @@
         descripcion: 'Administra cada curso: lista de alumnos, asistencia, calificaciones y materiales.',
         pasos: [
           { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta del curso.' },
-          { titulo: 'Accede a opciones', desc: 'Men√∫ con todas las funciones disponibles.' },
+          { titulo: 'Accede a opciones', desc: 'Men˙ con todas las funciones disponibles.' },
           { titulo: 'Administra contenido', desc: 'Sube materiales, crea tareas.' },
           { titulo: 'Gestiona alumnos', desc: 'Lista, asistencia y calificaciones.' }
         ],
-        tip: 'Cada acci√≥n que realices se refleja inmediatamente para los alumnos.'
+        tip: 'Cada acciÛn que realices se refleja inmediatamente para los alumnos.'
       },
       'Horarios y Aulas': {
-        descripcion: 'Consulta d√≥nde y cu√°ndo impartes cada una de tus clases.',
+        descripcion: 'Consulta dÛnde y cu·ndo impartes cada una de tus clases.',
         pasos: [
-          { titulo: 'Revisa cada curso', desc: 'La informaci√≥n de horario est√° en la tarjeta.' },
-          { titulo: 'D√≠a y hora', desc: 'Cu√°ndo se imparte la clase.' },
-          { titulo: 'Aula asignada', desc: 'Ubicaci√≥n f√≠sica o virtual.' },
+          { titulo: 'Revisa cada curso', desc: 'La informaciÛn de horario est· en la tarjeta.' },
+          { titulo: 'DÌa y hora', desc: 'Cu·ndo se imparte la clase.' },
+          { titulo: 'Aula asignada', desc: 'UbicaciÛn fÌsica o virtual.' },
           { titulo: 'Conflictos', desc: 'El sistema alerta si hay superposiciones.' }
         ],
         tip: 'Sincroniza tu calendario personal con los horarios del sistema.'
@@ -1275,87 +1275,87 @@
         descripcion: 'Visualiza la lista completa de alumnos inscriptos en cada curso.',
         pasos: [
           { titulo: 'Selecciona el curso', desc: 'El que quieres consultar.' },
-          { titulo: 'Ve a Lista de Alumnos', desc: 'Opci√≥n en el men√∫ del curso.' },
+          { titulo: 'Ve a Lista de Alumnos', desc: 'OpciÛn en el men˙ del curso.' },
           { titulo: 'Revisa inscriptos', desc: 'Nombre, legajo, foto de cada alumno.' },
           { titulo: 'Exporta si necesitas', desc: 'Descarga la lista en PDF o Excel.' }
         ],
-        tip: 'Imprime la lista al inicio del cuatrimestre para tener referencia f√≠sica.'
+        tip: 'Imprime la lista al inicio del cuatrimestre para tener referencia fÌsica.'
       },
       'Buscar Alumnos': {
-        descripcion: 'Encuentra r√°pidamente a un alumno espec√≠fico en tus cursos.',
+        descripcion: 'Encuentra r·pidamente a un alumno especÌfico en tus cursos.',
         pasos: [
-          { titulo: 'Usa el buscador', desc: 'Campo de b√∫squeda en la secci√≥n.' },
+          { titulo: 'Usa el buscador', desc: 'Campo de b˙squeda en la secciÛn.' },
           { titulo: 'Escribe nombre o legajo', desc: 'El sistema filtra mientras escribes.' },
           { titulo: 'Revisa resultados', desc: 'Aparecen alumnos que coinciden.' },
-          { titulo: 'Accede al perfil', desc: 'Haz clic para ver m√°s detalles.' }
+          { titulo: 'Accede al perfil', desc: 'Haz clic para ver m·s detalles.' }
         ],
-        tip: 'El legajo es √∫nico, usarlo garantiza encontrar al alumno correcto.'
+        tip: 'El legajo es ˙nico, usarlo garantiza encontrar al alumno correcto.'
       },
-      'Ver Informaci√≥n del Alumno': {
+      'Ver InformaciÛn del Alumno': {
         descripcion: 'Consulta datos de cada alumno: contacto, asistencia y rendimiento.',
         pasos: [
           { titulo: 'Selecciona al alumno', desc: 'Desde la lista de tu curso.' },
-          { titulo: 'Datos personales', desc: 'Nombre, email, tel√©fono de contacto.' },
+          { titulo: 'Datos personales', desc: 'Nombre, email, telÈfono de contacto.' },
           { titulo: 'Historial de notas', desc: 'Todas sus calificaciones en tu curso.' },
           { titulo: 'Asistencia', desc: 'Registro de presentes y ausentes.' }
         ],
-        tip: 'Esta informaci√≥n te ayuda a hacer seguimiento personalizado.'
+        tip: 'Esta informaciÛn te ayuda a hacer seguimiento personalizado.'
       },
       'Cargar Calificaciones': {
         descripcion: 'Registra las notas de parciales y finales de tus alumnos.',
         pasos: [
-          { titulo: 'Ve a Calificaciones', desc: 'Desde el men√∫ del curso.' },
-          { titulo: 'Selecciona evaluaci√≥n', desc: 'Parcial 1, Parcial 2 o Final.' },
-          { titulo: 'Ingresa las notas', desc: 'Campo num√©rico para cada alumno.' },
+          { titulo: 'Ve a Calificaciones', desc: 'Desde el men˙ del curso.' },
+          { titulo: 'Selecciona evaluaciÛn', desc: 'Parcial 1, Parcial 2 o Final.' },
+          { titulo: 'Ingresa las notas', desc: 'Campo numÈrico para cada alumno.' },
           { titulo: 'Guarda los cambios', desc: 'Las notas quedan registradas.' }
         ],
-        tip: 'Puedes editar notas despu√©s, pero queda registro del historial.'
+        tip: 'Puedes editar notas despuÈs, pero queda registro del historial.'
       },
       'Modificar Notas': {
         descripcion: 'Si cometiste un error, puedes corregir las calificaciones cargadas.',
         pasos: [
           { titulo: 'Localiza la nota', desc: 'En la grilla de calificaciones.' },
           { titulo: 'Haz clic para editar', desc: 'El campo se vuelve editable.' },
-          { titulo: 'Ingresa valor correcto', desc: 'La nueva calificaci√≥n.' },
-          { titulo: 'Confirma el cambio', desc: 'Guarda para aplicar la correcci√≥n.' }
+          { titulo: 'Ingresa valor correcto', desc: 'La nueva calificaciÛn.' },
+          { titulo: 'Confirma el cambio', desc: 'Guarda para aplicar la correcciÛn.' }
         ],
-        tip: 'Las modificaciones quedan registradas para auditor√≠a.'
+        tip: 'Las modificaciones quedan registradas para auditorÌa.'
       },
-      'Tipos de Evaluaci√≥n': {
-        descripcion: 'Entiende c√≥mo se estructuran las evaluaciones en el sistema.',
+      'Tipos de EvaluaciÛn': {
+        descripcion: 'Entiende cÛmo se estructuran las evaluaciones en el sistema.',
         pasos: [
-          { titulo: 'Parcial 1', desc: 'Primera evaluaci√≥n del per√≠odo.' },
-          { titulo: 'Parcial 2', desc: 'Segunda evaluaci√≥n del per√≠odo.' },
-          { titulo: 'Final', desc: 'Evaluaci√≥n de cierre del curso.' },
-          { titulo: 'Promedio', desc: 'Calculado autom√°ticamente por el sistema.' }
+          { titulo: 'Parcial 1', desc: 'Primera evaluaciÛn del perÌodo.' },
+          { titulo: 'Parcial 2', desc: 'Segunda evaluaciÛn del perÌodo.' },
+          { titulo: 'Final', desc: 'EvaluaciÛn de cierre del curso.' },
+          { titulo: 'Promedio', desc: 'Calculado autom·ticamente por el sistema.' }
         ],
-        tip: 'El promedio se actualiza autom√°ticamente al cargar cada nota.'
+        tip: 'El promedio se actualiza autom·ticamente al cargar cada nota.'
       },
-      'C√°lculo de Promedios': {
-        descripcion: 'El sistema calcula autom√°ticamente el promedio de cada alumno.',
+      'C·lculo de Promedios': {
+        descripcion: 'El sistema calcula autom·ticamente el promedio de cada alumno.',
         pasos: [
-          { titulo: 'F√≥rmula est√°ndar', desc: 'Suma de notas dividido cantidad.' },
+          { titulo: 'FÛrmula est·ndar', desc: 'Suma de notas dividido cantidad.' },
           { titulo: 'Peso igual', desc: 'Todas las evaluaciones valen lo mismo.' },
-          { titulo: 'Actualizaci√≥n autom√°tica', desc: 'Al cargar cada nota nueva.' },
-          { titulo: 'Visualizaci√≥n', desc: 'El promedio aparece destacado.' }
+          { titulo: 'ActualizaciÛn autom·tica', desc: 'Al cargar cada nota nueva.' },
+          { titulo: 'VisualizaciÛn', desc: 'El promedio aparece destacado.' }
         ],
-        tip: 'El sistema redondea a 2 decimales para mayor precisi√≥n.'
+        tip: 'El sistema redondea a 2 decimales para mayor precisiÛn.'
       },
       'Tomar Asistencia': {
-        descripcion: 'Registra la asistencia de cada clase de forma r√°pida y sencilla.',
+        descripcion: 'Registra la asistencia de cada clase de forma r·pida y sencilla.',
         pasos: [
-          { titulo: 'Ve a Asistencia', desc: 'Desde el men√∫ del curso.' },
-          { titulo: 'Selecciona la fecha', desc: 'El d√≠a de la clase.' },
+          { titulo: 'Ve a Asistencia', desc: 'Desde el men˙ del curso.' },
+          { titulo: 'Selecciona la fecha', desc: 'El dÌa de la clase.' },
           { titulo: 'Marca cada alumno', desc: 'Presente, Ausente o Tardanza.' },
           { titulo: 'Guarda el registro', desc: 'La asistencia queda guardada.' }
         ],
         tip: 'Puedes tomar asistencia desde tu celular durante la clase.'
       },
       'Historial de Asistencia': {
-        descripcion: 'Consulta el registro hist√≥rico de asistencia de cada alumno.',
+        descripcion: 'Consulta el registro histÛrico de asistencia de cada alumno.',
         pasos: [
           { titulo: 'Selecciona el alumno', desc: 'O consulta por curso completo.' },
-          { titulo: 'Elige per√≠odo', desc: 'Rango de fechas a consultar.' },
+          { titulo: 'Elige perÌodo', desc: 'Rango de fechas a consultar.' },
           { titulo: 'Revisa el historial', desc: 'Calendario con todas las clases.' },
           { titulo: 'Calcula porcentaje', desc: 'El sistema muestra el % de asistencia.' }
         ],
@@ -1364,19 +1364,19 @@
       'Acceder a Classroom': {
         descripcion: 'Conecta con Google Classroom para gestionar materiales digitales.',
         pasos: [
-          { titulo: 'Ve a Classroom', desc: 'Desde el men√∫ lateral.' },
-          { titulo: 'Haz clic en acceder', desc: 'Ser√°s redirigido a Google.' },
-          { titulo: 'Inicia sesi√≥n', desc: 'Con tu cuenta institucional de Google.' },
+          { titulo: 'Ve a Classroom', desc: 'Desde el men˙ lateral.' },
+          { titulo: 'Haz clic en acceder', desc: 'Ser·s redirigido a Google.' },
+          { titulo: 'Inicia sesiÛn', desc: 'Con tu cuenta institucional de Google.' },
           { titulo: 'Gestiona tus clases', desc: 'Crea, edita y administra contenido.' }
         ],
-        tip: 'Vincula tu cuenta institucional para mejor integraci√≥n.'
+        tip: 'Vincula tu cuenta institucional para mejor integraciÛn.'
       },
       'Subir Materiales': {
         descripcion: 'Comparte documentos, videos y recursos con tus alumnos.',
         pasos: [
           { titulo: 'Ingresa a Classroom', desc: 'Con tu cuenta docente.' },
-          { titulo: 'Selecciona la clase', desc: 'El curso donde subir√°s material.' },
-          { titulo: 'Ve a Materiales', desc: 'Secci√≥n para recursos de estudio.' },
+          { titulo: 'Selecciona la clase', desc: 'El curso donde subir·s material.' },
+          { titulo: 'Ve a Materiales', desc: 'SecciÛn para recursos de estudio.' },
           { titulo: 'Sube archivos', desc: 'PDFs, videos, links, presentaciones.' }
         ],
         tip: 'Organiza los materiales por tema o unidad para facilitar el estudio.'
@@ -1384,67 +1384,67 @@
       'Cambiar Avatar': {
         descripcion: 'Personaliza tu perfil docente con tu foto.',
         pasos: [
-          { titulo: 'Ve a Mi Perfil', desc: 'Desde el men√∫ lateral.' },
-          { titulo: 'Haz clic en tu avatar', desc: 'El c√≠rculo con tu imagen.' },
+          { titulo: 'Ve a Mi Perfil', desc: 'Desde el men˙ lateral.' },
+          { titulo: 'Haz clic en tu avatar', desc: 'El cÌrculo con tu imagen.' },
           { titulo: 'Selecciona foto', desc: 'Elige una imagen profesional.' },
           { titulo: 'Confirma el cambio', desc: 'Tu foto se actualiza.' }
         ],
         tip: 'Una foto profesional ayuda a los alumnos a identificarte.'
       },
       'Actualizar Datos Personales': {
-        descripcion: 'Mant√©n tu informaci√≥n de contacto actualizada.',
+        descripcion: 'MantÈn tu informaciÛn de contacto actualizada.',
         pasos: [
-          { titulo: 'Ve a Mi Perfil', desc: 'Desde el men√∫ lateral.' },
-          { titulo: 'Haz clic en editar', desc: 'Bot√≥n para modificar datos.' },
-          { titulo: 'Actualiza informaci√≥n', desc: 'Tel√©fono, email de contacto.' },
+          { titulo: 'Ve a Mi Perfil', desc: 'Desde el men˙ lateral.' },
+          { titulo: 'Haz clic en editar', desc: 'BotÛn para modificar datos.' },
+          { titulo: 'Actualiza informaciÛn', desc: 'TelÈfono, email de contacto.' },
           { titulo: 'Guarda cambios', desc: 'Confirma las modificaciones.' }
         ],
-        tip: 'Tu email debe ser v√°lido para recibir notificaciones importantes.'
+        tip: 'Tu email debe ser v·lido para recibir notificaciones importantes.'
       },
       'Contactar Soporte': {
-        descripcion: 'Comun√≠cate con el equipo t√©cnico para resolver problemas.',
+        descripcion: 'ComunÌcate con el equipo tÈcnico para resolver problemas.',
         pasos: [
-          { titulo: 'Ve a Chat Soporte', desc: 'Desde el men√∫ lateral.' },
+          { titulo: 'Ve a Chat Soporte', desc: 'Desde el men˙ lateral.' },
           { titulo: 'Describe el problema', desc: 'Con el mayor detalle posible.' },
-          { titulo: 'Env√≠a el mensaje', desc: 'El equipo recibir√° tu consulta.' },
-          { titulo: 'Espera respuesta', desc: 'Te notificar√°n cuando respondan.' }
+          { titulo: 'EnvÌa el mensaje', desc: 'El equipo recibir· tu consulta.' },
+          { titulo: 'Espera respuesta', desc: 'Te notificar·n cuando respondan.' }
         ],
         tip: 'Incluye capturas de pantalla si el problema es visual.'
       },
-      '¬øOlvid√© mi contrase√±a?': {
+      'øOlvidÈ mi contraseÒa?': {
         descripcion: 'Recupera el acceso a tu cuenta docente.',
         pasos: [
-          { titulo: 'No te preocupes', desc: 'Tiene soluci√≥n.' },
-          { titulo: 'Contacta administraci√≥n', desc: 'Por email o presencialmente.' },
+          { titulo: 'No te preocupes', desc: 'Tiene soluciÛn.' },
+          { titulo: 'Contacta administraciÛn', desc: 'Por email o presencialmente.' },
           { titulo: 'Verifica identidad', desc: 'Con tu DNI o credencial.' },
-          { titulo: 'Recibe nueva contrase√±a', desc: 'Temporal para cambiar despu√©s.' }
+          { titulo: 'Recibe nueva contraseÒa', desc: 'Temporal para cambiar despuÈs.' }
         ],
-        tip: 'Usa un gestor de contrase√±as seguro para evitar olvidarlas.'
+        tip: 'Usa un gestor de contraseÒas seguro para evitar olvidarlas.'
       },
-      '¬øNo puedo cargar notas?': {
+      'øNo puedo cargar notas?': {
         descripcion: 'Soluciona problemas al intentar registrar calificaciones.',
         pasos: [
           { titulo: 'Verifica el navegador', desc: 'Chrome o Firefox actualizados.' },
-          { titulo: 'Revisa conexi√≥n', desc: 'Aseg√∫rate de tener internet.' },
+          { titulo: 'Revisa conexiÛn', desc: 'Aseg˙rate de tener internet.' },
           { titulo: 'Verifica permisos', desc: 'Debes ser profesor del curso.' },
           { titulo: 'Contacta soporte', desc: 'Si el problema persiste.' }
         ],
-        tip: 'Prueba cerrar sesi√≥n y volver a entrar antes de reportar.'
+        tip: 'Prueba cerrar sesiÛn y volver a entrar antes de reportar.'
       },
-      '¬øEncontr√© un error en el sistema?': {
-        descripcion: 'Reporta errores para que el equipo t√©cnico pueda solucionarlos.',
+      'øEncontrÈ un error en el sistema?': {
+        descripcion: 'Reporta errores para que el equipo tÈcnico pueda solucionarlos.',
         pasos: [
-          { titulo: 'Documenta el error', desc: 'Anota qu√© estabas haciendo.' },
+          { titulo: 'Documenta el error', desc: 'Anota quÈ estabas haciendo.' },
           { titulo: 'Captura pantalla', desc: 'Si es posible, toma una imagen.' },
           { titulo: 'Anota los pasos', desc: 'Para reproducir el problema.' },
-          { titulo: 'Reporta por chat', desc: 'Env√≠a toda la informaci√≥n.' }
+          { titulo: 'Reporta por chat', desc: 'EnvÌa toda la informaciÛn.' }
         ],
-        tip: 'Cuanto m√°s detallada sea la descripci√≥n, m√°s r√°pido se soluciona.'
+        tip: 'Cuanto m·s detallada sea la descripciÛn, m·s r·pido se soluciona.'
       }
     };
 
     function openGuiaModal(item) {
-      const title = item.querySelector('h4')?.textContent || 'Gu√≠a';
+      const title = item.querySelector('h4')?.textContent || 'GuÌa';
       const description = item.querySelector('p')?.textContent || '';
       const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
       const tags = item.querySelectorAll('.guia-tag');
@@ -1453,9 +1453,9 @@
         descripcion: description,
         pasos: [
           { titulo: 'Paso 1', desc: 'Sigue las instrucciones en pantalla.' },
-          { titulo: 'Paso 2', desc: 'Completa la informaci√≥n requerida.' },
+          { titulo: 'Paso 2', desc: 'Completa la informaciÛn requerida.' },
           { titulo: 'Paso 3', desc: 'Confirma los cambios realizados.' },
-          { titulo: 'Paso 4', desc: 'Verifica que todo est√© correcto.' }
+          { titulo: 'Paso 4', desc: 'Verifica que todo estÈ correcto.' }
         ],
         tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
       };
@@ -1535,7 +1535,7 @@
       let totalVisible = 0;
 
       if (!query) {
-        // Sin b√∫squeda: mostrar todo normal
+        // Sin b˙squeda: mostrar todo normal
         accordions.forEach(acc => {
           acc.classList.remove('hidden', 'open');
         });
@@ -1547,7 +1547,7 @@
         return;
       }
 
-      // Con b√∫squeda: filtrar
+      // Con b˙squeda: filtrar
       accordions.forEach(accordion => {
         const items = accordion.querySelectorAll('.guia-item');
         let hasVisibleItems = false;
@@ -1588,7 +1588,7 @@
       }
     }
 
-    // Navegaci√≥n SPA y logout
+    // NavegaciÛn SPA y logout
     document.querySelectorAll(".sidebar-menu button").forEach(btn => {
       btn.addEventListener("click", () => {
         if (btn.id === "logoutBtn") {
@@ -1626,20 +1626,20 @@
       }, 3000);
     }
 
-    // Variable global para el modo de edici√≥n
+    // Variable global para el modo de ediciÛn
     let modoEdicion = false;
 
-    // Funci√≥n para alternar el modo de edici√≥n de calificaciones
+    // FunciÛn para alternar el modo de ediciÛn de calificaciones
     function toggleModoEdicion() {
       try {
         modoEdicion = !modoEdicion;
         const btn = document.getElementById('btnModificarCalificaciones');
-        if (!btn) throw new Error('No se encontr√≥ el bot√≥n de modificar calificaciones');
+        if (!btn) throw new Error('No se encontrÛ el botÛn de modificar calificaciones');
         
         const btnText = btn.querySelector('span');
-        if (!btnText) throw new Error('No se encontr√≥ el texto del bot√≥n');
+        if (!btnText) throw new Error('No se encontrÛ el texto del botÛn');
         
-        btnText.textContent = modoEdicion ? 'Cancelar Edici√≥n' : 'Modificar Calificaciones';
+        btnText.textContent = modoEdicion ? 'Cancelar EdiciÛn' : 'Modificar Calificaciones';
         btn.classList.toggle('btn-warning', modoEdicion);
 
         // Cambiar el estado de las celdas de calificaciones
@@ -1663,7 +1663,7 @@
           }
         });
       } catch (error) {
-        console.error('Error al cambiar modo de edici√≥n:', error);
+        console.error('Error al cambiar modo de ediciÛn:', error);
         showNotification(error.message, 'error');
       }
     }
@@ -1688,7 +1688,7 @@
           throw new Error(errorData.message);
         }
         
-        showNotification('Calificaci√≥n guardada exitosamente');
+        showNotification('CalificaciÛn guardada exitosamente');
         return true;
       } catch (error) {
         console.error('Error:', error);
@@ -1743,12 +1743,12 @@
       try {
         const row = document.querySelector(`tr[data-alumno-id="${idAlumno}"]`);
         if (!row) {
-          throw new Error('No se encontr√≥ la fila del alumno');
+          throw new Error('No se encontrÛ la fila del alumno');
         }
 
         const inputs = row.querySelectorAll('.calificacion-input');
         if (!inputs.length) {
-          throw new Error('No se encontraron campos de calificaci√≥n');
+          throw new Error('No se encontraron campos de calificaciÛn');
         }
         
         const calificaciones = {
@@ -1778,7 +1778,7 @@
           cell.textContent = input.value || '-';
         });
 
-        // Ocultar el bot√≥n guardar
+        // Ocultar el botÛn guardar
         const btnGuardar = row.querySelector('.btn-guardar');
         if (btnGuardar) {
           btnGuardar.style.display = 'none';
@@ -1793,9 +1793,9 @@
     }
     // NOTE: duplicate modal initialization removed (handled inside btnCalificaciones scope)
 
-    // La funci√≥n showNotification ya est√° definida arriba
+    // La funciÛn showNotification ya est· definida arriba
 
-    // Funci√≥n para abrir panel de detalles del curso
+    // FunciÛn para abrir panel de detalles del curso
     window.openCursoDetalle = async function(idCurso) {
       try {
         // Crear overlay y panel si no existen
@@ -1836,9 +1836,9 @@
             <div class="curso-detalle-title-section">
               <h2 class="curso-detalle-title">${curso.nombre_curso}</h2>
               <p class="curso-detalle-subtitle">
-                <i data-lucide="globe-2"></i> ${curso.nombre_idioma} ‚Ä¢ 
-                <i data-lucide="award"></i> ${curso.nivel || 'Sin nivel'} ‚Ä¢ 
-                <i data-lucide="clock"></i> ${curso.horario || 'Sin horario'} ‚Ä¢
+                <i data-lucide="globe-2"></i> ${curso.nombre_idioma} ï 
+                <i data-lucide="award"></i> ${curso.nivel || 'Sin nivel'} ï 
+                <i data-lucide="clock"></i> ${curso.horario || 'Sin horario'} ï
                 <i data-lucide="door-open"></i> ${curso.nombre_aula || 'Sin aula'}
               </p>
             </div>
@@ -1851,7 +1851,7 @@
                   <i data-lucide="calendar"></i>
                 </div>
                 <div class="info-card-content">
-                  <h4>Informaci√≥n General</h4>
+                  <h4>InformaciÛn General</h4>
                   <div class="info-items">
                     <span><strong>Cupo:</strong> ${curso.alumnos_inscritos || 0}/${curso.cupo_maximo || 0} alumnos</span>
                     <span><strong>Aula:</strong> ${curso.nombre_aula || 'No asignada'} (Cap. ${curso.capacidad || 'N/A'})</span>
@@ -1928,7 +1928,7 @@
                   <tr>
                     <th>Alumno</th>
                     <th>Email</th>
-                    <th>Inscripci√≥n</th>
+                    <th>InscripciÛn</th>
                     <th class="center">Parcial 1</th>
                     <th class="center">Parcial 2</th>
                     <th class="center">Final</th>
@@ -1994,7 +1994,7 @@
       if (panel) panel.classList.remove('active');
     };
 
-    // Funci√≥n para filtrar alumnos en el detalle del curso
+    // FunciÛn para filtrar alumnos en el detalle del curso
     window.filtrarAlumnosDetalle = function() {
       const busqueda = document.getElementById('buscarAlumnoDetalle').value.toLowerCase();
       const tabla = document.getElementById('tablaAlumnosDetalle');
@@ -2010,7 +2010,7 @@
       });
     };
 
-    // Funciones para acciones r√°pidas desde el detalle
+    // Funciones para acciones r·pidas desde el detalle
     window.irACalificaciones = function(idCurso, nombreCurso) {
       closeCursoDetalle();
       document.getElementById('btnCalificaciones').click();
@@ -2027,14 +2027,14 @@
       }, 500);
     };
 
-    // Funci√≥n para cargar calificaciones de un curso
+    // FunciÛn para cargar calificaciones de un curso
     let modoEdicionActivo = false;
 
     window.cargarCalificacionesCurso = async function(idCurso, nombreCurso) {
       try {
         loader.classList.remove('hidden');
 
-        // Obtener detalles del curso con alumnos y estad√≠sticas
+        // Obtener detalles del curso con alumnos y estadÌsticas
         const res = await fetchWithAuth(`${API_URL}/cursos/${idCurso}/detalles`);
         const data = await res.json();
         
@@ -2144,7 +2144,7 @@
                 </button>
                 <button class="btn-modo-edicion" onclick="toggleModoEdicionCalif(${idCurso})">
                   <i data-lucide="edit"></i>
-                  <span id="btnTextoEdicion">Modo Edici√≥n</span>
+                  <span id="btnTextoEdicion">Modo EdiciÛn</span>
                 </button>
               </div>
             </div>
@@ -2274,7 +2274,7 @@
       modoEdicionActivo = false;
     };
 
-    // Toggle modo edici√≥n
+    // Toggle modo ediciÛn
     window.toggleModoEdicionCalif = function(idCurso) {
       modoEdicionActivo = !modoEdicionActivo;
       const btnTexto = document.getElementById('btnTextoEdicion');
@@ -2285,13 +2285,13 @@
       const botones = document.querySelectorAll('.btn-guardar-nota');
 
       if (modoEdicionActivo) {
-        btnTexto.textContent = 'Cancelar Edici√≥n';
+        btnTexto.textContent = 'Cancelar EdiciÛn';
         btn.classList.add('editing');
         displays.forEach(d => d.style.display = 'none');
         inputs.forEach(i => i.style.display = 'block');
         botones.forEach(b => b.style.display = 'inline-flex');
       } else {
-        btnTexto.textContent = 'Modo Edici√≥n';
+        btnTexto.textContent = 'Modo EdiciÛn';
         btn.classList.remove('editing');
         displays.forEach(d => d.style.display = 'inline');
         inputs.forEach(i => i.style.display = 'none');
@@ -2336,7 +2336,7 @@
         
         showNotification('Calificaciones guardadas exitosamente', 'success');
         
-        // Recargar para actualizar estad√≠sticas
+        // Recargar para actualizar estadÌsticas
         setTimeout(() => {
           const nombreCurso = document.querySelector('.calificaciones-titulo h3').textContent.trim();
           cargarCalificacionesCurso(idCurso, nombreCurso);
@@ -2348,7 +2348,7 @@
       }
     };
 
-    // Filtrar alumnos MEJORADO con m√∫ltiples filtros
+    // Filtrar alumnos MEJORADO con m˙ltiples filtros
     window.filtrarAlumnos = function() {
       const busqueda = document.getElementById('buscarAlumno').value.toLowerCase();
       const filtroEstado = document.getElementById('filtroEstado').value;
@@ -2364,7 +2364,7 @@
         const promedioTexto = promedioCell ? promedioCell.textContent.trim() : '-';
         const promedio = promedioTexto !== '-' ? parseFloat(promedioTexto) : -1;
         
-        // Filtro de b√∫squeda
+        // Filtro de b˙squeda
         const coincideNombre = nombreAlumno.includes(busqueda);
         
         // Filtro de estado
@@ -2442,7 +2442,7 @@
         const asistenciasContent = document.getElementById('asistenciasContent');
         asistenciasContent.style.display = 'block';
 
-        // Obtener estad√≠sticas generales del curso
+        // Obtener estadÌsticas generales del curso
         const resEstadisticas = await fetchWithAuth(`${API_URL}/asistencias/curso/${idCurso}/estadisticas`);
         const { generales } = await resEstadisticas.json();
 
@@ -2500,7 +2500,7 @@
                 <div class="registro-rapido-grupo">
                   <label style="font-size: 14px; color: #666; margin-right: 10px;">
                     <i data-lucide="zap"></i>
-                    Registro R√°pido:
+                    Registro R·pido:
                   </label>
                   <button class="btn-rapido presente" onclick="marcarTodosEstado('presente')" title="Marcar todos presente">
                     <i data-lucide="check-circle"></i>
@@ -2524,7 +2524,7 @@
                 </button>
                 <button class="btn-ver-estadisticas" onclick="verEstadisticasDetalladas(${idCurso})">
                   <i data-lucide="bar-chart-2"></i>
-                  Estad√≠sticas
+                  EstadÌsticas
                 </button>
                 ${generales.total_clases_dictadas > 0 ? `
                   <button class="btn-limpiar-asistencias" onclick="limpiarAsistenciasCurso(${idCurso}, '${nombreCurso}')">
@@ -2641,7 +2641,7 @@
               <input 
                 type="text" 
                 class="observaciones-input"
-                placeholder="Agregar observaci√≥n..."
+                placeholder="Agregar observaciÛn..."
                 value="${alumno.observaciones || ''}"
                 data-alumno-id="${alumno.id_alumno}"
               />
@@ -2726,7 +2726,7 @@
         loader.classList.add('hidden');
         showNotification('Asistencias guardadas exitosamente', 'success');
 
-        // Recargar para actualizar estad√≠sticas
+        // Recargar para actualizar estadÌsticas
         setTimeout(() => {
           const nombreCurso = document.querySelector('.asistencias-titulo-row h3').textContent.trim();
           cargarAsistenciasCurso(idCurso, nombreCurso);
@@ -2810,12 +2810,12 @@
         loader.classList.add('hidden');
 
       } catch (error) {
-        console.error(' Error al cargar estad√≠sticas:', error);
+        console.error(' Error al cargar estadÌsticas:', error);
         loader.classList.add('hidden');
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: `No se pudieron cargar las estad√≠sticas: ${error.message}`,
+          text: `No se pudieron cargar las estadÌsticas: ${error.message}`,
           confirmButtonColor: '#3085d6'
         });
       }
@@ -2840,7 +2840,7 @@
         modal.innerHTML = `
           <div class="estadisticas-modal-content">
             <div class="estadisticas-modal-header">
-              <h3>Estad√≠sticas Detalladas de Asistencia</h3>
+              <h3>EstadÌsticas Detalladas de Asistencia</h3>
               <button class="close-modal" onclick="cerrarEstadisticasModal()">
                 <i data-lucide="x"></i>
               </button>
@@ -2921,7 +2921,7 @@
       } catch (error) {
         console.error('Error:', error);
         loader.classList.add('hidden');
-        showNotification('Error al cargar estad√≠sticas', 'error');
+        showNotification('Error al cargar estadÌsticas', 'error');
       }
     };
 
@@ -2931,22 +2931,22 @@
     };
 
     window.limpiarAsistenciasCurso = async function(idCurso, nombreCurso) {
-      // Mostrar confirmaci√≥n
+      // Mostrar confirmaciÛn
       const confirmacion = confirm(
-        `Ô∏è ATENCI√ìN\n\n` +
-        `Est√°s a punto de ELIMINAR TODAS las asistencias registradas del curso:\n` +
+        `? ATENCI”N\n\n` +
+        `Est·s a punto de ELIMINAR TODAS las asistencias registradas del curso:\n` +
         `"${nombreCurso}"\n\n` +
-        `Esta acci√≥n NO se puede deshacer.\n\n` +
-        `¬øEst√°s seguro de continuar?`
+        `Esta acciÛn NO se puede deshacer.\n\n` +
+        `øEst·s seguro de continuar?`
       );
 
       if (!confirmacion) return;
 
-      // Segunda confirmaci√≥n
+      // Segunda confirmaciÛn
       const segundaConfirmacion = confirm(
-        `Ô∏è √öLTIMA CONFIRMACI√ìN\n\n` +
-        `Se eliminar√°n PERMANENTEMENTE todos los registros de asistencia.\n\n` +
-        `¬øConfirmas la eliminaci√≥n?`
+        `? ⁄LTIMA CONFIRMACI”N\n\n` +
+        `Se eliminar·n PERMANENTEMENTE todos los registros de asistencia.\n\n` +
+        `øConfirmas la eliminaciÛn?`
       );
 
       if (!segundaConfirmacion) return;
@@ -2998,14 +2998,14 @@
   </script>
 
   <script>
-    // Funcionalidad del men√∫ mobile
+    // Funcionalidad del men˙ mobile
     document.addEventListener('DOMContentLoaded', function() {
       const mobileMenuToggle = document.getElementById('mobileMenuToggle');
       const sidebar = document.getElementById('sidebar');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
       const dashboardMain = document.querySelector('.dashboard-main');
       
-      // Solo colapsar sidebar en m√≥viles (<=768px)
+      // Solo colapsar sidebar en mÛviles (<=768px)
       if (window.innerWidth <= 768) {
         sidebar.classList.add('collapsed');
       }

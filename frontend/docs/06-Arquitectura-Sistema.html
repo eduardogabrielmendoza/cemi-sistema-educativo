@@ -1,27 +1,27 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquitectura del Sistema - CEMI Sistema Gestor</title>
+    <title>Arquitectura del Sistema - Ce.mi Sistema Gestor</title>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <link rel="stylesheet" href="harvard-doc-styles.css">
 </head>
 <body>
     <div class="container">
-        <a href="../documentacion.html" class="back-link">‚Üê Volver a Documentaci√≥n</a>
+        <a href="../documentacion.html" class="back-link">? Volver a DocumentaciÛn</a>
         
         <div class="cover">
             <h1>ARQUITECTURA DEL SISTEMA</h1>
-            <p class="subtitle">CEMI Sistema de Gesti√≥n Acad√©mica</p>
-            <p style="margin-top: 20px; opacity: 0.8;">Documentaci√≥n de Arquitectura de Software</p>
+            <p class="subtitle">CEMI Sistema de GestiÛn AcadÈmica</p>
+            <p style="margin-top: 20px; opacity: 0.8;">DocumentaciÛn de Arquitectura de Software</p>
         </div>
 
         <div class="toc">
             <h2 style="margin-top: 0;">Contenido</h2>
             <ul>
-                <li><a href="#vision">1. Visi√≥n General</a></li>
-                <li><a href="#patron">2. Patr√≥n Arquitect√≥nico</a></li>
+                <li><a href="#vision">1. VisiÛn General</a></li>
+                <li><a href="#patron">2. PatrÛn ArquitectÛnico</a></li>
                 <li><a href="#capas">3. Arquitectura por Capas</a></li>
                 <li><a href="#componentes">4. Diagrama de Componentes</a></li>
                 <li><a href="#despliegue">5. Diagrama de Despliegue</a></li>
@@ -31,12 +31,12 @@
             </ul>
         </div>
 
-        <h1 id="vision">1. Visi√≥n General</h1>
+        <h1 id="vision">1. VisiÛn General</h1>
         <p>
-            El sistema CEMI implementa una arquitectura web moderna basada en el patr√≥n cliente-servidor con una API RESTful. Esta arquitectura permite la separaci√≥n clara de responsabilidades, facilitando el mantenimiento, la escalabilidad y la evoluci√≥n del sistema.
+            El sistema CEMI implementa una arquitectura web moderna basada en el patrÛn cliente-servidor con una API RESTful. Esta arquitectura permite la separaciÛn clara de responsabilidades, facilitando el mantenimiento, la escalabilidad y la evoluciÛn del sistema.
         </p>
 
-        <h2>1.1 Stack Tecnol√≥gico</h2>
+        <h2>1.1 Stack TecnolÛgico</h2>
         <div style="text-align: center; margin: 30px 0;">
             <span class="tech-badge tech-frontend">HTML5</span>
             <span class="tech-badge tech-frontend">CSS3</span>
@@ -51,26 +51,26 @@
             <span class="tech-badge tech-infra">Cloudinary</span>
         </div>
 
-        <h2>1.2 Caracter√≠sticas Principales</h2>
+        <h2>1.2 CaracterÌsticas Principales</h2>
         <table>
             <tr>
-                <th>Caracter√≠stica</th>
-                <th>Descripci√≥n</th>
+                <th>CaracterÌstica</th>
+                <th>DescripciÛn</th>
             </tr>
             <tr>
                 <td>Arquitectura</td>
                 <td>Cliente-Servidor con API REST</td>
             </tr>
             <tr>
-                <td>Patr√≥n</td>
+                <td>PatrÛn</td>
                 <td>MVC (Model-View-Controller) adaptado</td>
             </tr>
             <tr>
-                <td>Comunicaci√≥n</td>
+                <td>ComunicaciÛn</td>
                 <td>HTTP/HTTPS + WebSocket (Socket.IO)</td>
             </tr>
             <tr>
-                <td>Autenticaci√≥n</td>
+                <td>AutenticaciÛn</td>
                 <td>Basada en sesiones con bcrypt</td>
             </tr>
             <tr>
@@ -79,28 +79,28 @@
             </tr>
             <tr>
                 <td>Despliegue</td>
-                <td>Railway (PaaS) con CI/CD autom√°tico</td>
+                <td>Railway (PaaS) con CI/CD autom·tico</td>
             </tr>
         </table>
 
-        <h1 id="patron">2. Patr√≥n Arquitect√≥nico</h1>
+        <h1 id="patron">2. PatrÛn ArquitectÛnico</h1>
 
         <h2>2.1 Arquitectura MVC Adaptada</h2>
         <p>
-            El sistema utiliza una variante del patr√≥n MVC (Model-View-Controller) adaptada para aplicaciones web con API REST:
+            El sistema utiliza una variante del patrÛn MVC (Model-View-Controller) adaptada para aplicaciones web con API REST:
         </p>
 
-        <div class="diagram-title">Patr√≥n MVC Adaptado</div>
+        <div class="diagram-title">PatrÛn MVC Adaptado</div>
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph View["Ô∏è VIEW (Frontend)"]
+    subgraph View["? VIEW (Frontend)"]
         HTML["HTML5 Pages"]
         CSS["CSS3 Styles"]
         JS["JavaScript Client"]
     end
     
-    subgraph Controller["Ô∏è CONTROLLER (Backend)"]
+    subgraph Controller["? CONTROLLER (Backend)"]
         Express["Express.js Router"]
         Routes["API Routes"]
         Middleware["Middleware Stack"]
@@ -125,8 +125,8 @@ flowchart TB
         <div class="info-box">
             <strong>Responsabilidades:</strong>
             <ul style="margin-top: 10px;">
-                <li><strong>View:</strong> Interfaz de usuario, renderizado de datos, interacci√≥n con el usuario</li>
-                <li><strong>Controller:</strong> L√≥gica de negocio, validaci√≥n, procesamiento de requests</li>
+                <li><strong>View:</strong> Interfaz de usuario, renderizado de datos, interacciÛn con el usuario</li>
+                <li><strong>Controller:</strong> LÛgica de negocio, validaciÛn, procesamiento de requests</li>
                 <li><strong>Model:</strong> Acceso a datos, consultas SQL, persistencia</li>
             </ul>
         </div>
@@ -137,13 +137,13 @@ flowchart TB
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph Presentation[" CAPA DE PRESENTACI√ìN"]
+    subgraph Presentation[" CAPA DE PRESENTACI”N"]
         direction LR
         Browser["Browser/PWA"]
         Mobile["Mobile App (Capacitor)"]
     end
     
-    subgraph Application["Ô∏è CAPA DE APLICACI√ìN"]
+    subgraph Application["? CAPA DE APLICACI”N"]
         direction TB
         subgraph Security[" Seguridad"]
             Helmet["Helmet.js"]
@@ -176,28 +176,28 @@ flowchart TB
             </div>
         </div>
 
-        <h2>3.1 Capa de Presentaci√≥n</h2>
+        <h2>3.1 Capa de PresentaciÛn</h2>
         <div class="layer-card">
             <div class="layer-header">Frontend Layer</div>
             <div class="layer-body">
                 <table>
                     <tr>
                         <th>Componente</th>
-                        <th>Tecnolog√≠a</th>
-                        <th>Funci√≥n</th>
+                        <th>TecnologÌa</th>
+                        <th>FunciÛn</th>
                     </tr>
                     <tr>
-                        <td>P√°ginas Web</td>
+                        <td>P·ginas Web</td>
                         <td>HTML5</td>
                         <td>Estructura y contenido</td>
                     </tr>
                     <tr>
                         <td>Estilos</td>
                         <td>CSS3 + Custom Properties</td>
-                        <td>Dise√±o responsive e identidad visual</td>
+                        <td>DiseÒo responsive e identidad visual</td>
                     </tr>
                     <tr>
-                        <td>L√≥gica Cliente</td>
+                        <td>LÛgica Cliente</td>
                         <td>JavaScript (ES6+)</td>
                         <td>Interactividad, fetch API, validaciones</td>
                     </tr>
@@ -207,7 +207,7 @@ flowchart TB
                         <td>Instalabilidad, offline capabilities</td>
                     </tr>
                     <tr>
-                        <td>App M√≥vil</td>
+                        <td>App MÛvil</td>
                         <td>Capacitor</td>
                         <td>Empaquetado nativo Android/iOS</td>
                     </tr>
@@ -215,15 +215,15 @@ flowchart TB
             </div>
         </div>
 
-        <h2>3.2 Capa de Aplicaci√≥n</h2>
+        <h2>3.2 Capa de AplicaciÛn</h2>
         <div class="layer-card">
             <div class="layer-header">Backend Layer</div>
             <div class="layer-body">
                 <table>
                     <tr>
                         <th>Componente</th>
-                        <th>Tecnolog√≠a</th>
-                        <th>Funci√≥n</th>
+                        <th>TecnologÌa</th>
+                        <th>FunciÛn</th>
                     </tr>
                     <tr>
                         <td>Servidor HTTP</td>
@@ -233,7 +233,7 @@ flowchart TB
                     <tr>
                         <td>API REST</td>
                         <td>Express Router</td>
-                        <td>Endpoints CRUD, l√≥gica de negocio</td>
+                        <td>Endpoints CRUD, lÛgica de negocio</td>
                     </tr>
                     <tr>
                         <td>WebSocket</td>
@@ -243,12 +243,12 @@ flowchart TB
                     <tr>
                         <td>Seguridad</td>
                         <td>Helmet, CORS, Rate Limit</td>
-                        <td>Protecci√≥n contra ataques</td>
+                        <td>ProtecciÛn contra ataques</td>
                     </tr>
                     <tr>
                         <td>Upload</td>
                         <td>Multer + Cloudinary</td>
-                        <td>Gesti√≥n de archivos</td>
+                        <td>GestiÛn de archivos</td>
                     </tr>
                 </table>
             </div>
@@ -261,8 +261,8 @@ flowchart TB
                 <table>
                     <tr>
                         <th>Componente</th>
-                        <th>Tecnolog√≠a</th>
-                        <th>Funci√≥n</th>
+                        <th>TecnologÌa</th>
+                        <th>FunciÛn</th>
                     </tr>
                     <tr>
                         <td>RDBMS</td>
@@ -272,7 +272,7 @@ flowchart TB
                     <tr>
                         <td>Driver</td>
                         <td>mysql2/promise</td>
-                        <td>Conexi√≥n async con pool</td>
+                        <td>ConexiÛn async con pool</td>
                     </tr>
                     <tr>
                         <td>CDN</td>
@@ -289,7 +289,7 @@ flowchart TB
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TB
-    subgraph Frontend["Ô∏è FRONTEND"]
+    subgraph Frontend["? FRONTEND"]
         direction TB
         Index["index.html<br/>(Landing)"]
         Login["login.html<br/>(Auth)"]
@@ -299,7 +299,7 @@ flowchart TB
         Classroom["classroom.html"]
     end
     
-    subgraph Backend["Ô∏è BACKEND (server.js)"]
+    subgraph Backend["? BACKEND (server.js)"]
         direction TB
         subgraph Middleware["Middleware"]
             M1["helmet()"]
@@ -340,21 +340,21 @@ flowchart TB
             <tr>
                 <th>Ruta Base</th>
                 <th>Archivo</th>
-                <th>Descripci√≥n</th>
+                <th>DescripciÛn</th>
             </tr>
-            <tr><td><code>/api/auth</code></td><td>auth.js</td><td>Autenticaci√≥n y registro</td></tr>
+            <tr><td><code>/api/auth</code></td><td>auth.js</td><td>AutenticaciÛn y registro</td></tr>
             <tr><td><code>/api/alumnos</code></td><td>alumnos.js</td><td>CRUD de estudiantes</td></tr>
             <tr><td><code>/api/profesores</code></td><td>profesores.js</td><td>CRUD de docentes</td></tr>
-            <tr><td><code>/api/administradores</code></td><td>administradores.js</td><td>Gesti√≥n de admins</td></tr>
-            <tr><td><code>/api/cursos</code></td><td>cursos.js</td><td>Gesti√≥n de cursos</td></tr>
-            <tr><td><code>/api/inscripciones</code></td><td>inscripciones.js</td><td>Matr√≠culas</td></tr>
-            <tr><td><code>/api/pagos</code></td><td>pagos.js</td><td>Gesti√≥n financiera</td></tr>
+            <tr><td><code>/api/administradores</code></td><td>administradores.js</td><td>GestiÛn de admins</td></tr>
+            <tr><td><code>/api/cursos</code></td><td>cursos.js</td><td>GestiÛn de cursos</td></tr>
+            <tr><td><code>/api/inscripciones</code></td><td>inscripciones.js</td><td>MatrÌculas</td></tr>
+            <tr><td><code>/api/pagos</code></td><td>pagos.js</td><td>GestiÛn financiera</td></tr>
             <tr><td><code>/api/classroom</code></td><td>classroom.js</td><td>Aula virtual</td></tr>
-            <tr><td><code>/api/chat</code></td><td>chat.js</td><td>Mensajer√≠a</td></tr>
-            <tr><td><code>/api/stats</code></td><td>stats.js</td><td>Estad√≠sticas</td></tr>
-            <tr><td><code>/api/idiomas</code></td><td>idiomas.js</td><td>Cat√°logo de idiomas</td></tr>
+            <tr><td><code>/api/chat</code></td><td>chat.js</td><td>MensajerÌa</td></tr>
+            <tr><td><code>/api/stats</code></td><td>stats.js</td><td>EstadÌsticas</td></tr>
+            <tr><td><code>/api/idiomas</code></td><td>idiomas.js</td><td>Cat·logo de idiomas</td></tr>
             <tr><td><code>/api/niveles</code></td><td>niveles.js</td><td>Niveles de curso</td></tr>
-            <tr><td><code>/api/aulas</code></td><td>aulas.js</td><td>Espacios f√≠sicos</td></tr>
+            <tr><td><code>/api/aulas</code></td><td>aulas.js</td><td>Espacios fÌsicos</td></tr>
         </table>
 
         <h1 id="despliegue">5. Diagrama de Despliegue</h1>
@@ -365,14 +365,14 @@ flowchart TB
 flowchart TB
     subgraph Client[" CLIENTE"]
         Browser[" Browser"]
-        MobileApp[" App M√≥vil"]
+        MobileApp[" App MÛvil"]
     end
     
     subgraph CDN[" CDN"]
         Cloudinary["Cloudinary<br/>(Media Assets)"]
     end
     
-    subgraph Railway["Ô∏è RAILWAY PLATFORM"]
+    subgraph Railway["? RAILWAY PLATFORM"]
         subgraph Container["Docker Container"]
             Node["Node.js Runtime"]
             Express["Express Server<br/>:3000"]
@@ -400,11 +400,11 @@ flowchart TB
             </div>
         </div>
 
-        <h2>5.1 Configuraci√≥n de Railway</h2>
+        <h2>5.1 ConfiguraciÛn de Railway</h2>
         <table>
             <tr>
                 <th>Aspecto</th>
-                <th>Configuraci√≥n</th>
+                <th>ConfiguraciÛn</th>
             </tr>
             <tr>
                 <td>Build Command</td>
@@ -428,28 +428,28 @@ flowchart TB
             </tr>
             <tr>
                 <td>SSL/TLS</td>
-                <td>Autom√°tico (Let's Encrypt)</td>
+                <td>Autom·tico (Let's Encrypt)</td>
             </tr>
         </table>
 
         <h1 id="flujo">6. Flujo de Datos</h1>
 
-        <h2>6.1 Request HTTP T√≠pico</h2>
+        <h2>6.1 Request HTTP TÌpico</h2>
         <div class="api-flow">
             <div class="api-box"><br/>Cliente</div>
-            <span class="api-arrow">‚Üí</span>
+            <span class="api-arrow">?</span>
             <div class="api-box"><br/>HTTPS</div>
-            <span class="api-arrow">‚Üí</span>
-            <div class="api-box">Ô∏è<br/>Middleware</div>
-            <span class="api-arrow">‚Üí</span>
+            <span class="api-arrow">?</span>
+            <div class="api-box">?<br/>Middleware</div>
+            <span class="api-arrow">?</span>
             <div class="api-box"><br/>Router</div>
-            <span class="api-arrow">‚Üí</span>
+            <span class="api-arrow">?</span>
             <div class="api-box"><br/>Controller</div>
-            <span class="api-arrow">‚Üí</span>
+            <span class="api-arrow">?</span>
             <div class="api-box"><br/>MySQL</div>
         </div>
 
-        <h2>6.2 Flujo de Autenticaci√≥n</h2>
+        <h2>6.2 Flujo de AutenticaciÛn</h2>
         <div class="diagram-title">Proceso de Login</div>
         <div class="diagram-content">
             <div class="mermaid">
@@ -485,13 +485,13 @@ flowchart TB
         HTTPS["HTTPS/TLS 1.3"]
     end
     
-    subgraph Application["Ô∏è APLICACI√ìN"]
+    subgraph Application["? APLICACI”N"]
         Helmet["Helmet.js<br/>(HTTP Headers)"]
         CORS["CORS<br/>(Origin Control)"]
         Rate["Rate Limiting<br/>(1000 req/15min)"]
     end
     
-    subgraph Auth[" AUTENTICACI√ìN"]
+    subgraph Auth[" AUTENTICACI”N"]
         Bcrypt["bcrypt<br/>(Password Hashing)"]
         Session["Session Management"]
     end
@@ -516,8 +516,8 @@ flowchart TB
         <table>
             <tr>
                 <th>Amenaza</th>
-                <th>Mitigaci√≥n</th>
-                <th>Implementaci√≥n</th>
+                <th>MitigaciÛn</th>
+                <th>ImplementaciÛn</th>
             </tr>
             <tr>
                 <td>XSS</td>
@@ -546,7 +546,7 @@ flowchart TB
             </tr>
             <tr>
                 <td>Man-in-the-Middle</td>
-                <td>Cifrado en tr√°nsito</td>
+                <td>Cifrado en tr·nsito</td>
                 <td>HTTPS obligatorio (Railway)</td>
             </tr>
         </table>
@@ -582,10 +582,10 @@ flowchart TB
             </tr>
         </table>
 
-        <h2>8.2 M√©tricas de Rendimiento</h2>
+        <h2>8.2 MÈtricas de Rendimiento</h2>
         <table>
             <tr>
-                <th>M√©trica</th>
+                <th>MÈtrica</th>
                 <th>Objetivo</th>
                 <th>Estado Actual</th>
             </tr>
@@ -615,16 +615,16 @@ flowchart TB
             <strong>Recomendaciones Futuras:</strong>
             <ul style="margin-top: 10px;">
                 <li>Implementar caching con Redis para consultas frecuentes</li>
-                <li>A√±adir CDN para assets est√°ticos</li>
-                <li>Considerar microservicios para m√≥dulos de alta demanda</li>
+                <li>AÒadir CDN para assets est·ticos</li>
+                <li>Considerar microservicios para mÛdulos de alta demanda</li>
                 <li>Implementar monitoreo con herramientas como New Relic o Datadog</li>
             </ul>
         </div>
 
         <div class="footer">
-            <p><strong>CEMI Sistema de Gesti√≥n Acad√©mica</strong></p>
-            <p>Arquitectura del Sistema - Versi√≥n 1.0</p>
-            <p>¬© 2025 - UTN Tecnicatura Universitaria en Programaci√≥n</p>
+            <p><strong>CEMI Sistema de GestiÛn AcadÈmica</strong></p>
+            <p>Arquitectura del Sistema - VersiÛn 1.0</p>
+            <p>© 2025 - UTN Tecnicatura Universitaria en ProgramaciÛn</p>
         </div>
     </div>
 

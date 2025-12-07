@@ -1,4 +1,4 @@
-ï»¿import express from "express";
+import express from "express";
 import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
@@ -22,10 +22,10 @@ router.post("/login",
       .trim()
       .notEmpty().withMessage('El usuario es requerido')
       .isLength({ min: 3, max: 50 }).withMessage('Usuario debe tener entre 3 y 50 caracteres')
-      .matches(/^[a-zA-Z0-9_.-]+$/).withMessage('Usuario contiene caracteres invÃ¡lidos'),
+      .matches(/^[a-zA-Z0-9_.-]+$/).withMessage('Usuario contiene caracteres inválidos'),
     body('password')
-      .notEmpty().withMessage('La contraseÃ±a es requerida')
-      .isLength({ min: 3 }).withMessage('ContraseÃ±a muy corta')
+      .notEmpty().withMessage('La contraseña es requerida')
+      .isLength({ min: 3 }).withMessage('Contraseña muy corta')
   ],
   async (req, res) => {
   const errors = validationResult(req);
@@ -76,7 +76,7 @@ router.post("/login",
     else if (ALLOW_PLAINTEXT && !isProd) ok = pw === stored;
 
     if (!ok) {
-      return res.status(401).json({ success: false, message: "ContraseÃ±a incorrecta" });
+      return res.status(401).json({ success: false, message: "Contraseña incorrecta" });
     }
 
     const rol = user.rol;
@@ -229,15 +229,15 @@ router.post("/register",
       .trim()
       .notEmpty().withMessage('El usuario es requerido')
       .isLength({ min: 3, max: 50 }).withMessage('Usuario debe tener entre 3 y 50 caracteres')
-      .matches(/^[a-zA-Z0-9_.-]+$/).withMessage('Usuario solo puede contener letras, nÃºmeros, punto, guiÃ³n y guiÃ³n bajo'),
+      .matches(/^[a-zA-Z0-9_.-]+$/).withMessage('Usuario solo puede contener letras, números, punto, guión y guión bajo'),
     body('email')
       .trim()
       .notEmpty().withMessage('El email es requerido')
-      .isEmail().withMessage('Email invÃ¡lido')
+      .isEmail().withMessage('Email inválido')
       .normalizeEmail(),
     body('password')
-      .notEmpty().withMessage('La contraseÃ±a es requerida')
-      .isLength({ min: 6 }).withMessage('La contraseÃ±a debe tener al menos 6 caracteres'),
+      .notEmpty().withMessage('La contraseña es requerida')
+      .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
     body('nombre')
       .trim()
       .notEmpty().withMessage('El nombre es requerido')
@@ -249,11 +249,11 @@ router.post("/register",
     body('telefono')
       .optional()
       .trim()
-      .matches(/^[0-9+\-\s()]*$/).withMessage('TelÃ©fono contiene caracteres invÃ¡lidos'),
+      .matches(/^[0-9+\-\s()]*$/).withMessage('Teléfono contiene caracteres inválidos'),
     body('dni')
       .optional()
       .trim()
-      .matches(/^[0-9]*$/).withMessage('DNI solo debe contener nÃºmeros')
+      .matches(/^[0-9]*$/).withMessage('DNI solo debe contener números')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -276,7 +276,7 @@ router.post("/register",
       if (existingUser.length > 0) {
         return res.status(400).json({
           success: false,
-          message: "El nombre de usuario ya estÃ¡ en uso"
+          message: "El nombre de usuario ya está en uso"
         });
       }
 
@@ -288,7 +288,7 @@ router.post("/register",
       if (existingEmail.length > 0) {
         return res.status(400).json({
           success: false,
-          message: "El email ya estÃ¡ registrado"
+          message: "El email ya está registrado"
         });
       }
 
@@ -359,7 +359,7 @@ router.post("/register",
           });
           await sendEmail(
             email.trim(),
-            "Â¡Bienvenido/a a CEMI! - Tu registro fue exitoso",
+            "¡Bienvenido/a a CEMI! - Tu registro fue exitoso",
             emailHtml
           );
           console.log(`Email de bienvenida enviado a: ${email.trim()}`);
@@ -369,7 +369,7 @@ router.post("/register",
 
         return res.status(201).json({
           success: true,
-          message: "Â¡Registro exitoso! Ya podÃ©s iniciar sesiÃ³n.",
+          message: "¡Registro exitoso! Ya podés iniciar sesión.",
           legajo: nuevoLegajo,
           username: username.trim()
         });
@@ -392,7 +392,7 @@ router.post("/register",
 
       return res.status(500).json({
         success: false,
-        message: "Error al crear la cuenta. IntentÃ¡ de nuevo."
+        message: "Error al crear la cuenta. Intentá de nuevo."
       });
     }
   }
@@ -401,10 +401,10 @@ router.post("/register",
 router.post("/cambiar-password",
   [
     body('passwordActual')
-      .notEmpty().withMessage('La contraseÃ±a actual es requerida'),
+      .notEmpty().withMessage('La contraseña actual es requerida'),
     body('passwordNueva')
-      .notEmpty().withMessage('La contraseÃ±a nueva es requerida')
-      .isLength({ min: 6 }).withMessage('La contraseÃ±a debe tener al menos 6 caracteres')
+      .notEmpty().withMessage('La contraseña nueva es requerida')
+      .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -449,7 +449,7 @@ router.post("/cambiar-password",
       if (!passwordMatch) {
         return res.status(401).json({
           success: false,
-          message: 'La contraseÃ±a actual es incorrecta'
+          message: 'La contraseña actual es incorrecta'
         });
       }
 
@@ -462,14 +462,14 @@ router.post("/cambiar-password",
 
       return res.json({
         success: true,
-        message: 'ContraseÃ±a actualizada correctamente'
+        message: 'Contraseña actualizada correctamente'
       });
 
     } catch (error) {
       console.error(" /auth/cambiar-password error:", error);
       return res.status(500).json({
         success: false,
-        message: 'Error al cambiar la contraseÃ±a'
+        message: 'Error al cambiar la contraseña'
       });
     }
   }
@@ -480,10 +480,10 @@ router.post("/cambiar-password-classroom",
     body('userId')
       .notEmpty().withMessage('El ID de usuario es requerido'),
     body('passwordActual')
-      .notEmpty().withMessage('La contraseÃ±a actual es requerida'),
+      .notEmpty().withMessage('La contraseña actual es requerida'),
     body('passwordNueva')
-      .notEmpty().withMessage('La contraseÃ±a nueva es requerida')
-      .isLength({ min: 6 }).withMessage('La contraseÃ±a debe tener al menos 6 caracteres')
+      .notEmpty().withMessage('La contraseña nueva es requerida')
+      .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -521,10 +521,10 @@ router.post("/cambiar-password-classroom",
       }
       
       if (!passwordMatch) {
-        console.log(` ContraseÃ±a incorrecta para usuario ${usuario.username}. Tipo hash: ${isBcrypt(stored) ? 'bcrypt' : 'plaintext'}`);
+        console.log(` Contraseña incorrecta para usuario ${usuario.username}. Tipo hash: ${isBcrypt(stored) ? 'bcrypt' : 'plaintext'}`);
         return res.status(401).json({
           success: false,
-          message: 'La contraseÃ±a actual del Classroom es incorrecta'
+          message: 'La contraseña actual del Classroom es incorrecta'
         });
       }
 
@@ -535,18 +535,18 @@ router.post("/cambiar-password-classroom",
         [hashedPassword, userId]
       );
 
-      console.log(` ContraseÃ±a del Classroom actualizada para usuario: ${usuario.username}`);
+      console.log(` Contraseña del Classroom actualizada para usuario: ${usuario.username}`);
 
       return res.json({
         success: true,
-        message: 'ContraseÃ±a del Classroom actualizada correctamente'
+        message: 'Contraseña del Classroom actualizada correctamente'
       });
 
     } catch (error) {
       console.error(" /auth/cambiar-password-classroom error:", error);
       return res.status(500).json({
         success: false,
-        message: 'Error al cambiar la contraseÃ±a del Classroom'
+        message: 'Error al cambiar la contraseña del Classroom'
       });
     }
   }
@@ -555,10 +555,10 @@ router.post("/cambiar-password-classroom",
 router.post("/cambiar-password-dashboard",
   [
     body('username').trim().notEmpty().withMessage('El usuario es requerido'),
-    body('passwordActual').notEmpty().withMessage('La contraseÃ±a actual es requerida'),
+    body('passwordActual').notEmpty().withMessage('La contraseña actual es requerida'),
     body('passwordNueva')
-      .notEmpty().withMessage('La contraseÃ±a nueva es requerida')
-      .isLength({ min: 6 }).withMessage('La contraseÃ±a debe tener al menos 6 caracteres')
+      .notEmpty().withMessage('La contraseña nueva es requerida')
+      .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -573,7 +573,7 @@ router.post("/cambiar-password-dashboard",
     const { username, passwordActual, passwordNueva } = req.body;
 
     try {
-      console.log(` Intentando cambiar contraseÃ±a del Dashboard para: ${username}`);
+      console.log(` Intentando cambiar contraseña del Dashboard para: ${username}`);
 
       const [urows] = await pool.query(
         `SELECT u.id_usuario, u.username, u.password_hash, perf.nombre_perfil as tipo, p.id_persona
@@ -602,10 +602,10 @@ router.post("/cambiar-password-dashboard",
       }
 
       if (!passwordMatch) {
-        console.log(` ContraseÃ±a actual incorrecta para usuario ${user.username}`);
+        console.log(` Contraseña actual incorrecta para usuario ${user.username}`);
         return res.status(401).json({
           success: false,
-          message: 'La contraseÃ±a actual del Dashboard es incorrecta'
+          message: 'La contraseña actual del Dashboard es incorrecta'
         });
       }
 
@@ -616,18 +616,18 @@ router.post("/cambiar-password-dashboard",
         [hashedPassword, user.id_usuario]
       );
 
-      console.log(` ContraseÃ±a del Dashboard actualizada para usuario: ${user.username}`);
+      console.log(` Contraseña del Dashboard actualizada para usuario: ${user.username}`);
 
       return res.json({
         success: true,
-        message: 'ContraseÃ±a del Dashboard actualizada correctamente'
+        message: 'Contraseña del Dashboard actualizada correctamente'
       });
 
     } catch (error) {
       console.error(" /auth/cambiar-password-dashboard error:", error);
       return res.status(500).json({
         success: false,
-        message: 'Error al cambiar la contraseÃ±a del Dashboard'
+        message: 'Error al cambiar la contraseña del Dashboard'
       });
     }
   }
@@ -661,7 +661,7 @@ router.get("/usuario-classroom/:id_persona", async (req, res) => {
 
 router.post("/admin-cambiar-password-classroom",
   [
-    body('id_persona').isInt().withMessage('ID de persona invÃ¡lido'),
+    body('id_persona').isInt().withMessage('ID de persona inválido'),
     body('username').notEmpty().withMessage('El nombre de usuario es obligatorio')
   ],
   async (req, res) => {
@@ -692,7 +692,7 @@ router.post("/admin-cambiar-password-classroom",
       if (existingUser.length > 0) {
         return res.status(400).json({
           success: false,
-          message: 'El nombre de usuario ya estÃ¡ en uso por otra persona'
+          message: 'El nombre de usuario ya está en uso por otra persona'
         });
       }
 
@@ -757,12 +757,12 @@ router.post("/admin-cambiar-password-classroom",
 
         return res.json({
           success: true,
-          message: 'Usuario y contraseÃ±a actualizados correctamente (vÃ¡lidos para Dashboard y Classroom)'
+          message: 'Usuario y contraseña actualizados correctamente (válidos para Dashboard y Classroom)'
         });
       } else {
         return res.json({
           success: true,
-          message: 'Usuario actualizado correctamente (vÃ¡lido para Dashboard y Classroom)'
+          message: 'Usuario actualizado correctamente (válido para Dashboard y Classroom)'
         });
       }
 
@@ -817,7 +817,7 @@ router.post("/classroom-login", async (req, res) => {
 
     if (!ok) {
       console.log(` Classroom login fallido para ${username}. Hash tipo: ${isBcrypt(stored) ? 'bcrypt' : 'plaintext'}`);
-      return res.status(401).json({ success: false, message: "ContraseÃ±a incorrecta" });
+      return res.status(401).json({ success: false, message: "Contraseña incorrecta" });
     }
 
     console.log(` Classroom login exitoso para ${username} (${user.rol})`);
@@ -932,7 +932,7 @@ router.get("/usuario-classroom/:id", async (req, res) => {
     console.error(" /auth/usuario-classroom error:", error);
     return res.status(500).json({
       success: false,
-      message: "Error al obtener informaciÃ³n del usuario"
+      message: "Error al obtener información del usuario"
     });
   }
 });

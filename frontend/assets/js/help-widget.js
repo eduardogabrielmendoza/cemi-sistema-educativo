@@ -1,4 +1,4 @@
-ï»¿(function() {
+(function() {
   'use strict';
 
   const widgetStyles = `
@@ -693,7 +693,7 @@
       <div class="cemi-help-widget" id="cemiHelpWidget">
         <button class="cemi-help-btn" id="cemiHelpBtn" aria-label="Abrir ayuda">${icons.help}</button>
         <div class="cemi-help-dropdown" id="cemiHelpDropdown">
-          <div class="cemi-help-dropdown-header"><h4>Â¿Necesitas ayuda?</h4><p>Estamos aquÃ­ para asistirte</p></div>
+          <div class="cemi-help-dropdown-header"><h4>¿Necesitas ayuda?</h4><p>Estamos aquí para asistirte</p></div>
           <div class="cemi-help-dropdown-items">
             <a href="ayuda-classroom.html" class="cemi-help-dropdown-item">${icons.book}<span>Centro de Ayuda</span></a>
             <a href="comunidad-ayuda.html" class="cemi-help-dropdown-item">${icons.users}<span>Comunidad</span></a>
@@ -712,12 +712,12 @@
         <div class="cemi-help-panel-content" id="cemiPanelContent">
           <div class="cemi-help-section">
             <div class="cemi-help-section-title">Recursos populares</div>
-            <a href="ayuda-classroom.html#primeros-pasos" class="cemi-help-article"><div class="cemi-help-article-icon">${icons.rocket}</div><div class="cemi-help-article-content"><h5>Primeros Pasos</h5><p>Aprende lo bÃ¡sico de CEMI Classroom</p></div></a>
-            <a href="ayuda-classroom.html#tareas" class="cemi-help-article"><div class="cemi-help-article-icon">${icons.clipboardList}</div><div class="cemi-help-article-content"><h5>Tareas y Entregas</h5><p>CÃ³mo entregar y gestionar tareas</p></div></a>
-            <a href="ayuda-classroom.html#comunicacion" class="cemi-help-article"><div class="cemi-help-article-icon">${icons.messageCircle}</div><div class="cemi-help-article-content"><h5>ComunicaciÃ³n</h5><p>Mensajes y notificaciones</p></div></a>
+            <a href="ayuda-classroom.html#primeros-pasos" class="cemi-help-article"><div class="cemi-help-article-icon">${icons.rocket}</div><div class="cemi-help-article-content"><h5>Primeros Pasos</h5><p>Aprende lo básico de CEMI Classroom</p></div></a>
+            <a href="ayuda-classroom.html#tareas" class="cemi-help-article"><div class="cemi-help-article-icon">${icons.clipboardList}</div><div class="cemi-help-article-content"><h5>Tareas y Entregas</h5><p>Cómo entregar y gestionar tareas</p></div></a>
+            <a href="ayuda-classroom.html#comunicacion" class="cemi-help-article"><div class="cemi-help-article-icon">${icons.messageCircle}</div><div class="cemi-help-article-content"><h5>Comunicación</h5><p>Mensajes y notificaciones</p></div></a>
           </div>
           <div class="cemi-help-section"><a href="ayuda-classroom.html" class="cemi-help-link-btn">Ver todo el Centro de Ayuda ${icons.externalLink}</a></div>
-          <div class="cemi-help-section"><div class="cemi-help-section-title">Â¿No encuentras lo que buscas?</div><a href="comunidad-ayuda.html" class="cemi-help-link-btn">Pregunta a la Comunidad ${icons.users}</a></div>
+          <div class="cemi-help-section"><div class="cemi-help-section-title">¿No encuentras lo que buscas?</div><a href="comunidad-ayuda.html" class="cemi-help-link-btn">Pregunta a la Comunidad ${icons.users}</a></div>
         </div>
         <div class="cemi-help-panel-footer"><a href="novedades-cemi.html">${icons.sparkles}<span>Ver novedades de CEMI</span></a></div>
       </div>
@@ -725,8 +725,8 @@
         <div class="cemi-feedback-content">
           <div class="cemi-feedback-header"><h3>${icons.messageSquare}Enviar comentarios</h3><button class="cemi-feedback-close" id="cemiFeedbackClose">${icons.x}</button></div>
           <div class="cemi-feedback-body">
-            <div class="cemi-feedback-group"><label>Tipo de comentario</label><select id="cemiFeedbackType"><option value="">Selecciona una opciÃ³n...</option><option value="sugerencia">Sugerencia</option><option value="problema">Reportar un problema</option><option value="felicitacion">FelicitaciÃ³n</option><option value="otro">Otro</option></select></div>
-            <div class="cemi-feedback-group"><label>Tu comentario</label><textarea id="cemiFeedbackMessage" placeholder="CuÃ©ntanos quÃ© piensas..."></textarea></div>
+            <div class="cemi-feedback-group"><label>Tipo de comentario</label><select id="cemiFeedbackType"><option value="">Selecciona una opción...</option><option value="sugerencia">Sugerencia</option><option value="problema">Reportar un problema</option><option value="felicitacion">Felicitación</option><option value="otro">Otro</option></select></div>
+            <div class="cemi-feedback-group"><label>Tu comentario</label><textarea id="cemiFeedbackMessage" placeholder="Cuéntanos qué piensas..."></textarea></div>
           </div>
           <div class="cemi-feedback-footer"><button class="cemi-feedback-btn secondary" id="cemiFeedbackCancel">Cancelar</button><button class="cemi-feedback-btn primary" id="cemiFeedbackSubmit">Enviar</button></div>
         </div>
@@ -800,7 +800,7 @@
       const type = document.getElementById('cemiFeedbackType').value;
       const message = document.getElementById('cemiFeedbackMessage').value.trim();
       if (!type || !message) { alert('Por favor completa todos los campos'); return; }
-      alert('Â¡Gracias por tus comentarios! Tu feedback nos ayuda a mejorar CEMI.');
+      alert('¡Gracias por tus comentarios! Tu feedback nos ayuda a mejorar CEMI.');
       document.getElementById('cemiFeedbackType').value = '';
       document.getElementById('cemiFeedbackMessage').value = '';
       closeFeedbackModal();

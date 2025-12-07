@@ -1,40 +1,40 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan de Pruebas - CEMI Sistema Gestor</title>
+    <title>Plan de Pruebas - Ce.mi Sistema Gestor</title>
     <link rel="stylesheet" href="harvard-doc-styles.css">
 </head>
 <body>
     <div class="container">
-        <a href="../documentacion.html" class="back-link">‚Üê Volver a Documentaci√≥n</a>
+        <a href="../documentacion.html" class="back-link">? Volver a DocumentaciÛn</a>
         
         <div class="cover">
             <h1>PLAN DE PRUEBAS</h1>
-            <p class="subtitle">CEMI Sistema de Gesti√≥n Acad√©mica</p>
-            <p style="margin-top: 20px; opacity: 0.8;">Casos de Prueba y Criterios de Aceptaci√≥n</p>
+            <p class="subtitle">CEMI Sistema de GestiÛn AcadÈmica</p>
+            <p style="margin-top: 20px; opacity: 0.8;">Casos de Prueba y Criterios de AceptaciÛn</p>
         </div>
 
         <div class="toc">
             <h2 style="margin-top: 0;">Contenido</h2>
             <ul>
-                <li><a href="#intro">1. Introducci√≥n</a></li>
+                <li><a href="#intro">1. IntroducciÛn</a></li>
                 <li><a href="#alcance">2. Alcance de las Pruebas</a></li>
                 <li><a href="#tipos">3. Tipos de Pruebas</a></li>
                 <li><a href="#casos">4. Casos de Prueba</a></li>
-                <li><a href="#criterios">5. Criterios de Aceptaci√≥n</a></li>
+                <li><a href="#criterios">5. Criterios de AceptaciÛn</a></li>
                 <li><a href="#resumen">6. Resumen de Resultados</a></li>
             </ul>
         </div>
 
-        <h1 id="intro">1. Introducci√≥n</h1>
+        <h1 id="intro">1. IntroducciÛn</h1>
         <p>
-            Este documento define el plan de pruebas para el sistema CEMI, incluyendo los casos de prueba funcionales derivados de las historias de usuario, criterios de aceptaci√≥n y procedimientos de verificaci√≥n.
+            Este documento define el plan de pruebas para el sistema CEMI, incluyendo los casos de prueba funcionales derivados de las historias de usuario, criterios de aceptaciÛn y procedimientos de verificaciÛn.
         </p>
 
         <div class="info-box">
-            <strong>Objetivo:</strong> Garantizar que el sistema cumple con los requisitos funcionales y no funcionales establecidos, validando cada funcionalidad antes del despliegue en producci√≥n.
+            <strong>Objetivo:</strong> Garantizar que el sistema cumple con los requisitos funcionales y no funcionales establecidos, validando cada funcionalidad antes del despliegue en producciÛn.
         </div>
 
         <h2>1.1 Referencias</h2>
@@ -42,36 +42,36 @@
             <li>Documento de Requisitos del Sistema</li>
             <li>Historias de Usuario (HU1-HU23)</li>
             <li>Manual de Usuario</li>
-            <li>Manual T√©cnico</li>
+            <li>Manual TÈcnico</li>
         </ul>
 
         <h1 id="alcance">2. Alcance de las Pruebas</h1>
 
-        <h2>2.1 M√≥dulos a Probar</h2>
+        <h2>2.1 MÛdulos a Probar</h2>
         <table>
             <tr>
-                <th>M√≥dulo</th>
+                <th>MÛdulo</th>
                 <th>Funcionalidades</th>
                 <th>Prioridad</th>
             </tr>
             <tr>
-                <td>Autenticaci√≥n</td>
-                <td>Login, Logout, Registro, Recuperaci√≥n de contrase√±a</td>
+                <td>AutenticaciÛn</td>
+                <td>Login, Logout, Registro, RecuperaciÛn de contraseÒa</td>
                 <td><span class="priority priority-alta">Alta</span></td>
             </tr>
             <tr>
-                <td>Gesti√≥n de Alumnos</td>
-                <td>CRUD completo, b√∫squeda, filtros</td>
+                <td>GestiÛn de Alumnos</td>
+                <td>CRUD completo, b˙squeda, filtros</td>
                 <td><span class="priority priority-alta">Alta</span></td>
             </tr>
             <tr>
-                <td>Gesti√≥n de Cursos</td>
-                <td>CRUD, asignaci√≥n de profesores, validaci√≥n de cupos</td>
+                <td>GestiÛn de Cursos</td>
+                <td>CRUD, asignaciÛn de profesores, validaciÛn de cupos</td>
                 <td><span class="priority priority-alta">Alta</span></td>
             </tr>
             <tr>
                 <td>Inscripciones</td>
-                <td>Registro, validaci√≥n de horarios, cupos</td>
+                <td>Registro, validaciÛn de horarios, cupos</td>
                 <td><span class="priority priority-alta">Alta</span></td>
             </tr>
             <tr>
@@ -86,12 +86,12 @@
             </tr>
             <tr>
                 <td>Chat</td>
-                <td>Mensajer√≠a en tiempo real, historial</td>
+                <td>MensajerÌa en tiempo real, historial</td>
                 <td><span class="priority priority-media">Media</span></td>
             </tr>
             <tr>
                 <td>Reportes</td>
-                <td>Estad√≠sticas, exportaci√≥n</td>
+                <td>EstadÌsticas, exportaciÛn</td>
                 <td><span class="priority priority-baja">Baja</span></td>
             </tr>
         </table>
@@ -100,7 +100,7 @@
         <table>
             <tr>
                 <th>Aspecto</th>
-                <th>Especificaci√≥n</th>
+                <th>EspecificaciÛn</th>
             </tr>
             <tr>
                 <td>Sistema Operativo</td>
@@ -123,33 +123,33 @@
         <h1 id="tipos">3. Tipos de Pruebas</h1>
 
         <h2>3.1 Pruebas Funcionales</h2>
-        <p>Verifican que cada funcionalidad del sistema opera seg√∫n lo especificado en los requisitos.</p>
+        <p>Verifican que cada funcionalidad del sistema opera seg˙n lo especificado en los requisitos.</p>
 
-        <h2>3.2 Pruebas de Integraci√≥n</h2>
-        <p>Validan la correcta comunicaci√≥n entre los diferentes m√≥dulos y componentes del sistema.</p>
+        <h2>3.2 Pruebas de IntegraciÛn</h2>
+        <p>Validan la correcta comunicaciÛn entre los diferentes mÛdulos y componentes del sistema.</p>
 
         <h2>3.3 Pruebas de Usabilidad</h2>
-        <p>Eval√∫an la facilidad de uso y la experiencia del usuario en la interfaz.</p>
+        <p>Eval˙an la facilidad de uso y la experiencia del usuario en la interfaz.</p>
 
         <h2>3.4 Pruebas de Seguridad</h2>
-        <p>Verifican la protecci√≥n contra accesos no autorizados y vulnerabilidades comunes.</p>
+        <p>Verifican la protecciÛn contra accesos no autorizados y vulnerabilidades comunes.</p>
 
         <h2>3.5 Pruebas de Rendimiento</h2>
         <p>Miden los tiempos de respuesta y el comportamiento bajo carga.</p>
 
         <h1 id="casos">4. Casos de Prueba</h1>
 
-        <h2>4.1 M√≥dulo de Autenticaci√≥n</h2>
+        <h2>4.1 MÛdulo de AutenticaciÛn</h2>
 
         <div class="test-case">
             <div class="test-header">
-                <span><strong>Login exitoso con credenciales v√°lidas</strong></span>
+                <span><strong>Login exitoso con credenciales v·lidas</strong></span>
                 <span class="test-id">CP-001</span>
             </div>
             <div class="test-body">
                 <div class="test-row">
                     <span class="test-label">Historia de Usuario:</span>
-                    <span>HU-01 - Iniciar sesi√≥n como alumno</span>
+                    <span>HU-01 - Iniciar sesiÛn como alumno</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Prioridad:</span>
@@ -162,10 +162,10 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Acceder a la p√°gina de login</li>
+                        <li>Acceder a la p·gina de login</li>
                         <li>Ingresar username: <code>alumno_test</code></li>
                         <li>Ingresar password: <code>password123</code></li>
-                        <li>Click en bot√≥n "Ingresar"</li>
+                        <li>Click en botÛn "Ingresar"</li>
                     </ol>
                 </div>
                 <div class="test-row">
@@ -181,7 +181,7 @@
 
         <div class="test-case">
             <div class="test-header">
-                <span><strong>Login fallido con contrase√±a incorrecta</strong></span>
+                <span><strong>Login fallido con contraseÒa incorrecta</strong></span>
                 <span class="test-id">CP-002</span>
             </div>
             <div class="test-body">
@@ -200,10 +200,10 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Acceder a la p√°gina de login</li>
-                        <li>Ingresar username v√°lido</li>
+                        <li>Acceder a la p·gina de login</li>
+                        <li>Ingresar username v·lido</li>
                         <li>Ingresar password incorrecto</li>
-                        <li>Click en bot√≥n "Ingresar"</li>
+                        <li>Click en botÛn "Ingresar"</li>
                     </ol>
                 </div>
                 <div class="test-row">
@@ -234,7 +234,7 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Intentar login con contrase√±a incorrecta 5 veces consecutivas</li>
+                        <li>Intentar login con contraseÒa incorrecta 5 veces consecutivas</li>
                         <li>Intentar un sexto login</li>
                     </ol>
                 </div>
@@ -249,7 +249,7 @@
             </div>
         </div>
 
-        <h2>4.2 M√≥dulo de Alumnos</h2>
+        <h2>4.2 MÛdulo de Alumnos</h2>
 
         <div class="test-case">
             <div class="test-header">
@@ -272,15 +272,15 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Ir a m√≥dulo Alumnos</li>
+                        <li>Ir a mÛdulo Alumnos</li>
                         <li>Click en "Nuevo Alumno"</li>
-                        <li>Completar formulario con datos v√°lidos (DNI, nombre, email, etc.)</li>
+                        <li>Completar formulario con datos v·lidos (DNI, nombre, email, etc.)</li>
                         <li>Click en "Guardar"</li>
                     </ol>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Resultado Esperado:</span>
-                    <span>El alumno se registra en el sistema, se crea usuario autom√°tico y aparece en la lista</span>
+                    <span>El alumno se registra en el sistema, se crea usuario autom·tico y aparece en la lista</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Estado:</span>
@@ -291,7 +291,7 @@
 
         <div class="test-case">
             <div class="test-header">
-                <span><strong>Validaci√≥n de DNI duplicado</strong></span>
+                <span><strong>ValidaciÛn de DNI duplicado</strong></span>
                 <span class="test-id">CP-005</span>
             </div>
             <div class="test-body">
@@ -316,7 +316,7 @@
                 </div>
                 <div class="test-row">
                     <span class="test-label">Resultado Esperado:</span>
-                    <span>El sistema rechaza la operaci√≥n con mensaje "El DNI ya est√° registrado"</span>
+                    <span>El sistema rechaza la operaciÛn con mensaje "El DNI ya est· registrado"</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Estado:</span>
@@ -325,11 +325,11 @@
             </div>
         </div>
 
-        <h2>4.3 M√≥dulo de Inscripciones</h2>
+        <h2>4.3 MÛdulo de Inscripciones</h2>
 
         <div class="test-case">
             <div class="test-header">
-                <span><strong>Inscripci√≥n exitosa a curso</strong></span>
+                <span><strong>InscripciÛn exitosa a curso</strong></span>
                 <span class="test-id">CP-006</span>
             </div>
             <div class="test-body">
@@ -348,15 +348,15 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Ir a m√≥dulo Inscripciones</li>
+                        <li>Ir a mÛdulo Inscripciones</li>
                         <li>Seleccionar alumno</li>
                         <li>Seleccionar curso</li>
-                        <li>Confirmar inscripci√≥n</li>
+                        <li>Confirmar inscripciÛn</li>
                     </ol>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Resultado Esperado:</span>
-                    <span>Inscripci√≥n registrada, cuotas generadas autom√°ticamente, alumno visible en lista del curso</span>
+                    <span>InscripciÛn registrada, cuotas generadas autom·ticamente, alumno visible en lista del curso</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Estado:</span>
@@ -367,7 +367,7 @@
 
         <div class="test-case">
             <div class="test-header">
-                <span><strong>Validaci√≥n de cupos agotados</strong></span>
+                <span><strong>ValidaciÛn de cupos agotados</strong></span>
                 <span class="test-id">CP-007</span>
             </div>
             <div class="test-body">
@@ -381,7 +381,7 @@
                 </div>
                 <div class="test-row">
                     <span class="test-label">Precondiciones:</span>
-                    <span>Curso con cupo m√°ximo = 20 y 20 alumnos inscriptos</span>
+                    <span>Curso con cupo m·ximo = 20 y 20 alumnos inscriptos</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
@@ -402,7 +402,7 @@
 
         <div class="test-case">
             <div class="test-header">
-                <span><strong>Validaci√≥n de superposici√≥n horaria</strong></span>
+                <span><strong>ValidaciÛn de superposiciÛn horaria</strong></span>
                 <span class="test-id">CP-008</span>
             </div>
             <div class="test-body">
@@ -416,17 +416,17 @@
                 </div>
                 <div class="test-row">
                     <span class="test-label">Precondiciones:</span>
-                    <span>Alumno inscripto en curso "Ingl√©s" (Lunes 18:00-19:30)</span>
+                    <span>Alumno inscripto en curso "InglÈs" (Lunes 18:00-19:30)</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Intentar inscribir al alumno en curso "Franc√©s" (Lunes 18:30-20:00)</li>
+                        <li>Intentar inscribir al alumno en curso "FrancÈs" (Lunes 18:30-20:00)</li>
                     </ol>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Resultado Esperado:</span>
-                    <span>El sistema detecta superposici√≥n y rechaza con mensaje "Conflicto de horarios con curso Ingl√©s"</span>
+                    <span>El sistema detecta superposiciÛn y rechaza con mensaje "Conflicto de horarios con curso InglÈs"</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Estado:</span>
@@ -435,7 +435,7 @@
             </div>
         </div>
 
-        <h2>4.4 M√≥dulo de Pagos</h2>
+        <h2>4.4 MÛdulo de Pagos</h2>
 
         <div class="test-case">
             <div class="test-header">
@@ -458,11 +458,11 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Ir a m√≥dulo Pagos</li>
+                        <li>Ir a mÛdulo Pagos</li>
                         <li>Buscar alumno</li>
                         <li>Seleccionar cuota pendiente</li>
                         <li>Ingresar monto: $15.000</li>
-                        <li>Seleccionar m√©todo: Efectivo</li>
+                        <li>Seleccionar mÈtodo: Efectivo</li>
                         <li>Confirmar pago</li>
                     </ol>
                 </div>
@@ -494,7 +494,7 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Ir a m√≥dulo Pagos</li>
+                        <li>Ir a mÛdulo Pagos</li>
                         <li>Filtrar por estado "Vencido"</li>
                     </ol>
                 </div>
@@ -509,7 +509,7 @@
             </div>
         </div>
 
-        <h2>4.5 M√≥dulo Classroom</h2>
+        <h2>4.5 MÛdulo Classroom</h2>
 
         <div class="test-case">
             <div class="test-header">
@@ -533,16 +533,16 @@
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
                         <li>Acceder al Classroom del curso</li>
-                        <li>Ir a secci√≥n "Materiales"</li>
+                        <li>Ir a secciÛn "Materiales"</li>
                         <li>Click en "Subir material"</li>
                         <li>Seleccionar archivo PDF</li>
-                        <li>Agregar descripci√≥n</li>
+                        <li>Agregar descripciÛn</li>
                         <li>Publicar</li>
                     </ol>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Resultado Esperado:</span>
-                    <span>Material visible para todos los alumnos del curso con opci√≥n de descarga</span>
+                    <span>Material visible para todos los alumnos del curso con opciÛn de descarga</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Estado:</span>
@@ -567,7 +567,7 @@
                 </div>
                 <div class="test-row">
                     <span class="test-label">Precondiciones:</span>
-                    <span>Tarea creada con fecha l√≠mite vigente</span>
+                    <span>Tarea creada con fecha lÌmite vigente</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
@@ -605,17 +605,17 @@
                 </div>
                 <div class="test-row">
                     <span class="test-label">Precondiciones:</span>
-                    <span>Tarea con fecha l√≠mite vencida</span>
+                    <span>Tarea con fecha lÌmite vencida</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>Intentar subir entrega despu√©s de la fecha l√≠mite</li>
+                        <li>Intentar subir entrega despuÈs de la fecha lÌmite</li>
                     </ol>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Resultado Esperado:</span>
-                    <span>Sistema muestra mensaje "La fecha l√≠mite de entrega ha vencido" y no permite subir archivo</span>
+                    <span>Sistema muestra mensaje "La fecha lÌmite de entrega ha vencido" y no permite subir archivo</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Estado:</span>
@@ -649,7 +649,7 @@
                 </div>
                 <div class="test-row">
                     <span class="test-label">Resultado Esperado:</span>
-                    <span>El sistema redirige a la p√°gina de login o muestra error 403 (Acceso denegado)</span>
+                    <span>El sistema redirige a la p·gina de login o muestra error 403 (Acceso denegado)</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Estado:</span>
@@ -660,13 +660,13 @@
 
         <div class="test-case">
             <div class="test-header">
-                <span><strong>Protecci√≥n contra SQL Injection</strong></span>
+                <span><strong>ProtecciÛn contra SQL Injection</strong></span>
                 <span class="test-id">CP-015</span>
             </div>
             <div class="test-body">
                 <div class="test-row">
                     <span class="test-label">Tipo:</span>
-                    <span>Seguridad - Inyecci√≥n</span>
+                    <span>Seguridad - InyecciÛn</span>
                 </div>
                 <div class="test-row">
                     <span class="test-label">Prioridad:</span>
@@ -675,8 +675,8 @@
                 <div class="test-row">
                     <span class="test-label">Pasos:</span>
                     <ol class="steps-list">
-                        <li>En campo de b√∫squeda, ingresar: <code>' OR '1'='1</code></li>
-                        <li>Ejecutar b√∫squeda</li>
+                        <li>En campo de b˙squeda, ingresar: <code>' OR '1'='1</code></li>
+                        <li>Ejecutar b˙squeda</li>
                     </ol>
                 </div>
                 <div class="test-row">
@@ -690,47 +690,47 @@
             </div>
         </div>
 
-        <h1 id="criterios">5. Criterios de Aceptaci√≥n</h1>
+        <h1 id="criterios">5. Criterios de AceptaciÛn</h1>
 
         <h2>5.1 Criterios Generales</h2>
         <ul>
             <li> El 100% de las pruebas de prioridad Alta deben pasar</li>
             <li> Al menos el 90% de las pruebas de prioridad Media deben pasar</li>
             <li> Los tiempos de respuesta no deben superar los 3 segundos</li>
-            <li> No debe haber errores cr√≠ticos de seguridad</li>
-            <li> La aplicaci√≥n debe ser compatible con los navegadores especificados</li>
+            <li> No debe haber errores crÌticos de seguridad</li>
+            <li> La aplicaciÛn debe ser compatible con los navegadores especificados</li>
         </ul>
 
-        <h2>5.2 Criterios por M√≥dulo</h2>
+        <h2>5.2 Criterios por MÛdulo</h2>
         <table>
             <tr>
-                <th>M√≥dulo</th>
+                <th>MÛdulo</th>
                 <th>Criterio</th>
                 <th>Estado</th>
             </tr>
             <tr>
-                <td>Autenticaci√≥n</td>
-                <td>Login/Logout funcional, contrase√±as hasheadas, rate limiting activo</td>
+                <td>AutenticaciÛn</td>
+                <td>Login/Logout funcional, contraseÒas hasheadas, rate limiting activo</td>
                 <td><span class="status status-pass"> Cumple</span></td>
             </tr>
             <tr>
                 <td>Alumnos</td>
-                <td>CRUD completo, validaci√≥n de DNI √∫nico, b√∫squeda funcional</td>
+                <td>CRUD completo, validaciÛn de DNI ˙nico, b˙squeda funcional</td>
                 <td><span class="status status-pass"> Cumple</span></td>
             </tr>
             <tr>
                 <td>Cursos</td>
-                <td>CRUD, asignaci√≥n de profesores, control de cupos</td>
+                <td>CRUD, asignaciÛn de profesores, control de cupos</td>
                 <td><span class="status status-pass"> Cumple</span></td>
             </tr>
             <tr>
                 <td>Inscripciones</td>
-                <td>Validaci√≥n de cupos, detecci√≥n de superposici√≥n horaria</td>
+                <td>ValidaciÛn de cupos, detecciÛn de superposiciÛn horaria</td>
                 <td><span class="status status-pass"> Cumple</span></td>
             </tr>
             <tr>
                 <td>Pagos</td>
-                <td>Registro de pagos, consulta de deudores, generaci√≥n de cuotas</td>
+                <td>Registro de pagos, consulta de deudores, generaciÛn de cuotas</td>
                 <td><span class="status status-pass"> Cumple</span></td>
             </tr>
             <tr>
@@ -762,20 +762,20 @@
         </div>
 
         <div class="info-box">
-            <strong>Conclusi√≥n:</strong> El sistema CEMI ha superado satisfactoriamente todas las pruebas planificadas. Los m√≥dulos cr√≠ticos (Autenticaci√≥n, Inscripciones, Pagos) funcionan correctamente seg√∫n las especificaciones. El sistema est√° listo para despliegue en producci√≥n.
+            <strong>ConclusiÛn:</strong> El sistema CEMI ha superado satisfactoriamente todas las pruebas planificadas. Los mÛdulos crÌticos (AutenticaciÛn, Inscripciones, Pagos) funcionan correctamente seg˙n las especificaciones. El sistema est· listo para despliegue en producciÛn.
         </div>
 
         <h2>6.1 Observaciones</h2>
         <ul>
             <li>Se recomienda realizar pruebas de carga con mayor volumen de usuarios concurrentes</li>
-            <li>Implementar pruebas automatizadas para regresi√≥n en futuras versiones</li>
-            <li>Mantener actualizada la documentaci√≥n de casos de prueba</li>
+            <li>Implementar pruebas automatizadas para regresiÛn en futuras versiones</li>
+            <li>Mantener actualizada la documentaciÛn de casos de prueba</li>
         </ul>
 
         <div class="footer">
-            <p><strong>CEMI Sistema de Gesti√≥n Acad√©mica</strong></p>
-            <p>Plan de Pruebas - Versi√≥n 1.0</p>
-            <p>¬© 2025 - UTN Tecnicatura Universitaria en Programaci√≥n</p>
+            <p><strong>CEMI Sistema de GestiÛn AcadÈmica</strong></p>
+            <p>Plan de Pruebas - VersiÛn 1.0</p>
+            <p>© 2025 - UTN Tecnicatura Universitaria en ProgramaciÛn</p>
         </div>
     </div>
 </body>

@@ -1,4 +1,4 @@
-Ôªø
+
 import express from "express";
 import pool from "../utils/db.js";
 import multer from "multer";
@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 
 const isProduction = process.env.NODE_ENV === 'production' || process.env.MYSQLHOST;
 
-console.log(` Modo de chat: ${isProduction ? 'PRODUCCI√ìN (Cloudinary)' : 'DESARROLLO (Local)'}`);
+console.log(` Modo de chat: ${isProduction ? 'PRODUCCI”N (Cloudinary)' : 'DESARROLLO (Local)'}`);
 console.log(` NODE_ENV: ${process.env.NODE_ENV}`);
 console.log(` MYSQLHOST: ${process.env.MYSQLHOST ? 'definido' : 'no definido'}`);
 
@@ -59,7 +59,7 @@ const uploadChatFile = multer({
   storage: chatStorage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB m√°ximo
+    fileSize: 5 * 1024 * 1024 // 5MB m·ximo
   }
 });
 
@@ -84,10 +84,10 @@ router.post("/iniciar", verificarToken, async (req, res) => {
         
         if (usuarioBuscado.length > 0) {
           id_usuario = usuarioBuscado[0].id_usuario;
-          console.log(` id_usuario encontrado autom√°ticamente: ${id_usuario} para ${nombre}`);
+          console.log(` id_usuario encontrado autom·ticamente: ${id_usuario} para ${nombre}`);
         }
       } catch (err) {
-        console.warn('Ô∏è No se pudo buscar id_usuario autom√°ticamente:', err.message);
+        console.warn('? No se pudo buscar id_usuario autom·ticamente:', err.message);
       }
     }
     
@@ -110,7 +110,7 @@ router.post("/iniciar", verificarToken, async (req, res) => {
       
       if (existentes.length > 0) {
         id_conversacion = existentes[0].id_conversacion;
-        console.log(` Conversaci√≥n existente encontrada: ${id_conversacion} para ${nombre}`);
+        console.log(` ConversaciÛn existente encontrada: ${id_conversacion} para ${nombre}`);
       }
     }
     
@@ -125,7 +125,7 @@ router.post("/iniciar", verificarToken, async (req, res) => {
       ]);
       
       id_conversacion = conversacion.insertId;
-      console.log(` Nueva conversaci√≥n creada: ${id_conversacion} para ${nombre}`);
+      console.log(` Nueva conversaciÛn creada: ${id_conversacion} para ${nombre}`);
       
       await pool.query(`
         INSERT INTO chat_estadisticas (id_conversacion, total_mensajes, mensajes_usuario)
@@ -156,11 +156,11 @@ router.post("/iniciar", verificarToken, async (req, res) => {
       WHERE id_conversacion = ?
     `, [id_conversacion]);
     
-    console.log(` Mensaje agregado a conversaci√≥n: ${id_conversacion} por ${nombre}`);
+    console.log(` Mensaje agregado a conversaciÛn: ${id_conversacion} por ${nombre}`);
     
     res.json({
       success: true,
-      message: "Conversaci√≥n iniciada exitosamente",
+      message: "ConversaciÛn iniciada exitosamente",
       data: {
         id_conversacion,
         tipo_usuario,
@@ -169,10 +169,10 @@ router.post("/iniciar", verificarToken, async (req, res) => {
     });
     
   } catch (error) {
-    console.error("Error al iniciar conversaci√≥n:", error);
+    console.error("Error al iniciar conversaciÛn:", error);
     res.status(500).json({ 
       success: false, 
-      message: "Error al iniciar conversaci√≥n" 
+      message: "Error al iniciar conversaciÛn" 
     });
   }
 });
@@ -197,7 +197,7 @@ router.get("/conversacion/:id", verificarToken, async (req, res) => {
     if (conversaciones.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Conversaci√≥n no encontrada"
+        message: "ConversaciÛn no encontrada"
       });
     }
     
@@ -226,7 +226,7 @@ router.get("/conversacion/:id", verificarToken, async (req, res) => {
       ORDER BY cm.fecha_envio ASC
     `, [id]);
     
-    console.log(` Conversaci√≥n ${id} - Total mensajes: ${mensajes.length}`);
+    console.log(` ConversaciÛn ${id} - Total mensajes: ${mensajes.length}`);
     const mensajesConArchivos = mensajes.filter(m => m.archivo_adjunto);
     if (mensajesConArchivos.length > 0) {
       console.log(` Mensajes con archivos adjuntos:`, mensajesConArchivos.map(m => ({
@@ -249,10 +249,10 @@ router.get("/conversacion/:id", verificarToken, async (req, res) => {
     });
     
   } catch (error) {
-    console.error("Error al obtener conversaci√≥n:", error);
+    console.error("Error al obtener conversaciÛn:", error);
     res.status(500).json({
       success: false,
-      message: "Error al cargar conversaci√≥n"
+      message: "Error al cargar conversaciÛn"
     });
   }
 });
@@ -348,14 +348,14 @@ router.put("/conversacion/:id/tomar", verificarToken, verificarRol(['admin', 'ad
     
     res.json({
       success: true,
-      message: "Conversaci√≥n tomada exitosamente"
+      message: "ConversaciÛn tomada exitosamente"
     });
     
   } catch (error) {
-    console.error("Error al tomar conversaci√≥n:", error);
+    console.error("Error al tomar conversaciÛn:", error);
     res.status(500).json({
       success: false,
-      message: "Error al tomar conversaci√≥n"
+      message: "Error al tomar conversaciÛn"
     });
   }
 });
@@ -393,14 +393,14 @@ router.put("/conversacion/:id/cerrar", verificarToken, async (req, res) => {
     
     res.json({
       success: true,
-      message: "Conversaci√≥n cerrada exitosamente"
+      message: "ConversaciÛn cerrada exitosamente"
     });
     
   } catch (error) {
-    console.error("Error al cerrar conversaci√≥n:", error);
+    console.error("Error al cerrar conversaciÛn:", error);
     res.status(500).json({
       success: false,
-      message: "Error al cerrar conversaci√≥n"
+      message: "Error al cerrar conversaciÛn"
     });
   }
 });
@@ -488,11 +488,11 @@ router.put("/conversacion/:id/leer", verificarToken, async (req, res) => {
     
     res.json({
       success: true,
-      message: "Mensajes marcados como le√≠dos"
+      message: "Mensajes marcados como leÌdos"
     });
     
   } catch (error) {
-    console.error("Error al marcar como le√≠do:", error);
+    console.error("Error al marcar como leÌdo:", error);
     res.status(500).json({
       success: false,
       message: "Error al actualizar estado"
@@ -532,10 +532,10 @@ router.get("/estadisticas", verificarToken, verificarRol(['admin', 'administrado
     });
     
   } catch (error) {
-    console.error("Error al obtener estad√≠sticas:", error);
+    console.error("Error al obtener estadÌsticas:", error);
     res.status(500).json({
       success: false,
-      message: "Error al cargar estad√≠sticas"
+      message: "Error al cargar estadÌsticas"
     });
   }
 });
@@ -548,7 +548,7 @@ router.get("/mi-conversacion", verificarToken, async (req, res) => {
     if (!tipo_usuario || !id_usuario) {
       return res.status(400).json({
         success: false,
-        message: "Par√°metros requeridos: tipo_usuario, id_usuario"
+        message: "Par·metros requeridos: tipo_usuario, id_usuario"
       });
     }
     
@@ -572,7 +572,7 @@ router.get("/mi-conversacion", verificarToken, async (req, res) => {
       return res.json({
         success: true,
         data: null,
-        message: "No hay conversaci√≥n activa"
+        message: "No hay conversaciÛn activa"
       });
     }
     
@@ -601,7 +601,7 @@ router.get("/mi-conversacion", verificarToken, async (req, res) => {
       ORDER BY cm.fecha_envio ASC
     `, [conversacion.id_conversacion]);
 
-    console.log(` Mi conversaci√≥n - Mensajes con avatares:`, mensajes.map(m => ({
+    console.log(` Mi conversaciÛn - Mensajes con avatares:`, mensajes.map(m => ({
       id: m.id_mensaje,
       tipo: m.tipo_remitente,
       id_rem: m.id_remitente,
@@ -621,10 +621,10 @@ router.get("/mi-conversacion", verificarToken, async (req, res) => {
     });
     
   } catch (error) {
-    console.error("Error al obtener conversaci√≥n del usuario:", error);
+    console.error("Error al obtener conversaciÛn del usuario:", error);
     res.status(500).json({
       success: false,
-      message: "Error al cargar conversaci√≥n"
+      message: "Error al cargar conversaciÛn"
     });
   }
 });
@@ -635,7 +635,7 @@ router.delete("/conversacion/:id", verificarToken, verificarRol(['admin', 'admin
     const { id } = req.params;
     const { id_admin } = req.body; // ID del administrador que elimina
     
-    console.log(`Ô∏è Admin ${id_admin} eliminando conversaci√≥n ${id}`);
+    console.log(`? Admin ${id_admin} eliminando conversaciÛn ${id}`);
     
     const [conversacion] = await pool.query(`
       SELECT * FROM chat_conversaciones WHERE id_conversacion = ?
@@ -644,7 +644,7 @@ router.delete("/conversacion/:id", verificarToken, verificarRol(['admin', 'admin
     if (conversacion.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "Conversaci√≥n no encontrada"
+        message: "ConversaciÛn no encontrada"
       });
     }
     
@@ -652,11 +652,11 @@ router.delete("/conversacion/:id", verificarToken, verificarRol(['admin', 'admin
       DELETE FROM chat_conversaciones WHERE id_conversacion = ?
     `, [id]);
     
-    console.log(` Conversaci√≥n ${id} eliminada exitosamente`);
+    console.log(` ConversaciÛn ${id} eliminada exitosamente`);
     
     res.json({
       success: true,
-      message: "Conversaci√≥n eliminada exitosamente",
+      message: "ConversaciÛn eliminada exitosamente",
       data: {
         id_conversacion: id,
         tipo_usuario: conversacion[0].tipo_usuario,
@@ -665,10 +665,10 @@ router.delete("/conversacion/:id", verificarToken, verificarRol(['admin', 'admin
     });
     
   } catch (error) {
-    console.error("Error al eliminar conversaci√≥n:", error);
+    console.error("Error al eliminar conversaciÛn:", error);
     res.status(500).json({
       success: false,
-      message: "Error al eliminar conversaci√≥n"
+      message: "Error al eliminar conversaciÛn"
     });
   }
 });
@@ -679,7 +679,7 @@ router.post("/upload", verificarToken, uploadChatFile.single('file'), async (req
     if (!req.file) {
       return res.status(400).json({
         success: false,
-        message: "No se recibi√≥ ning√∫n archivo"
+        message: "No se recibiÛ ning˙n archivo"
       });
     }
     
@@ -736,7 +736,7 @@ router.post("/upload", verificarToken, uploadChatFile.single('file'), async (req
     `);
     
     if (columns.length === 0) {
-      console.log('Ô∏è Creando columnas archivo_adjunto y tipo_archivo...');
+      console.log('? Creando columnas archivo_adjunto y tipo_archivo...');
       await pool.query(`
         ALTER TABLE chat_mensajes 
         ADD COLUMN archivo_adjunto VARCHAR(500) NULL,
@@ -782,7 +782,7 @@ router.post("/upload", verificarToken, uploadChatFile.single('file'), async (req
       `, [id_conversacion]);
     }
     
-    console.log(` Archivo subido: ${req.file.originalname} (${tipoArchivo}) en conversaci√≥n ${id_conversacion}`);
+    console.log(` Archivo subido: ${req.file.originalname} (${tipoArchivo}) en conversaciÛn ${id_conversacion}`);
     
     if (chatServerInstance) {
       const mensajeWS = {

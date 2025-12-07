@@ -1,4 +1,4 @@
-ï»¿import express from 'express';
+import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -41,10 +41,10 @@ function getDefaultStatus() {
   return {
     global_status: "operational",
     services: [
-      { id: "platform", name: "Plataforma Principal", status: "operational", description: "Acceso al sistema y autenticaciÃ³n" },
+      { id: "platform", name: "Plataforma Principal", status: "operational", description: "Acceso al sistema y autenticación" },
       { id: "classroom", name: "Classroom", status: "operational", description: "Cursos, tareas y entregas" },
-      { id: "payments", name: "Sistema de Pagos", status: "operational", description: "GestiÃ³n de cuotas y pagos" },
-      { id: "chat", name: "Chat de Soporte", status: "operational", description: "ComunicaciÃ³n en tiempo real" },
+      { id: "payments", name: "Sistema de Pagos", status: "operational", description: "Gestión de cuotas y pagos" },
+      { id: "chat", name: "Chat de Soporte", status: "operational", description: "Comunicación en tiempo real" },
       { id: "api", name: "API / Backend", status: "operational", description: "Servicios y base de datos" }
     ],
     active_incident: null,
@@ -101,7 +101,7 @@ router.post('/incident', (req, res) => {
     const { title, message, severity, affected_services, show_banner } = req.body;
     
     if (!title || !severity) {
-      return res.status(400).json({ error: 'TÃ­tulo y severidad son requeridos' });
+      return res.status(400).json({ error: 'Título y severidad son requeridos' });
     }
     
     const status = readStatus();

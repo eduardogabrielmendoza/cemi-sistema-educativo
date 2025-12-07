@@ -1,8 +1,8 @@
-Ôªø
+
 (async function checkSystemMaintenance() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
-  console.log('[check-maintenance] P√°gina actual:', currentPage);
+  console.log('[check-maintenance] P·gina actual:', currentPage);
   
   const fullyExcludedPages = [
     'login-admin.html',
@@ -16,7 +16,7 @@
   ];
 
   if (fullyExcludedPages.includes(currentPage)) {
-    console.log('[check-maintenance] P√°gina excluida, no se verifica');
+    console.log('[check-maintenance] P·gina excluida, no se verifica');
     return;
   }
 
@@ -40,7 +40,7 @@
     const status = data.global_status;
     
     console.log('[check-maintenance] Estado del sistema:', status);
-    console.log('[check-maintenance] Es p√°gina bloqueable:', blockablePages.includes(currentPage));
+    console.log('[check-maintenance] Es p·gina bloqueable:', blockablePages.includes(currentPage));
 
     if (status === 'operational') {
       console.log('[check-maintenance] Sistema operacional, acceso permitido');
@@ -76,7 +76,7 @@ function showStatusBanner(status, incident) {
   }
 
   if (!document.body) {
-    console.warn('[check-maintenance] Body no existe a√∫n, esperando...');
+    console.warn('[check-maintenance] Body no existe a˙n, esperando...');
     setTimeout(() => showStatusBanner(status, incident), 100);
     return;
   }
@@ -86,7 +86,7 @@ function showStatusBanner(status, incident) {
       bgColor: '#fef3c7',
       borderColor: '#f59e0b',
       textColor: '#92400e',
-      icon: 'Ô∏è',
+      icon: '?',
       title: 'Rendimiento Reducido',
       defaultMessage: 'Algunos servicios pueden estar experimentando lentitud.'
     },
@@ -103,7 +103,7 @@ function showStatusBanner(status, incident) {
       borderColor: '#ef4444',
       textColor: '#991b1b',
       icon: '',
-      title: 'Interrupci√≥n del Servicio',
+      title: 'InterrupciÛn del Servicio',
       defaultMessage: 'Estamos trabajando para restaurar el servicio.'
     }
   };
@@ -178,7 +178,7 @@ function showStatusBanner(status, incident) {
         ${message}
       </span>
     </div>
-    <button class="banner-close" onclick="this.parentElement.remove(); document.body.style.paddingTop = '0';" title="Cerrar">√ó</button>
+    <button class="banner-close" onclick="this.parentElement.remove(); document.body.style.paddingTop = '0';" title="Cerrar">◊</button>
   `;
 
   document.body.insertBefore(banner, document.body.firstChild);

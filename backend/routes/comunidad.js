@@ -1,4 +1,4 @@
-Ôªøimport express from "express";
+import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -201,7 +201,7 @@ router.post('/preguntas/:id/respuestas', verificarToken, (req, res) => {
         }
         
         if (data.preguntas[preguntaIndex].estado === 'cerrada') {
-            return res.status(400).json({ success: false, error: 'Esta pregunta est√° cerrada' });
+            return res.status(400).json({ success: false, error: 'Esta pregunta est· cerrada' });
         }
         
         const nuevaRespuesta = {
@@ -372,7 +372,7 @@ router.put('/preguntas/:id/destacar', verificarToken, (req, res) => {
         data.preguntas[preguntaIndex].destacado = destacar;
         guardarDatos(data);
         
-        res.json({ success: true, message: destacar ? 'Pregunta destacada' : 'Pregunta ya no est√° destacada' });
+        res.json({ success: true, message: destacar ? 'Pregunta destacada' : 'Pregunta ya no est· destacada' });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
@@ -384,7 +384,7 @@ router.put('/preguntas/:id/estado', verificarToken, (req, res) => {
         const { estado } = req.body;
         
         if (!['abierta', 'resuelta', 'cerrada'].includes(estado)) {
-            return res.status(400).json({ success: false, error: 'Estado inv√°lido' });
+            return res.status(400).json({ success: false, error: 'Estado inv·lido' });
         }
         
         const data = leerDatos();

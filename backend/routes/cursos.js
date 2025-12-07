@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import pool from "../utils/db.js";
 import { verificarToken, verificarRol } from "../middleware/auth.js";
 
@@ -86,7 +86,7 @@ router.get('/catalogo', verificarToken, async (req, res) => {
         if (!id_alumno) {
             return res.status(400).json({ 
                 success: false,
-                error: 'El parámetro id_alumno es requerido' 
+                error: 'El par�metro id_alumno es requerido' 
             });
         }
 
@@ -143,7 +143,7 @@ router.get('/catalogo', verificarToken, async (req, res) => {
         console.log('[CATALOGO] Cursos encontrados:', cursos.length);
 
         const cursosDisponibles = cursos.filter(curso => curso.ya_inscrito === 0);
-        console.log('[CATALOGO] Cursos disponibles (sin inscripción):', cursosDisponibles.length);
+        console.log('[CATALOGO] Cursos disponibles (sin inscripci�n):', cursosDisponibles.length);
 
         const cursosConEstado = cursosDisponibles.map(curso => {
             const porcentajeOcupacion = curso.cupo_maximo > 0 
@@ -205,7 +205,7 @@ router.get('/catalogo', verificarToken, async (req, res) => {
         console.error('[CATALOGO ERROR]:', error);
         res.status(500).json({ 
             success: false,
-            error: 'Error al cargar el catálogo de cursos',
+            error: 'Error al cargar el cat�logo de cursos',
             details: error.message,
             stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
         });
@@ -608,7 +608,7 @@ router.delete("/:id", verificarToken, verificarRol(['admin', 'administrador']), 
     if (inscripciones[0].total > 0) {
       return res.status(400).json({ 
         success: false,
-        message: `No se puede eliminar: el curso tiene ${inscripciones[0].total} inscripción/es activa(s)` 
+        message: `No se puede eliminar: el curso tiene ${inscripciones[0].total} inscripci�n/es activa(s)` 
       });
     }
 
@@ -677,7 +677,7 @@ router.put("/:id/cuotas", verificarToken, verificarRol(['admin', 'administrador'
     if (cuotasInvalidas.length > 0) {
       return res.status(400).json({ 
         success: false, 
-        message: `Cuotas inválidas: ${cuotasInvalidas.join(', ')}` 
+        message: `Cuotas inv�lidas: ${cuotasInvalidas.join(', ')}` 
       });
     }
 
@@ -688,7 +688,7 @@ router.put("/:id/cuotas", verificarToken, verificarRol(['admin', 'administrador'
     const placeholders = cuotas.map(() => '?').join(', ');
     const jsonArraySQL = cuotas.length > 0 
       ? `CAST(JSON_ARRAY(${placeholders}) AS JSON)`
-      : `CAST('[]' AS JSON)`; // Array vacío en lugar de NULL
+      : `CAST('[]' AS JSON)`; // Array vac�o en lugar de NULL
     
     await pool.query(
       `UPDATE cursos SET cuotas_habilitadas = ${jsonArraySQL} WHERE id_curso = ?`,
@@ -730,7 +730,7 @@ router.put("/cuotas/todos", verificarToken, verificarRol(['admin', 'administrado
     if (cuotasInvalidas.length > 0) {
       return res.status(400).json({ 
         success: false, 
-        message: `Cuotas inválidas: ${cuotasInvalidas.join(', ')}` 
+        message: `Cuotas inv�lidas: ${cuotasInvalidas.join(', ')}` 
       });
     }
 

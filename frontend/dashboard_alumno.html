@@ -1,4 +1,4 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -11,7 +11,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Panel del Alumno - CEMI</title>
+  <title>Panel del Alumno - Ce.mi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
-      <img src="images/logodashboard.png" alt="Logo CEMI" style="width: 100%; max-width: 200px; height: auto;">
+      <img src="images/logodashboard.png" alt="Logo Ce.mi" style="width: 100%; max-width: 200px; height: auto;">
     </div>
     <nav class="sidebar-menu">
       <button id="btnCursos"><i data-lucide="book-open"></i> Mis Cursos</button>
@@ -55,7 +55,7 @@
         <span id="chatNotificationBadge" class="notification-badge" style="display: none;"></span>
       </button>
       <button id="btnAyuda"><i data-lucide="help-circle"></i> Ayuda</button>
-      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesi√≥n</button>
+      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesiÛn</button>
     </nav>
   </aside>
 
@@ -89,7 +89,7 @@
   const id_alumno = localStorage.getItem("id_alumno");
   
   if (!id_alumno) {
-    console.error("No se encontr√≥ el ID del alumno");
+    console.error("No se encontrÛ el ID del alumno");
     window.location.href = "login.html";
   }
 
@@ -107,7 +107,7 @@
         // Inicializar Socket.IO inmediatamente para recibir notificaciones
         window.userChatManager.init();
       } else {
-        console.error(' UserChatManager no est√° definido');
+        console.error(' UserChatManager no est· definido');
       }
     };
     chatScript.onerror = () => {
@@ -117,7 +117,7 @@
   };
   document.head.appendChild(socketScript);
 
-  // Mostrar saludo din√°mico con nombre guardado
+  // Mostrar saludo din·mico con nombre guardado
   const nombreAlumno = localStorage.getItem("nombre") || "Alumno";
   welcomeMessage.textContent = `Bienvenido/a, ${nombreAlumno} `;
 
@@ -126,7 +126,7 @@
     try {
       console.log(' Iniciando carga de avatar...');
       
-      // Detectar tipo de usuario seg√∫n qu√© ID existe en localStorage
+      // Detectar tipo de usuario seg˙n quÈ ID existe en localStorage
       let tipoUsuario = 'alumno';
       let idUsuario = localStorage.getItem('id_alumno');
       
@@ -140,7 +140,7 @@
       }
       
       if (!idUsuario) {
-        console.log(' No se encontr√≥ ID de usuario');
+        console.log(' No se encontrÛ ID de usuario');
         return;
       }
       
@@ -324,7 +324,7 @@
                     <i data-lucide="inbox" style="width: 40px; height: 40px; color: #9ca3af;"></i>
                   </div>
                   <h3 style="margin: 0 0 8px 0; color: #1e1e1e; font-size: 18px; font-weight: 500;">No hay cursos inscritos</h3>
-                  <p style="margin: 0; color: #6b7280; font-size: 14px;">A√∫n no est√°s inscrito en ning√∫n curso. Contacta con administraci√≥n para m√°s informaci√≥n.</p>
+                  <p style="margin: 0; color: #6b7280; font-size: 14px;">A˙n no est·s inscrito en ning˙n curso. Contacta con administraciÛn para m·s informaciÛn.</p>
                 </div>
               `}
             </div>
@@ -341,7 +341,7 @@
           <div class="error-container">
             <i data-lucide="alert-circle"></i>
             <h3>Error al cargar los cursos</h3>
-            <p>Por favor, intenta nuevamente m√°s tarde.</p>
+            <p>Por favor, intenta nuevamente m·s tarde.</p>
           </div>
         `;
         lucide.createIcons();
@@ -360,9 +360,9 @@
             <div style="margin-bottom: 24px;">
               <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
                 <i data-lucide="graduation-cap" style="width: 28px; height: 28px; color: #4a5259;"></i>
-                <h2 style="margin: 0; color: #1e1e1e; font-size: 24px; font-weight: 500; font-family: 'Inter', sans-serif;">Cat√°logo de Cursos</h2>
+                <h2 style="margin: 0; color: #1e1e1e; font-size: 24px; font-weight: 500; font-family: 'Inter', sans-serif;">Cat·logo de Cursos</h2>
               </div>
-              <p style="margin: 0; color: #6b7280; font-size: 14px;">Explora todos los cursos disponibles y solicita tu inscripci√≥n</p>
+              <p style="margin: 0; color: #6b7280; font-size: 14px;">Explora todos los cursos disponibles y solicita tu inscripciÛn</p>
             </div>
 
             <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
@@ -403,7 +403,7 @@
 
             <div id="catalogo-cursos-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px;">
               <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6b7280;">
-                <p>Cargando cat√°logo de cursos...</p>
+                <p>Cargando cat·logo de cursos...</p>
               </div>
             </div>
           </div>
@@ -426,25 +426,25 @@
             mainContent.innerHTML = `
               <div class="error-container">
                 <i data-lucide="alert-circle"></i>
-                <h3>Error al cargar la secci√≥n</h3>
-                <p>No se pudo cargar el m√≥dulo de cursado. Por favor, recarga la p√°gina.</p>
+                <h3>Error al cargar la secciÛn</h3>
+                <p>No se pudo cargar el mÛdulo de cursado. Por favor, recarga la p·gina.</p>
               </div>
             `;
             lucide.createIcons();
           };
           document.head.appendChild(script);
         } else if (window.cursadoManager) {
-          // Si ya est√° cargado, reinicializar
+          // Si ya est· cargado, reinicializar
           window.cursadoManager.init();
         }
 
       } catch (error) {
-        console.error("Error al cargar secci√≥n Cursado:", error);
+        console.error("Error al cargar secciÛn Cursado:", error);
         mainContent.innerHTML = `
           <div class="error-container">
             <i data-lucide="alert-circle"></i>
-            <h3>Error al cargar el cat√°logo</h3>
-            <p>Por favor, intenta nuevamente m√°s tarde.</p>
+            <h3>Error al cargar el cat·logo</h3>
+            <p>Por favor, intenta nuevamente m·s tarde.</p>
           </div>
         `;
         lucide.createIcons();
@@ -600,7 +600,7 @@
                 <div style="text-align: center; padding: 40px 20px;">
                   <i data-lucide="clipboard-x" style="width: 48px; height: 48px; color: #9ca3af; margin-bottom: 16px;"></i>
                   <h3 style="margin: 0 0 8px 0; color: #4a5259; font-size: 16px; font-weight: 600;">No hay calificaciones disponibles</h3>
-                  <p style="margin: 0; color: #6b7280; font-size: 14px;">A√∫n no tienes cursos con calificaciones registradas.</p>
+                  <p style="margin: 0; color: #6b7280; font-size: 14px;">A˙n no tienes cursos con calificaciones registradas.</p>
                 </div>
               `}
             </div>
@@ -617,7 +617,7 @@
           <div class="error-container">
             <i data-lucide="alert-circle"></i>
             <h3>Error al cargar las calificaciones</h3>
-            <p>Por favor, intenta nuevamente m√°s tarde.</p>
+            <p>Por favor, intenta nuevamente m·s tarde.</p>
           </div>
         `;
         lucide.createIcons();
@@ -784,7 +784,7 @@
               <div style="text-align: center; padding: 40px 20px; background: #ffffff; border-radius: 16px; border: 1px solid #e5e7eb;">
                 <i data-lucide="inbox" style="width: 48px; height: 48px; color: #9ca3af; margin-bottom: 16px;"></i>
                 <h4 style="margin: 0 0 8px 0; color: #4a5259; font-size: 16px; font-weight: 600;">No tienes cursos activos</h4>
-                <p style="margin: 0; color: #6b7280; font-size: 14px;">Inscr√≠bete a un curso para comenzar a gestionar tus pagos.</p>
+                <p style="margin: 0; color: #6b7280; font-size: 14px;">InscrÌbete a un curso para comenzar a gestionar tus pagos.</p>
               </div>
             `}
           </div>
@@ -800,7 +800,7 @@
           <div class="error-container">
             <i data-lucide="alert-circle"></i>
             <h3>Error al cargar los pagos</h3>
-            <p>${error.message || 'Por favor, intenta nuevamente m√°s tarde.'}</p>
+            <p>${error.message || 'Por favor, intenta nuevamente m·s tarde.'}</p>
           </div>
         `;
         lucide.createIcons();
@@ -809,7 +809,7 @@
       }
     },
 
-    // Secci√≥n: Mi Perfil
+    // SecciÛn: Mi Perfil
     btnPerfil: async () => {
       loader.classList.remove("hidden");
       mainContent.classList.remove("active");
@@ -827,7 +827,7 @@
                 </div>
                 <h2 style="margin: 0; color: #1e1e1e; font-size: 22px; font-weight: 600;">Mi Perfil</h2>
               </div>
-              <p style="margin: 0 0 0 56px; color: #6b7280; font-size: 14px;">Administra tu informaci√≥n personal</p>
+              <p style="margin: 0 0 0 56px; color: #6b7280; font-size: 14px;">Administra tu informaciÛn personal</p>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 24px;">
@@ -839,7 +839,7 @@
                 
                 <div style="background: rgba(74, 82, 89, 0.05); border-left: 3px solid #4a5259; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
                   <i data-lucide="lock" style="color: #6b7280; width: 16px; height: 16px; flex-shrink: 0;"></i>
-                  <span style="color: #6b7280; font-size: 13px;">Esta informaci√≥n no puede ser editada</span>
+                  <span style="color: #6b7280; font-size: 13px;">Esta informaciÛn no puede ser editada</span>
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
@@ -887,7 +887,7 @@
               <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
                   <i data-lucide="info" style="width: 20px; height: 20px; color: #4a5259;"></i>
-                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">Informaci√≥n Adicional</h3>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">InformaciÛn Adicional</h3>
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
@@ -914,7 +914,7 @@
           <div class="error-container">
             <i data-lucide="alert-circle"></i>
             <h3>Error al cargar perfil</h3>
-            <p>Por favor, intenta nuevamente m√°s tarde.</p>
+            <p>Por favor, intenta nuevamente m·s tarde.</p>
           </div>
         `;
         lucide.createIcons();
@@ -929,7 +929,7 @@
       setTimeout(() => {
         if (window.userChatManager) {
           window.userChatManager.renderChatView();
-          // Ya NO llamamos init() aqu√≠ - se llam√≥ autom√°ticamente al cargar la p√°gina
+          // Ya NO llamamos init() aquÌ - se llamÛ autom·ticamente al cargar la p·gina
         }
         mainContent.classList.add("active");
         lucide.createIcons();
@@ -942,15 +942,15 @@
         <div class="ayuda-container">
           <div class="ayuda-header">
             <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
-            <p>Gu√≠as completas para aprovechar al m√°ximo tu experiencia en CEMI</p>
+            <p>GuÌas completas para aprovechar al m·ximo tu experiencia en CEMI</p>
             <div class="ayuda-stats">
               <div class="ayuda-stat-item">
                 <div class="ayuda-stat-number">25+</div>
-                <div class="ayuda-stat-label">Gu√≠as disponibles</div>
+                <div class="ayuda-stat-label">GuÌas disponibles</div>
               </div>
               <div class="ayuda-stat-item">
                 <div class="ayuda-stat-number">9</div>
-                <div class="ayuda-stat-label">Categor√≠as</div>
+                <div class="ayuda-stat-label">CategorÌas</div>
               </div>
               <div class="ayuda-stat-item">
                 <div class="ayuda-stat-number">24/7</div>
@@ -961,11 +961,11 @@
 
           <div class="ayuda-search-container">
             <i data-lucide="search" class="search-icon"></i>
-            <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="¬øQu√© necesitas aprender hoy?" autocomplete="off">
+            <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="øQuÈ necesitas aprender hoy?" autocomplete="off">
             <div class="search-suggestions">
               <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='pagos'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Pagos</span>
               <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='notas'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Calificaciones</span>
-              <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='inscripcion'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Inscripci√≥n</span>
+              <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='inscripcion'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">InscripciÛn</span>
               <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='perfil'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Mi Perfil</span>
             </div>
           </div>
@@ -974,7 +974,7 @@
           <div class="no-results-message" id="noResultsMessage">
             <i data-lucide="search-x"></i>
             <h3>No se encontraron resultados</h3>
-            <p>Intenta con otros t√©rminos de b√∫squeda o explora las categor√≠as</p>
+            <p>Intenta con otros tÈrminos de b˙squeda o explora las categorÌas</p>
           </div>
 
           <div class="ayuda-quick-access">
@@ -982,7 +982,7 @@
               <div class="qa-icon"><i data-lucide="credit-card"></i></div>
               <div class="qa-text">
                 <h4>Realizar Pagos</h4>
-                <span>M√©todos y comprobantes</span>
+                <span>MÈtodos y comprobantes</span>
               </div>
             </div>
             <div class="quick-access-card" onclick="document.querySelector('[data-category=calificaciones] .accordion-header').click()">
@@ -1020,7 +1020,7 @@
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">2 gu√≠as</span>
+                  <span class="accordion-count">2 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1030,11 +1030,11 @@
                     <div class="guia-item" data-keywords="inicio bienvenida panel dashboard navegacion menu">
                       <div class="guia-icon"><i data-lucide="layout-dashboard"></i></div>
                       <div class="guia-content">
-                        <h4>Navegaci√≥n del Panel</h4>
-                        <p>El men√∫ lateral izquierdo te permite acceder a todas las secciones: Mis Cursos, Cursado, Calificaciones, Pagos, Perfil y m√°s. Haz clic en cualquier opci√≥n para cargar esa secci√≥n.</p>
+                        <h4>NavegaciÛn del Panel</h4>
+                        <p>El men˙ lateral izquierdo te permite acceder a todas las secciones: Mis Cursos, Cursado, Calificaciones, Pagos, Perfil y m·s. Haz clic en cualquier opciÛn para cargar esa secciÛn.</p>
                         <div class="guia-tags">
-                          <span class="guia-tag">B√°sico</span>
-                          <span class="guia-tag">Navegaci√≥n</span>
+                          <span class="guia-tag">B·sico</span>
+                          <span class="guia-tag">NavegaciÛn</span>
                         </div>
                       </div>
                     </div>
@@ -1042,10 +1042,10 @@
                       <div class="guia-icon"><i data-lucide="info"></i></div>
                       <div class="guia-content">
                         <h4>Entender tu Dashboard</h4>
-                        <p>Al ingresar ver√°s un resumen de tus cursos activos, tu promedio general y tu progreso acad√©mico. Las tarjetas de estad√≠sticas te muestran informaci√≥n clave de un vistazo.</p>
+                        <p>Al ingresar ver·s un resumen de tus cursos activos, tu promedio general y tu progreso acadÈmico. Las tarjetas de estadÌsticas te muestran informaciÛn clave de un vistazo.</p>
                         <div class="guia-tags">
-                          <span class="guia-tag">B√°sico</span>
-                          <span class="guia-tag">Estad√≠sticas</span>
+                          <span class="guia-tag">B·sico</span>
+                          <span class="guia-tag">EstadÌsticas</span>
                         </div>
                       </div>
                     </div>
@@ -1064,7 +1064,7 @@
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">3 gu√≠as</span>
+                  <span class="accordion-count">3 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1075,7 +1075,7 @@
                       <div class="guia-icon"><i data-lucide="book-open"></i></div>
                       <div class="guia-content">
                         <h4>Ver Cursos Inscritos</h4>
-                        <p>En esta secci√≥n encontrar√°s todos los cursos en los que est√°s matriculado. Cada tarjeta muestra el nombre del curso, idioma, nivel y tu progreso actual.</p>
+                        <p>En esta secciÛn encontrar·s todos los cursos en los que est·s matriculado. Cada tarjeta muestra el nombre del curso, idioma, nivel y tu progreso actual.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Cursos</span>
                           <span class="guia-tag">Lista</span>
@@ -1086,7 +1086,7 @@
                       <div class="guia-icon"><i data-lucide="eye"></i></div>
                       <div class="guia-content">
                         <h4>Detalles de un Curso</h4>
-                        <p>Haz clic en cualquier tarjeta de curso para ver informaci√≥n detallada: profesor asignado, horario de clases, aula y tus calificaciones espec√≠ficas.</p>
+                        <p>Haz clic en cualquier tarjeta de curso para ver informaciÛn detallada: profesor asignado, horario de clases, aula y tus calificaciones especÌficas.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Detalles</span>
                           <span class="guia-tag">Horarios</span>
@@ -1097,7 +1097,7 @@
                       <div class="guia-icon"><i data-lucide="trending-up"></i></div>
                       <div class="guia-content">
                         <h4>Entender el Progreso</h4>
-                        <p>La barra de progreso indica tu avance basado en calificaciones. Verde = aprobado (7+), amarillo = en proceso, rojo = requiere atenci√≥n.</p>
+                        <p>La barra de progreso indica tu avance basado en calificaciones. Verde = aprobado (7+), amarillo = en proceso, rojo = requiere atenciÛn.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Progreso</span>
                           <span class="guia-tag">Rendimiento</span>
@@ -1115,11 +1115,11 @@
                   <div class="cat-icon"><i data-lucide="graduation-cap"></i></div>
                   <div class="accordion-title-text">
                     <span>Cursado e Inscripciones</span>
-                    <small>Explora cursos disponibles y solicita inscripci√≥n</small>
+                    <small>Explora cursos disponibles y solicita inscripciÛn</small>
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">3 gu√≠as</span>
+                  <span class="accordion-count">3 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1129,21 +1129,21 @@
                     <div class="guia-item" data-keywords="catalogo cursos disponibles explorar buscar filtrar">
                       <div class="guia-icon"><i data-lucide="search"></i></div>
                       <div class="guia-content">
-                        <h4>Cat√°logo de Cursos</h4>
+                        <h4>Cat·logo de Cursos</h4>
                         <p>Explora todos los cursos disponibles en el instituto. Usa el buscador para filtrar por nombre, idioma o profesor. Cada curso muestra disponibilidad.</p>
                         <div class="guia-tags">
-                          <span class="guia-tag">Cat√°logo</span>
-                          <span class="guia-tag">B√∫squeda</span>
+                          <span class="guia-tag">Cat·logo</span>
+                          <span class="guia-tag">B˙squeda</span>
                         </div>
                       </div>
                     </div>
                     <div class="guia-item" data-keywords="inscripcion solicitar inscribirse curso nuevo matricula">
                       <div class="guia-icon"><i data-lucide="user-plus"></i></div>
                       <div class="guia-content">
-                        <h4>Solicitar Inscripci√≥n</h4>
-                        <p>Para inscribirte en un nuevo curso, haz clic en "Solicitar Inscripci√≥n" de la tarjeta del curso. Un administrador revisar√° tu solicitud.</p>
+                        <h4>Solicitar InscripciÛn</h4>
+                        <p>Para inscribirte en un nuevo curso, haz clic en "Solicitar InscripciÛn" de la tarjeta del curso. Un administrador revisar· tu solicitud.</p>
                         <div class="guia-tags">
-                          <span class="guia-tag">Inscripci√≥n</span>
+                          <span class="guia-tag">InscripciÛn</span>
                           <span class="guia-tag">Solicitud</span>
                         </div>
                       </div>
@@ -1152,7 +1152,7 @@
                       <div class="guia-icon"><i data-lucide="users"></i></div>
                       <div class="guia-content">
                         <h4>Verificar Disponibilidad</h4>
-                        <p>Cada curso muestra cupos disponibles. Si est√° lleno, contacta a administraci√≥n para alternativas o lista de espera.</p>
+                        <p>Cada curso muestra cupos disponibles. Si est· lleno, contacta a administraciÛn para alternativas o lista de espera.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Cupos</span>
                           <span class="guia-tag">Disponibilidad</span>
@@ -1170,11 +1170,11 @@
                   <div class="cat-icon"><i data-lucide="clipboard-list"></i></div>
                   <div class="accordion-title-text">
                     <span>Mis Calificaciones</span>
-                    <small>Consulta notas, promedios e historial acad√©mico</small>
+                    <small>Consulta notas, promedios e historial acadÈmico</small>
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">3 gu√≠as</span>
+                  <span class="accordion-count">3 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1185,7 +1185,7 @@
                       <div class="guia-icon"><i data-lucide="file-text"></i></div>
                       <div class="guia-content">
                         <h4>Ver Calificaciones</h4>
-                        <p>Consulta tus notas de Parcial 1, Parcial 2 y Final de cada curso. El sistema calcula autom√°ticamente tu promedio por curso y general.</p>
+                        <p>Consulta tus notas de Parcial 1, Parcial 2 y Final de cada curso. El sistema calcula autom·ticamente tu promedio por curso y general.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Notas</span>
                           <span class="guia-tag">Parciales</span>
@@ -1199,18 +1199,18 @@
                         <p>El promedio se calcula sumando tus notas y dividiendo por evaluaciones rendidas. El promedio general incluye todos tus cursos activos.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Promedio</span>
-                          <span class="guia-tag">C√°lculo</span>
+                          <span class="guia-tag">C·lculo</span>
                         </div>
                       </div>
                     </div>
                     <div class="guia-item" data-keywords="historial academico registro notas anteriores evolucion">
                       <div class="guia-icon"><i data-lucide="history"></i></div>
                       <div class="guia-content">
-                        <h4>Historial Acad√©mico</h4>
-                        <p>Tu historial muestra todas las calificaciones obtenidas a lo largo del tiempo, permiti√©ndote ver tu evoluci√≥n acad√©mica.</p>
+                        <h4>Historial AcadÈmico</h4>
+                        <p>Tu historial muestra todas las calificaciones obtenidas a lo largo del tiempo, permitiÈndote ver tu evoluciÛn acadÈmica.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Historial</span>
-                          <span class="guia-tag">Evoluci√≥n</span>
+                          <span class="guia-tag">EvoluciÛn</span>
                         </div>
                       </div>
                     </div>
@@ -1225,11 +1225,11 @@
                   <div class="cat-icon"><i data-lucide="credit-card"></i></div>
                   <div class="accordion-title-text">
                     <span>Mis Pagos</span>
-                    <small>M√©todos de pago, cuotas y comprobantes</small>
+                    <small>MÈtodos de pago, cuotas y comprobantes</small>
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">5 gu√≠as</span>
+                  <span class="accordion-count">5 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1240,7 +1240,7 @@
                       <div class="guia-icon"><i data-lucide="receipt"></i></div>
                       <div class="guia-content">
                         <h4>Ver Estado de Pagos</h4>
-                        <p>Consulta el estado de tus cuotas: pagadas, pendientes o vencidas. El sistema muestra un resumen completo de tu situaci√≥n financiera.</p>
+                        <p>Consulta el estado de tus cuotas: pagadas, pendientes o vencidas. El sistema muestra un resumen completo de tu situaciÛn financiera.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Estado</span>
                           <span class="guia-tag">Cuotas</span>
@@ -1251,10 +1251,10 @@
                       <div class="guia-icon"><i data-lucide="wallet"></i></div>
                       <div class="guia-content">
                         <h4>Realizar un Pago</h4>
-                        <p>Selecciona el mes a abonar y elige el m√©todo: Mercado Pago (online) o Efectivo (genera ticket para pagar presencialmente).</p>
+                        <p>Selecciona el mes a abonar y elige el mÈtodo: Mercado Pago (online) o Efectivo (genera ticket para pagar presencialmente).</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Pagar</span>
-                          <span class="guia-tag">M√©todos</span>
+                          <span class="guia-tag">MÈtodos</span>
                         </div>
                       </div>
                     </div>
@@ -1262,7 +1262,7 @@
                       <div class="guia-icon"><i data-lucide="banknote"></i></div>
                       <div class="guia-content">
                         <h4>Pago en Efectivo</h4>
-                        <p>Al elegir efectivo, se genera un ticket con c√≥digo √∫nico. Presenta este ticket en secretar√≠a para completar el pago. Puedes descargarlo o imprimirlo.</p>
+                        <p>Al elegir efectivo, se genera un ticket con cÛdigo ˙nico. Presenta este ticket en secretarÌa para completar el pago. Puedes descargarlo o imprimirlo.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Efectivo</span>
                           <span class="guia-tag">Ticket</span>
@@ -1273,7 +1273,7 @@
                       <div class="guia-icon"><i data-lucide="smartphone"></i></div>
                       <div class="guia-content">
                         <h4>Pago con Mercado Pago</h4>
-                        <p>El pago online te redirige a Mercado Pago donde puedes usar tarjeta de d√©bito, cr√©dito o dinero en cuenta. Se acredita autom√°ticamente.</p>
+                        <p>El pago online te redirige a Mercado Pago donde puedes usar tarjeta de dÈbito, crÈdito o dinero en cuenta. Se acredita autom·ticamente.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Online</span>
                           <span class="guia-tag">Tarjeta</span>
@@ -1284,7 +1284,7 @@
                       <div class="guia-icon"><i data-lucide="download"></i></div>
                       <div class="guia-content">
                         <h4>Descargar Comprobantes</h4>
-                        <p>Descarga tickets de pago en efectivo o comprobantes de pagos realizados para tu registro personal desde la secci√≥n de pagos.</p>
+                        <p>Descarga tickets de pago en efectivo o comprobantes de pagos realizados para tu registro personal desde la secciÛn de pagos.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Descarga</span>
                           <span class="guia-tag">PDF</span>
@@ -1306,7 +1306,7 @@
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">2 gu√≠as</span>
+                  <span class="accordion-count">2 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1328,7 +1328,7 @@
                       <div class="guia-icon"><i data-lucide="edit"></i></div>
                       <div class="guia-content">
                         <h4>Actualizar Datos Personales</h4>
-                        <p>Mant√©n tu informaci√≥n actualizada: tel√©fono, email de contacto. Datos como DNI y legajo solo los modifica administraci√≥n.</p>
+                        <p>MantÈn tu informaciÛn actualizada: telÈfono, email de contacto. Datos como DNI y legajo solo los modifica administraciÛn.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Datos</span>
                           <span class="guia-tag">Contacto</span>
@@ -1350,7 +1350,7 @@
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">2 gu√≠as</span>
+                  <span class="accordion-count">2 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1361,7 +1361,7 @@
                       <div class="guia-icon"><i data-lucide="external-link"></i></div>
                       <div class="guia-content">
                         <h4>Acceder a Classroom</h4>
-                        <p>Classroom te conecta con Google Classroom donde encontrar√°s materiales de estudio, tareas y recursos compartidos por tus profesores.</p>
+                        <p>Classroom te conecta con Google Classroom donde encontrar·s materiales de estudio, tareas y recursos compartidos por tus profesores.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Google</span>
                           <span class="guia-tag">Acceso</span>
@@ -1372,7 +1372,7 @@
                       <div class="guia-icon"><i data-lucide="folder-open"></i></div>
                       <div class="guia-content">
                         <h4>Acceder a Materiales</h4>
-                        <p>Una vez en Classroom, podr√°s ver y descargar los materiales que tus profesores hayan compartido para cada curso.</p>
+                        <p>Una vez en Classroom, podr·s ver y descargar los materiales que tus profesores hayan compartido para cada curso.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Materiales</span>
                           <span class="guia-tag">Descargas</span>
@@ -1390,11 +1390,11 @@
                   <div class="cat-icon"><i data-lucide="message-circle"></i></div>
                   <div class="accordion-title-text">
                     <span>Chat de Soporte</span>
-                    <small>Comun√≠cate con el equipo de administraci√≥n</small>
+                    <small>ComunÌcate con el equipo de administraciÛn</small>
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">2 gu√≠as</span>
+                  <span class="accordion-count">2 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
@@ -1404,8 +1404,8 @@
                     <div class="guia-item" data-keywords="contactar administracion mensaje soporte ayuda consulta">
                       <div class="guia-icon"><i data-lucide="send"></i></div>
                       <div class="guia-content">
-                        <h4>Contactar Administraci√≥n</h4>
-                        <p>Usa el Chat de Soporte para comunicarte directamente con el equipo administrativo. Env√≠a consultas, dudas o reporta problemas.</p>
+                        <h4>Contactar AdministraciÛn</h4>
+                        <p>Usa el Chat de Soporte para comunicarte directamente con el equipo administrativo. EnvÌa consultas, dudas o reporta problemas.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Contacto</span>
                           <span class="guia-tag">Consultas</span>
@@ -1416,7 +1416,7 @@
                       <div class="guia-icon"><i data-lucide="bell"></i></div>
                       <div class="guia-content">
                         <h4>Notificaciones de Chat</h4>
-                        <p>Cuando recibas respuesta, ver√°s una insignia en Chat Soporte. Habilita las notificaciones del navegador para alertas en tiempo real.</p>
+                        <p>Cuando recibas respuesta, ver·s una insignia en Chat Soporte. Habilita las notificaciones del navegador para alertas en tiempo real.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Alertas</span>
                           <span class="guia-tag">Respuestas</span>
@@ -1434,24 +1434,24 @@
                   <div class="cat-icon"><i data-lucide="message-square-text"></i></div>
                   <div class="accordion-title-text">
                     <span>Preguntas Frecuentes</span>
-                    <small>Respuestas r√°pidas a dudas comunes</small>
+                    <small>Respuestas r·pidas a dudas comunes</small>
                   </div>
                 </div>
                 <div class="accordion-meta">
-                  <span class="accordion-count">4 gu√≠as</span>
+                  <span class="accordion-count">4 guÌas</span>
                   <i data-lucide="chevron-down" class="accordion-icon"></i>
                 </div>
               </div>
               <div class="accordion-content">
                 <div class="accordion-body">
                   <div class="guia-list">
-                    <div class="guia-item" data-keywords="contrase√±a olvid√© recuperar acceso login clave">
+                    <div class="guia-item" data-keywords="contraseÒa olvidÈ recuperar acceso login clave">
                       <div class="guia-icon"><i data-lucide="key"></i></div>
                       <div class="guia-content">
-                        <h4>¬øOlvid√© mi contrase√±a?</h4>
-                        <p>Contacta a administraci√≥n a trav√©s del formulario de ayuda o acude presencialmente a secretar√≠a para restablecer tu contrase√±a.</p>
+                        <h4>øOlvidÈ mi contraseÒa?</h4>
+                        <p>Contacta a administraciÛn a travÈs del formulario de ayuda o acude presencialmente a secretarÌa para restablecer tu contraseÒa.</p>
                         <div class="guia-tags">
-                          <span class="guia-tag">Contrase√±a</span>
+                          <span class="guia-tag">ContraseÒa</span>
                           <span class="guia-tag">Acceso</span>
                         </div>
                       </div>
@@ -1459,10 +1459,10 @@
                     <div class="guia-item" data-keywords="datos incorrectos error informacion mal legajo corregir">
                       <div class="guia-icon"><i data-lucide="alert-circle"></i></div>
                       <div class="guia-content">
-                        <h4>¬øMis datos est√°n incorrectos?</h4>
-                        <p>Si notas errores en tu informaci√≥n personal (nombre, DNI, legajo), comun√≠cate con administraci√≥n para la correcci√≥n.</p>
+                        <h4>øMis datos est·n incorrectos?</h4>
+                        <p>Si notas errores en tu informaciÛn personal (nombre, DNI, legajo), comunÌcate con administraciÛn para la correcciÛn.</p>
                         <div class="guia-tags">
-                          <span class="guia-tag">Correcci√≥n</span>
+                          <span class="guia-tag">CorrecciÛn</span>
                           <span class="guia-tag">Datos</span>
                         </div>
                       </div>
@@ -1470,8 +1470,8 @@
                     <div class="guia-item" data-keywords="baja curso desinscribir eliminar salir abandonar">
                       <div class="guia-icon"><i data-lucide="user-minus"></i></div>
                       <div class="guia-content">
-                        <h4>¬øC√≥mo me doy de baja de un curso?</h4>
-                        <p>Para solicitar la baja, contacta a administraci√≥n indicando el curso del que deseas desvincularte y el motivo.</p>
+                        <h4>øCÛmo me doy de baja de un curso?</h4>
+                        <p>Para solicitar la baja, contacta a administraciÛn indicando el curso del que deseas desvincularte y el motivo.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Baja</span>
                           <span class="guia-tag">Curso</span>
@@ -1481,8 +1481,8 @@
                     <div class="guia-item" data-keywords="problema error funciona mal bug reporte tecnico">
                       <div class="guia-icon"><i data-lucide="bug"></i></div>
                       <div class="guia-content">
-                        <h4>¬øEncontr√© un error en el sistema?</h4>
-                        <p>Rep√≥rtalo a trav√©s del Chat de Soporte describiendo qu√© sucedi√≥ y en qu√© secci√≥n. Esto nos ayuda a mejorar el sistema.</p>
+                        <h4>øEncontrÈ un error en el sistema?</h4>
+                        <p>RepÛrtalo a travÈs del Chat de Soporte describiendo quÈ sucediÛ y en quÈ secciÛn. Esto nos ayuda a mejorar el sistema.</p>
                         <div class="guia-tags">
                           <span class="guia-tag">Error</span>
                           <span class="guia-tag">Reporte</span>
@@ -1497,17 +1497,17 @@
           </div>
 
           <div class="ayuda-tips">
-            <h3><i data-lucide="lightbulb"></i> Tips R√°pidos para Estudiantes</h3>
+            <h3><i data-lucide="lightbulb"></i> Tips R·pidos para Estudiantes</h3>
             <div class="tips-list">
-              <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la p√°gina si algo no carga correctamente</div>
+              <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la p·gina si algo no carga correctamente</div>
               <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones para recibir alertas importantes</div>
               <div class="tip-badge"><i data-lucide="smartphone"></i> El sistema funciona perfectamente desde tu celular</div>
-              <div class="tip-badge"><i data-lucide="message-circle"></i> El chat de soporte es el canal m√°s r√°pido para ayuda</div>
+              <div class="tip-badge"><i data-lucide="message-circle"></i> El chat de soporte es el canal m·s r·pido para ayuda</div>
             </div>
           </div>
 
           <div class="ayuda-footer">
-            <p>¬øNo encontraste lo que buscabas? Estamos aqu√≠ para ayudarte.</p>
+            <p>øNo encontraste lo que buscabas? Estamos aquÌ para ayudarte.</p>
             <div class="ayuda-footer-links">
               <span class="ayuda-footer-link" onclick="document.getElementById('btnChatSoporte').click()">
                 <i data-lucide="message-circle"></i> Abrir Chat de Soporte
@@ -1528,7 +1528,7 @@
     }
   };
 
-  // Funci√≥n para inicializar interactividad de la secci√≥n Ayuda
+  // FunciÛn para inicializar interactividad de la secciÛn Ayuda
   function initAyudaInteractivity() {
     // Acordeones
     document.querySelectorAll('.accordion-header').forEach(header => {
@@ -1547,7 +1547,7 @@
       });
     }
     
-    // Modales de gu√≠a
+    // Modales de guÌa
     document.querySelectorAll('.guia-item').forEach(item => {
       item.addEventListener('click', () => {
         openGuiaModal(item);
@@ -1555,164 +1555,164 @@
     });
   }
 
-  // Datos detallados para gu√≠as de alumno
+  // Datos detallados para guÌas de alumno
   const guiasDetalladas = {
-    'Navegaci√≥n del Panel': {
-      descripcion: 'El men√∫ lateral izquierdo es tu centro de control. Desde aqu√≠ accedes a todas las secciones del sistema.',
+    'NavegaciÛn del Panel': {
+      descripcion: 'El men˙ lateral izquierdo es tu centro de control. Desde aquÌ accedes a todas las secciones del sistema.',
       pasos: [
-        { titulo: 'Localiza el men√∫ lateral', desc: 'Est√° ubicado en el lado izquierdo de la pantalla.' },
-        { titulo: 'Explora las secciones', desc: 'Cada √≠cono representa una secci√≥n diferente.' },
-        { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevar√° a la secci√≥n seleccionada.' },
+        { titulo: 'Localiza el men˙ lateral', desc: 'Est· ubicado en el lado izquierdo de la pantalla.' },
+        { titulo: 'Explora las secciones', desc: 'Cada Ìcono representa una secciÛn diferente.' },
+        { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevar· a la secciÛn seleccionada.' },
         { titulo: 'Observa los indicadores', desc: 'Los badges rojos indican notificaciones pendientes.' }
       ],
-      tip: 'En dispositivos m√≥viles, el men√∫ se oculta autom√°ticamente. Usa el √≠cono de men√∫ para desplegarlo.'
+      tip: 'En dispositivos mÛviles, el men˙ se oculta autom·ticamente. Usa el Ìcono de men˙ para desplegarlo.'
     },
     'Entender tu Dashboard': {
-      descripcion: 'Tu dashboard es tu centro de informaci√≥n. Aqu√≠ ves un resumen de todo lo importante de un vistazo.',
+      descripcion: 'Tu dashboard es tu centro de informaciÛn. AquÌ ves un resumen de todo lo importante de un vistazo.',
       pasos: [
-        { titulo: 'Tarjetas de estad√≠sticas', desc: 'Muestran cursos activos, promedio y progreso.' },
-        { titulo: 'Cursos destacados', desc: 'Acceso r√°pido a tus cursos principales.' },
+        { titulo: 'Tarjetas de estadÌsticas', desc: 'Muestran cursos activos, promedio y progreso.' },
+        { titulo: 'Cursos destacados', desc: 'Acceso r·pido a tus cursos principales.' },
         { titulo: 'Notificaciones', desc: 'Alertas sobre pagos, notas o mensajes.' },
-        { titulo: 'Accesos directos', desc: 'Botones para las funciones m√°s usadas.' }
+        { titulo: 'Accesos directos', desc: 'Botones para las funciones m·s usadas.' }
       ],
-      tip: 'Revisa tu dashboard al inicio de cada sesi√≥n para estar al d√≠a.'
+      tip: 'Revisa tu dashboard al inicio de cada sesiÛn para estar al dÌa.'
     },
     'Ver Cursos Inscritos': {
-      descripcion: 'Consulta todos los cursos donde est√°s matriculado y su informaci√≥n detallada.',
+      descripcion: 'Consulta todos los cursos donde est·s matriculado y su informaciÛn detallada.',
       pasos: [
-        { titulo: 'Ve a Mis Cursos', desc: 'Desde el men√∫ lateral.' },
-        { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su informaci√≥n b√°sica.' },
+        { titulo: 'Ve a Mis Cursos', desc: 'Desde el men˙ lateral.' },
+        { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su informaciÛn b·sica.' },
         { titulo: 'Consulta el progreso', desc: 'La barra indica tu avance en el curso.' },
-        { titulo: 'Accede a detalles', desc: 'Haz clic para ver m√°s informaci√≥n.' }
+        { titulo: 'Accede a detalles', desc: 'Haz clic para ver m·s informaciÛn.' }
       ],
       tip: 'El color de la barra de progreso indica tu estado: verde es bueno, amarillo es alerta.'
     },
     'Detalles de un Curso': {
-      descripcion: 'Accede a toda la informaci√≥n de un curso: profesor, horario, aula y tus calificaciones.',
+      descripcion: 'Accede a toda la informaciÛn de un curso: profesor, horario, aula y tus calificaciones.',
       pasos: [
         { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta del curso.' },
-        { titulo: 'Ve la informaci√≥n', desc: 'Horario, aula, profesor asignado.' },
-        { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aqu√≠.' },
+        { titulo: 'Ve la informaciÛn', desc: 'Horario, aula, profesor asignado.' },
+        { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aquÌ.' },
         { titulo: 'Revisa tu asistencia', desc: 'Historial de asistencias del curso.' }
       ],
       tip: 'Guarda el horario en tu calendario personal para no olvidar las clases.'
     },
     'Entender el Progreso': {
-      descripcion: 'La barra de progreso refleja tu rendimiento acad√©mico basado en tus calificaciones.',
+      descripcion: 'La barra de progreso refleja tu rendimiento acadÈmico basado en tus calificaciones.',
       pasos: [
         { titulo: 'Verde (7-10)', desc: 'Excelente rendimiento, vas por buen camino.' },
-        { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podr√≠as mejorar.' },
-        { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atenci√≥n, considera refuerzo.' },
+        { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podrÌas mejorar.' },
+        { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atenciÛn, considera refuerzo.' },
         { titulo: 'Promedio general', desc: 'Se calcula con todas tus notas.' }
       ],
       tip: 'Habla con tu profesor si ves rojo, hay tiempo para mejorar.'
     },
-    'Cat√°logo de Cursos': {
+    'Cat·logo de Cursos': {
       descripcion: 'Explora todos los cursos disponibles en el instituto para futuras inscripciones.',
       pasos: [
-        { titulo: 'Ve a Cursado', desc: 'Desde el men√∫ lateral.' },
-        { titulo: 'Navega el cat√°logo', desc: 'Todos los cursos disponibles aparecen aqu√≠.' },
+        { titulo: 'Ve a Cursado', desc: 'Desde el men˙ lateral.' },
+        { titulo: 'Navega el cat·logo', desc: 'Todos los cursos disponibles aparecen aquÌ.' },
         { titulo: 'Usa filtros', desc: 'Por idioma, nivel o disponibilidad.' },
         { titulo: 'Revisa la info', desc: 'Cada tarjeta muestra horario y cupos.' }
       ],
-      tip: 'Los cursos con pocos cupos se llenan r√°pido, solicita inscripci√≥n a tiempo.'
+      tip: 'Los cursos con pocos cupos se llenan r·pido, solicita inscripciÛn a tiempo.'
     },
-    'Solicitar Inscripci√≥n': {
-      descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisar√° tu solicitud.',
+    'Solicitar InscripciÛn': {
+      descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisar· tu solicitud.',
       pasos: [
-        { titulo: 'Encuentra el curso', desc: 'Navega el cat√°logo de cursos.' },
+        { titulo: 'Encuentra el curso', desc: 'Navega el cat·logo de cursos.' },
         { titulo: 'Verifica requisitos', desc: 'Algunos cursos requieren nivel previo.' },
-        { titulo: 'Haz clic en inscribir', desc: 'Bot√≥n "Solicitar Inscripci√≥n".' },
-        { titulo: 'Espera confirmaci√≥n', desc: 'Recibir√°s respuesta por el sistema.' }
+        { titulo: 'Haz clic en inscribir', desc: 'BotÛn "Solicitar InscripciÛn".' },
+        { titulo: 'Espera confirmaciÛn', desc: 'Recibir·s respuesta por el sistema.' }
       ],
-      tip: 'Aseg√∫rate de no tener conflictos de horario con tus cursos actuales.'
+      tip: 'Aseg˙rate de no tener conflictos de horario con tus cursos actuales.'
     },
     'Verificar Disponibilidad': {
-      descripcion: 'Cada curso tiene un cupo m√°ximo. Verifica si hay lugar antes de solicitar inscripci√≥n.',
+      descripcion: 'Cada curso tiene un cupo m·ximo. Verifica si hay lugar antes de solicitar inscripciÛn.',
       pasos: [
         { titulo: 'Busca el indicador', desc: 'Cada curso muestra cupos disponibles.' },
         { titulo: 'Interpreta los colores', desc: 'Verde hay lugar, rojo lleno.' },
-        { titulo: 'Consulta alternativas', desc: 'Si est√° lleno, busca otros horarios.' },
+        { titulo: 'Consulta alternativas', desc: 'Si est· lleno, busca otros horarios.' },
         { titulo: 'Contacta soporte', desc: 'Para listas de espera o excepciones.' }
       ],
-      tip: 'A inicio de cuatrimestre hay m√°s movimiento, los cupos pueden liberarse.'
+      tip: 'A inicio de cuatrimestre hay m·s movimiento, los cupos pueden liberarse.'
     },
     'Ver Calificaciones': {
       descripcion: 'Consulta tus notas de parciales y finales de cada curso.',
       pasos: [
-        { titulo: 'Ve a Calificaciones', desc: 'Desde el men√∫ lateral.' },
+        { titulo: 'Ve a Calificaciones', desc: 'Desde el men˙ lateral.' },
         { titulo: 'Selecciona el curso', desc: 'Si tienes varios, elige uno.' },
         { titulo: 'Revisa tus notas', desc: 'Parcial 1, Parcial 2, Final.' },
-        { titulo: 'Consulta el promedio', desc: 'Se calcula autom√°ticamente.' }
+        { titulo: 'Consulta el promedio', desc: 'Se calcula autom·ticamente.' }
       ],
-      tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos d√≠as.'
+      tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos dÌas.'
     },
     'Entender Promedios': {
-      descripcion: 'El promedio se calcula autom√°ticamente basado en tus calificaciones registradas.',
+      descripcion: 'El promedio se calcula autom·ticamente basado en tus calificaciones registradas.',
       pasos: [
         { titulo: 'Promedio por curso', desc: 'Suma de notas dividido cantidad de evaluaciones.' },
         { titulo: 'Promedio general', desc: 'Incluye todos tus cursos activos.' },
         { titulo: 'Peso de evaluaciones', desc: 'Todas las evaluaciones valen igual.' },
-        { titulo: 'Actualizaci√≥n', desc: 'Se recalcula con cada nueva nota.' }
+        { titulo: 'ActualizaciÛn', desc: 'Se recalcula con cada nueva nota.' }
       ],
       tip: 'El promedio general es importante para becas y certificados.'
     },
-    'Historial Acad√©mico': {
-      descripcion: 'Tu historial muestra toda tu trayectoria acad√©mica en el instituto.',
+    'Historial AcadÈmico': {
+      descripcion: 'Tu historial muestra toda tu trayectoria acadÈmica en el instituto.',
       pasos: [
-        { titulo: 'Accede al historial', desc: 'Desde la secci√≥n Calificaciones.' },
+        { titulo: 'Accede al historial', desc: 'Desde la secciÛn Calificaciones.' },
         { titulo: 'Revisa cursos pasados', desc: 'Todos tus cursos completados.' },
         { titulo: 'Consulta notas finales', desc: 'Cada curso muestra nota de cierre.' },
-        { titulo: 'Solicita certificados', desc: 'Contacta administraci√≥n si necesitas.' }
+        { titulo: 'Solicita certificados', desc: 'Contacta administraciÛn si necesitas.' }
       ],
-      tip: 'El historial es tu carta de presentaci√≥n acad√©mica, cu√≠dalo.'
+      tip: 'El historial es tu carta de presentaciÛn acadÈmica, cuÌdalo.'
     },
     'Ver Estado de Pagos': {
       descripcion: 'Consulta el estado de tus cuotas: pagadas, pendientes o vencidas.',
       pasos: [
-        { titulo: 'Ve a Mis Pagos', desc: 'Desde el men√∫ lateral.' },
+        { titulo: 'Ve a Mis Pagos', desc: 'Desde el men˙ lateral.' },
         { titulo: 'Revisa la lista', desc: 'Cada cuota aparece con su estado.' },
-        { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo seg√∫n urgencia.' },
-        { titulo: 'Consulta vencimientos', desc: 'Fechas l√≠mite de cada cuota.' }
+        { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo seg˙n urgencia.' },
+        { titulo: 'Consulta vencimientos', desc: 'Fechas lÌmite de cada cuota.' }
       ],
-      tip: 'Mant√©n tus pagos al d√≠a para evitar recargos e inconvenientes.'
+      tip: 'MantÈn tus pagos al dÌa para evitar recargos e inconvenientes.'
     },
     'Realizar un Pago': {
-      descripcion: 'Paga tus cuotas de forma simple eligiendo el m√©todo que prefieras.',
+      descripcion: 'Paga tus cuotas de forma simple eligiendo el mÈtodo que prefieras.',
       pasos: [
         { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-        { titulo: 'Elige m√©todo de pago', desc: 'Mercado Pago o Efectivo.' },
-        { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones seg√∫n m√©todo.' },
+        { titulo: 'Elige mÈtodo de pago', desc: 'Mercado Pago o Efectivo.' },
+        { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones seg˙n mÈtodo.' },
         { titulo: 'Guarda el comprobante', desc: 'Siempre conserva tu recibo.' }
       ],
-      tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretar√≠a.'
+      tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretarÌa.'
     },
     'Pago en Efectivo': {
-      descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretar√≠a.',
+      descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretarÌa.',
       pasos: [
         { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-        { titulo: 'Elige "Efectivo"', desc: 'Como m√©todo de pago.' },
-        { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con c√≥digo √∫nico.' },
-        { titulo: 'Presenta en secretar√≠a', desc: 'Paga en efectivo y entr√©galo.' }
+        { titulo: 'Elige "Efectivo"', desc: 'Como mÈtodo de pago.' },
+        { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con cÛdigo ˙nico.' },
+        { titulo: 'Presenta en secretarÌa', desc: 'Paga en efectivo y entrÈgalo.' }
       ],
-      tip: 'El ticket tiene fecha de vencimiento, pres√©ntalo a tiempo.'
+      tip: 'El ticket tiene fecha de vencimiento, presÈntalo a tiempo.'
     },
     'Pago con Mercado Pago': {
       descripcion: 'Paga online con tarjeta o dinero en cuenta de Mercado Pago.',
       pasos: [
         { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-        { titulo: 'Elige "Mercado Pago"', desc: 'Como m√©todo de pago.' },
-        { titulo: 'Ser√°s redirigido', desc: 'A la p√°gina segura de MP.' },
+        { titulo: 'Elige "Mercado Pago"', desc: 'Como mÈtodo de pago.' },
+        { titulo: 'Ser·s redirigido', desc: 'A la p·gina segura de MP.' },
         { titulo: 'Completa el pago', desc: 'Con tarjeta o dinero en cuenta.' }
       ],
-      tip: 'Aseg√∫rate de tener fondos o tarjeta habilitada antes de iniciar.'
+      tip: 'Aseg˙rate de tener fondos o tarjeta habilitada antes de iniciar.'
     },
     'Descargar Comprobantes': {
       descripcion: 'Descarga tickets y comprobantes de tus pagos para tu registro.',
       pasos: [
-        { titulo: 'Ve a Mis Pagos', desc: 'Desde el men√∫ lateral.' },
+        { titulo: 'Ve a Mis Pagos', desc: 'Desde el men˙ lateral.' },
         { titulo: 'Busca el pago', desc: 'Localiza el pago del que necesitas comprobante.' },
-        { titulo: 'Haz clic en descargar', desc: '√çcono de descarga junto al pago.' },
+        { titulo: 'Haz clic en descargar', desc: 'Õcono de descarga junto al pago.' },
         { titulo: 'Guarda el archivo', desc: 'Se descarga un PDF.' }
       ],
       tip: 'Guarda todos tus comprobantes en una carpeta organizada por fecha.'
@@ -1720,30 +1720,30 @@
     'Cambiar Avatar': {
       descripcion: 'Personaliza tu perfil subiendo una foto o imagen.',
       pasos: [
-        { titulo: 'Ve a Mi Perfil', desc: 'Desde el men√∫ lateral.' },
-        { titulo: 'Haz clic en tu avatar', desc: 'El c√≠rculo con tu imagen actual.' },
+        { titulo: 'Ve a Mi Perfil', desc: 'Desde el men˙ lateral.' },
+        { titulo: 'Haz clic en tu avatar', desc: 'El cÌrculo con tu imagen actual.' },
         { titulo: 'Selecciona archivo', desc: 'Elige una imagen de tu dispositivo.' },
-        { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza autom√°ticamente.' }
+        { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza autom·ticamente.' }
       ],
-      tip: 'Usa una foto clara de tu rostro para f√°cil identificaci√≥n.'
+      tip: 'Usa una foto clara de tu rostro para f·cil identificaciÛn.'
     },
     'Actualizar Datos Personales': {
-      descripcion: 'Mant√©n tu informaci√≥n de contacto actualizada para comunicaciones importantes.',
+      descripcion: 'MantÈn tu informaciÛn de contacto actualizada para comunicaciones importantes.',
       pasos: [
-        { titulo: 'Ve a Mi Perfil', desc: 'Desde el men√∫ lateral.' },
-        { titulo: 'Haz clic en editar', desc: 'Bot√≥n para modificar datos.' },
-        { titulo: 'Actualiza la informaci√≥n', desc: 'Tel√©fono, email de contacto.' },
+        { titulo: 'Ve a Mi Perfil', desc: 'Desde el men˙ lateral.' },
+        { titulo: 'Haz clic en editar', desc: 'BotÛn para modificar datos.' },
+        { titulo: 'Actualiza la informaciÛn', desc: 'TelÈfono, email de contacto.' },
         { titulo: 'Guarda los cambios', desc: 'Confirma las modificaciones.' }
       ],
-      tip: 'Datos como DNI y legajo solo los puede modificar administraci√≥n.'
+      tip: 'Datos como DNI y legajo solo los puede modificar administraciÛn.'
     },
     'Acceder a Classroom': {
       descripcion: 'Conecta con Google Classroom para acceder a materiales de estudio.',
       pasos: [
-        { titulo: 'Ve a Classroom', desc: 'Desde el men√∫ lateral.' },
-        { titulo: 'Haz clic en acceder', desc: 'Ser√°s redirigido a Google.' },
-        { titulo: 'Inicia sesi√≥n', desc: 'Con tu cuenta de Google.' },
-        { titulo: 'Explora los cursos', desc: 'Ver√°s los cursos donde est√°s inscrito.' }
+        { titulo: 'Ve a Classroom', desc: 'Desde el men˙ lateral.' },
+        { titulo: 'Haz clic en acceder', desc: 'Ser·s redirigido a Google.' },
+        { titulo: 'Inicia sesiÛn', desc: 'Con tu cuenta de Google.' },
+        { titulo: 'Explora los cursos', desc: 'Ver·s los cursos donde est·s inscrito.' }
       ],
       tip: 'Usa la misma cuenta de Google siempre para no perder acceso.'
     },
@@ -1752,75 +1752,75 @@
       pasos: [
         { titulo: 'Ingresa a Classroom', desc: 'Conecta con tu cuenta Google.' },
         { titulo: 'Selecciona el curso', desc: 'El que te interesa revisar.' },
-        { titulo: 'Busca Materiales', desc: 'Secci√≥n de recursos del curso.' },
+        { titulo: 'Busca Materiales', desc: 'SecciÛn de recursos del curso.' },
         { titulo: 'Descarga lo que necesites', desc: 'PDFs, documentos, presentaciones.' }
       ],
-      tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexi√≥n.'
+      tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexiÛn.'
     },
-    'Contactar Administraci√≥n': {
+    'Contactar AdministraciÛn': {
       descripcion: 'Usa el chat de soporte para comunicarte directamente con el equipo administrativo.',
       pasos: [
-        { titulo: 'Ve a Chat Soporte', desc: 'Desde el men√∫ lateral.' },
+        { titulo: 'Ve a Chat Soporte', desc: 'Desde el men˙ lateral.' },
         { titulo: 'Escribe tu mensaje', desc: 'Describe tu consulta o problema.' },
-        { titulo: 'Env√≠a el mensaje', desc: 'Presiona Enter o el bot√≥n enviar.' },
-        { titulo: 'Espera respuesta', desc: 'Te notificar√°n cuando respondan.' }
+        { titulo: 'EnvÌa el mensaje', desc: 'Presiona Enter o el botÛn enviar.' },
+        { titulo: 'Espera respuesta', desc: 'Te notificar·n cuando respondan.' }
       ],
-      tip: 'S√© claro y espec√≠fico en tu consulta para recibir mejor ayuda.'
+      tip: 'SÈ claro y especÌfico en tu consulta para recibir mejor ayuda.'
     },
     'Notificaciones de Chat': {
       descripcion: 'Recibe alertas cuando el equipo de soporte responda a tus consultas.',
       pasos: [
-        { titulo: 'Observa el badge', desc: 'N√∫mero rojo en Chat Soporte.' },
+        { titulo: 'Observa el badge', desc: 'N˙mero rojo en Chat Soporte.' },
         { titulo: 'Habilita notificaciones', desc: 'Acepta cuando el navegador pregunte.' },
-        { titulo: 'Recibir√°s alertas', desc: 'Incluso con la pesta√±a cerrada.' },
+        { titulo: 'Recibir·s alertas', desc: 'Incluso con la pestaÒa cerrada.' },
         { titulo: 'Revisa mensajes nuevos', desc: 'Haz clic para ver respuestas.' }
       ],
-      tip: 'Las notificaciones funcionan mejor si mantienes sesi√≥n activa.'
+      tip: 'Las notificaciones funcionan mejor si mantienes sesiÛn activa.'
     },
-    '¬øOlvid√© mi contrase√±a?': {
-      descripcion: 'Si olvidaste tu contrase√±a, hay formas de recuperar el acceso a tu cuenta.',
+    'øOlvidÈ mi contraseÒa?': {
+      descripcion: 'Si olvidaste tu contraseÒa, hay formas de recuperar el acceso a tu cuenta.',
       pasos: [
-        { titulo: 'No te preocupes', desc: 'Es un problema com√∫n con soluci√≥n.' },
-        { titulo: 'Contacta administraci√≥n', desc: 'V√≠a email o presencialmente.' },
+        { titulo: 'No te preocupes', desc: 'Es un problema com˙n con soluciÛn.' },
+        { titulo: 'Contacta administraciÛn', desc: 'VÌa email o presencialmente.' },
         { titulo: 'Verifica tu identidad', desc: 'Con DNI o datos personales.' },
-        { titulo: 'Recibe nueva contrase√±a', desc: 'Te dar√°n una temporal para cambiar.' }
+        { titulo: 'Recibe nueva contraseÒa', desc: 'Te dar·n una temporal para cambiar.' }
       ],
-      tip: 'Usa un gestor de contrase√±as para no olvidarlas en el futuro.'
+      tip: 'Usa un gestor de contraseÒas para no olvidarlas en el futuro.'
     },
-    '¬øMis datos est√°n incorrectos?': {
-      descripcion: 'Si encuentras errores en tu informaci√≥n personal, puedes solicitar correcci√≥n.',
+    'øMis datos est·n incorrectos?': {
+      descripcion: 'Si encuentras errores en tu informaciÛn personal, puedes solicitar correcciÛn.',
       pasos: [
-        { titulo: 'Identifica el error', desc: 'Qu√© dato espec√≠fico est√° mal.' },
-        { titulo: 'Contacta administraci√≥n', desc: 'Por chat o presencialmente.' },
-        { titulo: 'Proporciona informaci√≥n correcta', desc: 'Y documentaci√≥n si es necesario.' },
-        { titulo: 'Espera la correcci√≥n', desc: 'Los cambios se reflejan pronto.' }
+        { titulo: 'Identifica el error', desc: 'QuÈ dato especÌfico est· mal.' },
+        { titulo: 'Contacta administraciÛn', desc: 'Por chat o presencialmente.' },
+        { titulo: 'Proporciona informaciÛn correcta', desc: 'Y documentaciÛn si es necesario.' },
+        { titulo: 'Espera la correcciÛn', desc: 'Los cambios se reflejan pronto.' }
       ],
-      tip: 'DNI y legajo requieren documentaci√≥n para modificarse.'
+      tip: 'DNI y legajo requieren documentaciÛn para modificarse.'
     },
-    '¬øC√≥mo me doy de baja de un curso?': {
+    'øCÛmo me doy de baja de un curso?': {
       descripcion: 'Si necesitas abandonar un curso, debes solicitar la baja formalmente.',
       pasos: [
-        { titulo: 'Eval√∫a tu decisi√≥n', desc: 'La baja puede afectar tu historial.' },
-        { titulo: 'Contacta administraci√≥n', desc: 'Explica tu situaci√≥n.' },
-        { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmaci√≥n.' },
-        { titulo: 'Verifica la baja', desc: 'El curso desaparecer√° de tu lista.' }
+        { titulo: 'Eval˙a tu decisiÛn', desc: 'La baja puede afectar tu historial.' },
+        { titulo: 'Contacta administraciÛn', desc: 'Explica tu situaciÛn.' },
+        { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmaciÛn.' },
+        { titulo: 'Verifica la baja', desc: 'El curso desaparecer· de tu lista.' }
       ],
-      tip: 'Consulta sobre per√≠odos de baja sin penalizaci√≥n antes de decidir.'
+      tip: 'Consulta sobre perÌodos de baja sin penalizaciÛn antes de decidir.'
     },
-    '¬øEncontr√© un error en el sistema?': {
-      descripcion: 'Los errores deben reportarse para que el equipo t√©cnico pueda solucionarlos.',
+    'øEncontrÈ un error en el sistema?': {
+      descripcion: 'Los errores deben reportarse para que el equipo tÈcnico pueda solucionarlos.',
       pasos: [
-        { titulo: 'Documenta el error', desc: 'Anota qu√© estabas haciendo.' },
+        { titulo: 'Documenta el error', desc: 'Anota quÈ estabas haciendo.' },
         { titulo: 'Captura pantalla', desc: 'Si es posible, toma una captura.' },
-        { titulo: 'Anota los pasos', desc: 'Describe c√≥mo reproducir el problema.' },
-        { titulo: 'Reporta por chat', desc: 'Env√≠a la informaci√≥n a soporte.' }
+        { titulo: 'Anota los pasos', desc: 'Describe cÛmo reproducir el problema.' },
+        { titulo: 'Reporta por chat', desc: 'EnvÌa la informaciÛn a soporte.' }
       ],
-      tip: 'Cuanto m√°s detallada sea tu descripci√≥n, m√°s r√°pido podremos solucionarlo.'
+      tip: 'Cuanto m·s detallada sea tu descripciÛn, m·s r·pido podremos solucionarlo.'
     }
   };
 
   function openGuiaModal(item) {
-    const title = item.querySelector('h4')?.textContent || 'Gu√≠a';
+    const title = item.querySelector('h4')?.textContent || 'GuÌa';
     const description = item.querySelector('p')?.textContent || '';
     const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
     const tags = item.querySelectorAll('.guia-tag');
@@ -1829,9 +1829,9 @@
       descripcion: description,
       pasos: [
         { titulo: 'Paso 1', desc: 'Sigue las instrucciones en pantalla.' },
-        { titulo: 'Paso 2', desc: 'Completa la informaci√≥n requerida.' },
+        { titulo: 'Paso 2', desc: 'Completa la informaciÛn requerida.' },
         { titulo: 'Paso 3', desc: 'Confirma los cambios realizados.' },
-        { titulo: 'Paso 4', desc: 'Verifica que todo est√© correcto.' }
+        { titulo: 'Paso 4', desc: 'Verifica que todo estÈ correcto.' }
       ],
       tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
     };
@@ -1911,7 +1911,7 @@
     let totalVisible = 0;
 
     if (!query) {
-      // Sin b√∫squeda: mostrar todo normal
+      // Sin b˙squeda: mostrar todo normal
       accordions.forEach(acc => {
         acc.classList.remove('hidden', 'open');
       });
@@ -1923,7 +1923,7 @@
       return;
     }
 
-    // Con b√∫squeda: filtrar
+    // Con b˙squeda: filtrar
     accordions.forEach(accordion => {
       const items = accordion.querySelectorAll('.guia-item');
       let hasVisibleItems = false;
@@ -1964,7 +1964,7 @@
     }
   }
 
-  // Funci√≥n auxiliar para mostrar notificaciones
+  // FunciÛn auxiliar para mostrar notificaciones
   function showNotification(message, type = 'success') {
     document.querySelectorAll('.notification').forEach(n => n.remove());
     
@@ -1978,7 +1978,7 @@
     }, 3000);
   }
 
-  // Funci√≥n para abrir detalle de curso
+  // FunciÛn para abrir detalle de curso
   window.abrirDetalleCursoAlumno = async function(idCurso, nombreCurso) {
     try {
       loader.classList.remove('hidden');
@@ -2012,7 +2012,7 @@
         
         <div class="panel-body-alumno">
           <div class="info-section">
-            <h3><i data-lucide="info"></i> Informaci√≥n del Curso</h3>
+            <h3><i data-lucide="info"></i> InformaciÛn del Curso</h3>
             <div class="info-grid">
               <div class="info-item">
                 <span class="info-label">Profesor:</span>
@@ -2056,11 +2056,11 @@
                   </div>
                 ` : ''}
               </div>
-            ` : '<p class="sin-datos">A√∫n no hay calificaciones registradas</p>'}
+            ` : '<p class="sin-datos">A˙n no hay calificaciones registradas</p>'}
           </div>
 
           <div class="companeros-section">
-            <h3><i data-lucide="users"></i> Compa√±eros de Curso</h3>
+            <h3><i data-lucide="users"></i> CompaÒeros de Curso</h3>
             ${data.alumnos && data.alumnos.length > 1 ? `
               <div class="companeros-list">
                 ${data.alumnos.filter(a => a.id_alumno != id_alumno).map(alumno => {
@@ -2085,7 +2085,7 @@
                   `;
                 }).join('')}
               </div>
-            ` : '<p class="sin-datos">Eres el √∫nico alumno inscrito en este curso</p>'}
+            ` : '<p class="sin-datos">Eres el ˙nico alumno inscrito en este curso</p>'}
           </div>
         </div>
       `;
@@ -2110,12 +2110,12 @@
     if (panel) panel.remove();
   };
 
-  // Funci√≥n para ver detalle de calificaci√≥n (desde tabla)
+  // FunciÛn para ver detalle de calificaciÛn (desde tabla)
   window.verDetalleCalificacion = function(idCurso, nombreCurso) {
     abrirDetalleCursoAlumno(idCurso, nombreCurso);
   };
 
-  // Modal de selecci√≥n de mes (NUEVO SISTEMA DE PAGOS)
+  // Modal de selecciÛn de mes (NUEVO SISTEMA DE PAGOS)
   window.abrirModalSeleccionMes = function(idCurso, nombreCurso, mesSeleccionado, monto) {
     const modal = document.createElement('div');
     modal.id = 'modalSeleccionMes';
@@ -2171,7 +2171,7 @@
     document.body.appendChild(modal);
     lucide.createIcons();
     
-    // Animaci√≥n de entrada
+    // AnimaciÛn de entrada
     requestAnimationFrame(() => {
       modal.style.opacity = '1';
       document.getElementById('modalSeleccionMesContent').style.transform = 'scale(1)';
@@ -2194,13 +2194,13 @@
   };
 
   window.confirmarPagoMes = function(idCurso, mesCuota, monto) {
-    // Cerrar modal de selecci√≥n inmediatamente
+    // Cerrar modal de selecciÛn inmediatamente
     const modalSeleccion = document.getElementById('modalSeleccionMes');
     if (modalSeleccion) {
       modalSeleccion.remove();
     }
     
-    // Guardar datos del pago para enviar despu√©s
+    // Guardar datos del pago para enviar despuÈs
     window.datosPagoActual = {
       id_curso: idCurso,
       mes_cuota: mesCuota,
@@ -2210,7 +2210,7 @@
     // Determinar el concepto correcto
     const conceptoPago = mesCuota === 'Matricula' ? 'Matricula' : `Cuota ${mesCuota}`;
     
-    // Abrir el modal de m√©todos de pago inmediatamente
+    // Abrir el modal de mÈtodos de pago inmediatamente
     window.creditCardForm.openModal({
       amount: monto,
       concepto: conceptoPago,
@@ -2219,7 +2219,7 @@
     });
   };
 
-  // Funci√≥n para abrir modal de pago
+  // FunciÛn para abrir modal de pago
   window.abrirModalPago = function(periodo, monto, mesNombre) {
     const modal = document.createElement('div');
     modal.className = 'modal-pago-overlay active';
@@ -2237,7 +2237,7 @@
         <div class="modal-pago-body">
           <div class="info-pago-detalle">
             <div class="info-row">
-              <span class="info-label">Per√≠odo:</span>
+              <span class="info-label">PerÌodo:</span>
               <span class="info-valor">${mesNombre}</span>
             </div>
             <div class="info-row">
@@ -2249,13 +2249,13 @@
           <div class="metodo-pago-selector">
             <label><i data-lucide="credit-card"></i> Selecciona el medio de pago:</label>
             <div class="metodos-pago-grid">
-              <div class="metodo-option" data-metodo="Tarjeta de Cr√©dito">
+              <div class="metodo-option" data-metodo="Tarjeta de CrÈdito">
                 <i data-lucide="credit-card"></i>
-                <span>Tarjeta de Cr√©dito</span>
+                <span>Tarjeta de CrÈdito</span>
               </div>
-              <div class="metodo-option" data-metodo="Tarjeta de D√©bito">
+              <div class="metodo-option" data-metodo="Tarjeta de DÈbito">
                 <i data-lucide="credit-card"></i>
-                <span>Tarjeta de D√©bito</span>
+                <span>Tarjeta de DÈbito</span>
               </div>
               <div class="metodo-option" data-metodo="Transferencia">
                 <i data-lucide="arrow-right-left"></i>
@@ -2272,7 +2272,7 @@
             <h4><i data-lucide="credit-card"></i> Datos de la Tarjeta</h4>
             
             <div class="form-group">
-              <label>N√∫mero de Tarjeta</label>
+              <label>N˙mero de Tarjeta</label>
               <input type="text" id="numeroTarjeta" placeholder="1234 5678 9012 3456" maxlength="19" 
                      oninput="formatearNumeroTarjeta(this)">
             </div>
@@ -2309,7 +2309,7 @@
     document.body.appendChild(modal);
     lucide.createIcons();
     
-    // Agregar event listeners a las opciones de pago DESPU√âS de crear el modal
+    // Agregar event listeners a las opciones de pago DESPU…S de crear el modal
     const opciones = modal.querySelectorAll('.metodo-option');
     console.log(' Opciones de pago encontradas:', opciones.length);
     
@@ -2342,10 +2342,10 @@
       const modal = document.getElementById('modalPago');
       if (modal) {
         modal.remove();
-        console.log('Ô∏è Modal de pago cerrado');
+        console.log('? Modal de pago cerrado');
       }
       
-      // Peque√±o delay para asegurar que el modal se cerr√≥ completamente
+      // PequeÒo delay para asegurar que el modal se cerrÛ completamente
       setTimeout(() => {
         console.log(' Mostrando ticket de efectivo...');
         window.mostrarTicketEfectivo();
@@ -2354,7 +2354,7 @@
       return;
     }
     
-    // Remover selecci√≥n anterior
+    // Remover selecciÛn anterior
     document.querySelectorAll('.metodo-option').forEach(el => el.classList.remove('selected'));
     
     // Marcar como seleccionado
@@ -2370,11 +2370,11 @@
     }
   };
 
-  // Funci√≥n para generar y mostrar ticket de efectivo
+  // FunciÛn para generar y mostrar ticket de efectivo
   window.mostrarTicketEfectivo = function() {
     console.log(' INICIO mostrarTicketEfectivo');
     
-    // Generar n√∫mero de ticket aleatorio (12 d√≠gitos)
+    // Generar n˙mero de ticket aleatorio (12 dÌgitos)
     const numeroTicket = Math.floor(100000000000 + Math.random() * 900000000000);
     console.log(' Ticket generado:', numeroTicket);
     
@@ -2403,10 +2403,10 @@
               <i data-lucide="download" style="width: 20px; height: 20px;"></i>
             </button>
             <p style="margin: 0 0 15px 0; font-size: 16px; opacity: 0.9; font-weight: 500;">
-              Tu n√∫mero de ticket es
+              Tu n˙mero de ticket es
             </p>
             <p style="margin: 0; font-size: 36px; font-weight: 700; letter-spacing: 3px; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">
-              N¬∫ ${numeroTicket}
+              N∫ ${numeroTicket}
             </p>
           </div>
           
@@ -2434,11 +2434,11 @@
     const modal = document.getElementById('modalTicket');
     if (modal) {
       modal.remove();
-      console.log('Ô∏è Modal de ticket cerrado');
+      console.log('? Modal de ticket cerrado');
     }
   };
 
-  // Funci√≥n para descargar ticket de pago en efectivo como PDF
+  // FunciÛn para descargar ticket de pago en efectivo como PDF
   window.descargarTicketPDF = async function(numeroTicket) {
     try {
       const { jsPDF } = window.jspdf;
@@ -2458,7 +2458,7 @@
       const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
-        format: [80, 160] // Ticket t√©rmico elegante
+        format: [80, 160] // Ticket tÈrmico elegante
       });
       
       const ticketWidth = 80;
@@ -2486,7 +2486,7 @@
       
       yPos += 28;
       
-      // T√≠tulo CEMI
+      // TÌtulo CEMI
       doc.setTextColor(...HARVARD_COLORS.white);
       doc.setFont('times', 'bold');
       doc.setFontSize(14);
@@ -2496,9 +2496,9 @@
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('Centro de Ense√±anza de M√∫ltiples Idiomas', centerX, yPos, { align: 'center' });
+      doc.text('Centro de EnseÒanza de M˙ltiples Idiomas', centerX, yPos, { align: 'center' });
       
-      // L√≠nea decorativa
+      // LÌnea decorativa
       yPos = 44;
       doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
       doc.setLineWidth(1.5);
@@ -2509,7 +2509,7 @@
       
       yPos += 10;
       
-      // ===== T√çTULO DEL TICKET =====
+      // ===== TÕTULO DEL TICKET =====
       doc.setFont('times', 'bold');
       doc.setFontSize(13);
       doc.setTextColor(...HARVARD_COLORS.charcoal);
@@ -2522,11 +2522,11 @@
       doc.text('Pago en Efectivo', centerX, yPos, { align: 'center' });
       yPos += 10;
       
-      // ===== N√öMERO DE TICKET DESTACADO =====
+      // ===== N⁄MERO DE TICKET DESTACADO =====
       doc.setFillColor(...HARVARD_COLORS.charcoal);
       doc.roundedRect(8, yPos, ticketWidth - 16, 22, 3, 3, 'F');
       
-      // Icono decorativo (c√≠rculo)
+      // Icono decorativo (cÌrculo)
       doc.setFillColor(...HARVARD_COLORS.wroughtIron);
       doc.circle(centerX, yPos + 6, 3, 'F');
       doc.setFillColor(...HARVARD_COLORS.charcoal);
@@ -2535,12 +2535,12 @@
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('Tu n√∫mero de ticket', centerX, yPos + 12, { align: 'center' });
+      doc.text('Tu n˙mero de ticket', centerX, yPos + 12, { align: 'center' });
       
       doc.setFont('times', 'bold');
       doc.setFontSize(16);
       doc.setTextColor(...HARVARD_COLORS.white);
-      doc.text(`N¬∫ ${numeroTicket}`, centerX, yPos + 19, { align: 'center' });
+      doc.text(`N∫ ${numeroTicket}`, centerX, yPos + 19, { align: 'center' });
       yPos += 28;
       
       // ===== FECHA Y HORA =====
@@ -2561,7 +2561,7 @@
       doc.text(`${hora} hrs`, centerX, yPos + 4, { align: 'center' });
       yPos += 10;
       
-      // L√≠nea separadora
+      // LÌnea separadora
       doc.setDrawColor(...HARVARD_COLORS.silver);
       doc.setLineWidth(0.3);
       doc.line(12, yPos, ticketWidth - 12, yPos);
@@ -2580,9 +2580,9 @@
       
       const instrucciones = [
         '1. Acercate a nuestras oficinas',
-        '2. Present√° este ticket',
-        '3. Realiz√° el pago en efectivo',
-        '4. Recibir√°s tu comprobante'
+        '2. Present· este ticket',
+        '3. Realiz· el pago en efectivo',
+        '4. Recibir·s tu comprobante'
       ];
       
       instrucciones.forEach((linea) => {
@@ -2601,12 +2601,12 @@
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(7);
       doc.setTextColor(...HARVARD_COLORS.charcoal);
-      doc.text('Horario de Atenci√≥n', centerX, yPos + 4, { align: 'center' });
+      doc.text('Horario de AtenciÛn', centerX, yPos + 4, { align: 'center' });
       
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.text('Lunes a Viernes: 7:00 - 14:00 hrs', centerX, yPos + 9, { align: 'center' });
-      doc.text('S√°bados: 8:00 - 12:00 hrs', centerX, yPos + 12, { align: 'center' });
+      doc.text('S·bados: 8:00 - 12:00 hrs', centerX, yPos + 12, { align: 'center' });
       yPos += 20;
       
       // ===== FOOTER ELEGANTE =====
@@ -2618,16 +2618,16 @@
       doc.setFont('helvetica', 'italic');
       doc.setFontSize(6);
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('Conserv√° este ticket hasta completar el pago', centerX, yPos, { align: 'center' });
+      doc.text('Conserv· este ticket hasta completar el pago', centerX, yPos, { align: 'center' });
       yPos += 3;
-      doc.text('CEMI - Centro de Ense√±anza de M√∫ltiples Idiomas', centerX, yPos, { align: 'center' });
+      doc.text('CEMI - Centro de EnseÒanza de M˙ltiples Idiomas', centerX, yPos, { align: 'center' });
       
       // Descargar PDF
       doc.save(`Ticket-Pago-Efectivo-${numeroTicket}.pdf`);
       
       console.log('Ticket PDF generado correctamente');
       
-      // Mostrar notificaci√≥n
+      // Mostrar notificaciÛn
       Swal.fire({
         icon: 'success',
         title: 'Ticket Descargado',
@@ -2681,12 +2681,12 @@
       }
 
       if (numeroTarjeta.replace(/\s/g, '').length < 15) {
-        showNotification('N√∫mero de tarjeta inv√°lido', 'error');
+        showNotification('N˙mero de tarjeta inv·lido', 'error');
         return;
       }
 
       if (cvv.length < 3) {
-        showNotification('CVV inv√°lido', 'error');
+        showNotification('CVV inv·lido', 'error');
         return;
       }
     }
@@ -2728,7 +2728,7 @@
         // Mostrar comprobante
         mostrarComprobante(data.comprobante);
         
-        // Recargar la secci√≥n de pagos
+        // Recargar la secciÛn de pagos
         setTimeout(() => {
           document.getElementById('btnPagos').click();
         }, 3000);
@@ -2753,14 +2753,14 @@
           <div class="check-icon">
             <i data-lucide="check-circle"></i>
           </div>
-          <h2>¬°Pago Exitoso!</h2>
+          <h2>°Pago Exitoso!</h2>
           <p>Tu pago ha sido procesado correctamente</p>
         </div>
         
         <div class="comprobante-body">
           <div class="comprobante-detalle">
             <div class="detalle-row">
-              <span>Comprobante N¬∞:</span>
+              <span>Comprobante N∞:</span>
               <strong>${comprobante.numero}</strong>
             </div>
             <div class="detalle-row">
@@ -2768,7 +2768,7 @@
               <strong>${new Date(comprobante.fecha).toLocaleDateString('es-ES')}</strong>
             </div>
             <div class="detalle-row">
-              <span>Per√≠odo:</span>
+              <span>PerÌodo:</span>
               <strong>${new Date(comprobante.periodo + '-01').toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</strong>
             </div>
             <div class="detalle-row total">
@@ -2794,7 +2794,7 @@
     if (modal) modal.remove();
   };
 
-  // Navegaci√≥n SPA con logout
+  // NavegaciÛn SPA con logout
   document.querySelectorAll(".sidebar-menu button").forEach(btn => {
     btn.addEventListener("click", () => {
       if (btn.id === "logoutBtn") {
@@ -2830,7 +2830,7 @@
     <div style="background: #4a5259; padding: 24px; display: flex; align-items: center; justify-content: space-between;">
       <h2 style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 12px;">
         <i data-lucide="wallet" style="width: 22px; height: 22px;"></i>
-        Seleccionar M√©todo de Pago
+        Seleccionar MÈtodo de Pago
       </h2>
       <button onclick="document.getElementById('paymentMethodModal').classList.remove('active')" style="background: rgba(255,255,255,0.15); border: none; border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;" onmouseenter="this.style.background='rgba(255,255,255,0.25)'" onmouseleave="this.style.background='rgba(255,255,255,0.15)'">
         <i data-lucide="x" style="width: 20px; height: 20px; color: #ffffff;"></i>
@@ -2843,7 +2843,7 @@
         <span style="color: #1e1e1e; font-size: 14px; font-weight: 500;" id="methodPaymentConcepto">Cuota Mensual</span>
       </div>
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f3f4f6;">
-        <span style="color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Per√≠odo:</span>
+        <span style="color: #6b7280; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">PerÌodo:</span>
         <span style="color: #1e1e1e; font-size: 14px; font-weight: 500;" id="methodPaymentPeriodo">-</span>
       </div>
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 0;">
@@ -2858,8 +2858,8 @@
           <i data-lucide="credit-card" style="width: 24px; height: 24px; color: #4a5259;"></i>
         </div>
         <div>
-          <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 15px; font-weight: 600;">Tarjeta de Cr√©dito/D√©bito</h3>
-          <p style="margin: 0; color: #6b7280; font-size: 13px;">Pago instant√°neo con tarjeta</p>
+          <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 15px; font-weight: 600;">Tarjeta de CrÈdito/DÈbito</h3>
+          <p style="margin: 0; color: #6b7280; font-size: 13px;">Pago instant·neo con tarjeta</p>
         </div>
       </button>
 
@@ -2879,7 +2879,7 @@
         </div>
         <div>
           <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 15px; font-weight: 600;">Efectivo</h3>
-          <p style="margin: 0; color: #6b7280; font-size: 13px;">Pagar en la instituci√≥n</p>
+          <p style="margin: 0; color: #6b7280; font-size: 13px;">Pagar en la instituciÛn</p>
         </div>
       </button>
     </div>
@@ -2894,8 +2894,8 @@
     <div class="modal-header">
       <h2>Pago con Tarjeta</h2>
       <div class="modal-actions">
-        <button class="back-button" id="backToMethods">‚Üê</button>
-        <button class="close-button" id="closePaymentModal">√ó</button>
+        <button class="back-button" id="backToMethods">?</button>
+        <button class="close-button" id="closePaymentModal">◊</button>
       </div>
     </div>
 
@@ -2922,13 +2922,13 @@
                         <path class="darkcolor greydark" d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
                     </g>
                     <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber" class="st2 st3 st4">0123 4567 8910 1112</text>
-                    <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname" class="st2 st5 st6">JUAN P√âREZ</text>
+                    <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname" class="st2 st5 st6">JUAN P…REZ</text>
                     <text transform="matrix(1 0 0 1 54.1074 389.8793)" class="st7 st5 st8">nombre del titular</text>
                     <text transform="matrix(1 0 0 1 479.7754 388.8793)" class="st7 st5 st8">vencimiento</text>
-                    <text transform="matrix(1 0 0 1 65.1054 241.5)" class="st7 st5 st8">n√∫mero de tarjeta</text>
+                    <text transform="matrix(1 0 0 1 65.1054 241.5)" class="st7 st5 st8">n˙mero de tarjeta</text>
                     <g>
                         <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire" class="st2 st5 st9">01/23</text>
-                        <text transform="matrix(1 0 0 1 479.3848 417.0097)" class="st2 st10 st11">V√ÅLIDO</text>
+                        <text transform="matrix(1 0 0 1 479.3848 417.0097)" class="st2 st10 st11">V¡LIDO</text>
                         <text transform="matrix(1 0 0 1 479.3848 435.6762)" class="st2 st10 st11">HASTA</text>
                         <polygon class="st2" points="554.5,421 540.4,414.2 540.4,427.9 		" />
                     </g>
@@ -2993,11 +2993,11 @@
                     </g>
                     <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity" class="st6 st7">985</text>
                     <g class="st8">
-                        <text transform="matrix(1 0 0 1 518.083 280.0879)" class="st9 st6 st10">c√≥digo de seguridad</text>
+                        <text transform="matrix(1 0 0 1 518.083 280.0879)" class="st9 st6 st10">cÛdigo de seguridad</text>
                     </g>
                     <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
                     <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
-                    <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13">Juan P√©rez</text>
+                    <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13">Juan PÈrez</text>
                 </g>
             </svg>
           </div>
@@ -3007,10 +3007,10 @@
       <form class="form-container" id="creditCardForm">
         <div class="field-container">
           <label for="name">Nombre del Titular</label>
-          <input id="name" maxlength="20" type="text" placeholder="JUAN P√âREZ">
+          <input id="name" maxlength="20" type="text" placeholder="JUAN P…REZ">
         </div>
         <div class="field-container">
-          <label for="cardnumber">N√∫mero de Tarjeta</label><span id="generatecard">generar aleatorio</span>
+          <label for="cardnumber">N˙mero de Tarjeta</label><span id="generatecard">generar aleatorio</span>
           <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="1234 5678 9012 3456">
           <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -3021,7 +3021,7 @@
           <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="01/25">
         </div>
         <div class="field-container">
-          <label for="securitycode">C√≥digo de Seguridad</label>
+          <label for="securitycode">CÛdigo de Seguridad</label>
           <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" placeholder="123">
         </div>
       </form>
@@ -3063,7 +3063,7 @@
       </div>
       <div style="background: rgba(74, 82, 89, 0.06); border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px;">
         <i data-lucide="info" style="width: 18px; height: 18px; color: #4a5259; flex-shrink: 0; margin-top: 2px;"></i>
-        <p style="margin: 0; color: #4a5259; font-size: 13px; line-height: 1.5;">Realiza la transferencia y env√≠a el comprobante por correo o WhatsApp.</p>
+        <p style="margin: 0; color: #4a5259; font-size: 13px; line-height: 1.5;">Realiza la transferencia y envÌa el comprobante por correo o WhatsApp.</p>
       </div>
     </div>
   </div>
@@ -3326,14 +3326,14 @@
 </style>
 
   <script>
-    // Funcionalidad del men√∫ mobile
+    // Funcionalidad del men˙ mobile
     document.addEventListener('DOMContentLoaded', function() {
       const mobileMenuToggle = document.getElementById('mobileMenuToggle');
       const sidebar = document.getElementById('sidebar');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
       const dashboardMain = document.querySelector('.dashboard-main');
       
-      // Solo colapsar sidebar en m√≥viles (<=768px)
+      // Solo colapsar sidebar en mÛviles (<=768px)
       if (window.innerWidth <= 768) {
         sidebar.classList.add('collapsed');
       }    if (mobileMenuToggle && sidebar && sidebarOverlay) {
@@ -3395,14 +3395,14 @@ async function generarComprobantePago(idPago) {
     const pago = await response.json();
     
     if (!pago || !pago.id_pago) {
-      throw new Error('No se encontr√≥ el pago');
+      throw new Error('No se encontrÛ el pago');
     }
     
     // Crear PDF en formato ticket elegante
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
-      format: [80, 210] // Ticket t√©rmico elegante
+      format: [80, 210] // Ticket tÈrmico elegante
     });
     
     const ticketWidth = 80;
@@ -3430,7 +3430,7 @@ async function generarComprobantePago(idPago) {
     
     yPos += 28;
     
-    // T√≠tulo CEMI
+    // TÌtulo CEMI
     doc.setTextColor(...HARVARD_COLORS.white);
     doc.setFont('times', 'bold');
     doc.setFontSize(14);
@@ -3440,9 +3440,9 @@ async function generarComprobantePago(idPago) {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(...HARVARD_COLORS.silver);
-    doc.text('Centro de Ense√±anza de M√∫ltiples Idiomas', centerX, yPos, { align: 'center' });
+    doc.text('Centro de EnseÒanza de M˙ltiples Idiomas', centerX, yPos, { align: 'center' });
     
-    // L√≠neas decorativas Harvard
+    // LÌneas decorativas Harvard
     yPos = 47;
     doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
     doc.setLineWidth(1.5);
@@ -3453,21 +3453,21 @@ async function generarComprobantePago(idPago) {
     
     yPos += 10;
     
-    // ===== T√çTULO DEL COMPROBANTE =====
+    // ===== TÕTULO DEL COMPROBANTE =====
     doc.setFont('times', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text('COMPROBANTE DE PAGO', centerX, yPos, { align: 'center' });
     yPos += 8;
     
-    // ===== N√öMERO DE COMPROBANTE DESTACADO =====
+    // ===== N⁄MERO DE COMPROBANTE DESTACADO =====
     doc.setFillColor(...HARVARD_COLORS.charcoal);
     doc.roundedRect(8, yPos, ticketWidth - 16, 18, 3, 3, 'F');
     
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(...HARVARD_COLORS.silver);
-    doc.text('N¬∞ Comprobante', centerX, yPos + 5, { align: 'center' });
+    doc.text('N∞ Comprobante', centerX, yPos + 5, { align: 'center' });
     
     doc.setFont('times', 'bold');
     doc.setFontSize(14);
@@ -3486,7 +3486,7 @@ async function generarComprobantePago(idPago) {
     })}`, centerX, yPos, { align: 'center' });
     yPos += 8;
     
-    // ===== SECCI√ìN DATOS DEL ALUMNO =====
+    // ===== SECCI”N DATOS DEL ALUMNO =====
     doc.setDrawColor(...HARVARD_COLORS.silver);
     doc.setLineWidth(0.3);
     doc.line(8, yPos, ticketWidth - 8, yPos);
@@ -3525,7 +3525,7 @@ async function generarComprobantePago(idPago) {
     doc.text(String(pago.dni) || '-', 70, yPos, { align: 'right' });
     yPos += 6;
     
-    // ===== SECCI√ìN DETALLES DEL PAGO =====
+    // ===== SECCI”N DETALLES DEL PAGO =====
     doc.setDrawColor(...HARVARD_COLORS.silver);
     doc.line(8, yPos, ticketWidth - 8, yPos);
     yPos += 5;
@@ -3558,7 +3558,7 @@ async function generarComprobantePago(idPago) {
     if (pago.periodo) {
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...HARVARD_COLORS.graphite);
-      doc.text('Per√≠odo:', 10, yPos);
+      doc.text('PerÌodo:', 10, yPos);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...HARVARD_COLORS.charcoal);
       doc.text(pago.periodo, 70, yPos, { align: 'right' });
@@ -3607,11 +3607,11 @@ async function generarComprobantePago(idPago) {
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(6);
     doc.setTextColor(...HARVARD_COLORS.silver);
-    doc.text('CEMI - Centro de Ense√±anza de M√∫ltiples Idiomas', centerX, yPos, { align: 'center' });
+    doc.text('CEMI - Centro de EnseÒanza de M˙ltiples Idiomas', centerX, yPos, { align: 'center' });
     yPos += 3;
     doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')} - ${new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`, centerX, yPos, { align: 'center' });
     yPos += 3;
-    doc.text('Este documento es un comprobante v√°lido de pago', centerX, yPos, { align: 'center' });
+    doc.text('Este documento es un comprobante v·lido de pago', centerX, yPos, { align: 'center' });
     
     // Descargar
     const nombreArchivo = `Comprobante_${String(pago.id_pago).padStart(6, '0')}_${pago.alumno.replace(/\s+/g, '_')}.pdf`;

@@ -1,4 +1,4 @@
-ï»¿import express from "express";
+import express from "express";
 import PDFDocument from "pdfkit";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
@@ -218,7 +218,7 @@ router.post("/encuesta", verificarToken, async (req, res) => {
     doc.fillColor(colores.silver)
        .fontSize(12)
        .font("Helvetica")
-       .text("Centro de EnseÃ±anza de MÃºltiples Idiomas", 85, 68);
+       .text("Centro de Enseñanza de Múltiples Idiomas", 85, 68);
 
     const fechaActual = new Date().toLocaleDateString("es-AR", {
       day: "2-digit",
@@ -473,7 +473,7 @@ router.post("/encuesta", verificarToken, async (req, res) => {
       const emailHtml = encuestaAgradecimientoTemplate(datos.firstName);
       await sendEmail(
         datos.email,
-        "Â¡Gracias por completar nuestra encuesta! - CEMI",
+        "¡Gracias por completar nuestra encuesta! - CEMI",
         emailHtml
       );
       console.log(`Email de agradecimiento enviado a: ${datos.email}`);
@@ -674,7 +674,7 @@ router.get("/test-pdf", verificarToken, async (req, res) => {
     doc.fillColor(colores.silver)
        .fontSize(12)
        .font("Helvetica")
-       .text("Centro de EnseÃ±anza de MÃºltiples Idiomas", 85, 68);
+       .text("Centro de Enseñanza de Múltiples Idiomas", 85, 68);
 
     const fechaActual = new Date().toLocaleDateString("es-AR", {
       day: "2-digit",

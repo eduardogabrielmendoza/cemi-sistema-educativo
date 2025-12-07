@@ -1,4 +1,4 @@
-Ôªøimport express from "express";
+import express from "express";
 import pool from "../utils/db.js";
 import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
@@ -11,7 +11,7 @@ router.post("/solicitar",
     body('email')
       .trim()
       .notEmpty().withMessage('El email es requerido')
-      .isEmail().withMessage('Email inv√°lido'),
+      .isEmail().withMessage('Email inv·lido'),
     body('usuario')
       .optional()
       .trim(),
@@ -59,7 +59,7 @@ router.post("/solicitar",
       if (personas.length === 0) {
         return res.status(404).json({
           success: false,
-          message: "No se encontr√≥ ninguna cuenta asociada a este email. Verifica que sea el email con el que te registraste."
+          message: "No se encontrÛ ninguna cuenta asociada a este email. Verifica que sea el email con el que te registraste."
         });
       }
 
@@ -80,17 +80,17 @@ router.post("/solicitar",
 
       const emailUsuario = await sendEmail(
         persona.mail,
-        ` Solicitud de C√≥digos de Recuperaci√≥n - Ref: #${referencia}`,
+        ` Solicitud de CÛdigos de RecuperaciÛn - Ref: #${referencia}`,
         codigosRecuperacionUsuarioTemplate(datosEmail)
       );
 
       const emailAdmin = await sendEmail(
         ADMIN_EMAIL,
-        ` Solicitud de C√≥digos 2FA - ${persona.nombre} ${persona.apellido} - #${referencia}`,
+        ` Solicitud de CÛdigos 2FA - ${persona.nombre} ${persona.apellido} - #${referencia}`,
         codigosRecuperacionAdminTemplate(datosEmail)
       );
 
-      console.log(` Solicitud de c√≥digos 2FA registrada:`, {
+      console.log(` Solicitud de cÛdigos 2FA registrada:`, {
         referencia,
         usuario: persona.username,
         email: persona.mail,
@@ -105,12 +105,12 @@ router.post("/solicitar",
           referencia,
           nombre: `${persona.nombre} ${persona.apellido}`,
           emailConfirmacion: emailUsuario.success,
-          estimado: "24-48 horas h√°biles"
+          estimado: "24-48 horas h·biles"
         }
       });
 
     } catch (error) {
-      console.error("Error procesando solicitud de c√≥digos 2FA:", error);
+      console.error("Error procesando solicitud de cÛdigos 2FA:", error);
       res.status(500).json({
         success: false,
         message: "Error al procesar la solicitud. Por favor, intenta nuevamente."

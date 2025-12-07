@@ -1,4 +1,4 @@
-Ôªøclass UserChat {
+class UserChat {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
     this.socket = null;
@@ -52,11 +52,11 @@
     });
     
     this.socket.on('messages_read', () => {
-      console.log('[UserChat] Mensajes marcados como le√≠dos');
+      console.log('[UserChat] Mensajes marcados como leÌdos');
     });
     
     this.socket.on('conversation_closed', () => {
-      console.log('[UserChat] Conversaci√≥n cerrada por admin');
+      console.log('[UserChat] ConversaciÛn cerrada por admin');
       this.activeConversation = null;
       this.messages = [];
       this.renderMessages();
@@ -101,14 +101,14 @@
         this.renderMessages();
       }
     } catch (error) {
-      console.error('[UserChat] Error cargando conversaci√≥n:', error);
+      console.error('[UserChat] Error cargando conversaciÛn:', error);
     }
   }
   
   initializeUI() {
     const chatContainer = document.getElementById('userChatContainer');
     if (!chatContainer) {
-      console.error('[UserChat] No se encontr√≥ #userChatContainer');
+      console.error('[UserChat] No se encontrÛ #userChatContainer');
       return;
     }
     
@@ -118,7 +118,7 @@
           <i data-lucide="message-square"></i>
           <div>
             <h3>Soporte CEMI</h3>
-            <span class="user-chat-status">En l√≠nea</span>
+            <span class="user-chat-status">En lÌnea</span>
           </div>
         </div>
         
@@ -225,7 +225,7 @@
         await this.sendExistingMessage(mensaje);
       }
     } catch (error) {
-      console.error('[UserChat] Error creando conversaci√≥n:', error);
+      console.error('[UserChat] Error creando conversaciÛn:', error);
     }
   }
   
@@ -275,7 +275,7 @@
     if (isTyping) {
       const indicator = document.createElement('div');
       indicator.className = 'typing-indicator';
-      indicator.innerHTML = `<span>${nombre} est√° escribiendo...</span>`;
+      indicator.innerHTML = `<span>${nombre} est· escribiendo...</span>`;
       container.appendChild(indicator);
       this.scrollToBottom();
     }

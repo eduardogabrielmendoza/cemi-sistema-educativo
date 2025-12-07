@@ -1,4 +1,4 @@
-Ôªøimport express from "express";
+import express from "express";
 import pool from "../utils/db.js";
 import upload, { uploadRecursos } from "../config/multer.js";
 import cloudinary, { getSignedUrl } from "../config/cloudinary.js";
@@ -64,7 +64,7 @@ router.get("/clases/:tipo/:id", verificarToken, async (req, res) => {
       `;
       params = [id];
     } else {
-      return res.status(400).json({ message: "Tipo de usuario inv√°lido" });
+      return res.status(400).json({ message: "Tipo de usuario inv·lido" });
     }
 
     const [clases] = await pool.query(query, params);
@@ -89,7 +89,7 @@ router.get("/feed/:tipo/:id", verificarToken, async (req, res) => {
 
       res.json({
         cursos,
-        message: "Feed en construcci√≥n - Conectar con tabla de anuncios/tareas"
+        message: "Feed en construcciÛn - Conectar con tabla de anuncios/tareas"
       });
     } else if (tipo === 'alumno') {
       const [cursos] = await pool.query(`
@@ -101,7 +101,7 @@ router.get("/feed/:tipo/:id", verificarToken, async (req, res) => {
 
       res.json({
         cursos,
-        message: "Feed en construcci√≥n - Conectar con tabla de anuncios/tareas"
+        message: "Feed en construcciÛn - Conectar con tabla de anuncios/tareas"
       });
     }
   } catch (error) {
@@ -290,8 +290,8 @@ router.get("/estadisticas/profesor/:id", verificarToken, async (req, res) => {
       promedio_general: promedioRows[0].promedio ? parseFloat(promedioRows[0].promedio).toFixed(2) : 0
     });
   } catch (error) {
-    console.error("Error al obtener estad√≠sticas:", error);
-    res.status(500).json({ message: "Error al obtener estad√≠sticas" });
+    console.error("Error al obtener estadÌsticas:", error);
+    res.status(500).json({ message: "Error al obtener estadÌsticas" });
   }
 });
 
@@ -347,7 +347,7 @@ router.post("/anuncios", verificarToken, async (req, res) => {
       if (cursoInfo.length > 0 && alumnos.length > 0) {
         const nombreCurso = cursoInfo[0].nombre_curso;
         const tipoNotif = importante ? 'anuncio_importante' : 'anuncio';
-        const tituloNotif = importante ? 'Ô∏è Anuncio Importante' : 'Nuevo anuncio';
+        const tituloNotif = importante ? '? Anuncio Importante' : 'Nuevo anuncio';
         
         for (const alumno of alumnos) {
           await pool.query(
@@ -506,7 +506,7 @@ router.get("/anuncios/:tipo/:id", verificarToken, async (req, res) => {
       `;
       params = [id];
     } else {
-      return res.status(400).json({ message: "Tipo de usuario inv√°lido" });
+      return res.status(400).json({ message: "Tipo de usuario inv·lido" });
     }
 
     const [anuncios] = await pool.query(query, params);
@@ -737,7 +737,7 @@ router.get("/curso/:idCurso/alumnos", verificarToken, async (req, res) => {
 router.post("/upload-archivo", verificarToken, upload.single('archivo'), async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ message: "No se ha enviado ning√∫n archivo" });
+      return res.status(400).json({ message: "No se ha enviado ning˙n archivo" });
     }
 
     const fileUrl = `/uploads/tareas/${req.file.filename}`;
@@ -897,7 +897,7 @@ router.get("/tareas-lista/:tipo/:id", verificarToken, async (req, res) => {
       `;
       params = [id, id];
     } else {
-      return res.status(400).json({ message: "Tipo de usuario inv√°lido" });
+      return res.status(400).json({ message: "Tipo de usuario inv·lido" });
     }
 
     const [tareas] = await pool.query(query, params);
@@ -1118,7 +1118,7 @@ router.post("/comentarios", verificarToken, async (req, res) => {
         `, [
           anuncio.id_profesor,
           'Nuevo comentario',
-          `${nombreComentador} coment√≥ en "${anuncio.titulo}"`,
+          `${nombreComentador} comentÛ en "${anuncio.titulo}"`,
           null,
           id_anuncio
         ]);
@@ -1141,7 +1141,7 @@ router.post("/comentarios", verificarToken, async (req, res) => {
           `, [
             alumno.id_usuario,
             'Respuesta del profesor',
-            `El profesor coment√≥ en "${anuncio.titulo}"`,
+            `El profesor comentÛ en "${anuncio.titulo}"`,
             null,
             id_anuncio
           ]);
@@ -1276,7 +1276,7 @@ router.get("/calendario/:tipo/:id/:year/:month", verificarToken, async (req, res
       eventos: eventos,
       tareas: tareas,
       mes: parseInt(month),
-      a√±o: parseInt(year)
+      aÒo: parseInt(year)
     };
     
     res.json(calendario);
@@ -1291,7 +1291,7 @@ router.post("/calendario/eventos", verificarToken, async (req, res) => {
     const { id_curso, id_profesor, titulo, descripcion, tipo, fecha_inicio, fecha_fin, color, notificar } = req.body;
     
     if (!id_curso || !id_profesor || !titulo || !fecha_inicio) {
-      return res.status(400).json({ message: "Campos requeridos: curso, profesor, t√≠tulo, fecha_inicio" });
+      return res.status(400).json({ message: "Campos requeridos: curso, profesor, tÌtulo, fecha_inicio" });
     }
     
     const [result] = await pool.query(
@@ -1497,7 +1497,7 @@ router.get('/entregas/:idTarea/alumno/:idAlumno', verificarToken, async (req, re
     );
 
     if (entrega.length === 0) {
-      return res.status(404).json({ message: "No se encontr√≥ la entrega" });
+      return res.status(404).json({ message: "No se encontrÛ la entrega" });
     }
 
     res.json(entrega[0]);
@@ -1534,7 +1534,7 @@ router.get('/entrega/:idEntrega', verificarToken, async (req, res) => {
     );
 
     if (entrega.length === 0) {
-      return res.status(404).json({ message: "No se encontr√≥ la entrega" });
+      return res.status(404).json({ message: "No se encontrÛ la entrega" });
     }
 
     res.json(entrega[0]);
@@ -1574,7 +1574,7 @@ router.put('/entregas/:idEntrega/calificar', verificarToken, verificarRol(['admi
          VALUES (?, 'alumno', 'calificacion', ?, ?, ?, ?)`,
         [
           entrega.id_alumno,
-          'Nueva calificaci√≥n',
+          'Nueva calificaciÛn',
           `Tu entrega de "${entrega.titulo}" ha sido calificada: ${calificacion}`,
           `/tareas/${entrega.id_tarea}`,
           entrega.id_tarea
@@ -1814,7 +1814,7 @@ router.delete("/anuncio/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
-    console.log(`Ô∏è Eliminando anuncio ${id}`);
+    console.log(`? Eliminando anuncio ${id}`);
     
     await pool.query(`DELETE FROM anuncios WHERE id_anuncio = ?`, [id]);
     
@@ -1832,7 +1832,7 @@ router.delete("/tarea/:id", verificarToken, verificarRol(['admin', 'administrado
   try {
     const { id } = req.params;
     
-    console.log(`Ô∏è Eliminando tarea ${id}`);
+    console.log(`? Eliminando tarea ${id}`);
     
     await pool.query(`DELETE FROM tareas WHERE id_tarea = ?`, [id]);
     
@@ -1850,7 +1850,7 @@ router.delete("/poll/:id", verificarToken, async (req, res) => {
   try {
     const { id } = req.params;
     
-    console.log(`Ô∏è Eliminando poll ${id}`);
+    console.log(`? Eliminando poll ${id}`);
     
     await pool.query(`DELETE FROM polls WHERE id_poll = ?`, [id]);
     
@@ -2003,7 +2003,7 @@ router.post("/recursos", verificarToken, verificarRol(['admin', 'administrador',
           console.error('Error al eliminar archivo temporal:', err);
         }
         
-        console.log('Ô∏è Recurso subido a Cloudinary:', archivoPath);
+        console.log('? Recurso subido a Cloudinary:', archivoPath);
       } else {
         archivoPath = `/uploads/recursos/${req.file.filename}`;
         console.log(' Recurso guardado localmente:', archivoPath);
@@ -2046,7 +2046,7 @@ router.put("/recursos/:id", verificarToken, verificarRol(['admin', 'administrado
     const { id } = req.params;
     const { titulo, descripcion, tipo, url, id_curso } = req.body;
     
-    console.log(`Ô∏è Actualizando recurso ${id}`);
+    console.log(`? Actualizando recurso ${id}`);
     
     const cursoValue = id_curso === 'null' || id_curso === '' || !id_curso ? null : id_curso;
     
@@ -2081,7 +2081,7 @@ router.delete("/recursos/:id", verificarToken, verificarRol(['admin', 'administr
   try {
     const { id } = req.params;
     
-    console.log(`Ô∏è Eliminando recurso ${id}`);
+    console.log(`? Eliminando recurso ${id}`);
     
     await pool.query(`DELETE FROM anuncios WHERE id_anuncio = ? AND es_recurso = 1`, [id]);
     

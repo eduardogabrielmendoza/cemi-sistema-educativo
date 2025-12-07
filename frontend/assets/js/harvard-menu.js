@@ -1,4 +1,4 @@
-ï»¿
+
 document.addEventListener('DOMContentLoaded', function() {
   const header = document.querySelector('.harvard-header');
   const menuBtn = document.getElementById('harvardMenuBtn');
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   let lastScrollY = window.scrollY;
   let ticking = false;
-  const scrollThreshold = 80; // PÃ­xeles mÃ­nimos antes de ocultar
+  const scrollThreshold = 80; // Píxeles mínimos antes de ocultar
   const showThreshold = 200; // Mostrar header cuando estemos a menos de esto del inicio
   
   function handleScroll() {
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
       isMenuOpen = false;
       
       resetMenuState();
-    }, 350); // DuraciÃ³n de la animaciÃ³n de cierre
+    }, 350); // Duración de la animación de cierre
   }
 
   function resetMenuState() {

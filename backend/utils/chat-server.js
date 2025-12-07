@@ -1,4 +1,4 @@
-Ôªøimport { Server } from 'socket.io';
+import { Server } from 'socket.io';
 import pool from './db.js';
 
 class ChatServer {
@@ -35,7 +35,7 @@ class ChatServer {
     console.log(' Servidor Socket.IO de Chat iniciado');
     
     this.io.on('connection', (socket) => {
-      console.log(` Nueva conexi√≥n Socket.IO: ${socket.id}`);
+      console.log(` Nueva conexiÛn Socket.IO: ${socket.id}`);
       
       socket.on('auth', async (data) => {
         await this.handleAuth(socket, data);
@@ -78,7 +78,7 @@ class ChatServer {
       });
       
       socket.emit('connected', {
-        message: 'Conexi√≥n establecida con el servidor de chat'
+        message: 'ConexiÛn establecida con el servidor de chat'
       });
     });
   }
@@ -136,12 +136,12 @@ class ChatServer {
         
         if (usuarioBuscado.length > 0) {
           id_usuario = usuarioBuscado[0].id_usuario;
-          console.log(` id_usuario encontrado autom√°ticamente en auth: ${id_usuario} para ${nombre} (${tipo})`);
+          console.log(` id_usuario encontrado autom·ticamente en auth: ${id_usuario} para ${nombre} (${tipo})`);
         } else {
-          console.warn(`Ô∏è No se encontr√≥ id_usuario para ${nombre} (${tipo})`);
+          console.warn(`? No se encontrÛ id_usuario para ${nombre} (${tipo})`);
         }
       } catch (err) {
-        console.warn('Ô∏è Error al buscar id_usuario en auth:', err.message);
+        console.warn('? Error al buscar id_usuario en auth:', err.message);
       }
     }
     
@@ -178,7 +178,7 @@ class ChatServer {
     console.log(` Usuario autenticado: ${tipo} - ${nombre} (${userId})`);
     
     socket.emit('authenticated', {
-      message: 'Autenticaci√≥n exitosa',
+      message: 'AutenticaciÛn exitosa',
       userInfo: socket.userInfo
     });
     
@@ -191,7 +191,7 @@ class ChatServer {
     const { id_conversacion } = data;
     
     if (!socket.userInfo) {
-      console.error(' Usuario no autenticado intentando unirse a conversaci√≥n');
+      console.error(' Usuario no autenticado intentando unirse a conversaciÛn');
       return;
     }
     
@@ -205,7 +205,7 @@ class ChatServer {
     socket.userInfo.id_conversacion = id_conversacion;
     
     const roomSize = this.io.sockets.adapter.rooms.get(`conversation_${id_conversacion}`)?.size || 0;
-    console.log(` Usuario ${socket.userInfo.nombre} (${socket.userInfo.tipo}) se uni√≥ a conversaci√≥n ${id_conversacion} - Clientes en room: ${roomSize}`);
+    console.log(` Usuario ${socket.userInfo.nombre} (${socket.userInfo.tipo}) se uniÛ a conversaciÛn ${id_conversacion} - Clientes en room: ${roomSize}`);
     
     socket.emit('joined_conversation', {
       id_conversacion
@@ -341,7 +341,7 @@ class ChatServer {
         });
       }
       
-      console.log(` Mensaje enviado en conversaci√≥n ${id_conversacion}`);
+      console.log(` Mensaje enviado en conversaciÛn ${id_conversacion}`);
       
     } catch (error) {
       console.error(' Error al enviar mensaje:', error);
@@ -412,7 +412,7 @@ class ChatServer {
       });
       
     } catch (error) {
-      console.error(' Error al marcar como le√≠do:', error);
+      console.error(' Error al marcar como leÌdo:', error);
     }
   }
   
@@ -475,7 +475,7 @@ class ChatServer {
       });
       
     } catch (error) {
-      console.error(' Error al tomar conversaci√≥n:', error);
+      console.error(' Error al tomar conversaciÛn:', error);
     }
   }
   
@@ -490,11 +490,11 @@ class ChatServer {
     }
     
     try {
-      console.log(`Ô∏è Admin cerrando conversaci√≥n ${id_conversacion}`);
+      console.log(`? Admin cerrando conversaciÛn ${id_conversacion}`);
       
       this.io.to(`conversation_${id_conversacion}`).emit('conversation_closed', {
         id_conversacion,
-        message: 'Esta conversaci√≥n ha sido cerrada por un administrador'
+        message: 'Esta conversaciÛn ha sido cerrada por un administrador'
       });
       
       if (tipo_usuario && id_usuario) {
@@ -504,9 +504,9 @@ class ChatServer {
         if (userSocket && userSocket.connected) {
           userSocket.emit('conversation_deleted', {
             id_conversacion,
-            message: 'El administrador ha cerrado esta conversaci√≥n'
+            message: 'El administrador ha cerrado esta conversaciÛn'
           });
-          console.log(` Notificaci√≥n enviada a usuario ${userId}`);
+          console.log(` NotificaciÛn enviada a usuario ${userId}`);
         }
       }
       
@@ -520,10 +520,10 @@ class ChatServer {
       
       this.conversationClients.delete(id_conversacion);
       
-      console.log(` Conversaci√≥n ${id_conversacion} cerrada y notificaciones enviadas`);
+      console.log(` ConversaciÛn ${id_conversacion} cerrada y notificaciones enviadas`);
       
     } catch (error) {
-      console.error(' Error al cerrar conversaci√≥n:', error);
+      console.error(' Error al cerrar conversaciÛn:', error);
     }
   }
   
@@ -586,7 +586,7 @@ class ChatServer {
       
       console.log(` Usuario desconectado: ${userInfo.tipo} - ${userInfo.nombre} (${socket.id})`);
     } else {
-      console.log(` Conexi√≥n cerrada (no autenticada): ${socket.id}`);
+      console.log(` ConexiÛn cerrada (no autenticada): ${socket.id}`);
     }
   }
   

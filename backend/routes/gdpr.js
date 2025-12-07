@@ -1,4 +1,4 @@
-Ôªøimport express from "express";
+import express from "express";
 import pool from "../utils/db.js";
 import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
@@ -11,10 +11,10 @@ router.post("/solicitar-exportacion",
     body('email')
       .trim()
       .notEmpty().withMessage('El email es requerido')
-      .isEmail().withMessage('Email inv√°lido'),
+      .isEmail().withMessage('Email inv·lido'),
     body('formato')
       .optional()
-      .isIn(['json', 'csv', 'pdf']).withMessage('Formato inv√°lido')
+      .isIn(['json', 'csv', 'pdf']).withMessage('Formato inv·lido')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -53,7 +53,7 @@ router.post("/solicitar-exportacion",
       if (personas.length === 0) {
         return res.status(404).json({
           success: false,
-          message: "No se encontr√≥ ninguna cuenta asociada a este email. Verifica que sea el email con el que te registraste."
+          message: "No se encontrÛ ninguna cuenta asociada a este email. Verifica que sea el email con el que te registraste."
         });
       }
 
@@ -93,7 +93,7 @@ router.post("/solicitar-exportacion",
 
       const emailAdmin = await sendEmail(
         ADMIN_EMAIL,
-        ` Nueva Solicitud GDPR: Exportaci√≥n de Datos - #${referencia}`,
+        ` Nueva Solicitud GDPR: ExportaciÛn de Datos - #${referencia}`,
         gdprNotificacionAdminTemplate(datosEmail)
       );
 
@@ -114,7 +114,7 @@ router.post("/solicitar-exportacion",
           referencia,
           nombre: `${persona.nombre} ${persona.apellido}`,
           emailConfirmacion: emailUsuario.success,
-          estimado: "48-72 horas h√°biles"
+          estimado: "48-72 horas h·biles"
         }
       });
 
@@ -133,7 +133,7 @@ router.post("/solicitar-eliminacion",
     body('email')
       .trim()
       .notEmpty().withMessage('El email es requerido')
-      .isEmail().withMessage('Email inv√°lido')
+      .isEmail().withMessage('Email inv·lido')
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -162,7 +162,7 @@ router.post("/solicitar-eliminacion",
       if (personas.length === 0) {
         return res.status(404).json({
           success: false,
-          message: "No se encontr√≥ ninguna cuenta asociada a este email."
+          message: "No se encontrÛ ninguna cuenta asociada a este email."
         });
       }
 
@@ -190,17 +190,17 @@ router.post("/solicitar-eliminacion",
         idAlumno: datosAlumno?.id_alumno
       };
 
-      await sendEmail(persona.mail, `Solicitud de Eliminaci√≥n Recibida - Ref: #${referencia}`, gdprSolicitudUsuarioTemplate(datosEmail));
-      await sendEmail(ADMIN_EMAIL, `Ô∏è Solicitud GDPR: Eliminaci√≥n de Cuenta - #${referencia}`, gdprNotificacionAdminTemplate(datosEmail));
+      await sendEmail(persona.mail, `Solicitud de EliminaciÛn Recibida - Ref: #${referencia}`, gdprSolicitudUsuarioTemplate(datosEmail));
+      await sendEmail(ADMIN_EMAIL, `? Solicitud GDPR: EliminaciÛn de Cuenta - #${referencia}`, gdprNotificacionAdminTemplate(datosEmail));
 
       res.json({
         success: true,
-        message: "Solicitud de eliminaci√≥n enviada",
-        data: { referencia, estimado: "5-7 d√≠as h√°biles" }
+        message: "Solicitud de eliminaciÛn enviada",
+        data: { referencia, estimado: "5-7 dÌas h·biles" }
       });
 
     } catch (error) {
-      console.error("Error procesando solicitud de eliminaci√≥n:", error);
+      console.error("Error procesando solicitud de eliminaciÛn:", error);
       res.status(500).json({ success: false, message: "Error al procesar la solicitud" });
     }
   }

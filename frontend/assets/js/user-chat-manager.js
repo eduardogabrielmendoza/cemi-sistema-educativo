@@ -1,4 +1,4 @@
-Ôªøclass UserChatManager {
+class UserChatManager {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
     this.socket = null;
@@ -45,7 +45,7 @@
     
     try {
       if (!this.audioContext) {
-        console.log('Ô∏è AudioContext no disponible');
+        console.log('? AudioContext no disponible');
         return;
       }
       
@@ -53,7 +53,7 @@
         this.audioContext.resume().then(() => {
           this.playSoundEffect();
         }).catch(err => {
-          console.log('Ô∏è No se pudo reanudar AudioContext:', err);
+          console.log('? No se pudo reanudar AudioContext:', err);
         });
       } else {
         this.playSoundEffect();
@@ -118,7 +118,7 @@
   updateNotificationBadge(count) {
     const badge = document.getElementById('chatNotificationBadge');
     if (!badge) {
-      console.error(' No se encontr√≥ el elemento chatNotificationBadge');
+      console.error(' No se encontrÛ el elemento chatNotificationBadge');
       return;
     }
     
@@ -144,13 +144,13 @@
     let id_usuario = localStorage.getItem('id_usuario');
     
     if (!id_usuario || id_usuario === 'null' || id_usuario === 'undefined') {
-      console.warn('Ô∏è id_usuario no encontrado o inv√°lido en localStorage');
+      console.warn('? id_usuario no encontrado o inv·lido en localStorage');
       id_usuario = null;
       this.actualizarIdUsuario();
     } else {
       const numericId = parseInt(id_usuario, 10);
       if (isNaN(numericId)) {
-        console.warn('Ô∏è id_usuario no es un n√∫mero v√°lido:', id_usuario);
+        console.warn('? id_usuario no es un n˙mero v·lido:', id_usuario);
         id_usuario = null;
         this.actualizarIdUsuario();
       } else {
@@ -167,7 +167,7 @@
     };
     
     if (!this.userInfo.id_especifico) {
-      console.error(`No se encontr√≥ ${idKey} en localStorage`);
+      console.error(`No se encontrÛ ${idKey} en localStorage`);
     }
     
     console.log(' Usuario cargado:', this.userInfo);
@@ -210,7 +210,7 @@
           }
         }
       } catch (verifyError) {
-        console.warn('Ô∏è Endpoint /auth/verify no disponible, intentando m√©todo alternativo');
+        console.warn('? Endpoint /auth/verify no disponible, intentando mÈtodo alternativo');
       }
       
       try {
@@ -221,11 +221,11 @@
           const response = await fetchWithAuth(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
           if (response.ok) {
             const result = await response.json();
-            console.log(' Conversaci√≥n cargada, id_usuario deber√≠a estar disponible en el contexto');
+            console.log(' ConversaciÛn cargada, id_usuario deberÌa estar disponible en el contexto');
           }
         }
       } catch (altError) {
-        console.error(' Error en m√©todo alternativo:', altError);
+        console.error(' Error en mÈtodo alternativo:', altError);
       }
       
     } catch (err) {
@@ -253,7 +253,7 @@
   
   connectSocket() {
     if (this.socket && this.socket.connected) {
-      console.log('Ô∏è Socket.IO ya est√° conectado');
+      console.log('? Socket.IO ya est· conectado');
       return;
     }
     
@@ -294,7 +294,7 @@
     });
     
     this.socket.on('joined_conversation', (data) => {
-      console.log(' Confirmaci√≥n de uni√≥n a conversaci√≥n:', data);
+      console.log(' ConfirmaciÛn de uniÛn a conversaciÛn:', data);
     });
     
     this.socket.on('disconnect', () => {
@@ -342,11 +342,11 @@
     const chatContainer = document.getElementById('userChatContainer');
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
-    console.log('Ô∏è Chat visible:', isChatVisible);
-    console.log(' Conversaci√≥n activa:', this.activeConversation?.id_conversacion);
+    console.log('? Chat visible:', isChatVisible);
+    console.log(' ConversaciÛn activa:', this.activeConversation?.id_conversacion);
     
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-      console.log(' Agregando mensaje a conversaci√≥n activa');
+      console.log(' Agregando mensaje a conversaciÛn activa');
       this.addMessageToUI(data);
       this.scrollToBottom();
       
@@ -376,8 +376,8 @@
   handleConversationClosed() {
     Swal.fire({
       icon: 'info',
-      title: 'Conversaci√≥n cerrada',
-      text: 'El administrador ha cerrado esta conversaci√≥n.'
+      title: 'ConversaciÛn cerrada',
+      text: 'El administrador ha cerrado esta conversaciÛn.'
     });
     this.activeConversation = null;
     this.loadConversations();
@@ -402,22 +402,22 @@
           conversacion.mensajes = result.data.mensajes || [];
           this.conversations = [conversacion];
           
-          console.log(' Conversaci√≥n cargada:', conversacion);
+          console.log(' ConversaciÛn cargada:', conversacion);
           
           const mensajesNoLeidos = conversacion.mensajes_no_leidos_usuario || 0;
-          console.log(' Mensajes no le√≠dos desde BD:', mensajesNoLeidos);
+          console.log(' Mensajes no leÌdos desde BD:', mensajesNoLeidos);
           this.updateNotificationBadge(mensajesNoLeidos);
           
           if (this.socket && this.socket.connected) {
-            console.log(' Uni√©ndose autom√°ticamente a conversaci√≥n:', conversacion.id_conversacion);
+            console.log(' UniÈndose autom·ticamente a conversaciÛn:', conversacion.id_conversacion);
             this.socket.emit('join_conversation', {
               id_conversacion: conversacion.id_conversacion
             });
           } else {
-            console.warn('Ô∏è Socket.IO no est√° listo, reintentando en 500ms...');
+            console.warn('? Socket.IO no est· listo, reintentando en 500ms...');
             setTimeout(() => {
               if (this.socket && this.socket.connected) {
-                console.log(' Reintento: Uni√©ndose a conversaci√≥n:', conversacion.id_conversacion);
+                console.log(' Reintento: UniÈndose a conversaciÛn:', conversacion.id_conversacion);
                 this.socket.emit('join_conversation', {
                   id_conversacion: conversacion.id_conversacion
                 });
@@ -426,7 +426,7 @@
           }
           
         } else {
-          console.log('‚ÑπÔ∏è No hay conversaciones activas');
+          console.log('?? No hay conversaciones activas');
           this.conversations = [];
           this.updateNotificationBadge(0);
           
@@ -452,14 +452,14 @@
         <div style="padding: 40px 20px; text-align: center; color: #9ca3af;">
           <i data-lucide="inbox" style="width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.5;"></i>
           <p>No tienes conversaciones activas</p>
-          <p style="font-size: 13px; margin-top: 8px;">Env√≠a tu primer mensaje para iniciar</p>
+          <p style="font-size: 13px; margin-top: 8px;">EnvÌa tu primer mensaje para iniciar</p>
         </div>
       `;
       lucide.createIcons();
       
       const emptyMessage = document.getElementById('userChatEmptyMessage');
       if (emptyMessage) {
-        emptyMessage.querySelector('p').textContent = 'Escribe un mensaje para iniciar una conversaci√≥n con Soporte';
+        emptyMessage.querySelector('p').textContent = 'Escribe un mensaje para iniciar una conversaciÛn con Soporte';
       }
       return;
     }
@@ -491,10 +491,10 @@
   }
   
   async selectConversation(id) {
-    console.log(' Seleccionando conversaci√≥n:', id);
+    console.log(' Seleccionando conversaciÛn:', id);
     const conv = this.conversations.find(c => c.id_conversacion === id);
     if (!conv) {
-      console.error(' No se encontr√≥ conversaci√≥n con ID:', id);
+      console.error(' No se encontrÛ conversaciÛn con ID:', id);
       return;
     }
     
@@ -508,11 +508,11 @@
     
     const emptyMessage = document.getElementById('userChatEmptyMessage');
     if (emptyMessage) {
-      emptyMessage.querySelector('p').textContent = 'Selecciona una conversaci√≥n para comenzar a chatear';
+      emptyMessage.querySelector('p').textContent = 'Selecciona una conversaciÛn para comenzar a chatear';
     }
     
     if (this.socket && this.socket.connected) {
-      console.log(' Uni√©ndose a conversaci√≥n v√≠a Socket.IO:', id);
+      console.log(' UniÈndose a conversaciÛn vÌa Socket.IO:', id);
       this.socket.emit('join_conversation', {
         id_conversacion: id
       });
@@ -554,7 +554,7 @@
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-          <p>Selecciona una conversaci√≥n o inicia una nueva</p>
+          <p>Selecciona una conversaciÛn o inicia una nueva</p>
         </div>
       `;
       lucide.createIcons();
@@ -567,8 +567,8 @@
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-circle" style="width: 64px; height: 64px;"></i>
-          <p>No hay mensajes a√∫n</p>
-          <p style="font-size: 13px; margin-top: 8px; color: #9ca3af;">Env√≠a un mensaje para comenzar</p>
+          <p>No hay mensajes a˙n</p>
+          <p style="font-size: 13px; margin-top: 8px; color: #9ca3af;">EnvÌa un mensaje para comenzar</p>
         </div>
       `;
       lucide.createIcons();
@@ -609,7 +609,7 @@
       
       console.log(' Antes de renderAvatar - avatarParaMostrar:', avatarParaMostrar);
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
-      console.log(' Despu√©s de renderAvatar - avatarContent:', avatarContent);
+      console.log(' DespuÈs de renderAvatar - avatarContent:', avatarContent);
       
       let mensajeContent = '';
       if (msg.archivo_adjunto) {
@@ -620,7 +620,7 @@
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>Ô∏è Imagen no disponible</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>? Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -689,12 +689,12 @@
     if (!mensaje) return;
     
     if (!this.activeConversation) {
-      console.log('Ô∏è No hay conversaci√≥n activa, cargando conversaci√≥n del usuario...');
+      console.log('? No hay conversaciÛn activa, cargando conversaciÛn del usuario...');
       
       await this.loadConversations();
       
       if (this.conversations && this.conversations.length > 0) {
-        console.log(' Conversaci√≥n encontrada, seleccionando autom√°ticamente...');
+        console.log(' ConversaciÛn encontrada, seleccionando autom·ticamente...');
         await this.selectConversation(this.conversations[0].id_conversacion);
         
         if (this.socket && this.socket.connected) {
@@ -706,7 +706,7 @@
           return;
         }
       } else {
-        console.log(' No existe conversaci√≥n, creando una nueva con el mensaje...');
+        console.log(' No existe conversaciÛn, creando una nueva con el mensaje...');
         await this.startNewConversation(mensaje);
         return;
       }
@@ -719,12 +719,12 @@
       });
       
       input.value = '';
-      console.log(' Mensaje enviado a conversaci√≥n:', this.activeConversation.id_conversacion);
+      console.log(' Mensaje enviado a conversaciÛn:', this.activeConversation.id_conversacion);
     } else {
       console.error(' Socket.IO no conectado');
       Swal.fire({
         icon: 'error',
-        title: 'Error de conexi√≥n',
+        title: 'Error de conexiÛn',
         text: 'No se pudo enviar el mensaje. Intenta de nuevo.'
       });
     }
@@ -748,8 +748,8 @@
     if (!validTypes.includes(file.type)) {
       Swal.fire({
         icon: 'error',
-        title: 'Tipo de archivo no v√°lido',
-        text: 'Solo se permiten im√°genes (JPG, PNG, WEBP) y archivos PDF'
+        title: 'Tipo de archivo no v·lido',
+        text: 'Solo se permiten im·genes (JPG, PNG, WEBP) y archivos PDF'
       });
       event.target.value = '';
       return;
@@ -787,7 +787,7 @@
       }
       
       if (!this.activeConversation) {
-        throw new Error('No se pudo establecer una conversaci√≥n');
+        throw new Error('No se pudo establecer una conversaciÛn');
       }
       
       const formData = new FormData();
@@ -846,30 +846,30 @@
       });
       
       const result = await response.json();
-      console.log(' Resultado de iniciar conversaci√≥n:', result);
+      console.log(' Resultado de iniciar conversaciÛn:', result);
       
       if (result.success && result.data) {
         const id_conversacion = result.data.id_conversacion;
-        console.log(' Conversaci√≥n creada con ID:', id_conversacion);
+        console.log(' ConversaciÛn creada con ID:', id_conversacion);
         
         document.getElementById('userChatMessageInput').value = '';
         await this.loadConversations();
         
         if (this.conversations.length > 0) {
-          console.log(' Seleccionando conversaci√≥n:', id_conversacion);
+          console.log(' Seleccionando conversaciÛn:', id_conversacion);
           await this.selectConversation(id_conversacion);
         }
         
         this.authenticate();
       } else {
-        throw new Error(result.message || 'Error al iniciar conversaci√≥n');
+        throw new Error(result.message || 'Error al iniciar conversaciÛn');
       }
     } catch (error) {
-      console.error('Error al iniciar conversaci√≥n:', error);
+      console.error('Error al iniciar conversaciÛn:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'No se pudo iniciar la conversaci√≥n. Intenta de nuevo.'
+        text: 'No se pudo iniciar la conversaciÛn. Intenta de nuevo.'
       });
     }
   }
@@ -910,7 +910,7 @@
       indicator.id = 'userTypingIndicator';
       indicator.className = 'user-chat-typing';
       indicator.innerHTML = `
-        <span>${nombre} est√° escribiendo</span>
+        <span>${nombre} est· escribiendo</span>
         <div class="user-chat-typing-dots">
           <div class="user-chat-typing-dot"></div>
           <div class="user-chat-typing-dot"></div>
@@ -932,9 +932,9 @@
       });
       
       await this.loadConversations();
-      console.log(' Mensajes marcados como le√≠dos, badge actualizado desde BD');
+      console.log(' Mensajes marcados como leÌdos, badge actualizado desde BD');
     } catch (error) {
-      console.error('Error al marcar como le√≠do:', error);
+      console.error('Error al marcar como leÌdo:', error);
     }
   }
   
@@ -975,7 +975,7 @@
       const avatarUrl = avatar.startsWith('http') ? avatar : null;
       
       if (avatarUrl) {
-        console.log(`Ô∏è Renderizando avatar con Cloudinary:`, avatarUrl);
+        console.log(`? Renderizando avatar con Cloudinary:`, avatarUrl);
         
         const isLogo = avatarUrl.includes('logo');
         const bgSize = isLogo ? 'contain' : 'cover';
@@ -1018,7 +1018,7 @@
               <h3>Soporte CEMI</h3>
               <div class="user-chat-status">
                 <div class="user-chat-status-dot"></div>
-                <span>En l√≠nea</span>
+                <span>En lÌnea</span>
               </div>
             </div>
           </div>
@@ -1026,7 +1026,7 @@
           <div class="user-chat-messages" id="userChatMessagesContainer">
             <div class="user-chat-empty" id="userChatEmptyMessage">
               <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-              <p>Escribe un mensaje para iniciar una conversaci√≥n con Soporte</p>
+              <p>Escribe un mensaje para iniciar una conversaciÛn con Soporte</p>
             </div>
           </div>
           

@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="images/logo.png">
   <link rel="icon" type="image/png" href="images/logo.png">
-  <title>Iniciar SesiÃ³n - CEMI</title>
+  <title>Iniciar Sesión - Ce.mi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -45,7 +45,7 @@
           <i data-lucide="layout-grid"></i>
         </div>
         <h2>Bienvenido a CEMI</h2>
-        <p>Sistema de GestiÃ³n AcadÃ©mica Integral</p>
+        <p>Sistema de Gestión Académica Integral</p>
         
         <div class="login-features">
           <div class="login-feature-item">
@@ -54,7 +54,7 @@
           </div>
           <div class="login-feature-item">
             <i data-lucide="book-open"></i>
-            <span>GestiÃ³n Completa</span>
+            <span>Gestión Completa</span>
           </div>
           <div class="login-feature-item">
             <i data-lucide="clock"></i>
@@ -83,9 +83,9 @@
 
     <div class="login-box">
       <div class="login-header">
-        <img src="images/logo.png" alt="Logo CEMI" class="login-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+        <img src="images/logo.png" alt="Logo Ce.mi" class="login-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
         <h1>CEMI</h1>
-        <p>Acceso al Sistema AcadÃ©mico</p>
+        <p>Acceso al Sistema Académico</p>
       </div>
 
       <form id="loginForm">
@@ -98,9 +98,9 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">ContraseÃ±a</label>
+          <label class="form-label">Contraseña</label>
           <div class="input-wrapper">
-            <input type="password" id="password" placeholder="Ingrese su contraseÃ±a" required autocomplete="current-password" />
+            <input type="password" id="password" placeholder="Ingrese su contraseña" required autocomplete="current-password" />
             <button type="button" class="toggle-password" onclick="togglePassword()">
               <i data-lucide="eye" id="toggleIcon"></i>
             </button>
@@ -108,11 +108,11 @@
         </div>
 
         <div class="form-options">
-          <a href="#" class="forgot-password" onclick="showForgotPassword(event)">Â¿Olvidaste tu contraseÃ±a?</a>
+          <a href="#" class="forgot-password" onclick="showForgotPassword(event)">¿Olvidaste tu contraseña?</a>
         </div>
 
         <button type="submit" class="login-submit">
-          <span>Iniciar SesiÃ³n</span>
+          <span>Iniciar Sesión</span>
           <i data-lucide="arrow-right"></i>
         </button>
       </form>
@@ -124,7 +124,7 @@
       </div>
 
       <p class="register-text">
-        Â¿No tenÃ©s cuenta? <a href="register.html" class="register-link">Registrate aquÃ­</a>
+        ¿No tenés cuenta? <a href="register.html" class="register-link">Registrate aquí</a>
       </p>
 
       <div class="login-footer">
@@ -157,13 +157,13 @@
       const toggleButton = document.querySelector('.toggle-password');
       
       if (passwordInput.type === 'password') {
-        // AnimaciÃ³n de cerrar ojo
+        // Animación de cerrar ojo
         toggleButton.classList.add('eye-closing');
         
         setTimeout(() => {
           passwordInput.type = 'text';
           
-          // Reemplazar el Ã­cono manualmente sin reinicializar todos
+          // Reemplazar el ícono manualmente sin reinicializar todos
           const newIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
           newIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
           newIcon.setAttribute('width', '18');
@@ -183,13 +183,13 @@
           toggleButton.classList.remove('eye-closing');
         }, 200);
       } else {
-        // AnimaciÃ³n de abrir ojo
+        // Animación de abrir ojo
         toggleButton.classList.add('eye-opening');
         
         setTimeout(() => {
           passwordInput.type = 'password';
           
-          // Reemplazar el Ã­cono manualmente sin reinicializar todos
+          // Reemplazar el ícono manualmente sin reinicializar todos
           const newIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
           newIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
           newIcon.setAttribute('width', '18');
@@ -293,14 +293,14 @@
     function showHelp(e) {
       e.preventDefault();
       Swal.fire({
-        title: 'Â¿Necesitas ayuda?',
+        title: '¿Necesitas ayuda?',
         html: `
           <div style="text-align: left; padding: 10px;">
-            <p style="margin-bottom: 15px;"><strong>Para iniciar sesiÃ³n:</strong></p>
+            <p style="margin-bottom: 15px;"><strong>Para iniciar sesión:</strong></p>
             <ul style="list-style: none; padding: 0;">
               <li style="margin-bottom: 10px;"> Usa tu usuario registrado</li>
-              <li style="margin-bottom: 10px;"> Ingresa tu contraseÃ±a</li>
-              <li style="margin-bottom: 10px;"> Si no tienes cuenta, regÃ­strate primero</li>
+              <li style="margin-bottom: 10px;"> Ingresa tu contraseña</li>
+              <li style="margin-bottom: 10px;"> Si no tienes cuenta, regístrate primero</li>
             </ul>
             <hr style="margin: 20px 0;">
             <p style="margin-top: 15px;"><strong>Contacto:</strong> contacto@cemi.edu.ar</p>

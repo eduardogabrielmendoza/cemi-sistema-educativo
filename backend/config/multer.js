@@ -1,4 +1,4 @@
-Ôªøimport multer from 'multer';
+import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -56,7 +56,7 @@ const fileFilter = (req, file, cb) => {
   if (allowedMimes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Tipo de archivo no permitido. Solo se permiten: PDF, Word, Excel, PowerPoint, im√°genes, ZIP, RAR y TXT'), false);
+    cb(new Error('Tipo de archivo no permitido. Solo se permiten: PDF, Word, Excel, PowerPoint, im·genes, ZIP, RAR y TXT'), false);
   }
 };
 
@@ -64,7 +64,7 @@ const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 50 * 1024 * 1024 // L√≠mite de 50MB
+    fileSize: 50 * 1024 * 1024 // LÌmite de 50MB
   }
 });
 
@@ -72,7 +72,7 @@ export const uploadRecursos = multer({
   storage: recursosStorage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 50 * 1024 * 1024 // L√≠mite de 50MB
+    fileSize: 50 * 1024 * 1024 // LÌmite de 50MB
   }
 });
 

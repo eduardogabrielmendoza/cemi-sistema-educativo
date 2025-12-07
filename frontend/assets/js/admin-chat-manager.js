@@ -1,4 +1,4 @@
-Ôªøclass AdminChatManager {
+class AdminChatManager {
   constructor() {
     this.socket = null;
     this.isConnected = false;
@@ -98,7 +98,7 @@
   updateNotificationBadge(count) {
     const badge = document.getElementById('chatNotificationBadge');
     if (!badge) {
-      console.error(' No se encontr√≥ el elemento chatNotificationBadge');
+      console.error(' No se encontrÛ el elemento chatNotificationBadge');
       return;
     }
     
@@ -154,7 +154,7 @@
   
   connectSocket() {
     if (this.socket && this.socket.connected) {
-      console.log('Ô∏è Socket.IO ya est√° conectado');
+      console.log('? Socket.IO ya est· conectado');
       return;
     }
     
@@ -192,7 +192,7 @@
     });
     
     this.socket.on('joined_conversation', (data) => {
-      console.log(' Admin confirm√≥ uni√≥n a conversaci√≥n:', data);
+      console.log(' Admin confirmÛ uniÛn a conversaciÛn:', data);
     });
     
     this.socket.on('disconnect', () => {
@@ -241,7 +241,7 @@
         break;
         
       case 'joined_conversation':
-        console.log(' Admin confirm√≥ uni√≥n a conversaci√≥n:', data);
+        console.log(' Admin confirmÛ uniÛn a conversaciÛn:', data);
         break;
         
       default:
@@ -250,12 +250,12 @@
   }
   
   handleNewMessage(data) {
-    console.log(' Admin recibi√≥ mensaje:', data);
+    console.log(' Admin recibiÛ mensaje:', data);
     
     const esMensajePropio = data.tipo_remitente === 'admin';
     
     if (esMensajePropio) {
-      console.log('‚è≠Ô∏è Mensaje propio, ignorando (ya est√° en UI)');
+      console.log('?? Mensaje propio, ignorando (ya est· en UI)');
       return;
     }
     
@@ -266,11 +266,11 @@
     const chatContainer = document.getElementById('adminChatContainer');
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
-    console.log('Ô∏è Chat visible:', isChatVisible);
-    console.log(' Conversaci√≥n activa:', this.activeConversation?.id_conversacion);
+    console.log('? Chat visible:', isChatVisible);
+    console.log(' ConversaciÛn activa:', this.activeConversation?.id_conversacion);
     
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-      console.log(' Agregando mensaje a conversaci√≥n activa');
+      console.log(' Agregando mensaje a conversaciÛn activa');
       this.addMessageToUI(data);
       this.scrollToBottom();
       
@@ -300,8 +300,8 @@
   handleConversationClosed() {
     Swal.fire({
       icon: 'info',
-      title: 'Conversaci√≥n cerrada',
-      text: 'Esta conversaci√≥n ha sido cerrada.'
+      title: 'ConversaciÛn cerrada',
+      text: 'Esta conversaciÛn ha sido cerrada.'
     });
     this.activeConversation = null;
     this.loadConversations();
@@ -323,19 +323,19 @@
           return sum + (conv.mensajes_no_leidos_admin || 0);
         }, 0);
         
-        console.log(' Total mensajes no le√≠dos por admin:', totalNoLeidos);
+        console.log(' Total mensajes no leÌdos por admin:', totalNoLeidos);
         this.updateNotificationBadge(totalNoLeidos);
         
         if (this.socket && this.socket.connected) {
           this.conversations.forEach(conv => {
-            console.log(' Admin uni√©ndose a conversaci√≥n:', conv.id_conversacion);
+            console.log(' Admin uniÈndose a conversaciÛn:', conv.id_conversacion);
             this.socket.emit('join_conversation', { id_conversacion: conv.id_conversacion });
           });
         }
         
         this.renderConversationsList();
       } else {
-        console.log('‚ÑπÔ∏è No hay conversaciones');
+        console.log('?? No hay conversaciones');
         this.conversations = [];
         this.updateNotificationBadge(0);
         this.renderConversationsList();
@@ -394,18 +394,18 @@
   }
   
   async selectConversation(id) {
-    console.log(' Admin seleccionando conversaci√≥n:', id, 'tipo:', typeof id);
+    console.log(' Admin seleccionando conversaciÛn:', id, 'tipo:', typeof id);
     
     const idNum = parseInt(id);
     const conv = this.conversations.find(c => c.id_conversacion == idNum);
     
     if (!conv) {
-      console.error(' No se encontr√≥ conversaci√≥n con ID:', id);
+      console.error(' No se encontrÛ conversaciÛn con ID:', id);
       console.error(' Conversaciones disponibles:', this.conversations.map(c => ({id: c.id_conversacion, nombre: c.nombre_completo_usuario})));
       return;
     }
     
-    console.log(' Conversaci√≥n encontrada:', conv.nombre_completo_usuario || conv.nombre_invitado);
+    console.log(' ConversaciÛn encontrada:', conv.nombre_completo_usuario || conv.nombre_invitado);
     this.activeConversation = conv;
     this.renderConversationsList();
     
@@ -422,7 +422,7 @@
     if (inputArea) inputArea.style.display = 'flex';
     
     if (this.socket && this.socket.connected) {
-      console.log(' Admin uni√©ndose a conversaci√≥n v√≠a Socket.IO:', id);
+      console.log(' Admin uniÈndose a conversaciÛn vÌa Socket.IO:', id);
       this.socket.emit('join_conversation', { id_conversacion: id });
     }
     
@@ -439,7 +439,7 @@
       if (result.success) {
         if (this.activeConversation) {
           this.activeConversation.mensajes = result.data?.mensajes || [];
-          console.log(` Mensajes cargados para conversaci√≥n ${id}:`, this.activeConversation.mensajes.length);
+          console.log(` Mensajes cargados para conversaciÛn ${id}:`, this.activeConversation.mensajes.length);
           this.renderMessages();
         }
       }
@@ -456,7 +456,7 @@
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-          <p>Selecciona una conversaci√≥n</p>
+          <p>Selecciona una conversaciÛn</p>
         </div>
       `;
       lucide.createIcons();
@@ -469,7 +469,7 @@
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-circle" style="width: 64px; height: 64px;"></i>
-          <p>No hay mensajes a√∫n</p>
+          <p>No hay mensajes a˙n</p>
         </div>
       `;
       lucide.createIcons();
@@ -516,7 +516,7 @@
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>Ô∏è Imagen no disponible</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>? Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -602,7 +602,7 @@
                  alt="Imagen adjunta" 
                  class="chat-image-preview" 
                  onclick="window.open('${data.archivo_adjunto}', '_blank')" 
-                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>Ô∏è Imagen no disponible</div>';" />
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>? Imagen no disponible</div>';" />
           </div>
         `;
       } else if (data.tipo_archivo === 'pdf') {
@@ -685,7 +685,7 @@
       console.error(' Socket.IO no conectado');
       Swal.fire({
         icon: 'error',
-        title: 'Error de conexi√≥n',
+        title: 'Error de conexiÛn',
         text: 'No se pudo enviar el mensaje. Intenta de nuevo.'
       });
     }
@@ -709,8 +709,8 @@
     if (!validTypes.includes(file.type)) {
       Swal.fire({
         icon: 'error',
-        title: 'Tipo de archivo no v√°lido',
-        text: 'Solo se permiten im√°genes (JPG, PNG, WEBP) y archivos PDF'
+        title: 'Tipo de archivo no v·lido',
+        text: 'Solo se permiten im·genes (JPG, PNG, WEBP) y archivos PDF'
       });
       event.target.value = '';
       return;
@@ -733,7 +733,7 @@
   async uploadFile(file) {
     try {
       if (!this.activeConversation) {
-        throw new Error('No hay conversaci√≥n activa');
+        throw new Error('No hay conversaciÛn activa');
       }
       
       const formData = new FormData();
@@ -804,9 +804,9 @@
       });
       
       await this.loadConversations();
-      console.log(' Mensajes marcados como le√≠dos, badge actualizado desde BD');
+      console.log(' Mensajes marcados como leÌdos, badge actualizado desde BD');
     } catch (error) {
-      console.error('Error al marcar como le√≠do:', error);
+      console.error('Error al marcar como leÌdo:', error);
     }
   }
   
@@ -814,8 +814,8 @@
     if (!this.activeConversation) {
       Swal.fire({
         icon: 'warning',
-        title: 'Atenci√≥n',
-        text: 'No hay conversaci√≥n activa seleccionada'
+        title: 'AtenciÛn',
+        text: 'No hay conversaciÛn activa seleccionada'
       });
       return;
     }
@@ -825,18 +825,18 @@
                          'Usuario';
     
     const result = await Swal.fire({
-      title: '¬øCerrar conversaci√≥n?',
+      title: 'øCerrar conversaciÛn?',
       html: `
-        <p>¬øEst√°s seguro de cerrar la conversaci√≥n con <strong>${nombreUsuario}</strong>?</p>
+        <p>øEst·s seguro de cerrar la conversaciÛn con <strong>${nombreUsuario}</strong>?</p>
         <p class="text-warning" style="font-size: 0.9em; margin-top: 10px;">
-          Ô∏è Esta acci√≥n eliminar√° la conversaci√≥n permanentemente para ambos usuarios.
+          ? Esta acciÛn eliminar· la conversaciÛn permanentemente para ambos usuarios.
         </p>
       `,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#dc3545',
       cancelButtonColor: '#6c757d',
-      confirmButtonText: 'S√≠, cerrar conversaci√≥n',
+      confirmButtonText: 'SÌ, cerrar conversaciÛn',
       cancelButtonText: 'Cancelar'
     });
     
@@ -869,8 +869,8 @@
         
         Swal.fire({
           icon: 'success',
-          title: 'Conversaci√≥n cerrada',
-          text: 'La conversaci√≥n ha sido eliminada correctamente',
+          title: 'ConversaciÛn cerrada',
+          text: 'La conversaciÛn ha sido eliminada correctamente',
           timer: 2000,
           showConfirmButton: false
         });
@@ -885,15 +885,15 @@
         await this.loadConversations();
         
       } else {
-        throw new Error(result.message || 'Error al cerrar conversaci√≥n');
+        throw new Error(result.message || 'Error al cerrar conversaciÛn');
       }
       
     } catch (error) {
-      console.error(' Error al cerrar conversaci√≥n:', error);
+      console.error(' Error al cerrar conversaciÛn:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'No se pudo cerrar la conversaci√≥n. Intenta de nuevo.'
+        text: 'No se pudo cerrar la conversaciÛn. Intenta de nuevo.'
       });
     }
   }
@@ -933,7 +933,7 @@
       const avatarUrl = avatar.startsWith('http') ? avatar : null;
       
       if (avatarUrl) {
-        console.log('Ô∏è Renderizando avatar con Cloudinary:', avatarUrl);
+        console.log('? Renderizando avatar con Cloudinary:', avatarUrl);
         
         const isLogo = avatarUrl.includes('logo');
         const bgSize = isLogo ? 'contain' : 'cover';
@@ -964,7 +964,7 @@
       indicator.id = 'adminTypingIndicator';
       indicator.className = 'user-chat-typing';
       indicator.innerHTML = `
-        <span>${nombre} est√° escribiendo</span>
+        <span>${nombre} est· escribiendo</span>
         <div class="user-chat-typing-dots">
           <div class="user-chat-typing-dot"></div>
           <div class="user-chat-typing-dot"></div>
@@ -1001,22 +1001,22 @@
               <h3>${this.activeConversation ? (this.activeConversation.nombre_completo_usuario || this.activeConversation.nombre_invitado || 'Usuario') : 'Chat de Soporte'}</h3>
               <div class="user-chat-status">
                 <div class="user-chat-status-dot"></div>
-                <span>En l√≠nea</span>
+                <span>En lÌnea</span>
               </div>
             </div>
             <button 
               class="chat-close-conversation-btn" 
               onclick="adminChatManager.closeConversation()" 
-              title="Cerrar y eliminar conversaci√≥n">
+              title="Cerrar y eliminar conversaciÛn">
               <i data-lucide="x-circle" style="width: 18px; height: 18px;"></i>
-              <span>Cerrar Conversaci√≥n</span>
+              <span>Cerrar ConversaciÛn</span>
             </button>
           </div>
           
           <div class="user-chat-messages" id="adminChatMessagesContainer">
             <div class="user-chat-empty">
               <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-              <p>Selecciona una conversaci√≥n</p>
+              <p>Selecciona una conversaciÛn</p>
             </div>
           </div>
           

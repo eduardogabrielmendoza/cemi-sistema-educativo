@@ -1,4 +1,4 @@
-Ôªø
+
 const API_URL_DOCS = typeof API_URL !== 'undefined' ? API_URL : '/api';
 
 let CEMI_LOGO_BASE64 = null;
@@ -136,7 +136,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               </div>
               <div style="flex: 1;">
                 <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Constancia de Alumno Regular</h4>
-                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Certifica inscripci√≥n activa en el instituto</p>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Certifica inscripciÛn activa en el instituto</p>
               </div>
               <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
             </button>
@@ -168,7 +168,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               </div>
               <div style="flex: 1;">
                 <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Certificado de Calificaciones</h4>
-                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Historial acad√©mico con notas y promedios</p>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Historial acadÈmico con notas y promedios</p>
               </div>
               <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
             </button>
@@ -205,7 +205,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
             </button>
             
-            <!-- Ficha de Inscripci√≥n -->
+            <!-- Ficha de InscripciÛn -->
             <button onclick="generarFichaInscripcion(${idAlumno})" class="doc-option-btn" style="
               display: flex;
               align-items: center;
@@ -231,13 +231,13 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
                 <i data-lucide="user-check" style="width: 24px; height: 24px; color: white;"></i>
               </div>
               <div style="flex: 1;">
-                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Ficha de Inscripci√≥n</h4>
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Ficha de InscripciÛn</h4>
                 <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Datos personales y cursos inscriptos</p>
               </div>
               <i data-lucide="download" style="width: 20px; height: 20px; color: #94a3b8;"></i>
             </button>
             
-            <!-- C√≥digos de Recuperaci√≥n 2FA -->
+            <!-- CÛdigos de RecuperaciÛn 2FA -->
             <button onclick="generarCodigosRecuperacion('${nombreAlumno}')" class="doc-option-btn" style="
               display: flex;
               align-items: center;
@@ -263,8 +263,8 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
                 <i data-lucide="key" style="width: 24px; height: 24px; color: white;"></i>
               </div>
               <div style="flex: 1;">
-                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">C√≥digos de Recuperaci√≥n 2FA</h4>
-                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Generar 5 c√≥digos aleatorios de respaldo</p>
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">CÛdigos de RecuperaciÛn 2FA</h4>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Generar 5 cÛdigos aleatorios de respaldo</p>
               </div>
               <i data-lucide="sparkles" style="width: 20px; height: 20px; color: #94a3b8;"></i>
             </button>
@@ -367,7 +367,7 @@ const HARVARD_COLORS = {
   white: [255, 255, 255],        // #ffffff - Blanco
   text: [45, 45, 45],            // #2d2d2d - Texto principal
   accent: [74, 82, 89],          // #4a5259 - Acentos
-  success: [16, 185, 129],       // #10b981 - Verde √©xito
+  success: [16, 185, 129],       // #10b981 - Verde Èxito
   warning: [245, 158, 11],       // #f59e0b - Amarillo advertencia
   error: [239, 68, 68],          // #ef4444 - Rojo error
 };
@@ -400,7 +400,7 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
       doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('Centro de Ense√±anza Multiling√ºe Internacional', 40, 24);
+      doc.text('Centro de EnseÒanza Multiling¸e Internacional', 40, 24);
       
       doc.setDrawColor(...HARVARD_COLORS.graphite);
       doc.setLineWidth(0.3);
@@ -413,7 +413,7 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
       doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('Centro de Ense√±anza Multiling√ºe Internacional', 20, 25);
+      doc.text('Centro de EnseÒanza Multiling¸e Internacional', 20, 25);
     }
   } catch (e) {
     doc.setFontSize(22);
@@ -423,7 +423,7 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
     doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.silver);
-    doc.text('Centro de Ense√±anza Multiling√ºe Internacional', 20, 25);
+    doc.text('Centro de EnseÒanza Multiling¸e Internacional', 20, 25);
   }
   
   doc.setFontSize(13);
@@ -448,7 +448,7 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
   });
   doc.text(fechaHeader, pageWidth - 20, 32, { align: 'right' });
   
-  return 52; // Retorna la posici√≥n Y despu√©s del header
+  return 52; // Retorna la posiciÛn Y despuÈs del header
 }
 
 function agregarFooterPDF(doc) {
@@ -469,7 +469,7 @@ function agregarFooterPDF(doc) {
   doc.setFontSize(6);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...HARVARD_COLORS.silver);
-  doc.text('Centro de Ense√±anza Multiling√ºe Internacional', 20, pageHeight - 7);
+  doc.text('Centro de EnseÒanza Multiling¸e Internacional', 20, pageHeight - 7);
   
   doc.setFontSize(6);
   doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -510,12 +510,12 @@ function agregarHeaderSecundario(doc, titulo) {
   doc.setTextColor(...HARVARD_COLORS.silver);
   doc.text(titulo, pageWidth - 15, 12, { align: 'right' });
   
-  return 28; // Posici√≥n Y despu√©s del header secundario
+  return 28; // PosiciÛn Y despuÈs del header secundario
 }
 
 function generarCodigosRecuperacion(nombreAlumno) {
   function generarCodigo() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Sin I, O, 0, 1 para evitar confusi√≥n
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Sin I, O, 0, 1 para evitar confusiÛn
     let codigo = '';
     for (let i = 0; i < 8; i++) {
       if (i === 4) codigo += '-'; // Separador en el medio
@@ -588,7 +588,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
               <i data-lucide="key" style="width: 28px; height: 28px; color: white;"></i>
             </div>
             <div>
-              <h2 style="margin: 0; color: white; font-size: 20px; font-weight: 600;">C√≥digos de Recuperaci√≥n</h2>
+              <h2 style="margin: 0; color: white; font-size: 20px; font-weight: 600;">CÛdigos de RecuperaciÛn</h2>
               <p style="margin: 5px 0 0 0; color: rgba(255,255,255,0.85); font-size: 14px;">${nombreAlumno}</p>
             </div>
           </div>
@@ -604,7 +604,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
             margin-bottom: 20px;
           ">
             <p style="margin: 0 0 15px 0; color: #1e40af; font-size: 13px; text-align: center; font-weight: 500;">
-               C√≥digos generados aleatoriamente
+               CÛdigos generados aleatoriamente
             </p>
             <div style="display: grid; gap: 10px;">
               ${codigos.map((codigo, i) => `
@@ -667,22 +667,22 @@ function generarCodigosRecuperacion(nombreAlumno) {
             <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #92400e; flex-shrink: 0; margin-top: 2px;"></i>
             <div>
               <p style="margin: 0; color: #92400e; font-size: 12px; line-height: 1.5;">
-                <strong>Ô∏è Importante:</strong> Cada c√≥digo solo puede usarse UNA vez. Gu√°rdalos en un lugar seguro fuera de tu dispositivo.
+                <strong>? Importante:</strong> Cada cÛdigo solo puede usarse UNA vez. Gu·rdalos en un lugar seguro fuera de tu dispositivo.
               </p>
             </div>
           </div>
           
           <div style="display: flex; gap: 12px;">
             <button onclick="
-              const texto = ' C√≥digos de Recuperaci√≥n 2FA - CEMI\\n' +
+              const texto = ' CÛdigos de RecuperaciÛn 2FA - CEMI\\n' +
                            '${nombreAlumno}\\n' +
-                           '‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ\\n' +
+                           '????????????????????????\\n' +
                            '${codigos.map((c, i) => (i+1) + '. ' + c).join('\\n')}\\n' +
-                           '‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ‚îÅ\\n' +
-                           'Ô∏è Cada c√≥digo es de un solo uso.\\n' +
+                           '????????????????????????\\n' +
+                           '? Cada cÛdigo es de un solo uso.\\n' +
                            'Generado: ' + new Date().toLocaleString('es-AR');
               navigator.clipboard.writeText(texto);
-              showToast('C√≥digos copiados al portapapeles', 'success');
+              showToast('CÛdigos copiados al portapapeles', 'success');
             " style="
               flex: 1;
               padding: 14px;
@@ -746,7 +746,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
 function generarNuevosCodigos(nombreAlumno) {
   document.getElementById('codigosRecuperacionModal').remove();
   generarCodigosRecuperacion(nombreAlumno);
-  showToast('Nuevos c√≥digos generados', 'success');
+  showToast('Nuevos cÛdigos generados', 'success');
 }
 
 async function generarConstanciaAlumnoRegular(idAlumno) {
@@ -772,7 +772,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text(`N¬∞ ${numeroConstancia}`, pageWidth - 20, yPos, { align: 'right' });
+    doc.text(`N∞ ${numeroConstancia}`, pageWidth - 20, yPos, { align: 'right' });
     
     yPos += 15;
     
@@ -791,7 +791,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.text);
-    doc.text('Por medio de la presente, el Centro de Ense√±anza Multiling√ºe Internacional', 20, yPos);
+    doc.text('Por medio de la presente, el Centro de EnseÒanza Multiling¸e Internacional', 20, yPos);
     yPos += 6;
     doc.text('(CEMI) certifica que:', 20, yPos);
     
@@ -838,7 +838,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.text);
-    const textoConfirmacion = `Se encuentra regularmente inscripto/a como alumno/a de esta instituci√≥n, cursando actualmente ${alumno.cursos_activos || 0} curso(s) de idiomas.`;
+    const textoConfirmacion = `Se encuentra regularmente inscripto/a como alumno/a de esta instituciÛn, cursando actualmente ${alumno.cursos_activos || 0} curso(s) de idiomas.`;
     const lineasConf = doc.splitTextToSize(textoConfirmacion, pageWidth - 40);
     doc.text(lineasConf, 20, yPos);
     
@@ -859,7 +859,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(...HARVARD_COLORS.text);
-        doc.text(`${curso.nombre_curso} ‚Äî ${curso.nombre_idioma} (Nivel ${curso.id_nivel})`, 28, yPos);
+        doc.text(`${curso.nombre_curso} ó ${curso.nombre_idioma} (Nivel ${curso.id_nivel})`, 28, yPos);
         yPos += 7;
       });
     }
@@ -878,7 +878,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     doc.setFontSize(10);
     doc.setFont('times', 'italic');
     doc.setTextColor(...HARVARD_COLORS.wroughtIron);
-    doc.text(`San Miguel de Tucum√°n, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
+    doc.text(`San Miguel de Tucum·n, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
     
     yPos += 28;
     
@@ -894,7 +894,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     yPos += 4;
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text('Direcci√≥n CEMI', pageWidth / 2, yPos, { align: 'center' });
+    doc.text('DirecciÛn CEMI', pageWidth / 2, yPos, { align: 'center' });
     
     agregarFooterPDF(doc);
     
@@ -925,13 +925,13 @@ async function generarCertificadoCalificaciones(idAlumno) {
     });
     
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Acad√©micas');
+    let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones AcadÈmicas');
     
     const numeroCertificado = `CERT-${new Date().getFullYear()}-${String(idAlumno).padStart(5, '0')}`;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text(`N¬∞ ${numeroCertificado}`, pageWidth - 20, yPos, { align: 'right' });
+    doc.text(`N∞ ${numeroCertificado}`, pageWidth - 20, yPos, { align: 'right' });
     
     yPos += 12;
     
@@ -1043,18 +1043,18 @@ async function generarCertificadoCalificaciones(idAlumno) {
         doc.text(nombreCurso, xPos, yPos + 3);
         xPos += colWidths[0];
         
-        doc.text(curso.parcial1 ? curso.parcial1.toString() : '‚Äî', xPos + colWidths[1]/2, yPos + 3, { align: 'center' });
+        doc.text(curso.parcial1 ? curso.parcial1.toString() : 'ó', xPos + colWidths[1]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[1];
         
-        doc.text(curso.parcial2 ? curso.parcial2.toString() : '‚Äî', xPos + colWidths[2]/2, yPos + 3, { align: 'center' });
+        doc.text(curso.parcial2 ? curso.parcial2.toString() : 'ó', xPos + colWidths[2]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[2];
         
-        doc.text(curso.final ? curso.final.toString() : '‚Äî', xPos + colWidths[3]/2, yPos + 3, { align: 'center' });
+        doc.text(curso.final ? curso.final.toString() : 'ó', xPos + colWidths[3]/2, yPos + 3, { align: 'center' });
         xPos += colWidths[3];
         
-        const promedio = curso.promedio ? parseFloat(curso.promedio).toFixed(1) : '‚Äî';
+        const promedio = curso.promedio ? parseFloat(curso.promedio).toFixed(1) : 'ó';
         doc.setFont('helvetica', 'bold');
-        if (promedio !== '‚Äî') {
+        if (promedio !== 'ó') {
           if (parseFloat(promedio) >= 7) {
             doc.setTextColor(...HARVARD_COLORS.success);
           } else if (parseFloat(promedio) >= 4) {
@@ -1087,10 +1087,10 @@ async function generarCertificadoCalificaciones(idAlumno) {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text('Escala de calificaci√≥n: 1 a 10  |  Nota m√≠nima de aprobaci√≥n: 7 (siete)  |  Aprobado ', pageWidth / 2, yPos + 5, { align: 'center' });
+    doc.text('Escala de calificaciÛn: 1 a 10  |  Nota mÌnima de aprobaciÛn: 7 (siete)  |  Aprobado ', pageWidth / 2, yPos + 5, { align: 'center' });
     doc.setFillColor(...HARVARD_COLORS.success);
     doc.circle(pageWidth / 2 + 60, yPos + 4, 2, 'F');
-    doc.text(' Recuperaci√≥n ', pageWidth / 2 + 70, yPos + 5);
+    doc.text(' RecuperaciÛn ', pageWidth / 2 + 70, yPos + 5);
     doc.setFillColor(...HARVARD_COLORS.warning);
     doc.circle(pageWidth / 2 + 85, yPos + 4, 2, 'F');
     
@@ -1099,7 +1099,7 @@ async function generarCertificadoCalificaciones(idAlumno) {
     doc.setFontSize(9);
     doc.setFont('times', 'italic');
     doc.setTextColor(...HARVARD_COLORS.wroughtIron);
-    doc.text(`Emitido en San Miguel de Tucum√°n, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
+    doc.text(`Emitido en San Miguel de Tucum·n, ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}`, pageWidth - 25, yPos, { align: 'right' });
     
     yPos += 22;
     
@@ -1114,7 +1114,7 @@ async function generarCertificadoCalificaciones(idAlumno) {
     yPos += 4;
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text('Direcci√≥n Acad√©mica CEMI', pageWidth / 2, yPos, { align: 'center' });
+    doc.text('DirecciÛn AcadÈmica CEMI', pageWidth / 2, yPos, { align: 'center' });
     
     agregarFooterPDF(doc);
     
@@ -1157,7 +1157,7 @@ async function generarEstadoCuenta(idAlumno) {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text(`N¬∞ ${numeroDoc}`, pageWidth - 20, yPos, { align: 'right' });
+    doc.text(`N∞ ${numeroDoc}`, pageWidth - 20, yPos, { align: 'right' });
     
     yPos += 8;
     
@@ -1314,7 +1314,7 @@ async function generarEstadoCuenta(idAlumno) {
               doc.setFontSize(8);
               doc.setFont('helvetica', 'bold');
               doc.setTextColor(...HARVARD_COLORS.charcoal);
-              doc.text(`${nombreCurso} (continuaci√≥n)`, 25, yPos);
+              doc.text(`${nombreCurso} (continuaciÛn)`, 25, yPos);
               yPos += 7;
               
               doc.setFillColor(...HARVARD_COLORS.lightGray);
@@ -1390,8 +1390,8 @@ async function generarEstadoCuenta(idAlumno) {
     doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text('* Los montos est√°n expresados en pesos argentinos (ARS)', 25, yPos + 5);
-    doc.text('* Para consultas sobre pagos, comunicarse con el √°rea de administraci√≥n', 25, yPos + 10);
+    doc.text('* Los montos est·n expresados en pesos argentinos (ARS)', 25, yPos + 5);
+    doc.text('* Para consultas sobre pagos, comunicarse con el ·rea de administraciÛn', 25, yPos + 10);
     
     agregarFooterPDF(doc);
     
@@ -1408,7 +1408,7 @@ async function generarEstadoCuenta(idAlumno) {
 async function generarFichaInscripcion(idAlumno) {
   try {
     closeDocumentosModal();
-    showToast('Generando ficha de inscripci√≥n...', 'info');
+    showToast('Generando ficha de inscripciÛn...', 'info');
     
     const response = await fetch(`${API_URL_DOCS}/alumnos/${idAlumno}`);
     if (!response.ok) throw new Error('Error al obtener datos del alumno');
@@ -1437,13 +1437,13 @@ async function generarFichaInscripcion(idAlumno) {
     });
     
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCI√ìN', 'Registro Acad√©mico');
+    let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCI”N', 'Registro AcadÈmico');
     
     const numeroFicha = `FI-${alumno.legajo}`;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text(`N¬∞ ${numeroFicha}`, pageWidth - 20, yPos, { align: 'right' });
+    doc.text(`N∞ ${numeroFicha}`, pageWidth - 20, yPos, { align: 'right' });
     
     yPos += 8;
     
@@ -1464,7 +1464,7 @@ async function generarFichaInscripcion(idAlumno) {
       { label: 'DNI', value: alumno.dni || 'No registrado' },
       { label: 'Legajo', value: alumno.legajo || 'No asignado' },
       { label: 'Email', value: alumno.mail || 'No registrado' },
-      { label: 'Tel√©fono', value: alumno.telefono || 'No registrado' },
+      { label: 'TelÈfono', value: alumno.telefono || 'No registrado' },
       { label: 'Fecha de Registro', value: alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }) : 'No registrada' },
       { label: 'Estado', value: alumno.estado ? alumno.estado.charAt(0).toUpperCase() + alumno.estado.slice(1) : 'Activo' },
       { label: 'Usuario', value: alumno.usuario || 'No asignado' }
@@ -1559,7 +1559,7 @@ async function generarFichaInscripcion(idAlumno) {
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...HARVARD_COLORS.white);
-    doc.text('INFORMACI√ìN ACAD√âMICA', 25, yPos + 5);
+    doc.text('INFORMACI”N ACAD…MICA', 25, yPos + 5);
     
     yPos += 12;
     
@@ -1597,7 +1597,7 @@ async function generarFichaInscripcion(idAlumno) {
     } else {
       doc.setTextColor(...HARVARD_COLORS.charcoal);
     }
-    doc.text(`${alumno.promedio_general || '‚Äî'}`, 20 + boxW + 10 + boxW/2, yPos + 14, { align: 'center' });
+    doc.text(`${alumno.promedio_general || 'ó'}`, 20 + boxW + 10 + boxW/2, yPos + 14, { align: 'center' });
     
     yPos += 30;
     
@@ -1625,10 +1625,10 @@ async function generarFichaInscripcion(idAlumno) {
     const nombreArchivo = `Ficha_Inscripcion_${alumno.legajo}_${alumno.apellido}.pdf`;
     doc.save(nombreArchivo);
     
-    showToast('Ficha de inscripci√≥n generada exitosamente', 'success');
+    showToast('Ficha de inscripciÛn generada exitosamente', 'success');
   } catch (error) {
     console.error('Error al generar ficha:', error);
-    showToast('Error al generar la ficha de inscripci√≥n', 'error');
+    showToast('Error al generar la ficha de inscripciÛn', 'error');
   }
 }
 
@@ -1662,7 +1662,7 @@ async function generarTodosLosPDFs(idAlumno) {
     const pdfEstadoCuenta = await generarPDFEstadoCuenta(alumno, pagosData);
     zip.file(`03_Estado_Cuenta_${alumno.legajo}.pdf`, pdfEstadoCuenta);
     
-    showToast('Generando Ficha de Inscripci√≥n...', 'info');
+    showToast('Generando Ficha de InscripciÛn...', 'info');
     const pdfFicha = await generarPDFFicha(alumno, pagosData);
     zip.file(`04_Ficha_Inscripcion_${alumno.legajo}.pdf`, pdfFicha);
     
@@ -1692,7 +1692,7 @@ async function generarPDFConstancia(alumno) {
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100, 100, 100);
-  doc.text(`N¬∞ ${numConstancia}`, pageWidth - 20, yPos, { align: 'right' });
+  doc.text(`N∞ ${numConstancia}`, pageWidth - 20, yPos, { align: 'right' });
   yPos += 20;
   
   doc.setFontSize(12);
@@ -1700,8 +1700,8 @@ async function generarPDFConstancia(alumno) {
   doc.setTextColor(30, 30, 30);
   const fecha = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
   const texto = `Por medio de la presente, se deja constancia que ${alumno.nombre || ''} ${alumno.apellido || ''}, ` +
-    `DNI N¬∞ ${alumno.dni || 'No registrado'}, identificado/a con el legajo ${alumno.legajo || 'N/A'}, ` +
-    `se encuentra inscripto/a como ALUMNO REGULAR en el Centro de Ense√±anza Multiling√ºe Internacional (CEMI).`;
+    `DNI N∞ ${alumno.dni || 'No registrado'}, identificado/a con el legajo ${alumno.legajo || 'N/A'}, ` +
+    `se encuentra inscripto/a como ALUMNO REGULAR en el Centro de EnseÒanza Multiling¸e Internacional (CEMI).`;
   
   const lineas = doc.splitTextToSize(texto, pageWidth - 50);
   doc.text(lineas, 25, yPos);
@@ -1709,13 +1709,13 @@ async function generarPDFConstancia(alumno) {
   
   const cursosActivos = alumno.cursos ? alumno.cursos.length : 0;
   if (cursosActivos > 0) {
-    doc.text(`Actualmente cursa ${cursosActivos} ${cursosActivos === 1 ? 'programa' : 'programas'} acad√©mico${cursosActivos === 1 ? '' : 's'}:`, 25, yPos);
+    doc.text(`Actualmente cursa ${cursosActivos} ${cursosActivos === 1 ? 'programa' : 'programas'} acadÈmico${cursosActivos === 1 ? '' : 's'}:`, 25, yPos);
     yPos += 10;
     
     alumno.cursos.forEach(curso => {
       doc.setFillColor(240, 240, 240);
       doc.rect(30, yPos - 4, pageWidth - 60, 8, 'F');
-      doc.text(`‚Ä¢ ${curso.nombre_curso || 'Curso'} - Nivel ${curso.nivel || curso.id_nivel || 'N/A'}`, 35, yPos);
+      doc.text(`ï ${curso.nombre_curso || 'Curso'} - Nivel ${curso.nivel || curso.id_nivel || 'N/A'}`, 35, yPos);
       yPos += 10;
     });
   }
@@ -1723,7 +1723,7 @@ async function generarPDFConstancia(alumno) {
   yPos += 20;
   doc.text(`Se extiende la presente constancia a pedido del interesado para los fines que estime corresponder.`, 25, yPos);
   yPos += 20;
-  doc.text(`${alumno.localidad || 'San Miguel de Tucum√°n'}, ${fecha}`, 25, yPos);
+  doc.text(`${alumno.localidad || 'San Miguel de Tucum·n'}, ${fecha}`, 25, yPos);
   
   agregarFooterPDF(doc);
   return doc.output('blob');
@@ -1733,12 +1733,12 @@ async function generarPDFCalificaciones(alumno) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
-  let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones Acad√©micas');
+  let yPos = await agregarHeaderPDF(doc, 'CERTIFICADO', 'Calificaciones AcadÈmicas');
   
   const numCertificado = `CC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(4, '0')}`;
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
-  doc.text(`N¬∞ ${numCertificado}`, pageWidth - 20, yPos, { align: 'right' });
+  doc.text(`N∞ ${numCertificado}`, pageWidth - 20, yPos, { align: 'right' });
   yPos += 15;
   
   doc.setFillColor(248, 250, 252);
@@ -1824,7 +1824,7 @@ async function generarPDFEstadoCuenta(alumno, pagosData) {
   const numEstado = `EC-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(alumno.id_alumno).padStart(5, '0')}`;
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
-  doc.text(`N¬∞ ${numEstado}`, pageWidth - 20, yPos, { align: 'right' });
+  doc.text(`N∞ ${numEstado}`, pageWidth - 20, yPos, { align: 'right' });
   yPos += 15;
   
   doc.setFillColor(248, 250, 252);
@@ -1908,7 +1908,7 @@ async function generarPDFEstadoCuenta(alumno, pagosData) {
   doc.setFontSize(8);
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(100, 100, 100);
-  doc.text('* Los montos est√°n expresados en pesos argentinos (ARS)', 20, yPos);
+  doc.text('* Los montos est·n expresados en pesos argentinos (ARS)', 20, yPos);
   
   agregarFooterPDF(doc);
   return doc.output('blob');
@@ -1918,12 +1918,12 @@ async function generarPDFFicha(alumno, pagosData) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
-  let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCI√ìN', 'Datos del Alumno');
+  let yPos = await agregarHeaderPDF(doc, 'FICHA DE INSCRIPCI”N', 'Datos del Alumno');
   
   const numFicha = `FI-A${String(alumno.id_alumno).padStart(3, '0')}`;
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
-  doc.text(`N¬∞ ${numFicha}`, pageWidth - 20, yPos, { align: 'right' });
+  doc.text(`N∞ ${numFicha}`, pageWidth - 20, yPos, { align: 'right' });
   yPos += 15;
   
   doc.setFillColor(30, 60, 114);
@@ -1939,7 +1939,7 @@ async function generarPDFFicha(alumno, pagosData) {
     { label: 'DNI', value: alumno.dni || 'No registrado' },
     { label: 'Legajo', value: alumno.legajo || 'No asignado' },
     { label: 'Email', value: alumno.mail || 'No registrado' },
-    { label: 'Tel√©fono', value: alumno.telefono || 'No registrado' },
+    { label: 'TelÈfono', value: alumno.telefono || 'No registrado' },
     { label: 'Fecha de Registro', value: alumno.fecha_registro ? new Date(alumno.fecha_registro).toLocaleDateString('es-ES') : 'No registrada' },
     { label: 'Estado', value: alumno.estado ? alumno.estado.charAt(0).toUpperCase() + alumno.estado.slice(1) : 'Activo' },
     { label: 'Usuario', value: alumno.usuario || 'No asignado' }

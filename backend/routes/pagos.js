@@ -1,4 +1,4 @@
-﻿import express from "express";
+import express from "express";
 import pool from "../utils/db.js";
 import { body, param, validationResult } from "express-validator";
 import { verificarToken, verificarRol } from "../middleware/auth.js";
@@ -379,19 +379,19 @@ router.post("/realizar",
   verificarToken,
   [
     body('id_alumno')
-      .isInt({ min: 1 }).withMessage('ID de alumno inválido')
+      .isInt({ min: 1 }).withMessage('ID de alumno inv�lido')
       .toInt(),
     body('id_curso')
-      .isInt({ min: 1 }).withMessage('ID de curso inválido')
+      .isInt({ min: 1 }).withMessage('ID de curso inv�lido')
       .toInt(),
     body('mes_cuota')
       .isIn(['Matricula', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre'])
-      .withMessage('Mes de cuota inválido'),
+      .withMessage('Mes de cuota inv�lido'),
     body('monto')
       .isFloat({ min: 0.01 }).withMessage('Monto debe ser mayor a 0')
       .toFloat(),
     body('medio_pago')
-      .isString().withMessage('Medio de pago inválido')
+      .isString().withMessage('Medio de pago inv�lido')
   ],
   async (req, res) => {
   const errors = validationResult(req);
@@ -440,7 +440,7 @@ router.post("/realizar",
     if (medios.length === 0) {
       return res.status(400).json({ 
         success: false,
-        message: "Medio de pago no válido" 
+        message: "Medio de pago no v�lido" 
       });
     }
 
@@ -458,8 +458,8 @@ router.post("/realizar",
       'Julio': '07', 'Agosto': '08', 'Septiembre': '09', 
       'Octubre': '10', 'Noviembre': '11'
     };
-    const año = new Date().getFullYear();
-    const periodo = `${año}-${mesesMap[mes_cuota]}`;
+    const a�o = new Date().getFullYear();
+    const periodo = `${a�o}-${mesesMap[mes_cuota]}`;
 
     console.log(`[PAGO] Registrando - mes_cuota: "${mes_cuota}", concepto ID: ${id_concepto}, detalle: "${detalle_pago}"`);
 
@@ -498,7 +498,7 @@ router.put("/:id/anular",
   verificarRol(['admin', 'administrador']),
   [
     param('id')
-      .isInt({ min: 1 }).withMessage('ID de pago inválido')
+      .isInt({ min: 1 }).withMessage('ID de pago inv�lido')
       .toInt()
   ],
   async (req, res) => {
@@ -546,7 +546,7 @@ router.put("/:id/confirmar",
   verificarRol(['admin', 'administrador']),
   [
     param('id')
-      .isInt({ min: 1 }).withMessage('ID de pago inválido')
+      .isInt({ min: 1 }).withMessage('ID de pago inv�lido')
       .toInt()
   ],
   async (req, res) => {
@@ -596,7 +596,7 @@ router.put("/:id/confirmar",
 router.put("/:id/archivar", 
   verificarToken,
   verificarRol(['admin', 'administrador']),
-  param("id").isInt().withMessage("ID inválido"),
+  param("id").isInt().withMessage("ID inv�lido"),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -651,7 +651,7 @@ router.put("/:id/archivar",
 router.put("/:id/desarchivar", 
   verificarToken,
   verificarRol(['admin', 'administrador']),
-  param("id").isInt().withMessage("ID inválido"),
+  param("id").isInt().withMessage("ID inv�lido"),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -706,7 +706,7 @@ router.put("/:id/desarchivar",
 router.delete("/:id", 
   verificarToken,
   verificarRol(['admin', 'administrador']),
-  param("id").isInt().withMessage("ID inválido"),
+  param("id").isInt().withMessage("ID inv�lido"),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

@@ -1,4 +1,4 @@
-Ôªø
+
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,7 +36,7 @@ async function handleLogin(e) {
   message.textContent = "Accediendo...";
 
   try {
-    console.log(" Enviando petici√≥n a:", `${API_URL}/auth/login`);
+    console.log(" Enviando peticiÛn a:", `${API_URL}/auth/login`);
     const resp = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -59,29 +59,29 @@ async function handleLogin(e) {
         if (data.id_administrador) localStorage.setItem("id_administrador", data.id_administrador);
         
       message.style.color = "green";
-      message.textContent = "Inicio de sesi√≥n exitoso";
+      message.textContent = "Inicio de sesiÛn exitoso";
 
       const rol = data.rol.toLowerCase();
       console.log(" Rol detectado:", rol);
       console.log(" Redirigiendo...");
       
       if (rol === "admin" || rol === "administrador") {
-        console.log("Ô∏è Redirigiendo a dashboard_admin.html");
+        console.log("? Redirigiendo a dashboard_admin.html");
         window.location.href = "dashboard_admin.html";
       } else if (rol === "profesor") {
-        console.log("Ô∏è Redirigiendo a dashboard_profesor.html");
+        console.log("? Redirigiendo a dashboard_profesor.html");
         window.location.href = "dashboard_profesor.html";
       } else if (rol === "alumno") {
-        console.log("Ô∏è Redirigiendo a dashboard_alumno.html");
+        console.log("? Redirigiendo a dashboard_alumno.html");
         window.location.href = "dashboard_alumno.html";
       } else {
-        console.log("Ô∏è Redirigiendo a index.html");
+        console.log("? Redirigiendo a index.html");
         window.location.href = "index.html";
       }
     } else {
       console.error(" Login fallido:", data.message);
       message.style.color = "red";
-      message.textContent = data.message || "Usuario o contrase√±a incorrectos.";
+      message.textContent = data.message || "Usuario o contraseÒa incorrectos.";
     }
   } catch (err) {
     console.error(" Error al conectar:", err);
@@ -145,7 +145,7 @@ function initAdminSPA() {
               <h2 style="margin: 0;">Listado de Alumnos</h2>
               <button onclick="descargarPDFAlumnos()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar Informaci√≥n
+                Descargar InformaciÛn
               </button>
             </div>
           `;
@@ -157,7 +157,7 @@ function initAdminSPA() {
               <h2 style="margin: 0;">Listado de Profesores</h2>
               <button onclick="descargarPDFProfesores()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
                 <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar Informaci√≥n
+                Descargar InformaciÛn
               </button>
             </div>
           `;
@@ -215,7 +215,7 @@ function initAdminSPA() {
           return;
         default:
           endpoint = "";
-          html = "<p>Seleccione una secci√≥n</p>";
+          html = "<p>Seleccione una secciÛn</p>";
       }
 
       if (endpoint) {
@@ -268,7 +268,7 @@ function initAdminSPA() {
         mainContent.classList.add("active");
       }, 400);
     } catch (err) {
-      console.error("Error al cargar secci√≥n:", err);
+      console.error("Error al cargar secciÛn:", err);
       loader.classList.add("hidden");
       mainContent.innerHTML = "<p>Error al cargar los datos.</p>";
       mainContent.classList.add("active");
@@ -289,15 +289,15 @@ function renderAdminAyuda() {
     <div class="ayuda-container">
       <div class="ayuda-header">
         <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
-        <p>Gu√≠as completas para administrar el sistema CEMI</p>
+        <p>GuÌas completas para administrar el sistema CEMI</p>
         <div class="ayuda-stats">
           <div class="ayuda-stat-item">
             <div class="ayuda-stat-number">30+</div>
-            <div class="ayuda-stat-label">Gu√≠as disponibles</div>
+            <div class="ayuda-stat-label">GuÌas disponibles</div>
           </div>
           <div class="ayuda-stat-item">
             <div class="ayuda-stat-number">10</div>
-            <div class="ayuda-stat-label">Categor√≠as</div>
+            <div class="ayuda-stat-label">CategorÌas</div>
           </div>
           <div class="ayuda-stat-item">
             <div class="ayuda-stat-number">24/7</div>
@@ -308,7 +308,7 @@ function renderAdminAyuda() {
 
       <div class="ayuda-search-container">
         <i data-lucide="search" class="search-icon"></i>
-        <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="¬øQu√© necesitas aprender hoy?" autocomplete="off">
+        <input type="text" class="ayuda-search-input" id="ayudaSearchInput" placeholder="øQuÈ necesitas aprender hoy?" autocomplete="off">
         <div class="search-suggestions">
           <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='curso'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Cursos</span>
           <span class="search-suggestion" onclick="document.getElementById('ayudaSearchInput').value='alumno'; document.getElementById('ayudaSearchInput').dispatchEvent(new Event('input'))">Alumnos</span>
@@ -321,7 +321,7 @@ function renderAdminAyuda() {
       <div class="no-results-message" id="noResultsMessage">
         <i data-lucide="search-x"></i>
         <h3>No se encontraron resultados</h3>
-        <p>Intenta con otros t√©rminos de b√∫squeda o explora las categor√≠as</p>
+        <p>Intenta con otros tÈrminos de b˙squeda o explora las categorÌas</p>
       </div>
 
       <div class="ayuda-quick-access">
@@ -353,7 +353,7 @@ function renderAdminAyuda() {
               <div class="accordion-title-text"><span>Primeros Pasos</span><small>Aprende a navegar el panel administrativo</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 gu√≠as</span>
+              <span class="accordion-count">2 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -363,16 +363,16 @@ function renderAdminAyuda() {
                 <div class="guia-item" data-keywords="inicio bienvenida panel dashboard navegacion menu">
                   <div class="guia-icon"><i data-lucide="layout-dashboard"></i></div>
                   <div class="guia-content">
-                    <h4>Navegaci√≥n del Panel</h4>
-                    <p>El men√∫ lateral izquierdo te da acceso a todas las secciones: Cursos, Alumnos, Profesores, Administradores, Pagos, Aulas, Idiomas y Chat.</p>
-                    <div class="guia-tags"><span class="guia-tag">B√°sico</span><span class="guia-tag">Navegaci√≥n</span></div>
+                    <h4>NavegaciÛn del Panel</h4>
+                    <p>El men˙ lateral izquierdo te da acceso a todas las secciones: Cursos, Alumnos, Profesores, Administradores, Pagos, Aulas, Idiomas y Chat.</p>
+                    <div class="guia-tags"><span class="guia-tag">B·sico</span><span class="guia-tag">NavegaciÛn</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="entender panel resumen funciones admin control total">
                   <div class="guia-icon"><i data-lucide="info"></i></div>
                   <div class="guia-content">
                     <h4>Funciones del Administrador</h4>
-                    <p>Control total sobre: gesti√≥n de cursos, registro de alumnos y profesores, control de pagos, configuraci√≥n de aulas e idiomas, y soporte.</p>
+                    <p>Control total sobre: gestiÛn de cursos, registro de alumnos y profesores, control de pagos, configuraciÛn de aulas e idiomas, y soporte.</p>
                     <div class="guia-tags"><span class="guia-tag">Roles</span><span class="guia-tag">Permisos</span></div>
                   </div>
                 </div>
@@ -381,26 +381,26 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gesti√≥n de Cursos -->
+        <!-- GestiÛn de Cursos -->
         <div class="ayuda-accordion" data-category="cursos">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="book-open"></i></div>
-              <div class="accordion-title-text"><span>Gesti√≥n de Cursos</span><small>Crear, editar y administrar cursos</small></div>
+              <div class="accordion-title-text"><span>GestiÛn de Cursos</span><small>Crear, editar y administrar cursos</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">5 gu√≠as</span>
+              <span class="accordion-count">5 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="crear nuevo curso agregar a√±adir formulario">
+                <div class="guia-item" data-keywords="crear nuevo curso agregar aÒadir formulario">
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Crear Nuevo Curso</h4>
-                    <p>Haz clic en "Nuevo Curso", completa nombre, idioma, nivel, horario, cupo y aula. Luego podr√°s asignar profesor.</p>
+                    <p>Haz clic en "Nuevo Curso", completa nombre, idioma, nivel, horario, cupo y aula. Luego podr·s asignar profesor.</p>
                     <div class="guia-tags"><span class="guia-tag">Crear</span><span class="guia-tag">Curso</span></div>
                   </div>
                 </div>
@@ -408,7 +408,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="edit"></i></div>
                   <div class="guia-content">
                     <h4>Editar Curso</h4>
-                    <p>En cada tarjeta de curso, haz clic en el √≠cono de l√°piz para modificar horario, aula, cupo y otros detalles.</p>
+                    <p>En cada tarjeta de curso, haz clic en el Ìcono de l·piz para modificar horario, aula, cupo y otros detalles.</p>
                     <div class="guia-tags"><span class="guia-tag">Editar</span><span class="guia-tag">Modificar</span></div>
                   </div>
                 </div>
@@ -424,7 +424,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="user-check"></i></div>
                   <div class="guia-content">
                     <h4>Asignar Profesor</h4>
-                    <p>Usa el bot√≥n verde para asignar o cambiar el profesor de un curso desde la lista disponible.</p>
+                    <p>Usa el botÛn verde para asignar o cambiar el profesor de un curso desde la lista disponible.</p>
                     <div class="guia-tags"><span class="guia-tag">Profesor</span><span class="guia-tag">Asignar</span></div>
                   </div>
                 </div>
@@ -432,7 +432,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="eye"></i></div>
                   <div class="guia-content">
                     <h4>Ver Detalles del Curso</h4>
-                    <p>Haz clic en la tarjeta para ver informaci√≥n completa, lista de alumnos y opciones de gesti√≥n.</p>
+                    <p>Haz clic en la tarjeta para ver informaciÛn completa, lista de alumnos y opciones de gestiÛn.</p>
                     <div class="guia-tags"><span class="guia-tag">Detalles</span><span class="guia-tag">Info</span></div>
                   </div>
                 </div>
@@ -441,15 +441,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gesti√≥n de Alumnos -->
+        <!-- GestiÛn de Alumnos -->
         <div class="ayuda-accordion" data-category="alumnos">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="users"></i></div>
-              <div class="accordion-title-text"><span>Gesti√≥n de Alumnos</span><small>Registro, edici√≥n y seguimiento</small></div>
+              <div class="accordion-title-text"><span>GestiÛn de Alumnos</span><small>Registro, ediciÛn y seguimiento</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">5 gu√≠as</span>
+              <span class="accordion-count">5 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -460,14 +460,14 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="user-plus"></i></div>
                   <div class="guia-content">
                     <h4>Registrar Alumno</h4>
-                    <p>Haz clic en "Nuevo Alumno" y completa datos. El sistema genera legajo y credenciales autom√°ticamente.</p>
+                    <p>Haz clic en "Nuevo Alumno" y completa datos. El sistema genera legajo y credenciales autom·ticamente.</p>
                     <div class="guia-tags"><span class="guia-tag">Registro</span><span class="guia-tag">Nuevo</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="editar modificar alumno informacion datos actualizar">
                   <div class="guia-icon"><i data-lucide="edit"></i></div>
                   <div class="guia-content">
-                    <h4>Editar Informaci√≥n</h4>
+                    <h4>Editar InformaciÛn</h4>
                     <p>Accede a la tarjeta del alumno para modificar datos personales, contacto o cursos inscritos.</p>
                     <div class="guia-tags"><span class="guia-tag">Editar</span><span class="guia-tag">Datos</span></div>
                   </div>
@@ -493,7 +493,7 @@ function renderAdminAyuda() {
                   <div class="guia-content">
                     <h4>Buscar y Filtrar</h4>
                     <p>Usa el buscador para encontrar alumnos por nombre, legajo o email. Filtra por estado.</p>
-                    <div class="guia-tags"><span class="guia-tag">B√∫squeda</span><span class="guia-tag">Filtros</span></div>
+                    <div class="guia-tags"><span class="guia-tag">B˙squeda</span><span class="guia-tag">Filtros</span></div>
                   </div>
                 </div>
               </div>
@@ -501,15 +501,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gesti√≥n de Profesores -->
+        <!-- GestiÛn de Profesores -->
         <div class="ayuda-accordion" data-category="profesores">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="graduation-cap"></i></div>
-              <div class="accordion-title-text"><span>Gesti√≥n de Profesores</span><small>Registro y asignaci√≥n de docentes</small></div>
+              <div class="accordion-title-text"><span>GestiÛn de Profesores</span><small>Registro y asignaciÛn de docentes</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">3 gu√≠as</span>
+              <span class="accordion-count">3 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -528,7 +528,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="link"></i></div>
                   <div class="guia-content">
                     <h4>Asignar a Cursos</h4>
-                    <p>Desde Cursos puedes asignar profesores. Un profesor puede tener m√∫ltiples cursos asignados.</p>
+                    <p>Desde Cursos puedes asignar profesores. Un profesor puede tener m˙ltiples cursos asignados.</p>
                     <div class="guia-tags"><span class="guia-tag">Asignar</span><span class="guia-tag">Cursos</span></div>
                   </div>
                 </div>
@@ -536,7 +536,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="file-down"></i></div>
                   <div class="guia-content">
                     <h4>Descargar PDF</h4>
-                    <p>Genera un reporte PDF con la lista de profesores usando "Descargar Informaci√≥n".</p>
+                    <p>Genera un reporte PDF con la lista de profesores usando "Descargar InformaciÛn".</p>
                     <div class="guia-tags"><span class="guia-tag">PDF</span><span class="guia-tag">Exportar</span></div>
                   </div>
                 </div>
@@ -545,15 +545,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gesti√≥n de Administradores -->
+        <!-- GestiÛn de Administradores -->
         <div class="ayuda-accordion" data-category="admins">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="shield"></i></div>
-              <div class="accordion-title-text"><span>Gesti√≥n de Administradores</span><small>Control de acceso administrativo</small></div>
+              <div class="accordion-title-text"><span>GestiÛn de Administradores</span><small>Control de acceso administrativo</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 gu√≠as</span>
+              <span class="accordion-count">2 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -572,7 +572,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="lock"></i></div>
                   <div class="guia-content">
                     <h4>Permisos de Acceso</h4>
-                    <p>Todos los administradores tienen acceso completo. Gestiona con cuidado qui√©n tiene este rol.</p>
+                    <p>Todos los administradores tienen acceso completo. Gestiona con cuidado quiÈn tiene este rol.</p>
                     <div class="guia-tags"><span class="guia-tag">Permisos</span><span class="guia-tag">Seguridad</span></div>
                   </div>
                 </div>
@@ -581,15 +581,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gesti√≥n de Pagos -->
+        <!-- GestiÛn de Pagos -->
         <div class="ayuda-accordion" data-category="pagos">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="credit-card"></i></div>
-              <div class="accordion-title-text"><span>Gesti√≥n de Pagos</span><small>Control de cuotas y comprobantes</small></div>
+              <div class="accordion-title-text"><span>GestiÛn de Pagos</span><small>Control de cuotas y comprobantes</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">3 gu√≠as</span>
+              <span class="accordion-count">3 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -608,7 +608,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="check-circle"></i></div>
                   <div class="guia-content">
                     <h4>Confirmar Pago en Efectivo</h4>
-                    <p>Cuando un alumno paga con ticket, busca el pago pendiente y conf√≠rmalo para actualizarlo.</p>
+                    <p>Cuando un alumno paga con ticket, busca el pago pendiente y confÌrmalo para actualizarlo.</p>
                     <div class="guia-tags"><span class="guia-tag">Confirmar</span><span class="guia-tag">Efectivo</span></div>
                   </div>
                 </div>
@@ -616,7 +616,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="archive"></i></div>
                   <div class="guia-content">
                     <h4>Archivo de Pagos</h4>
-                    <p>Archiva pagos antiguos para mantener la lista limpia. Se pueden consultar en la secci√≥n de archivo.</p>
+                    <p>Archiva pagos antiguos para mantener la lista limpia. Se pueden consultar en la secciÛn de archivo.</p>
                     <div class="guia-tags"><span class="guia-tag">Archivar</span><span class="guia-tag">Organizar</span></div>
                   </div>
                 </div>
@@ -625,15 +625,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gesti√≥n de Aulas -->
+        <!-- GestiÛn de Aulas -->
         <div class="ayuda-accordion" data-category="aulas">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="door-open"></i></div>
-              <div class="accordion-title-text"><span>Gesti√≥n de Aulas</span><small>Espacios f√≠sicos del instituto</small></div>
+              <div class="accordion-title-text"><span>GestiÛn de Aulas</span><small>Espacios fÌsicos del instituto</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 gu√≠as</span>
+              <span class="accordion-count">2 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -644,7 +644,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Crear Nueva Aula</h4>
-                    <p>Define aulas con nombre/n√∫mero y capacidad. Estar√°n disponibles para asignar a cursos.</p>
+                    <p>Define aulas con nombre/n˙mero y capacidad. Estar·n disponibles para asignar a cursos.</p>
                     <div class="guia-tags"><span class="guia-tag">Crear</span><span class="guia-tag">Aula</span></div>
                   </div>
                 </div>
@@ -652,7 +652,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="link"></i></div>
                   <div class="guia-content">
                     <h4>Asignar a Cursos</h4>
-                    <p>Al crear o editar un curso, selecciona el aula donde se dictar√°.</p>
+                    <p>Al crear o editar un curso, selecciona el aula donde se dictar·.</p>
                     <div class="guia-tags"><span class="guia-tag">Asignar</span><span class="guia-tag">Vincular</span></div>
                   </div>
                 </div>
@@ -661,15 +661,15 @@ function renderAdminAyuda() {
           </div>
         </div>
 
-        <!-- Gesti√≥n de Idiomas -->
+        <!-- GestiÛn de Idiomas -->
         <div class="ayuda-accordion" data-category="idiomas">
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="languages"></i></div>
-              <div class="accordion-title-text"><span>Gesti√≥n de Idiomas</span><small>Configuraci√≥n de lenguas disponibles</small></div>
+              <div class="accordion-title-text"><span>GestiÛn de Idiomas</span><small>ConfiguraciÛn de lenguas disponibles</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">2 gu√≠as</span>
+              <span class="accordion-count">2 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -680,7 +680,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="plus-circle"></i></div>
                   <div class="guia-content">
                     <h4>Agregar Idiomas</h4>
-                    <p>Define los idiomas que se ense√±an (Ingl√©s, Franc√©s, Portugu√©s, etc.). Estar√°n disponibles al crear cursos.</p>
+                    <p>Define los idiomas que se enseÒan (InglÈs, FrancÈs, PortuguÈs, etc.). Estar·n disponibles al crear cursos.</p>
                     <div class="guia-tags"><span class="guia-tag">Idioma</span><span class="guia-tag">Agregar</span></div>
                   </div>
                 </div>
@@ -688,7 +688,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="sliders"></i></div>
                   <div class="guia-content">
                     <h4>Configurar Niveles</h4>
-                    <p>Los niveles (B√°sico, Intermedio, Avanzado) clasifican el grado de dificultad de cada curso.</p>
+                    <p>Los niveles (B·sico, Intermedio, Avanzado) clasifican el grado de dificultad de cada curso.</p>
                     <div class="guia-tags"><span class="guia-tag">Niveles</span><span class="guia-tag">Config</span></div>
                   </div>
                 </div>
@@ -702,10 +702,10 @@ function renderAdminAyuda() {
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="message-circle"></i></div>
-              <div class="accordion-title-text"><span>Chat de Soporte</span><small>Atenci√≥n a usuarios del sistema</small></div>
+              <div class="accordion-title-text"><span>Chat de Soporte</span><small>AtenciÛn a usuarios del sistema</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">3 gu√≠as</span>
+              <span class="accordion-count">3 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
@@ -716,7 +716,7 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="message-square"></i></div>
                   <div class="guia-content">
                     <h4>Responder Mensajes</h4>
-                    <p>Recibir√°s notificaciones cuando usuarios env√≠en mensajes. Accede al chat para ver y responder.</p>
+                    <p>Recibir·s notificaciones cuando usuarios envÌen mensajes. Accede al chat para ver y responder.</p>
                     <div class="guia-tags"><span class="guia-tag">Mensajes</span><span class="guia-tag">Responder</span></div>
                   </div>
                 </div>
@@ -724,8 +724,8 @@ function renderAdminAyuda() {
                   <div class="guia-icon"><i data-lucide="inbox"></i></div>
                   <div class="guia-content">
                     <h4>Gestionar Conversaciones</h4>
-                    <p>Ve todas las conversaciones activas, filtra por estado y atiende m√∫ltiples consultas.</p>
-                    <div class="guia-tags"><span class="guia-tag">Gesti√≥n</span><span class="guia-tag">Filtros</span></div>
+                    <p>Ve todas las conversaciones activas, filtra por estado y atiende m˙ltiples consultas.</p>
+                    <div class="guia-tags"><span class="guia-tag">GestiÛn</span><span class="guia-tag">Filtros</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="notificaciones alerta badge nuevo mensaje tiempo real">
@@ -746,28 +746,28 @@ function renderAdminAyuda() {
           <div class="accordion-header">
             <div class="accordion-title">
               <div class="cat-icon"><i data-lucide="message-square-text"></i></div>
-              <div class="accordion-title-text"><span>Preguntas Frecuentes</span><small>Respuestas r√°pidas a dudas comunes</small></div>
+              <div class="accordion-title-text"><span>Preguntas Frecuentes</span><small>Respuestas r·pidas a dudas comunes</small></div>
             </div>
             <div class="accordion-meta">
-              <span class="accordion-count">4 gu√≠as</span>
+              <span class="accordion-count">4 guÌas</span>
               <i data-lucide="chevron-down" class="accordion-icon"></i>
             </div>
           </div>
           <div class="accordion-content">
             <div class="accordion-body">
               <div class="guia-list">
-                <div class="guia-item" data-keywords="restablecer contrase√±a usuario olvid√≥ password reset clave">
+                <div class="guia-item" data-keywords="restablecer contraseÒa usuario olvidÛ password reset clave">
                   <div class="guia-icon"><i data-lucide="key"></i></div>
                   <div class="guia-content">
-                    <h4>¬øC√≥mo restablezco contrase√±a de un usuario?</h4>
-                    <p>Accede al perfil del alumno o profesor y usa la opci√≥n de restablecer. Se genera contrase√±a temporal.</p>
-                    <div class="guia-tags"><span class="guia-tag">Contrase√±a</span><span class="guia-tag">Reset</span></div>
+                    <h4>øCÛmo restablezco contraseÒa de un usuario?</h4>
+                    <p>Accede al perfil del alumno o profesor y usa la opciÛn de restablecer. Se genera contraseÒa temporal.</p>
+                    <div class="guia-tags"><span class="guia-tag">ContraseÒa</span><span class="guia-tag">Reset</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="eliminar borrar curso alumnos inscritos error no puedo">
                   <div class="guia-icon"><i data-lucide="alert-triangle"></i></div>
                   <div class="guia-content">
-                    <h4>¬øNo puedo eliminar un curso?</h4>
+                    <h4>øNo puedo eliminar un curso?</h4>
                     <p>Cursos con alumnos inscritos no pueden eliminarse. Primero desvincular o transferir alumnos.</p>
                     <div class="guia-tags"><span class="guia-tag">Eliminar</span><span class="guia-tag">Error</span></div>
                   </div>
@@ -775,15 +775,15 @@ function renderAdminAyuda() {
                 <div class="guia-item" data-keywords="backup respaldo datos base datos automatico railway">
                   <div class="guia-icon"><i data-lucide="database"></i></div>
                   <div class="guia-content">
-                    <h4>¬øSe hacen respaldos autom√°ticos?</h4>
-                    <p>Railway realiza respaldos autom√°ticos. Para respaldos manuales, contacta al administrador t√©cnico.</p>
+                    <h4>øSe hacen respaldos autom·ticos?</h4>
+                    <p>Railway realiza respaldos autom·ticos. Para respaldos manuales, contacta al administrador tÈcnico.</p>
                     <div class="guia-tags"><span class="guia-tag">Backup</span><span class="guia-tag">Datos</span></div>
                   </div>
                 </div>
                 <div class="guia-item" data-keywords="problema error funciona mal bug reporte tecnico sistema">
                   <div class="guia-icon"><i data-lucide="bug"></i></div>
                   <div class="guia-content">
-                    <h4>¬øEncontr√© un error en el sistema?</h4>
+                    <h4>øEncontrÈ un error en el sistema?</h4>
                     <p>Documenta el error con capturas y pasos para reproducirlo. Contacta al equipo de desarrollo.</p>
                     <div class="guia-tags"><span class="guia-tag">Error</span><span class="guia-tag">Reporte</span></div>
                   </div>
@@ -798,15 +798,15 @@ function renderAdminAyuda() {
       <div class="ayuda-tips">
         <h3><i data-lucide="lightbulb"></i> Tips para Administradores</h3>
         <div class="tips-list">
-          <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la p√°gina si los datos no se actualizan</div>
-          <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones del chat para responder r√°pido</div>
+          <div class="tip-badge"><i data-lucide="refresh-cw"></i> Recarga la p·gina si los datos no se actualizan</div>
+          <div class="tip-badge"><i data-lucide="bell"></i> Habilita notificaciones del chat para responder r·pido</div>
           <div class="tip-badge"><i data-lucide="file-down"></i> Exporta PDFs para reportes e impresiones</div>
           <div class="tip-badge"><i data-lucide="archive"></i> Archiva pagos antiguos regularmente para mantener orden</div>
         </div>
       </div>
 
       <div class="ayuda-footer">
-        <p>¬øNo encontraste lo que buscabas? Consulta la documentaci√≥n t√©cnica.</p>
+        <p>øNo encontraste lo que buscabas? Consulta la documentaciÛn tÈcnica.</p>
         <div class="ayuda-footer-links">
           <span class="ayuda-footer-link" onclick="window.open('ayuda.html', '_blank')">
             <i data-lucide="external-link"></i> Centro de Ayuda Completo
@@ -841,53 +841,53 @@ function initAyudaInteractivity() {
 }
 
 const guiasDetalladas = {
-  'Navegaci√≥n del Panel': {
-    descripcion: 'El men√∫ lateral izquierdo es tu centro de control. Desde aqu√≠ puedes acceder a todas las funcionalidades del sistema de manera organizada y eficiente.',
+  'NavegaciÛn del Panel': {
+    descripcion: 'El men˙ lateral izquierdo es tu centro de control. Desde aquÌ puedes acceder a todas las funcionalidades del sistema de manera organizada y eficiente.',
     pasos: [
-      { titulo: 'Localiza el men√∫ lateral', desc: 'El men√∫ est√° ubicado en el lado izquierdo de la pantalla, siempre visible.' },
-      { titulo: 'Explora las secciones', desc: 'Cada √≠cono representa una secci√≥n diferente del sistema.' },
-      { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevar√° a la secci√≥n seleccionada.' },
+      { titulo: 'Localiza el men˙ lateral', desc: 'El men˙ est· ubicado en el lado izquierdo de la pantalla, siempre visible.' },
+      { titulo: 'Explora las secciones', desc: 'Cada Ìcono representa una secciÛn diferente del sistema.' },
+      { titulo: 'Haz clic para navegar', desc: 'Un solo clic te llevar· a la secciÛn seleccionada.' },
       { titulo: 'Observa los indicadores', desc: 'Los badges rojos indican notificaciones pendientes.' }
     ],
-    tip: 'En dispositivos m√≥viles, el men√∫ se oculta autom√°ticamente. Usa el √≠cono de men√∫ para desplegarlo.'
+    tip: 'En dispositivos mÛviles, el men˙ se oculta autom·ticamente. Usa el Ìcono de men˙ para desplegarlo.'
   },
   'Funciones del Administrador': {
-    descripcion: 'Como administrador tienes acceso completo a todas las funciones del sistema. Tu rol es fundamental para mantener la operaci√≥n del instituto.',
+    descripcion: 'Como administrador tienes acceso completo a todas las funciones del sistema. Tu rol es fundamental para mantener la operaciÛn del instituto.',
     pasos: [
-      { titulo: 'Gesti√≥n de Cursos', desc: 'Crear, editar, eliminar cursos y asignar profesores.' },
-      { titulo: 'Gesti√≥n de Usuarios', desc: 'Registrar alumnos, profesores y otros administradores.' },
+      { titulo: 'GestiÛn de Cursos', desc: 'Crear, editar, eliminar cursos y asignar profesores.' },
+      { titulo: 'GestiÛn de Usuarios', desc: 'Registrar alumnos, profesores y otros administradores.' },
       { titulo: 'Control Financiero', desc: 'Supervisar pagos, confirmar efectivo y generar reportes.' },
-      { titulo: 'Soporte', desc: 'Responder consultas de usuarios a trav√©s del chat.' }
+      { titulo: 'Soporte', desc: 'Responder consultas de usuarios a travÈs del chat.' }
     ],
-    tip: 'Realiza respaldos peri√≥dicos de informaci√≥n importante exportando PDFs de las listas de usuarios.'
+    tip: 'Realiza respaldos periÛdicos de informaciÛn importante exportando PDFs de las listas de usuarios.'
   },
   'Crear Nuevo Curso': {
-    descripcion: 'El proceso de creaci√≥n de cursos es simple y te permite configurar todos los aspectos necesarios para que el curso funcione correctamente.',
+    descripcion: 'El proceso de creaciÛn de cursos es simple y te permite configurar todos los aspectos necesarios para que el curso funcione correctamente.',
     pasos: [
-      { titulo: 'Haz clic en "Nuevo Curso"', desc: 'El bot√≥n est√° en la esquina superior derecha de la secci√≥n Cursos.' },
-      { titulo: 'Completa el formulario', desc: 'Nombre, idioma, nivel, d√≠as, horario y cupo m√°ximo.' },
+      { titulo: 'Haz clic en "Nuevo Curso"', desc: 'El botÛn est· en la esquina superior derecha de la secciÛn Cursos.' },
+      { titulo: 'Completa el formulario', desc: 'Nombre, idioma, nivel, dÌas, horario y cupo m·ximo.' },
       { titulo: 'Selecciona el aula', desc: 'Elige un aula disponible de la lista.' },
-      { titulo: 'Guarda los cambios', desc: 'El curso aparecer√° en la lista inmediatamente.' }
+      { titulo: 'Guarda los cambios', desc: 'El curso aparecer· en la lista inmediatamente.' }
     ],
-    tip: 'Puedes asignar un profesor despu√©s de crear el curso usando el bot√≥n de asignaci√≥n.'
+    tip: 'Puedes asignar un profesor despuÈs de crear el curso usando el botÛn de asignaciÛn.'
   },
   'Editar Curso': {
     descripcion: 'Modifica cualquier aspecto de un curso existente sin afectar a los alumnos ya inscritos.',
     pasos: [
       { titulo: 'Localiza el curso', desc: 'Usa el buscador o navega por las tarjetas de cursos.' },
-      { titulo: 'Haz clic en editar', desc: 'Es el √≠cono de l√°piz en la tarjeta del curso.' },
+      { titulo: 'Haz clic en editar', desc: 'Es el Ìcono de l·piz en la tarjeta del curso.' },
       { titulo: 'Modifica los campos', desc: 'Cambia los valores que necesites actualizar.' },
       { titulo: 'Confirma los cambios', desc: 'Haz clic en Guardar para aplicar las modificaciones.' }
     ],
     tip: 'Los cambios de horario se reflejan inmediatamente en los dashboards de profesores y alumnos.'
   },
   'Eliminar Curso': {
-    descripcion: 'Elimina cursos que ya no se dictan. Esta acci√≥n requiere confirmaci√≥n para evitar eliminaciones accidentales.',
+    descripcion: 'Elimina cursos que ya no se dictan. Esta acciÛn requiere confirmaciÛn para evitar eliminaciones accidentales.',
     pasos: [
       { titulo: 'Localiza el curso', desc: 'Encuentra el curso que deseas eliminar.' },
       { titulo: 'Verifica que no tenga alumnos', desc: 'Un curso con alumnos no puede eliminarse directamente.' },
-      { titulo: 'Haz clic en eliminar', desc: 'Es el √≠cono de papelera en la tarjeta.' },
-      { titulo: 'Confirma la acci√≥n', desc: 'Acepta el di√°logo de confirmaci√≥n.' }
+      { titulo: 'Haz clic en eliminar', desc: 'Es el Ìcono de papelera en la tarjeta.' },
+      { titulo: 'Confirma la acciÛn', desc: 'Acepta el di·logo de confirmaciÛn.' }
     ],
     tip: 'Si necesitas eliminar un curso con alumnos, primero transfiere o desvincula a los estudiantes.'
   },
@@ -895,156 +895,156 @@ const guiasDetalladas = {
     descripcion: 'Vincula un profesor a un curso para que pueda gestionar calificaciones y asistencias de ese curso.',
     pasos: [
       { titulo: 'Abre la tarjeta del curso', desc: 'Haz clic en el curso al que quieres asignar profesor.' },
-      { titulo: 'Busca el bot√≥n de asignaci√≥n', desc: 'Es el √≠cono verde con silueta de usuario.' },
+      { titulo: 'Busca el botÛn de asignaciÛn', desc: 'Es el Ìcono verde con silueta de usuario.' },
       { titulo: 'Selecciona el profesor', desc: 'Elige de la lista de profesores disponibles.' },
-      { titulo: 'Confirma la asignaci√≥n', desc: 'El profesor ya podr√° ver este curso en su panel.' }
+      { titulo: 'Confirma la asignaciÛn', desc: 'El profesor ya podr· ver este curso en su panel.' }
     ],
-    tip: 'Un profesor puede tener m√∫ltiples cursos asignados. Verifica su carga horaria antes de asignar.'
+    tip: 'Un profesor puede tener m˙ltiples cursos asignados. Verifica su carga horaria antes de asignar.'
   },
   'Ver Detalles del Curso': {
-    descripcion: 'Accede a toda la informaci√≥n del curso incluyendo lista de alumnos, calificaciones y estad√≠sticas.',
+    descripcion: 'Accede a toda la informaciÛn del curso incluyendo lista de alumnos, calificaciones y estadÌsticas.',
     pasos: [
       { titulo: 'Haz clic en la tarjeta', desc: 'Cualquier parte de la tarjeta abre los detalles.' },
-      { titulo: 'Revisa la informaci√≥n', desc: 'Ver√°s horario, aula, profesor y cupo.' },
+      { titulo: 'Revisa la informaciÛn', desc: 'Ver·s horario, aula, profesor y cupo.' },
       { titulo: 'Consulta los alumnos', desc: 'La lista muestra todos los estudiantes inscritos.' },
-      { titulo: 'Usa las acciones r√°pidas', desc: 'Editar, eliminar o gestionar desde aqu√≠.' }
+      { titulo: 'Usa las acciones r·pidas', desc: 'Editar, eliminar o gestionar desde aquÌ.' }
     ],
-    tip: 'Desde los detalles puedes ver el progreso general del curso y estad√≠sticas de rendimiento.'
+    tip: 'Desde los detalles puedes ver el progreso general del curso y estadÌsticas de rendimiento.'
   },
   'Registrar Alumno': {
-    descripcion: 'El registro de alumnos es el primer paso para incorporar estudiantes al sistema. Los datos se validan autom√°ticamente.',
+    descripcion: 'El registro de alumnos es el primer paso para incorporar estudiantes al sistema. Los datos se validan autom·ticamente.',
     pasos: [
-      { titulo: 'Haz clic en "Nuevo Alumno"', desc: 'Bot√≥n ubicado en la secci√≥n Alumnos.' },
-      { titulo: 'Completa los datos personales', desc: 'Nombre, apellido, DNI, email y tel√©fono.' },
-      { titulo: 'Asigna un curso inicial', desc: 'Selecciona el curso donde se inscribir√°.' },
-      { titulo: 'Guarda el registro', desc: 'El sistema genera legajo y credenciales autom√°ticamente.' }
+      { titulo: 'Haz clic en "Nuevo Alumno"', desc: 'BotÛn ubicado en la secciÛn Alumnos.' },
+      { titulo: 'Completa los datos personales', desc: 'Nombre, apellido, DNI, email y telÈfono.' },
+      { titulo: 'Asigna un curso inicial', desc: 'Selecciona el curso donde se inscribir·.' },
+      { titulo: 'Guarda el registro', desc: 'El sistema genera legajo y credenciales autom·ticamente.' }
     ],
-    tip: 'Las credenciales iniciales usan el DNI como usuario y contrase√±a. El alumno puede cambiarlas.'
+    tip: 'Las credenciales iniciales usan el DNI como usuario y contraseÒa. El alumno puede cambiarlas.'
   },
-  'Editar Informaci√≥n': {
+  'Editar InformaciÛn': {
     descripcion: 'Actualiza los datos de un alumno cuando sea necesario. Los cambios se aplican inmediatamente.',
     pasos: [
       { titulo: 'Busca al alumno', desc: 'Usa el buscador por nombre, legajo o DNI.' },
       { titulo: 'Abre su perfil', desc: 'Haz clic en la tarjeta del alumno.' },
       { titulo: 'Haz clic en editar', desc: 'Modifica los campos necesarios.' },
-      { titulo: 'Guarda los cambios', desc: 'La informaci√≥n se actualiza en todo el sistema.' }
+      { titulo: 'Guarda los cambios', desc: 'La informaciÛn se actualiza en todo el sistema.' }
     ],
-    tip: 'El legajo y DNI solo pueden modificarse por motivos de correcci√≥n de errores.'
+    tip: 'El legajo y DNI solo pueden modificarse por motivos de correcciÛn de errores.'
   },
   'Cambiar Estado': {
     descripcion: 'Gestiona el estado de los usuarios: activos pueden acceder al sistema, inactivos no.',
     pasos: [
       { titulo: 'Localiza al usuario', desc: 'Encuentra el alumno o profesor.' },
-      { titulo: 'Abre las opciones', desc: 'Accede al men√∫ de acciones del usuario.' },
-      { titulo: 'Cambia el estado', desc: 'Selecciona Activo o Inactivo seg√∫n corresponda.' },
+      { titulo: 'Abre las opciones', desc: 'Accede al men˙ de acciones del usuario.' },
+      { titulo: 'Cambia el estado', desc: 'Selecciona Activo o Inactivo seg˙n corresponda.' },
       { titulo: 'Confirma el cambio', desc: 'El estado se actualiza inmediatamente.' }
     ],
-    tip: 'Los usuarios inactivos conservan todos sus datos hist√≥ricos para futuras consultas.'
+    tip: 'Los usuarios inactivos conservan todos sus datos histÛricos para futuras consultas.'
   },
   'Descargar PDF': {
-    descripcion: 'Genera documentos PDF con listas de usuarios, √∫tiles para reportes impresos o archivos.',
+    descripcion: 'Genera documentos PDF con listas de usuarios, ˙tiles para reportes impresos o archivos.',
     pasos: [
-      { titulo: 'Ve a la secci√≥n deseada', desc: 'Alumnos, Profesores o Administradores.' },
-      { titulo: 'Busca el bot√≥n de descarga', desc: 'Generalmente dice "Descargar Informaci√≥n".' },
+      { titulo: 'Ve a la secciÛn deseada', desc: 'Alumnos, Profesores o Administradores.' },
+      { titulo: 'Busca el botÛn de descarga', desc: 'Generalmente dice "Descargar InformaciÛn".' },
       { titulo: 'Haz clic para generar', desc: 'El PDF se crea con los datos actuales.' },
-      { titulo: 'Guarda o imprime', desc: 'El archivo se descarga autom√°ticamente.' }
+      { titulo: 'Guarda o imprime', desc: 'El archivo se descarga autom·ticamente.' }
     ],
-    tip: 'Los PDFs incluyen fecha de generaci√≥n para control de versiones.'
+    tip: 'Los PDFs incluyen fecha de generaciÛn para control de versiones.'
   },
   'Buscar y Filtrar': {
-    descripcion: 'Encuentra r√°pidamente usuarios o informaci√≥n espec√≠fica usando los potentes filtros del sistema.',
+    descripcion: 'Encuentra r·pidamente usuarios o informaciÛn especÌfica usando los potentes filtros del sistema.',
     pasos: [
-      { titulo: 'Localiza el buscador', desc: 'Est√° en la parte superior de cada secci√≥n.' },
-      { titulo: 'Escribe tu b√∫squeda', desc: 'Nombre, legajo, DNI o email.' },
+      { titulo: 'Localiza el buscador', desc: 'Est· en la parte superior de cada secciÛn.' },
+      { titulo: 'Escribe tu b˙squeda', desc: 'Nombre, legajo, DNI o email.' },
       { titulo: 'Revisa los resultados', desc: 'La lista se filtra en tiempo real.' },
       { titulo: 'Usa filtros adicionales', desc: 'Estado, curso u otros criterios disponibles.' }
     ],
-    tip: 'La b√∫squeda no distingue may√∫sculas/min√∫sculas y busca coincidencias parciales.'
+    tip: 'La b˙squeda no distingue may˙sculas/min˙sculas y busca coincidencias parciales.'
   },
   'Registrar Profesor': {
     descripcion: 'Agrega nuevos profesores al sistema para que puedan gestionar sus cursos asignados.',
     pasos: [
-      { titulo: 'Haz clic en "Nuevo Profesor"', desc: 'Bot√≥n en la secci√≥n Profesores.' },
-      { titulo: 'Ingresa los datos', desc: 'Nombre, apellido, DNI, email, tel√©fono.' },
-      { titulo: 'Define especialidad', desc: 'Idiomas o √°reas que puede dictar.' },
+      { titulo: 'Haz clic en "Nuevo Profesor"', desc: 'BotÛn en la secciÛn Profesores.' },
+      { titulo: 'Ingresa los datos', desc: 'Nombre, apellido, DNI, email, telÈfono.' },
+      { titulo: 'Define especialidad', desc: 'Idiomas o ·reas que puede dictar.' },
       { titulo: 'Guarda el registro', desc: 'Se generan credenciales de acceso.' }
     ],
-    tip: 'Despu√©s del registro, asigna cursos al profesor desde la secci√≥n Cursos.'
+    tip: 'DespuÈs del registro, asigna cursos al profesor desde la secciÛn Cursos.'
   },
   'Asignar a Cursos': {
     descripcion: 'Vincula profesores con cursos para que puedan gestionar sus clases.',
     pasos: [
-      { titulo: 'Ve a la secci√≥n Cursos', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a la secciÛn Cursos', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Selecciona un curso', desc: 'El curso debe existir previamente.' },
-      { titulo: 'Usa el bot√≥n de asignaci√≥n', desc: '√çcono de usuario en verde.' },
+      { titulo: 'Usa el botÛn de asignaciÛn', desc: 'Õcono de usuario en verde.' },
       { titulo: 'Elige el profesor', desc: 'Selecciona de la lista disponible.' }
     ],
     tip: 'Verifica que el profesor no tenga conflictos de horario antes de asignar.'
   },
   'Crear Nuevo Administrador': {
-    descripcion: 'Agrega otros administradores que compartir√°n las responsabilidades de gesti√≥n del sistema.',
+    descripcion: 'Agrega otros administradores que compartir·n las responsabilidades de gestiÛn del sistema.',
     pasos: [
-      { titulo: 'Ve a Administradores', desc: 'Secci√≥n en el men√∫ lateral.' },
+      { titulo: 'Ve a Administradores', desc: 'SecciÛn en el men˙ lateral.' },
       { titulo: 'Haz clic en "Nuevo Admin"', desc: 'Se abre el formulario de registro.' },
       { titulo: 'Completa los datos', desc: 'Nombre, email y credenciales.' },
       { titulo: 'Define permisos', desc: 'Todos los admins tienen acceso completo.' }
     ],
-    tip: 'Limita el n√∫mero de administradores a los estrictamente necesarios por seguridad.'
+    tip: 'Limita el n˙mero de administradores a los estrictamente necesarios por seguridad.'
   },
   'Permisos de Acceso': {
-    descripcion: 'Comprende c√≥mo funciona el sistema de permisos y roles en la plataforma.',
+    descripcion: 'Comprende cÛmo funciona el sistema de permisos y roles en la plataforma.',
     pasos: [
       { titulo: 'Administrador', desc: 'Acceso total a todas las funciones.' },
-      { titulo: 'Profesor', desc: 'Gesti√≥n de cursos asignados, notas y asistencias.' },
-      { titulo: 'Alumno', desc: 'Visualizaci√≥n de sus cursos, notas y pagos.' },
+      { titulo: 'Profesor', desc: 'GestiÛn de cursos asignados, notas y asistencias.' },
+      { titulo: 'Alumno', desc: 'VisualizaciÛn de sus cursos, notas y pagos.' },
       { titulo: 'Seguridad', desc: 'Cada rol solo ve lo que le corresponde.' }
     ],
-    tip: 'Revisa peri√≥dicamente los accesos y desactiva usuarios que ya no deban tener acceso.'
+    tip: 'Revisa periÛdicamente los accesos y desactiva usuarios que ya no deban tener acceso.'
   },
   'Ver Historial de Pagos': {
     descripcion: 'Consulta todos los pagos realizados con diferentes estados y filtros disponibles.',
     pasos: [
-      { titulo: 'Ve a la secci√≥n Pagos', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a la secciÛn Pagos', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Revisa la lista', desc: 'Muestra pagos ordenados por fecha.' },
       { titulo: 'Aplica filtros', desc: 'Por estado, fecha o alumno.' },
-      { titulo: 'Consulta detalles', desc: 'Haz clic en un pago para m√°s informaci√≥n.' }
+      { titulo: 'Consulta detalles', desc: 'Haz clic en un pago para m·s informaciÛn.' }
     ],
-    tip: 'Usa los filtros de estado para encontrar r√°pidamente pagos pendientes de confirmar.'
+    tip: 'Usa los filtros de estado para encontrar r·pidamente pagos pendientes de confirmar.'
   },
   'Confirmar Pago en Efectivo': {
     descripcion: 'Cuando un alumno paga en efectivo con su ticket, debes confirmar el pago en el sistema.',
     pasos: [
       { titulo: 'Recibe el ticket', desc: 'El alumno presenta su comprobante de pago.' },
       { titulo: 'Busca el pago', desc: 'Filtra por "Efectivo Pendiente" en Pagos.' },
-      { titulo: 'Verifica el c√≥digo', desc: 'Compara el c√≥digo del ticket con el sistema.' },
-      { titulo: 'Confirma el pago', desc: 'Haz clic en el bot√≥n de confirmaci√≥n.' }
+      { titulo: 'Verifica el cÛdigo', desc: 'Compara el cÛdigo del ticket con el sistema.' },
+      { titulo: 'Confirma el pago', desc: 'Haz clic en el botÛn de confirmaciÛn.' }
     ],
-    tip: 'Guarda los tickets f√≠sicos por al menos 30 d√≠as para cualquier reclamo.'
+    tip: 'Guarda los tickets fÌsicos por al menos 30 dÌas para cualquier reclamo.'
   },
   'Archivo de Pagos': {
-    descripcion: 'Mant√©n la lista de pagos organizada archivando los pagos antiguos ya procesados.',
+    descripcion: 'MantÈn la lista de pagos organizada archivando los pagos antiguos ya procesados.',
     pasos: [
       { titulo: 'Identifica pagos antiguos', desc: 'Pagos de meses anteriores ya confirmados.' },
-      { titulo: 'Selecciona para archivar', desc: 'Usa la opci√≥n de archivar en cada pago.' },
-      { titulo: 'Confirma la acci√≥n', desc: 'Los pagos pasan a la secci√≥n de archivo.' },
-      { titulo: 'Consulta cuando necesites', desc: 'El archivo est√° siempre disponible.' }
+      { titulo: 'Selecciona para archivar', desc: 'Usa la opciÛn de archivar en cada pago.' },
+      { titulo: 'Confirma la acciÛn', desc: 'Los pagos pasan a la secciÛn de archivo.' },
+      { titulo: 'Consulta cuando necesites', desc: 'El archivo est· siempre disponible.' }
     ],
-    tip: 'Archiva mensualmente para mantener un historial ordenado y f√°cil de consultar.'
+    tip: 'Archiva mensualmente para mantener un historial ordenado y f·cil de consultar.'
   },
   'Crear Nueva Aula': {
-    descripcion: 'Registra los espacios f√≠sicos disponibles para dictar clases en el instituto.',
+    descripcion: 'Registra los espacios fÌsicos disponibles para dictar clases en el instituto.',
     pasos: [
-      { titulo: 'Ve a la secci√≥n Aulas', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a la secciÛn Aulas', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Haz clic en "Nueva Aula"', desc: 'Se abre el formulario.' },
-      { titulo: 'Ingresa los datos', desc: 'Nombre o n√∫mero y capacidad m√°xima.' },
-      { titulo: 'Guarda el aula', desc: 'Estar√° disponible para asignar a cursos.' }
+      { titulo: 'Ingresa los datos', desc: 'Nombre o n˙mero y capacidad m·xima.' },
+      { titulo: 'Guarda el aula', desc: 'Estar· disponible para asignar a cursos.' }
     ],
-    tip: 'La capacidad del aula debe ser igual o mayor al cupo m√°ximo de los cursos que se dicten all√≠.'
+    tip: 'La capacidad del aula debe ser igual o mayor al cupo m·ximo de los cursos que se dicten allÌ.'
   },
   'Asignar a Cursos': {
-    descripcion: 'Vincula aulas con cursos para definir d√≥nde se dictar√°n las clases.',
+    descripcion: 'Vincula aulas con cursos para definir dÛnde se dictar·n las clases.',
     pasos: [
-      { titulo: 'Crea o edita un curso', desc: 'Desde la secci√≥n Cursos.' },
+      { titulo: 'Crea o edita un curso', desc: 'Desde la secciÛn Cursos.' },
       { titulo: 'Busca el campo Aula', desc: 'En el formulario de curso.' },
       { titulo: 'Selecciona el aula', desc: 'Elige de la lista de aulas disponibles.' },
       { titulo: 'Guarda los cambios', desc: 'El curso queda vinculado al aula.' }
@@ -1052,241 +1052,241 @@ const guiasDetalladas = {
     tip: 'Evita asignar la misma aula a cursos con horarios superpuestos.'
   },
   'Agregar Idiomas': {
-    descripcion: 'Configura los idiomas que se ense√±an en el instituto para clasificar los cursos.',
+    descripcion: 'Configura los idiomas que se enseÒan en el instituto para clasificar los cursos.',
     pasos: [
-      { titulo: 'Ve a la secci√≥n Idiomas', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a la secciÛn Idiomas', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Haz clic en "Nuevo Idioma"', desc: 'Se abre el formulario.' },
-      { titulo: 'Ingresa el nombre', desc: 'Ingl√©s, Franc√©s, Portugu√©s, etc.' },
-      { titulo: 'Guarda el idioma', desc: 'Estar√° disponible al crear cursos.' }
+      { titulo: 'Ingresa el nombre', desc: 'InglÈs, FrancÈs, PortuguÈs, etc.' },
+      { titulo: 'Guarda el idioma', desc: 'Estar· disponible al crear cursos.' }
     ],
     tip: 'Usa nombres estandarizados para mantener consistencia en todo el sistema.'
   },
   'Configurar Niveles': {
     descripcion: 'Los niveles clasifican la dificultad de los cursos para orientar a los alumnos.',
     pasos: [
-      { titulo: 'Entiende los niveles', desc: 'B√°sico, Intermedio, Avanzado son los est√°ndar.' },
+      { titulo: 'Entiende los niveles', desc: 'B·sico, Intermedio, Avanzado son los est·ndar.' },
       { titulo: 'Asigna al crear curso', desc: 'Selecciona el nivel apropiado.' },
       { titulo: 'Considera prerrequisitos', desc: 'Algunos niveles requieren aprobar anteriores.' },
       { titulo: 'Comunica a alumnos', desc: 'Los niveles ayudan a elegir el curso correcto.' }
     ],
-    tip: 'Define criterios claros para cada nivel y comun√≠calos a profesores y alumnos.'
+    tip: 'Define criterios claros para cada nivel y comunÌcalos a profesores y alumnos.'
   },
   'Responder Mensajes': {
-    descripcion: 'Atiende las consultas de alumnos y profesores a trav√©s del sistema de chat integrado.',
+    descripcion: 'Atiende las consultas de alumnos y profesores a travÈs del sistema de chat integrado.',
     pasos: [
       { titulo: 'Observa las notificaciones', desc: 'El badge rojo indica mensajes nuevos.' },
-      { titulo: 'Accede al Chat Soporte', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Selecciona la conversaci√≥n', desc: 'Haz clic en el usuario a responder.' },
-      { titulo: 'Escribe y env√≠a', desc: 'Tu respuesta llega instant√°neamente.' }
+      { titulo: 'Accede al Chat Soporte', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Selecciona la conversaciÛn', desc: 'Haz clic en el usuario a responder.' },
+      { titulo: 'Escribe y envÌa', desc: 'Tu respuesta llega instant·neamente.' }
     ],
-    tip: 'Responde lo antes posible. Los usuarios valoran la atenci√≥n r√°pida.'
+    tip: 'Responde lo antes posible. Los usuarios valoran la atenciÛn r·pida.'
   },
   'Gestionar Conversaciones': {
-    descripcion: 'Organiza y prioriza las consultas de usuarios para una atenci√≥n eficiente.',
+    descripcion: 'Organiza y prioriza las consultas de usuarios para una atenciÛn eficiente.',
     pasos: [
       { titulo: 'Revisa la bandeja', desc: 'Todas las conversaciones aparecen listadas.' },
       { titulo: 'Filtra por estado', desc: 'Pendientes, En curso, Resueltas.' },
-      { titulo: 'Prioriza urgentes', desc: 'Atiende primero consultas cr√≠ticas.' },
+      { titulo: 'Prioriza urgentes', desc: 'Atiende primero consultas crÌticas.' },
       { titulo: 'Cierra resueltas', desc: 'Marca como completadas las atendidas.' }
     ],
-    tip: 'Crea respuestas frecuentes para agilizar la atenci√≥n de consultas comunes.'
+    tip: 'Crea respuestas frecuentes para agilizar la atenciÛn de consultas comunes.'
   },
   'Notificaciones': {
     descripcion: 'El sistema de notificaciones te mantiene informado sobre actividad importante.',
     pasos: [
-      { titulo: 'Observa los badges', desc: 'Los n√∫meros rojos indican pendientes.' },
+      { titulo: 'Observa los badges', desc: 'Los n˙meros rojos indican pendientes.' },
       { titulo: 'Habilita en navegador', desc: 'Permite notificaciones push cuando se solicite.' },
-      { titulo: 'Revisa peri√≥dicamente', desc: 'Algunas notificaciones requieren acci√≥n.' },
+      { titulo: 'Revisa periÛdicamente', desc: 'Algunas notificaciones requieren acciÛn.' },
       { titulo: 'Atiende lo urgente', desc: 'Mensajes y pagos pendientes son prioritarios.' }
     ],
     tip: 'Las notificaciones push funcionan incluso con el navegador minimizado.'
   },
-  '¬øC√≥mo restablezco contrase√±a de un usuario?': {
-    descripcion: 'Cuando un usuario olvida su contrase√±a, puedes generar una nueva temporal.',
+  'øCÛmo restablezco contraseÒa de un usuario?': {
+    descripcion: 'Cuando un usuario olvida su contraseÒa, puedes generar una nueva temporal.',
     pasos: [
-      { titulo: 'Busca al usuario', desc: 'En la secci√≥n correspondiente (Alumnos/Profesores).' },
+      { titulo: 'Busca al usuario', desc: 'En la secciÛn correspondiente (Alumnos/Profesores).' },
       { titulo: 'Accede a su perfil', desc: 'Haz clic en la tarjeta del usuario.' },
-      { titulo: 'Busca opci√≥n de contrase√±a', desc: 'Generalmente en configuraci√≥n o editar.' },
-      { titulo: 'Genera nueva contrase√±a', desc: 'El sistema crea una temporal.' }
+      { titulo: 'Busca opciÛn de contraseÒa', desc: 'Generalmente en configuraciÛn o editar.' },
+      { titulo: 'Genera nueva contraseÒa', desc: 'El sistema crea una temporal.' }
     ],
-    tip: 'Comunica la nueva contrase√±a de forma segura y pide que la cambie al ingresar.'
+    tip: 'Comunica la nueva contraseÒa de forma segura y pide que la cambie al ingresar.'
   },
-  '¬øNo puedo eliminar un curso?': {
-    descripcion: 'Los cursos con alumnos inscritos est√°n protegidos contra eliminaci√≥n accidental.',
+  'øNo puedo eliminar un curso?': {
+    descripcion: 'Los cursos con alumnos inscritos est·n protegidos contra eliminaciÛn accidental.',
     pasos: [
       { titulo: 'Verifica el motivo', desc: 'El sistema indica si hay alumnos inscritos.' },
-      { titulo: 'Desvincula alumnos', desc: 'Transfi√©relos a otro curso o d√°les de baja.' },
-      { titulo: 'Intenta de nuevo', desc: 'Con el curso vac√≠o, podr√°s eliminarlo.' },
-      { titulo: 'Considera alternativas', desc: 'Quiz√°s solo necesitas desactivar el curso.' }
+      { titulo: 'Desvincula alumnos', desc: 'TransfiÈrelos a otro curso o d·les de baja.' },
+      { titulo: 'Intenta de nuevo', desc: 'Con el curso vacÌo, podr·s eliminarlo.' },
+      { titulo: 'Considera alternativas', desc: 'Quiz·s solo necesitas desactivar el curso.' }
     ],
     tip: 'Considera desactivar cursos en lugar de eliminarlos para conservar el historial.'
   },
-  '¬øSe hacen respaldos autom√°ticos?': {
-    descripcion: 'Railway, nuestra plataforma de hosting, realiza respaldos autom√°ticos de la base de datos.',
+  'øSe hacen respaldos autom·ticos?': {
+    descripcion: 'Railway, nuestra plataforma de hosting, realiza respaldos autom·ticos de la base de datos.',
     pasos: [
-      { titulo: 'Respaldos autom√°ticos', desc: 'Railway realiza backups peri√≥dicos.' },
-      { titulo: 'Recuperaci√≥n', desc: 'Contacta al admin t√©cnico si necesitas restaurar.' },
+      { titulo: 'Respaldos autom·ticos', desc: 'Railway realiza backups periÛdicos.' },
+      { titulo: 'RecuperaciÛn', desc: 'Contacta al admin tÈcnico si necesitas restaurar.' },
       { titulo: 'Respaldos manuales', desc: 'Exporta PDFs importantes como respaldo local.' },
-      { titulo: 'Buenas pr√°cticas', desc: 'Descarga informaci√≥n cr√≠tica peri√≥dicamente.' }
+      { titulo: 'Buenas pr·cticas', desc: 'Descarga informaciÛn crÌtica periÛdicamente.' }
     ],
-    tip: 'Aunque hay respaldos autom√°ticos, mant√©n copias locales de informaci√≥n sensible.'
+    tip: 'Aunque hay respaldos autom·ticos, mantÈn copias locales de informaciÛn sensible.'
   },
-  '¬øEncontr√© un error en el sistema?': {
-    descripcion: 'Los errores deben reportarse para que el equipo t√©cnico pueda solucionarlos.',
+  'øEncontrÈ un error en el sistema?': {
+    descripcion: 'Los errores deben reportarse para que el equipo tÈcnico pueda solucionarlos.',
     pasos: [
-      { titulo: 'Documenta el error', desc: 'Anota qu√© estabas haciendo cuando ocurri√≥.' },
+      { titulo: 'Documenta el error', desc: 'Anota quÈ estabas haciendo cuando ocurriÛ.' },
       { titulo: 'Captura pantalla', desc: 'Si es posible, toma una captura del error.' },
-      { titulo: 'Anota los pasos', desc: 'Describe c√≥mo reproducir el problema.' },
-      { titulo: 'Reporta al equipo', desc: 'Env√≠a la informaci√≥n al desarrollador.' }
+      { titulo: 'Anota los pasos', desc: 'Describe cÛmo reproducir el problema.' },
+      { titulo: 'Reporta al equipo', desc: 'EnvÌa la informaciÛn al desarrollador.' }
     ],
-    tip: 'Cuanto m√°s detallada sea tu descripci√≥n, m√°s r√°pido podremos solucionarlo.'
+    tip: 'Cuanto m·s detallada sea tu descripciÛn, m·s r·pido podremos solucionarlo.'
   },
   'Entender tu Dashboard': {
-    descripcion: 'Tu dashboard es tu centro de informaci√≥n. Aqu√≠ ves un resumen de todo lo importante de un vistazo.',
+    descripcion: 'Tu dashboard es tu centro de informaciÛn. AquÌ ves un resumen de todo lo importante de un vistazo.',
     pasos: [
-      { titulo: 'Tarjetas de estad√≠sticas', desc: 'Muestran cursos activos, promedio y progreso.' },
-      { titulo: 'Cursos destacados', desc: 'Acceso r√°pido a tus cursos principales.' },
+      { titulo: 'Tarjetas de estadÌsticas', desc: 'Muestran cursos activos, promedio y progreso.' },
+      { titulo: 'Cursos destacados', desc: 'Acceso r·pido a tus cursos principales.' },
       { titulo: 'Notificaciones', desc: 'Alertas sobre pagos, notas o mensajes.' },
-      { titulo: 'Accesos directos', desc: 'Botones para las funciones m√°s usadas.' }
+      { titulo: 'Accesos directos', desc: 'Botones para las funciones m·s usadas.' }
     ],
-    tip: 'Revisa tu dashboard al inicio de cada sesi√≥n para estar al d√≠a.'
+    tip: 'Revisa tu dashboard al inicio de cada sesiÛn para estar al dÌa.'
   },
   'Ver Cursos Inscritos': {
-    descripcion: 'Consulta todos los cursos donde est√°s matriculado y su informaci√≥n detallada.',
+    descripcion: 'Consulta todos los cursos donde est·s matriculado y su informaciÛn detallada.',
     pasos: [
-      { titulo: 'Ve a Mis Cursos', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su informaci√≥n b√°sica.' },
+      { titulo: 'Ve a Mis Cursos', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra su informaciÛn b·sica.' },
       { titulo: 'Consulta el progreso', desc: 'La barra indica tu avance en el curso.' },
-      { titulo: 'Accede a detalles', desc: 'Haz clic para ver m√°s informaci√≥n.' }
+      { titulo: 'Accede a detalles', desc: 'Haz clic para ver m·s informaciÛn.' }
     ],
     tip: 'El color de la barra de progreso indica tu estado: verde es bueno, amarillo es alerta.'
   },
   'Detalles de un Curso': {
-    descripcion: 'Accede a toda la informaci√≥n de un curso: profesor, horario, aula y tus calificaciones.',
+    descripcion: 'Accede a toda la informaciÛn de un curso: profesor, horario, aula y tus calificaciones.',
     pasos: [
       { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta del curso.' },
-      { titulo: 'Ve la informaci√≥n', desc: 'Horario, aula, profesor asignado.' },
-      { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aqu√≠.' },
+      { titulo: 'Ve la informaciÛn', desc: 'Horario, aula, profesor asignado.' },
+      { titulo: 'Consulta tus notas', desc: 'Parciales y final aparecen aquÌ.' },
       { titulo: 'Revisa tu asistencia', desc: 'Historial de asistencias del curso.' }
     ],
     tip: 'Guarda el horario en tu calendario personal para no olvidar las clases.'
   },
   'Entender el Progreso': {
-    descripcion: 'La barra de progreso refleja tu rendimiento acad√©mico basado en tus calificaciones.',
+    descripcion: 'La barra de progreso refleja tu rendimiento acadÈmico basado en tus calificaciones.',
     pasos: [
       { titulo: 'Verde (7-10)', desc: 'Excelente rendimiento, vas por buen camino.' },
-      { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podr√≠as mejorar.' },
-      { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atenci√≥n, considera refuerzo.' },
+      { titulo: 'Amarillo (5-6.99)', desc: 'Aprobado pero podrÌas mejorar.' },
+      { titulo: 'Rojo (0-4.99)', desc: 'Necesitas atenciÛn, considera refuerzo.' },
       { titulo: 'Promedio general', desc: 'Se calcula con todas tus notas.' }
     ],
     tip: 'Habla con tu profesor si ves rojo, hay tiempo para mejorar.'
   },
-  'Cat√°logo de Cursos': {
+  'Cat·logo de Cursos': {
     descripcion: 'Explora todos los cursos disponibles en el instituto para futuras inscripciones.',
     pasos: [
-      { titulo: 'Ve a Cursado', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Navega el cat√°logo', desc: 'Todos los cursos disponibles aparecen aqu√≠.' },
+      { titulo: 'Ve a Cursado', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Navega el cat·logo', desc: 'Todos los cursos disponibles aparecen aquÌ.' },
       { titulo: 'Usa filtros', desc: 'Por idioma, nivel o disponibilidad.' },
       { titulo: 'Revisa la info', desc: 'Cada tarjeta muestra horario y cupos.' }
     ],
-    tip: 'Los cursos con pocos cupos se llenan r√°pido, solicita inscripci√≥n a tiempo.'
+    tip: 'Los cursos con pocos cupos se llenan r·pido, solicita inscripciÛn a tiempo.'
   },
-  'Solicitar Inscripci√≥n': {
-    descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisar√° tu solicitud.',
+  'Solicitar InscripciÛn': {
+    descripcion: 'Pide inscribirte en nuevos cursos. Un administrador revisar· tu solicitud.',
     pasos: [
-      { titulo: 'Encuentra el curso', desc: 'Navega el cat√°logo de cursos.' },
+      { titulo: 'Encuentra el curso', desc: 'Navega el cat·logo de cursos.' },
       { titulo: 'Verifica requisitos', desc: 'Algunos cursos requieren nivel previo.' },
-      { titulo: 'Haz clic en inscribir', desc: 'Bot√≥n "Solicitar Inscripci√≥n".' },
-      { titulo: 'Espera confirmaci√≥n', desc: 'Recibir√°s respuesta por el sistema.' }
+      { titulo: 'Haz clic en inscribir', desc: 'BotÛn "Solicitar InscripciÛn".' },
+      { titulo: 'Espera confirmaciÛn', desc: 'Recibir·s respuesta por el sistema.' }
     ],
-    tip: 'Aseg√∫rate de no tener conflictos de horario con tus cursos actuales.'
+    tip: 'Aseg˙rate de no tener conflictos de horario con tus cursos actuales.'
   },
   'Verificar Disponibilidad': {
-    descripcion: 'Cada curso tiene un cupo m√°ximo. Verifica si hay lugar antes de solicitar inscripci√≥n.',
+    descripcion: 'Cada curso tiene un cupo m·ximo. Verifica si hay lugar antes de solicitar inscripciÛn.',
     pasos: [
       { titulo: 'Busca el indicador', desc: 'Cada curso muestra cupos disponibles.' },
       { titulo: 'Interpreta los colores', desc: 'Verde hay lugar, rojo lleno.' },
-      { titulo: 'Consulta alternativas', desc: 'Si est√° lleno, busca otros horarios.' },
+      { titulo: 'Consulta alternativas', desc: 'Si est· lleno, busca otros horarios.' },
       { titulo: 'Contacta soporte', desc: 'Para listas de espera o excepciones.' }
     ],
-    tip: 'A inicio de cuatrimestre hay m√°s movimiento, los cupos pueden liberarse.'
+    tip: 'A inicio de cuatrimestre hay m·s movimiento, los cupos pueden liberarse.'
   },
   'Ver Calificaciones': {
     descripcion: 'Consulta tus notas de parciales y finales de cada curso.',
     pasos: [
-      { titulo: 'Ve a Calificaciones', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a Calificaciones', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Selecciona el curso', desc: 'Si tienes varios, elige uno.' },
       { titulo: 'Revisa tus notas', desc: 'Parcial 1, Parcial 2, Final.' },
-      { titulo: 'Consulta el promedio', desc: 'Se calcula autom√°ticamente.' }
+      { titulo: 'Consulta el promedio', desc: 'Se calcula autom·ticamente.' }
     ],
-    tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos d√≠as.'
+    tip: 'Las notas se actualizan cuando el profesor las carga, puede demorar unos dÌas.'
   },
   'Entender Promedios': {
-    descripcion: 'El promedio se calcula autom√°ticamente basado en tus calificaciones registradas.',
+    descripcion: 'El promedio se calcula autom·ticamente basado en tus calificaciones registradas.',
     pasos: [
       { titulo: 'Promedio por curso', desc: 'Suma de notas dividido cantidad de evaluaciones.' },
       { titulo: 'Promedio general', desc: 'Incluye todos tus cursos activos.' },
       { titulo: 'Peso de evaluaciones', desc: 'Todas las evaluaciones valen igual.' },
-      { titulo: 'Actualizaci√≥n', desc: 'Se recalcula con cada nueva nota.' }
+      { titulo: 'ActualizaciÛn', desc: 'Se recalcula con cada nueva nota.' }
     ],
     tip: 'El promedio general es importante para becas y certificados.'
   },
-  'Historial Acad√©mico': {
-    descripcion: 'Tu historial muestra toda tu trayectoria acad√©mica en el instituto.',
+  'Historial AcadÈmico': {
+    descripcion: 'Tu historial muestra toda tu trayectoria acadÈmica en el instituto.',
     pasos: [
-      { titulo: 'Accede al historial', desc: 'Desde la secci√≥n Calificaciones.' },
+      { titulo: 'Accede al historial', desc: 'Desde la secciÛn Calificaciones.' },
       { titulo: 'Revisa cursos pasados', desc: 'Todos tus cursos completados.' },
       { titulo: 'Consulta notas finales', desc: 'Cada curso muestra nota de cierre.' },
-      { titulo: 'Solicita certificados', desc: 'Contacta administraci√≥n si necesitas.' }
+      { titulo: 'Solicita certificados', desc: 'Contacta administraciÛn si necesitas.' }
     ],
-    tip: 'El historial es tu carta de presentaci√≥n acad√©mica, cu√≠dalo.'
+    tip: 'El historial es tu carta de presentaciÛn acadÈmica, cuÌdalo.'
   },
   'Ver Estado de Pagos': {
     descripcion: 'Consulta el estado de tus cuotas: pagadas, pendientes o vencidas.',
     pasos: [
-      { titulo: 'Ve a Mis Pagos', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a Mis Pagos', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Revisa la lista', desc: 'Cada cuota aparece con su estado.' },
-      { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo seg√∫n urgencia.' },
-      { titulo: 'Consulta vencimientos', desc: 'Fechas l√≠mite de cada cuota.' }
+      { titulo: 'Identifica pendientes', desc: 'En amarillo o rojo seg˙n urgencia.' },
+      { titulo: 'Consulta vencimientos', desc: 'Fechas lÌmite de cada cuota.' }
     ],
-    tip: 'Mant√©n tus pagos al d√≠a para evitar recargos e inconvenientes.'
+    tip: 'MantÈn tus pagos al dÌa para evitar recargos e inconvenientes.'
   },
   'Realizar un Pago': {
-    descripcion: 'Paga tus cuotas de forma simple eligiendo el m√©todo que prefieras.',
+    descripcion: 'Paga tus cuotas de forma simple eligiendo el mÈtodo que prefieras.',
     pasos: [
       { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-      { titulo: 'Elige m√©todo de pago', desc: 'Mercado Pago o Efectivo.' },
-      { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones seg√∫n m√©todo.' },
+      { titulo: 'Elige mÈtodo de pago', desc: 'Mercado Pago o Efectivo.' },
+      { titulo: 'Completa el proceso', desc: 'Sigue las instrucciones seg˙n mÈtodo.' },
       { titulo: 'Guarda el comprobante', desc: 'Siempre conserva tu recibo.' }
     ],
-    tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretar√≠a.'
+    tip: 'Mercado Pago se acredita al instante, efectivo requiere ir a secretarÌa.'
   },
   'Pago en Efectivo': {
-    descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretar√≠a.',
+    descripcion: 'Genera un ticket para pagar en efectivo presencialmente en secretarÌa.',
     pasos: [
       { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-      { titulo: 'Elige "Efectivo"', desc: 'Como m√©todo de pago.' },
-      { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con c√≥digo √∫nico.' },
-      { titulo: 'Presenta en secretar√≠a', desc: 'Paga en efectivo y entr√©galo.' }
+      { titulo: 'Elige "Efectivo"', desc: 'Como mÈtodo de pago.' },
+      { titulo: 'Descarga el ticket', desc: 'Se genera un PDF con cÛdigo ˙nico.' },
+      { titulo: 'Presenta en secretarÌa', desc: 'Paga en efectivo y entrÈgalo.' }
     ],
-    tip: 'El ticket tiene fecha de vencimiento, pres√©ntalo a tiempo.'
+    tip: 'El ticket tiene fecha de vencimiento, presÈntalo a tiempo.'
   },
   'Pago con Mercado Pago': {
     descripcion: 'Paga online con tarjeta o dinero en cuenta de Mercado Pago.',
     pasos: [
       { titulo: 'Selecciona la cuota', desc: 'Elige el mes a pagar.' },
-      { titulo: 'Elige "Mercado Pago"', desc: 'Como m√©todo de pago.' },
-      { titulo: 'Ser√°s redirigido', desc: 'A la p√°gina segura de MP.' },
+      { titulo: 'Elige "Mercado Pago"', desc: 'Como mÈtodo de pago.' },
+      { titulo: 'Ser·s redirigido', desc: 'A la p·gina segura de MP.' },
       { titulo: 'Completa el pago', desc: 'Con tarjeta o dinero en cuenta.' }
     ],
-    tip: 'Aseg√∫rate de tener fondos o tarjeta habilitada antes de iniciar.'
+    tip: 'Aseg˙rate de tener fondos o tarjeta habilitada antes de iniciar.'
   },
   'Descargar Comprobantes': {
     descripcion: 'Descarga tickets y comprobantes de tus pagos para tu registro.',
     pasos: [
-      { titulo: 'Ve a Mis Pagos', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a Mis Pagos', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Busca el pago', desc: 'Localiza el pago del que necesitas comprobante.' },
-      { titulo: 'Haz clic en descargar', desc: '√çcono de descarga junto al pago.' },
+      { titulo: 'Haz clic en descargar', desc: 'Õcono de descarga junto al pago.' },
       { titulo: 'Guarda el archivo', desc: 'Se descarga un PDF.' }
     ],
     tip: 'Guarda todos tus comprobantes en una carpeta organizada por fecha.'
@@ -1294,40 +1294,40 @@ const guiasDetalladas = {
   'Cambiar Avatar': {
     descripcion: 'Personaliza tu perfil subiendo una foto o imagen.',
     pasos: [
-      { titulo: 'Ve a Mi Perfil', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Haz clic en tu avatar', desc: 'El c√≠rculo con tu imagen actual.' },
+      { titulo: 'Ve a Mi Perfil', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Haz clic en tu avatar', desc: 'El cÌrculo con tu imagen actual.' },
       { titulo: 'Selecciona archivo', desc: 'Elige una imagen de tu dispositivo.' },
-      { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza autom√°ticamente.' }
+      { titulo: 'Confirma el cambio', desc: 'La imagen se actualiza autom·ticamente.' }
     ],
-    tip: 'Usa una foto clara de tu rostro para f√°cil identificaci√≥n.'
+    tip: 'Usa una foto clara de tu rostro para f·cil identificaciÛn.'
   },
   'Actualizar Datos Personales': {
-    descripcion: 'Mant√©n tu informaci√≥n de contacto actualizada para comunicaciones importantes.',
+    descripcion: 'MantÈn tu informaciÛn de contacto actualizada para comunicaciones importantes.',
     pasos: [
-      { titulo: 'Ve a Mi Perfil', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Haz clic en editar', desc: 'Bot√≥n para modificar datos.' },
-      { titulo: 'Actualiza la informaci√≥n', desc: 'Tel√©fono, email de contacto.' },
+      { titulo: 'Ve a Mi Perfil', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Haz clic en editar', desc: 'BotÛn para modificar datos.' },
+      { titulo: 'Actualiza la informaciÛn', desc: 'TelÈfono, email de contacto.' },
       { titulo: 'Guarda los cambios', desc: 'Confirma las modificaciones.' }
     ],
-    tip: 'Datos como DNI y legajo solo los puede modificar administraci√≥n.'
+    tip: 'Datos como DNI y legajo solo los puede modificar administraciÛn.'
   },
-  'Editar Informaci√≥n Personal': {
+  'Editar InformaciÛn Personal': {
     descripcion: 'Actualiza tus datos de contacto para mantenernos comunicados.',
     pasos: [
-      { titulo: 'Accede a tu perfil', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Localiza campos editables', desc: 'Email, tel√©fono principalmente.' },
-      { titulo: 'Modifica lo necesario', desc: 'Ingresa la informaci√≥n correcta.' },
-      { titulo: 'Guarda los cambios', desc: 'Confirma con el bot√≥n guardar.' }
+      { titulo: 'Accede a tu perfil', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Localiza campos editables', desc: 'Email, telÈfono principalmente.' },
+      { titulo: 'Modifica lo necesario', desc: 'Ingresa la informaciÛn correcta.' },
+      { titulo: 'Guarda los cambios', desc: 'Confirma con el botÛn guardar.' }
     ],
-    tip: 'Un email actualizado es crucial para recuperar acceso si olvidas la contrase√±a.'
+    tip: 'Un email actualizado es crucial para recuperar acceso si olvidas la contraseÒa.'
   },
   'Acceder a Classroom': {
     descripcion: 'Conecta con Google Classroom para acceder a materiales de estudio.',
     pasos: [
-      { titulo: 'Ve a Classroom', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Haz clic en acceder', desc: 'Ser√°s redirigido a Google.' },
-      { titulo: 'Inicia sesi√≥n', desc: 'Con tu cuenta de Google.' },
-      { titulo: 'Explora los cursos', desc: 'Ver√°s los cursos donde est√°s inscrito.' }
+      { titulo: 'Ve a Classroom', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Haz clic en acceder', desc: 'Ser·s redirigido a Google.' },
+      { titulo: 'Inicia sesiÛn', desc: 'Con tu cuenta de Google.' },
+      { titulo: 'Explora los cursos', desc: 'Ver·s los cursos donde est·s inscrito.' }
     ],
     tip: 'Usa la misma cuenta de Google siempre para no perder acceso.'
   },
@@ -1336,115 +1336,115 @@ const guiasDetalladas = {
     pasos: [
       { titulo: 'Ingresa a Classroom', desc: 'Conecta con tu cuenta Google.' },
       { titulo: 'Selecciona el curso', desc: 'El que te interesa revisar.' },
-      { titulo: 'Busca Materiales', desc: 'Secci√≥n de recursos del curso.' },
+      { titulo: 'Busca Materiales', desc: 'SecciÛn de recursos del curso.' },
       { titulo: 'Descarga lo que necesites', desc: 'PDFs, documentos, presentaciones.' }
     ],
-    tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexi√≥n.'
+    tip: 'Descarga los materiales a tu dispositivo para estudiar sin conexiÛn.'
   },
   'Vincular Google Classroom': {
     descripcion: 'Conecta tu cuenta de Google para acceder a los recursos de Classroom.',
     pasos: [
       { titulo: 'Ten una cuenta Google', desc: 'Gmail o cuenta institucional.' },
-      { titulo: 'Haz clic en Classroom', desc: 'Desde el men√∫ del sistema.' },
-      { titulo: 'Autoriza el acceso', desc: 'Google pedir√° permisos.' },
+      { titulo: 'Haz clic en Classroom', desc: 'Desde el men˙ del sistema.' },
+      { titulo: 'Autoriza el acceso', desc: 'Google pedir· permisos.' },
       { titulo: 'Listo', desc: 'Ya puedes acceder a los recursos.' }
     ],
     tip: 'Si tienes problemas, limpia las cookies del navegador e intenta de nuevo.'
   },
-  'Contactar Administraci√≥n': {
+  'Contactar AdministraciÛn': {
     descripcion: 'Usa el chat de soporte para comunicarte directamente con el equipo administrativo.',
     pasos: [
-      { titulo: 'Ve a Chat Soporte', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a Chat Soporte', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Escribe tu mensaje', desc: 'Describe tu consulta o problema.' },
-      { titulo: 'Env√≠a el mensaje', desc: 'Presiona Enter o el bot√≥n enviar.' },
-      { titulo: 'Espera respuesta', desc: 'Te notificar√°n cuando respondan.' }
+      { titulo: 'EnvÌa el mensaje', desc: 'Presiona Enter o el botÛn enviar.' },
+      { titulo: 'Espera respuesta', desc: 'Te notificar·n cuando respondan.' }
     ],
-    tip: 'S√© claro y espec√≠fico en tu consulta para recibir mejor ayuda.'
+    tip: 'SÈ claro y especÌfico en tu consulta para recibir mejor ayuda.'
   },
   'Notificaciones de Chat': {
     descripcion: 'Recibe alertas cuando el equipo de soporte responda a tus consultas.',
     pasos: [
-      { titulo: 'Observa el badge', desc: 'N√∫mero rojo en Chat Soporte.' },
+      { titulo: 'Observa el badge', desc: 'N˙mero rojo en Chat Soporte.' },
       { titulo: 'Habilita notificaciones', desc: 'Acepta cuando el navegador pregunte.' },
-      { titulo: 'Recibir√°s alertas', desc: 'Incluso con la pesta√±a cerrada.' },
+      { titulo: 'Recibir·s alertas', desc: 'Incluso con la pestaÒa cerrada.' },
       { titulo: 'Revisa mensajes nuevos', desc: 'Haz clic para ver respuestas.' }
     ],
-    tip: 'Las notificaciones funcionan mejor si mantienes sesi√≥n activa.'
+    tip: 'Las notificaciones funcionan mejor si mantienes sesiÛn activa.'
   },
   'Ver Historial de Mensajes': {
-    descripcion: 'Revisa conversaciones anteriores con administraci√≥n cuando lo necesites.',
+    descripcion: 'Revisa conversaciones anteriores con administraciÛn cuando lo necesites.',
     pasos: [
       { titulo: 'Accede al chat', desc: 'Desde Chat Soporte.' },
-      { titulo: 'Despl√°zate hacia arriba', desc: 'Los mensajes antiguos cargan.' },
+      { titulo: 'Despl·zate hacia arriba', desc: 'Los mensajes antiguos cargan.' },
       { titulo: 'Busca lo que necesitas', desc: 'Revisa respuestas anteriores.' },
       { titulo: 'Referencia en nuevos mensajes', desc: 'Si es relevante, menciona el tema previo.' }
     ],
     tip: 'El historial se conserva indefinidamente para tu referencia.'
   },
-  '¬øOlvid√© mi contrase√±a?': {
-    descripcion: 'Si olvidaste tu contrase√±a, hay formas de recuperar el acceso a tu cuenta.',
+  'øOlvidÈ mi contraseÒa?': {
+    descripcion: 'Si olvidaste tu contraseÒa, hay formas de recuperar el acceso a tu cuenta.',
     pasos: [
-      { titulo: 'No te preocupes', desc: 'Es un problema com√∫n con soluci√≥n.' },
-      { titulo: 'Contacta administraci√≥n', desc: 'V√≠a email o presencialmente.' },
+      { titulo: 'No te preocupes', desc: 'Es un problema com˙n con soluciÛn.' },
+      { titulo: 'Contacta administraciÛn', desc: 'VÌa email o presencialmente.' },
       { titulo: 'Verifica tu identidad', desc: 'Con DNI o datos personales.' },
-      { titulo: 'Recibe nueva contrase√±a', desc: 'Te dar√°n una temporal para cambiar.' }
+      { titulo: 'Recibe nueva contraseÒa', desc: 'Te dar·n una temporal para cambiar.' }
     ],
-    tip: 'Usa un gestor de contrase√±as para no olvidarlas en el futuro.'
+    tip: 'Usa un gestor de contraseÒas para no olvidarlas en el futuro.'
   },
-  '¬øMis datos est√°n incorrectos?': {
-    descripcion: 'Si encuentras errores en tu informaci√≥n personal, puedes solicitar correcci√≥n.',
+  'øMis datos est·n incorrectos?': {
+    descripcion: 'Si encuentras errores en tu informaciÛn personal, puedes solicitar correcciÛn.',
     pasos: [
-      { titulo: 'Identifica el error', desc: 'Qu√© dato espec√≠fico est√° mal.' },
-      { titulo: 'Contacta administraci√≥n', desc: 'Por chat o presencialmente.' },
-      { titulo: 'Proporciona informaci√≥n correcta', desc: 'Y documentaci√≥n si es necesario.' },
-      { titulo: 'Espera la correcci√≥n', desc: 'Los cambios se reflejan pronto.' }
+      { titulo: 'Identifica el error', desc: 'QuÈ dato especÌfico est· mal.' },
+      { titulo: 'Contacta administraciÛn', desc: 'Por chat o presencialmente.' },
+      { titulo: 'Proporciona informaciÛn correcta', desc: 'Y documentaciÛn si es necesario.' },
+      { titulo: 'Espera la correcciÛn', desc: 'Los cambios se reflejan pronto.' }
     ],
-    tip: 'DNI y legajo requieren documentaci√≥n para modificarse.'
+    tip: 'DNI y legajo requieren documentaciÛn para modificarse.'
   },
-  '¬øC√≥mo me doy de baja de un curso?': {
+  'øCÛmo me doy de baja de un curso?': {
     descripcion: 'Si necesitas abandonar un curso, debes solicitar la baja formalmente.',
     pasos: [
-      { titulo: 'Eval√∫a tu decisi√≥n', desc: 'La baja puede afectar tu historial.' },
-      { titulo: 'Contacta administraci√≥n', desc: 'Explica tu situaci√≥n.' },
-      { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmaci√≥n.' },
-      { titulo: 'Verifica la baja', desc: 'El curso desaparecer√° de tu lista.' }
+      { titulo: 'Eval˙a tu decisiÛn', desc: 'La baja puede afectar tu historial.' },
+      { titulo: 'Contacta administraciÛn', desc: 'Explica tu situaciÛn.' },
+      { titulo: 'Completa el proceso', desc: 'Puede requerir firma o confirmaciÛn.' },
+      { titulo: 'Verifica la baja', desc: 'El curso desaparecer· de tu lista.' }
     ],
-    tip: 'Consulta sobre per√≠odos de baja sin penalizaci√≥n antes de decidir.'
+    tip: 'Consulta sobre perÌodos de baja sin penalizaciÛn antes de decidir.'
   },
-  'Tu Primer D√≠a': {
-    descripcion: 'Gu√≠a para comenzar a usar el sistema como profesor.',
+  'Tu Primer DÌa': {
+    descripcion: 'GuÌa para comenzar a usar el sistema como profesor.',
     pasos: [
       { titulo: 'Revisa tus cursos', desc: 'Ve a Mis Cursos para ver asignaciones.' },
       { titulo: 'Configura tu perfil', desc: 'Sube una foto y verifica tus datos.' },
-      { titulo: 'Explora las secciones', desc: 'Familiar√≠zate con el men√∫.' },
+      { titulo: 'Explora las secciones', desc: 'FamiliarÌzate con el men˙.' },
       { titulo: 'Prueba las funciones', desc: 'Calificaciones y asistencias.' }
     ],
-    tip: 'Si tienes dudas, el chat de soporte est√° disponible para ayudarte.'
+    tip: 'Si tienes dudas, el chat de soporte est· disponible para ayudarte.'
   },
   'Ver Cursos Asignados': {
     descripcion: 'Consulta los cursos que te han sido asignados para dictar.',
     pasos: [
-      { titulo: 'Ve a Mis Cursos', desc: 'Desde el men√∫ lateral.' },
-      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra informaci√≥n clave.' },
-      { titulo: 'Consulta horarios', desc: 'D√≠as y horas de clase.' },
+      { titulo: 'Ve a Mis Cursos', desc: 'Desde el men˙ lateral.' },
+      { titulo: 'Revisa las tarjetas', desc: 'Cada curso muestra informaciÛn clave.' },
+      { titulo: 'Consulta horarios', desc: 'DÌas y horas de clase.' },
       { titulo: 'Ve los alumnos', desc: 'Cantidad inscrita en cada curso.' }
     ],
-    tip: 'Si falta un curso que deber√≠as tener, contacta a administraci√≥n.'
+    tip: 'Si falta un curso que deberÌas tener, contacta a administraciÛn.'
   },
-  'Informaci√≥n del Curso': {
+  'InformaciÛn del Curso': {
     descripcion: 'Accede a todos los detalles de los cursos que dictas.',
     pasos: [
       { titulo: 'Selecciona el curso', desc: 'Haz clic en la tarjeta.' },
-      { titulo: 'Revisa la informaci√≥n', desc: 'Horario, aula, nivel.' },
+      { titulo: 'Revisa la informaciÛn', desc: 'Horario, aula, nivel.' },
       { titulo: 'Consulta alumnos', desc: 'Lista completa de inscritos.' },
-      { titulo: 'Ve estad√≠sticas', desc: 'Promedio del curso y asistencia.' }
+      { titulo: 'Ve estadÌsticas', desc: 'Promedio del curso y asistencia.' }
     ],
     tip: 'Descarga la lista de alumnos para pasar asistencia en papel si lo prefieres.'
   },
   'Cargar Notas': {
     descripcion: 'Ingresa las calificaciones de tus alumnos en el sistema.',
     pasos: [
-      { titulo: 'Ve a Calificaciones', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a Calificaciones', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Selecciona el curso', desc: 'Del desplegable de cursos.' },
       { titulo: 'Busca al alumno', desc: 'En la lista aparecen todos.' },
       { titulo: 'Ingresa las notas', desc: 'Parcial 1, Parcial 2, Final.' }
@@ -1454,67 +1454,67 @@ const guiasDetalladas = {
   'Editar Calificaciones': {
     descripcion: 'Modifica notas ya ingresadas si es necesario hacer correcciones.',
     pasos: [
-      { titulo: 'Busca la calificaci√≥n', desc: 'En la secci√≥n de notas del curso.' },
+      { titulo: 'Busca la calificaciÛn', desc: 'En la secciÛn de notas del curso.' },
       { titulo: 'Haz clic en editar', desc: 'Junto a la nota a modificar.' },
       { titulo: 'Cambia el valor', desc: 'Ingresa la nota correcta.' },
       { titulo: 'Guarda el cambio', desc: 'Se recalcula el promedio.' }
     ],
-    tip: 'Los cambios quedan registrados, √∫salos solo para correcciones leg√≠timas.'
+    tip: 'Los cambios quedan registrados, ˙salos solo para correcciones legÌtimas.'
   },
   'Ver Promedio de Alumnos': {
     descripcion: 'Consulta el rendimiento general de tus alumnos en cada curso.',
     pasos: [
       { titulo: 'Accede a Calificaciones', desc: 'Del curso correspondiente.' },
-      { titulo: 'Revisa la columna promedio', desc: 'Se calcula autom√°ticamente.' },
+      { titulo: 'Revisa la columna promedio', desc: 'Se calcula autom·ticamente.' },
       { titulo: 'Identifica tendencias', desc: 'Alumnos que necesitan apoyo.' },
-      { titulo: 'Exporta si necesitas', desc: 'Para an√°lisis fuera del sistema.' }
+      { titulo: 'Exporta si necesitas', desc: 'Para an·lisis fuera del sistema.' }
     ],
     tip: 'Los promedios bajos generalizados pueden indicar necesidad de refuerzo.'
   },
   'Tomar Asistencia': {
     descripcion: 'Registra la asistencia de tus alumnos en cada clase.',
     pasos: [
-      { titulo: 'Ve a Asistencias', desc: 'Desde el men√∫ lateral.' },
+      { titulo: 'Ve a Asistencias', desc: 'Desde el men˙ lateral.' },
       { titulo: 'Selecciona curso y fecha', desc: 'La fecha actual viene por defecto.' },
       { titulo: 'Marca cada alumno', desc: 'Presente, Ausente o Tarde.' },
-      { titulo: 'Se guarda autom√°ticamente', desc: 'No necesitas bot√≥n guardar.' }
+      { titulo: 'Se guarda autom·ticamente', desc: 'No necesitas botÛn guardar.' }
     ],
-    tip: 'Toma asistencia al inicio de clase para mayor precisi√≥n.'
+    tip: 'Toma asistencia al inicio de clase para mayor precisiÛn.'
   },
   'Historial de Asistencias': {
     descripcion: 'Consulta registros de asistencia de fechas anteriores.',
     pasos: [
       { titulo: 'Ve a Asistencias', desc: 'Del curso que te interesa.' },
       { titulo: 'Cambia la fecha', desc: 'Usa el calendario para navegar.' },
-      { titulo: 'Revisa el registro', desc: 'Ver√°s el estado de cada alumno.' },
+      { titulo: 'Revisa el registro', desc: 'Ver·s el estado de cada alumno.' },
       { titulo: 'Identifica patrones', desc: 'Alumnos con muchas ausencias.' }
     ],
-    tip: 'Comunica a administraci√≥n si un alumno tiene ausencias excesivas.'
+    tip: 'Comunica a administraciÛn si un alumno tiene ausencias excesivas.'
   },
-  '¬øNo veo un curso asignado?': {
-    descripcion: 'Si un curso que deber√≠as tener no aparece, puede haber un problema de asignaci√≥n.',
+  'øNo veo un curso asignado?': {
+    descripcion: 'Si un curso que deberÌas tener no aparece, puede haber un problema de asignaciÛn.',
     pasos: [
-      { titulo: 'Verifica la asignaci√≥n', desc: 'Confirma con administraci√≥n.' },
-      { titulo: 'Recarga la p√°gina', desc: 'A veces es un problema de cach√©.' },
-      { titulo: 'Cierra y abre sesi√≥n', desc: 'Puede actualizar tus datos.' },
+      { titulo: 'Verifica la asignaciÛn', desc: 'Confirma con administraciÛn.' },
+      { titulo: 'Recarga la p·gina', desc: 'A veces es un problema de cachÈ.' },
+      { titulo: 'Cierra y abre sesiÛn', desc: 'Puede actualizar tus datos.' },
       { titulo: 'Contacta soporte', desc: 'Si el problema persiste.' }
     ],
     tip: 'Los cursos nuevos pueden demorar unos minutos en aparecer.'
   },
-  '¬øLas calificaciones no se guardan?': {
-    descripcion: 'Si las notas no se guardan, puede haber un problema t√©cnico.',
+  'øLas calificaciones no se guardan?': {
+    descripcion: 'Si las notas no se guardan, puede haber un problema tÈcnico.',
     pasos: [
-      { titulo: 'Verifica conexi√≥n', desc: 'Aseg√∫rate de tener internet.' },
+      { titulo: 'Verifica conexiÛn', desc: 'Aseg˙rate de tener internet.' },
       { titulo: 'Haz clic en guardar', desc: 'No solo cambies el valor, confirma.' },
-      { titulo: 'Espera el mensaje', desc: 'Debe aparecer confirmaci√≥n.' },
+      { titulo: 'Espera el mensaje', desc: 'Debe aparecer confirmaciÛn.' },
       { titulo: 'Recarga y verifica', desc: 'La nota debe persistir.' }
     ],
-    tip: 'Si el problema contin√∫a, reporta el error con capturas de pantalla.'
+    tip: 'Si el problema contin˙a, reporta el error con capturas de pantalla.'
   }
 };
 
 function openGuiaModal(item) {
-  const title = item.querySelector('h4')?.textContent || 'Gu√≠a';
+  const title = item.querySelector('h4')?.textContent || 'GuÌa';
   const description = item.querySelector('p')?.textContent || '';
   const iconHTML = item.querySelector('.guia-icon')?.innerHTML || '';
   const tags = item.querySelectorAll('.guia-tag');
@@ -1523,9 +1523,9 @@ function openGuiaModal(item) {
     descripcion: description,
     pasos: [
       { titulo: 'Paso 1', desc: 'Sigue las instrucciones en pantalla.' },
-      { titulo: 'Paso 2', desc: 'Completa la informaci√≥n requerida.' },
+      { titulo: 'Paso 2', desc: 'Completa la informaciÛn requerida.' },
       { titulo: 'Paso 3', desc: 'Confirma los cambios realizados.' },
-      { titulo: 'Paso 4', desc: 'Verifica que todo est√© correcto.' }
+      { titulo: 'Paso 4', desc: 'Verifica que todo estÈ correcto.' }
     ],
     tip: 'Si necesitas ayuda adicional, contacta al equipo de soporte.'
   };
@@ -1664,7 +1664,7 @@ const STATUS_CONFIG = {
   labels: {
     operational: 'Operativo',
     degraded: 'Degradado',
-    outage: 'Interrupci√≥n',
+    outage: 'InterrupciÛn',
     maintenance: 'Mantenimiento'
   },
   icons: {
@@ -2524,7 +2524,7 @@ function renderStatusSection() {
           </button>
           <button class="status-btn status-btn-secondary" onclick="window.open('/status.html', '_blank')">
             <i data-lucide="external-link"></i>
-            Ver P√°gina P√∫blica
+            Ver P·gina P˙blica
           </button>
         </div>
       </div>
@@ -2591,7 +2591,7 @@ function renderStatusSection() {
         </div>
         <div class="status-modal-body">
           <div class="status-form-group">
-            <label>T√≠tulo del Incidente *</label>
+            <label>TÌtulo del Incidente *</label>
             <input type="text" id="incidentTitle" placeholder="Ej: Mantenimiento programado del sistema">
           </div>
           
@@ -2599,34 +2599,34 @@ function renderStatusSection() {
             <label>Severidad *</label>
             <select id="incidentSeverity" onchange="updateBannerPreview()">
               <option value="">Selecciona la severidad...</option>
-              <option value="degraded">Ô∏è Degradado - Rendimiento reducido</option>
-              <option value="outage"> Interrupci√≥n - Servicio no disponible</option>
+              <option value="degraded">? Degradado - Rendimiento reducido</option>
+              <option value="outage"> InterrupciÛn - Servicio no disponible</option>
               <option value="maintenance"> Mantenimiento - Trabajo programado</option>
             </select>
           </div>
 
           <div class="status-form-group">
             <label>Mensaje (opcional)</label>
-            <textarea id="incidentMessage" placeholder="Describe el incidente y las acciones que se est√°n tomando..." oninput="updateBannerPreview()"></textarea>
+            <textarea id="incidentMessage" placeholder="Describe el incidente y las acciones que se est·n tomando..." oninput="updateBannerPreview()"></textarea>
           </div>
 
           <div class="status-form-group">
             <label>Servicios Afectados</label>
             <div class="status-checkbox-group" id="servicesCheckboxes">
-              <!-- Se llena din√°micamente -->
+              <!-- Se llena din·micamente -->
             </div>
           </div>
 
           <div class="banner-toggle">
             <input type="checkbox" id="showBanner" checked>
-            <label for="showBanner">Mostrar banner en la p√°gina de inicio</label>
+            <label for="showBanner">Mostrar banner en la p·gina de inicio</label>
           </div>
 
           <div class="banner-preview" id="bannerPreview" style="display: none;">
             <div class="banner-preview-label">Vista previa del banner</div>
             <div class="banner-preview-content degraded" id="bannerPreviewContent">
               <i data-lucide="alert-triangle"></i>
-              <span class="banner-preview-text" id="bannerPreviewText">T√≠tulo del incidente</span>
+              <span class="banner-preview-text" id="bannerPreviewText">TÌtulo del incidente</span>
             </div>
           </div>
         </div>
@@ -2667,7 +2667,7 @@ function renderStatusUI() {
       <i data-lucide="${STATUS_CONFIG.icons[global_status]}"></i>
     </div>
     <div class="global-status-text ${global_status}">${STATUS_CONFIG.labels[global_status]}</div>
-    <div class="global-status-time">√öltima actualizaci√≥n: ${formatStatusTime(last_updated)}</div>
+    <div class="global-status-time">⁄ltima actualizaciÛn: ${formatStatusTime(last_updated)}</div>
   `;
 
   const incidentContainer = document.getElementById('activeIncidentContainer');
@@ -2810,7 +2810,7 @@ function closeIncidentModal() {
 
 function updateBannerPreview() {
   const severity = document.getElementById('incidentSeverity').value;
-  const title = document.getElementById('incidentTitle').value || 'T√≠tulo del incidente';
+  const title = document.getElementById('incidentTitle').value || 'TÌtulo del incidente';
   const preview = document.getElementById('bannerPreview');
   const content = document.getElementById('bannerPreviewContent');
   const text = document.getElementById('bannerPreviewText');
@@ -2840,7 +2840,7 @@ async function submitIncident() {
   });
   
   if (!title) {
-    Swal.fire({ icon: 'warning', title: 'T√≠tulo requerido', text: 'Ingresa un t√≠tulo para el incidente.', confirmButtonColor: '#4a5259' });
+    Swal.fire({ icon: 'warning', title: 'TÌtulo requerido', text: 'Ingresa un tÌtulo para el incidente.', confirmButtonColor: '#4a5259' });
     return;
   }
   
@@ -2868,7 +2868,7 @@ async function submitIncident() {
       Swal.fire({
         icon: 'success',
         title: 'Incidente publicado',
-        text: showBanner ? 'El banner se mostrar√° en la p√°gina de inicio.' : 'El incidente ha sido registrado.',
+        text: showBanner ? 'El banner se mostrar· en la p·gina de inicio.' : 'El incidente ha sido registrado.',
         confirmButtonColor: '#4a5259'
       });
     } else {
@@ -2883,10 +2883,10 @@ async function submitIncident() {
 async function resolveIncident(id) {
   const result = await Swal.fire({
     icon: 'question',
-    title: '¬øResolver incidente?',
-    text: 'Esto marcar√° el incidente como resuelto y restaurar√° todos los servicios.',
+    title: 'øResolver incidente?',
+    text: 'Esto marcar· el incidente como resuelto y restaurar· todos los servicios.',
     showCancelButton: true,
-    confirmButtonText: 'S√≠, resolver',
+    confirmButtonText: 'SÌ, resolver',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#16a34a'
   });
@@ -2918,10 +2918,10 @@ async function resolveIncident(id) {
 async function deleteIncident(id) {
   const result = await Swal.fire({
     icon: 'warning',
-    title: '¬øEliminar incidente?',
-    text: 'Esto eliminar√° el incidente sin agregarlo al historial.',
+    title: 'øEliminar incidente?',
+    text: 'Esto eliminar· el incidente sin agregarlo al historial.',
     showCancelButton: true,
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#dc2626'
   });
@@ -2947,9 +2947,9 @@ async function deleteIncident(id) {
 
 function openUpdateModal(id) {
   Swal.fire({
-    title: 'Agregar actualizaci√≥n',
+    title: 'Agregar actualizaciÛn',
     input: 'textarea',
-    inputPlaceholder: 'Escribe una actualizaci√≥n sobre el incidente...',
+    inputPlaceholder: 'Escribe una actualizaciÛn sobre el incidente...',
     showCancelButton: true,
     confirmButtonText: 'Publicar',
     cancelButtonText: 'Cancelar',
@@ -2970,7 +2970,7 @@ function openUpdateModal(id) {
           await loadStatusData();
           Swal.fire({
             icon: 'success',
-            title: 'Actualizaci√≥n publicada',
+            title: 'ActualizaciÛn publicada',
             timer: 1500,
             showConfirmButton: false
           });
@@ -3362,7 +3362,7 @@ case "pagos":
           </div>
         </div>
         <div class="metric-card-value">$<span id="metricPromedio">0</span></div>
-        <div class="metric-card-subtitle">Hist√≥rico</div>
+        <div class="metric-card-subtitle">HistÛrico</div>
       </div>
     </div>
 
@@ -3406,7 +3406,7 @@ case "pagos":
     </div>
 
     <div class="cuotas-gestion-container" id="cuotasGestionContainer" style="display: none;">
-      <!-- Contenedor para la gesti√≥n de cuotas -->
+      <!-- Contenedor para la gestiÛn de cuotas -->
     </div>
   `;
   
@@ -3416,7 +3416,7 @@ case "pagos":
           <div></div>
           <button class="btn-primary" onclick="openNuevaInscripcionModal()">
             <i data-lucide="user-plus"></i>
-            Nueva Inscripci√≥n
+            Nueva InscripciÛn
           </button>
         </div>
         <table>
@@ -3425,7 +3425,7 @@ case "pagos":
               <th>ID</th>
               <th>Alumno</th>
               <th>Curso</th>
-              <th>Fecha Inscripci√≥n</th>
+              <th>Fecha InscripciÛn</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
@@ -3453,7 +3453,7 @@ case "pagos":
       return `
         <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gesti√≥n de Aulas</h2>
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">GestiÛn de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevaAulaModal()">
@@ -3485,7 +3485,7 @@ case "pagos":
                   </div>
                   <div>
                     <div style="font-size: 24px; font-weight: 700; color: ${capacidadColor};">${a.capacidad}</div>
-                    <div style="font-size: 12px; color: #666;">Capacidad m√°xima</div>
+                    <div style="font-size: 12px; color: #666;">Capacidad m·xima</div>
                   </div>
                 </div>
               </div>
@@ -3506,13 +3506,13 @@ case "pagos":
     case "idiomas":
       const idiomasStats = {
         total: data.length,
-        populares: ['Ingl√©s', 'Franc√©s', 'Alem√°n', 'Italiano', 'Portugu√©s']
+        populares: ['InglÈs', 'FrancÈs', 'Alem·n', 'Italiano', 'PortuguÈs']
       };
       
       return `
         <div class="idiomas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gesti√≥n de Idiomas</h2>
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">GestiÛn de Idiomas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} idioma${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevoIdiomaModal()">
@@ -3551,7 +3551,7 @@ case "pagos":
       `;
       
     default:
-      return "<p>Secci√≥n no disponible.</p>";
+      return "<p>SecciÛn no disponible.</p>";
   }
 }
 
@@ -3570,7 +3570,7 @@ async function generateDashboardHome() {
     return `
       <h2 style="margin-bottom: 30px;">Dashboard Administrativo</h2>
       
-      <!-- Cards de Estad√≠sticas -->
+      <!-- Cards de EstadÌsticas -->
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-card-header">
@@ -3623,11 +3623,11 @@ async function generateDashboardHome() {
 
       <!-- Tablas de resumen -->
       <div class="dashboard-tables">
-        <!-- √öltimos Registros -->
+        <!-- ⁄ltimos Registros -->
         <div class="dashboard-table-card">
           <h3>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
-            √öltimos Registros
+            ⁄ltimos Registros
           </h3>
           ${registros.length > 0 ? `
             <table class="mini-table">
@@ -3651,11 +3651,11 @@ async function generateDashboardHome() {
           ` : '<div class="empty-state">No hay registros recientes</div>'}
         </div>
 
-        <!-- √öltimos Pagos -->
+        <!-- ⁄ltimos Pagos -->
         <div class="dashboard-table-card">
           <h3>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-            √öltimos Pagos
+            ⁄ltimos Pagos
           </h3>
           ${pagos.length > 0 ? `
             <table class="mini-table">
@@ -3693,7 +3693,7 @@ function ensureInscribirModal() {
     <div id="modalInscribir" class="modal">
       <div class="modal-content" style="max-width: 900px; max-height: 90vh;">
         <div class="modal-header">
-          <h3 id="modalInscribirTitle">Gesti√≥n de Alumnos</h3>
+          <h3 id="modalInscribirTitle">GestiÛn de Alumnos</h3>
           <button type="button" class="close-modal" aria-label="Cerrar">&times;</button>
         </div>
         
@@ -3766,7 +3766,7 @@ function ensureInscribirModal() {
 async function openInscribirModal(idCurso, nombre) {
   ensureInscribirModal();
   const modal = document.getElementById('modalInscribir');
-  document.getElementById('modalInscribirTitle').textContent = `Gesti√≥n de Alumnos - ${nombre}`;
+  document.getElementById('modalInscribirTitle').textContent = `GestiÛn de Alumnos - ${nombre}`;
   modal.dataset.idCurso = idCurso;
   modal.classList.add('active');
 
@@ -3847,7 +3847,7 @@ async function cargarAlumnosDisponibles(idCurso) {
     document.getElementById('badgeDisponibles').textContent = disponibles.length;
 
     if (disponibles.length === 0) {
-      container.innerHTML = '<div class="empty-state"><i data-lucide="user-check"></i><p>Todos los alumnos ya est√°n inscritos</p></div>';
+      container.innerHTML = '<div class="empty-state"><i data-lucide="user-check"></i><p>Todos los alumnos ya est·n inscritos</p></div>';
       lucide.createIcons();
       return;
     }
@@ -3939,7 +3939,7 @@ function updateSelectedCount() {
 }
 
 async function darDeBajaAlumno(idCurso, idAlumno, nombreAlumno) {
-  if (!confirm(`¬øEst√°s seguro de dar de baja a ${nombreAlumno}?`)) return;
+  if (!confirm(`øEst·s seguro de dar de baja a ${nombreAlumno}?`)) return;
 
   try {
     const resp = await fetchWithAuth(`${API_URL}/inscripciones/${idCurso}/${idAlumno}`, {
@@ -3984,12 +3984,12 @@ function ensureCursoPanel() {
     <div id="cursoPanel" class="curso-panel">
       <div class="curso-panel-header">
         <h2 id="cursoPanelTitle">Detalle del Curso</h2>
-        <button class="close-panel" aria-label="Cerrar">√ó</button>
+        <button class="close-panel" aria-label="Cerrar">◊</button>
       </div>
       
       <div class="curso-panel-content">
         <div class="panel-section">
-          <h3><i data-lucide="info"></i> Informaci√≥n del Curso</h3>
+          <h3><i data-lucide="info"></i> InformaciÛn del Curso</h3>
           <div class="curso-stats-grid" id="cursoStats"></div>
         </div>
         
@@ -4111,14 +4111,14 @@ async function openCursoPanel(idCurso) {
     };
 
     document.getElementById('btnEliminarCurso').onclick = () => {
-      if (confirm(`¬øEst√°s seguro de eliminar el curso "${curso.nombre_curso}"?`)) {
-        alert('Funcionalidad de eliminar curso pr√≥ximamente');
+      if (confirm(`øEst·s seguro de eliminar el curso "${curso.nombre_curso}"?`)) {
+        alert('Funcionalidad de eliminar curso prÛximamente');
       }
     };
 
   } catch (err) {
     console.error('Error al cargar detalles del curso:', err);
-    document.getElementById('cursoStats').innerHTML = '<p>Error al cargar estad√≠sticas</p>';
+    document.getElementById('cursoStats').innerHTML = '<p>Error al cargar estadÌsticas</p>';
     document.getElementById('alumnosInscritos').innerHTML = '<p>Error al cargar alumnos</p>';
   }
 }
@@ -4165,7 +4165,7 @@ function ensureEditarCursoModal() {
             
             <div>
               <label for="editHorario">Horario:</label>
-              <input type="text" id="editHorario" placeholder="Ej: Lunes y Mi√©rcoles 18:00-20:00" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+              <input type="text" id="editHorario" placeholder="Ej: Lunes y MiÈrcoles 18:00-20:00" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
             </div>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
@@ -4177,7 +4177,7 @@ function ensureEditarCursoModal() {
               </div>
               
               <div>
-                <label for="editCupo">Cupo M√°ximo:</label>
+                <label for="editCupo">Cupo M·ximo:</label>
                 <input type="number" id="editCupo" min="1" max="100" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
               </div>
             </div>
@@ -4294,7 +4294,7 @@ async function initAdminDashboard() {
 
 
 async function initProfesorDashboard() {
-  console.log("‚Äç Dashboard PROFESOR cargado");
+  console.log("? Dashboard PROFESOR cargado");
 
   const loader = document.getElementById("loader");
   const mainContent = document.getElementById("mainContent");
@@ -4443,11 +4443,11 @@ async function initProfesorDashboard() {
         <div class="message-list">
           <div class="message-item">
             <i data-lucide="mail"></i>
-            <div><h3>Coordinaci√≥n Acad√©mica</h3><p>Reuni√≥n el jueves a las 14hs</p></div>
+            <div><h3>CoordinaciÛn AcadÈmica</h3><p>ReuniÛn el jueves a las 14hs</p></div>
           </div>
           <div class="message-item">
             <i data-lucide="mail"></i>
-            <div><h3>Administraci√≥n</h3><p>Por favor enviar lista de asistencia</p></div>
+            <div><h3>AdministraciÛn</h3><p>Por favor enviar lista de asistencia</p></div>
           </div>
         </div>`;
       lucide.createIcons();
@@ -4532,13 +4532,13 @@ function ensureAlumnoPanel() {
     <div id="alumnoPanelOverlay" class="curso-panel-overlay"></div>
     <div id="alumnoPanel" class="alumno-panel">
       <div class="alumno-panel-header">
-        <button class="close-panel" aria-label="Cerrar">√ó</button>
+        <button class="close-panel" aria-label="Cerrar">◊</button>
         <div class="alumno-panel-header-content">
           <div class="alumno-panel-avatar" id="panelAlumnoAvatar">AA</div>
           <div class="alumno-panel-info">
             <h2 id="panelAlumnoNombre">Cargando...</h2>
             <div class="legajo-info">
-              <span id="panelAlumnoLegajo"></span> ‚Ä¢ 
+              <span id="panelAlumnoLegajo"></span> ï 
               <span id="panelAlumnoEstado" class="alumno-estado-badge activo">Activo</span>
             </div>
           </div>
@@ -4548,7 +4548,7 @@ function ensureAlumnoPanel() {
       <div class="alumno-panel-content" id="panelAlumnoContent">
         <div style="text-align: center; padding: 40px; color: #999;">
           <i data-lucide="loader" style="width: 32px; height: 32px; animation: spin 1s linear infinite;"></i>
-          <p>Cargando informaci√≥n...</p>
+          <p>Cargando informaciÛn...</p>
         </div>
       </div>
     </div>`;
@@ -4607,16 +4607,16 @@ async function openAlumnoPanel(idAlumno) {
 
     const content = document.getElementById('panelAlumnoContent');
     content.innerHTML = `
-      <!-- Informaci√≥n Personal -->
+      <!-- InformaciÛn Personal -->
       <div class="info-section">
-        <h3><i data-lucide="user"></i> Informaci√≥n Personal</h3>
+        <h3><i data-lucide="user"></i> InformaciÛn Personal</h3>
         <div class="info-grid">
           <div class="info-item">
             <div class="info-item-label">Email</div>
             <div class="info-item-value">${alumno.mail}</div>
           </div>
           <div class="info-item">
-            <div class="info-item-label">Tel√©fono</div>
+            <div class="info-item-label">TelÈfono</div>
             <div class="info-item-value">${alumno.telefono || 'No registrado'}</div>
           </div>
           <div class="info-item">
@@ -4632,9 +4632,9 @@ async function openAlumnoPanel(idAlumno) {
         </div>
       </div>
 
-      <!-- Estad√≠sticas Acad√©micas -->
+      <!-- EstadÌsticas AcadÈmicas -->
       <div class="info-section">
-        <h3><i data-lucide="bar-chart-2"></i> Estad√≠sticas Acad√©micas</h3>
+        <h3><i data-lucide="bar-chart-2"></i> EstadÌsticas AcadÈmicas</h3>
         <div class="stats-grid">
           <div class="stat-box">
             <div class="stat-number">${alumno.cursos_activos || 0}</div>
@@ -4660,7 +4660,7 @@ async function openAlumnoPanel(idAlumno) {
               <div class="curso-item">
                 <div class="curso-item-info">
                   <h4>${c.nombre_curso}</h4>
-                  <p>${c.nombre_idioma} - ${c.nivel} ${c.horario ? `‚Ä¢ ${c.horario}` : ''}</p>
+                  <p>${c.nombre_idioma} - ${c.nivel} ${c.horario ? `ï ${c.horario}` : ''}</p>
                 </div>
                 <div class="curso-item-calificacion">
                   ${c.promedio !== null ? `
@@ -4671,7 +4671,7 @@ async function openAlumnoPanel(idAlumno) {
               </div>
             `).join('')}
           </div>
-        ` : '<p style="color: #999; text-align: center; padding: 20px;">No est√° inscrito en ning√∫n curso actualmente</p>'}
+        ` : '<p style="color: #999; text-align: center; padding: 20px;">No est· inscrito en ning˙n curso actualmente</p>'}
       </div>
 
       <!-- Resumen de Pagos -->
@@ -4680,7 +4680,7 @@ async function openAlumnoPanel(idAlumno) {
         <div class="pagos-summary">
           <h4>Total Pagado</h4>
           <div class="pagos-total">$${alumno.total_pagado ? parseFloat(alumno.total_pagado).toLocaleString('es-AR', {minimumFractionDigits: 2}) : '0.00'}</div>
-          ${alumno.ultimo_pago ? `<div class="pagos-ultimo">√öltimo pago: ${new Date(alumno.ultimo_pago).toLocaleDateString('es-AR')}</div>` : '<div class="pagos-ultimo">Sin pagos registrados</div>'}
+          ${alumno.ultimo_pago ? `<div class="pagos-ultimo">⁄ltimo pago: ${new Date(alumno.ultimo_pago).toLocaleDateString('es-AR')}</div>` : '<div class="pagos-ultimo">Sin pagos registrados</div>'}
         </div>
         <div class="stats-grid">
           <div class="stat-box">
@@ -4703,7 +4703,7 @@ async function openAlumnoPanel(idAlumno) {
     document.getElementById('panelAlumnoContent').innerHTML = `
       <div style="text-align: center; padding: 40px; color: #f44336;">
         <i data-lucide="alert-circle" style="width: 32px; height: 32px;"></i>
-        <p>Error al cargar la informaci√≥n del alumno</p>
+        <p>Error al cargar la informaciÛn del alumno</p>
       </div>`;
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
@@ -4750,14 +4750,14 @@ function ensureProfesorPanel() {
     <div id="profesorPanelOverlay" class="curso-panel-overlay"></div>
     <div id="profesorPanel" class="profesor-panel">
       <div class="profesor-panel-header">
-        <button class="close-panel" aria-label="Cerrar">√ó</button>
+        <button class="close-panel" aria-label="Cerrar">◊</button>
         <div class="profesor-panel-header-content">
           <div class="profesor-panel-avatar" id="panelProfesorAvatar">PP</div>
           <div class="profesor-panel-info">
             <h2 id="panelProfesorNombre">Cargando...</h2>
             <div class="especialidad-info">
               <i data-lucide="award"></i>
-              <span id="panelProfesorEspecialidad"></span> ‚Ä¢ 
+              <span id="panelProfesorEspecialidad"></span> ï 
               <span id="panelProfesorEstado" class="profesor-estado-badge activo">Activo</span>
             </div>
           </div>
@@ -4767,7 +4767,7 @@ function ensureProfesorPanel() {
       <div class="profesor-panel-content" id="panelProfesorContent">
         <div style="text-align: center; padding: 40px; color: #999;">
           <i data-lucide="loader" style="width: 32px; height: 32px; animation: spin 1s linear infinite;"></i>
-          <p>Cargando informaci√≥n...</p>
+          <p>Cargando informaciÛn...</p>
         </div>
       </div>
     </div>`;
@@ -4824,7 +4824,7 @@ async function openProfesorPanel(idProfesor) {
     estadoBadge.textContent = (profesor.estado || 'activo').charAt(0).toUpperCase() + (profesor.estado || 'activo').slice(1);
     estadoBadge.className = `profesor-estado-badge ${profesor.estado || 'activo'}`;
 
-    const horasPorCurso = 3; // Estimaci√≥n promedio
+    const horasPorCurso = 3; // EstimaciÛn promedio
     const horasTotales = profesor.total_cursos * horasPorCurso;
     const horasMaximas = 40;
     const porcentajeCarga = (horasTotales / horasMaximas) * 100;
@@ -4834,16 +4834,16 @@ async function openProfesorPanel(idProfesor) {
 
     const content = document.getElementById('panelProfesorContent');
     content.innerHTML = `
-      <!-- Informaci√≥n Personal -->
+      <!-- InformaciÛn Personal -->
       <div class="info-section">
-        <h3><i data-lucide="user"></i> Informaci√≥n Personal</h3>
+        <h3><i data-lucide="user"></i> InformaciÛn Personal</h3>
         <div class="info-grid">
           <div class="info-item">
             <div class="info-item-label">Email</div>
             <div class="info-item-value">${profesor.mail}</div>
           </div>
           <div class="info-item">
-            <div class="info-item-label">Tel√©fono</div>
+            <div class="info-item-label">TelÈfono</div>
             <div class="info-item-value">${profesor.telefono || 'No registrado'}</div>
           </div>
           <div class="info-item">
@@ -4851,8 +4851,8 @@ async function openProfesorPanel(idProfesor) {
             <div class="info-item-value">${profesor.fecha_ingreso ? new Date(profesor.fecha_ingreso).toLocaleDateString('es-AR') : 'N/A'}</div>
           </div>
           <div class="info-item">
-            <div class="info-item-label">Antig√ºedad</div>
-            <div class="info-item-value">${profesor.antiguedad_anos} ${profesor.antiguedad_anos === 1 ? 'a√±o' : 'a√±os'}</div>
+            <div class="info-item-label">Antig¸edad</div>
+            <div class="info-item-value">${profesor.antiguedad_anos} ${profesor.antiguedad_anos === 1 ? 'aÒo' : 'aÒos'}</div>
           </div>
         </div>
       </div>
@@ -4880,9 +4880,9 @@ async function openProfesorPanel(idProfesor) {
         </div>
       </div>
 
-      <!-- Estad√≠sticas de Alumnos -->
+      <!-- EstadÌsticas de Alumnos -->
       <div class="info-section">
-        <h3><i data-lucide="users"></i> Estad√≠sticas de Alumnos</h3>
+        <h3><i data-lucide="users"></i> EstadÌsticas de Alumnos</h3>
         <div class="stats-grid">
           <div class="stat-box">
             <div class="stat-number">${profesor.total_alumnos || 0}</div>
@@ -4917,7 +4917,7 @@ async function openProfesorPanel(idProfesor) {
               <div class="profesor-curso-item">
                 <div class="profesor-curso-info">
                   <h4>${c.nombre_curso}</h4>
-                  <p>${c.nombre_idioma} - ${c.nivel || 'Sin nivel'} ${c.horario ? `‚Ä¢ ${c.horario}` : ''} ${c.nombre_aula ? `‚Ä¢ ${c.nombre_aula}` : ''}</p>
+                  <p>${c.nombre_idioma} - ${c.nivel || 'Sin nivel'} ${c.horario ? `ï ${c.horario}` : ''} ${c.nombre_aula ? `ï ${c.nombre_aula}` : ''}</p>
                 </div>
                 <div class="profesor-curso-stats">
                   <div class="numero">${c.total_alumnos || 0}</div>
@@ -4927,12 +4927,12 @@ async function openProfesorPanel(idProfesor) {
               </div>
             `).join('')}
           </div>
-        ` : '<p style="color: #999; text-align: center; padding: 20px;">No est√° dictando cursos actualmente</p>'}
+        ` : '<p style="color: #999; text-align: center; padding: 20px;">No est· dictando cursos actualmente</p>'}
       </div>
 
-      <!-- Idiomas que Ense√±a -->
+      <!-- Idiomas que EnseÒa -->
       <div class="info-section">
-        <h3><i data-lucide="languages"></i> Idiomas que Ense√±a</h3>
+        <h3><i data-lucide="languages"></i> Idiomas que EnseÒa</h3>
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           ${profesor.idiomas && profesor.idiomas.length > 0 ? 
             profesor.idiomas.map(idioma => `
@@ -4945,7 +4945,7 @@ async function openProfesorPanel(idProfesor) {
         </div>
       </div>
 
-      <!-- Botones de Acci√≥n -->
+      <!-- Botones de AcciÛn -->
       <div class="panel-actions">
         <button class="btn-danger" onclick="darDeBajaProfesor(${idProfesor}, '${profesor.nombre} ${profesor.apellido}')">
           <i data-lucide="user-x"></i>
@@ -4962,7 +4962,7 @@ async function openProfesorPanel(idProfesor) {
     document.getElementById('panelProfesorContent').innerHTML = `
       <div style="text-align: center; padding: 40px; color: #f44336;">
         <i data-lucide="alert-circle" style="width: 32px; height: 32px;"></i>
-        <p>Error al cargar la informaci√≥n del profesor</p>
+        <p>Error al cargar la informaciÛn del profesor</p>
       </div>`;
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
@@ -5108,7 +5108,7 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
             tag.innerHTML = `
               ${idioma.nombre_idioma}
               <button type="button" onclick="event.stopPropagation(); this.parentElement.remove(); document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').checked = false; document.querySelector('#idiomasDropdown${prefix} input[value=\\'${id}\\']').dispatchEvent(new Event('change'));" 
-                      style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; line-height: 1; padding: 0; margin: 0;">√ó</button>
+                      style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; line-height: 1; padding: 0; margin: 0;">◊</button>
             `;
             display.appendChild(tag);
           }
@@ -5127,20 +5127,20 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
 
 function ensureEditarProfesorModal() {
   document.querySelectorAll('#modalEditarProfesor').forEach(m => {
-    console.log('Ô∏è Eliminando modal viejo por ID');
+    console.log('? Eliminando modal viejo por ID');
     m.remove();
   });
   
   document.querySelectorAll('.modal').forEach(m => {
     if (m.innerHTML && m.innerHTML.includes('Editar Profesor')) {
-      console.log('Ô∏è Eliminando modal viejo por contenido');
+      console.log('? Eliminando modal viejo por contenido');
       m.remove();
     }
   });
 
   const timestamp = Date.now();
   console.log(` CREANDO MODAL PROFESOR - Timestamp: ${timestamp}`);
-  console.log('Ô∏è Si NO ves el campo DNI despu√©s de esto, el problema es CACHE del navegador');
+  console.log('? Si NO ves el campo DNI despuÈs de esto, el problema es CACHE del navegador');
   console.log(' Verificar en Elements: buscar id="editProfesorDNI"');
 
   const modalHtml = `
@@ -5186,7 +5186,7 @@ function ensureEditarProfesorModal() {
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
-                <label for="editProfesorTelefono">Tel√©fono:</label>
+                <label for="editProfesorTelefono">TelÈfono:</label>
                 <input type="tel" id="editProfesorTelefono" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
               </div>
               
@@ -5201,13 +5201,13 @@ function ensureEditarProfesorModal() {
             </div>
             
             <div style="margin-bottom: 16px; background: #fff3cd; padding: 15px; border: 2px solid #ff0000; border-radius: 8px;">
-              <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #000;"> IDIOMAS QUE ENSE√ëA (CAMPO DE PRUEBA):</label>
+              <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #000;"> IDIOMAS QUE ENSE—A (CAMPO DE PRUEBA):</label>
               <div id="idiomasMultiSelect" style="position: relative;">
                 <div id="idiomasSelectedDisplay" style="min-height: 42px; padding: 8px; border: 2px solid #ff0000; border-radius: 4px; cursor: pointer; background: white; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
                   <span style="color: #ff0000; font-size: 14px; font-weight: bold;" id="idiomasPlaceholder">Seleccionar idiomas...</span>
                 </div>
                 <div id="idiomasDropdown" style="display: none; position: absolute; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; background: white; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                  <!-- Se llenar√°n los idiomas din√°micamente -->
+                  <!-- Se llenar·n los idiomas din·micamente -->
                 </div>
               </div>
               <input type="hidden" id="editProfesorIdiomas" value="">
@@ -5522,8 +5522,8 @@ async function cambiarEstadoProfesor(idProfesor, estadoActual) {
   if (!cambio) return;
 
   const confirmed = await showConfirm(
-    '¬øCambiar estado del profesor?',
-    `Se cambiar√° el estado a: <strong>${cambio.label}</strong>`,
+    'øCambiar estado del profesor?',
+    `Se cambiar· el estado a: <strong>${cambio.label}</strong>`,
     cambio.icon
   );
 
@@ -5557,14 +5557,14 @@ async function cambiarEstadoProfesor(idProfesor, estadoActual) {
 
 async function cambiarPasswordProfesorDashboard(idProfesor) {
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contrase√±a del Dashboard',
+    title: 'Cambiar ContraseÒa del Dashboard',
     html: `
       <div style="text-align: left;">
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva Contrase√±a:</label>
-        <input id="swal-password" type="password" class="swal2-input" placeholder="M√≠nimo 6 caracteres" style="margin: 0 0 16px 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva ContraseÒa:</label>
+        <input id="swal-password" type="password" class="swal2-input" placeholder="MÌnimo 6 caracteres" style="margin: 0 0 16px 0;">
         
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar Contrase√±a:</label>
-        <input id="swal-password-confirm" type="password" class="swal2-input" placeholder="Repetir contrase√±a" style="margin: 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar ContraseÒa:</label>
+        <input id="swal-password-confirm" type="password" class="swal2-input" placeholder="Repetir contraseÒa" style="margin: 0;">
       </div>
     `,
     focusConfirm: false,
@@ -5581,12 +5581,12 @@ async function cambiarPasswordProfesorDashboard(idProfesor) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirm) {
-        Swal.showValidationMessage('Las contrase√±as no coinciden');
+        Swal.showValidationMessage('Las contraseÒas no coinciden');
         return false;
       }
       
@@ -5606,13 +5606,13 @@ async function cambiarPasswordProfesorDashboard(idProfesor) {
     const result = await resp.json();
 
     if (resp.ok) {
-      Swal.fire('¬°√âxito!', 'Contrase√±a del Dashboard actualizada correctamente', 'success');
+      Swal.fire('°…xito!', 'ContraseÒa del Dashboard actualizada correctamente', 'success');
     } else {
-      Swal.fire('Error', result.message || 'No se pudo cambiar la contrase√±a', 'error');
+      Swal.fire('Error', result.message || 'No se pudo cambiar la contraseÒa', 'error');
     }
   } catch (error) {
-    console.error('Error al cambiar contrase√±a:', error);
-    Swal.fire('Error', 'Ocurri√≥ un error al cambiar la contrase√±a', 'error');
+    console.error('Error al cambiar contraseÒa:', error);
+    Swal.fire('Error', 'OcurriÛ un error al cambiar la contraseÒa', 'error');
   }
 }
 
@@ -5623,19 +5623,19 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
     const profesor = await resp.json();
     idPersona = profesor.id_persona;
   } catch (error) {
-    Swal.fire('Error', 'No se pudo obtener la informaci√≥n del profesor', 'error');
+    Swal.fire('Error', 'No se pudo obtener la informaciÛn del profesor', 'error');
     return;
   }
 
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contrase√±a del Classroom',
+    title: 'Cambiar ContraseÒa del Classroom',
     html: `
       <div style="text-align: left;">
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva Contrase√±a:</label>
-        <input id="swal-password-class" type="password" class="swal2-input" placeholder="M√≠nimo 6 caracteres" style="margin: 0 0 16px 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nueva ContraseÒa:</label>
+        <input id="swal-password-class" type="password" class="swal2-input" placeholder="MÌnimo 6 caracteres" style="margin: 0 0 16px 0;">
         
-        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar Contrase√±a:</label>
-        <input id="swal-password-class-confirm" type="password" class="swal2-input" placeholder="Repetir contrase√±a" style="margin: 0;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Confirmar ContraseÒa:</label>
+        <input id="swal-password-class-confirm" type="password" class="swal2-input" placeholder="Repetir contraseÒa" style="margin: 0;">
       </div>
     `,
     focusConfirm: false,
@@ -5652,12 +5652,12 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirm) {
-        Swal.showValidationMessage('Las contrase√±as no coinciden');
+        Swal.showValidationMessage('Las contraseÒas no coinciden');
         return false;
       }
       
@@ -5680,20 +5680,20 @@ async function cambiarPasswordProfesorClassroom(idProfesor) {
     const result = await resp.json();
 
     if (resp.ok) {
-      Swal.fire('¬°√âxito!', 'Contrase√±a del Classroom actualizada correctamente', 'success');
+      Swal.fire('°…xito!', 'ContraseÒa del Classroom actualizada correctamente', 'success');
     } else {
-      Swal.fire('Error', result.message || 'No se pudo cambiar la contrase√±a', 'error');
+      Swal.fire('Error', result.message || 'No se pudo cambiar la contraseÒa', 'error');
     }
   } catch (error) {
-    console.error('Error al cambiar contrase√±a:', error);
-    Swal.fire('Error', 'Ocurri√≥ un error al cambiar la contrase√±a', 'error');
+    console.error('Error al cambiar contraseÒa:', error);
+    Swal.fire('Error', 'OcurriÛ un error al cambiar la contraseÒa', 'error');
   }
 }
 
 async function darDeBajaProfesor(idProfesor, nombre) {
   const confirmed = await showConfirm(
-    '¬øDar de baja al profesor?',
-    `¬øEst√°s seguro de dar de baja a <strong>${nombre}</strong>?<br>El profesor ser√° marcado como inactivo.`,
+    'øDar de baja al profesor?',
+    `øEst·s seguro de dar de baja a <strong>${nombre}</strong>?<br>El profesor ser· marcado como inactivo.`,
     'user-x',
     true
   );
@@ -6062,7 +6062,7 @@ async function openPagoPanel(idAlumno) {
     const iniciales = nombreCompleto.split(' ').map(n => n.charAt(0)).join('').substring(0, 2).toUpperCase();
     document.getElementById('pagoPanelAvatar').textContent = iniciales;
     document.getElementById('pagoPanelNombre').textContent = nombreCompleto;
-    document.getElementById('pagoPanelLegajo').textContent = `Legajo: ${alumno.legajo} ‚Ä¢ ${alumno.mail}`;
+    document.getElementById('pagoPanelLegajo').textContent = `Legajo: ${alumno.legajo} ï ${alumno.mail}`;
 
     const content = document.getElementById('pagoPanelContent');
     content.innerHTML = `
@@ -6085,7 +6085,7 @@ async function openPagoPanel(idAlumno) {
         </div>
         ${estado_cuenta.ultimo_pago ? `
           <p style="font-size: 13px; color: #666; margin-top: 12px;">
-            √öltimo pago: ${new Date(estado_cuenta.ultimo_pago).toLocaleDateString('es-AR', {year: 'numeric', month: 'long', day: 'numeric'})}
+            ⁄ltimo pago: ${new Date(estado_cuenta.ultimo_pago).toLocaleDateString('es-AR', {year: 'numeric', month: 'long', day: 'numeric'})}
           </p>
         ` : '<p style="font-size: 13px; color: #999; margin-top: 12px;">Sin pagos registrados</p>'}
       </div>
@@ -6137,8 +6137,8 @@ async function openPagoPanel(idAlumno) {
 
 async function confirmarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¬øConfirmar pago?',
-    `¬øEst√°s seguro de confirmar el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiar√° a <strong>PAGADO</strong> y se registrar√° la fecha actual.`,
+    'øConfirmar pago?',
+    `øEst·s seguro de confirmar el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiar· a <strong>PAGADO</strong> y se registrar· la fecha actual.`,
     'check',
     false
   );
@@ -6166,8 +6166,8 @@ async function confirmarPago(idPago, nombreAlumno, concepto) {
 
 async function anularPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¬øAnular pago?',
-    `¬øEst√°s seguro de anular el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiar√° a <strong>ANULADO</strong> y se conservar√° en el registro.`,
+    'øAnular pago?',
+    `øEst·s seguro de anular el pago de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>El estado cambiar· a <strong>ANULADO</strong> y se conservar· en el registro.`,
     'trash-2',
     true
   );
@@ -6195,8 +6195,8 @@ async function anularPago(idPago, nombreAlumno, concepto) {
 
 async function archivarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¬øArchivar pago?',
-    `¬øEst√°s seguro de archivar el pago anulado de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>Se mover√° a la pesta√±a de <strong>ARCHIVO</strong>.`,
+    'øArchivar pago?',
+    `øEst·s seguro de archivar el pago anulado de <strong>${nombreAlumno}</strong>?<br>Concepto: ${concepto}<br><br>Se mover· a la pestaÒa de <strong>ARCHIVO</strong>.`,
     'archive',
     false
   );
@@ -6224,8 +6224,8 @@ async function archivarPago(idPago, nombreAlumno, concepto) {
 
 async function desarchivarPago(idPago, nombreAlumno, concepto) {
   const confirmed = await showConfirm(
-    '¬øDevolver a pagos activos?',
-    `¬øEst√°s seguro de devolver el pago de <strong>${nombreAlumno}</strong> a pagos activos?<br>Concepto: ${concepto}<br><br>Mantendr√° su estado de <strong>ANULADO</strong>.`,
+    'øDevolver a pagos activos?',
+    `øEst·s seguro de devolver el pago de <strong>${nombreAlumno}</strong> a pagos activos?<br>Concepto: ${concepto}<br><br>Mantendr· su estado de <strong>ANULADO</strong>.`,
     'archive',
     false
   );
@@ -6253,21 +6253,21 @@ async function desarchivarPago(idPago, nombreAlumno, concepto) {
 
 async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
   const result = await Swal.fire({
-    title: 'Ô∏è ELIMINAR PERMANENTEMENTE',
+    title: '? ELIMINAR PERMANENTEMENTE',
     html: `
       <div style="text-align: left; margin: 20px 0;">
         <p style="font-size: 15px; margin-bottom: 15px;">
-          Est√°s a punto de <strong style="color: #f44336;">eliminar permanentemente</strong> el siguiente registro:
+          Est·s a punto de <strong style="color: #f44336;">eliminar permanentemente</strong> el siguiente registro:
         </p>
         <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 15px 0;">
           <p style="margin: 5px 0;"><strong>Alumno:</strong> ${nombreAlumno}</p>
           <p style="margin: 5px 0;"><strong>Concepto:</strong> ${concepto}</p>
         </div>
         <p style="color: #f44336; font-weight: 600; margin-top: 15px;">
-          Ô∏è Esta acci√≥n NO se puede deshacer
+          ? Esta acciÛn NO se puede deshacer
         </p>
         <p style="font-size: 14px; color: #666; margin-top: 10px;">
-          El registro ser√° eliminado completamente de la base de datos.
+          El registro ser· eliminado completamente de la base de datos.
         </p>
       </div>
     `,
@@ -6275,7 +6275,7 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
     showCancelButton: true,
     confirmButtonColor: '#f44336',
     cancelButtonColor: '#999',
-    confirmButtonText: 'S√≠, eliminar permanentemente',
+    confirmButtonText: 'SÌ, eliminar permanentemente',
     cancelButtonText: 'Cancelar',
     reverseButtons: true,
     customClass: {
@@ -6381,15 +6381,15 @@ async function openRegistrarPagoModal() {
             <select id="swal-medio-pago" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="Efectivo">Efectivo</option>
               <option value="Transferencia">Transferencia</option>
-              <option value="Tarjeta de Cr√©dito">Tarjeta de Cr√©dito</option>
-              <option value="Tarjeta de D√©bito">Tarjeta de D√©bito</option>
+              <option value="Tarjeta de CrÈdito">Tarjeta de CrÈdito</option>
+              <option value="Tarjeta de DÈbito">Tarjeta de DÈbito</option>
             </select>
           </div>
 
           <div style="background: #f0f1f2; border-left: 4px solid #4a5259; padding: 12px; border-radius: 4px; margin-top: 20px;">
             <p style="margin: 0; font-size: 13px; color: #1565c0;">
               <i class="lucide-info" style="width: 14px; height: 14px;"></i> 
-              Este pago se registrar√° como pagado en la fecha actual
+              Este pago se registrar· como pagado en la fecha actual
             </p>
           </div>
         </div>
@@ -6513,11 +6513,11 @@ async function openRegistrarPagoModal() {
             mesSelect.disabled = true;
             
             if (mesesPagados.length === todosMeses.length) {
-              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i>  Todas las cuotas de este curso est√°n pagadas</div>';
+              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i>  Todas las cuotas de este curso est·n pagadas</div>';
             } else if (cuotasHabilitadas.length === 0) {
               mesesPagadosInfo.innerHTML = '<div style="color: #f57c00; background: #fff3e0; padding: 8px; border-radius: 4px;"><i class="lucide-alert-circle" style="width: 14px; height: 14px;"></i> Este curso no tiene cuotas habilitadas</div>';
             } else {
-              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i> Todas las cuotas habilitadas est√°n pagadas</div>';
+              mesesPagadosInfo.innerHTML = '<div style="color: #43a047; background: #e8f5e9; padding: 8px; border-radius: 4px;"><i class="lucide-check-circle" style="width: 14px; height: 14px;"></i> Todas las cuotas habilitadas est·n pagadas</div>';
             }
           } else {
             const opciones = todosMeses.map(mes => {
@@ -6547,7 +6547,7 @@ async function openRegistrarPagoModal() {
               </div>`);
             }
             if (infoParts.length === 0) {
-              infoParts.push('<div style="color: #757575;">Todas las cuotas est√°n disponibles</div>');
+              infoParts.push('<div style="color: #757575;">Todas las cuotas est·n disponibles</div>');
             }
             mesesPagadosInfo.innerHTML = infoParts.join('');
           }
@@ -6581,7 +6581,7 @@ async function openRegistrarPagoModal() {
           return false;
         }
         if (!monto || parseFloat(monto) <= 0) {
-          Swal.showValidationMessage('Ingresa un monto v√°lido');
+          Swal.showValidationMessage('Ingresa un monto v·lido');
           return false;
         }
         if (!medioPago) {
@@ -6619,7 +6619,7 @@ async function openRegistrarPagoModal() {
         if (response.ok && data.success) {
           await Swal.fire({
             icon: 'success',
-            title: '¬°Pago Registrado!',
+            title: '°Pago Registrado!',
             html: `
               <div style="text-align: left; padding: 20px;">
                 <p style="margin: 0 0 12px 0;"><strong>Comprobante:</strong> ${data.comprobante.numero}</p>
@@ -6707,7 +6707,7 @@ async function openNuevaAulaModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Creada!', 'Aula creada exitosamente', 'success');
+        Swal.fire('°Creada!', 'Aula creada exitosamente', 'success');
         document.getElementById('btnAulas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al crear aula', 'error');
@@ -6769,7 +6769,7 @@ async function editarAula(id, nombre, capacidad) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Actualizada!', 'Aula actualizada exitosamente', 'success');
+        Swal.fire('°Actualizada!', 'Aula actualizada exitosamente', 'success');
         document.getElementById('btnAulas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar aula', 'error');
@@ -6783,13 +6783,13 @@ async function editarAula(id, nombre, capacidad) {
 
 async function eliminarAula(id, nombre) {
   const result = await Swal.fire({
-    title: '¬øEliminar aula?',
-    html: `¬øEst√°s seguro de eliminar el aula <strong>${nombre}</strong>?`,
+    title: 'øEliminar aula?',
+    html: `øEst·s seguro de eliminar el aula <strong>${nombre}</strong>?`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -6799,7 +6799,7 @@ async function eliminarAula(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Eliminada!', 'Aula eliminada exitosamente', 'success');
+        Swal.fire('°Eliminada!', 'Aula eliminada exitosamente', 'success');
         document.getElementById('btnAulas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar aula', 'error');
@@ -6816,7 +6816,7 @@ async function openNuevoIdiomaModal() {
     title: 'Nuevo Idioma',
     input: 'text',
     inputLabel: 'Nombre del idioma',
-    inputPlaceholder: 'Ej: Ingl√©s',
+    inputPlaceholder: 'Ej: InglÈs',
     showCancelButton: true,
     confirmButtonText: 'Crear',
     cancelButtonText: 'Cancelar',
@@ -6839,7 +6839,7 @@ async function openNuevoIdiomaModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Creado!', 'Idioma creado exitosamente', 'success');
+        Swal.fire('°Creado!', 'Idioma creado exitosamente', 'success');
         document.getElementById('btnIdiomas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al crear idioma', 'error');
@@ -6879,7 +6879,7 @@ async function editarIdioma(id, nombreActual) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Actualizado!', 'Idioma actualizado exitosamente', 'success');
+        Swal.fire('°Actualizado!', 'Idioma actualizado exitosamente', 'success');
         document.getElementById('btnIdiomas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar idioma', 'error');
@@ -6893,13 +6893,13 @@ async function editarIdioma(id, nombreActual) {
 
 async function eliminarIdioma(id, nombre) {
   const result = await Swal.fire({
-    title: '¬øEliminar idioma?',
-    html: `¬øEst√°s seguro de eliminar el idioma <strong>${nombre}</strong>?`,
+    title: 'øEliminar idioma?',
+    html: `øEst·s seguro de eliminar el idioma <strong>${nombre}</strong>?`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -6909,7 +6909,7 @@ async function eliminarIdioma(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Eliminado!', 'Idioma eliminado exitosamente', 'success');
+        Swal.fire('°Eliminado!', 'Idioma eliminado exitosamente', 'success');
         document.getElementById('btnIdiomas').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar idioma', 'error');
@@ -6932,7 +6932,7 @@ async function openNuevaInscripcionModal() {
     const cursos = await cursosRes.json();
     
     const { value: formValues } = await Swal.fire({
-      title: 'Nueva Inscripci√≥n',
+      title: 'Nueva InscripciÛn',
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
@@ -6982,7 +6982,7 @@ async function openNuevaInscripcionModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Inscrito!', 'Alumno inscrito exitosamente', 'success');
+        Swal.fire('°Inscrito!', 'Alumno inscrito exitosamente', 'success');
         document.getElementById('btnInscripciones').click();
       } else {
         Swal.fire('Error', data.message || 'Error al inscribir alumno', 'error');
@@ -6996,13 +6996,13 @@ async function openNuevaInscripcionModal() {
 
 async function eliminarInscripcion(id, alumno, curso) {
   const result = await Swal.fire({
-    title: '¬øEliminar inscripci√≥n?',
-    html: `¬øEst√°s seguro de eliminar la inscripci√≥n de <strong>${alumno}</strong> al curso <strong>${curso}</strong>?`,
+    title: 'øEliminar inscripciÛn?',
+    html: `øEst·s seguro de eliminar la inscripciÛn de <strong>${alumno}</strong> al curso <strong>${curso}</strong>?`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -7012,10 +7012,10 @@ async function eliminarInscripcion(id, alumno, curso) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Eliminada!', 'Inscripci√≥n eliminada exitosamente', 'success');
+        Swal.fire('°Eliminada!', 'InscripciÛn eliminada exitosamente', 'success');
         document.getElementById('btnInscripciones').click();
       } else {
-        Swal.fire('Error', data.message || 'Error al eliminar inscripci√≥n', 'error');
+        Swal.fire('Error', data.message || 'Error al eliminar inscripciÛn', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -7050,7 +7050,7 @@ async function openNuevoAlumnoModal() {
           <input id="legajo" class="swal2-input" placeholder="Ej: A0001" oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Tel√©fono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÈfono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
       </div>
@@ -7090,7 +7090,7 @@ async function openNuevoAlumnoModal() {
         return false;
       }
       if (!telefono) {
-        Swal.showValidationMessage('El tel√©fono es obligatorio');
+        Swal.showValidationMessage('El telÈfono es obligatorio');
         return false;
       }
       return { nombre, apellido, dni, mail, legajo, telefono };
@@ -7113,7 +7113,7 @@ async function openNuevoAlumnoModal() {
         
         await Swal.fire({
           icon: 'success',
-          title: '¬°Alumno creado!',
+          title: '°Alumno creado!',
           text: `${nombreCompleto} ha sido registrado exitosamente`,
           timer: 1500,
           showConfirmButton: false
@@ -7143,16 +7143,16 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Usuario</label>
           <input id="username" class="swal2-input" placeholder="Nombre de usuario" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">Este ser√° el usuario para iniciar sesi√≥n</small>
+          <small style="color: #999; font-size: 12px;">Este ser· el usuario para iniciar sesiÛn</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Contrase√±a</label>
-          <input id="password" type="password" class="swal2-input" placeholder="Contrase√±a" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">M√≠nimo 6 caracteres</small>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">ContraseÒa</label>
+          <input id="password" type="password" class="swal2-input" placeholder="ContraseÒa" style="width: 100%; margin: 0;">
+          <small style="color: #999; font-size: 12px;">MÌnimo 6 caracteres</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contrase√±a</label>
-          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contrase√±a" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÒa</label>
+          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contraseÒa" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
@@ -7161,7 +7161,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
     showCancelButton: true,
     showDenyButton: true,
     confirmButtonText: 'Crear Credenciales',
-    denyButtonText: 'Omitir (crear despu√©s)',
+    denyButtonText: 'Omitir (crear despuÈs)',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#4a5259',
     preConfirm: () => {
@@ -7175,12 +7175,12 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== password2) {
-        Swal.showValidationMessage('Las contrase√±as no coinciden');
+        Swal.showValidationMessage('Las contraseÒas no coinciden');
         return false;
       }
       
@@ -7201,15 +7201,15 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: '¬°Credenciales creadas!',
+          title: '°Credenciales creadas!',
           html: `
             <p>Las credenciales de acceso han sido creadas exitosamente.</p>
             <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Usuario:</strong> ${credenciales.username}</p>
-              <p style="margin: 5px 0;"><strong>Contrase√±a:</strong> ${credenciales.password}</p>
+              <p style="margin: 5px 0;"><strong>ContraseÒa:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              Ô∏è Guarda estas credenciales de forma segura
+              ? Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#4a5259'
@@ -7255,7 +7255,7 @@ async function editarAlumno(id) {
             <input id="legajo" class="swal2-input" placeholder="Ej: A0001" oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" value="${alumno.legajo}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Tel√©fono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÈfono</label>
             <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${alumno.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -7313,7 +7313,7 @@ async function editarAlumno(id) {
       const data = await updateRes.json();
       
       if (updateRes.ok && data.success) {
-        await Swal.fire('¬°Listo!', 'Alumno actualizado correctamente', 'success');
+        await Swal.fire('°Listo!', 'Alumno actualizado correctamente', 'success');
         document.getElementById('btnAlumnos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar alumno', 'error');
@@ -7501,14 +7501,14 @@ async function abrirModalCredencialesAlumno(idAlumno) {
 
 async function eliminarAlumno(id, nombre) {
   const result = await Swal.fire({
-    title: '¬øEliminar alumno?',
-    html: `¬øEst√°s seguro de eliminar al alumno <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Esta acci√≥n eliminar√° tambi√©n sus calificaciones, asistencias y pagos.</span>`,
+    title: 'øEliminar alumno?',
+    html: `øEst·s seguro de eliminar al alumno <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Esta acciÛn eliminar· tambiÈn sus calificaciones, asistencias y pagos.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -7518,7 +7518,7 @@ async function eliminarAlumno(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Eliminado!', 'Alumno eliminado exitosamente', 'success');
+        Swal.fire('°Eliminado!', 'Alumno eliminado exitosamente', 'success');
         document.getElementById('btnAlumnos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar alumno', 'error');
@@ -7532,24 +7532,24 @@ async function eliminarAlumno(id, nombre) {
 
 async function cambiarPasswordAlumnoDashboard(idAlumno) {
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contrase√±a Dashboard',
+    title: 'Cambiar ContraseÒa Dashboard',
     html: `
       <div style="text-align: left;">
-        <p style="margin-bottom: 15px; color: #666;">Esta contrase√±a se usa para acceder al Dashboard administrativo.</p>
+        <p style="margin-bottom: 15px; color: #666;">Esta contraseÒa se usa para acceder al Dashboard administrativo.</p>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva Contrase√±a</label>
-          <input id="password" type="password" class="swal2-input" placeholder="M√≠nimo 6 caracteres" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva ContraseÒa</label>
+          <input id="password" type="password" class="swal2-input" placeholder="MÌnimo 6 caracteres" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contrase√±a</label>
-          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contrase√±a" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÒa</label>
+          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contraseÒa" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
     width: '450px',
     focusConfirm: false,
     showCancelButton: true,
-    confirmButtonText: 'Cambiar Contrase√±a',
+    confirmButtonText: 'Cambiar ContraseÒa',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#4a5259',
     preConfirm: () => {
@@ -7562,12 +7562,12 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirmPassword) {
-        Swal.showValidationMessage('Las contrase√±as no coinciden');
+        Swal.showValidationMessage('Las contraseÒas no coinciden');
         return false;
       }
       
@@ -7586,9 +7586,9 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Actualizado!', 'Contrase√±a Dashboard actualizada exitosamente', 'success');
+        Swal.fire('°Actualizado!', 'ContraseÒa Dashboard actualizada exitosamente', 'success');
       } else {
-        Swal.fire('Error', data.message || 'Error al actualizar contrase√±a', 'error');
+        Swal.fire('Error', data.message || 'Error al actualizar contraseÒa', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -7599,24 +7599,24 @@ async function cambiarPasswordAlumnoDashboard(idAlumno) {
 
 async function cambiarPasswordAlumnoClassroom(idAlumno) {
   const { value: formValues } = await Swal.fire({
-    title: 'Cambiar Contrase√±a Classroom',
+    title: 'Cambiar ContraseÒa Classroom',
     html: `
       <div style="text-align: left;">
-        <p style="margin-bottom: 15px; color: #666;">Esta contrase√±a se usa para acceder a la plataforma educativa Classroom.</p>
+        <p style="margin-bottom: 15px; color: #666;">Esta contraseÒa se usa para acceder a la plataforma educativa Classroom.</p>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva Contrase√±a</label>
-          <input id="password" type="password" class="swal2-input" placeholder="M√≠nimo 6 caracteres" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nueva ContraseÒa</label>
+          <input id="password" type="password" class="swal2-input" placeholder="MÌnimo 6 caracteres" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contrase√±a</label>
-          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contrase√±a" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÒa</label>
+          <input id="confirmPassword" type="password" class="swal2-input" placeholder="Repite la contraseÒa" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
     width: '450px',
     focusConfirm: false,
     showCancelButton: true,
-    confirmButtonText: 'Cambiar Contrase√±a',
+    confirmButtonText: 'Cambiar ContraseÒa',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#4a5259',
     preConfirm: () => {
@@ -7629,12 +7629,12 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== confirmPassword) {
-        Swal.showValidationMessage('Las contrase√±as no coinciden');
+        Swal.showValidationMessage('Las contraseÒas no coinciden');
         return false;
       }
       
@@ -7659,9 +7659,9 @@ async function cambiarPasswordAlumnoClassroom(idAlumno) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Actualizado!', 'Contrase√±a Classroom actualizada exitosamente', 'success');
+        Swal.fire('°Actualizado!', 'ContraseÒa Classroom actualizada exitosamente', 'success');
       } else {
-        Swal.fire('Error', data.message || 'Error al actualizar contrase√±a', 'error');
+        Swal.fire('Error', data.message || 'Error al actualizar contraseÒa', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -7693,14 +7693,14 @@ async function openNuevoProfesorModal() {
         </div>
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Especialidad</label>
-          <input id="especialidad" class="swal2-input" placeholder="Ej: Ingl√©s Avanzado" style="width: 100%; margin: 0;">
+          <input id="especialidad" class="swal2-input" placeholder="Ej: InglÈs Avanzado" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Tel√©fono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÈfono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que ense√±a</label>
+          <label style="display: block; margin-bottom: 8px; font-weight: 600;">Idiomas que enseÒa</label>
           <div id="idiomasContainerNuevo" style="border: 1px solid #d0d5dd; border-radius: 8px; padding: 12px; max-height: 150px; overflow-y: auto; background: #f9fafb;">
             <div style="color: #666; font-size: 13px; text-align: center;">Cargando idiomas...</div>
           </div>
@@ -7765,7 +7765,7 @@ async function openNuevoProfesorModal() {
         return false;
       }
       if (!telefono) {
-        Swal.showValidationMessage('El tel√©fono es obligatorio');
+        Swal.showValidationMessage('El telÈfono es obligatorio');
         return false;
       }
       return { nombre, apellido, dni, mail, especialidad, telefono, idiomas: idiomasSeleccionados };
@@ -7791,7 +7791,7 @@ async function openNuevoProfesorModal() {
         
         await Swal.fire({
           icon: 'success',
-          title: '¬°Profesor creado!',
+          title: '°Profesor creado!',
           text: `${nombreCompleto} ha sido registrado exitosamente`,
           timer: 1500,
           showConfirmButton: false
@@ -7805,7 +7805,7 @@ async function openNuevoProfesorModal() {
         Swal.fire('Error', data.message || 'Error al crear profesor', 'error');
       }
     } catch (error) {
-      console.error('Error de conexi√≥n:', error);
+      console.error('Error de conexiÛn:', error);
       Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
     }
   }
@@ -7822,16 +7822,16 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
         <div style="margin-bottom: 15px;">
           <label style="display: block; margin-bottom: 5px; font-weight: 600;">Usuario</label>
           <input id="username" class="swal2-input" placeholder="Nombre de usuario" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">Este ser√° el usuario para iniciar sesi√≥n</small>
+          <small style="color: #999; font-size: 12px;">Este ser· el usuario para iniciar sesiÛn</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Contrase√±a</label>
-          <input id="password" type="password" class="swal2-input" placeholder="Contrase√±a" style="width: 100%; margin: 0;">
-          <small style="color: #999; font-size: 12px;">M√≠nimo 6 caracteres</small>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">ContraseÒa</label>
+          <input id="password" type="password" class="swal2-input" placeholder="ContraseÒa" style="width: 100%; margin: 0;">
+          <small style="color: #999; font-size: 12px;">MÌnimo 6 caracteres</small>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar Contrase√±a</label>
-          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contrase√±a" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Confirmar ContraseÒa</label>
+          <input id="password2" type="password" class="swal2-input" placeholder="Confirmar contraseÒa" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
@@ -7840,7 +7840,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
     showCancelButton: true,
     showDenyButton: true,
     confirmButtonText: 'Crear Credenciales',
-    denyButtonText: 'Omitir (crear despu√©s)',
+    denyButtonText: 'Omitir (crear despuÈs)',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#4a5259',
     preConfirm: () => {
@@ -7854,12 +7854,12 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
       }
       
       if (password.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
       
       if (password !== password2) {
-        Swal.showValidationMessage('Las contrase√±as no coinciden');
+        Swal.showValidationMessage('Las contraseÒas no coinciden');
         return false;
       }
       
@@ -7880,15 +7880,15 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: '¬°Credenciales creadas!',
+          title: '°Credenciales creadas!',
           html: `
             <p>Las credenciales de acceso han sido creadas exitosamente.</p>
             <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Usuario:</strong> ${credenciales.username}</p>
-              <p style="margin: 5px 0;"><strong>Contrase√±a:</strong> ${credenciales.password}</p>
+              <p style="margin: 5px 0;"><strong>ContraseÒa:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              Ô∏è Guarda estas credenciales de forma segura
+              ? Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#4a5259'
@@ -7936,7 +7936,7 @@ async function editarProfesor(id) {
             <input id="especialidad" class="swal2-input" value="${profesor.especialidad || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Idiomas que ense√±a</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Idiomas que enseÒa</label>
             <div id="idiomasContainerEditar" style="max-height: 150px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; background: #f9f9f9;">
               ${idiomas.map(idioma => `
                 <label style="display: block; margin-bottom: 8px; cursor: pointer;">
@@ -7947,7 +7947,7 @@ async function editarProfesor(id) {
             </div>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Tel√©fono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÈfono</label>
             <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${profesor.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -8010,7 +8010,7 @@ async function editarProfesor(id) {
       const data = await updateRes.json();
       
       if (updateRes.ok && data.success) {
-        Swal.fire('¬°Actualizado!', 'Profesor actualizado exitosamente', 'success');
+        Swal.fire('°Actualizado!', 'Profesor actualizado exitosamente', 'success');
         document.getElementById('btnProfesores').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar profesor', 'error');
@@ -8024,14 +8024,14 @@ async function editarProfesor(id) {
 
 async function eliminarProfesor(id, nombre) {
   const result = await Swal.fire({
-    title: '¬øEliminar profesor?',
-    html: `¬øEst√°s seguro de eliminar al profesor <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Los cursos que dicta quedar√°n sin profesor asignado.</span>`,
+    title: 'øEliminar profesor?',
+    html: `øEst·s seguro de eliminar al profesor <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Los cursos que dicta quedar·n sin profesor asignado.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -8044,14 +8044,14 @@ async function eliminarProfesor(id, nombre) {
       console.log('Datos recibidos:', data);
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Eliminado!', 'Profesor eliminado exitosamente', 'success');
+        Swal.fire('°Eliminado!', 'Profesor eliminado exitosamente', 'success');
         document.getElementById('btnProfesores').click();
       } else {
         console.error('Error del servidor:', data);
         Swal.fire('Error', data.message || 'Error al eliminar profesor', 'error');
       }
     } catch (error) {
-      console.error('Error de conexi√≥n:', error);
+      console.error('Error de conexiÛn:', error);
       Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
     }
   }
@@ -8106,7 +8106,7 @@ async function openNuevoAdministradorModal() {
           <input id="admin_dni" class="swal2-input" placeholder="12345678" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Tel√©fono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÈfono</label>
           <input id="admin_telefono" class="swal2-input" placeholder="+54 9 11 1234-5678" style="width: 100%; margin: 0;">
         </div>
         <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
@@ -8116,8 +8116,8 @@ async function openNuevoAdministradorModal() {
           <input id="admin_username" class="swal2-input" placeholder="nombreusuario" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Contrase√±a</label>
-          <input id="admin_password" type="password" class="swal2-input" placeholder="M√≠nimo 6 caracteres" style="width: 100%; margin: 0;">
+          <label style="display: block; margin-bottom: 5px; font-weight: 600;">ContraseÒa</label>
+          <input id="admin_password" type="password" class="swal2-input" placeholder="MÌnimo 6 caracteres" style="width: 100%; margin: 0;">
         </div>
       </div>
     `,
@@ -8141,7 +8141,7 @@ async function openNuevoAdministradorModal() {
       }
 
       if (password.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
 
@@ -8162,14 +8162,14 @@ async function openNuevoAdministradorModal() {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: '¬°Administrador creado!',
+          title: '°Administrador creado!',
           html: `
             <p>El administrador <strong>${formValues.nombre} ${formValues.apellido}</strong> ha sido creado correctamente.</p>
             <div style="background: #f5f5f7; padding: 15px; border-radius: 8px; margin-top: 15px;">
               <p style="margin: 5px 0;"><strong>Usuario:</strong> ${formValues.username}</p>
-              <p style="margin: 5px 0;"><strong>Contrase√±a:</strong> ${formValues.password}</p>
+              <p style="margin: 5px 0;"><strong>ContraseÒa:</strong> ${formValues.password}</p>
             </div>
-            <p style="margin-top: 15px; font-size: 13px; color: #666;">Aseg√∫rate de compartir estas credenciales de forma segura.</p>
+            <p style="margin-top: 15px; font-size: 13px; color: #666;">Aseg˙rate de compartir estas credenciales de forma segura.</p>
           `,
           confirmButtonColor: '#000'
         });
@@ -8213,7 +8213,7 @@ async function editarAdministrador(id) {
             <input id="edit_admin_dni" class="swal2-input" value="${admin.dni || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Tel√©fono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">TelÈfono</label>
             <input id="edit_admin_telefono" class="swal2-input" value="${admin.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
         </div>
@@ -8262,7 +8262,7 @@ async function editarAdministrador(id) {
       const data = await updateRes.json();
 
       if (updateRes.ok && data.success) {
-        Swal.fire('¬°Actualizado!', 'Administrador actualizado correctamente', 'success');
+        Swal.fire('°Actualizado!', 'Administrador actualizado correctamente', 'success');
         document.getElementById('btnAdministradores').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar administrador', 'error');
@@ -8480,14 +8480,14 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
 
 async function cambiarPasswordAdministrador(id, nombre) {
   const { value: password } = await Swal.fire({
-    title: 'Cambiar Contrase√±a',
+    title: 'Cambiar ContraseÒa',
     html: `
-      <p>Ingresa la nueva contrase√±a para <strong>${nombre}</strong></p>
-      <input id="nueva_password" type="password" class="swal2-input" placeholder="Nueva contrase√±a (m√≠n. 6 caracteres)" style="width: 90%;">
-      <input id="confirmar_password" type="password" class="swal2-input" placeholder="Confirmar contrase√±a" style="width: 90%; margin-top: 10px;">
+      <p>Ingresa la nueva contraseÒa para <strong>${nombre}</strong></p>
+      <input id="nueva_password" type="password" class="swal2-input" placeholder="Nueva contraseÒa (mÌn. 6 caracteres)" style="width: 90%;">
+      <input id="confirmar_password" type="password" class="swal2-input" placeholder="Confirmar contraseÒa" style="width: 90%; margin-top: 10px;">
     `,
     showCancelButton: true,
-    confirmButtonText: 'Cambiar Contrase√±a',
+    confirmButtonText: 'Cambiar ContraseÒa',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#000',
     preConfirm: () => {
@@ -8495,12 +8495,12 @@ async function cambiarPasswordAdministrador(id, nombre) {
       const confirm = document.getElementById('confirmar_password').value;
 
       if (!pass || pass.length < 6) {
-        Swal.showValidationMessage('La contrase√±a debe tener al menos 6 caracteres');
+        Swal.showValidationMessage('La contraseÒa debe tener al menos 6 caracteres');
         return false;
       }
 
       if (pass !== confirm) {
-        Swal.showValidationMessage('Las contrase√±as no coinciden');
+        Swal.showValidationMessage('Las contraseÒas no coinciden');
         return false;
       }
 
@@ -8521,18 +8521,18 @@ async function cambiarPasswordAdministrador(id, nombre) {
       if (res.ok && data.success) {
         await Swal.fire({
           icon: 'success',
-          title: 'Contrase√±a actualizada',
+          title: 'ContraseÒa actualizada',
           html: `
-            <p>La contrase√±a de <strong>${nombre}</strong> ha sido actualizada.</p>
+            <p>La contraseÒa de <strong>${nombre}</strong> ha sido actualizada.</p>
             <div style="background: #f5f5f7; padding: 15px; border-radius: 8px; margin-top: 15px;">
-              <p style="margin: 5px 0;"><strong>Nueva contrase√±a:</strong> ${password}</p>
+              <p style="margin: 5px 0;"><strong>Nueva contraseÒa:</strong> ${password}</p>
             </div>
-            <p style="margin-top: 15px; font-size: 13px; color: #666;">Aseg√∫rate de compartir esta informaci√≥n de forma segura.</p>
+            <p style="margin-top: 15px; font-size: 13px; color: #666;">Aseg˙rate de compartir esta informaciÛn de forma segura.</p>
           `,
           confirmButtonColor: '#000'
         });
       } else {
-        Swal.fire('Error', data.message || 'Error al cambiar contrase√±a', 'error');
+        Swal.fire('Error', data.message || 'Error al cambiar contraseÒa', 'error');
       }
     } catch (error) {
       console.error(error);
@@ -8543,14 +8543,14 @@ async function cambiarPasswordAdministrador(id, nombre) {
 
 async function eliminarAdministrador(id, nombre) {
   const result = await Swal.fire({
-    title: '¬øEliminar administrador?',
-    html: `¬øEst√°s seguro de eliminar al administrador <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Esta acci√≥n no se puede deshacer.</span>`,
+    title: 'øEliminar administrador?',
+    html: `øEst·s seguro de eliminar al administrador <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Esta acciÛn no se puede deshacer.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -8560,7 +8560,7 @@ async function eliminarAdministrador(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Eliminado!', 'Administrador eliminado exitosamente', 'success');
+        Swal.fire('°Eliminado!', 'Administrador eliminado exitosamente', 'success');
         document.getElementById('btnAdministradores').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar administrador', 'error');
@@ -8592,7 +8592,7 @@ async function openNuevoCursoModal() {
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nombre del Curso</label>
-            <input id="nombre_curso" class="swal2-input" placeholder="Ej: Ingl√©s B√°sico A1" style="width: 100%; margin: 0;">
+            <input id="nombre_curso" class="swal2-input" placeholder="Ej: InglÈs B·sico A1" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
             <label style="display: block; margin-bottom: 5px; font-weight: 600;">Idioma</label>
@@ -8620,7 +8620,7 @@ async function openNuevoCursoModal() {
             <input id="horario" class="swal2-input" placeholder="Ej: Lun-Mie 18:00-20:00" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo M√°ximo</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo M·ximo</label>
             <input id="cupo_maximo" type="number" class="swal2-input" value="30" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -8673,7 +8673,7 @@ async function openNuevoCursoModal() {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Creado!', 'Curso creado exitosamente', 'success');
+        Swal.fire('°Creado!', 'Curso creado exitosamente', 'success');
         document.getElementById('btnCursos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al crear curso', 'error');
@@ -8733,7 +8733,7 @@ async function editarCurso(id) {
             <input id="horario" class="swal2-input" value="${curso.horario || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo M√°ximo</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 600;">Cupo M·ximo</label>
             <input id="cupo_maximo" type="number" class="swal2-input" value="${curso.cupo_maximo}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
@@ -8778,7 +8778,7 @@ async function editarCurso(id) {
       const data = await updateRes.json();
       
       if (updateRes.ok && data.success) {
-        Swal.fire('¬°Actualizado!', 'Curso actualizado exitosamente', 'success');
+        Swal.fire('°Actualizado!', 'Curso actualizado exitosamente', 'success');
         document.getElementById('btnCursos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al actualizar curso', 'error');
@@ -8792,14 +8792,14 @@ async function editarCurso(id) {
 
 async function eliminarCurso(id, nombre) {
   const result = await Swal.fire({
-    title: '¬øEliminar curso?',
-    html: `¬øEst√°s seguro de eliminar el curso <strong>${nombre}</strong>?<br><br>
-           <span style="color: #d33; font-size: 14px;">Se eliminar√°n todas las calificaciones, asistencias e inscripciones asociadas.</span>`,
+    title: 'øEliminar curso?',
+    html: `øEst·s seguro de eliminar el curso <strong>${nombre}</strong>?<br><br>
+           <span style="color: #d33; font-size: 14px;">Se eliminar·n todas las calificaciones, asistencias e inscripciones asociadas.</span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
 
@@ -8809,7 +8809,7 @@ async function eliminarCurso(id, nombre) {
       const data = await res.json();
       
       if (res.ok && data.success) {
-        Swal.fire('¬°Eliminado!', 'Curso eliminado exitosamente', 'success');
+        Swal.fire('°Eliminado!', 'Curso eliminado exitosamente', 'success');
         document.getElementById('btnCursos').click();
       } else {
         Swal.fire('Error', data.message || 'Error al eliminar curso', 'error');
@@ -8880,7 +8880,7 @@ async function asignarProfesorACurso(idCurso, nombreCurso) {
       if (updateRes.ok && data.success) {
         Swal.fire({
           icon: 'success',
-          title: '¬°Asignado!',
+          title: '°Asignado!',
           text: 'Profesor asignado correctamente al curso',
           timer: 2000,
           showConfirmButton: false
@@ -9046,7 +9046,7 @@ document.head.appendChild(style);
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
-    if (!href || href === '#') return; // Ignorar enlaces vac√≠os o solo #
+    if (!href || href === '#') return; // Ignorar enlaces vacÌos o solo #
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
@@ -9091,8 +9091,8 @@ async function loadCuotasGestion() {
     <div style="max-width: 1400px; margin: 0 auto;">
       <div style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         <div style="margin-bottom: 32px;">
-          <h2 style="margin: 0; color: #1f2937; font-size: 28px;"> Gesti√≥n de Cuotas Disponibles</h2>
-          <p style="margin: 8px 0 0 0; color: #6b7280;">Controla qu√© cuotas pueden pagar los alumnos en cada curso</p>
+          <h2 style="margin: 0; color: #1f2937; font-size: 28px;"> GestiÛn de Cuotas Disponibles</h2>
+          <p style="margin: 8px 0 0 0; color: #6b7280;">Controla quÈ cuotas pueden pagar los alumnos en cada curso</p>
         </div>
 
         <div id="cursosListaCuotas" style="display: grid; gap: 20px;">
@@ -9242,7 +9242,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
           <p style="margin-bottom: 24px; color: #6b7280; font-size: 15px;">
             Ingrese la clave asignada para ingresar
           </p>
-          <input id="swal-password" type="password" class="swal2-input" placeholder="‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢" style="width: 100%; margin: 0; text-align: center; font-size: 18px; letter-spacing: 2px;" autocomplete="off">
+          <input id="swal-password" type="password" class="swal2-input" placeholder="ïïïïïïïï" style="width: 100%; margin: 0; text-align: center; font-size: 18px; letter-spacing: 2px;" autocomplete="off">
         </div>
       `,
       width: '450px',
@@ -9327,7 +9327,7 @@ async function gestionarCuotasCurso(idCurso, nombreCurso) {
           </div>
           <div style="margin-top: 20px; padding: 16px; background: #f5f5f7; border-left: 4px solid #4a5259; border-radius: 8px;">
             <p style="margin: 0; font-size: 14px; color: #4a5259;">
-               <strong>Tip:</strong> Los alumnos solo ver√°n y podr√°n pagar las cuotas seleccionadas.
+               <strong>Tip:</strong> Los alumnos solo ver·n y podr·n pagar las cuotas seleccionadas.
             </p>
           </div>
         </div>
@@ -9390,7 +9390,7 @@ async function liberarCuotasTodasLosCursos() {
     html: `
       <div style="text-align: left;">
         <p style="margin-bottom: 20px; color: #6b7280;">
-          Selecciona las cuotas que estar√°n disponibles para <strong style="color: #111827;">TODOS los cursos</strong>
+          Selecciona las cuotas que estar·n disponibles para <strong style="color: #111827;">TODOS los cursos</strong>
         </p>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
           ${todasLasCuotas.map(cuota => `
@@ -9402,7 +9402,7 @@ async function liberarCuotasTodasLosCursos() {
         </div>
         <div style="margin-top: 20px; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
           <p style="margin: 0; font-size: 14px; color: #92400e;">
-            Ô∏è <strong>Atenci√≥n:</strong> Esto sobrescribir√° la configuraci√≥n de TODOS los cursos.
+            ? <strong>AtenciÛn:</strong> Esto sobrescribir· la configuraciÛn de TODOS los cursos.
           </p>
         </div>
       </div>
@@ -9424,7 +9424,7 @@ async function liberarCuotasTodasLosCursos() {
     if (cuotasSeleccionadas.length === 0) {
       Swal.fire({
         icon: 'warning',
-        title: 'Atenci√≥n',
+        title: 'AtenciÛn',
         text: 'Debes seleccionar al menos una cuota'
       });
       return;
@@ -9545,7 +9545,7 @@ async function descargarPDFAlumnos() {
     
     doc.autoTable({
       startY: 45,
-      head: [['Nombre Completo', 'Email', 'Tel√©fono', 'DNI', 'Cursos Inscritos', 'Estado']],
+      head: [['Nombre Completo', 'Email', 'TelÈfono', 'DNI', 'Cursos Inscritos', 'Estado']],
       body: tableData,
       theme: 'grid',
       headStyles: {
@@ -9577,7 +9577,7 @@ async function descargarPDFAlumnos() {
       doc.setFontSize(8);
       doc.setTextColor(150);
       doc.text(
-        `P√°gina ${i} de ${pageCount}`,
+        `P·gina ${i} de ${pageCount}`,
         doc.internal.pageSize.width / 2,
         doc.internal.pageSize.height - 10,
         { align: 'center' }
@@ -9646,7 +9646,7 @@ async function descargarPDFProfesores() {
     
     doc.autoTable({
       startY: 45,
-      head: [['Nombre Completo', 'Email', 'Tel√©fono', 'Especialidad', 'Cursos que Dicta', 'Estado']],
+      head: [['Nombre Completo', 'Email', 'TelÈfono', 'Especialidad', 'Cursos que Dicta', 'Estado']],
       body: tableData,
       theme: 'grid',
       headStyles: {
@@ -9678,7 +9678,7 @@ async function descargarPDFProfesores() {
       doc.setFontSize(8);
       doc.setTextColor(150);
       doc.text(
-        `P√°gina ${i} de ${pageCount}`,
+        `P·gina ${i} de ${pageCount}`,
         doc.internal.pageSize.width / 2,
         doc.internal.pageSize.height - 10,
         { align: 'center' }
@@ -9913,8 +9913,8 @@ async function renderInvestigacionSection() {
           <div class="investigacion-title">
             <i data-lucide="flask-conical" style="color: #4a5259;"></i>
             <div>
-              <h2 style="color: #4a5259;">Investigaci√≥n CEMI</h2>
-              <p>Centro de recopilaci√≥n de datos de experiencia de usuario</p>
+              <h2 style="color: #4a5259;">InvestigaciÛn CEMI</h2>
+              <p>Centro de recopilaciÛn de datos de experiencia de usuario</p>
             </div>
           </div>
           <a href="formulario-encuesta.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; background: #1e1e1e; color: white;">
@@ -9923,7 +9923,7 @@ async function renderInvestigacionSection() {
           </a>
         </div>
 
-        <!-- Estad√≠sticas -->
+        <!-- EstadÌsticas -->
         <div class="investigacion-stats">
           <div class="stat-card">
             <div class="stat-icon" style="background: rgba(74, 82, 89, 0.1);">
@@ -9940,7 +9940,7 @@ async function renderInvestigacionSection() {
             </div>
             <div class="stat-info">
               <span class="stat-number">${stats.estadisticas?.promedioSatisfaccion || '0.0'}</span>
-              <span class="stat-label">Satisfacci√≥n Promedio</span>
+              <span class="stat-label">SatisfacciÛn Promedio</span>
             </div>
           </div>
           <div class="stat-card">
@@ -9958,7 +9958,7 @@ async function renderInvestigacionSection() {
             </div>
             <div class="stat-info">
               <span class="stat-number">${stats.estadisticas?.ultimaEncuesta ? new Date(stats.estadisticas.ultimaEncuesta).toLocaleDateString('es-AR', {day: '2-digit', month: 'short'}) : 'N/A'}</span>
-              <span class="stat-label">√öltima Encuesta</span>
+              <span class="stat-label">⁄ltima Encuesta</span>
             </div>
           </div>
         </div>
@@ -9976,8 +9976,8 @@ async function renderInvestigacionSection() {
             ${encuestas.encuestas?.length === 0 || !encuestas.encuestas ? `
               <div class="empty-state">
                 <i data-lucide="inbox"></i>
-                <h4>No hay encuestas a√∫n</h4>
-                <p>Las encuestas completadas aparecer√°n aqu√≠</p>
+                <h4>No hay encuestas a˙n</h4>
+                <p>Las encuestas completadas aparecer·n aquÌ</p>
               </div>
             ` : encuestas.encuestas.map(enc => `
               <div class="encuesta-item" data-id="${enc.id}">
@@ -10460,13 +10460,13 @@ async function renderInvestigacionSection() {
       </style>
     `;
   } catch (error) {
-    console.error('Error al cargar investigaci√≥n:', error);
+    console.error('Error al cargar investigaciÛn:', error);
     return `
       <div class="investigacion-container">
         <div class="error-state">
           <i data-lucide="alert-circle"></i>
           <h3>Error al cargar datos</h3>
-          <p>No se pudo conectar con el servidor de investigaci√≥n.</p>
+          <p>No se pudo conectar con el servidor de investigaciÛn.</p>
           <button onclick="document.getElementById('btnInvestigacion').click()" class="btn-primary">Reintentar</button>
         </div>
       </div>
@@ -10524,13 +10524,13 @@ function descargarEncuestaPDF(pdfUrl, nombre) {
 
 async function eliminarEncuesta(id) {
   const result = await Swal.fire({
-    title: '¬øEliminar encuesta?',
-    text: 'Esta acci√≥n no se puede deshacer. El PDF ser√° eliminado permanentemente.',
+    title: 'øEliminar encuesta?',
+    text: 'Esta acciÛn no se puede deshacer. El PDF ser· eliminado permanentemente.',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#f44336',
     cancelButtonColor: '#666',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
   
