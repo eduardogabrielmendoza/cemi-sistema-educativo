@@ -9,105 +9,367 @@
   <script src="assets/js/config.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
+    :root {
+      --hw-charcoal: #1e1e1e;
+      --hw-graphite: #656f77;
+      --hw-light-gray: #8c939a;
+      --hw-silver: #b8bdc2;
+      --hw-off-white: #f8f9fa;
+      --hw-cream: #f5f5f7;
+      --hw-red: #a51c30;
+      --hw-red-light: rgba(165, 28, 48, 0.1);
+      --hw-red-border: rgba(165, 28, 48, 0.3);
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f7fa; color: #2d3748; line-height: 1.6; }
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      background: var(--hw-off-white); 
+      color: var(--hw-charcoal); 
+      line-height: 1.6; 
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 15%;
+      right: 5%;
+      width: 280px;
+      height: 280px;
+      border: 1px solid rgba(101, 111, 119, 0.06);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    .help-header { background: linear-gradient(135deg, #1A3A5C 0%, #0070F3 100%); position: sticky; top: 0; z-index: 100; }
+    .help-header { background: var(--hw-charcoal); position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; }
     .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
-    .header-logo img { width: 40px; height: 40px; border-radius: 8px; background: white; padding: 4px; }
-    .header-logo span { font-size: 18px; font-weight: 600; }
+    .header-logo img { width: 40px; height: 40px; border-radius: 10px; background: white; padding: 4px; }
+    .header-logo span { font-family: 'Georgia', serif; font-size: 18px; font-weight: 400; }
     .header-nav { display: flex; gap: 8px; }
-    .header-nav a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.2s ease; }
-    .header-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+    .header-nav a { 
+      color: rgba(255,255,255,0.7); 
+      text-decoration: none; 
+      padding: 10px 18px; 
+      border-radius: 10px; 
+      font-size: 14px; 
+      font-weight: 500; 
+      transition: all 0.3s ease; 
+      position: relative; 
+    }
+    .header-nav a::after { 
+      content: ''; 
+      position: absolute; 
+      bottom: 6px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 0; 
+      height: 2px; 
+      background: var(--hw-red); 
+      transition: width 0.3s ease; 
+    }
+    .header-nav a:hover::after { width: 30px; }
+    .header-nav a:hover { color: white; }
 
-    .main-content { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+    .main-content { max-width: 900px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 1; }
 
-    .back-link { display: inline-flex; align-items: center; gap: 8px; color: #0070F3; text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 24px; transition: all 0.2s ease; }
-    .back-link:hover { color: #1A3A5C; }
+    .back-link { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      color: var(--hw-graphite); 
+      text-decoration: none; 
+      font-size: 14px; 
+      font-weight: 500; 
+      margin-bottom: 24px; 
+      transition: all 0.3s ease;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid rgba(101, 111, 119, 0.1);
+    }
+    .back-link:hover { color: var(--hw-red); border-color: var(--hw-red-border); background: var(--hw-red-light); }
     .back-link i { width: 18px; height: 18px; }
 
-    .question-card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 24px; }
+    .question-card { 
+      background: white; 
+      border-radius: 18px; 
+      padding: 32px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
+      margin-bottom: 24px; 
+      border: 1px solid rgba(101, 111, 119, 0.08);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .question-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--hw-red);
+    }
     .question-header { display: flex; gap: 16px; margin-bottom: 20px; }
-    .author-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #0070F3; }
+    .author-avatar { 
+      width: 52px; 
+      height: 52px; 
+      border-radius: 50%; 
+      object-fit: cover; 
+      border: 3px solid var(--hw-charcoal);
+      transition: border-color 0.3s ease;
+    }
+    .author-avatar:hover { border-color: var(--hw-red); }
     .author-info { flex: 1; }
-    .author-name { font-size: 15px; font-weight: 600; color: #1A3A5C; }
-    .author-role { display: inline-block; font-size: 11px; padding: 2px 8px; background: rgba(102,126,234,0.15); color: #0070F3; border-radius: 10px; margin-left: 8px; }
-    .question-date { font-size: 13px; color: #94a3b8; margin-top: 2px; }
+    .author-name { 
+      font-family: 'Georgia', serif;
+      font-size: 16px; 
+      font-weight: 400; 
+      color: var(--hw-charcoal);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .author-role { 
+      display: inline-block; 
+      font-size: 10px; 
+      font-weight: 600;
+      padding: 3px 10px; 
+      background: var(--hw-charcoal); 
+      color: white; 
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+    }
+    .question-date { font-size: 13px; color: var(--hw-light-gray); margin-top: 4px; }
     
     .question-badges { margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
-    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .badge i { width: 14px; height: 14px; }
-    .badge.category { background: #f1f5f9; color: #64748b; }
+    .badge { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px; 
+      padding: 5px 14px; 
+      border-radius: 20px; 
+      font-size: 11px; 
+      font-weight: 600; 
+    }
+    .badge i { width: 12px; height: 12px; }
+    .badge.category { background: var(--hw-cream); color: var(--hw-graphite); }
     .badge.resolved { background: #d1fae5; color: #065f46; }
     .badge.closed { background: #fee2e2; color: #991b1b; }
-    .badge.announcement { background: linear-gradient(135deg, #1A3A5C, #0070F3); color: white; }
-    .badge.featured { background: rgba(102,126,234,0.15); color: #1A3A5C; }
+    .badge.announcement { background: var(--hw-charcoal); color: white; }
+    .badge.featured { background: var(--hw-red-light); color: var(--hw-red); }
 
-    .question-title { font-size: 24px; font-weight: 700; color: #1e293b; margin-bottom: 16px; line-height: 1.3; }
-    .question-content { font-size: 15px; color: #475569; line-height: 1.8; white-space: pre-wrap; }
+    .question-title { 
+      font-family: 'Georgia', serif;
+      font-size: 26px; 
+      font-weight: 400; 
+      color: var(--hw-charcoal); 
+      margin-bottom: 16px; 
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+    .question-content { font-size: 15px; color: var(--hw-graphite); line-height: 1.8; white-space: pre-wrap; }
 
-    .question-actions { display: flex; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
-    .action-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid #e2e8f0; background: white; border-radius: 8px; font-size: 14px; color: #64748b; cursor: pointer; transition: all 0.2s ease; }
-    .action-btn:hover { border-color: #0070F3; color: #0070F3; }
-    .action-btn.voted { background: #0070F3; color: white; border-color: #0070F3; }
+    .question-actions { 
+      display: flex; 
+      gap: 12px; 
+      margin-top: 24px; 
+      padding-top: 20px; 
+      border-top: 1px solid rgba(101, 111, 119, 0.08); 
+    }
+    .action-btn { 
+      display: flex; 
+      align-items: center; 
+      gap: 8px; 
+      padding: 10px 18px; 
+      border: 1px solid rgba(101, 111, 119, 0.15); 
+      background: var(--hw-off-white); 
+      border-radius: 10px; 
+      font-size: 14px; 
+      color: var(--hw-graphite); 
+      cursor: pointer; 
+      transition: all 0.3s ease; 
+    }
+    .action-btn:hover { border-color: var(--hw-red-border); color: var(--hw-red); background: var(--hw-red-light); }
+    .action-btn.voted { background: var(--hw-charcoal); color: white; border-color: var(--hw-charcoal); }
     .action-btn i { width: 18px; height: 18px; }
 
     .answers-section { margin-top: 32px; }
-    .section-title { font-size: 18px; font-weight: 600; color: #1A3A5C; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-    .section-title i { width: 22px; height: 22px; color: #0070F3; }
+    .section-title { 
+      font-family: 'Georgia', serif;
+      font-size: 20px; 
+      font-weight: 400; 
+      color: var(--hw-charcoal); 
+      margin-bottom: 20px; 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+    }
+    .section-title i { width: 24px; height: 24px; color: var(--hw-graphite); }
 
-    .answer-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; margin-bottom: 16px; }
-    .answer-card.recommended { border-left: 4px solid #059669; background: linear-gradient(to right, rgba(5,150,105,0.03), white); }
-    .recommended-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #d1fae5; color: #065f46; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .answer-card { 
+      background: white; 
+      border-radius: 18px; 
+      padding: 24px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
+      border: 1px solid rgba(101, 111, 119, 0.08); 
+      margin-bottom: 16px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: cardFadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
+    @keyframes cardFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    .answer-card:hover { border-color: var(--hw-red-border); box-shadow: 0 8px 30px rgba(165, 28, 48, 0.08); }
+    .answer-card.recommended { border-left: 4px solid var(--hw-red); background: linear-gradient(to right, var(--hw-red-light), white); }
+    .recommended-badge { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px; 
+      padding: 5px 14px; 
+      background: var(--hw-red); 
+      color: white; 
+      border-radius: 20px; 
+      font-size: 11px; 
+      font-weight: 600; 
+      margin-bottom: 14px; 
+    }
     .recommended-badge i { width: 14px; height: 14px; }
 
     .answer-header { display: flex; gap: 12px; margin-bottom: 16px; }
-    .answer-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-    .answer-author-name { font-size: 14px; font-weight: 600; color: #1A3A5C; }
-    .answer-date { font-size: 12px; color: #94a3b8; }
-    .answer-content { font-size: 14px; color: #475569; line-height: 1.7; white-space: pre-wrap; }
+    .answer-avatar { 
+      width: 44px; 
+      height: 44px; 
+      border-radius: 50%; 
+      object-fit: cover;
+      border: 2px solid rgba(101, 111, 119, 0.1);
+      transition: border-color 0.3s ease;
+    }
+    .answer-card:hover .answer-avatar { border-color: var(--hw-charcoal); }
+    .answer-author-name { font-family: 'Georgia', serif; font-size: 14px; font-weight: 400; color: var(--hw-charcoal); }
+    .answer-date { font-size: 12px; color: var(--hw-light-gray); margin-top: 2px; }
+    .answer-content { font-size: 14px; color: var(--hw-graphite); line-height: 1.8; white-space: pre-wrap; }
 
-    .answer-actions { display: flex; gap: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid #f1f5f9; }
-    .answer-action { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: none; border: none; font-size: 13px; color: #64748b; cursor: pointer; border-radius: 6px; transition: all 0.2s ease; }
-    .answer-action:hover { background: #f1f5f9; color: #0070F3; }
-    .answer-action.voted { color: #0070F3; font-weight: 600; }
+    .answer-actions { display: flex; gap: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(101, 111, 119, 0.08); }
+    .answer-action { 
+      display: flex; 
+      align-items: center; 
+      gap: 6px; 
+      padding: 8px 14px; 
+      background: var(--hw-off-white); 
+      border: none; 
+      font-size: 13px; 
+      color: var(--hw-graphite); 
+      cursor: pointer; 
+      border-radius: 10px; 
+      transition: all 0.3s ease; 
+    }
+    .answer-action:hover { background: var(--hw-red-light); color: var(--hw-red); }
+    .answer-action.voted { color: var(--hw-red); font-weight: 600; background: var(--hw-red-light); }
     .answer-action i { width: 16px; height: 16px; }
 
-    .reply-form { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-top: 24px; }
-    .reply-form h3 { font-size: 16px; font-weight: 600; color: #1A3A5C; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-    .reply-form h3 i { width: 20px; height: 20px; color: #0070F3; }
-    .reply-textarea { width: 100%; min-height: 120px; padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; font-family: inherit; resize: vertical; transition: all 0.2s ease; }
-    .reply-textarea:focus { outline: none; border-color: #0070F3; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
-    .reply-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
-    .btn { padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; border: none; }
-    .btn-primary { background: linear-gradient(135deg, #1A3A5C, #0070F3); color: white; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.3); }
+    .reply-form { 
+      background: white; 
+      border-radius: 18px; 
+      padding: 28px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
+      margin-top: 24px;
+      border: 1px solid rgba(101, 111, 119, 0.08);
+    }
+    .reply-form h3 { 
+      font-family: 'Georgia', serif;
+      font-size: 18px; 
+      font-weight: 400; 
+      color: var(--hw-charcoal); 
+      margin-bottom: 18px; 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+    }
+    .reply-form h3 i { width: 20px; height: 20px; color: var(--hw-graphite); }
+    .reply-textarea { 
+      width: 100%; 
+      min-height: 140px; 
+      padding: 18px; 
+      border: 1px solid rgba(101, 111, 119, 0.15); 
+      border-radius: 14px; 
+      font-size: 14px; 
+      font-family: inherit; 
+      resize: vertical; 
+      transition: all 0.3s ease;
+      background: var(--hw-off-white);
+    }
+    .reply-textarea:focus { outline: none; border-color: var(--hw-red); box-shadow: 0 0 0 4px var(--hw-red-light); background: white; }
+    .reply-actions { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .btn { 
+      padding: 14px 28px; 
+      border-radius: 12px; 
+      font-size: 14px; 
+      font-weight: 600; 
+      cursor: pointer; 
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      border: none; 
+    }
+    .btn-primary { background: var(--hw-charcoal); color: white; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(165, 28, 48, 0.35); background: var(--hw-red); }
     .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
-    .login-prompt { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(84,113,148,0.1)); border: 1px dashed #0070F3; border-radius: 12px; padding: 24px; text-align: center; }
-    .login-prompt p { color: #1A3A5C; margin-bottom: 12px; }
-    .login-prompt a { color: #0070F3; font-weight: 600; text-decoration: none; }
+    .login-prompt { 
+      background: var(--hw-cream); 
+      border: 1px dashed rgba(101, 111, 119, 0.2); 
+      border-radius: 18px; 
+      padding: 32px; 
+      text-align: center;
+      margin-top: 24px;
+    }
+    .login-prompt p { color: var(--hw-charcoal); margin-bottom: 14px; font-size: 15px; }
+    .login-prompt a { color: var(--hw-red); font-weight: 600; text-decoration: none; transition: opacity 0.3s ease; }
+    .login-prompt a:hover { opacity: 0.8; }
 
-    .empty-answers { text-align: center; padding: 40px; color: #64748b; }
-    .empty-answers i { width: 48px; height: 48px; color: #cbd5e1; margin-bottom: 12px; }
-    .empty-answers h4 { color: #1A3A5C; margin-bottom: 8px; }
+    .empty-answers { 
+      text-align: center; 
+      padding: 50px; 
+      color: var(--hw-graphite);
+      background: white;
+      border-radius: 18px;
+      border: 1px solid rgba(101, 111, 119, 0.08);
+    }
+    .empty-answers i { width: 48px; height: 48px; color: var(--hw-silver); margin-bottom: 14px; }
+    .empty-answers h4 { font-family: 'Georgia', serif; font-weight: 400; color: var(--hw-charcoal); margin-bottom: 8px; font-size: 18px; }
+    .empty-answers p { font-size: 14px; }
 
-    .loading { text-align: center; padding: 60px; color: #64748b; }
-    .loading i { animation: spin 1s linear infinite; width: 32px; height: 32px; }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .loading { text-align: center; padding: 80px; color: var(--hw-graphite); }
+    .loading-spinner { 
+      width: 48px; 
+      height: 48px; 
+      border: 3px solid rgba(101, 111, 119, 0.15); 
+      border-top-color: var(--hw-charcoal); 
+      border-radius: 50%; 
+      animation: spin 0.8s linear infinite; 
+      margin: 0 auto 16px; 
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .error-state { text-align: center; padding: 60px; }
-    .error-state i { width: 64px; height: 64px; color: #f87171; margin-bottom: 16px; }
-    .error-state h3 { color: #991b1b; margin-bottom: 8px; }
-    .error-state p { color: #64748b; margin-bottom: 20px; }
+    .error-state { 
+      text-align: center; 
+      padding: 80px;
+      background: white;
+      border-radius: 18px;
+      border: 1px solid rgba(101, 111, 119, 0.08);
+    }
+    .error-state i { width: 64px; height: 64px; color: var(--hw-red); margin-bottom: 16px; }
+    .error-state h3 { font-family: 'Georgia', serif; font-weight: 400; color: var(--hw-charcoal); margin-bottom: 8px; font-size: 22px; }
+    .error-state p { color: var(--hw-graphite); margin-bottom: 24px; font-size: 15px; }
 
     @media (max-width: 768px) {
       .header-top { padding: 12px 20px; }
       .header-nav { display: none; }
-      .main-content { padding: 20px; }
-      .question-card { padding: 20px; }
-      .question-title { font-size: 20px; }
+      .main-content { padding: 24px 16px; }
+      .question-card { padding: 24px; }
+      .question-title { font-size: 22px; }
+      .back-link { padding: 6px 12px; font-size: 13px; }
     }
   </style>
 </head>
@@ -121,7 +383,7 @@
       <nav class="header-nav">
         <a href="ayuda-classroom.html">Centro de Ayuda</a>
         <a href="comunidad-ayuda.html">Comunidad</a>
-        <a href="novedades-Cemihtml">Novedades</a>
+        <a href="novedades-cemi.html">Novedades</a>
         <a href="classroom.html">Volver a Classroom</a>
       </nav>
     </div>
@@ -129,9 +391,8 @@
 
   <main class="main-content">
     <a href="comunidad-ayuda.html" class="back-link"><i data-lucide="arrow-left"></i>Volver a la comunidad</a>
-    
     <div id="contentContainer">
-      <div class="loading"><i data-lucide="loader"></i><p>Cargando pregunta...</p></div>
+      <div class="loading"><div class="loading-spinner"></div><p>Cargando pregunta...</p></div>
     </div>
   </main>
 
@@ -142,7 +403,6 @@
     const preguntaId = new URLSearchParams(window.location.search).get('id');
 
     function checkSession() {
-      // Leer datos de sesión del localStorage (formato usado por classroom-login.js)
       const nombre = localStorage.getItem('nombre');
       const rol = localStorage.getItem('rol');
       const avatar = localStorage.getItem('avatar');
@@ -170,27 +430,18 @@
     }
 
     async function loadPregunta() {
-      if (!preguntaId) {
-        showError('No se especifico una pregunta');
-        return;
-      }
-
+      if (!preguntaId) { showError('No se especifico una pregunta'); return; }
       try {
         const response = await fetch(`/api/comunidad/preguntas/${preguntaId}`);
+        if (response.status === 401) { showError('Sesion expirada'); return; }
         const data = await response.json();
-
         if (data.success) {
           pregunta = data.pregunta;
           respuestas = data.respuestas || [];
           document.title = `${pregunta.titulo} - Comunidad Cemi`;
           renderContent();
-        } else {
-          showError(data.error || 'Pregunta no encontrada');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        showError('Error al cargar la pregunta');
-      }
+        } else { showError(data.error || 'Pregunta no encontrada'); }
+      } catch (error) { console.error('Error:', error); showError('Error al cargar la pregunta'); }
     }
 
     function showError(message) {
@@ -200,8 +451,7 @@
           <h3>Error</h3>
           <p>${message}</p>
           <a href="comunidad-ayuda.html" class="btn btn-primary">Volver a la comunidad</a>
-        </div>
-      `;
+        </div>`;
       lucide.createIcons();
     }
 
@@ -209,28 +459,17 @@
       const fecha = new Date(pregunta.fechaCreacion).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
       const votanteKey = currentUser ? `${currentUser.tipo}_${currentUser.id}` : null;
       const hasVoted = votanteKey && pregunta.votantes && pregunta.votantes.includes(votanteKey);
-
-      const avatarUrl = pregunta.autorAvatar 
-        ? (pregunta.autorAvatar.startsWith('http') ? pregunta.autorAvatar : `/uploads/avatars/${pregunta.autorAvatar}`)
-        : `https://ui-avatars.com/api/?name=${encodeURIComponent(pregunta.autorNombre)}&background=667eea&color=fff`;
-
+      const avatarUrl = pregunta.autorAvatar ? (pregunta.autorAvatar.startsWith('http') ? pregunta.autorAvatar : `/uploads/avatars/${pregunta.autorAvatar}`) : `https://ui-avatars.com/api/?name=${encodeURIComponent(pregunta.autorNombre)}&background=1e1e1e&color=fff`;
+      
       let badges = '';
-      const categoryNames = {
-        'primeros-pasos': 'Primeros Pasos',
-        'tareas': 'Tareas y Entregas',
-        'comunicacion': 'Comunicacion',
-        'recursos': 'Recursos',
-        'cuenta': 'Mi Cuenta',
-        'otro': 'Otro'
-      };
+      const categoryNames = {'primeros-pasos': 'Primeros Pasos', 'tareas': 'Tareas y Entregas', 'comunicacion': 'Comunicacion', 'recursos': 'Recursos', 'cuenta': 'Mi Cuenta', 'otro': 'Otro'};
       badges += `<span class="badge category"><i data-lucide="tag"></i>${categoryNames[pregunta.categoria] || pregunta.categoria}</span>`;
       if (pregunta.esAnuncio) badges += '<span class="badge announcement"><i data-lucide="megaphone"></i>Anuncio</span>';
       if (pregunta.destacado) badges += '<span class="badge featured"><i data-lucide="pin"></i>Destacado</span>';
       if (pregunta.estado === 'resuelta') badges += '<span class="badge resolved"><i data-lucide="check-circle"></i>Resuelta</span>';
       if (pregunta.estado === 'cerrada') badges += '<span class="badge closed"><i data-lucide="lock"></i>Cerrada</span>';
 
-      const authorRole = pregunta.autorTipo === 'profesor' ? '<span class="author-role">Profesor</span>' : 
-                         pregunta.autorTipo === 'admin' ? '<span class="author-role">Admin</span>' : '';
+      const authorRole = pregunta.autorTipo === 'profesor' ? '<span class="author-role">Profesor</span>' : pregunta.autorTipo === 'admin' ? '<span class="author-role">Admin</span>' : '';
 
       let html = `
         <div class="question-card">
@@ -246,133 +485,66 @@
           <div class="question-content">${escapeHtml(pregunta.descripcion)}</div>
           <div class="question-actions">
             <button class="action-btn ${hasVoted ? 'voted' : ''}" onclick="votarPregunta()">
-              <i data-lucide="thumbs-up"></i>
-              <span id="voteCount">${pregunta.votos}</span> votos
+              <i data-lucide="thumbs-up"></i><span id="voteCount">${pregunta.votos}</span> votos
             </button>
           </div>
         </div>
-
         <div class="answers-section">
           <h2 class="section-title"><i data-lucide="message-circle"></i>Respuestas (${respuestas.length})</h2>
           ${renderRespuestas()}
         </div>
-
-        ${renderReplyForm()}
-      `;
-
+        ${renderReplyForm()}`;
       document.getElementById('contentContainer').innerHTML = html;
       lucide.createIcons();
     }
 
     function renderRespuestas() {
       if (respuestas.length === 0) {
-        return `
-          <div class="empty-answers">
-            <i data-lucide="message-circle"></i>
-            <h4>Aun no hay respuestas</h4>
-            <p>Se el primero en responder a esta pregunta</p>
-          </div>
-        `;
+        return `<div class="empty-answers"><i data-lucide="message-circle"></i><h4>Aun no hay respuestas</h4><p>Se el primero en responder a esta pregunta</p></div>`;
       }
-
-      return respuestas.map(r => {
+      return respuestas.map((r, i) => {
         const fecha = new Date(r.fechaCreacion).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
         const votanteKey = currentUser ? `${currentUser.tipo}_${currentUser.id}` : null;
         const hasVoted = votanteKey && r.votantes && r.votantes.includes(votanteKey);
-        
-        const avatarUrl = r.autorAvatar 
-          ? (r.autorAvatar.startsWith('http') ? r.autorAvatar : `/uploads/avatars/${r.autorAvatar}`)
-          : `https://ui-avatars.com/api/?name=${encodeURIComponent(r.autorNombre)}&background=667eea&color=fff`;
-
-        const authorRole = r.autorRol ? `<span class="author-role">${r.autorRol}</span>` : '';
-
+        const avatarUrl = r.autorAvatar ? (r.autorAvatar.startsWith('http') ? r.autorAvatar : `/uploads/avatars/${r.autorAvatar}`) : `https://ui-avatars.com/api/?name=${encodeURIComponent(r.autorNombre)}&background=1e1e1e&color=fff`;
+        const authorRole = r.autorRol ? `<span class="author-role" style="margin-left: 8px;">${r.autorRol}</span>` : '';
         return `
-          <div class="answer-card ${r.esRecomendada ? 'recommended' : ''}" data-id="${r.id}">
+          <div class="answer-card ${r.esRecomendada ? 'recommended' : ''}" data-id="${r.id}" style="animation-delay: ${0.05 * (i + 1)}s">
             ${r.esRecomendada ? '<div class="recommended-badge"><i data-lucide="award"></i>Respuesta recomendada</div>' : ''}
             <div class="answer-header">
               <img src="${avatarUrl}" alt="" class="answer-avatar">
-              <div>
-                <div class="answer-author-name">${escapeHtml(r.autorNombre)}${authorRole}</div>
-                <div class="answer-date">${fecha}</div>
-              </div>
+              <div><div class="answer-author-name">${escapeHtml(r.autorNombre)}${authorRole}</div><div class="answer-date">${fecha}</div></div>
             </div>
             <div class="answer-content">${escapeHtml(r.contenido)}</div>
             <div class="answer-actions">
               <button class="answer-action ${hasVoted ? 'voted' : ''}" onclick="votarRespuesta('${r.id}')">
-                <i data-lucide="thumbs-up"></i>
-                <span id="respVotes-${r.id}">${r.votos}</span> votos
+                <i data-lucide="thumbs-up"></i><span id="respVotes-${r.id}">${r.votos}</span> votos
               </button>
-              ${(currentUser && (currentUser.tipo === 'profesor' || currentUser.tipo === 'admin')) ? `
-                <button class="answer-action" onclick="toggleRecomendar('${r.id}', ${!r.esRecomendada})">
-                  <i data-lucide="${r.esRecomendada ? 'x' : 'award'}"></i>
-                  ${r.esRecomendada ? 'Quitar recomendacion' : 'Recomendar'}
-                </button>
-              ` : ''}
+              ${(currentUser && (currentUser.tipo === 'profesor' || currentUser.tipo === 'admin')) ? `<button class="answer-action" onclick="toggleRecomendar('${r.id}', ${!r.esRecomendada})"><i data-lucide="${r.esRecomendada ? 'x' : 'award'}"></i>${r.esRecomendada ? 'Quitar' : 'Recomendar'}</button>` : ''}
             </div>
-          </div>
-        `;
+          </div>`;
       }).join('');
     }
 
     function renderReplyForm() {
-      if (pregunta.estado === 'cerrada') {
-        return `
-          <div class="login-prompt">
-            <i data-lucide="lock" style="width: 32px; height: 32px; color: #94a3b8; margin-bottom: 12px;"></i>
-            <p>Esta pregunta esta cerrada y no acepta mas respuestas.</p>
-          </div>
-        `;
-      }
-
-      if (!currentUser) {
-        return `
-          <div class="login-prompt">
-            <p>Inicia sesion para responder a esta pregunta</p>
-            <a href="login-selector.html">Iniciar sesion</a>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="reply-form">
-          <h3><i data-lucide="edit-3"></i>Tu respuesta</h3>
-          <textarea class="reply-textarea" id="replyContent" placeholder="Escribe tu respuesta aqui..." maxlength="5000"></textarea>
-          <div class="reply-actions">
-            <button class="btn btn-primary" onclick="submitReply()" id="submitReplyBtn">
-              <i data-lucide="send"></i>Publicar respuesta
-            </button>
-          </div>
-        </div>
-      `;
+      if (pregunta.estado === 'cerrada') return `<div class="login-prompt"><p>Esta pregunta esta cerrada y no acepta mas respuestas.</p></div>`;
+      if (!currentUser) return `<div class="login-prompt"><p>Inicia sesion para responder a esta pregunta</p><a href="login-selector.html">Iniciar sesion</a></div>`;
+      return `<div class="reply-form"><h3><i data-lucide="edit-3"></i>Tu respuesta</h3><textarea class="reply-textarea" id="replyContent" placeholder="Escribe tu respuesta aqui..." maxlength="5000"></textarea><div class="reply-actions"><button class="btn btn-primary" onclick="submitReply()" id="submitReplyBtn"><i data-lucide="send"></i>Publicar respuesta</button></div></div>`;
     }
 
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
+    function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
 
     async function votarPregunta() {
       if (!currentUser) { alert('Debes iniciar sesion para votar'); return; }
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/votar`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ votanteTipo: currentUser.tipo, votanteId: currentUser.id })
-        });
+        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/votar`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ votanteTipo: currentUser.tipo, votanteId: currentUser.id }) });
         const data = await response.json();
         if (data.success) {
           pregunta.votos = data.votos;
           const votanteKey = `${currentUser.tipo}_${currentUser.id}`;
-          if (data.action === 'added') {
-            if (!pregunta.votantes) pregunta.votantes = [];
-            pregunta.votantes.push(votanteKey);
-          } else {
-            pregunta.votantes = pregunta.votantes.filter(v => v !== votanteKey);
-          }
+          if (data.action === 'added') { if (!pregunta.votantes) pregunta.votantes = []; pregunta.votantes.push(votanteKey); } else { pregunta.votantes = pregunta.votantes.filter(v => v !== votanteKey); }
           document.getElementById('voteCount').textContent = data.votos;
-          const btn = document.querySelector('.action-btn');
-          btn.classList.toggle('voted', data.action === 'added');
+          document.querySelector('.action-btn').classList.toggle('voted', data.action === 'added');
         }
       } catch (error) { console.error('Error:', error); }
     }
@@ -380,24 +552,11 @@
     async function votarRespuesta(respuestaId) {
       if (!currentUser) { alert('Debes iniciar sesion para votar'); return; }
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/votar`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ votanteTipo: currentUser.tipo, votanteId: currentUser.id })
-        });
+        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/votar`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ votanteTipo: currentUser.tipo, votanteId: currentUser.id }) });
         const data = await response.json();
         if (data.success) {
           const resp = respuestas.find(r => r.id === respuestaId);
-          if (resp) {
-            resp.votos = data.votos;
-            const votanteKey = `${currentUser.tipo}_${currentUser.id}`;
-            if (data.action === 'added') {
-              if (!resp.votantes) resp.votantes = [];
-              resp.votantes.push(votanteKey);
-            } else {
-              resp.votantes = resp.votantes.filter(v => v !== votanteKey);
-            }
-          }
+          if (resp) { resp.votos = data.votos; const votanteKey = `${currentUser.tipo}_${currentUser.id}`; if (data.action === 'added') { if (!resp.votantes) resp.votantes = []; resp.votantes.push(votanteKey); } else { resp.votantes = resp.votantes.filter(v => v !== votanteKey); } }
           document.getElementById(`respVotes-${respuestaId}`).textContent = data.votos;
           const btn = document.querySelector(`[data-id="${respuestaId}"] .answer-action`);
           if (btn) btn.classList.toggle('voted', data.action === 'added');
@@ -407,64 +566,26 @@
 
     async function toggleRecomendar(respuestaId, recomendar) {
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/recomendar`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ recomendar })
-        });
+        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas/${respuestaId}/recomendar`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ recomendar }) });
         const data = await response.json();
-        if (data.success) {
-          const resp = respuestas.find(r => r.id === respuestaId);
-          if (resp) resp.esRecomendada = recomendar;
-          renderContent();
-        }
+        if (data.success) { const resp = respuestas.find(r => r.id === respuestaId); if (resp) resp.esRecomendada = recomendar; renderContent(); }
       } catch (error) { console.error('Error:', error); }
     }
 
     async function submitReply() {
       const content = document.getElementById('replyContent').value.trim();
       if (!content) { alert('Escribe tu respuesta'); return; }
-
       const btn = document.getElementById('submitReplyBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<i data-lucide="loader"></i>Publicando...';
-      lucide.createIcons();
-
+      btn.disabled = true; btn.innerHTML = '<i data-lucide="loader"></i>Publicando...'; lucide.createIcons();
       try {
-        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contenido: content,
-            autorTipo: currentUser.tipo,
-            autorId: currentUser.id,
-            autorNombre: currentUser.nombre,
-            autorAvatar: currentUser.avatar
-          })
-        });
+        const response = await fetch(`/api/comunidad/preguntas/${preguntaId}/respuestas`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contenido: content, autorTipo: currentUser.tipo, autorId: currentUser.id, autorNombre: currentUser.nombre, autorAvatar: currentUser.avatar }) });
         const data = await response.json();
-        if (data.success) {
-          respuestas.push(data.respuesta);
-          document.getElementById('replyContent').value = '';
-          renderContent();
-        } else {
-          alert(data.error || 'Error al publicar respuesta');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error al publicar respuesta');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i data-lucide="send"></i>Publicar respuesta';
-        lucide.createIcons();
-      }
+        if (data.success) { respuestas.push(data.respuesta); document.getElementById('replyContent').value = ''; renderContent(); } else { alert(data.error || 'Error al publicar respuesta'); }
+      } catch (error) { console.error('Error:', error); alert('Error al publicar respuesta'); }
+      finally { btn.disabled = false; btn.innerHTML = '<i data-lucide="send"></i>Publicar respuesta'; lucide.createIcons(); }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      lucide.createIcons();
-      checkSession();
-      loadPregunta();
-    });
+    document.addEventListener('DOMContentLoaded', function() { lucide.createIcons(); checkSession(); loadPregunta(); });
   </script>
 </body>
 </html>
