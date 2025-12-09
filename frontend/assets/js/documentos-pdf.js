@@ -400,7 +400,7 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
       doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('Centro de Enseñanza Multilingüe Internacional', 40, 24);
+      doc.text('Centro de Enseñanza Multilingüe Integral', 40, 24);
       
       doc.setDrawColor(...HARVARD_COLORS.graphite);
       doc.setLineWidth(0.3);
@@ -413,7 +413,7 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
       doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 25);
+      doc.text('Centro de Enseñanza Multilingüe Integral', 20, 25);
     }
   } catch (e) {
     doc.setFontSize(22);
@@ -423,7 +423,7 @@ async function agregarHeaderPDF(doc, titulo, subtitulo = null) {
     doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.silver);
-    doc.text('Centro de Enseñanza Multilingüe Internacional', 20, 25);
+    doc.text('Centro de Enseñanza Multilingüe Integral', 20, 25);
   }
   
   doc.setFontSize(13);
@@ -469,7 +469,7 @@ function agregarFooterPDF(doc) {
   doc.setFontSize(6);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...HARVARD_COLORS.silver);
-  doc.text('Centro de Enseñanza Multilingüe Internacional', 20, pageHeight - 7);
+  doc.text('Centro de Enseñanza Multilingüe Integral', 20, pageHeight - 7);
   
   doc.setFontSize(6);
   doc.setTextColor(...HARVARD_COLORS.graphite);
@@ -791,7 +791,7 @@ async function generarConstanciaAlumnoRegular(idAlumno) {
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.text);
-    doc.text('Por medio de la presente, el Centro de Enseñanza Multilingüe Internacional', 20, yPos);
+    doc.text('Por medio de la presente, el Centro de Enseñanza Multilingüe Integral', 20, yPos);
     yPos += 6;
     doc.text('(CEMI) certifica que:', 20, yPos);
     
@@ -1087,12 +1087,13 @@ async function generarCertificadoCalificaciones(idAlumno) {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text('Escala de calificación: 1 a 10  |  Nota mínima de aprobación: 7 (siete)  |  Aprobado ', pageWidth / 2, yPos + 5, { align: 'center' });
+    doc.text('Escala de calificación: 1 a 10  |  Nota mínima de aprobación: 7 (siete)  |  Aprobado', pageWidth / 2 - 15, yPos + 5, { align: 'center' });
     doc.setFillColor(...HARVARD_COLORS.success);
-    doc.circle(pageWidth / 2 + 60, yPos + 4, 2, 'F');
-    doc.text(' Recuperación ', pageWidth / 2 + 70, yPos + 5);
+    doc.circle(pageWidth / 2 + 47, yPos + 4.5, 2.5, 'F');
+    doc.setTextColor(...HARVARD_COLORS.graphite);
+    doc.text('Recuperación', pageWidth / 2 + 53, yPos + 5);
     doc.setFillColor(...HARVARD_COLORS.warning);
-    doc.circle(pageWidth / 2 + 85, yPos + 4, 2, 'F');
+    doc.circle(pageWidth / 2 + 78, yPos + 4.5, 2.5, 'F');
     
     yPos += 22;
     
@@ -1248,11 +1249,11 @@ async function generarEstadoCuenta(idAlumno) {
     doc.setFont('times', 'bold');
     doc.text(`$${totalPendiente.toLocaleString('es-AR')}`, 20 + boxWidth + spacing + boxWidth/2, yPos + 18, { align: 'center' });
     
-    doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
+    doc.setDrawColor(...HARVARD_COLORS.accent);
     doc.roundedRect(20 + (boxWidth + spacing) * 2, yPos, boxWidth, boxHeight, 2, 2, 'FD');
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...HARVARD_COLORS.wroughtIron);
+    doc.setTextColor(...HARVARD_COLORS.accent);
     doc.text('CUOTAS ABONADAS', 20 + (boxWidth + spacing) * 2 + boxWidth/2, yPos + 8, { align: 'center' });
     doc.setFontSize(13);
     doc.setFont('times', 'bold');
@@ -1385,13 +1386,13 @@ async function generarEstadoCuenta(idAlumno) {
     yPos += 8;
     
     doc.setFillColor(...HARVARD_COLORS.lightGray);
-    doc.roundedRect(20, yPos, pageWidth - 40, 14, 1, 1, 'F');
+    doc.roundedRect(20, yPos, pageWidth - 40, 18, 1, 1, 'F');
     
     doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text('* Los montos están expresados en pesos argentinos (ARS)', 25, yPos + 5);
-    doc.text('* Para consultas sobre pagos, comunicarse con el área de administración', 25, yPos + 10);
+    doc.text('* Los montos están expresados en pesos argentinos (ARS)', 25, yPos + 6);
+    doc.text('* Para consultas sobre pagos, comunicarse con el área de administración', 25, yPos + 12);
     
     agregarFooterPDF(doc);
     
@@ -1701,7 +1702,7 @@ async function generarPDFConstancia(alumno) {
   const fecha = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
   const texto = `Por medio de la presente, se deja constancia que ${alumno.nombre || ''} ${alumno.apellido || ''}, ` +
     `DNI N° ${alumno.dni || 'No registrado'}, identificado/a con el legajo ${alumno.legajo || 'N/A'}, ` +
-    `se encuentra inscripto/a como ALUMNO REGULAR en el Centro de Enseñanza Multilingüe Internacional (CEMI).`;
+    `se encuentra inscripto/a como ALUMNO REGULAR en el Centro de Enseñanza Multilingüe Integral (CEMI).`;
   
   const lineas = doc.splitTextToSize(texto, pageWidth - 50);
   doc.text(lineas, 25, yPos);
