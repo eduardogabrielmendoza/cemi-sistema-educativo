@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --color-primary: #000000;
   --color-secondary: #1d1d1f;
   --color-accent: #656f77;
@@ -503,7 +503,7 @@ html {
 .cta-btn:hover {
   transform: scale(1.05);
   background: var(--color-accent-hover);
-  box-shadow: 0 8px 24px rgba(165, 28, 48, 0.35);
+  box-shadow: 0 8px 24px rgba(45, 50, 124, 0.35);
 }
 
 .cta-btn-apk {
@@ -599,7 +599,7 @@ html {
 }
 
 .link-arrow::after {
-  content: '→';
+  content: '?';
   position: absolute;
   right: -20px;
   transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1697,7 +1697,7 @@ footer i {
 }
 
 .footer-link:hover {
-  color: #a51c30;
+  color: #2d327c;
 }
 
 .footer-link i {
@@ -3896,7 +3896,7 @@ footer i {
 }
 
 .social-link:hover {
-  color: #a51c30;
+  color: #2d327c;
 }
 
 .social-link i {
@@ -3922,7 +3922,7 @@ footer i {
 }
 
 .footer-cta:hover {
-  color: #a51c30;
+  color: #2d327c;
 }
 
 .footer-cta i {
@@ -3943,7 +3943,7 @@ footer i {
 }
 
 .footer-cta-link:hover {
-  color: #a51c30;
+  color: #2d327c;
 }
 
 .footer-cta-link i {
@@ -3955,7 +3955,7 @@ footer i {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 30px;
-  border-top: 1px solid #a51c30;
+  border-top: 1px solid #2d327c;
   text-align: center;
 }
 
@@ -3985,7 +3985,7 @@ footer i {
 }
 
 .footer-links-bottom a:hover {
-  color: #a51c30;
+  color: #2d327c;
 }
 
 .doc-hidden-link {
