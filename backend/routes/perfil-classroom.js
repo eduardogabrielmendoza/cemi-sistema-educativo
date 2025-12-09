@@ -64,7 +64,7 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.nombre, p.apellido, 
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
-                p.direccion, p.biografia, p.avatar,
+                p.direccion, p.biografia, p.avatar, p.banner,
                 per.nombre_perfil as rol,
                 alum.id_alumno,
                 NULL as id_profesor
@@ -82,7 +82,7 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.nombre, p.apellido, 
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
-                p.direccion, p.biografia, p.avatar,
+                p.direccion, p.biografia, p.avatar, p.banner,
                 per.nombre_perfil as rol,
                 NULL as id_alumno,
                 prof.id_profesor
@@ -102,7 +102,7 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.nombre, p.apellido, 
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
-                p.direccion, p.biografia, p.avatar,
+                p.direccion, p.biografia, p.avatar, p.banner,
                 per.nombre_perfil as rol,
                 alum.id_alumno,
                 prof.id_profesor
@@ -123,7 +123,7 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.nombre, p.apellido, 
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
-                p.direccion, p.biografia, p.avatar,
+                p.direccion, p.biografia, p.avatar, p.banner,
                 per.nombre_perfil as rol,
                 alum.id_alumno,
                 prof.id_profesor
@@ -144,7 +144,7 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.nombre, p.apellido, 
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
-                p.direccion, p.biografia, p.avatar,
+                p.direccion, p.biografia, p.avatar, p.banner,
                 per.nombre_perfil as rol,
                 NULL as id_alumno,
                 prof.id_profesor
@@ -164,7 +164,7 @@ router.get("/perfil/:userId", async (req, res) => {
                 p.nombre, p.apellido, 
                 p.mail as email, 
                 p.telefono, p.fecha_nacimiento, 
-                p.direccion, p.biografia, p.avatar,
+                p.direccion, p.biografia, p.avatar, p.banner,
                 per.nombre_perfil as rol,
                 alum.id_alumno,
                 NULL as id_profesor
@@ -495,6 +495,106 @@ router.post("/perfil/:userId/avatar", (req, res) => {
         message: 'Error del servidor al subir el avatar',
         error: error.message,
         details: error.http_code || error.name
+      });
+    }
+  });
+});
+
+
+router.post("/perfil/:userId/banner", (req, res) => {
+  console.log(` [POST /perfil/:userId/banner] Subiendo banner para userId: ${req.params.userId}`);
+  
+  if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+    console.error(' ERROR: Credenciales de Cloudinary no configuradas');
+    return res.status(500).json({
+      success: false,
+      message: 'Cloudinary no configurado. Contacta al administrador.'
+    });
+  }
+  
+  upload.single('banner')(req, res, async (err) => {
+    if (err) {
+      console.error(' Error en multer:', err.message);
+      return res.status(400).json({
+        success: false,
+        message: err.message
+      });
+    }
+
+    const { userId } = req.params;
+
+    if (!req.file) {
+      console.log(' No se recibio archivo');
+      return res.status(400).json({
+        success: false,
+        message: 'No se recibio ningun archivo'
+      });
+    }
+
+    try {
+      console.log(' Archivo recibido:', req.file.filename);
+      
+      let id_persona = userId;
+      
+      const [checkUsuario] = await pool.query(
+        'SELECT id_persona FROM usuarios WHERE id_usuario = ?',
+        [userId]
+      );
+
+      if (checkUsuario.length > 0) {
+        id_persona = checkUsuario[0].id_persona;
+      }
+
+      const [oldBanner] = await pool.query(
+        'SELECT banner FROM personas WHERE id_persona = ?',
+        [id_persona]
+      );
+
+      if (oldBanner.length > 0 && oldBanner[0].banner) {
+        const oldUrl = oldBanner[0].banner;
+        if (oldUrl.includes('cloudinary.com')) {
+          const publicId = oldUrl.split('/').pop().split('.')[0];
+          try {
+            await cloudinary.uploader.destroy(`banners/${publicId}`);
+            console.log('  Banner anterior eliminado de Cloudinary');
+          } catch (err) {
+            console.log('  Error eliminando banner anterior:', err.message);
+          }
+        }
+      }
+
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'banners',
+        public_id: `banner-u${userId}`,
+        overwrite: true,
+        transformation: [
+          { width: 1200, height: 300, crop: 'fill' },
+          { quality: 'auto:good' }
+        ]
+      });
+
+      const bannerUrl = result.secure_url;
+      console.log('  Banner subido a Cloudinary:', bannerUrl);
+
+      fs.unlinkSync(req.file.path);
+
+      await pool.query(
+        'UPDATE personas SET banner = ? WHERE id_persona = ?',
+        [bannerUrl, id_persona]
+      );
+
+      return res.json({
+        success: true,
+        message: 'Banner actualizado correctamente',
+        banner: bannerUrl
+      });
+
+    } catch (error) {
+      console.error(" Error al subir banner:", error);
+      return res.status(500).json({
+        success: false,
+        message: 'Error del servidor al subir el banner',
+        error: error.message
       });
     }
   });

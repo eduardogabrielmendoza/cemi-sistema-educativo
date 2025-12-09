@@ -234,6 +234,14 @@ function mostrarDatosEnUI(perfil) {
     }
   }
   
+  // Cargar banner
+  const bannerElement = document.getElementById('profileBanner');
+  if (perfil.banner && bannerElement) {
+    localStorage.setItem('banner', perfil.banner);
+    bannerElement.style.backgroundImage = `url(${perfil.banner})`;
+    console.log(' Banner cargado');
+  }
+  
   updateElement('profileName', `${perfil.nombre} ${perfil.apellido}`);
   updateElement('profileRole', capitalizar(perfil.rol));
   updateElement('profileUsername', perfil.username);
@@ -546,4 +554,68 @@ function formatearFecha(fecha) {
 }
 
 
-
+async function cambiarBanner(event) {
+  const file = event.target.files[0];
+  
+  if (!file) return;
+  
+  if (!file.type.startsWith('image/')) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Archivo invalido',
+      text: 'Por favor selecciona una imagen'
+    });
+    return;
+  }
+  
+  if (file.size > 5 * 1024 * 1024) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Archivo muy grande',
+      text: 'La imagen debe pesar menos de 5MB'
+    });
+    return;
+  }
+  
+  const formData = new FormData();
+  formData.append('banner', file);
+  
+  try {
+    const response = await fetch(`${API_URL}/classroom/perfil/${userId}/banner`, {
+      method: 'POST',
+      body: formData
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok && data.success) {
+      localStorage.setItem('banner', data.banner);
+      
+      const bannerElement = document.getElementById('profileBanner');
+      if (bannerElement) {
+        bannerElement.style.backgroundImage = `url(${data.banner})`;
+      }
+      
+      if (userData) {
+        userData.banner = data.banner;
+      }
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Banner actualizado',
+        text: 'Tu banner se ha actualizado correctamente',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    } else {
+      throw new Error(data.message || 'Error al subir banner');
+    }
+  } catch (error) {
+    console.error('Error al cambiar banner:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo actualizar el banner'
+    });
+  }
+}

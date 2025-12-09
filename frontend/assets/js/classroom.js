@@ -1059,27 +1059,53 @@ async function loadViewData(viewName) {
 
 
 function filterTasks(filter) {
+  const container = document.getElementById('tasksContainer');
   const taskItems = document.querySelectorAll('.task-item');
+  
+  // Remover mensaje previo si existe
+  const prevMessage = container.querySelector('.filter-empty-message');
+  if (prevMessage) prevMessage.remove();
+  
+  let visibleCount = 0;
   
   taskItems.forEach(task => {
     const isPending = task.classList.contains('pending');
     const isCompleted = task.classList.contains('completed');
     const isOverdue = task.classList.contains('overdue');
+    let show = false;
 
     switch(filter) {
       case 'pending':
-        task.style.display = isPending ? 'flex' : 'none';
+        show = isPending;
         break;
       case 'completed':
-        task.style.display = isCompleted ? 'flex' : 'none';
+        show = isCompleted;
         break;
       case 'overdue':
-        task.style.display = isOverdue ? 'flex' : 'none';
+        show = isOverdue;
         break;
       default:
-        task.style.display = 'flex';
+        show = true;
     }
+    
+    task.style.display = show ? 'flex' : 'none';
+    if (show) visibleCount++;
   });
+  
+  // Mostrar mensaje si no hay tareas visibles
+  if (visibleCount === 0 && taskItems.length > 0) {
+    const messages = {
+      'pending': 'No tienes tareas pendientes',
+      'completed': 'No tienes tareas completadas',
+      'overdue': 'No tienes tareas vencidas',
+      'all': 'No hay tareas'
+    };
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'filter-empty-message';
+    messageDiv.style.cssText = 'text-align: center; color: #666; padding: 40px; font-size: 1rem;';
+    messageDiv.textContent = messages[filter] || messages['all'];
+    container.appendChild(messageDiv);
+  }
 }
 
 

@@ -1799,11 +1799,11 @@ body {
 }
 
 .nav-item.active {
-  background: var(--hw-charcoal);
+  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
   color: var(--hw-white);
   font-weight: 500;
   transform: translateX(0);
-  box-shadow: 0 4px 15px rgba(165, 28, 48, 0.25);
+  box-shadow: 0 4px 15px rgba(165, 28, 48, 0.35);
   border-left: 3px solid #a51c30;
 }
 
@@ -2879,14 +2879,14 @@ body.dark-mode .research-banner-close:hover {
 
 .filter-btn:hover {
   background: var(--hw-off-white);
-  border-color: var(--hw-graphite);
-  color: var(--hw-charcoal);
+  border-color: #a51c30;
+  color: #a51c30;
 }
 
 .filter-btn.active {
-  background: var(--hw-charcoal);
+  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
   color: var(--hw-white);
-  border-color: var(--hw-charcoal);
+  border-color: #a51c30;
 }
 
 .tasks-list {
@@ -3564,7 +3564,7 @@ body.dark-mode .research-banner-close:hover {
 }
 
 .course-detail-header {
-  background: linear-gradient(135deg, #4a5259 0%, #4a5259 100%);
+  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
   padding: 32px 24px;
   color: white;
 }
@@ -3591,7 +3591,7 @@ body.dark-mode .research-banner-close:hover {
   padding: 16px;
   background: #f8f9fa;
   border-radius: 12px;
-  border-left: 3px solid #4a5259;
+  border-left: 3px solid #a51c30;
 }
 
 .course-info-label {
@@ -3627,9 +3627,9 @@ body.dark-mode .research-banner-close:hover {
 
 .student-list-item:hover {
   background: #f0f4f8;
-  border-color: #4a5259;
+  border-color: #a51c30;
   transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 4px 12px rgba(165, 28, 48, 0.15);
 }
 
 .student-avatar {
@@ -4512,16 +4512,16 @@ input:checked + .toggle-slider:before {
 }
 
 .theme-card:hover {
-  border-color: #3d444a;
+  border-color: #a51c30;
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(30, 60, 114, 0.2);
+  box-shadow: 0 12px 30px rgba(165, 28, 48, 0.2);
 }
 
 .theme-card.active {
-  border-color: #3d444a;
-  background: linear-gradient(135deg, rgba(30, 60, 114, 0.1) 0%, rgba(42, 82, 152, 0.1) 100%);
-  color: #3d444a;
-  box-shadow: 0 8px 20px rgba(30, 60, 114, 0.25);
+  border-color: #a51c30;
+  background: linear-gradient(135deg, rgba(165, 28, 48, 0.1) 0%, rgba(135, 23, 40, 0.1) 100%);
+  color: #a51c30;
+  box-shadow: 0 8px 20px rgba(165, 28, 48, 0.25);
 }
 
 .theme-card i {
@@ -4552,16 +4552,16 @@ input:checked + .toggle-slider:before {
 }
 
 .font-size-btn:hover {
-  border-color: #3d444a;
+  border-color: #a51c30;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(30, 60, 114, 0.15);
+  box-shadow: 0 6px 20px rgba(165, 28, 48, 0.15);
 }
 
 .font-size-btn.active {
-  border-color: #3d444a;
-  background: linear-gradient(135deg, #3d444a 0%, #4a5259 100%);
+  border-color: #a51c30;
+  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
   color: white;
-  box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3);
+  box-shadow: 0 8px 20px rgba(165, 28, 48, 0.3);
 }
 
 .font-size-btn small {
@@ -4681,14 +4681,14 @@ body.dark-mode .toggle-password-btn:hover {
 }
 
 .btn-config-primary {
-  background: linear-gradient(135deg, #3d444a 0%, #4a5259 100%);
+  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+  box-shadow: 0 4px 15px rgba(165, 28, 48, 0.3);
 }
 
 .btn-config-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+  box-shadow: 0 8px 25px rgba(165, 28, 48, 0.4);
 }
 
 .btn-config-secondary {
@@ -5997,7 +5997,7 @@ body.dark-mode .toggle-password-btn:hover {
   align-items: center;
   justify-content: space-between;
   padding: 22px 28px;
-  background: var(--hw-charcoal);
+  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
   color: white;
   position: relative;
   overflow: hidden;
@@ -6209,7 +6209,7 @@ body.dark-mode .toggle-password-btn:hover {
 
 .btn-submit {
   padding: 14px 28px;
-  background: var(--hw-charcoal);
+  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
   color: white;
   border: none;
   border-radius: 6px;
@@ -6239,9 +6239,9 @@ body.dark-mode .toggle-password-btn:hover {
 }
 
 .btn-submit:hover {
-  background: var(--hw-wrought-iron);
+  background: linear-gradient(135deg, #871728 0%, #6d1220 100%);
   transform: translateY(var(--hover-lift));
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 25px rgba(165, 28, 48, 0.35);
 }
 
 .btn-submit:hover::before {
