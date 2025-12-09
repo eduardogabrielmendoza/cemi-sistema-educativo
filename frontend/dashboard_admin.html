@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -264,7 +264,7 @@
       text-align: center;
     }
     
-    /* Panel Derecho - ConversaciÃ³n Activa */
+    /* Panel Derecho - Conversación Activa */
     .chat-messages-panel {
       flex: 1;
       display: flex;
@@ -582,20 +582,20 @@
       <button id="btnPagos"><i data-lucide="credit-card"></i> Pagos</button>
       <button id="btnAulas"><i data-lucide="door-open"></i> Aulas</button>
       <button id="btnIdiomas"><i data-lucide="languages"></i> Idiomas</button>
-      <button id="btnInvestigacion"><i data-lucide="flask-conical"></i> InvestigaciÃ³n</button>
+      <button id="btnInvestigacion"><i data-lucide="flask-conical"></i> Investigación</button>
       <button id="btnChatSoporte" style="position: relative;">
         <i data-lucide="message-circle"></i> Chat Soporte
         <span id="chatNotificationBadge" class="notification-badge" style="display: none;"></span>
       </button>
       <button id="btnStatus"><i data-lucide="activity"></i> Status del Sistema</button>
       <button id="btnAyuda"><i data-lucide="help-circle"></i> Ayuda</button>
-      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesiÃ³n</button>
+      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesión</button>
     </nav>
   </aside>
 
   <main class="dashboard-main">
     <header class="dashboard-header">
-      <h1>Panel de AdministraciÃ³n</h1>
+      <h1>Panel de Administración</h1>
       <div class="user-info">
         <i data-lucide="user"></i> <span id="welcomeMessage">Administrador</span>
       </div>
@@ -623,16 +623,16 @@
     // Crear instancia global del admin chat manager
     const adminChatManager = new AdminChatManager();
     
-    // Inicializar WebSocket automÃ¡ticamente
-    console.log(' Inicializando admin chat manager automÃ¡ticamente...');
+    // Inicializar WebSocket automáticamente
+    console.log(' Inicializando admin chat manager automáticamente...');
     adminChatManager.init();
     
-    // Solicitar permisos de notificaciÃ³n
+    // Solicitar permisos de notificación
     if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission();
     }
     
-    // REMOVER TODO EL CÃ“DIGO ANTIGUO DEL ADMINCHATMANAGER - AHORA ESTÃ EN admin-chat-manager.js
+    // REMOVER TODO EL CÓDIGO ANTIGUO DEL ADMINCHATMANAGER - AHORA ESTÁ EN admin-chat-manager.js
     /* OLD CODE REMOVED - class AdminChatManager {
       constructor() {
         this.ws = null;
@@ -734,7 +734,7 @@
       updateNotificationBadge(count) {
         const badge = document.getElementById('chatNotificationBadge');
         if (!badge) {
-          console.error(' No se encontrÃ³ el elemento chatNotificationBadge');
+          console.error(' No se encontró el elemento chatNotificationBadge');
           return;
         }
         
@@ -832,31 +832,31 @@
       }
       
       handleNewMessage(data) {
-        console.log(' Admin recibiÃ³ mensaje:', data);
+        console.log(' Admin recibió mensaje:', data);
         
         // Verificar si es mensaje propio del admin
         const esMensajePropio = data.tipo_remitente === 'admin';
         
         if (esMensajePropio) {
-          console.log('ï¸ Es mi propio mensaje (admin), ignorando notificaciÃ³n');
+          console.log('? Es mi propio mensaje (admin), ignorando notificación');
           return;
         }
         
-        // Verificar si el chat estÃ¡ visible
+        // Verificar si el chat está visible
         const chatContainer = document.getElementById('chatContainer');
         const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
         
-        console.log('ï¸ Chat visible:', isChatVisible);
+        console.log('? Chat visible:', isChatVisible);
         
-        // Si el chat estÃ¡ visible Y es la conversaciÃ³n activa
+        // Si el chat está visible Y es la conversación activa
         if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-          console.log(' Agregando mensaje a conversaciÃ³n activa');
+          console.log(' Agregando mensaje a conversación activa');
           this.addMessageToUI(data);
           this.scrollToBottom();
           this.markAsRead(data.id_conversacion);
         } else {
-          // Chat NO visible o conversaciÃ³n diferente: notificar
-          console.log(' Mostrando notificaciÃ³n y actualizando badge');
+          // Chat NO visible o conversación diferente: notificar
+          console.log(' Mostrando notificación y actualizando badge');
           this.playMessageSound();
           const nombreRemitente = data.nombre_remitente || data.nombre_usuario || 'Usuario';
           this.showNotification(`Nuevo mensaje de ${nombreRemitente}`, data.mensaje);
@@ -865,7 +865,7 @@
       }
       
       handleNewMessageNotification(data) {
-        // Esta funciÃ³n ya no es necesaria, handleNewMessage lo maneja todo
+        // Esta función ya no es necesaria, handleNewMessage lo maneja todo
         this.handleNewMessage(data);
       }
       
@@ -884,18 +884,18 @@
           if (result.success) {
             this.conversations = result.data;
             
-            // Calcular total de mensajes no leÃ­dos por el admin
+            // Calcular total de mensajes no leídos por el admin
             const totalNoLeidos = this.conversations.reduce((sum, conv) => {
               return sum + (conv.mensajes_no_leidos_admin || 0);
             }, 0);
             
-            console.log(' Total mensajes no leÃ­dos por admin:', totalNoLeidos);
+            console.log(' Total mensajes no leídos por admin:', totalNoLeidos);
             this.updateNotificationBadge(totalNoLeidos);
             
-            // Unirse a TODAS las conversaciones automÃ¡ticamente para recibir notificaciones
+            // Unirse a TODAS las conversaciones automáticamente para recibir notificaciones
             if (this.ws && this.ws.readyState === WebSocket.OPEN) {
               this.conversations.forEach(conv => {
-                console.log(' Admin uniÃ©ndose a conversaciÃ³n:', conv.id_conversacion);
+                console.log(' Admin uniéndose a conversación:', conv.id_conversacion);
                 this.ws.send(JSON.stringify({
                   type: 'join_conversation',
                   data: { id_conversacion: conv.id_conversacion }
@@ -998,16 +998,16 @@
             this.renderConversationMessages(result.data.mensajes);
             this.renderConversationsList(); // Re-render para actualizar activo
             
-            // Tomar la conversaciÃ³n si estÃ¡ pendiente
+            // Tomar la conversación si está pendiente
             if (this.activeConversation.estado === 'pendiente') {
               await this.takeConversation(id);
             }
             
-            // Marcar como leÃ­do
+            // Marcar como leído
             await this.markAsRead(id);
           }
         } catch (error) {
-          console.error('Error al cargar conversaciÃ³n:', error);
+          console.error('Error al cargar conversación:', error);
         }
       }
       
@@ -1031,7 +1031,7 @@
           </div>
           <div class="chat-messages-header-text">
             <h4>${this.escapeHtml(nombre)}</h4>
-            <p>${this.activeConversation.tipo_usuario} â€¢ ${this.activeConversation.estado}</p>
+            <p>${this.activeConversation.tipo_usuario} • ${this.activeConversation.estado}</p>
           </div>
         `;
         
@@ -1097,7 +1097,7 @@
           
           this.loadConversations();
         } catch (error) {
-          console.error('Error al tomar conversaciÃ³n:', error);
+          console.error('Error al tomar conversación:', error);
         }
       }
       
@@ -1105,11 +1105,11 @@
         if (!this.activeConversation) return;
         
         const result = await Swal.fire({
-          title: 'Â¿Cerrar conversaciÃ³n?',
-          text: 'La conversaciÃ³n se marcarÃ¡ como cerrada',
+          title: '¿Cerrar conversación?',
+          text: 'La conversación se marcará como cerrada',
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'SÃ­, cerrar',
+          confirmButtonText: 'Sí, cerrar',
           cancelButtonText: 'Cancelar',
           confirmButtonColor: '#ef4444'
         });
@@ -1122,13 +1122,13 @@
             method: 'PUT'
           });
           
-          Swal.fire('Cerrada', 'La conversaciÃ³n ha sido cerrada', 'success');
+          Swal.fire('Cerrada', 'La conversación ha sido cerrada', 'success');
           this.activeConversation = null;
           this.loadConversations();
           this.clearMessagesPanel();
         } catch (error) {
-          console.error('Error al cerrar conversaciÃ³n:', error);
-          Swal.fire('Error', 'No se pudo cerrar la conversaciÃ³n', 'error');
+          console.error('Error al cerrar conversación:', error);
+          Swal.fire('Error', 'No se pudo cerrar la conversación', 'error');
         }
       }
       
@@ -1143,7 +1143,7 @@
           
           // Recargar conversaciones para actualizar badge desde BD
           await this.loadConversations();
-          console.log(' Mensajes marcados como leÃ­dos, badge actualizado desde BD');
+          console.log(' Mensajes marcados como leídos, badge actualizado desde BD');
           
           if (this.ws && this.ws.readyState === WebSocket.OPEN) {
             this.ws.send(JSON.stringify({
@@ -1152,7 +1152,7 @@
             }));
           }
         } catch (error) {
-          console.error('Error al marcar como leÃ­do:', error);
+          console.error('Error al marcar como leído:', error);
         }
       }
       
@@ -1198,7 +1198,7 @@
         const indicator = document.createElement('div');
         indicator.className = 'chat-typing-indicator-admin';
         indicator.innerHTML = `
-          <span>${nombre} estÃ¡ escribiendo</span>
+          <span>${nombre} está escribiendo</span>
           <div class="chat-typing-dots">
             <div></div>
             <div></div>
@@ -1253,14 +1253,14 @@
   </script>
   
   <script>
-    // Funcionalidad del menÃº mobile
+    // Funcionalidad del menú mobile
     document.addEventListener('DOMContentLoaded', function() {
       const mobileMenuToggle = document.getElementById('mobileMenuToggle');
       const sidebar = document.getElementById('sidebar');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
       const dashboardMain = document.querySelector('.dashboard-main');
       
-      // Solo colapsar sidebar en mÃ³viles (<=768px)
+      // Solo colapsar sidebar en móviles (<=768px)
       if (window.innerWidth <= 768) {
         sidebar.classList.add('collapsed');
       }

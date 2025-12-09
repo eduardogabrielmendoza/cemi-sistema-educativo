@@ -1,4 +1,4 @@
-﻿
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 :root {
@@ -179,7 +179,7 @@ body {
 }
 
 .nav-item:hover {
-  background: rgba(25, 118, 210, 0.1);
+  background: rgba(165, 28, 48, 0.1);
   color: var(--primary-blue);
 }
 
@@ -187,6 +187,7 @@ body {
   background: var(--primary-blue);
   color: white;
   font-weight: 600;
+  border-left: 3px solid #a51c30;
 }
 
 .nav-item i {
@@ -226,10 +227,61 @@ body {
   align-items: center;
   gap: var(--spacing-xl);
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  background-image: url('../images/default-banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: var(--hw-charcoal);
   border-radius: var(--radius-lg);
   color: white;
   margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.profile-header-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-lg);
+}
+
+.profile-header-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-change-banner {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--hw-charcoal);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-change-banner:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn-change-banner i {
+  width: 16px;
+  height: 16px;
 }
 
 .profile-avatar-container {
@@ -309,7 +361,7 @@ body {
 }
 
 .badge-role {
-  background: rgba(255, 255, 255, 0.25);
+  background: #a51c30;
   color: white;
 }
 

@@ -1,4 +1,4 @@
-﻿
+
 .az-search-box {
   position: relative;
   max-width: 100%;
@@ -163,7 +163,7 @@
 }
 
 .az-list li::before {
-  content: '•';
+  content: '�';
   position: absolute;
   left: 0;
   color: var(--hp-text-muted, #656f77);

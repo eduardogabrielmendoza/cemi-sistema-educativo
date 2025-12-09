@@ -1,4 +1,4 @@
-﻿
+
 :root {
   --hw-color-wrought-iron: #1e1e1e;
   --hw-color-blackboard: #0e0e0e;
@@ -71,7 +71,7 @@
 .harvard-dot {
   width: 8px;
   height: 8px;
-  background-color: #1c30a5;
+  background-color: #a51c30;
   border-radius: 50%;
   flex-shrink: 0;
 }

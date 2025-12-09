@@ -36,12 +36,12 @@
 
     .filter-tabs { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; animation: fadeIn 0.6s ease 0.2s both; }
     .filter-tab { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: white; border: 1px solid rgba(101, 111, 119, 0.1); border-radius: 30px; font-size: 14px; font-weight: 500; color: var(--hw-graphite); cursor: pointer; transition: all 0.3s ease; }
-    .filter-tab:hover { border-color: rgba(28, 48, 165, 0.6); color: rgba(28, 48, 165, 0.9); transform: translateY(-2px); }
-    .filter-tab.active { background: #1c30a5; color: white; border-color: transparent; }
+    .filter-tab:hover { border-color: rgba(165, 28, 48, 0.6); color: rgba(165, 28, 48, 0.9); transform: translateY(-2px); }
+    .filter-tab.active { background: #a51c30; color: white; border-color: transparent; }
     .filter-tab i { width: 16px; height: 16px; }
 
     .timeline { position: relative; }
-    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: #1c30a5; }
+    .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: #a51c30; }
 
     .timeline-item { position: relative; padding-left: 70px; padding-bottom: 45px; animation: timelineFadeIn 0.6s ease forwards; opacity: 0; }
     @keyframes timelineFadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
@@ -62,7 +62,7 @@
     .timeline-date i { width: 14px; height: 14px; color: var(--hw-light-gray); }
 
     .timeline-card { background: white; border-radius: 18px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid rgba(101, 111, 119, 0.08); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-    .timeline-card:hover { border-color: rgba(28, 48, 165, 0.35); box-shadow: 0 15px 45px rgba(28, 48, 165, 0.15); transform: translateX(8px); }
+    .timeline-card:hover { border-color: rgba(165, 28, 48, 0.35); box-shadow: 0 15px 45px rgba(165, 28, 48, 0.15); transform: translateX(8px); }
 
     .timeline-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
     .timeline-badge.nueva-funcion { background: rgba(16, 185, 129, 0.1); color: #059669; }
@@ -79,7 +79,7 @@
     .timeline-features li i { width: 16px; height: 16px; color: var(--hw-success); margin-top: 2px; flex-shrink: 0; }
 
     .timeline-link { display: inline-flex; align-items: center; gap: 8px; color: var(--hw-charcoal); text-decoration: none; font-size: 14px; font-weight: 500; margin-top: 14px; transition: all 0.3s ease; padding: 8px 0; }
-    .timeline-link:hover { color: rgba(28, 48, 165, 0.9); transform: translateX(4px); }
+    .timeline-link:hover { color: rgba(165, 28, 48, 0.9); transform: translateX(4px); }
     .timeline-link i { width: 16px; height: 16px; }
 
     .subscribe-section { background: var(--hw-charcoal); border-radius: 24px; padding: 50px; margin-top: 60px; text-align: center; position: relative; overflow: hidden; }
@@ -91,19 +91,19 @@
     .subscribe-form input { flex: 1; padding: 16px 22px; border: none; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; background: rgba(255,255,255,0.95); }
     .subscribe-form input:focus { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.2); }
     .subscribe-form button { padding: 16px 28px; background: white; color: var(--hw-charcoal); border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
-    .subscribe-form button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(28, 48, 165, 0.35); background: #1c30a5; color: white; }
+    .subscribe-form button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(165, 28, 48, 0.35); background: #a51c30; color: white; }
     .subscribe-form button i { width: 18px; height: 18px; }
 
     .help-footer { background: white; border-top: 1px solid rgba(101, 111, 119, 0.1); padding: 30px 40px; margin-top: 60px; }
     .footer-content { max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 28px; }
     .footer-links a { color: var(--hw-graphite); text-decoration: none; font-size: 13px; transition: color 0.3s ease; }
-    .footer-links a:hover { color: rgba(28, 48, 165, 0.9); }
+    .footer-links a:hover { color: rgba(165, 28, 48, 0.9); }
     .footer-copy { color: var(--hw-light-gray); font-size: 13px; }
 
     @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 22px; } .main-content { padding: 30px 20px; } .timeline::before { left: 16px; } .timeline-item { padding-left: 55px; } .timeline-marker { left: 4px; width: 24px; height: 24px; } .subscribe-form { flex-direction: column; } }
 
-    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(28, 48, 165, 0.5); } 50% { box-shadow: 0 0 0 12px rgba(28, 48, 165, 0); } }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(165, 28, 48, 0.5); } 50% { box-shadow: 0 0 0 12px rgba(165, 28, 48, 0); } }
     .timeline-item:first-child .timeline-marker { animation: pulse 2s ease-in-out infinite; }
   </style>
 </head>

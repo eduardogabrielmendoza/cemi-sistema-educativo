@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -41,7 +41,7 @@
       <nav class="perfil-nav">
         <button class="nav-item active" data-section="info-general" onclick="cambiarSeccion('info-general')">
           <i data-lucide="user"></i>
-          <span>InformaciÃ³n General</span>
+          <span>Información General</span>
         </button>
         <button class="nav-item" data-section="info-personal" onclick="cambiarSeccion('info-personal')">
           <i data-lucide="id-card"></i>
@@ -49,14 +49,19 @@
         </button>
         <button class="nav-item" data-section="configuracion-perfil" onclick="cambiarSeccion('configuracion-perfil')">
           <i data-lucide="settings"></i>
-          <span>ConfiguraciÃ³n</span>
+          <span>Configuración</span>
         </button>
       </nav>
     </aside>
 
     <main class="perfil-content">
       <section class="perfil-section active" id="info-general">
-        <div class="profile-header-card">
+        <div class="profile-header-card" id="profileBannerCard">
+          <button class="btn-change-banner" onclick="document.getElementById('bannerInput').click()">
+            <i data-lucide="image"></i>
+            Cambiar Banner
+          </button>
+          <input type="file" id="bannerInput" accept="image/*" style="display: none;" onchange="cambiarBanner(event)">
           <div class="profile-avatar-container">
             <div class="profile-avatar" id="profileAvatar">
               <span id="avatarInitials">ED</span>
@@ -92,7 +97,7 @@
               <i data-lucide="phone"></i>
             </div>
             <div class="info-card-content">
-              <h4>TelÃ©fono</h4>
+              <h4>Teléfono</h4>
               <p id="infoTelefono">cargando...</p>
             </div>
           </div>
@@ -110,7 +115,7 @@
               <i data-lucide="map-pin"></i>
             </div>
             <div class="info-card-content">
-              <h4>DirecciÃ³n</h4>
+              <h4>Dirección</h4>
               <p id="infoDireccion">cargando...</p>
             </div>
           </div>
@@ -119,10 +124,10 @@
         <div class="biografia-section">
           <h3>
             <i data-lucide="file-text"></i>
-            BiografÃ­a
+            Biografía
           </h3>
           <div class="biografia-content">
-            <p id="biografiaDisplay">Sin biografÃ­a</p>
+            <p id="biografiaDisplay">Sin biografía</p>
           </div>
         </div>
       </section>
@@ -133,7 +138,7 @@
             <i data-lucide="id-card"></i>
             Datos Personales
           </h2>
-          <p>Actualiza tu informaciÃ³n personal</p>
+          <p>Actualiza tu información personal</p>
         </div>
 
         <form class="perfil-form" id="formDatosPersonales">
@@ -154,7 +159,7 @@
               <input type="email" id="inputEmail" class="form-input" placeholder="tucorreo@ejemplo.com">
             </div>
             <div class="form-group">
-              <label for="inputTelefono">TelÃ©fono</label>
+              <label for="inputTelefono">Teléfono</label>
               <input type="tel" id="inputTelefono" class="form-input" placeholder="+54 11 1234-5678">
             </div>
           </div>
@@ -165,7 +170,7 @@
               <input type="date" id="inputFechaNac" class="form-input">
             </div>
             <div class="form-group">
-              <label for="inputDireccion">DirecciÃ³n</label>
+              <label for="inputDireccion">Dirección</label>
               <input type="text" id="inputDireccion" class="form-input" placeholder="Calle, Ciudad">
             </div>
           </div>
@@ -187,23 +192,23 @@
         <div class="section-header">
           <h2>
             <i data-lucide="settings"></i>
-            ConfiguraciÃ³n del Perfil
+            Configuración del Perfil
           </h2>
           <p>Personaliza tu perfil</p>
         </div>
 
         <div class="config-card">
-          <h3>BiografÃ­a</h3>
-          <p class="config-description">CuÃ©ntanos un poco sobre ti</p>
-          <textarea id="inputBiografia" class="form-textarea" rows="4" placeholder="Escribe una breve descripciÃ³n sobre ti..."></textarea>
+          <h3>Biografía</h3>
+          <p class="config-description">Cuéntanos un poco sobre ti</p>
+          <textarea id="inputBiografia" class="form-textarea" rows="4" placeholder="Escribe una breve descripción sobre ti..."></textarea>
           <button class="btn-primary btn-sm" onclick="guardarBiografia()">
             <i data-lucide="save"></i>
-            Guardar BiografÃ­a
+            Guardar Biografía
           </button>
         </div>
 
         <div class="config-card">
-          <h3>Acciones RÃ¡pidas</h3>
+          <h3>Acciones Rápidas</h3>
           <div class="quick-actions">
             <button class="btn-action" onclick="window.location.href='classroom.html'">
               <i data-lucide="home"></i>

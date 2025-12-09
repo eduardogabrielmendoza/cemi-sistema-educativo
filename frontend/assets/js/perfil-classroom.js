@@ -1,4 +1,4 @@
-ï»¿
+
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 let userId = null;
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sesionValida = verificarSesion();
   
   if (!sesionValida) {
-    console.error(' SesiÃ³n no vÃ¡lida, redirigiendo...');
+    console.error(' Sesión no válida, redirigiendo...');
     return;
   }
   
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formDatos.addEventListener('submit', guardarDatosPersonales);
     console.log(' Event listener del formulario agregado');
   } else {
-    console.warn('ï¸ No se encontrÃ³ formDatosPersonales');
+    console.warn('? No se encontró formDatosPersonales');
   }
   
   const btnTheme = document.getElementById('toggleTheme');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnTheme.addEventListener('click', toggleTema);
     console.log(' Event listener del tema agregado');
   } else {
-    console.warn('ï¸ No se encontrÃ³ toggleTheme');
+    console.warn('? No se encontró toggleTheme');
   }
   
   if (typeof lucide !== 'undefined') {
@@ -53,7 +53,7 @@ function verificarSesion() {
   
   userId = localStorage.getItem('id_usuario');
   
-  console.log(' Verificando sesiÃ³n:', {
+  console.log(' Verificando sesión:', {
     userId: userId,
     userRol: userRol,
     id_alumno: localStorage.getItem('id_alumno'),
@@ -63,8 +63,8 @@ function verificarSesion() {
   if (!userId || !userRol) {
     Swal.fire({
       icon: 'warning',
-      title: 'SesiÃ³n no encontrada',
-      text: 'Por favor inicia sesiÃ³n primero',
+      title: 'Sesión no encontrada',
+      text: 'Por favor inicia sesión primero',
       confirmButtonText: 'Ir al Login'
     }).then(() => {
       window.location.href = 'classroom-login.html';
@@ -82,7 +82,7 @@ function inicializarTema() {
   const btnTheme = document.getElementById('toggleTheme');
   
   if (!btnTheme) {
-    console.warn('ï¸ BotÃ³n de tema no encontrado');
+    console.warn('? Botón de tema no encontrado');
     return;
   }
   
@@ -128,7 +128,7 @@ function toggleTema() {
 
 
 function cambiarSeccion(seccionId) {
-  console.log(` Cambiando a secciÃ³n: ${seccionId}`);
+  console.log(` Cambiando a sección: ${seccionId}`);
   
   document.querySelectorAll('.perfil-section').forEach(sec => sec.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
@@ -138,15 +138,15 @@ function cambiarSeccion(seccionId) {
   
   if (seccion) {
     seccion.classList.add('active');
-    console.log(` SecciÃ³n activada: ${seccionId}`);
+    console.log(` Sección activada: ${seccionId}`);
   } else {
-    console.warn(`ï¸ SecciÃ³n no encontrada: ${seccionId}`);
+    console.warn(`? Sección no encontrada: ${seccionId}`);
   }
   
   if (navItem) {
     navItem.classList.add('active');
   } else {
-    console.warn(`ï¸ Nav item no encontrado para: ${seccionId}`);
+    console.warn(`? Nav item no encontrado para: ${seccionId}`);
   }
 }
 
@@ -182,7 +182,7 @@ async function cargarPerfilCompleto() {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: `No se pudo cargar la informaciÃ³n del perfil: ${error.message}`
+      text: `No se pudo cargar la información del perfil: ${error.message}`
     });
   }
 }
@@ -196,7 +196,7 @@ function mostrarDatosEnUI(perfil) {
       el[prop] = value;
       return true;
     }
-    console.warn(`ï¸ Elemento no encontrado: ${id}`);
+    console.warn(`? Elemento no encontrado: ${id}`);
     return false;
   };
   
@@ -248,8 +248,8 @@ function mostrarDatosEnUI(perfil) {
   updateElement('infoDireccion', perfil.direccion || 'No especificado');
   console.log(' Info cards actualizadas');
   
-  updateElement('biografiaDisplay', perfil.biografia || 'Sin biografÃ­a');
-  console.log(' BiografÃ­a actualizada');
+  updateElement('biografiaDisplay', perfil.biografia || 'Sin biografía');
+  console.log(' Biografía actualizada');
   
   updateElement('inputNombre', perfil.nombre || '', 'value');
   updateElement('inputApellido', perfil.apellido || '', 'value');
@@ -283,7 +283,7 @@ async function guardarDatosPersonales(e) {
   console.log(' Datos a enviar:', datosActualizados);
   
   if (!datosActualizados.nombre || !datosActualizados.apellido) {
-    console.warn('ï¸ ValidaciÃ³n fallida: nombre y apellido requeridos');
+    console.warn('? Validación fallida: nombre y apellido requeridos');
     Swal.fire({
       icon: 'warning',
       title: 'Campos requeridos',
@@ -309,8 +309,8 @@ async function guardarDatosPersonales(e) {
       console.log(' Datos guardados exitosamente');
       Swal.fire({
         icon: 'success',
-        title: 'Â¡Datos actualizados!',
-        text: 'Tu informaciÃ³n ha sido guardada correctamente',
+        title: '¡Datos actualizados!',
+        text: 'Tu información ha sido guardada correctamente',
         timer: 2000
       });
       
@@ -357,7 +357,7 @@ async function cambiarAvatar(event) {
   if (!file.type.startsWith('image/')) {
     Swal.fire({
       icon: 'error',
-      title: 'Archivo invÃ¡lido',
+      title: 'Archivo inválido',
       text: 'Por favor selecciona una imagen'
     });
     return;
@@ -430,10 +430,77 @@ async function cambiarAvatar(event) {
 }
 
 
+async function cambiarBanner(event) {
+  const file = event.target.files[0];
+  
+  if (!file) return;
+  
+  if (!file.type.startsWith('image/')) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Archivo inválido',
+      text: 'Por favor selecciona una imagen'
+    });
+    return;
+  }
+  
+  if (file.size > 5 * 1024 * 1024) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Archivo muy grande',
+      text: 'La imagen del banner debe pesar menos de 5MB'
+    });
+    return;
+  }
+  
+  const formData = new FormData();
+  formData.append('banner', file);
+  
+  try {
+    const response = await fetch(`${API_URL}/classroom/perfil/${userId}/banner`, {
+      method: 'POST',
+      body: formData
+    });
+    
+    const data = await response.json();
+    
+    if (response.ok && data.success) {
+      localStorage.setItem('banner', data.banner);
+      
+      const bannerCard = document.getElementById('profileBannerCard');
+      if (bannerCard) {
+        bannerCard.style.backgroundImage = `url(${data.banner})`;
+      }
+      
+      if (userData) {
+        userData.banner = data.banner;
+      }
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Banner actualizado',
+        text: 'Tu banner se ha actualizado correctamente',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    } else {
+      throw new Error(data.message || 'Error al subir banner');
+    }
+  } catch (error) {
+    console.error('Error al cambiar banner:', error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo actualizar el banner'
+    });
+  }
+}
+
+
 async function guardarBiografia() {
   const biografia = document.getElementById('inputBiografia').value.trim();
   
-  console.log(' Guardando biografÃ­a...');
+  console.log(' Guardando biografía...');
   
   try {
     const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
@@ -449,15 +516,15 @@ async function guardarBiografia() {
     if (response.ok && data.success) {
       const biografiaDisplay = document.getElementById('biografiaDisplay');
       if (biografiaDisplay) {
-        biografiaDisplay.textContent = biografia || 'Sin biografÃ­a';
+        biografiaDisplay.textContent = biografia || 'Sin biografía';
       }
       
-      console.log(' BiografÃ­a guardada y actualizada');
+      console.log(' Biografía guardada y actualizada');
       
       Swal.fire({
         icon: 'success',
-        title: 'Â¡BiografÃ­a guardada!',
-        text: 'Tu biografÃ­a se ha actualizado correctamente',
+        title: '¡Biografía guardada!',
+        text: 'Tu biografía se ha actualizado correctamente',
         timer: 2000,
         showConfirmButton: false
       });
@@ -467,11 +534,11 @@ async function guardarBiografia() {
       throw new Error(data.message);
     }
   } catch (error) {
-    console.error(' Error al guardar biografÃ­a:', error);
+    console.error(' Error al guardar biografía:', error);
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'No se pudo guardar la biografÃ­a'
+      text: 'No se pudo guardar la biografía'
     });
   }
 }
@@ -485,7 +552,7 @@ function irAlDashboard() {
 async function exportarMisDatos() {
   try {
     Swal.fire({
-      title: 'Generando exportaciÃ³n...',
+      title: 'Generando exportación...',
       text: 'Por favor espera',
       allowOutsideClick: false,
       didOpen: () => {
@@ -509,7 +576,7 @@ async function exportarMisDatos() {
       
       Swal.fire({
         icon: 'success',
-        title: 'Â¡Datos exportados!',
+        title: '¡Datos exportados!',
         text: 'Tu archivo se ha descargado',
         timer: 2000
       });

@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -31,7 +31,7 @@
           </div>
           <div class="login-feature-item">
             <i data-lucide="database"></i>
-            <span>GestiÃ³n Completa</span>
+            <span>Gestión Completa</span>
           </div>
           <div class="login-feature-item">
             <i data-lucide="activity"></i>
@@ -41,7 +41,7 @@
 
         <div class="admin-warning">
           <i data-lucide="alert-triangle"></i>
-          <p>Este acceso estÃ¡ destinado Ãºnicamente para personal autorizado del sistema.</p>
+          <p>Este acceso está destinado únicamente para personal autorizado del sistema.</p>
         </div>
       </div>
     </div>
@@ -63,9 +63,9 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">ContraseÃ±a</label>
+          <label class="form-label">Contraseña</label>
           <div class="input-wrapper">
-            <input type="password" id="password" placeholder="Ingrese su contraseÃ±a" required autocomplete="current-password" />
+            <input type="password" id="password" placeholder="Ingrese su contraseña" required autocomplete="current-password" />
             <button type="button" class="toggle-password" onclick="togglePassword()">
               <i data-lucide="eye" id="toggleIcon"></i>
             </button>
@@ -165,11 +165,11 @@
         title: 'Ayuda - Acceso Administrativo',
         html: `
           <div style="text-align: left;">
-            <p><strong>Â¿Problemas para acceder?</strong></p>
+            <p><strong>¿Problemas para acceder?</strong></p>
             <ul style="margin-top: 10px;">
-              <li>Este acceso estÃ¡ reservado para administradores del sistema</li>
+              <li>Este acceso está reservado para administradores del sistema</li>
               <li>Debe usar las credenciales proporcionadas por IT</li>
-              <li>Si olvidÃ³ su contraseÃ±a, contacte al administrador principal</li>
+              <li>Si olvidó su contraseña, contacte al administrador principal</li>
             </ul>
             <p style="margin-top: 15px;"><strong>Contacto:</strong></p>
             <p>Email: admin@Cemiedu.ar</p>
@@ -208,7 +208,7 @@
           console.log(' Rol recibido del backend:', data.rol);
           console.log(' Data completa:', data);
           
-          // Verificar que sea administrador (normalizar comparaciÃ³n)
+          // Verificar que sea administrador (normalizar comparación)
           const rolNormalizado = (data.rol || '').toLowerCase().trim();
           if (rolNormalizado !== 'administrador' && rolNormalizado !== 'admin') {
             Swal.fire({
@@ -220,7 +220,7 @@
             return;
           }
           
-          // Guardar sesiÃ³n
+          // Guardar sesión
           if (data.token) {
             localStorage.setItem('token', data.token);
           }
@@ -232,7 +232,7 @@
             localStorage.setItem('id_administrador', data.id_administrador);
           }
           
-          messageEl.textContent = 'Â¡Bienvenido! Redirigiendo...';
+          messageEl.textContent = '¡Bienvenido! Redirigiendo...';
           messageEl.className = 'login-message success';
           
           // Redirigir al dashboard admin
@@ -240,12 +240,12 @@
             window.location.href = 'dashboard_admin.html';
           }, 1000);
         } else {
-          messageEl.textContent = data.message || 'Usuario o contraseÃ±a incorrectos';
+          messageEl.textContent = data.message || 'Usuario o contraseña incorrectos';
           messageEl.className = 'login-message error';
         }
       } catch (error) {
         console.error('Error:', error);
-        messageEl.textContent = 'Error de conexiÃ³n. Intente nuevamente.';
+        messageEl.textContent = 'Error de conexión. Intente nuevamente.';
         messageEl.className = 'login-message error';
       }
     });

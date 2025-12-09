@@ -1,4 +1,4 @@
-﻿
+
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -135,7 +135,7 @@ function detectSlowConnection() {
                             connection.saveData;
       
       if (slowConnection) {
-        console.warn('️ Conexión lenta detectada. Activando modo de bajo consumo.');
+        console.warn('? Conexi�n lenta detectada. Activando modo de bajo consumo.');
         document.body.classList.add('low-bandwidth');
         
         document.querySelectorAll('[style*="background-image"]').forEach(el => {

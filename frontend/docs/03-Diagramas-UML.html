@@ -1,4 +1,4 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -9,12 +9,12 @@
 </head>
 <body>
     <div class="container">
-        <a href="../documentacion.html" class="back-link">‚Üê Volver a Documentaci√≥n</a>
+        <a href="../documentacion.html" class="back-link">? Volver a DocumentaciÛn</a>
         
         <div class="cover">
             <h1>DIAGRAMAS UML</h1>
-            <p class="subtitle">CEMI Sistema de Gesti√≥n Acad√©mica</p>
-            <p class="cover-tags">Casos de Uso ‚Ä¢ Actividad ‚Ä¢ Clases ‚Ä¢ Secuencia</p>
+            <p class="subtitle">CEMI Sistema de GestiÛn AcadÈmica</p>
+            <p class="cover-tags">Casos de Uso ï Actividad ï Clases ï Secuencia</p>
         </div>
 
         <div class="toc">
@@ -36,7 +36,7 @@
             <ul>
                 <li><span class="actor-badge actor-alumno">Alumno</span> - Estudiante inscrito en cursos</li>
                 <li><span class="actor-badge actor-profesor">Profesor</span> - Docente a cargo de cursos</li>
-                <li><span class="actor-badge actor-admin">Administrativo</span> - Personal de gesti√≥n</li>
+                <li><span class="actor-badge actor-admin">Administrativo</span> - Personal de gestiÛn</li>
                 <li><span class="actor-badge actor-gestor">Gestor</span> - Administrador del sistema</li>
             </ul>
         </div>
@@ -46,7 +46,7 @@
             <div class="mermaid">
 flowchart LR
     subgraph Sistema["CEMI Sistema Educativo"]
-        CU1["Iniciar Sesi√≥n"]
+        CU1["Iniciar SesiÛn"]
         CU2["Ver Dashboard"]
         CU3["Consultar Cursos Inscriptos"]
         CU4["Ver Calificaciones"]
@@ -78,7 +78,7 @@ flowchart LR
             <div class="mermaid">
 flowchart LR
     subgraph Sistema["CEMI Sistema Educativo"]
-        CU1["Iniciar Sesi√≥n"]
+        CU1["Iniciar SesiÛn"]
         CU2["Ver Dashboard"]
         CU3["Gestionar Cursos Asignados"]
         CU4["Registrar Asistencia"]
@@ -112,7 +112,7 @@ flowchart LR
             <div class="mermaid">
 flowchart LR
     subgraph Sistema["CEMI Sistema Educativo"]
-        CU1["Iniciar Sesi√≥n"]
+        CU1["Iniciar SesiÛn"]
         CU2["Ver Dashboard Admin"]
         CU3["Gestionar Alumnos"]
         CU4["Gestionar Profesores"]
@@ -120,7 +120,7 @@ flowchart LR
         CU6["Gestionar Inscripciones"]
         CU7["Registrar Pagos"]
         CU8["Consultar Deudores"]
-        CU9["Ver Estad√≠sticas"]
+        CU9["Ver EstadÌsticas"]
         CU10["Gestionar Aulas"]
     end
     
@@ -144,7 +144,7 @@ flowchart LR
             <div class="mermaid">
 flowchart LR
     subgraph Sistema["CEMI Sistema Educativo"]
-        CU1["Iniciar Sesi√≥n Admin"]
+        CU1["Iniciar SesiÛn Admin"]
         CU2["Configurar Sistema"]
         CU3["Gestionar Administradores"]
         CU4["Ver Logs del Sistema"]
@@ -171,26 +171,26 @@ flowchart LR
         
         <p>Los diagramas de actividad muestran el flujo de trabajo de los procesos principales del sistema.</p>
 
-        <div class="diagram-title">ACT-01: Proceso de Inscripci√≥n a Curso</div>
+        <div class="diagram-title">ACT-01: Proceso de InscripciÛn a Curso</div>
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TD
-    A([Inicio]) --> B[Alumno solicita inscripci√≥n]
-    B --> C{¬øAlumno registrado?}
+    A([Inicio]) --> B[Alumno solicita inscripciÛn]
+    B --> C{øAlumno registrado?}
     C -->|No| D[Registrar nuevo alumno]
     D --> E[Validar datos personales]
-    C -->|S√≠| F[Verificar cupos disponibles]
+    C -->|SÌ| F[Verificar cupos disponibles]
     E --> F
-    F --> G{¬øHay cupos?}
+    F --> G{øHay cupos?}
     G -->|No| H[Notificar sin cupos]
     H --> I([Fin])
-    G -->|S√≠| J{¬øHorario compatible?}
+    G -->|SÌ| J{øHorario compatible?}
     J -->|No| K[Mostrar conflicto de horarios]
     K --> L[Seleccionar otro curso]
     L --> F
-    J -->|S√≠| M[Registrar inscripci√≥n]
+    J -->|SÌ| M[Registrar inscripciÛn]
     M --> N[Generar cuotas pendientes]
-    N --> O[Enviar confirmaci√≥n]
+    N --> O[Enviar confirmaciÛn]
     O --> P([Fin])
     
     style A fill:#2ecc71
@@ -206,16 +206,16 @@ flowchart TD
     A([Inicio]) --> B[Administrativo accede a Pagos]
     B --> C[Buscar alumno]
     C --> D[Mostrar deudas pendientes]
-    D --> E{¬øAlumno tiene deuda?}
+    D --> E{øAlumno tiene deuda?}
     E -->|No| F[Informar sin pagos pendientes]
     F --> G([Fin])
-    E -->|S√≠| H[Seleccionar cuota a pagar]
+    E -->|SÌ| H[Seleccionar cuota a pagar]
     H --> I[Ingresar monto recibido]
-    I --> J{¬øMonto correcto?}
+    I --> J{øMonto correcto?}
     J -->|No| K[Mostrar error de monto]
     K --> I
-    J -->|S√≠| L[Seleccionar m√©todo de pago]
-    L --> M[Registrar transacci√≥n]
+    J -->|SÌ| L[Seleccionar mÈtodo de pago]
+    L --> M[Registrar transacciÛn]
     M --> N[Actualizar estado de cuota]
     N --> O[Generar comprobante]
     O --> P([ Fin])
@@ -226,28 +226,28 @@ flowchart TD
             </div>
         </div>
 
-        <div class="diagram-title">ACT-03: Proceso de Autenticaci√≥n</div>
+        <div class="diagram-title">ACT-03: Proceso de AutenticaciÛn</div>
         <div class="diagram-content">
             <div class="mermaid">
 flowchart TD
     A([Inicio]) --> B[Usuario ingresa credenciales]
     B --> C[Sistema valida usuario]
-    C --> D{¬øUsuario existe?}
+    C --> D{øUsuario existe?}
     D -->|No| E[Mostrar error: Usuario no encontrado]
     E --> F[Incrementar intentos fallidos]
-    F --> G{¬øM√°ximo intentos?}
-    G -->|S√≠| H[Bloquear por 15 minutos]
+    F --> G{øM·ximo intentos?}
+    G -->|SÌ| H[Bloquear por 15 minutos]
     H --> I([Fin - Bloqueado])
     G -->|No| B
-    D -->|S√≠| J[Verificar contrase√±a con bcrypt]
-    J --> K{¬øContrase√±a correcta?}
+    D -->|SÌ| J[Verificar contraseÒa con bcrypt]
+    J --> K{øContraseÒa correcta?}
     K -->|No| E
-    K -->|S√≠| L[Obtener perfil de usuario]
-    L --> M{¬øTipo de usuario?}
+    K -->|SÌ| L[Obtener perfil de usuario]
+    L --> M{øTipo de usuario?}
     M -->|Alumno| N[Redirigir a Dashboard Alumno]
     M -->|Profesor| O[Redirigir a Dashboard Profesor]
     M -->|Admin| P[Redirigir a Dashboard Admin]
-    N --> Q([Fin - Sesi√≥n iniciada])
+    N --> Q([Fin - SesiÛn iniciada])
     O --> Q
     P --> Q
     
@@ -265,20 +265,20 @@ flowchart TD
     B --> C[Selecciona curso]
     C --> D[Ve lista de tareas]
     D --> E[Selecciona tarea pendiente]
-    E --> F{¬øFecha l√≠mite vigente?}
+    E --> F{øFecha lÌmite vigente?}
     F -->|No| G[Mostrar: Tarea vencida]
     G --> H([Fin - No entregado])
-    F -->|S√≠| I[Subir archivo de entrega]
-    I --> J{¬øFormato v√°lido?}
+    F -->|SÌ| I[Subir archivo de entrega]
+    I --> J{øFormato v·lido?}
     J -->|No| K[Mostrar error de formato]
     K --> I
-    J -->|S√≠| L{¬øTama√±o permitido?}
-    L -->|No| M[Mostrar error de tama√±o]
+    J -->|SÌ| L{øTamaÒo permitido?}
+    L -->|No| M[Mostrar error de tamaÒo]
     M --> I
-    L -->|S√≠| N[Guardar archivo en servidor]
+    L -->|SÌ| N[Guardar archivo en servidor]
     N --> O[Registrar entrega en BD]
     O --> P[Notificar al profesor]
-    P --> Q[Mostrar confirmaci√≥n]
+    P --> Q[Mostrar confirmaciÛn]
     Q --> R([Fin - Entregado])
     
     style A fill:#2ecc71
@@ -289,7 +289,7 @@ flowchart TD
 
         <h1 id="clases">3. Diagrama de Clases</h1>
 
-        <p>El diagrama de clases representa la estructura est√°tica del sistema, mostrando las entidades principales, sus atributos y las relaciones entre ellas.</p>
+        <p>El diagrama de clases representa la estructura est·tica del sistema, mostrando las entidades principales, sus atributos y las relaciones entre ellas.</p>
 
         <div class="diagram-title">Diagrama de Clases Principal</div>
         <div class="diagram-content">
@@ -439,9 +439,9 @@ classDiagram
 
         <h1 id="secuencia">4. Diagramas de Secuencia</h1>
 
-        <p>Los diagramas de secuencia muestran la interacci√≥n entre objetos a lo largo del tiempo para procesos espec√≠ficos.</p>
+        <p>Los diagramas de secuencia muestran la interacciÛn entre objetos a lo largo del tiempo para procesos especÌficos.</p>
 
-        <div class="diagram-title">SEQ-01: Inicio de Sesi√≥n</div>
+        <div class="diagram-title">SEQ-01: Inicio de SesiÛn</div>
         <div class="diagram-content">
             <div class="mermaid">
 sequenceDiagram
@@ -456,20 +456,20 @@ sequenceDiagram
     API->>DB: SELECT usuario by username
     DB-->>API: Usuario encontrado
     API->>API: bcrypt.compare(password)
-    alt Contrase√±a correcta
+    alt ContraseÒa correcta
         API->>DB: SELECT perfil, datos
         DB-->>API: Datos completos
         API-->>Frontend: success: true, user
         Frontend->>Frontend: Guardar en localStorage
         Frontend-->>Usuario: Mostrar Dashboard
-    else Contrase√±a incorrecta
+    else ContraseÒa incorrecta
         API-->>Frontend: error: Credenciales invalidas
         Frontend-->>Usuario: Mostrar error
     end
             </div>
         </div>
 
-        <div class="diagram-title">SEQ-02: Inscripci√≥n a Curso</div>
+        <div class="diagram-title">SEQ-02: InscripciÛn a Curso</div>
         <div class="diagram-content">
             <div class="mermaid">
 sequenceDiagram
@@ -524,7 +524,7 @@ sequenceDiagram
     API-->>Frontend: Tareas con fechas limite
     
     Alumno->>Frontend: Sube archivo de tarea
-    Frontend->>Frontend: Validar formato y tama√±o
+    Frontend->>Frontend: Validar formato y tamaÒo
     Frontend->>API: POST /api/classroom/entregas
     API->>Storage: Guardar archivo
     Storage-->>API: URL del archivo
@@ -563,9 +563,9 @@ sequenceDiagram
         </div>
 
         <div class="footer">
-            <p><strong>CEMI Sistema de Gesti√≥n Acad√©mica</strong></p>
-            <p>Diagramas UML - Versi√≥n 1.0</p>
-            <p>¬© 2025 - UTN Tecnicatura Universitaria en Programaci√≥n</p>
+            <p><strong>CEMI Sistema de GestiÛn AcadÈmica</strong></p>
+            <p>Diagramas UML - VersiÛn 1.0</p>
+            <p>© 2025 - UTN Tecnicatura Universitaria en ProgramaciÛn</p>
         </div>
     </div>
 

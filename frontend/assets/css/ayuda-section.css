@@ -1,18 +1,18 @@
-﻿
+
 :root {
   --ayuda-primary: #4a5259;
   --ayuda-primary-light: #5d646b;
   --ayuda-primary-soft: #6b7280;
   --ayuda-primary-pale: #9ca3af;
-  --ayuda-accent: rgba(28, 48, 165, 0.9);
-  --ayuda-accent-light: rgba(28, 48, 165, 0.65);
-  --ayuda-accent-soft: rgba(28, 48, 165, 0.2);
+  --ayuda-accent: rgba(165, 28, 48, 0.9);
+  --ayuda-accent-light: rgba(165, 28, 48, 0.65);
+  --ayuda-accent-soft: rgba(165, 28, 48, 0.2);
   --ayuda-text-dark: #1a202c;
   --ayuda-text-medium: #4a5568;
   --ayuda-text-light: #718096;
   --ayuda-bg-light: #f7fafc;
   --ayuda-bg-card: #ffffff;
-  --ayuda-border: rgba(30, 60, 114, 0.1);
+  --ayuda-border: rgba(165, 28, 48, 0.1);
   --ayuda-shadow: rgba(30, 60, 114, 0.08);
   --ayuda-shadow-hover: rgba(30, 60, 114, 0.15);
   --ayuda-success: #38a169;

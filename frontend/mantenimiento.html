@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -29,7 +29,7 @@
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     }
 
-    /* Estado: Outage/CaÃ­da - Tema rojo/urgente con efecto mÃ¡s dramÃ¡tico */
+    /* Estado: Outage/Caída - Tema rojo/urgente con efecto más dramático */
     body.outage {
       background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 50%, #2d0a0a 100%);
     }
@@ -162,7 +162,7 @@
       75% { transform: translateX(3px) rotate(5deg); }
     }
 
-    /* TÃ­tulo */
+    /* Título */
     .maintenance-title {
       font-size: 2.2rem;
       font-weight: 700;
@@ -592,7 +592,7 @@
     <div class="message-card">
       <h3>
         <i data-lucide="info" id="messageIcon"></i>
-        <span id="incidentTitle">InformaciÃ³n del Estado</span>
+        <span id="incidentTitle">Información del Estado</span>
       </h3>
       <p class="incident-description" id="incidentDescription">
         El sistema se encuentra temporalmente fuera de servicio. Por favor, intenta nuevamente en unos minutos.
@@ -611,7 +611,7 @@
 
     <div class="time-info" id="timeInfo">
       <i data-lucide="clock"></i>
-      <span>Ãšltima actualizaciÃ³n: <span id="lastUpdate">--</span></span>
+      <span>Última actualización: <span id="lastUpdate">--</span></span>
     </div>
 
     <div class="action-buttons">
@@ -628,7 +628,7 @@
 
   <div class="refresh-indicator">
     <i data-lucide="radio"></i>
-    <span>ActualizaciÃ³n automÃ¡tica cada 30s</span>
+    <span>Actualización automática cada 30s</span>
   </div>
 
   <a href="login-admin.html" class="admin-access">
@@ -640,7 +640,7 @@
   <script>
     lucide.createIcons();
 
-    // Obtener parÃ¡metro de redirect
+    // Obtener parámetro de redirect
     const urlParams = new URLSearchParams(window.location.search);
     const redirectTo = urlParams.get('redirect') || 'login.html';
 
@@ -683,26 +683,26 @@
       const status = data.global_status;
       const incident = data.active_incident;
 
-      // Configurar segÃºn el estado
+      // Configurar según el estado
       if (status === 'maintenance') {
         body.className = 'maintenance';
         statusText.textContent = 'Mantenimiento Programado';
         mainIcon.setAttribute('data-lucide', 'settings');
         messageIcon.setAttribute('data-lucide', 'wrench');
         mainTitle.textContent = 'Sistema en Mantenimiento';
-        mainSubtitle.textContent = 'Estamos realizando mejoras para brindarte una mejor experiencia. El servicio volverÃ¡ pronto.';
-        incidentTitle.textContent = 'Â¿QuÃ© estamos haciendo?';
+        mainSubtitle.textContent = 'Estamos realizando mejoras para brindarte una mejor experiencia. El servicio volverá pronto.';
+        incidentTitle.textContent = '¿Qué estamos haciendo?';
       } else if (status === 'outage') {
         body.className = 'outage';
-        statusText.textContent = 'ï¸ InterrupciÃ³n del Servicio';
+        statusText.textContent = '? Interrupción del Servicio';
         mainIcon.setAttribute('data-lucide', 'alert-triangle');
         messageIcon.setAttribute('data-lucide', 'alert-octagon');
         mainTitle.textContent = 'Servicio No Disponible';
-        mainSubtitle.textContent = 'Estamos experimentando problemas tÃ©cnicos. Nuestro equipo estÃ¡ trabajando para resolver la situaciÃ³n.';
-        incidentTitle.textContent = 'Â¿QuÃ© estÃ¡ pasando?';
+        mainSubtitle.textContent = 'Estamos experimentando problemas técnicos. Nuestro equipo está trabajando para resolver la situación.';
+        incidentTitle.textContent = '¿Qué está pasando?';
       }
 
-      // Mostrar informaciÃ³n del incidente si existe
+      // Mostrar información del incidente si existe
       if (incident) {
         if (incident.title) {
           incidentTitle.textContent = incident.title;
@@ -731,7 +731,7 @@
         if (incident.updates && incident.updates.length > 0) {
           updatesSection.style.display = 'block';
           updatesList.innerHTML = incident.updates
-            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // MÃ¡s reciente primero
+            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // Más reciente primero
             .map(update => {
               const time = new Date(update.timestamp).toLocaleString('es-AR', {
                 day: '2-digit',
@@ -751,7 +751,7 @@
         }
       }
 
-      // Ãšltima actualizaciÃ³n del sistema
+      // Última actualización del sistema
       if (data.last_updated) {
         const date = new Date(data.last_updated);
         lastUpdate.textContent = date.toLocaleString('es-AR', {
@@ -767,7 +767,7 @@
       lucide.createIcons();
     }
 
-    // Verificar si el sistema ya estÃ¡ operativo
+    // Verificar si el sistema ya está operativo
     async function checkStatus() {
       const btn = document.querySelector('.btn-retry');
       const originalContent = btn.innerHTML;
@@ -775,7 +775,7 @@
       btn.disabled = true;
       lucide.createIcons();
       
-      // AÃ±adir animaciÃ³n de spin
+      // Añadir animación de spin
       const spinStyle = document.createElement('style');
       spinStyle.textContent = '.spin { animation: spin 1s linear infinite; } @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
       document.head.appendChild(spinStyle);
@@ -786,7 +786,7 @@
 
         if (data.global_status === 'operational' || data.global_status === 'degraded') {
           // Sistema operativo, redirigir
-          btn.innerHTML = '<i data-lucide="check"></i> Â¡Sistema Disponible!';
+          btn.innerHTML = '<i data-lucide="check"></i> ¡Sistema Disponible!';
           btn.style.background = 'rgba(76, 175, 80, 0.3)';
           btn.style.borderColor = 'rgba(76, 175, 80, 0.5)';
           lucide.createIcons();
@@ -795,7 +795,7 @@
             window.location.href = redirectTo;
           }, 1000);
         } else {
-          // AÃºn en mantenimiento/outage
+          // Aún en mantenimiento/outage
           updateUI(data);
           btn.innerHTML = originalContent;
           btn.disabled = false;

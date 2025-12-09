@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     generateGanttChart();
     initTooltips();
     animateProgressBar();
@@ -93,7 +93,7 @@ function initTooltips() {
         tooltipTitle.textContent = data.task;
         tooltipStart.textContent = 'Inicio: ' + data.start;
         tooltipEnd.textContent = 'Fin: ' + data.end;
-        tooltipHours.textContent = 'Duración: ' + data.hours;
+        tooltipHours.textContent = 'Duraci�n: ' + data.hours;
 
         tooltip.classList.add('active');
         positionTooltip(e);

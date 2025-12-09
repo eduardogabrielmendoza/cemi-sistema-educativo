@@ -1,4 +1,4 @@
-﻿(function() {
+(function() {
   const token = localStorage.getItem('token');
   const rol = localStorage.getItem('rol');
   

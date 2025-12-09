@@ -1,16 +1,16 @@
-﻿
+
 (function() {
   if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
     return;
   }
 
   if (window.location.port !== '8080') {
-    console.log('ℹ️ Hot-reload desactivado (no estás en dev server)');
+    console.log('?? Hot-reload desactivado (no est�s en dev server)');
     return;
   }
 
   console.log('%c HOT-RELOAD ACTIVADO', 'color: #ff6b6b; font-size: 14px; font-weight: bold;');
-  console.log('%cLos cambios en archivos se reflejarán automáticamente', 'color: #4ecdc4; font-size: 12px;');
+  console.log('%cLos cambios en archivos se reflejar�n autom�ticamente', 'color: #4ecdc4; font-size: 12px;');
 
   let ws;
   let reconnectInterval;
@@ -36,7 +36,7 @@
         if (data.type === 'reload') {
           isReloading = true;
           console.log(`%c Archivo modificado: ${data.file}`, 'color: #ffd93d; font-weight: bold;');
-          console.log(`%c Recargando página...`, 'color: #6bcf7f; font-weight: bold;');
+          console.log(`%c Recargando p�gina...`, 'color: #6bcf7f; font-weight: bold;');
           
           setTimeout(() => {
             location.reload();
@@ -48,7 +48,7 @@
     };
 
     ws.onerror = (error) => {
-      console.warn('️ Error en WebSocket:', error.message);
+      console.warn('? Error en WebSocket:', error.message);
     };
 
     ws.onclose = () => {

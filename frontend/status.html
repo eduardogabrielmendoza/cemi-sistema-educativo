@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -45,7 +45,7 @@
           Contactar Soporte
         </a>
       </div>
-      <p class="footer-credit">Cemi - Sistema de GestiÃ³n AcadÃ©mica</p>
+      <p class="footer-credit">Cemi - Sistema de Gestión Académica</p>
     </footer>
   </div>
 
@@ -53,7 +53,7 @@
     const STATUS_LABELS = {
       operational: 'Todos los sistemas operativos',
       degraded: 'Rendimiento degradado',
-      outage: 'InterrupciÃ³n del servicio',
+      outage: 'Interrupción del servicio',
       maintenance: 'Mantenimiento en curso'
     };
 
@@ -67,13 +67,13 @@
     const SERVICE_STATUS_LABELS = {
       operational: 'Operativo',
       degraded: 'Degradado',
-      outage: 'CaÃ­do',
+      outage: 'Caído',
       maintenance: 'Mantenimiento'
     };
 
     const SEVERITY_LABELS = {
       degraded: 'Rendimiento Degradado',
-      outage: 'InterrupciÃ³n',
+      outage: 'Interrupción',
       maintenance: 'Mantenimiento Programado'
     };
 
@@ -105,7 +105,7 @@
       if (diffMins < 1) return 'Hace un momento';
       if (diffMins < 60) return `Hace ${diffMins} minuto${diffMins !== 1 ? 's' : ''}`;
       if (diffHours < 24) return `Hace ${diffHours} hora${diffHours !== 1 ? 's' : ''}`;
-      return `Hace ${diffDays} dÃ­a${diffDays !== 1 ? 's' : ''}`;
+      return `Hace ${diffDays} día${diffDays !== 1 ? 's' : ''}`;
     }
 
     async function loadStatus() {
@@ -195,12 +195,12 @@
       const operationalServices = services.filter(s => s.status === 'operational').length;
       const degradedServices = services.filter(s => s.status === 'degraded').length;
       
-      // Servicios operativos = 100%, degradados = 50%, caÃ­dos = 0%
+      // Servicios operativos = 100%, degradados = 50%, caídos = 0%
       const uptimePercent = totalServices > 0 
         ? Math.round(((operationalServices * 100) + (degradedServices * 50)) / totalServices)
         : 100;
       
-      // Determinar clase de color segÃºn uptime
+      // Determinar clase de color según uptime
       let uptimeBadgeClass = 'uptime-good';
       if (uptimePercent < 50) {
         uptimeBadgeClass = 'uptime-critical';
@@ -252,7 +252,7 @@
                 <i data-lucide="shield-check"></i>
               </div>
               <h4>Sin incidentes recientes</h4>
-              <p>No ha habido problemas reportados en los Ãºltimos 90 dÃ­as</p>
+              <p>No ha habido problemas reportados en los últimos 90 días</p>
             </div>
           ` : incidents_history.slice(0, 10).map(inc => `
             <div class="history-item ${inc.severity}">
@@ -265,7 +265,7 @@
               ${inc.message ? `<p class="history-message">${inc.message}</p>` : ''}
               <div class="history-dates">
                 <i data-lucide="calendar"></i>
-                ${formatDate(inc.created_at)} â€” ${formatDate(inc.resolved_at)}
+                ${formatDate(inc.created_at)} — ${formatDate(inc.resolved_at)}
               </div>
             </div>
           `).join('')}

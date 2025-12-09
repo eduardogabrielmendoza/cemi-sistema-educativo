@@ -1,10 +1,10 @@
-Ôªø
+
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 let userRol = '';
 let userId = '';
 let userName = '';
-let cursoActivo = null; // null = todos los cursos, number = curso espec√≠fico
+let cursoActivo = null; // null = todos los cursos, number = curso especÌfico
 let cursosDisponibles = [];
 let vistaCalendarioActual = 'mes'; // mes, semana, dia
 let perfilUsuario = null; // Almacenar datos del perfil del usuario
@@ -23,11 +23,11 @@ async function cargarAvatarUsuario() {
     const idUsuario = localStorage.getItem('id_usuario') || userId;
     
     if (!idUsuario) {
-      console.log('Ô∏è No se pudo obtener ID de usuario para cargar avatar');
+      console.log('? No se pudo obtener ID de usuario para cargar avatar');
       return;
     }
     
-    console.log(`Ô∏è Cargando avatar para usuario: ${idUsuario}`);
+    console.log(`? Cargando avatar para usuario: ${idUsuario}`);
     
     const response = await fetch(`${API_URL}/classroom/perfil/${idUsuario}`);
     const data = await response.json();
@@ -47,7 +47,7 @@ async function cargarAvatarUsuario() {
         } else {
           const iniciales = obtenerIniciales(data.perfil.nombre, data.perfil.apellido);
           userInitialsElement.textContent = iniciales;
-          console.log('‚ÑπÔ∏è Usuario sin avatar, mostrando iniciales');
+          console.log('?? Usuario sin avatar, mostrando iniciales');
         }
       }
     }
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupBannerVideo();
 });
 
-// Funci√≥n para controlar el video del banner en hover
+// FunciÛn para controlar el video del banner en hover
 function setupBannerVideo() {
   const welcomeSection = document.querySelector('.welcome-section');
   const bannerVideo = document.querySelector('.welcome-video');
@@ -117,7 +117,7 @@ function verificarAutenticacion() {
   if (!nombre || !rol) {
     Swal.fire({
       title: 'Acceso Denegado',
-      text: 'Debes iniciar sesi√≥n para acceder a CEMI Classroom',
+      text: 'Debes iniciar sesiÛn para acceder a CEMI Classroom',
       icon: 'warning',
       confirmButtonText: 'Ir a Login',
       confirmButtonColor: '#4a5259'
@@ -178,8 +178,8 @@ function initClassroom() {
         'a[data-view="calendar"]',      // Calendario
         'a[data-view="create-task"]',   // Crear Tarea
         'a[data-view="announcements"]', // Anuncios
-        'a[data-view="analytics"]',     // Estad√≠sticas
-        'a[data-view="all-classes"]'    // Supervisi√≥n de Cursos
+        'a[data-view="analytics"]',     // EstadÌsticas
+        'a[data-view="all-classes"]'    // SupervisiÛn de Cursos
       ];
       
       menusOcultar.forEach(selector => {
@@ -341,7 +341,7 @@ function renderCourseDropdown() {
           </div>
           <div style="flex: 1;">
             <div style="font-weight: 600; color: #2c3e50; font-size: 14px;">${curso.nombre_curso}</div>
-            <div style="font-size: 12px; color: #777;">${curso.nombre_idioma}${curso.nivel ? ' - ' + curso.nivel : ''} ‚Ä¢ ${curso.total_alumnos || 0} alumnos</div>
+            <div style="font-size: 12px; color: #777;">${curso.nombre_idioma}${curso.nivel ? ' - ' + curso.nivel : ''} ï ${curso.total_alumnos || 0} alumnos</div>
           </div>
           ${isActive ? '<i data-lucide="check" style="width: 20px; height: 20px; color: #4a5259;"></i>' : ''}
         </div>
@@ -510,7 +510,7 @@ async function loadDashboardData() {
   try {
     await Promise.all([
       loadClases(),
-      loadFeed()  // Cargar el feed de inicio (Inicio es la pesta√±a por defecto)
+      loadFeed()  // Cargar el feed de inicio (Inicio es la pestaÒa por defecto)
     ]);
     
   } catch (error) {
@@ -608,14 +608,14 @@ function renderAnuncios(anuncios) {
   const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
   
   if (!Array.isArray(anuncios)) {
-    console.warn('Ô∏è anuncios no es un array, convirtiendo a array vac√≠o');
+    console.warn('? anuncios no es un array, convirtiendo a array vacÌo');
     anuncios = [];
   }
   
   console.log(' Renderizando anuncios:', anuncios.length, 'isAdmin:', isAdminClassroom);
   
   if (!container) {
-    console.error(' No se encontr√≥ el contenedor activityContainer');
+    console.error(' No se encontrÛ el contenedor activityContainer');
     return;
   }
   
@@ -655,7 +655,7 @@ function renderAnuncios(anuncios) {
                  onclick="event.stopPropagation(); verPerfilProfesor(${anuncio.id_profesor})">${anuncio.profesor_nombre}</div>
             <div class="card-meta">
               <span class="course-name">${anuncio.nombre_curso}</span>
-              <span class="separator">‚Ä¢</span>
+              <span class="separator">ï</span>
               <span class="time">${tiempoTranscurrido}</span>
             </div>
           </div>
@@ -693,7 +693,7 @@ function renderAnuncios(anuncios) {
 function renderPoll(encuesta, idAnuncio) {
   const totalVotos = encuesta.total_votos || 0;
   const yaVoto = encuesta.ya_voto;
-  const votoActual = encuesta.id_opcion_votada; // ID de la opci√≥n que vot√≥ el alumno
+  const votoActual = encuesta.id_opcion_votada; // ID de la opciÛn que votÛ el alumno
   const esAlumno = userRol.toLowerCase() === 'alumno';
   
   return `
@@ -741,7 +741,7 @@ function renderPoll(encuesta, idAnuncio) {
       <div style="margin-top: 12px; font-size: 12px; color: #6c757d;">
         <i data-lucide="users" style="width: 14px; height: 14px;"></i>
         ${totalVotos} voto${totalVotos !== 1 ? 's' : ''}
-        ${yaVoto ? ' ‚Ä¢ Has votado' : ''}
+        ${yaVoto ? ' ï Has votado' : ''}
       </div>
     </div>
   `;
@@ -767,7 +767,7 @@ function calcularTiempoTranscurrido(fecha) {
   if (minutos < 60) return `Hace ${minutos} minuto${minutos !== 1 ? 's' : ''}`;
   if (horas < 24) return `Hace ${horas} hora${horas !== 1 ? 's' : ''}`;
   if (dias === 1) return 'Ayer';
-  if (dias < 7) return `Hace ${dias} d√≠as`;
+  if (dias < 7) return `Hace ${dias} dÌas`;
   
   return fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
 }
@@ -882,12 +882,12 @@ function renderTareas(tareas) {
             </div>
             <div class="task-meta">
               <span class="task-course">${tarea.nombre_curso}</span>
-              <span class="separator">‚Ä¢</span>
+              <span class="separator">ï</span>
               <span class="task-due">
                 <i data-lucide="calendar"></i>
-                L√≠mite: ${fechaFormateada}
+                LÌmite: ${fechaFormateada}
               </span>
-              <span class="separator">‚Ä¢</span>
+              <span class="separator">ï</span>
               <span class="task-points">
                 <i data-lucide="star"></i>
                 ${tarea.puntos} puntos
@@ -951,21 +951,21 @@ function renderTareas(tareas) {
             </div>
             <div class="task-meta">
               <span class="task-course">${tarea.nombre_curso}</span>
-              <span class="separator">‚Ä¢</span>
+              <span class="separator">ï</span>
               <span class="task-due">
                 <i data-lucide="calendar"></i>
                 Vence: ${fechaFormateada}
               </span>
-              <span class="separator">‚Ä¢</span>
+              <span class="separator">ï</span>
               <span class="task-points">
                 <i data-lucide="star"></i>
                 ${tarea.puntos} puntos
               </span>
               ${tarea.calificacion ? `
-                <span class="separator">‚Ä¢</span>
+                <span class="separator">ï</span>
                 <span class="task-grade">
                   <i data-lucide="check-circle"></i>
-                  Calificaci√≥n: ${tarea.calificacion}
+                  CalificaciÛn: ${tarea.calificacion}
                 </span>
               ` : ''}
             </div>
@@ -1011,10 +1011,10 @@ async function loadEstadisticas() {
     const res = await fetch(`${API_URL}/classroom/estadisticas/profesor/${userId}`);
     const stats = await res.json();
     
-    console.log('Estad√≠sticas profesor:', stats);
+    console.log('EstadÌsticas profesor:', stats);
     return stats;
   } catch (error) {
-    console.error('Error al cargar estad√≠sticas:', error);
+    console.error('Error al cargar estadÌsticas:', error);
     return null;
   }
 }
@@ -1060,38 +1060,88 @@ async function loadViewData(viewName) {
 
 function filterTasks(filter) {
   const taskItems = document.querySelectorAll('.task-item');
+  const container = document.getElementById('tasksContainer');
+  
+  let existingEmptyMsg = container.querySelector('.tasks-empty-message');
+  if (existingEmptyMsg) {
+    existingEmptyMsg.remove();
+  }
+  
+  let visibleCount = 0;
   
   taskItems.forEach(task => {
     const isPending = task.classList.contains('pending');
     const isCompleted = task.classList.contains('completed');
     const isOverdue = task.classList.contains('overdue');
+    let shouldShow = false;
 
     switch(filter) {
       case 'pending':
-        task.style.display = isPending ? 'flex' : 'none';
+        shouldShow = isPending;
         break;
       case 'completed':
-        task.style.display = isCompleted ? 'flex' : 'none';
+        shouldShow = isCompleted;
         break;
       case 'overdue':
-        task.style.display = isOverdue ? 'flex' : 'none';
+        shouldShow = isOverdue;
         break;
       default:
-        task.style.display = 'flex';
+        shouldShow = true;
     }
+    
+    task.style.display = shouldShow ? 'flex' : 'none';
+    if (shouldShow) visibleCount++;
   });
+  
+  if (visibleCount === 0 && taskItems.length > 0) {
+    const messages = {
+      'pending': {
+        icon: 'check-circle',
+        title: 'Sin tareas pendientes',
+        text: 'No tienes tareas pendientes por completar.'
+      },
+      'completed': {
+        icon: 'clipboard-list',
+        title: 'Sin tareas completadas',
+        text: 'A˙n no has completado ninguna tarea.'
+      },
+      'overdue': {
+        icon: 'clock',
+        title: 'Sin tareas vencidas',
+        text: 'No tienes tareas vencidas.'
+      },
+      'all': {
+        icon: 'inbox',
+        title: 'Sin tareas',
+        text: 'No hay tareas asignadas en este momento.'
+      }
+    };
+    
+    const msg = messages[filter] || messages['all'];
+    
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'tasks-empty-message';
+    emptyDiv.style.cssText = 'text-align: center; padding: 60px 20px; color: #656f77;';
+    emptyDiv.innerHTML = `
+      <i data-lucide="${msg.icon}" style="width: 48px; height: 48px; margin-bottom: 16px; color: #a51c30; opacity: 0.6;"></i>
+      <h3 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-weight: 400; color: #1e1e1e;">${msg.title}</h3>
+      <p style="margin: 0; font-size: 14px;">${msg.text}</p>
+    `;
+    container.appendChild(emptyDiv);
+    lucide.createIcons();
+  }
 }
 
 
 function handleLogout() {
   Swal.fire({
-    title: '¬øCerrar sesi√≥n?',
-    text: '¬øEst√°s seguro de que quieres salir de CEMI Classroom?',
+    title: 'øCerrar sesiÛn?',
+    text: 'øEst·s seguro de que quieres salir de CEMI Classroom?',
     icon: 'question',
     showCancelButton: true,
     confirmButtonColor: '#4a5259',
     cancelButtonColor: '#757575',
-    confirmButtonText: 'S√≠, salir',
+    confirmButtonText: 'SÌ, salir',
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
@@ -1221,7 +1271,7 @@ async function verDetalleCurso(idCurso) {
     console.error('Error al cargar detalle del curso:', error);
     Swal.fire({
       title: 'Error',
-      text: 'No se pudo cargar la informaci√≥n del curso',
+      text: 'No se pudo cargar la informaciÛn del curso',
       icon: 'error',
       confirmButtonColor: '#4a5259'
     });
@@ -1242,11 +1292,11 @@ function renderPanelCurso(curso, alumnos, tareas) {
       <p class="course-detail-meta">${curso.nombre_idioma}${curso.nivel ? ' - ' + curso.nivel : ''}</p>
     </div>
     
-    <!-- Informaci√≥n General -->
+    <!-- InformaciÛn General -->
     <div class="course-panel-section">
       <div class="course-panel-title">
         <i data-lucide="info" style="width: 16px; height: 16px;"></i>
-        Informaci√≥n General
+        InformaciÛn General
       </div>
       <div class="course-info-grid">
         <div class="course-info-item">
@@ -1280,11 +1330,11 @@ function renderPanelCurso(curso, alumnos, tareas) {
       </div>
     </div>
     
-    <!-- Estad√≠sticas -->
+    <!-- EstadÌsticas -->
     <div class="course-panel-section">
       <div class="course-panel-title">
         <i data-lucide="bar-chart-2" style="width: 16px; height: 16px;"></i>
-        Estad√≠sticas
+        EstadÌsticas
       </div>
       <div class="course-info-grid">
         <div class="course-info-item" style="border-left-color: #10b981;">
@@ -1457,7 +1507,7 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
               </div>
             </div>
             <div>
-              <div style="font-size: 12px; color: #6c757d; margin-bottom: 4px; font-weight: 600;">Tel√©fono</div>
+              <div style="font-size: 12px; color: #6c757d; margin-bottom: 4px; font-weight: 600;">TelÈfono</div>
               <div style="color: #2c3e50; font-size: 14px;">
                 <i data-lucide="phone" style="width: 14px; height: 14px; margin-right: 6px; color: #4a5259;"></i>
                 ${perfil.telefono || 'No disponible'}
@@ -1467,7 +1517,7 @@ async function abrirPerfilEspectador(idPersona, tipoUsuario) {
           
           ${perfil.biografia ? `
             <div style="margin-top: 16px; padding-top: 16px; border-top: 2px solid #e9ecef;">
-              <div style="font-size: 12px; color: #6c757d; margin-bottom: 8px; font-weight: 600;">Biograf√≠a</div>
+              <div style="font-size: 12px; color: #6c757d; margin-bottom: 8px; font-weight: 600;">BiografÌa</div>
               <div style="color: #495057; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${perfil.biografia}</div>
             </div>
           ` : ''}
@@ -1553,8 +1603,8 @@ async function verAlumnosCurso(idCurso) {
 
 async function verEstadisticasCurso(idCurso) {
   Swal.fire({
-    title: 'Estad√≠sticas del Curso',
-    html: '<p style="text-align: center; color: #999; padding: 20px;">Pr√≥ximamente: Gr√°ficos de rendimiento, asistencia y calificaciones</p>',
+    title: 'EstadÌsticas del Curso',
+    html: '<p style="text-align: center; color: #999; padding: 20px;">PrÛximamente: Gr·ficos de rendimiento, asistencia y calificaciones</p>',
     icon: 'info',
     confirmButtonColor: '#4a5259'
   });
@@ -1626,8 +1676,8 @@ function renderCalificaciones(data) {
         <table class="grades-table">
           <thead>
             <tr>
-              <th>Evaluaci√≥n</th>
-              <th>Calificaci√≥n</th>
+              <th>EvaluaciÛn</th>
+              <th>CalificaciÛn</th>
               <th>Fecha</th>
             </tr>
           </thead>
@@ -1655,7 +1705,7 @@ function renderCalificaciones(data) {
             ` : ''}
             ${!curso.parcial1 && !curso.parcial2 && !curso.final ? `
             <tr>
-              <td colspan="3" style="text-align: center; color: #999;">Sin calificaciones a√∫n</td>
+              <td colspan="3" style="text-align: center; color: #999;">Sin calificaciones a˙n</td>
             </tr>
             ` : ''}
           </tbody>
@@ -1729,11 +1779,11 @@ async function verAlumnosCurso(idCurso) {
 }
 
 function verTareasCurso(idCurso) {
-  showNotification('En desarrollo', 'Funcionalidad de tareas pr√≥ximamente', 'info');
+  showNotification('En desarrollo', 'Funcionalidad de tareas prÛximamente', 'info');
 }
 
 function showClassMenu(idCurso) {
-  console.log('Men√∫ de clase:', idCurso);
+  console.log('Men˙ de clase:', idCurso);
 }
 
 function showLoader() {
@@ -1750,12 +1800,12 @@ function createClass() {
     title: 'Crear Nueva Clase',
     html: `
       <input type="text" id="className" class="swal2-input" placeholder="Nombre de la clase">
-      <input type="text" id="classDescription" class="swal2-input" placeholder="Descripci√≥n">
+      <input type="text" id="classDescription" class="swal2-input" placeholder="DescripciÛn">
       <select id="classSubject" class="swal2-input">
         <option value="">Seleccionar materia</option>
-        <option value="ingles">Ingl√©s</option>
-        <option value="frances">Franc√©s</option>
-        <option value="aleman">Alem√°n</option>
+        <option value="ingles">InglÈs</option>
+        <option value="frances">FrancÈs</option>
+        <option value="aleman">Alem·n</option>
         <option value="italiano">Italiano</option>
       </select>
     `,
@@ -1777,7 +1827,7 @@ function createClass() {
     }
   }).then((result) => {
     if (result.isConfirmed) {
-      showNotification('¬°Clase creada!', 'La clase se cre√≥ correctamente', 'success');
+      showNotification('°Clase creada!', 'La clase se creÛ correctamente', 'success');
     }
   });
 }
@@ -1820,22 +1870,22 @@ async function mostrarFormularioTarea() {
           ${cursosOptions}
         </select>
         
-        <!-- T√≠tulo con contador -->
+        <!-- TÌtulo con contador -->
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">
           <i data-lucide="type" style="width: 16px; height: 16px; margin-right: 4px;"></i>
-          T√≠tulo de la Tarea
+          TÌtulo de la Tarea
           <span id="titulo-tarea-counter" style="float: right; color: #999; font-size: 12px; font-weight: 400;">0/100</span>
         </label>
-        <input id="swal-titulo-tarea" placeholder="Ej: Ensayo sobre literatura contempor√°nea" maxlength="100" 
+        <input id="swal-titulo-tarea" placeholder="Ej: Ensayo sobre literatura contempor·nea" maxlength="100" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
           onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"
           oninput="document.getElementById('titulo-tarea-counter').textContent = this.value.length + '/100'">
         
-        <!-- Descripci√≥n con contador -->
+        <!-- DescripciÛn con contador -->
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">
           <i data-lucide="align-left" style="width: 16px; height: 16px; margin-right: 4px;"></i>
-          Descripci√≥n e Instrucciones
+          DescripciÛn e Instrucciones
           <span id="descripcion-tarea-counter" style="float: right; color: #999; font-size: 12px; font-weight: 400;">0/1000</span>
         </label>
         <textarea id="swal-descripcion-tarea" placeholder="Describe las instrucciones y requerimientos de la tarea..." maxlength="1000"
@@ -1847,10 +1897,10 @@ async function mostrarFormularioTarea() {
         <!-- Requerimientos -->
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">
           <i data-lucide="check-square" style="width: 16px; height: 16px; margin-right: 4px;"></i>
-          Requerimientos Espec√≠ficos
+          Requerimientos EspecÌficos
           <span style="float: right; color: #999; font-size: 12px; font-weight: 400;">(Opcional)</span>
         </label>
-        <textarea id="swal-requerimientos-tarea" placeholder="‚Ä¢ Formato PDF&#10;‚Ä¢ M√≠nimo 500 palabras&#10;‚Ä¢ Incluir referencias..." maxlength="500"
+        <textarea id="swal-requerimientos-tarea" placeholder="ï Formato PDF&#10;ï MÌnimo 500 palabras&#10;ï Incluir referencias..." maxlength="500"
           style="width: 100%; min-height: 80px; resize: vertical; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: inherit; transition: all 0.2s;"
           onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"></textarea>
@@ -1860,7 +1910,7 @@ async function mostrarFormularioTarea() {
           <div>
             <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">
               <i data-lucide="calendar" style="width: 16px; height: 16px; margin-right: 4px;"></i>
-              Fecha L√≠mite
+              Fecha LÌmite
             </label>
             <input type="date" id="swal-fecha-tarea" min="${hoy}" 
               style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
@@ -1870,7 +1920,7 @@ async function mostrarFormularioTarea() {
           <div>
             <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">
               <i data-lucide="clock" style="width: 16px; height: 16px; margin-right: 4px;"></i>
-              Hora L√≠mite
+              Hora LÌmite
             </label>
             <input type="time" id="swal-hora-tarea" value="23:59" 
               style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
@@ -1923,7 +1973,7 @@ async function mostrarFormularioTarea() {
               <div style="margin-top: 12px; padding: 12px; background: white; border-radius: 6px; border: 2px solid #4a5259; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                   <i data-lucide="file-text" style="width: 14px; height: 14px; color: #4a5259;"></i>
-                  <span style="font-size: 12px; font-weight: 600; color: #4a5259;">Archivo de referencia (gu√≠as, plantillas, material de apoyo)</span>
+                  <span style="font-size: 12px; font-weight: 600; color: #4a5259;">Archivo de referencia (guÌas, plantillas, material de apoyo)</span>
                 </div>
                 
                 <!-- Opciones de archivo: URL o Subir -->
@@ -1967,7 +2017,7 @@ async function mostrarFormularioTarea() {
                   </div>
                   <div style="margin-top: 6px; padding: 6px; background: #f0fdf4; border-radius: 4px; font-size: 11px; color: #10b981;">
                     <i data-lucide="info" style="width: 12px; height: 12px; margin-right: 4px;"></i>
-                    <span>M√°ximo 50MB. Formatos: PDF, Word, Excel, PowerPoint, im√°genes, ZIP, RAR, TXT</span>
+                    <span>M·ximo 50MB. Formatos: PDF, Word, Excel, PowerPoint, im·genes, ZIP, RAR, TXT</span>
                   </div>
                 </div>
               </div>
@@ -2083,12 +2133,12 @@ async function mostrarFormularioTarea() {
       const notificar = document.getElementById('swal-notificar-tarea').checked;
       
       if (!curso || !titulo || !descripcion || !fecha || !hora) {
-        Swal.showValidationMessage('El curso, t√≠tulo, descripci√≥n, fecha y hora son requeridos');
+        Swal.showValidationMessage('El curso, tÌtulo, descripciÛn, fecha y hora son requeridos');
         return false;
       }
       
       if (linkUrl && !linkUrl.match(/^https?:\/\/.+/)) {
-        Swal.showValidationMessage('El enlace debe ser una URL v√°lida (http:// o https://)');
+        Swal.showValidationMessage('El enlace debe ser una URL v·lida (http:// o https://)');
         return false;
       }
       
@@ -2101,7 +2151,7 @@ async function mostrarFormularioTarea() {
         if (tipoArchivo === 'url') {
           archivoUrl = document.getElementById('swal-archivo-url-tarea').value;
           if (archivoUrl && !archivoUrl.match(/^https?:\/\/.+/)) {
-            Swal.showValidationMessage('El archivo adjunto debe ser una URL v√°lida (http:// o https://)');
+            Swal.showValidationMessage('El archivo adjunto debe ser una URL v·lida (http:// o https://)');
             return false;
           }
         } else {
@@ -2114,7 +2164,7 @@ async function mostrarFormularioTarea() {
           }
           
           if (file.size > 50 * 1024 * 1024) {
-            Swal.showValidationMessage('El archivo es demasiado grande (m√°ximo 50MB)');
+            Swal.showValidationMessage('El archivo es demasiado grande (m·ximo 50MB)');
             return false;
           }
           
@@ -2188,7 +2238,7 @@ async function crearTarea(datos) {
     
     if (response.ok) {
       Swal.fire({
-        title: '¬°Tarea creada!',
+        title: '°Tarea creada!',
         html: `<div style="text-align: center;">
           <i data-lucide="check-circle" style="width: 48px; height: 48px; color: #10b981; margin-bottom: 12px;"></i>
           <p style="margin: 0; color: #333;">La tarea ha sido asignada exitosamente</p>
@@ -2228,17 +2278,17 @@ async function crearTarea(datos) {
 
 async function eliminarTarea(idTarea, titulo) {
   const result = await Swal.fire({
-    title: '¬øEliminar tarea?',
-    html: `¬øEst√°s seguro de eliminar la tarea "<strong>${titulo}</strong>"?<br><br>
+    title: 'øEliminar tarea?',
+    html: `øEst·s seguro de eliminar la tarea "<strong>${titulo}</strong>"?<br><br>
       <span style="color: #dc3545; font-size: 13px;">
         <i data-lucide="alert-triangle" style="width: 14px; height: 14px;"></i>
-        Esta acci√≥n eliminar√° todas las entregas asociadas
+        Esta acciÛn eliminar· todas las entregas asociadas
       </span>`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#dc3545',
     cancelButtonColor: '#6c757d',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar',
     didOpen: () => {
       lucide.createIcons();
@@ -2255,7 +2305,7 @@ async function eliminarTarea(idTarea, titulo) {
 
       if (response.ok) {
         Swal.fire({
-          title: '¬°Eliminada!',
+          title: '°Eliminada!',
           text: 'La tarea ha sido eliminada exitosamente',
           icon: 'success',
           confirmButtonColor: '#4a5259',
@@ -2288,7 +2338,7 @@ async function mostrarFormularioEntrega(idTarea, tituloTarea) {
     title: '<div style="display: flex; align-items: center; gap: 10px; justify-content: center;"><i data-lucide="send" style="width: 24px; height: 24px; color: #4a5259;"></i><span>Entregar Tarea</span></div>',
     html: `
       <div style="text-align: left; padding: 0 8px;">
-        <!-- Informaci√≥n de la tarea -->
+        <!-- InformaciÛn de la tarea -->
         <div style="background: #4a5259; padding: 16px; border-radius: 12px; margin-bottom: 24px; color: white;">
           <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
             <i data-lucide="clipboard-check" style="width: 18px; height: 18px;"></i>
@@ -2305,7 +2355,7 @@ async function mostrarFormularioEntrega(idTarea, tituloTarea) {
           </label>
           <textarea 
             id="comentarioEntrega" 
-            placeholder="Escribe aqu√≠ cualquier comentario sobre tu entrega..."
+            placeholder="Escribe aquÌ cualquier comentario sobre tu entrega..."
             style="width: 100%; min-height: 110px; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; resize: vertical; font-family: inherit; transition: all 0.2s; box-sizing: border-box;"
             onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
             onblur="this.style.borderColor='#e9ecef'; this.style.boxShadow='none';"
@@ -2329,7 +2379,7 @@ async function mostrarFormularioEntrega(idTarea, tituloTarea) {
           <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; padding: 8px 12px; background: #e3f2fd; border-left: 3px solid #2196f3; border-radius: 4px;">
             <i data-lucide="info" style="width: 14px; height: 14px; color: #2196f3;"></i>
             <small style="color: #4a5259; font-size: 12px;">
-              Puedes adjuntar documentos, im√°genes, PDFs, etc.
+              Puedes adjuntar documentos, im·genes, PDFs, etc.
             </small>
           </div>
         </div>
@@ -2415,7 +2465,7 @@ async function entregarTarea(idTarea, comentario, archivo) {
 
     if (response.ok) {
       Swal.fire({
-        title: '¬°Entregada!',
+        title: '°Entregada!',
         text: 'Tu tarea ha sido entregada exitosamente',
         icon: 'success',
         confirmButtonColor: '#4a5259',
@@ -2471,7 +2521,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
       estadoHTML = `
         <div style="background: linear-gradient(135deg, ${colorCalif}, ${colorCalif}dd); padding: 20px; border-radius: 12px; margin-bottom: 24px; color: white; text-align: center;">
           <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; margin-bottom: 8px;">
-            <i data-lucide="award" style="width: 16px; height: 16px;"></i> Calificaci√≥n
+            <i data-lucide="award" style="width: 16px; height: 16px;"></i> CalificaciÛn
           </div>
           <div style="font-size: 42px; font-weight: 700; margin-bottom: 4px;">
             ${entrega.calificacion}
@@ -2488,7 +2538,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
             <i data-lucide="clock" style="width: 16px; height: 16px;"></i> Estado
           </div>
           <div style="font-size: 24px; font-weight: 600;">
-            Pendiente de calificaci√≥n
+            Pendiente de calificaciÛn
           </div>
         </div>
       `;
@@ -2500,7 +2550,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
         <div style="text-align: left; padding: 0 8px;">
           ${estadoHTML}
           
-          <!-- Informaci√≥n de la tarea -->
+          <!-- InformaciÛn de la tarea -->
           <div style="background: #f8f9fa; padding: 16px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #4a5259;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
               <i data-lucide="clipboard" style="width: 16px; height: 16px; color: #4a5259;"></i>
@@ -2541,7 +2591,7 @@ async function verDetalleEntrega(idTarea, idAlumno) {
                 <i data-lucide="lock" style="width: 14px; height: 14px;"></i>
               </div>
               <div style="font-size: 12px; color: #6c757d; margin-top: 8px; font-style: italic;">
-                El archivo no est√° disponible para visualizaci√≥n
+                El archivo no est· disponible para visualizaciÛn
               </div>
             </div>
           ` : ''}
@@ -2595,7 +2645,7 @@ async function verEntregasTarea(idTarea) {
     if (entregas.length === 0) {
       Swal.fire({
         title: 'Sin entregas',
-        text: 'A√∫n no hay entregas para esta tarea',
+        text: 'A˙n no hay entregas para esta tarea',
         icon: 'info',
         confirmButtonColor: '#4a5259'
       });
@@ -2731,7 +2781,7 @@ window.calificarEntrega = async function(idEntrega) {
               </div>`,
       html: `
         <div style="text-align: left; padding: 0 8px; max-height: 70vh; overflow-y: auto;">
-          <!-- Informaci√≥n del alumno -->
+          <!-- InformaciÛn del alumno -->
           <div style="background: #4a5259; padding: 16px; border-radius: 10px; margin-bottom: 20px; color: white;">
             <div style="display: flex; align-items: center; gap: 12px;">
               <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; border: 2px solid white;">
@@ -2793,11 +2843,11 @@ window.calificarEntrega = async function(idEntrega) {
           <!-- Divider -->
           <div style="border-top: 2px dashed #e9ecef; margin: 24px 0;"></div>
 
-          <!-- Formulario de calificaci√≥n -->
+          <!-- Formulario de calificaciÛn -->
           <div style="margin-bottom: 20px;">
             <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 14px;">
               <i data-lucide="award" style="width: 16px; height: 16px; color: #f59e0b;"></i>
-              Calificaci√≥n <span style="color: #dc3545;">*</span>
+              CalificaciÛn <span style="color: #dc3545;">*</span>
             </label>
             <input 
               type="number" 
@@ -2806,24 +2856,24 @@ window.calificarEntrega = async function(idEntrega) {
               min="0" 
               max="${entrega.tarea_puntos}" 
               step="0.5"
-              placeholder="Ingresa la calificaci√≥n"
+              placeholder="Ingresa la calificaciÛn"
               style="width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 16px; font-weight: 600; text-align: center; box-sizing: border-box;"
               onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
               onblur="this.style.borderColor='#e9ecef'; this.style.boxShadow='none';"
             />
             <small style="color: #6c757d; font-size: 12px; display: block; margin-top: 4px;">
-              Puntuaci√≥n de 0 a ${entrega.tarea_puntos}
+              PuntuaciÛn de 0 a ${entrega.tarea_puntos}
             </small>
           </div>
           
           <div style="margin-bottom: 8px;">
             <label style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; color: #2c3e50; font-size: 14px;">
               <i data-lucide="message-square" style="width: 16px; height: 16px; color: #4a5259;"></i>
-              Retroalimentaci√≥n <span style="font-weight: 400; color: #6c757d; font-size: 12px;">(opcional)</span>
+              RetroalimentaciÛn <span style="font-weight: 400; color: #6c757d; font-size: 12px;">(opcional)</span>
             </label>
             <textarea 
               id="comentarioProfesor" 
-              placeholder="Escribe un comentario o retroalimentaci√≥n para el alumno..."
+              placeholder="Escribe un comentario o retroalimentaciÛn para el alumno..."
               style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; resize: vertical; font-family: inherit; box-sizing: border-box;"
               onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
               onblur="this.style.borderColor='#e9ecef'; this.style.boxShadow='none';"
@@ -2833,7 +2883,7 @@ window.calificarEntrega = async function(idEntrega) {
       `,
       width: '700px',
       showCancelButton: true,
-      confirmButtonText: 'Guardar Calificaci√≥n',
+      confirmButtonText: 'Guardar CalificaciÛn',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#4a5259',
       cancelButtonColor: '#6c757d',
@@ -2846,13 +2896,13 @@ window.calificarEntrega = async function(idEntrega) {
         const comentario = document.getElementById('comentarioProfesor').value;
         
         if (!calificacion || calificacion === '') {
-          Swal.showValidationMessage('Debes ingresar una calificaci√≥n');
+          Swal.showValidationMessage('Debes ingresar una calificaciÛn');
           return false;
         }
         
         const calif = parseFloat(calificacion);
         if (calif < 0 || calif > entrega.tarea_puntos) {
-          Swal.showValidationMessage(`La calificaci√≥n debe estar entre 0 y ${entrega.tarea_puntos}`);
+          Swal.showValidationMessage(`La calificaciÛn debe estar entre 0 y ${entrega.tarea_puntos}`);
           return false;
         }
       
@@ -2869,7 +2919,7 @@ window.calificarEntrega = async function(idEntrega) {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'No se pudo cargar la informaci√≥n de la entrega',
+      text: 'No se pudo cargar la informaciÛn de la entrega',
       confirmButtonColor: '#4a5259'
     });
   }
@@ -2894,8 +2944,8 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
 
     if (response.ok) {
       Swal.fire({
-        title: '¬°Calificaci√≥n guardada!',
-        text: 'La calificaci√≥n ha sido registrada y el alumno ha sido notificado',
+        title: '°CalificaciÛn guardada!',
+        text: 'La calificaciÛn ha sido registrada y el alumno ha sido notificado',
         icon: 'success',
         confirmButtonColor: '#4a5259',
         timer: 2000
@@ -2907,13 +2957,13 @@ async function guardarCalificacion(idEntrega, calificacion, comentario) {
         loadTareas();
       }
     } else {
-      throw new Error(data.message || 'Error al guardar calificaci√≥n');
+      throw new Error(data.message || 'Error al guardar calificaciÛn');
     }
   } catch (error) {
-    console.error('Error al guardar calificaci√≥n:', error);
+    console.error('Error al guardar calificaciÛn:', error);
     Swal.fire({
       title: 'Error',
-      text: 'No se pudo guardar la calificaci√≥n. Intenta de nuevo.',
+      text: 'No se pudo guardar la calificaciÛn. Intenta de nuevo.',
       icon: 'error',
       confirmButtonColor: '#4a5259'
     });
@@ -2958,13 +3008,13 @@ async function mostrarFormularioAnuncio() {
           ${cursosOptions}
         </select>
         
-        <!-- T√≠tulo con contador -->
+        <!-- TÌtulo con contador -->
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">
           <i data-lucide="type" style="width: 16px; height: 16px; margin-right: 4px;"></i>
-          T√≠tulo
+          TÌtulo
           <span id="titulo-counter" style="float: right; color: #999; font-size: 12px; font-weight: 400;">0/100</span>
         </label>
-        <input id="swal-titulo" class="swal2-input" placeholder="Ej: Examen parcial pr√≥xima semana" maxlength="100" 
+        <input id="swal-titulo" class="swal2-input" placeholder="Ej: Examen parcial prÛxima semana" maxlength="100" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.2s;"
           onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"
@@ -2976,7 +3026,7 @@ async function mostrarFormularioAnuncio() {
           Contenido
           <span id="contenido-counter" style="float: right; color: #999; font-size: 12px; font-weight: 400;">0/500</span>
         </label>
-        <textarea id="swal-contenido" placeholder="Escribe tu anuncio aqu√≠..." maxlength="500"
+        <textarea id="swal-contenido" placeholder="Escribe tu anuncio aquÌ..." maxlength="500"
           style="width: 100%; min-height: 120px; resize: vertical; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; font-family: inherit; transition: all 0.2s;"
           onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
           onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';"
@@ -3018,26 +3068,26 @@ async function mostrarFormularioAnuncio() {
                   <i data-lucide="help-circle" style="width: 14px; height: 14px; color: #4a5259;"></i>
                   <span style="font-size: 12px; font-weight: 600; color: #4a5259;">Pregunta de la encuesta</span>
                 </div>
-                <input id="poll-question" type="text" placeholder="¬øCu√°l es tu opini√≥n sobre...?" 
+                <input id="poll-question" type="text" placeholder="øCu·l es tu opiniÛn sobre...?" 
                   style="width: 100%; margin-bottom: 12px; padding: 10px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 13px; transition: border-color 0.2s;"
                   onfocus="this.style.borderColor='#4a5259';"
                   onblur="this.style.borderColor='#e0e0e0';">
                 
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                   <i data-lucide="list" style="width: 14px; height: 14px; color: #4a5259;"></i>
-                  <span style="font-size: 12px; font-weight: 600; color: #4a5259;">Opciones (m√≠n. 2, m√°x. 6)</span>
+                  <span style="font-size: 12px; font-weight: 600; color: #4a5259;">Opciones (mÌn. 2, m·x. 6)</span>
                 </div>
                 <div id="poll-options-container">
                   <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <span style="font-size: 12px; color: #999; min-width: 20px;">1.</span>
-                    <input type="text" class="poll-option" placeholder="Primera opci√≥n" 
+                    <input type="text" class="poll-option" placeholder="Primera opciÛn" 
                       style="flex: 1; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;"
                       onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
                       onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
                   </div>
                   <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <span style="font-size: 12px; color: #999; min-width: 20px;">2.</span>
-                    <input type="text" class="poll-option" placeholder="Segunda opci√≥n" 
+                    <input type="text" class="poll-option" placeholder="Segunda opciÛn" 
                       style="flex: 1; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;"
                       onfocus="this.style.borderColor='#4a5259'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
                       onblur="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none';">
@@ -3048,7 +3098,7 @@ async function mostrarFormularioAnuncio() {
                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.4)';"
                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                   <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i>
-                  <span>Agregar opci√≥n</span>
+                  <span>Agregar opciÛn</span>
                 </button>
               </div>
             </div>
@@ -3162,12 +3212,12 @@ async function mostrarFormularioAnuncio() {
       }
       
       if (!curso || !titulo || !contenido) {
-        Swal.showValidationMessage('El curso, t√≠tulo y contenido son requeridos');
+        Swal.showValidationMessage('El curso, tÌtulo y contenido son requeridos');
         return false;
       }
       
       if (linkUrl && !linkUrl.match(/^https?:\/\/.+/)) {
-        Swal.showValidationMessage('El enlace debe ser una URL v√°lida (http:// o https://)');
+        Swal.showValidationMessage('El enlace debe ser una URL v·lida (http:// o https://)');
         return false;
       }
       
@@ -3185,7 +3235,7 @@ window.agregarOpcionPoll = function() {
   const optionCount = container.querySelectorAll('.poll-option').length + 1;
   
   if (optionCount > 6) {
-    Swal.showValidationMessage('M√°ximo 6 opciones permitidas');
+    Swal.showValidationMessage('M·ximo 6 opciones permitidas');
     return;
   }
   
@@ -3199,7 +3249,7 @@ window.agregarOpcionPoll = function() {
   const newOption = document.createElement('input');
   newOption.type = 'text';
   newOption.className = 'poll-option';
-  newOption.placeholder = `Opci√≥n ${optionCount}`;
+  newOption.placeholder = `OpciÛn ${optionCount}`;
   newOption.style.cssText = 'flex: 1; padding: 8px; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 13px; transition: all 0.2s;';
   newOption.onfocus = function() {
     this.style.borderColor = '#4a5259';
@@ -3259,7 +3309,7 @@ window.votarEncuesta = async function(idEncuesta, idOpcion, idAnuncio) {
           lucide.createIcons();
         }, 100);
       } else {
-        console.warn('No se encontr√≥ el contenedor de la poll con ID:', `poll-${idEncuesta}`);
+        console.warn('No se encontrÛ el contenedor de la poll con ID:', `poll-${idEncuesta}`);
       }
       
       const Toast = Swal.mixin({
@@ -3313,7 +3363,7 @@ async function crearAnuncio(datos) {
     
     if (response.ok) {
       Swal.fire({
-        title: '¬°Publicado!',
+        title: '°Publicado!',
         text: 'Tu anuncio ha sido publicado exitosamente',
         icon: 'success',
         confirmButtonColor: '#4a5259'
@@ -3383,7 +3433,7 @@ function renderAnunciosProfesor(anuncios) {
                  onclick="event.stopPropagation(); verPerfilProfesor(${anuncio.id_profesor})">${anuncio.profesor_nombre}</div>
             <div class="card-meta">
               <span class="course-name">${anuncio.nombre_curso}</span>
-              <span class="separator">‚Ä¢</span>
+              <span class="separator">ï</span>
               <span class="time">${tiempoTranscurrido}</span>
             </div>
           </div>
@@ -3424,7 +3474,7 @@ window.abrirAnuncio = async function(idAnuncio) {
     const anuncio = await resAnuncio.json();
     
     console.log(' Datos del anuncio:', anuncio);
-    console.log('‚Äç ID Profesor:', anuncio.id_profesor);
+    console.log('? ID Profesor:', anuncio.id_profesor);
     
     const resComentarios = await fetch(`${API_URL}/classroom/comentarios/${idAnuncio}`);
     const comentarios = await resComentarios.json();
@@ -3468,7 +3518,7 @@ window.abrirAnuncio = async function(idAnuncio) {
                  onclick="verPerfilProfesor(${anuncio.id_profesor})">${anuncio.profesor_nombre}</div>
             <div style="font-size: 13px; color: #6c757d;">
               <span>${anuncio.nombre_curso}</span>
-              <span style="margin: 0 6px;">‚Ä¢</span>
+              <span style="margin: 0 6px;">ï</span>
               <span>${fechaFormateada}</span>
             </div>
           </div>
@@ -3495,7 +3545,7 @@ window.abrirAnuncio = async function(idAnuncio) {
           ${anuncio.encuesta ? renderPoll(anuncio.encuesta, anuncio.id_anuncio) : ''}
         </div>
         
-        <!-- Secci√≥n de comentarios -->
+        <!-- SecciÛn de comentarios -->
         <div style="border-top: 2px solid #e9ecef; padding-top: 20px;">
           <h4 style="margin: 0 0 16px 0; color: #2c3e50; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
             <i data-lucide="message-circle" style="width: 20px; height: 20px; color: #4a5259;"></i>
@@ -3540,7 +3590,7 @@ window.abrirAnuncio = async function(idAnuncio) {
                   </div>
                 </div>
               `;
-            }).join('') : '<p style="text-align: center; color: #999; padding: 20px;">A√∫n no hay comentarios. ¬°S√© el primero en comentar!</p>'}
+            }).join('') : '<p style="text-align: center; color: #999; padding: 20px;">A˙n no hay comentarios. °SÈ el primero en comentar!</p>'}
           </div>
           
           <!-- Formulario de comentario -->
@@ -3636,7 +3686,7 @@ window.abrirAnuncio = async function(idAnuncio) {
                 </div>
               `;
               
-              if (container.innerHTML.includes('A√∫n no hay comentarios')) {
+              if (container.innerHTML.includes('A˙n no hay comentarios')) {
                 container.innerHTML = '';
               }
               
@@ -3694,7 +3744,7 @@ if (btnCreateClass) {
 
 let calendarioActual = {
   mes: new Date().getMonth() + 1,
-  a√±o: new Date().getFullYear()
+  aÒo: new Date().getFullYear()
 };
 
 let eventosDelMes = [];
@@ -3736,7 +3786,7 @@ async function initCalendario() {
     btnHoy.onclick = () => {
       const hoy = new Date();
       calendarioActual.mes = hoy.getMonth() + 1;
-      calendarioActual.a√±o = hoy.getFullYear();
+      calendarioActual.aÒo = hoy.getFullYear();
       cargarCalendario();
     };
   }
@@ -3749,10 +3799,10 @@ function cambiarMes(delta) {
   
   if (calendarioActual.mes > 12) {
     calendarioActual.mes = 1;
-    calendarioActual.a√±o++;
+    calendarioActual.aÒo++;
   } else if (calendarioActual.mes < 1) {
     calendarioActual.mes = 12;
-    calendarioActual.a√±o--;
+    calendarioActual.aÒo--;
   }
   
   cargarCalendario();
@@ -3762,7 +3812,7 @@ async function cargarCalendario() {
   try {
     const tipo = userRol.toLowerCase() === 'profesor' ? 'profesor' : 'alumno';
     
-    const resCalendario = await fetch(`${API_URL}/classroom/calendario/${tipo}/${userId}/${calendarioActual.a√±o}/${calendarioActual.mes}`);
+    const resCalendario = await fetch(`${API_URL}/classroom/calendario/${tipo}/${userId}/${calendarioActual.aÒo}/${calendarioActual.mes}`);
     const dataCalendario = await resCalendario.json();
     
     eventosDelMes = cursoActivo !== null
@@ -3773,7 +3823,7 @@ async function cargarCalendario() {
       ? (dataCalendario.tareas || []).filter(tarea => tarea.id_curso === cursoActivo)
       : (dataCalendario.tareas || []);
     
-    const resNotas = await fetch(`${API_URL}/classroom/notas/${tipo}/${userId}/${calendarioActual.a√±o}/${calendarioActual.mes}`);
+    const resNotas = await fetch(`${API_URL}/classroom/notas/${tipo}/${userId}/${calendarioActual.aÒo}/${calendarioActual.mes}`);
     notasDelMes = await resNotas.json();
     
     renderizarCalendario();
@@ -3805,7 +3855,7 @@ function renderizarCalendario() {
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   const mesActualEl = document.getElementById('mesActual');
   if (mesActualEl) {
-    mesActualEl.textContent = `${meses[calendarioActual.mes - 1]} ${calendarioActual.a√±o}`;
+    mesActualEl.textContent = `${meses[calendarioActual.mes - 1]} ${calendarioActual.aÒo}`;
   }
   
   const grid = document.getElementById('calendarGrid');
@@ -3815,8 +3865,8 @@ function renderizarCalendario() {
   
   const colors = getCalendarColors();
   
-  const primerDia = new Date(calendarioActual.a√±o, calendarioActual.mes - 1, 1);
-  const ultimoDia = new Date(calendarioActual.a√±o, calendarioActual.mes, 0);
+  const primerDia = new Date(calendarioActual.aÒo, calendarioActual.mes - 1, 1);
+  const ultimoDia = new Date(calendarioActual.aÒo, calendarioActual.mes, 0);
   const diasEnMes = ultimoDia.getDate();
   const primerDiaSemana = primerDia.getDay();
   
@@ -3824,7 +3874,7 @@ function renderizarCalendario() {
   const esHoy = (dia) => {
     return dia === hoy.getDate() && 
            calendarioActual.mes === (hoy.getMonth() + 1) && 
-           calendarioActual.a√±o === hoy.getFullYear();
+           calendarioActual.aÒo === hoy.getFullYear();
   };
   
   for (let i = 0; i < primerDiaSemana; i++) {
@@ -3834,7 +3884,7 @@ function renderizarCalendario() {
   }
   
   for (let dia = 1; dia <= diasEnMes; dia++) {
-    const fechaActual = `${calendarioActual.a√±o}-${String(calendarioActual.mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+    const fechaActual = `${calendarioActual.aÒo}-${String(calendarioActual.mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
     
     const eventosDelDia = eventosDelMes.filter(e => e.fecha_inicio.startsWith(fechaActual));
     const tareasDelDia = tareasDelMes.filter(t => t.fecha_limite.startsWith(fechaActual));
@@ -3933,7 +3983,7 @@ function renderizarCalendario() {
         margin-top: 2px;
         text-align: center;
       `;
-      masDiv.textContent = `+${totalItems - 3} m√°s`;
+      masDiv.textContent = `+${totalItems - 3} m·s`;
       itemsContainer.appendChild(masDiv);
     }
     
@@ -3997,7 +4047,7 @@ function renderizarCalendarioSemana() {
   
   grid.innerHTML = '';
   
-  const hoy = new Date(calendarioActual.a√±o, calendarioActual.mes - 1, 1);
+  const hoy = new Date(calendarioActual.aÒo, calendarioActual.mes - 1, 1);
   const primerDiaSemana = hoy.getDate() - hoy.getDay();
   
   grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
@@ -4007,12 +4057,12 @@ function renderizarCalendarioSemana() {
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   
   for (let i = 0; i < 7; i++) {
-    const fecha = new Date(calendarioActual.a√±o, calendarioActual.mes - 1, primerDiaSemana + i);
+    const fecha = new Date(calendarioActual.aÒo, calendarioActual.mes - 1, primerDiaSemana + i);
     const dia = fecha.getDate();
     const mes = fecha.getMonth();
-    const a√±o = fecha.getFullYear();
+    const aÒo = fecha.getFullYear();
     
-    const fechaStr = `${a√±o}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+    const fechaStr = `${aÒo}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
     
     const eventosDelDia = eventosDelMes.filter(e => e.fecha_inicio.startsWith(fechaStr));
     const tareasDelDia = tareasDelMes.filter(t => t.fecha_limite.startsWith(fechaStr));
@@ -4020,7 +4070,7 @@ function renderizarCalendarioSemana() {
     
     const esHoy = dia === new Date().getDate() && 
                   mes === new Date().getMonth() && 
-                  a√±o === new Date().getFullYear();
+                  aÒo === new Date().getFullYear();
     
     const diaElement = document.createElement('div');
     diaElement.style.cssText = `
@@ -4074,12 +4124,12 @@ function renderizarCalendarioDia() {
   const hoy = new Date();
   const dia = hoy.getDate();
   const mes = hoy.getMonth();
-  const a√±o = hoy.getFullYear();
+  const aÒo = hoy.getFullYear();
   
   const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
                  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   
-  const fechaStr = `${a√±o}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+  const fechaStr = `${aÒo}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
   
   const eventosDelDia = eventosDelMes.filter(e => e.fecha_inicio.startsWith(fechaStr));
   const tareasDelDia = tareasDelMes.filter(t => t.fecha_limite.startsWith(fechaStr));
@@ -4096,10 +4146,10 @@ function renderizarCalendarioDia() {
   diaElement.innerHTML = `
     <div style="margin-bottom: 24px;">
       <h2 style="color: #4a5259; margin: 0 0 8px 0; font-size: 32px; font-weight: 700;">
-        ${dia} de ${meses[mes]} de ${a√±o}
+        ${dia} de ${meses[mes]} de ${aÒo}
       </h2>
       <p style="color: #6c757d; margin: 0; font-size: 16px;">
-        ${['Domingo', 'Lunes', 'Martes', 'Mi√©rcoles', 'Jueves', 'Viernes', 'S√°bado'][hoy.getDay()]}
+        ${['Domingo', 'Lunes', 'Martes', 'MiÈrcoles', 'Jueves', 'Viernes', 'S·bado'][hoy.getDay()]}
       </p>
     </div>
     
@@ -4113,7 +4163,7 @@ function renderizarCalendarioDia() {
           ${eventosDelDia.map(e => `
             <div style="background: #e3f2fd; padding: 16px; border-radius: 8px; border-left: 4px solid #4a5259;">
               <div style="font-weight: 600; color: #4a5259; font-size: 16px; margin-bottom: 4px;">${e.titulo}</div>
-              <div style="color: #455a64; font-size: 14px;">${e.descripcion || 'Sin descripci√≥n'}</div>
+              <div style="color: #455a64; font-size: 14px;">${e.descripcion || 'Sin descripciÛn'}</div>
             </div>
           `).join('')}
         </div>
@@ -4130,7 +4180,7 @@ function renderizarCalendarioDia() {
           ${tareasDelDia.map(t => `
             <div style="background: #fff3e0; padding: 16px; border-radius: 8px; border-left: 4px solid #f57c00;">
               <div style="font-weight: 600; color: #f57c00; font-size: 16px; margin-bottom: 4px;">${t.titulo}</div>
-              <div style="color: #455a64; font-size: 14px;">${t.descripcion || 'Sin descripci√≥n'}</div>
+              <div style="color: #455a64; font-size: 14px;">${t.descripcion || 'Sin descripciÛn'}</div>
               <div style="color: #6c757d; font-size: 12px; margin-top: 8px;">Puntos: ${t.puntos || 0}</div>
             </div>
           `).join('')}
@@ -4200,8 +4250,8 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
             </div>
             ${esProfesor ? `
               <div style="display: flex; gap: 6px; margin-left: 12px;">
-                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #4a5259; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">Ô∏è</button>
-                <button onclick="eliminarNota(${nota.id_nota})" style="background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">Ô∏è</button>
+                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #4a5259; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">?</button>
+                <button onclick="eliminarNota(${nota.id_nota})" style="background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">?</button>
               </div>
             ` : ''}
           </div>
@@ -4240,7 +4290,7 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
           <div style="font-weight: 600; color: #2c3e50; margin-bottom: 4px; font-size: 14px;">${tarea.titulo}</div>
           <div style="font-size: 13px; color: #666; margin-bottom: 4px;">${tarea.nombre_curso}</div>
           <div style="font-size: 12px; color: #4a5259;">
-            <i data-lucide="clock" style="width: 12px; height: 12px;"></i> L√≠mite: ${hora} ‚Ä¢ ${tarea.puntos} puntos
+            <i data-lucide="clock" style="width: 12px; height: 12px;"></i> LÌmite: ${hora} ï ${tarea.puntos} puntos
           </div>
         </div>
       `;
@@ -4252,7 +4302,7 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
     htmlContent += `
       <div style="text-align: center; padding: 40px 20px; color: #999;">
         <div style="font-size: 48px; margin-bottom: 12px;"></div>
-        <p style="margin: 0; font-size: 14px;">No hay nada programado para este d√≠a</p>
+        <p style="margin: 0; font-size: 14px;">No hay nada programado para este dÌa</p>
         ${esProfesor ? '<p style="margin: 8px 0 0 0; font-size: 13px;">Haz clic en "Agregar Pin" para crear una nota</p>' : ''}
       </div>
     `;
@@ -4290,12 +4340,12 @@ async function mostrarFormularioNota(fecha = null) {
         <input type="date" id="swal-fecha-nota" value="${fechaDefault}" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box;">
         
-        <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">T√≠tulo (opcional)</label>
+        <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">TÌtulo (opcional)</label>
         <input id="swal-titulo-nota" placeholder="Ej: Recordatorio importante" maxlength="100" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box;">
         
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Nota</label>
-        <textarea id="swal-contenido-nota" placeholder="Escribe tu nota aqu√≠..." rows="4"
+        <textarea id="swal-contenido-nota" placeholder="Escribe tu nota aquÌ..." rows="4"
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; font-family: inherit; resize: vertical;"></textarea>
         
         <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Color del Pin</label>
@@ -4327,7 +4377,7 @@ async function mostrarFormularioNota(fecha = null) {
       }
       
       if (!titulo && !contenido) {
-        Swal.showValidationMessage('Debes agregar un t√≠tulo o contenido');
+        Swal.showValidationMessage('Debes agregar un tÌtulo o contenido');
         return false;
       }
       
@@ -4376,7 +4426,7 @@ async function crearNota(datos) {
       await cargarCalendario();
       
       Swal.fire({
-        title: '¬°Pin creado!',
+        title: '°Pin creado!',
         text: 'Tu nota ha sido agregada al calendario',
         icon: 'success',
         confirmButtonColor: '#4a5259',
@@ -4391,7 +4441,7 @@ async function crearNota(datos) {
     
     let mensajeError = 'No se pudo crear la nota';
     if (error.message.includes('Failed to fetch')) {
-      mensajeError = 'No se puede conectar con el servidor. Aseg√∫rate de que el servidor est√© corriendo.';
+      mensajeError = 'No se puede conectar con el servidor. Aseg˙rate de que el servidor estÈ corriendo.';
     } else {
       mensajeError = error.message;
     }
@@ -4411,10 +4461,10 @@ async function editarNota(idNota, fecha) {
     if (!notaActual) return;
     
     Swal.fire({
-      title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;">Ô∏è</span><span>Editar Pin</span></div>',
+      title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;">?</span><span>Editar Pin</span></div>',
       html: `
         <div style="text-align: left; padding: 0 8px;">
-          <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">T√≠tulo</label>
+          <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">TÌtulo</label>
           <input id="swal-titulo-nota-edit" value="${notaActual.titulo || ''}" maxlength="100" 
             style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box;">
           
@@ -4445,7 +4495,7 @@ async function editarNota(idNota, fecha) {
         const color = document.getElementById('swal-color-nota-edit').value;
         
         if (!titulo && !contenido) {
-          Swal.showValidationMessage('Debes tener un t√≠tulo o contenido');
+          Swal.showValidationMessage('Debes tener un tÌtulo o contenido');
           return false;
         }
         
@@ -4461,7 +4511,7 @@ async function editarNota(idNota, fecha) {
         
         if (response.ok) {
           Swal.fire({
-            title: '¬°Actualizado!',
+            title: '°Actualizado!',
             text: 'Pin actualizado exitosamente',
             icon: 'success',
             confirmButtonColor: '#4a5259',
@@ -4478,11 +4528,11 @@ async function editarNota(idNota, fecha) {
 
 async function eliminarNota(idNota) {
   Swal.fire({
-    title: '¬øEliminar este pin?',
-    text: 'Esta acci√≥n no se puede deshacer',
+    title: 'øEliminar este pin?',
+    text: 'Esta acciÛn no se puede deshacer',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar',
     confirmButtonColor: '#e74c3c',
     cancelButtonColor: '#95a5a6'
@@ -4495,7 +4545,7 @@ async function eliminarNota(idNota) {
         
         if (response.ok) {
           Swal.fire({
-            title: '¬°Eliminado!',
+            title: '°Eliminado!',
             text: 'Pin eliminado exitosamente',
             icon: 'success',
             confirmButtonColor: '#4a5259',
@@ -4546,11 +4596,11 @@ async function mostrarFormularioEvento() {
           ${cursosOptions}
         </select>
         
-        <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">T√≠tulo del Evento</label>
+        <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">TÌtulo del Evento</label>
         <input id="swal-titulo-evento" placeholder="Ej: Examen Parcial" maxlength="100" 
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box;">
         
-        <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Descripci√≥n</label>
+        <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">DescripciÛn</label>
         <textarea id="swal-descripcion-evento" placeholder="Detalles del evento..." rows="3"
           style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; font-family: inherit;"></textarea>
         
@@ -4558,7 +4608,7 @@ async function mostrarFormularioEvento() {
         <select id="swal-tipo-evento" style="width: 100%; margin: 0 0 16px 0; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; box-sizing: border-box; color: #2c3e50;">
           <option value="examen" style="color: #2c3e50; background: white;"> Examen</option>
           <option value="clase_especial" style="color: #2c3e50; background: white;"> Clase Especial</option>
-          <option value="reunion" style="color: #2c3e50; background: white;"> Reuni√≥n</option>
+          <option value="reunion" style="color: #2c3e50; background: white;"> ReuniÛn</option>
           <option value="feriado" style="color: #2c3e50; background: white;"> Feriado</option>
           <option value="otro" style="color: #2c3e50; background: white;"> Otro</option>
         </select>
@@ -4599,7 +4649,7 @@ async function mostrarFormularioEvento() {
       const color = document.getElementById('swal-color-evento').value;
       
       if (!curso || !titulo || !fecha) {
-        Swal.showValidationMessage('El curso, t√≠tulo y fecha son requeridos');
+        Swal.showValidationMessage('El curso, tÌtulo y fecha son requeridos');
         return false;
       }
       
@@ -4637,7 +4687,7 @@ async function crearEvento(datos) {
     
     if (response.ok) {
       Swal.fire({
-        title: '¬°Evento creado!',
+        title: '°Evento creado!',
         text: 'El evento ha sido agregado al calendario',
         icon: 'success',
         confirmButtonColor: '#4a5259'
@@ -4823,7 +4873,7 @@ async function clickNotificacion(idNotificacion, tipoNotificacion, idReferencia)
       }
     }
   } catch (error) {
-    console.error('Error al marcar notificaci√≥n:', error);
+    console.error('Error al marcar notificaciÛn:', error);
   }
 }
 
@@ -4837,15 +4887,15 @@ async function marcarTodasLeidas() {
     await cargarNotificaciones();
     
     Swal.fire({
-      title: '¬°Listo!',
-      text: 'Todas las notificaciones marcadas como le√≠das',
+      title: '°Listo!',
+      text: 'Todas las notificaciones marcadas como leÌdas',
       icon: 'success',
       confirmButtonColor: '#4a5259',
       timer: 1500,
       showConfirmButton: false
     });
   } catch (error) {
-    console.error('Error al marcar todas como le√≠das:', error);
+    console.error('Error al marcar todas como leÌdas:', error);
   }
 }
 
@@ -4866,18 +4916,18 @@ function calcularTiempoTranscurrido(fecha) {
 
 async function eliminarAnuncioAdmin(idAnuncio) {
   const result = await Swal.fire({
-    title: '¬øEliminar este anuncio?',
+    title: 'øEliminar este anuncio?',
     html: `
-      <p>Esta acci√≥n eliminar√° permanentemente el anuncio.</p>
+      <p>Esta acciÛn eliminar· permanentemente el anuncio.</p>
       <p class="text-warning" style="font-size: 0.9em; margin-top: 10px; color: #f59e0b;">
-        Ô∏è Ser√° eliminado para todos los usuarios (profesores y alumnos).
+        ? Ser· eliminado para todos los usuarios (profesores y alumnos).
       </p>
     `,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#dc2626',
     cancelButtonColor: '#6c757d',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
   
@@ -4913,19 +4963,19 @@ async function eliminarAnuncioAdmin(idAnuncio) {
 
 async function eliminarTareaAdmin(idTarea, titulo, nombreCurso) {
   const result = await Swal.fire({
-    title: '¬øEliminar esta tarea?',
+    title: 'øEliminar esta tarea?',
     html: `
       <p><strong>${titulo}</strong></p>
       <p style="color: #666; font-size: 0.9em;">Curso: ${nombreCurso}</p>
       <p class="text-warning" style="font-size: 0.9em; margin-top: 10px; color: #f59e0b;">
-        Ô∏è Se eliminar√°n tambi√©n todas las entregas de los alumnos.
+        ? Se eliminar·n tambiÈn todas las entregas de los alumnos.
       </p>
     `,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#dc2626',
     cancelButtonColor: '#6c757d',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
   
@@ -4985,8 +5035,8 @@ function agregarEventListenersConfiguracion() {
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
-      console.log('Click en bot√≥n de fuente:', this.dataset.size);
-      cambiarTama√±oFuente(this.dataset.size);
+      console.log('Click en botÛn de fuente:', this.dataset.size);
+      cambiarTamaÒoFuente(this.dataset.size);
     });
   });
 }
@@ -5014,10 +5064,10 @@ function cargarConfiguracionesGuardadas() {
     selectVista.value = vistaCalendario;
   }
 
-  const tama√±oFuente = localStorage.getItem('tama√±oFuente') || 'normal';
+  const tamaÒoFuente = localStorage.getItem('tamaÒoFuente') || 'normal';
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.classList.remove('active');
-    if (btn.dataset.size === tama√±oFuente) {
+    if (btn.dataset.size === tamaÒoFuente) {
       btn.classList.add('active');
     }
   });
@@ -5117,8 +5167,8 @@ function cambiarTema(tema) {
   } else if (tema === 'auto') {
     Swal.fire({
       icon: 'success',
-      title: 'Modo Autom√°tico Activado',
-      text: 'El tema se ajustar√° seg√∫n tu sistema',
+      title: 'Modo Autom·tico Activado',
+      text: 'El tema se ajustar· seg˙n tu sistema',
       timer: 1500,
       showConfirmButton: false,
       toast: true,
@@ -5127,29 +5177,29 @@ function cambiarTema(tema) {
   }
 }
 
-function cambiarTama√±oFuente(tama√±o) {
-  console.log('Cambiando tama√±o de fuente a:', tama√±o);
+function cambiarTamaÒoFuente(tamaÒo) {
+  console.log('Cambiando tamaÒo de fuente a:', tamaÒo);
   
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.classList.remove('active');
   });
 
-  const btnSeleccionado = document.querySelector(`[data-size="${tama√±o}"]`);
+  const btnSeleccionado = document.querySelector(`[data-size="${tamaÒo}"]`);
   if (btnSeleccionado) {
     btnSeleccionado.classList.add('active');
-    console.log('Bot√≥n activado:', btnSeleccionado);
+    console.log('BotÛn activado:', btnSeleccionado);
   } else {
-    console.log('No se encontr√≥ bot√≥n con data-size:', tama√±o);
+    console.log('No se encontrÛ botÛn con data-size:', tamaÒo);
   }
 
-  aplicarTama√±oFuente(tama√±o);
+  aplicarTamaÒoFuente(tamaÒo);
 
-  localStorage.setItem('tama√±oFuente', tama√±o);
+  localStorage.setItem('tamaÒoFuente', tamaÒo);
 
   Swal.fire({
     icon: 'success',
-    title: 'Tama√±o aplicado',
-    text: `Fuente configurada en tama√±o ${tama√±o}`,
+    title: 'TamaÒo aplicado',
+    text: `Fuente configurada en tamaÒo ${tamaÒo}`,
     timer: 1500,
     showConfirmButton: false,
     toast: true,
@@ -5192,7 +5242,7 @@ async function cambiarPasswordClassroom(event) {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'Las contrase√±as nuevas no coinciden'
+      text: 'Las contraseÒas nuevas no coinciden'
     });
     return;
   }
@@ -5200,8 +5250,8 @@ async function cambiarPasswordClassroom(event) {
   if (passwordNueva.length < 6) {
     Swal.fire({
       icon: 'warning',
-      title: 'Contrase√±a d√©bil',
-      text: 'La contrase√±a debe tener al menos 6 caracteres'
+      title: 'ContraseÒa dÈbil',
+      text: 'La contraseÒa debe tener al menos 6 caracteres'
     });
     return;
   }
@@ -5225,8 +5275,8 @@ async function cambiarPasswordClassroom(event) {
     if (response.ok) {
       Swal.fire({
         icon: 'success',
-        title: '¬°Contrase√±a actualizada!',
-        text: 'Tu contrase√±a del Classroom ha sido cambiada exitosamente',
+        title: '°ContraseÒa actualizada!',
+        text: 'Tu contraseÒa del Classroom ha sido cambiada exitosamente',
         timer: 2000
       });
 
@@ -5235,14 +5285,14 @@ async function cambiarPasswordClassroom(event) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: data.message || 'No se pudo cambiar la contrase√±a'
+        text: data.message || 'No se pudo cambiar la contraseÒa'
       });
     }
   } catch (error) {
-    console.error('Error al cambiar contrase√±a:', error);
+    console.error('Error al cambiar contraseÒa:', error);
     Swal.fire({
       icon: 'error',
-      title: 'Error de conexi√≥n',
+      title: 'Error de conexiÛn',
       text: 'No se pudo conectar con el servidor'
     });
   }
@@ -5256,7 +5306,7 @@ function toggleEstadoOnline() {
     Swal.fire({
       icon: 'success',
       title: 'Guardado',
-      text: `Estado en l√≠nea ${checkbox.checked ? 'visible' : 'oculto'}`,
+      text: `Estado en lÌnea ${checkbox.checked ? 'visible' : 'oculto'}`,
       timer: 1500,
       showConfirmButton: false,
       toast: true,
@@ -5273,7 +5323,7 @@ function togglePerfilPublico() {
     Swal.fire({
       icon: 'success',
       title: 'Guardado',
-      text: `Perfil ${checkbox.checked ? 'p√∫blico' : 'privado'}`,
+      text: `Perfil ${checkbox.checked ? 'p˙blico' : 'privado'}`,
       timer: 1500,
       showConfirmButton: false,
       toast: true,
@@ -5300,7 +5350,7 @@ async function exportarTareasPDF() {
     Swal.fire({
       icon: 'warning',
       title: 'Acceso denegado',
-      text: 'Esta funci√≥n es exclusiva para alumnos'
+      text: 'Esta funciÛn es exclusiva para alumnos'
     });
     return;
   }
@@ -5335,7 +5385,7 @@ async function exportarTareasPDF() {
     if (!tareas || tareas.length === 0) {
       Swal.fire({
         icon: 'info',
-        title: 'Sin documentaci√≥n',
+        title: 'Sin documentaciÛn',
         text: 'No tienes documentacion disponible aun'
       });
       return;
@@ -5376,7 +5426,7 @@ async function exportarTareasPDF() {
     doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_PDF.silver);
-    doc.text('Centro de Ense√±anza Multiling√ºe Internacional', 40, 23);
+    doc.text('Centro de EnseÒanza Multiling¸e Internacional', 40, 23);
     
     doc.setFontSize(12);
     doc.setFont('times', 'bold');
@@ -5473,7 +5523,7 @@ async function exportarTareasPDF() {
       
       y += 5;
       
-      if (tarea.descripcion && tarea.descripcion !== 'Sin descripci√≥n') {
+      if (tarea.descripcion && tarea.descripcion !== 'Sin descripciÛn') {
         doc.setFontSize(7);
         doc.setTextColor(...HARVARD_PDF.graphite);
         const descripcionLines = doc.splitTextToSize(tarea.descripcion, 158);
@@ -5529,7 +5579,7 @@ async function exportarTareasPDF() {
       if (tarea.calificacion !== null && tarea.calificacion !== undefined) {
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(...HARVARD_PDF.graphite);
-        doc.text('Calificaci√≥n:', 26, y);
+        doc.text('CalificaciÛn:', 26, y);
         doc.setFont('times', 'bold');
         doc.setTextColor(...HARVARD_PDF.success);
         doc.setFontSize(9);
@@ -5585,7 +5635,7 @@ async function exportarCalificacionesPDF() {
     Swal.fire({
       icon: 'warning',
       title: 'Acceso denegado',
-      text: 'Esta funci√≥n es exclusiva para alumnos'
+      text: 'Esta funciÛn es exclusiva para alumnos'
     });
     return;
   }
@@ -5623,7 +5673,7 @@ async function exportarCalificacionesPDF() {
     if (!calificaciones || calificaciones.length === 0) {
       Swal.fire({
         icon: 'info',
-        title: 'Sin documentaci√≥n',
+        title: 'Sin documentaciÛn',
         text: 'No tienes documentacion disponible aun'
       });
       return;
@@ -5677,7 +5727,7 @@ async function exportarCalificacionesPDF() {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
         doc.setTextColor(...HARVARD_COLORS.silver);
-        doc.text('CEMI - Centro de Ense√±anza Multiling√ºe Integral', 50, 32);
+        doc.text('CEMI - Centro de EnseÒanza Multiling¸e Integral', 50, 32);
         
         doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
         doc.setLineWidth(2.5);
@@ -5715,7 +5765,7 @@ async function exportarCalificacionesPDF() {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
     doc.setTextColor(...HARVARD_COLORS.graphite);
-    doc.text('FECHA DE GENERACI√ìN', 100, y);
+    doc.text('FECHA DE GENERACI”N', 100, y);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.setFontSize(10);
@@ -5823,10 +5873,10 @@ async function exportarCalificacionesPDF() {
         doc.line(tableX + (colWidth * i), tableY + rowHeight, tableX + (colWidth * i), tableY + (rowHeight * 2) + 2);
       }
       
-      const p1 = cal.parcial1 !== null && cal.parcial1 !== undefined ? String(cal.parcial1) : '‚Äî';
-      const p2 = cal.parcial2 !== null && cal.parcial2 !== undefined ? String(cal.parcial2) : '‚Äî';
-      const final = cal.final !== null && cal.final !== undefined ? String(cal.final) : '‚Äî';
-      const promedio = cal.promedio !== null && cal.promedio !== undefined && cal.promedio > 0 ? String(cal.promedio) : '‚Äî';
+      const p1 = cal.parcial1 !== null && cal.parcial1 !== undefined ? String(cal.parcial1) : 'ó';
+      const p2 = cal.parcial2 !== null && cal.parcial2 !== undefined ? String(cal.parcial2) : 'ó';
+      const final = cal.final !== null && cal.final !== undefined ? String(cal.final) : 'ó';
+      const promedio = cal.promedio !== null && cal.promedio !== undefined && cal.promedio > 0 ? String(cal.promedio) : 'ó';
       
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(10);
@@ -5836,7 +5886,7 @@ async function exportarCalificacionesPDF() {
       doc.text(p2, tableX + colWidth + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
       doc.text(final, tableX + (colWidth * 2) + (colWidth / 2), tableY + rowHeight + 6, { align: 'center' });
       
-      if (promedio !== '‚Äî') {
+      if (promedio !== 'ó') {
         const promedioNum = parseFloat(promedio);
         if (promedioNum >= 7) {
           doc.setTextColor(...HARVARD_COLORS.success);
@@ -5875,7 +5925,7 @@ async function exportarCalificacionesPDF() {
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(...HARVARD_COLORS.silver);
-      doc.text('CEMI - Centro de Ense√±anza de M√∫ltiples Idiomas', 14, pageHeight - 14);
+      doc.text('CEMI - Centro de EnseÒanza de M˙ltiples Idiomas', 14, pageHeight - 14);
       doc.text('Documento oficial de calificaciones', 14, pageHeight - 9);
       
       doc.setFont('helvetica', 'bold');
@@ -5938,7 +5988,7 @@ function guardarTodasConfiguraciones() {
   
   Swal.fire({
     icon: 'success',
-    title: '¬°Configuraci√≥n guardada!',
+    title: '°ConfiguraciÛn guardada!',
     text: 'Todas tus preferencias han sido guardadas correctamente',
     timer: 2000
   });
@@ -5969,7 +6019,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.querySelectorAll('.font-size-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      cambiarTama√±oFuente(this.dataset.size);
+      cambiarTamaÒoFuente(this.dataset.size);
     });
   });
 
@@ -5995,9 +6045,9 @@ document.addEventListener('DOMContentLoaded', function() {
     btnCancelar.addEventListener('click', cerrarConfiguracion);
   }
 
-  const tama√±oGuardado = localStorage.getItem('tama√±oFuente');
-  if (tama√±oGuardado) {
-    aplicarTama√±oFuente(tama√±oGuardado);
+  const tamaÒoGuardado = localStorage.getItem('tamaÒoFuente');
+  if (tamaÒoGuardado) {
+    aplicarTamaÒoFuente(tamaÒoGuardado);
   }
 
   const temaGuardado = localStorage.getItem('tema');
@@ -6008,15 +6058,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-function aplicarTama√±oFuente(tama√±o) {
+function aplicarTamaÒoFuente(tamaÒo) {
   const body = document.body;
   
-  body.classList.remove('font-peque√±o', 'font-normal', 'font-grande');
+  body.classList.remove('font-pequeÒo', 'font-normal', 'font-grande');
   
-  body.classList.add(`font-${tama√±o}`);
+  body.classList.add(`font-${tamaÒo}`);
   
-  switch (tama√±o) {
-    case 'peque√±o':
+  switch (tamaÒo) {
+    case 'pequeÒo':
       body.style.fontSize = '14px';
       break;
     case 'normal':
@@ -6069,7 +6119,7 @@ function renderRecursos(data) {
       <div class="empty-resources">
         <i data-lucide="folder-open"></i>
         <p>No hay recursos disponibles en tus cursos</p>
-        ${userRol.toLowerCase() === 'profesor' ? '<span>Sube tu primer recurso usando el bot√≥n superior</span>' : ''}
+        ${userRol.toLowerCase() === 'profesor' ? '<span>Sube tu primer recurso usando el botÛn superior</span>' : ''}
       </div>
     `;
   }
@@ -6084,7 +6134,7 @@ function renderRecursos(data) {
     gridBiblioteca.innerHTML = `
       <div class="empty-resources">
         <i data-lucide="library"></i>
-        <p>La biblioteca general est√° vac√≠a</p>
+        <p>La biblioteca general est· vacÌa</p>
       </div>
     `;
   }
@@ -6255,20 +6305,20 @@ function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca Genera
         </div>
         <form id="formSubirRecurso" class="form-recursos">
           <div class="form-group">
-            <label for="recursoTitulo">T√≠tulo del recurso *</label>
+            <label for="recursoTitulo">TÌtulo del recurso *</label>
             <input type="text" id="recursoTitulo" required placeholder="Ej: Vocabulario de colores">
           </div>
           
           <div class="form-group">
-            <label for="recursoDescripcion">Descripci√≥n</label>
-            <textarea id="recursoDescripcion" placeholder="Breve descripci√≥n del material..." rows="2"></textarea>
+            <label for="recursoDescripcion">DescripciÛn</label>
+            <textarea id="recursoDescripcion" placeholder="Breve descripciÛn del material..." rows="2"></textarea>
           </div>
           
           <div class="form-row">
             <div class="form-group">
               <label for="recursoCurso">Asignar a curso</label>
               <select id="recursoCurso">
-                <option value="">Biblioteca General (p√∫blico)</option>
+                <option value="">Biblioteca General (p˙blico)</option>
                 ${cursosOptions}
               </select>
             </div>
@@ -6281,7 +6331,7 @@ function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca Genera
                 <option value="documento"> Documento</option>
                 <option value="audio"> Audio</option>
                 <option value="video"> Video</option>
-                <option value="imagen">Ô∏è Imagen</option>
+                <option value="imagen">? Imagen</option>
               </select>
             </div>
           </div>
@@ -6295,7 +6345,7 @@ function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca Genera
             <label for="recursoArchivo">Seleccionar archivo *</label>
             <div class="file-upload-area" id="dropZone">
               <i data-lucide="upload"></i>
-              <p>Arrastra tu archivo aqu√≠ o <span>haz clic para seleccionar</span></p>
+              <p>Arrastra tu archivo aquÌ o <span>haz clic para seleccionar</span></p>
               <input type="file" id="recursoArchivo" accept=".pdf,.doc,.docx,.mp3,.mp4,.jpg,.png,.gif">
               <span id="nombreArchivo" class="file-name"></span>
             </div>
@@ -6414,7 +6464,7 @@ async function handleSubirRecurso(e) {
   const archivo = document.getElementById('recursoArchivo')?.files?.[0];
   
   if (!titulo) {
-    showNotification('Error', 'El t√≠tulo es requerido', 'error');
+    showNotification('Error', 'El tÌtulo es requerido', 'error');
     return;
   }
   
@@ -6459,7 +6509,7 @@ async function handleSubirRecurso(e) {
     
     if (data.success) {
       cerrarModalRecurso();
-      showNotification('¬°√âxito!', 'Recurso subido correctamente', 'success');
+      showNotification('°…xito!', 'Recurso subido correctamente', 'success');
       await loadRecursos();
     } else {
       throw new Error(data.message || 'Error al subir recurso');
@@ -6510,13 +6560,13 @@ async function descargarRecurso(idRecurso, url) {
 
 async function eliminarRecurso(idRecurso) {
   const result = await Swal.fire({
-    title: '¬øEliminar recurso?',
-    text: 'Esta acci√≥n no se puede deshacer',
+    title: 'øEliminar recurso?',
+    text: 'Esta acciÛn no se puede deshacer',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#e74c3c',
     cancelButtonColor: '#6c757d',
-    confirmButtonText: 'S√≠, eliminar',
+    confirmButtonText: 'SÌ, eliminar',
     cancelButtonText: 'Cancelar'
   });
   
