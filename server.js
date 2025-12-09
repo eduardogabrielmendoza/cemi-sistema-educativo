@@ -172,7 +172,7 @@ app.use("/api/classroom", verificarToken, perfilClassroomRoutes);
 app.use("/api/notificaciones", verificarToken, notificacionesRoutes);
 app.use("/api/chat", verificarToken, chatRoutes);
 app.use("/api/investigacion", verificarToken, investigacionRoutes);
-app.use("/api/comunidad", verificarToken, comunidadRoutes);
+app.use("/api/comunidad", comunidadRoutes);
 app.use("/api/gdpr", verificarToken, gdprRoutes);
 app.use("/api/codigos-recuperacion", verificarToken, codigosRecuperacionRoutes);
 

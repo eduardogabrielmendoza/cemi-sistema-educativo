@@ -1800,7 +1800,7 @@ body {
 
 .nav-item.active {
   background: #3d444a;
-  color: var(--hw-white);
+  color: rgba(165, 28, 48, 0.85);
   font-weight: 500;
   transform: translateX(0);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -1824,7 +1824,7 @@ body {
 }
 
 .nav-item.active i {
-  color: var(--hw-white);
+  color: rgba(165, 28, 48, 0.85);
 }
 
 .nav-item i {

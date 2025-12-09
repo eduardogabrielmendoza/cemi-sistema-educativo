@@ -501,6 +501,82 @@ router.post("/perfil/:userId/avatar", (req, res) => {
 });
 
 
+const bannerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, '../../uploads/banners');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `banner-${req.params.tipo}-${req.params.userId}${ext}`);
+  }
+});
+
+const uploadBanner = multer({
+  storage: bannerStorage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif|webp/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (extname && mimetype) {
+      return cb(null, true);
+    }
+    cb(new Error('Solo se permiten imagenes (JPEG, PNG, GIF, WebP)'));
+  }
+});
+
+router.post("/banner/:tipo/:userId", uploadBanner.single('banner'), async (req, res) => {
+  const { tipo, userId } = req.params;
+  console.log(` [POST /banner/:tipo/:userId] Subiendo banner para ${tipo} ${userId}`);
+  
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'No se proporciono archivo' });
+    }
+    
+    const bannerPath = `/uploads/banners/${req.file.filename}`;
+    console.log(`   Banner guardado: ${bannerPath}`);
+    
+    return res.json({
+      success: true,
+      message: 'Banner actualizado correctamente',
+      banner: bannerPath
+    });
+  } catch (error) {
+    console.error(" Error al subir banner:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error del servidor al subir el banner'
+    });
+  }
+});
+
+router.get("/banner/:tipo/:userId", (req, res) => {
+  const { tipo, userId } = req.params;
+  const uploadDir = path.join(__dirname, '../../uploads/banners');
+  
+  const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+  for (const ext of extensions) {
+    const filePath = path.join(uploadDir, `banner-${tipo}-${userId}.${ext}`);
+    if (fs.existsSync(filePath)) {
+      return res.json({
+        success: true,
+        banner: `/uploads/banners/banner-${tipo}-${userId}.${ext}`
+      });
+    }
+  }
+  
+  return res.json({
+    success: true,
+    banner: null
+  });
+});
+
+
 export default router;
 
 
