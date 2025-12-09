@@ -56,18 +56,19 @@ async function cargarPerfil() {
 
 async function cargarBannerUsuario() {
   try {
+    console.log(`Cargando banner para ${userType}/${userId}`);
     const response = await fetch(`${API_URL}/classroom/banner/${userType}/${userId}`);
     if (response.ok) {
       const data = await response.json();
+      console.log('Respuesta banner:', data);
       if (data.success && data.banner) {
         const bannerUrl = data.banner.startsWith('http') 
           ? data.banner 
           : `${window.BASE_URL || 'http://localhost:3000'}${data.banner}`;
-        const profileBg = document.querySelector('.profile-background');
-        if (profileBg) {
-          profileBg.style.backgroundImage = `url(${bannerUrl})`;
-          profileBg.style.backgroundSize = 'cover';
-          profileBg.style.backgroundPosition = 'center';
+        const profileHeader = document.querySelector('.profile-header-card');
+        if (profileHeader) {
+          profileHeader.style.backgroundImage = `url(${bannerUrl})`;
+          console.log('Banner aplicado:', bannerUrl);
         }
       }
     }
