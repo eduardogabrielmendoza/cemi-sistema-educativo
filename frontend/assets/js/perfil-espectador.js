@@ -59,10 +59,10 @@ async function cargarBannerUsuario() {
     const response = await fetch(`${API_URL}/classroom/banner/${userType}/${userId}`);
     if (response.ok) {
       const data = await response.json();
-      if (data.success && data.bannerUrl) {
-        const bannerUrl = data.bannerUrl.startsWith('http') 
-          ? data.bannerUrl 
-          : `${window.BASE_URL || 'http://localhost:3000'}${data.bannerUrl}`;
+      if (data.success && data.banner) {
+        const bannerUrl = data.banner.startsWith('http') 
+          ? data.banner 
+          : `${window.BASE_URL || 'http://localhost:3000'}${data.banner}`;
         const profileBg = document.querySelector('.profile-background');
         if (profileBg) {
           profileBg.style.backgroundImage = `url(${bannerUrl})`;
