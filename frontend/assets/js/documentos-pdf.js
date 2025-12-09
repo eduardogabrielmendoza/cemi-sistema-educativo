@@ -1227,37 +1227,41 @@ async function generarEstadoCuenta(idAlumno) {
     const boxHeight = 26;
     const spacing = 7;
     
-    doc.setFillColor(...HARVARD_COLORS.lightGray);
-    doc.setDrawColor(...HARVARD_COLORS.success);
+    // Cuadro 1: TOTAL PAGADO - Fondo azul institucional
+    doc.setFillColor(...HARVARD_COLORS.accent);
+    doc.setDrawColor(...HARVARD_COLORS.accent);
     doc.setLineWidth(1.5);
     doc.roundedRect(20, yPos, boxWidth, boxHeight, 2, 2, 'FD');
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...HARVARD_COLORS.success);
+    doc.setTextColor(...HARVARD_COLORS.white);
     doc.text('TOTAL PAGADO', 20 + boxWidth/2, yPos + 8, { align: 'center' });
     doc.setFontSize(13);
     doc.setFont('times', 'bold');
     doc.text(`$${totalPagado.toLocaleString('es-AR')}`, 20 + boxWidth/2, yPos + 18, { align: 'center' });
     
-    doc.setDrawColor(...HARVARD_COLORS.warning);
+    // Cuadro 2: PENDIENTE - Fondo verde
+    doc.setFillColor(...HARVARD_COLORS.success);
+    doc.setDrawColor(...HARVARD_COLORS.success);
     doc.roundedRect(20 + boxWidth + spacing, yPos, boxWidth, boxHeight, 2, 2, 'FD');
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...HARVARD_COLORS.warning);
+    doc.setTextColor(...HARVARD_COLORS.white);
     doc.text('PENDIENTE', 20 + boxWidth + spacing + boxWidth/2, yPos + 8, { align: 'center' });
     doc.setFontSize(13);
     doc.setFont('times', 'bold');
     doc.text(`$${totalPendiente.toLocaleString('es-AR')}`, 20 + boxWidth + spacing + boxWidth/2, yPos + 18, { align: 'center' });
     
-    doc.setDrawColor(...HARVARD_COLORS.accent);
+    // Cuadro 3: CUOTAS ABONADAS - Fondo naranja/warning
+    doc.setFillColor(...HARVARD_COLORS.warning);
+    doc.setDrawColor(...HARVARD_COLORS.warning);
     doc.roundedRect(20 + (boxWidth + spacing) * 2, yPos, boxWidth, boxHeight, 2, 2, 'FD');
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...HARVARD_COLORS.accent);
+    doc.setTextColor(...HARVARD_COLORS.white);
     doc.text('CUOTAS ABONADAS', 20 + (boxWidth + spacing) * 2 + boxWidth/2, yPos + 8, { align: 'center' });
     doc.setFontSize(13);
     doc.setFont('times', 'bold');
-    doc.setTextColor(...HARVARD_COLORS.charcoal);
     doc.text(`${cuotasPagadas} / ${cuotasTotales}`, 20 + (boxWidth + spacing) * 2 + boxWidth/2, yPos + 18, { align: 'center' });
     
     yPos += 36;
@@ -1380,10 +1384,11 @@ async function generarEstadoCuenta(idAlumno) {
       doc.setFont('helvetica', 'italic');
       doc.setTextColor(...HARVARD_COLORS.graphite);
       doc.text('No hay registros de pagos para este alumno.', pageWidth / 2, yPos + 10, { align: 'center' });
+      yPos += 25; // Agregar espacio después del mensaje para que sea visible antes del cuadro de notas
     }
     
     verificarNuevaPagina(20);
-    yPos += 8;
+    yPos += 12;
     
     doc.setFillColor(...HARVARD_COLORS.lightGray);
     doc.roundedRect(20, yPos, pageWidth - 40, 18, 1, 1, 'F');
