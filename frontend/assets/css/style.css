@@ -3888,21 +3888,16 @@ footer i {
 }
 
 .social-link {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .social-link:hover {
-  background: #1c30a5;
-  transform: translateY(-3px);
+  color: #1c30a5;
 }
 
 .social-link i {
@@ -3928,11 +3923,31 @@ footer i {
 }
 
 .footer-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(28, 48, 165, 0.4);
+  color: #1c30a5;
 }
 
 .footer-cta i {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-cta-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+  justify-content: center;
+}
+
+.footer-cta-link:hover {
+  color: #1c30a5;
+}
+
+.footer-cta-link i {
   width: 18px;
   height: 18px;
 }
@@ -3967,15 +3982,11 @@ footer i {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: all 0.3s ease;
-  padding: 5px 10px;
-  border-radius: 6px;
+  transition: color 0.3s ease;
 }
 
 .footer-links-bottom a:hover {
-  color: white;
-  background: rgba(28, 48, 165, 0.4);
-  transform: translateY(-2px);
+  color: #1c30a5;
 }
 
 .doc-hidden-link {

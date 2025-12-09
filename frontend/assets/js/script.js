@@ -9881,7 +9881,7 @@ async function generarComprobantePago(idPago) {
     doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(...HARVARD.graphite);
-    doc.text('CEMI - Centro de Ensenanza de Idiomas', centerX, yPos, { align: 'center' });
+    doc.text('CEMI - Centro de Enseñanza Multilingüe Integral', centerX, yPos, { align: 'center' });
     yPos += 4;
     doc.text(`Generado el ${new Date().toLocaleDateString('es-ES')}`, centerX, yPos, { align: 'center' });
     yPos += 3;

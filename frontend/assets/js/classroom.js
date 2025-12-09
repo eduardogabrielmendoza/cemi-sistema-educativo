@@ -5677,7 +5677,7 @@ async function exportarCalificacionesPDF() {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
         doc.setTextColor(...HARVARD_COLORS.silver);
-        doc.text('CEMI - Centro de Ensenanza de Multiples Idiomas', 50, 32);
+        doc.text('CEMI - Centro de Enseñanza Multilingüe Integral', 50, 32);
         
         doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
         doc.setLineWidth(2.5);
