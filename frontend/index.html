@@ -1484,10 +1484,11 @@
     }
 
     .auth-modal-header {
-      background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+      background: #cbd5e0;
       padding: 40px 32px 32px;
       text-align: center;
       position: relative;
+      transition: all 0.3s ease;
     }
 
     .auth-modal-header::before {
@@ -1497,23 +1498,30 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d327c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       opacity: 0.5;
     }
 
     .auth-modal-icon {
       width: 72px;
       height: 72px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(45, 50, 124, 0.1);
+      border: 2px solid rgba(45, 50, 124, 0.2);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto;
-      color: #ffffff;
+      color: #475569;
       position: relative;
       z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .auth-modal-container:hover .auth-modal-icon {
+      background: rgba(45, 50, 124, 0.15);
+      border-color: rgba(45, 50, 124, 0.3);
+      transform: scale(1.05);
     }
 
     .auth-modal-body {
@@ -1563,23 +1571,28 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       color: #475569;
+      transition: all 0.3s ease;
     }
 
     .auth-modal-btn-secondary:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      color: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(148, 163, 184, 0.3);
     }
 
     .auth-modal-btn-primary {
       background: #1e1e1e;
       border: none;
       color: #ffffff;
+      transition: all 0.3s ease;
     }
 
     .auth-modal-btn-primary:hover {
-      background: #333333;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(30, 30, 30, 0.4);
+      background: #2d327c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(45, 50, 124, 0.4);
     }
 
     .auth-modal-btn-primary svg {
@@ -1592,7 +1605,7 @@
 
     .auth-modal-decoration {
       height: 4px;
-      background: linear-gradient(90deg, #1e1e1e, #3d3d3d, #555555, #3d3d3d, #1e1e1e);
+      background: linear-gradient(90deg, #2d327c, #4a50a0, #6366f1, #4a50a0, #2d327c);
       background-size: 200% 100%;
       animation: authGradientFlow 3s ease infinite;
     }
