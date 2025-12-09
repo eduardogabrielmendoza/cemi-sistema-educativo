@@ -237,19 +237,20 @@ function mostrarDatosEnUI(perfil) {
   // Cargar banner desde servidor
   const bannerElement = document.getElementById('profileBanner');
   if (bannerElement) {
-    try {
-      const bannerRes = await fetch(`/api/classroom/banner/${userType}/${userId}`, {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-      const bannerData = await bannerRes.json();
+    fetch(`/api/classroom/banner/${userType}/${userId}`, {
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    })
+    .then(res => res.json())
+    .then(bannerData => {
       if (bannerData.success && bannerData.banner) {
         bannerElement.style.backgroundImage = `url(${bannerData.banner})`;
       } else {
         bannerElement.style.backgroundImage = `url(images/banner1.jpg)`;
       }
-    } catch (e) {
+    })
+    .catch(() => {
       bannerElement.style.backgroundImage = `url(images/banner1.jpg)`;
-    }
+    });
   }
   
   updateElement('profileName', `${perfil.nombre} ${perfil.apellido}`);

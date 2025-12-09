@@ -1800,11 +1800,11 @@ body {
 
 .nav-item.active {
   background: #3d444a;
-  color: rgba(165, 28, 48, 0.85);
+  color: var(--hw-off-white);
   font-weight: 500;
   transform: translateX(0);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-left: none;
+  border-left: 3px solid #a51c30;
 }
 
 .nav-item.active::before {
@@ -1824,7 +1824,7 @@ body {
 }
 
 .nav-item.active i {
-  color: rgba(165, 28, 48, 0.85);
+  color: var(--hw-off-white);
 }
 
 .nav-item i {
@@ -2311,9 +2311,9 @@ body.dark-mode .research-banner-close:hover {
 }
 
 .stream-header h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.35rem;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--hw-charcoal);
 }
 
@@ -2741,9 +2741,9 @@ body.dark-mode .research-banner-close:hover {
 }
 
 .view-header h2 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--hw-charcoal);
 }
 
@@ -2796,9 +2796,9 @@ body.dark-mode .research-banner-close:hover {
 }
 
 .class-card-header h3 {
-  font-family: var(--font-heading) !important;
+  font-family: var(--font-body) !important;
   font-size: 1.25rem !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
   margin: 0 0 6px 0 !important;
   color: white !important;
 }
@@ -5404,9 +5404,9 @@ body.dark-mode .toggle-password-btn:hover {
 
 .resources-title-section h2 {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--hw-charcoal);
 }
 
@@ -6022,9 +6022,9 @@ body.dark-mode .toggle-password-btn:hover {
 
 .modal-recursos-header h3 {
   margin: 0;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.25rem;
-  font-weight: 400;
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 12px;
