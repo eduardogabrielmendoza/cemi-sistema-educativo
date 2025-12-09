@@ -30,7 +30,7 @@
             <div style="display: flex; align-items: start; gap: 20px;">
                 <i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #FFC107; flex-shrink: 0; margin-top: 4px;"></i>
                 <div>
-                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">? Exportación Controlada</strong>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">? ExportaciÃ³n Controlada</strong>
                     <p style="margin: 0; color: #856404; line-height: 1.6;">Los registros de actividad deben ser solicitados al administrador. El proceso puede tomar 24-48 horas dependiendo del volumen de datos.</p>
                 </div>
             </div>
@@ -39,13 +39,13 @@
         <div style="background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%); padding: 30px; border-radius: 12px; margin: 25px 0; text-align: center; box-shadow: 0 4px 12px rgba(0,113,227,0.1);">
             <h3 style="margin-bottom: 20px; color: #1a1f36;">
                 <i data-lucide="headset" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"></i>
-                Solicitar Exportación de Logs
+                Solicitar ExportaciÃ³n de Logs
             </h3>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                 <button onclick="window.location.href='mailto:soporte@Cemiedu.ar?subject=Solicitud: Exportar Registros de Actividad&body=Estimado equipo,%0D%0A%0D%0ASolicito exportar mis registros de actividad y eventos de seguridad.%0D%0A%0D%0ADatos:%0D%0A- Usuario: [TU USUARIO]%0D%0A- DNI: [TU DNI]%0D%0A- Rango de fechas: [DESDE - HASTA]%0D%0A- Formato: [JSON/CSV/PDF]%0D%0A%0D%0AGracias.'" 
                         style="background: #0071e3; color: white; padding: 16px 36px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(0,113,227,0.3); display: inline-flex; align-items: center; gap: 10px;">
                     <i data-lucide="mail" style="width: 20px; height: 20px;"></i>
-                    Solicitar Exportación
+                    Solicitar ExportaciÃ³n
                 </button>
                 <a href="tel:+5491112345678" 
                    style="background: #28a745; color: white; padding: 16px 36px; border-radius: 8px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 12px rgba(40,167,69,0.3); display: inline-flex; align-items: center; gap: 10px; text-decoration: none;">
@@ -58,14 +58,14 @@
         <div class="security-alert">
             <i data-lucide="info"></i>
             <div>
-                <strong>Auditoría de seguridad</strong>
-                <p>Exporta logs de seguridad, historial de accesos, cambios de configuración y más. Útil para auditorías, cumplimiento normativo, o análisis forense.</p>
+                <strong>AuditorÃ­a de seguridad</strong>
+                <p>Exporta logs de seguridad, historial de accesos, cambios de configuraciÃ³n y mÃ¡s. Ãštil para auditorÃ­as, cumplimiento normativo, o anÃ¡lisis forense.</p>
             </div>
         </div>
 
         <div class="security-card" style="background: linear-gradient(135deg, #0071e3 0%, #0056b3 100%); color: white;">
-            <h2 style="color: white; margin-bottom: 20px;"><i data-lucide="file-text"></i> Configurar exportación</h2>
-            <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">Selecciona qué datos deseas exportar y en qué formato:</p>
+            <h2 style="color: white; margin-bottom: 20px;"><i data-lucide="file-text"></i> Configurar exportaciÃ³n</h2>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 30px;">Selecciona quÃ© datos deseas exportar y en quÃ© formato:</p>
             
             <form id="exportForm" style="background: white; padding: 30px; border-radius: 12px; color: #2c3e50;">
                 <div style="margin-bottom: 30px;">
@@ -76,21 +76,21 @@
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="logins" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Inicios de sesión</strong>
-                                <small style="color: #5a6c7d;">Accesos exitosos y fallidos con ubicación, dispositivo, IP y timestamp</small>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Inicios de sesiÃ³n</strong>
+                                <small style="color: #5a6c7d;">Accesos exitosos y fallidos con ubicaciÃ³n, dispositivo, IP y timestamp</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="security" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
                                 <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">? Eventos de seguridad</strong>
-                                <small style="color: #5a6c7d;">Cambios de contraseña, activación/desactivación 2FA, recuperación de cuenta</small>
+                                <small style="color: #5a6c7d;">Cambios de contraseÃ±a, activaciÃ³n/desactivaciÃ³n 2FA, recuperaciÃ³n de cuenta</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="settings" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">? Cambios de configuración</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">? Cambios de configuraciÃ³n</strong>
                                 <small style="color: #5a6c7d;">Modificaciones en perfil, privacidad, notificaciones, preferencias</small>
                             </div>
                         </label>
@@ -104,7 +104,7 @@
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="messages" style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Mensajería</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> MensajerÃ­a</strong>
                                 <small style="color: #5a6c7d;">Mensajes enviados/recibidos (solo metadatos: fecha, destinatarios, no contenido)</small>
                             </div>
                         </label>
@@ -118,8 +118,8 @@
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="academic" style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Actividad académica</strong>
-                                <small style="color: #5a6c7d;">Entregas de tareas, participación en foros, visualización de materiales</small>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;"> Actividad acadÃ©mica</strong>
+                                <small style="color: #5a6c7d;">Entregas de tareas, participaciÃ³n en foros, visualizaciÃ³n de materiales</small>
                             </div>
                         </label>
                     </div>
@@ -139,12 +139,12 @@
                             <input type="date" required value="2024-05-17" style="width: 100%; padding: 12px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 14px;">
                         </div>
                     </div>
-                    <small style="color: #5a6c7d; display: block; margin-top: 8px;">Seleccionado: 30 días de actividad (17 abril - 17 mayo 2024)</small>
+                    <small style="color: #5a6c7d; display: block; margin-top: 8px;">Seleccionado: 30 dÃ­as de actividad (17 abril - 17 mayo 2024)</small>
                     <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
-                        <button type="button" onclick="setDateRange(7)" style="background: #e0e6ed; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: #2c3e50;">Últimos 7 días</button>
-                        <button type="button" onclick="setDateRange(30)" style="background: #0071e3; color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Últimos 30 días</button>
-                        <button type="button" onclick="setDateRange(90)" style="background: #e0e6ed; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: #2c3e50;">Últimos 90 días</button>
-                        <button type="button" onclick="setDateRange(365)" style="background: #e0e6ed; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: #2c3e50;">Último año</button>
+                        <button type="button" onclick="setDateRange(7)" style="background: #e0e6ed; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: #2c3e50;">Ãšltimos 7 dÃ­as</button>
+                        <button type="button" onclick="setDateRange(30)" style="background: #0071e3; color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Ãšltimos 30 dÃ­as</button>
+                        <button type="button" onclick="setDateRange(90)" style="background: #e0e6ed; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: #2c3e50;">Ãšltimos 90 dÃ­as</button>
+                        <button type="button" onclick="setDateRange(365)" style="background: #e0e6ed; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: #2c3e50;">Ãšltimo aÃ±o</button>
                     </div>
                 </div>
 
@@ -156,7 +156,7 @@
                         <label style="border: 2px solid #0071e3; background: #e3f2fd; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s; text-align: center;">
                             <input type="radio" name="format" value="csv" checked style="margin-right: 8px;">
                             <strong style="display: block; color: #0071e3; font-size: 15px; margin-top: 8px;"> CSV</strong>
-                            <small style="color: #5a6c7d; font-size: 12px; display: block; margin-top: 5px;">Excel, análisis de datos</small>
+                            <small style="color: #5a6c7d; font-size: 12px; display: block; margin-top: 5px;">Excel, anÃ¡lisis de datos</small>
                         </label>
                         <label style="border: 2px solid #e0e6ed; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s; text-align: center;">
                             <input type="radio" name="format" value="json" style="margin-right: 8px;">
@@ -166,7 +166,7 @@
                         <label style="border: 2px solid #e0e6ed; padding: 15px; border-radius: 8px; cursor: pointer; display: block; transition: all 0.3s; text-align: center;">
                             <input type="radio" name="format" value="pdf" style="margin-right: 8px;">
                             <strong style="display: block; color: #2c3e50; font-size: 15px; margin-top: 8px;"> PDF</strong>
-                            <small style="color: #5a6c7d; font-size: 12px; display: block; margin-top: 5px;">Auditorías, informes legales</small>
+                            <small style="color: #5a6c7d; font-size: 12px; display: block; margin-top: 5px;">AuditorÃ­as, informes legales</small>
                         </label>
                     </div>
                 </div>
@@ -197,35 +197,35 @@
                             <input type="checkbox" id="recurringToggle" style="opacity: 0; width: 0; height: 0;">
                             <span onclick="toggleRecurring()" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #6c757d; transition: 0.4s; border-radius: 30px; display: block;"><span style="position: absolute; content: ''; height: 22px; width: 22px; left: 4px; bottom: 4px; background-color: white; transition: 0.4s; border-radius: 50%; display: block;"></span></span>
                         </label>
-                        <strong style="color: #2c3e50;">Programar exportación automática</strong>
+                        <strong style="color: #2c3e50;">Programar exportaciÃ³n automÃ¡tica</strong>
                     </div>
                     <div id="recurringOptions" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #0071e3;">
                         <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #2c3e50; font-size: 14px;">Frecuencia:</label>
                         <select style="width: 100%; padding: 12px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 14px; background: white; margin-bottom: 15px;">
                             <option value="weekly">Semanal (cada lunes)</option>
-                            <option value="monthly" selected>Mensual (día 1 de cada mes)</option>
+                            <option value="monthly" selected>Mensual (dÃ­a 1 de cada mes)</option>
                             <option value="quarterly">Trimestral</option>
                         </select>
                         <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #2c3e50; font-size: 14px;">Enviar a:</label>
                         <input type="email" value="usuario@Cemiedu.ar" placeholder="Email de destino" style="width: 100%; padding: 12px; border: 2px solid #e0e6ed; border-radius: 8px; font-size: 14px;">
-                        <small style="color: #5a6c7d; display: block; margin-top: 8px;">Recibirás el reporte automáticamente en tu email</small>
+                        <small style="color: #5a6c7d; display: block; margin-top: 8px;">RecibirÃ¡s el reporte automÃ¡ticamente en tu email</small>
                     </div>
                 </div>
 
                 <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #FFC107;">
                     <strong style="color: #856404; display: block; margin-bottom: 8px;">?? Tiempo de procesamiento</strong>
-                    <p style="color: #856404; margin: 0; font-size: 13px;">La exportación puede tardar entre 30 segundos y 5 minutos dependiendo del volumen de datos. Te enviaremos un email cuando esté lista.</p>
+                    <p style="color: #856404; margin: 0; font-size: 13px;">La exportaciÃ³n puede tardar entre 30 segundos y 5 minutos dependiendo del volumen de datos. Te enviaremos un email cuando estÃ© lista.</p>
                 </div>
 
                 <button type="submit" style="width: 100%; background: linear-gradient(135deg, #28a745 0%, #218838 100%); color: white; border: none; padding: 18px; font-size: 17px; font-weight: 700; border-radius: 8px; cursor: pointer;">
-                    <i data-lucide="download-cloud" style="width: 22px; height: 22px; display: inline; vertical-align: middle;"></i> Generar exportación
+                    <i data-lucide="download-cloud" style="width: 22px; height: 22px; display: inline; vertical-align: middle;"></i> Generar exportaciÃ³n
                 </button>
             </form>
         </div>
 
         <div class="security-card">
             <h2><i data-lucide="eye"></i> Vista previa de datos</h2>
-            <p style="margin-bottom: 20px;">Ejemplo de cómo se verán tus datos exportados:</p>
+            <p style="margin-bottom: 20px;">Ejemplo de cÃ³mo se verÃ¡n tus datos exportados:</p>
             
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 13px; background: white;">
@@ -233,17 +233,17 @@
                         <tr style="background: #f8f9fa; border-bottom: 2px solid #e0e6ed;">
                             <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">Fecha/Hora</th>
                             <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">Tipo de Evento</th>
-                            <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">Descripción</th>
+                            <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">DescripciÃ³n</th>
                             <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">Dispositivo</th>
                             <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">IP</th>
-                            <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">Ubicación</th>
+                            <th style="padding: 12px; text-align: left; font-weight: 700; color: #2c3e50; white-space: nowrap;">UbicaciÃ³n</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="border-bottom: 1px solid #e0e6ed;">
                             <td style="padding: 12px; white-space: nowrap; color: #5a6c7d;">2024-05-17 09:15:32</td>
                             <td style="padding: 12px; white-space: nowrap;"><span style="background: #d4edda; color: #155724; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 11px;">LOGIN_SUCCESS</span></td>
-                            <td style="padding: 12px; color: #5a6c7d;">Inicio de sesión exitoso</td>
+                            <td style="padding: 12px; color: #5a6c7d;">Inicio de sesiÃ³n exitoso</td>
                             <td style="padding: 12px; color: #5a6c7d;">Chrome 118 (Windows 11)</td>
                             <td style="padding: 12px; color: #5a6c7d; font-family: monospace;">190.xxx.xxx.148</td>
                             <td style="padding: 12px; color: #5a6c7d;">Buenos Aires, AR</td>
@@ -251,7 +251,7 @@
                         <tr style="border-bottom: 1px solid #e0e6ed; background: #f8f9fa;">
                             <td style="padding: 12px; white-space: nowrap; color: #5a6c7d;">2024-05-16 14:22:15</td>
                             <td style="padding: 12px; white-space: nowrap;"><span style="background: #fff3cd; color: #856404; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 11px;">SETTINGS_CHANGE</span></td>
-                            <td style="padding: 12px; color: #5a6c7d;">Cambio en configuración de privacidad</td>
+                            <td style="padding: 12px; color: #5a6c7d;">Cambio en configuraciÃ³n de privacidad</td>
                             <td style="padding: 12px; color: #5a6c7d;">Chrome 118 (Windows 11)</td>
                             <td style="padding: 12px; color: #5a6c7d; font-family: monospace;">190.xxx.xxx.148</td>
                             <td style="padding: 12px; color: #5a6c7d;">Buenos Aires, AR</td>
@@ -259,7 +259,7 @@
                         <tr style="border-bottom: 1px solid #e0e6ed;">
                             <td style="padding: 12px; white-space: nowrap; color: #5a6c7d;">2024-05-15 18:45:03</td>
                             <td style="padding: 12px; white-space: nowrap;"><span style="background: #d4edda; color: #155724; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 11px;">LOGIN_SUCCESS</span></td>
-                            <td style="padding: 12px; color: #5a6c7d;">Inicio de sesión exitoso (móvil)</td>
+                            <td style="padding: 12px; color: #5a6c7d;">Inicio de sesiÃ³n exitoso (mÃ³vil)</td>
                             <td style="padding: 12px; color: #5a6c7d;">Cemi App 1.2 (Android 14)</td>
                             <td style="padding: 12px; color: #5a6c7d; font-family: monospace;">190.xxx.xxx.148</td>
                             <td style="padding: 12px; color: #5a6c7d;">Buenos Aires, AR</td>
@@ -267,7 +267,7 @@
                         <tr style="border-bottom: 1px solid #e0e6ed; background: #f8f9fa;">
                             <td style="padding: 12px; white-space: nowrap; color: #5a6c7d;">2024-05-14 22:10:47</td>
                             <td style="padding: 12px; white-space: nowrap;"><span style="background: #f8d7da; color: #721c24; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 11px;">LOGIN_FAILED</span></td>
-                            <td style="padding: 12px; color: #5a6c7d;">Intento fallido: contraseña incorrecta</td>
+                            <td style="padding: 12px; color: #5a6c7d;">Intento fallido: contraseÃ±a incorrecta</td>
                             <td style="padding: 12px; color: #5a6c7d;">Chrome 118 (Windows 11)</td>
                             <td style="padding: 12px; color: #5a6c7d; font-family: monospace;">190.xxx.xxx.148</td>
                             <td style="padding: 12px; color: #5a6c7d;">Buenos Aires, AR</td>
@@ -283,21 +283,21 @@
                     </tbody>
                 </table>
             </div>
-            <p style="margin-top: 20px; color: #5a6c7d; font-size: 13px; text-align: center;">Mostrando 5 de ~1,247 eventos en el período seleccionado</p>
+            <p style="margin-top: 20px; color: #5a6c7d; font-size: 13px; text-align: center;">Mostrando 5 de ~1,247 eventos en el perÃ­odo seleccionado</p>
         </div>
 
         <div class="security-card">
             <h2><i data-lucide="history"></i> Exportaciones recientes</h2>
-            <p style="margin-bottom: 30px;">Tus últimas exportaciones (disponibles por 30 días):</p>
+            <p style="margin-bottom: 30px;">Tus Ãºltimas exportaciones (disponibles por 30 dÃ­as):</p>
             
             <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 15px; display: flex; gap: 20px; align-items: center;">
                 <i data-lucide="file-text" style="width: 40px; height: 40px; color: #28a745; flex-shrink: 0;"></i>
                 <div style="flex: 1;">
                     <strong style="display: block; color: #2c3e50; margin-bottom: 8px;">actividad_abril_2024.csv</strong>
                     <div style="color: #5a6c7d; font-size: 13px; line-height: 1.6;">
-                        <span> Generado: 01/05/2024 10:20</span> • 
-                        <span> 1,832 eventos</span> • 
-                        <span> 245 KB</span> • 
+                        <span> Generado: 01/05/2024 10:20</span> â€¢ 
+                        <span> 1,832 eventos</span> â€¢ 
+                        <span> 245 KB</span> â€¢ 
                         <span style="color: #28a745; font-weight: 600;">? Expira: 31/05/2024</span>
                     </div>
                 </div>
@@ -311,9 +311,9 @@
                 <div style="flex: 1;">
                     <strong style="display: block; color: #2c3e50; margin-bottom: 8px;">security_log_Q1_2024.json</strong>
                     <div style="color: #5a6c7d; font-size: 13px; line-height: 1.6;">
-                        <span> Generado: 05/04/2024 08:15</span> • 
-                        <span> 5,421 eventos</span> • 
-                        <span> 1.2 MB</span> • 
+                        <span> Generado: 05/04/2024 08:15</span> â€¢ 
+                        <span> 5,421 eventos</span> â€¢ 
+                        <span> 1.2 MB</span> â€¢ 
                         <span style="color: #28a745; font-weight: 600;">? Expira: 05/06/2024</span>
                     </div>
                 </div>
@@ -327,7 +327,7 @@
             <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 30px; border-radius: 12px;">
                 <i data-lucide="info" style="width: 48px; height: 48px; color: #0071e3; margin-bottom: 15px;"></i>
                 <h3 style="color: #0071e3; margin-bottom: 15px; font-size: 20px;">Protege tu privacidad</h3>
-                <p style="color: #5a6c7d; margin: 0; max-width: 700px; margin-left: auto; margin-right: auto;">Los archivos exportados contienen información sensible. Guárdalos en un lugar seguro, no los compartas públicamente y elimínalos cuando ya no los necesites.</p>
+                <p style="color: #5a6c7d; margin: 0; max-width: 700px; margin-left: auto; margin-right: auto;">Los archivos exportados contienen informaciÃ³n sensible. GuÃ¡rdalos en un lugar seguro, no los compartas pÃºblicamente y elimÃ­nalos cuando ya no los necesites.</p>
             </div>
         </div>
 
@@ -337,12 +337,12 @@
                 <a href="historial-acceso.html" class="security-action-btn">
                     <i data-lucide="clock"></i>
                     <strong>Historial de accesos</strong>
-                    <span>Ver actividad en línea</span>
+                    <span>Ver actividad en lÃ­nea</span>
                 </a>
                 <a href="descargar-datos.html" class="security-action-btn">
                     <i data-lucide="database"></i>
                     <strong>Descargar mis datos</strong>
-                    <span>Exportación completa GDPR</span>
+                    <span>ExportaciÃ³n completa GDPR</span>
                 </a>
                 <a href="../cemi-privsec-home.html" class="security-action-btn">
                     <i data-lucide="arrow-left"></i>
@@ -356,7 +356,7 @@
         <div class="security-footer-links">
             <a href="../index.html">Inicio</a>
             <a href="../privacidad.html">Privacidad</a>
-            <a href="../terminos.html">Términos</a>
+            <a href="../terminos.html">TÃ©rminos</a>
             <a href="../ayuda.html">Ayuda</a>
         </div>
         <p>&copy; 2024 Cemi. Todos los derechos reservados.</p>
@@ -395,7 +395,7 @@
             const format = document.querySelector('input[name="format"]:checked').value.toUpperCase();
             const exportId = 'EXP-' + Math.floor(Math.random() * 90000 + 10000);
             
-            alert(' Exportación iniciada\\n\\nID: #' + exportId + '\\nFormato: ' + format + '\\nTipos: ' + checkedTypes.length + ' categorías\\n\\nRecibirás un email cuando esté lista (aprox. 2-3 minutos).');
+            alert(' ExportaciÃ³n iniciada\\n\\nID: #' + exportId + '\\nFormato: ' + format + '\\nTipos: ' + checkedTypes.length + ' categorÃ­as\\n\\nRecibirÃ¡s un email cuando estÃ© lista (aprox. 2-3 minutos).');
         });
     </script>
 </body>

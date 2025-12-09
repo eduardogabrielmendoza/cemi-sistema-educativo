@@ -118,7 +118,7 @@ class UserChatManager {
   updateNotificationBadge(count) {
     const badge = document.getElementById('chatNotificationBadge');
     if (!badge) {
-      console.error(' No se encontró el elemento chatNotificationBadge');
+      console.error(' No se encontrÃ³ el elemento chatNotificationBadge');
       return;
     }
     
@@ -144,13 +144,13 @@ class UserChatManager {
     let id_usuario = localStorage.getItem('id_usuario');
     
     if (!id_usuario || id_usuario === 'null' || id_usuario === 'undefined') {
-      console.warn('? id_usuario no encontrado o inválido en localStorage');
+      console.warn('? id_usuario no encontrado o invÃ¡lido en localStorage');
       id_usuario = null;
       this.actualizarIdUsuario();
     } else {
       const numericId = parseInt(id_usuario, 10);
       if (isNaN(numericId)) {
-        console.warn('? id_usuario no es un número válido:', id_usuario);
+        console.warn('? id_usuario no es un nÃºmero vÃ¡lido:', id_usuario);
         id_usuario = null;
         this.actualizarIdUsuario();
       } else {
@@ -167,7 +167,7 @@ class UserChatManager {
     };
     
     if (!this.userInfo.id_especifico) {
-      console.error(`No se encontró ${idKey} en localStorage`);
+      console.error(`No se encontrÃ³ ${idKey} en localStorage`);
     }
     
     console.log(' Usuario cargado:', this.userInfo);
@@ -210,7 +210,7 @@ class UserChatManager {
           }
         }
       } catch (verifyError) {
-        console.warn('? Endpoint /auth/verify no disponible, intentando método alternativo');
+        console.warn('? Endpoint /auth/verify no disponible, intentando mÃ©todo alternativo');
       }
       
       try {
@@ -221,11 +221,11 @@ class UserChatManager {
           const response = await fetch(`${API_URL}/chat/mi-conversacion?tipo_usuario=${this.userType}&id_usuario=${idValue}`);
           if (response.ok) {
             const result = await response.json();
-            console.log(' Conversación cargada, id_usuario debería estar disponible en el contexto');
+            console.log(' ConversaciÃ³n cargada, id_usuario deberÃ­a estar disponible en el contexto');
           }
         }
       } catch (altError) {
-        console.error(' Error en método alternativo:', altError);
+        console.error(' Error en mÃ©todo alternativo:', altError);
       }
       
     } catch (err) {
@@ -253,7 +253,7 @@ class UserChatManager {
   
   connectSocket() {
     if (this.socket && this.socket.connected) {
-      console.log('? Socket.IO ya está conectado');
+      console.log('? Socket.IO ya estÃ¡ conectado');
       return;
     }
     
@@ -294,7 +294,7 @@ class UserChatManager {
     });
     
     this.socket.on('joined_conversation', (data) => {
-      console.log(' Confirmación de unión a conversación:', data);
+      console.log(' ConfirmaciÃ³n de uniÃ³n a conversaciÃ³n:', data);
     });
     
     this.socket.on('disconnect', () => {
@@ -343,10 +343,10 @@ class UserChatManager {
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
     console.log('? Chat visible:', isChatVisible);
-    console.log(' Conversación activa:', this.activeConversation?.id_conversacion);
+    console.log(' ConversaciÃ³n activa:', this.activeConversation?.id_conversacion);
     
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
-      console.log(' Agregando mensaje a conversación activa');
+      console.log(' Agregando mensaje a conversaciÃ³n activa');
       this.addMessageToUI(data);
       this.scrollToBottom();
       
@@ -376,8 +376,8 @@ class UserChatManager {
   handleConversationClosed() {
     Swal.fire({
       icon: 'info',
-      title: 'Conversación cerrada',
-      text: 'El administrador ha cerrado esta conversación.'
+      title: 'ConversaciÃ³n cerrada',
+      text: 'El administrador ha cerrado esta conversaciÃ³n.'
     });
     this.activeConversation = null;
     this.loadConversations();
@@ -402,22 +402,22 @@ class UserChatManager {
           conversacion.mensajes = result.data.mensajes || [];
           this.conversations = [conversacion];
           
-          console.log(' Conversación cargada:', conversacion);
+          console.log(' ConversaciÃ³n cargada:', conversacion);
           
           const mensajesNoLeidos = conversacion.mensajes_no_leidos_usuario || 0;
-          console.log(' Mensajes no leídos desde BD:', mensajesNoLeidos);
+          console.log(' Mensajes no leÃ­dos desde BD:', mensajesNoLeidos);
           this.updateNotificationBadge(mensajesNoLeidos);
           
           if (this.socket && this.socket.connected) {
-            console.log(' Uniéndose automáticamente a conversación:', conversacion.id_conversacion);
+            console.log(' UniÃ©ndose automÃ¡ticamente a conversaciÃ³n:', conversacion.id_conversacion);
             this.socket.emit('join_conversation', {
               id_conversacion: conversacion.id_conversacion
             });
           } else {
-            console.warn('? Socket.IO no está listo, reintentando en 500ms...');
+            console.warn('? Socket.IO no estÃ¡ listo, reintentando en 500ms...');
             setTimeout(() => {
               if (this.socket && this.socket.connected) {
-                console.log(' Reintento: Uniéndose a conversación:', conversacion.id_conversacion);
+                console.log(' Reintento: UniÃ©ndose a conversaciÃ³n:', conversacion.id_conversacion);
                 this.socket.emit('join_conversation', {
                   id_conversacion: conversacion.id_conversacion
                 });
@@ -452,14 +452,14 @@ class UserChatManager {
         <div style="padding: 40px 20px; text-align: center; color: #9ca3af;">
           <i data-lucide="inbox" style="width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.5;"></i>
           <p>No tienes conversaciones activas</p>
-          <p style="font-size: 13px; margin-top: 8px;">Envía tu primer mensaje para iniciar</p>
+          <p style="font-size: 13px; margin-top: 8px;">EnvÃ­a tu primer mensaje para iniciar</p>
         </div>
       `;
       lucide.createIcons();
       
       const emptyMessage = document.getElementById('userChatEmptyMessage');
       if (emptyMessage) {
-        emptyMessage.querySelector('p').textContent = 'Escribe un mensaje para iniciar una conversación con Soporte';
+        emptyMessage.querySelector('p').textContent = 'Escribe un mensaje para iniciar una conversaciÃ³n con Soporte';
       }
       return;
     }
@@ -491,10 +491,10 @@ class UserChatManager {
   }
   
   async selectConversation(id) {
-    console.log(' Seleccionando conversación:', id);
+    console.log(' Seleccionando conversaciÃ³n:', id);
     const conv = this.conversations.find(c => c.id_conversacion === id);
     if (!conv) {
-      console.error(' No se encontró conversación con ID:', id);
+      console.error(' No se encontrÃ³ conversaciÃ³n con ID:', id);
       return;
     }
     
@@ -508,11 +508,11 @@ class UserChatManager {
     
     const emptyMessage = document.getElementById('userChatEmptyMessage');
     if (emptyMessage) {
-      emptyMessage.querySelector('p').textContent = 'Selecciona una conversación para comenzar a chatear';
+      emptyMessage.querySelector('p').textContent = 'Selecciona una conversaciÃ³n para comenzar a chatear';
     }
     
     if (this.socket && this.socket.connected) {
-      console.log(' Uniéndose a conversación vía Socket.IO:', id);
+      console.log(' UniÃ©ndose a conversaciÃ³n vÃ­a Socket.IO:', id);
       this.socket.emit('join_conversation', {
         id_conversacion: id
       });
@@ -554,7 +554,7 @@ class UserChatManager {
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-          <p>Selecciona una conversación o inicia una nueva</p>
+          <p>Selecciona una conversaciÃ³n o inicia una nueva</p>
         </div>
       `;
       lucide.createIcons();
@@ -567,8 +567,8 @@ class UserChatManager {
       container.innerHTML = `
         <div class="user-chat-empty">
           <i data-lucide="message-circle" style="width: 64px; height: 64px;"></i>
-          <p>No hay mensajes aún</p>
-          <p style="font-size: 13px; margin-top: 8px; color: #9ca3af;">Envía un mensaje para comenzar</p>
+          <p>No hay mensajes aÃºn</p>
+          <p style="font-size: 13px; margin-top: 8px; color: #9ca3af;">EnvÃ­a un mensaje para comenzar</p>
         </div>
       `;
       lucide.createIcons();
@@ -609,7 +609,7 @@ class UserChatManager {
       
       console.log(' Antes de renderAvatar - avatarParaMostrar:', avatarParaMostrar);
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
-      console.log(' Después de renderAvatar - avatarContent:', avatarContent);
+      console.log(' DespuÃ©s de renderAvatar - avatarContent:', avatarContent);
       
       let mensajeContent = '';
       if (msg.archivo_adjunto) {
@@ -689,12 +689,12 @@ class UserChatManager {
     if (!mensaje) return;
     
     if (!this.activeConversation) {
-      console.log('? No hay conversación activa, cargando conversación del usuario...');
+      console.log('? No hay conversaciÃ³n activa, cargando conversaciÃ³n del usuario...');
       
       await this.loadConversations();
       
       if (this.conversations && this.conversations.length > 0) {
-        console.log(' Conversación encontrada, seleccionando automáticamente...');
+        console.log(' ConversaciÃ³n encontrada, seleccionando automÃ¡ticamente...');
         await this.selectConversation(this.conversations[0].id_conversacion);
         
         if (this.socket && this.socket.connected) {
@@ -706,7 +706,7 @@ class UserChatManager {
           return;
         }
       } else {
-        console.log(' No existe conversación, creando una nueva con el mensaje...');
+        console.log(' No existe conversaciÃ³n, creando una nueva con el mensaje...');
         await this.startNewConversation(mensaje);
         return;
       }
@@ -719,12 +719,12 @@ class UserChatManager {
       });
       
       input.value = '';
-      console.log(' Mensaje enviado a conversación:', this.activeConversation.id_conversacion);
+      console.log(' Mensaje enviado a conversaciÃ³n:', this.activeConversation.id_conversacion);
     } else {
       console.error(' Socket.IO no conectado');
       Swal.fire({
         icon: 'error',
-        title: 'Error de conexión',
+        title: 'Error de conexiÃ³n',
         text: 'No se pudo enviar el mensaje. Intenta de nuevo.'
       });
     }
@@ -748,8 +748,8 @@ class UserChatManager {
     if (!validTypes.includes(file.type)) {
       Swal.fire({
         icon: 'error',
-        title: 'Tipo de archivo no válido',
-        text: 'Solo se permiten imágenes (JPG, PNG, WEBP) y archivos PDF'
+        title: 'Tipo de archivo no vÃ¡lido',
+        text: 'Solo se permiten imÃ¡genes (JPG, PNG, WEBP) y archivos PDF'
       });
       event.target.value = '';
       return;
@@ -787,7 +787,7 @@ class UserChatManager {
       }
       
       if (!this.activeConversation) {
-        throw new Error('No se pudo establecer una conversación');
+        throw new Error('No se pudo establecer una conversaciÃ³n');
       }
       
       const formData = new FormData();
@@ -846,30 +846,30 @@ class UserChatManager {
       });
       
       const result = await response.json();
-      console.log(' Resultado de iniciar conversación:', result);
+      console.log(' Resultado de iniciar conversaciÃ³n:', result);
       
       if (result.success && result.data) {
         const id_conversacion = result.data.id_conversacion;
-        console.log(' Conversación creada con ID:', id_conversacion);
+        console.log(' ConversaciÃ³n creada con ID:', id_conversacion);
         
         document.getElementById('userChatMessageInput').value = '';
         await this.loadConversations();
         
         if (this.conversations.length > 0) {
-          console.log(' Seleccionando conversación:', id_conversacion);
+          console.log(' Seleccionando conversaciÃ³n:', id_conversacion);
           await this.selectConversation(id_conversacion);
         }
         
         this.authenticate();
       } else {
-        throw new Error(result.message || 'Error al iniciar conversación');
+        throw new Error(result.message || 'Error al iniciar conversaciÃ³n');
       }
     } catch (error) {
-      console.error('Error al iniciar conversación:', error);
+      console.error('Error al iniciar conversaciÃ³n:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'No se pudo iniciar la conversación. Intenta de nuevo.'
+        text: 'No se pudo iniciar la conversaciÃ³n. Intenta de nuevo.'
       });
     }
   }
@@ -910,7 +910,7 @@ class UserChatManager {
       indicator.id = 'userTypingIndicator';
       indicator.className = 'user-chat-typing';
       indicator.innerHTML = `
-        <span>${nombre} está escribiendo</span>
+        <span>${nombre} estÃ¡ escribiendo</span>
         <div class="user-chat-typing-dots">
           <div class="user-chat-typing-dot"></div>
           <div class="user-chat-typing-dot"></div>
@@ -932,9 +932,9 @@ class UserChatManager {
       });
       
       await this.loadConversations();
-      console.log(' Mensajes marcados como leídos, badge actualizado desde BD');
+      console.log(' Mensajes marcados como leÃ­dos, badge actualizado desde BD');
     } catch (error) {
-      console.error('Error al marcar como leído:', error);
+      console.error('Error al marcar como leÃ­do:', error);
     }
   }
   
@@ -1018,7 +1018,7 @@ class UserChatManager {
               <h3>Soporte CEMI</h3>
               <div class="user-chat-status">
                 <div class="user-chat-status-dot"></div>
-                <span>En línea</span>
+                <span>En lÃ­nea</span>
               </div>
             </div>
           </div>
@@ -1026,7 +1026,7 @@ class UserChatManager {
           <div class="user-chat-messages" id="userChatMessagesContainer">
             <div class="user-chat-empty" id="userChatEmptyMessage">
               <i data-lucide="message-square" style="width: 64px; height: 64px;"></i>
-              <p>Escribe un mensaje para iniciar una conversación con Soporte</p>
+              <p>Escribe un mensaje para iniciar una conversaciÃ³n con Soporte</p>
             </div>
           </div>
           

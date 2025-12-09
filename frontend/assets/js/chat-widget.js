@@ -23,8 +23,8 @@ class ChatWidget {
   
   createWidget() {
     const widgetHTML = `
-      <!-- Botón flotante de Login -->
-      <button class="chat-float-button" id="chatFloatButton" onclick="window.location.href='login.html'" title="Iniciar Sesión">
+      <!-- BotÃ³n flotante de Login -->
+      <button class="chat-float-button" id="chatFloatButton" onclick="window.location.href='login.html'" title="Iniciar SesiÃ³n">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
           <polyline points="10 17 15 12 10 7"></polyline>
@@ -40,7 +40,7 @@ class ChatWidget {
             <div class="chat-widget-header-avatar"></div>
             <div class="chat-widget-header-text">
               <h3>Chat de Soporte</h3>
-              <p><span class="status-dot"></span> En línea</p>
+              <p><span class="status-dot"></span> En lÃ­nea</p>
             </div>
           </div>
           <button class="chat-widget-close" id="chatWidgetClose">
@@ -51,21 +51,21 @@ class ChatWidget {
           </button>
         </div>
         
-        <!-- Estado de conexión -->
+        <!-- Estado de conexiÃ³n -->
         <div class="chat-connection-status" id="chatConnectionStatus"></div>
         
         <!-- Formulario inicial (para invitados) -->
         <div class="chat-initial-form" id="chatInitialForm">
-          <h4>¡Hola! </h4>
-          <p>Estamos aquí para ayudarte. Cuéntanos en qué podemos asistirte.</p>
+          <h4>Â¡Hola! </h4>
+          <p>Estamos aquÃ­ para ayudarte. CuÃ©ntanos en quÃ© podemos asistirte.</p>
           
           <div class="chat-form-group">
             <label for="chatUserName">Tu nombre</label>
-            <input type="text" id="chatUserName" placeholder="Ej: Juan Pérez" required>
+            <input type="text" id="chatUserName" placeholder="Ej: Juan PÃ©rez" required>
           </div>
           
           <div class="chat-form-group">
-            <label for="chatInitialMessage">¿En qué podemos ayudarte?</label>
+            <label for="chatInitialMessage">Â¿En quÃ© podemos ayudarte?</label>
             <textarea id="chatInitialMessage" placeholder="Describe tu consulta..." required></textarea>
           </div>
           
@@ -78,7 +78,7 @@ class ChatWidget {
           </button>
         </div>
         
-        <!-- Área de mensajes -->
+        <!-- Ãrea de mensajes -->
         <div class="chat-messages-container" id="chatMessagesContainer" style="display: none;"></div>
         
         <!-- Indicador de escritura -->
@@ -170,7 +170,7 @@ class ChatWidget {
   
   connectSocket() {
     if (this.socket && this.socket.connected) {
-      console.log('Socket.IO ya está conectado');
+      console.log('Socket.IO ya estÃ¡ conectado');
       return;
     }
     
@@ -221,7 +221,7 @@ class ChatWidget {
     });
     
     this.socket.on('reconnect', (attemptNumber) => {
-      console.log(` Reconectado después de ${attemptNumber} intentos`);
+      console.log(` Reconectado despuÃ©s de ${attemptNumber} intentos`);
       this.showConnectionStatus('Reconectado', 'success');
       setTimeout(() => this.hideConnectionStatus(), 2000);
     });
@@ -231,12 +231,12 @@ class ChatWidget {
     });
     
     this.socket.on('reconnect_failed', () => {
-      this.showConnectionStatus('No se pudo reconectar. Recarga la página.', 'error');
+      this.showConnectionStatus('No se pudo reconectar. Recarga la pÃ¡gina.', 'error');
     });
     
     this.socket.on('error', (error) => {
       console.error(' Error en Socket.IO:', error);
-      this.showConnectionStatus('Error de conexión', 'error');
+      this.showConnectionStatus('Error de conexiÃ³n', 'error');
     });
   }
   
@@ -267,7 +267,7 @@ class ChatWidget {
   }
   
   handleConversationClosed() {
-    this.showConnectionStatus('La conversación ha sido cerrada por un administrador', 'warning');
+    this.showConnectionStatus('La conversaciÃ³n ha sido cerrada por un administrador', 'warning');
     this.disableChat();
   }
   
@@ -321,7 +321,7 @@ class ChatWidget {
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Error de conexión');
+      alert('Error de conexiÃ³n');
       button.disabled = false;
       button.innerHTML = '<svg>...</svg> Iniciar Chat';
     }
@@ -345,7 +345,7 @@ class ChatWidget {
         this.loadMessages();
       }
     } catch (error) {
-      console.error('Error al verificar conversación:', error);
+      console.error('Error al verificar conversaciÃ³n:', error);
     }
   }
   

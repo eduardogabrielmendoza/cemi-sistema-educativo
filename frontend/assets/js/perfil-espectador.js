@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'No se especificó el usuario a visualizar'
+      text: 'No se especificÃ³ el usuario a visualizar'
     }).then(() => {
       window.location.href = '/classroom.html';
     });
@@ -95,14 +95,14 @@ function mostrarDatosEnUI() {
   updateElement('infoTelefono', perfilData.telefono || 'No especificado');
   updateElement('infoFechaNacimiento', formatearFecha(perfilData.fecha_nacimiento) || 'No especificado');
   updateElement('infoDireccion', perfilData.direccion || 'No especificado');
-  updateElement('biografiaDisplay', perfilData.biografia || 'Sin biografía');
+  updateElement('biografiaDisplay', perfilData.biografia || 'Sin biografÃ­a');
   
   updateElement('dataNombreCompleto', `${perfilData.nombre} ${perfilData.apellido}`);
   updateElement('dataEmail', perfilData.email || 'No especificado');
   updateElement('dataTelefono', perfilData.telefono || 'No especificado');
   updateElement('dataFechaNacimiento', formatearFecha(perfilData.fecha_nacimiento) || 'No especificado');
   updateElement('dataDireccion', perfilData.direccion || 'No especificado');
-  updateElement('dataBiografia', perfilData.biografia || 'Sin biografía');
+  updateElement('dataBiografia', perfilData.biografia || 'Sin biografÃ­a');
   
   lucide.createIcons();
 }

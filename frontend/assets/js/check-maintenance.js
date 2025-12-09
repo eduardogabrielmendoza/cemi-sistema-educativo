@@ -2,7 +2,7 @@
 (async function checkSystemMaintenance() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
-  console.log('[check-maintenance] Página actual:', currentPage);
+  console.log('[check-maintenance] PÃ¡gina actual:', currentPage);
   
   const fullyExcludedPages = [
     'login-admin.html',
@@ -16,7 +16,7 @@
   ];
 
   if (fullyExcludedPages.includes(currentPage)) {
-    console.log('[check-maintenance] Página excluida, no se verifica');
+    console.log('[check-maintenance] PÃ¡gina excluida, no se verifica');
     return;
   }
 
@@ -40,7 +40,7 @@
     const status = data.global_status;
     
     console.log('[check-maintenance] Estado del sistema:', status);
-    console.log('[check-maintenance] Es página bloqueable:', blockablePages.includes(currentPage));
+    console.log('[check-maintenance] Es pÃ¡gina bloqueable:', blockablePages.includes(currentPage));
 
     if (status === 'operational') {
       console.log('[check-maintenance] Sistema operacional, acceso permitido');
@@ -76,7 +76,7 @@ function showStatusBanner(status, incident) {
   }
 
   if (!document.body) {
-    console.warn('[check-maintenance] Body no existe aún, esperando...');
+    console.warn('[check-maintenance] Body no existe aÃºn, esperando...');
     setTimeout(() => showStatusBanner(status, incident), 100);
     return;
   }
@@ -103,7 +103,7 @@ function showStatusBanner(status, incident) {
       borderColor: '#ef4444',
       textColor: '#991b1b',
       icon: '',
-      title: 'Interrupción del Servicio',
+      title: 'InterrupciÃ³n del Servicio',
       defaultMessage: 'Estamos trabajando para restaurar el servicio.'
     }
   };
@@ -178,7 +178,7 @@ function showStatusBanner(status, incident) {
         ${message}
       </span>
     </div>
-    <button class="banner-close" onclick="this.parentElement.remove(); document.body.style.paddingTop = '0';" title="Cerrar">×</button>
+    <button class="banner-close" onclick="this.parentElement.remove(); document.body.style.paddingTop = '0';" title="Cerrar">Ã—</button>
   `;
 
   document.body.insertBefore(banner, document.body.firstChild);

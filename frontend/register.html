@@ -38,12 +38,12 @@
           <i data-lucide="user-plus"></i>
         </div>
         <h2>Comienza tu camino</h2>
-        <p>Únete a nuestra comunidad académica</p>
+        <p>Ãšnete a nuestra comunidad acadÃ©mica</p>
         
         <div class="login-features">
           <div class="login-feature-item">
             <i data-lucide="check-circle"></i>
-            <span>Registro rápido y seguro</span>
+            <span>Registro rÃ¡pido y seguro</span>
           </div>
           <div class="login-feature-item">
             <i data-lucide="check-circle"></i>
@@ -51,7 +51,7 @@
           </div>
           <div class="login-feature-item">
             <i data-lucide="check-circle"></i>
-            <span>Gestión personalizada</span>
+            <span>GestiÃ³n personalizada</span>
           </div>
         </div>
 
@@ -64,7 +64,7 @@
             </li>
             <li>
               <i data-lucide="calendar"></i>
-              <span>Gestión de horarios y asistencias</span>
+              <span>GestiÃ³n de horarios y asistencias</span>
             </li>
             <li>
               <i data-lucide="award"></i>
@@ -112,7 +112,7 @@
 
           <div class="form-group">
             <div class="input-wrapper">
-              <input type="tel" id="telefono" placeholder="Teléfono" required pattern="[0-9]*" inputmode="numeric">
+              <input type="tel" id="telefono" placeholder="TelÃ©fono" required pattern="[0-9]*" inputmode="numeric">
               <i data-lucide="phone" class="input-icon"></i>
             </div>
           </div>
@@ -130,20 +130,20 @@
             <input type="text" id="newUser" placeholder="Nombre de usuario" required>
             <i data-lucide="at-sign" class="input-icon"></i>
           </div>
-          <small class="input-hint">Mínimo 3 caracteres</small>
+          <small class="input-hint">MÃ­nimo 3 caracteres</small>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <div class="input-wrapper">
-              <input type="password" id="newPass" placeholder="Contraseña" required>
+              <input type="password" id="newPass" placeholder="ContraseÃ±a" required>
               <i data-lucide="lock" class="input-icon"></i>
             </div>
           </div>
 
           <div class="form-group">
             <div class="input-wrapper">
-              <input type="password" id="confirmPass" placeholder="Confirmar contraseña" required>
+              <input type="password" id="confirmPass" placeholder="Confirmar contraseÃ±a" required>
               <i data-lucide="lock" class="input-icon"></i>
             </div>
           </div>
@@ -153,7 +153,7 @@
           <div class="strength-bar">
             <div class="strength-fill" id="strengthFill"></div>
           </div>
-          <p class="strength-text" id="strengthText">Ingresá una contraseña</p>
+          <p class="strength-text" id="strengthText">IngresÃ¡ una contraseÃ±a</p>
         </div>
 
         <button type="submit" class="login-submit">
@@ -167,7 +167,7 @@
       </div>
 
       <p class="register-text">
-        ¿Ya tenés cuenta? <a href="login.html" class="register-link">Iniciar sesión</a>
+        Â¿Ya tenÃ©s cuenta? <a href="login.html" class="register-link">Iniciar sesiÃ³n</a>
       </p>
 
       <div class="login-footer">
@@ -196,7 +196,7 @@
 
     const API_URL = window.API_URL || "http://localhost:3000/api";
     
-    // Validación: solo números en DNI y Teléfono
+    // ValidaciÃ³n: solo nÃºmeros en DNI y TelÃ©fono
     const dniInput = document.getElementById('dni');
     const telefonoInput = document.getElementById('telefono');
     
@@ -208,7 +208,7 @@
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
     });
     
-    // Indicador de fortaleza de contraseña
+    // Indicador de fortaleza de contraseÃ±a
     const passwordInput = document.getElementById('newPass');
     const strengthFill = document.getElementById('strengthFill');
     const strengthText = document.getElementById('strengthText');
@@ -226,11 +226,11 @@
       
       if (strength === 0) {
         strengthFill.style.background = '#e0e0e0';
-        strengthText.textContent = 'Ingresá una contraseña';
+        strengthText.textContent = 'IngresÃ¡ una contraseÃ±a';
         strengthText.style.color = '#999';
       } else if (strength <= 25) {
         strengthFill.style.background = '#e53935';
-        strengthText.textContent = 'Débil';
+        strengthText.textContent = 'DÃ©bil';
         strengthText.style.color = '#e53935';
       } else if (strength <= 50) {
         strengthFill.style.background = '#fb8c00';
@@ -294,8 +294,8 @@
       if (dni.length < 7 || dni.length > 8) {
         Swal.fire({
           icon: 'error',
-          title: 'DNI inválido',
-          text: 'El DNI debe tener 7 u 8 dígitos',
+          title: 'DNI invÃ¡lido',
+          text: 'El DNI debe tener 7 u 8 dÃ­gitos',
           confirmButtonColor: '#0A2540'
         });
         return;
@@ -305,7 +305,7 @@
         Swal.fire({
           icon: 'error',
           title: 'Campo obligatorio',
-          text: 'El teléfono es obligatorio',
+          text: 'El telÃ©fono es obligatorio',
           confirmButtonColor: '#0A2540'
         });
         return;
@@ -314,8 +314,8 @@
       if (telefono.length < 10) {
         Swal.fire({
           icon: 'error',
-          title: 'Teléfono inválido',
-          text: 'El teléfono debe tener al menos 10 dígitos',
+          title: 'TelÃ©fono invÃ¡lido',
+          text: 'El telÃ©fono debe tener al menos 10 dÃ­gitos',
           confirmButtonColor: '#0A2540'
         });
         return;
@@ -344,7 +344,7 @@
       if (username.length < 3) {
         Swal.fire({
           icon: 'error',
-          title: 'Usuario inválido',
+          title: 'Usuario invÃ¡lido',
           text: 'El usuario debe tener al menos 3 caracteres',
           confirmButtonColor: '#0A2540'
         });
@@ -355,7 +355,7 @@
         Swal.fire({
           icon: 'error',
           title: 'Campo obligatorio',
-          text: 'La contraseña es obligatoria',
+          text: 'La contraseÃ±a es obligatoria',
           confirmButtonColor: '#0A2540'
         });
         return;
@@ -364,8 +364,8 @@
       if (password.length < 6) {
         Swal.fire({
           icon: 'error',
-          title: 'Contraseña débil',
-          text: 'La contraseña debe tener al menos 6 caracteres',
+          title: 'ContraseÃ±a dÃ©bil',
+          text: 'La contraseÃ±a debe tener al menos 6 caracteres',
           confirmButtonColor: '#0A2540'
         });
         return;
@@ -375,7 +375,7 @@
         Swal.fire({
           icon: 'error',
           title: 'Campo obligatorio',
-          text: 'Debe confirmar la contraseña',
+          text: 'Debe confirmar la contraseÃ±a',
           confirmButtonColor: '#0A2540'
         });
         return;
@@ -385,7 +385,7 @@
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Las contraseñas no coinciden',
+          text: 'Las contraseÃ±as no coinciden',
           confirmButtonColor: '#0A2540'
         });
         return;
@@ -421,20 +421,20 @@
         if (response.ok && data.success) {
           Swal.fire({
             icon: 'success',
-            title: '¡Cuenta creada exitosamente!',
+            title: 'Â¡Cuenta creada exitosamente!',
             html: `
               <div style="text-align: center; padding: 10px 0;">
                 <p style="font-size: 16px; color: #333; margin-bottom: 15px;">
-                  Para activar tu cuenta, te enviamos un correo de confirmación a:
+                  Para activar tu cuenta, te enviamos un correo de confirmaciÃ³n a:
                 </p>
                 <p style="font-size: 18px; font-weight: 600; color: #0070F3; background: #e3f2fd; padding: 12px 20px; border-radius: 8px; display: inline-block;">
                    ${email}
                 </p>
                 <p style="font-size: 14px; color: #666; margin-top: 20px;">
-                  Abrí el correo y hacé clic en el botón de confirmación para comenzar.
+                  AbrÃ­ el correo y hacÃ© clic en el botÃ³n de confirmaciÃ³n para comenzar.
                 </p>
                 <p style="font-size: 12px; color: #999; margin-top: 15px; font-style: italic;">
-                   Si no encontrás el correo en tu bandeja principal, revisá la carpeta de spam o correo no deseado.
+                   Si no encontrÃ¡s el correo en tu bandeja principal, revisÃ¡ la carpeta de spam o correo no deseado.
                 </p>
               </div>
             `,
@@ -447,7 +447,7 @@
           
           document.getElementById('registerForm').reset();
           strengthFill.style.width = '0%';
-          strengthText.textContent = 'Ingresá una contraseña';
+          strengthText.textContent = 'IngresÃ¡ una contraseÃ±a';
           strengthText.style.color = '#999';
         } else {
           Swal.fire({
@@ -461,7 +461,7 @@
         console.error('Error:', error);
         Swal.fire({
           icon: 'error',
-          title: 'Error de conexión',
+          title: 'Error de conexiÃ³n',
           text: 'No se pudo conectar con el servidor',
           confirmButtonColor: '#0A2540'
         });

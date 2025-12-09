@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sesionValida = verificarSesion();
   
   if (!sesionValida) {
-    console.error(' Sesión no válida, redirigiendo...');
+    console.error(' SesiÃ³n no vÃ¡lida, redirigiendo...');
     return;
   }
   
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formDatos.addEventListener('submit', guardarDatosPersonales);
     console.log(' Event listener del formulario agregado');
   } else {
-    console.warn('? No se encontró formDatosPersonales');
+    console.warn('? No se encontrÃ³ formDatosPersonales');
   }
   
   const btnTheme = document.getElementById('toggleTheme');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnTheme.addEventListener('click', toggleTema);
     console.log(' Event listener del tema agregado');
   } else {
-    console.warn('? No se encontró toggleTheme');
+    console.warn('? No se encontrÃ³ toggleTheme');
   }
   
   if (typeof lucide !== 'undefined') {
@@ -53,7 +53,7 @@ function verificarSesion() {
   
   userId = localStorage.getItem('id_usuario');
   
-  console.log(' Verificando sesión:', {
+  console.log(' Verificando sesiÃ³n:', {
     userId: userId,
     userRol: userRol,
     id_alumno: localStorage.getItem('id_alumno'),
@@ -63,8 +63,8 @@ function verificarSesion() {
   if (!userId || !userRol) {
     Swal.fire({
       icon: 'warning',
-      title: 'Sesión no encontrada',
-      text: 'Por favor inicia sesión primero',
+      title: 'SesiÃ³n no encontrada',
+      text: 'Por favor inicia sesiÃ³n primero',
       confirmButtonText: 'Ir al Login'
     }).then(() => {
       window.location.href = 'classroom-login.html';
@@ -82,7 +82,7 @@ function inicializarTema() {
   const btnTheme = document.getElementById('toggleTheme');
   
   if (!btnTheme) {
-    console.warn('? Botón de tema no encontrado');
+    console.warn('? BotÃ³n de tema no encontrado');
     return;
   }
   
@@ -128,7 +128,7 @@ function toggleTema() {
 
 
 function cambiarSeccion(seccionId) {
-  console.log(` Cambiando a sección: ${seccionId}`);
+  console.log(` Cambiando a secciÃ³n: ${seccionId}`);
   
   document.querySelectorAll('.perfil-section').forEach(sec => sec.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
@@ -138,9 +138,9 @@ function cambiarSeccion(seccionId) {
   
   if (seccion) {
     seccion.classList.add('active');
-    console.log(` Sección activada: ${seccionId}`);
+    console.log(` SecciÃ³n activada: ${seccionId}`);
   } else {
-    console.warn(`? Sección no encontrada: ${seccionId}`);
+    console.warn(`? SecciÃ³n no encontrada: ${seccionId}`);
   }
   
   if (navItem) {
@@ -182,7 +182,7 @@ async function cargarPerfilCompleto() {
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: `No se pudo cargar la información del perfil: ${error.message}`
+      text: `No se pudo cargar la informaciÃ³n del perfil: ${error.message}`
     });
   }
 }
@@ -248,8 +248,8 @@ function mostrarDatosEnUI(perfil) {
   updateElement('infoDireccion', perfil.direccion || 'No especificado');
   console.log(' Info cards actualizadas');
   
-  updateElement('biografiaDisplay', perfil.biografia || 'Sin biografía');
-  console.log(' Biografía actualizada');
+  updateElement('biografiaDisplay', perfil.biografia || 'Sin biografÃ­a');
+  console.log(' BiografÃ­a actualizada');
   
   updateElement('inputNombre', perfil.nombre || '', 'value');
   updateElement('inputApellido', perfil.apellido || '', 'value');
@@ -283,7 +283,7 @@ async function guardarDatosPersonales(e) {
   console.log(' Datos a enviar:', datosActualizados);
   
   if (!datosActualizados.nombre || !datosActualizados.apellido) {
-    console.warn('? Validación fallida: nombre y apellido requeridos');
+    console.warn('? ValidaciÃ³n fallida: nombre y apellido requeridos');
     Swal.fire({
       icon: 'warning',
       title: 'Campos requeridos',
@@ -309,8 +309,8 @@ async function guardarDatosPersonales(e) {
       console.log(' Datos guardados exitosamente');
       Swal.fire({
         icon: 'success',
-        title: '¡Datos actualizados!',
-        text: 'Tu información ha sido guardada correctamente',
+        title: 'Â¡Datos actualizados!',
+        text: 'Tu informaciÃ³n ha sido guardada correctamente',
         timer: 2000
       });
       
@@ -357,7 +357,7 @@ async function cambiarAvatar(event) {
   if (!file.type.startsWith('image/')) {
     Swal.fire({
       icon: 'error',
-      title: 'Archivo inválido',
+      title: 'Archivo invÃ¡lido',
       text: 'Por favor selecciona una imagen'
     });
     return;
@@ -438,7 +438,7 @@ async function cambiarBanner(event) {
   if (!file.type.startsWith('image/')) {
     Swal.fire({
       icon: 'error',
-      title: 'Archivo inválido',
+      title: 'Archivo invÃ¡lido',
       text: 'Por favor selecciona una imagen'
     });
     return;
@@ -500,7 +500,7 @@ async function cambiarBanner(event) {
 async function guardarBiografia() {
   const biografia = document.getElementById('inputBiografia').value.trim();
   
-  console.log(' Guardando biografía...');
+  console.log(' Guardando biografÃ­a...');
   
   try {
     const response = await fetch(`${API_URL}/classroom/perfil/${userId}`, {
@@ -516,15 +516,15 @@ async function guardarBiografia() {
     if (response.ok && data.success) {
       const biografiaDisplay = document.getElementById('biografiaDisplay');
       if (biografiaDisplay) {
-        biografiaDisplay.textContent = biografia || 'Sin biografía';
+        biografiaDisplay.textContent = biografia || 'Sin biografÃ­a';
       }
       
-      console.log(' Biografía guardada y actualizada');
+      console.log(' BiografÃ­a guardada y actualizada');
       
       Swal.fire({
         icon: 'success',
-        title: '¡Biografía guardada!',
-        text: 'Tu biografía se ha actualizado correctamente',
+        title: 'Â¡BiografÃ­a guardada!',
+        text: 'Tu biografÃ­a se ha actualizado correctamente',
         timer: 2000,
         showConfirmButton: false
       });
@@ -534,11 +534,11 @@ async function guardarBiografia() {
       throw new Error(data.message);
     }
   } catch (error) {
-    console.error(' Error al guardar biografía:', error);
+    console.error(' Error al guardar biografÃ­a:', error);
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: 'No se pudo guardar la biografía'
+      text: 'No se pudo guardar la biografÃ­a'
     });
   }
 }
@@ -552,7 +552,7 @@ function irAlDashboard() {
 async function exportarMisDatos() {
   try {
     Swal.fire({
-      title: 'Generando exportación...',
+      title: 'Generando exportaciÃ³n...',
       text: 'Por favor espera',
       allowOutsideClick: false,
       didOpen: () => {
@@ -576,7 +576,7 @@ async function exportarMisDatos() {
       
       Swal.fire({
         icon: 'success',
-        title: '¡Datos exportados!',
+        title: 'Â¡Datos exportados!',
         text: 'Tu archivo se ha descargado',
         timer: 2000
       });

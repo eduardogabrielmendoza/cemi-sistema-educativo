@@ -5,12 +5,12 @@
   }
 
   if (window.location.port !== '8080') {
-    console.log('?? Hot-reload desactivado (no estás en dev server)');
+    console.log('?? Hot-reload desactivado (no estÃ¡s en dev server)');
     return;
   }
 
   console.log('%c HOT-RELOAD ACTIVADO', 'color: #ff6b6b; font-size: 14px; font-weight: bold;');
-  console.log('%cLos cambios en archivos se reflejarán automáticamente', 'color: #4ecdc4; font-size: 12px;');
+  console.log('%cLos cambios en archivos se reflejarÃ¡n automÃ¡ticamente', 'color: #4ecdc4; font-size: 12px;');
 
   let ws;
   let reconnectInterval;
@@ -36,7 +36,7 @@
         if (data.type === 'reload') {
           isReloading = true;
           console.log(`%c Archivo modificado: ${data.file}`, 'color: #ffd93d; font-weight: bold;');
-          console.log(`%c Recargando página...`, 'color: #6bcf7f; font-weight: bold;');
+          console.log(`%c Recargando pÃ¡gina...`, 'color: #6bcf7f; font-weight: bold;');
           
           setTimeout(() => {
             location.reload();

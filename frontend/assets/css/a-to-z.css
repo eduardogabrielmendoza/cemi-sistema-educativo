@@ -163,7 +163,7 @@
 }
 
 .az-list li::before {
-  content: '•';
+  content: 'â€¢';
   position: absolute;
   left: 0;
   color: var(--hp-text-muted, #656f77);

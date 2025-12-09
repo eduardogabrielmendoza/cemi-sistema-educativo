@@ -2,16 +2,16 @@ const projectData = {
     phases: [
         {
             id: 0,
-            name: 'Fase 0: Inicio y Validaci髇',
+            name: 'Fase 0: Inicio y Validaci贸n',
             icon: 'fa-flag-checkered',
             color: '#1e3c72',
             hours: 10,
             tasks: [
-                { name: 'Reuni髇 Inicial con CEMI', icon: 'fa-handshake', start: '23 Sep', end: '23 Sep', week: 1, hours: 2 },
-                { name: 'Recolecci髇 de Informaci髇', icon: 'fa-clipboard-list', start: '24 Sep', end: '4 Oct', weeks: [1, 2], hours: 3 },
-                { name: 'An醠isis de Requerimientos', icon: 'fa-search', start: '4 Oct', end: '9 Oct', weeks: [2, 3], hours: 3 },
+                { name: 'Reuni贸n Inicial con CEMI', icon: 'fa-handshake', start: '23 Sep', end: '23 Sep', week: 1, hours: 2 },
+                { name: 'Recolecci贸n de Informaci贸n', icon: 'fa-clipboard-list', start: '24 Sep', end: '4 Oct', weeks: [1, 2], hours: 3 },
+                { name: 'An谩lisis de Requerimientos', icon: 'fa-search', start: '4 Oct', end: '9 Oct', weeks: [2, 3], hours: 3 },
                 { name: 'Historias de Usuario', icon: 'fa-users', start: '9 Oct', end: '12 Oct', week: 3, hours: 2 },
-                { name: 'Validaci髇 Requerimientos', icon: 'fa-check-circle', start: '13 Oct', end: '13 Oct', week: 3, hours: 0, milestone: true }
+                { name: 'Validaci贸n Requerimientos', icon: 'fa-check-circle', start: '13 Oct', end: '13 Oct', week: 3, hours: 0, milestone: true }
             ]
         },
         {
@@ -21,7 +21,7 @@ const projectData = {
             color: '#2a5298',
             hours: 17,
             tasks: [
-                { name: 'Dise駉 DER Base de Datos', icon: 'fa-project-diagram', start: '14 Oct', end: '16 Oct', week: 4, hours: 7 },
+                { name: 'Dise帽o DER Base de Datos', icon: 'fa-project-diagram', start: '14 Oct', end: '16 Oct', week: 4, hours: 7 },
                 { name: 'Desarrollo BD MySQL', icon: 'fa-table', start: '17 Oct', end: '18 Oct', week: 4, hours: 4 },
                 { name: 'Config. Backend Node.js', icon: 'fa-server', start: '19 Oct', end: '20 Oct', week: 4, hours: 3 },
                 { name: 'Seguridad (bcrypt)', icon: 'fa-shield-alt', start: '21 Oct', end: '21 Oct', week: 5, hours: 2 },
@@ -31,12 +31,12 @@ const projectData = {
         },
         {
             id: 2,
-            name: 'Fase 2: Autenticaci髇 y Roles',
+            name: 'Fase 2: Autenticaci贸n y Roles',
             icon: 'fa-lock',
             color: '#3498db',
             hours: 9,
             tasks: [
-                { name: 'Dise駉 UI Login/Registro', icon: 'fa-paint-brush', start: '23 Oct', end: '24 Oct', week: 5, hours: 2.5 },
+                { name: 'Dise帽o UI Login/Registro', icon: 'fa-paint-brush', start: '23 Oct', end: '24 Oct', week: 5, hours: 2.5 },
                 { name: 'Sistema Auth Backend', icon: 'fa-key', start: '25 Oct', end: '26 Oct', week: 5, hours: 4.5 },
                 { name: 'Perfiles y Roles', icon: 'fa-user-tag', start: '27 Oct', end: '28 Oct', week: 5, hours: 2 },
                 { name: 'HITO: Auth Funcional', icon: 'fa-check-double', start: '28 Oct', end: '28 Oct', week: 6, hours: 0, milestone: true }
@@ -49,10 +49,10 @@ const projectData = {
             color: '#2ecc71',
             hours: 9,
             tasks: [
-                { name: 'Dise駉 Navegaci髇', icon: 'fa-sitemap', start: '29 Oct', end: '30 Oct', week: 6, hours: 3 },
-                { name: 'Dise駉 Vistas y Tablas', icon: 'fa-th-large', start: '31 Oct', end: '1 Nov', week: 6, hours: 2 },
-                { name: 'L骻ica Roles en UI', icon: 'fa-user-shield', start: '2 Nov', end: '2 Nov', week: 6, hours: 2 },
-                { name: 'Visualizaci髇 Datos', icon: 'fa-eye', start: '3 Nov', end: '4 Nov', week: 6, hours: 2 }
+                { name: 'Dise帽o Navegaci贸n', icon: 'fa-sitemap', start: '29 Oct', end: '30 Oct', week: 6, hours: 3 },
+                { name: 'Dise帽o Vistas y Tablas', icon: 'fa-th-large', start: '31 Oct', end: '1 Nov', week: 6, hours: 2 },
+                { name: 'L贸gica Roles en UI', icon: 'fa-user-shield', start: '2 Nov', end: '2 Nov', week: 6, hours: 2 },
+                { name: 'Visualizaci贸n Datos', icon: 'fa-eye', start: '3 Nov', end: '4 Nov', week: 6, hours: 2 }
             ]
         },
         {
@@ -66,7 +66,7 @@ const projectData = {
                 { name: 'Regla: Horarios', icon: 'fa-clock', start: '8 Nov', end: '9 Nov', week: 7, hours: 3 },
                 { name: 'Regla: Capacidad Aulas', icon: 'fa-door-open', start: '10 Nov', end: '10 Nov', week: 7, hours: 2 },
                 { name: 'Modales CRUD', icon: 'fa-window-restore', start: '11 Nov', end: '13 Nov', week: 8, hours: 9 },
-                { name: 'Integraci髇 Front-Back', icon: 'fa-plug', start: '14 Nov', end: '14 Nov', week: 8, hours: 4 }
+                { name: 'Integraci贸n Front-Back', icon: 'fa-plug', start: '14 Nov', end: '14 Nov', week: 8, hours: 4 }
             ]
         },
         {
@@ -76,7 +76,7 @@ const projectData = {
             color: '#1abc9c',
             hours: 18,
             tasks: [
-                { name: 'M骴ulo de Pagos', icon: 'fa-money-bill-wave', start: '15 Nov', end: '16 Nov', week: 8, hours: 5 },
+                { name: 'M贸dulo de Pagos', icon: 'fa-money-bill-wave', start: '15 Nov', end: '16 Nov', week: 8, hours: 5 },
                 { name: 'Estado de Pagos', icon: 'fa-receipt', start: '17 Nov', end: '17 Nov', week: 8, hours: 2 },
                 { name: 'Classroom Tareas/Anuncios', icon: 'fa-chalkboard-teacher', start: '17 Nov', end: '18 Nov', week: 8, hours: 6 },
                 { name: 'Chat Tiempo Real', icon: 'fa-comments', start: '18 Nov', end: '19 Nov', week: 9, hours: 5 }
@@ -92,7 +92,7 @@ const projectData = {
                 { name: 'Config. Variables Entorno', icon: 'fa-cog', start: '19 Nov', end: '19 Nov', week: 9, hours: 1 },
                 { name: 'Despliegue Railway', icon: 'fa-cloud-upload-alt', start: '19 Nov', end: '19 Nov', week: 9, hours: 2 },
                 { name: 'Pruebas QA', icon: 'fa-bug', start: '20 Nov', end: '20 Nov', week: 9, hours: 4 },
-                { name: 'Documentaci髇', icon: 'fa-book', start: '20 Nov', end: '20 Nov', week: 9, hours: 3 },
+                { name: 'Documentaci贸n', icon: 'fa-book', start: '20 Nov', end: '20 Nov', week: 9, hours: 3 },
                 { name: 'ENTREGA FINAL', icon: 'fa-trophy', start: '20 Nov', end: '20 Nov', week: 9, hours: 0, milestone: true, final: true }
             ]
         }

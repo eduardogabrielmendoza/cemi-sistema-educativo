@@ -1146,8 +1146,8 @@ body.dark-mode .swal2-toast {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
 }
 
-body.font-pequeño,
-body.font-pequeño * {
+body.font-pequeÃ±o,
+body.font-pequeÃ±o * {
   font-size: 14px !important;
 }
 
@@ -1956,7 +1956,7 @@ body {
   cursor: default;
 }
 
-/* Video del banner - transición solo al salir */
+/* Video del banner - transiciÃ³n solo al salir */
 .welcome-video {
   position: absolute;
   top: 0;
@@ -1970,7 +1970,7 @@ body {
   transition: opacity 0.6s ease-out;
 }
 
-/* Mostrar video en hover - instantáneo */
+/* Mostrar video en hover - instantÃ¡neo */
 .welcome-section:hover .welcome-video {
   opacity: 1;
   transition: opacity 0s;

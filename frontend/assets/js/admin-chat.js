@@ -104,9 +104,9 @@ class AdminChat {
           <div class="admin-chat-header" id="adminChatHeader" style="display:none;">
             <div>
               <h3 id="adminChatHeaderName">Usuario</h3>
-              <span id="adminChatHeaderStatus">En l韓ea</span>
+              <span id="adminChatHeaderStatus">En l铆nea</span>
             </div>
-            <button onclick="window.adminChat.closeConversation()" title="Cerrar conversaci髇">
+            <button onclick="window.adminChat.closeConversation()" title="Cerrar conversaci贸n">
               <i data-lucide="x-circle"></i>
             </button>
           </div>
@@ -114,7 +114,7 @@ class AdminChat {
           <div class="admin-chat-messages" id="adminChatMessages">
             <div class="admin-chat-empty">
               <i data-lucide="message-square"></i>
-              <p>Selecciona una conversaci髇</p>
+              <p>Selecciona una conversaci贸n</p>
             </div>
           </div>
           
@@ -210,7 +210,7 @@ class AdminChat {
         document.getElementById('adminChatHeaderName').textContent = this.activeConversation.nombre_invitado || 'Usuario';
       }
     } catch (error) {
-      console.error('[AdminChat] Error seleccionando conversaci髇:', error);
+      console.error('[AdminChat] Error seleccionando conversaci贸n:', error);
     }
   }
   
@@ -317,14 +317,14 @@ class AdminChat {
         admin_nombre: this.adminInfo.nombre
       });
     } catch (error) {
-      console.error('[AdminChat] Error tomando conversaci髇:', error);
+      console.error('[AdminChat] Error tomando conversaci贸n:', error);
     }
   }
   
   async closeConversation() {
     if (!this.activeConversation) return;
     
-    const confirmed = confirm('緾errar y eliminar esta conversaci髇?');
+    const confirmed = confirm('驴Cerrar y eliminar esta conversaci贸n?');
     if (!confirmed) return;
     
     try {
@@ -347,7 +347,7 @@ class AdminChat {
       messagesContainer.innerHTML = `
         <div class="admin-chat-empty">
           <i data-lucide="message-square"></i>
-          <p>Selecciona una conversaci髇</p>
+          <p>Selecciona una conversaci贸n</p>
         </div>
       `;
       
@@ -355,7 +355,7 @@ class AdminChat {
       
       this.loadConversations();
     } catch (error) {
-      console.error('[AdminChat] Error cerrando conversaci髇:', error);
+      console.error('[AdminChat] Error cerrando conversaci贸n:', error);
     }
   }
   
@@ -368,7 +368,7 @@ class AdminChat {
       
       this.socket.emit('read', { id_conversacion: id });
     } catch (error) {
-      console.error('[AdminChat] Error marcando como le韉o:', error);
+      console.error('[AdminChat] Error marcando como le铆do:', error);
     }
   }
   

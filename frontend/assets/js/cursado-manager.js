@@ -24,8 +24,8 @@ class CursadoManager {
         this.idAlumno = localStorage.getItem('id_alumno');
 
         if (!this.idAlumno) {
-            console.error(' No se encontró ID de alumno');
-            this.mostrarError('No se pudo cargar tu información de alumno');
+            console.error(' No se encontrÃ³ ID de alumno');
+            this.mostrarError('No se pudo cargar tu informaciÃ³n de alumno');
             return;
         }
 
@@ -93,8 +93,8 @@ class CursadoManager {
                 throw new Error(data.error || 'Error al cargar cursos');
             }
         } catch (error) {
-            console.error('Error al cargar catálogo:', error);
-            this.mostrarError('Error al cargar el catálogo de cursos');
+            console.error('Error al cargar catÃ¡logo:', error);
+            this.mostrarError('Error al cargar el catÃ¡logo de cursos');
         } finally {
             this.mostrarCargando(false);
         }
@@ -111,7 +111,7 @@ class CursadoManager {
             container.innerHTML = `
                 <div style="grid-column: 1 / -1; padding: 20px; text-align: center; color: #6b7280; font-size: 14px;">
                     <i data-lucide="info" style="width: 20px; height: 20px; margin-bottom: 8px; color: #9ca3af;"></i>
-                    <p style="margin: 0;">No estás inscrito en ningún curso actualmente</p>
+                    <p style="margin: 0;">No estÃ¡s inscrito en ningÃºn curso actualmente</p>
                 </div>
             `;
             return;
@@ -222,7 +222,7 @@ class CursadoManager {
     getEstadoBadgeInline(estado) {
         const estados = {
             'activo': { texto: 'Activo', bg: 'rgba(74, 82, 89, 0.1)', color: '#4a5259' },
-            'proximo': { texto: 'Próximo', bg: 'rgba(107, 114, 128, 0.1)', color: '#6b7280' },
+            'proximo': { texto: 'PrÃ³ximo', bg: 'rgba(107, 114, 128, 0.1)', color: '#6b7280' },
             'lleno': { texto: 'Lleno', bg: 'rgba(156, 163, 175, 0.15)', color: '#9ca3af' },
             'cerrado': { texto: 'Cerrado', bg: 'rgba(156, 163, 175, 0.15)', color: '#9ca3af' }
         };
@@ -246,9 +246,9 @@ class CursadoManager {
 
                     <div class="modal-body">
                         <div class="detalle-curso-grid">
-                            <!-- Información principal -->
+                            <!-- InformaciÃ³n principal -->
                             <div class="detalle-seccion">
-                                <h3><i class="fas fa-info-circle"></i> Información del Curso</h3>
+                                <h3><i class="fas fa-info-circle"></i> InformaciÃ³n del Curso</h3>
                                 <div class="detalle-item">
                                     <strong>Idioma:</strong> ${curso.idioma.nombre}
                                 </div>
@@ -268,7 +268,7 @@ class CursadoManager {
                                 ` : ''}
                             </div>
 
-                            <!-- Información del profesor -->
+                            <!-- InformaciÃ³n del profesor -->
                             <div class="detalle-seccion">
                                 <h3><i class="fas fa-chalkboard-teacher"></i> Profesor</h3>
                                 <div class="profesor-detalle">
@@ -305,7 +305,7 @@ class CursadoManager {
                         ${curso.estado === 'completo' 
                             ? '<p class="text-warning"><i class="fas fa-exclamation-triangle"></i> Este curso no tiene cupos disponibles</p>'
                             : `<button class="btn btn-primary btn-lg" onclick="cursadoManager.solicitarInscripcion(${curso.id_curso}, '${curso.nombre_curso.replace(/'/g, "\\'")}', '${curso.profesor.nombre.replace(/'/g, "\\'")}', '${curso.horario.replace(/'/g, "\\'")}')">
-                                   <i class="fas fa-comment"></i> Solicitar Inscripción por Chat
+                                   <i class="fas fa-comment"></i> Solicitar InscripciÃ³n por Chat
                                </button>`
                         }
                         <button class="btn btn-secondary" onclick="cursadoManager.cerrarModal()">Cerrar</button>
@@ -320,7 +320,7 @@ class CursadoManager {
     solicitarInscripcion(idCurso, nombreCurso, nombreProfesor, horario) {
         this.cerrarModal();
 
-        const mensajePrecargado = `Hola, me gustaría inscribirme al curso "${nombreCurso}" con el profesor ${nombreProfesor}. Horario: ${horario}`;
+        const mensajePrecargado = `Hola, me gustarÃ­a inscribirme al curso "${nombreCurso}" con el profesor ${nombreProfesor}. Horario: ${horario}`;
 
         const chatTab = document.querySelector('[data-section="chat"]');
         if (chatTab) {
@@ -334,7 +334,7 @@ class CursadoManager {
                 chatInput.focus();
             }
 
-            this.mostrarNotificacion('Mensaje pre-cargado en el chat. Envíalo para solicitar tu inscripción.', 'success');
+            this.mostrarNotificacion('Mensaje pre-cargado en el chat. EnvÃ­alo para solicitar tu inscripciÃ³n.', 'success');
         }, 300);
     }
 
