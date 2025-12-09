@@ -1,4 +1,4 @@
-class UserChat {
+﻿class UserChat {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
     this.socket = null;

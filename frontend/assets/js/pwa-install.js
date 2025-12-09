@@ -8,16 +8,16 @@ if ('serviceWorker' in navigator) {
           const newWorker = registration.installing;
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log(' Nueva versiÃ³n disponible');
+              console.log(' Nueva versión disponible');
               
               if (window.Swal) {
                 Swal.fire({
-                  title: 'ActualizaciÃ³n Disponible',
-                  text: 'Â¿Deseas actualizar a la nueva versiÃ³n?',
+                  title: 'Actualización Disponible',
+                  text: '¿Deseas actualizar a la nueva versión?',
                   icon: 'info',
                   showCancelButton: true,
                   confirmButtonText: 'Actualizar',
-                  cancelButtonText: 'MÃ¡s tarde'
+                  cancelButtonText: 'Más tarde'
                 }).then((result) => {
                   if (result.isConfirmed) {
                     newWorker.postMessage({ type: 'SKIP_WAITING' });
@@ -54,7 +54,7 @@ function isAndroid() {
 
 async function installPWA() {
   if (!deferredPrompt) {
-    console.log('No hay prompt de instalaciÃ³n disponible');
+    console.log('No hay prompt de instalación disponible');
     return;
   }
   
@@ -62,7 +62,7 @@ async function installPWA() {
   
   const { outcome } = await deferredPrompt.userChoice;
   
-  console.log(`Usuario ${outcome === 'accepted' ? 'aceptÃ³' : 'rechazÃ³'} la instalaciÃ³n`);
+  console.log(`Usuario ${outcome === 'accepted' ? 'aceptó' : 'rechazó'} la instalación`);
   
   if (outcome === 'accepted') {
     const banner = document.getElementById('pwa-install-banner');
@@ -70,7 +70,7 @@ async function installPWA() {
     
     if (window.Swal) {
       Swal.fire({
-        title: 'Â¡Instalado!',
+        title: '¡Instalado!',
         text: 'La app se ha instalado correctamente',
         icon: 'success',
         timer: 2000,
@@ -96,12 +96,12 @@ window.addEventListener('appinstalled', () => {
 
 window.addEventListener('load', () => {
   if (!window.matchMedia('(display-mode: standalone)').matches) {
-    console.log('App ejecutÃ¡ndose en navegador');
+    console.log('App ejecutándose en navegador');
   }
 });
 
 if (window.matchMedia('(display-mode: standalone)').matches) {
-  console.log(' App ejecutÃ¡ndose como PWA instalada');
+  console.log(' App ejecutándose como PWA instalada');
   document.body.classList.add('pwa-mode');
 }
 

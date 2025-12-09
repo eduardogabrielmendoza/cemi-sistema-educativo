@@ -1,4 +1,4 @@
-
+﻿
 (async function checkSystemMaintenance() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   
@@ -86,7 +86,7 @@ function showStatusBanner(status, incident) {
       bgColor: '#fef3c7',
       borderColor: '#f59e0b',
       textColor: '#92400e',
-      icon: '?',
+      icon: '️',
       title: 'Rendimiento Reducido',
       defaultMessage: 'Algunos servicios pueden estar experimentando lentitud.'
     },

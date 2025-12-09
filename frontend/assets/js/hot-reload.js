@@ -1,11 +1,11 @@
-
+﻿
 (function() {
   if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
     return;
   }
 
   if (window.location.port !== '8080') {
-    console.log('?? Hot-reload desactivado (no estás en dev server)');
+    console.log('ℹ️ Hot-reload desactivado (no estás en dev server)');
     return;
   }
 
@@ -48,7 +48,7 @@
     };
 
     ws.onerror = (error) => {
-      console.warn('? Error en WebSocket:', error.message);
+      console.warn('️ Error en WebSocket:', error.message);
     };
 
     ws.onclose = () => {

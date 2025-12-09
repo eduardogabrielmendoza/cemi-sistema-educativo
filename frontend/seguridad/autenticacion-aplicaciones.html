@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
             <div style="display: flex; align-items: start; gap: 20px;">
                 <i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #FFC107; flex-shrink: 0; margin-top: 4px;"></i>
                 <div>
-                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">? Tokens Gestionados por Administrador</strong>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">️ Tokens Gestionados por Administrador</strong>
                     <p style="margin: 0; color: #856404; line-height: 1.6;">Los tokens API deben ser generados por un administrador para garantizar la seguridad. Incluyen permisos específicos y fechas de expiración.</p>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                             <div style="flex: 1; min-width: 250px;">
                                 <h3 style="margin: 0 0 10px 0; color: #2c3e50;">
                                     Bot de Discord para Anuncios
-                                    <span style="background: #FFC107; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-left: 10px;">? POR EXPIRAR</span>
+                                    <span style="background: #FFC107; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-left: 10px;">️ POR EXPIRAR</span>
                                 </h3>
                                 <div style="font-family: 'Courier New', monospace; background: #2c3e50; color: #00ff00; padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 15px; overflow-x: auto;">
                                     <span style="color: #5a6c7d;">cemi_</span>x9m8n7b6v5c4x3z2a1s0d9f8g7h6j5k4l3p2o1i
@@ -130,7 +130,7 @@
                                     <div><i data-lucide="zap" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Uso: 542 llamadas API (promedio: 5/día)</div>
                                 </div>
                                 <div style="background: #fff3cd; padding: 12px; border-radius: 8px; margin-top: 12px; border-left: 3px solid #FFC107;">
-                                    <small style="color: #856404;"><strong>? Expira pronto:</strong> Este token vence en 8 días. Renuévalo o genera uno nuevo para evitar interrupciones.</small>
+                                    <small style="color: #856404;"><strong>️ Expira pronto:</strong> Este token vence en 8 días. Renuévalo o genera uno nuevo para evitar interrupciones.</small>
                                 </div>
                             </div>
                         </div>
@@ -171,7 +171,7 @@
                                     <div><i data-lucide="zap" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Uso: 78 llamadas API (total histórico)</div>
                                 </div>
                                 <div style="background: #e2e3e5; padding: 12px; border-radius: 8px; margin-top: 12px; border-left: 3px solid #6c757d;">
-                                    <small style="color: #383d41;"><strong>?? Recomendación:</strong> Este token no se usa desde hace 4 meses. Considera revocarlo si ya no lo necesitas.</small>
+                                    <small style="color: #383d41;"><strong>ℹ️ Recomendación:</strong> Este token no se usa desde hace 4 meses. Considera revocarlo si ya no lo necesitas.</small>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                     </div>
                 </div>
                 <div style="background: #e3f2fd; padding: 20px; border-radius: 12px;">
-                    <strong style="color: #0071e3; display: block; margin-bottom: 10px;">? Buenas prácticas</strong>
+                    <strong style="color: #0071e3; display: block; margin-bottom: 10px;">️ Buenas prácticas</strong>
                     <ul style="color: #5a6c7d; font-size: 14px; margin: 10px 0 0 20px; padding: 0;">
                         <li style="margin-bottom: 8px;">Renueva tokens cada 3 meses como mínimo</li>
                         <li style="margin-bottom: 8px;">Revoca tokens inmediatamente si sospechas que fueron comprometidos</li>
@@ -262,7 +262,7 @@
         document.getElementById('tokenForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const randomToken = 'cemi_' + Array.from({length: 40}, () => 'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]).join('');
-            alert(' Token generado exitosamente\\n\\n' + randomToken + '\\n\\n? IMPORTANTE: Copia este token AHORA. Por seguridad, no podrás volver a verlo. Guárdalo en un lugar seguro.');
+            alert(' Token generado exitosamente\\n\\n' + randomToken + '\\n\\n️ IMPORTANTE: Copia este token AHORA. Por seguridad, no podrás volver a verlo. Guárdalo en un lugar seguro.');
             this.reset();
         });
     </script>

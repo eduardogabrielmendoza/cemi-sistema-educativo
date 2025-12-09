@@ -1,4 +1,4 @@
-class AdminChatManager {
+﻿class AdminChatManager {
   constructor() {
     this.socket = null;
     this.isConnected = false;
@@ -154,7 +154,7 @@ class AdminChatManager {
   
   connectSocket() {
     if (this.socket && this.socket.connected) {
-      console.log('? Socket.IO ya está conectado');
+      console.log('️ Socket.IO ya está conectado');
       return;
     }
     
@@ -255,7 +255,7 @@ class AdminChatManager {
     const esMensajePropio = data.tipo_remitente === 'admin';
     
     if (esMensajePropio) {
-      console.log('?? Mensaje propio, ignorando (ya está en UI)');
+      console.log('⏭️ Mensaje propio, ignorando (ya está en UI)');
       return;
     }
     
@@ -266,7 +266,7 @@ class AdminChatManager {
     const chatContainer = document.getElementById('adminChatContainer');
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
-    console.log('? Chat visible:', isChatVisible);
+    console.log('️ Chat visible:', isChatVisible);
     console.log(' Conversación activa:', this.activeConversation?.id_conversacion);
     
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
@@ -335,7 +335,7 @@ class AdminChatManager {
         
         this.renderConversationsList();
       } else {
-        console.log('?? No hay conversaciones');
+        console.log('ℹ️ No hay conversaciones');
         this.conversations = [];
         this.updateNotificationBadge(0);
         this.renderConversationsList();
@@ -502,7 +502,7 @@ class AdminChatManager {
       const inicial = nombreMostrar.charAt(0).toUpperCase();
       
       const avatarParaMostrar = isAdmin 
-        ? (this.adminInfo?.avatar || '/images/logo.png')
+        ? (this.adminInfo?.avatar || 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png')
         : (msg.avatar_remitente || null);
       
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);
@@ -516,7 +516,7 @@ class AdminChatManager {
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>? Imagen no disponible</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>️ Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -602,7 +602,7 @@ class AdminChatManager {
                  alt="Imagen adjunta" 
                  class="chat-image-preview" 
                  onclick="window.open('${data.archivo_adjunto}', '_blank')" 
-                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>? Imagen no disponible</div>';" />
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>️ Imagen no disponible</div>';" />
           </div>
         `;
       } else if (data.tipo_archivo === 'pdf') {
@@ -829,7 +829,7 @@ class AdminChatManager {
       html: `
         <p>¿Estás seguro de cerrar la conversación con <strong>${nombreUsuario}</strong>?</p>
         <p class="text-warning" style="font-size: 0.9em; margin-top: 10px;">
-          ? Esta acción eliminará la conversación permanentemente para ambos usuarios.
+          ️ Esta acción eliminará la conversación permanentemente para ambos usuarios.
         </p>
       `,
       icon: 'warning',
@@ -933,7 +933,7 @@ class AdminChatManager {
       const avatarUrl = avatar.startsWith('http') ? avatar : null;
       
       if (avatarUrl) {
-        console.log('? Renderizando avatar con Cloudinary:', avatarUrl);
+        console.log('️ Renderizando avatar con Cloudinary:', avatarUrl);
         
         const isLogo = avatarUrl.includes('logo');
         const bgSize = isLogo ? 'contain' : 'cover';

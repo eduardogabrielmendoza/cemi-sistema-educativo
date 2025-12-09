@@ -200,8 +200,8 @@ window.onload = function() {
     nameInput.addEventListener('input', function() {
       const svgName = document.getElementById('svgname');
       const svgNameBack = document.getElementById('svgnameback');
-      if (svgName) svgName.textContent = this.value.toUpperCase() || 'JUAN PÃ‰REZ';
-      if (svgNameBack) svgNameBack.textContent = this.value || 'Juan PÃ©rez';
+      if (svgName) svgName.textContent = this.value.toUpperCase() || 'JUAN PÉREZ';
+      if (svgNameBack) svgNameBack.textContent = this.value || 'Juan Pérez';
     });
   }
   
@@ -282,7 +282,7 @@ window.onload = function() {
   const btnCashPayment = document.getElementById('btnCashPayment');
   if (btnCashPayment) {
     btnCashPayment.addEventListener('click', function() {
-      console.log(' Click en botÃ³n Efectivo detectado');
+      console.log(' Click en botón Efectivo detectado');
       closePaymentMethodModal();
       
       setTimeout(() => {
@@ -290,7 +290,7 @@ window.onload = function() {
           console.log(' Llamando a window.mostrarTicketEfectivo()');
           window.mostrarTicketEfectivo();
         } else {
-          console.error(' window.mostrarTicketEfectivo no estÃ¡ definida');
+          console.error(' window.mostrarTicketEfectivo no está definida');
         }
       }, 100);
     });

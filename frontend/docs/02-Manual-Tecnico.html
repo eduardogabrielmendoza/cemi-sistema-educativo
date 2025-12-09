@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="../documentacion.html" class="back-link">? Volver a Documentación</a>
+        <a href="../documentacion.html" class="back-link">← Volver a Documentación</a>
         
         <div class="cover">
             <h1>MANUAL TÉCNICO</h1>
@@ -125,79 +125,79 @@
 
         <h3>3.2 Arquitectura de Capas</h3>
         <pre>
-+---------------------------------------------------------+
-¦                    CLIENTE (Browser)                     ¦
-¦         HTML5 + CSS3 + JavaScript (Vanilla)             ¦
-+---------------------------------------------------------+
-                          ¦ HTTP/HTTPS + WebSocket
-+-------------------------?-------------------------------+
-¦                   SERVIDOR (Node.js)                     ¦
-¦  +-------------------------------------------------+    ¦
-¦  ¦              Express.js (Router)                 ¦    ¦
-¦  ¦   /api/auth  /api/alumnos  /api/cursos  ...    ¦    ¦
-¦  +-------------------------------------------------+    ¦
-¦  +-------------------------------------------------+    ¦
-¦  ¦           Middleware (Security Layer)            ¦    ¦
-¦  ¦    Helmet | CORS | Rate Limit | Morgan          ¦    ¦
-¦  +-------------------------------------------------+    ¦
-¦  +-------------------------------------------------+    ¦
-¦  ¦             Socket.IO (Real-time Chat)           ¦    ¦
-¦  +-------------------------------------------------+    ¦
-+---------------------------------------------------------+
-                          ¦ mysql2 (Connection Pool)
-+-------------------------?-------------------------------+
-¦                  BASE DE DATOS (MySQL)                   ¦
-¦      Tablas: usuarios, alumnos, cursos, pagos, etc.     ¦
-+---------------------------------------------------------+
+┌─────────────────────────────────────────────────────────┐
+│                    CLIENTE (Browser)                     │
+│         HTML5 + CSS3 + JavaScript (Vanilla)             │
+└─────────────────────────┬───────────────────────────────┘
+                          │ HTTP/HTTPS + WebSocket
+┌─────────────────────────▼───────────────────────────────┐
+│                   SERVIDOR (Node.js)                     │
+│  ┌─────────────────────────────────────────────────┐    │
+│  │              Express.js (Router)                 │    │
+│  │   /api/auth  /api/alumnos  /api/cursos  ...    │    │
+│  └─────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────┐    │
+│  │           Middleware (Security Layer)            │    │
+│  │    Helmet | CORS | Rate Limit | Morgan          │    │
+│  └─────────────────────────────────────────────────┘    │
+│  ┌─────────────────────────────────────────────────┐    │
+│  │             Socket.IO (Real-time Chat)           │    │
+│  └─────────────────────────────────────────────────┘    │
+└─────────────────────────┬───────────────────────────────┘
+                          │ mysql2 (Connection Pool)
+┌─────────────────────────▼───────────────────────────────┐
+│                  BASE DE DATOS (MySQL)                   │
+│      Tablas: usuarios, alumnos, cursos, pagos, etc.     │
+└─────────────────────────────────────────────────────────┘
         </pre>
 
         <h1 id="estructura">4. Estructura del Proyecto</h1>
 
         <div class="file-structure">
 <span class="folder">CEMI-Sistema-Educativo/</span>
-+-- <span class="file">server.js</span>              # Punto de entrada principal
-+-- <span class="file">package.json</span>          # Dependencias y scripts
-+-- <span class="file">.env</span>                  # Variables de entorno
-+-- <span class="file">railway.toml</span>          # Configuración Railway
-¦
-+-- <span class="folder">backend/</span>
-¦   +-- <span class="folder">config/</span>
-¦   ¦   +-- <span class="file">email.js</span>      # Configuración de correo
-¦   ¦
-¦   +-- <span class="folder">routes/</span>
-¦   ¦   +-- <span class="file">auth.js</span>       # Autenticación
-¦   ¦   +-- <span class="file">alumnos.js</span>    # CRUD Alumnos
-¦   ¦   +-- <span class="file">profesores.js</span> # CRUD Profesores
-¦   ¦   +-- <span class="file">cursos.js</span>     # CRUD Cursos
-¦   ¦   +-- <span class="file">pagos.js</span>      # Gestión de pagos
-¦   ¦   +-- <span class="file">classroom.js</span>  # Aula virtual
-¦   ¦   +-- <span class="file">chat.js</span>       # Chat tiempo real
-¦   ¦   +-- <span class="file">...</span>           # Otras rutas
-¦   ¦
-¦   +-- <span class="folder">utils/</span>
-¦   ¦   +-- <span class="file">db.js</span>         # Pool de conexiones MySQL
-¦   ¦   +-- <span class="file">chat-server.js</span># Servidor Socket.IO
-¦   ¦
-¦   +-- <span class="folder">sql/</span>
-¦       +-- <span class="file">schema.sql</span>    # Estructura de BD
-¦
-+-- <span class="folder">frontend/</span>
-¦   +-- <span class="file">index.html</span>        # Página principal
-¦   +-- <span class="file">login.html</span>        # Login usuarios
-¦   +-- <span class="file">dashboard_admin.html</span>  # Panel admin
-¦   +-- <span class="file">dashboard_alumno.html</span> # Panel alumno
-¦   +-- <span class="file">classroom.html</span>    # Aula virtual
-¦   ¦
-¦   +-- <span class="folder">assets/</span>
-¦   ¦   +-- <span class="folder">css/</span>       # Estilos
-¦   ¦   +-- <span class="folder">js/</span>        # Scripts
-¦   ¦
-¦   +-- <span class="folder">images/</span>       # Recursos gráficos
-¦
-+-- <span class="folder">uploads/</span>          # Archivos subidos
-    +-- <span class="folder">avatars/</span>      # Fotos de perfil
-    +-- <span class="folder">recursos/</span>     # Materiales
-    +-- <span class="folder">tareas/</span>       # Entregas
+├── <span class="file">server.js</span>              # Punto de entrada principal
+├── <span class="file">package.json</span>          # Dependencias y scripts
+├── <span class="file">.env</span>                  # Variables de entorno
+├── <span class="file">railway.toml</span>          # Configuración Railway
+│
+├── <span class="folder">backend/</span>
+│   ├── <span class="folder">config/</span>
+│   │   └── <span class="file">email.js</span>      # Configuración de correo
+│   │
+│   ├── <span class="folder">routes/</span>
+│   │   ├── <span class="file">auth.js</span>       # Autenticación
+│   │   ├── <span class="file">alumnos.js</span>    # CRUD Alumnos
+│   │   ├── <span class="file">profesores.js</span> # CRUD Profesores
+│   │   ├── <span class="file">cursos.js</span>     # CRUD Cursos
+│   │   ├── <span class="file">pagos.js</span>      # Gestión de pagos
+│   │   ├── <span class="file">classroom.js</span>  # Aula virtual
+│   │   ├── <span class="file">chat.js</span>       # Chat tiempo real
+│   │   └── <span class="file">...</span>           # Otras rutas
+│   │
+│   ├── <span class="folder">utils/</span>
+│   │   ├── <span class="file">db.js</span>         # Pool de conexiones MySQL
+│   │   └── <span class="file">chat-server.js</span># Servidor Socket.IO
+│   │
+│   └── <span class="folder">sql/</span>
+│       └── <span class="file">schema.sql</span>    # Estructura de BD
+│
+├── <span class="folder">frontend/</span>
+│   ├── <span class="file">index.html</span>        # Página principal
+│   ├── <span class="file">login.html</span>        # Login usuarios
+│   ├── <span class="file">dashboard_admin.html</span>  # Panel admin
+│   ├── <span class="file">dashboard_alumno.html</span> # Panel alumno
+│   ├── <span class="file">classroom.html</span>    # Aula virtual
+│   │
+│   ├── <span class="folder">assets/</span>
+│   │   ├── <span class="folder">css/</span>       # Estilos
+│   │   └── <span class="folder">js/</span>        # Scripts
+│   │
+│   └── <span class="folder">images/</span>       # Recursos gráficos
+│
+└── <span class="folder">uploads/</span>          # Archivos subidos
+    ├── <span class="folder">avatars/</span>      # Fotos de perfil
+    ├── <span class="folder">recursos/</span>     # Materiales
+    └── <span class="folder">tareas/</span>       # Entregas
         </div>
 
         <h1 id="bd">5. Base de Datos</h1>

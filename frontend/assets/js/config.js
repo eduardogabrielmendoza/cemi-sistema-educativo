@@ -34,6 +34,7 @@
                           urlStr.includes('/api/auth/forgot-password') ||
                           urlStr.includes('/api/gdpr/') ||
                           urlStr.includes('/api/investigacion/') ||
+                          urlStr.includes('/api/comunidad/preguntas') ||
                           (urlStr.includes('/api/status') && (!options.method || options.method === 'GET'));
     
     if (isApiCall && !isPublicRoute) {

@@ -1,4 +1,4 @@
-class AdminChat {
+﻿class AdminChat {
   constructor() {
     this.socket = null;
     this.isConnected = false;

@@ -1,4 +1,4 @@
-
+﻿
 document.addEventListener('DOMContentLoaded', function() {
   const header = document.querySelector('.harvard-header');
   const menuBtn = document.getElementById('harvardMenuBtn');

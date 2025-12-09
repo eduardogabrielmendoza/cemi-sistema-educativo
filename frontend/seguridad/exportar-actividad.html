@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
             <div style="display: flex; align-items: start; gap: 20px;">
                 <i data-lucide="shield-alert" style="width: 32px; height: 32px; color: #FFC107; flex-shrink: 0; margin-top: 4px;"></i>
                 <div>
-                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">? Exportación Controlada</strong>
+                    <strong style="display: block; font-size: 1.2rem; margin-bottom: 10px; color: #856404;">️ Exportación Controlada</strong>
                     <p style="margin: 0; color: #856404; line-height: 1.6;">Los registros de actividad deben ser solicitados al administrador. El proceso puede tomar 24-48 horas dependiendo del volumen de datos.</p>
                 </div>
             </div>
@@ -83,14 +83,14 @@
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="security" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">? Eventos de seguridad</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">️ Eventos de seguridad</strong>
                                 <small style="color: #5a6c7d;">Cambios de contraseña, activación/desactivación 2FA, recuperación de cuenta</small>
                             </div>
                         </label>
                         <label style="display: flex; align-items: start; gap: 12px; padding: 15px; background: #f8f9fa; border-radius: 8px; cursor: pointer; border: 2px solid transparent;">
                             <input type="checkbox" value="settings" checked style="margin-top: 3px;">
                             <div style="flex: 1;">
-                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">? Cambios de configuración</strong>
+                                <strong style="display: block; color: #2c3e50; margin-bottom: 5px;">️ Cambios de configuración</strong>
                                 <small style="color: #5a6c7d;">Modificaciones en perfil, privacidad, notificaciones, preferencias</small>
                             </div>
                         </label>
@@ -213,7 +213,7 @@
                 </div>
 
                 <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #FFC107;">
-                    <strong style="color: #856404; display: block; margin-bottom: 8px;">?? Tiempo de procesamiento</strong>
+                    <strong style="color: #856404; display: block; margin-bottom: 8px;">⏱️ Tiempo de procesamiento</strong>
                     <p style="color: #856404; margin: 0; font-size: 13px;">La exportación puede tardar entre 30 segundos y 5 minutos dependiendo del volumen de datos. Te enviaremos un email cuando esté lista.</p>
                 </div>
 
@@ -298,7 +298,7 @@
                         <span> Generado: 01/05/2024 10:20</span> • 
                         <span> 1,832 eventos</span> • 
                         <span> 245 KB</span> • 
-                        <span style="color: #28a745; font-weight: 600;">? Expira: 31/05/2024</span>
+                        <span style="color: #28a745; font-weight: 600;">⏳ Expira: 31/05/2024</span>
                     </div>
                 </div>
                 <a href="#" onclick="alert('Descargando archivo...'); return false;" style="background: #28a745; color: white; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; white-space: nowrap; font-size: 14px;">
@@ -314,7 +314,7 @@
                         <span> Generado: 05/04/2024 08:15</span> • 
                         <span> 5,421 eventos</span> • 
                         <span> 1.2 MB</span> • 
-                        <span style="color: #28a745; font-weight: 600;">? Expira: 05/06/2024</span>
+                        <span style="color: #28a745; font-weight: 600;">⏳ Expira: 05/06/2024</span>
                     </div>
                 </div>
                 <a href="#" onclick="alert('Descargando archivo...'); return false;" style="background: #0071e3; color: white; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; white-space: nowrap; font-size: 14px;">
@@ -388,7 +388,7 @@
                 .map(cb => cb.value);
             
             if (checkedTypes.length === 0) {
-                alert('? Debes seleccionar al menos un tipo de actividad para exportar.');
+                alert('️ Debes seleccionar al menos un tipo de actividad para exportar.');
                 return;
             }
             

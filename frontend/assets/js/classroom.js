@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 let userRol = '';
@@ -23,11 +23,11 @@ async function cargarAvatarUsuario() {
     const idUsuario = localStorage.getItem('id_usuario') || userId;
     
     if (!idUsuario) {
-      console.log('? No se pudo obtener ID de usuario para cargar avatar');
+      console.log('️ No se pudo obtener ID de usuario para cargar avatar');
       return;
     }
     
-    console.log(`? Cargando avatar para usuario: ${idUsuario}`);
+    console.log(`️ Cargando avatar para usuario: ${idUsuario}`);
     
     const response = await fetch(`${API_URL}/classroom/perfil/${idUsuario}`);
     const data = await response.json();
@@ -47,7 +47,7 @@ async function cargarAvatarUsuario() {
         } else {
           const iniciales = obtenerIniciales(data.perfil.nombre, data.perfil.apellido);
           userInitialsElement.textContent = iniciales;
-          console.log('?? Usuario sin avatar, mostrando iniciales');
+          console.log('ℹ️ Usuario sin avatar, mostrando iniciales');
         }
       }
     }
@@ -608,7 +608,7 @@ function renderAnuncios(anuncios) {
   const isAdminClassroom = localStorage.getItem('admin_classroom') === 'true';
   
   if (!Array.isArray(anuncios)) {
-    console.warn('? anuncios no es un array, convirtiendo a array vacío');
+    console.warn('️ anuncios no es un array, convirtiendo a array vacío');
     anuncios = [];
   }
   
@@ -1060,76 +1060,26 @@ async function loadViewData(viewName) {
 
 function filterTasks(filter) {
   const taskItems = document.querySelectorAll('.task-item');
-  const container = document.getElementById('tasksContainer');
-  
-  let existingEmptyMsg = container.querySelector('.tasks-empty-message');
-  if (existingEmptyMsg) {
-    existingEmptyMsg.remove();
-  }
-  
-  let visibleCount = 0;
   
   taskItems.forEach(task => {
     const isPending = task.classList.contains('pending');
     const isCompleted = task.classList.contains('completed');
     const isOverdue = task.classList.contains('overdue');
-    let shouldShow = false;
 
     switch(filter) {
       case 'pending':
-        shouldShow = isPending;
+        task.style.display = isPending ? 'flex' : 'none';
         break;
       case 'completed':
-        shouldShow = isCompleted;
+        task.style.display = isCompleted ? 'flex' : 'none';
         break;
       case 'overdue':
-        shouldShow = isOverdue;
+        task.style.display = isOverdue ? 'flex' : 'none';
         break;
       default:
-        shouldShow = true;
+        task.style.display = 'flex';
     }
-    
-    task.style.display = shouldShow ? 'flex' : 'none';
-    if (shouldShow) visibleCount++;
   });
-  
-  if (visibleCount === 0 && taskItems.length > 0) {
-    const messages = {
-      'pending': {
-        icon: 'check-circle',
-        title: 'Sin tareas pendientes',
-        text: 'No tienes tareas pendientes por completar.'
-      },
-      'completed': {
-        icon: 'clipboard-list',
-        title: 'Sin tareas completadas',
-        text: 'Aún no has completado ninguna tarea.'
-      },
-      'overdue': {
-        icon: 'clock',
-        title: 'Sin tareas vencidas',
-        text: 'No tienes tareas vencidas.'
-      },
-      'all': {
-        icon: 'inbox',
-        title: 'Sin tareas',
-        text: 'No hay tareas asignadas en este momento.'
-      }
-    };
-    
-    const msg = messages[filter] || messages['all'];
-    
-    const emptyDiv = document.createElement('div');
-    emptyDiv.className = 'tasks-empty-message';
-    emptyDiv.style.cssText = 'text-align: center; padding: 60px 20px; color: #656f77;';
-    emptyDiv.innerHTML = `
-      <i data-lucide="${msg.icon}" style="width: 48px; height: 48px; margin-bottom: 16px; color: #a51c30; opacity: 0.6;"></i>
-      <h3 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-weight: 400; color: #1e1e1e;">${msg.title}</h3>
-      <p style="margin: 0; font-size: 14px;">${msg.text}</p>
-    `;
-    container.appendChild(emptyDiv);
-    lucide.createIcons();
-  }
 }
 
 
@@ -3474,7 +3424,7 @@ window.abrirAnuncio = async function(idAnuncio) {
     const anuncio = await resAnuncio.json();
     
     console.log(' Datos del anuncio:', anuncio);
-    console.log('? ID Profesor:', anuncio.id_profesor);
+    console.log('‍ ID Profesor:', anuncio.id_profesor);
     
     const resComentarios = await fetch(`${API_URL}/classroom/comentarios/${idAnuncio}`);
     const comentarios = await resComentarios.json();
@@ -4250,8 +4200,8 @@ function mostrarDetallesDia(dia, fecha, eventos, tareas, notas) {
             </div>
             ${esProfesor ? `
               <div style="display: flex; gap: 6px; margin-left: 12px;">
-                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #4a5259; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">?</button>
-                <button onclick="eliminarNota(${nota.id_nota})" style="background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">?</button>
+                <button onclick="editarNota(${nota.id_nota}, '${fecha}')" style="background: #4a5259; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">️</button>
+                <button onclick="eliminarNota(${nota.id_nota})" style="background: #e74c3c; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;">️</button>
               </div>
             ` : ''}
           </div>
@@ -4461,7 +4411,7 @@ async function editarNota(idNota, fecha) {
     if (!notaActual) return;
     
     Swal.fire({
-      title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;">?</span><span>Editar Pin</span></div>',
+      title: '<div style="display: flex; align-items: center; gap: 12px;"><span style="font-size: 28px;">️</span><span>Editar Pin</span></div>',
       html: `
         <div style="text-align: left; padding: 0 8px;">
           <label style="display: block; margin: 0 0 8px 0; font-weight: 600; color: #2c3e50; font-size: 14px;">Título</label>
@@ -4920,7 +4870,7 @@ async function eliminarAnuncioAdmin(idAnuncio) {
     html: `
       <p>Esta acción eliminará permanentemente el anuncio.</p>
       <p class="text-warning" style="font-size: 0.9em; margin-top: 10px; color: #f59e0b;">
-        ? Será eliminado para todos los usuarios (profesores y alumnos).
+        ️ Será eliminado para todos los usuarios (profesores y alumnos).
       </p>
     `,
     icon: 'warning',
@@ -4968,7 +4918,7 @@ async function eliminarTareaAdmin(idTarea, titulo, nombreCurso) {
       <p><strong>${titulo}</strong></p>
       <p style="color: #666; font-size: 0.9em;">Curso: ${nombreCurso}</p>
       <p class="text-warning" style="font-size: 0.9em; margin-top: 10px; color: #f59e0b;">
-        ? Se eliminarán también todas las entregas de los alumnos.
+        ️ Se eliminarán también todas las entregas de los alumnos.
       </p>
     `,
     icon: 'warning',
@@ -5727,7 +5677,7 @@ async function exportarCalificacionesPDF() {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
         doc.setTextColor(...HARVARD_COLORS.silver);
-        doc.text('CEMI - Centro de Enseñanza Multilingüe Integral', 50, 32);
+        doc.text('CEMI - Centro de Ensenanza de Multiples Idiomas', 50, 32);
         
         doc.setDrawColor(...HARVARD_COLORS.wroughtIron);
         doc.setLineWidth(2.5);
@@ -6331,7 +6281,7 @@ function abrirModalSubirRecurso(idCurso = null, nombreCurso = 'Biblioteca Genera
                 <option value="documento"> Documento</option>
                 <option value="audio"> Audio</option>
                 <option value="video"> Video</option>
-                <option value="imagen">? Imagen</option>
+                <option value="imagen">️ Imagen</option>
               </select>
             </div>
           </div>

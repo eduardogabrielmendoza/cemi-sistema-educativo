@@ -31,12 +31,12 @@ function verificarSesionActiva() {
   
   if (nombre && rol) {
     Swal.fire({
-      title: 'Â¡SesiÃ³n Activa!',
-      text: `Ya has iniciado sesiÃ³n como ${nombre}`,
+      title: '¡Sesión Activa!',
+      text: `Ya has iniciado sesión como ${nombre}`,
       icon: 'info',
       showCancelButton: true,
       confirmButtonText: 'Continuar al Classroom',
-      cancelButtonText: 'Cerrar SesiÃ³n',
+      cancelButtonText: 'Cerrar Sesión',
       confirmButtonColor: '#4a5259',
       cancelButtonColor: '#757575'
     }).then((result) => {
@@ -44,7 +44,7 @@ function verificarSesionActiva() {
         window.location.href = 'classroom.html';
       } else if (result.isDismissed) {
         localStorage.clear();
-        showMessage('SesiÃ³n cerrada', 'success');
+        showMessage('Sesión cerrada', 'success');
       }
     });
   }
@@ -77,7 +77,7 @@ async function handleLogin(e) {
     const data = await response.json();
     
     if (response.ok && data.success) {
-      showMessage('Â¡Acceso concedido!', 'success');
+      showMessage('¡Acceso concedido!', 'success');
       
       if (data.token) {
         localStorage.setItem('token', data.token);
@@ -106,7 +106,7 @@ async function handleLogin(e) {
       
     } else {
       hideLoader();
-      showMessage(data.message || 'Usuario o contraseÃ±a incorrectos', 'error');
+      showMessage(data.message || 'Usuario o contraseña incorrectos', 'error');
       
       vibrarCampos();
     }
@@ -186,7 +186,7 @@ function vibrarCampos() {
 
 async function mostrarAnimacionExito(nombre, rol) {
   return Swal.fire({
-    title: 'Â¡Bienvenido!',
+    title: '¡Bienvenido!',
     html: `
       <div style="text-align: center;">
         <div style="font-size: 64px; margin-bottom: 16px;"></div>
@@ -232,9 +232,9 @@ document.querySelector('.forgot-password').addEventListener('click', (e) => {
   e.preventDefault();
   
   Swal.fire({
-    title: 'Recuperar ContraseÃ±a',
+    title: 'Recuperar Contraseña',
     html: `
-      <p style="margin-bottom: 16px;">Ingresa tu correo electrÃ³nico y te enviaremos instrucciones para recuperar tu contraseÃ±a.</p>
+      <p style="margin-bottom: 16px;">Ingresa tu correo electrónico y te enviaremos instrucciones para recuperar tu contraseña.</p>
       <input type="email" id="recoveryEmail" class="swal2-input" placeholder="correo@ejemplo.com">
     `,
     icon: 'question',
@@ -245,11 +245,11 @@ document.querySelector('.forgot-password').addEventListener('click', (e) => {
     preConfirm: () => {
       const email = document.getElementById('recoveryEmail').value;
       if (!email) {
-        Swal.showValidationMessage('Por favor ingresa tu correo electrÃ³nico');
+        Swal.showValidationMessage('Por favor ingresa tu correo electrónico');
         return false;
       }
       if (!email.includes('@')) {
-        Swal.showValidationMessage('Por favor ingresa un correo vÃ¡lido');
+        Swal.showValidationMessage('Por favor ingresa un correo válido');
         return false;
       }
       return email;
@@ -257,8 +257,8 @@ document.querySelector('.forgot-password').addEventListener('click', (e) => {
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire({
-        title: 'Â¡Enviado!',
-        text: 'Revisa tu correo electrÃ³nico para continuar con la recuperaciÃ³n de tu contraseÃ±a.',
+        title: '¡Enviado!',
+        text: 'Revisa tu correo electrónico para continuar con la recuperación de tu contraseña.',
         icon: 'success',
         confirmButtonColor: '#4a5259'
       });

@@ -1,4 +1,4 @@
-class UserChatManager {
+﻿class UserChatManager {
   constructor(userType) {
     this.userType = userType; // 'profesor' o 'alumno'
     this.socket = null;
@@ -45,7 +45,7 @@ class UserChatManager {
     
     try {
       if (!this.audioContext) {
-        console.log('? AudioContext no disponible');
+        console.log('️ AudioContext no disponible');
         return;
       }
       
@@ -53,7 +53,7 @@ class UserChatManager {
         this.audioContext.resume().then(() => {
           this.playSoundEffect();
         }).catch(err => {
-          console.log('? No se pudo reanudar AudioContext:', err);
+          console.log('️ No se pudo reanudar AudioContext:', err);
         });
       } else {
         this.playSoundEffect();
@@ -144,13 +144,13 @@ class UserChatManager {
     let id_usuario = localStorage.getItem('id_usuario');
     
     if (!id_usuario || id_usuario === 'null' || id_usuario === 'undefined') {
-      console.warn('? id_usuario no encontrado o inválido en localStorage');
+      console.warn('️ id_usuario no encontrado o inválido en localStorage');
       id_usuario = null;
       this.actualizarIdUsuario();
     } else {
       const numericId = parseInt(id_usuario, 10);
       if (isNaN(numericId)) {
-        console.warn('? id_usuario no es un número válido:', id_usuario);
+        console.warn('️ id_usuario no es un número válido:', id_usuario);
         id_usuario = null;
         this.actualizarIdUsuario();
       } else {
@@ -210,7 +210,7 @@ class UserChatManager {
           }
         }
       } catch (verifyError) {
-        console.warn('? Endpoint /auth/verify no disponible, intentando método alternativo');
+        console.warn('️ Endpoint /auth/verify no disponible, intentando método alternativo');
       }
       
       try {
@@ -253,7 +253,7 @@ class UserChatManager {
   
   connectSocket() {
     if (this.socket && this.socket.connected) {
-      console.log('? Socket.IO ya está conectado');
+      console.log('️ Socket.IO ya está conectado');
       return;
     }
     
@@ -342,7 +342,7 @@ class UserChatManager {
     const chatContainer = document.getElementById('userChatContainer');
     const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
     
-    console.log('? Chat visible:', isChatVisible);
+    console.log('️ Chat visible:', isChatVisible);
     console.log(' Conversación activa:', this.activeConversation?.id_conversacion);
     
     if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {
@@ -414,7 +414,7 @@ class UserChatManager {
               id_conversacion: conversacion.id_conversacion
             });
           } else {
-            console.warn('? Socket.IO no está listo, reintentando en 500ms...');
+            console.warn('️ Socket.IO no está listo, reintentando en 500ms...');
             setTimeout(() => {
               if (this.socket && this.socket.connected) {
                 console.log(' Reintento: Uniéndose a conversación:', conversacion.id_conversacion);
@@ -426,7 +426,7 @@ class UserChatManager {
           }
           
         } else {
-          console.log('?? No hay conversaciones activas');
+          console.log('ℹ️ No hay conversaciones activas');
           this.conversations = [];
           this.updateNotificationBadge(0);
           
@@ -466,7 +466,7 @@ class UserChatManager {
     
     container.innerHTML = this.conversations.map(conv => {
       const nombre = 'Soporte CEMI';
-      const logoUrl = '/images/logo.png';
+      const logoUrl = 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png';
       const avatarContent = this.renderAvatar(logoUrl, nombre);
       const tiempo = this.formatTime(conv.fecha_ultimo_mensaje || conv.fecha_inicio);
       const preview = conv.ultimo_mensaje || 'Sin mensajes';
@@ -589,7 +589,7 @@ class UserChatManager {
       if (isAdmin) {
         nombreMostrar = msg.nombre_remitente || 'Admin';
         tipoLabel = 'Administrador';
-        avatarParaMostrar = '/images/logo.png';
+        avatarParaMostrar = 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png';
       } else {
         nombreMostrar = msg.nombre_remitente || this.userInfo.nombre;
         tipoLabel = msg.tipo_remitente === 'profesor' ? 'Profesor' : 'Alumno';
@@ -620,7 +620,7 @@ class UserChatManager {
                    alt="Imagen adjunta" 
                    class="chat-image-preview" 
                    onclick="window.open('${msg.archivo_adjunto}', '_blank')" 
-                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>? Imagen no disponible</div>';" />
+                   onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;user-chat-message-bubble&quot; style=&quot;background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;&quot;>️ Imagen no disponible</div>';" />
             </div>
           `;
         } else if (msg.tipo_archivo === 'pdf') {
@@ -689,7 +689,7 @@ class UserChatManager {
     if (!mensaje) return;
     
     if (!this.activeConversation) {
-      console.log('? No hay conversación activa, cargando conversación del usuario...');
+      console.log('️ No hay conversación activa, cargando conversación del usuario...');
       
       await this.loadConversations();
       
@@ -975,7 +975,7 @@ class UserChatManager {
       const avatarUrl = avatar.startsWith('http') ? avatar : null;
       
       if (avatarUrl) {
-        console.log(`? Renderizando avatar con Cloudinary:`, avatarUrl);
+        console.log(`️ Renderizando avatar con Cloudinary:`, avatarUrl);
         
         const isLogo = avatarUrl.includes('logo');
         const bgSize = isLogo ? 'contain' : 'cover';

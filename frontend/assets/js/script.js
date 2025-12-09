@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -68,16 +68,16 @@ async function handleLogin(e) {
       console.log(" Redirigiendo...");
       
       if (rol === "admin" || rol === "administrador") {
-        console.log("? Redirigiendo a dashboard_admin.html");
+        console.log("️ Redirigiendo a dashboard_admin.html");
         window.location.href = "dashboard_admin.html";
       } else if (rol === "profesor") {
-        console.log("? Redirigiendo a dashboard_profesor.html");
+        console.log("️ Redirigiendo a dashboard_profesor.html");
         window.location.href = "dashboard_profesor.html";
       } else if (rol === "alumno") {
-        console.log("? Redirigiendo a dashboard_alumno.html");
+        console.log("️ Redirigiendo a dashboard_alumno.html");
         window.location.href = "dashboard_alumno.html";
       } else {
-        console.log("? Redirigiendo a index.html");
+        console.log("️ Redirigiendo a index.html");
         window.location.href = "index.html";
       }
     } else {
@@ -2601,7 +2601,7 @@ function renderStatusSection() {
             <label>Severidad *</label>
             <select id="incidentSeverity" onchange="updateBannerPreview()">
               <option value="">Selecciona la severidad...</option>
-              <option value="degraded">? Degradado - Rendimiento reducido</option>
+              <option value="degraded">️ Degradado - Rendimiento reducido</option>
               <option value="outage"> Interrupción - Servicio no disponible</option>
               <option value="maintenance"> Mantenimiento - Trabajo programado</option>
             </select>
@@ -4296,7 +4296,7 @@ async function initAdminDashboard() {
 
 
 async function initProfesorDashboard() {
-  console.log("? Dashboard PROFESOR cargado");
+  console.log("‍ Dashboard PROFESOR cargado");
 
   const loader = document.getElementById("loader");
   const mainContent = document.getElementById("mainContent");
@@ -5129,20 +5129,20 @@ async function initIdiomasMultiSelect(mode = 'edit', selectedIds = []) {
 
 function ensureEditarProfesorModal() {
   document.querySelectorAll('#modalEditarProfesor').forEach(m => {
-    console.log('? Eliminando modal viejo por ID');
+    console.log('️ Eliminando modal viejo por ID');
     m.remove();
   });
   
   document.querySelectorAll('.modal').forEach(m => {
     if (m.innerHTML && m.innerHTML.includes('Editar Profesor')) {
-      console.log('? Eliminando modal viejo por contenido');
+      console.log('️ Eliminando modal viejo por contenido');
       m.remove();
     }
   });
 
   const timestamp = Date.now();
   console.log(` CREANDO MODAL PROFESOR - Timestamp: ${timestamp}`);
-  console.log('? Si NO ves el campo DNI después de esto, el problema es CACHE del navegador');
+  console.log('️ Si NO ves el campo DNI después de esto, el problema es CACHE del navegador');
   console.log(' Verificar en Elements: buscar id="editProfesorDNI"');
 
   const modalHtml = `
@@ -6255,7 +6255,7 @@ async function desarchivarPago(idPago, nombreAlumno, concepto) {
 
 async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
   const result = await Swal.fire({
-    title: '? ELIMINAR PERMANENTEMENTE',
+    title: '️ ELIMINAR PERMANENTEMENTE',
     html: `
       <div style="text-align: left; margin: 20px 0;">
         <p style="font-size: 15px; margin-bottom: 15px;">
@@ -6266,7 +6266,7 @@ async function eliminarPagoDefinitivamente(idPago, nombreAlumno, concepto) {
           <p style="margin: 5px 0;"><strong>Concepto:</strong> ${concepto}</p>
         </div>
         <p style="color: #f44336; font-weight: 600; margin-top: 15px;">
-          ? Esta acción NO se puede deshacer
+          ️ Esta acción NO se puede deshacer
         </p>
         <p style="font-size: 14px; color: #666; margin-top: 10px;">
           El registro será eliminado completamente de la base de datos.
@@ -7211,7 +7211,7 @@ async function crearCredencialesAlumno(idAlumno, nombreCompleto) {
               <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              ? Guarda estas credenciales de forma segura
+              ️ Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#4a5259'
@@ -7890,7 +7890,7 @@ async function crearCredencialesProfesor(idProfesor, nombreCompleto) {
               <p style="margin: 5px 0;"><strong>Contraseña:</strong> ${credenciales.password}</p>
             </div>
             <p style="color: #999; font-size: 13px; margin-top: 15px;">
-              ? Guarda estas credenciales de forma segura
+              ️ Guarda estas credenciales de forma segura
             </p>
           `,
           confirmButtonColor: '#4a5259'
@@ -9404,7 +9404,7 @@ async function liberarCuotasTodasLosCursos() {
         </div>
         <div style="margin-top: 20px; padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
           <p style="margin: 0; font-size: 14px; color: #92400e;">
-            ? <strong>Atención:</strong> Esto sobrescribirá la configuración de TODOS los cursos.
+            ️ <strong>Atención:</strong> Esto sobrescribirá la configuración de TODOS los cursos.
           </p>
         </div>
       </div>
@@ -9881,7 +9881,7 @@ async function generarComprobantePago(idPago) {
     doc.setFontSize(7);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(...HARVARD.graphite);
-    doc.text('CEMI - Centro de Enseñanza Multilingüe Integral', centerX, yPos, { align: 'center' });
+    doc.text('CEMI - Centro de Ensenanza de Idiomas', centerX, yPos, { align: 'center' });
     yPos += 4;
     doc.text(`Generado el ${new Date().toLocaleDateString('es-ES')}`, centerX, yPos, { align: 'center' });
     yPos += 3;

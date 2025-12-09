@@ -1,4 +1,4 @@
-
+﻿
 :root {
   --primary-color: #656f77;
   --primary-light: #7a8289;
@@ -221,7 +221,7 @@ body {
 }
 
 .term-section ul li::before {
-  content: '?';
+  content: '';
   position: absolute;
   left: 0;
   color: var(--primary-color);

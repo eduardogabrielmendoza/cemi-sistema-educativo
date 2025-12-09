@@ -1,4 +1,4 @@
-
+﻿
 const API_URL = window.API_URL || "http://localhost:3000/api";
 
 let userId = null;
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formDatos.addEventListener('submit', guardarDatosPersonales);
     console.log(' Event listener del formulario agregado');
   } else {
-    console.warn('? No se encontró formDatosPersonales');
+    console.warn('️ No se encontró formDatosPersonales');
   }
   
   const btnTheme = document.getElementById('toggleTheme');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnTheme.addEventListener('click', toggleTema);
     console.log(' Event listener del tema agregado');
   } else {
-    console.warn('? No se encontró toggleTheme');
+    console.warn('️ No se encontró toggleTheme');
   }
   
   if (typeof lucide !== 'undefined') {
@@ -82,7 +82,7 @@ function inicializarTema() {
   const btnTheme = document.getElementById('toggleTheme');
   
   if (!btnTheme) {
-    console.warn('? Botón de tema no encontrado');
+    console.warn('️ Botón de tema no encontrado');
     return;
   }
   
@@ -140,13 +140,13 @@ function cambiarSeccion(seccionId) {
     seccion.classList.add('active');
     console.log(` Sección activada: ${seccionId}`);
   } else {
-    console.warn(`? Sección no encontrada: ${seccionId}`);
+    console.warn(`️ Sección no encontrada: ${seccionId}`);
   }
   
   if (navItem) {
     navItem.classList.add('active');
   } else {
-    console.warn(`? Nav item no encontrado para: ${seccionId}`);
+    console.warn(`️ Nav item no encontrado para: ${seccionId}`);
   }
 }
 
@@ -196,7 +196,7 @@ function mostrarDatosEnUI(perfil) {
       el[prop] = value;
       return true;
     }
-    console.warn(`? Elemento no encontrado: ${id}`);
+    console.warn(`️ Elemento no encontrado: ${id}`);
     return false;
   };
   
@@ -283,7 +283,7 @@ async function guardarDatosPersonales(e) {
   console.log(' Datos a enviar:', datosActualizados);
   
   if (!datosActualizados.nombre || !datosActualizados.apellido) {
-    console.warn('? Validación fallida: nombre y apellido requeridos');
+    console.warn('️ Validación fallida: nombre y apellido requeridos');
     Swal.fire({
       icon: 'warning',
       title: 'Campos requeridos',
@@ -425,73 +425,6 @@ async function cambiarAvatar(event) {
       icon: 'error',
       title: 'Error',
       text: 'No se pudo actualizar el avatar'
-    });
-  }
-}
-
-
-async function cambiarBanner(event) {
-  const file = event.target.files[0];
-  
-  if (!file) return;
-  
-  if (!file.type.startsWith('image/')) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Archivo inválido',
-      text: 'Por favor selecciona una imagen'
-    });
-    return;
-  }
-  
-  if (file.size > 5 * 1024 * 1024) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Archivo muy grande',
-      text: 'La imagen del banner debe pesar menos de 5MB'
-    });
-    return;
-  }
-  
-  const formData = new FormData();
-  formData.append('banner', file);
-  
-  try {
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}/banner`, {
-      method: 'POST',
-      body: formData
-    });
-    
-    const data = await response.json();
-    
-    if (response.ok && data.success) {
-      localStorage.setItem('banner', data.banner);
-      
-      const bannerCard = document.getElementById('profileBannerCard');
-      if (bannerCard) {
-        bannerCard.style.backgroundImage = `url(${data.banner})`;
-      }
-      
-      if (userData) {
-        userData.banner = data.banner;
-      }
-      
-      Swal.fire({
-        icon: 'success',
-        title: 'Banner actualizado',
-        text: 'Tu banner se ha actualizado correctamente',
-        timer: 2000,
-        showConfirmButton: false
-      });
-    } else {
-      throw new Error(data.message || 'Error al subir banner');
-    }
-  } catch (error) {
-    console.error('Error al cambiar banner:', error);
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'No se pudo actualizar el banner'
     });
   }
 }

@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --color-primary: #000000;
   --color-secondary: #1d1d1f;
   --color-accent: #656f77;
@@ -599,7 +599,7 @@ html {
 }
 
 .link-arrow::after {
-  content: '?';
+  content: '→';
   position: absolute;
   right: -20px;
   transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);

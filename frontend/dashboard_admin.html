@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -838,7 +838,7 @@
         const esMensajePropio = data.tipo_remitente === 'admin';
         
         if (esMensajePropio) {
-          console.log('? Es mi propio mensaje (admin), ignorando notificación');
+          console.log('️ Es mi propio mensaje (admin), ignorando notificación');
           return;
         }
         
@@ -846,7 +846,7 @@
         const chatContainer = document.getElementById('chatContainer');
         const isChatVisible = chatContainer && chatContainer.offsetParent !== null;
         
-        console.log('? Chat visible:', isChatVisible);
+        console.log('️ Chat visible:', isChatVisible);
         
         // Si el chat está visible Y es la conversación activa
         if (isChatVisible && this.activeConversation && this.activeConversation.id_conversacion === data.id_conversacion) {

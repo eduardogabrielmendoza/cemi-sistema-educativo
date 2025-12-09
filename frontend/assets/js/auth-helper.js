@@ -1,4 +1,4 @@
-const AuthHelper = {
+﻿const AuthHelper = {
   getToken() {
     return localStorage.getItem('token');
   },
