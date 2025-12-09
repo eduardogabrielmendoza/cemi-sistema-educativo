@@ -54,8 +54,33 @@ async function cargarPerfil() {
 }
 
 
+async function cargarBannerUsuario() {
+  try {
+    const response = await fetch(`${API_URL}/classroom/banner/${userType}/${userId}`);
+    if (response.ok) {
+      const data = await response.json();
+      if (data.success && data.bannerUrl) {
+        const bannerUrl = data.bannerUrl.startsWith('http') 
+          ? data.bannerUrl 
+          : `${window.BASE_URL || 'http://localhost:3000'}${data.bannerUrl}`;
+        const profileBg = document.querySelector('.profile-background');
+        if (profileBg) {
+          profileBg.style.backgroundImage = `url(${bannerUrl})`;
+          profileBg.style.backgroundSize = 'cover';
+          profileBg.style.backgroundPosition = 'center';
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error al cargar banner:', error);
+  }
+}
+
+
 function mostrarDatosEnUI() {
   if (!perfilData) return;
+  
+  cargarBannerUsuario();
   
   const iniciales = obtenerIniciales(perfilData.nombre, perfilData.apellido);
   const avatarContainer = document.getElementById('profileAvatar');
