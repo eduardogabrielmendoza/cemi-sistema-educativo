@@ -51,26 +51,17 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
       ">
         <!-- Header del Modal -->
         <div style="
-          background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
+          background: #cbd5e0;
           padding: 25px 30px;
           border-radius: 20px 20px 0 0;
           position: relative;
           overflow: hidden;
         ">
-          <div style="
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            pointer-events: none;
-          "></div>
           <button onclick="closeDocumentosModal()" style="
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.1);
             border: none;
             width: 35px;
             height: 35px;
@@ -80,24 +71,24 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-          " onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">
-            <i data-lucide="x" style="width: 20px; height: 20px; color: white;"></i>
+          " onmouseover="this.style.background='rgba(0,0,0,0.2)'" onmouseout="this.style.background='rgba(0,0,0,0.1)'">
+            <i data-lucide="x" style="width: 20px; height: 20px; color: #1e293b;"></i>
           </button>
           <div style="display: flex; align-items: center; gap: 15px;">
             <div style="
               width: 55px;
               height: 55px;
-              background: rgba(255,255,255,0.2);
+              background: rgba(0,0,0,0.1);
               border-radius: 15px;
               display: flex;
               align-items: center;
               justify-content: center;
             ">
-              <i data-lucide="file-text" style="width: 28px; height: 28px; color: white;"></i>
+              <i data-lucide="file-text" style="width: 28px; height: 28px; color: #1e293b;"></i>
             </div>
             <div>
-              <h2 style="margin: 0; color: white; font-size: 22px; font-weight: 600;">Generar Documentos</h2>
-              <p style="margin: 5px 0 0 0; color: rgba(255,255,255,0.8); font-size: 14px;">${nombreAlumno}</p>
+              <h2 style="margin: 0; color: #1e293b; font-size: 22px; font-weight: 600;">Generar Documentos</h2>
+              <p style="margin: 5px 0 0 0; color: #64748b; font-size: 14px;">${nombreAlumno}</p>
             </div>
           </div>
         </div>
@@ -281,30 +272,30 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               align-items: center;
               gap: 15px;
               padding: 18px 20px;
-              background: linear-gradient(135deg, #2d327c 0%, #7d1524 100%);
-              border: 2px solid #2d327c;
+              background: #cbd5e0;
+              border: 2px solid #94a3b8;
               border-radius: 14px;
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 4px 15px rgba(45, 50, 124, 0.45)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+            " onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.15)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
               <div style="
                 width: 50px;
                 height: 50px;
-                background: rgba(255,255,255,0.2);
+                background: rgba(0,0,0,0.1);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 flex-shrink: 0;
               ">
-                <i data-lucide="archive" style="width: 24px; height: 24px; color: white;"></i>
+                <i data-lucide="archive" style="width: 24px; height: 24px; color: #1e293b;"></i>
               </div>
               <div style="flex: 1;">
-                <h4 style="margin: 0; color: white; font-size: 15px; font-weight: 600;">Descargar Todo (ZIP)</h4>
-                <p style="margin: 4px 0 0 0; color: rgba(255,255,255,0.8); font-size: 12px;">Paquete completo con los 4 documentos</p>
+                <h4 style="margin: 0; color: #1e293b; font-size: 15px; font-weight: 600;">Descargar Todo (ZIP)</h4>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Paquete completo con los 4 documentos</p>
               </div>
-              <i data-lucide="file-archive" style="width: 20px; height: 20px; color: rgba(255,255,255,0.8);"></i>
+              <i data-lucide="file-archive" style="width: 20px; height: 20px; color: #64748b;"></i>
             </button>
           </div>
           
