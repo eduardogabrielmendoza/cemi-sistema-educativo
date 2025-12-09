@@ -502,7 +502,7 @@
       const inicial = nombreMostrar.charAt(0).toUpperCase();
       
       const avatarParaMostrar = isAdmin 
-        ? (this.adminInfo?.avatar || 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png')
+        ? (this.adminInfo?.avatar || '/images/logo.png')
         : (msg.avatar_remitente || null);
       
       const avatarContent = this.renderAvatar(avatarParaMostrar, nombreMostrar);

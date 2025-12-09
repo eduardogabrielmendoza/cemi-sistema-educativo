@@ -322,7 +322,7 @@
   color: var(--hw-charcoal);
   transform: translateX(6px);
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.05);
-  border-left: 3px solid rgba(165, 28, 48, 0.45);
+  border-left: 3px solid rgba(28, 48, 165, 0.45);
 }
 
 .sidebar-menu button:hover::before {
@@ -335,7 +335,7 @@
   box-shadow: var(--shadow-hover);
   transform: none;
   font-weight: 500;
-  border-left: 4px solid rgba(165, 28, 48, 0.95);
+  border-left: 4px solid rgba(28, 48, 165, 0.95);
 }
 
 .sidebar-menu button.active::before {
@@ -419,7 +419,7 @@
   position: absolute;
   top: 8px;
   right: 12px;
-  background: #a51c30;
+  background: #1c30a5;
   color: white;
   border-radius: 12px;
   min-width: 20px;
@@ -644,7 +644,7 @@
 
 .btn-secondary:hover {
   background: var(--hw-cream);
-  border-color: rgba(165, 28, 48, 0.55);
+  border-color: rgba(28, 48, 165, 0.55);
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
@@ -691,7 +691,7 @@
 }
 
 .btn-icon-edit:hover {
-  background: rgba(165, 28, 48, 0.9);
+  background: rgba(28, 48, 165, 0.9);
   color: white;
   transform: scale(1.1) translateY(-2px);
   box-shadow: var(--shadow-hover);

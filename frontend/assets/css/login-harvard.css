@@ -278,8 +278,8 @@
 }
 
 .input-with-icon:focus-within {
-  border-color: rgba(165, 28, 48, 0.65) !important;
-  box-shadow: 0 0 0 3px rgba(165, 28, 48, 0.18) !important;
+  border-color: rgba(28, 48, 165, 0.65) !important;
+  box-shadow: 0 0 0 3px rgba(28, 48, 165, 0.18) !important;
   background: var(--color-surface) !important;
 }
 
@@ -312,7 +312,7 @@
 }
 
 .input-with-icon:focus-within .input-prefix {
-  color: rgba(165, 28, 48, 0.9) !important;
+  color: rgba(28, 48, 165, 0.9) !important;
 }
 
 .input-with-icon {
@@ -346,8 +346,8 @@
 
 #loginForm .input-wrapper:not(.input-with-icon) input:focus,
 #loginAdminForm .input-wrapper:not(.input-with-icon) input:focus {
-  border-color: rgba(165, 28, 48, 0.65) !important;
-  box-shadow: 0 0 0 3px rgba(165, 28, 48, 0.18) !important;
+  border-color: rgba(28, 48, 165, 0.65) !important;
+  box-shadow: 0 0 0 3px rgba(28, 48, 165, 0.18) !important;
   background: var(--color-surface) !important;
   outline: none !important;
 }
@@ -375,7 +375,7 @@
 }
 
 .toggle-password:hover {
-  color: rgba(165, 28, 48, 0.9) !important;
+  color: rgba(28, 48, 165, 0.9) !important;
   background: var(--color-bg) !important;
 }
 
@@ -387,7 +387,7 @@
 }
 
 .forgot-password {
-  color: rgba(165, 28, 48, 0.9) !important;
+  color: rgba(28, 48, 165, 0.9) !important;
   font-size: 0.85rem !important;
   font-weight: 500 !important;
 }
@@ -482,7 +482,7 @@
 }
 
 .register-link:hover {
-  color: #a51c30 !important;
+  color: #1c30a5 !important;
 }
 
 .login-footer {

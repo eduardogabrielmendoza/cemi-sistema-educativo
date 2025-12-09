@@ -210,7 +210,7 @@ router.get("/conversacion/:id", async (req, res) => {
           p_profesor.avatar, 
           p_admin.avatar,
           p_usuario.avatar,
-          CASE WHEN cm.tipo_remitente = 'admin' THEN 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png' ELSE NULL END
+          CASE WHEN cm.tipo_remitente = 'admin' THEN '/images/logo.png' ELSE NULL END
         ) as avatar_remitente
       FROM chat_mensajes cm
       LEFT JOIN alumnos a ON cm.tipo_remitente = 'alumno' AND a.id_alumno = cm.id_remitente
@@ -585,7 +585,7 @@ router.get("/mi-conversacion", async (req, res) => {
           p_profesor.avatar, 
           p_admin.avatar,
           p_usuario.avatar,
-          CASE WHEN cm.tipo_remitente = 'admin' THEN 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png' ELSE NULL END
+          CASE WHEN cm.tipo_remitente = 'admin' THEN '/images/logo.png' ELSE NULL END
         ) as avatar_remitente
       FROM chat_mensajes cm
       LEFT JOIN alumnos a ON cm.tipo_remitente = 'alumno' AND a.id_alumno = cm.id_remitente

@@ -77,8 +77,8 @@
     }
 
     @keyframes helpPulse {
-      0%, 100% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 0 rgba(165, 28, 48, 0.4); }
-      50% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 12px rgba(165, 28, 48, 0); }
+      0%, 100% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 0 rgba(28, 48, 165, 0.4); }
+      50% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 12px rgba(28, 48, 165, 0); }
     }
     
     .cemi-help-btn.pulse {
@@ -184,7 +184,7 @@
       transform: translateY(-50%);
       width: 3px;
       height: 0;
-      background: #a51c30;
+      background: #1c30a5;
       transition: height 0.3s ease;
       border-radius: 0 2px 2px 0;
     }
