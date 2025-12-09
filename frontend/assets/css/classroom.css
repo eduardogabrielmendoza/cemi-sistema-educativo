@@ -1799,11 +1799,11 @@ body {
 }
 
 .nav-item.active {
-  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
-  color: var(--hw-white);
-  font-weight: 500;
+  background: var(--hw-off-white);
+  color: #a51c30;
+  font-weight: 600;
   transform: translateX(0);
-  box-shadow: 0 4px 15px rgba(165, 28, 48, 0.35);
+  box-shadow: none;
   border-left: 3px solid #a51c30;
 }
 
@@ -1816,7 +1816,7 @@ body {
 }
 
 .nav-item.active i {
-  color: var(--hw-white);
+  color: #a51c30;
 }
 
 .nav-item i {
@@ -2884,13 +2884,16 @@ body.dark-mode .research-banner-close:hover {
 }
 
 .filter-btn.active {
-  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
-  color: var(--hw-white);
-  border-color: #a51c30;
+  background: var(--hw-off-white);
+  color: #a51c30;
+  border-color: rgba(165, 28, 48, 0.4);
+  font-weight: 600;
 }
 
 .tasks-list {
   max-width: 900px;
+  margin: 0 auto;
+  font-family: var(--font-body);
 }
 
 .task-item {
@@ -3564,9 +3567,10 @@ body.dark-mode .research-banner-close:hover {
 }
 
 .course-detail-header {
-  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
+  background: var(--hw-charcoal);
   padding: 32px 24px;
   color: white;
+  border-bottom: 2px solid rgba(165, 28, 48, 0.5);
 }
 
 .course-detail-name {
@@ -3591,7 +3595,7 @@ body.dark-mode .research-banner-close:hover {
   padding: 16px;
   background: #f8f9fa;
   border-radius: 12px;
-  border-left: 3px solid #a51c30;
+  border-left: 3px solid rgba(165, 28, 48, 0.7);
 }
 
 .course-info-label {
@@ -4202,7 +4206,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .config-tab-btn {
@@ -5997,10 +6001,11 @@ body.dark-mode .toggle-password-btn:hover {
   align-items: center;
   justify-content: space-between;
   padding: 22px 28px;
-  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
+  background: var(--hw-charcoal);
   color: white;
   position: relative;
   overflow: hidden;
+  border-bottom: 2px solid rgba(165, 28, 48, 0.6);
 }
 
 .modal-recursos-header::before {
@@ -6209,9 +6214,9 @@ body.dark-mode .toggle-password-btn:hover {
 
 .btn-submit {
   padding: 14px 28px;
-  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
+  background: var(--hw-charcoal);
   color: white;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 6px;
   font-family: var(--font-body);
   font-size: 14px;
@@ -6232,16 +6237,17 @@ body.dark-mode .toggle-password-btn:hover {
   left: 50%;
   width: 0;
   height: 0;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(165, 28, 48, 0.15);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: width 0.6s var(--ease-smooth), height 0.6s var(--ease-smooth);
 }
 
 .btn-submit:hover {
-  background: linear-gradient(135deg, #871728 0%, #6d1220 100%);
+  background: var(--hw-charcoal);
+  border-color: rgba(165, 28, 48, 0.5);
   transform: translateY(var(--hover-lift));
-  box-shadow: 0 8px 25px rgba(165, 28, 48, 0.35);
+  box-shadow: 0 8px 25px rgba(165, 28, 48, 0.2);
 }
 
 .btn-submit:hover::before {

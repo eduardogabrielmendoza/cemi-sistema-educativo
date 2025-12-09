@@ -179,15 +179,15 @@ body {
 }
 
 .nav-item:hover {
-  background: rgba(165, 28, 48, 0.1);
-  color: var(--primary-blue);
+  background: rgba(165, 28, 48, 0.08);
+  color: #a51c30;
 }
 
 .nav-item.active {
-  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
-  color: white;
+  background: var(--hw-off-white);
+  color: #a51c30;
   font-weight: 600;
-  border-left: 3px solid #a51c30;
+  border-left: 3px solid rgba(165, 28, 48, 0.8);
 }
 
 .nav-item i {
@@ -227,7 +227,7 @@ body {
   align-items: center;
   gap: var(--spacing-xl);
   padding: var(--spacing-xl);
-  background-image: url('../images/default-banner.jpg');
+  background-image: url('../../images/banner1.jpg');
   background-size: cover;
   background-position: center;
   background-color: var(--hw-charcoal);
@@ -558,14 +558,16 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #a51c30 0%, #871728 100%);
+  background: var(--hw-charcoal);
   color: white;
+  border: 1px solid transparent;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #871728 0%, #6d1220 100%);
+  background: var(--hw-charcoal);
+  border-color: rgba(165, 28, 48, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(165, 28, 48, 0.3);
+  box-shadow: 0 4px 12px rgba(165, 28, 48, 0.2);
 }
 
 .btn-secondary {

@@ -1102,7 +1102,7 @@ function filterTasks(filter) {
     };
     const messageDiv = document.createElement('div');
     messageDiv.className = 'filter-empty-message';
-    messageDiv.style.cssText = 'text-align: center; color: #666; padding: 40px; font-size: 1rem;';
+    messageDiv.style.cssText = 'text-align: center; color: #656f77; padding: 80px 40px; font-size: 1.25rem; font-family: Inter, sans-serif; font-weight: 500;';
     messageDiv.textContent = messages[filter] || messages['all'];
     container.appendChild(messageDiv);
   }
