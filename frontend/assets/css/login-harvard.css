@@ -476,7 +476,7 @@
 }
 
 .register-link {
-  color: rgba(165, 28, 48, 0.9) !important;
+  color: rgba(28, 48, 165, 0.9) !important;
   font-weight: 500 !important;
   text-decoration: none !important;
 }
@@ -506,7 +506,7 @@
 }
 
 .back-link:hover {
-  color: rgba(165, 28, 48, 0.95) !important;
+  color: rgba(28, 48, 165, 0.95) !important;
 }
 
 .back-link i,
@@ -527,7 +527,7 @@
 }
 
 .login-help a:hover {
-  color: rgba(165, 28, 48, 0.95) !important;
+  color: rgba(28, 48, 165, 0.95) !important;
 }
 
 .login-help i,
