@@ -11,6 +11,22 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+async function ensureBannerColumn() {
+  try {
+    const [columns] = await pool.query(
+      `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
+       WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'personas' AND COLUMN_NAME = 'banner'`
+    );
+    if (columns.length === 0) {
+      await pool.query('ALTER TABLE personas ADD COLUMN banner VARCHAR(500) DEFAULT NULL');
+      console.log(' Campo banner agregado a tabla personas');
+    }
+  } catch (error) {
+    console.error(' Error verificando campo banner:', error.message);
+  }
+}
+ensureBannerColumn();
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, '../../uploads/avatars'));
@@ -537,17 +553,62 @@ router.post("/banner/:tipo/:userId", uploadBanner.single('banner'), async (req, 
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'No se proporciono archivo' });
     }
-    
-    const bannerPath = `/uploads/banners/${req.file.filename}`;
-    console.log(`   Banner guardado: ${bannerPath}`);
+
+    let id_persona = null;
+    if (tipo === 'alumno') {
+      const [alumno] = await pool.query('SELECT id_persona FROM alumnos WHERE id_alumno = ?', [userId]);
+      if (alumno.length > 0) id_persona = alumno[0].id_persona;
+    } else if (tipo === 'profesor') {
+      const [profesor] = await pool.query('SELECT id_persona FROM profesores WHERE id_profesor = ?', [userId]);
+      if (profesor.length > 0) id_persona = profesor[0].id_persona;
+    }
+
+    if (!id_persona) {
+      fs.unlinkSync(req.file.path);
+      return res.status(404).json({ success: false, message: 'Usuario no encontrado' });
+    }
+
+    const [oldBanner] = await pool.query('SELECT banner FROM personas WHERE id_persona = ?', [id_persona]);
+    if (oldBanner.length > 0 && oldBanner[0].banner && oldBanner[0].banner.includes('cloudinary.com')) {
+      try {
+        const urlParts = oldBanner[0].banner.split('/');
+        const publicIdWithExt = urlParts.slice(-2).join('/').split('.')[0];
+        await cloudinary.uploader.destroy(publicIdWithExt);
+        console.log('  Banner anterior eliminado de Cloudinary');
+      } catch (err) {
+        console.log('  Error eliminando banner anterior:', err.message);
+      }
+    }
+
+    console.log('  Subiendo banner a Cloudinary...');
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'banners',
+      public_id: `banner-${tipo}-${userId}`,
+      overwrite: true,
+      transformation: [
+        { width: 1200, height: 300, crop: 'fill', gravity: 'center' },
+        { quality: 'auto:good' }
+      ]
+    });
+
+    const bannerUrl = result.secure_url;
+    console.log('  Banner subido a Cloudinary:', bannerUrl);
+
+    fs.unlinkSync(req.file.path);
+
+    await pool.query('UPDATE personas SET banner = ? WHERE id_persona = ?', [bannerUrl, id_persona]);
+    console.log(`   Banner actualizado en BD para id_persona=${id_persona}`);
     
     return res.json({
       success: true,
       message: 'Banner actualizado correctamente',
-      banner: bannerPath
+      banner: bannerUrl
     });
   } catch (error) {
     console.error(" Error al subir banner:", error);
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
     return res.status(500).json({
       success: false,
       message: 'Error del servidor al subir el banner'
@@ -555,25 +616,40 @@ router.post("/banner/:tipo/:userId", uploadBanner.single('banner'), async (req, 
   }
 });
 
-router.get("/banner/:tipo/:userId", (req, res) => {
+router.get("/banner/:tipo/:userId", async (req, res) => {
   const { tipo, userId } = req.params;
-  const uploadDir = path.join(__dirname, '../../uploads/banners');
   
-  const extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-  for (const ext of extensions) {
-    const filePath = path.join(uploadDir, `banner-${tipo}-${userId}.${ext}`);
-    if (fs.existsSync(filePath)) {
+  try {
+    let id_persona = null;
+    if (tipo === 'alumno') {
+      const [alumno] = await pool.query('SELECT id_persona FROM alumnos WHERE id_alumno = ?', [userId]);
+      if (alumno.length > 0) id_persona = alumno[0].id_persona;
+    } else if (tipo === 'profesor') {
+      const [profesor] = await pool.query('SELECT id_persona FROM profesores WHERE id_profesor = ?', [userId]);
+      if (profesor.length > 0) id_persona = profesor[0].id_persona;
+    }
+
+    if (!id_persona) {
+      return res.json({ success: true, banner: null });
+    }
+
+    const [persona] = await pool.query('SELECT banner FROM personas WHERE id_persona = ?', [id_persona]);
+    
+    if (persona.length > 0 && persona[0].banner) {
       return res.json({
         success: true,
-        banner: `/uploads/banners/banner-${tipo}-${userId}.${ext}`
+        banner: persona[0].banner
       });
     }
+    
+    return res.json({
+      success: true,
+      banner: null
+    });
+  } catch (error) {
+    console.error(' Error al obtener banner:', error);
+    return res.json({ success: true, banner: null });
   }
-  
-  return res.json({
-    success: true,
-    banner: null
-  });
 });
 
 
