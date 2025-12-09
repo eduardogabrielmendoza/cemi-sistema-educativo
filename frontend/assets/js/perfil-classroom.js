@@ -237,7 +237,8 @@ function mostrarDatosEnUI(perfil) {
   // Cargar banner desde servidor
   const bannerElement = document.getElementById('profileBanner');
   if (bannerElement) {
-    fetch(`/api/classroom/banner/${userType}/${userId}`, {
+    const tipoUsuario = userRol === 'profesor' ? 'profesor' : 'alumno';
+    fetch(`/api/classroom/banner/${tipoUsuario}/${userId}`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
     })
     .then(res => res.json())
@@ -591,7 +592,8 @@ function cambiarBanner(event) {
   const formData = new FormData();
   formData.append('banner', file);
   
-  fetch(`/api/classroom/banner/${userType}/${userId}`, {
+  const tipoUsuario = userRol === 'profesor' ? 'profesor' : 'alumno';
+  fetch(`/api/classroom/banner/${tipoUsuario}/${userId}`, {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     body: formData
