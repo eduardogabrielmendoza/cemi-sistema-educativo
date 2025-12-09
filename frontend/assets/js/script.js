@@ -9495,7 +9495,24 @@ document.head.appendChild(rippleStyle);
 async function descargarPDFAlumnos() {
   try {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    const doc = new jsPDF('landscape'); // Landscape para más espacio
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    
+    // Colores Harvard Style
+    const COLORS = {
+      charcoal: [30, 30, 30],
+      wroughtIron: [74, 74, 74],
+      graphite: [101, 111, 119],
+      silver: [160, 160, 160],
+      lightGray: [248, 249, 250],
+      white: [255, 255, 255],
+      text: [45, 45, 45],
+      accent: [45, 50, 124],
+      success: [16, 185, 129],
+      warning: [245, 158, 11],
+      error: [239, 68, 68]
+    };
     
     const responseAlumnos = await fetch(`${API_URL}/alumnos`);
     const alumnos = await responseAlumnos.json();
@@ -9513,24 +9530,90 @@ async function descargarPDFAlumnos() {
       }
     });
     
+    // ===== HEADER MODERNO =====
+    // Barra superior oscura
+    doc.setFillColor(...COLORS.charcoal);
+    doc.rect(0, 0, pageWidth, 28, 'F');
+    
+    // Línea decorativa
+    doc.setFillColor(...COLORS.wroughtIron);
+    doc.rect(0, 28, pageWidth, 2, 'F');
+    doc.setFillColor(...COLORS.graphite);
+    doc.rect(0, 30, pageWidth, 0.5, 'F');
+    
+    // Logo con círculo blanco
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
       img.onload = () => {
-        doc.addImage(img, 'PNG', 160, 10, 30, 30);
+        doc.setFillColor(...COLORS.white);
+        doc.circle(20, 14, 9, 'F');
+        doc.addImage(img, 'PNG', 11, 5, 18, 18);
         resolve();
       };
-      img.onerror = resolve; // Continuar si falla la carga del logo
+      img.onerror = resolve;
     });
     
-    doc.setFontSize(20);
-    doc.setTextColor(25, 118, 210); // Azul del sistema
-    doc.text('CEMI - Listado de Alumnos', 14, 25);
+    // Título CEMI
+    doc.setFontSize(16);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...COLORS.white);
+    doc.text('CEMI', 35, 12);
     
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')}`, 14, 32);
+    // Subtítulo
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...COLORS.silver);
+    doc.text('Centro de Enseñanza Multilingüe Integral', 35, 18);
     
+    // Línea decorativa bajo el subtítulo
+    doc.setDrawColor(...COLORS.graphite);
+    doc.setLineWidth(0.3);
+    doc.line(35, 21, 90, 21);
+    
+    // Título del documento (derecha)
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...COLORS.white);
+    doc.text('Listado de Alumnos', pageWidth - 15, 14, { align: 'right' });
+    
+    // Fecha de generación
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...COLORS.silver);
+    doc.text(`Generado: ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}`, pageWidth - 15, 20, { align: 'right' });
+    
+    // ===== RESUMEN ESTADÍSTICO =====
+    const totalAlumnos = alumnos.length;
+    const alumnosActivos = alumnos.filter(a => a.estado === 'activo').length;
+    const alumnosInactivos = totalAlumnos - alumnosActivos;
+    
+    let yPos = 38;
+    
+    // Caja de resumen
+    doc.setFillColor(...COLORS.lightGray);
+    doc.roundedRect(15, yPos, pageWidth - 30, 14, 3, 3, 'F');
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...COLORS.text);
+    doc.text(`Total de Alumnos: ${totalAlumnos}`, 25, yPos + 9);
+    
+    // Indicador activos (verde)
+    doc.setFillColor(...COLORS.success);
+    doc.circle(120, yPos + 7, 3, 'F');
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...COLORS.graphite);
+    doc.text(`Activos: ${alumnosActivos}`, 126, yPos + 9);
+    
+    // Indicador inactivos (naranja)
+    doc.setFillColor(...COLORS.warning);
+    doc.circle(180, yPos + 7, 3, 'F');
+    doc.text(`Inactivos: ${alumnosInactivos}`, 186, yPos + 9);
+    
+    yPos += 20;
+    
+    // ===== TABLA DE DATOS =====
     const tableData = alumnos.map(alumno => {
       const nombreCompleto = `${alumno.nombre || ''} ${alumno.apellido || ''}`.trim() || '-';
       const cursos = inscripcionesPorAlumno[alumno.id_alumno]?.join(', ') || 'Sin cursos';
@@ -9546,43 +9629,80 @@ async function descargarPDFAlumnos() {
     });
     
     doc.autoTable({
-      startY: 45,
-      head: [['Nombre Completo', 'Email', 'Teléfono', 'DNI', 'Cursos Inscritos', 'Estado']],
+      startY: yPos,
+      head: [['Nombre Completo', 'Email', 'Teléfono', 'DNI', 'Cursos Inscriptos', 'Estado']],
       body: tableData,
       theme: 'grid',
       headStyles: {
-        fillColor: [25, 118, 210], // Azul del sistema
+        fillColor: COLORS.accent,
         textColor: 255,
         fontStyle: 'bold',
-        fontSize: 9
+        fontSize: 9,
+        cellPadding: 4,
+        halign: 'left'
       },
       bodyStyles: {
-        fontSize: 8
+        fontSize: 8,
+        cellPadding: 3,
+        textColor: COLORS.text
       },
       alternateRowStyles: {
-        fillColor: [245, 247, 250]
+        fillColor: COLORS.lightGray
       },
       columnStyles: {
-        0: { cellWidth: 35 },
-        1: { cellWidth: 45 },
-        2: { cellWidth: 25 },
-        3: { cellWidth: 20 },
-        4: { cellWidth: 45 },
-        5: { cellWidth: 18 }
+        0: { cellWidth: 45, fontStyle: 'bold' },
+        1: { cellWidth: 55, textColor: COLORS.accent },
+        2: { cellWidth: 30 },
+        3: { cellWidth: 25 },
+        4: { cellWidth: 70 },
+        5: { cellWidth: 22, halign: 'center' }
       },
-      margin: { left: 14, right: 14 }
+      margin: { left: 15, right: 15 },
+      didParseCell: function(data) {
+        // Colorear el estado
+        if (data.section === 'body' && data.column.index === 5) {
+          const estado = data.cell.raw?.toLowerCase();
+          if (estado === 'activo') {
+            data.cell.styles.textColor = COLORS.success;
+            data.cell.styles.fontStyle = 'bold';
+          } else if (estado === 'inactivo') {
+            data.cell.styles.textColor = COLORS.warning;
+            data.cell.styles.fontStyle = 'bold';
+          }
+        }
+      }
     });
     
+    // ===== FOOTER EN TODAS LAS PÁGINAS =====
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
-      doc.setFontSize(8);
-      doc.setTextColor(150);
+      
+      // Línea separadora del footer
+      doc.setDrawColor(...COLORS.graphite);
+      doc.setLineWidth(0.3);
+      doc.line(15, pageHeight - 18, pageWidth - 15, pageHeight - 18);
+      
+      // Texto izquierda
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...COLORS.graphite);
+      doc.text('CEMI - Centro de Enseñanza Multilingüe Integral', 15, pageHeight - 12);
+      
+      // Fecha y hora
+      const fechaHora = new Date().toLocaleString('es-ES', { 
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+      doc.text(`Documento generado: ${fechaHora}`, 15, pageHeight - 8);
+      
+      // Número de página (derecha)
+      doc.setFont('helvetica', 'bold');
       doc.text(
         `Página ${i} de ${pageCount}`,
-        doc.internal.pageSize.width / 2,
-        doc.internal.pageSize.height - 10,
-        { align: 'center' }
+        pageWidth - 15,
+        pageHeight - 10,
+        { align: 'right' }
       );
     }
     
@@ -9598,7 +9718,24 @@ async function descargarPDFAlumnos() {
 async function descargarPDFProfesores() {
   try {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    const doc = new jsPDF('landscape'); // Landscape para más espacio
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    
+    // Colores Harvard Style
+    const COLORS = {
+      charcoal: [30, 30, 30],
+      wroughtIron: [74, 74, 74],
+      graphite: [101, 111, 119],
+      silver: [160, 160, 160],
+      lightGray: [248, 249, 250],
+      white: [255, 255, 255],
+      text: [45, 45, 45],
+      accent: [45, 50, 124],
+      success: [16, 185, 129],
+      warning: [245, 158, 11],
+      error: [239, 68, 68]
+    };
     
     const responseProfesores = await fetch(`${API_URL}/profesores`);
     const profesores = await responseProfesores.json();
@@ -9614,24 +9751,90 @@ async function descargarPDFProfesores() {
       cursosPorProfesor[curso.id_profesor].push(curso.nombre_curso);
     });
     
+    // ===== HEADER MODERNO =====
+    // Barra superior oscura
+    doc.setFillColor(...COLORS.charcoal);
+    doc.rect(0, 0, pageWidth, 28, 'F');
+    
+    // Línea decorativa
+    doc.setFillColor(...COLORS.wroughtIron);
+    doc.rect(0, 28, pageWidth, 2, 'F');
+    doc.setFillColor(...COLORS.graphite);
+    doc.rect(0, 30, pageWidth, 0.5, 'F');
+    
+    // Logo con círculo blanco
     const img = new Image();
     img.src = '/images/logo.png';
     await new Promise((resolve) => {
       img.onload = () => {
-        doc.addImage(img, 'PNG', 160, 10, 30, 30);
+        doc.setFillColor(...COLORS.white);
+        doc.circle(20, 14, 9, 'F');
+        doc.addImage(img, 'PNG', 11, 5, 18, 18);
         resolve();
       };
       img.onerror = resolve;
     });
     
-    doc.setFontSize(20);
-    doc.setTextColor(25, 118, 210);
-    doc.text('CEMI - Listado de Profesores', 14, 25);
+    // Título CEMI
+    doc.setFontSize(16);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(...COLORS.white);
+    doc.text('CEMI', 35, 12);
     
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text(`Generado: ${new Date().toLocaleDateString('es-ES')}`, 14, 32);
+    // Subtítulo
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...COLORS.silver);
+    doc.text('Centro de Enseñanza Multilingüe Integral', 35, 18);
     
+    // Línea decorativa bajo el subtítulo
+    doc.setDrawColor(...COLORS.graphite);
+    doc.setLineWidth(0.3);
+    doc.line(35, 21, 90, 21);
+    
+    // Título del documento (derecha)
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...COLORS.white);
+    doc.text('Listado de Profesores', pageWidth - 15, 14, { align: 'right' });
+    
+    // Fecha de generación
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...COLORS.silver);
+    doc.text(`Generado: ${new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}`, pageWidth - 15, 20, { align: 'right' });
+    
+    // ===== RESUMEN ESTADÍSTICO =====
+    const totalProfesores = profesores.length;
+    const profesoresActivos = profesores.filter(p => p.estado === 'activo').length;
+    const profesoresInactivos = totalProfesores - profesoresActivos;
+    
+    let yPos = 38;
+    
+    // Caja de resumen
+    doc.setFillColor(...COLORS.lightGray);
+    doc.roundedRect(15, yPos, pageWidth - 30, 14, 3, 3, 'F');
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...COLORS.text);
+    doc.text(`Total de Profesores: ${totalProfesores}`, 25, yPos + 9);
+    
+    // Indicador activos (verde)
+    doc.setFillColor(...COLORS.success);
+    doc.circle(130, yPos + 7, 3, 'F');
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...COLORS.graphite);
+    doc.text(`Activos: ${profesoresActivos}`, 136, yPos + 9);
+    
+    // Indicador inactivos (naranja)
+    doc.setFillColor(...COLORS.warning);
+    doc.circle(190, yPos + 7, 3, 'F');
+    doc.text(`Inactivos: ${profesoresInactivos}`, 196, yPos + 9);
+    
+    yPos += 20;
+    
+    // ===== TABLA DE DATOS =====
     const tableData = profesores.map(profesor => {
       const nombreCompleto = `${profesor.nombre || ''} ${profesor.apellido || ''}`.trim() || '-';
       const cursos = cursosPorProfesor[profesor.id_profesor]?.join(', ') || 'Sin cursos asignados';
@@ -9647,43 +9850,80 @@ async function descargarPDFProfesores() {
     });
     
     doc.autoTable({
-      startY: 45,
+      startY: yPos,
       head: [['Nombre Completo', 'Email', 'Teléfono', 'Especialidad', 'Cursos que Dicta', 'Estado']],
       body: tableData,
       theme: 'grid',
       headStyles: {
-        fillColor: [25, 118, 210],
+        fillColor: COLORS.accent,
         textColor: 255,
         fontStyle: 'bold',
-        fontSize: 9
+        fontSize: 9,
+        cellPadding: 4,
+        halign: 'left'
       },
       bodyStyles: {
-        fontSize: 8
+        fontSize: 8,
+        cellPadding: 3,
+        textColor: COLORS.text
       },
       alternateRowStyles: {
-        fillColor: [245, 247, 250]
+        fillColor: COLORS.lightGray
       },
       columnStyles: {
-        0: { cellWidth: 38 },
-        1: { cellWidth: 48 },
-        2: { cellWidth: 28 },
-        3: { cellWidth: 32 },
-        4: { cellWidth: 35 },
-        5: { cellWidth: 17 }
+        0: { cellWidth: 45, fontStyle: 'bold' },
+        1: { cellWidth: 55, textColor: COLORS.accent },
+        2: { cellWidth: 30 },
+        3: { cellWidth: 40 },
+        4: { cellWidth: 60 },
+        5: { cellWidth: 22, halign: 'center' }
       },
-      margin: { left: 14, right: 14 }
+      margin: { left: 15, right: 15 },
+      didParseCell: function(data) {
+        // Colorear el estado
+        if (data.section === 'body' && data.column.index === 5) {
+          const estado = data.cell.raw?.toLowerCase();
+          if (estado === 'activo') {
+            data.cell.styles.textColor = COLORS.success;
+            data.cell.styles.fontStyle = 'bold';
+          } else if (estado === 'inactivo') {
+            data.cell.styles.textColor = COLORS.warning;
+            data.cell.styles.fontStyle = 'bold';
+          }
+        }
+      }
     });
     
+    // ===== FOOTER EN TODAS LAS PÁGINAS =====
     const pageCount = doc.internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
-      doc.setFontSize(8);
-      doc.setTextColor(150);
+      
+      // Línea separadora del footer
+      doc.setDrawColor(...COLORS.graphite);
+      doc.setLineWidth(0.3);
+      doc.line(15, pageHeight - 18, pageWidth - 15, pageHeight - 18);
+      
+      // Texto izquierda
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...COLORS.graphite);
+      doc.text('CEMI - Centro de Enseñanza Multilingüe Integral', 15, pageHeight - 12);
+      
+      // Fecha y hora
+      const fechaHora = new Date().toLocaleString('es-ES', { 
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+      doc.text(`Documento generado: ${fechaHora}`, 15, pageHeight - 8);
+      
+      // Número de página (derecha)
+      doc.setFont('helvetica', 'bold');
       doc.text(
         `Página ${i} de ${pageCount}`,
-        doc.internal.pageSize.width / 2,
-        doc.internal.pageSize.height - 10,
-        { align: 'center' }
+        pageWidth - 15,
+        pageHeight - 10,
+        { align: 'right' }
       );
     }
     
