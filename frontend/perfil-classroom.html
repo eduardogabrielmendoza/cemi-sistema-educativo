@@ -57,6 +57,10 @@
     <main class="perfil-content">
       <section class="perfil-section active" id="info-general">
         <div class="profile-header-card" id="profileBanner">
+          <button class="btn-change-banner" onclick="document.getElementById('bannerInput').click()" title="Cambiar banner">
+            <i data-lucide="image"></i>
+          </button>
+          <input type="file" id="bannerInput" accept="image/*" style="display: none;" onchange="cambiarBanner(event)">
           <div class="profile-avatar-container">
             <div class="profile-avatar" id="profileAvatar">
               <span id="avatarInitials">ED</span>

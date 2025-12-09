@@ -234,12 +234,15 @@ function mostrarDatosEnUI(perfil) {
     }
   }
   
-  // Cargar banner
+  // Cargar banner desde localStorage o usar default
   const bannerElement = document.getElementById('profileBanner');
-  if (perfil.banner && bannerElement) {
-    localStorage.setItem('banner', perfil.banner);
-    bannerElement.style.backgroundImage = `url(${perfil.banner})`;
-    console.log(' Banner cargado');
+  if (bannerElement) {
+    const savedBanner = localStorage.getItem(`banner_${userId}`);
+    if (savedBanner) {
+      bannerElement.style.backgroundImage = `url(${savedBanner})`;
+    } else {
+      bannerElement.style.backgroundImage = `url(images/banner1.jpg)`;
+    }
   }
   
   updateElement('profileName', `${perfil.nombre} ${perfil.apellido}`);
@@ -554,7 +557,7 @@ function formatearFecha(fecha) {
 }
 
 
-async function cambiarBanner(event) {
+function cambiarBanner(event) {
   const file = event.target.files[0];
   
   if (!file) return;
@@ -577,45 +580,23 @@ async function cambiarBanner(event) {
     return;
   }
   
-  const formData = new FormData();
-  formData.append('banner', file);
-  
-  try {
-    const response = await fetch(`${API_URL}/classroom/perfil/${userId}/banner`, {
-      method: 'POST',
-      body: formData
-    });
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const bannerData = e.target.result;
+    localStorage.setItem(`banner_${userId}`, bannerData);
     
-    const data = await response.json();
-    
-    if (response.ok && data.success) {
-      localStorage.setItem('banner', data.banner);
-      
-      const bannerElement = document.getElementById('profileBanner');
-      if (bannerElement) {
-        bannerElement.style.backgroundImage = `url(${data.banner})`;
-      }
-      
-      if (userData) {
-        userData.banner = data.banner;
-      }
-      
-      Swal.fire({
-        icon: 'success',
-        title: 'Banner actualizado',
-        text: 'Tu banner se ha actualizado correctamente',
-        timer: 2000,
-        showConfirmButton: false
-      });
-    } else {
-      throw new Error(data.message || 'Error al subir banner');
+    const bannerElement = document.getElementById('profileBanner');
+    if (bannerElement) {
+      bannerElement.style.backgroundImage = `url(${bannerData})`;
     }
-  } catch (error) {
-    console.error('Error al cambiar banner:', error);
+    
     Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'No se pudo actualizar el banner'
+      icon: 'success',
+      title: 'Banner actualizado',
+      text: 'Tu banner se ha actualizado correctamente',
+      timer: 2000,
+      showConfirmButton: false
     });
-  }
+  };
+  reader.readAsDataURL(file);
 }
