@@ -51,7 +51,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
       ">
         <!-- Header del Modal -->
         <div style="
-          background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+          background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
           padding: 25px 30px;
           border-radius: 20px 20px 0 0;
           position: relative;
@@ -125,7 +125,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -157,7 +157,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -189,7 +189,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -221,7 +221,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -253,7 +253,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               <div style="
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+                background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -555,7 +555,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
       ">
         <!-- Header -->
         <div style="
-          background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+          background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
           padding: 25px 30px;
           position: relative;
         ">
@@ -618,7 +618,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
                   box-shadow: 0 2px 8px rgba(30, 60, 114, 0.1);
                 ">
                   <span style="
-                    background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+                    background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
                     color: white;
                     width: 28px;
                     height: 28px;
@@ -704,7 +704,7 @@ function generarCodigosRecuperacion(nombreAlumno) {
             <button onclick="generarNuevosCodigos('${nombreAlumno}')" style="
               flex: 1;
               padding: 14px;
-              background: linear-gradient(135deg, #2d327c 0%, #8b1728 100%);
+              background: linear-gradient(135deg, #2d327c 0%, #1a1f4e 100%);
               border: none;
               border-radius: 12px;
               font-size: 14px;
