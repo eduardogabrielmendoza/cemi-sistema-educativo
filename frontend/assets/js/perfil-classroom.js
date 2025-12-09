@@ -238,20 +238,28 @@ function mostrarDatosEnUI(perfil) {
   const bannerElement = document.getElementById('profileBanner');
   if (bannerElement) {
     const tipoUsuario = userRol === 'profesor' ? 'profesor' : 'alumno';
-    fetch(`/api/classroom/banner/${tipoUsuario}/${userId}`, {
-      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-    })
-    .then(res => res.json())
-    .then(bannerData => {
-      if (bannerData.success && bannerData.banner) {
-        bannerElement.style.backgroundImage = `url(${bannerData.banner})`;
-      } else {
+    const bannerId = tipoUsuario === 'profesor' 
+      ? localStorage.getItem('id_profesor') 
+      : localStorage.getItem('id_alumno');
+    
+    if (bannerId) {
+      fetch(`/api/classroom/banner/${tipoUsuario}/${bannerId}`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      })
+      .then(res => res.json())
+      .then(bannerData => {
+        if (bannerData.success && bannerData.banner) {
+          bannerElement.style.backgroundImage = `url(${bannerData.banner})`;
+        } else {
+          bannerElement.style.backgroundImage = `url(images/banner1.jpg)`;
+        }
+      })
+      .catch(() => {
         bannerElement.style.backgroundImage = `url(images/banner1.jpg)`;
-      }
-    })
-    .catch(() => {
+      });
+    } else {
       bannerElement.style.backgroundImage = `url(images/banner1.jpg)`;
-    });
+    }
   }
   
   updateElement('profileName', `${perfil.nombre} ${perfil.apellido}`);
@@ -593,7 +601,20 @@ function cambiarBanner(event) {
   formData.append('banner', file);
   
   const tipoUsuario = userRol === 'profesor' ? 'profesor' : 'alumno';
-  fetch(`/api/classroom/banner/${tipoUsuario}/${userId}`, {
+  const bannerId = tipoUsuario === 'profesor' 
+    ? localStorage.getItem('id_profesor') 
+    : localStorage.getItem('id_alumno');
+  
+  if (!bannerId) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo identificar tu perfil'
+    });
+    return;
+  }
+  
+  fetch(`/api/classroom/banner/${tipoUsuario}/${bannerId}`, {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     body: formData
