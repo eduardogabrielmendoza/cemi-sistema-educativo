@@ -138,47 +138,31 @@ function initAdminSPA() {
       switch (section) {
         case "cursos":
           endpoint = `${API_URL}/cursos`;
-            html = `<h2>Listado de Cursos</h2>`;
+          html = ``;
           break;
         case "alumnos":
           endpoint = `${API_URL}/alumnos`;
-          html = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-              <h2 style="margin: 0;">Listado de Alumnos</h2>
-              <button onclick="descargarPDFAlumnos()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar Información
-              </button>
-            </div>
-          `;
+          html = ``;
           break;
         case "profesores":
           endpoint = `${API_URL}/profesores`;
-          html = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-              <h2 style="margin: 0;">Listado de Profesores</h2>
-              <button onclick="descargarPDFProfesores()" class="btn-primary" style="display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="file-down" style="width: 18px; height: 18px;"></i>
-                Descargar Información
-              </button>
-            </div>
-          `;
+          html = ``;
           break;
         case "administradores":
           endpoint = `${API_URL}/administradores`;
-          html = `<h2>Listado de Administradores</h2>`;
+          html = ``;
           break;
         case "pagos":
           endpoint = `${API_URL}/pagos`;
-          html = `<h2>Listado de Pagos</h2>`;
+          html = ``;
           break;
         case "aulas":
           endpoint = `${API_URL}/aulas`;
-          html = `<h2>Listado de Aulas</h2>`;
+          html = ``;
           break;
         case "idiomas":
           endpoint = `${API_URL}/idiomas`;
-          html = `<h2>Listado de Idiomas</h2>`;
+          html = ``;
           break;
         case "investigacion":
           loader.classList.add("hidden");
@@ -2989,7 +2973,10 @@ function generateTable(section, data) {
   switch (section) {
     case "cursos":
       return `
-        <div class="cursos-header" style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 25px;">
+        <div class="cursos-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+          <div>
+            <p style="color: #666; margin: 0; font-size: 14px;">${data.length} curso${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
+          </div>
           <button class="btn-primary" onclick="openNuevoCursoModal()">
             <i data-lucide="plus"></i>
             Nuevo Curso
@@ -3066,6 +3053,7 @@ function generateTable(section, data) {
     case "alumnos":
       return `
         <div class="alumnos-header">
+          <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} alumno${data.length !== 1 ? 's' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
           <div class="alumnos-search-filter">
             <div style="position: relative; flex: 1;">
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
@@ -3153,6 +3141,7 @@ function generateTable(section, data) {
     case "profesores":
       return `
         <div class="profesores-header">
+          <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} profesor${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
           <div class="profesores-search-filter">
             <div style="position: relative; flex: 1;">
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
@@ -3246,6 +3235,7 @@ function generateTable(section, data) {
     case "administradores":
       return `
         <div class="profesores-header">
+          <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} administrador${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
           <div class="profesores-search-filter">
             <div style="position: relative; flex: 1;">
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
@@ -3321,6 +3311,7 @@ function generateTable(section, data) {
 
 case "pagos":
   return `
+    <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} pago${data.length !== 1 ? 's' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
     <div class="pagos-tabs" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb;">
       <button class="pagos-tab active" data-tab="activos" onclick="switchPagosTab('activos')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid #4a5259; color: #4a5259; font-weight: 600; cursor: pointer; transition: all 0.3s;">
         <i data-lucide="list"></i> Pagos Activos
@@ -3455,7 +3446,6 @@ case "pagos":
       return `
         <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
-            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevaAulaModal()">
