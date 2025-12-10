@@ -146,7 +146,7 @@
 .dashboard-body h3,
 #mainContent h1,
 #mainContent h2 {
-  font-family: 'Inter';
+  font-family: 'Georgia';
   font-weight: 400;
   letter-spacing: -0.3px;
 }
@@ -567,7 +567,7 @@
 }
 
 #mainContent h2 {
-  color: #ffffff;
+  color: #000000;
   margin-bottom: 20px;
   font-weight: 400;
   font-size: 1.5em;
