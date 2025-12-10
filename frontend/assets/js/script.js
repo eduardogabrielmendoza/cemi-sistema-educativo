@@ -2979,21 +2979,19 @@ function generateTable(section, data) {
   switch (section) {
     case "cursos":
       return `
-        <div class="cursos-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 16px;">
+        <div class="cursos-header" style="display: flex; align-items: center; margin-bottom: 25px; gap: 20px; flex-wrap: wrap;">
           <div style="flex-shrink: 0;">
             <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Cursos</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} curso${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
-          <div style="display: flex; gap: 12px; flex: 1; max-width: 700px; align-items: center;">
-            <div style="position: relative; flex: 1;">
-              <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
-              <input type="text" id="cursosSearch" placeholder="Buscar por nombre, idioma o nivel..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
-            </div>
-            <button class="btn-primary" onclick="openNuevoCursoModal()">
-              <i data-lucide="plus"></i>
-              Nuevo Curso
-            </button>
+          <div style="position: relative; flex: 1; max-width: 400px;">
+            <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
+            <input type="text" id="cursosSearch" placeholder="Buscar por nombre, idioma o nivel..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
           </div>
+          <button class="btn-primary" style="margin-left: auto;" onclick="openNuevoCursoModal()">
+            <i data-lucide="plus"></i>
+            Nuevo Curso
+          </button>
         </div>
         <div class="cursos-grid" id="cursosGrid">
           ${data.map(c => {
@@ -3094,7 +3092,7 @@ function generateTable(section, data) {
             const avatarUrl = a.avatar ? a.avatar : null;
             
             return `
-            <div class="persona-card" data-id="${a.id_alumno}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+            <div class="persona-card alumno-card" data-id="${a.id_alumno}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
               
               <div style="position: absolute; top: 12px; right: 12px; background: ${estado === 'activo' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; color: ${estado === 'activo' ? '#16a34a' : '#dc2626'}; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${estado.charAt(0).toUpperCase() + estado.slice(1)}</div>
               
@@ -3190,7 +3188,7 @@ function generateTable(section, data) {
             const avatarUrl = p.avatar ? p.avatar : null;
             
             return `
-            <div class="persona-card" data-id="${p.id_profesor}" data-idioma="${idiomas}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+            <div class="persona-card profesor-card" data-id="${p.id_profesor}" data-idioma="${idiomas}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
               
               <div style="position: absolute; top: 12px; right: 12px; background: ${estado === 'activo' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; color: ${estado === 'activo' ? '#16a34a' : '#dc2626'}; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${estado.charAt(0).toUpperCase() + estado.slice(1)}</div>
               
@@ -3276,7 +3274,7 @@ function generateTable(section, data) {
             const avatarUrl = admin.avatar ? admin.avatar : null;
             
             return `
-            <div class="persona-card" data-id="${admin.id_persona}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
+            <div class="persona-card admin-card" data-id="${admin.id_persona}" style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #e5e7eb; cursor: pointer;" onmouseenter="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'; this.style.transform='translateY(-2px)';" onmouseleave="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';">
               
               <div style="position: absolute; top: 12px; right: 12px; background: ${estado === 'activo' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; color: ${estado === 'activo' ? '#16a34a' : '#dc2626'}; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;">${estado === 'activo' ? 'Activo' : 'Sin acceso'}</div>
               
@@ -3469,21 +3467,19 @@ case "pagos":
     
     case "aulas":
       return `
-        <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 16px;">
+        <div class="aulas-header" style="display: flex; align-items: center; margin-bottom: 25px; gap: 20px; flex-wrap: wrap;">
           <div style="flex-shrink: 0;">
             <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
-          <div style="display: flex; gap: 12px; flex: 1; max-width: 600px; align-items: center;">
-            <div style="position: relative; flex: 1;">
-              <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
-              <input type="text" id="aulasSearch" placeholder="Buscar por nombre o capacidad..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
-            </div>
-            <button class="btn-primary" onclick="openNuevaAulaModal()">
-              <i data-lucide="plus"></i>
-              Nueva Aula
-            </button>
+          <div style="position: relative; flex: 1; max-width: 350px;">
+            <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
+            <input type="text" id="aulasSearch" placeholder="Buscar por nombre o capacidad..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
           </div>
+          <button class="btn-primary" style="margin-left: auto;" onclick="openNuevaAulaModal()">
+            <i data-lucide="plus"></i>
+            Nueva Aula
+          </button>
         </div>
         <div class="aulas-grid" id="aulasGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map(a => {
@@ -3534,21 +3530,19 @@ case "pagos":
       };
       
       return `
-        <div class="idiomas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 16px;">
+        <div class="idiomas-header" style="display: flex; align-items: center; margin-bottom: 25px; gap: 20px; flex-wrap: wrap;">
           <div style="flex-shrink: 0;">
             <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Idiomas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} idioma${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
-          <div style="display: flex; gap: 12px; flex: 1; max-width: 500px; align-items: center;">
-            <div style="position: relative; flex: 1;">
-              <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
-              <input type="text" id="idiomasSearch" placeholder="Buscar idioma..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
-            </div>
-            <button class="btn-primary" onclick="openNuevoIdiomaModal()">
-              <i data-lucide="plus"></i>
-              Nuevo Idioma
-            </button>
+          <div style="position: relative; flex: 1; max-width: 300px;">
+            <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
+            <input type="text" id="idiomasSearch" placeholder="Buscar idioma..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
           </div>
+          <button class="btn-primary" style="margin-left: auto;" onclick="openNuevoIdiomaModal()">
+            <i data-lucide="plus"></i>
+            Nuevo Idioma
+          </button>
         </div>
         <div class="idiomas-grid" id="idiomasGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map((idioma, index) => {
@@ -4754,16 +4748,15 @@ function setupAlumnoFilters() {
 
 function filterAlumnos() {
   const searchTerm = document.getElementById('alumnosSearch')?.value.toLowerCase() || '';
-  const estadoFilter = document.getElementById('alumnosEstadoFilter')?.value || '';
+  const estadoFilter = document.getElementById('alumnosEstadoFilter')?.value.toLowerCase() || '';
   
   const cards = document.querySelectorAll('.alumno-card');
   
   cards.forEach(card => {
     const cardText = card.textContent.toLowerCase();
-    const cardEstado = card.querySelector('.alumno-estado-badge')?.textContent.toLowerCase() || '';
     
     const matchesSearch = cardText.includes(searchTerm);
-    const matchesEstado = !estadoFilter || cardEstado.includes(estadoFilter);
+    const matchesEstado = !estadoFilter || cardText.includes(estadoFilter);
     
     if (matchesSearch && matchesEstado) {
       card.style.display = '';
@@ -8170,7 +8163,7 @@ function setupAdministradorFilters() {
 
 function filterAdministradores() {
   const searchTerm = document.getElementById('administradoresSearch')?.value.toLowerCase() || '';
-  const cards = document.querySelectorAll('#administradoresGrid .profesor-card');
+  const cards = document.querySelectorAll('.admin-card');
   
   cards.forEach(card => {
     const cardText = card.textContent.toLowerCase();
