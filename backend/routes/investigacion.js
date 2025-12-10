@@ -185,7 +185,8 @@ router.post("/encuesta", async (req, res) => {
 
     let logoBuffer = null;
     try {
-      logoBuffer = await descargarImagen("https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png");
+      const logoPath = path.join(__dirname, '../../frontend/images/logo.png');
+      logoBuffer = fs.readFileSync(logoPath);
     } catch (err) {
       console.log("No se pudo cargar el logo:", err.message);
     }
@@ -644,7 +645,8 @@ router.get("/test-pdf", async (req, res) => {
 
     let logoBuffer = null;
     try {
-      logoBuffer = await descargarImagen("https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png");
+      const logoPath = path.join(__dirname, '../../frontend/images/logo.png');
+      logoBuffer = fs.readFileSync(logoPath);
     } catch (err) {
       console.log("No se pudo cargar el logo:", err.message);
     }

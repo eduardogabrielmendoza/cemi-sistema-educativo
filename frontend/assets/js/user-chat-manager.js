@@ -466,7 +466,7 @@
     
     container.innerHTML = this.conversations.map(conv => {
       const nombre = 'Soporte CEMI';
-      const logoUrl = 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png';
+      const logoUrl = 'images/logo.png';
       const avatarContent = this.renderAvatar(logoUrl, nombre);
       const tiempo = this.formatTime(conv.fecha_ultimo_mensaje || conv.fecha_inicio);
       const preview = conv.ultimo_mensaje || 'Sin mensajes';
@@ -589,7 +589,7 @@
       if (isAdmin) {
         nombreMostrar = msg.nombre_remitente || 'Admin';
         tipoLabel = 'Administrador';
-        avatarParaMostrar = 'https://res.cloudinary.com/dquzp9ski/image/upload/v1763879909/logo_xtpfa4.png';
+        avatarParaMostrar = 'images/logo.png';
       } else {
         nombreMostrar = msg.nombre_remitente || this.userInfo.nombre;
         tipoLabel = msg.tipo_remitente === 'profesor' ? 'Profesor' : 'Alumno';
