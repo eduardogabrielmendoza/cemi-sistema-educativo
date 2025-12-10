@@ -972,17 +972,18 @@
     const iniciales = nombre ? nombre.charAt(0).toUpperCase() : 'U';
     
     if (avatar && avatar.trim()) {
-      const avatarUrl = avatar.startsWith('http') ? avatar : null;
+      // Aceptar URLs absolutas (http/https) y rutas relativas (images/)
+      const isValidUrl = avatar.startsWith('http') || avatar.startsWith('images/') || avatar.startsWith('/images/');
       
-      if (avatarUrl) {
-        console.log(`️ Renderizando avatar con Cloudinary:`, avatarUrl);
+      if (isValidUrl) {
+        console.log(`️ Renderizando avatar:`, avatar);
         
-        const isLogo = avatarUrl.includes('logo');
+        const isLogo = avatar.includes('logo');
         const bgSize = isLogo ? 'contain' : 'cover';
         const padding = isLogo ? 'padding: 4px;' : '';
         const bgColor = isLogo ? 'background-color: white;' : '';
         
-        return `<div style="width: 100%; height: 100%; ${bgColor} background-image: url('${avatarUrl}'); background-size: ${bgSize}; background-position: center; background-repeat: no-repeat; border-radius: inherit; ${padding}">
+        return `<div style="width: 100%; height: 100%; ${bgColor} background-image: url('${avatar}'); background-size: ${bgSize}; background-position: center; background-repeat: no-repeat; border-radius: inherit; ${padding}">
                   <span style="display: none;">${iniciales}</span>
                 </div>`;
       }
