@@ -2975,6 +2975,7 @@ function generateTable(section, data) {
       return `
         <div class="cursos-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Cursos</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} curso${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevoCursoModal()">
@@ -3053,6 +3054,7 @@ function generateTable(section, data) {
     case "alumnos":
       return `
         <div class="alumnos-header">
+          <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Alumnos</h2>
           <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} alumno${data.length !== 1 ? 's' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
           <div class="alumnos-search-filter">
             <div style="position: relative; flex: 1;">
@@ -3141,6 +3143,7 @@ function generateTable(section, data) {
     case "profesores":
       return `
         <div class="profesores-header">
+          <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Profesores</h2>
           <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} profesor${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
           <div class="profesores-search-filter">
             <div style="position: relative; flex: 1;">
@@ -3235,6 +3238,7 @@ function generateTable(section, data) {
     case "administradores":
       return `
         <div class="profesores-header">
+          <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Administradores</h2>
           <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} administrador${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
           <div class="profesores-search-filter">
             <div style="position: relative; flex: 1;">
@@ -3310,8 +3314,10 @@ function generateTable(section, data) {
         </div>`;
 
 case "pagos":
+  const pagosCount = data && data.length ? data.length : 0;
   return `
-    <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} pago${data.length !== 1 ? 's' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
+    <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Pagos</h2>
+    <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${pagosCount} pago${pagosCount !== 1 ? 's' : ''} registrado${pagosCount !== 1 ? 's' : ''}</p>
     <div class="pagos-tabs" style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb;">
       <button class="pagos-tab active" data-tab="activos" onclick="switchPagosTab('activos')" style="padding: 12px 24px; background: none; border: none; border-bottom: 3px solid #4a5259; color: #4a5259; font-weight: 600; cursor: pointer; transition: all 0.3s;">
         <i data-lucide="list"></i> Pagos Activos
@@ -3446,6 +3452,7 @@ case "pagos":
       return `
         <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
           <div>
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
           <button class="btn-primary" onclick="openNuevaAulaModal()">
