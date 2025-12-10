@@ -224,8 +224,9 @@ function initAdminSPA() {
         mainContent.innerHTML = html;
         if (section === 'cursos') {
           lucide.createIcons();
+          setupCursoFilters();
           
-          document.querySelectorAll('.curso-card:not(.alumno-card):not(.profesor-card)').forEach(card => {
+          document.querySelectorAll('.curso-card-new').forEach(card => {
             card.addEventListener('click', () => {
               const idCurso = card.getAttribute('data-id');
               openCursoPanel(idCurso);
@@ -248,8 +249,13 @@ function initAdminSPA() {
           lucide.createIcons();
           loadPagosData();
         }
-        if (section === 'aulas' || section === 'idiomas') {
+        if (section === 'aulas') {
           lucide.createIcons();
+          setupAulaFilters();
+        }
+        if (section === 'idiomas') {
+          lucide.createIcons();
+          setupIdiomaFilters();
         }
         mainContent.classList.add("active");
       }, 400);
@@ -2973,17 +2979,23 @@ function generateTable(section, data) {
   switch (section) {
     case "cursos":
       return `
-        <div class="cursos-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-          <div>
+        <div class="cursos-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 16px;">
+          <div style="flex-shrink: 0;">
             <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Cursos</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} curso${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
-          <button class="btn-primary" onclick="openNuevoCursoModal()">
-            <i data-lucide="plus"></i>
-            Nuevo Curso
-          </button>
+          <div style="display: flex; gap: 12px; flex: 1; max-width: 700px; align-items: center;">
+            <div style="position: relative; flex: 1;">
+              <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
+              <input type="text" id="cursosSearch" placeholder="Buscar por nombre, idioma o nivel..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
+            </div>
+            <button class="btn-primary" onclick="openNuevoCursoModal()">
+              <i data-lucide="plus"></i>
+              Nuevo Curso
+            </button>
+          </div>
         </div>
-        <div class="cursos-grid">
+        <div class="cursos-grid" id="cursosGrid">
           ${data.map(c => {
             const cuposMax = c.cupo_maximo || 30;
             const inscritos = c.alumnos_inscritos || 0;
@@ -3457,17 +3469,23 @@ case "pagos":
     
     case "aulas":
       return `
-        <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-          <div>
+        <div class="aulas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 16px;">
+          <div style="flex-shrink: 0;">
             <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Aulas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} aula${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
-          <button class="btn-primary" onclick="openNuevaAulaModal()">
-            <i data-lucide="plus"></i>
-            Nueva Aula
-          </button>
+          <div style="display: flex; gap: 12px; flex: 1; max-width: 600px; align-items: center;">
+            <div style="position: relative; flex: 1;">
+              <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
+              <input type="text" id="aulasSearch" placeholder="Buscar por nombre o capacidad..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
+            </div>
+            <button class="btn-primary" onclick="openNuevaAulaModal()">
+              <i data-lucide="plus"></i>
+              Nueva Aula
+            </button>
+          </div>
         </div>
-        <div class="aulas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+        <div class="aulas-grid" id="aulasGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map(a => {
             const capacidadColor = '#4a5259';
             const capacidadIcon = a.capacidad >= 40 ? 'users' : a.capacidad >= 25 ? 'user-check' : 'user';
@@ -3516,17 +3534,23 @@ case "pagos":
       };
       
       return `
-        <div class="idiomas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-          <div>
+        <div class="idiomas-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 16px;">
+          <div style="flex-shrink: 0;">
             <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Idiomas</h2>
             <p style="color: #666; margin: 0; font-size: 14px;">${data.length} idioma${data.length !== 1 ? 's' : ''} disponible${data.length !== 1 ? 's' : ''}</p>
           </div>
-          <button class="btn-primary" onclick="openNuevoIdiomaModal()">
-            <i data-lucide="plus"></i>
-            Nuevo Idioma
-          </button>
+          <div style="display: flex; gap: 12px; flex: 1; max-width: 500px; align-items: center;">
+            <div style="position: relative; flex: 1;">
+              <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
+              <input type="text" id="idiomasSearch" placeholder="Buscar idioma..." style="width: 100%; padding: 12px 16px 12px 44px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.2s;">
+            </div>
+            <button class="btn-primary" onclick="openNuevoIdiomaModal()">
+              <i data-lucide="plus"></i>
+              Nuevo Idioma
+            </button>
+          </div>
         </div>
-        <div class="idiomas-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+        <div class="idiomas-grid" id="idiomasGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
           ${data.length > 0 ? data.map((idioma, index) => {
             const isPopular = idiomasStats.populares.includes(idioma.nombre_idioma);
             
@@ -4742,6 +4766,78 @@ function filterAlumnos() {
     const matchesEstado = !estadoFilter || cardEstado.includes(estadoFilter);
     
     if (matchesSearch && matchesEstado) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Filtros para Cursos
+function setupCursoFilters() {
+  const searchInput = document.getElementById('cursosSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', filterCursos);
+  }
+}
+
+function filterCursos() {
+  const searchTerm = document.getElementById('cursosSearch')?.value.toLowerCase() || '';
+  const cards = document.querySelectorAll('.curso-card-new');
+  
+  cards.forEach(card => {
+    const cardText = card.textContent.toLowerCase();
+    const matchesSearch = cardText.includes(searchTerm);
+    
+    if (matchesSearch) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Filtros para Aulas
+function setupAulaFilters() {
+  const searchInput = document.getElementById('aulasSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', filterAulas);
+  }
+}
+
+function filterAulas() {
+  const searchTerm = document.getElementById('aulasSearch')?.value.toLowerCase() || '';
+  const cards = document.querySelectorAll('.aula-card');
+  
+  cards.forEach(card => {
+    const cardText = card.textContent.toLowerCase();
+    const matchesSearch = cardText.includes(searchTerm);
+    
+    if (matchesSearch) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Filtros para Idiomas
+function setupIdiomaFilters() {
+  const searchInput = document.getElementById('idiomasSearch');
+  if (searchInput) {
+    searchInput.addEventListener('input', filterIdiomas);
+  }
+}
+
+function filterIdiomas() {
+  const searchTerm = document.getElementById('idiomasSearch')?.value.toLowerCase() || '';
+  const cards = document.querySelectorAll('.idioma-card');
+  
+  cards.forEach(card => {
+    const cardText = card.textContent.toLowerCase();
+    const matchesSearch = cardText.includes(searchTerm);
+    
+    if (matchesSearch) {
       card.style.display = '';
     } else {
       card.style.display = 'none';
