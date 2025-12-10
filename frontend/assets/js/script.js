@@ -3054,8 +3054,10 @@ function generateTable(section, data) {
     case "alumnos":
       return `
         <div class="alumnos-header">
-          <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Alumnos</h2>
-          <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} alumno${data.length !== 1 ? 's' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
+          <div style="flex-shrink: 0;">
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Alumnos</h2>
+            <p style="color: #666; margin: 0; font-size: 14px;">${data.length} alumno${data.length !== 1 ? 's' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
+          </div>
           <div class="alumnos-search-filter">
             <div style="position: relative; flex: 1;">
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
@@ -3143,8 +3145,10 @@ function generateTable(section, data) {
     case "profesores":
       return `
         <div class="profesores-header">
-          <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Profesores</h2>
-          <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} profesor${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
+          <div style="flex-shrink: 0;">
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Profesores</h2>
+            <p style="color: #666; margin: 0; font-size: 14px;">${data.length} profesor${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
+          </div>
           <div class="profesores-search-filter">
             <div style="position: relative; flex: 1;">
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
@@ -3238,8 +3242,10 @@ function generateTable(section, data) {
     case "administradores":
       return `
         <div class="profesores-header">
-          <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Administradores</h2>
-          <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${data.length} administrador${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
+          <div style="flex-shrink: 0;">
+            <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Administradores</h2>
+            <p style="color: #666; margin: 0; font-size: 14px;">${data.length} administrador${data.length !== 1 ? 'es' : ''} registrado${data.length !== 1 ? 's' : ''}</p>
+          </div>
           <div class="profesores-search-filter">
             <div style="position: relative; flex: 1;">
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
@@ -3314,7 +3320,8 @@ function generateTable(section, data) {
         </div>`;
 
 case "pagos":
-  const pagosCount = data && data.length ? data.length : 0;
+  const pagosArray = data && data.pagos ? data.pagos : [];
+  const pagosCount = pagosArray.length;
   return `
     <h2 style="color: #4a5259; margin: 0 0 5px 0;">Gestión de Pagos</h2>
     <p style="color: #666; margin: 0 0 15px 0; font-size: 14px;">${pagosCount} pago${pagosCount !== 1 ? 's' : ''} registrado${pagosCount !== 1 ? 's' : ''}</p>
