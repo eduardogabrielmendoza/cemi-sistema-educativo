@@ -79,9 +79,6 @@ app.use('/api/', limiter);
 const allowedOrigins = [
   'http://localhost:8080',
   'http://localhost:3000',
-  'https://cemi-sistema-educativo-production.up.railway.app',
-  'https://cemi-sistema-educativo-production-2239.up.railway.app',
-  'https://cemi.up.railway.app',
   process.env.FRONTEND_URL,
   process.env.RAILWAY_STATIC_URL,
   process.env.RAILWAY_PUBLIC_DOMAIN

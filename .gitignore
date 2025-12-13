@@ -46,3 +46,9 @@ dist/
 build/
 *.min.js
 *.min.css
+
+# =====================================================
+# Uploads (archivos subidos por usuarios)
+# =====================================================
+uploads/
+!uploads/.gitkeep
