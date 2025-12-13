@@ -2,9 +2,9 @@
 
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 
-const SENDER_EMAIL = process.env.SENDER_EMAIL || 'ansardidora@gmail.com';
+const SENDER_EMAIL = process.env.SENDER_EMAIL || 'eduardogabrielm3ndoza@gmail.com';
 
-export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'ansardidora@gmail.com';
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'eduardogabrielm3ndoza@gmail.com';
 
 const isConfigured = !!SENDGRID_API_KEY;
 
