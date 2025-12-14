@@ -64,7 +64,9 @@
 
 @media (min-width: 1024px) {
   .harvard-logo-img {
-    max-height: 79px;
+    width: 226px;
+    height: 79px;
+    object-fit: contain;
   }
 }
 
