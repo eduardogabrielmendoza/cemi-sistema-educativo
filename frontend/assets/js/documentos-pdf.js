@@ -112,7 +112,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(45, 50, 124, 0.65)'; this.style.background='linear-gradient(135deg, rgba(45, 50, 124, 0.12) 0%, rgba(45, 50, 124, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(147, 161, 173, 0.65)'; this.style.background='linear-gradient(135deg, rgba(147, 161, 173, 0.12) 0%, rgba(147, 161, 173, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
@@ -144,7 +144,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(45, 50, 124, 0.65)'; this.style.background='linear-gradient(135deg, rgba(45, 50, 124, 0.12) 0%, rgba(45, 50, 124, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(147, 161, 173, 0.65)'; this.style.background='linear-gradient(135deg, rgba(147, 161, 173, 0.12) 0%, rgba(147, 161, 173, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
@@ -176,7 +176,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(45, 50, 124, 0.65)'; this.style.background='linear-gradient(135deg, rgba(45, 50, 124, 0.12) 0%, rgba(45, 50, 124, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(147, 161, 173, 0.65)'; this.style.background='linear-gradient(135deg, rgba(147, 161, 173, 0.12) 0%, rgba(147, 161, 173, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
@@ -208,7 +208,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(45, 50, 124, 0.65)'; this.style.background='linear-gradient(135deg, rgba(45, 50, 124, 0.12) 0%, rgba(45, 50, 124, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(147, 161, 173, 0.65)'; this.style.background='linear-gradient(135deg, rgba(147, 161, 173, 0.12) 0%, rgba(147, 161, 173, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;
@@ -240,7 +240,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               cursor: pointer;
               transition: all 0.3s ease;
               text-align: left;
-            " onmouseover="this.style.borderColor='rgba(45, 50, 124, 0.65)'; this.style.background='linear-gradient(135deg, rgba(45, 50, 124, 0.12) 0%, rgba(45, 50, 124, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
+            " onmouseover="this.style.borderColor='rgba(147, 161, 173, 0.65)'; this.style.background='linear-gradient(135deg, rgba(147, 161, 173, 0.12) 0%, rgba(147, 161, 173, 0.18) 100%)'" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'">
               <div style="
                 width: 50px;
                 height: 50px;

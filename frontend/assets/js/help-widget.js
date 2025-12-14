@@ -77,8 +77,8 @@
     }
 
     @keyframes helpPulse {
-      0%, 100% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 0 rgba(45, 50, 124, 0.4); }
-      50% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 12px rgba(45, 50, 124, 0); }
+      0%, 100% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 0 rgba(147, 161, 173, 0.4); }
+      50% { box-shadow: 0 4px 20px rgba(30, 30, 30, 0.25), 0 0 0 12px rgba(147, 161, 173, 0); }
     }
     
     .cemi-help-btn.pulse {

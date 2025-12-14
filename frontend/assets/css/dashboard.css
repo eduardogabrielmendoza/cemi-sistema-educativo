@@ -323,7 +323,7 @@
   color: var(--hw-charcoal);
   transform: translateX(6px);
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.05);
-  border-left: 3px solid rgba(45, 50, 124, 0.45);
+  border-left: 3px solid rgba(147, 161, 173, 0.45);
 }
 
 .sidebar-menu button:hover::before {

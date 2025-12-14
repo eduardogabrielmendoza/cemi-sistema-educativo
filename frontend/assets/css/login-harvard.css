@@ -278,8 +278,8 @@
 }
 
 .input-with-icon:focus-within {
-  border-color: rgba(45, 50, 124, 0.65) !important;
-  box-shadow: 0 0 0 3px rgba(45, 50, 124, 0.18) !important;
+  border-color: rgba(147, 161, 173, 0.65) !important;
+  box-shadow: 0 0 0 3px rgba(147, 161, 173, 0.18) !important;
   background: var(--color-surface) !important;
 }
 
@@ -312,7 +312,7 @@
 }
 
 .input-with-icon:focus-within .input-prefix {
-  color: rgba(45, 50, 124, 0.9) !important;
+  color: rgba(147, 161, 173, 0.9) !important;
 }
 
 .input-with-icon {
@@ -346,8 +346,8 @@
 
 #loginForm .input-wrapper:not(.input-with-icon) input:focus,
 #loginAdminForm .input-wrapper:not(.input-with-icon) input:focus {
-  border-color: rgba(45, 50, 124, 0.65) !important;
-  box-shadow: 0 0 0 3px rgba(45, 50, 124, 0.18) !important;
+  border-color: rgba(147, 161, 173, 0.65) !important;
+  box-shadow: 0 0 0 3px rgba(147, 161, 173, 0.18) !important;
   background: var(--color-surface) !important;
   outline: none !important;
 }
@@ -375,7 +375,7 @@
 }
 
 .toggle-password:hover {
-  color: rgba(45, 50, 124, 0.9) !important;
+  color: rgba(147, 161, 173, 0.9) !important;
   background: var(--color-bg) !important;
 }
 
@@ -387,7 +387,7 @@
 }
 
 .forgot-password {
-  color: rgba(45, 50, 124, 0.9) !important;
+  color: rgba(147, 161, 173, 0.9) !important;
   font-size: 0.85rem !important;
   font-weight: 500 !important;
 }
@@ -476,7 +476,7 @@
 }
 
 .register-link {
-  color: rgba(45, 50, 124, 0.9) !important;
+  color: rgba(147, 161, 173, 0.9) !important;
   font-weight: 500 !important;
   text-decoration: none !important;
 }
@@ -506,7 +506,7 @@
 }
 
 .back-link:hover {
-  color: rgba(45, 50, 124, 0.95) !important;
+  color: rgba(147, 161, 173, 0.95) !important;
 }
 
 .back-link i,
@@ -527,7 +527,7 @@
 }
 
 .login-help a:hover {
-  color: rgba(45, 50, 124, 0.95) !important;
+  color: rgba(147, 161, 173, 0.95) !important;
 }
 
 .login-help i,

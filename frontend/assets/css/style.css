@@ -503,7 +503,7 @@ html {
 .cta-btn:hover {
   transform: scale(1.05);
   background: var(--color-accent-hover);
-  box-shadow: 0 8px 24px rgba(45, 50, 124, 0.35);
+  box-shadow: 0 8px 24px rgba(147, 161, 173, 0.35);
 }
 
 .cta-btn-apk {
