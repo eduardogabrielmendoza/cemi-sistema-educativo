@@ -65,7 +65,7 @@
     .category-card { background: white; border-radius: 20px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid rgba(101, 111, 119, 0.08); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; position: relative; overflow: hidden; animation: cardFadeIn 0.5s ease forwards; opacity: 0; }
     @keyframes cardFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .category-card:nth-child(1) { animation-delay: 0.1s; } .category-card:nth-child(2) { animation-delay: 0.15s; } .category-card:nth-child(3) { animation-delay: 0.2s; } .category-card:nth-child(4) { animation-delay: 0.25s; } .category-card:nth-child(5) { animation-delay: 0.3s; } .category-card:nth-child(6) { animation-delay: 0.35s; }
-    .category-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #2d327c; transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left; }
+    .category-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #93a1ad; transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left; }
     .category-card:hover { border-color: rgba(45, 50, 124, 0.4); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(45, 50, 124, 0.15); }
     .category-card:hover::before { transform: scaleX(1); }
     .category-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
@@ -171,7 +171,7 @@
     .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
     .footer-links { display: flex; gap: 28px; }
     .footer-links a { color: var(--hw-graphite); text-decoration: none; font-size: 14px; transition: color 0.3s ease; }
-    .footer-links a:hover { color: #2d327c; }
+    .footer-links a:hover { color: #93a1ad; }
     .footer-copy { color: var(--hw-light-gray); font-size: 13px; }
 
     @media (max-width: 768px) { .header-top { padding: 12px 20px; } .header-nav { display: none; } .hero-section { padding: 30px 20px; } .hero-section h1 { font-size: 24px; } .main-content { padding: 30px 20px; } .categories-grid { grid-template-columns: 1fr; } .popular-section { padding: 24px; } .contact-section { padding: 30px 20px; } .help-widget { bottom: 20px; right: 20px; } }

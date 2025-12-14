@@ -180,12 +180,12 @@ body {
 
 .nav-item:hover {
   background: rgba(45, 50, 124, 0.08);
-  color: #2d327c;
+  color: #93a1ad;
 }
 
 .nav-item.active {
   background: var(--hw-off-white);
-  color: #2d327c;
+  color: #93a1ad;
   font-weight: 600;
   border-left: 3px solid rgba(45, 50, 124, 0.8);
 }
@@ -361,7 +361,7 @@ body {
 }
 
 .badge-role {
-  background: #2d327c;
+  background: #93a1ad;
   color: white;
 }
 
@@ -400,7 +400,7 @@ body {
 .info-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 16px var(--shadow);
-  border-color: #2d327c;
+  border-color: #93a1ad;
 }
 
 .info-card-icon {
@@ -577,8 +577,8 @@ body {
 }
 
 .btn-secondary:hover {
-  border-color: #2d327c;
-  color: #2d327c;
+  border-color: #93a1ad;
+  color: #93a1ad;
 }
 
 .btn-sm {

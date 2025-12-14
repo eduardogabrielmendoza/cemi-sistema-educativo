@@ -1680,7 +1680,7 @@ body {
   top: 0;
   height: 100%;
   width: 4px;
-  background: #2d327c;
+  background: #93a1ad;
   transform: scaleY(0);
   transition: transform 0.3s var(--ease-out-back);
 }
@@ -1804,7 +1804,7 @@ body {
   font-weight: 500;
   transform: translateX(0);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-left: 3px solid #2d327c;
+  border-left: 3px solid #93a1ad;
 }
 
 .nav-item.active::before {
@@ -2363,7 +2363,7 @@ body.dark-mode .research-banner-close:hover {
 
 .activity-card:hover {
   box-shadow: 0 6px 20px rgba(45, 50, 124, 0.18);
-  border-left-color: #2d327c;
+  border-left-color: #93a1ad;
   transform: translateY(-3px);
 }
 
@@ -2775,7 +2775,7 @@ body.dark-mode .research-banner-close:hover {
 .class-card:hover {
   box-shadow: 0 10px 30px rgba(30, 30, 30, 0.15);
   transform: translateY(-4px);
-  border-color: #2d327c;
+  border-color: #93a1ad;
 }
 
 .class-card:active {
@@ -2792,7 +2792,7 @@ body.dark-mode .research-banner-close:hover {
   justify-content: flex-end;
   background: var(--hw-charcoal) !important;
   border-radius: 8px 8px 0 0 !important;
-  border-top: 3px solid #2d327c;
+  border-top: 3px solid #93a1ad;
 }
 
 .class-card-header h3 {
@@ -2887,13 +2887,13 @@ body.dark-mode .research-banner-close:hover {
 
 .filter-btn:hover {
   background: var(--hw-off-white);
-  border-color: #2d327c;
-  color: #2d327c;
+  border-color: #93a1ad;
+  color: #93a1ad;
 }
 
 .filter-btn.active {
   background: var(--hw-off-white);
-  color: #2d327c;
+  color: #93a1ad;
   border-color: rgba(45, 50, 124, 0.4);
   font-weight: 600;
 }
@@ -3639,7 +3639,7 @@ body.dark-mode .research-banner-close:hover {
 
 .student-list-item:hover {
   background: #f0f4f8;
-  border-color: #2d327c;
+  border-color: #93a1ad;
   transform: translateX(4px);
   box-shadow: 0 4px 12px rgba(45, 50, 124, 0.15);
 }
@@ -4154,7 +4154,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
   align-items: center;
   justify-content: space-between;
   color: white;
-  border-bottom: 3px solid #2d327c;
+  border-bottom: 3px solid #93a1ad;
 }
 
 .modal-config-title {
@@ -4243,7 +4243,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 .config-tab-btn.active {
   background: linear-gradient(90deg, rgba(45, 50, 124, 0.12) 0%, rgba(45, 50, 124, 0.04) 100%);
   color: #1e1e1e;
-  border-left-color: #2d327c;
+  border-left-color: #93a1ad;
   font-weight: 600;
 }
 
@@ -4255,7 +4255,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
   transform: translateY(-50%);
   width: 4px;
   height: 60%;
-  background: #2d327c;
+  background: #93a1ad;
   border-radius: 4px 0 0 4px;
 }
 
@@ -4307,7 +4307,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 .config-section-title i {
   width: 24px;
   height: 24px;
-  color: #2d327c;
+  color: #93a1ad;
 }
 
 .config-option {
@@ -4524,15 +4524,15 @@ input:checked + .toggle-slider:before {
 }
 
 .theme-card:hover {
-  border-color: #2d327c;
+  border-color: #93a1ad;
   transform: translateY(-4px);
   box-shadow: 0 12px 30px rgba(45, 50, 124, 0.2);
 }
 
 .theme-card.active {
-  border-color: #2d327c;
+  border-color: #93a1ad;
   background: linear-gradient(135deg, rgba(45, 50, 124, 0.1) 0%, rgba(135, 23, 40, 0.1) 100%);
-  color: #2d327c;
+  color: #93a1ad;
   box-shadow: 0 8px 20px rgba(45, 50, 124, 0.25);
 }
 
@@ -4564,14 +4564,14 @@ input:checked + .toggle-slider:before {
 }
 
 .font-size-btn:hover {
-  border-color: #2d327c;
+  border-color: #93a1ad;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(45, 50, 124, 0.15);
 }
 
 .font-size-btn.active {
-  border-color: #2d327c;
-  background: linear-gradient(135deg, #2d327c 0%, #871728 100%);
+  border-color: #93a1ad;
+  background: linear-gradient(135deg, #93a1ad 0%, #871728 100%);
   color: white;
   box-shadow: 0 8px 20px rgba(45, 50, 124, 0.3);
 }
@@ -4693,7 +4693,7 @@ body.dark-mode .toggle-password-btn:hover {
 }
 
 .btn-config-primary {
-  background: linear-gradient(135deg, #2d327c 0%, #871728 100%);
+  background: linear-gradient(135deg, #93a1ad 0%, #871728 100%);
   color: white;
   box-shadow: 0 4px 15px rgba(45, 50, 124, 0.3);
 }
@@ -5522,16 +5522,16 @@ body.dark-mode .toggle-password-btn:hover {
 }
 
 #bibliotecaGeneral {
-  border-left: 3px solid #2d327c;
+  border-left: 3px solid #93a1ad;
 }
 
 #bibliotecaGeneral .section-header i {
-  color: #2d327c;
+  color: #93a1ad;
 }
 
 #bibliotecaGeneral .section-badge {
   background: rgba(45, 50, 124, 0.1);
-  color: #2d327c;
+  color: #93a1ad;
 }
 
 @keyframes fadeInUpSmooth {

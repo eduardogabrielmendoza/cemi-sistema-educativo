@@ -184,7 +184,7 @@
       transform: translateY(-50%);
       width: 3px;
       height: 0;
-      background: #2d327c;
+      background: #93a1ad;
       transition: height 0.3s ease;
       border-radius: 0 2px 2px 0;
     }
