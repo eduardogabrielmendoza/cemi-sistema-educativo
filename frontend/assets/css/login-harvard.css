@@ -431,9 +431,10 @@
 }
 
 .login-submit:hover {
-  background: #333 !important;
+  background: rgba(147, 161, 173, 0.15) !important;
+  color: #1a1a1a !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(147, 161, 173, 0.2) !important;
 }
 
 .login-submit i,

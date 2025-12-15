@@ -555,9 +555,10 @@ body {
 }
 
 .btn-login:hover {
-  background: #333;
+  background: rgba(147, 161, 173, 0.15);
+  color: #1a1a1a;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(147, 161, 173, 0.2);
 }
 
 .btn-login:active {
