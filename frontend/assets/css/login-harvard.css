@@ -95,7 +95,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  height: 102%;
   position: relative !important;
   z-index: 2 !important;
 }
@@ -163,7 +163,7 @@
   font-weight: 400 !important;
   text-align: left !important;
   letter-spacing: -0.5px !important;
-  margin-bottom: 12px !important;
+  margin-bottom: -20px !important;
 }
 
 .login-side-panel .side-panel-content > p,
@@ -172,7 +172,7 @@
   font-size: 1.2rem !important;
   text-align: left !important;
   opacity: 0.85 !important;
-  margin-bottom: 48px !important;
+  margin-bottom: 20px !important;
 }
 
 .login-features {
@@ -183,10 +183,10 @@
 
 .login-feature-item {
   display: flex !important;
-  align-items: flex-start !important;
+  align-items: center !important;
   gap: 18px !important;
   margin-bottom: 16px !important;
-  padding: 18px 20px !important;
+  padding: 8px 12px !important;
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 14px !important;
