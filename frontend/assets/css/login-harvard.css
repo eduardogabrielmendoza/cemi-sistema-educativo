@@ -224,6 +224,9 @@
   transition: none !important;
   animation: none !important;
   transform: none !important;
+  align-self: center !important;
+  position: relative !important;
+  top: -1px !important;
 }
 
 .login-feature-item .feature-icon i,
@@ -257,6 +260,7 @@
   flex-direction: column !important;
   justify-content: center !important;
   width: 100% !important;
+  padding: 1px 0 !important;
 }
 
 .login-feature-item .feature-content h3 {
