@@ -153,16 +153,6 @@
 .side-panel-icon svg {
   width: 44px !important;
   height: 44px !important;
-  animation: iconFloat 4s ease-in-out infinite !important;
-}
-
-@keyframes iconFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
 }
 
 .login-side-panel h2 {
@@ -226,12 +216,19 @@
   stroke-width: 1.5 !important;
 }
 
+.login-feature-item .feature-content {
+  text-align: left !important;
+  flex: 1 !important;
+}
+
 .login-feature-item .feature-content h3 {
   font-family: var(--font-body) !important;
   font-size: 1.1rem !important;
   font-weight: 500 !important;
   margin-bottom: 6px !important;
+  margin-top: 0 !important;
   color: white !important;
+  text-align: left !important;
 }
 
 .login-feature-item .feature-content p {
@@ -240,6 +237,7 @@
   line-height: 1.4 !important;
   color: white !important;
   margin: 0 !important;
+  text-align: left !important;
 }
 
 .login-stats {
