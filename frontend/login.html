@@ -76,37 +76,57 @@
       margin-top: 12px !important;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 768px) {
       .login-wrapper {
         min-width: auto !important;
         max-width: 100% !important;
         width: 100% !important;
-        min-height: auto !important;
+        min-height: 100vh !important;
         max-height: none !important;
         height: auto !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
       }
       .login-side-panel {
-        min-height: auto !important;
-        max-height: none !important;
-        height: auto !important;
+        display: none !important;
       }
       .login-box {
-        min-height: auto !important;
+        min-height: 100vh !important;
         max-height: none !important;
         height: auto !important;
         overflow-y: auto !important;
+        padding: 40px 24px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
       }
-    }
-
-    @media (max-width: 768px) {
-      .login-box {
-        padding: 30px 24px !important;
+      .login-header {
+        text-align: center !important;
+        margin-bottom: 32px !important;
+      }
+      .login-logo {
+        margin: 0 auto 16px !important;
+        width: 80px !important;
+        height: 80px !important;
       }
     }
 
     @media (max-width: 480px) {
       .login-box {
-        padding: 24px 20px !important;
+        padding: 32px 20px 40px !important;
+      }
+      .login-logo {
+        width: 70px !important;
+        height: 70px !important;
+      }
+      .login-header h1 {
+        font-size: 1.5rem !important;
+      }
+      .login-header p {
+        font-size: 0.9rem !important;
       }
     }
   </style>
