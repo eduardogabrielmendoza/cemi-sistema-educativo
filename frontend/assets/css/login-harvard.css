@@ -66,13 +66,24 @@
   min-height: 720px !important;
   padding: 40px 36px !important;
   align-self: stretch !important;
+  position: relative !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 
 .login-side-panel::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
   background: linear-gradient(to top, rgba(30, 30, 30, 0.85) 0%, rgba(30, 30, 30, 0.5) 50%, rgba(30, 30, 30, 0.3) 100%) !important;
   backdrop-filter: blur(2px) !important;
   -webkit-backdrop-filter: blur(2px) !important;
   border-radius: 16px 0 0 16px !important;
+  z-index: 1 !important;
 }
 
 .login-side-panel:hover::before {
@@ -85,6 +96,8 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  position: relative !important;
+  z-index: 2 !important;
 }
 
 .side-panel-icon {
