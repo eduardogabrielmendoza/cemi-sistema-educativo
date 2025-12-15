@@ -466,7 +466,7 @@
 }
 
 .forgot-password:hover {
-  color: var(--color-text) !important;
+  color: rgba(147, 161, 173, 0.95) !important;
   opacity: 1 !important;
 }
 

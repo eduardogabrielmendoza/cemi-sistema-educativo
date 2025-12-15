@@ -2815,8 +2815,8 @@ footer i {
   border-radius: 0 16px 16px 0;
   box-shadow: var(--shadow-md);
   width: 100%;
-  max-width: 650px;
-  min-height: 720px;
+  max-width: 520px;
+  min-height: 870px;
   max-height: 720px;
   height: 720px;
   overflow-y: hidden;
