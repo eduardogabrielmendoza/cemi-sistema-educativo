@@ -95,8 +95,8 @@ body {
   display: flex;
   align-items: stretch;
   width: 90%;
-  max-width: 1100px;
-  min-height: 640px;
+  max-width: 1000px;
+  min-height: 720px;
   background: var(--color-surface);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
