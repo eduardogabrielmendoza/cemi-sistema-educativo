@@ -39,7 +39,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: 'Inter';
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -1387,7 +1387,7 @@ html {
 }
 
 .role-card h3 {
-  font-family: var(--font-heading);
+  font-family: 'Inter';
   margin-bottom: 15px;
   color: var(--color-text);
   font-size: 1.4em;
@@ -1519,7 +1519,7 @@ html {
 }
 
 .module-card h3 {
-  font-family: var(--font-heading);
+  font-family: 'Inter';
   margin-bottom: 15px;
   color: var(--color-text);
   font-size: 1.3em;
@@ -1627,7 +1627,7 @@ html {
 }
 
 .team-card h4 {
-  font-family: var(--font-heading);
+  font-family: 'Inter';
   color: var(--color-text);
   font-size: 1.2em;
   margin-bottom: 8px;
@@ -3522,14 +3522,12 @@ footer i {
 }
 
 .feature-icon {
-  width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #1e1e1e;
   flex-shrink: 0;
 }
 
@@ -3539,10 +3537,10 @@ footer i {
 }
 
 .feature-card h3 {
-  font-family: var(--font-heading);
+  font-family: 'Inter';
   font-size: 1.3rem;
   color: var(--color-primary);
-  margin: 0;
+  margin: 8;
   font-weight: 400;
 }
 
@@ -3622,7 +3620,7 @@ footer i {
 }
 
 .tech-item h4 {
-  font-family: var(--font-heading);
+  font-family: 'Inter';
   font-size: 1.3rem;
   margin-bottom: 10px;
   font-weight: 400;
@@ -3727,7 +3725,7 @@ footer i {
 }
 
 .faq-question h3 {
-  font-family: var(--font-heading);
+  font-family: 'Inter';
   flex: 1;
   margin: 0;
   font-size: 1.15rem;
