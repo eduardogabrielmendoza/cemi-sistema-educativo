@@ -184,14 +184,27 @@
 .login-feature-item {
   display: flex !important;
   align-items: flex-start !important;
-  gap: 12px !important;
-  margin-bottom: 10px !important;
-  padding: 12px 16px !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+  padding: 8px 12px !important;
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 14px !important;
+  border-radius: 12px !important;
   backdrop-filter: blur(10px) !important;
   transition: none !important;
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.login-feature-item:nth-child(1),
+.login-feature-item:nth-child(2),
+.login-feature-item:nth-child(3),
+.login-feature-item:nth-child(4) {
+  animation: none !important;
+  animation-delay: 0s !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .login-feature-item:hover {
@@ -200,26 +213,29 @@
 }
 
 .login-feature-item .feature-icon {
-  width: 40px !important;
-  height: 40px !important;
+  width: 36px !important;
+  height: 36px !important;
   background: rgba(255, 255, 255, 0.15) !important;
-  border-radius: 10px !important;
+  border-radius: 8px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   flex-shrink: 0 !important;
   transition: none !important;
+  animation: none !important;
+  transform: none !important;
 }
 
 .login-feature-item .feature-icon i,
 .login-feature-item .feature-icon svg {
-  width: 20px !important;
-  height: 20px !important;
+  width: 18px !important;
+  height: 18px !important;
   color: white !important;
   stroke-width: 1.5 !important;
   animation: none !important;
   transform: none !important;
   transition: none !important;
+  opacity: 1 !important;
 }
 
 .login-feature-item:hover .feature-icon,
@@ -228,6 +244,7 @@
   animation: none !important;
   transform: none !important;
   transition: none !important;
+  opacity: 1 !important;
 }
 
 .login-feature-item .feature-content {
@@ -239,9 +256,9 @@
 
 .login-feature-item .feature-content h3 {
   font-family: var(--font-body) !important;
-  font-size: 1.1rem !important;
+  font-size: 0.95rem !important;
   font-weight: 500 !important;
-  margin-bottom: 6px !important;
+  margin-bottom: 3px !important;
   margin-top: 0 !important;
   color: white !important;
   text-align: left !important;
@@ -250,9 +267,9 @@
 }
 
 .login-feature-item .feature-content p {
-  font-size: 0.9rem !important;
+  font-size: 0.8rem !important;
   opacity: 0.75 !important;
-  line-height: 1.4 !important;
+  line-height: 1.3 !important;
   color: white !important;
   margin: 0 !important;
   text-align: left !important;
