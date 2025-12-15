@@ -467,7 +467,7 @@
 
 .forgot-password:hover {
   color: rgba(147, 161, 173, 0.95) !important;
-  opacity: 1 !important;
+  opacity: 0.7 !important;
 }
 
 .login-submit {
