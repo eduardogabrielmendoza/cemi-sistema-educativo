@@ -30,9 +30,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+      background: transparent;
       overflow: hidden;
       padding-top: 88px; /* Espacio para el header */
+    }
+
+    .porque-hero::after {
+      content: '';
+      position: absolute;
+      top: 88px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+      z-index: -2;
     }
 
     .porque-hero::before {
@@ -44,7 +55,7 @@
       bottom: 0;
       background: url('images/STOCK1.jpg') center/cover no-repeat;
       opacity: 0.15;
-      z-index: 0;
+      z-index: -1;
     }
 
     .porque-hero-content {
