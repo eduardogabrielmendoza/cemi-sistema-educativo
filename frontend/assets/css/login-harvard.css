@@ -213,7 +213,7 @@
 }
 
 .login-feature-item .feature-icon {
-  padding: 0px;
+  margin: 0px;
   width: 48px !important;
   height: 48px !important;
   background: rgba(255, 255, 255, 0.15) !important;
