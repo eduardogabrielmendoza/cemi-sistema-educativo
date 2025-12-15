@@ -542,6 +542,9 @@
 
 .admin-panel {
   background-image: url('../../images/loginadmin.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 
 .admin-icon {
