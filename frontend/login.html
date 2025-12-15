@@ -75,6 +75,40 @@
     .login-footer {
       margin-top: 12px !important;
     }
+
+    @media (max-width: 1024px) {
+      .login-wrapper {
+        min-width: auto !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        min-height: auto !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+      .login-side-panel {
+        min-height: auto !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+      .login-box {
+        min-height: auto !important;
+        max-height: none !important;
+        height: auto !important;
+        overflow-y: auto !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .login-box {
+        padding: 30px 24px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-box {
+        padding: 24px 20px !important;
+      }
+    }
   </style>
 </head>
 <body class="login-body">
