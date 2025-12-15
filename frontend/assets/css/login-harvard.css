@@ -224,16 +224,6 @@
   height: 24px !important;
   color: white !important;
   stroke-width: 1.5 !important;
-  animation: iconFloat 4s ease-in-out infinite !important;
-}
-
-@keyframes iconFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
 }
 
 .login-feature-item .feature-content h3 {
