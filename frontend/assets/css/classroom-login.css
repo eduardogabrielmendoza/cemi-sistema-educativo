@@ -218,7 +218,6 @@ body {
   height: 44px;
   color: white;
   stroke-width: 1.5;
-  animation: brandIconFloat 4s ease-in-out infinite;
 }
 
 @keyframes brandIconFloat {
