@@ -49,9 +49,12 @@
 .login-wrapper {
   gap: 0 !important;
   max-width: 1000px !important;
+  min-width: 1000px !important;
   padding: 24px !important;
   display: flex !important;
   align-items: stretch !important;
+  height: auto !important;
+  min-height: 768px !important;
 }
 
 .login-side-panel {
