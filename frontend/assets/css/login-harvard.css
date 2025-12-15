@@ -167,11 +167,11 @@
 
 .login-side-panel h2 {
   font-family: var(--font-heading) !important;
-  font-size: 2.75rem !important;
+  font-size: 2.25rem !important;
   font-weight: 400 !important;
   text-align: left !important;
   letter-spacing: -0.5px !important;
-  margin-bottom: 14px !important;
+  margin-bottom: 12px !important;
 }
 
 .login-side-panel .side-panel-content > p,

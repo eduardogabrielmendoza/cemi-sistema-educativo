@@ -2811,14 +2811,17 @@ footer i {
 
 .register-box {
   background: var(--color-card);
-  padding: 40px 45px;
-  border-radius: var(--radius-lg);
+  padding: 24px 50px;
+  border-radius: 0 16px 16px 0;
   box-shadow: var(--shadow-md);
   width: 100%;
   max-width: 650px;
-  max-height: 90vh;
-  overflow-y: auto;
+  min-height: 720px;
+  max-height: 720px;
+  height: 720px;
+  overflow-y: hidden;
   border: 1px solid var(--color-border);
+  border-left: none;
   opacity: 0;
   transform: translateX(30px);
   animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
