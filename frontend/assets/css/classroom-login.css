@@ -657,7 +657,7 @@ body {
 }
 
 .login-footer a:hover {
-  color: #93a1ad;
+  color: rgba(147, 161, 173, 0.95);
 }
 
 .footer-links {

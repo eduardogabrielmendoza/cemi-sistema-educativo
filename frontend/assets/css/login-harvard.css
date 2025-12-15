@@ -185,17 +185,21 @@
 
 .login-features {
   margin: 0 !important;
+  position: relative !important;
+  z-index: 3 !important;
 }
 
 .login-feature-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 18px !important;
+  margin-bottom: 16px !important;
+  padding: 18px 20px !important;
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 14px !important;
-  padding: 20px 24px !important;
-  margin-bottom: 14px !important;
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.2s ease !important;
 }
 
 .login-feature-item:hover {
@@ -203,15 +207,39 @@
   transform: translateX(4px) !important;
 }
 
-.login-feature-item i,
-.login-feature-item svg {
-  width: 26px !important;
-  height: 26px !important;
+.login-feature-item .feature-icon {
+  width: 48px !important;
+  height: 48px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
 }
 
-.login-feature-item span {
+.login-feature-item .feature-icon i,
+.login-feature-item .feature-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+  color: white !important;
+  stroke-width: 1.5 !important;
+}
+
+.login-feature-item .feature-content h3 {
+  font-family: var(--font-body) !important;
   font-size: 1.1rem !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
+  margin-bottom: 6px !important;
+  color: white !important;
+}
+
+.login-feature-item .feature-content p {
+  font-size: 0.9rem !important;
+  opacity: 0.75 !important;
+  line-height: 1.4 !important;
+  color: white !important;
+  margin: 0 !important;
 }
 
 .login-stats {
@@ -499,7 +527,7 @@
 }
 
 .register-link:hover {
-  color: #93a1ad !important;
+  color: rgba(147, 161, 173, 0.95) !important;
 }
 
 .login-footer {
