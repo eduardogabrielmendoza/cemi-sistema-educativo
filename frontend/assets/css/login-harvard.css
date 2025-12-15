@@ -153,6 +153,8 @@
 .side-panel-icon svg {
   width: 44px !important;
   height: 44px !important;
+  animation: none !important;
+  transform: none !important;
 }
 
 .login-side-panel h2 {
@@ -214,11 +216,15 @@
   height: 24px !important;
   color: white !important;
   stroke-width: 1.5 !important;
+  animation: none !important;
+  transform: none !important;
 }
 
 .login-feature-item .feature-content {
   text-align: left !important;
   flex: 1 !important;
+  display: block !important;
+  width: 100% !important;
 }
 
 .login-feature-item .feature-content h3 {
@@ -229,6 +235,8 @@
   margin-top: 0 !important;
   color: white !important;
   text-align: left !important;
+  display: block !important;
+  width: 100% !important;
 }
 
 .login-feature-item .feature-content p {
@@ -238,6 +246,8 @@
   color: white !important;
   margin: 0 !important;
   text-align: left !important;
+  display: block !important;
+  width: 100% !important;
 }
 
 .login-stats {
