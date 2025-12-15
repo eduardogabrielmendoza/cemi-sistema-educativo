@@ -236,6 +236,9 @@
   transform: none !important;
   transition: none !important;
   opacity: 1 !important;
+  display: block !important;
+  margin: 0 auto !important;
+  vertical-align: middle !important;
 }
 
 .login-feature-item:hover .feature-icon,
