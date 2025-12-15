@@ -652,21 +652,124 @@
   text-align: left !important;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .login-wrapper {
+    min-width: auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
     flex-direction: column !important;
     padding: 20px !important;
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
   }
 
   .login-side-panel {
-    display: none !important;
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    padding: 40px 30px !important;
+    border-radius: 16px 16px 0 0 !important;
+  }
+
+  .login-side-panel::before {
+    border-radius: 16px 16px 0 0 !important;
   }
 
   .login-box {
-    border-radius: 16px !important;
-    border: 1px solid var(--color-border) !important;
-    max-width: 100% !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08) !important;
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    border-radius: 0 0 16px 16px !important;
+    padding: 40px 30px !important;
+    overflow-y: auto !important;
+  }
+
+  .login-features {
+    margin-top: 30px !important;
+  }
+
+  .side-panel-content h2 {
+    font-size: 2rem !important;
+  }
+
+  .side-panel-content > p {
+    font-size: 1.1rem !important;
+    margin-bottom: 30px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    padding: 15px !important;
+  }
+
+  .login-side-panel {
+    padding: 30px 24px !important;
+  }
+
+  .side-panel-icon {
+    width: 70px !important;
+    height: 70px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .side-panel-icon i,
+  .side-panel-icon svg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .side-panel-content h2 {
+    font-size: 1.75rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .side-panel-content > p {
+    font-size: 1rem !important;
+    margin-bottom: 30px !important;
+  }
+
+  .login-feature-item {
+    gap: 14px !important;
+    padding: 14px 16px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .login-feature-item .feature-icon {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .login-feature-item .feature-icon i,
+  .login-feature-item .feature-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .login-feature-item .feature-content h3 {
+    font-size: 1rem !important;
+  }
+
+  .login-feature-item .feature-content p {
+    font-size: 0.85rem !important;
+  }
+
+  .login-box {
+    padding: 30px 24px !important;
+  }
+
+  .login-header h1 {
+    font-size: 1.75rem !important;
+  }
+
+  .login-header p {
+    font-size: 0.95rem !important;
+  }
+
+  .login-logo {
+    width: 70px !important;
+    height: 70px !important;
   }
 }
 
@@ -677,40 +780,165 @@
 
   .login-wrapper {
     padding: 0 !important;
+    border-radius: 0 !important;
   }
 
   .login-background .floating-icon {
     display: none !important;
   }
 
+  .login-side-panel {
+    border-radius: 0 !important;
+    padding: 24px 20px !important;
+  }
+
+  .login-side-panel::before {
+    border-radius: 0 !important;
+  }
+
+  .side-panel-icon {
+    width: 60px !important;
+    height: 60px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .side-panel-icon i,
+  .side-panel-icon svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .side-panel-content h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .side-panel-content > p {
+    font-size: 0.9rem !important;
+    margin-bottom: 24px !important;
+  }
+
+  .login-features {
+    margin-top: 20px !important;
+  }
+
+  .login-feature-item {
+    gap: 12px !important;
+    padding: 12px 14px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .login-feature-item .feature-icon {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .login-feature-item .feature-icon i,
+  .login-feature-item .feature-icon svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .login-feature-item .feature-content h3 {
+    font-size: 0.95rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .login-feature-item .feature-content p {
+    font-size: 0.8rem !important;
+  }
+
   .login-box {
     border-radius: 0 !important;
     border: none !important;
     box-shadow: none !important;
-    min-height: 100vh !important;
-    padding: 32px 24px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
+    min-height: auto !important;
+    padding: 24px 20px !important;
+  }
+
+  .login-header {
+    margin-bottom: 20px !important;
   }
 
   .login-header h1 {
     font-size: 1.4rem !important;
+    margin: 6px 0 3px 0 !important;
+  }
+
+  .login-header p {
+    font-size: 0.85rem !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  .login-logo {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .form-group {
+    margin-bottom: 14px !important;
+  }
+
+  .form-label {
+    font-size: 0.9rem !important;
+    margin-bottom: 6px !important;
   }
 
   #loginForm input,
-  #loginAdminForm input {
+  #loginAdminForm input,
+  #registerForm input,
+  #registerForm select {
     font-size: 16px !important;
-    padding: 14px 44px 14px 16px !important;
+    padding: 12px 14px !important;
+  }
+
+  .input-with-icon input {
+    padding-left: 40px !important;
+  }
+
+  .input-prefix {
+    left: 12px !important;
+  }
+
+  .toggle-password {
+    right: 12px !important;
   }
 
   .login-submit {
-    padding: 15px 24px !important;
+    padding: 13px 20px !important;
+    font-size: 0.95rem !important;
+    margin-top: 16px !important;
+  }
+
+  .login-divider {
+    margin: 12px 0 !important;
+    font-size: 0.85rem !important;
+  }
+
+  .register-text {
+    font-size: 0.85rem !important;
+    margin: 10px 0 !important;
   }
 
   .login-footer {
     flex-direction: column !important;
-    gap: 16px !important;
+    gap: 12px !important;
+    align-items: center !important;
+    margin-top: 16px !important;
+  }
+
+  .back-link,
+  .login-help a {
+    font-size: 0.85rem !important;
+  }
+
+  .form-options {
+    margin-top: 6px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .forgot-password {
+    font-size: 0.85rem !important;
   }
 }
 
