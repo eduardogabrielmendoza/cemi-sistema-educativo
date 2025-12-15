@@ -163,7 +163,7 @@
   font-weight: 400 !important;
   text-align: left !important;
   letter-spacing: -0.5px !important;
-  margin-bottom: -20px !important;
+  margin-bottom: 0px !important;
 }
 
 .login-side-panel .side-panel-content > p,
@@ -186,7 +186,7 @@
   align-items: center !important;
   gap: 18px !important;
   margin-bottom: 16px !important;
-  padding: 8px 12px !important;
+  padding: 18px 12px !important;
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 14px !important;
@@ -213,6 +213,7 @@
 }
 
 .login-feature-item .feature-icon {
+  padding: 0px;
   width: 48px !important;
   height: 48px !important;
   background: rgba(255, 255, 255, 0.15) !important;
