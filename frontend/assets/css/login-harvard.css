@@ -554,7 +554,7 @@
 }
 
 .admin-panel {
-  background-image: url('../../images/loginadmin.jpg') !important;
+  background-image: url('https://res.cloudinary.com/dquzp9ski/image/upload/v1765767303/cemi/loginadmin.jpg') !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
