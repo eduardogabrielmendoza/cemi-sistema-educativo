@@ -79,7 +79,7 @@
 
 .cookie-message {
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-heading), Georgia, 'Times New Roman', serif;
+  font-family: 'Inter';
   font-size: 15px;
   font-weight: 400;
   line-height: 1.5;
@@ -96,7 +96,7 @@
 
 .cookie-message span {
   color: rgba(255, 255, 255, 0.65);
-  font-family: var(--font-heading), Georgia, 'Times New Roman', serif;
+  font-family: 'Inter';
   font-weight: 400;
 }
 
