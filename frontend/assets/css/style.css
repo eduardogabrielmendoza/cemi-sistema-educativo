@@ -719,6 +719,7 @@ html {
 }
 
 .hero-content h1 {
+  text-align: left;
   font-family: var(--font-heading);
   font-size: 4.5rem;
   font-weight: 400;
@@ -732,6 +733,8 @@ html {
 }
 
 .hero-content p {
+  text-align: left;
+  padding-left: 31px;
   font-family: var(--font-body);
   font-size: 1.25rem;
   color: var(--color-text-light);
