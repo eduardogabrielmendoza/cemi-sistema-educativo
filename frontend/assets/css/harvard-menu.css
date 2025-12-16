@@ -848,6 +848,7 @@
   text-decoration: none;
   margin-bottom: 12px;
   transition: color 0.15s ease-in-out;
+  text-align: left;
 }
 
 .mega-sub-title:hover {
@@ -871,6 +872,7 @@
   line-height: 1.5;
   margin-bottom: 30px;
   display: none;
+  text-align: left;
 }
 
 @media (min-width: 768px) {
