@@ -2818,7 +2818,7 @@ footer i {
 
 .register-box {
   background: var(--color-card);
-  padding: 24px 50px;
+  padding: 10px 50px;
   border-radius: 0 16px 16px 0;
   box-shadow: var(--shadow-md);
   width: 100%;
@@ -2875,7 +2875,7 @@ footer i {
 
 .form-group input {
   width: 100%;
-  padding: 14px 16px 14px 44px;
+  padding: 14px 16px 14px 12px;
   border: 1px solid var(--color-border);
   border-radius: 12px;
   font-size: 0.9375rem;
@@ -5204,6 +5204,7 @@ footer i {
   input[type="number"],
   select,
   textarea {
+    text-align: left !important;
     font-size: 16px !important;
   }
 }
