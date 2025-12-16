@@ -725,6 +725,7 @@
               transform 0.5s cubic-bezier(0.32, 0.08, 0.24, 1),
               color 0.15s ease-in-out;
   white-space: nowrap;
+  text-align: left;
 }
 
 .harvard-mega-menu .mega-nav-item,
