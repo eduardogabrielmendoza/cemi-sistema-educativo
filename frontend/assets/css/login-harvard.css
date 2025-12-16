@@ -101,12 +101,12 @@
 }
 
 .side-panel-icon {
+  padding: 20px !important;
   width: 90px !important;
   height: 90px !important;
   background: rgba(255, 255, 255, 0.15) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 22px !important;
-  margin: 0 0 32px 0 !important;
   position: relative !important;
   overflow: visible !important;
   display: flex !important;
@@ -161,7 +161,7 @@
   font-family: var(--font-heading) !important;
   font-size: 2.75rem !important;
   font-weight: 400 !important;
-  text-align: left !important;
+  text-align: center !important;
   letter-spacing: -0.5px !important;
   margin-bottom: 12px !important;
 }
@@ -170,7 +170,7 @@
 .login-side-panel > p {
   font-family: var(--font-body) !important;
   font-size: 1.2rem !important;
-  text-align: left !important;
+  text-align: center !important;
   opacity: 0.85 !important;
   margin-bottom: 20px !important;
 }
@@ -395,6 +395,7 @@
 }
 
 .input-with-icon input {
+  text-align: left;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -409,6 +410,7 @@
 
 #loginForm .input-wrapper:not(.input-with-icon) input,
 #loginAdminForm .input-wrapper:not(.input-with-icon) input {
+  text-align: left;
   font-family: var(--font-body) !important;
   border: 1px solid var(--color-border) !important;
   border-radius: 12px !important;
