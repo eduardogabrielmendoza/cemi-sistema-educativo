@@ -159,11 +159,11 @@
 
 .login-side-panel h2 {
   font-family: var(--font-heading) !important;
-  font-size: 2.25rem !important;
+  font-size: 2.75rem !important;
   font-weight: 400 !important;
   text-align: left !important;
   letter-spacing: -0.5px !important;
-  margin-bottom: 0px !important;
+  margin-bottom: 12px !important;
 }
 
 .login-side-panel .side-panel-content > p,
@@ -254,6 +254,7 @@
 }
 
 .login-feature-item .feature-content h3 {
+  margin: 0;
   font-family: var(--font-body) !important;
   font-size: 1.1rem !important;
   font-weight: 500 !important;
@@ -264,6 +265,7 @@
 }
 
 .login-feature-item .feature-content p {
+  text-align: left !important;
   font-size: 0.9rem !important;
   opacity: 0.75 !important;
   line-height: 1.4 !important;

@@ -2400,6 +2400,7 @@ footer i {
 }
 
 #loginForm input {
+  text-align: left;
   width: 100%;
   padding: 14px 16px 14px 44px;
   border: 1px solid var(--color-border);
@@ -3556,7 +3557,7 @@ footer i {
   margin: 0;
 }
 
-/* Feature Items (con estilo de module-card) */
+
 .feature-item {
   background: linear-gradient(135deg, rgba(30, 60, 114, 0.05), rgba(42, 82, 152, 0.05));
   padding: 40px 30px;
@@ -3599,8 +3600,7 @@ footer i {
   width: 60px;
   height: 60px;
   margin-bottom: 20px;
-  color: white;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #1e1e1e;
   padding: 15px;
   border-radius: var(--radius);
   display: flex;

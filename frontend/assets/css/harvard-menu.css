@@ -1031,6 +1031,7 @@
 }
 
 .mega-tertiary-header p {
+  text-align: left;
   font-family: var(--hw-font-sans);
   font-size: 14px;
   font-weight: 400;
@@ -1104,6 +1105,7 @@
 }
 
 .mega-tertiary-info p {
+  text-align: left;
   color: var(--hw-color-slate);
   font-size: 14px;
   line-height: 1.6;
