@@ -151,6 +151,7 @@ function showStatusBanner(status, incident) {
       #system-status-banner .banner-text {
         color: ${config.textColor};
         font-size: 0.9rem;
+        font-family: Inter, sans-serif;
       }
       #system-status-banner .banner-title {
         font-weight: 600;

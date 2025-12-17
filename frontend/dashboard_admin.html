@@ -12,6 +12,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="apple-touch-icon" href="images/logo.png">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -21,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/dashboard.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
   <link rel="stylesheet" href="assets/css/user-chat-manager.css" />
   <link rel="stylesheet" href="assets/css/ayuda-section.css" />
   
@@ -570,40 +572,40 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
+  <aside class="sidebar entrance-sidebar" id="sidebar">
+    <div class="sidebar-header animate-fadeIn" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
       <img src="images/logodashboard.png" alt="Logo Cemi" style="width: 100%; max-width: 200px; height: auto;">
     </div>
     <nav class="sidebar-menu">
-      <button id="btnCursos" class="active"><i data-lucide="book"></i> Cursos</button>
-      <button id="btnAlumnos"><i data-lucide="users"></i> Alumnos</button>
-      <button id="btnProfesores"><i data-lucide="graduation-cap"></i> Profesores</button>
-      <button id="btnAdministradores"><i data-lucide="shield"></i> Administradores</button>
-      <button id="btnPagos"><i data-lucide="credit-card"></i> Pagos</button>
-      <button id="btnAulas"><i data-lucide="door-open"></i> Aulas</button>
-      <button id="btnIdiomas"><i data-lucide="languages"></i> Idiomas</button>
-      <button id="btnInvestigacion"><i data-lucide="flask-conical"></i> Investigación</button>
-      <button id="btnChatSoporte" style="position: relative;">
+      <button id="btnCursos" class="active stagger-item hover-lift"><i data-lucide="book"></i> Cursos</button>
+      <button id="btnAlumnos" class="stagger-item hover-lift"><i data-lucide="users"></i> Alumnos</button>
+      <button id="btnProfesores" class="stagger-item hover-lift"><i data-lucide="graduation-cap"></i> Profesores</button>
+      <button id="btnAdministradores" class="stagger-item hover-lift"><i data-lucide="shield"></i> Administradores</button>
+      <button id="btnPagos" class="stagger-item hover-lift"><i data-lucide="credit-card"></i> Pagos</button>
+      <button id="btnAulas" class="stagger-item hover-lift"><i data-lucide="door-open"></i> Aulas</button>
+      <button id="btnIdiomas" class="stagger-item hover-lift"><i data-lucide="languages"></i> Idiomas</button>
+      <button id="btnInvestigacion" class="stagger-item hover-lift"><i data-lucide="flask-conical"></i> Investigación</button>
+      <button id="btnChatSoporte" class="stagger-item hover-lift" style="position: relative;">
         <i data-lucide="message-circle"></i> Chat Soporte
         <span id="chatNotificationBadge" class="notification-badge" style="display: none;"></span>
       </button>
-      <button id="btnStatus"><i data-lucide="activity"></i> Status del Sistema</button>
-      <button id="btnAyuda"><i data-lucide="help-circle"></i> Ayuda</button>
-      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesión</button>
+      <button id="btnStatus" class="stagger-item hover-lift"><i data-lucide="activity"></i> Status del Sistema</button>
+      <button id="btnAyuda" class="stagger-item hover-lift"><i data-lucide="help-circle"></i> Ayuda</button>
+      <button id="logoutBtn" class="logout stagger-item hover-lift"><i data-lucide="log-out"></i> Cerrar sesión</button>
     </nav>
   </aside>
 
   <main class="dashboard-main">
-    <header class="dashboard-header">
-      <h1>Panel de Administración</h1>
-      <div class="user-info">
+    <header class="dashboard-header entrance-header">
+      <h1 class="animate-fadeInDown">Panel de Administración</h1>
+      <div class="user-info animate-fadeInRight">
         <i data-lucide="user"></i> <span id="welcomeMessage">Administrador</span>
       </div>
     </header>
 
     <div id="loader" class="loader hidden"></div>
 
-    <section id="mainContent" class="dashboard-content spa-animate"></section>
+    <section id="mainContent" class="dashboard-content spa-animate entrance-content"></section>
     
     <div id="adminChatContainer" style="display: none;"></div>
   </main>

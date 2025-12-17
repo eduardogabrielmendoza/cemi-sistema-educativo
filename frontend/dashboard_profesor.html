@@ -12,6 +12,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="apple-touch-icon" href="images/logo.png">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -21,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/dashboard.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
   <link rel="stylesheet" href="assets/css/dashboard_profesor_extras.css" />
   <link rel="stylesheet" href="assets/css/user-chat-manager.css" />
   <link rel="stylesheet" href="assets/css/ayuda-section.css" />
@@ -39,29 +41,29 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
+  <aside class="sidebar entrance-sidebar" id="sidebar">
+    <div class="sidebar-header animate-fadeIn" style="display: flex; justify-content: center; align-items: center; padding: 24px 12px;">
       <img src="images/logodashboard.png" alt="Logo Cemi" style="width: 100%; max-width: 200px; height: auto;">
     </div>
     <nav class="sidebar-menu">
-      <button id="btnCursos"><i data-lucide="book-open"></i> Mis Cursos</button>
-      <button id="btnCalificaciones"><i data-lucide="clipboard-list"></i> Calificaciones</button>
-      <button id="btnAsistencias"><i data-lucide="calendar-check"></i> Asistencias</button>
-      <button id="btnPerfil"><i data-lucide="user"></i> Mi Perfil</button>
-      <button id="btnClassroom" onclick="window.location.href='classroom.html'"><i data-lucide="school"></i> Classroom</button>
-      <button id="btnChatSoporte" style="position: relative;">
+      <button id="btnCursos" class="stagger-item hover-lift"><i data-lucide="book-open"></i> Mis Cursos</button>
+      <button id="btnCalificaciones" class="stagger-item hover-lift"><i data-lucide="clipboard-list"></i> Calificaciones</button>
+      <button id="btnAsistencias" class="stagger-item hover-lift"><i data-lucide="calendar-check"></i> Asistencias</button>
+      <button id="btnPerfil" class="stagger-item hover-lift"><i data-lucide="user"></i> Mi Perfil</button>
+      <button id="btnClassroom" class="stagger-item hover-lift" onclick="window.location.href='classroom.html'"><i data-lucide="school"></i> Classroom</button>
+      <button id="btnChatSoporte" class="stagger-item hover-lift" style="position: relative;">
         <i data-lucide="message-circle"></i> Chat Soporte
         <span id="chatNotificationBadge" class="notification-badge" style="display: none;"></span>
       </button>
-      <button id="btnAyuda"><i data-lucide="help-circle"></i> Ayuda</button>
-      <button id="logoutBtn" class="logout"><i data-lucide="log-out"></i> Cerrar sesión</button>
+      <button id="btnAyuda" class="stagger-item hover-lift"><i data-lucide="help-circle"></i> Ayuda</button>
+      <button id="logoutBtn" class="logout stagger-item hover-lift"><i data-lucide="log-out"></i> Cerrar sesión</button>
     </nav>
   </aside>
 
   <main class="dashboard-main">
-    <header class="dashboard-header">
-      <h1>Panel del Profesor</h1>
-      <div class="user-info">
+    <header class="dashboard-header entrance-header">
+      <h1 class="animate-fadeInDown">Panel del Profesor</h1>
+      <div class="user-info animate-fadeInRight">
         <div class="user-avatar-header" id="userAvatarHeader">
           <i data-lucide="user"></i>
         </div>
@@ -71,7 +73,7 @@
 
     <div id="loader" class="loader hidden"></div>
 
-    <section id="mainContent" class="dashboard-content spa-animate active"></section>
+    <section id="mainContent" class="dashboard-content spa-animate active entrance-content"></section>
   </main>
 
   <script>
