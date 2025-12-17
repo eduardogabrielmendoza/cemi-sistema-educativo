@@ -266,7 +266,7 @@
 .dashboard-header h1 {
   color: var(--hw-charcoal);
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 2.75rem;
   letter-spacing: -0.3px;
   font-family: Georgia, 'Times New Roman', serif;
   animation: slideInLeft var(--duration-slower) var(--ease-smooth) 100ms backwards;
@@ -332,7 +332,7 @@
 
 .sidebar-menu button.active {
   background: var(--hw-charcoal);
-  color: #ffffff;
+  color: #5d646b;
   box-shadow: var(--shadow-hover);
   transform: none;
   font-weight: 500;
@@ -570,7 +570,7 @@
   color: #000000;
   margin-bottom: 20px;
   font-weight: 400;
-  font-size: 1.5em;
+  font-size: 2.0em;
   font-family: 'Georgia';
   animation: fadeInUp var(--duration-slow) var(--ease-smooth);
 }
@@ -4414,6 +4414,7 @@
 }
 
 .calificaciones-curso-selector h3 {
+  font-family: 'Inter';
   font-size: 20px;
   color: #5d646b;
   margin: 0 0 24px 0;
@@ -4820,6 +4821,7 @@
 }
 
 .asistencias-selector-cursos h3 {
+  font-family: 'Inter';
   font-size: 18px;
   color: #333;
   margin: 0 0 20px 0;
@@ -5173,7 +5175,7 @@
 }
 
 .estadisticas-modal-header {
-  background: linear-gradient(135deg, #4a5259, #1565c0);
+  background: linear-gradient(135deg, #1e1e1e, #1e1e1e);
   color: white;
   padding: 25px 30px;
   border-radius: 16px 16px 0 0;
@@ -5183,6 +5185,7 @@
 }
 
 .estadisticas-modal-header h3 {
+  font-family: 'Inter';
   margin: 0;
   font-size: 24px;
   font-weight: 600;
@@ -9423,6 +9426,7 @@ button:hover svg,
 }
 
 * {
+  font-family: 'Inter';
   transition-property: transform, opacity, box-shadow, background-color, border-color;
   transition-timing-function: var(--ease-smooth);
 }

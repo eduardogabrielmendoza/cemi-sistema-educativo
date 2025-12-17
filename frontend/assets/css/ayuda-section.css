@@ -215,7 +215,7 @@
   border-radius: 16px;
   background: var(--ayuda-bg-card);
   transition: all 0.3s var(--ayuda-transition);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter';
   box-shadow: 0 4px 20px var(--ayuda-shadow);
 }
 

@@ -144,7 +144,7 @@
 .user-chat-header {
   background: var(--chat-primary);
   color: white;
-  padding: 20px;
+  padding: 12px;
   display: flex;
   align-items: center;
   gap: 12px;
