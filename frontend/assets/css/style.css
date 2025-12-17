@@ -957,7 +957,7 @@ html {
 }
 
 .split-banner-img-right .split-banner-image video {
-  object-position: 85% center;
+  object-position: 90% center;
 }
 
 @media (max-width: 992px) {
