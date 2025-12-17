@@ -183,7 +183,7 @@ class CursadoManager {
                         <i data-lucide="book-open" style="width: 24px; height: 24px; color: #4a5259;"></i>
                     </div>
                     <div style="flex: 1; min-width: 0;">
-                        <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">${curso.nombre_curso}</h3>
+                        <h3 style="margin: 0 0 4px 0; color: #1e1e1e; font-size: 16px; font-family: 'Inter', sans-serif; font-weight: 400;">${curso.nombre_curso}</h3>
                         <div style="color: #6b7280; font-size: 13px; margin-bottom: 8px;">${curso.idioma.nombre}</div>
                         <span style="background: rgba(74, 82, 89, 0.1); color: #4a5259; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;">${curso.nivel.descripcion}</span>
                     </div>
@@ -209,7 +209,7 @@ class CursadoManager {
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     <div style="display: flex; flex-direction: column; gap: 6px;">
                         <div style="height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
-                            <div style="height: 100%; background: #4a5259; border-radius: 3px; width: ${porcentajeBarra}%; transition: width 0.3s ease;"></div>
+                            <div style="height: 100%; background: #43a047; border-radius: 3px; width: ${porcentajeBarra}%; transition: width 0.3s ease;"></div>
                         </div>
                         <span style="color: #6b7280; font-size: 12px;">${curso.cupos_disponibles} cupos disponibles de ${curso.cupo_maximo}</span>
                     </div>
