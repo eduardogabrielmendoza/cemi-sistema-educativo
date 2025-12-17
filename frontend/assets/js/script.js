@@ -1674,6 +1674,82 @@ const STATUS_CONFIG = {
 };
 
 let currentStatusData = null;
+let statusActivityInterval = null;
+let statusMetricsInterval = null;
+let activityEvents = [];
+
+// Generadores de datos simulados realistas
+const StatusSimulator = {
+  // Nombres y acciones para eventos simulados
+  userNames: ['María García', 'Carlos López', 'Ana Martínez', 'Juan Rodríguez', 'Laura Sánchez', 'Pedro Fernández', 'Sofia Ruiz', 'Diego Torres', 'Valentina Díaz', 'Mateo Herrera'],
+  courses: ['Inglés B1', 'Francés A2', 'Alemán B2', 'Italiano A1', 'Portugués B1', 'Inglés C1', 'Francés B1'],
+  
+  getRandomLatency(baseLatency = 45) {
+    // Genera latencia realista con variación
+    const variation = Math.random() * 30 - 15;
+    return Math.max(8, Math.round(baseLatency + variation));
+  },
+  
+  getRandomUser() {
+    return this.userNames[Math.floor(Math.random() * this.userNames.length)];
+  },
+  
+  getRandomCourse() {
+    return this.courses[Math.floor(Math.random() * this.courses.length)];
+  },
+  
+  generateEvent() {
+    const eventTypes = [
+      { type: 'login', icon: 'log-in', message: `${this.getRandomUser()} inició sesión` },
+      { type: 'api', icon: 'database', message: `Query ejecutado correctamente` },
+      { type: 'api', icon: 'zap', message: `API REST: ${Math.floor(Math.random() * 50 + 100)} requests/s` },
+      { type: 'login', icon: 'user-plus', message: `Nuevo usuario registrado` },
+      { type: 'db', icon: 'hard-drive', message: `Backup automático completado` },
+      { type: 'cache', icon: 'refresh-cw', message: `Cache actualizado exitosamente` },
+      { type: 'api', icon: 'check-circle', message: `Health check: todos los servicios OK` },
+      { type: 'login', icon: 'shield-check', message: `Verificación 2FA completada` },
+      { type: 'warning', icon: 'alert-triangle', message: `Latencia elevada detectada` },
+      { type: 'api', icon: 'server', message: `${Math.floor(Math.random() * 10 + 5)} conexiones activas` },
+      { type: 'db', icon: 'database', message: `Query optimizado: ${Math.floor(Math.random() * 50 + 10)}ms` },
+      { type: 'login', icon: 'log-out', message: `${this.getRandomUser()} cerró sesión` },
+    ];
+    
+    const event = eventTypes[Math.floor(Math.random() * eventTypes.length)];
+    return {
+      ...event,
+      time: Date.now() - Math.floor(Math.random() * 300000) // últimos 5 minutos
+    };
+  },
+  
+  getServiceMetrics(status = 'operational') {
+    const baseLatency = status === 'operational' ? 45 : status === 'degraded' ? 250 : 0;
+    const latency = this.getRandomLatency(baseLatency);
+    
+    // Generar historial de latencia para el mini-gráfico
+    const latencyHistory = [];
+    for (let i = 0; i < 10; i++) {
+      latencyHistory.push(this.getRandomLatency(baseLatency * (0.8 + Math.random() * 0.4)));
+    }
+    
+    return {
+      latency: latency,
+      latencyHistory: latencyHistory,
+      uptime: status === 'operational' ? (99 + Math.random()).toFixed(2) : status === 'degraded' ? (95 + Math.random() * 3).toFixed(2) : '0.00',
+      requestsPerMin: status === 'operational' ? Math.floor(Math.random() * 500 + 200) : status === 'degraded' ? Math.floor(Math.random() * 100 + 50) : 0,
+      errors: status === 'operational' ? Math.floor(Math.random() * 3) : status === 'degraded' ? Math.floor(Math.random() * 20 + 5) : 999,
+      trend: status === 'operational' ? Math.floor(Math.random() * 10 - 2) : -Math.floor(Math.random() * 20 + 5)
+    };
+  },
+  
+  getGlobalMetrics() {
+    return {
+      activeUsers: Math.floor(Math.random() * 80 + 40),
+      serverLoad: Math.floor(Math.random() * 40 + 20),
+      memoryUsage: Math.floor(Math.random() * 30 + 45),
+      requestsPerSec: Math.floor(Math.random() * 30 + 15)
+    };
+  }
+};
 
 function renderStatusSection() {
   return `
@@ -1684,7 +1760,7 @@ function renderStatusSection() {
       }
 
       .status-hero {
-        background: #4a5259;
+        background: linear-gradient(135deg, #4a5259 0%, #3d444a 100%);
         border-radius: 16px;
         padding: 30px;
         margin-bottom: 25px;
@@ -1752,24 +1828,877 @@ function renderStatusSection() {
         background: rgba(255,255,255,0.25);
       }
 
-      .status-grid {
+      /* ========== MONITORING CENTER LAYOUT ========== */
+      .monitoring-center {
         display: grid;
-        grid-template-columns: 1fr 350px;
+        grid-template-columns: 1fr 380px;
         gap: 25px;
+        margin-bottom: 25px;
       }
 
-      @media (max-width: 1024px) {
-        .status-grid { grid-template-columns: 1fr; }
+      @media (max-width: 1200px) {
+        .monitoring-center { grid-template-columns: 1fr; }
       }
 
-      .status-card {
+      .monitoring-main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      /* Services Monitor Header */
+      .services-monitor-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
         background: white;
         border-radius: 16px;
-        padding: 24px;
+        border: 1px solid #e2e8f0;
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      }
+
+      .services-monitor-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .services-monitor-title i { width: 24px; height: 24px; color: #4a5259; }
+
+      .services-status-summary {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: #dcfce7;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #16a34a;
+      }
+
+      .services-status-summary.degraded {
+        background: #fef3c7;
+        color: #d97706;
+      }
+
+      .services-status-summary.outage {
+        background: #fee2e2;
+        color: #dc2626;
+      }
+
+      .services-status-summary .live-dot {
+        width: 8px;
+        height: 8px;
+        background: currentColor;
+        border-radius: 50%;
+        animation: livePulse 2s ease-in-out infinite;
+      }
+
+      @keyframes livePulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.2); }
+      }
+
+      /* Service Cards */
+      .services-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .service-monitor-card {
+        background: white;
+        border-radius: 14px;
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .service-monitor-card:hover {
+        border-color: #cbd5e1;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      }
+
+      .service-monitor-card.expanded {
+        border-color: #4a5259;
+      }
+
+      .service-monitor-card.degraded { border-left: 4px solid #f59e0b; }
+      .service-monitor-card.outage { border-left: 4px solid #ef4444; }
+      .service-monitor-card.maintenance { border-left: 4px solid #4a5259; }
+      .service-monitor-card.operational { border-left: 4px solid #16a34a; }
+
+      .service-card-main {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        gap: 16px;
+      }
+
+      .service-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f5f9;
+      }
+
+      .service-icon-wrapper i { width: 24px; height: 24px; color: #4a5259; }
+
+      .service-icon-wrapper.operational { background: #dcfce7; }
+      .service-icon-wrapper.operational i { color: #16a34a; }
+      .service-icon-wrapper.degraded { background: #fef3c7; }
+      .service-icon-wrapper.degraded i { color: #d97706; }
+      .service-icon-wrapper.outage { background: #fee2e2; }
+      .service-icon-wrapper.outage i { color: #dc2626; }
+
+      .service-card-info {
+        flex: 1;
+      }
+
+      .service-card-info h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 2px;
+      }
+
+      .service-card-info p {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+
+      .service-card-metrics {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .service-latency {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .latency-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #16a34a;
+      }
+
+      .latency-value.warning { color: #d97706; }
+      .latency-value.critical { color: #dc2626; }
+
+      .latency-label {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+      }
+
+      .latency-bar-container {
+        width: 120px;
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .latency-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #16a34a, #22c55e);
+        border-radius: 3px;
+        transition: width 0.5s ease;
+      }
+
+      .latency-bar.warning {
+        background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      }
+
+      .latency-bar.critical {
+        background: linear-gradient(90deg, #ef4444, #f87171);
+      }
+
+      .service-status-indicator {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .service-status-indicator i { width: 14px; height: 14px; }
+
+      .service-status-indicator.operational { background: #dcfce7; color: #16a34a; }
+      .service-status-indicator.degraded { background: #fef3c7; color: #d97706; }
+      .service-status-indicator.outage { background: #fee2e2; color: #dc2626; }
+      .service-status-indicator.maintenance { background: #e5e7eb; color: #4a5259; }
+
+      /* Service Expanded Panel */
+      .service-expanded-panel {
+        display: none;
+        padding: 0 20px 20px;
+        border-top: 1px solid #e2e8f0;
+        background: #f8fafc;
+      }
+
+      .service-monitor-card.expanded .service-expanded-panel {
+        display: block;
+        animation: slideDown 0.3s ease;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .expanded-metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        padding-top: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .expanded-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      .metric-card {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
         border: 1px solid #e2e8f0;
       }
 
+      /* ========== SERVICE MONITOR MAIN (Card Principal) ========== */
+      .service-monitor-main {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        gap: 16px;
+        background: white;
+        transition: background 0.2s;
+      }
+
+      .service-monitor-card:hover .service-monitor-main {
+        background: #f8fafc;
+      }
+
+      .service-monitor-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .service-monitor-info h4 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 2px;
+      }
+
+      .service-description {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-bottom: 8px;
+      }
+
+      .service-latency-bar {
+        width: 100px;
+        height: 4px;
+        background: #e2e8f0;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .latency-fill {
+        height: 100%;
+        border-radius: 2px;
+        transition: width 0.5s ease;
+      }
+
+      .latency-fill.good { background: linear-gradient(90deg, #16a34a, #22c55e); }
+      .latency-fill.medium { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+      .latency-fill.slow { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+      .latency-value {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 2px;
+      }
+
+      .status-pulse {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .status-pulse.operational {
+        background: #22c55e;
+        animation: statusPulse 2s ease-in-out infinite;
+      }
+
+      .status-pulse.degraded { background: #f59e0b; }
+      .status-pulse.outage { background: #ef4444; }
+      .status-pulse.maintenance { background: #4a5259; }
+
+      @keyframes statusPulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+        50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+      }
+
+      .service-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f5f9;
+        position: relative;
+      }
+
+      .service-icon-wrapper i { width: 24px; height: 24px; color: #4a5259; }
+
+      .service-icon-wrapper.operational { background: #dcfce7; }
+      .service-icon-wrapper.operational i { color: #16a34a; }
+      .service-icon-wrapper.degraded { background: #fef3c7; }
+      .service-icon-wrapper.degraded i { color: #d97706; }
+      .service-icon-wrapper.outage { background: #fee2e2; }
+      .service-icon-wrapper.outage i { color: #dc2626; }
+      .service-icon-wrapper.maintenance { background: #e5e7eb; }
+      .service-icon-wrapper.maintenance i { color: #4a5259; }
+
+      .service-expand-btn {
+        background: #f1f5f9;
+        border: none;
+        padding: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #64748b;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .service-expand-btn:hover {
+        background: #e2e8f0;
+        color: #1e293b;
+      }
+
+      .service-expand-btn i { width: 18px; height: 18px; }
+
+      /* ========== METRIC BOXES (Panel Expandido) ========== */
+      .metric-box {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .metric-box .metric-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        display: block;
+      }
+
+      .metric-box .metric-value {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1e293b;
+      }
+
+      .metric-box .metric-value.error { color: #dc2626; }
+
+      .metric-sublabel {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        display: block;
+        margin-top: 2px;
+      }
+
+      .metric-trend {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      .metric-trend i { width: 14px; height: 14px; }
+      .metric-trend.up { color: #16a34a; }
+      .metric-trend.down { color: #dc2626; }
+
+      /* Mini Charts */
+      .mini-chart {
+        margin-top: 10px;
+        height: 30px;
+      }
+
+      .mini-chart-svg {
+        width: 100%;
+        height: 100%;
+        color: #4a5259;
+      }
+
+      .uptime-bar {
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 10px;
+      }
+
+      .uptime-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #16a34a, #22c55e);
+        border-radius: 3px;
+      }
+
+      /* Service Actions Row */
+      .service-actions-row {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .service-action-btn {
+        flex: 1;
+        padding: 10px 14px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #4a5259;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .service-action-btn:hover {
+        background: #e2e8f0;
+        border-color: #cbd5e1;
+      }
+
+      .service-action-btn i { width: 14px; height: 14px; }
+
+      /* ========== ACTIVITY PANEL HEADER ========== */
+      .activity-header {
+        padding: 20px;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .activity-header i { width: 20px; height: 20px; color: #4a5259; }
+
+      .activity-item.login .activity-icon { background: #dbeafe; }
+      .activity-item.login .activity-icon i { color: #2563eb; }
+      .activity-item.api .activity-icon { background: #dcfce7; }
+      .activity-item.api .activity-icon i { color: #16a34a; }
+      .activity-item.error .activity-icon { background: #fee2e2; }
+      .activity-item.error .activity-icon i { color: #dc2626; }
+      .activity-item.warning .activity-icon { background: #fef3c7; }
+      .activity-item.warning .activity-icon i { color: #d97706; }
+      .activity-item.db .activity-icon { background: #f3e8ff; }
+      .activity-item.db .activity-icon i { color: #9333ea; }
+      .activity-item.cache .activity-icon { background: #e0f2fe; }
+      .activity-item.cache .activity-icon i { color: #0284c7; }
+
+      /* Metrics Title */
+      .metrics-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .metrics-title i { width: 16px; height: 16px; color: #4a5259; }
+
+      /* Monitor Actions */
+      .monitor-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .monitor-title i { width: 24px; height: 24px; color: #4a5259; }
+
+      .live-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: #dcfce7;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #16a34a;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .live-dot {
+        width: 6px;
+        height: 6px;
+        background: #16a34a;
+        border-radius: 50%;
+        animation: livePulse 2s ease-in-out infinite;
+      }
+
+      .monitor-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .monitor-btn {
+        background: #f1f5f9;
+        border: none;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        color: #64748b;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .monitor-btn:hover {
+        background: #e2e8f0;
+        color: #4a5259;
+      }
+
+      .monitor-btn i { width: 18px; height: 18px; }
+
+      /* Services Monitor Grid */
+      .services-monitor-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      @keyframes slideInActivity {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Activity Feed inside panel */
+      .activity-panel .activity-feed {
+        flex: 1;
+        overflow-y: auto;
+        max-height: 300px;
+      }
+        border: 1px solid #e2e8f0;
+      }
+
+      .metric-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 4px;
+      }
+
+      .metric-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+      }
+
+      .latency-graph {
+        margin-top: 20px;
+        padding: 16px;
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .latency-graph-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .latency-graph-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .latency-graph-live {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        color: #16a34a;
+        font-weight: 600;
+      }
+
+      .latency-graph-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 50px;
+      }
+
+      .graph-bar {
+        flex: 1;
+        background: linear-gradient(to top, #16a34a, #22c55e);
+        border-radius: 2px 2px 0 0;
+        min-height: 4px;
+        transition: height 0.3s ease;
+      }
+
+      .graph-bar.warning { background: linear-gradient(to top, #f59e0b, #fbbf24); }
+      .graph-bar.critical { background: linear-gradient(to top, #ef4444, #f87171); }
+
+      .service-events {
+        margin-top: 16px;
+      }
+
+      .service-events-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 10px;
+      }
+
+      .service-event-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 0.8rem;
+        color: #64748b;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .service-event-item:last-child { border-bottom: none; }
+
+      .service-event-item i { width: 14px; height: 14px; }
+
+      /* ========== ACTIVITY PANEL (Sidebar) ========== */
+      .activity-panel {
+        background: white;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100vh - 300px);
+        min-height: 500px;
+      }
+
+      .activity-panel-header {
+        padding: 20px;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .activity-panel-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .activity-panel-title i { width: 20px; height: 20px; color: #4a5259; }
+
+      .activity-live-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: #dcfce7;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #16a34a;
+        text-transform: uppercase;
+      }
+
+      .activity-live-badge .live-dot {
+        width: 6px;
+        height: 6px;
+        background: #16a34a;
+        border-radius: 50%;
+        animation: livePulse 2s ease-in-out infinite;
+      }
+
+      .activity-feed {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0;
+      }
+
+      .activity-feed::-webkit-scrollbar { width: 6px; }
+      .activity-feed::-webkit-scrollbar-track { background: #f1f5f9; }
+      .activity-feed::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+      .activity-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        animation: fadeInSlide 0.3s ease;
+      }
+
+      @keyframes fadeInSlide {
+        from { opacity: 0; transform: translateX(-10px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+
+      .activity-item:hover {
+        background: #f8fafc;
+      }
+
+      .activity-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f5f9;
+        flex-shrink: 0;
+      }
+
+      .activity-icon i { width: 16px; height: 16px; }
+
+      .activity-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .activity-text {
+        font-size: 0.85rem;
+        color: #1e293b;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .activity-time {
+        font-size: 0.7rem;
+        color: #94a3b8;
+      }
+
+      /* Global Metrics Section */
+      .global-metrics-section {
+        padding: 20px;
+        border-top: 1px solid #e2e8f0;
+        background: #f8fafc;
+      }
+
+      .global-metrics-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .global-metrics-title i { width: 16px; height: 16px; color: #4a5259; }
+
+      .global-metric-item {
+        margin-bottom: 14px;
+      }
+
+      .global-metric-item:last-child { margin-bottom: 0; }
+
+      .global-metric-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+      }
+
+      .global-metric-label {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+
+      .global-metric-value {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1e293b;
+      }
+
+      .global-metric-bar {
+        height: 6px;
+        background: #e2e8f0;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .global-metric-fill {
+        height: 100%;
+        border-radius: 3px;
+        transition: width 0.5s ease;
+      }
+
+      .global-metric-fill.green { background: linear-gradient(90deg, #16a34a, #22c55e); }
+      .global-metric-fill.blue { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+      .global-metric-fill.purple { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+      .global-metric-fill.orange { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+
+      .sync-indicator {
+        padding: 12px 20px;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 0.75rem;
+        color: #64748b;
+      }
+
+      .sync-indicator i { width: 14px; height: 14px; animation: spin 2s linear infinite; }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* Status Card Header - para modales */
       .status-card-header {
         display: flex;
         justify-content: space-between;
@@ -1790,6 +2719,7 @@ function renderStatusSection() {
 
       .status-card-title i { width: 20px; height: 20px; color: #4a5259; }
 
+      /* Global Status Display */
       .global-status-display {
         text-align: center;
         padding: 30px 20px;
@@ -1836,6 +2766,7 @@ function renderStatusSection() {
         margin-top: 8px;
       }
 
+      /* Service Items - Fallback para lista básica */
       .service-item {
         display: flex;
         justify-content: space-between;
@@ -2543,14 +3474,60 @@ function renderStatusSection() {
           <!-- Incidente Activo -->
           <div id="activeIncidentContainer"></div>
 
-          <!-- Lista de Servicios -->
-          <div class="status-card">
-            <div class="status-card-header">
-              <span class="status-card-title"><i data-lucide="server"></i> Servicios</span>
+          <!-- 🔥 NUEVO: Centro de Monitoreo en Tiempo Real -->
+          <div class="monitoring-center">
+            <div class="monitoring-main">
+              <div class="services-monitor-header">
+                <div class="monitor-title">
+                  <i data-lucide="activity"></i>
+                  <span>Centro de Monitoreo en Tiempo Real</span>
+                  <span class="live-indicator">
+                    <span class="live-dot"></span>
+                    EN VIVO
+                  </span>
+                </div>
+                <div class="monitor-actions">
+                  <button class="monitor-btn" onclick="toggleAllServices()" title="Expandir/Colapsar todos">
+                    <i data-lucide="layers"></i>
+                  </button>
+                  <button class="monitor-btn" onclick="refreshStatusData()" title="Actualizar">
+                    <i data-lucide="refresh-cw"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="services-monitor-grid" id="servicesMonitorGrid">
+                <div class="status-loading">
+                  <div class="status-loading-spinner"></div>
+                  <p>Conectando con servicios...</p>
+                </div>
+              </div>
             </div>
-            <div id="servicesList">
-              <div class="status-loading">
-                <div class="status-loading-spinner"></div>
+            
+            <!-- Panel de Actividad en Tiempo Real -->
+            <div class="activity-panel">
+              <div class="activity-header">
+                <i data-lucide="radio"></i>
+                <span>Actividad del Sistema</span>
+              </div>
+              
+              <div class="activity-feed" id="activityFeed">
+                <!-- Se llena dinámicamente -->
+              </div>
+              
+              <div class="global-metrics-section">
+                <div class="metrics-title">
+                  <i data-lucide="bar-chart-3"></i>
+                  Métricas Globales
+                </div>
+                <div id="globalMetricsDisplay">
+                  <!-- Se llena dinámicamente -->
+                </div>
+              </div>
+              
+              <div class="sync-indicator">
+                <i data-lucide="loader"></i>
+                <span id="syncTime">Sincronizando...</span>
               </div>
             </div>
           </div>
@@ -2696,19 +3673,17 @@ function renderStatusUI() {
     incidentContainer.innerHTML = '';
   }
 
-  const servicesList = document.getElementById('servicesList');
-  servicesList.innerHTML = services.map(s => `
-    <div class="service-item">
-      <div class="service-info">
-        <h4>${s.name}</h4>
-        <p>${s.description}</p>
-      </div>
-      <span class="service-status-badge ${s.status}">
-        <i data-lucide="${STATUS_CONFIG.icons[s.status]}"></i>
-        ${STATUS_CONFIG.labels[s.status]}
-      </span>
-    </div>
-  `).join('');
+  // 🔥 NUEVO: Renderizar Centro de Monitoreo con servicios interactivos
+  renderServicesMonitor(services);
+  
+  // Renderizar panel de actividad
+  renderActivityFeed();
+  
+  // Renderizar métricas globales
+  renderGlobalMetrics();
+  
+  // Actualizar indicador de sincronización
+  updateSyncIndicator();
 
   const historyList = document.getElementById('historyList');
   if (incidents_history.length === 0) {
@@ -2743,6 +3718,350 @@ function renderStatusUI() {
   }
 
   lucide.createIcons();
+  
+  // Iniciar actualizaciones automáticas del monitor
+  startStatusMonitoring();
+}
+
+// 🔥 Estado expandido de servicios
+let expandedServices = new Set();
+let statusMonitorInterval = null;
+
+function renderServicesMonitor(services) {
+  const grid = document.getElementById('servicesMonitorGrid');
+  if (!grid) return;
+  
+  const serviceIcons = {
+    'Plataforma Web': 'globe',
+    'Autenticación': 'shield',
+    'Base de Datos': 'database',
+    'API REST': 'code-2',
+    'Servicio de Email': 'mail',
+    'Almacenamiento': 'hard-drive',
+    'Procesamiento': 'cpu',
+    'CDN/Assets': 'image'
+  };
+  
+  grid.innerHTML = services.map(s => {
+    const metrics = StatusSimulator.getServiceMetrics(s.status);
+    const isExpanded = expandedServices.has(s.id);
+    const icon = serviceIcons[s.name] || 'server';
+    
+    return `
+      <div class="service-monitor-card ${s.status} ${isExpanded ? 'expanded' : ''}" data-service-id="${s.id}">
+        <div class="service-monitor-main" onclick="toggleServiceCard(${s.id})">
+          <div class="service-icon-wrapper ${s.status}">
+            <i data-lucide="${icon}"></i>
+            <span class="status-pulse ${s.status}"></span>
+          </div>
+          <div class="service-monitor-info">
+            <h4>${s.name}</h4>
+            <p class="service-description">${s.description}</p>
+            <div class="service-latency-bar">
+              <div class="latency-fill ${metrics.latency < 100 ? 'good' : metrics.latency < 300 ? 'medium' : 'slow'}" 
+                   style="width: ${Math.min(metrics.latency / 5, 100)}%"></div>
+            </div>
+            <span class="latency-value">${metrics.latency}ms</span>
+          </div>
+          <div class="service-status-indicator ${s.status}">
+            <i data-lucide="${STATUS_CONFIG.icons[s.status]}"></i>
+            <span>${STATUS_CONFIG.labels[s.status]}</span>
+          </div>
+          <button class="service-expand-btn">
+            <i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}"></i>
+          </button>
+        </div>
+        
+        <div class="service-expanded-panel" style="display: ${isExpanded ? 'block' : 'none'}">
+          <div class="expanded-metrics-grid">
+            <div class="metric-box">
+              <span class="metric-label">Tiempo de respuesta</span>
+              <span class="metric-value">${metrics.latency}ms</span>
+              <div class="mini-chart" id="chart-latency-${s.id}">
+                ${generateMiniChart(metrics.latencyHistory)}
+              </div>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Uptime (24h)</span>
+              <span class="metric-value">${metrics.uptime}%</span>
+              <div class="uptime-bar">
+                <div class="uptime-fill" style="width: ${metrics.uptime}%"></div>
+              </div>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Solicitudes/min</span>
+              <span class="metric-value">${metrics.requestsPerMin}</span>
+              <span class="metric-trend ${metrics.trend > 0 ? 'up' : 'down'}">
+                <i data-lucide="${metrics.trend > 0 ? 'trending-up' : 'trending-down'}"></i>
+                ${Math.abs(metrics.trend)}%
+              </span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-label">Errores</span>
+              <span class="metric-value ${metrics.errors > 0 ? 'error' : ''}">${metrics.errors}</span>
+              <span class="metric-sublabel">en la última hora</span>
+            </div>
+          </div>
+          <div class="service-actions-row">
+            <button class="service-action-btn" onclick="event.stopPropagation(); viewServiceLogs(${s.id}, '${s.name}')">
+              <i data-lucide="file-text"></i> Ver Logs
+            </button>
+            <button class="service-action-btn" onclick="event.stopPropagation(); pingService(${s.id}, '${s.name}')">
+              <i data-lucide="activity"></i> Ping
+            </button>
+            <button class="service-action-btn" onclick="event.stopPropagation(); restartService(${s.id}, '${s.name}')">
+              <i data-lucide="refresh-cw"></i> Reiniciar
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function generateMiniChart(history) {
+  const max = Math.max(...history);
+  const min = Math.min(...history);
+  const range = max - min || 1;
+  
+  return `
+    <svg viewBox="0 0 100 30" class="mini-chart-svg">
+      <polyline
+        points="${history.map((v, i) => `${i * (100 / (history.length - 1))},${30 - ((v - min) / range) * 25}`).join(' ')}"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  `;
+}
+
+function toggleServiceCard(serviceId) {
+  const card = document.querySelector(`.service-monitor-card[data-service-id="${serviceId}"]`);
+  if (!card) return;
+  
+  const panel = card.querySelector('.service-expanded-panel');
+  const btn = card.querySelector('.service-expand-btn i');
+  
+  if (expandedServices.has(serviceId)) {
+    expandedServices.delete(serviceId);
+    card.classList.remove('expanded');
+    panel.style.display = 'none';
+    btn.setAttribute('data-lucide', 'chevron-down');
+  } else {
+    expandedServices.add(serviceId);
+    card.classList.add('expanded');
+    panel.style.display = 'block';
+    btn.setAttribute('data-lucide', 'chevron-up');
+  }
+  
+  lucide.createIcons();
+}
+
+function toggleAllServices() {
+  const services = currentStatusData?.services || [];
+  const allExpanded = services.every(s => expandedServices.has(s.id));
+  
+  if (allExpanded) {
+    expandedServices.clear();
+  } else {
+    services.forEach(s => expandedServices.add(s.id));
+  }
+  
+  renderServicesMonitor(services);
+  lucide.createIcons();
+}
+
+function renderActivityFeed() {
+  const feed = document.getElementById('activityFeed');
+  if (!feed) return;
+  
+  // Generar eventos simulados
+  const events = [];
+  for (let i = 0; i < 8; i++) {
+    events.push(StatusSimulator.generateEvent());
+  }
+  
+  // Ordenar por tiempo (más reciente primero)
+  events.sort((a, b) => b.time - a.time);
+  
+  feed.innerHTML = events.map(event => `
+    <div class="activity-item ${event.type}" style="animation: slideInActivity 0.3s ease">
+      <div class="activity-icon">
+        <i data-lucide="${event.icon}"></i>
+      </div>
+      <div class="activity-content">
+        <span class="activity-text">${event.message}</span>
+        <span class="activity-time">${formatActivityTime(event.time)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function formatActivityTime(timestamp) {
+  const now = Date.now();
+  const diff = now - timestamp;
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  
+  if (seconds < 60) return `hace ${seconds}s`;
+  if (minutes < 60) return `hace ${minutes}m`;
+  return `hace ${Math.floor(minutes / 60)}h`;
+}
+
+function renderGlobalMetrics() {
+  const container = document.getElementById('globalMetricsDisplay');
+  if (!container) return;
+  
+  const metrics = StatusSimulator.getGlobalMetrics();
+  
+  container.innerHTML = `
+    <div class="global-metric-item">
+      <div class="global-metric-header">
+        <span class="global-metric-label">Usuarios activos</span>
+        <span class="global-metric-value">${metrics.activeUsers}</span>
+      </div>
+      <div class="global-metric-bar">
+        <div class="global-metric-fill green" style="width: ${Math.min(metrics.activeUsers / 2, 100)}%"></div>
+      </div>
+    </div>
+    <div class="global-metric-item">
+      <div class="global-metric-header">
+        <span class="global-metric-label">Carga del servidor</span>
+        <span class="global-metric-value">${metrics.serverLoad}%</span>
+      </div>
+      <div class="global-metric-bar">
+        <div class="global-metric-fill ${metrics.serverLoad < 60 ? 'blue' : metrics.serverLoad < 80 ? 'orange' : 'red'}" 
+             style="width: ${metrics.serverLoad}%"></div>
+      </div>
+    </div>
+    <div class="global-metric-item">
+      <div class="global-metric-header">
+        <span class="global-metric-label">Memoria utilizada</span>
+        <span class="global-metric-value">${metrics.memoryUsage}%</span>
+      </div>
+      <div class="global-metric-bar">
+        <div class="global-metric-fill purple" style="width: ${metrics.memoryUsage}%"></div>
+      </div>
+    </div>
+    <div class="global-metric-item">
+      <div class="global-metric-header">
+        <span class="global-metric-label">Solicitudes/seg</span>
+        <span class="global-metric-value">${metrics.requestsPerSec}</span>
+      </div>
+      <div class="global-metric-bar">
+        <div class="global-metric-fill orange" style="width: ${Math.min(metrics.requestsPerSec * 2, 100)}%"></div>
+      </div>
+    </div>
+  `;
+}
+
+function updateSyncIndicator() {
+  const syncTime = document.getElementById('syncTime');
+  if (syncTime) {
+    const now = new Date();
+    syncTime.textContent = `Última sincronización: ${now.toLocaleTimeString('es-AR')}`;
+  }
+}
+
+function startStatusMonitoring() {
+  // Limpiar intervalo anterior si existe
+  if (statusMonitorInterval) {
+    clearInterval(statusMonitorInterval);
+  }
+  
+  // Actualizar métricas cada 10 segundos
+  statusMonitorInterval = setInterval(() => {
+    if (currentStatusData && document.getElementById('servicesMonitorGrid')) {
+      renderServicesMonitor(currentStatusData.services);
+      renderActivityFeed();
+      renderGlobalMetrics();
+      updateSyncIndicator();
+      lucide.createIcons();
+    }
+  }, 10000);
+}
+
+function stopStatusMonitoring() {
+  if (statusMonitorInterval) {
+    clearInterval(statusMonitorInterval);
+    statusMonitorInterval = null;
+  }
+}
+
+// Acciones de servicio (simuladas)
+function viewServiceLogs(serviceId, serviceName) {
+  Swal.fire({
+    title: `Logs de ${serviceName}`,
+    html: `
+      <div style="text-align: left; font-family: monospace; font-size: 0.8rem; background: #1e293b; color: #94a3b8; padding: 15px; border-radius: 8px; max-height: 300px; overflow-y: auto;">
+        <div style="color: #22c55e;">[${new Date().toISOString()}] INFO: Service started successfully</div>
+        <div style="color: #94a3b8;">[${new Date(Date.now() - 1000).toISOString()}] DEBUG: Health check passed</div>
+        <div style="color: #94a3b8;">[${new Date(Date.now() - 5000).toISOString()}] INFO: Connection pool initialized (10 connections)</div>
+        <div style="color: #fbbf24;">[${new Date(Date.now() - 15000).toISOString()}] WARN: High memory usage detected (78%)</div>
+        <div style="color: #94a3b8;">[${new Date(Date.now() - 30000).toISOString()}] INFO: Cache cleared successfully</div>
+        <div style="color: #94a3b8;">[${new Date(Date.now() - 60000).toISOString()}] DEBUG: Processed 1,234 requests</div>
+      </div>
+    `,
+    confirmButtonText: 'Cerrar',
+    confirmButtonColor: '#4a5259',
+    width: 600
+  });
+}
+
+function pingService(serviceId, serviceName) {
+  const latency = StatusSimulator.getRandomLatency();
+  
+  Swal.fire({
+    title: `Ping a ${serviceName}`,
+    html: `
+      <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 3rem; font-weight: 700; color: ${latency < 100 ? '#22c55e' : latency < 300 ? '#fbbf24' : '#ef4444'};">${latency}ms</div>
+        <div style="color: #64748b; margin-top: 10px;">Tiempo de respuesta</div>
+        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 30px;">
+          <div><strong>Paquetes enviados:</strong> 4</div>
+          <div><strong>Paquetes recibidos:</strong> 4</div>
+          <div><strong>Pérdida:</strong> 0%</div>
+        </div>
+      </div>
+    `,
+    icon: latency < 200 ? 'success' : 'warning',
+    confirmButtonText: 'Cerrar',
+    confirmButtonColor: '#4a5259'
+  });
+}
+
+function restartService(serviceId, serviceName) {
+  Swal.fire({
+    title: '¿Reiniciar servicio?',
+    text: `¿Estás seguro de que deseas reiniciar ${serviceName}? Esto podría causar una breve interrupción.`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc2626',
+    cancelButtonColor: '#64748b',
+    confirmButtonText: 'Sí, reiniciar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: 'Reiniciando...',
+        html: `<div style="color: #64748b;">Reiniciando ${serviceName}...</div>`,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: () => { Swal.showLoading(); },
+        willClose: () => {
+          Swal.fire({
+            title: '¡Servicio reiniciado!',
+            text: `${serviceName} se ha reiniciado correctamente.`,
+            icon: 'success',
+            confirmButtonColor: '#4a5259'
+          });
+        }
+      });
+    }
+  });
 }
 
 function formatStatusDate(dateStr) {
