@@ -2506,7 +2506,7 @@ function renderStatusSection() {
       <!-- Hero -->
       <div class="status-hero">
         <div class="status-hero-info">
-          <h2><i data-lucide="activity"></i> Status del Sistema</h2>
+          <h2 style="color: white;"><i data-lucide="activity"></i> Status del Sistema</h2>
           <p>Gestiona el estado de los servicios y comunica incidentes a los usuarios.</p>
         </div>
         <div class="status-hero-actions">
@@ -6388,11 +6388,11 @@ async function openRegistrarPagoModal() {
     ).join('');
 
     const { value: formValues } = await Swal.fire({
-      title: '<div style="display: flex; align-items: center; gap: 12px;"><i class="lucide-credit-card" style="width: 28px; height: 28px; color: #4a5259;"></i> Registrar Pago Manual</div>',
+      title: '<div style="text-align: center; align-items: center; gap: 12px;"><i class="lucide-credit-card" style="width: 28px; height: 28px; color: #4a5259;"></i> Registrar Pago Manual</div>',
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 400; color: #1e1e1e; padding-bottom: 10px; text-align: center;">
               <i class="lucide-user" style="width: 16px; height: 16px;"></i> Alumno
             </label>
             <select id="swal-alumno" class="swal2-input" style="width: 100%; margin: 0;">
@@ -6402,7 +6402,7 @@ async function openRegistrarPagoModal() {
           </div>
 
           <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 400; color: #1e1e1e; padding-bottom: 10px; text-align: center;">
               <i class="lucide-book-open" style="width: 16px; height: 16px;"></i> Curso
             </label>
             <select id="swal-curso" class="swal2-input" style="width: 100%; margin: 0;" disabled>
@@ -6411,7 +6411,7 @@ async function openRegistrarPagoModal() {
           </div>
 
           <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 400; color: #1e1e1e; padding-bottom: 10px; text-align: center;">
               <i class="lucide-calendar" style="width: 16px; height: 16px;"></i> Mes de Cuota
             </label>
             <select id="swal-mes" class="swal2-input" style="width: 100%; margin: 0;" disabled>
@@ -6421,14 +6421,14 @@ async function openRegistrarPagoModal() {
           </div>
 
           <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 400; color: #1e1e1e; padding-bottom: 10px; text-align: center;">
               <i class="lucide-dollar-sign" style="width: 16px; height: 16px;"></i> Monto
             </label>
             <input id="swal-monto" type="number" class="swal2-input" placeholder="Ej: 15000" style="width: 100%; margin: 0;" step="0.01">
           </div>
 
           <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #2c3e50;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 400; color: #1e1e1e; padding-bottom: 10px; text-align: center;">
               <i class="lucide-wallet" style="width: 16px; height: 16px;"></i> Medio de Pago
             </label>
             <select id="swal-medio-pago" class="swal2-input" style="width: 100%; margin: 0;">
@@ -6440,7 +6440,7 @@ async function openRegistrarPagoModal() {
           </div>
 
           <div style="background: #f0f1f2; border-left: 4px solid #4a5259; padding: 12px; border-radius: 4px; margin-top: 20px;">
-            <p style="margin: 0; font-size: 13px; color: #1565c0;">
+            <p style="margin: 0; font-size: 13px; color: #494947;">
               <i class="lucide-info" style="width: 14px; height: 14px;"></i> 
               Este pago se registrará como pagado en la fecha actual
             </p>
@@ -6716,11 +6716,11 @@ async function openNuevaAulaModal() {
     html: `
       <div style="text-align: left;">
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nombre del Aula</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre del Aula</label>
           <input id="nombre_aula" class="swal2-input" placeholder="Ej: Aula 101" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Capacidad</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Capacidad</label>
           <input id="capacidad" type="number" class="swal2-input" placeholder="Ej: 30" style="width: 100%; margin: 0;">
         </div>
       </div>
@@ -6778,11 +6778,11 @@ async function editarAula(id, nombre, capacidad) {
     html: `
       <div style="text-align: left;">
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Nombre del Aula</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre del Aula</label>
           <input id="nombre_aula" class="swal2-input" value="${nombre}" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 600;">Capacidad</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Capacidad</label>
           <input id="capacidad" type="number" class="swal2-input" value="${capacidad}" style="width: 100%; margin: 0;">
         </div>
       </div>
@@ -7083,27 +7083,27 @@ async function openNuevoAlumnoModal() {
     html: `
       <div style="text-align: left;">
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre</label>
           <input id="nombre" class="swal2-input" placeholder="Nombre" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Apellido</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Apellido</label>
           <input id="apellido" class="swal2-input" placeholder="Apellido" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">DNI</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">DNI</label>
           <input id="dni" class="swal2-input" placeholder="Ej: 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Email</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Email</label>
           <input id="mail" type="email" class="swal2-input" placeholder="email@ejemplo.com" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Legajo</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Legajo</label>
           <input id="legajo" class="swal2-input" placeholder="Ej: A0001" oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Teléfono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Teléfono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
       </div>
@@ -7288,31 +7288,31 @@ async function editarAlumno(id) {
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre</label>
             <input id="nombre" class="swal2-input" value="${alumno.nombre}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Apellido</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Apellido</label>
             <input id="apellido" class="swal2-input" value="${alumno.apellido}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Email</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Email</label>
             <input id="mail" type="email" class="swal2-input" value="${alumno.mail}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">DNI</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">DNI</label>
             <input id="dni" class="swal2-input" placeholder="Ej: 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${alumno.dni || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Legajo</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Legajo</label>
             <input id="legajo" class="swal2-input" placeholder="Ej: A0001" oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'').toUpperCase()" pattern="[A-Z0-9]*" value="${alumno.legajo}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Teléfono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Teléfono</label>
             <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${alumno.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Estado</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Estado</label>
             <select id="estado" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="activo" ${alumno.estado === 'activo' ? 'selected' : ''}>Activo</option>
               <option value="inactivo" ${alumno.estado === 'inactivo' ? 'selected' : ''}>Inactivo</option>
@@ -7729,31 +7729,31 @@ async function openNuevoProfesorModal() {
     html: `
       <div style="text-align: left;">
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre</label>
           <input id="nombre" class="swal2-input" placeholder="Nombre" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Apellido</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Apellido</label>
           <input id="apellido" class="swal2-input" placeholder="Apellido" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">DNI</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">DNI</label>
           <input id="dni" class="swal2-input" placeholder="Ej: 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Email</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Email</label>
           <input id="mail" type="email" class="swal2-input" placeholder="email@ejemplo.com" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Especialidad</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Especialidad</label>
           <input id="especialidad" class="swal2-input" placeholder="Ej: Inglés Avanzado" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Teléfono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Teléfono</label>
           <input id="telefono" type="tel" class="swal2-input" placeholder="Ej: 1234567890" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 8px; font-weight: 400;">Idiomas que enseña</label>
+          <label style="display: block; margin-bottom: 8px; font-weight: 400; padding-bottom: 10px; text-align: center;">Idiomas que enseña</label>
           <div id="idiomasContainerNuevo" style="border: 1px solid #d0d5dd; border-radius: 8px; padding: 12px; max-height: 150px; overflow-y: auto; background: #f9fafb;">
             <div style="color: #666; font-size: 13px; text-align: center;">Cargando idiomas...</div>
           </div>
@@ -7969,27 +7969,27 @@ async function editarProfesor(id) {
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre</label>
             <input id="nombre" class="swal2-input" value="${profesor.nombre}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Apellido</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Apellido</label>
             <input id="apellido" class="swal2-input" value="${profesor.apellido}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Email</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Email</label>
             <input id="mail" type="email" class="swal2-input" value="${profesor.mail}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">DNI</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">DNI</label>
             <input id="dni" class="swal2-input" placeholder="Ej: 12345678" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${profesor.dni || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Especialidad</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Especialidad</label>
             <input id="especialidad" class="swal2-input" value="${profesor.especialidad || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Idiomas que enseña</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Idiomas que enseña</label>
             <div id="idiomasContainerEditar" style="max-height: 150px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px; padding: 10px; background: #f9f9f9;">
               ${idiomas.map(idioma => `
                 <label style="display: block; margin-bottom: 8px; cursor: pointer;">
@@ -8000,11 +8000,11 @@ async function editarProfesor(id) {
             </div>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Teléfono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Teléfono</label>
             <input id="telefono" type="tel" class="swal2-input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" pattern="[0-9]*" inputmode="numeric" value="${profesor.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Estado</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Estado</label>
             <select id="estado" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="activo" ${profesor.estado === 'activo' ? 'selected' : ''}>Activo</option>
               <option value="inactivo" ${profesor.estado === 'inactivo' ? 'selected' : ''}>Inactivo</option>
@@ -8142,34 +8142,34 @@ async function openNuevoAdministradorModal() {
       <div style="text-align: left;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
           <div>
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre</label>
             <input id="admin_nombre" class="swal2-input" placeholder="Nombre" style="width: 100%; margin: 0;">
           </div>
           <div>
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Apellido</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Apellido</label>
             <input id="admin_apellido" class="swal2-input" placeholder="Apellido" style="width: 100%; margin: 0;">
           </div>
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Email</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Email</label>
           <input id="admin_mail" type="email" class="swal2-input" placeholder="email@ejemplo.com" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">DNI</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">DNI</label>
           <input id="admin_dni" class="swal2-input" placeholder="12345678" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Teléfono</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Teléfono</label>
           <input id="admin_telefono" class="swal2-input" placeholder="+54 9 11 1234-5678" style="width: 100%; margin: 0;">
         </div>
         <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
         <h4 style="margin-bottom: 15px; color: #333;">Credenciales de acceso</h4>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Usuario</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Usuario</label>
           <input id="admin_username" class="swal2-input" placeholder="nombreusuario" style="width: 100%; margin: 0;">
         </div>
         <div style="margin-bottom: 15px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: 400;">Contraseña</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Contraseña</label>
           <input id="admin_password" type="password" class="swal2-input" placeholder="Mínimo 6 caracteres" style="width: 100%; margin: 0;">
         </div>
       </div>
@@ -8249,24 +8249,24 @@ async function editarAdministrador(id) {
         <div style="text-align: left;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
             <div>
-              <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre</label>
+              <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre</label>
               <input id="edit_admin_nombre" class="swal2-input" value="${admin.nombre}" style="width: 100%; margin: 0;">
             </div>
             <div>
-              <label style="display: block; margin-bottom: 5px; font-weight: 400;">Apellido</label>
+              <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Apellido</label>
               <input id="edit_admin_apellido" class="swal2-input" value="${admin.apellido}" style="width: 100%; margin: 0;">
             </div>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Email</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Email</label>
             <input id="edit_admin_mail" type="email" class="swal2-input" value="${admin.mail}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">DNI</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">DNI</label>
             <input id="edit_admin_dni" class="swal2-input" value="${admin.dni || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Teléfono</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Teléfono</label>
             <input id="edit_admin_telefono" class="swal2-input" value="${admin.telefono || ''}" style="width: 100%; margin: 0;">
           </div>
         </div>
@@ -8644,40 +8644,40 @@ async function openNuevoCursoModal() {
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre del Curso</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre del Curso</label>
             <input id="nombre_curso" class="swal2-input" placeholder="Ej: Inglés Básico A1" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Idioma</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Idioma</label>
             <select id="id_idioma" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="">Seleccionar idioma</option>
               ${idiomas.map(i => `<option value="${i.id_idioma}">${i.nombre_idioma}</option>`).join('')}
             </select>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nivel (opcional)</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nivel (opcional)</label>
             <select id="id_nivel" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="">Sin nivel</option>
               ${niveles.map(n => `<option value="${n.id_nivel}">${n.descripcion}</option>`).join('')}
             </select>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Profesor</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Profesor</label>
             <select id="id_profesor" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="">Seleccionar profesor</option>
               ${profesores.map(p => `<option value="${p.id_profesor}">${p.nombre} ${p.apellido}</option>`).join('')}
             </select>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Horario (opcional)</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Horario (opcional)</label>
             <input id="horario" class="swal2-input" placeholder="Ej: Lun-Mie 18:00-20:00" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Cupo Máximo</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Cupo Máximo</label>
             <input id="cupo_maximo" type="number" class="swal2-input" value="30" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Aula (opcional)</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Aula (opcional)</label>
             <select id="id_aula" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="">Sin aula asignada</option>
               ${aulas.map(a => `<option value="${a.id_aula}">${a.nombre_aula} (${a.capacidad} personas)</option>`).join('')}
@@ -8759,38 +8759,38 @@ async function editarCurso(id) {
       html: `
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nombre del Curso</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nombre del Curso</label>
             <input id="nombre_curso" class="swal2-input" value="${curso.nombre_curso}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Idioma</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Idioma</label>
             <select id="id_idioma" class="swal2-input" style="width: 100%; margin: 0;">
               ${idiomas.map(i => `<option value="${i.id_idioma}" ${curso.id_idioma == i.id_idioma ? 'selected' : ''}>${i.nombre_idioma}</option>`).join('')}
             </select>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Nivel</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Nivel</label>
             <select id="id_nivel" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="">Sin nivel</option>
               ${niveles.map(n => `<option value="${n.id_nivel}" ${curso.id_nivel == n.id_nivel ? 'selected' : ''}>${n.descripcion}</option>`).join('')}
             </select>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Profesor</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Profesor</label>
             <select id="id_profesor" class="swal2-input" style="width: 100%; margin: 0;">
               ${profesores.map(p => `<option value="${p.id_profesor}" ${curso.id_profesor == p.id_profesor ? 'selected' : ''}>${p.nombre} ${p.apellido}</option>`).join('')}
             </select>
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Horario</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Horario</label>
             <input id="horario" class="swal2-input" value="${curso.horario || ''}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Cupo Máximo</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Cupo Máximo</label>
             <input id="cupo_maximo" type="number" class="swal2-input" value="${curso.cupo_maximo}" style="width: 100%; margin: 0;">
           </div>
           <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px; font-weight: 400;">Aula</label>
+            <label style="display: block; margin-bottom: 5px; font-weight: 400; padding-bottom: 10px; text-align: center;">Aula</label>
             <select id="id_aula" class="swal2-input" style="width: 100%; margin: 0;">
               <option value="">Sin aula asignada</option>
               ${aulas.map(a => `<option value="${a.id_aula}" ${curso.id_aula == a.id_aula ? 'selected' : ''}>${a.nombre_aula} (${a.capacidad} personas)</option>`).join('')}
