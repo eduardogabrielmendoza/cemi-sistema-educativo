@@ -174,6 +174,16 @@ class CursadoManager {
             : (100 - porcentajeOcupacion);
         const porcentajeBarra = Math.max(0, Math.min(porcentajeDisponible, 100));
         
+        // Determinar color de la barra según cupos disponibles
+        let colorBarra;
+        if (porcentajeBarra >= 50) {
+            colorBarra = '#43a047'; // Verde: muchos cupos
+        } else if (porcentajeBarra >= 25) {
+            colorBarra = '#ffa726'; // Amarillo: pocos cupos
+        } else {
+            colorBarra = '#ef5350'; // Rojo: muy pocos cupos
+        }
+        
         const avatarProfesor = curso.profesor.avatar || '/images/default-avatar.png';
 
         return `
@@ -209,7 +219,7 @@ class CursadoManager {
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     <div style="display: flex; flex-direction: column; gap: 6px;">
                         <div style="height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
-                            <div style="height: 100%; background: #43a047; border-radius: 3px; width: ${porcentajeBarra}%; transition: width 0.3s ease;"></div>
+                            <div style="height: 100%; background: ${colorBarra}; border-radius: 3px; width: ${porcentajeBarra}%; transition: width 0.3s ease, background 0.3s ease;"></div>
                         </div>
                         <span style="color: #6b7280; font-size: 12px;">${curso.cupos_disponibles} cupos disponibles de ${curso.cupo_maximo}</span>
                     </div>
