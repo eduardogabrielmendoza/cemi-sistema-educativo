@@ -953,11 +953,11 @@ html {
 }
 
 .split-banner-img-left .split-banner-image video {
-  object-position: 60% center;
+  object-position: 5% center;
 }
 
 .split-banner-img-right .split-banner-image video {
-  object-position: 40% center;
+  object-position: 85% center;
 }
 
 @media (max-width: 992px) {
