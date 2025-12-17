@@ -3073,11 +3073,10 @@ function generateTable(section, data) {
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
               <input type="text" id="alumnosSearch" placeholder="Buscar por nombre, legajo o email..." style="width: 100%;">
             </div>
-            <select id="alumnosEstadoFilter">
-              <option value="">Todos los estados</option>
-              <option value="activo">Activos</option>
-              <option value="inactivo">Inactivos</option>
-            </select>
+            <button class="btn-secondary" onclick="descargarPDFAlumnos()" style="display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="download"></i>
+              Descargar PDF
+            </button>
             <button class="btn-primary" onclick="openNuevoAlumnoModal()">
               <i data-lucide="user-plus"></i>
               Nuevo Alumno
@@ -3164,15 +3163,6 @@ function generateTable(section, data) {
               <i data-lucide="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #999; width: 18px; height: 18px;"></i>
               <input type="text" id="profesoresSearch" placeholder="Buscar por nombre, especialidad o idioma..." style="width: 100%;">
             </div>
-            <select id="profesoresEstadoFilter">
-              <option value="">Todos los estados</option>
-              <option value="activo">Activos</option>
-              <option value="inactivo">Inactivos</option>
-              <option value="licencia">En Licencia</option>
-            </select>
-            <select id="profesoresIdiomaFilter">
-              <option value="">Todos los idiomas</option>
-            </select>
             <button class="btn-primary" onclick="openNuevoProfesorModal()">
               <i data-lucide="user-plus"></i>
               Nuevo Profesor
@@ -4735,20 +4725,14 @@ async function openAlumnoPanel(idAlumno) {
 
 function setupAlumnoFilters() {
   const searchInput = document.getElementById('alumnosSearch');
-  const estadoFilter = document.getElementById('alumnosEstadoFilter');
 
   if (searchInput) {
     searchInput.addEventListener('input', filterAlumnos);
-  }
-  
-  if (estadoFilter) {
-    estadoFilter.addEventListener('change', filterAlumnos);
   }
 }
 
 function filterAlumnos() {
   const searchTerm = document.getElementById('alumnosSearch')?.value.toLowerCase() || '';
-  const estadoFilter = document.getElementById('alumnosEstadoFilter')?.value.toLowerCase() || '';
   
   const cards = document.querySelectorAll('.alumno-card');
   
@@ -4756,7 +4740,7 @@ function filterAlumnos() {
     const cardText = card.textContent.toLowerCase();
     
     const matchesSearch = cardText.includes(searchTerm);
-    const matchesEstado = !estadoFilter || cardText.includes(estadoFilter);
+    const matchesEstado = true;
     
     if (matchesSearch && matchesEstado) {
       card.style.display = '';
@@ -5065,49 +5049,23 @@ async function openProfesorPanel(idProfesor) {
 
 function setupProfesorFilters() {
   const searchInput = document.getElementById('profesoresSearch');
-  const estadoFilter = document.getElementById('profesoresEstadoFilter');
-  const idiomaFilter = document.getElementById('profesoresIdiomaFilter');
-
-  const cards = document.querySelectorAll('.profesor-card');
-  const idiomasSet = new Set();
-  cards.forEach(card => {
-    const idiomas = card.getAttribute('data-idioma');
-    if (idiomas && idiomas !== 'Sin idiomas') {
-      idiomas.split(', ').forEach(i => idiomasSet.add(i.trim()));
-    }
-  });
-  
-  idiomaFilter.innerHTML = '<option value="">Todos los idiomas</option>' +
-    Array.from(idiomasSet).sort().map(i => `<option value="${i}">${i}</option>`).join('');
 
   if (searchInput) {
     searchInput.addEventListener('input', filterProfesores);
-  }
-  
-  if (estadoFilter) {
-    estadoFilter.addEventListener('change', filterProfesores);
-  }
-
-  if (idiomaFilter) {
-    idiomaFilter.addEventListener('change', filterProfesores);
   }
 }
 
 function filterProfesores() {
   const searchTerm = document.getElementById('profesoresSearch')?.value.toLowerCase() || '';
-  const estadoFilter = document.getElementById('profesoresEstadoFilter')?.value || '';
-  const idiomaFilter = document.getElementById('profesoresIdiomaFilter')?.value || '';
   
   const cards = document.querySelectorAll('.profesor-card');
   
   cards.forEach(card => {
     const cardText = card.textContent.toLowerCase();
-    const cardEstado = card.querySelector('.profesor-estado-badge')?.textContent.toLowerCase() || '';
-    const cardIdiomas = card.getAttribute('data-idioma') || '';
     
     const matchesSearch = cardText.includes(searchTerm);
-    const matchesEstado = !estadoFilter || cardEstado.includes(estadoFilter);
-    const matchesIdioma = !idiomaFilter || cardIdiomas.includes(idiomaFilter);
+    const matchesEstado = true;
+    const matchesIdioma = true;
     
     if (matchesSearch && matchesEstado && matchesIdioma) {
       card.style.display = '';
