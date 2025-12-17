@@ -887,8 +887,8 @@
   margin: 0;
   color: #ffffff;
   font-size: 1.4em;
-  font-weight: 600;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-family: 'Inter';
 }
 
 .close-modal {
@@ -1456,7 +1456,7 @@
 .curso-panel-header h2 {
   margin: 0;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 400;
   font-family: Georgia, 'Times New Roman', serif;
   letter-spacing: -0.5px;
 }
@@ -1502,7 +1502,7 @@
   gap: 10px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Inter';
 }
 
 .panel-section h3 i {
@@ -1788,7 +1788,7 @@
 
 .tab-content {
   display: none;
-  padding: 28px;
+  padding: 26px 16px;
   animation: fadeIn 0.2s ease;
   background: #f5f5f7;
 }
@@ -1905,7 +1905,7 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 0;
-  background: #1e1e1e;
+  background: #5d646b;
   padding: 20px;
   border-radius: 16px 16px 0 0;
 }
@@ -1928,8 +1928,8 @@
   margin: 0 0 4px 0;
   font-size: 15px;
   color: #ffffff;
-  font-weight: 600;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-family: 'Inter';
 }
 
 .alumno-card-info .legajo {
@@ -1948,6 +1948,8 @@
 }
 
 .alumno-card-email {
+  margin-left: 85px;
+  padding: 10px;
   font-size: 13px;
   color: #666;
   display: flex;
@@ -1969,7 +1971,7 @@
 
 .btn-small {
   flex: 1;
-  padding: 8px 12px;
+  padding: 14px 12px;
   border: none;
   border-radius: 6px;
   font-size: 13px;
@@ -5745,6 +5747,7 @@
 .info-section h3,
 .calificaciones-section h3,
 .companeros-section h3 {
+  font-family: 'Inter';
   margin: 0 0 20px 0;
   font-size: 18px;
   font-weight: 400;

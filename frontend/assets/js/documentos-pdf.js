@@ -51,7 +51,7 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
       ">
         <!-- Header del Modal -->
         <div style="
-          background: #cbd5e0;
+          background: #5d646b;
           padding: 25px 30px;
           border-radius: 20px 20px 0 0;
           position: relative;
@@ -84,11 +84,11 @@ function openDocumentosModal(idAlumno, nombreAlumno) {
               align-items: center;
               justify-content: center;
             ">
-              <i data-lucide="file-text" style="width: 28px; height: 28px; color: #1e293b;"></i>
+              <i data-lucide="file-text" style="width: 28px; height: 28px; color: #ffffffff;"></i>
             </div>
             <div>
-              <h2 style="margin: 0; color: #1e293b; font-size: 22px; font-weight: 600;">Generar Documentos</h2>
-              <p style="margin: 5px 0 0 0; color: #64748b; font-size: 14px;">${nombreAlumno}</p>
+              <h2 style="font-family: 'Inter';margin: 0;color: #ffffff;font-size: 22px;font-weight: 400;">Generar Documentos</h2>
+              <p style="margin: 5px 0 0 0; color: #c9cdd1; font-size: 14px;">${nombreAlumno}</p>
             </div>
           </div>
         </div>
