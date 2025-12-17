@@ -5677,7 +5677,7 @@
 }
 
 .panel-header-alumno {
-  background: linear-gradient(135deg, #5d646b 0%, #4a5259 100%);
+  background: linear-gradient(#1e1e1e);
   color: white;
   padding: 32px 28px;
   display: flex;
@@ -5691,7 +5691,7 @@
 .panel-header-alumno h2 {
   margin: 0 0 8px 0;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .curso-idioma-badge {
@@ -5747,7 +5747,7 @@
 .companeros-section h3 {
   margin: 0 0 20px 0;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   color: #2c3e50;
   display: flex;
   align-items: center;

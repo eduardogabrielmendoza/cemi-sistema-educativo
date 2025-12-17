@@ -369,7 +369,7 @@
             </div>
 
             <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
-              <h3 style="margin: 0 0 16px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 10px;">
+              <h3 style="font-family: 'Inter'; margin: 0 0 16px 0; color: #1e1e1e; font-size: 20px; font-weight: 400; display: flex; align-items: center; gap: 10px;">
                 <i data-lucide="book-open" style="width: 20px; height: 20px; color: #4a5259;"></i>
                 Mis Cursos Actuales
               </h3>
@@ -383,7 +383,7 @@
             <div style="height: 1px; background: #e5e7eb; margin: 24px 0;"></div>
 
             <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
-              <h3 style="margin: 0 0 16px 0; color: #1e1e1e; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 10px;">
+              <h3 style="font-family: 'Inter'; margin: 0 0 16px 0; color: #1e1e1e; font-size: 20px; font-weight: 400; display: flex; align-items: center; gap: 10px;">
                 <i data-lucide="search" style="width: 20px; height: 20px; color: #4a5259;"></i>
                 Buscar Cursos
               </h3>
@@ -397,7 +397,7 @@
             </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-              <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 500; display: flex; align-items: center; gap: 10px;">
+              <h3 style="font-family: 'Inter'; padding-top: 20px; margin: 0; color: #1e1e1e; font-size: 20px; font-weight: 500; display: flex; align-items: center; gap: 10px;">
                 <i data-lucide="book" style="width: 20px; height: 20px; color: #4a5259;"></i>
                 Cursos Disponibles
               </h3>
@@ -512,7 +512,7 @@
             </div>
 
             <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
-              <h3 style="margin: 0 0 20px 0; color: #1e1e1e; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+              <h3 style="margin: 0 0 20px 0; color: #1e1e1e; font-size: 16px; font-weight: 400; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 10px;">
                 <i data-lucide="list" style="width: 18px; height: 18px; color: #4a5259;"></i>
                 Detalle de Calificaciones
               </h3>
@@ -697,7 +697,7 @@
 
             ${cursos.length > 0 ? `
               <div>
-                <h3 style="margin: 0 0 16px 0; color: #1e1e1e; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                <h3 style="margin: 0 0 16px 0; color: #1e1e1e; font-size: 16px; font-weight: 400; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 10px;">
                   <i data-lucide="graduation-cap" style="width: 18px; height: 18px; color: #4a5259;"></i>
                   Pagos por Curso
                 </h3>
@@ -709,7 +709,7 @@
                         <div>
                           <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
                             <i data-lucide="book-open" style="width: 18px; height: 18px; color: #4a5259;"></i>
-                            <span style="color: #1e1e1e; font-size: 16px; font-weight: 600;">${curso.nombre_curso}</span>
+                            <span style="color: #1e1e1e; font-size: 16px; font-weight: 400; font-family: 'Inter', sans-serif;">${curso.nombre_curso}</span>
                           </div>
                           <div style="display: flex; align-items: center; gap: 8px; color: #6b7280; font-size: 13px;">
                             <i data-lucide="user" style="width: 14px; height: 14px;"></i>
@@ -768,7 +768,7 @@
                       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                         <div style="flex: 1; min-width: 200px;">
                           <div style="height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; margin-bottom: 6px;">
-                            <div style="height: 100%; background: #4a5259; border-radius: 3px; width: ${(curso.estadisticas.cuotas_pagadas / 10) * 100}%; transition: width 0.3s;"></div>
+                            <div style="height: 100%; background: #43a047; border-radius: 3px; width: ${(curso.estadisticas.cuotas_pagadas / 10) * 100}%; transition: width 0.3s;"></div>
                           </div>
                           <span style="color: #6b7280; font-size: 12px;">${Math.round((curso.estadisticas.cuotas_pagadas / 10) * 100)}% completado</span>
                         </div>
@@ -837,7 +837,7 @@
               <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
                   <i data-lucide="user-circle" style="width: 20px; height: 20px; color: #4a5259;"></i>
-                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">Datos Personales</h3>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 400; font-family: 'Inter', sans-serif;">Datos Personales</h3>
                 </div>
                 
                 <div style="background: rgba(74, 82, 89, 0.05); border-left: 3px solid #4a5259; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
@@ -890,7 +890,7 @@
               <div style="background: #ffffff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid #e5e7eb;">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
                   <i data-lucide="info" style="width: 20px; height: 20px; color: #4a5259;"></i>
-                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 600;">Información Adicional</h3>
+                  <h3 style="margin: 0; color: #1e1e1e; font-size: 16px; font-weight: 400; font-family: 'Inter', sans-serif;">Información Adicional</h3>
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
