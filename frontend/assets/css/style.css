@@ -952,6 +952,14 @@ html {
   object-fit: cover;
 }
 
+.split-banner-img-left .split-banner-image video {
+  object-position: 60% center;
+}
+
+.split-banner-img-right .split-banner-image video {
+  object-position: 40% center;
+}
+
 @media (max-width: 992px) {
   .split-banner {
     grid-template-columns: 1fr;
