@@ -331,8 +331,8 @@
 }
 
 .sidebar-menu button.active {
-  background: var(--hw-charcoal);
-  color: #5d646b;
+  background: #5d646b;
+  color: #ffffff;
   box-shadow: var(--shadow-hover);
   transform: none;
   font-weight: 500;

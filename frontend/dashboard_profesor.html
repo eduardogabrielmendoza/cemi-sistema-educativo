@@ -382,10 +382,6 @@
               </div>
               
               <div class="calificaciones-curso-selector">
-                <h3 style="color: #1e1e1e; margin: 0 0 20px 0; font-size: 18px;">
-                  <i data-lucide="target" style="width: 20px; height: 20px; vertical-align: middle;"></i>
-                  Selecciona un Curso
-                </h3>
                 <div class="cursos-selector-grid-enhanced">
                   ${cursos.map((curso, index) => {
                     // Iconos dinámicos por idioma
@@ -481,10 +477,6 @@
               </div>
               
               <div class="asistencias-selector-cursos">
-                <h3 style="color: #1e1e1e; margin: 0 0 20px 0; font-size: 18px;">
-                  <i data-lucide="target" style="width: 20px; height: 20px; vertical-align: middle;"></i>
-                  Selecciona un Curso
-                </h3>
                 <div class="cursos-selector-grid-enhanced">
                   ${cursos.map((curso, index) => {
                     // Iconos dinámicos por idioma
@@ -707,7 +699,7 @@
         mainContent.innerHTML = `
           <div class="ayuda-container">
             <div class="ayuda-header">
-              <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
+              <h2 style="color: white;"><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
               <p>Guías completas para gestionar tus cursos y alumnos en CEMI</p>
               <div class="ayuda-stats">
                 <div class="ayuda-stat-item">
