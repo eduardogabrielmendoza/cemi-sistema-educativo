@@ -75,7 +75,67 @@
     .login-footer {
       margin-top: 12px !important;
     }
+    /* Loader Overlay Styles */
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
 
+    .loader-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loader-spinner {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .spinner-circle {
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      animation: bounce 0.6s ease-in-out infinite;
+    }
+
+    .spinner-circle:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .spinner-circle:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .loader-text {
+      font-size: 0.95rem;
+      color: #4a5568;
+      font-weight: 500;
+    }
     @media (max-width: 768px) {
       .login-wrapper {
         min-width: auto !important;
@@ -486,6 +546,16 @@
       });
     }
   </script>
+
+  <!-- Loader Overlay -->
+  <div class="loader-overlay" id="loader">
+    <div class="loader-spinner">
+      <div class="spinner-circle"></div>
+      <div class="spinner-circle"></div>
+      <div class="spinner-circle"></div>
+    </div>
+    <p class="loader-text">Verificando credenciales...</p>
+  </div>
 </body>
 </html>
 

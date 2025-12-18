@@ -29,11 +29,17 @@ async function handleLogin(e) {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
   const message = document.getElementById("loginMessage");
+  const loader = document.getElementById("loader");
 
   console.log(" Usuario:", username);
 
+  // Mostrar loader
+  if (loader) {
+    loader.classList.add("show");
+  }
+
   message.style.color = "gray";
-  message.textContent = "Accediendo...";
+  message.textContent = "";
 
   try {
     console.log(" Enviando petición a:", `${API_URL}/auth/login`);
@@ -82,11 +88,19 @@ async function handleLogin(e) {
       }
     } else {
       console.error(" Login fallido:", data.message);
+      // Ocultar loader en error
+      if (loader) {
+        loader.classList.remove("show");
+      }
       message.style.color = "red";
       message.textContent = data.message || "Usuario o contraseña incorrectos.";
     }
   } catch (err) {
     console.error(" Error al conectar:", err);
+    // Ocultar loader en error
+    if (loader) {
+      loader.classList.remove("show");
+    }
     message.style.color = "red";
     message.textContent = "No se pudo conectar con el servidor.";
   }
