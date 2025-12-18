@@ -33,7 +33,7 @@ html, body {
 .login-key-header {
   background: #f5f5f5;
   border-bottom: 1px solid #ddd;
-  padding: 12px 24px;
+  padding: 31px 24px;
   text-align: center;
 }
 
@@ -43,7 +43,7 @@ html, body {
   justify-content: center;
   gap: 10px;
   color: #333;
-  font-size: 0.9rem;
+  font-size: 1.0rem;
 }
 
 .login-key-header .header-icon {
@@ -95,8 +95,8 @@ html, body {
 }
 
 .logo-key {
-  color: var(--color-accent);
-  font-family: var(--font-heading);
+  color: #6e7881;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
 }
 
@@ -145,8 +145,8 @@ html, body {
 
 .form-input:focus {
   outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(164, 16, 52, 0.1);
+  border-color: #93a1adf2;
+  box-shadow: 0 0 0 3px rgba(127, 146, 151, 0.1);
 }
 
 .submit-btn {
@@ -156,7 +156,7 @@ html, body {
   font-weight: 500;
   font-family: var(--font-body);
   color: #fff;
-  background: var(--color-accent);
+  background: #717171;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -164,7 +164,7 @@ html, body {
 }
 
 .submit-btn:hover {
-  background: var(--color-accent-hover);
+  background: #93a1adf2
 }
 
 .submit-btn:active {
@@ -177,7 +177,7 @@ html, body {
 }
 
 .form-link {
-  color: #0066cc;
+  color: #000;
   font-size: 0.875rem;
   text-decoration: none;
   display: inline-flex;
@@ -187,8 +187,7 @@ html, body {
 }
 
 .form-link:hover {
-  color: #004499;
-  text-decoration: underline;
+  color: #93a1adf2
 }
 
 .link-icon {
@@ -222,7 +221,7 @@ html, body {
 }
 
 .footer-link {
-  color: #0066cc;
+  color: #2b2b2b;
   font-size: 0.8rem;
   text-decoration: none;
   transition: color var(--transition-base);

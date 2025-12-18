@@ -17,7 +17,7 @@
   <header class="login-key-header">
     <div class="header-content">
       <i data-lucide="settings" class="header-icon"></i>
-      <span>Inicia sesion con tu cuenta para acceder a CemiKey</span>
+      <span>Inicia sesion con tu clave para acceder</span>
     </div>
   </header>
 
@@ -57,7 +57,7 @@
         </div>
 
         <div class="form-links">
-          <a href="#" class="form-link" onclick="showHelp(event)">Ayuda <i data-lucide="external-link" class="link-icon"></i></a>
+          <a href="ayuda-cemikey.html" class="form-link">Ayuda <i data-lucide="external-link" class="link-icon"></i></a>
         </div>
       </form>
 
@@ -80,28 +80,6 @@
 
   <script>
     lucide.createIcons();
-
-    function showHelp(e) {
-      e.preventDefault();
-      Swal.fire({
-        title: 'Ayuda - Clave de Acceso',
-        html: `
-          <div style="text-align: left;">
-            <p><strong>Acerca de CemiKey</strong></p>
-            <p style="margin-top: 10px; color: #555;">La clave de acceso es un metodo alternativo de autenticacion exclusivo para administradores.</p>
-            <ul style="margin-top: 10px; color: #555;">
-              <li>Esta clave es proporcionada por un administrador del sistema</li>
-              <li>Si no tienes una clave, usa el login tradicional</li>
-              <li>Para solicitar una clave, contacta al administrador principal</li>
-            </ul>
-            <p style="margin-top: 15px;"><strong>Contacto:</strong></p>
-            <p style="color: #555;">Email: admin@cemiedu.ar</p>
-          </div>
-        `,
-        icon: 'info',
-        confirmButtonColor: '#1e1e1e'
-      });
-    }
 
     document.getElementById('loginKeyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
