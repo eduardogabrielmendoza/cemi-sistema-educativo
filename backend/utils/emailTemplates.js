@@ -297,7 +297,7 @@ export function encuestaAgradecimientoTemplate(nombre) {
 }
 
 export function bienvenidaAlumnoTemplate(datos) {
-  const { nombre, apellido, username, legajo } = datos;
+  const { nombre, apellido, username, legajo, cemiKey } = datos;
   
   return `
     <!DOCTYPE html>
@@ -338,6 +338,14 @@ export function bienvenidaAlumnoTemplate(datos) {
               <span>${legajo}</span>
             </div>
           </div>
+          
+          ${cemiKey ? `
+          <div style="background: linear-gradient(135deg, ${COLORS.charcoal} 0%, ${COLORS.wroughtIron} 100%); padding: 25px; border-radius: 8px; margin: 25px 0; text-align: center;">
+            <p style="margin: 0 0 10px 0; color: ${COLORS.white}; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Tu CemiKey Personal</p>
+            <p style="margin: 0 0 15px 0; font-size: 24px; font-weight: 700; color: ${COLORS.white}; font-family: 'Consolas', 'Monaco', monospace; letter-spacing: 3px;">${cemiKey}</p>
+            <p style="margin: 0; color: ${COLORS.silver}; font-size: 13px;">Usala para iniciar sesion de forma rapida y segura</p>
+          </div>
+          ` : ''}
           
           <div class="info-box">
             <p style="margin: 0; font-size: 15px;"><strong>Recordatorio:</strong> Tu contrasena es la que elegiste durante el registro. Guardala en un lugar seguro.</p>

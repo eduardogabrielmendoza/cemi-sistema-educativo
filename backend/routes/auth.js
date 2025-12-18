@@ -7,6 +7,7 @@ import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
 import { solicitudRecibidaTemplate, notificacionAdminTemplate, credencialesActualizadasTemplate, bienvenidaAlumnoTemplate } from "../utils/emailTemplates.js";
 import { generarToken } from "../utils/authMiddleware.js";
 import eventLogger from "../utils/eventLogger.js";
+import { generateUniqueCemiKey } from "../utils/cemiKeyGenerator.js";
 
 dotenv.config();
 
@@ -485,10 +486,13 @@ router.post("/register",
           nuevoLegajo = 'A' + String(nuevoNumero).padStart(3, '0');
         }
 
+        // Generar CemiKey única automáticamente
+        const cemiKey = await generateUniqueCemiKey();
+
         const [alumnoResult] = await connection.query(
-          `INSERT INTO alumnos (id_alumno, id_persona, legajo, fecha_registro, estado)
-           VALUES (?, ?, ?, NOW(), 'activo')`,
-          [id_persona, id_persona, nuevoLegajo]
+          `INSERT INTO alumnos (id_alumno, id_persona, legajo, fecha_registro, estado, access_key)
+           VALUES (?, ?, ?, NOW(), 'activo', ?)`,
+          [id_persona, id_persona, nuevoLegajo, cemiKey]
         );
         
         const id_alumno = alumnoResult.insertId;
@@ -501,7 +505,8 @@ router.post("/register",
             nombre: nombre.trim(),
             apellido: apellido.trim(),
             username: username.trim(),
-            legajo: nuevoLegajo
+            legajo: nuevoLegajo,
+            cemiKey: cemiKey
           });
           await sendEmail(
             email.trim(),
