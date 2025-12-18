@@ -270,7 +270,7 @@
 }
 
 .feature-card:hover .feature-icon {
-  background: linear-gradient(135deg, var(--harvard-gray) 0%, var(--slate-600) 100%);
+  background: #93a1ad;
   transform: scale(1.1) rotate(5deg);
   border-color: transparent;
 }
