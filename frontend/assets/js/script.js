@@ -280,7 +280,7 @@ function renderAdminAyuda() {
   return `
     <div class="ayuda-container">
       <div class="ayuda-header">
-        <h2><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
+        <h2 style="color: white;"><i data-lucide="help-circle"></i> Centro de Ayuda</h2>
         <p>Guías completas para administrar el sistema CEMI</p>
         <div class="ayuda-stats">
           <div class="ayuda-stat-item">
