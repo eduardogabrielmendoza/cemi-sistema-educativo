@@ -152,6 +152,89 @@ router.post("/login",
   }
 });
 
+router.post("/login-key",
+  [
+    body('accessKey')
+      .trim()
+      .notEmpty().withMessage('La clave de acceso es requerida')
+      .isLength({ min: 4, max: 64 }).withMessage('Clave de acceso invalida')
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: errors.array()[0].msg,
+        errors: errors.array()
+      });
+    }
+
+    const { accessKey } = req.body;
+
+    try {
+      const [rows] = await pool.query(
+        `SELECT 
+          adm.id_administrador,
+          adm.id_persona,
+          adm.access_key,
+          p.nombre,
+          p.apellido,
+          p.avatar,
+          u.id_usuario,
+          u.username,
+          perf.nombre_perfil as rol
+         FROM administradores adm
+         JOIN personas p ON adm.id_persona = p.id_persona
+         JOIN usuarios u ON adm.id_persona = u.id_persona
+         JOIN perfiles perf ON u.id_perfil = perf.id_perfil
+         WHERE adm.access_key = ?`,
+        [accessKey.trim()]
+      );
+
+      if (rows.length === 0) {
+        eventLogger.auth.loginFailed('access_key', req.ip, 'Clave de acceso invalida');
+        return res.status(401).json({
+          success: false,
+          message: "Clave de acceso invalida"
+        });
+      }
+
+      const admin = rows[0];
+
+      const tokenPayload = {
+        id_usuario: admin.id_usuario,
+        id_persona: admin.id_persona,
+        id_administrador: admin.id_administrador,
+        rol: admin.rol,
+        username: admin.username
+      };
+
+      const token = generarToken(tokenPayload);
+
+      eventLogger.auth.loginSuccess(`${admin.nombre} ${admin.apellido}`.trim() + ' (via access_key)', req.ip);
+
+      return res.json({
+        success: true,
+        message: "Acceso exitoso",
+        token,
+        rol: admin.rol,
+        nombre: `${admin.nombre} ${admin.apellido}`.trim(),
+        username: admin.username,
+        id_persona: admin.id_persona,
+        id_usuario: admin.id_usuario,
+        id_administrador: admin.id_administrador,
+        avatar: admin.avatar || null
+      });
+    } catch (error) {
+      console.error(" /auth/login-key error:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Error del servidor"
+      });
+    }
+  }
+);
+
 router.post("/forgot-password",
   [
     body('email')

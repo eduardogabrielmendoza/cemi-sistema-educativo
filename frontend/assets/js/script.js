@@ -10150,19 +10150,36 @@ async function editarAdministrador(id) {
 
 async function abrirModalCredencialesAdministrador(idAdmin) {
   try {
-    const response = await fetch(`${API_URL}/administradores/${idAdmin}`);
+    const response = await fetch(`${API_URL}/administradores/${idAdmin}`, {
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+    });
     if (!response.ok) throw new Error('Error al cargar datos del administrador');
     const admin = await response.json();
 
     let passwordActual = '';
     try {
-      const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${admin.id_persona}`);
+      const respUsuario = await fetch(`${API_URL}/auth/usuario-classroom/${admin.id_persona}`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
       if (respUsuario.ok) {
         const usuario = await respUsuario.json();
         passwordActual = usuario.password_plain || '';
       }
     } catch (error) {
       console.error('Error al cargar usuario:', error);
+    }
+
+    let accessKeyActual = '';
+    try {
+      const respAccessKey = await fetch(`${API_URL}/administradores/${admin.id_persona}/access-key`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (respAccessKey.ok) {
+        const dataKey = await respAccessKey.json();
+        accessKeyActual = dataKey.accessKey || '';
+      }
+    } catch (error) {
+      console.error('Error al cargar access key:', error);
     }
 
     const { value: formValues } = await Swal.fire({
@@ -10202,6 +10219,31 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
             </div>
           </div>
 
+          <!-- CLAVE DE ACCESO -->
+          <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #fbbf24;">
+            <h3 style="margin: 0 0 15px 0; font-size: 18px; color: #92400e; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="key" style="width: 20px; height: 20px;"></i>
+              Clave de Acceso (CemiKey)
+            </h3>
+            
+            <div style="margin-bottom: 10px;">
+              <label style="display: block; margin-bottom: 5px; font-weight: 600; color: #92400e;">
+                Clave de acceso <span style="color: #b45309; font-weight: 400;">${accessKeyActual ? '(configurada)' : '(sin configurar)'}</span>
+              </label>
+              <div style="position: relative;">
+                <input type="text" id="accessKeyInput" value="${accessKeyActual}"
+                       placeholder="Ingresa una clave de acceso..."
+                       style="width: 100%; padding: 8px 40px 8px 8px; border: 1px solid #fbbf24; border-radius: 4px; box-sizing: border-box; background: white;">
+                <button type="button" id="clearAccessKey" 
+                        style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; color: #b45309;"
+                        title="Limpiar clave">
+                  <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+                </button>
+              </div>
+              <small style="color: #92400e; font-size: 12px;">Esta clave permite acceso directo al dashboard sin usuario/contrasena. Deja vacio para eliminar.</small>
+            </div>
+          </div>
+
           <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 14px 16px; border-radius: 10px; border: 1px solid #86efac;">
             <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin: 0;">
               <input type="checkbox" id="enviarEmailAdmin" 
@@ -10226,8 +10268,8 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
           lucide.createIcons();
         }
 
-        const usuarioActualAdmin = "${admin.usuario || ''}";
-        const passwordActualAdmin = "${passwordActual}";
+        const usuarioActualAdmin = admin.usuario || '';
+        const passwordActualAdmin = passwordActual;
 
         const inputUsuario = document.getElementById('usuarioDashboard');
         inputUsuario.addEventListener('blur', () => {
@@ -10258,14 +10300,22 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
           icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
           lucide.createIcons();
         });
+
+        const clearBtn = document.getElementById('clearAccessKey');
+        const accessInput = document.getElementById('accessKeyInput');
+        clearBtn.addEventListener('click', () => {
+          accessInput.value = '';
+          accessInput.focus();
+        });
       },
       preConfirm: () => {
         const usuarioDash = document.getElementById('usuarioDashboard').value.trim();
         const passwordDash = document.getElementById('passwordDashboard').value.trim();
         const enviarEmail = document.getElementById('enviarEmailAdmin').checked;
+        const accessKey = document.getElementById('accessKeyInput').value.trim();
 
-        const usuarioActualAdmin = "${admin.usuario || ''}";
-        const passwordActualAdmin = "${passwordActual}";
+        const usuarioActualAdmin = admin.usuario || '';
+        const passwordActualAdmin = passwordActual;
 
         const nuevoUsuario = (usuarioDash === '' || usuarioDash === usuarioActualAdmin) ? usuarioActualAdmin : usuarioDash;
         
@@ -10284,18 +10334,23 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
         return {
           usuarioDashboard: nuevoUsuario,
           passwordDashboard: nuevoPassword,
-          enviarEmail: enviarEmail
+          enviarEmail: enviarEmail,
+          accessKey: accessKey,
+          accessKeyChanged: accessKey !== accessKeyActual
         };
       }
     });
 
     if (formValues) {
-      const { usuarioDashboard, passwordDashboard, enviarEmail } = formValues;
+      const { usuarioDashboard, passwordDashboard, enviarEmail, accessKey, accessKeyChanged } = formValues;
 
       try {
         const responseUsuario = await fetch(`${API_URL}/administradores/${idAdmin}/usuario`, {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
           body: JSON.stringify({ usuario: usuarioDashboard })
         });
 
@@ -10311,11 +10366,38 @@ async function abrirModalCredencialesAdministrador(idAdmin) {
         return;
       }
 
+      if (accessKeyChanged) {
+        try {
+          const responseKey = await fetch(`${API_URL}/administradores/${admin.id_persona}/access-key`, {
+            method: 'PATCH',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ accessKey: accessKey })
+          });
+
+          const dataKey = await responseKey.json();
+          
+          if (!responseKey.ok) {
+            Swal.fire('Error', dataKey.message || 'Error al actualizar clave de acceso', 'error');
+            return;
+          }
+        } catch (error) {
+          console.error(error);
+          Swal.fire('Error', 'No se pudo actualizar la clave de acceso', 'error');
+          return;
+        }
+      }
+
       if (passwordDashboard && passwordDashboard.length > 0) {
         try {
           const responsePassword = await fetch(`${API_URL}/auth/admin-cambiar-password-classroom`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
             body: JSON.stringify({ 
               id_persona: admin.id_persona,
               username: usuarioDashboard,

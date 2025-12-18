@@ -392,6 +392,81 @@ router.post("/:id/cambiar-password", async (req, res) => {
   }
 });
 
+router.patch("/:id/access-key", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { accessKey } = req.body;
+
+    if (accessKey && accessKey.trim().length > 0) {
+      const [existing] = await pool.query(
+        'SELECT id_administrador FROM administradores WHERE access_key = ? AND id_persona != ?',
+        [accessKey.trim(), id]
+      );
+
+      if (existing.length > 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Esta clave de acceso ya esta en uso por otro administrador"
+        });
+      }
+    }
+
+    const keyValue = accessKey && accessKey.trim().length > 0 ? accessKey.trim() : null;
+
+    const [result] = await pool.query(
+      'UPDATE administradores SET access_key = ? WHERE id_persona = ?',
+      [keyValue, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Administrador no encontrado"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: keyValue ? "Clave de acceso actualizada correctamente" : "Clave de acceso eliminada"
+    });
+  } catch (error) {
+    console.error("Error al actualizar clave de acceso:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error al actualizar clave de acceso"
+    });
+  }
+});
+
+router.get("/:id/access-key", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [rows] = await pool.query(
+      'SELECT access_key FROM administradores WHERE id_persona = ?',
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Administrador no encontrado"
+      });
+    }
+
+    res.json({
+      success: true,
+      accessKey: rows[0].access_key || null
+    });
+  } catch (error) {
+    console.error("Error al obtener clave de acceso:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error al obtener clave de acceso"
+    });
+  }
+});
+
 export default router;
 
 
