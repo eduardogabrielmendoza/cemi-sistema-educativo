@@ -43,6 +43,7 @@ async function handleLogin(e) {
 
   try {
     console.log(" Enviando petición a:", `${API_URL}/auth/login`);
+    const startTime = Date.now();
     const resp = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -72,6 +73,13 @@ async function handleLogin(e) {
       const rol = data.rol.toLowerCase();
       console.log(" Rol detectado:", rol);
       console.log(" Redirigiendo...");
+      
+      // Delay mínimo de 1500ms para apreciar el loader
+      const elapsedTime = Date.now() - startTime;
+      const minDelay = 1500;
+      const remainingDelay = Math.max(0, minDelay - elapsedTime);
+      
+      await new Promise(resolve => setTimeout(resolve, remainingDelay));
       
       if (rol === "admin" || rol === "administrador") {
         console.log("️ Redirigiendo a dashboard_admin.html");

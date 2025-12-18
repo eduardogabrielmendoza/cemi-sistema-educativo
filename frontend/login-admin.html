@@ -410,6 +410,7 @@
       messageEl.textContent = '';
       
       try {
+        const startTime = Date.now();
         const response = await fetch(`${API_URL}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -453,10 +454,15 @@
           messageEl.textContent = '¡Bienvenido! Redirigiendo...';
           messageEl.className = 'login-message success';
           
+          // Delay mínimo de 1500ms para apreciar el loader
+          const elapsedTime = Date.now() - startTime;
+          const minDelay = 1500;
+          const remainingDelay = Math.max(0, minDelay - elapsedTime);
+          
+          await new Promise(resolve => setTimeout(resolve, remainingDelay));
+          
           // Redirigir al dashboard admin
-          setTimeout(() => {
-            window.location.href = 'dashboard_admin.html';
-          }, 1000);
+          window.location.href = 'dashboard_admin.html';
         } else {
           // Ocultar loader en error
           if (loader) {
