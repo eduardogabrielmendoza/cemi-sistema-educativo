@@ -278,7 +278,7 @@ router.post('/preguntas/:id/respuestas', async (req, res) => {
         );
         
         // Log del evento
-        eventLogger.community.answerPosted(autorNombre, pregunta.autor_nombre);
+        eventLogger.community.questionAnswered(autorNombre, pregunta.titulo.substring(0, 40));
         
         const nuevaRespuesta = {
             id: respuestaId,
