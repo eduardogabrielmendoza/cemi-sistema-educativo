@@ -667,6 +667,10 @@ router.get("/conversaciones/:tipo/:id", async (req, res) => {
         (SELECT fecha_envio FROM classroom_mensajes 
          WHERE id_conversacion = cc.id_conversacion 
          ORDER BY fecha_envio DESC LIMIT 1) as fecha_ultimo_mensaje,
+        -- Si el último mensaje tiene archivo adjunto
+        (SELECT archivo_adjunto FROM classroom_mensajes 
+         WHERE id_conversacion = cc.id_conversacion 
+         ORDER BY fecha_envio DESC LIMIT 1) as ultimo_archivo,
         -- Mensajes no leídos
         (SELECT COUNT(*) FROM classroom_mensajes 
          WHERE id_conversacion = cc.id_conversacion 

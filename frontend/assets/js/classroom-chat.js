@@ -1208,7 +1208,16 @@ class ClassroomChat {
     
     const hasUnread = (conv.no_leidos || 0) > 0;
     const timeStr = conv.fecha_ultimo_mensaje ? this.formatTimeShort(conv.fecha_ultimo_mensaje) : '';
-    const preview = conv.ultimo_mensaje || 'Sin mensajes';
+    
+    // Determinar el preview del mensaje
+    let preview;
+    if (conv.ultimo_mensaje) {
+      preview = conv.ultimo_mensaje;
+    } else if (conv.ultimo_archivo) {
+      preview = '📎 Multimedia';
+    } else {
+      preview = 'Sin mensajes';
+    }
     
     return `
       <div class="bandeja-item ${hasUnread ? 'has-unread' : ''}" 
