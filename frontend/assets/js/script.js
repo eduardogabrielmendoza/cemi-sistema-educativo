@@ -4139,9 +4139,19 @@ function stopStatusMonitoring() {
 async function viewServiceLogs(serviceId, serviceName) {
   // Mostrar modal de carga inicial
   Swal.fire({
-    title: `Logs de ${serviceName}`,
+    title: `📋 Logs de ${serviceName}`,
     html: `
-      <div id="logsContainer" style="text-align: left; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.78rem; background: #0f172a; color: #94a3b8; padding: 15px; border-radius: 8px; height: 320px; overflow-y: auto;">
+      <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; justify-content: center;">
+        <button onclick="filterLogs('all')" class="log-filter-btn active" data-filter="all" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: #4a5259; color: white; cursor: pointer; font-size: 0.8rem;">Todos</button>
+        <button onclick="filterLogs('INFO')" class="log-filter-btn" data-filter="INFO" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">✅ Info</button>
+        <button onclick="filterLogs('WARN')" class="log-filter-btn" data-filter="WARN" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">⚠️ Warning</button>
+        <button onclick="filterLogs('ERROR')" class="log-filter-btn" data-filter="ERROR" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">❌ Error</button>
+      </div>
+      <div id="logsStats" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 15px; font-size: 0.75rem; color: #64748b;">
+        <span>Total: <strong id="statTotal">-</strong></span>
+        <span>Última hora: <strong id="statHour">-</strong></span>
+      </div>
+      <div id="logsContainer" style="text-align: left; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.75rem; background: #0f172a; color: #94a3b8; padding: 15px; border-radius: 8px; height: 350px; overflow-y: auto;">
         <div style="color: #64748b; text-align: center; padding: 20px;">
           <i data-lucide="loader" style="animation: spin 1s linear infinite;"></i>
           Conectando con el servicio...
@@ -4151,6 +4161,9 @@ async function viewServiceLogs(serviceId, serviceName) {
         <button onclick="refreshLogs('${serviceId}')" class="swal2-confirm swal2-styled" style="background: #4a5259; font-size: 0.85rem; padding: 8px 16px;">
           <i data-lucide="refresh-cw" style="width: 14px; height: 14px; margin-right: 5px;"></i> Actualizar
         </button>
+        <button onclick="exportLogs()" class="swal2-styled" style="background: #2563eb; font-size: 0.85rem; padding: 8px 16px;">
+          <i data-lucide="download" style="width: 14px; height: 14px; margin-right: 5px;"></i> Exportar
+        </button>
         <button onclick="clearLogsDisplay()" class="swal2-cancel swal2-styled" style="background: #64748b; font-size: 0.85rem; padding: 8px 16px;">
           <i data-lucide="trash-2" style="width: 14px; height: 14px; margin-right: 5px;"></i> Limpiar
         </button>
@@ -4159,12 +4172,15 @@ async function viewServiceLogs(serviceId, serviceName) {
     showConfirmButton: true,
     confirmButtonText: 'Cerrar',
     confirmButtonColor: '#4a5259',
-    width: 700,
+    width: 800,
     didOpen: () => {
       lucide.createIcons();
+      window.currentServiceId = serviceId;
+      window.currentLogFilter = 'all';
+      window.allLogsData = [];
       loadServiceLogs(serviceId);
-      // Auto-refresh cada 3 segundos
-      window.logsInterval = setInterval(() => loadServiceLogs(serviceId), 3000);
+      // Auto-refresh cada 5 segundos
+      window.logsInterval = setInterval(() => loadServiceLogs(serviceId), 5000);
     },
     willClose: () => {
       if (window.logsInterval) {
@@ -4176,35 +4192,145 @@ async function viewServiceLogs(serviceId, serviceName) {
 
 async function loadServiceLogs(serviceId) {
   try {
-    const response = await fetch(`/api/status/logs?service=${serviceId}&limit=30`);
+    const response = await fetch(`/api/status/logs?service=${serviceId}&limit=50`);
     const data = await response.json();
     
     const container = document.getElementById('logsContainer');
     if (!container) return;
     
-    if (data.logs && data.logs.length > 0) {
-      container.innerHTML = data.logs.map(log => {
-        const color = log.level === 'ERROR' ? '#ef4444' : 
-                      log.level === 'WARN' ? '#fbbf24' : 
-                      log.level === 'DEBUG' ? '#64748b' : '#22c55e';
-        const time = new Date(log.timestamp).toLocaleTimeString('es-AR');
-        return `<div style="color: ${color}; padding: 3px 0; border-bottom: 1px solid #1e293b;">[${time}] <span style="color: #94a3b8;">${log.level}</span>: ${log.message}</div>`;
-      }).join('');
-    } else {
-      container.innerHTML = `
-        <div style="color: #64748b; text-align: center; padding: 40px;">
-          <i data-lucide="file-x" style="width: 40px; height: 40px; margin-bottom: 10px; opacity: 0.5;"></i>
-          <p>No hay logs disponibles para este servicio</p>
-        </div>
-      `;
+    // Guardar datos para filtrado
+    window.allLogsData = data.logs || [];
+    
+    // Actualizar estadísticas
+    if (data.stats) {
+      const statTotal = document.getElementById('statTotal');
+      const statHour = document.getElementById('statHour');
+      if (statTotal) statTotal.textContent = data.stats.totalEvents || data.total;
+      if (statHour) statHour.textContent = data.stats.lastHour || 0;
     }
     
-    // Auto-scroll al final
-    container.scrollTop = container.scrollHeight;
-    lucide.createIcons();
+    // Aplicar filtro actual
+    renderFilteredLogs();
+    
   } catch (error) {
     console.error('Error cargando logs:', error);
   }
+}
+
+function filterLogs(level) {
+  window.currentLogFilter = level;
+  
+  // Actualizar botones activos
+  document.querySelectorAll('.log-filter-btn').forEach(btn => {
+    if (btn.dataset.filter === level) {
+      btn.style.background = '#4a5259';
+      btn.style.color = 'white';
+    } else {
+      btn.style.background = 'white';
+      btn.style.color = '#1e293b';
+    }
+  });
+  
+  renderFilteredLogs();
+}
+
+function renderFilteredLogs() {
+  const container = document.getElementById('logsContainer');
+  if (!container) return;
+  
+  let logs = window.allLogsData || [];
+  
+  // Filtrar por nivel si no es "all"
+  if (window.currentLogFilter && window.currentLogFilter !== 'all') {
+    logs = logs.filter(log => log.level === window.currentLogFilter);
+  }
+  
+  if (logs.length > 0) {
+    container.innerHTML = logs.map(log => {
+      const color = log.level === 'ERROR' ? '#ef4444' : 
+                    log.level === 'WARN' ? '#fbbf24' : 
+                    log.level === 'DEBUG' ? '#64748b' : '#22c55e';
+      const bgColor = log.level === 'ERROR' ? 'rgba(239,68,68,0.1)' : 
+                      log.level === 'WARN' ? 'rgba(251,191,36,0.1)' : 
+                      'transparent';
+      const time = new Date(log.timestamp).toLocaleString('es-AR', {
+        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'
+      });
+      
+      // Mostrar icono emoji si está disponible
+      const icon = log.icon || '';
+      
+      // Construir detalles adicionales si existen
+      let detailsHtml = '';
+      if (log.details && Object.keys(log.details).length > 0) {
+        const cleanDetails = Object.entries(log.details)
+          .filter(([key, val]) => val !== undefined && val !== null && key !== 'password' && key !== 'token')
+          .map(([key, val]) => `<span style="color: #60a5fa;">${key}</span>: <span style="color: #a5b4fc;">${val}</span>`)
+          .join(' | ');
+        if (cleanDetails) {
+          detailsHtml = `<div style="font-size: 0.7rem; color: #64748b; margin-top: 2px; padding-left: 20px;">└─ ${cleanDetails}</div>`;
+        }
+      }
+      
+      // Badge de categoría
+      const categoryBadge = log.category ? 
+        `<span style="background: #1e40af; color: white; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; margin-left: 8px;">${log.category}</span>` : '';
+      
+      return `
+        <div style="background: ${bgColor}; padding: 8px 10px; border-bottom: 1px solid #1e293b; border-radius: 4px; margin-bottom: 4px;">
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <span style="font-size: 1rem;">${icon}</span>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span style="color: #475569; font-size: 0.7rem;">${time}</span>
+                <span style="color: ${color}; font-weight: 600; font-size: 0.7rem; background: ${bgColor}; padding: 1px 6px; border-radius: 3px;">${log.level}</span>
+                ${categoryBadge}
+              </div>
+              <div style="color: #e2e8f0; margin-top: 4px; font-size: 0.8rem;">${log.message}</div>
+              ${detailsHtml}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } else {
+    container.innerHTML = `
+      <div style="color: #64748b; text-align: center; padding: 40px;">
+        <span style="font-size: 2rem;">📭</span>
+        <p style="margin-top: 10px;">No hay logs disponibles${window.currentLogFilter !== 'all' ? ` de tipo ${window.currentLogFilter}` : ''}</p>
+        <p style="font-size: 0.75rem; margin-top: 5px;">Los eventos aparecerán cuando los usuarios interactúen con la plataforma</p>
+      </div>
+    `;
+  }
+  
+  // Auto-scroll al final
+  container.scrollTop = container.scrollHeight;
+  lucide.createIcons();
+}
+
+function exportLogs() {
+  const logs = window.allLogsData || [];
+  if (logs.length === 0) {
+    Swal.fire('Sin datos', 'No hay logs para exportar', 'info');
+    return;
+  }
+  
+  const csvContent = [
+    ['Timestamp', 'Level', 'Category', 'Message', 'Details'].join(','),
+    ...logs.map(log => [
+      log.timestamp,
+      log.level,
+      log.category || log.service || '',
+      `"${log.message.replace(/"/g, '""')}"`,
+      log.details ? `"${JSON.stringify(log.details).replace(/"/g, '""')}"` : ''
+    ].join(','))
+  ].join('\n');
+  
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `logs_${window.currentServiceId}_${new Date().toISOString().slice(0,10)}.csv`;
+  link.click();
 }
 
 function refreshLogs(serviceId) {

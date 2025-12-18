@@ -459,23 +459,75 @@ router.get('/ping/:service', async (req, res) => {
   }
 });
 
-// Obtener logs del sistema
+// Obtener logs del sistema - COMBINANDO systemLogs y eventLogger
 router.get('/logs', (req, res) => {
-  const { service, level, limit = 50 } = req.query;
+  const { service, level, limit = 50, category } = req.query;
   
-  let filteredLogs = [...systemLogs];
+  // Mapear servicio a categoría del eventLogger
+  const serviceToCategoryMap = {
+    'platform': ['auth', 'users'],
+    'classroom': ['classroom'],
+    'payments': ['payments'],
+    'chat': ['chat'],
+    'api': ['system', 'auth', 'classroom', 'payments', 'chat', 'community', 'users'],
+    'community': ['community']
+  };
   
+  // Obtener eventos del eventLogger
+  const categories = serviceToCategoryMap[service] || [category] || null;
+  let eventLoggerEvents = [];
+  
+  if (categories && categories.length > 0) {
+    categories.forEach(cat => {
+      const events = eventLogger.getEvents({ category: cat, limit: 100 });
+      eventLoggerEvents = eventLoggerEvents.concat(events);
+    });
+  } else {
+    eventLoggerEvents = eventLogger.getEvents({ limit: 100 });
+  }
+  
+  // Convertir eventos del eventLogger al formato de logs
+  const eventLogs = eventLoggerEvents.map(event => ({
+    timestamp: event.timestamp,
+    level: event.severity === 'error' ? 'ERROR' : 
+           event.severity === 'warning' ? 'WARN' : 
+           event.severity === 'success' ? 'INFO' : 'DEBUG',
+    message: event.message,
+    service: event.category,
+    icon: event.icon,
+    type: event.type,
+    details: event.details,
+    category: event.category,
+    severity: event.severity
+  }));
+  
+  // Combinar con systemLogs filtrados
+  let filteredSystemLogs = [...systemLogs];
   if (service) {
-    filteredLogs = filteredLogs.filter(log => log.service === service);
+    filteredSystemLogs = filteredSystemLogs.filter(log => log.service === service);
+  }
+  if (level) {
+    filteredSystemLogs = filteredSystemLogs.filter(log => log.level === level);
   }
   
-  if (level) {
-    filteredLogs = filteredLogs.filter(log => log.level === level);
-  }
+  // Combinar ambos tipos de logs
+  const allLogs = [...eventLogs, ...filteredSystemLogs];
+  
+  // Ordenar por timestamp (más recientes primero)
+  allLogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  
+  // Estadísticas
+  const stats = eventLogger.getStats();
   
   res.json({
-    logs: filteredLogs.slice(0, parseInt(limit)),
-    total: filteredLogs.length
+    logs: allLogs.slice(0, parseInt(limit)),
+    total: allLogs.length,
+    stats: {
+      totalEvents: stats.total,
+      lastHour: stats.lastHour,
+      byCategory: stats.byCategory,
+      bySeverity: stats.bySeverity
+    }
   });
 });
 
