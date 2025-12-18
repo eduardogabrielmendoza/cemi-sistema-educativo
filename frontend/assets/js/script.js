@@ -3810,10 +3810,10 @@ async function renderServicesMonitor(services) {
     const isExpanded = expandedServices.has(s.id);
     const icon = serviceIcons[s.name] || 'server';
     
-    // Extraer datos del formato de métricas reales o simulados
-    const latency = metrics.latency?.current || metrics.latency || 0;
-    const uptime = metrics.uptime?.percentage || metrics.uptime || '99.9';
-    const reqPerMin = metrics.requests?.perMinute || metrics.requestsPerMin || 0;
+    // Extraer datos del formato de métricas reales o simulados - asegurar números enteros
+    const latency = Math.round(metrics.latency?.current || metrics.latency || 0);
+    const uptime = typeof metrics.uptime === 'number' ? metrics.uptime.toFixed(1) : (metrics.uptime?.percentage || '99.9');
+    const reqPerMin = Math.round(metrics.requests?.perMinute || metrics.requestsPerMinute || metrics.requestsPerMin || 0);
     const errors = Math.min(metrics.errors?.last1h || metrics.errors || 0, 10); // Máximo 10 errores
     const latencyHistory = metrics.latencyHistory || Array(10).fill(0).map(() => Math.round(latency * (0.8 + Math.random() * 0.4)));
     const trend = metrics.trend || (Math.random() > 0.5 ? Math.floor(Math.random() * 8) : -Math.floor(Math.random() * 5));
@@ -12096,13 +12096,16 @@ async function renderInvestigacionSection() {
                 <h4>No hay encuestas aún</h4>
                 <p>Las encuestas completadas aparecerán aquí</p>
               </div>
-            ` : encuestas.encuestas.map(enc => `
+            ` : encuestas.encuestas.map(enc => {
+              const nombreCompleto = `${enc.firstName || ''} ${enc.lastName || ''}`.trim() || 'Sin nombre';
+              const iniciales = nombreCompleto.split(' ').map(n => n[0] || '').join('').substring(0, 2).toUpperCase() || 'NA';
+              return `
               <div class="encuesta-item" data-id="${enc.id}">
                 <div class="encuesta-avatar" style="background: rgba(74, 82, 89, 0.1);">
-                  <span>${enc.nombre.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}</span>
+                  <span>${iniciales}</span>
                 </div>
                 <div class="encuesta-info">
-                  <div class="encuesta-name">${enc.nombre}</div>
+                  <div class="encuesta-name">${nombreCompleto}</div>
                   <div class="encuesta-meta">
                     <span><i data-lucide="mail"></i> ${enc.email}</span>
                     <span class="satisfaction-badge satisfaction-${enc.satisfaction || 'na'}">
@@ -12118,7 +12121,7 @@ async function renderInvestigacionSection() {
                   <button class="btn-icon btn-view" onclick="verEncuestaPDF('${enc.pdfUrl}')" title="Ver PDF">
                     <i data-lucide="eye"></i>
                   </button>
-                  <button class="btn-icon btn-download" onclick="descargarEncuestaPDF('${enc.pdfUrl}', '${enc.nombre}')" title="Descargar">
+                  <button class="btn-icon btn-download" onclick="descargarEncuestaPDF('${enc.pdfUrl}', '${nombreCompleto}')" title="Descargar">
                     <i data-lucide="download"></i>
                   </button>
                   <button class="btn-icon btn-delete" onclick="eliminarEncuesta('${enc.id}')" title="Eliminar">
@@ -12126,7 +12129,7 @@ async function renderInvestigacionSection() {
                   </button>
                 </div>
               </div>
-            `).join('')}
+            `}).join('')}
           </div>
         </div>
 

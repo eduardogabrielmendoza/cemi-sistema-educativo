@@ -439,14 +439,14 @@ router.get('/service/:serviceId/metrics', (req, res) => {
   
   const base = baseMetrics[serviceId] || { cpu: 20, memory: 50, latency: 150, uptime: 99.5 };
   
-  // Agregar variación aleatoria
-  const variation = () => (Math.random() - 0.5) * 10;
+  // Agregar variación aleatoria pequeña
+  const variation = () => Math.floor((Math.random() - 0.5) * 10);
   
   res.json({
-    cpu: Math.max(0, Math.min(100, base.cpu + variation())),
-    memory: Math.max(0, Math.min(100, base.memory + variation())),
-    latency: Math.max(10, base.latency + variation() * 20),
-    uptime: Math.max(95, Math.min(100, base.uptime + variation() * 0.1)),
+    cpu: Math.max(0, Math.min(100, Math.floor(base.cpu + variation()))),
+    memory: Math.max(0, Math.min(100, Math.floor(base.memory + variation()))),
+    latency: Math.max(10, Math.floor(base.latency + variation() * 5)),
+    uptime: Math.max(95, Math.min(100, parseFloat((base.uptime + variation() * 0.01).toFixed(2)))),
     requestsPerMinute: Math.floor(50 + Math.random() * 200),
     activeConnections: Math.floor(5 + Math.random() * 50)
   });
@@ -457,12 +457,12 @@ router.get('/ping/:serviceId', (req, res) => {
   const { serviceId } = req.params;
   const latencies = [];
   
-  // Simular 4 pings
+  // Simular 4 pings con latencias realistas
   for (let i = 0; i < 4; i++) {
-    latencies.push(Math.floor(20 + Math.random() * 100));
+    latencies.push(Math.floor(20 + Math.random() * 80));
   }
   
-  const avg = latencies.reduce((a, b) => a + b, 0) / latencies.length;
+  const avg = Math.floor(latencies.reduce((a, b) => a + b, 0) / latencies.length);
   
   res.json({
     success: true,
@@ -476,7 +476,7 @@ router.get('/ping/:serviceId', (req, res) => {
     stats: {
       min: Math.min(...latencies),
       max: Math.max(...latencies),
-      avg: Math.round(avg)
+      avg: avg
     }
   });
 });
