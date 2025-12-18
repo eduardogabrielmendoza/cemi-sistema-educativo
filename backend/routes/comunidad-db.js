@@ -9,6 +9,21 @@ const generarId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 };
 
+// Función para parsear JSON de forma segura
+const parseJsonSafe = (jsonString) => {
+    if (!jsonString) return [];
+    if (Array.isArray(jsonString)) return jsonString;
+    if (typeof jsonString === 'string' && jsonString.length > 0) {
+        try {
+            return JSON.parse(jsonString);
+        } catch (e) {
+            console.error('Error parseando JSON:', e);
+            return [];
+        }
+    }
+    return [];
+};
+
 // =============================================
 // PREGUNTAS
 // =============================================
@@ -54,24 +69,37 @@ router.get('/preguntas', async (req, res) => {
         `);
         
         // Formatear preguntas para el frontend
-        const preguntasFormateadas = preguntas.map(p => ({
-            id: p.id,
-            titulo: p.titulo,
-            descripcion: p.descripcion,
-            categoria: p.categoria,
-            autorTipo: p.autor_tipo,
-            autorId: p.autor_id,
-            autorNombre: p.autor_nombre,
-            autorAvatar: p.autor_avatar,
-            estado: p.estado,
-            votos: p.votos,
-            votantes: p.votantes ? JSON.parse(p.votantes) : [],
-            destacado: p.destacado === 1,
-            esAnuncio: p.es_anuncio === 1,
-            fechaCreacion: p.fecha_creacion,
-            fechaActualizacion: p.fecha_actualizacion,
-            numRespuestas: p.numRespuestas
-        }));
+        const preguntasFormateadas = preguntas.map(p => {
+            let votantes = [];
+            try {
+                if (p.votantes && typeof p.votantes === 'string' && p.votantes.length > 0) {
+                    votantes = JSON.parse(p.votantes);
+                } else if (Array.isArray(p.votantes)) {
+                    votantes = p.votantes;
+                }
+            } catch (e) {
+                votantes = [];
+            }
+            
+            return {
+                id: p.id,
+                titulo: p.titulo,
+                descripcion: p.descripcion,
+                categoria: p.categoria,
+                autorTipo: p.autor_tipo,
+                autorId: p.autor_id,
+                autorNombre: p.autor_nombre,
+                autorAvatar: p.autor_avatar,
+                estado: p.estado,
+                votos: p.votos,
+                votantes: votantes,
+                destacado: p.destacado === 1,
+                esAnuncio: p.es_anuncio === 1,
+                fechaCreacion: p.fecha_creacion,
+                fechaActualizacion: p.fecha_actualizacion,
+                numRespuestas: p.numRespuestas
+            };
+        });
         
         res.json({
             success: true,
@@ -121,7 +149,7 @@ router.get('/preguntas/:id', async (req, res) => {
             autorAvatar: pregunta.autor_avatar,
             estado: pregunta.estado,
             votos: pregunta.votos,
-            votantes: pregunta.votantes ? JSON.parse(pregunta.votantes) : [],
+            votantes: parseJsonSafe(pregunta.votantes),
             destacado: pregunta.destacado === 1,
             esAnuncio: pregunta.es_anuncio === 1,
             fechaCreacion: pregunta.fecha_creacion,
@@ -138,7 +166,7 @@ router.get('/preguntas/:id', async (req, res) => {
             autorAvatar: r.autor_avatar,
             esRecomendada: r.es_recomendada === 1,
             votos: r.votos,
-            votantes: r.votantes ? JSON.parse(r.votantes) : [],
+            votantes: parseJsonSafe(r.votantes),
             fechaCreacion: r.fecha_creacion
         }));
         
@@ -301,7 +329,7 @@ router.post('/preguntas/:id/votar', async (req, res) => {
             return res.status(404).json({ success: false, error: 'Pregunta no encontrada' });
         }
         
-        let votantes = pregunta.votantes ? JSON.parse(pregunta.votantes) : [];
+        let votantes = parseJsonSafe(pregunta.votantes);
         let nuevoVotos = pregunta.votos;
         let action;
         
@@ -350,7 +378,7 @@ router.post('/respuestas/:id/votar', async (req, res) => {
             return res.status(404).json({ success: false, error: 'Respuesta no encontrada' });
         }
         
-        let votantes = respuesta.votantes ? JSON.parse(respuesta.votantes) : [];
+        let votantes = parseJsonSafe(respuesta.votantes);
         let nuevoVotos = respuesta.votos;
         let action;
         
