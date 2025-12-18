@@ -1,15 +1,9 @@
 ﻿import express from 'express';
-import fs from 'fs';
-import path from 'path';
 import os from 'os';
-import { fileURLToPath } from 'url';
+import pool from '../utils/db.js';
 import eventLogger from '../utils/eventLogger.js';
 
 const router = express.Router();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const STATUS_FILE_PATH = path.join(__dirname, '../../frontend/assets/data/system-status.json');
 
 // Variables para tracking de métricas en tiempo real
 let requestCount = 0;
@@ -61,44 +55,116 @@ addSystemLog('INFO', 'Servidor HTTP activo', 'server');
 // Log de inicio en eventLogger
 eventLogger.system.serverStart();
 
-function readStatus() {
+// =============================================
+// FUNCIONES DE BASE DE DATOS
+// =============================================
+
+async function getServicesFromDB() {
   try {
-    if (fs.existsSync(STATUS_FILE_PATH)) {
-      const data = fs.readFileSync(STATUS_FILE_PATH, 'utf8');
-      return JSON.parse(data);
-    }
-    return getDefaultStatus();
+    const [rows] = await pool.execute(
+      'SELECT * FROM sistema_servicios WHERE activo = TRUE ORDER BY orden'
+    );
+    return rows.map(s => ({
+      id: s.id,
+      name: s.nombre,
+      status: s.estado,
+      description: s.descripcion
+    }));
+  } catch (error) {
+    console.error('Error obteniendo servicios de BD:', error);
+    return getDefaultServices();
+  }
+}
+
+async function getActiveIncidentFromDB() {
+  try {
+    const [[incident]] = await pool.execute(
+      'SELECT * FROM sistema_incidentes WHERE resuelto = FALSE ORDER BY fecha_creacion DESC LIMIT 1'
+    );
+    if (!incident) return null;
+    
+    // Obtener updates del incidente
+    const [updates] = await pool.execute(
+      'SELECT * FROM sistema_incidentes_updates WHERE incidente_id = ? ORDER BY fecha_creacion ASC',
+      [incident.id]
+    );
+    
+    return {
+      id: incident.id,
+      title: incident.titulo,
+      message: incident.mensaje,
+      severity: incident.severidad,
+      affected_services: incident.servicios_afectados ? JSON.parse(incident.servicios_afectados) : [],
+      show_banner: incident.mostrar_banner === 1,
+      created_at: incident.fecha_creacion,
+      updates: updates.map(u => ({
+        message: u.mensaje,
+        status: u.estado,
+        timestamp: u.fecha_creacion
+      }))
+    };
+  } catch (error) {
+    console.error('Error obteniendo incidente activo:', error);
+    return null;
+  }
+}
+
+async function getIncidentsHistoryFromDB() {
+  try {
+    const [rows] = await pool.execute(
+      'SELECT * FROM sistema_incidentes WHERE resuelto = TRUE ORDER BY fecha_resolucion DESC LIMIT 20'
+    );
+    return rows.map(inc => ({
+      id: inc.id,
+      title: inc.titulo,
+      message: inc.mensaje,
+      severity: inc.severidad,
+      affected_services: inc.servicios_afectados ? JSON.parse(inc.servicios_afectados) : [],
+      created_at: inc.fecha_creacion,
+      resolved_at: inc.fecha_resolucion,
+      resolved: true
+    }));
+  } catch (error) {
+    console.error('Error obteniendo historial:', error);
+    return [];
+  }
+}
+
+async function readStatus() {
+  try {
+    const services = await getServicesFromDB();
+    const activeIncident = await getActiveIncidentFromDB();
+    const history = await getIncidentsHistoryFromDB();
+    
+    const globalStatus = calculateGlobalStatus(services, activeIncident);
+    
+    return {
+      global_status: globalStatus,
+      services,
+      active_incident: activeIncident,
+      incidents_history: history,
+      last_updated: new Date().toISOString()
+    };
   } catch (error) {
     console.error('Error leyendo status:', error);
     return getDefaultStatus();
   }
 }
 
-function writeStatus(data) {
-  try {
-    const dir = path.dirname(STATUS_FILE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    data.last_updated = new Date().toISOString();
-    fs.writeFileSync(STATUS_FILE_PATH, JSON.stringify(data, null, 2), 'utf8');
-    return true;
-  } catch (error) {
-    console.error('Error escribiendo status:', error);
-    return false;
-  }
+function getDefaultServices() {
+  return [
+    { id: "platform", name: "Plataforma Principal", status: "operational", description: "Acceso al sistema y autenticación" },
+    { id: "classroom", name: "Classroom", status: "operational", description: "Cursos, tareas y entregas" },
+    { id: "payments", name: "Sistema de Pagos", status: "operational", description: "Gestión de cuotas y pagos" },
+    { id: "chat", name: "Chat de Soporte", status: "operational", description: "Comunicación en tiempo real" },
+    { id: "api", name: "API / Backend", status: "operational", description: "Servicios y base de datos" }
+  ];
 }
 
 function getDefaultStatus() {
   return {
     global_status: "operational",
-    services: [
-      { id: "platform", name: "Plataforma Principal", status: "operational", description: "Acceso al sistema y autenticación" },
-      { id: "classroom", name: "Classroom", status: "operational", description: "Cursos, tareas y entregas" },
-      { id: "payments", name: "Sistema de Pagos", status: "operational", description: "Gestión de cuotas y pagos" },
-      { id: "chat", name: "Chat de Soporte", status: "operational", description: "Comunicación en tiempo real" },
-      { id: "api", name: "API / Backend", status: "operational", description: "Servicios y base de datos" }
-    ],
+    services: getDefaultServices(),
     active_incident: null,
     incidents_history: [],
     last_updated: new Date().toISOString()
@@ -118,9 +184,9 @@ function calculateGlobalStatus(services, activeIncident) {
   return 'operational';
 }
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const status = readStatus();
+    const status = await readStatus();
     res.json(status);
   } catch (error) {
     console.error('Error obteniendo status:', error);
@@ -128,16 +194,16 @@ router.get('/', (req, res) => {
   }
 });
 
-router.get('/banner', (req, res) => {
+router.get('/banner', async (req, res) => {
   try {
-    const status = readStatus();
-    if (status.active_incident && status.active_incident.show_banner) {
+    const activeIncident = await getActiveIncidentFromDB();
+    if (activeIncident && activeIncident.show_banner) {
       res.json({
         show_banner: true,
         incident: {
-          severity: status.active_incident.severity,
-          title: status.active_incident.title,
-          message: status.active_incident.message
+          severity: activeIncident.severity,
+          title: activeIncident.title,
+          message: activeIncident.message
         }
       });
     } else {
@@ -148,7 +214,7 @@ router.get('/banner', (req, res) => {
   }
 });
 
-router.post('/incident', (req, res) => {
+router.post('/incident', async (req, res) => {
   try {
     const { title, message, severity, affected_services, show_banner } = req.body;
     
@@ -156,130 +222,137 @@ router.post('/incident', (req, res) => {
       return res.status(400).json({ error: 'Título y severidad son requeridos' });
     }
     
-    const status = readStatus();
+    // Crear nuevo incidente en BD
+    const [result] = await pool.execute(
+      `INSERT INTO sistema_incidentes 
+       (titulo, mensaje, severidad, servicios_afectados, mostrar_banner)
+       VALUES (?, ?, ?, ?, ?)`,
+      [title, message || '', severity, 
+       affected_services ? JSON.stringify(affected_services) : null,
+       show_banner !== false ? 1 : 0]
+    );
     
-    if (status.active_incident) {
-      status.active_incident.resolved_at = new Date().toISOString();
-      status.active_incident.resolved = true;
-      status.incidents_history.unshift(status.active_incident);
-    }
-    
-    const newIncident = {
-      id: Date.now(),
-      title,
-      message: message || '',
-      severity, // operational, degraded, outage, maintenance
-      affected_services: affected_services || [],
-      show_banner: show_banner !== false,
-      created_at: new Date().toISOString(),
-      updates: []
-    };
-    
-    status.active_incident = newIncident;
-    
+    // Actualizar estado de servicios afectados
     if (affected_services && affected_services.length > 0) {
-      status.services = status.services.map(service => {
-        if (affected_services.includes(service.id)) {
-          return { ...service, status: severity === 'maintenance' ? 'maintenance' : severity };
-        }
-        return service;
-      });
+      const newStatus = severity === 'maintenance' ? 'maintenance' : severity;
+      for (const serviceId of affected_services) {
+        await pool.execute(
+          'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
+          [newStatus, serviceId]
+        );
+      }
     }
     
-    status.global_status = calculateGlobalStatus(status.services, newIncident);
+    addSystemLog('WARN', `Nuevo incidente creado: ${title}`, 'incidents');
     
-    if (writeStatus(status)) {
-      res.json({ success: true, incident: newIncident });
-    } else {
-      res.status(500).json({ error: 'Error al guardar incidente' });
-    }
+    const status = await readStatus();
+    res.json({ success: true, incident: status.active_incident, status });
   } catch (error) {
     console.error('Error creando incidente:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-router.put('/incident/:id', (req, res) => {
+router.put('/incident/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { update_message, resolve, severity, show_banner } = req.body;
     
-    const status = readStatus();
-    
-    if (!status.active_incident || status.active_incident.id != id) {
-      return res.status(404).json({ error: 'Incidente no encontrado' });
-    }
-    
     if (update_message) {
-      status.active_incident.updates.push({
-        message: update_message,
-        timestamp: new Date().toISOString()
-      });
+      // Agregar actualización al incidente
+      await pool.execute(
+        `INSERT INTO sistema_incidentes_updates (incidente_id, mensaje, estado) VALUES (?, ?, 'monitoring')`,
+        [id, update_message]
+      );
+      addSystemLog('INFO', `Actualización agregada al incidente #${id}`, 'incidents');
     }
     
     if (severity) {
-      status.active_incident.severity = severity;
+      await pool.execute(
+        'UPDATE sistema_incidentes SET severidad = ? WHERE id = ?',
+        [severity, id]
+      );
     }
     
     if (typeof show_banner === 'boolean') {
-      status.active_incident.show_banner = show_banner;
+      await pool.execute(
+        'UPDATE sistema_incidentes SET mostrar_banner = ? WHERE id = ?',
+        [show_banner ? 1 : 0, id]
+      );
     }
     
     if (resolve) {
-      status.active_incident.resolved = true;
-      status.active_incident.resolved_at = new Date().toISOString();
-      status.incidents_history.unshift(status.active_incident);
-      status.active_incident = null;
+      // Obtener servicios afectados antes de resolver
+      const [[incident]] = await pool.execute(
+        'SELECT servicios_afectados FROM sistema_incidentes WHERE id = ?',
+        [id]
+      );
       
-      status.services = status.services.map(service => ({
-        ...service,
-        status: 'operational'
-      }));
+      // Marcar como resuelto
+      await pool.execute(
+        'UPDATE sistema_incidentes SET resuelto = TRUE, fecha_resolucion = NOW() WHERE id = ?',
+        [id]
+      );
+      
+      // Restaurar estado de servicios
+      if (incident && incident.servicios_afectados) {
+        const serviciosAfectados = JSON.parse(incident.servicios_afectados);
+        for (const serviceId of serviciosAfectados) {
+          await pool.execute(
+            'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
+            ['operational', serviceId]
+          );
+        }
+      }
+      
+      addSystemLog('INFO', `Incidente #${id} resuelto`, 'incidents');
     }
     
-    status.global_status = calculateGlobalStatus(status.services, status.active_incident);
-    
-    if (writeStatus(status)) {
-      res.json({ success: true, status });
-    } else {
-      res.status(500).json({ error: 'Error al actualizar incidente' });
-    }
+    const status = await readStatus();
+    res.json({ success: true, status });
   } catch (error) {
     console.error('Error actualizando incidente:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-router.delete('/incident/:id', (req, res) => {
+router.delete('/incident/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const status = readStatus();
     
-    if (status.active_incident && status.active_incident.id == id) {
-      status.active_incident = null;
-      
-      status.services = status.services.map(service => ({
-        ...service,
-        status: 'operational'
-      }));
-      
-      status.global_status = 'operational';
-      
-      if (writeStatus(status)) {
-        res.json({ success: true });
-      } else {
-        res.status(500).json({ error: 'Error al eliminar incidente' });
+    // Obtener servicios afectados antes de eliminar
+    const [[incident]] = await pool.execute(
+      'SELECT servicios_afectados FROM sistema_incidentes WHERE id = ?',
+      [id]
+    );
+    
+    // Eliminar actualizaciones del incidente
+    await pool.execute('DELETE FROM sistema_incidentes_updates WHERE incidente_id = ?', [id]);
+    
+    // Eliminar incidente
+    await pool.execute('DELETE FROM sistema_incidentes WHERE id = ?', [id]);
+    
+    // Restaurar estado de servicios
+    if (incident && incident.servicios_afectados) {
+      const serviciosAfectados = JSON.parse(incident.servicios_afectados);
+      for (const serviceId of serviciosAfectados) {
+        await pool.execute(
+          'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
+          ['operational', serviceId]
+        );
       }
-    } else {
-      res.status(404).json({ error: 'Incidente no encontrado' });
     }
+    
+    addSystemLog('INFO', `Incidente #${id} eliminado`, 'incidents');
+    
+    res.json({ success: true });
   } catch (error) {
     console.error('Error eliminando incidente:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-router.put('/services', (req, res) => {
+router.put('/services', async (req, res) => {
   try {
     const { services } = req.body;
     
@@ -287,40 +360,27 @@ router.put('/services', (req, res) => {
       return res.status(400).json({ error: 'Servicios requeridos' });
     }
     
-    const status = readStatus();
-    
-    services.forEach(update => {
-      const serviceIndex = status.services.findIndex(s => s.id === update.id);
-      if (serviceIndex !== -1) {
-        status.services[serviceIndex].status = update.status;
-      }
-    });
-    
-    status.global_status = calculateGlobalStatus(status.services, status.active_incident);
-    
-    if (writeStatus(status)) {
-      res.json({ success: true, services: status.services });
-    } else {
-      res.status(500).json({ error: 'Error al actualizar servicios' });
+    for (const update of services) {
+      await pool.execute(
+        'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
+        [update.status, update.id]
+      );
     }
+    
+    const status = await readStatus();
+    res.json({ success: true, services: status.services });
   } catch (error) {
     console.error('Error actualizando servicios:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-router.delete('/history/:id', (req, res) => {
+router.delete('/history/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const status = readStatus();
-    
-    status.incidents_history = status.incidents_history.filter(inc => inc.id != id);
-    
-    if (writeStatus(status)) {
-      res.json({ success: true });
-    } else {
-      res.status(500).json({ error: 'Error al eliminar del historial' });
-    }
+    await pool.execute('DELETE FROM sistema_incidentes_updates WHERE incidente_id = ?', [id]);
+    await pool.execute('DELETE FROM sistema_incidentes WHERE id = ? AND resuelto = TRUE', [id]);
+    res.json({ success: true });
   } catch (error) {
     console.error('Error eliminando del historial:', error);
     res.status(500).json({ error: error.message });
@@ -396,10 +456,9 @@ router.get('/ping/:service', async (req, res) => {
     
     switch(service) {
       case 'database':
-        // Simular ping a la base de datos
+        // Ping real a la base de datos
         const dbStart = Date.now();
-        // Aquí podrías hacer una query real como SELECT 1
-        await new Promise(resolve => setTimeout(resolve, Math.random() * 20 + 5));
+        await pool.execute('SELECT 1');
         result.latency = Date.now() - dbStart;
         result.details = { type: 'MySQL', connected: true };
         addSystemLog('DEBUG', `Ping a base de datos: ${result.latency}ms`, 'database');
@@ -573,14 +632,16 @@ router.post('/restart/:service', async (req, res) => {
 });
 
 // Métricas específicas por servicio
-router.get('/service/:serviceId/metrics', (req, res) => {
+router.get('/service/:serviceId/metrics', async (req, res) => {
   const { serviceId } = req.params;
-  const status = readStatus();
-  const service = status.services.find(s => s.id === serviceId);
   
-  if (!service) {
-    return res.status(404).json({ error: 'Servicio no encontrado' });
-  }
+  try {
+    const services = await getServicesFromDB();
+    const service = services.find(s => s.id === serviceId);
+    
+    if (!service) {
+      return res.status(404).json({ error: 'Servicio no encontrado' });
+    }
   
   // Generar métricas realistas basadas en el estado del servicio
   const baseLatency = service.status === 'operational' ? 30 : service.status === 'degraded' ? 150 : 0;
