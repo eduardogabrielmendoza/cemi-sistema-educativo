@@ -392,13 +392,27 @@ router.get('/metrics', async (req, res) => {
 // Obtener logs del sistema
 router.get('/logs', (req, res) => {
   const limit = parseInt(req.query.limit) || 20;
+  const service = req.query.service;
+  
+  let filteredLogs = systemLogs;
+  if (service && service !== 'all') {
+    filteredLogs = systemLogs.filter(log => log.service === service);
+  }
+  
   res.json({
-    logs: systemLogs.slice(0, limit),
-    total: systemLogs.length
+    logs: filteredLogs.slice(0, limit),
+    total: filteredLogs.length
   });
 });
 
-// Agregar entrada de actividad
+// Obtener actividad (GET)
+router.get('/activity', (req, res) => {
+  const limit = parseInt(req.query.limit) || 12;
+  const activities = eventLogger.getActivityFeed(limit);
+  res.json({ activities });
+});
+
+// Agregar entrada de actividad (POST)
 router.post('/activity', async (req, res) => {
   try {
     const { type, message, service } = req.body;
@@ -407,6 +421,206 @@ router.post('/activity', async (req, res) => {
   } catch (error) {
     console.error('Error agregando actividad:', error);
     res.status(500).json({ error: 'Error al agregar actividad' });
+  }
+});
+
+// Métricas por servicio
+router.get('/service/:serviceId/metrics', (req, res) => {
+  const { serviceId } = req.params;
+  
+  // Generar métricas simuladas pero realistas
+  const baseMetrics = {
+    platform: { cpu: 15, memory: 45, latency: 120, uptime: 99.9 },
+    classroom: { cpu: 25, memory: 55, latency: 180, uptime: 99.8 },
+    payments: { cpu: 10, memory: 30, latency: 200, uptime: 99.95 },
+    chat: { cpu: 35, memory: 60, latency: 50, uptime: 99.7 },
+    api: { cpu: 20, memory: 50, latency: 100, uptime: 99.9 }
+  };
+  
+  const base = baseMetrics[serviceId] || { cpu: 20, memory: 50, latency: 150, uptime: 99.5 };
+  
+  // Agregar variación aleatoria
+  const variation = () => (Math.random() - 0.5) * 10;
+  
+  res.json({
+    cpu: Math.max(0, Math.min(100, base.cpu + variation())),
+    memory: Math.max(0, Math.min(100, base.memory + variation())),
+    latency: Math.max(10, base.latency + variation() * 20),
+    uptime: Math.max(95, Math.min(100, base.uptime + variation() * 0.1)),
+    requestsPerMinute: Math.floor(50 + Math.random() * 200),
+    activeConnections: Math.floor(5 + Math.random() * 50)
+  });
+});
+
+// Ping servicio
+router.get('/ping/:serviceId', (req, res) => {
+  const { serviceId } = req.params;
+  const latencies = [];
+  
+  // Simular 4 pings
+  for (let i = 0; i < 4; i++) {
+    latencies.push(Math.floor(20 + Math.random() * 100));
+  }
+  
+  const avg = latencies.reduce((a, b) => a + b, 0) / latencies.length;
+  
+  res.json({
+    success: true,
+    service: serviceId,
+    packets: {
+      sent: 4,
+      received: 4,
+      lost: 0
+    },
+    latencies,
+    stats: {
+      min: Math.min(...latencies),
+      max: Math.max(...latencies),
+      avg: Math.round(avg)
+    }
+  });
+});
+
+// Reiniciar servicio (simulado)
+router.post('/restart/:serviceId', (req, res) => {
+  const { serviceId } = req.params;
+  
+  addSystemLog('WARNING', `Reinicio solicitado para ${serviceId}`, serviceId);
+  
+  res.json({
+    success: true,
+    steps: [
+      { step: 'Deteniendo servicio...', status: 'complete' },
+      { step: 'Limpiando caché...', status: 'complete' },
+      { step: 'Reiniciando conexiones...', status: 'complete' },
+      { step: 'Iniciando servicio...', status: 'complete' },
+      { step: 'Verificando salud...', status: 'complete' }
+    ],
+    message: `Servicio ${serviceId} reiniciado correctamente`
+  });
+});
+
+// Alias para incident (el frontend usa singular)
+router.post('/incident', async (req, res) => {
+  try {
+    const { title, message, severity, affected_services, show_banner } = req.body;
+    
+    const [result] = await pool.execute(
+      `INSERT INTO sistema_incidentes 
+       (titulo, mensaje, severidad, servicios_afectados, mostrar_banner)
+       VALUES (?, ?, ?, ?, ?)`,
+      [title, message || null, severity, 
+       affected_services ? JSON.stringify(affected_services) : null,
+       show_banner ? 1 : 0]
+    );
+    
+    // Actualizar estado de servicios afectados
+    if (affected_services && affected_services.length > 0) {
+      const newStatus = severity === 'maintenance' ? 'maintenance' : 
+                        severity === 'outage' ? 'outage' : 'degraded';
+      
+      for (const serviceId of affected_services) {
+        await pool.execute(
+          'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
+          [newStatus, serviceId]
+        );
+      }
+    }
+    
+    await pool.execute(
+      'UPDATE sistema_status_config SET ultima_actualizacion = NOW() WHERE id = 1'
+    );
+    
+    addSystemLog('WARNING', `Nuevo incidente: ${title}`, 'incidents');
+    
+    const statusData = await getStatusData();
+    res.json({ success: true, incident_id: result.insertId, ...statusData });
+  } catch (error) {
+    console.error('Error creando incidente:', error);
+    res.status(500).json({ error: 'Error al crear incidente' });
+  }
+});
+
+// Alias PUT para incident/:id
+router.put('/incident/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { resolve, update_message, title, message, severity, affected_services, show_banner } = req.body;
+    
+    if (resolve) {
+      // Resolver incidente
+      const [[incidente]] = await pool.execute(
+        'SELECT servicios_afectados FROM sistema_incidentes WHERE id = ?',
+        [id]
+      );
+      
+      await pool.execute(
+        'UPDATE sistema_incidentes SET resuelto = TRUE, fecha_resolucion = NOW() WHERE id = ?',
+        [id]
+      );
+      
+      if (incidente && incidente.servicios_afectados) {
+        const serviciosAfectados = JSON.parse(incidente.servicios_afectados);
+        for (const serviceId of serviciosAfectados) {
+          await pool.execute(
+            'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
+            ['operational', serviceId]
+          );
+        }
+      }
+      
+      addSystemLog('INFO', `Incidente #${id} resuelto`, 'incidents');
+    } else if (update_message) {
+      // Agregar actualización
+      await pool.execute(
+        `INSERT INTO sistema_incidentes_updates (incidente_id, mensaje, estado) VALUES (?, ?, 'monitoring')`,
+        [id, update_message]
+      );
+      addSystemLog('INFO', `Actualización agregada al incidente #${id}`, 'incidents');
+    } else {
+      // Actualizar incidente
+      await pool.execute(
+        `UPDATE sistema_incidentes 
+         SET titulo = COALESCE(?, titulo),
+             mensaje = COALESCE(?, mensaje),
+             severidad = COALESCE(?, severidad),
+             servicios_afectados = COALESCE(?, servicios_afectados),
+             mostrar_banner = COALESCE(?, mostrar_banner)
+         WHERE id = ?`,
+        [title, message, severity, 
+         affected_services ? JSON.stringify(affected_services) : null,
+         show_banner !== undefined ? (show_banner ? 1 : 0) : null, id]
+      );
+    }
+    
+    await pool.execute(
+      'UPDATE sistema_status_config SET ultima_actualizacion = NOW() WHERE id = 1'
+    );
+    
+    const statusData = await getStatusData();
+    res.json({ success: true, ...statusData });
+  } catch (error) {
+    console.error('Error actualizando incidente:', error);
+    res.status(500).json({ error: 'Error al actualizar incidente' });
+  }
+});
+
+// Alias DELETE para incident/:id
+router.delete('/incident/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    await pool.execute('DELETE FROM sistema_incidentes WHERE id = ?', [id]);
+    
+    await pool.execute(
+      'UPDATE sistema_status_config SET ultima_actualizacion = NOW() WHERE id = 1'
+    );
+    
+    const statusData = await getStatusData();
+    res.json({ success: true, ...statusData });
+  } catch (error) {
+    console.error('Error eliminando incidente:', error);
+    res.status(500).json({ error: 'Error al eliminar incidente' });
   }
 });
 

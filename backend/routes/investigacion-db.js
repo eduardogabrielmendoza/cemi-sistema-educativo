@@ -8,6 +8,21 @@ import { encuestaAgradecimientoTemplate } from "../utils/emailTemplates.js";
 
 const router = express.Router();
 
+// Función para parsear JSON de forma segura
+const parseJsonSafe = (jsonString) => {
+  if (!jsonString) return [];
+  if (Array.isArray(jsonString)) return jsonString;
+  if (typeof jsonString === 'string' && jsonString.length > 0) {
+    try {
+      return JSON.parse(jsonString);
+    } catch (e) {
+      console.error('Error parseando JSON:', e);
+      return [];
+    }
+  }
+  return [];
+};
+
 // =============================================
 // TRADUCCIONES Y HELPERS
 // =============================================
@@ -157,13 +172,13 @@ router.get("/encuestas", async (req, res) => {
       institution: e.institution,
       role: e.role,
       frequency: e.frequency,
-      products: e.products ? JSON.parse(e.products) : [],
+      products: parseJsonSafe(e.products),
       mainPurpose: e.main_purpose,
       satisfaction: e.satisfaction,
       recommendation: e.recommendation,
-      improvements: e.improvements ? JSON.parse(e.improvements) : [],
+      improvements: parseJsonSafe(e.improvements),
       improvementPriority: e.improvement_priority,
-      desiredFeatures: e.desired_features ? JSON.parse(e.desired_features) : [],
+      desiredFeatures: parseJsonSafe(e.desired_features),
       featurePriority: e.feature_priority,
       positiveFeedback: e.positive_feedback,
       negativeFeedback: e.negative_feedback,

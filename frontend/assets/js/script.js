@@ -4598,11 +4598,17 @@ function closeIncidentModal() {
 }
 
 function updateBannerPreview() {
-  const severity = document.getElementById('incidentSeverity').value;
-  const title = document.getElementById('incidentTitle').value || 'Título del incidente';
+  const severityEl = document.getElementById('incidentSeverity');
+  const titleEl = document.getElementById('incidentTitle');
   const preview = document.getElementById('bannerPreview');
   const content = document.getElementById('bannerPreviewContent');
   const text = document.getElementById('bannerPreviewText');
+  
+  // Verificar que todos los elementos existan
+  if (!severityEl || !preview || !content || !text) return;
+  
+  const severity = severityEl.value;
+  const title = titleEl?.value || 'Título del incidente';
   
   if (severity) {
     preview.style.display = 'block';
