@@ -225,35 +225,149 @@
         <p class="section-subtitle">Classroom está diseñado para facilitar la interacción educativa entre profesores y alumnos, cada uno con herramientas específicas.</p>
       </div>
       
-      <div class="roles-grid">
-        <div class="role-card">
-          <div class="role-avatar"><i data-lucide="user-check"></i></div>
-          <h3 class="role-title">Profesores</h3>
-          <p class="role-description">Crea y gestiona el contenido de tus cursos</p>
-          <ul class="role-features">
-            <li><i data-lucide="check-circle"></i>Publicar anuncios y novedades</li>
-            <li><i data-lucide="check-circle"></i>Crear y asignar tareas</li>
-            <li><i data-lucide="check-circle"></i>Calificar entregas</li>
-            <li><i data-lucide="check-circle"></i>Subir recursos y materiales</li>
-            <li><i data-lucide="check-circle"></i>Crear encuestas</li>
-            <li><i data-lucide="check-circle"></i>Comunicarse con alumnos</li>
-            <li><i data-lucide="check-circle"></i>Ver estadísticas del curso</li>
-          </ul>
+      <div class="roles-accordion">
+        <!-- Profesores -->
+        <div class="role-accordion-item">
+          <button class="role-accordion-header">
+            <div class="role-header-content">
+              <div class="role-avatar"><i data-lucide="user-check"></i></div>
+              <div class="role-header-text">
+                <h3 class="role-title">Profesores</h3>
+                <p class="role-description">Crea y gestiona el contenido de tus cursos</p>
+              </div>
+            </div>
+            <div class="role-toggle"><i data-lucide="chevron-down"></i></div>
+          </button>
+          <div class="role-accordion-content">
+            <div class="role-content-inner">
+              <div class="role-intro">
+                <p>Como profesor en Classroom, tienes el control total sobre tus cursos. Puedes crear contenido educativo, interactuar con tus estudiantes y hacer seguimiento de su progreso académico.</p>
+              </div>
+              <div class="role-capabilities">
+                <h4><i data-lucide="zap"></i>Capacidades Principales</h4>
+                <div class="capabilities-grid">
+                  <div class="capability-item">
+                    <i data-lucide="megaphone"></i>
+                    <div>
+                      <strong>Publicar anuncios</strong>
+                      <span>Comunica novedades importantes a todos tus alumnos al instante</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="clipboard-list"></i>
+                    <div>
+                      <strong>Crear tareas</strong>
+                      <span>Asigna trabajos con instrucciones, fechas límite y archivos adjuntos</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="star"></i>
+                    <div>
+                      <strong>Calificar entregas</strong>
+                      <span>Evalúa el trabajo de tus alumnos y proporciona retroalimentación</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="folder-open"></i>
+                    <div>
+                      <strong>Subir recursos</strong>
+                      <span>Comparte materiales, documentos, videos y enlaces útiles</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="bar-chart"></i>
+                    <div>
+                      <strong>Crear encuestas</strong>
+                      <span>Recoge opiniones y evalúa conocimientos de forma interactiva</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="message-square"></i>
+                    <div>
+                      <strong>Chat en tiempo real</strong>
+                      <span>Resuelve dudas y mantén comunicación directa con alumnos</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="role-tip">
+                <i data-lucide="lightbulb"></i>
+                <p><strong>Tip:</strong> Usa el panel de estadísticas para ver qué estudiantes han revisado tus materiales y quiénes tienen tareas pendientes.</p>
+              </div>
+            </div>
+          </div>
         </div>
         
-        <div class="role-card">
-          <div class="role-avatar"><i data-lucide="book-open"></i></div>
-          <h3 class="role-title">Alumnos</h3>
-          <p class="role-description">Aprende y participa activamente en tus cursos</p>
-          <ul class="role-features">
-            <li><i data-lucide="check-circle"></i>Ver anuncios y novedades</li>
-            <li><i data-lucide="check-circle"></i>Entregar tareas</li>
-            <li><i data-lucide="check-circle"></i>Consultar calificaciones</li>
-            <li><i data-lucide="check-circle"></i>Descargar recursos</li>
-            <li><i data-lucide="check-circle"></i>Participar en encuestas</li>
-            <li><i data-lucide="check-circle"></i>Chatear con compañeros</li>
-            <li><i data-lucide="check-circle"></i>Hacer preguntas al profesor</li>
-          </ul>
+        <!-- Alumnos -->
+        <div class="role-accordion-item">
+          <button class="role-accordion-header">
+            <div class="role-header-content">
+              <div class="role-avatar"><i data-lucide="book-open"></i></div>
+              <div class="role-header-text">
+                <h3 class="role-title">Alumnos</h3>
+                <p class="role-description">Aprende y participa activamente en tus cursos</p>
+              </div>
+            </div>
+            <div class="role-toggle"><i data-lucide="chevron-down"></i></div>
+          </button>
+          <div class="role-accordion-content">
+            <div class="role-content-inner">
+              <div class="role-intro">
+                <p>Como alumno en Classroom, tienes acceso a todo el material de tus cursos, puedes entregar tareas, ver tus calificaciones y comunicarte con profesores y compañeros.</p>
+              </div>
+              <div class="role-capabilities">
+                <h4><i data-lucide="zap"></i>Todo lo que puedes hacer</h4>
+                <div class="capabilities-grid">
+                  <div class="capability-item">
+                    <i data-lucide="bell"></i>
+                    <div>
+                      <strong>Ver anuncios</strong>
+                      <span>Mantente al día con las novedades de cada curso</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="upload"></i>
+                    <div>
+                      <strong>Entregar tareas</strong>
+                      <span>Sube tus trabajos antes de la fecha límite</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="award"></i>
+                    <div>
+                      <strong>Consultar calificaciones</strong>
+                      <span>Revisa tus notas y retroalimentación del profesor</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="download"></i>
+                    <div>
+                      <strong>Descargar recursos</strong>
+                      <span>Accede a todo el material del curso cuando quieras</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="check-square"></i>
+                    <div>
+                      <strong>Participar en encuestas</strong>
+                      <span>Responde votaciones y cuestionarios interactivos</span>
+                    </div>
+                  </div>
+                  <div class="capability-item">
+                    <i data-lucide="users"></i>
+                    <div>
+                      <strong>Chatear</strong>
+                      <span>Comunícate con compañeros y profesores en tiempo real</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="role-tip">
+                <i data-lucide="lightbulb"></i>
+                <p><strong>Tip:</strong> Activa las notificaciones para no perderte ninguna tarea o anuncio importante de tus cursos.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -431,20 +545,95 @@
   <script>
     lucide.createIcons();
     
-    // Scroll reveal
+    // Scroll reveal with staggered animations
     const sections = document.querySelectorAll('.info-section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    sections.forEach(s => observer.observe(s));
+    const featureCards = document.querySelectorAll('.feature-card');
+    const statItems = document.querySelectorAll('.stat-item');
+    const stepItems = document.querySelectorAll('.step-item');
     
-    // FAQ
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    
+    sections.forEach(s => sectionObserver.observe(s));
+    
+    // Feature cards staggered animation
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('animate-in');
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+    
+    featureCards.forEach(card => cardObserver.observe(card));
+    
+    // Stats counter animation
+    const animateValue = (element, start, end, duration) => {
+      const startTime = performance.now();
+      const isNumber = !isNaN(end);
+      
+      const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        
+        if (isNumber) {
+          const current = Math.floor(start + (end - start) * easeOut);
+          element.textContent = current + (element.dataset.suffix || '');
+        }
+        
+        if (progress < 1) requestAnimationFrame(animate);
+      };
+      
+      requestAnimationFrame(animate);
+    };
+    
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+          entry.target.classList.add('counted');
+          const numberEl = entry.target.querySelector('.stat-number');
+          const text = numberEl.textContent;
+          const match = text.match(/(\d+)/);
+          if (match) {
+            const num = parseInt(match[1]);
+            numberEl.dataset.suffix = text.replace(match[1], '');
+            animateValue(numberEl, 0, num, 2000);
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    statItems.forEach(item => statsObserver.observe(item));
+    
+    // FAQ Accordion
     document.querySelectorAll('.faq-item').forEach(item => {
       item.querySelector('.faq-question').addEventListener('click', () => {
-        document.querySelectorAll('.faq-item').forEach(i => i !== item && i.classList.remove('active'));
-        item.classList.toggle('active');
+        const wasActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!wasActive) item.classList.add('active');
+      });
+    });
+    
+    // Role Accordion
+    document.querySelectorAll('.role-accordion-item').forEach(item => {
+      item.querySelector('.role-accordion-header').addEventListener('click', () => {
+        const wasActive = item.classList.contains('active');
+        document.querySelectorAll('.role-accordion-item').forEach(i => i.classList.remove('active'));
+        if (!wasActive) {
+          item.classList.add('active');
+          // Re-render icons after animation
+          setTimeout(() => lucide.createIcons(), 100);
+        }
       });
     });
     
@@ -454,6 +643,17 @@
       backToTop.classList.toggle('visible', window.scrollY > 500);
     });
     backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
   </script>
 </body>
 </html>
