@@ -18,58 +18,58 @@ const EventCategory = {
     SYSTEM: 'system'
 };
 
-// Tipos de eventos por categoría
+// Tipos de eventos por categoría (iconos Lucide)
 const EventTypes = {
     // Auth
-    LOGIN_SUCCESS: { category: EventCategory.AUTH, icon: '🔓', severity: 'info' },
-    LOGIN_FAILED: { category: EventCategory.AUTH, icon: '🔒', severity: 'warning' },
-    LOGOUT: { category: EventCategory.AUTH, icon: '👋', severity: 'info' },
-    REGISTER: { category: EventCategory.AUTH, icon: '📝', severity: 'success' },
-    PASSWORD_RECOVERY: { category: EventCategory.AUTH, icon: '🔑', severity: 'info' },
-    PASSWORD_CHANGED: { category: EventCategory.AUTH, icon: '🔐', severity: 'success' },
+    LOGIN_SUCCESS: { category: EventCategory.AUTH, icon: 'log-in', severity: 'info' },
+    LOGIN_FAILED: { category: EventCategory.AUTH, icon: 'lock', severity: 'warning' },
+    LOGOUT: { category: EventCategory.AUTH, icon: 'log-out', severity: 'info' },
+    REGISTER: { category: EventCategory.AUTH, icon: 'user-plus', severity: 'success' },
+    PASSWORD_RECOVERY: { category: EventCategory.AUTH, icon: 'key', severity: 'info' },
+    PASSWORD_CHANGED: { category: EventCategory.AUTH, icon: 'shield-check', severity: 'success' },
     
     // Classroom
-    CLASSROOM_ACCESS: { category: EventCategory.CLASSROOM, icon: '📚', severity: 'info' },
-    TASK_SUBMITTED: { category: EventCategory.CLASSROOM, icon: '✅', severity: 'success' },
-    TASK_GRADED: { category: EventCategory.CLASSROOM, icon: '📊', severity: 'success' },
-    RESOURCE_UPLOADED: { category: EventCategory.CLASSROOM, icon: '📁', severity: 'info' },
-    RESOURCE_DOWNLOADED: { category: EventCategory.CLASSROOM, icon: '⬇️', severity: 'info' },
-    COURSE_CREATED: { category: EventCategory.CLASSROOM, icon: '🎓', severity: 'success' },
-    ENROLLMENT: { category: EventCategory.CLASSROOM, icon: '📋', severity: 'info' },
+    CLASSROOM_ACCESS: { category: EventCategory.CLASSROOM, icon: 'book-open', severity: 'info' },
+    TASK_SUBMITTED: { category: EventCategory.CLASSROOM, icon: 'check-circle', severity: 'success' },
+    TASK_GRADED: { category: EventCategory.CLASSROOM, icon: 'award', severity: 'success' },
+    RESOURCE_UPLOADED: { category: EventCategory.CLASSROOM, icon: 'upload', severity: 'info' },
+    RESOURCE_DOWNLOADED: { category: EventCategory.CLASSROOM, icon: 'download', severity: 'info' },
+    COURSE_CREATED: { category: EventCategory.CLASSROOM, icon: 'graduation-cap', severity: 'success' },
+    ENROLLMENT: { category: EventCategory.CLASSROOM, icon: 'clipboard-list', severity: 'info' },
     
     // Chat
-    MESSAGE_SENT: { category: EventCategory.CHAT, icon: '💬', severity: 'info' },
-    CHAT_CONNECTED: { category: EventCategory.CHAT, icon: '🟢', severity: 'info' },
-    CHAT_DISCONNECTED: { category: EventCategory.CHAT, icon: '🔴', severity: 'info' },
-    FILE_SHARED: { category: EventCategory.CHAT, icon: '📎', severity: 'info' },
+    MESSAGE_SENT: { category: EventCategory.CHAT, icon: 'message-circle', severity: 'info' },
+    CHAT_CONNECTED: { category: EventCategory.CHAT, icon: 'wifi', severity: 'info' },
+    CHAT_DISCONNECTED: { category: EventCategory.CHAT, icon: 'wifi-off', severity: 'info' },
+    FILE_SHARED: { category: EventCategory.CHAT, icon: 'paperclip', severity: 'info' },
     
     // Community
-    POST_CREATED: { category: EventCategory.COMMUNITY, icon: '📢', severity: 'success' },
-    POST_EDITED: { category: EventCategory.COMMUNITY, icon: '✏️', severity: 'info' },
-    POST_DELETED: { category: EventCategory.COMMUNITY, icon: '🗑️', severity: 'warning' },
-    COMMENT_ADDED: { category: EventCategory.COMMUNITY, icon: '💭', severity: 'info' },
-    QUESTION_ASKED: { category: EventCategory.COMMUNITY, icon: '❓', severity: 'info' },
-    QUESTION_ANSWERED: { category: EventCategory.COMMUNITY, icon: '💡', severity: 'success' },
+    POST_CREATED: { category: EventCategory.COMMUNITY, icon: 'file-plus', severity: 'success' },
+    POST_EDITED: { category: EventCategory.COMMUNITY, icon: 'edit', severity: 'info' },
+    POST_DELETED: { category: EventCategory.COMMUNITY, icon: 'trash-2', severity: 'warning' },
+    COMMENT_ADDED: { category: EventCategory.COMMUNITY, icon: 'message-square', severity: 'info' },
+    QUESTION_ASKED: { category: EventCategory.COMMUNITY, icon: 'help-circle', severity: 'info' },
+    QUESTION_ANSWERED: { category: EventCategory.COMMUNITY, icon: 'check-square', severity: 'success' },
     
     // Payments
-    PAYMENT_CREATED: { category: EventCategory.PAYMENTS, icon: '💳', severity: 'success' },
-    PAYMENT_UPDATED: { category: EventCategory.PAYMENTS, icon: '💰', severity: 'info' },
-    PAYMENT_DELETED: { category: EventCategory.PAYMENTS, icon: '❌', severity: 'warning' },
-    PAYMENT_CONFIRMED: { category: EventCategory.PAYMENTS, icon: '✅', severity: 'success' },
+    PAYMENT_CREATED: { category: EventCategory.PAYMENTS, icon: 'credit-card', severity: 'success' },
+    PAYMENT_UPDATED: { category: EventCategory.PAYMENTS, icon: 'dollar-sign', severity: 'info' },
+    PAYMENT_DELETED: { category: EventCategory.PAYMENTS, icon: 'x-circle', severity: 'warning' },
+    PAYMENT_CONFIRMED: { category: EventCategory.PAYMENTS, icon: 'check-circle', severity: 'success' },
     
     // Users
-    USER_CREATED: { category: EventCategory.USERS, icon: '👤', severity: 'success' },
-    USER_UPDATED: { category: EventCategory.USERS, icon: '✏️', severity: 'info' },
-    USER_DELETED: { category: EventCategory.USERS, icon: '🗑️', severity: 'warning' },
-    PROFILE_UPDATED: { category: EventCategory.USERS, icon: '👤', severity: 'info' },
-    AVATAR_CHANGED: { category: EventCategory.USERS, icon: '🖼️', severity: 'info' },
+    USER_CREATED: { category: EventCategory.USERS, icon: 'user-plus', severity: 'success' },
+    USER_UPDATED: { category: EventCategory.USERS, icon: 'user-cog', severity: 'info' },
+    USER_DELETED: { category: EventCategory.USERS, icon: 'user-minus', severity: 'warning' },
+    PROFILE_UPDATED: { category: EventCategory.USERS, icon: 'user', severity: 'info' },
+    AVATAR_CHANGED: { category: EventCategory.USERS, icon: 'image', severity: 'info' },
     
     // System
-    SERVER_START: { category: EventCategory.SYSTEM, icon: '🚀', severity: 'success' },
-    SERVER_ERROR: { category: EventCategory.SYSTEM, icon: '❗', severity: 'error' },
-    DB_ERROR: { category: EventCategory.SYSTEM, icon: '🗄️', severity: 'error' },
-    API_ERROR: { category: EventCategory.SYSTEM, icon: '⚠️', severity: 'error' },
-    HEALTH_CHECK: { category: EventCategory.SYSTEM, icon: '🏥', severity: 'info' }
+    SERVER_START: { category: EventCategory.SYSTEM, icon: 'power', severity: 'success' },
+    SERVER_ERROR: { category: EventCategory.SYSTEM, icon: 'alert-circle', severity: 'error' },
+    DB_ERROR: { category: EventCategory.SYSTEM, icon: 'database', severity: 'error' },
+    API_ERROR: { category: EventCategory.SYSTEM, icon: 'alert-triangle', severity: 'error' },
+    HEALTH_CHECK: { category: EventCategory.SYSTEM, icon: 'activity', severity: 'info' }
 };
 
 /**

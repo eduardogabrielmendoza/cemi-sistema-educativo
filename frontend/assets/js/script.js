@@ -2350,12 +2350,6 @@ function renderStatusSection() {
       .activity-icon.info { background: #dbeafe !important; }
       .activity-icon.warning { background: #fef3c7 !important; }
       .activity-icon.error { background: #fee2e2 !important; }
-      
-      /* Estilo para emojis */
-      .activity-emoji {
-        font-size: 18px;
-        line-height: 1;
-      }
 
       /* Metrics Title */
       .metrics-title {
@@ -3934,10 +3928,8 @@ function renderActivityFeed() {
     .then(data => {
       if (data.activities && data.activities.length > 0) {
         feed.innerHTML = data.activities.map(activity => {
-          // Usar el emoji del backend si está disponible, sino usar icono Lucide
-          const iconContent = activity.icon && activity.icon.length <= 2 
-            ? `<span class="activity-emoji">${activity.icon}</span>`
-            : `<i data-lucide="${activity.icon || 'activity'}"></i>`;
+          // Siempre usar icono Lucide
+          const iconName = activity.icon || 'activity';
           
           // Clase de severidad para estilizar
           const severityClass = activity.severity || 'info';
@@ -3945,7 +3937,7 @@ function renderActivityFeed() {
           return `
             <div class="activity-item ${activity.category || activity.type} ${severityClass}" style="animation: slideInActivity 0.3s ease">
               <div class="activity-icon ${severityClass}">
-                ${iconContent}
+                <i data-lucide="${iconName}"></i>
               </div>
               <div class="activity-content">
                 <span class="activity-text">${activity.message}</span>
@@ -3958,11 +3950,12 @@ function renderActivityFeed() {
       } else {
         feed.innerHTML = `
           <div class="activity-item info" style="padding: 20px; text-align: center; color: #6c757d;">
-            <span class="activity-emoji">📭</span>
+            <i data-lucide="inbox" style="width: 24px; height: 24px; margin-bottom: 8px;"></i>
             <span class="activity-text">Sin actividad reciente</span>
             <br><small>Los eventos aparecerán cuando los usuarios interactúen con la plataforma</small>
           </div>
         `;
+        lucide.createIcons();
       }
     })
     .catch(err => {
@@ -4143,9 +4136,9 @@ async function viewServiceLogs(serviceId, serviceName) {
     html: `
       <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; justify-content: center;">
         <button onclick="filterLogs('all')" class="log-filter-btn active" data-filter="all" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: #4a5259; color: white; cursor: pointer; font-size: 0.8rem;">Todos</button>
-        <button onclick="filterLogs('INFO')" class="log-filter-btn" data-filter="INFO" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">✅ Info</button>
-        <button onclick="filterLogs('WARN')" class="log-filter-btn" data-filter="WARN" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">⚠️ Warning</button>
-        <button onclick="filterLogs('ERROR')" class="log-filter-btn" data-filter="ERROR" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">❌ Error</button>
+        <button onclick="filterLogs('INFO')" class="log-filter-btn" data-filter="INFO" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">Info</button>
+        <button onclick="filterLogs('WARN')" class="log-filter-btn" data-filter="WARN" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">Warning</button>
+        <button onclick="filterLogs('ERROR')" class="log-filter-btn" data-filter="ERROR" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.8rem;">Error</button>
       </div>
       <div id="logsStats" style="display: flex; gap: 15px; justify-content: center; margin-bottom: 15px; font-size: 0.75rem; color: #64748b;">
         <span>Total: <strong id="statTotal">-</strong></span>
@@ -4279,7 +4272,7 @@ function renderFilteredLogs() {
       return `
         <div style="background: ${bgColor}; padding: 8px 10px; border-bottom: 1px solid #1e293b; border-radius: 4px; margin-bottom: 4px;">
           <div style="display: flex; align-items: flex-start; gap: 8px;">
-            <span style="font-size: 1rem;">${icon}</span>
+            <i data-lucide="${log.icon || 'activity'}" style="width: 16px; height: 16px; color: ${color}; flex-shrink: 0; margin-top: 2px;"></i>
             <div style="flex: 1;">
               <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                 <span style="color: #475569; font-size: 0.7rem;">${time}</span>
@@ -4296,7 +4289,7 @@ function renderFilteredLogs() {
   } else {
     container.innerHTML = `
       <div style="color: #64748b; text-align: center; padding: 40px;">
-        <span style="font-size: 2rem;">📭</span>
+        <i data-lucide="inbox" style="width: 40px; height: 40px; opacity: 0.5;"></i>
         <p style="margin-top: 10px;">No hay logs disponibles${window.currentLogFilter !== 'all' ? ` de tipo ${window.currentLogFilter}` : ''}</p>
         <p style="font-size: 0.75rem; margin-top: 5px;">Los eventos aparecerán cuando los usuarios interactúen con la plataforma</p>
       </div>
