@@ -69,6 +69,10 @@ router.get("/clases/:tipo/:id", async (req, res) => {
 
     const [clases] = await pool.query(query, params);
     res.json(clases);
+    
+    // Log del acceso a classroom
+    const userLabel = tipo === 'profesor' ? `Profesor #${id}` : `Alumno #${id}`;
+    eventLogger.classroom.access(userLabel, `${clases.length} curso(s)`);
   } catch (error) {
     console.error("Error al obtener clases:", error);
     res.status(500).json({ message: "Error al obtener clases" });
@@ -372,6 +376,9 @@ router.post("/anuncios", async (req, res) => {
       message: "Anuncio creado exitosamente",
       id_anuncio: idAnuncio 
     });
+    
+    // Log del evento
+    eventLogger.classroom.announcementCreated(`Profesor #${id_profesor}`, titulo, `Curso #${id_curso}`);
   } catch (error) {
     await connection.rollback();
     console.error("Error al crear anuncio:", error);
@@ -809,6 +816,9 @@ router.post("/tareas", async (req, res) => {
       message: "Tarea creada exitosamente",
       id_tarea: result.insertId 
     });
+    
+    // Log del evento
+    eventLogger.classroom.taskCreated(`Profesor #${id_profesor}`, titulo, `Curso #${id_curso}`);
   } catch (error) {
     console.error("Error al crear tarea:", error);
     res.status(500).json({ message: "Error al crear tarea" });
@@ -827,6 +837,9 @@ router.delete("/tareas/:id", async (req, res) => {
       success: true, 
       message: "Tarea eliminada exitosamente" 
     });
+    
+    // Log del evento
+    eventLogger.classroom.taskDeleted('Usuario', id);
   } catch (error) {
     console.error("Error al eliminar tarea:", error);
     res.status(500).json({ message: "Error al eliminar tarea" });
@@ -976,6 +989,9 @@ router.post("/encuestas/votar", async (req, res) => {
       message: "Voto registrado exitosamente",
       cambio: false
     });
+    
+    // Log del evento
+    eventLogger.classroom.pollVoted(`Alumno #${id_alumno}`, id_encuesta);
   } catch (error) {
     await connection.rollback();
     console.error("Error al votar en encuesta:", error);
@@ -1155,6 +1171,10 @@ router.post("/comentarios", async (req, res) => {
       success: true, 
       comentario: comentario[0]
     });
+    
+    // Log del evento
+    const userLabel = tipo_usuario === 'profesor' ? `Profesor #${id_usuario}` : `Alumno #${id_usuario}`;
+    eventLogger.classroom.commentPosted(userLabel, anuncioInfo[0]?.titulo || `Anuncio #${id_anuncio}`);
   } catch (error) {
     await connection.rollback();
     console.error("Error al crear comentario:", error);
@@ -1828,6 +1848,9 @@ router.delete("/anuncio/:id", async (req, res) => {
       success: true,
       message: "Anuncio eliminado exitosamente"
     });
+    
+    // Log del evento
+    eventLogger.classroom.announcementDeleted('Usuario', id);
   } catch (error) {
     console.error("Error al eliminar anuncio:", error);
     res.status(500).json({ message: "Error al eliminar anuncio" });
@@ -1846,6 +1869,9 @@ router.delete("/tarea/:id", async (req, res) => {
       success: true,
       message: "Tarea eliminada exitosamente"
     });
+    
+    // Log del evento
+    eventLogger.classroom.taskDeleted('Usuario', id);
   } catch (error) {
     console.error("Error al eliminar tarea:", error);
     res.status(500).json({ message: "Error al eliminar tarea" });
@@ -2099,6 +2125,8 @@ router.delete("/recursos/:id", async (req, res) => {
       message: "Recurso eliminado exitosamente"
     });
     
+    // Log del evento
+    eventLogger.classroom.resourceDeleted('Usuario', id);
   } catch (error) {
     console.error("Error al eliminar recurso:", error);
     res.status(500).json({ 
@@ -2115,6 +2143,9 @@ router.post("/recursos/:id/descarga", async (req, res) => {
     await pool.query(`UPDATE anuncios SET descargas = descargas + 1 WHERE id_anuncio = ? AND es_recurso = 1`, [id]);
     
     res.json({ success: true });
+    
+    // Log del evento
+    eventLogger.classroom.resourceDownloaded('Usuario', `Recurso #${id}`);
   } catch (error) {
     console.error("Error al registrar descarga:", error);
     res.status(500).json({ success: false });

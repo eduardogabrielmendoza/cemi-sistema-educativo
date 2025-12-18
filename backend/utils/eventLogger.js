@@ -30,10 +30,17 @@ const EventTypes = {
     
     // Classroom
     CLASSROOM_ACCESS: { category: EventCategory.CLASSROOM, icon: 'book-open', severity: 'info' },
+    TASK_CREATED: { category: EventCategory.CLASSROOM, icon: 'file-plus', severity: 'success' },
     TASK_SUBMITTED: { category: EventCategory.CLASSROOM, icon: 'check-circle', severity: 'success' },
     TASK_GRADED: { category: EventCategory.CLASSROOM, icon: 'award', severity: 'success' },
+    TASK_DELETED: { category: EventCategory.CLASSROOM, icon: 'file-minus', severity: 'warning' },
+    ANNOUNCEMENT_CREATED: { category: EventCategory.CLASSROOM, icon: 'megaphone', severity: 'success' },
+    ANNOUNCEMENT_DELETED: { category: EventCategory.CLASSROOM, icon: 'trash-2', severity: 'warning' },
+    POLL_VOTED: { category: EventCategory.CLASSROOM, icon: 'vote', severity: 'info' },
+    COMMENT_POSTED: { category: EventCategory.CLASSROOM, icon: 'message-square', severity: 'info' },
     RESOURCE_UPLOADED: { category: EventCategory.CLASSROOM, icon: 'upload', severity: 'info' },
     RESOURCE_DOWNLOADED: { category: EventCategory.CLASSROOM, icon: 'download', severity: 'info' },
+    RESOURCE_DELETED: { category: EventCategory.CLASSROOM, icon: 'trash', severity: 'warning' },
     COURSE_CREATED: { category: EventCategory.CLASSROOM, icon: 'graduation-cap', severity: 'success' },
     ENROLLMENT: { category: EventCategory.CLASSROOM, icon: 'clipboard-list', severity: 'info' },
     
@@ -250,10 +257,17 @@ const eventLogger = {
     },
     classroom: {
         access: (user, course) => logEvent('CLASSROOM_ACCESS', `${user} accedió a ${course}`, { user, course }),
+        taskCreated: (teacher, task, course) => logEvent('TASK_CREATED', `${teacher} creó tarea: ${task}`, { teacher, task, course }),
         taskSubmitted: (user, task) => logEvent('TASK_SUBMITTED', `${user} entregó: ${task}`, { user, task }),
         taskGraded: (teacher, student, task) => logEvent('TASK_GRADED', `${teacher} calificó a ${student}`, { teacher, student, task }),
+        taskDeleted: (user, taskId) => logEvent('TASK_DELETED', `Tarea #${taskId} eliminada`, { user, taskId }),
+        announcementCreated: (teacher, title, course) => logEvent('ANNOUNCEMENT_CREATED', `${teacher} publicó: ${title}`, { teacher, title, course }),
+        announcementDeleted: (user, announcementId) => logEvent('ANNOUNCEMENT_DELETED', `Anuncio #${announcementId} eliminado`, { user, announcementId }),
+        pollVoted: (student, pollId) => logEvent('POLL_VOTED', `${student} votó en encuesta #${pollId}`, { student, pollId }),
+        commentPosted: (user, announcementTitle) => logEvent('COMMENT_POSTED', `${user} comentó en: ${announcementTitle}`, { user, announcementTitle }),
         resourceUploaded: (user, resource) => logEvent('RESOURCE_UPLOADED', `${user} subió: ${resource}`, { user, resource }),
         resourceDownloaded: (user, resource) => logEvent('RESOURCE_DOWNLOADED', `${user} descargó: ${resource}`, { user, resource }),
+        resourceDeleted: (user, resourceId) => logEvent('RESOURCE_DELETED', `Recurso #${resourceId} eliminado`, { user, resourceId }),
         courseCreated: (admin, course) => logEvent('COURSE_CREATED', `Nuevo curso: ${course}`, { admin, course }),
         enrollment: (student, course) => logEvent('ENROLLMENT', `${student} inscrito en ${course}`, { student, course })
     },
