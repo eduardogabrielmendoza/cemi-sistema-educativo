@@ -70,6 +70,29 @@ class ChatServer {
         await this.handleCloseConversation(socket, data);
       });
       
+      // ========================================
+      // EVENTOS DE CLASSROOM CHAT
+      // ========================================
+      socket.on('classroom_auth', (data) => {
+        this.handleClassroomAuth(socket, data);
+      });
+      
+      socket.on('join_classroom_conversation', (data) => {
+        this.handleJoinClassroomConversation(socket, data);
+      });
+      
+      socket.on('classroom_message', (data) => {
+        this.handleClassroomMessage(socket, data);
+      });
+      
+      socket.on('classroom_typing', (data) => {
+        this.handleClassroomTyping(socket, data);
+      });
+      
+      socket.on('classroom_read', (data) => {
+        this.handleClassroomRead(socket, data);
+      });
+      
       socket.on('disconnect', () => {
         this.handleDisconnect(socket);
       });
@@ -568,6 +591,88 @@ class ChatServer {
     } catch (error) {
       console.error(' Error al obtener conteo:', error);
     }
+  }
+  
+  // ========================================
+  // MÉTODOS DE CLASSROOM CHAT
+  // ========================================
+  
+  handleClassroomAuth(socket, data) {
+    const { tipo, id, nombre } = data;
+    
+    socket.classroomUser = { tipo, id, nombre };
+    
+    // Crear identificador único para este usuario
+    const classroomUserId = `classroom_${tipo}_${id}`;
+    socket.join(classroomUserId);
+    
+    console.log(`📚 Usuario Classroom autenticado: ${tipo} ${id} - ${nombre}`);
+    
+    socket.emit('classroom_authenticated', { success: true });
+  }
+  
+  handleJoinClassroomConversation(socket, data) {
+    const { id_conversacion } = data;
+    
+    if (!id_conversacion) return;
+    
+    // Unirse a la sala de la conversación
+    const roomName = `classroom_conv_${id_conversacion}`;
+    socket.join(roomName);
+    
+    console.log(`📚 Usuario unido a conversación classroom: ${id_conversacion}`);
+  }
+  
+  handleClassroomMessage(socket, data) {
+    const { id_conversacion, mensaje } = data;
+    
+    if (!id_conversacion || !mensaje) return;
+    
+    // Emitir a todos en la sala de la conversación
+    const roomName = `classroom_conv_${id_conversacion}`;
+    socket.to(roomName).emit('new_classroom_message', {
+      id_conversacion,
+      ...mensaje
+    });
+    
+    // También emitir al destinatario si está en línea pero no en la sala
+    // Esto es para las notificaciones cuando el chat no está abierto
+    if (mensaje.destinatario_tipo && mensaje.destinatario_id) {
+      const destinatarioRoom = `classroom_${mensaje.destinatario_tipo}_${mensaje.destinatario_id}`;
+      socket.to(destinatarioRoom).emit('new_classroom_message', {
+        id_conversacion,
+        ...mensaje
+      });
+    }
+    
+    console.log(`📚 Mensaje classroom enviado en conversación: ${id_conversacion}`);
+  }
+  
+  handleClassroomTyping(socket, data) {
+    const { id_conversacion, isTyping } = data;
+    
+    if (!id_conversacion) return;
+    
+    const roomName = `classroom_conv_${id_conversacion}`;
+    socket.to(roomName).emit('classroom_typing', {
+      id_conversacion,
+      isTyping,
+      from: socket.classroomUser
+    });
+  }
+  
+  handleClassroomRead(socket, data) {
+    const { id_conversacion } = data;
+    
+    if (!id_conversacion) return;
+    
+    const roomName = `classroom_conv_${id_conversacion}`;
+    socket.to(roomName).emit('classroom_read', {
+      id_conversacion,
+      readBy: socket.classroomUser
+    });
+    
+    console.log(`📚 Mensajes marcados como leídos en conversación: ${id_conversacion}`);
   }
   
   handleDisconnect(socket) {

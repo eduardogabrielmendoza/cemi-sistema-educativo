@@ -11,6 +11,7 @@
   <link rel="icon" type="image/png" href="images/logo.png">
   <title>Cemi Classroom - Plataforma Educativa</title>
   <link rel="stylesheet" href="assets/css/classroom.css">
+  <link rel="stylesheet" href="assets/css/classroom-chat.css">
   
   <script src="assets/js/config.js"></script>
   <script src="assets/js/check-maintenance.js"></script>
@@ -152,6 +153,14 @@
             <span>Todas las Clases</span>
           </a>
         </div>
+        
+        <div class="nav-divider"></div>
+        
+        <a href="#" class="nav-item" id="btnOpenChat">
+          <i data-lucide="message-circle"></i>
+          <span>Mensajes</span>
+          <span class="nav-badge" id="chatUnreadBadge" style="display: none;">0</span>
+        </a>
         
         <div class="nav-divider"></div>
         
@@ -590,6 +599,123 @@
   
   <script>
     lucide.createIcons();
+  </script>
+  
+  <!-- Chat Modal -->
+  <div class="classroom-chat-modal" id="classroomChatModal">
+    <div class="chat-modal-backdrop"></div>
+    <div class="chat-modal-container">
+      
+      <!-- Panel de Contactos -->
+      <div class="chat-contacts-panel">
+        <div class="contacts-header">
+          <h3>
+            <i data-lucide="message-circle"></i>
+            Mensajes
+          </h3>
+          <button class="contacts-close" id="chatModalClose">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        
+        <div class="contacts-search">
+          <i data-lucide="search"></i>
+          <input type="text" id="chatContactSearch" placeholder="Buscar contacto...">
+        </div>
+        
+        <div class="contacts-tabs">
+          <button class="contacts-tab active" data-tab="profesores">
+            <i data-lucide="user-check"></i>
+            Profesores
+            <span class="tab-badge" style="display: none;">0</span>
+          </button>
+          <button class="contacts-tab" data-tab="companeros">
+            <i data-lucide="users"></i>
+            Compañeros
+            <span class="tab-badge" style="display: none;">0</span>
+          </button>
+        </div>
+        
+        <div class="contacts-list">
+          <div id="chatListProfesores" class="contacts-list-section">
+            <div class="contacts-loading">
+              <div class="spinner"></div>
+              <p>Cargando contactos...</p>
+            </div>
+          </div>
+          <div id="chatListCompaneros" class="contacts-list-section" style="display: none;">
+            <div class="contacts-loading">
+              <div class="spinner"></div>
+              <p>Cargando contactos...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Panel de Conversación -->
+      <div class="chat-conversation-panel">
+        <div class="conversation-header" id="conversationHeader" style="display: none;">
+          <div class="conversation-avatar" id="conversationAvatar"></div>
+          <div class="conversation-info">
+            <div class="conversation-name" id="conversationName">Nombre</div>
+            <div class="conversation-role" id="conversationRole">Rol</div>
+          </div>
+        </div>
+        
+        <div class="conversation-messages" id="conversationMessages" style="display: none;">
+        </div>
+        
+        <div class="conversation-empty" id="conversationEmpty">
+          <i data-lucide="message-square"></i>
+          <h4>Selecciona un contacto</h4>
+          <p>Elige a un profesor o compañero para iniciar una conversación</p>
+        </div>
+        
+        <div class="conversation-input-area" id="conversationInput" style="display: none;">
+          <div class="chat-file-preview" id="chatFilePreview" style="display: none;"></div>
+          
+          <div class="conversation-input-wrapper">
+            <button class="input-action-btn" id="chatAttachBtn" title="Adjuntar archivo">
+              <i data-lucide="paperclip"></i>
+            </button>
+            <input type="file" id="chatFileInput" style="display: none;" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+            
+            <textarea id="chatMessageInput" placeholder="Escribe un mensaje..." rows="1"></textarea>
+            
+            <button class="send-btn" id="chatSendBtn" title="Enviar">
+              <i data-lucide="send"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="assets/js/classroom-chat.js"></script>
+  <script>
+    // Abrir chat desde el sidebar
+    document.getElementById('btnOpenChat')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (classroomChat) {
+        classroomChat.openModal();
+      }
+    });
+    
+    // Actualizar badge en sidebar cuando cambie el contador
+    const originalUpdateBadge = ClassroomChat.prototype.updateUnreadBadge;
+    ClassroomChat.prototype.updateUnreadBadge = function() {
+      originalUpdateBadge?.call(this);
+      const sidebarBadge = document.getElementById('chatUnreadBadge');
+      if (sidebarBadge) {
+        if (this.unreadCount > 0) {
+          sidebarBadge.textContent = this.unreadCount > 99 ? '99+' : this.unreadCount;
+          sidebarBadge.style.display = 'inline-flex';
+        } else {
+          sidebarBadge.style.display = 'none';
+        }
+      }
+    };
   </script>
   
   <script src="assets/js/help-widget.js"></script>
