@@ -108,24 +108,22 @@ router.get("/contactos/:tipo/:id", async (req, res) => {
         ORDER BY sort_nombre, sort_apellido
       `, cursosIds);
       
-      // Obtener compañeros (otros alumnos de los mismos cursos)
+      // Obtener compañeros (otros alumnos de los mismos cursos) - SIN duplicados
       const [companeros] = await pool.query(`
-        SELECT DISTINCT
+        SELECT 
           a.id_alumno,
           CONCAT(p.nombre, ' ', p.apellido) as nombre_completo,
           p.avatar,
-          c.nombre_curso,
-          c.id_curso,
           'alumno' as tipo,
           p.nombre as sort_nombre,
           p.apellido as sort_apellido
         FROM inscripciones i
         JOIN alumnos a ON i.id_alumno = a.id_alumno
         JOIN personas p ON a.id_persona = p.id_persona
-        JOIN cursos c ON i.id_curso = c.id_curso
         WHERE i.id_curso IN (${cursosIds.map(() => '?').join(',')}) 
           AND i.estado = 'activo'
           AND a.id_alumno != ?
+        GROUP BY a.id_alumno, p.nombre, p.apellido, p.avatar
         ORDER BY sort_nombre, sort_apellido
       `, [...cursosIds, id]);
       
@@ -154,45 +152,26 @@ router.get("/contactos/:tipo/:id", async (req, res) => {
       
       const cursosIds = cursos.map(c => c.id_curso);
       
-      // Obtener otros profesores de la institución (opcional)
-      const [profesores] = await pool.query(`
-        SELECT DISTINCT
-          pr.id_profesor,
-          CONCAT(p.nombre, ' ', p.apellido) as nombre_completo,
-          p.avatar,
-          c.nombre_curso,
-          c.id_curso,
-          'profesor' as tipo,
-          p.nombre as sort_nombre,
-          p.apellido as sort_apellido
-        FROM cursos c
-        JOIN profesores pr ON c.id_profesor = pr.id_profesor
-        JOIN personas p ON pr.id_persona = p.id_persona
-        WHERE c.id_curso IN (${cursosIds.map(() => '?').join(',')}) AND pr.id_profesor != ?
-        ORDER BY sort_nombre, sort_apellido
-      `, [...cursosIds, id]);
-      
-      // Obtener alumnos de sus cursos
+      // Para profesores: solo obtener alumnos de sus cursos (sin duplicados)
       const [alumnos] = await pool.query(`
-        SELECT DISTINCT
+        SELECT 
           a.id_alumno,
           CONCAT(p.nombre, ' ', p.apellido) as nombre_completo,
           p.avatar,
-          c.nombre_curso,
-          c.id_curso,
           'alumno' as tipo,
           p.nombre as sort_nombre,
           p.apellido as sort_apellido
         FROM inscripciones i
         JOIN alumnos a ON i.id_alumno = a.id_alumno
         JOIN personas p ON a.id_persona = p.id_persona
-        JOIN cursos c ON i.id_curso = c.id_curso
         WHERE i.id_curso IN (${cursosIds.map(() => '?').join(',')}) AND i.estado = 'activo'
+        GROUP BY a.id_alumno, p.nombre, p.apellido, p.avatar
         ORDER BY sort_nombre, sort_apellido
       `, cursosIds);
       
-      contactos.profesores = profesores;
-      contactos.compañeros = alumnos; // Para profesores, son sus alumnos
+      // Profesores NO ven otros profesores - solo tienen una lista de alumnos
+      contactos.profesores = [];
+      contactos.alumnos = alumnos; // Lista única de alumnos para profesores
     }
     
     res.json(contactos);
@@ -200,6 +179,67 @@ router.get("/contactos/:tipo/:id", async (req, res) => {
   } catch (error) {
     console.error("Error al obtener contactos:", error);
     res.status(500).json({ message: "Error al obtener contactos" });
+  }
+});
+
+// =====================================================
+// GET /api/classroom-chat/curso-comun/:tipo1/:id1/:tipo2/:id2
+// Buscar el primer curso en común entre dos usuarios
+// =====================================================
+router.get("/curso-comun/:tipo1/:id1/:tipo2/:id2", async (req, res) => {
+  try {
+    const { tipo1, id1, tipo2, id2 } = req.params;
+    
+    let query = '';
+    let params = [];
+    
+    if (tipo1 === 'alumno' && tipo2 === 'alumno') {
+      // Buscar cursos en común entre dos alumnos
+      query = `
+        SELECT i1.id_curso 
+        FROM inscripciones i1
+        JOIN inscripciones i2 ON i1.id_curso = i2.id_curso
+        WHERE i1.id_alumno = ? AND i2.id_alumno = ?
+          AND i1.estado = 'activo' AND i2.estado = 'activo'
+        LIMIT 1
+      `;
+      params = [id1, id2];
+    } else if (tipo1 === 'alumno' && tipo2 === 'profesor') {
+      // Buscar cursos del alumno donde el profesor enseña
+      query = `
+        SELECT i.id_curso 
+        FROM inscripciones i
+        JOIN cursos c ON i.id_curso = c.id_curso
+        WHERE i.id_alumno = ? AND c.id_profesor = ? AND i.estado = 'activo'
+        LIMIT 1
+      `;
+      params = [id1, id2];
+    } else if (tipo1 === 'profesor' && tipo2 === 'alumno') {
+      // Buscar cursos del profesor donde el alumno está inscrito
+      query = `
+        SELECT c.id_curso 
+        FROM cursos c
+        JOIN inscripciones i ON c.id_curso = i.id_curso
+        WHERE c.id_profesor = ? AND i.id_alumno = ? AND i.estado = 'activo'
+        LIMIT 1
+      `;
+      params = [id1, id2];
+    } else if (tipo1 === 'profesor' && tipo2 === 'profesor') {
+      // No debería haber comunicación entre profesores según los requisitos
+      return res.status(400).json({ message: "No se permite comunicación entre profesores" });
+    }
+    
+    const [result] = await pool.query(query, params);
+    
+    if (result.length === 0) {
+      return res.status(404).json({ message: "No se encontró un curso en común" });
+    }
+    
+    res.json({ id_curso: result[0].id_curso });
+    
+  } catch (error) {
+    console.error("Error al buscar curso en común:", error);
+    res.status(500).json({ message: "Error al buscar curso en común" });
   }
 });
 

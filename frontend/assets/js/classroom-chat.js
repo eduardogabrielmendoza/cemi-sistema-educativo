@@ -9,7 +9,7 @@ class ClassroomChat {
     this.currentUser = null;
     this.currentConversation = null;
     this.currentContact = null;
-    this.contactos = { profesores: [], compañeros: [] };
+    this.contactos = { profesores: [], compañeros: [], alumnos: [] };
     this.conversaciones = [];
     this.isTyping = false;
     this.typingTimeout = null;
@@ -234,37 +234,84 @@ class ClassroomChat {
   renderContacts() {
     const listProfesores = document.getElementById('chatListProfesores');
     const listCompaneros = document.getElementById('chatListCompaneros');
+    const tabProfesores = document.querySelector('[data-tab="profesores"]');
+    const tabCompaneros = document.querySelector('[data-tab="companeros"]');
     
-    // Renderizar profesores
-    if (listProfesores) {
-      if (this.contactos.profesores.length === 0) {
-        listProfesores.innerHTML = `
-          <div class="messages-empty">
-            <i data-lucide="user-x"></i>
-            <p>No hay profesores disponibles</p>
-          </div>
-        `;
-      } else {
-        listProfesores.innerHTML = this.contactos.profesores.map(c => this.renderContactItem(c)).join('');
+    // Detectar si es profesor o alumno para ajustar la UI
+    const isProfesor = this.currentUser.tipo === 'profesor';
+    
+    if (isProfesor) {
+      // Para profesores: solo mostrar lista de "Alumnos"
+      if (tabProfesores) tabProfesores.style.display = 'none';
+      if (tabCompaneros) {
+        tabCompaneros.style.display = 'flex';
+        tabCompaneros.innerHTML = `<i data-lucide="users"></i> Alumnos <span class="tab-badge">0</span>`;
+        tabCompaneros.classList.add('active');
       }
-    }
-    
-    // Renderizar compañeros
-    if (listCompaneros) {
-      if (this.contactos.compañeros.length === 0) {
-        listCompaneros.innerHTML = `
-          <div class="messages-empty">
-            <i data-lucide="users"></i>
-            <p>No hay compañeros disponibles</p>
-          </div>
-        `;
-      } else {
-        listCompaneros.innerHTML = this.contactos.compañeros.map(c => this.renderContactItem(c)).join('');
+      if (listProfesores) listProfesores.style.display = 'none';
+      if (listCompaneros) listCompaneros.style.display = 'block';
+      
+      // Renderizar alumnos del profesor
+      const alumnos = this.contactos.alumnos || [];
+      if (listCompaneros) {
+        if (alumnos.length === 0) {
+          listCompaneros.innerHTML = `
+            <div class="messages-empty">
+              <i data-lucide="users"></i>
+              <p>No hay alumnos disponibles</p>
+            </div>
+          `;
+        } else {
+          listCompaneros.innerHTML = alumnos.map(c => this.renderContactItem(c, false)).join('');
+        }
       }
+      
+      // Actualizar badge de alumnos
+      const tabBadge = tabCompaneros?.querySelector('.tab-badge');
+      if (tabBadge) {
+        tabBadge.textContent = alumnos.length;
+        tabBadge.style.display = alumnos.length > 0 ? 'inline-flex' : 'none';
+      }
+      
+    } else {
+      // Para alumnos: mostrar "Profesores" y "Compañeros"
+      if (tabProfesores) tabProfesores.style.display = 'flex';
+      if (tabCompaneros) {
+        tabCompaneros.style.display = 'flex';
+        tabCompaneros.innerHTML = `<i data-lucide="users"></i> Compañeros <span class="tab-badge">0</span>`;
+      }
+      
+      // Renderizar profesores
+      if (listProfesores) {
+        if (this.contactos.profesores.length === 0) {
+          listProfesores.innerHTML = `
+            <div class="messages-empty">
+              <i data-lucide="user-x"></i>
+              <p>No hay profesores disponibles</p>
+            </div>
+          `;
+        } else {
+          listProfesores.innerHTML = this.contactos.profesores.map(c => this.renderContactItem(c, true)).join('');
+        }
+      }
+      
+      // Renderizar compañeros (SIN curso, ya que pueden estar en múltiples cursos)
+      if (listCompaneros) {
+        if (this.contactos.compañeros.length === 0) {
+          listCompaneros.innerHTML = `
+            <div class="messages-empty">
+              <i data-lucide="users"></i>
+              <p>No hay compañeros disponibles</p>
+            </div>
+          `;
+        } else {
+          listCompaneros.innerHTML = this.contactos.compañeros.map(c => this.renderContactItem(c, false)).join('');
+        }
+      }
+      
+      // Actualizar badges de tabs
+      this.updateTabBadges();
     }
-    
-    // Actualizar badges de tabs
-    this.updateTabBadges();
     
     // Vincular eventos de contactos
     document.querySelectorAll('.contact-item').forEach(item => {
@@ -281,7 +328,7 @@ class ClassroomChat {
     }
   }
   
-  renderContactItem(contacto) {
+  renderContactItem(contacto, showCourse = true) {
     const initials = this.getInitials(contacto.nombre_completo);
     const avatar = contacto.avatar 
       ? `<img src="${contacto.avatar}" alt="${contacto.nombre_completo}">`
@@ -290,27 +337,34 @@ class ClassroomChat {
     const roleLabel = contacto.tipo === 'profesor' ? 'Profesor' : 'Alumno';
     
     // Buscar si hay conversación existente con mensajes no leídos
+    const contactId = contacto.id_profesor || contacto.id_alumno;
     const conv = this.conversaciones.find(c => 
       c.contacto_tipo === contacto.tipo && 
-      c.contacto_id === (contacto.id_profesor || contacto.id_alumno)
+      c.contacto_id == contactId
     );
     const noLeidos = conv?.no_leidos || 0;
+    const hasUnread = noLeidos > 0;
+    
+    // Para alumnos en la lista de compañeros, no mostrar curso
+    const courseInfo = showCourse && contacto.nombre_curso 
+      ? `<div class="contact-course">${contacto.nombre_curso}</div>` 
+      : '';
     
     return `
-      <div class="contact-item" 
+      <div class="contact-item ${hasUnread ? 'has-unread' : ''}" 
            data-tipo="${contacto.tipo}" 
-           data-id="${contacto.id_profesor || contacto.id_alumno}"
-           data-curso="${contacto.id_curso}">
+           data-id="${contactId}"
+           data-curso="${contacto.id_curso || ''}">
         <div class="contact-avatar">${avatar}</div>
         <div class="contact-info">
           <div class="contact-name">${contacto.nombre_completo}</div>
-          <div class="contact-course">${contacto.nombre_curso}</div>
+          ${courseInfo}
           <div class="contact-role">
             <i data-lucide="${contacto.tipo === 'profesor' ? 'user-check' : 'graduation-cap'}"></i>
             ${roleLabel}
           </div>
         </div>
-        ${noLeidos > 0 ? `<span class="contact-badge">${noLeidos}</span>` : ''}
+        ${hasUnread ? '<span class="contact-unread-dot"></span>' : ''}
       </div>
     `;
   }
@@ -369,10 +423,36 @@ class ClassroomChat {
   async selectContact(tipo, id, idCurso) {
     // Marcar contacto como activo
     document.querySelectorAll('.contact-item').forEach(item => item.classList.remove('active'));
-    document.querySelector(`.contact-item[data-tipo="${tipo}"][data-id="${id}"][data-curso="${idCurso}"]`)?.classList.add('active');
+    const contactItem = document.querySelector(`.contact-item[data-tipo="${tipo}"][data-id="${id}"]`);
+    if (contactItem) {
+      contactItem.classList.add('active');
+      // Remover indicador de no leídos
+      contactItem.classList.remove('has-unread');
+      const unreadDot = contactItem.querySelector('.contact-unread-dot');
+      if (unreadDot) unreadDot.remove();
+    }
     
     try {
       const token = localStorage.getItem('token');
+      
+      // Si no hay idCurso, buscar el primer curso en común
+      let cursoParaConversacion = idCurso;
+      if (!cursoParaConversacion) {
+        // Buscar un curso compartido entre los dos usuarios
+        const cursosResponse = await fetch(
+          `${this.API_URL}/classroom-chat/curso-comun/${this.currentUser.tipo}/${this.currentUser.id}/${tipo}/${id}`,
+          { headers: { 'Authorization': `Bearer ${token}` } }
+        );
+        if (cursosResponse.ok) {
+          const cursosData = await cursosResponse.json();
+          cursoParaConversacion = cursosData.id_curso;
+        }
+      }
+      
+      if (!cursoParaConversacion) {
+        this.showError('No se encontró un curso en común');
+        return;
+      }
       
       // Obtener o crear conversación
       const response = await fetch(`${this.API_URL}/classroom-chat/conversacion`, {
@@ -386,7 +466,7 @@ class ClassroomChat {
           mi_id: this.currentUser.id,
           contacto_tipo: tipo,
           contacto_id: id,
-          id_curso: idCurso
+          id_curso: cursoParaConversacion
         })
       });
       
@@ -398,7 +478,7 @@ class ClassroomChat {
       this.currentContact = {
         tipo,
         id,
-        id_curso: idCurso,
+        id_curso: cursoParaConversacion,
         nombre: data.contacto.nombre,
         avatar: data.contacto.avatar
       };
@@ -524,6 +604,30 @@ class ClassroomChat {
     
     const time = this.formatTime(mensaje.fecha_envio);
     
+    // Avatar para el mensaje
+    let avatarHtml = '';
+    if (isSent) {
+      // Mi avatar
+      const myAvatar = localStorage.getItem('avatar');
+      const myName = this.currentUser.nombre || 'Usuario';
+      const myInitials = this.getInitials(myName);
+      avatarHtml = `
+        <div class="message-avatar">
+          ${myAvatar ? `<img src="${myAvatar}" alt="${myName}">` : `<span class="avatar-initials">${myInitials}</span>`}
+        </div>
+      `;
+    } else {
+      // Avatar del contacto
+      const contactAvatar = this.currentContact?.avatar;
+      const contactName = this.currentContact?.nombre || 'Usuario';
+      const contactInitials = this.getInitials(contactName);
+      avatarHtml = `
+        <div class="message-avatar">
+          ${contactAvatar ? `<img src="${contactAvatar}" alt="${contactName}">` : `<span class="avatar-initials">${contactInitials}</span>`}
+        </div>
+      `;
+    }
+    
     let content = '';
     
     // Texto del mensaje
@@ -556,12 +660,15 @@ class ClassroomChat {
     
     return `
       <div class="message-bubble ${isSent ? 'sent' : 'received'}" data-id="${mensaje.id_mensaje}">
-        <div class="message-content">
-          ${content}
-        </div>
-        <div class="message-meta">
-          <span class="message-time">${time}</span>
-          ${isSent ? `<span class="message-status"><i data-lucide="${mensaje.leido ? 'check-check' : 'check'}"></i></span>` : ''}
+        ${avatarHtml}
+        <div class="message-wrapper">
+          <div class="message-content">
+            ${content}
+          </div>
+          <div class="message-meta">
+            <span class="message-time">${time}</span>
+            ${isSent ? `<span class="message-status"><i data-lucide="${mensaje.leido ? 'check-check' : 'check'}"></i></span>` : ''}
+          </div>
         </div>
       </div>
     `;
