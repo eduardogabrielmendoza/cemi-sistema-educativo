@@ -124,12 +124,23 @@ class ClassroomChat {
     // Búsqueda de contactos
     const searchInput = document.getElementById('chatContactSearch');
     if (searchInput) {
-      searchInput.addEventListener('input', (e) => this.filterContacts(e.target.value));
+      searchInput.addEventListener('input', (e) => this.filterItems(e.target.value));
     }
     
-    // Tabs de contactos
-    document.querySelectorAll('.messages-tab').forEach(tab => {
-      tab.addEventListener('click', (e) => this.switchTab(e.target.closest('.messages-tab').dataset.tab));
+    // Tabs principales (Bandeja / Contactos)
+    document.querySelectorAll('[data-main-tab]').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        const mainTab = e.target.closest('.messages-tab').dataset.mainTab;
+        this.switchMainTab(mainTab);
+      });
+    });
+    
+    // Sub-tabs de contactos (Profesores / Compañeros)
+    document.querySelectorAll('.messages-sub-tabs .messages-tab').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        const subTab = e.target.closest('.messages-tab').dataset.tab;
+        this.switchContactTab(subTab);
+      });
     });
     
     // Input de mensaje
@@ -162,6 +173,12 @@ class ClassroomChat {
       fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
     }
     
+    // Botón eliminar conversación
+    const deleteBtn = document.getElementById('conversationDeleteBtn');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', () => this.deleteConversation());
+    }
+    
     // Cerrar lightbox con Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -169,6 +186,79 @@ class ClassroomChat {
         if (lightbox) {
           this.closeLightbox();
         }
+      }
+    });
+  }
+  
+  // =====================================================
+  // Cambiar Tab Principal (Bandeja / Contactos)
+  // =====================================================
+  switchMainTab(tab) {
+    // Actualizar tabs activos
+    document.querySelectorAll('[data-main-tab]').forEach(t => t.classList.remove('active'));
+    document.querySelector(`[data-main-tab="${tab}"]`)?.classList.add('active');
+    
+    // Mostrar/ocultar paneles
+    const panelBandeja = document.getElementById('panelBandeja');
+    const panelContactos = document.getElementById('panelContactos');
+    
+    if (tab === 'bandeja') {
+      if (panelBandeja) panelBandeja.style.display = 'block';
+      if (panelContactos) panelContactos.style.display = 'none';
+    } else {
+      if (panelBandeja) panelBandeja.style.display = 'none';
+      if (panelContactos) panelContactos.style.display = 'block';
+    }
+  }
+  
+  // =====================================================
+  // Cambiar Sub-Tab de Contactos
+  // =====================================================
+  switchContactTab(tab) {
+    // Actualizar tabs activos
+    document.querySelectorAll('.messages-sub-tabs .messages-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.messages-sub-tabs [data-tab="${tab}"]`)?.classList.add('active');
+    
+    // Mostrar/ocultar listas
+    const listProfesores = document.getElementById('chatListProfesores');
+    const listCompaneros = document.getElementById('chatListCompaneros');
+    
+    if (tab === 'profesores') {
+      if (listProfesores) listProfesores.style.display = 'block';
+      if (listCompaneros) listCompaneros.style.display = 'none';
+    } else {
+      if (listProfesores) listProfesores.style.display = 'none';
+      if (listCompaneros) listCompaneros.style.display = 'block';
+    }
+  }
+  
+  // =====================================================
+  // Filtrar elementos (Bandeja y Contactos)
+  // =====================================================
+  filterItems(query) {
+    const q = query.toLowerCase().trim();
+    
+    // Filtrar contactos
+    document.querySelectorAll('.contact-item').forEach(item => {
+      const name = item.querySelector('.contact-name')?.textContent.toLowerCase() || '';
+      const course = item.querySelector('.contact-course')?.textContent.toLowerCase() || '';
+      
+      if (name.includes(q) || course.includes(q) || q === '') {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    
+    // Filtrar conversaciones en bandeja
+    document.querySelectorAll('.bandeja-item').forEach(item => {
+      const name = item.querySelector('.bandeja-name')?.textContent.toLowerCase() || '';
+      const preview = item.querySelector('.bandeja-preview')?.textContent.toLowerCase() || '';
+      
+      if (name.includes(q) || preview.includes(q) || q === '') {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
       }
     });
   }
@@ -184,11 +274,14 @@ class ClassroomChat {
     
     this.isViewActive = true;
     
+    // Cargar conversaciones existentes (para la bandeja)
+    await this.loadConversations();
+    
+    // Renderizar bandeja de entrada
+    this.renderBandeja();
+    
     // Cargar contactos
     await this.loadContacts();
-    
-    // Cargar conversaciones existentes
-    await this.loadConversations();
     
     // Actualizar iconos
     if (typeof lucide !== 'undefined') {
@@ -234,8 +327,8 @@ class ClassroomChat {
   renderContacts() {
     const listProfesores = document.getElementById('chatListProfesores');
     const listCompaneros = document.getElementById('chatListCompaneros');
-    const tabProfesores = document.querySelector('[data-tab="profesores"]');
-    const tabCompaneros = document.querySelector('[data-tab="companeros"]');
+    const tabProfesores = document.querySelector('.messages-sub-tabs [data-tab="profesores"]');
+    const tabCompaneros = document.querySelector('.messages-sub-tabs [data-tab="companeros"]');
     
     // Detectar si es profesor o alumno para ajustar la UI
     const isProfesor = this.currentUser.tipo === 'profesor';
@@ -370,51 +463,34 @@ class ClassroomChat {
   }
   
   updateTabBadges() {
-    const tabProfesores = document.querySelector('[data-tab="profesores"] .tab-badge');
-    const tabCompaneros = document.querySelector('[data-tab="companeros"] .tab-badge');
+    const tabProfesores = document.querySelector('.messages-sub-tabs [data-tab="profesores"] .tab-badge');
+    const tabCompaneros = document.querySelector('.messages-sub-tabs [data-tab="companeros"] .tab-badge');
     
+    // Badge de profesores
     if (tabProfesores) {
       tabProfesores.textContent = this.contactos.profesores.length;
       tabProfesores.style.display = this.contactos.profesores.length > 0 ? 'inline-flex' : 'none';
     }
     
+    // Badge de compañeros/alumnos
     if (tabCompaneros) {
       tabCompaneros.textContent = this.contactos.compañeros.length;
       tabCompaneros.style.display = this.contactos.compañeros.length > 0 ? 'inline-flex' : 'none';
     }
-  }
-  
-  switchTab(tab) {
-    // Actualizar tabs activos
-    document.querySelectorAll('.messages-tab').forEach(t => t.classList.remove('active'));
-    document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
     
-    // Mostrar/ocultar listas
-    const listProfesores = document.getElementById('chatListProfesores');
-    const listCompaneros = document.getElementById('chatListCompaneros');
-    
-    if (tab === 'profesores') {
-      if (listProfesores) listProfesores.style.display = 'block';
-      if (listCompaneros) listCompaneros.style.display = 'none';
-    } else {
-      if (listProfesores) listProfesores.style.display = 'none';
-      if (listCompaneros) listCompaneros.style.display = 'block';
-    }
-  }
-  
-  filterContacts(query) {
-    const q = query.toLowerCase().trim();
-    
-    document.querySelectorAll('.contact-item').forEach(item => {
-      const name = item.querySelector('.contact-name')?.textContent.toLowerCase() || '';
-      const course = item.querySelector('.contact-course')?.textContent.toLowerCase() || '';
-      
-      if (name.includes(q) || course.includes(q) || q === '') {
-        item.style.display = 'flex';
+    // Badge total de contactos
+    const totalContactos = this.contactos.profesores.length + 
+                          (this.contactos.compañeros?.length || 0) + 
+                          (this.contactos.alumnos?.length || 0);
+    const badgeContactos = document.getElementById('badgeContactos');
+    if (badgeContactos) {
+      if (totalContactos > 0) {
+        badgeContactos.textContent = totalContactos;
+        badgeContactos.style.display = 'inline-flex';
       } else {
-        item.style.display = 'none';
+        badgeContactos.style.display = 'none';
       }
-    });
+    }
   }
   
   // =====================================================
@@ -422,7 +498,7 @@ class ClassroomChat {
   // =====================================================
   async selectContact(tipo, id, idCurso) {
     // Marcar contacto como activo
-    document.querySelectorAll('.contact-item').forEach(item => item.classList.remove('active'));
+    document.querySelectorAll('.contact-item, .bandeja-item').forEach(item => item.classList.remove('active'));
     const contactItem = document.querySelector(`.contact-item[data-tipo="${tipo}"][data-id="${id}"]`);
     if (contactItem) {
       contactItem.classList.add('active');
@@ -482,6 +558,21 @@ class ClassroomChat {
         nombre: data.contacto.nombre,
         avatar: data.contacto.avatar
       };
+      
+      // Agregar a conversaciones si es nueva
+      const existingConv = this.conversaciones.find(c => c.id_conversacion === data.id_conversacion);
+      if (!existingConv) {
+        this.conversaciones.unshift({
+          id_conversacion: data.id_conversacion,
+          id_curso: cursoParaConversacion,
+          contacto_tipo: tipo,
+          contacto_id: id,
+          contacto_nombre: data.contacto.nombre,
+          contacto_avatar: data.contacto.avatar,
+          no_leidos: 0
+        });
+        this.renderBandeja();
+      }
       
       // Unirse a la sala de Socket.IO
       this.socket.emit('join_classroom_conversation', {
@@ -890,6 +981,15 @@ class ClassroomChat {
         this.markAsRead();
       }
     } else {
+      // Actualizar contador de no leídos en la conversación correspondiente
+      const conv = this.conversaciones.find(c => c.id_conversacion == data.id_conversacion);
+      if (conv) {
+        conv.no_leidos = (conv.no_leidos || 0) + 1;
+        conv.ultimo_mensaje = data.mensaje || 'Envió un archivo';
+        conv.fecha_ultimo_mensaje = new Date().toISOString();
+        this.renderBandeja();
+      }
+      
       // Mostrar notificación toast si no estamos en la vista de mensajes
       if (!this.isViewActive) {
         this.showToastNotification(data);
@@ -1046,6 +1146,226 @@ class ClassroomChat {
       
     } catch (error) {
       console.error('Error cargando conversaciones:', error);
+    }
+  }
+  
+  // =====================================================
+  // Renderizar Bandeja de Entrada
+  // =====================================================
+  renderBandeja() {
+    const container = document.getElementById('chatListBandeja');
+    if (!container) return;
+    
+    // Actualizar badge de bandeja
+    const totalNoLeidos = this.conversaciones.reduce((sum, c) => sum + (c.no_leidos || 0), 0);
+    const badgeBandeja = document.getElementById('badgeBandeja');
+    if (badgeBandeja) {
+      if (totalNoLeidos > 0) {
+        badgeBandeja.textContent = totalNoLeidos > 99 ? '99+' : totalNoLeidos;
+        badgeBandeja.style.display = 'inline-flex';
+      } else {
+        badgeBandeja.style.display = 'none';
+      }
+    }
+    
+    if (this.conversaciones.length === 0) {
+      container.innerHTML = `
+        <div class="messages-empty">
+          <i data-lucide="inbox"></i>
+          <p>No hay conversaciones activas</p>
+          <small>Inicia una conversación desde Contactos</small>
+        </div>
+      `;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      return;
+    }
+    
+    // Ordenar: primero los que tienen mensajes no leídos
+    const sorted = [...this.conversaciones].sort((a, b) => {
+      if (a.no_leidos > 0 && b.no_leidos === 0) return -1;
+      if (a.no_leidos === 0 && b.no_leidos > 0) return 1;
+      return new Date(b.fecha_ultimo_mensaje || 0) - new Date(a.fecha_ultimo_mensaje || 0);
+    });
+    
+    container.innerHTML = sorted.map(conv => this.renderBandejaItem(conv)).join('');
+    
+    // Vincular eventos
+    container.querySelectorAll('.bandeja-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const idConv = item.dataset.conversacion;
+        this.selectConversation(idConv);
+      });
+    });
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+  
+  renderBandejaItem(conv) {
+    const initials = this.getInitials(conv.contacto_nombre);
+    const avatar = conv.contacto_avatar 
+      ? `<img src="${conv.contacto_avatar}" alt="${conv.contacto_nombre}">`
+      : `<span class="avatar-initials">${initials}</span>`;
+    
+    const hasUnread = (conv.no_leidos || 0) > 0;
+    const timeStr = conv.fecha_ultimo_mensaje ? this.formatTimeShort(conv.fecha_ultimo_mensaje) : '';
+    const preview = conv.ultimo_mensaje || 'Sin mensajes';
+    
+    return `
+      <div class="bandeja-item ${hasUnread ? 'has-unread' : ''}" 
+           data-conversacion="${conv.id_conversacion}"
+           data-contacto-tipo="${conv.contacto_tipo}"
+           data-contacto-id="${conv.contacto_id}"
+           data-curso="${conv.id_curso}">
+        <div class="bandeja-avatar">${avatar}</div>
+        <div class="bandeja-content">
+          <div class="bandeja-header">
+            <div class="bandeja-name">${conv.contacto_nombre}</div>
+            <div class="bandeja-time">${timeStr}</div>
+          </div>
+          <div class="bandeja-preview">${this.escapeHtml(preview)}</div>
+        </div>
+        ${hasUnread ? '<span class="bandeja-unread-dot"></span>' : ''}
+      </div>
+    `;
+  }
+  
+  formatTimeShort(dateStr) {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diff = now - date;
+    
+    // Si es hoy, mostrar hora
+    if (diff < 24 * 60 * 60 * 1000 && date.getDate() === now.getDate()) {
+      return date.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+    }
+    
+    // Si es ayer
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (date.getDate() === yesterday.getDate()) {
+      return 'Ayer';
+    }
+    
+    // Esta semana
+    if (diff < 7 * 24 * 60 * 60 * 1000) {
+      return date.toLocaleDateString('es-AR', { weekday: 'short' });
+    }
+    
+    // Fecha corta
+    return date.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit' });
+  }
+  
+  // =====================================================
+  // Seleccionar Conversación desde Bandeja
+  // =====================================================
+  async selectConversation(idConversacion) {
+    const conv = this.conversaciones.find(c => c.id_conversacion == idConversacion);
+    if (!conv) return;
+    
+    // Marcar item como activo
+    document.querySelectorAll('.bandeja-item, .contact-item').forEach(item => item.classList.remove('active'));
+    const bandejaItem = document.querySelector(`.bandeja-item[data-conversacion="${idConversacion}"]`);
+    if (bandejaItem) {
+      bandejaItem.classList.add('active');
+      bandejaItem.classList.remove('has-unread');
+      const unreadDot = bandejaItem.querySelector('.bandeja-unread-dot');
+      if (unreadDot) unreadDot.remove();
+    }
+    
+    this.currentConversation = conv.id_conversacion;
+    this.currentContact = {
+      tipo: conv.contacto_tipo,
+      id: conv.contacto_id,
+      id_curso: conv.id_curso,
+      nombre: conv.contacto_nombre,
+      avatar: conv.contacto_avatar
+    };
+    
+    // Unirse a la sala de Socket.IO
+    this.socket.emit('join_classroom_conversation', {
+      id_conversacion: this.currentConversation
+    });
+    
+    // Cargar mensajes
+    await this.loadMessages();
+    
+    // Marcar como leídos
+    await this.markAsRead();
+    
+    // Mostrar panel de conversación
+    this.showConversationPanel();
+    
+    // Actualizar bandeja
+    conv.no_leidos = 0;
+    this.renderBandeja();
+  }
+  
+  // =====================================================
+  // Eliminar Conversación
+  // =====================================================
+  async deleteConversation() {
+    if (!this.currentConversation) return;
+    
+    // Confirmar eliminación
+    const result = await Swal.fire({
+      title: '¿Eliminar conversación?',
+      text: 'Se eliminarán todos los mensajes de esta conversación. Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    });
+    
+    if (!result.isConfirmed) return;
+    
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${this.API_URL}/classroom-chat/conversacion/${this.currentConversation}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          mi_tipo: this.currentUser.tipo,
+          mi_id: this.currentUser.id
+        })
+      });
+      
+      if (!response.ok) throw new Error('Error al eliminar');
+      
+      // Limpiar estado
+      this.conversaciones = this.conversaciones.filter(c => c.id_conversacion !== this.currentConversation);
+      this.currentConversation = null;
+      this.currentContact = null;
+      
+      // Actualizar UI
+      this.renderBandeja();
+      this.showEmptyConversation();
+      
+      // Mostrar mensaje de éxito
+      Swal.fire({
+        icon: 'success',
+        title: 'Conversación eliminada',
+        toast: true,
+        position: 'top-end',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      
+    } catch (error) {
+      console.error('Error al eliminar conversación:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo eliminar la conversación',
+        toast: true,
+        position: 'top-end',
+        timer: 3000,
+        showConfirmButton: false
+      });
     }
   }
   

@@ -692,4 +692,50 @@ router.get("/conversaciones/:tipo/:id", async (req, res) => {
   }
 });
 
+// =====================================================
+// DELETE /api/classroom-chat/conversacion/:id
+// Eliminar una conversación y todos sus mensajes
+// =====================================================
+router.delete("/conversacion/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { mi_tipo, mi_id } = req.body;
+    
+    // Verificar que el usuario es parte de la conversación
+    const [conversacion] = await pool.query(`
+      SELECT id_conversacion 
+      FROM classroom_conversaciones
+      WHERE id_conversacion = ?
+        AND ((participante1_tipo = ? AND participante1_id = ?)
+          OR (participante2_tipo = ? AND participante2_id = ?))
+    `, [id, mi_tipo, mi_id, mi_tipo, mi_id]);
+    
+    if (conversacion.length === 0) {
+      return res.status(403).json({ 
+        success: false, 
+        message: "No tienes permiso para eliminar esta conversación" 
+      });
+    }
+    
+    // Eliminar mensajes de la conversación
+    await pool.query(`
+      DELETE FROM classroom_mensajes WHERE id_conversacion = ?
+    `, [id]);
+    
+    // Eliminar la conversación
+    await pool.query(`
+      DELETE FROM classroom_conversaciones WHERE id_conversacion = ?
+    `, [id]);
+    
+    res.json({ success: true, message: "Conversación eliminada" });
+    
+  } catch (error) {
+    console.error("Error al eliminar conversación:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error al eliminar conversación" 
+    });
+  }
+});
+
 export default router;

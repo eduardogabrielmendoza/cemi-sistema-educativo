@@ -164,6 +164,23 @@
   text-align: center;
 }
 
+.tab-badge-unread {
+  background: #e53935 !important;
+}
+
+/* Sub-tabs dentro de Contactos */
+.messages-sub-tabs {
+  margin: 0 -8px;
+  padding: 0;
+  border-bottom: 1px solid var(--chat-border);
+  background: var(--chat-bg);
+}
+
+.messages-sub-tabs .messages-tab {
+  padding: 10px 12px;
+  font-size: 0.8rem;
+}
+
 /* Lista de contactos */
 .messages-list {
   flex: 1;
@@ -358,6 +375,118 @@
 }
 
 /* =====================================================
+   Bandeja de Entrada - Items de Conversación
+   ===================================================== */
+.bandeja-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 4px;
+  background: var(--chat-bg);
+  border: 1px solid transparent;
+}
+
+.bandeja-item:hover {
+  background: var(--chat-bg);
+  border-color: var(--chat-border);
+  transform: translateX(4px);
+}
+
+.bandeja-item.active {
+  background: var(--chat-primary);
+  color: white;
+  border-color: var(--chat-primary);
+}
+
+.bandeja-item.active .bandeja-name,
+.bandeja-item.active .bandeja-preview,
+.bandeja-item.active .bandeja-time {
+  color: white;
+}
+
+.bandeja-item.has-unread .bandeja-name {
+  font-weight: 700;
+}
+
+.bandeja-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--chat-accent), var(--chat-primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.bandeja-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bandeja-avatar .avatar-initials {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.bandeja-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.bandeja-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.bandeja-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--chat-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bandeja-time {
+  font-size: 0.75rem;
+  color: var(--chat-text-muted);
+  white-space: nowrap;
+}
+
+.bandeja-preview {
+  font-size: 0.85rem;
+  color: var(--chat-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bandeja-unread-dot {
+  width: 10px;
+  height: 10px;
+  background: #e53935;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+.bandeja-item.active .bandeja-unread-dot {
+  background: white;
+}
+
+/* =====================================================
    Panel de Conversación (Derecha)
    ===================================================== */
 .messages-conversation-panel {
@@ -376,6 +505,31 @@
   align-items: center;
   gap: 14px;
   background: var(--chat-bg);
+}
+
+/* Botón eliminar conversación */
+.conversation-delete-btn {
+  margin-left: auto;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: var(--chat-text-muted);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conversation-delete-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.conversation-delete-btn i {
+  width: 18px;
+  height: 18px;
 }
 
 .conversation-avatar {
