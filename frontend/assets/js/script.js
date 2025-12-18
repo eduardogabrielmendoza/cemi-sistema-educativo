@@ -4280,59 +4280,54 @@ async function restartService(serviceId, serviceName) {
       const data = await response.json();
       
       if (data.success && data.steps) {
-        // Mostrar progreso de reinicio
-        let currentStep = 0;
         const steps = data.steps;
         
-        const updateProgress = () => {
-          if (currentStep >= steps.length) {
+        // Ejecutar cada paso secuencialmente
+        const runSteps = async () => {
+          for (let i = 0; i < steps.length; i++) {
+            const step = steps[i];
+            const progress = ((i + 1) / steps.length) * 100;
+            
             Swal.fire({
-              title: '¡Servicio reiniciado!',
+              title: `Reiniciando ${serviceName}`,
               html: `
-                <div style="text-align: center;">
-                  <div style="width: 60px; height: 60px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
-                    <i data-lucide="check" style="width: 30px; height: 30px; color: #16a34a;"></i>
+                <div style="text-align: center; padding: 20px;">
+                  <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                    <div style="width: ${progress}%; height: 100%; background: linear-gradient(90deg, #4a5259, #64748b); transition: width 0.3s;"></div>
                   </div>
-                  <p style="color: #64748b;">${serviceName} se ha reiniciado correctamente.</p>
+                  <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                    <div style="width: 20px; height: 20px; border: 2px solid #e2e8f0; border-top-color: #4a5259; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    <span style="font-weight: 600; color: #1e293b;">${step.message}</span>
+                  </div>
+                  <div style="font-size: 0.8rem; color: #94a3b8;">Paso ${i + 1} de ${steps.length}</div>
                 </div>
               `,
-              icon: 'success',
-              confirmButtonColor: '#4a5259',
-              didOpen: () => lucide.createIcons()
+              showConfirmButton: false,
+              allowOutsideClick: false
             });
-            return;
+            
+            // Esperar el delay del paso
+            await new Promise(resolve => setTimeout(resolve, step.delay));
           }
           
-          const step = steps[currentStep];
-          const progress = ((currentStep + 1) / steps.length) * 100;
-          
-          Swal.update({
+          // Mostrar éxito al final
+          Swal.fire({
+            title: '¡Servicio reiniciado!',
             html: `
-              <div style="text-align: center; padding: 20px;">
-                <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
-                  <div style="width: ${progress}%; height: 100%; background: linear-gradient(90deg, #4a5259, #64748b); transition: width 0.3s;"></div>
+              <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                  <i data-lucide="check" style="width: 30px; height: 30px; color: #16a34a;"></i>
                 </div>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
-                  <div class="spinner" style="width: 20px; height: 20px; border: 2px solid #e2e8f0; border-top-color: #4a5259; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                  <span style="font-weight: 600; color: #1e293b;">${step.message}</span>
-                </div>
-                <div style="font-size: 0.8rem; color: #94a3b8;">Paso ${currentStep + 1} de ${steps.length}</div>
+                <p style="color: #64748b;">${serviceName} se ha reiniciado correctamente.</p>
               </div>
-            `
+            `,
+            icon: 'success',
+            confirmButtonColor: '#4a5259',
+            didOpen: () => lucide.createIcons()
           });
-          
-          currentStep++;
-          setTimeout(updateProgress, step.delay);
         };
         
-        Swal.fire({
-          title: `Reiniciando ${serviceName}`,
-          html: '<div style="text-align: center; padding: 20px;">Iniciando proceso...</div>',
-          showConfirmButton: false,
-          allowOutsideClick: false
-        });
-        
-        updateProgress();
+        runSteps();
       }
     } catch (error) {
       Swal.fire({
