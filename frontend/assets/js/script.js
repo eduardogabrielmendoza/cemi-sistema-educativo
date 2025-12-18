@@ -11967,9 +11967,14 @@ async function generarComprobantePago(idPago) {
 
 async function renderInvestigacionSection() {
   try {
+    const token = localStorage.getItem('token');
     const [statsRes, encuestasRes] = await Promise.all([
-      fetch(`${API_URL}/investigacion/estadisticas`),
-      fetch(`${API_URL}/investigacion/encuestas`)
+      fetch(`${API_URL}/investigacion/estadisticas`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }),
+      fetch(`${API_URL}/investigacion/encuestas`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
     ]);
     
     const stats = await statsRes.json();
