@@ -231,8 +231,8 @@ function cleanOldEvents() {
 // Limpiar eventos antiguos cada hora
 setInterval(cleanOldEvents, 60 * 60 * 1000);
 
-// Exportar
-module.exports = {
+// Exportar usando ESM
+const eventLogger = {
     logEvent,
     getEvents,
     getActivityFeed,
@@ -292,3 +292,5 @@ module.exports = {
         healthCheck: (service, status) => logEvent('HEALTH_CHECK', `Health check: ${service} - ${status}`, { service, status })
     }
 };
+
+export default eventLogger;
