@@ -20,12 +20,32 @@ class ClassroomChat {
   }
   
   async init() {
-    // Obtener datos del usuario actual
+    // Obtener datos del usuario actual - el sistema usa 'rol' no 'tipo'
+    const rol = localStorage.getItem('rol');
+    const idProfesor = localStorage.getItem('id_profesor');
+    const idAlumno = localStorage.getItem('id_alumno');
+    const isAdmin = localStorage.getItem('admin_classroom') === 'true';
+    
+    // Determinar tipo y ID
+    let tipo, id;
+    if (isAdmin) {
+      // Los admins no participan en el chat de classroom
+      console.log('ClassroomChat: Admin detectado - chat no disponible para admins');
+      return;
+    } else if (idProfesor) {
+      tipo = 'profesor';
+      id = idProfesor;
+    } else if (idAlumno) {
+      tipo = 'alumno';
+      id = idAlumno;
+    } else {
+      console.warn('ClassroomChat: Usuario no autenticado');
+      return;
+    }
+    
     this.currentUser = {
-      tipo: localStorage.getItem('tipo'),
-      id: localStorage.getItem('tipo') === 'profesor' 
-        ? localStorage.getItem('id_profesor') 
-        : localStorage.getItem('id_alumno'),
+      tipo,
+      id,
       nombre: localStorage.getItem('nombre') || 'Usuario'
     };
     
@@ -159,6 +179,20 @@ class ClassroomChat {
   // Abrir/Cerrar Modal
   // =====================================================
   async openModal() {
+    // Verificar que el usuario esté autenticado
+    if (!this.currentUser || !this.currentUser.tipo || !this.currentUser.id) {
+      console.warn('ClassroomChat: No se puede abrir el modal - usuario no autenticado');
+      if (typeof Swal !== 'undefined') {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No disponible',
+          text: 'El chat no está disponible en este momento',
+          confirmButtonColor: '#1e1e1e'
+        });
+      }
+      return;
+    }
+    
     const modal = document.getElementById('classroomChatModal');
     if (!modal) return;
     
