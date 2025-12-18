@@ -494,10 +494,18 @@ function switchView(viewName) {
     lucide.createIcons();
   }
 
+  // Activar/desactivar vista de chat
+  if (viewName === 'messages' && typeof classroomChat !== 'undefined' && classroomChat) {
+    classroomChat.activateView();
+  } else if (typeof classroomChat !== 'undefined' && classroomChat) {
+    classroomChat.deactivateView();
+  }
+
   loadViewData(viewName);
 }
 
 function capitalizeFirst(str) {
+  if (!str) return '';
   return str.split('-').map(word => 
     word.charAt(0).toUpperCase() + word.slice(1)
   ).join('');

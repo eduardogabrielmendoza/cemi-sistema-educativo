@@ -1,5 +1,5 @@
 // =====================================================
-// CLASSROOM CHAT - Lógica del Chat
+// CLASSROOM CHAT - Vista Integrada de Mensajes
 // Sistema de mensajería entre profesores y alumnos
 // =====================================================
 
@@ -15,6 +15,10 @@ class ClassroomChat {
     this.typingTimeout = null;
     this.selectedFile = null;
     this.unreadCount = 0;
+    this.isViewActive = false;
+    
+    // Usar window.API_URL que está definido en config.js
+    this.API_URL = window.API_URL || `${window.location.origin}/api`;
     
     this.init();
   }
@@ -31,6 +35,7 @@ class ClassroomChat {
     if (isAdmin) {
       // Los admins no participan en el chat de classroom
       console.log('ClassroomChat: Admin detectado - chat no disponible para admins');
+      this.hideMessagesNavItem();
       return;
     } else if (idProfesor) {
       tipo = 'profesor';
@@ -66,8 +71,15 @@ class ClassroomChat {
     console.log('ClassroomChat inicializado para:', this.currentUser);
   }
   
+  hideMessagesNavItem() {
+    const navItem = document.querySelector('[data-view="messages"]');
+    if (navItem) {
+      navItem.style.display = 'none';
+    }
+  }
+  
   initSocket() {
-    const socketUrl = window.API_BASE_URL ? window.API_BASE_URL.replace('/api', '') : '';
+    const socketUrl = window.BASE_URL || window.location.origin;
     
     this.socket = io(socketUrl, {
       path: '/socket.io/',
@@ -116,8 +128,8 @@ class ClassroomChat {
     }
     
     // Tabs de contactos
-    document.querySelectorAll('.contacts-tab').forEach(tab => {
-      tab.addEventListener('click', (e) => this.switchTab(e.target.dataset.tab));
+    document.querySelectorAll('.messages-tab').forEach(tab => {
+      tab.addEventListener('click', (e) => this.switchTab(e.target.closest('.messages-tab').dataset.tab));
     });
     
     // Input de mensaje
@@ -150,54 +162,27 @@ class ClassroomChat {
       fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
     }
     
-    // Cerrar modal
-    const closeBtn = document.getElementById('chatModalClose');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', () => this.closeModal());
-    }
-    
-    // Cerrar con backdrop
-    const backdrop = document.querySelector('.chat-modal-backdrop');
-    if (backdrop) {
-      backdrop.addEventListener('click', () => this.closeModal());
-    }
-    
-    // Cerrar con Escape
+    // Cerrar lightbox con Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         const lightbox = document.querySelector('.chat-lightbox.active');
         if (lightbox) {
           this.closeLightbox();
-        } else {
-          this.closeModal();
         }
       }
     });
   }
   
   // =====================================================
-  // Abrir/Cerrar Modal
+  // Activar Vista de Mensajes
   // =====================================================
-  async openModal() {
-    // Verificar que el usuario esté autenticado
+  async activateView() {
     if (!this.currentUser || !this.currentUser.tipo || !this.currentUser.id) {
-      console.warn('ClassroomChat: No se puede abrir el modal - usuario no autenticado');
-      if (typeof Swal !== 'undefined') {
-        Swal.fire({
-          icon: 'warning',
-          title: 'No disponible',
-          text: 'El chat no está disponible en este momento',
-          confirmButtonColor: '#1e1e1e'
-        });
-      }
+      console.warn('ClassroomChat: No se puede activar - usuario no autenticado');
       return;
     }
     
-    const modal = document.getElementById('classroomChatModal');
-    if (!modal) return;
-    
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    this.isViewActive = true;
     
     // Cargar contactos
     await this.loadContacts();
@@ -205,22 +190,17 @@ class ClassroomChat {
     // Cargar conversaciones existentes
     await this.loadConversations();
     
-    lucide.createIcons();
+    // Actualizar iconos
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   }
   
-  closeModal() {
-    const modal = document.getElementById('classroomChatModal');
-    if (!modal) return;
-    
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-    
-    // Limpiar conversación actual
+  deactivateView() {
+    this.isViewActive = false;
     this.currentConversation = null;
     this.currentContact = null;
     this.selectedFile = null;
-    
-    // Resetear vista
     this.showEmptyConversation();
   }
   
@@ -230,7 +210,7 @@ class ClassroomChat {
   async loadContacts(idCurso = null) {
     try {
       const token = localStorage.getItem('token');
-      let url = `${window.API_BASE_URL}/classroom-chat/contactos/${this.currentUser.tipo}/${this.currentUser.id}`;
+      let url = `${this.API_URL}/classroom-chat/contactos/${this.currentUser.tipo}/${this.currentUser.id}`;
       
       if (idCurso) {
         url += `?id_curso=${idCurso}`;
@@ -259,7 +239,7 @@ class ClassroomChat {
     if (listProfesores) {
       if (this.contactos.profesores.length === 0) {
         listProfesores.innerHTML = `
-          <div class="contacts-empty">
+          <div class="messages-empty">
             <i data-lucide="user-x"></i>
             <p>No hay profesores disponibles</p>
           </div>
@@ -273,7 +253,7 @@ class ClassroomChat {
     if (listCompaneros) {
       if (this.contactos.compañeros.length === 0) {
         listCompaneros.innerHTML = `
-          <div class="contacts-empty">
+          <div class="messages-empty">
             <i data-lucide="users"></i>
             <p>No hay compañeros disponibles</p>
           </div>
@@ -296,7 +276,9 @@ class ClassroomChat {
       });
     });
     
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   }
   
   renderContactItem(contacto) {
@@ -350,7 +332,7 @@ class ClassroomChat {
   
   switchTab(tab) {
     // Actualizar tabs activos
-    document.querySelectorAll('.contacts-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.messages-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
     
     // Mostrar/ocultar listas
@@ -393,7 +375,7 @@ class ClassroomChat {
       const token = localStorage.getItem('token');
       
       // Obtener o crear conversación
-      const response = await fetch(`${window.API_BASE_URL}/classroom-chat/conversacion`, {
+      const response = await fetch(`${this.API_URL}/classroom-chat/conversacion`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -447,7 +429,7 @@ class ClassroomChat {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `${window.API_BASE_URL}/classroom-chat/conversacion/${this.currentConversation}?mi_tipo=${this.currentUser.tipo}&mi_id=${this.currentUser.id}`,
+        `${this.API_URL}/classroom-chat/conversacion/${this.currentConversation}?mi_tipo=${this.currentUser.tipo}&mi_id=${this.currentUser.id}`,
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
       
@@ -526,13 +508,13 @@ class ClassroomChat {
           <p>Envía un mensaje para comenzar a chatear</p>
         </div>
       `;
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
       return;
     }
     
     container.innerHTML = mensajes.map(m => this.renderMessageBubble(m)).join('');
     
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
     this.scrollToBottom();
   }
   
@@ -596,7 +578,7 @@ class ClassroomChat {
     const html = this.renderMessageBubble(mensaje);
     container.insertAdjacentHTML('beforeend', html);
     
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
     this.scrollToBottom();
   }
   
@@ -633,7 +615,7 @@ class ClassroomChat {
         formData.append('archivo', this.selectedFile);
       }
       
-      const response = await fetch(`${window.API_BASE_URL}/classroom-chat/mensaje`, {
+      const response = await fetch(`${this.API_URL}/classroom-chat/mensaje`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -707,7 +689,7 @@ class ClassroomChat {
           </div>
         `;
         previewContainer.style.display = 'block';
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
       };
       reader.readAsDataURL(file);
     } else {
@@ -729,7 +711,7 @@ class ClassroomChat {
         </div>
       `;
       previewContainer.style.display = 'block';
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
   }
   
@@ -801,8 +783,10 @@ class ClassroomChat {
         this.markAsRead();
       }
     } else {
-      // Mostrar notificación toast
-      this.showToastNotification(data);
+      // Mostrar notificación toast si no estamos en la vista de mensajes
+      if (!this.isViewActive) {
+        this.showToastNotification(data);
+      }
       this.updateUnreadCount();
     }
   }
@@ -835,7 +819,7 @@ class ClassroomChat {
     `;
     
     document.body.appendChild(toast);
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
     
     // Mostrar con animación
     setTimeout(() => toast.classList.add('show'), 10);
@@ -846,18 +830,13 @@ class ClassroomChat {
       setTimeout(() => toast.remove(), 300);
     }, 5000);
     
-    // Click para abrir conversación
+    // Click para ir a mensajes
     toast.addEventListener('click', (e) => {
       if (!e.target.closest('.chat-toast-close')) {
         toast.remove();
-        this.openModal();
-        setTimeout(() => {
-          this.selectContact(
-            mensaje.remitente_tipo, 
-            mensaje.remitente_id, 
-            mensaje.id_curso
-          );
-        }, 300);
+        // Activar vista de mensajes
+        const navItem = document.querySelector('[data-view="messages"]');
+        if (navItem) navItem.click();
       }
     });
   }
@@ -870,7 +849,7 @@ class ClassroomChat {
     
     try {
       const token = localStorage.getItem('token');
-      await fetch(`${window.API_BASE_URL}/classroom-chat/marcar-leido/${this.currentConversation}`, {
+      await fetch(`${this.API_URL}/classroom-chat/marcar-leido/${this.currentConversation}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -902,7 +881,7 @@ class ClassroomChat {
     document.querySelectorAll('.message-bubble.sent .message-status i').forEach(icon => {
       icon.setAttribute('data-lucide', 'check-check');
     });
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
   
   // =====================================================
@@ -912,7 +891,7 @@ class ClassroomChat {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `${window.API_BASE_URL}/classroom-chat/no-leidos/${this.currentUser.tipo}/${this.currentUser.id}`,
+        `${this.API_URL}/classroom-chat/no-leidos/${this.currentUser.tipo}/${this.currentUser.id}`,
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
       
@@ -932,11 +911,11 @@ class ClassroomChat {
   }
   
   updateUnreadBadge() {
-    const badge = document.getElementById('chatFloatingBadge');
+    const badge = document.getElementById('chatUnreadBadge');
     if (badge) {
       if (this.unreadCount > 0) {
         badge.textContent = this.unreadCount > 99 ? '99+' : this.unreadCount;
-        badge.style.display = 'flex';
+        badge.style.display = 'inline-flex';
       } else {
         badge.style.display = 'none';
       }
@@ -950,7 +929,7 @@ class ClassroomChat {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `${window.API_BASE_URL}/classroom-chat/conversaciones/${this.currentUser.tipo}/${this.currentUser.id}`,
+        `${this.API_URL}/classroom-chat/conversaciones/${this.currentUser.tipo}/${this.currentUser.id}`,
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
       
@@ -987,7 +966,7 @@ class ClassroomChat {
     
     lightbox.querySelector('img').src = imageUrl;
     lightbox.classList.add('active');
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
   
   closeLightbox() {
@@ -1066,21 +1045,25 @@ class ClassroomChat {
         showConfirmButton: false
       });
     } else {
-      alert(message);
+      console.error(message);
     }
   }
   
   showContactsError() {
-    const list = document.querySelector('.contacts-list');
-    if (list) {
-      list.innerHTML = `
-        <div class="contacts-empty">
-          <i data-lucide="alert-circle"></i>
-          <p>Error al cargar contactos</p>
-        </div>
-      `;
-      lucide.createIcons();
-    }
+    const listProfesores = document.getElementById('chatListProfesores');
+    const listCompaneros = document.getElementById('chatListCompaneros');
+    
+    const errorHtml = `
+      <div class="messages-empty">
+        <i data-lucide="alert-circle"></i>
+        <p>Error al cargar contactos</p>
+      </div>
+    `;
+    
+    if (listProfesores) listProfesores.innerHTML = errorHtml;
+    if (listCompaneros) listCompaneros.innerHTML = errorHtml;
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 }
 
