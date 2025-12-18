@@ -39,7 +39,7 @@ async function keyExists(key) {
   try {
     // Verificar en administradores
     const [admins] = await pool.query(
-      'SELECT id_admin FROM administradores WHERE access_key = ?',
+      'SELECT id_administrador FROM administradores WHERE access_key = ?',
       [key]
     );
     if (admins.length > 0) return true;
