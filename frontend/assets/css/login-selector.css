@@ -266,11 +266,11 @@ body {
 }
 
 .card-icon {
-  width: 56px;
-  height: 56px;
-  margin-bottom: 20px;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -286,15 +286,16 @@ body {
 }
 
 .card-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   color: white;
   stroke-width: 1.5;
 }
 
 .card-content h3 {
+  font-family: 'Inter';
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 400;
   margin-bottom: 8px;
   letter-spacing: -0.3px;
