@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A2540">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <title>Cuentas y Autenticación - Ayuda Cemi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/harvard-menu.css">
+  <link rel="stylesheet" href="assets/css/terminos.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .cuentas-hero {
+      background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+      padding: 60px 24px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .cuentas-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cuentas-hero-icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .cuentas-hero-icon i {
+      width: 36px;
+      height: 36px;
+      color: #93a1ad;
+    }
+
+    .cuentas-hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .cuentas-hero p {
+      opacity: 0.7;
+      max-width: 500px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .cuentas-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .cuentas-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #656f77;
+      margin-bottom: 32px;
+    }
+
+    .cuentas-breadcrumb a {
+      color: #4a5259;
+      text-decoration: none;
+    }
+
+    .cuentas-breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .cuentas-breadcrumb i {
+      width: 12px;
+      height: 12px;
+    }
+
+    .cuentas-section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e1e1e;
+      margin-bottom: 24px;
+    }
+
+    .cuentas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .cuentas-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 28px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .cuentas-card:hover {
+      border-color: #a41034;
+      box-shadow: 0 8px 24px rgba(164, 16, 52, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .cuentas-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .cuentas-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cuentas-card-icon i {
+      width: 26px;
+      height: 26px;
+    }
+
+    .cuentas-card-icon.red {
+      background: linear-gradient(135deg, #a41034 0%, #7d0c28 100%);
+      color: #fff;
+    }
+
+    .cuentas-card-icon.gray {
+      background: linear-gradient(135deg, #4a5259 0%, #656f77 100%);
+      color: #fff;
+    }
+
+    .cuentas-card-icon.blue {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #fff;
+    }
+
+    .cuentas-card-icon.amber {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #fff;
+    }
+
+    .cuentas-card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1e1e1e;
+      margin: 0;
+    }
+
+    .cuentas-card-desc {
+      color: #6b7280;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .cuentas-card-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #a41034;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-top: 16px;
+    }
+
+    .cuentas-card-link i {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .cuentas-card:hover .cuentas-card-link i {
+      transform: translateX(4px);
+    }
+
+    .cuentas-topics {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 48px;
+    }
+
+    .cuentas-topics h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e1e1e;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cuentas-topics h3 i {
+      width: 20px;
+      height: 20px;
+      color: #656f77;
+    }
+
+    .cuentas-topics-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .cuentas-topics-list li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      color: #4a5259;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .cuentas-topics-list li a:hover {
+      border-color: #93a1ad;
+      background: #fff;
+    }
+
+    .cuentas-topics-list li a i {
+      width: 18px;
+      height: 18px;
+      color: #93a1ad;
+    }
+
+    .cuentas-help-box {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1px solid #7dd3fc;
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .cuentas-help-box-icon {
+      width: 48px;
+      height: 48px;
+      background: #0284c7;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cuentas-help-box-icon i {
+      width: 24px;
+      height: 24px;
+      color: #fff;
+    }
+
+    .cuentas-help-box-content h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0369a1;
+      margin: 0 0 8px 0;
+    }
+
+    .cuentas-help-box-content p {
+      color: #0c4a6e;
+      font-size: 0.95rem;
+      margin: 0 0 16px 0;
+    }
+
+    .cuentas-help-box-content a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #0284c7;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .cuentas-help-box-content a:hover {
+      text-decoration: underline;
+    }
+
+    .cuentas-help-box-content a i {
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .cuentas-hero {
+        padding: 40px 20px;
+      }
+
+      .cuentas-hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .cuentas-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cuentas-help-box {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="harvard-header">
+    <div class="harvard-header-inner">
+      <div class="harvard-branding">
+        <a href="index.html">
+          <img src="images/logolong.png" alt="Logo Cemi" class="harvard-logo-img" style="width: 226px; height: 79px; object-fit: contain;">
+        </a>
+      </div>
+      
+      <div class="harvard-actions">
+        <div class="harvard-search-wrapper" id="harvardSearchWrapper">
+          <input type="text" class="harvard-search-field" id="harvardSearchField" placeholder="Buscar en Cemi" autocomplete="off">
+          <div class="harvard-search-icons">
+            <button class="harvard-search-submit" id="harvardSearchSubmit" aria-label="Buscar">
+              <i data-lucide="search"></i>
+            </button>
+            <button class="harvard-search-close" id="harvardSearchClose" aria-label="Cerrar búsqueda">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="harvard-search-quicklink">
+            <span>QUICK LINKS</span>
+            <a href="a-to-z.html">Ir a Índice A-Z</a>
+          </div>
+        </div>
+        <button class="harvard-az-btn" id="harvardAzBtn" aria-label="Índice A-Z">
+          <span>A-Z</span>
+        </button>
+        <button class="harvard-menu-btn" id="harvardMenuBtn">
+          <span>Menu</span>
+          <div class="harvard-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="harvard-mega-menu" id="harvardMegaMenu">
+    <div class="mega-menu-backdrop"></div>
+    
+    <div class="mega-menu-bg-image" id="megaMenuBgImage">
+      <img src="images/STOCK1.jpg" alt="">
+    </div>
+    
+    <div class="mega-menu-header">
+      <a href="index.html" class="mega-menu-logo">
+        <img src="images/logolong.png" alt="Logo Cemi" class="mega-logo-long">
+      </a>
+      <button class="mega-menu-close" id="megaMenuClose">
+        <span>Cerrar</span>
+        <span class="close-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+      </button>
+    </div>
+    
+    <div class="mega-menu-content">
+      <nav class="mega-nav-primary">
+        <a href="#" class="mega-nav-item" data-panel="panel-classroom"><span class="mega-nav-item-text">Classroom</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-dashboard"><span class="mega-nav-item-text">Dashboard</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-nosotros"><span class="mega-nav-item-text">Nosotros</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-soporte"><span class="mega-nav-item-text">Soporte</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-seguridad"><span class="mega-nav-item-text">Seguridad</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-recursos"><span class="mega-nav-item-text">Recursos</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-accesibilidad"><span class="mega-nav-item-text">Accesibilidad</span></a>
+      </nav>
+      
+      <div class="mega-panels" id="megaPanels">
+        <div class="mega-panel" id="panel-classroom">
+          <h3>Classroom</h3>
+          <div class="panel-links">
+            <a href="classroom-login.html">Acceder a Classroom</a>
+            <a href="ayuda-classroom.html">Centro de Ayuda</a>
+            <a href="info-classroom.html">Acerca de Classroom</a>
+            <a href="comunidad-cemi.html">Comunidad Cemi</a>
+          </div>
+        </div>
+        <div class="mega-panel" id="panel-dashboard">
+          <h3>Dashboard</h3>
+          <div class="panel-links">
+            <a href="login-selector.html">Iniciar Sesión</a>
+            <a href="register.html">Registrarme</a>
+            <a href="info-dashboard.html">Acerca de Dashboard</a>
+            <a href="guia.html">Guía para Usuarios</a>
+          </div>
+        </div>
+        <div class="mega-panel" id="panel-nosotros">
+          <h3>Nosotros</h3>
+          <div class="panel-links">
+            <a href="porque-cemi.html">Por qué Cemi</a>
+            <a href="reglamento-institucional.html">Reglamento Institucional</a>
+          </div>
+        </div>
+        <div class="mega-panel" id="panel-soporte">
+          <h3>Soporte</h3>
+          <div class="panel-links">
+            <a href="ayuda.html">Centro de Ayuda</a>
+            <a href="status.html">Estado del Sistema</a>
+            <a href="novedades-cemi.html">Novedades</a>
+          </div>
+        </div>
+        <div class="mega-panel" id="panel-seguridad">
+          <h3>Seguridad</h3>
+          <div class="panel-links">
+            <a href="cemi-seguridad.html">Seguridad en Cemi</a>
+            <a href="privacidad.html">Política de Privacidad</a>
+            <a href="terminos.html">Términos de Servicio</a>
+            <a href="reportar-seguridad.html">Reportar Vulnerabilidad</a>
+          </div>
+        </div>
+        <div class="mega-panel" id="panel-recursos">
+          <h3>Recursos</h3>
+          <div class="panel-links">
+            <a href="documentacion.html">Documentación</a>
+            <a href="a-to-z.html">Índice A-Z</a>
+          </div>
+        </div>
+        <div class="mega-panel" id="panel-accesibilidad">
+          <h3>Accesibilidad</h3>
+          <div class="panel-links">
+            <a href="accesibilidad.html">Compromiso de Accesibilidad</a>
+            <a href="cookies-config.html">Configurar Cookies</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="cuentas-hero">
+    <div class="cuentas-hero-content">
+      <div class="cuentas-hero-icon">
+        <i data-lucide="user-circle"></i>
+      </div>
+      <h1>Cuentas y Autenticación</h1>
+      <p>Gestiona tu acceso al sistema Cemi, configura tus credenciales y conoce los métodos de autenticación disponibles.</p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <main class="cuentas-content">
+    <nav class="cuentas-breadcrumb">
+      <a href="index.html">Inicio</a>
+      <i data-lucide="chevron-right"></i>
+      <a href="ayuda.html">Ayuda</a>
+      <i data-lucide="chevron-right"></i>
+      <span>Cuentas y Autenticación</span>
+    </nav>
+
+    <h2 class="cuentas-section-title">Métodos de acceso</h2>
+
+    <div class="cuentas-grid">
+      <!-- CemiKey Card -->
+      <a href="ayuda-cemikey.html" class="cuentas-card">
+        <div class="cuentas-card-header">
+          <div class="cuentas-card-icon red">
+            <i data-lucide="key"></i>
+          </div>
+          <h3 class="cuentas-card-title">CemiKey</h3>
+        </div>
+        <p class="cuentas-card-desc">
+          Accede al sistema con una clave de acceso única. Un método rápido y seguro sin necesidad de recordar usuario y contraseña.
+        </p>
+        <span class="cuentas-card-link">
+          Más información <i data-lucide="arrow-right"></i>
+        </span>
+      </a>
+
+      <!-- Login Tradicional Card -->
+      <a href="login-selector.html" class="cuentas-card">
+        <div class="cuentas-card-header">
+          <div class="cuentas-card-icon gray">
+            <i data-lucide="log-in"></i>
+          </div>
+          <h3 class="cuentas-card-title">Login tradicional</h3>
+        </div>
+        <p class="cuentas-card-desc">
+          Inicia sesión con tu usuario y contraseña. El método clásico de autenticación disponible para todos los usuarios.
+        </p>
+        <span class="cuentas-card-link">
+          Iniciar sesión <i data-lucide="arrow-right"></i>
+        </span>
+      </a>
+
+      <!-- Recuperar Contraseña Card -->
+      <a href="login.html" class="cuentas-card">
+        <div class="cuentas-card-header">
+          <div class="cuentas-card-icon amber">
+            <i data-lucide="key-round"></i>
+          </div>
+          <h3 class="cuentas-card-title">Recuperar contraseña</h3>
+        </div>
+        <p class="cuentas-card-desc">
+          ¿Olvidaste tu contraseña? Solicita un código de recuperación y restablece tu acceso en minutos.
+        </p>
+        <span class="cuentas-card-link">
+          Recuperar acceso <i data-lucide="arrow-right"></i>
+        </span>
+      </a>
+
+      <!-- Registro Card -->
+      <a href="register.html" class="cuentas-card">
+        <div class="cuentas-card-header">
+          <div class="cuentas-card-icon blue">
+            <i data-lucide="user-plus"></i>
+          </div>
+          <h3 class="cuentas-card-title">Crear cuenta</h3>
+        </div>
+        <p class="cuentas-card-desc">
+          ¿Eres nuevo en Cemi? Registra tu cuenta como alumno y comienza tu experiencia educativa.
+        </p>
+        <span class="cuentas-card-link">
+          Registrarme <i data-lucide="arrow-right"></i>
+        </span>
+      </a>
+    </div>
+
+    <!-- Topics Section -->
+    <div class="cuentas-topics">
+      <h3>
+        <i data-lucide="bookmark"></i>
+        Temas relacionados
+      </h3>
+      <ul class="cuentas-topics-list">
+        <li>
+          <a href="cemikey-que-es.html">
+            <i data-lucide="file-text"></i>
+            ¿Qué es CemiKey?
+          </a>
+        </li>
+        <li>
+          <a href="cemikey-configurar.html">
+            <i data-lucide="settings"></i>
+            Configurar mi cuenta CemiKey
+          </a>
+        </li>
+        <li>
+          <a href="cemikey-seguridad.html">
+            <i data-lucide="shield-check"></i>
+            Seguridad en CemiKey
+          </a>
+        </li>
+        <li>
+          <a href="cemi-seguridad.html">
+            <i data-lucide="lock"></i>
+            Seguridad general en Cemi
+          </a>
+        </li>
+        <li>
+          <a href="privacidad.html">
+            <i data-lucide="eye-off"></i>
+            Política de privacidad
+          </a>
+        </li>
+        <li>
+          <a href="guia.html">
+            <i data-lucide="book-open"></i>
+            Guía para usuarios
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Help Box -->
+    <div class="cuentas-help-box">
+      <div class="cuentas-help-box-icon">
+        <i data-lucide="headphones"></i>
+      </div>
+      <div class="cuentas-help-box-content">
+        <h4>¿Necesitas ayuda adicional?</h4>
+        <p>Si tienes problemas para acceder a tu cuenta o necesitas asistencia con la autenticación, nuestro equipo de soporte está disponible para ayudarte.</p>
+        <a href="mailto:soporte@cemiedu.ar">
+          <i data-lucide="mail"></i>
+          Contactar soporte
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="professional-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img src="images/logolongblack.png" alt="Logo Cemi" class="footer-logo">
+        <p class="footer-tagline">Formando el futuro, un idioma a la vez</p>
+      </div>
+      
+      <div class="footer-links-grid">
+        <div class="footer-column">
+          <h4>Plataforma</h4>
+          <ul>
+            <li><a href="classroom-login.html">Classroom</a></li>
+            <li><a href="login-selector.html">Dashboard</a></li>
+            <li><a href="register.html">Registrarme</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="ayuda.html">Centro de Ayuda</a></li>
+            <li><a href="guia.html">Guía de Usuario</a></li>
+            <li><a href="status.html">Estado del Sistema</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="terminos.html">Términos de Servicio</a></li>
+            <li><a href="privacidad.html">Privacidad</a></li>
+            <li><a href="accesibilidad.html">Accesibilidad</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Cemi. Todos los derechos reservados.</p>
+      <div class="footer-bottom-links">
+        <a href="cookies-config.html">Configurar Cookies</a>
+        <a href="a-to-z.html">Índice A-Z</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/harvard-menu.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
