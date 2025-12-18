@@ -20,6 +20,9 @@ CREATE TABLE IF NOT EXISTS classroom_conversaciones (
   fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   ultima_actividad TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   estado ENUM('activa','archivada') DEFAULT 'activa',
+  -- Campos para soft delete individual (cada usuario puede ocultar sin afectar al otro)
+  oculto_participante1 BOOLEAN DEFAULT FALSE COMMENT 'Si el participante1 ocultó la conversación',
+  oculto_participante2 BOOLEAN DEFAULT FALSE COMMENT 'Si el participante2 ocultó la conversación',
   FOREIGN KEY (id_curso) REFERENCES cursos(id_curso) ON DELETE CASCADE,
   -- Índice único para evitar conversaciones duplicadas
   UNIQUE KEY unique_conversacion (id_curso, participante1_tipo, participante1_id, participante2_tipo, participante2_id)
@@ -55,3 +58,11 @@ CREATE INDEX idx_ultima_actividad ON classroom_conversaciones(ultima_actividad);
 SELECT 'Tablas creadas exitosamente' as resultado;
 DESCRIBE classroom_conversaciones;
 DESCRIBE classroom_mensajes;
+
+-- =====================================================
+-- SCRIPT DE ACTUALIZACIÓN (ejecutar si las tablas ya existen)
+-- Agrega campos para soft delete individual
+-- =====================================================
+-- Si ya tienes las tablas creadas, ejecuta esto para agregar los nuevos campos:
+-- ALTER TABLE classroom_conversaciones ADD COLUMN oculto_participante1 BOOLEAN DEFAULT FALSE;
+-- ALTER TABLE classroom_conversaciones ADD COLUMN oculto_participante2 BOOLEAN DEFAULT FALSE;

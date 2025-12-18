@@ -280,7 +280,8 @@ router.post("/conversacion", async (req, res) => {
     
     // Buscar conversación existente
     const [existente] = await pool.query(`
-      SELECT id_conversacion
+      SELECT id_conversacion, oculto_participante1, oculto_participante2,
+             participante1_tipo, participante1_id
       FROM classroom_conversaciones
       WHERE id_curso = ?
         AND participante1_tipo = ? AND participante1_id = ?
@@ -291,6 +292,24 @@ router.post("/conversacion", async (req, res) => {
     
     if (existente.length > 0) {
       id_conversacion = existente[0].id_conversacion;
+      
+      // Si el usuario actual tenía la conversación oculta, reactivarla
+      const esParticipante1 = existente[0].participante1_tipo === mi_tipo && 
+                              existente[0].participante1_id == mi_id;
+      
+      if (esParticipante1 && existente[0].oculto_participante1) {
+        await pool.query(`
+          UPDATE classroom_conversaciones 
+          SET oculto_participante1 = FALSE 
+          WHERE id_conversacion = ?
+        `, [id_conversacion]);
+      } else if (!esParticipante1 && existente[0].oculto_participante2) {
+        await pool.query(`
+          UPDATE classroom_conversaciones 
+          SET oculto_participante2 = FALSE 
+          WHERE id_conversacion = ?
+        `, [id_conversacion]);
+      }
     } else {
       // Crear nueva conversación
       const [result] = await pool.query(`
@@ -622,7 +641,7 @@ router.put("/marcar-leido/:id", async (req, res) => {
 
 // =====================================================
 // GET /api/classroom-chat/conversaciones/:tipo/:id
-// Obtener todas las conversaciones del usuario
+// Obtener todas las conversaciones del usuario (excluyendo las ocultas)
 // =====================================================
 router.get("/conversaciones/:tipo/:id", async (req, res) => {
   try {
@@ -655,8 +674,8 @@ router.get("/conversaciones/:tipo/:id", async (req, res) => {
          AND NOT (remitente_tipo = ? AND remitente_id = ?)) as no_leidos
       FROM classroom_conversaciones cc
       JOIN cursos c ON cc.id_curso = c.id_curso
-      WHERE (cc.participante1_tipo = ? AND cc.participante1_id = ?)
-         OR (cc.participante2_tipo = ? AND cc.participante2_id = ?)
+      WHERE ((cc.participante1_tipo = ? AND cc.participante1_id = ? AND cc.oculto_participante1 = FALSE)
+         OR (cc.participante2_tipo = ? AND cc.participante2_id = ? AND cc.oculto_participante2 = FALSE))
       ORDER BY cc.ultima_actividad DESC
     `, [tipo, id, tipo, id, tipo, id, tipo, id, tipo, id]);
     
@@ -694,16 +713,18 @@ router.get("/conversaciones/:tipo/:id", async (req, res) => {
 
 // =====================================================
 // DELETE /api/classroom-chat/conversacion/:id
-// Eliminar una conversación y todos sus mensajes
+// Ocultar conversación para un usuario (soft delete individual)
 // =====================================================
 router.delete("/conversacion/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { mi_tipo, mi_id } = req.body;
     
-    // Verificar que el usuario es parte de la conversación
+    // Verificar que el usuario es parte de la conversación y obtener su posición
     const [conversacion] = await pool.query(`
-      SELECT id_conversacion 
+      SELECT id_conversacion,
+             participante1_tipo, participante1_id,
+             participante2_tipo, participante2_id
       FROM classroom_conversaciones
       WHERE id_conversacion = ?
         AND ((participante1_tipo = ? AND participante1_id = ?)
@@ -717,17 +738,27 @@ router.delete("/conversacion/:id", async (req, res) => {
       });
     }
     
-    // Eliminar mensajes de la conversación
-    await pool.query(`
-      DELETE FROM classroom_mensajes WHERE id_conversacion = ?
-    `, [id]);
+    const conv = conversacion[0];
     
-    // Eliminar la conversación
-    await pool.query(`
-      DELETE FROM classroom_conversaciones WHERE id_conversacion = ?
-    `, [id]);
+    // Determinar si es participante1 o participante2
+    const esParticipante1 = conv.participante1_tipo === mi_tipo && conv.participante1_id == mi_id;
     
-    res.json({ success: true, message: "Conversación eliminada" });
+    // Hacer soft delete solo para este usuario
+    if (esParticipante1) {
+      await pool.query(`
+        UPDATE classroom_conversaciones 
+        SET oculto_participante1 = TRUE 
+        WHERE id_conversacion = ?
+      `, [id]);
+    } else {
+      await pool.query(`
+        UPDATE classroom_conversaciones 
+        SET oculto_participante2 = TRUE 
+        WHERE id_conversacion = ?
+      `, [id]);
+    }
+    
+    res.json({ success: true, message: "Conversación eliminada de tu bandeja" });
     
   } catch (error) {
     console.error("Error al eliminar conversación:", error);
