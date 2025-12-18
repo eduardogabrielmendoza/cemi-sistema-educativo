@@ -9,6 +9,33 @@ import eventLogger from "../utils/eventLogger.js";
 const router = express.Router();
 const isProduction = process.env.NODE_ENV === 'production';
 
+// Helper para obtener nombre de usuario
+async function getUserName(tipo, id) {
+  try {
+    if (tipo === 'profesor') {
+      const [rows] = await pool.query(`
+        SELECT CONCAT(p.nombre, ' ', p.apellido) as nombre
+        FROM profesores prof
+        INNER JOIN personas p ON prof.id_persona = p.id_persona
+        WHERE prof.id_profesor = ?
+      `, [id]);
+      return rows[0]?.nombre || `Profesor #${id}`;
+    } else if (tipo === 'alumno') {
+      const [rows] = await pool.query(`
+        SELECT CONCAT(p.nombre, ' ', p.apellido) as nombre
+        FROM alumnos a
+        INNER JOIN personas p ON a.id_persona = p.id_persona
+        WHERE a.id_alumno = ?
+      `, [id]);
+      return rows[0]?.nombre || `Alumno #${id}`;
+    }
+    return `Usuario #${id}`;
+  } catch (error) {
+    console.error('Error obteniendo nombre de usuario:', error);
+    return tipo === 'profesor' ? `Profesor #${id}` : `Alumno #${id}`;
+  }
+}
+
 router.get("/clases/:tipo/:id", async (req, res) => {
   try {
     const { tipo, id } = req.params; // tipo: 'profesor' o 'alumno'
@@ -71,8 +98,8 @@ router.get("/clases/:tipo/:id", async (req, res) => {
     res.json(clases);
     
     // Log del acceso a classroom
-    const userLabel = tipo === 'profesor' ? `Profesor #${id}` : `Alumno #${id}`;
-    eventLogger.classroom.access(userLabel, `${clases.length} curso(s)`);
+    const userName = await getUserName(tipo, id);
+    eventLogger.classroom.access(userName, `${clases.length} curso(s)`);
   } catch (error) {
     console.error("Error al obtener clases:", error);
     res.status(500).json({ message: "Error al obtener clases" });
@@ -378,7 +405,9 @@ router.post("/anuncios", async (req, res) => {
     });
     
     // Log del evento
-    eventLogger.classroom.announcementCreated(`Profesor #${id_profesor}`, titulo, `Curso #${id_curso}`);
+    const profesorName = await getUserName('profesor', id_profesor);
+    const cursoName = cursoInfo?.[0]?.nombre_curso || `Curso #${id_curso}`;
+    eventLogger.classroom.announcementCreated(profesorName, titulo, cursoName);
   } catch (error) {
     await connection.rollback();
     console.error("Error al crear anuncio:", error);
@@ -818,7 +847,9 @@ router.post("/tareas", async (req, res) => {
     });
     
     // Log del evento
-    eventLogger.classroom.taskCreated(`Profesor #${id_profesor}`, titulo, `Curso #${id_curso}`);
+    const profesorName = await getUserName('profesor', id_profesor);
+    const cursoName = cursoInfo?.[0]?.nombre_curso || `Curso #${id_curso}`;
+    eventLogger.classroom.taskCreated(profesorName, titulo, cursoName);
   } catch (error) {
     console.error("Error al crear tarea:", error);
     res.status(500).json({ message: "Error al crear tarea" });
@@ -839,7 +870,7 @@ router.delete("/tareas/:id", async (req, res) => {
     });
     
     // Log del evento
-    eventLogger.classroom.taskDeleted('Usuario', id);
+    eventLogger.classroom.taskDeleted('Administrador', id);
   } catch (error) {
     console.error("Error al eliminar tarea:", error);
     res.status(500).json({ message: "Error al eliminar tarea" });
@@ -991,7 +1022,8 @@ router.post("/encuestas/votar", async (req, res) => {
     });
     
     // Log del evento
-    eventLogger.classroom.pollVoted(`Alumno #${id_alumno}`, id_encuesta);
+    const alumnoName = await getUserName('alumno', id_alumno);
+    eventLogger.classroom.pollVoted(alumnoName, id_encuesta);
   } catch (error) {
     await connection.rollback();
     console.error("Error al votar en encuesta:", error);
@@ -1172,9 +1204,9 @@ router.post("/comentarios", async (req, res) => {
       comentario: comentario[0]
     });
     
-    // Log del evento
-    const userLabel = tipo_usuario === 'profesor' ? `Profesor #${id_usuario}` : `Alumno #${id_usuario}`;
-    eventLogger.classroom.commentPosted(userLabel, anuncioInfo[0]?.titulo || `Anuncio #${id_anuncio}`);
+    // Log del evento - usar el nombre que ya obtuvimos
+    const nombreUsuario = comentario[0]?.nombre_usuario || 'Usuario';
+    eventLogger.classroom.commentPosted(nombreUsuario, anuncioInfo[0]?.titulo || `Anuncio #${id_anuncio}`);
   } catch (error) {
     await connection.rollback();
     console.error("Error al crear comentario:", error);
@@ -1580,10 +1612,13 @@ router.put('/entregas/:idEntrega/calificar', async (req, res) => {
     );
 
     const [entregaInfo] = await pool.query(
-      `SELECT e.id_alumno, e.id_tarea, t.titulo, c.nombre_curso
+      `SELECT e.id_alumno, e.id_tarea, t.titulo, t.id_profesor, c.nombre_curso,
+              CONCAT(p.nombre, ' ', p.apellido) as alumno_nombre
        FROM entregas_tareas e
        INNER JOIN tareas t ON e.id_tarea = t.id_tarea
        INNER JOIN cursos c ON t.id_curso = c.id_curso
+       INNER JOIN alumnos a ON e.id_alumno = a.id_alumno
+       INNER JOIN personas p ON a.id_persona = p.id_persona
        WHERE e.id_entrega = ?`,
       [idEntrega]
     );
@@ -1605,7 +1640,8 @@ router.put('/entregas/:idEntrega/calificar', async (req, res) => {
       );
       
       // Log del evento
-      eventLogger.classroom.taskGraded('Profesor', `Alumno #${entrega.id_alumno}`, entrega.titulo);
+      const profesorName = await getUserName('profesor', entrega.id_profesor);
+      eventLogger.classroom.taskGraded(profesorName, entrega.alumno_nombre, entrega.titulo);
     }
 
     res.json({
@@ -1850,7 +1886,7 @@ router.delete("/anuncio/:id", async (req, res) => {
     });
     
     // Log del evento
-    eventLogger.classroom.announcementDeleted('Usuario', id);
+    eventLogger.classroom.announcementDeleted('Administrador', id);
   } catch (error) {
     console.error("Error al eliminar anuncio:", error);
     res.status(500).json({ message: "Error al eliminar anuncio" });
@@ -1871,7 +1907,7 @@ router.delete("/tarea/:id", async (req, res) => {
     });
     
     // Log del evento
-    eventLogger.classroom.taskDeleted('Usuario', id);
+    eventLogger.classroom.taskDeleted('Administrador', id);
   } catch (error) {
     console.error("Error al eliminar tarea:", error);
     res.status(500).json({ message: "Error al eliminar tarea" });
@@ -2058,7 +2094,8 @@ router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
     ]);
     
     // Log del evento
-    eventLogger.classroom.resourceUploaded(`Profesor #${id_profesor}`, titulo);
+    const profesorName = await getUserName('profesor', id_profesor);
+    eventLogger.classroom.resourceUploaded(profesorName, titulo);
     
     res.json({
       success: true,
@@ -2126,7 +2163,7 @@ router.delete("/recursos/:id", async (req, res) => {
     });
     
     // Log del evento
-    eventLogger.classroom.resourceDeleted('Usuario', id);
+    eventLogger.classroom.resourceDeleted('Administrador', id);
   } catch (error) {
     console.error("Error al eliminar recurso:", error);
     res.status(500).json({ 
