@@ -3656,7 +3656,10 @@ async function initStatusInteractivity() {
 
 async function loadStatusData() {
   try {
-    const response = await fetch('/api/status');
+    const token = localStorage.getItem('token');
+    const response = await fetch('/api/status', {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
     if (response.ok) {
       currentStatusData = await response.json();
       renderStatusUI();
@@ -3787,9 +3790,12 @@ async function renderServicesMonitor(services) {
   };
   
   // Obtener métricas reales para cada servicio
+  const token = localStorage.getItem('token');
   for (const service of services) {
     try {
-      const response = await fetch(`/api/status/service/${service.id}/metrics`);
+      const response = await fetch(`/api/status/service/${service.id}/metrics`, {
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+      });
       if (response.ok) {
         serviceMetricsCache[service.id] = await response.json();
       }
@@ -3945,7 +3951,10 @@ function renderActivityFeed() {
   if (!feed) return;
   
   // Obtener actividad real del backend
-  fetch('/api/status/activity?limit=12')
+  const token = localStorage.getItem('token');
+  fetch('/api/status/activity?limit=12', {
+    headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+  })
     .then(res => res.json())
     .then(data => {
       if (data.activities && data.activities.length > 0) {
@@ -4024,7 +4033,10 @@ function renderGlobalMetrics() {
   if (!container) return;
   
   // Obtener métricas reales del sistema
-  fetch('/api/status/metrics')
+  const token = localStorage.getItem('token');
+  fetch('/api/status/metrics', {
+    headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+  })
     .then(res => res.json())
     .then(data => {
       const cpuUsage = data.cpu?.usage || 0;
@@ -4207,7 +4219,10 @@ async function viewServiceLogs(serviceId, serviceName) {
 
 async function loadServiceLogs(serviceId) {
   try {
-    const response = await fetch(`/api/status/logs?service=${serviceId}&limit=50`);
+    const token = localStorage.getItem('token');
+    const response = await fetch(`/api/status/logs?service=${serviceId}&limit=50`, {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
     const data = await response.json();
     
     const container = document.getElementById('logsContainer');
@@ -4374,7 +4389,10 @@ async function pingService(serviceId, serviceName) {
   });
   
   try {
-    const response = await fetch(`/api/status/ping/${serviceId}`);
+    const token = localStorage.getItem('token');
+    const response = await fetch(`/api/status/ping/${serviceId}`, {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
     const data = await response.json();
     
     const latency = data.latency || 0;
@@ -4456,7 +4474,11 @@ async function restartService(serviceId, serviceName) {
   
   if (result.isConfirmed) {
     try {
-      const response = await fetch(`/api/status/restart/${serviceId}`, { method: 'POST' });
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/status/restart/${serviceId}`, {
+        method: 'POST',
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+      });
       const data = await response.json();
       
       if (data.success && data.steps) {
@@ -4617,9 +4639,13 @@ async function submitIncident() {
   }
   
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch('/api/status/incident', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      },
       body: JSON.stringify({
         title,
         severity,
@@ -4661,9 +4687,13 @@ async function resolveIncident(id) {
   if (!result.isConfirmed) return;
   
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch(`/api/status/incident/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      },
       body: JSON.stringify({ resolve: true })
     });
     
@@ -4696,7 +4726,11 @@ async function deleteIncident(id) {
   if (!result.isConfirmed) return;
   
   try {
-    const response = await fetch(`/api/status/incident/${id}`, { method: 'DELETE' });
+    const token = localStorage.getItem('token');
+    const response = await fetch(`/api/status/incident/${id}`, {
+      method: 'DELETE',
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    });
     
     if (response.ok) {
       await loadStatusData();
@@ -4727,9 +4761,13 @@ function openUpdateModal(id) {
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`/api/status/incident/${id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token && { 'Authorization': `Bearer ${token}` })
+          },
           body: JSON.stringify({ update_message: result.value })
         });
         
