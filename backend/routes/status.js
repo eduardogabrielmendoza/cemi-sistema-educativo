@@ -643,37 +643,41 @@ router.get('/service/:serviceId/metrics', async (req, res) => {
       return res.status(404).json({ error: 'Servicio no encontrado' });
     }
   
-  // Generar métricas realistas basadas en el estado del servicio
-  const baseLatency = service.status === 'operational' ? 30 : service.status === 'degraded' ? 150 : 0;
-  const errorMultiplier = service.status === 'operational' ? 1 : service.status === 'degraded' ? 3 : 10;
-  
-  const metrics = {
-    serviceId,
-    serviceName: service.name,
-    status: service.status,
-    latency: {
-      current: Math.round(baseLatency + Math.random() * 20),
-      avg: Math.round(baseLatency + 10),
-      min: Math.round(baseLatency * 0.5),
-      max: Math.round(baseLatency * 2)
-    },
-    uptime: {
-      percentage: service.status === 'operational' ? (99 + Math.random()).toFixed(2) : 
-                  service.status === 'degraded' ? (95 + Math.random() * 3).toFixed(2) : '0.00',
-      lastDowntime: service.status === 'operational' ? null : new Date().toISOString()
-    },
-    requests: {
-      perMinute: Math.round((Math.random() * 200 + 100) * (service.status === 'operational' ? 1 : 0.3)),
-      total24h: Math.round(Math.random() * 50000 + 10000)
-    },
-    errors: {
-      last1h: Math.round(Math.random() * 3 * errorMultiplier),
-      last24h: Math.round(Math.random() * 10 * errorMultiplier)
-    },
-    timestamp: new Date().toISOString()
-  };
-  
-  res.json(metrics);
+    // Generar métricas realistas basadas en el estado del servicio
+    const baseLatency = service.status === 'operational' ? 30 : service.status === 'degraded' ? 150 : 0;
+    const errorMultiplier = service.status === 'operational' ? 1 : service.status === 'degraded' ? 3 : 10;
+    
+    const metrics = {
+      serviceId,
+      serviceName: service.name,
+      status: service.status,
+      latency: {
+        current: Math.round(baseLatency + Math.random() * 20),
+        avg: Math.round(baseLatency + 10),
+        min: Math.round(baseLatency * 0.5),
+        max: Math.round(baseLatency * 2)
+      },
+      uptime: {
+        percentage: service.status === 'operational' ? (99 + Math.random()).toFixed(2) : 
+                    service.status === 'degraded' ? (95 + Math.random() * 3).toFixed(2) : '0.00',
+        lastDowntime: service.status === 'operational' ? null : new Date().toISOString()
+      },
+      requests: {
+        perMinute: Math.round((Math.random() * 200 + 100) * (service.status === 'operational' ? 1 : 0.3)),
+        total24h: Math.round(Math.random() * 50000 + 10000)
+      },
+      errors: {
+        last1h: Math.round(Math.random() * 3 * errorMultiplier),
+        last24h: Math.round(Math.random() * 10 * errorMultiplier)
+      },
+      timestamp: new Date().toISOString()
+    };
+    
+    res.json(metrics);
+  } catch (error) {
+    console.error('Error obteniendo métricas de servicio:', error);
+    res.status(500).json({ error: 'Error al obtener métricas' });
+  }
 });
 
 // Actividad reciente del sistema - USANDO EVENTLOGGER CENTRALIZADO
