@@ -320,7 +320,7 @@
 
 /* Stats Section */
 .stats-section {
-  background: linear-gradient(135deg, var(--charcoal) 0%, var(--slate-800) 100%);
+  background: linear-gradient(135deg, #cbcbcb);
   border-radius: 24px;
   padding: 80px 60px;
   margin: 100px 0;
@@ -375,7 +375,7 @@
   font-family: var(--font-serif);
   font-size: 3.5rem;
   font-weight: 400;
-  color: #fff;
+  color: #4a5259;;
   line-height: 1;
   margin-bottom: 12px;
   transition: all 0.3s ease;
@@ -450,7 +450,7 @@
 .role-avatar {
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, var(--harvard-gray) 0%, var(--slate-600) 100%);
+  background: linear-gradient(135deg, var(--harvard-gray));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -467,7 +467,7 @@
 
 .role-avatar i { width: 34px; height: 34px; color: #fff; }
 
-.role-header-text { text-align: left; }
+.role-header-text { text-align: center; }
 
 .role-title {
   font-size: 1.35rem;
@@ -535,7 +535,6 @@
 }
 
 .role-capabilities h4 {
-  display: flex;
   align-items: center;
   gap: 10px;
   font-size: 1.1rem;
@@ -704,7 +703,7 @@
 .step-number {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, var(--harvard-gray) 0%, var(--slate-600) 100%);
+  background: linear-gradient(135deg, var(--harvard-gray));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -825,8 +824,9 @@
   text-decoration: none;
   transition: all 0.3s ease;
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .help-card:hover {
@@ -834,31 +834,6 @@
   box-shadow: 0 15px 40px rgba(0,0,0,0.08);
   border-color: var(--harvard-gray);
 }
-
-.help-icon {
-  width: 52px;
-  height: 52px;
-  background: var(--slate-100);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.help-card:hover .help-icon {
-  background: var(--harvard-gray);
-}
-
-.help-icon i {
-  width: 26px;
-  height: 26px;
-  color: var(--slate-600);
-  transition: color 0.3s ease;
-}
-
-.help-card:hover .help-icon i { color: #fff; }
 
 .help-content h4 {
   font-size: 1.1rem;
@@ -876,7 +851,7 @@
 
 /* CTA Section */
 .cta-section {
-  background: linear-gradient(135deg, var(--charcoal) 0%, var(--slate-800) 100%);
+  background: linear-gradient(135deg, var(--charcoal));
   border-radius: 24px;
   padding: 80px 60px;
   text-align: center;
