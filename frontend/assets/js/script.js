@@ -4616,8 +4616,10 @@ function updateBannerPreview() {
     text.textContent = title;
     
     const icon = content.querySelector('i');
-    icon.setAttribute('data-lucide', STATUS_CONFIG.icons[severity]);
-    lucide.createIcons();
+    if (icon && STATUS_CONFIG?.icons?.[severity]) {
+      icon.setAttribute('data-lucide', STATUS_CONFIG.icons[severity]);
+      lucide.createIcons();
+    }
   } else {
     preview.style.display = 'none';
   }
