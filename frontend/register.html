@@ -189,6 +189,29 @@
         font-size: 0.8rem !important;
       }
     }
+
+    /* Indicador de coincidencia de contraseñas */
+    .password-match {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      margin-top: 6px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .password-match.match {
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .password-match.no-match {
+      background: rgba(239, 68, 68, 0.1);
+    }
+    .password-match i,
+    .password-match svg {
+      width: 14px;
+      height: 14px;
+    }
   </style>
 </head>
 <body class="login-body">
@@ -321,6 +344,10 @@
               <input type="password" id="confirmPass" placeholder="Confirmar contraseña" required>
               <i data-lucide="lock" class="input-icon"></i>
             </div>
+            <div class="password-match" id="passwordMatch" style="display: none;">
+              <i id="matchIcon"></i>
+              <span id="matchText"></span>
+            </div>
           </div>
         </div>
 
@@ -385,8 +412,47 @@
     
     // Indicador de fortaleza de contraseña
     const passwordInput = document.getElementById('newPass');
+    const confirmPassInput = document.getElementById('confirmPass');
     const strengthFill = document.getElementById('strengthFill');
     const strengthText = document.getElementById('strengthText');
+    const passwordMatch = document.getElementById('passwordMatch');
+    const matchIcon = document.getElementById('matchIcon');
+    const matchText = document.getElementById('matchText');
+
+    // Función para verificar coincidencia de contraseñas
+    function checkPasswordMatch() {
+      const password = passwordInput.value;
+      const confirmPassword = confirmPassInput.value;
+      
+      if (confirmPassword.length === 0) {
+        passwordMatch.style.display = 'none';
+        return;
+      }
+      
+      passwordMatch.style.display = 'flex';
+      
+      if (password === confirmPassword) {
+        matchIcon.setAttribute('data-lucide', 'check-circle');
+        matchText.textContent = 'Las contraseñas coinciden';
+        passwordMatch.style.color = '#22c55e';
+        passwordMatch.classList.remove('no-match');
+        passwordMatch.classList.add('match');
+      } else {
+        matchIcon.setAttribute('data-lucide', 'x-circle');
+        matchText.textContent = 'Las contraseñas no coinciden';
+        passwordMatch.style.color = '#ef4444';
+        passwordMatch.classList.remove('match');
+        passwordMatch.classList.add('no-match');
+      }
+      
+      lucide.createIcons();
+    }
+
+    // Escuchar cambios en ambos campos de contraseña
+    confirmPassInput.addEventListener('input', checkPasswordMatch);
+    passwordInput.addEventListener('input', () => {
+      checkPasswordMatch();
+    });
 
     passwordInput.addEventListener('input', (e) => {
       const password = e.target.value;
@@ -617,7 +683,7 @@
             confirmButtonText: 'Entendido',
             allowOutsideClick: false
           }).then(() => {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
           });
           
           document.getElementById('registerForm').reset();
