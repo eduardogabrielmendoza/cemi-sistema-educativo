@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A2540">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <title>¿Qué es Classroom? - Cemi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/harvard-menu.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: #1e1e1e;
+      --color-secondary: #656f77;
+      --color-accent: #4a90a4;
+      --color-accent-light: #5ba3b8;
+      --color-bg: #ffffff;
+      --color-bg-alt: #f8f9fa;
+      --color-border: #e5e5e5;
+      --font-serif: Georgia, 'Times New Roman', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-primary);
+      line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .info-hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a5276 0%, #2980b9 50%, #5dade2 100%);
+      overflow: hidden;
+      padding: 120px 24px 80px;
+    }
+
+    .info-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 100px;
+      color: rgba(255,255,255,0.95);
+      font-size: 0.875rem;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 1s ease 0.2s backwards;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      animation: fadeInUp 1s ease 0.3s backwards;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      animation: fadeInUp 1s ease 0.4s backwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: #ffffff;
+      color: #1a5276;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease 0.5s backwards;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .hero-cta i {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-cta:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Floating Elements */
+    .floating-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-icon {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .floating-icon i {
+      width: 28px;
+      height: 28px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .floating-icon:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+    .floating-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 2s; }
+    .floating-icon:nth-child(3) { bottom: 25%; left: 8%; animation-delay: 4s; }
+    .floating-icon:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Main Content */
+    .info-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    /* Section Styles */
+    .info-section {
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .info-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(74, 144, 164, 0.1);
+      border-radius: 100px;
+      color: var(--color-accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border-color: var(--color-accent);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(74, 144, 164, 0.15) 0%, rgba(74, 144, 164, 0.05) 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .feature-icon i {
+      width: 28px;
+      height: 28px;
+      color: var(--color-accent);
+      transition: color 0.4s ease;
+    }
+
+    .feature-card:hover .feature-icon i {
+      color: #ffffff;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .feature-description {
+      color: var(--color-secondary);
+      line-height: 1.7;
+    }
+
+    /* Interactive Demo Section */
+    .demo-section {
+      background: var(--color-bg-alt);
+      border-radius: 24px;
+      padding: 60px 40px;
+      margin: 80px 0;
+    }
+
+    .demo-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .demo-tab {
+      padding: 12px 24px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      color: var(--color-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .demo-tab:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .demo-tab.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #ffffff;
+    }
+
+    .demo-content {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .demo-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .demo-card {
+      background: var(--color-bg);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid var(--color-border);
+    }
+
+    .demo-card h4 {
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .demo-card h4 i {
+      width: 24px;
+      height: 24px;
+      color: var(--color-accent);
+    }
+
+    .demo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .demo-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--color-secondary);
+    }
+
+    .demo-list li:last-child {
+      border-bottom: none;
+    }
+
+    .demo-list li i {
+      width: 18px;
+      height: 18px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    /* Timeline Section */
+    .timeline-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--color-accent), var(--color-border));
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      width: 20px;
+      height: 20px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 6px var(--color-accent);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover .timeline-dot {
+      transform: translateX(-50%) scale(1.3);
+    }
+
+    .timeline-content {
+      flex: 1;
+      max-width: calc(50% - 40px);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover .timeline-content {
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      border-color: var(--color-accent);
+    }
+
+    .timeline-content h4 {
+      font-size: 1.1rem;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .timeline-content p {
+      color: var(--color-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Role Cards */
+    .role-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .role-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .role-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .role-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .role-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .role-avatar {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      transition: all 0.4s ease;
+    }
+
+    .role-card:hover .role-avatar {
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .role-avatar i {
+      width: 40px;
+      height: 40px;
+      color: #ffffff;
+    }
+
+    .role-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .role-description {
+      color: var(--color-secondary);
+      margin-bottom: 20px;
+    }
+
+    .role-features {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+
+    .role-features li {
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--color-secondary);
+    }
+
+    .role-features li i {
+      width: 16px;
+      height: 16px;
+      color: var(--color-accent);
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: var(--color-accent);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 20px 24px;
+      background: var(--color-bg);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-primary);
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: var(--color-bg-alt);
+    }
+
+    .faq-question i {
+      width: 20px;
+      height: 20px;
+      color: var(--color-accent);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-content {
+      padding: 0 24px 24px;
+      color: var(--color-secondary);
+      line-height: 1.7;
+    }
+
+    /* Help Section */
+    .help-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .help-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 28px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .help-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border-color: var(--color-accent);
+    }
+
+    .help-card-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(74, 144, 164, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .help-card-icon i {
+      width: 24px;
+      height: 24px;
+      color: var(--color-accent);
+    }
+
+    .help-card-content h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .help-card-content p {
+      font-size: 0.9rem;
+      color: var(--color-secondary);
+      margin: 0;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%);
+      border-radius: 24px;
+      padding: 60px 40px;
+      text-align: center;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .cta-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn-primary {
+      background: #ffffff;
+      color: #1a5276;
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .cta-btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #ffffff;
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    .cta-btn i {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--color-accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-4px);
+    }
+
+    .back-to-top i {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .info-hero {
+        min-height: 50vh;
+        padding: 100px 20px 60px;
+      }
+
+      .floating-icons {
+        display: none;
+      }
+
+      .info-content {
+        padding: 60px 20px;
+      }
+
+      .demo-section {
+        padding: 40px 24px;
+      }
+
+      .timeline-line {
+        left: 20px;
+      }
+
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        flex-direction: column;
+        padding-left: 50px;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      .timeline-content {
+        max-width: 100%;
+      }
+
+      .cta-section {
+        padding: 40px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="harvard-header">
+    <div class="harvard-header-inner">
+      <div class="harvard-branding">
+        <a href="index.html">
+          <img src="images/logolongblack.png" alt="Logo Cemi" class="harvard-logo-img" style="width: 226px; height: 79px; object-fit: contain;">
+        </a>
+      </div>
+      
+      <div class="harvard-actions">
+        <div class="harvard-search-wrapper" id="harvardSearchWrapper">
+          <input type="text" class="harvard-search-field" id="harvardSearchField" placeholder="Buscar en Cemi" autocomplete="off">
+          <div class="harvard-search-icons">
+            <button class="harvard-search-submit" id="harvardSearchSubmit" aria-label="Buscar">
+              <i data-lucide="search"></i>
+            </button>
+            <button class="harvard-search-close" id="harvardSearchClose" aria-label="Cerrar búsqueda">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="harvard-search-quicklink">
+            <span>QUICK LINKS</span>
+            <a href="a-to-z.html">Ir a Índice A-Z</a>
+          </div>
+        </div>
+        <button class="harvard-az-btn" id="harvardAzBtn" aria-label="Índice A-Z">
+          <span>A-Z</span>
+        </button>
+        <button class="harvard-menu-btn" id="harvardMenuBtn">
+          <span>Menu</span>
+          <div class="harvard-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="harvard-mega-menu" id="harvardMegaMenu">
+    <div class="mega-menu-backdrop"></div>
+    
+    <div class="mega-menu-bg-image" id="megaMenuBgImage">
+      <img src="images/STOCK1.jpg" alt="">
+    </div>
+    
+    <div class="mega-menu-header">
+      <a href="index.html" class="mega-menu-logo">
+        <img src="images/logolong.png" alt="Logo Cemi" class="mega-logo-long">
+      </a>
+      <button class="mega-menu-close" id="megaMenuClose">
+        <span>Cerrar</span>
+        <span class="close-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+      </button>
+    </div>
+    
+    <div class="mega-menu-content">
+      <nav class="mega-nav-primary">
+        <a href="#" class="mega-nav-item" data-panel="panel-classroom"><span class="mega-nav-item-text">Classroom</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-dashboard"><span class="mega-nav-item-text">Dashboard</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-nosotros"><span class="mega-nav-item-text">Nosotros</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-soporte"><span class="mega-nav-item-text">Soporte</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-seguridad"><span class="mega-nav-item-text">Seguridad</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-recursos"><span class="mega-nav-item-text">Recursos</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-accesibilidad"><span class="mega-nav-item-text">Accesibilidad</span></a>
+      </nav>
+      
+      <div class="mega-nav-secondary-container">
+        <div class="mega-nav-secondary" id="panel-classroom">
+          <a href="classroom-login.html" class="mega-sub-title">Classroom <span class="arrow">→</span></a>
+          <p class="mega-sub-description">El aula virtual más intuitiva. Tareas, calificaciones, anuncios y más.</p>
+          <div class="mega-sub-links">
+            <a href="#" class="mega-sub-link has-children" data-tertiary="tertiary-funciones" data-image="images/STOCK2.jpg">Funciones Principales <span class="chevron">›</span></a>
+            <a href="guia.html" class="mega-sub-link">Guía de Uso</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-dashboard">
+          <a href="login-selector.html" class="mega-sub-title">Dashboard <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Gestión completa de alumnos, profesores, cursos, pagos y estadísticas.</p>
+          <div class="mega-sub-links">
+            <a href="#" class="mega-sub-link has-children" data-tertiary="tertiary-paneles" data-image="images/STOCK3.webp">Paneles por Rol <span class="chevron">›</span></a>
+            <a href="index.html#modulos" class="mega-sub-link">Ver Módulos</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-nosotros" data-image="images/menu/nosotros.jpg">
+          <a href="index.html#nosotros" class="mega-sub-title">Nosotros <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Conoce nuestra historia, misión y el equipo detrás de Cemi.</p>
+          <div class="mega-sub-links">
+            <a href="index.html#historia" class="mega-sub-link">Nuestra Historia</a>
+            <a href="index.html#filosofia" class="mega-sub-link">Misión y Visión</a>
+            <a href="index.html#valores" class="mega-sub-link">Nuestros Valores</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-soporte" data-image="images/menu/soporte.jpg">
+          <a href="ayuda.html" class="mega-sub-title">Soporte <span class="arrow">→</span></a>
+          <p class="mega-sub-description">¿Necesitas ayuda? Estamos aquí para asistirte.</p>
+          <div class="mega-sub-links">
+            <a href="index.html#faq" class="mega-sub-link">Preguntas Frecuentes</a>
+            <a href="mailto:soporte@Cemiedu" class="mega-sub-link">Contactar Soporte</a>
+            <a href="status.html" class="mega-sub-link">Estado del Sistema</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-seguridad" data-image="images/menu/seguridad.jpg">
+          <a href="reportar-seguridad.html" class="mega-sub-title">Seguridad <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Reporta vulnerabilidades o infracciones de forma segura.</p>
+          <div class="mega-sub-links">
+            <a href="cemi-seguridad.html" class="mega-sub-link">Centro de Ayuda de Seguridad</a>
+            <a href="reportar-copyright.html" class="mega-sub-link">Reportar Infracción de Copyright</a>
+            <a href="privacidad.html" class="mega-sub-link">Política de Privacidad</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-recursos" data-image="images/menu/recursos.webp">
+          <a href="guia.html" class="mega-sub-title">Recursos <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Documentación, descargas y más recursos útiles.</p>
+          <div class="mega-sub-links">
+            <a href="https://Cemiup.railway.app/downloads/cemi-app-v1.2.apk" class="mega-sub-link">Descargar App Android</a>
+            <a href="index.html#caracteristicas" class="mega-sub-link">Características del Sistema</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-accesibilidad" data-image="images/menu/accesibilidad.jpg">
+          <a href="accesibilidad.html" class="mega-sub-title">Accesibilidad <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Herramientas de acceso y administración institucional.</p>
+          <div class="mega-sub-links">
+            <a href="login-selector.html" class="mega-sub-link">Acceso Público</a>
+            <a href="login-admin.html" class="mega-sub-link">Acceso Administrativo</a>
+            <a href="reglamento-institucional.html" class="mega-sub-link">Reglamento Institucional</a>
+            <a href="register.html" class="mega-sub-link">Registro</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mega-nav-tertiary-container">
+        <div class="mega-nav-tertiary" id="tertiary-funciones">
+          <div class="mega-tertiary-header">
+            <h4>Funciones del Classroom</h4>
+            <p>Explora todas las herramientas disponibles.</p>
+          </div>
+          <div class="mega-tertiary-links">
+            <div class="mega-tertiary-item">
+              <button class="mega-tertiary-link">Tareas y Entregas</button>
+              <div class="mega-tertiary-info">
+                <p>Gestiona tus tareas pendientes.</p>
+                <a href="classroom-login.html" class="mega-tertiary-action">Ir al Classroom →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mega-nav-tertiary" id="tertiary-paneles">
+          <div class="mega-tertiary-header">
+            <h4>Paneles por Rol</h4>
+            <p>Accede según tu perfil.</p>
+          </div>
+          <div class="mega-tertiary-links">
+            <div class="mega-tertiary-item">
+              <button class="mega-tertiary-link">Panel del Alumno</button>
+              <div class="mega-tertiary-info">
+                <p>Tu espacio personal.</p>
+                <a href="login.html" class="mega-tertiary-action">Iniciar Sesión →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mega-menu-footer">
+      <div class="mega-footer-inner">
+        <span class="mega-footer-label">
+          Enlaces rápidos <span class="chevron">›</span>
+        </span>
+        <div class="mega-footer-links">
+          <a href="terminos.html" class="mega-footer-link">Términos de Servicio</a>
+          <a href="privacidad.html" class="mega-footer-link">Privacidad</a>
+          <a href="ayuda.html" class="mega-footer-link">Ayuda</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="info-hero">
+    <div class="floating-icons">
+      <div class="floating-icon"><i data-lucide="book-open"></i></div>
+      <div class="floating-icon"><i data-lucide="file-text"></i></div>
+      <div class="floating-icon"><i data-lucide="message-circle"></i></div>
+      <div class="floating-icon"><i data-lucide="award"></i></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i data-lucide="graduation-cap"></i>
+        <span>Aula Virtual</span>
+      </div>
+      <h1 class="hero-title">¿Qué es Classroom?</h1>
+      <p class="hero-subtitle">El aula virtual más completa para la interacción entre profesores y alumnos. Tareas, recursos, comunicación y más en un solo lugar.</p>
+      <a href="classroom-login.html" class="hero-cta">
+        <span>Acceder al Classroom</span>
+        <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="info-content">
+    
+    <!-- ¿Qué es? Section -->
+    <section class="info-section" id="que-es">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="info" style="width: 14px; height: 14px;"></i>
+          Introducción
+        </div>
+        <h2 class="section-title">Tu Aula Virtual Completa</h2>
+        <p class="section-subtitle">Classroom es la plataforma de aprendizaje virtual de CEMI que conecta a profesores y alumnos en un espacio digital interactivo.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="file-text"></i>
+          </div>
+          <h3 class="feature-title">Tareas y Entregas</h3>
+          <p class="feature-description">Los profesores asignan tareas con fechas límite claras. Los alumnos pueden subir sus trabajos directamente y recibir calificaciones y retroalimentación.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="megaphone"></i>
+          </div>
+          <h3 class="feature-title">Anuncios y Comunicados</h3>
+          <p class="feature-description">Mantente informado con los anuncios de tus profesores. Información importante, recordatorios y novedades del curso siempre disponibles.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="folder-open"></i>
+          </div>
+          <h3 class="feature-title">Recursos y Materiales</h3>
+          <p class="feature-description">Accede a documentos, presentaciones, videos y todo el material didáctico que tus profesores compartan para complementar tu aprendizaje.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="message-square"></i>
+          </div>
+          <h3 class="feature-title">Comentarios y Discusión</h3>
+          <p class="feature-description">Participa en discusiones, haz preguntas y colabora con tus compañeros y profesores a través del sistema de comentarios.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="bar-chart"></i>
+          </div>
+          <h3 class="feature-title">Encuestas Interactivas</h3>
+          <p class="feature-description">Los profesores pueden crear encuestas para conocer tu opinión, evaluar conocimientos previos o tomar decisiones grupales.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="calendar"></i>
+          </div>
+          <h3 class="feature-title">Calendario Integrado</h3>
+          <p class="feature-description">Visualiza todas tus fechas importantes: entregas de tareas, exámenes y eventos del curso en un calendario visual.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo-section info-section" id="demo">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
+          Funcionalidades
+        </div>
+        <h2 class="section-title">Explora lo que puedes hacer</h2>
+      </div>
+      
+      <div class="demo-tabs">
+        <button class="demo-tab active" data-tab="tareas">Tareas</button>
+        <button class="demo-tab" data-tab="recursos">Recursos</button>
+        <button class="demo-tab" data-tab="anuncios">Anuncios</button>
+        <button class="demo-tab" data-tab="chat">Chat</button>
+      </div>
+      
+      <div class="demo-content active" id="tareas">
+        <div class="demo-card">
+          <h4><i data-lucide="clipboard-list"></i> Gestión de Tareas</h4>
+          <ul class="demo-list">
+            <li><i data-lucide="check"></i> Ver todas las tareas asignadas con fechas límite</li>
+            <li><i data-lucide="check"></i> Subir archivos de entrega (PDF, Word, imágenes)</li>
+            <li><i data-lucide="check"></i> Recibir calificaciones y comentarios del profesor</li>
+            <li><i data-lucide="check"></i> Ver el estado de cada tarea (pendiente, entregada, calificada)</li>
+            <li><i data-lucide="check"></i> Filtrar tareas por curso o estado</li>
+            <li><i data-lucide="check"></i> Notificaciones de nuevas tareas y calificaciones</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="demo-content" id="recursos">
+        <div class="demo-card">
+          <h4><i data-lucide="folder"></i> Biblioteca de Recursos</h4>
+          <ul class="demo-list">
+            <li><i data-lucide="check"></i> Documentos PDF y presentaciones</li>
+            <li><i data-lucide="check"></i> Videos educativos y tutoriales</li>
+            <li><i data-lucide="check"></i> Enlaces a recursos externos</li>
+            <li><i data-lucide="check"></i> Material organizado por tema o unidad</li>
+            <li><i data-lucide="check"></i> Descarga para estudio offline</li>
+            <li><i data-lucide="check"></i> Búsqueda rápida de materiales</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="demo-content" id="anuncios">
+        <div class="demo-card">
+          <h4><i data-lucide="bell"></i> Centro de Anuncios</h4>
+          <ul class="demo-list">
+            <li><i data-lucide="check"></i> Comunicados importantes del profesor</li>
+            <li><i data-lucide="check"></i> Recordatorios de fechas importantes</li>
+            <li><i data-lucide="check"></i> Cambios en horarios o contenidos</li>
+            <li><i data-lucide="check"></i> Encuestas y votaciones del curso</li>
+            <li><i data-lucide="check"></i> Comentar y hacer preguntas</li>
+            <li><i data-lucide="check"></i> Notificaciones en tiempo real</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="demo-content" id="chat">
+        <div class="demo-card">
+          <h4><i data-lucide="messages-square"></i> Chat en Tiempo Real</h4>
+          <ul class="demo-list">
+            <li><i data-lucide="check"></i> Mensajería directa con profesores</li>
+            <li><i data-lucide="check"></i> Conversaciones con compañeros de clase</li>
+            <li><i data-lucide="check"></i> Envío de archivos adjuntos</li>
+            <li><i data-lucide="check"></i> Historial de conversaciones</li>
+            <li><i data-lucide="check"></i> Notificaciones de mensajes nuevos</li>
+            <li><i data-lucide="check"></i> Estado de conexión en tiempo real</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roles Section -->
+    <section class="info-section" id="roles">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="users" style="width: 14px; height: 14px;"></i>
+          Usuarios
+        </div>
+        <h2 class="section-title">¿Quién puede usar Classroom?</h2>
+        <p class="section-subtitle">Classroom está diseñado para facilitar la interacción educativa entre profesores y alumnos.</p>
+      </div>
+      
+      <div class="role-cards">
+        <div class="role-card">
+          <div class="role-avatar">
+            <i data-lucide="user-check"></i>
+          </div>
+          <h3 class="role-title">Profesores</h3>
+          <p class="role-description">Gestiona tus cursos y conecta con tus alumnos</p>
+          <ul class="role-features">
+            <li><i data-lucide="check-circle"></i> Crear y publicar anuncios</li>
+            <li><i data-lucide="check-circle"></i> Asignar y calificar tareas</li>
+            <li><i data-lucide="check-circle"></i> Subir recursos y materiales</li>
+            <li><i data-lucide="check-circle"></i> Crear encuestas interactivas</li>
+            <li><i data-lucide="check-circle"></i> Comunicarse con alumnos</li>
+            <li><i data-lucide="check-circle"></i> Ver estadísticas del curso</li>
+          </ul>
+        </div>
+        
+        <div class="role-card">
+          <div class="role-avatar">
+            <i data-lucide="book-open"></i>
+          </div>
+          <h3 class="role-title">Alumnos</h3>
+          <p class="role-description">Aprende y participa activamente</p>
+          <ul class="role-features">
+            <li><i data-lucide="check-circle"></i> Ver anuncios y novedades</li>
+            <li><i data-lucide="check-circle"></i> Entregar tareas</li>
+            <li><i data-lucide="check-circle"></i> Descargar recursos</li>
+            <li><i data-lucide="check-circle"></i> Participar en encuestas</li>
+            <li><i data-lucide="check-circle"></i> Comentar y preguntar</li>
+            <li><i data-lucide="check-circle"></i> Chatear con compañeros</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline - Cómo empezar -->
+    <section class="info-section" id="como-empezar">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="rocket" style="width: 14px; height: 14px;"></i>
+          Primeros Pasos
+        </div>
+        <h2 class="section-title">¿Cómo empezar?</h2>
+        <p class="section-subtitle">Sigue estos pasos para comenzar a usar Classroom.</p>
+      </div>
+      
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>1. Inicia sesión</h4>
+            <p>Accede con el usuario y contraseña que te proporcionó la institución. Estos son los mismos que usas para Dashboard.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>2. Selecciona tu curso</h4>
+            <p>Verás la lista de cursos en los que estás inscrito. Haz clic en cualquiera para acceder a su contenido.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>3. Explora el feed</h4>
+            <p>En el feed encontrarás los anuncios, tareas y recursos más recientes de tu curso organizados cronológicamente.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>4. Interactúa</h4>
+            <p>Comenta en anuncios, entrega tareas, descarga materiales y participa activamente en tu proceso de aprendizaje.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="info-section" id="faq">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="help-circle" style="width: 14px; height: 14px;"></i>
+          FAQ
+        </div>
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <p class="section-subtitle">Resuelve tus dudas sobre Classroom.</p>
+      </div>
+      
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Puedo entregar una tarea después de la fecha límite?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Depende de la configuración del profesor. Algunas tareas permiten entregas tardías, mientras que otras se cierran automáticamente. Te recomendamos entregar siempre a tiempo o contactar a tu profesor si tienes dificultades.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Qué formatos de archivo puedo subir?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Classroom acepta la mayoría de formatos comunes: PDF, documentos de Word (.doc, .docx), presentaciones (.ppt, .pptx), imágenes (.jpg, .png), y archivos comprimidos (.zip). El tamaño máximo por archivo es de 10MB.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cómo recibo notificaciones de nuevas tareas?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Recibirás notificaciones en el panel de notificaciones dentro de Classroom. Además, si el profesor activa las notificaciones por email, también recibirás un correo electrónico cuando se publique algo nuevo.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Puedo acceder a Classroom desde mi celular?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              ¡Sí! Classroom es completamente responsivo y funciona perfectamente en smartphones y tablets. Solo necesitas un navegador moderno y conexión a internet.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cuál es la diferencia entre Classroom y Dashboard?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Classroom es el aula virtual donde ocurre la interacción académica (tareas, materiales, comunicación), mientras que Dashboard es el sistema de gestión administrativa donde puedes ver tu información personal, calificaciones oficiales, pagos y datos de inscripción.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help Section -->
+    <section class="info-section" id="ayuda">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="life-buoy" style="width: 14px; height: 14px;"></i>
+          Soporte
+        </div>
+        <h2 class="section-title">¿Necesitas ayuda?</h2>
+        <p class="section-subtitle">Encuentra la asistencia que necesitas.</p>
+      </div>
+      
+      <div class="help-cards">
+        <a href="ayuda-classroom.html" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="book-open"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Guía de Classroom</h4>
+            <p>Tutoriales específicos para usar Classroom</p>
+          </div>
+        </a>
+        
+        <a href="documentacion.html" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="file-text"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Documentación</h4>
+            <p>Manuales y guías completas</p>
+          </div>
+        </a>
+        
+        <a href="comunidad-cemi.html" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="users"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Comunidad CEMI</h4>
+            <p>Pregunta a otros usuarios</p>
+          </div>
+        </a>
+        
+        <a href="mailto:soporte@cemi.edu" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="mail"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Contacto</h4>
+            <p>soporte@cemi.edu</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">¿Listo para aprender?</h2>
+        <p class="cta-subtitle">Accede a Classroom y descubre una nueva forma de educación digital.</p>
+        <div class="cta-buttons">
+          <a href="classroom-login.html" class="cta-btn cta-btn-primary">
+            <i data-lucide="log-in"></i>
+            <span>Ir al Classroom</span>
+          </a>
+          <a href="info-dashboard.html" class="cta-btn cta-btn-secondary">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Conocer Dashboard</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop">
+    <i data-lucide="chevron-up"></i>
+  </button>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Scroll Reveal Animation
+    const sections = document.querySelectorAll('.info-section');
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Demo Tabs
+    const demoTabs = document.querySelectorAll('.demo-tab');
+    const demoContents = document.querySelectorAll('.demo-content');
+
+    demoTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-tab');
+        
+        // Remove active class from all
+        demoTabs.forEach(t => t.classList.remove('active'));
+        demoContents.forEach(c => c.classList.remove('active'));
+        
+        // Add active class to clicked
+        tab.classList.add('active');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all other items
+        faqItems.forEach(otherItem => {
+          otherItem.classList.remove('active');
+        });
+        
+        // Toggle current item
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+  <footer class="professional-footer">
+    <div class="footer-main">
+      <div class="footer-column">
+        <div class="footer-logo">
+          <img src="images/logolong.png" alt="Logo Cemi" class="footer-logo-long">
+        </div>
+        <p class="footer-description">Sistema de Gestión Académica Integral para instituciones educativas modernas.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Contacto</h4>
+        <ul class="footer-contact">
+          <li><i data-lucide="mail"></i> contacto@cemi.edu</li>
+          <li><i data-lucide="phone"></i> +54 0800 CEMI 4433</li>
+          <li><i data-lucide="map-pin"></i> San Miguel, Argentina</li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Acceso</h4>
+        <div class="footer-social">
+        </div>
+        <a href="register.html" class="footer-cta-link">
+          <i data-lucide="user-plus"></i> Registrarse
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Cemi - Sistema de Gestión Académica. Todos los derechos reservados.</p>
+      <p class="footer-tech">Desarrollado con Node.js, MySQL y tecnologías modernas</p>
+      <div class="footer-links-bottom">
+        <a href="terminos.html">Términos de Servicio</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="ayuda.html">Ayuda</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/harvard-menu.js"></script>
+
+</body>
+</html>

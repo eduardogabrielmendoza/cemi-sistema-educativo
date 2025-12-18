@@ -851,6 +851,41 @@ html {
   box-shadow: 0 8px 25px rgba(30, 30, 30, 0.25);
 }
 
+/* Contenedor de botones con info */
+.split-banner-btn-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botón circular de información */
+.split-banner-info-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #1e1e1e;
+  background: transparent;
+  color: #1e1e1e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.split-banner-info-btn i {
+  width: 20px;
+  height: 20px;
+}
+
+.split-banner-info-btn:hover {
+  background: #1e1e1e;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(30, 30, 30, 0.25);
+}
+
 .split-banner-btn-android {
   gap: 10px;
   background: #3ddc84;
@@ -989,6 +1024,10 @@ html {
   
   .split-banner-btn {
     margin: 0 auto;
+  }
+  
+  .split-banner-btn-container {
+    justify-content: center;
   }
 }
 

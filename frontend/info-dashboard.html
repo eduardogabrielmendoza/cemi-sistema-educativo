@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A2540">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <title>¿Qué es Dashboard? - Cemi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/harvard-menu.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: #1e1e1e;
+      --color-secondary: #656f77;
+      --color-accent: #93a1ad;
+      --color-bg: #ffffff;
+      --color-bg-alt: #f8f9fa;
+      --color-border: #e5e5e5;
+      --font-serif: Georgia, 'Times New Roman', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-primary);
+      line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .info-hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e1e1e 0%, #2d3436 50%, #636e72 100%);
+      overflow: hidden;
+      padding: 120px 24px 80px;
+    }
+
+    .info-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.875rem;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 1s ease 0.2s backwards;
+    }
+
+    .hero-badge i {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      animation: fadeInUp 1s ease 0.3s backwards;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      animation: fadeInUp 1s ease 0.4s backwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: #ffffff;
+      color: #1e1e1e;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease 0.5s backwards;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .hero-cta i {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-cta:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Floating Elements */
+    .floating-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-icon {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .floating-icon i {
+      width: 28px;
+      height: 28px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .floating-icon:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+    .floating-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 2s; }
+    .floating-icon:nth-child(3) { bottom: 25%; left: 8%; animation-delay: 4s; }
+    .floating-icon:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Main Content */
+    .info-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    /* Section Styles */
+    .info-section {
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .info-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(147, 161, 173, 0.1);
+      border-radius: 100px;
+      color: var(--color-accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-accent), #656f77);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border-color: var(--color-accent);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(147, 161, 173, 0.15) 0%, rgba(147, 161, 173, 0.05) 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      background: linear-gradient(135deg, var(--color-accent) 0%, #656f77 100%);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .feature-icon i {
+      width: 28px;
+      height: 28px;
+      color: var(--color-accent);
+      transition: color 0.4s ease;
+    }
+
+    .feature-card:hover .feature-icon i {
+      color: #ffffff;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .feature-description {
+      color: var(--color-secondary);
+      line-height: 1.7;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: var(--color-bg-alt);
+      border-radius: 24px;
+      padding: 60px 40px;
+      margin: 80px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item {
+      position: relative;
+    }
+
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--color-secondary);
+    }
+
+    /* Accordion FAQ */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: var(--color-accent);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 20px 24px;
+      background: var(--color-bg);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-primary);
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: var(--color-bg-alt);
+    }
+
+    .faq-question i {
+      width: 20px;
+      height: 20px;
+      color: var(--color-accent);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-content {
+      padding: 0 24px 24px;
+      color: var(--color-secondary);
+      line-height: 1.7;
+    }
+
+    /* Steps Section */
+    .steps-container {
+      position: relative;
+    }
+
+    .steps-line {
+      position: absolute;
+      left: 28px;
+      top: 60px;
+      bottom: 60px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--color-accent), var(--color-border));
+    }
+
+    .step-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      background: var(--color-bg);
+      border: 2px solid var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .step-item:hover .step-number {
+      background: var(--color-accent);
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+
+    .step-content {
+      flex: 1;
+      padding-top: 8px;
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .step-description {
+      color: var(--color-secondary);
+      line-height: 1.7;
+    }
+
+    /* Help Section */
+    .help-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .help-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 28px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .help-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border-color: var(--color-accent);
+    }
+
+    .help-card-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(147, 161, 173, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .help-card-icon i {
+      width: 24px;
+      height: 24px;
+      color: var(--color-accent);
+    }
+
+    .help-card-content h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .help-card-content p {
+      font-size: 0.9rem;
+      color: var(--color-secondary);
+      margin: 0;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #1e1e1e 0%, #2d3436 100%);
+      border-radius: 24px;
+      padding: 60px 40px;
+      text-align: center;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(147,161,173,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .cta-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn-primary {
+      background: #ffffff;
+      color: #1e1e1e;
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .cta-btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #ffffff;
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .cta-btn i {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--color-primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      background: var(--color-accent);
+      transform: translateY(-4px);
+    }
+
+    .back-to-top i {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .info-hero {
+        min-height: 50vh;
+        padding: 100px 20px 60px;
+      }
+
+      .floating-icons {
+        display: none;
+      }
+
+      .info-content {
+        padding: 60px 20px;
+      }
+
+      .stats-section {
+        padding: 40px 24px;
+      }
+
+      .stats-grid {
+        gap: 32px;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .steps-line {
+        display: none;
+      }
+
+      .step-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cta-section {
+        padding: 40px 24px;
+      }
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .pulse-animation {
+      animation: pulse 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="harvard-header">
+    <div class="harvard-header-inner">
+      <div class="harvard-branding">
+        <a href="index.html">
+          <img src="images/logolongblack.png" alt="Logo Cemi" class="harvard-logo-img" style="width: 226px; height: 79px; object-fit: contain;">
+        </a>
+      </div>
+      
+      <div class="harvard-actions">
+        <div class="harvard-search-wrapper" id="harvardSearchWrapper">
+          <input type="text" class="harvard-search-field" id="harvardSearchField" placeholder="Buscar en Cemi" autocomplete="off">
+          <div class="harvard-search-icons">
+            <button class="harvard-search-submit" id="harvardSearchSubmit" aria-label="Buscar">
+              <i data-lucide="search"></i>
+            </button>
+            <button class="harvard-search-close" id="harvardSearchClose" aria-label="Cerrar búsqueda">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="harvard-search-quicklink">
+            <span>QUICK LINKS</span>
+            <a href="a-to-z.html">Ir a Índice A-Z</a>
+          </div>
+        </div>
+        <button class="harvard-az-btn" id="harvardAzBtn" aria-label="Índice A-Z">
+          <span>A-Z</span>
+        </button>
+        <button class="harvard-menu-btn" id="harvardMenuBtn">
+          <span>Menu</span>
+          <div class="harvard-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="harvard-mega-menu" id="harvardMegaMenu">
+    <div class="mega-menu-backdrop"></div>
+    
+    <div class="mega-menu-bg-image" id="megaMenuBgImage">
+      <img src="images/STOCK1.jpg" alt="">
+    </div>
+    
+    <div class="mega-menu-header">
+      <a href="index.html" class="mega-menu-logo">
+        <img src="images/logolong.png" alt="Logo Cemi" class="mega-logo-long">
+      </a>
+      <button class="mega-menu-close" id="megaMenuClose">
+        <span>Cerrar</span>
+        <span class="close-icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
+      </button>
+    </div>
+    
+    <div class="mega-menu-content">
+      <nav class="mega-nav-primary">
+        <a href="#" class="mega-nav-item" data-panel="panel-classroom"><span class="mega-nav-item-text">Classroom</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-dashboard"><span class="mega-nav-item-text">Dashboard</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-nosotros"><span class="mega-nav-item-text">Nosotros</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-soporte"><span class="mega-nav-item-text">Soporte</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-seguridad"><span class="mega-nav-item-text">Seguridad</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-recursos"><span class="mega-nav-item-text">Recursos</span></a>
+        <a href="#" class="mega-nav-item" data-panel="panel-accesibilidad"><span class="mega-nav-item-text">Accesibilidad</span></a>
+      </nav>
+      
+      <div class="mega-nav-secondary-container">
+        <div class="mega-nav-secondary" id="panel-classroom">
+          <a href="classroom-login.html" class="mega-sub-title">Classroom <span class="arrow">→</span></a>
+          <p class="mega-sub-description">El aula virtual más intuitiva. Tareas, calificaciones, anuncios y más.</p>
+          <div class="mega-sub-links">
+            <a href="#" class="mega-sub-link has-children" data-tertiary="tertiary-funciones" data-image="images/STOCK2.jpg">Funciones Principales <span class="chevron">›</span></a>
+            <a href="guia.html" class="mega-sub-link">Guía de Uso</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-dashboard">
+          <a href="login-selector.html" class="mega-sub-title">Dashboard <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Gestión completa de alumnos, profesores, cursos, pagos y estadísticas.</p>
+          <div class="mega-sub-links">
+            <a href="#" class="mega-sub-link has-children" data-tertiary="tertiary-paneles" data-image="images/STOCK3.webp">Paneles por Rol <span class="chevron">›</span></a>
+            <a href="index.html#modulos" class="mega-sub-link">Ver Módulos</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-nosotros" data-image="images/menu/nosotros.jpg">
+          <a href="index.html#nosotros" class="mega-sub-title">Nosotros <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Conoce nuestra historia, misión y el equipo detrás de Cemi.</p>
+          <div class="mega-sub-links">
+            <a href="index.html#historia" class="mega-sub-link">Nuestra Historia</a>
+            <a href="index.html#filosofia" class="mega-sub-link">Misión y Visión</a>
+            <a href="index.html#valores" class="mega-sub-link">Nuestros Valores</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-soporte" data-image="images/menu/soporte.jpg">
+          <a href="ayuda.html" class="mega-sub-title">Soporte <span class="arrow">→</span></a>
+          <p class="mega-sub-description">¿Necesitas ayuda? Estamos aquí para asistirte.</p>
+          <div class="mega-sub-links">
+            <a href="index.html#faq" class="mega-sub-link">Preguntas Frecuentes</a>
+            <a href="mailto:soporte@Cemiedu" class="mega-sub-link">Contactar Soporte</a>
+            <a href="status.html" class="mega-sub-link">Estado del Sistema</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-seguridad" data-image="images/menu/seguridad.jpg">
+          <a href="reportar-seguridad.html" class="mega-sub-title">Seguridad <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Reporta vulnerabilidades o infracciones de forma segura.</p>
+          <div class="mega-sub-links">
+            <a href="cemi-seguridad.html" class="mega-sub-link">Centro de Ayuda de Seguridad</a>
+            <a href="reportar-copyright.html" class="mega-sub-link">Reportar Infracción de Copyright</a>
+            <a href="privacidad.html" class="mega-sub-link">Política de Privacidad</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-recursos" data-image="images/menu/recursos.webp">
+          <a href="guia.html" class="mega-sub-title">Recursos <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Documentación, descargas y más recursos útiles.</p>
+          <div class="mega-sub-links">
+            <a href="https://Cemiup.railway.app/downloads/cemi-app-v1.2.apk" class="mega-sub-link">Descargar App Android</a>
+            <a href="index.html#caracteristicas" class="mega-sub-link">Características del Sistema</a>
+          </div>
+        </div>
+        
+        <div class="mega-nav-secondary" id="panel-accesibilidad" data-image="images/menu/accesibilidad.jpg">
+          <a href="accesibilidad.html" class="mega-sub-title">Accesibilidad <span class="arrow">→</span></a>
+          <p class="mega-sub-description">Herramientas de acceso y administración institucional.</p>
+          <div class="mega-sub-links">
+            <a href="login-selector.html" class="mega-sub-link">Acceso Público</a>
+            <a href="login-admin.html" class="mega-sub-link">Acceso Administrativo</a>
+            <a href="reglamento-institucional.html" class="mega-sub-link">Reglamento Institucional</a>
+            <a href="register.html" class="mega-sub-link">Registro</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mega-nav-tertiary-container">
+        <div class="mega-nav-tertiary" id="tertiary-funciones">
+          <div class="mega-tertiary-header">
+            <h4>Funciones del Classroom</h4>
+            <p>Explora todas las herramientas disponibles.</p>
+          </div>
+          <div class="mega-tertiary-links">
+            <div class="mega-tertiary-item">
+              <button class="mega-tertiary-link">Tareas y Entregas</button>
+              <div class="mega-tertiary-info">
+                <p>Gestiona tus tareas pendientes.</p>
+                <a href="classroom-login.html" class="mega-tertiary-action">Ir al Classroom →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mega-nav-tertiary" id="tertiary-paneles">
+          <div class="mega-tertiary-header">
+            <h4>Paneles por Rol</h4>
+            <p>Accede según tu perfil.</p>
+          </div>
+          <div class="mega-tertiary-links">
+            <div class="mega-tertiary-item">
+              <button class="mega-tertiary-link">Panel del Alumno</button>
+              <div class="mega-tertiary-info">
+                <p>Tu espacio personal.</p>
+                <a href="login.html" class="mega-tertiary-action">Iniciar Sesión →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mega-menu-footer">
+      <div class="mega-footer-inner">
+        <span class="mega-footer-label">
+          Enlaces rápidos <span class="chevron">›</span>
+        </span>
+        <div class="mega-footer-links">
+          <a href="terminos.html" class="mega-footer-link">Términos de Servicio</a>
+          <a href="privacidad.html" class="mega-footer-link">Privacidad</a>
+          <a href="ayuda.html" class="mega-footer-link">Ayuda</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="info-hero">
+    <div class="floating-icons">
+      <div class="floating-icon"><i data-lucide="users"></i></div>
+      <div class="floating-icon"><i data-lucide="bar-chart-2"></i></div>
+      <div class="floating-icon"><i data-lucide="credit-card"></i></div>
+      <div class="floating-icon"><i data-lucide="settings"></i></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Sistema de Gestión</span>
+      </div>
+      <h1 class="hero-title">¿Qué es Dashboard?</h1>
+      <p class="hero-subtitle">El centro de control completo para la gestión académica, administrativa y financiera de tu institución educativa.</p>
+      <a href="login.html" class="hero-cta">
+        <span>Acceder al Dashboard</span>
+        <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="info-content">
+    
+    <!-- ¿Qué es? Section -->
+    <section class="info-section" id="que-es">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="info" style="width: 14px; height: 14px;"></i>
+          Introducción
+        </div>
+        <h2 class="section-title">Sistema de Gestión Integral</h2>
+        <p class="section-subtitle">Dashboard es la herramienta central de CEMI para administrar todos los aspectos de la institución educativa.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="users"></i>
+          </div>
+          <h3 class="feature-title">Gestión de Usuarios</h3>
+          <p class="feature-description">Administra de forma eficiente a todos los alumnos y profesores de la institución. Registra datos, modifica información y mantén un control completo.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="book-open"></i>
+          </div>
+          <h3 class="feature-title">Control de Cursos</h3>
+          <p class="feature-description">Crea, edita y gestiona cursos de diferentes idiomas y niveles. Asigna profesores, define horarios y establece cupos máximos.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="credit-card"></i>
+          </div>
+          <h3 class="feature-title">Administración de Pagos</h3>
+          <p class="feature-description">Lleva un registro detallado de todos los pagos de inscripción y mensualidades. Genera reportes y mantén las finanzas organizadas.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="bar-chart-2"></i>
+          </div>
+          <h3 class="feature-title">Calificaciones y Evaluaciones</h3>
+          <p class="feature-description">Consulta y gestiona las calificaciones de todos los alumnos. Visualiza parciales, finales y promedios de rendimiento académico.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="calendar"></i>
+          </div>
+          <h3 class="feature-title">Horarios y Asistencias</h3>
+          <p class="feature-description">Configura los horarios de clases y registra la asistencia de los alumnos. Genera reportes de puntualidad y asistencia.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <h3 class="feature-title">Seguridad y Control</h3>
+          <p class="feature-description">Acceso seguro con autenticación robusta. Diferentes niveles de permisos para administradores, profesores y personal.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section info-section" id="estadisticas">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="trending-up" style="width: 14px; height: 14px;"></i>
+          En números
+        </div>
+        <h2 class="section-title">Dashboard en Acción</h2>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Alumnos gestionados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">20+</div>
+          <div class="stat-label">Cursos activos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Idiomas disponibles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Disponibilidad</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ¿Quién puede usar? Section -->
+    <section class="info-section" id="usuarios">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="user-check" style="width: 14px; height: 14px;"></i>
+          Acceso
+        </div>
+        <h2 class="section-title">¿Quién puede usar Dashboard?</h2>
+        <p class="section-subtitle">Dashboard está diseñado para diferentes tipos de usuarios con funcionalidades específicas.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="shield"></i>
+          </div>
+          <h3 class="feature-title">Administradores</h3>
+          <p class="feature-description">Acceso completo a todas las funcionalidades del sistema. Pueden gestionar usuarios, cursos, pagos, configuraciones y visualizar todos los reportes.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="graduation-cap"></i>
+          </div>
+          <h3 class="feature-title">Profesores</h3>
+          <p class="feature-description">Pueden ver sus cursos asignados, registrar asistencias, consultar la información de sus alumnos y acceder a herramientas de gestión de clase.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i data-lucide="user"></i>
+          </div>
+          <h3 class="feature-title">Alumnos</h3>
+          <p class="feature-description">Pueden consultar su información personal, ver sus cursos inscritos, revisar calificaciones, horarios y estado de pagos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo Funciona Section -->
+    <section class="info-section" id="como-funciona">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="play-circle" style="width: 14px; height: 14px;"></i>
+          Guía
+        </div>
+        <h2 class="section-title">¿Cómo funciona?</h2>
+        <p class="section-subtitle">Sigue estos sencillos pasos para comenzar a usar Dashboard.</p>
+      </div>
+      
+      <div class="steps-container">
+        <div class="steps-line"></div>
+        
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3 class="step-title">Inicia sesión</h3>
+            <p class="step-description">Accede con tu usuario y contraseña proporcionados por la institución. El sistema identificará automáticamente tu rol (administrador, profesor o alumno).</p>
+          </div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3 class="step-title">Explora tu panel</h3>
+            <p class="step-description">Una vez dentro, verás un panel personalizado según tu rol con acceso directo a las funcionalidades más importantes.</p>
+          </div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3 class="step-title">Navega por las secciones</h3>
+            <p class="step-description">Utiliza el menú lateral para acceder a Alumnos, Profesores, Cursos, Pagos, Calificaciones, Asistencias y más secciones disponibles.</p>
+          </div>
+        </div>
+        
+        <div class="step-item">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3 class="step-title">Realiza acciones</h3>
+            <p class="step-description">Cada sección te permite crear, editar, eliminar y consultar información. Los cambios se guardan automáticamente en el sistema.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="info-section" id="faq">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="help-circle" style="width: 14px; height: 14px;"></i>
+          FAQ
+        </div>
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <p class="section-subtitle">Encuentra respuestas a las dudas más comunes sobre Dashboard.</p>
+      </div>
+      
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Necesito instalar algo para usar Dashboard?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              No, Dashboard es una aplicación web que funciona directamente desde tu navegador. Solo necesitas una conexión a internet y un navegador moderno como Chrome, Firefox, Safari o Edge.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Puedo acceder desde mi celular o tablet?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Sí, Dashboard es completamente responsivo y se adapta a cualquier dispositivo. Puedes acceder desde computadoras, tablets y smartphones sin problemas.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Qué hago si olvidé mi contraseña?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              En la pantalla de inicio de sesión encontrarás la opción "¿Olvidaste tu contraseña?". Sigue las instrucciones para recuperar el acceso a tu cuenta mediante tu correo electrónico registrado.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Mis datos están seguros?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Absolutamente. Dashboard utiliza encriptación de datos, conexiones seguras HTTPS y respaldos automáticos. Además, cumplimos con las normativas de protección de datos personales.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>¿Cuál es la diferencia entre Dashboard y Classroom?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Dashboard es el sistema de gestión administrativa (usuarios, pagos, reportes), mientras que Classroom es el aula virtual para la interacción académica (tareas, materiales, comunicación entre profesores y alumnos). Ambos sistemas están integrados pero sirven propósitos diferentes.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ayuda Section -->
+    <section class="info-section" id="ayuda">
+      <div class="section-header">
+        <div class="section-label">
+          <i data-lucide="life-buoy" style="width: 14px; height: 14px;"></i>
+          Soporte
+        </div>
+        <h2 class="section-title">¿Necesitas ayuda?</h2>
+        <p class="section-subtitle">Estamos aquí para asistirte en cualquier momento.</p>
+      </div>
+      
+      <div class="help-cards">
+        <a href="ayuda.html" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="book-open"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Centro de Ayuda</h4>
+            <p>Guías detalladas y tutoriales paso a paso</p>
+          </div>
+        </a>
+        
+        <a href="documentacion.html" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="file-text"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Documentación</h4>
+            <p>Manuales técnicos y documentación completa</p>
+          </div>
+        </a>
+        
+        <a href="comunidad-cemi.html" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="users"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Comunidad</h4>
+            <p>Pregunta a la comunidad CEMI</p>
+          </div>
+        </a>
+        
+        <a href="mailto:soporte@cemi.edu" class="help-card">
+          <div class="help-card-icon">
+            <i data-lucide="mail"></i>
+          </div>
+          <div class="help-card-content">
+            <h4>Contacto Directo</h4>
+            <p>Escríbenos a soporte@cemi.edu</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">¿Listo para comenzar?</h2>
+        <p class="cta-subtitle">Accede ahora al Dashboard y descubre todas las herramientas que tenemos para ti.</p>
+        <div class="cta-buttons">
+          <a href="login.html" class="cta-btn cta-btn-primary">
+            <i data-lucide="log-in"></i>
+            <span>Ir al Dashboard</span>
+          </a>
+          <a href="info-classroom.html" class="cta-btn cta-btn-secondary">
+            <i data-lucide="graduation-cap"></i>
+            <span>Conocer Classroom</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop">
+    <i data-lucide="chevron-up"></i>
+  </button>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Scroll Reveal Animation
+    const sections = document.querySelectorAll('.info-section');
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all other items
+        faqItems.forEach(otherItem => {
+          otherItem.classList.remove('active');
+        });
+        
+        // Toggle current item
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Animate stats on scroll
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let statsAnimated = false;
+
+    const animateStats = () => {
+      if (statsAnimated) return;
+      
+      const statsSection = document.querySelector('.stats-section');
+      const rect = statsSection.getBoundingClientRect();
+      
+      if (rect.top < window.innerHeight * 0.8) {
+        statsAnimated = true;
+        statNumbers.forEach(stat => {
+          const target = stat.textContent;
+          stat.style.opacity = '0';
+          stat.style.transform = 'translateY(20px)';
+          
+          setTimeout(() => {
+            stat.style.transition = 'all 0.6s ease';
+            stat.style.opacity = '1';
+            stat.style.transform = 'translateY(0)';
+          }, 200);
+        });
+      }
+    };
+
+    window.addEventListener('scroll', animateStats);
+  </script>
+
+  <footer class="professional-footer">
+    <div class="footer-main">
+      <div class="footer-column">
+        <div class="footer-logo">
+          <img src="images/logolong.png" alt="Logo Cemi" class="footer-logo-long">
+        </div>
+        <p class="footer-description">Sistema de Gestión Académica Integral para instituciones educativas modernas.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Contacto</h4>
+        <ul class="footer-contact">
+          <li><i data-lucide="mail"></i> contacto@cemi.edu</li>
+          <li><i data-lucide="phone"></i> +54 0800 CEMI 4433</li>
+          <li><i data-lucide="map-pin"></i> San Miguel, Argentina</li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Acceso</h4>
+        <div class="footer-social">
+        </div>
+        <a href="register.html" class="footer-cta-link">
+          <i data-lucide="user-plus"></i> Registrarse
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Cemi - Sistema de Gestión Académica. Todos los derechos reservados.</p>
+      <p class="footer-tech">Desarrollado con Node.js, MySQL y tecnologías modernas</p>
+      <div class="footer-links-bottom">
+        <a href="terminos.html">Términos de Servicio</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="ayuda.html">Ayuda</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/harvard-menu.js"></script>
+
+</body>
+</html>
