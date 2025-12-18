@@ -98,13 +98,15 @@ router.get("/contactos/:tipo/:id", async (req, res) => {
           p.avatar,
           c.nombre_curso,
           c.id_curso,
-          'profesor' as tipo
+          'profesor' as tipo,
+          p.nombre as sort_nombre,
+          p.apellido as sort_apellido
         FROM cursos c
         JOIN profesores pr ON c.id_profesor = pr.id_profesor
         JOIN personas p ON pr.id_persona = p.id_persona
-        WHERE c.id_curso IN (?)
-        ORDER BY p.nombre, p.apellido
-      `, [cursosIds]);
+        WHERE c.id_curso IN (${cursosIds.map(() => '?').join(',')})
+        ORDER BY sort_nombre, sort_apellido
+      `, cursosIds);
       
       // Obtener compañeros (otros alumnos de los mismos cursos)
       const [companeros] = await pool.query(`
@@ -114,16 +116,18 @@ router.get("/contactos/:tipo/:id", async (req, res) => {
           p.avatar,
           c.nombre_curso,
           c.id_curso,
-          'alumno' as tipo
+          'alumno' as tipo,
+          p.nombre as sort_nombre,
+          p.apellido as sort_apellido
         FROM inscripciones i
         JOIN alumnos a ON i.id_alumno = a.id_alumno
         JOIN personas p ON a.id_persona = p.id_persona
         JOIN cursos c ON i.id_curso = c.id_curso
-        WHERE i.id_curso IN (?) 
+        WHERE i.id_curso IN (${cursosIds.map(() => '?').join(',')}) 
           AND i.estado = 'activo'
           AND a.id_alumno != ?
-        ORDER BY p.nombre, p.apellido
-      `, [cursosIds, id]);
+        ORDER BY sort_nombre, sort_apellido
+      `, [...cursosIds, id]);
       
       contactos.profesores = profesores;
       contactos.compañeros = companeros;
@@ -158,13 +162,15 @@ router.get("/contactos/:tipo/:id", async (req, res) => {
           p.avatar,
           c.nombre_curso,
           c.id_curso,
-          'profesor' as tipo
+          'profesor' as tipo,
+          p.nombre as sort_nombre,
+          p.apellido as sort_apellido
         FROM cursos c
         JOIN profesores pr ON c.id_profesor = pr.id_profesor
         JOIN personas p ON pr.id_persona = p.id_persona
-        WHERE c.id_curso IN (?) AND pr.id_profesor != ?
-        ORDER BY p.nombre, p.apellido
-      `, [cursosIds, id]);
+        WHERE c.id_curso IN (${cursosIds.map(() => '?').join(',')}) AND pr.id_profesor != ?
+        ORDER BY sort_nombre, sort_apellido
+      `, [...cursosIds, id]);
       
       // Obtener alumnos de sus cursos
       const [alumnos] = await pool.query(`
@@ -174,14 +180,16 @@ router.get("/contactos/:tipo/:id", async (req, res) => {
           p.avatar,
           c.nombre_curso,
           c.id_curso,
-          'alumno' as tipo
+          'alumno' as tipo,
+          p.nombre as sort_nombre,
+          p.apellido as sort_apellido
         FROM inscripciones i
         JOIN alumnos a ON i.id_alumno = a.id_alumno
         JOIN personas p ON a.id_persona = p.id_persona
         JOIN cursos c ON i.id_curso = c.id_curso
-        WHERE i.id_curso IN (?) AND i.estado = 'activo'
-        ORDER BY p.nombre, p.apellido
-      `, [cursosIds]);
+        WHERE i.id_curso IN (${cursosIds.map(() => '?').join(',')}) AND i.estado = 'activo'
+        ORDER BY sort_nombre, sort_apellido
+      `, cursosIds);
       
       contactos.profesores = profesores;
       contactos.compañeros = alumnos; // Para profesores, son sus alumnos
