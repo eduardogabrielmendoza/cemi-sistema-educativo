@@ -57,8 +57,6 @@ addSystemLog('INFO', 'Sistema de monitoreo iniciado', 'monitor');
 addSystemLog('INFO', 'Conexión con base de datos establecida', 'database');
 addSystemLog('INFO', 'Servidor HTTP activo', 'server');
 
-const STATUS_FILE_PATH = path.join(__dirname, '../../frontend/assets/data/system-status.json');
-
 function readStatus() {
   try {
     if (fs.existsSync(STATUS_FILE_PATH)) {
