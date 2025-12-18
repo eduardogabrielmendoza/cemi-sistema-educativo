@@ -2,6 +2,7 @@ import express from "express";
 import pool from "../utils/db.js";
 import { body, param, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
+import eventLogger from "../utils/eventLogger.js";
 
 const router = express.Router();
 
@@ -222,6 +223,10 @@ router.post("/", async (req, res) => {
       success: true,
       id_alumno: id_persona
     });
+    
+    // Log del evento
+    eventLogger.users.created('Admin', `${nombre} ${apellido}`, 'alumno');
+    
   } catch (error) {
     console.error("Error al crear alumno:", error);
     
@@ -374,6 +379,10 @@ router.put("/:id", async (req, res) => {
       message: "Alumno actualizado correctamente", 
       success: true 
     });
+    
+    // Log del evento
+    eventLogger.users.updated('Admin', `Alumno #${id_alumno}`);
+    
   } catch (error) {
     console.error("Error al actualizar alumno:", error);
     res.status(500).json({ 
@@ -421,6 +430,10 @@ router.delete("/:id", async (req, res) => {
       message: "Alumno eliminado correctamente", 
       success: true 
     });
+    
+    // Log del evento
+    eventLogger.users.deleted('Admin', `Alumno #${id_alumno}`);
+    
   } catch (error) {
     console.error("Error al eliminar alumno:", error);
     res.status(500).json({ 

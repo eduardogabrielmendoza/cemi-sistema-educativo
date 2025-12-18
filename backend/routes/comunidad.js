@@ -2,6 +2,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import eventLogger from "../utils/eventLogger.js";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -168,6 +169,9 @@ router.post('/preguntas', (req, res) => {
         agregarParticipante(data.stats, `${autorTipo}_${autorId}`);
         
         if (guardarDatos(data)) {
+            // Log del evento
+            eventLogger.community.questionAsked(autorNombre, titulo.substring(0, 40));
+            
             res.json({ 
                 success: true, 
                 message: 'Pregunta publicada exitosamente',
@@ -227,6 +231,9 @@ router.post('/preguntas/:id/respuestas', (req, res) => {
         agregarParticipante(data.stats, `${autorTipo}_${autorId}`);
         
         if (guardarDatos(data)) {
+            // Log del evento
+            eventLogger.community.questionAnswered(autorNombre, data.preguntas[preguntaIndex].titulo.substring(0, 40));
+            
             res.json({ 
                 success: true, 
                 message: 'Respuesta publicada exitosamente',

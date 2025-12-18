@@ -4,6 +4,7 @@ import upload, { uploadRecursos } from "../config/multer.js";
 import cloudinary, { getSignedUrl } from "../config/cloudinary.js";
 import fs from "fs";
 import path from "path";
+import eventLogger from "../utils/eventLogger.js";
 
 const router = express.Router();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -1440,6 +1441,9 @@ router.post('/entregas', async (req, res) => {
           id_tarea
         ]
       );
+      
+      // Log del evento
+      eventLogger.classroom.taskSubmitted(tarea.alumno_nombre, tarea.titulo);
     }
 
     res.json({
@@ -1579,6 +1583,9 @@ router.put('/entregas/:idEntrega/calificar', async (req, res) => {
           entrega.id_tarea
         ]
       );
+      
+      // Log del evento
+      eventLogger.classroom.taskGraded('Profesor', `Alumno #${entrega.id_alumno}`, entrega.titulo);
     }
 
     res.json({
@@ -2023,6 +2030,9 @@ router.post("/recursos", uploadRecursos.single('archivo'), async (req, res) => {
       cursoValue,
       id_profesor
     ]);
+    
+    // Log del evento
+    eventLogger.classroom.resourceUploaded(`Profesor #${id_profesor}`, titulo);
     
     res.json({
       success: true,

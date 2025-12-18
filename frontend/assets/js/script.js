@@ -2335,6 +2335,27 @@ function renderStatusSection() {
       .activity-item.db .activity-icon i { color: #9333ea; }
       .activity-item.cache .activity-icon { background: #e0f2fe; }
       .activity-item.cache .activity-icon i { color: #0284c7; }
+      
+      /* Colores por categoría del eventLogger */
+      .activity-item.auth .activity-icon { background: #dbeafe; }
+      .activity-item.classroom .activity-icon { background: #dcfce7; }
+      .activity-item.chat .activity-icon { background: #e0f2fe; }
+      .activity-item.community .activity-icon { background: #fef3c7; }
+      .activity-item.payments .activity-icon { background: #d1fae5; }
+      .activity-item.users .activity-icon { background: #f3e8ff; }
+      .activity-item.system .activity-icon { background: #f1f5f9; }
+      
+      /* Colores por severidad */
+      .activity-icon.success { background: #dcfce7 !important; }
+      .activity-icon.info { background: #dbeafe !important; }
+      .activity-icon.warning { background: #fef3c7 !important; }
+      .activity-icon.error { background: #fee2e2 !important; }
+      
+      /* Estilo para emojis */
+      .activity-emoji {
+        font-size: 18px;
+        line-height: 1;
+      }
 
       /* Metrics Title */
       .metrics-title {
@@ -3908,22 +3929,40 @@ function renderActivityFeed() {
   if (!feed) return;
   
   // Obtener actividad real del backend
-  fetch('/api/status/activity?limit=8')
+  fetch('/api/status/activity?limit=12')
     .then(res => res.json())
     .then(data => {
       if (data.activities && data.activities.length > 0) {
-        feed.innerHTML = data.activities.map(activity => `
-          <div class="activity-item ${activity.type}" style="animation: slideInActivity 0.3s ease">
-            <div class="activity-icon">
-              <i data-lucide="${activity.icon}"></i>
+        feed.innerHTML = data.activities.map(activity => {
+          // Usar el emoji del backend si está disponible, sino usar icono Lucide
+          const iconContent = activity.icon && activity.icon.length <= 2 
+            ? `<span class="activity-emoji">${activity.icon}</span>`
+            : `<i data-lucide="${activity.icon || 'activity'}"></i>`;
+          
+          // Clase de severidad para estilizar
+          const severityClass = activity.severity || 'info';
+          
+          return `
+            <div class="activity-item ${activity.category || activity.type} ${severityClass}" style="animation: slideInActivity 0.3s ease">
+              <div class="activity-icon ${severityClass}">
+                ${iconContent}
+              </div>
+              <div class="activity-content">
+                <span class="activity-text">${activity.message}</span>
+                <span class="activity-time">${activity.time || formatActivityTimeFromISO(activity.timestamp)}</span>
+              </div>
             </div>
-            <div class="activity-content">
-              <span class="activity-text">${activity.message}</span>
-              <span class="activity-time">${formatActivityTimeFromISO(activity.timestamp)}</span>
-            </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
         lucide.createIcons();
+      } else {
+        feed.innerHTML = `
+          <div class="activity-item info" style="padding: 20px; text-align: center; color: #6c757d;">
+            <span class="activity-emoji">📭</span>
+            <span class="activity-text">Sin actividad reciente</span>
+            <br><small>Los eventos aparecerán cuando los usuarios interactúen con la plataforma</small>
+          </div>
+        `;
       }
     })
     .catch(err => {

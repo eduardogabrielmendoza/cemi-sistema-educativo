@@ -1,6 +1,7 @@
 import express from "express";
 import pool from "../utils/db.js";
 import bcrypt from "bcryptjs";
+import eventLogger from "../utils/eventLogger.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -174,6 +175,10 @@ router.put("/:id", async (req, res) => {
     }
 
     res.json({ message: "Profesor actualizado correctamente", success: true });
+    
+    // Log del evento
+    eventLogger.users.updated('Admin', `Profesor #${id}`);
+    
   } catch (error) {
     console.error("Error al actualizar profesor:", error);
     res.status(500).json({ 
@@ -285,6 +290,10 @@ router.post("/", async (req, res) => {
       success: true,
       id_profesor: id_persona
     });
+    
+    // Log del evento
+    eventLogger.users.created('Admin', `${nombre} ${apellido}`, 'profesor');
+    
   } catch (error) {
     console.error("Error al crear profesor:", error);
     
@@ -419,6 +428,10 @@ router.delete("/:id", async (req, res) => {
       message: "Profesor eliminado correctamente", 
       success: true 
     });
+    
+    // Log del evento
+    eventLogger.users.deleted('Admin', `Profesor #${id_profesor}`);
+    
   } catch (error) {
     console.error("Error al eliminar profesor:", error);
     res.status(500).json({ 

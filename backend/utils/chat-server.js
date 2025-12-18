@@ -1,5 +1,6 @@
 ﻿import { Server } from 'socket.io';
 import pool from './db.js';
+import eventLogger from './eventLogger.js';
 
 class ChatServer {
   constructor(server) {
@@ -177,6 +178,9 @@ class ChatServer {
     
     console.log(` Usuario autenticado: ${tipo} - ${nombre} (${userId})`);
     
+    // Log del evento
+    eventLogger.chat.connected(nombre);
+    
     socket.emit('authenticated', {
       message: 'Autenticación exitosa',
       userInfo: socket.userInfo
@@ -342,6 +346,9 @@ class ChatServer {
       }
       
       console.log(` Mensaje enviado en conversación ${id_conversacion}`);
+      
+      // Log del evento
+      eventLogger.chat.messageSent(userInfo.nombre, `Conversación #${id_conversacion}`);
       
     } catch (error) {
       console.error(' Error al enviar mensaje:', error);
@@ -585,6 +592,9 @@ class ChatServer {
       }
       
       console.log(` Usuario desconectado: ${userInfo.tipo} - ${userInfo.nombre} (${socket.id})`);
+      
+      // Log del evento
+      eventLogger.chat.disconnected(userInfo.nombre);
     } else {
       console.log(` Conexión cerrada (no autenticada): ${socket.id}`);
     }

@@ -1,6 +1,7 @@
 ﻿import express from "express";
 import pool from "../utils/db.js";
 import { body, param, validationResult } from "express-validator";
+import eventLogger from "../utils/eventLogger.js";
 
 const router = express.Router();
 
@@ -461,6 +462,9 @@ router.post("/realizar",
 
     console.log(`[PAGO] Guardado exitosamente con estado 'en_proceso' - ID: ${result.insertId}`);
 
+    // Log del evento
+    eventLogger.payments.created('Admin', `Alumno #${id_alumno}`, monto);
+
     res.json({
       success: true,
       message: "Pago registrado exitosamente",
@@ -515,6 +519,10 @@ router.put("/:id/anular",
     await pool.query('UPDATE pagos SET estado_pago = ? WHERE id_pago = ?', ['anulado', id]);
 
     console.log(`[pagos] Pago ${id} anulado exitosamente`);
+    
+    // Log del evento
+    eventLogger.payments.deleted('Admin', `Pago #${id}`);
+    
     res.json({ 
       success: true, 
       message: "Pago anulado correctamente" 
@@ -565,6 +573,10 @@ router.put("/:id/confirmar",
       );
 
       console.log(`[pagos] Pago ${id} confirmado exitosamente`);
+      
+      // Log del evento
+      eventLogger.payments.confirmed(`Pago #${id}`, pago[0].monto);
+      
       res.json({ 
         success: true, 
         message: "Pago confirmado correctamente" 

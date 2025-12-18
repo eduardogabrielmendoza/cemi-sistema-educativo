@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { fileURLToPath } from 'url';
+import eventLogger from '../utils/eventLogger.js';
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -56,6 +57,9 @@ function addSystemLog(level, message, service = 'system') {
 addSystemLog('INFO', 'Sistema de monitoreo iniciado', 'monitor');
 addSystemLog('INFO', 'Conexión con base de datos establecida', 'database');
 addSystemLog('INFO', 'Servidor HTTP activo', 'server');
+
+// Log de inicio en eventLogger
+eventLogger.system.serverStart();
 
 function readStatus() {
   try {
@@ -559,40 +563,47 @@ router.get('/service/:serviceId/metrics', (req, res) => {
   res.json(metrics);
 });
 
-// Actividad reciente del sistema
+// Actividad reciente del sistema - USANDO EVENTLOGGER CENTRALIZADO
 router.get('/activity', async (req, res) => {
-  const { limit = 10 } = req.query;
+  const { limit = 20 } = req.query;
   
-  // Generar actividad basada en logs reales y eventos simulados realistas
-  const activities = systemLogs.slice(0, parseInt(limit)).map(log => ({
-    type: log.level === 'ERROR' ? 'error' : 
-          log.level === 'WARN' ? 'warning' : 
-          log.service === 'database' ? 'db' :
-          log.service === 'platform' ? 'login' : 'api',
-    icon: log.level === 'ERROR' ? 'alert-circle' :
-          log.level === 'WARN' ? 'alert-triangle' :
-          log.service === 'database' ? 'database' :
-          log.service === 'platform' ? 'log-in' : 'zap',
-    message: log.message,
-    timestamp: log.timestamp,
-    service: log.service
+  // Obtener eventos REALES del eventLogger centralizado
+  const realEvents = eventLogger.getActivityFeed(parseInt(limit));
+  
+  // Mapear a formato del frontend
+  const activities = realEvents.map(event => ({
+    type: event.category === 'auth' ? 'login' :
+          event.category === 'chat' ? 'message' :
+          event.category === 'classroom' ? 'task' :
+          event.category === 'community' ? 'comment' :
+          event.category === 'payments' ? 'payment' :
+          event.category === 'users' ? 'user' :
+          event.severity === 'error' ? 'error' : 'api',
+    icon: event.icon,
+    message: event.message,
+    timestamp: event.timestamp,
+    time: event.time,
+    category: event.category,
+    severity: event.severity
   }));
   
-  res.json({ activities, total: systemLogs.length });
+  // Obtener estadísticas del eventLogger
+  const stats = eventLogger.getStats();
+  
+  res.json({ 
+    activities, 
+    total: stats.total,
+    stats: {
+      lastHour: stats.lastHour,
+      last24Hours: stats.last24Hours,
+      byCategory: stats.byCategory,
+      errors: stats.errorsLastHour
+    }
+  });
 });
 
-// Generar eventos de actividad automáticamente
-setInterval(() => {
-  const events = [
-    { level: 'INFO', message: `Health check completado`, service: 'monitor' },
-    { level: 'DEBUG', message: `${Math.round(Math.random() * 50 + 20)} queries ejecutados`, service: 'database' },
-    { level: 'INFO', message: `Cache actualizado`, service: 'api' },
-    { level: 'DEBUG', message: `${requestsPerSecond} req/s procesados`, service: 'api' },
-  ];
-  
-  const randomEvent = events[Math.floor(Math.random() * events.length)];
-  addSystemLog(randomEvent.level, randomEvent.message, randomEvent.service);
-}, 15000); // Cada 15 segundos
+// Ya no generamos eventos falsos - solo eventos reales del eventLogger
+// Los eventos se generan automáticamente cuando los usuarios interactúan con la plataforma
 
 export default router;
 

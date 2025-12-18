@@ -6,6 +6,7 @@ import { body, validationResult } from "express-validator";
 import { sendEmail, ADMIN_EMAIL } from "../config/mailer.js";
 import { solicitudRecibidaTemplate, notificacionAdminTemplate, credencialesActualizadasTemplate, bienvenidaAlumnoTemplate } from "../utils/emailTemplates.js";
 import { generarToken } from "../utils/authMiddleware.js";
+import eventLogger from "../utils/eventLogger.js";
 
 dotenv.config();
 
@@ -65,6 +66,7 @@ router.post("/login",
     );
 
     if (rows.length === 0) {
+      eventLogger.auth.loginFailed(username, req.ip, 'Usuario no encontrado');
       return res.status(401).json({ success: false, message: "Usuario no encontrado" });
     }
 
@@ -76,6 +78,7 @@ router.post("/login",
     else if (ALLOW_PLAINTEXT && !isProd) ok = pw === stored;
 
     if (!ok) {
+      eventLogger.auth.loginFailed(username, req.ip, 'Contraseña incorrecta');
       return res.status(401).json({ success: false, message: "Contraseña incorrecta" });
     }
 
@@ -118,6 +121,9 @@ router.post("/login",
     }
 
     const token = generarToken(tokenPayload);
+
+    // Log del evento de login exitoso
+    eventLogger.auth.loginSuccess(`${user.nombre} ${user.apellido}`.trim(), req.ip);
 
     const response = {
       success: true,
@@ -191,6 +197,9 @@ router.post("/forgot-password",
 
       const usuario = rows[0];
       const nombreCompleto = `${usuario.nombre} ${usuario.apellido}`.trim();
+
+      // Log del evento de recuperación
+      eventLogger.auth.passwordRecovery(email);
 
       res.json({
         success: true,
@@ -371,6 +380,9 @@ router.post("/register",
         } catch (emailError) {
           console.error("Error al enviar email de bienvenida:", emailError.message);
         }
+
+        // Log del evento de registro
+        eventLogger.auth.register(`${nombre.trim()} ${apellido.trim()}`, email.trim());
 
         return res.status(201).json({
           success: true,
