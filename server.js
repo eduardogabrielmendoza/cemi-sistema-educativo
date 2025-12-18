@@ -28,7 +28,7 @@ import classroomChatRoutes from "./backend/routes/classroom-chat.js";
 import configRoutes from "./backend/routes/config.js";
 import investigacionRoutes from "./backend/routes/investigacion-db.js";
 import comunidadRoutes from "./backend/routes/comunidad-db.js";
-import statusRoutes from "./backend/routes/status-db.js";
+import statusRoutes from "./backend/routes/status.js";
 import gdprRoutes from "./backend/routes/gdpr.js";
 import codigosRecuperacionRoutes from "./backend/routes/codigosRecuperacion.js";
 import ChatServer from "./backend/utils/chat-server.js";
