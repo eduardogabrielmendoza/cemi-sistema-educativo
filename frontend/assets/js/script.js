@@ -1722,7 +1722,7 @@ const StatusSimulator = {
   },
   
   getServiceMetrics(status = 'operational') {
-    const baseLatency = status === 'operational' ? 45 : status === 'degraded' ? 250 : 0;
+    const baseLatency = status === 'operational' ? 35 : status === 'degraded' ? 180 : 0;
     const latency = this.getRandomLatency(baseLatency);
     
     // Generar historial de latencia para el mini-gráfico
@@ -1731,13 +1731,18 @@ const StatusSimulator = {
       latencyHistory.push(this.getRandomLatency(baseLatency * (0.8 + Math.random() * 0.4)));
     }
     
+    // Errores realistas: 0-2 para operacional, 3-6 para degradado, 7-10 para outage
+    const errorBase = status === 'operational' ? 0 : status === 'degraded' ? 3 : 7;
+    const errorVariation = status === 'operational' ? 2 : 3;
+    const errors = Math.floor(Math.random() * errorVariation) + errorBase;
+    
     return {
       latency: latency,
       latencyHistory: latencyHistory,
       uptime: status === 'operational' ? (99 + Math.random()).toFixed(2) : status === 'degraded' ? (95 + Math.random() * 3).toFixed(2) : '0.00',
-      requestsPerMin: status === 'operational' ? Math.floor(Math.random() * 500 + 200) : status === 'degraded' ? Math.floor(Math.random() * 100 + 50) : 0,
-      errors: status === 'operational' ? Math.floor(Math.random() * 3) : status === 'degraded' ? Math.floor(Math.random() * 20 + 5) : 999,
-      trend: status === 'operational' ? Math.floor(Math.random() * 10 - 2) : -Math.floor(Math.random() * 20 + 5)
+      requestsPerMin: status === 'operational' ? Math.floor(Math.random() * 300 + 150) : status === 'degraded' ? Math.floor(Math.random() * 80 + 30) : 0,
+      errors: Math.min(errors, 10), // Máximo 10 errores
+      trend: status === 'operational' ? Math.floor(Math.random() * 8 - 2) : -Math.floor(Math.random() * 15 + 3)
     };
   },
   
@@ -3726,30 +3731,53 @@ function renderStatusUI() {
 // 🔥 Estado expandido de servicios
 let expandedServices = new Set();
 let statusMonitorInterval = null;
+let serviceMetricsCache = {};
 
-function renderServicesMonitor(services) {
+async function renderServicesMonitor(services) {
   const grid = document.getElementById('servicesMonitorGrid');
   if (!grid) return;
   
   const serviceIcons = {
-    'Plataforma Web': 'globe',
-    'Autenticación': 'shield',
+    'Plataforma Principal': 'globe',
+    'Classroom': 'book-open',
+    'Sistema de Pagos': 'credit-card',
+    'Chat de Soporte': 'message-circle',
+    'API / Backend': 'code-2',
     'Base de Datos': 'database',
-    'API REST': 'code-2',
+    'Autenticación': 'shield',
     'Servicio de Email': 'mail',
-    'Almacenamiento': 'hard-drive',
-    'Procesamiento': 'cpu',
-    'CDN/Assets': 'image'
+    'Almacenamiento': 'hard-drive'
   };
   
+  // Obtener métricas reales para cada servicio
+  for (const service of services) {
+    try {
+      const response = await fetch(`/api/status/service/${service.id}/metrics`);
+      if (response.ok) {
+        serviceMetricsCache[service.id] = await response.json();
+      }
+    } catch (e) {
+      // Usar datos simulados como fallback
+      serviceMetricsCache[service.id] = StatusSimulator.getServiceMetrics(service.status);
+    }
+  }
+  
   grid.innerHTML = services.map(s => {
-    const metrics = StatusSimulator.getServiceMetrics(s.status);
+    const metrics = serviceMetricsCache[s.id] || StatusSimulator.getServiceMetrics(s.status);
     const isExpanded = expandedServices.has(s.id);
     const icon = serviceIcons[s.name] || 'server';
     
+    // Extraer datos del formato de métricas reales o simulados
+    const latency = metrics.latency?.current || metrics.latency || 0;
+    const uptime = metrics.uptime?.percentage || metrics.uptime || '99.9';
+    const reqPerMin = metrics.requests?.perMinute || metrics.requestsPerMin || 0;
+    const errors = Math.min(metrics.errors?.last1h || metrics.errors || 0, 10); // Máximo 10 errores
+    const latencyHistory = metrics.latencyHistory || Array(10).fill(0).map(() => Math.round(latency * (0.8 + Math.random() * 0.4)));
+    const trend = metrics.trend || (Math.random() > 0.5 ? Math.floor(Math.random() * 8) : -Math.floor(Math.random() * 5));
+    
     return `
       <div class="service-monitor-card ${s.status} ${isExpanded ? 'expanded' : ''}" data-service-id="${s.id}">
-        <div class="service-monitor-main" onclick="toggleServiceCard(${s.id})">
+        <div class="service-monitor-main" onclick="toggleServiceCard('${s.id}')">
           <div class="service-icon-wrapper ${s.status}">
             <i data-lucide="${icon}"></i>
             <span class="status-pulse ${s.status}"></span>
@@ -3758,16 +3786,16 @@ function renderServicesMonitor(services) {
             <h4>${s.name}</h4>
             <p class="service-description">${s.description}</p>
             <div class="service-latency-bar">
-              <div class="latency-fill ${metrics.latency < 100 ? 'good' : metrics.latency < 300 ? 'medium' : 'slow'}" 
-                   style="width: ${Math.min(metrics.latency / 5, 100)}%"></div>
+              <div class="latency-fill ${latency < 50 ? 'good' : latency < 150 ? 'medium' : 'slow'}" 
+                   style="width: ${Math.min(latency / 3, 100)}%"></div>
             </div>
-            <span class="latency-value">${metrics.latency}ms</span>
+            <span class="latency-value">${latency}ms</span>
           </div>
           <div class="service-status-indicator ${s.status}">
             <i data-lucide="${STATUS_CONFIG.icons[s.status]}"></i>
             <span>${STATUS_CONFIG.labels[s.status]}</span>
           </div>
-          <button class="service-expand-btn">
+          <button class="service-expand-btn" onclick="event.stopPropagation(); toggleServiceCard('${s.id}')">
             <i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}"></i>
           </button>
         </div>
@@ -3776,40 +3804,40 @@ function renderServicesMonitor(services) {
           <div class="expanded-metrics-grid">
             <div class="metric-box">
               <span class="metric-label">Tiempo de respuesta</span>
-              <span class="metric-value">${metrics.latency}ms</span>
+              <span class="metric-value">${latency}ms</span>
               <div class="mini-chart" id="chart-latency-${s.id}">
-                ${generateMiniChart(metrics.latencyHistory)}
+                ${generateMiniChart(latencyHistory)}
               </div>
             </div>
             <div class="metric-box">
               <span class="metric-label">Uptime (24h)</span>
-              <span class="metric-value">${metrics.uptime}%</span>
+              <span class="metric-value">${uptime}%</span>
               <div class="uptime-bar">
-                <div class="uptime-fill" style="width: ${metrics.uptime}%"></div>
+                <div class="uptime-fill" style="width: ${parseFloat(uptime)}%"></div>
               </div>
             </div>
             <div class="metric-box">
               <span class="metric-label">Solicitudes/min</span>
-              <span class="metric-value">${metrics.requestsPerMin}</span>
-              <span class="metric-trend ${metrics.trend > 0 ? 'up' : 'down'}">
-                <i data-lucide="${metrics.trend > 0 ? 'trending-up' : 'trending-down'}"></i>
-                ${Math.abs(metrics.trend)}%
+              <span class="metric-value">${reqPerMin}</span>
+              <span class="metric-trend ${trend > 0 ? 'up' : 'down'}">
+                <i data-lucide="${trend > 0 ? 'trending-up' : 'trending-down'}"></i>
+                ${Math.abs(trend)}%
               </span>
             </div>
             <div class="metric-box">
               <span class="metric-label">Errores</span>
-              <span class="metric-value ${metrics.errors > 0 ? 'error' : ''}">${metrics.errors}</span>
+              <span class="metric-value ${errors > 0 ? 'error' : ''}">${errors}</span>
               <span class="metric-sublabel">en la última hora</span>
             </div>
           </div>
           <div class="service-actions-row">
-            <button class="service-action-btn" onclick="event.stopPropagation(); viewServiceLogs(${s.id}, '${s.name}')">
+            <button class="service-action-btn" onclick="event.stopPropagation(); viewServiceLogs('${s.id}', '${s.name}')">
               <i data-lucide="file-text"></i> Ver Logs
             </button>
-            <button class="service-action-btn" onclick="event.stopPropagation(); pingService(${s.id}, '${s.name}')">
+            <button class="service-action-btn" onclick="event.stopPropagation(); pingService('${s.id}', '${s.name}')">
               <i data-lucide="activity"></i> Ping
             </button>
-            <button class="service-action-btn" onclick="event.stopPropagation(); restartService(${s.id}, '${s.name}')">
+            <button class="service-action-btn" onclick="event.stopPropagation(); restartService('${s.id}', '${s.name}')">
               <i data-lucide="refresh-cw"></i> Reiniciar
             </button>
           </div>
@@ -3817,6 +3845,8 @@ function renderServicesMonitor(services) {
       </div>
     `;
   }).join('');
+  
+  lucide.createIcons();
 }
 
 function generateMiniChart(history) {
@@ -3849,12 +3879,12 @@ function toggleServiceCard(serviceId) {
     expandedServices.delete(serviceId);
     card.classList.remove('expanded');
     panel.style.display = 'none';
-    btn.setAttribute('data-lucide', 'chevron-down');
+    if (btn) btn.setAttribute('data-lucide', 'chevron-down');
   } else {
     expandedServices.add(serviceId);
     card.classList.add('expanded');
     panel.style.display = 'block';
-    btn.setAttribute('data-lucide', 'chevron-up');
+    if (btn) btn.setAttribute('data-lucide', 'chevron-up');
   }
   
   lucide.createIcons();
@@ -3871,33 +3901,57 @@ function toggleAllServices() {
   }
   
   renderServicesMonitor(services);
-  lucide.createIcons();
 }
 
 function renderActivityFeed() {
   const feed = document.getElementById('activityFeed');
   if (!feed) return;
   
-  // Generar eventos simulados
-  const events = [];
-  for (let i = 0; i < 8; i++) {
-    events.push(StatusSimulator.generateEvent());
-  }
-  
-  // Ordenar por tiempo (más reciente primero)
-  events.sort((a, b) => b.time - a.time);
-  
-  feed.innerHTML = events.map(event => `
-    <div class="activity-item ${event.type}" style="animation: slideInActivity 0.3s ease">
-      <div class="activity-icon">
-        <i data-lucide="${event.icon}"></i>
-      </div>
-      <div class="activity-content">
-        <span class="activity-text">${event.message}</span>
-        <span class="activity-time">${formatActivityTime(event.time)}</span>
-      </div>
-    </div>
-  `).join('');
+  // Obtener actividad real del backend
+  fetch('/api/status/activity?limit=8')
+    .then(res => res.json())
+    .then(data => {
+      if (data.activities && data.activities.length > 0) {
+        feed.innerHTML = data.activities.map(activity => `
+          <div class="activity-item ${activity.type}" style="animation: slideInActivity 0.3s ease">
+            <div class="activity-icon">
+              <i data-lucide="${activity.icon}"></i>
+            </div>
+            <div class="activity-content">
+              <span class="activity-text">${activity.message}</span>
+              <span class="activity-time">${formatActivityTimeFromISO(activity.timestamp)}</span>
+            </div>
+          </div>
+        `).join('');
+        lucide.createIcons();
+      }
+    })
+    .catch(err => {
+      // Fallback a datos simulados si falla
+      const events = [];
+      for (let i = 0; i < 8; i++) {
+        events.push(StatusSimulator.generateEvent());
+      }
+      events.sort((a, b) => b.time - a.time);
+      
+      feed.innerHTML = events.map(event => `
+        <div class="activity-item ${event.type}" style="animation: slideInActivity 0.3s ease">
+          <div class="activity-icon">
+            <i data-lucide="${event.icon}"></i>
+          </div>
+          <div class="activity-content">
+            <span class="activity-text">${event.message}</span>
+            <span class="activity-time">${formatActivityTime(event.time)}</span>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    });
+}
+
+function formatActivityTimeFromISO(isoString) {
+  const timestamp = new Date(isoString).getTime();
+  return formatActivityTime(timestamp);
 }
 
 function formatActivityTime(timestamp) {
@@ -3915,47 +3969,98 @@ function renderGlobalMetrics() {
   const container = document.getElementById('globalMetricsDisplay');
   if (!container) return;
   
-  const metrics = StatusSimulator.getGlobalMetrics();
-  
-  container.innerHTML = `
-    <div class="global-metric-item">
-      <div class="global-metric-header">
-        <span class="global-metric-label">Usuarios activos</span>
-        <span class="global-metric-value">${metrics.activeUsers}</span>
-      </div>
-      <div class="global-metric-bar">
-        <div class="global-metric-fill green" style="width: ${Math.min(metrics.activeUsers / 2, 100)}%"></div>
-      </div>
-    </div>
-    <div class="global-metric-item">
-      <div class="global-metric-header">
-        <span class="global-metric-label">Carga del servidor</span>
-        <span class="global-metric-value">${metrics.serverLoad}%</span>
-      </div>
-      <div class="global-metric-bar">
-        <div class="global-metric-fill ${metrics.serverLoad < 60 ? 'blue' : metrics.serverLoad < 80 ? 'orange' : 'red'}" 
-             style="width: ${metrics.serverLoad}%"></div>
-      </div>
-    </div>
-    <div class="global-metric-item">
-      <div class="global-metric-header">
-        <span class="global-metric-label">Memoria utilizada</span>
-        <span class="global-metric-value">${metrics.memoryUsage}%</span>
-      </div>
-      <div class="global-metric-bar">
-        <div class="global-metric-fill purple" style="width: ${metrics.memoryUsage}%"></div>
-      </div>
-    </div>
-    <div class="global-metric-item">
-      <div class="global-metric-header">
-        <span class="global-metric-label">Solicitudes/seg</span>
-        <span class="global-metric-value">${metrics.requestsPerSec}</span>
-      </div>
-      <div class="global-metric-bar">
-        <div class="global-metric-fill orange" style="width: ${Math.min(metrics.requestsPerSec * 2, 100)}%"></div>
-      </div>
-    </div>
-  `;
+  // Obtener métricas reales del sistema
+  fetch('/api/status/metrics')
+    .then(res => res.json())
+    .then(data => {
+      const cpuUsage = data.cpu?.usage || 0;
+      const memoryUsage = data.memory?.usagePercent || 0;
+      const reqPerSec = data.network?.requestsPerSecond || 0;
+      const connections = data.network?.activeConnections || 0;
+      
+      container.innerHTML = `
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">Conexiones activas</span>
+            <span class="global-metric-value">${connections}</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill green" style="width: ${Math.min(connections * 10, 100)}%"></div>
+          </div>
+        </div>
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">CPU</span>
+            <span class="global-metric-value">${cpuUsage}%</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill ${cpuUsage < 60 ? 'blue' : cpuUsage < 80 ? 'orange' : 'red'}" 
+                 style="width: ${cpuUsage}%"></div>
+          </div>
+        </div>
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">Memoria RAM</span>
+            <span class="global-metric-value">${memoryUsage}%</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill purple" style="width: ${memoryUsage}%"></div>
+          </div>
+        </div>
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">Requests/seg</span>
+            <span class="global-metric-value">${reqPerSec}</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill orange" style="width: ${Math.min(reqPerSec * 5, 100)}%"></div>
+          </div>
+        </div>
+      `;
+    })
+    .catch(err => {
+      // Fallback a datos simulados
+      const metrics = StatusSimulator.getGlobalMetrics();
+      container.innerHTML = `
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">Usuarios activos</span>
+            <span class="global-metric-value">${metrics.activeUsers}</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill green" style="width: ${Math.min(metrics.activeUsers / 2, 100)}%"></div>
+          </div>
+        </div>
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">Carga del servidor</span>
+            <span class="global-metric-value">${metrics.serverLoad}%</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill ${metrics.serverLoad < 60 ? 'blue' : metrics.serverLoad < 80 ? 'orange' : 'red'}" 
+                 style="width: ${metrics.serverLoad}%"></div>
+          </div>
+        </div>
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">Memoria utilizada</span>
+            <span class="global-metric-value">${metrics.memoryUsage}%</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill purple" style="width: ${metrics.memoryUsage}%"></div>
+          </div>
+        </div>
+        <div class="global-metric-item">
+          <div class="global-metric-header">
+            <span class="global-metric-label">Solicitudes/seg</span>
+            <span class="global-metric-value">${metrics.requestsPerSec}</span>
+          </div>
+          <div class="global-metric-bar">
+            <div class="global-metric-fill orange" style="width: ${Math.min(metrics.requestsPerSec * 2, 100)}%"></div>
+          </div>
+        </div>
+      `;
+    });
 }
 
 function updateSyncIndicator() {
@@ -3991,77 +4096,253 @@ function stopStatusMonitoring() {
   }
 }
 
-// Acciones de servicio (simuladas)
-function viewServiceLogs(serviceId, serviceName) {
+// Acciones de servicio con datos reales
+async function viewServiceLogs(serviceId, serviceName) {
+  // Mostrar modal de carga inicial
   Swal.fire({
     title: `Logs de ${serviceName}`,
     html: `
-      <div style="text-align: left; font-family: monospace; font-size: 0.8rem; background: #1e293b; color: #94a3b8; padding: 15px; border-radius: 8px; max-height: 300px; overflow-y: auto;">
-        <div style="color: #22c55e;">[${new Date().toISOString()}] INFO: Service started successfully</div>
-        <div style="color: #94a3b8;">[${new Date(Date.now() - 1000).toISOString()}] DEBUG: Health check passed</div>
-        <div style="color: #94a3b8;">[${new Date(Date.now() - 5000).toISOString()}] INFO: Connection pool initialized (10 connections)</div>
-        <div style="color: #fbbf24;">[${new Date(Date.now() - 15000).toISOString()}] WARN: High memory usage detected (78%)</div>
-        <div style="color: #94a3b8;">[${new Date(Date.now() - 30000).toISOString()}] INFO: Cache cleared successfully</div>
-        <div style="color: #94a3b8;">[${new Date(Date.now() - 60000).toISOString()}] DEBUG: Processed 1,234 requests</div>
+      <div id="logsContainer" style="text-align: left; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.78rem; background: #0f172a; color: #94a3b8; padding: 15px; border-radius: 8px; height: 320px; overflow-y: auto;">
+        <div style="color: #64748b; text-align: center; padding: 20px;">
+          <i data-lucide="loader" style="animation: spin 1s linear infinite;"></i>
+          Conectando con el servicio...
+        </div>
+      </div>
+      <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
+        <button onclick="refreshLogs('${serviceId}')" class="swal2-confirm swal2-styled" style="background: #4a5259; font-size: 0.85rem; padding: 8px 16px;">
+          <i data-lucide="refresh-cw" style="width: 14px; height: 14px; margin-right: 5px;"></i> Actualizar
+        </button>
+        <button onclick="clearLogsDisplay()" class="swal2-cancel swal2-styled" style="background: #64748b; font-size: 0.85rem; padding: 8px 16px;">
+          <i data-lucide="trash-2" style="width: 14px; height: 14px; margin-right: 5px;"></i> Limpiar
+        </button>
       </div>
     `,
+    showConfirmButton: true,
     confirmButtonText: 'Cerrar',
     confirmButtonColor: '#4a5259',
-    width: 600
+    width: 700,
+    didOpen: () => {
+      lucide.createIcons();
+      loadServiceLogs(serviceId);
+      // Auto-refresh cada 3 segundos
+      window.logsInterval = setInterval(() => loadServiceLogs(serviceId), 3000);
+    },
+    willClose: () => {
+      if (window.logsInterval) {
+        clearInterval(window.logsInterval);
+      }
+    }
   });
 }
 
-function pingService(serviceId, serviceName) {
-  const latency = StatusSimulator.getRandomLatency();
-  
+async function loadServiceLogs(serviceId) {
+  try {
+    const response = await fetch(`/api/status/logs?service=${serviceId}&limit=30`);
+    const data = await response.json();
+    
+    const container = document.getElementById('logsContainer');
+    if (!container) return;
+    
+    if (data.logs && data.logs.length > 0) {
+      container.innerHTML = data.logs.map(log => {
+        const color = log.level === 'ERROR' ? '#ef4444' : 
+                      log.level === 'WARN' ? '#fbbf24' : 
+                      log.level === 'DEBUG' ? '#64748b' : '#22c55e';
+        const time = new Date(log.timestamp).toLocaleTimeString('es-AR');
+        return `<div style="color: ${color}; padding: 3px 0; border-bottom: 1px solid #1e293b;">[${time}] <span style="color: #94a3b8;">${log.level}</span>: ${log.message}</div>`;
+      }).join('');
+    } else {
+      container.innerHTML = `
+        <div style="color: #64748b; text-align: center; padding: 40px;">
+          <i data-lucide="file-x" style="width: 40px; height: 40px; margin-bottom: 10px; opacity: 0.5;"></i>
+          <p>No hay logs disponibles para este servicio</p>
+        </div>
+      `;
+    }
+    
+    // Auto-scroll al final
+    container.scrollTop = container.scrollHeight;
+    lucide.createIcons();
+  } catch (error) {
+    console.error('Error cargando logs:', error);
+  }
+}
+
+function refreshLogs(serviceId) {
+  loadServiceLogs(serviceId);
+}
+
+function clearLogsDisplay() {
+  const container = document.getElementById('logsContainer');
+  if (container) {
+    container.innerHTML = `<div style="color: #64748b; text-align: center; padding: 40px;">Logs limpiados</div>`;
+  }
+}
+
+async function pingService(serviceId, serviceName) {
+  // Mostrar modal de carga
   Swal.fire({
     title: `Ping a ${serviceName}`,
     html: `
-      <div style="text-align: center; padding: 20px;">
-        <div style="font-size: 3rem; font-weight: 700; color: ${latency < 100 ? '#22c55e' : latency < 300 ? '#fbbf24' : '#ef4444'};">${latency}ms</div>
-        <div style="color: #64748b; margin-top: 10px;">Tiempo de respuesta</div>
-        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 30px;">
-          <div><strong>Paquetes enviados:</strong> 4</div>
-          <div><strong>Paquetes recibidos:</strong> 4</div>
-          <div><strong>Pérdida:</strong> 0%</div>
+      <div style="text-align: center; padding: 30px;">
+        <div class="ping-animation" style="width: 80px; height: 80px; margin: 0 auto 20px; border: 4px solid #e2e8f0; border-top-color: #4a5259; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <div style="color: #64748b;">Enviando paquetes...</div>
+      </div>
+    `,
+    showConfirmButton: false,
+    allowOutsideClick: false
+  });
+  
+  try {
+    const response = await fetch(`/api/status/ping/${serviceId}`);
+    const data = await response.json();
+    
+    const latency = data.latency || 0;
+    const status = data.status || 'unknown';
+    
+    Swal.fire({
+      title: `Ping a ${serviceName}`,
+      html: `
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 3.5rem; font-weight: 700; color: ${latency < 50 ? '#22c55e' : latency < 150 ? '#fbbf24' : '#ef4444'}; margin-bottom: 10px;">
+            ${latency}ms
+          </div>
+          <div style="color: #64748b; margin-bottom: 25px;">Tiempo de respuesta</div>
+          
+          <div style="background: #f8fafc; border-radius: 12px; padding: 20px; text-align: left;">
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+              <div>
+                <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Estado</div>
+                <div style="font-weight: 600; color: ${status === 'ok' ? '#22c55e' : '#ef4444'};">${status === 'ok' ? '✓ Conectado' : '✗ Error'}</div>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Servicio</div>
+                <div style="font-weight: 600; color: #1e293b;">${data.service}</div>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Paquetes enviados</div>
+                <div style="font-weight: 600; color: #1e293b;">${data.packets?.sent || 4}</div>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Paquetes recibidos</div>
+                <div style="font-weight: 600; color: #1e293b;">${data.packets?.received || 4}</div>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Pérdida</div>
+                <div style="font-weight: 600; color: ${data.packets?.lossPercent === 0 ? '#22c55e' : '#ef4444'};">${data.packets?.lossPercent || 0}%</div>
+              </div>
+              <div>
+                <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Detalles</div>
+                <div style="font-weight: 600; color: #1e293b; font-size: 0.85rem;">${data.details ? Object.values(data.details).join(', ') : 'N/A'}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      icon: latency < 100 ? 'success' : latency < 300 ? 'warning' : 'error',
+      confirmButtonText: 'Cerrar',
+      confirmButtonColor: '#4a5259'
+    });
+  } catch (error) {
+    Swal.fire({
+      title: 'Error de conexión',
+      text: `No se pudo hacer ping a ${serviceName}`,
+      icon: 'error',
+      confirmButtonColor: '#4a5259'
+    });
+  }
+}
+
+async function restartService(serviceId, serviceName) {
+  const result = await Swal.fire({
+    title: '¿Reiniciar servicio?',
+    html: `
+      <div style="text-align: left; padding: 10px;">
+        <p style="color: #64748b; margin-bottom: 15px;">¿Estás seguro de que deseas reiniciar <strong>${serviceName}</strong>?</p>
+        <div style="background: #fef3c7; border: 1px solid #fbbf24; border-radius: 8px; padding: 12px; display: flex; gap: 10px; align-items: flex-start;">
+          <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #d97706; flex-shrink: 0;"></i>
+          <span style="font-size: 0.85rem; color: #92400e;">Esto podría causar una breve interrupción en el servicio. Los usuarios activos podrían experimentar desconexiones temporales.</span>
         </div>
       </div>
     `,
-    icon: latency < 200 ? 'success' : 'warning',
-    confirmButtonText: 'Cerrar',
-    confirmButtonColor: '#4a5259'
-  });
-}
-
-function restartService(serviceId, serviceName) {
-  Swal.fire({
-    title: '¿Reiniciar servicio?',
-    text: `¿Estás seguro de que deseas reiniciar ${serviceName}? Esto podría causar una breve interrupción.`,
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#dc2626',
     cancelButtonColor: '#64748b',
     confirmButtonText: 'Sí, reiniciar',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: 'Reiniciando...',
-        html: `<div style="color: #64748b;">Reiniciando ${serviceName}...</div>`,
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: () => { Swal.showLoading(); },
-        willClose: () => {
-          Swal.fire({
-            title: '¡Servicio reiniciado!',
-            text: `${serviceName} se ha reiniciado correctamente.`,
-            icon: 'success',
-            confirmButtonColor: '#4a5259'
+    cancelButtonText: 'Cancelar',
+    didOpen: () => lucide.createIcons()
+  });
+  
+  if (result.isConfirmed) {
+    try {
+      const response = await fetch(`/api/status/restart/${serviceId}`, { method: 'POST' });
+      const data = await response.json();
+      
+      if (data.success && data.steps) {
+        // Mostrar progreso de reinicio
+        let currentStep = 0;
+        const steps = data.steps;
+        
+        const updateProgress = () => {
+          if (currentStep >= steps.length) {
+            Swal.fire({
+              title: '¡Servicio reiniciado!',
+              html: `
+                <div style="text-align: center;">
+                  <div style="width: 60px; height: 60px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i data-lucide="check" style="width: 30px; height: 30px; color: #16a34a;"></i>
+                  </div>
+                  <p style="color: #64748b;">${serviceName} se ha reiniciado correctamente.</p>
+                </div>
+              `,
+              icon: 'success',
+              confirmButtonColor: '#4a5259',
+              didOpen: () => lucide.createIcons()
+            });
+            return;
+          }
+          
+          const step = steps[currentStep];
+          const progress = ((currentStep + 1) / steps.length) * 100;
+          
+          Swal.update({
+            html: `
+              <div style="text-align: center; padding: 20px;">
+                <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                  <div style="width: ${progress}%; height: 100%; background: linear-gradient(90deg, #4a5259, #64748b); transition: width 0.3s;"></div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+                  <div class="spinner" style="width: 20px; height: 20px; border: 2px solid #e2e8f0; border-top-color: #4a5259; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                  <span style="font-weight: 600; color: #1e293b;">${step.message}</span>
+                </div>
+                <div style="font-size: 0.8rem; color: #94a3b8;">Paso ${currentStep + 1} de ${steps.length}</div>
+              </div>
+            `
           });
-        }
+          
+          currentStep++;
+          setTimeout(updateProgress, step.delay);
+        };
+        
+        Swal.fire({
+          title: `Reiniciando ${serviceName}`,
+          html: '<div style="text-align: center; padding: 20px;">Iniciando proceso...</div>',
+          showConfirmButton: false,
+          allowOutsideClick: false
+        });
+        
+        updateProgress();
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: `No se pudo reiniciar ${serviceName}`,
+        icon: 'error',
+        confirmButtonColor: '#4a5259'
       });
     }
-  });
+  }
 }
 
 function formatStatusDate(dateStr) {
