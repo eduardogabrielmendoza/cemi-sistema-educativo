@@ -120,6 +120,12 @@
           if (data.id_administrador) {
             localStorage.setItem('id_administrador', data.id_administrador);
           }
+          if (data.id_profesor) {
+            localStorage.setItem('id_profesor', data.id_profesor);
+          }
+          if (data.id_alumno) {
+            localStorage.setItem('id_alumno', data.id_alumno);
+          }
           
           messageEl.textContent = 'Acceso exitoso. Redirigiendo...';
           messageEl.className = 'login-message success';
@@ -130,7 +136,16 @@
           
           await new Promise(resolve => setTimeout(resolve, remainingDelay));
           
-          window.location.href = 'dashboard_admin.html';
+          // Redirigir según el rol
+          let redirectUrl = 'index.html';
+          if (data.rol === 'administrador' || data.rol === 'admin') {
+            redirectUrl = 'dashboard_admin.html';
+          } else if (data.rol === 'profesor') {
+            redirectUrl = 'dashboard_profesor.html';
+          } else if (data.rol === 'alumno') {
+            redirectUrl = 'dashboard_alumno.html';
+          }
+          window.location.href = redirectUrl;
         } else {
           if (loader) {
             loader.classList.remove('show');

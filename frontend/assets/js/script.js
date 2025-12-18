@@ -7231,6 +7231,17 @@ async function abrirModalCredencialesProfesor(idProfesor) {
       console.error('Error al cargar usuario:', error);
     }
 
+    let accessKeyActual = '';
+    try {
+      const respAccessKey = await fetch(`${API_URL}/profesores/${idProfesor}/access-key`);
+      if (respAccessKey.ok) {
+        const dataKey = await respAccessKey.json();
+        accessKeyActual = dataKey.access_key || '';
+      }
+    } catch (error) {
+      console.error('Error al cargar access key:', error);
+    }
+
     const result = await Swal.fire({
       title: 'Editar Credenciales',
       html: `
@@ -7265,6 +7276,28 @@ async function abrirModalCredencialesProfesor(idProfesor) {
             </div>
             <p style="font-size: 11px; color: #6b7280; margin-top: 4px;">
               Deja vacio para mantener la contrasena actual
+            </p>
+          </div>
+
+          <!-- CEMIKEY -->
+          <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 16px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #fbbf24;">
+            <h4 style="margin: 0 0 12px 0; font-size: 14px; color: #92400e; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="key" style="width: 18px; height: 18px;"></i>
+              Clave de Acceso (CemiKey)
+            </h4>
+            
+            <div style="position: relative;">
+              <input type="text" id="accessKeyProfesor" value="${accessKeyActual}"
+                     placeholder="Ingresa una clave de acceso..."
+                     style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #fbbf24; border-radius: 6px; box-sizing: border-box; background: white; font-size: 14px;">
+              <button type="button" id="clearAccessKeyProfesor" 
+                      style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px; color: #b45309;"
+                      title="Limpiar clave">
+                <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+              </button>
+            </div>
+            <p style="font-size: 11px; color: #92400e; margin-top: 6px;">
+              Esta clave permite acceso directo sin usuario/contrasena. Deja vacio para eliminar.
             </p>
           </div>
 
@@ -7319,11 +7352,19 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           toggleBtn.innerHTML = iconHtml;
           lucide.createIcons();
         });
+
+        const clearBtn = document.getElementById('clearAccessKeyProfesor');
+        const accessInput = document.getElementById('accessKeyProfesor');
+        clearBtn.addEventListener('click', () => {
+          accessInput.value = '';
+          accessInput.focus();
+        });
       },
       preConfirm: async () => {
         const usuario = document.getElementById('usuarioProfesor').value.trim();
         const password = document.getElementById('passwordProfesor').value.trim();
         const enviarEmail = document.getElementById('enviarEmailProfesor').checked;
+        const accessKey = document.getElementById('accessKeyProfesor').value.trim();
         
         const nuevoUsuario = (usuario === '' || usuario === '${usuarioActual}') ? '${usuarioActual}' : usuario;
         
@@ -7339,12 +7380,18 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           return false;
         }
         
-        return { usuario: nuevoUsuario, password: nuevoPassword, enviarEmail };
+        return { 
+          usuario: nuevoUsuario, 
+          password: nuevoPassword, 
+          enviarEmail, 
+          accessKey,
+          accessKeyChanged: accessKey !== accessKeyActual
+        };
       }
     });
 
     if (result.isConfirmed && result.value) {
-      const { usuario, password, enviarEmail } = result.value;
+      const { usuario, password, enviarEmail, accessKey, accessKeyChanged } = result.value;
 
       try {
         const bodyData = {
@@ -7363,11 +7410,27 @@ async function abrirModalCredencialesProfesor(idProfesor) {
           body: JSON.stringify(bodyData)
         });
         
+        // Actualizar CemiKey si cambió
+        if (accessKeyChanged) {
+          try {
+            await fetch(`${API_URL}/profesores/${idProfesor}/access-key`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ access_key: accessKey || null })
+            });
+          } catch (keyError) {
+            console.error('Error al actualizar access key:', keyError);
+          }
+        }
+        
         if (response.ok) {
           const data = await response.json();
           let mensaje = password ? 'Usuario y contrasena actualizados correctamente' : 'Usuario actualizado correctamente';
+          if (accessKeyChanged) {
+            mensaje += accessKey ? '. Clave de acceso configurada.' : '. Clave de acceso eliminada.';
+          }
           if (data.emailEnviado) {
-            mensaje += '. Se ha enviado un email con las credenciales.';
+            mensaje += ' Se ha enviado un email con las credenciales.';
           }
           Swal.fire('Actualizado!', mensaje, 'success');
         } else {
@@ -9219,6 +9282,17 @@ async function abrirModalCredencialesAlumno(idAlumno) {
       console.error('Error al cargar usuario:', error);
     }
 
+    let accessKeyActual = '';
+    try {
+      const respAccessKey = await fetch(`${API_URL}/alumnos/${idAlumno}/access-key`);
+      if (respAccessKey.ok) {
+        const dataKey = await respAccessKey.json();
+        accessKeyActual = dataKey.access_key || '';
+      }
+    } catch (error) {
+      console.error('Error al cargar access key:', error);
+    }
+
     const result = await Swal.fire({
       title: 'Editar Credenciales',
       html: `
@@ -9253,6 +9327,28 @@ async function abrirModalCredencialesAlumno(idAlumno) {
             </div>
             <p style="font-size: 11px; color: #6b7280; margin-top: 4px;">
               Deja vacio para mantener la contrasena actual
+            </p>
+          </div>
+
+          <!-- CEMIKEY -->
+          <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 16px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #fbbf24;">
+            <h4 style="margin: 0 0 12px 0; font-size: 14px; color: #92400e; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="key" style="width: 18px; height: 18px;"></i>
+              Clave de Acceso (CemiKey)
+            </h4>
+            
+            <div style="position: relative;">
+              <input type="text" id="accessKeyAlumno" value="${accessKeyActual}"
+                     placeholder="Ingresa una clave de acceso..."
+                     style="width: 100%; padding: 10px 40px 10px 10px; border: 1px solid #fbbf24; border-radius: 6px; box-sizing: border-box; background: white; font-size: 14px;">
+              <button type="button" id="clearAccessKeyAlumno" 
+                      style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 4px; color: #b45309;"
+                      title="Limpiar clave">
+                <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+              </button>
+            </div>
+            <p style="font-size: 11px; color: #92400e; margin-top: 6px;">
+              Esta clave permite acceso directo sin usuario/contrasena. Deja vacio para eliminar.
             </p>
           </div>
 
@@ -9307,11 +9403,19 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           toggleBtn.innerHTML = iconHtml;
           lucide.createIcons();
         });
+
+        const clearBtn = document.getElementById('clearAccessKeyAlumno');
+        const accessInput = document.getElementById('accessKeyAlumno');
+        clearBtn.addEventListener('click', () => {
+          accessInput.value = '';
+          accessInput.focus();
+        });
       },
       preConfirm: async () => {
         const usuario = document.getElementById('usuarioAlumno').value.trim();
         const password = document.getElementById('passwordAlumno').value.trim();
         const enviarEmail = document.getElementById('enviarEmailAlumno').checked;
+        const accessKey = document.getElementById('accessKeyAlumno').value.trim();
         
         const nuevoUsuario = (usuario === '' || usuario === '${usuarioActual}') ? '${usuarioActual}' : usuario;
         
@@ -9327,12 +9431,18 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           return false;
         }
         
-        return { usuario: nuevoUsuario, password: nuevoPassword, enviarEmail };
+        return { 
+          usuario: nuevoUsuario, 
+          password: nuevoPassword, 
+          enviarEmail,
+          accessKey,
+          accessKeyChanged: accessKey !== accessKeyActual
+        };
       }
     });
 
     if (result.isConfirmed && result.value) {
-      const { usuario, password, enviarEmail } = result.value;
+      const { usuario, password, enviarEmail, accessKey, accessKeyChanged } = result.value;
 
       try {
         const bodyData = {
@@ -9351,11 +9461,27 @@ async function abrirModalCredencialesAlumno(idAlumno) {
           body: JSON.stringify(bodyData)
         });
         
+        // Actualizar CemiKey si cambió
+        if (accessKeyChanged) {
+          try {
+            await fetch(`${API_URL}/alumnos/${idAlumno}/access-key`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ access_key: accessKey || null })
+            });
+          } catch (keyError) {
+            console.error('Error al actualizar access key:', keyError);
+          }
+        }
+        
         if (response.ok) {
           const data = await response.json();
           let mensaje = password ? 'Usuario y contrasena actualizados correctamente' : 'Usuario actualizado correctamente';
+          if (accessKeyChanged) {
+            mensaje += accessKey ? '. Clave de acceso configurada.' : '. Clave de acceso eliminada.';
+          }
           if (data.emailEnviado) {
-            mensaje += '. Se ha enviado un email con las credenciales.';
+            mensaje += ' Se ha enviado un email con las credenciales.';
           }
           Swal.fire('Actualizado!', mensaje, 'success');
         } else {

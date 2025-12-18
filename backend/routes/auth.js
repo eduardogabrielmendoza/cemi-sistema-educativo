@@ -172,9 +172,10 @@ router.post("/login-key",
     const { accessKey } = req.body;
 
     try {
-      const [rows] = await pool.query(
+      // Buscar en administradores
+      let [rows] = await pool.query(
         `SELECT 
-          adm.id_administrador,
+          adm.id_administrador as id_especifico,
           adm.id_persona,
           adm.access_key,
           p.nombre,
@@ -182,14 +183,58 @@ router.post("/login-key",
           p.avatar,
           u.id_usuario,
           u.username,
-          perf.nombre_perfil as rol
+          'administrador' as rol,
+          'id_administrador' as id_field
          FROM administradores adm
          JOIN personas p ON adm.id_persona = p.id_persona
          JOIN usuarios u ON adm.id_persona = u.id_persona
-         JOIN perfiles perf ON u.id_perfil = perf.id_perfil
          WHERE adm.access_key = ?`,
         [accessKey.trim()]
       );
+
+      // Si no está en administradores, buscar en profesores
+      if (rows.length === 0) {
+        [rows] = await pool.query(
+          `SELECT 
+            prof.id_profesor as id_especifico,
+            prof.id_persona,
+            prof.access_key,
+            p.nombre,
+            p.apellido,
+            p.avatar,
+            u.id_usuario,
+            u.username,
+            'profesor' as rol,
+            'id_profesor' as id_field
+           FROM profesores prof
+           JOIN personas p ON prof.id_persona = p.id_persona
+           JOIN usuarios u ON prof.id_persona = u.id_persona
+           WHERE prof.access_key = ?`,
+          [accessKey.trim()]
+        );
+      }
+
+      // Si no está en profesores, buscar en alumnos
+      if (rows.length === 0) {
+        [rows] = await pool.query(
+          `SELECT 
+            al.id_alumno as id_especifico,
+            al.id_persona,
+            al.access_key,
+            p.nombre,
+            p.apellido,
+            p.avatar,
+            u.id_usuario,
+            u.username,
+            'alumno' as rol,
+            'id_alumno' as id_field
+           FROM alumnos al
+           JOIN personas p ON al.id_persona = p.id_persona
+           JOIN usuarios u ON al.id_persona = u.id_persona
+           WHERE al.access_key = ?`,
+          [accessKey.trim()]
+        );
+      }
 
       if (rows.length === 0) {
         eventLogger.auth.loginFailed('access_key', req.ip, 'Clave de acceso invalida');
@@ -199,32 +244,36 @@ router.post("/login-key",
         });
       }
 
-      const admin = rows[0];
+      const user = rows[0];
 
       const tokenPayload = {
-        id_usuario: admin.id_usuario,
-        id_persona: admin.id_persona,
-        id_administrador: admin.id_administrador,
-        rol: admin.rol,
-        username: admin.username
+        id_usuario: user.id_usuario,
+        id_persona: user.id_persona,
+        [user.id_field]: user.id_especifico,
+        rol: user.rol,
+        username: user.username
       };
 
       const token = generarToken(tokenPayload);
 
-      eventLogger.auth.loginSuccess(`${admin.nombre} ${admin.apellido}`.trim() + ' (via access_key)', req.ip);
+      eventLogger.auth.loginSuccess(`${user.nombre} ${user.apellido}`.trim() + ' (via access_key)', req.ip);
 
-      return res.json({
+      const response = {
         success: true,
         message: "Acceso exitoso",
         token,
-        rol: admin.rol,
-        nombre: `${admin.nombre} ${admin.apellido}`.trim(),
-        username: admin.username,
-        id_persona: admin.id_persona,
-        id_usuario: admin.id_usuario,
-        id_administrador: admin.id_administrador,
-        avatar: admin.avatar || null
-      });
+        rol: user.rol,
+        nombre: `${user.nombre} ${user.apellido}`.trim(),
+        username: user.username,
+        id_persona: user.id_persona,
+        id_usuario: user.id_usuario,
+        avatar: user.avatar || null
+      };
+
+      // Agregar el ID específico según el rol
+      response[user.id_field] = user.id_especifico;
+
+      return res.json(response);
     } catch (error) {
       console.error(" /auth/login-key error:", error);
       return res.status(500).json({

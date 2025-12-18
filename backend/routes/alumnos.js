@@ -639,6 +639,109 @@ router.patch("/:id/usuario", async (req, res) => {
   }
 });
 
+// ============================================
+// CEMIKEY - Access Key Management
+// ============================================
+
+// Obtener access key de un alumno
+router.get("/:id/access-key", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [rows] = await pool.query(
+      "SELECT access_key FROM alumnos WHERE id_alumno = ?",
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Alumno no encontrado"
+      });
+    }
+
+    res.json({
+      success: true,
+      access_key: rows[0].access_key || null
+    });
+  } catch (error) {
+    console.error("Error al obtener access key:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error al obtener la clave de acceso"
+    });
+  }
+});
+
+// Actualizar access key de un alumno
+router.patch("/:id/access-key", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { access_key } = req.body;
+
+    // Validar que la clave no esté vacía si se proporciona
+    if (access_key !== null && access_key !== undefined) {
+      const trimmedKey = String(access_key).trim();
+      
+      if (trimmedKey.length > 0 && trimmedKey.length < 4) {
+        return res.status(400).json({
+          success: false,
+          message: "La clave debe tener al menos 4 caracteres"
+        });
+      }
+
+      if (trimmedKey.length > 64) {
+        return res.status(400).json({
+          success: false,
+          message: "La clave no puede exceder 64 caracteres"
+        });
+      }
+
+      // Verificar unicidad en todas las tablas
+      const [existingAdmin] = await pool.query(
+        "SELECT id_administrador FROM administradores WHERE access_key = ? AND access_key IS NOT NULL",
+        [trimmedKey]
+      );
+      const [existingProf] = await pool.query(
+        "SELECT id_profesor FROM profesores WHERE access_key = ? AND access_key IS NOT NULL",
+        [trimmedKey]
+      );
+      const [existingAlum] = await pool.query(
+        "SELECT id_alumno FROM alumnos WHERE access_key = ? AND id_alumno != ?",
+        [trimmedKey, id]
+      );
+
+      if (existingAdmin.length > 0 || existingProf.length > 0 || existingAlum.length > 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Esta clave de acceso ya está en uso"
+        });
+      }
+
+      await pool.query(
+        "UPDATE alumnos SET access_key = ? WHERE id_alumno = ?",
+        [trimmedKey.length > 0 ? trimmedKey : null, id]
+      );
+    } else {
+      // Si es null, eliminar la clave
+      await pool.query(
+        "UPDATE alumnos SET access_key = NULL WHERE id_alumno = ?",
+        [id]
+      );
+    }
+
+    res.json({
+      success: true,
+      message: "Clave de acceso actualizada correctamente"
+    });
+  } catch (error) {
+    console.error("Error al actualizar access key:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error al actualizar la clave de acceso"
+    });
+  }
+});
+
 export default router;
 
 
