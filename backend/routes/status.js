@@ -89,13 +89,25 @@ async function getActiveIncidentFromDB() {
       [incident.id]
     );
     
+    // Parsear servicios afectados de forma segura
+    let affectedServices = [];
+    if (incident.servicios_afectados) {
+      try {
+        affectedServices = typeof incident.servicios_afectados === 'string' 
+          ? JSON.parse(incident.servicios_afectados) 
+          : incident.servicios_afectados;
+      } catch (e) {
+        affectedServices = [];
+      }
+    }
+    
     return {
       id: incident.id,
       title: incident.titulo,
       message: incident.mensaje,
       severity: incident.severidad,
-      affected_services: incident.servicios_afectados ? JSON.parse(incident.servicios_afectados) : [],
-      show_banner: incident.mostrar_banner === 1,
+      affected_services: affectedServices,
+      show_banner: Boolean(incident.mostrar_banner),
       created_at: incident.fecha_creacion,
       updates: updates.map(u => ({
         message: u.mensaje,
@@ -114,16 +126,28 @@ async function getIncidentsHistoryFromDB() {
     const [rows] = await pool.execute(
       'SELECT * FROM sistema_incidentes WHERE resuelto = TRUE ORDER BY fecha_resolucion DESC LIMIT 20'
     );
-    return rows.map(inc => ({
-      id: inc.id,
-      title: inc.titulo,
-      message: inc.mensaje,
-      severity: inc.severidad,
-      affected_services: inc.servicios_afectados ? JSON.parse(inc.servicios_afectados) : [],
-      created_at: inc.fecha_creacion,
-      resolved_at: inc.fecha_resolucion,
-      resolved: true
-    }));
+    return rows.map(inc => {
+      let affectedServices = [];
+      if (inc.servicios_afectados) {
+        try {
+          affectedServices = typeof inc.servicios_afectados === 'string' 
+            ? JSON.parse(inc.servicios_afectados) 
+            : inc.servicios_afectados;
+        } catch (e) {
+          affectedServices = [];
+        }
+      }
+      return {
+        id: inc.id,
+        title: inc.titulo,
+        message: inc.mensaje,
+        severity: inc.severidad,
+        affected_services: affectedServices,
+        created_at: inc.fecha_creacion,
+        resolved_at: inc.fecha_resolucion,
+        resolved: true
+      };
+    });
   } catch (error) {
     console.error('Error obteniendo historial:', error);
     return [];
@@ -296,7 +320,14 @@ router.put('/incident/:id', async (req, res) => {
       
       // Restaurar estado de servicios
       if (incident && incident.servicios_afectados) {
-        const serviciosAfectados = JSON.parse(incident.servicios_afectados);
+        let serviciosAfectados = [];
+        try {
+          serviciosAfectados = typeof incident.servicios_afectados === 'string'
+            ? JSON.parse(incident.servicios_afectados)
+            : incident.servicios_afectados;
+        } catch (e) {
+          serviciosAfectados = [];
+        }
         for (const serviceId of serviciosAfectados) {
           await pool.execute(
             'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
@@ -334,7 +365,14 @@ router.delete('/incident/:id', async (req, res) => {
     
     // Restaurar estado de servicios
     if (incident && incident.servicios_afectados) {
-      const serviciosAfectados = JSON.parse(incident.servicios_afectados);
+      let serviciosAfectados = [];
+      try {
+        serviciosAfectados = typeof incident.servicios_afectados === 'string'
+          ? JSON.parse(incident.servicios_afectados)
+          : incident.servicios_afectados;
+      } catch (e) {
+        serviciosAfectados = [];
+      }
       for (const serviceId of serviciosAfectados) {
         await pool.execute(
           'UPDATE sistema_servicios SET estado = ? WHERE id = ?',
