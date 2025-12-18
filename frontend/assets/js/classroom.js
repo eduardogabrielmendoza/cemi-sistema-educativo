@@ -1130,7 +1130,7 @@ function handleLogout() {
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.clear();
-      window.location.href = 'classroom-login.html';
+      window.location.href = 'index.html';
     }
   });
 }
