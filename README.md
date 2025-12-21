@@ -2,18 +2,7 @@
 
 Sistema de gestión educativa con funcionalidades de administración de alumnos, profesores, cursos, pagos y classroom virtual con chat en tiempo real.
 
-## 🚀 Quick Start
-
-### Instalación Local
-```bash
-npm install
-npm run dev
-```
-
-### Deployment en Railway
-Ver [DEPLOYMENT.md](./DEPLOYMENT.md) para instrucciones completas.
-
-## 📦 Tecnologías
+## Especificaciones
 
 - **Backend**: Node.js + Express
 - **Base de Datos**: MySQL
@@ -22,10 +11,10 @@ Ver [DEPLOYMENT.md](./DEPLOYMENT.md) para instrucciones completas.
 - **Storage**: Cloudinary
 - **Email**: SendGrid/Nodemailer
 
-## 🔗 Enlaces
+## Enlaces
 
-- **Repositorio**: https://github.com/seeyouanotherday/sistema-gestor.git
-- **Documentación**: Ver carpeta `Documentacion-CEMI/`
+- **Repositorio**: https://github.com/eduardogabrielmendozaprogram/cemi-sistema-educativo
+- **Railway**: https://cemi.up.railway.app/
 
 ## 📝 Licencia
 
