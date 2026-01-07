@@ -2,6 +2,7 @@ import express from 'express';
 import os from 'os';
 import pool from '../utils/db.js';
 import eventLogger from '../utils/eventLogger.js';
+import { verificarToken, verificarRol } from '../utils/authMiddleware.js';
 
 const router = express.Router();
 
@@ -212,7 +213,7 @@ router.put('/services/:serviceId', async (req, res) => {
 });
 
 // Crear nuevo incidente
-router.post('/incidents', async (req, res) => {
+router.post('/incidents', verificarToken, verificarRol('admin', 'administrador'), async (req, res) => {
   try {
     const { title, message, severity, affected_services, show_banner } = req.body;
     
@@ -255,7 +256,7 @@ router.post('/incidents', async (req, res) => {
 });
 
 // Actualizar incidente
-router.put('/incidents/:id', async (req, res) => {
+router.put('/incidents/:id', verificarToken, verificarRol('admin', 'administrador'), async (req, res) => {
   try {
     const { id } = req.params;
     const { title, message, severity, affected_services, show_banner } = req.body;
@@ -286,7 +287,7 @@ router.put('/incidents/:id', async (req, res) => {
 });
 
 // Resolver incidente
-router.put('/incidents/:id/resolve', async (req, res) => {
+router.put('/incidents/:id/resolve', verificarToken, verificarRol('admin', 'administrador'), async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -329,7 +330,7 @@ router.put('/incidents/:id/resolve', async (req, res) => {
 });
 
 // Eliminar incidente
-router.delete('/incidents/:id', async (req, res) => {
+router.delete('/incidents/:id', verificarToken, verificarRol('admin', 'administrador'), async (req, res) => {
   try {
     const { id } = req.params;
     
@@ -482,7 +483,7 @@ router.get('/ping/:serviceId', (req, res) => {
 });
 
 // Reiniciar servicio (simulado)
-router.post('/restart/:serviceId', (req, res) => {
+router.post('/restart/:serviceId', verificarToken, verificarRol('admin', 'administrador'), (req, res) => {
   const { serviceId } = req.params;
   
   addSystemLog('WARNING', `Reinicio solicitado para ${serviceId}`, serviceId);

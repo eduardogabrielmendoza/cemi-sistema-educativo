@@ -1,6 +1,7 @@
 import express from "express";
 import pool from "../utils/db.js";
 import eventLogger from "../utils/eventLogger.js";
+import { verificarToken, verificarRol } from "../utils/authMiddleware.js";
 
 const router = express.Router();
 
@@ -181,8 +182,8 @@ router.get('/preguntas/:id', async (req, res) => {
     }
 });
 
-// Crear nueva pregunta
-router.post('/preguntas', async (req, res) => {
+// Crear nueva pregunta (requiere autenticación)
+router.post('/preguntas', verificarToken, async (req, res) => {
     try {
         const { titulo, descripcion, categoria, autorTipo, autorId, autorNombre, autorAvatar } = req.body;
         
@@ -242,8 +243,8 @@ router.post('/preguntas', async (req, res) => {
 // RESPUESTAS
 // =============================================
 
-// Agregar respuesta a una pregunta
-router.post('/preguntas/:id/respuestas', async (req, res) => {
+// Agregar respuesta a una pregunta (requiere autenticación)
+router.post('/preguntas/:id/respuestas', verificarToken, async (req, res) => {
     try {
         const { id: preguntaId } = req.params;
         const { contenido, autorTipo, autorId, autorNombre, autorAvatar } = req.body;
@@ -438,8 +439,8 @@ router.put('/preguntas/:id/resolver', async (req, res) => {
     }
 });
 
-// Destacar/desdestacar pregunta
-router.put('/preguntas/:id/destacar', async (req, res) => {
+// Destacar/Desdestacar pregunta (solo admin)
+router.put('/preguntas/:id/destacar', verificarToken, verificarRol('admin', 'administrador'), async (req, res) => {
     try {
         const { id } = req.params;
         const { destacado } = req.body;
@@ -456,8 +457,8 @@ router.put('/preguntas/:id/destacar', async (req, res) => {
     }
 });
 
-// Eliminar pregunta
-router.delete('/preguntas/:id', async (req, res) => {
+// Eliminar pregunta (requiere ser el autor o admin)
+router.delete('/preguntas/:id', verificarToken, async (req, res) => {
     try {
         const { id } = req.params;
         
@@ -470,8 +471,8 @@ router.delete('/preguntas/:id', async (req, res) => {
     }
 });
 
-// Eliminar respuesta
-router.delete('/respuestas/:id', async (req, res) => {
+// Eliminar respuesta (requiere ser el autor o admin)
+router.delete('/respuestas/:id', verificarToken, async (req, res) => {
     try {
         const { id } = req.params;
         

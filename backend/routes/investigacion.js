@@ -7,6 +7,8 @@ import { fileURLToPath } from "url";
 import https from "https";
 import { sendEmail } from "../config/mailer.js";
 import { encuestaAgradecimientoTemplate } from "../utils/emailTemplates.js";
+import rateLimit from "express-rate-limit";
+import { verificarToken, verificarRol } from "../utils/authMiddleware.js";
 
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
@@ -158,7 +160,16 @@ const traducir = (categoria, valor) => {
   return traducciones[categoria]?.[valor] || valor;
 };
 
-router.post("/encuesta", async (req, res) => {
+// Rate limiter para prevenir spam de encuestas
+const encuestaLimiter = rateLimit({
+  windowMs: 24 * 60 * 60 * 1000, // 24 horas
+  max: 1, // 1 solicitud por IP
+  message: { success: false, error: "Ya has enviado una encuesta hoy. Intenta mañana." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+router.post("/encuesta", encuestaLimiter, async (req, res) => {
   try {
     const datos = req.body;
     console.log("Datos de encuesta recibidos:", datos);
@@ -563,7 +574,7 @@ router.get("/estadisticas", (req, res) => {
   }
 });
 
-router.delete("/encuesta/:id", async (req, res) => {
+router.delete("/encuesta/:id", verificarToken, verificarRol('admin', 'administrador'), async (req, res) => {
   try {
     const { id } = req.params;
     const registro = leerRegistro();
