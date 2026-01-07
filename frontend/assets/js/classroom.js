@@ -2031,6 +2031,7 @@ async function mostrarFormularioTarea() {
     confirmButtonColor: '#4a5259',
     cancelButtonColor: '#6c757d',
     width: '700px',
+    heightAuto: false,
     customClass: {
       popup: 'animated-popup',
       confirmButton: 'animated-button'
