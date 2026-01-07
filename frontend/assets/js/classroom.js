@@ -1247,7 +1247,9 @@ async function verDetalleCurso(idCurso) {
     renderPanelCurso(curso, alumnos, tareas);
     
     const panel = document.getElementById('courseSidePanel');
+    const overlay = document.getElementById('coursePanelOverlay');
     panel.classList.add('active');
+    overlay.classList.add('active');
     
     document.body.style.overflow = 'hidden';
     
@@ -1398,7 +1400,9 @@ function renderPanelCurso(curso, alumnos, tareas) {
 
 function cerrarPanelCurso() {
   const panel = document.getElementById('courseSidePanel');
+  const overlay = document.getElementById('coursePanelOverlay');
   panel.classList.remove('active');
+  overlay.classList.remove('active');
   document.body.style.overflow = '';
 }
 
