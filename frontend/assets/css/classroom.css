@@ -3997,7 +3997,7 @@ input[type="checkbox"]:checked {
 
 .class-card-header[style],
 div.class-card-header[style*="background"] {
-  background: var(--hw-charcoal) !important;
+  background: var #5d646b !important;
 }
 
 .class-card-header h3[style],
@@ -5436,7 +5436,7 @@ body.dark-mode .toggle-password-btn:hover {
 
 .search-box-resources i {
   position: absolute;
-  left: 16px;
+  left: 20px;
   width: 18px;
   height: 18px;
   color: var(--text-light);
@@ -5445,7 +5445,7 @@ body.dark-mode .toggle-password-btn:hover {
 }
 
 .search-box-resources input {
-  padding: 12px 16px 12px 46px;
+  padding: 12px 16px 12px 52px;
   border: 2px solid var(--border-color);
   border-radius: 14px;
   font-size: 14px;
@@ -5619,7 +5619,7 @@ body.dark-mode .toggle-password-btn:hover {
   gap: 14px;
   padding: 16px 18px;
   color: white;
-  background: var(--hw-charcoal);
+  background: #5d646b;
 }
 
 .folder-icon {
