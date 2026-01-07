@@ -1825,7 +1825,8 @@ body {
 
 .nav-item.active i,
 .nav-item.active svg {
-  color: #ffffff;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
 }
 
 .nav-item i {
