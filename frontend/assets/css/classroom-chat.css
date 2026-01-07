@@ -306,6 +306,7 @@
 }
 
 .contact-name {
+  font-family: 'Inter';
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--chat-text);
@@ -315,6 +316,7 @@
 }
 
 .contact-course {
+  font-family: 'Inter';
   font-size: 0.8rem;
   color: var(--chat-text-muted);
   white-space: nowrap;
@@ -324,6 +326,7 @@
 }
 
 .contact-role {
+  font-family: 'Inter';
   font-size: 0.75rem;
   color: var(--chat-accent);
   display: flex;
