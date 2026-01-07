@@ -3506,38 +3506,32 @@ body.dark-mode .research-banner-close:hover {
   left: 0;
   z-index: 10000;
   display: none;
-  pointer-events: none;
 }
 
 .course-side-panel.active {
-  display: block;
-  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .course-panel-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-smooth);
-}
-
-.course-side-panel.active .course-panel-overlay {
-  opacity: 1;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  cursor: pointer;
+  z-index: 10000;
 }
 
 .course-panel-content {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
   width: 100%;
   max-width: 600px;
+  height: 100%;
   background: white;
   box-shadow: -8px 0 40px rgba(0, 0, 0, 0.2);
   transform: translateX(100%);
@@ -3545,10 +3539,17 @@ body.dark-mode .research-banner-close:hover {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  z-index: 10001;
+  animation: slideInFromRight 0.5s var(--ease-smooth) forwards;
 }
 
-.course-side-panel.active .course-panel-content {
-  transform: translateX(0);
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .course-panel-header {
