@@ -7428,3 +7428,16 @@ div.class-card-header {
 .swal2-toast .swal2-question-mark {
   display: none !important;
 }
+/* Ocultar backdrop/overlay negro del toast */
+.swal2-container.swal2-top-end,
+.swal2-container.swal2-top-start,
+.swal2-container.swal2-top,
+.swal2-container.swal2-bottom-end,
+.swal2-container.swal2-bottom-start,
+.swal2-container.swal2-bottom {
+  background: transparent !important;
+}
+
+.swal2-backdrop-show {
+  background: transparent !important;
+}
