@@ -3316,6 +3316,8 @@ body.dark-mode .research-banner-close:hover {
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4863,6 +4865,8 @@ body.dark-mode .toggle-password-btn:hover {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 999;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -5520,7 +5524,7 @@ body.dark-mode .toggle-password-btn:hover {
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
-  background: var(--hw-charcoal);
+  background: var#5d646b;
   color: var(--hw-white);
   border: none;
   border-radius: 6px;
@@ -6052,7 +6056,7 @@ body.dark-mode .toggle-password-btn:hover {
   align-items: center;
   justify-content: space-between;
   padding: 22px 28px;
-  background: var(--hw-charcoal);
+  background: var#5d646b;
   color: white;
   position: relative;
   overflow: hidden;
@@ -6265,8 +6269,7 @@ body.dark-mode .toggle-password-btn:hover {
 
 .btn-submit {
   padding: 14px 28px;
-  background: var(--hw-charcoal);
-  color: white;
+  background: var#5d646b;
   border: 1px solid transparent;
   border-radius: 6px;
   font-family: var(--font-body);
@@ -7452,30 +7455,4 @@ div.class-card-header {
 
 .swal2-container .swal2-popup {
   pointer-events: auto !important;
-}
-/* Forzar iconos blancos en modal de configuraci�n */
-.modal-config-header i,
-.modal-config-header svg,
-.modal-config-header svg path,
-.modal-config-header svg line,
-.modal-config-header svg polyline,
-.modal-config-header svg rect,
-.modal-config-header svg circle,
-.modal-config-header .lucide {
-  color: #ffffff !important;
-  stroke: #ffffff !important;
-  fill: none !important;
-}
-
-.btn-config-primary i,
-.btn-config-primary svg,
-.btn-config-primary svg path,
-.btn-config-primary svg line,
-.btn-config-primary svg polyline,
-.btn-config-primary svg rect,
-.btn-config-primary svg circle,
-.btn-config-primary .lucide {
-  color: #ffffff !important;
-  stroke: #ffffff !important;
-  fill: none !important;
 }
