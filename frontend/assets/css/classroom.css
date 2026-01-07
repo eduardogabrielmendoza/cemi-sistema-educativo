@@ -1177,10 +1177,25 @@ body::before {
 }
 
 
-.swal2-container {
+.swal2-container,
+.swal2-container.swal2-backdrop-show {
   background: rgba(0, 0, 0, 0.6) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.swal2-container::before {
+  content: '' !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
 }
 
 .modal-recursos-overlay {
