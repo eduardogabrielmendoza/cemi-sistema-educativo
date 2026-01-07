@@ -7367,5 +7367,14 @@ div.class-card-header {
   border-radius: 0 0 8px 8px !important;
 }
 
+/* Forzar color blanco en icono del botón Enviar comentario */
+#btnEnviarComentario svg,
+#btnEnviarComentario svg path,
+#btnEnviarComentario [data-lucide] {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none !important;
+}
+
 
 
