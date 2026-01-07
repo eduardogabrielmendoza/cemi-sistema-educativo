@@ -23,7 +23,7 @@
     .cemi-help-btn { 
       width: 56px; 
       height: 56px; 
-      background: var(--hw-charcoal); 
+      background: #dee2e6; 
       border: none; 
       border-radius: 50%; 
       cursor: pointer; 

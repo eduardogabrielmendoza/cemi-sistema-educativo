@@ -13,7 +13,7 @@
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--hw-off-white); color: var(--hw-charcoal); line-height: 1.6; }
     body::before { content: ''; position: fixed; top: 15%; right: 10%; width: 200px; height: 200px; border: 1px solid rgba(101, 111, 119, 0.05); border-radius: 50%; pointer-events: none; }
 
-    .help-header { background: var(--hw-charcoal); position: sticky; top: 0; z-index: 100; }
+    .help-header { background: var(--hw-light-gray); position: sticky; top: 0; z-index: 100; }
     .header-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; }
     .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
     .header-logo img { width: 52px; height: 52px; border-radius: 10px; }
@@ -24,7 +24,7 @@
     .header-nav a:hover::after, .header-nav a.active::after { width: 30px; }
     .header-nav a:hover, .header-nav a.active { color: white; }
 
-    .hero-section { background: var(--hw-charcoal); padding: 30px 40px 24px; text-align: center; position: relative; overflow: hidden; transition: max-height 0.5s ease, padding 0.5s ease; max-height: 300px; }
+    .hero-section { background: var(--hw-light-gray); padding: 30px 40px 24px; text-align: center; position: relative; overflow: hidden; transition: max-height 0.5s ease, padding 0.5s ease; max-height: 300px; }
     .hero-section::before { content: ''; position: absolute; top: -80px; right: -80px; width: 250px; height: 250px; border: 2px solid rgba(255,255,255,0.03); border-radius: 50%; }
     .hero-section.hidden { max-height: 0; padding-top: 0; padding-bottom: 0; }
     .hero-section h1 { font-family: 'Inter', sans-serif; color: white; font-size: 26px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 12px; animation: fadeIn 0.6s ease; }
