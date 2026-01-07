@@ -3585,7 +3585,7 @@ window.abrirAnuncio = async function(idAnuncio) {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
               <span style="font-size: 12px; color: #6c757d; font-family: 'Inter', sans-serif;"><i data-lucide="info" style="width: 12px; height: 12px;"></i> Ctrl+Enter para enviar</span>
               <button id="btnEnviarComentario" style="padding: 10px 24px; background: #4a5259; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif;">
-                <i data-lucide="send" style="width: 16px; height: 16px; color: #ffffff; stroke: #ffffff;"></i>
+                <i data-lucide="send" style="width: 16px; height: 16px; color: #ffffff !important; stroke: #ffffff !important;"></i>
                 Enviar
               </button>
             </div>
