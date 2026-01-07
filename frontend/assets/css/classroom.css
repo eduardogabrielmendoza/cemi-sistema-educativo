@@ -2511,6 +2511,7 @@ body.dark-mode .research-banner-close:hover {
   padding: 6px 12px;
   background: rgba(66, 99, 140, 0.04);
   border-radius: 8px;
+  font-family: 'Inter', sans-serif;
 }
 
 .due-date i,
@@ -2538,6 +2539,7 @@ body.dark-mode .research-banner-close:hover {
   font-size: 13px;
   transition: var(--transition);
   cursor: pointer;
+  font-family: 'Inter', sans-serif;
 }
 
 .file-item:hover {
@@ -2557,6 +2559,7 @@ body.dark-mode .research-banner-close:hover {
   color: var(--text-light);
   font-size: 11px;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
 .card-footer {
@@ -2756,6 +2759,7 @@ body.dark-mode .research-banner-close:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
+  font-family: 'Inter', sans-serif;
 }
 
 .class-card {
@@ -2768,6 +2772,7 @@ body.dark-mode .research-banner-close:hover {
   position: relative;
   border: 1px solid var(--border-color);
   animation: fadeInUp 0.4s var(--ease-smooth) backwards;
+  font-family: 'Inter', sans-serif;
 }
 
 .class-card:nth-child(1) { animation-delay: 0ms; }
@@ -2795,13 +2800,13 @@ body.dark-mode .research-banner-close:hover {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background: var(--hw-charcoal) !important;
+  background: #5d646b !important;
   border-radius: 8px 8px 0 0 !important;
   border-top: 3px solid #93a1ad;
 }
 
 .class-card-header h3 {
-  font-family: var(--font-body) !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 1.25rem !important;
   font-weight: 500 !important;
   margin: 0 0 6px 0 !important;
@@ -2813,6 +2818,7 @@ body.dark-mode .research-banner-close:hover {
   opacity: 0.9 !important;
   color: rgba(255, 255, 255, 0.85) !important;
   margin: 0 !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
 .class-menu-btn {
@@ -2843,6 +2849,7 @@ body.dark-mode .research-banner-close:hover {
 
 .class-card-body {
   padding: 20px;
+  font-family: 'Inter', sans-serif;
 }
 
 .class-info-item {
@@ -2852,6 +2859,7 @@ body.dark-mode .research-banner-close:hover {
   margin-bottom: 12px;
   font-size: 14px;
   color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
 }
 
 .class-info-item:last-child {
@@ -2882,7 +2890,7 @@ body.dark-mode .research-banner-close:hover {
   border: 1px solid var(--border-color);
   padding: 8px 14px;
   border-radius: 6px;
-  font-family: var(--font-body);
+  font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -2964,6 +2972,7 @@ body.dark-mode .research-banner-close:hover {
   font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
 }
 
 .task-badge {
@@ -2974,6 +2983,7 @@ body.dark-mode .research-banner-close:hover {
   text-transform: uppercase;
   letter-spacing: 0.6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  font-family: 'Inter', sans-serif;
 }
 
 .task-badge.due-soon {
@@ -2999,6 +3009,7 @@ body.dark-mode .research-banner-close:hover {
   color: var(--text-secondary);
   margin-bottom: 12px;
   line-height: 1.6;
+  font-family: 'Inter', sans-serif;
 }
 
 .task-meta {
@@ -3007,11 +3018,13 @@ body.dark-mode .research-banner-close:hover {
   flex-wrap: wrap;
   gap: 8px;
   font-size: 13px;
+  font-family: 'Inter', sans-serif;
 }
 
 .task-course {
   font-weight: 600;
   color: var(--primary-color);
+  font-family: 'Inter', sans-serif;
 }
 
 .task-due,
@@ -3020,6 +3033,7 @@ body.dark-mode .research-banner-close:hover {
   align-items: center;
   gap: 4px;
   color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
 }
 
 .task-due i,
@@ -3225,6 +3239,7 @@ body.dark-mode .research-banner-close:hover {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
 }
 
 .event-item {
@@ -3258,12 +3273,14 @@ body.dark-mode .research-banner-close:hover {
   font-size: 24px;
   font-weight: 700;
   line-height: 1;
+  font-family: 'Inter', sans-serif;
 }
 
 .event-month {
   font-size: 12px;
   text-transform: uppercase;
   margin-top: 2px;
+  font-family: 'Inter', sans-serif;
 }
 
 .event-details h4 {
@@ -3271,11 +3288,13 @@ body.dark-mode .research-banner-close:hover {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 4px;
+  font-family: 'Inter', sans-serif;
 }
 
 .event-details p {
   font-size: 13px;
   color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
 }
 
 
@@ -7346,7 +7365,7 @@ div[class*="avatar"][style*="background:#"] {
 .class-card .class-card-header,
 .class-card-header[style*="background"],
 div.class-card-header {
-  background: var #5d646b !important;
+  background: #5d646b !important;
   border-radius: 8px 8px 0 0 !important;
 }
 
@@ -7354,7 +7373,7 @@ div.class-card-header {
 .class-card-header p,
 .class-card-body,
 .class-card-body span {
-  font-family: var(--font-body) !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
 .class-card-header h3 {
