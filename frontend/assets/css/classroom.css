@@ -1824,9 +1824,12 @@ body {
 }
 
 .nav-item.active i,
-.nav-item.active svg {
+.nav-item.active svg,
+.nav-item.active svg path,
+.nav-item.active .lucide {
   color: #ffffff !important;
   stroke: #ffffff !important;
+  fill: none !important;
 }
 
 .nav-item i {
