@@ -1177,13 +1177,16 @@ body::before {
 }
 
 
+/* SweetAlert2 backdrop blur - Múltiples selectores para forzar */
 .swal2-container,
-.swal2-container.swal2-backdrop-show {
+.swal2-container.swal2-backdrop-show,
+.swal2-backdrop-show {
   background: rgba(0, 0, 0, 0.6) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
 }
 
+/* Pseudo-elemento para compatibilidad adicional */
 .swal2-container::before {
   content: '' !important;
   position: fixed !important;
@@ -1196,6 +1199,14 @@ body::before {
   -webkit-backdrop-filter: blur(10px) !important;
   z-index: -1 !important;
   pointer-events: none !important;
+}
+
+/* Elemento backdrop de SweetAlert2 */
+div.swal2-backdrop,
+.swal2-backdrop {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 
 .modal-recursos-overlay {
