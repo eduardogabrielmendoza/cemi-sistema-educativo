@@ -616,5 +616,28 @@
   border: 2px solid rgba(107, 114, 128, 0.2);
 }
 
-
-
+/* Forzar Inter en todos los elementos de mensajes */
+.user-chat-full-container,
+.user-chat-full-container *,
+.user-chat-conversations-panel,
+.user-chat-conversations-panel *,
+.user-chat-messages-panel,
+.user-chat-messages-panel *,
+.user-chat-conversation-item,
+.user-chat-conv-name,
+.user-chat-conv-preview,
+.user-chat-conv-time,
+.user-chat-message,
+.user-chat-message-sender,
+.user-chat-message-bubble,
+.user-chat-message-time,
+.user-chat-input,
+.user-chat-header h3,
+.user-chat-status span,
+.user-chat-empty p,
+.chat-pdf-name,
+.chat-pdf-type,
+.user-chat-typing span,
+.user-chat-no-messages p {
+  font-family: 'Inter', sans-serif !important;
+}

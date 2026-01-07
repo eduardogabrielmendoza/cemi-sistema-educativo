@@ -4003,8 +4003,12 @@ function cambiarVistaCalendario(vista) {
     text: `Vista de ${vista} activada`,
     timer: 1500,
     showConfirmButton: false,
+    showCloseButton: false,
     toast: true,
-    position: 'top-end'
+    position: 'top-end',
+    customClass: {
+      popup: 'calendar-toast-popup'
+    }
   });
 }
 

@@ -7414,5 +7414,17 @@ div.class-card-header {
   fill: none !important;
 }
 
+/* Ocultar botón de ayuda en toast de calendario */
+.calendar-toast-popup .swal2-actions {
+  display: none !important;
+}
 
+.swal2-toast.calendar-toast-popup .swal2-help,
+.swal2-toast.calendar-toast-popup .swal2-question-mark {
+  display: none !important;
+}
 
+.swal2-toast .swal2-help,
+.swal2-toast .swal2-question-mark {
+  display: none !important;
+}
