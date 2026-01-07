@@ -4183,7 +4183,7 @@ div[style*="linear-gradient"][style*="8fd3f4"] {
 }
 
 .modal-config-header {
-  background: #1e1e1e;
+  background: #4a5259;
   padding: 24px 32px;
   display: flex;
   align-items: center;
@@ -4566,7 +4566,7 @@ input:checked + .toggle-slider:before {
 
 .theme-card.active {
   border-color: #93a1ad;
-  background: linear-gradient(135deg, rgba(147, 161, 173, 0.1) 0%, rgba(135, 23, 40, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(147, 161, 173, 0.1) 0%, rgba(101, 111, 119, 0.15) 100%);
   color: #93a1ad;
   box-shadow: 0 8px 20px rgba(147, 161, 173, 0.25);
 }
@@ -4606,7 +4606,7 @@ input:checked + .toggle-slider:before {
 
 .font-size-btn.active {
   border-color: #93a1ad;
-  background: linear-gradient(135deg, #93a1ad 0%, #871728 100%);
+  background: linear-gradient(135deg, #93a1ad 0%, #4a5259 100%);
   color: white;
   box-shadow: 0 8px 20px rgba(147, 161, 173, 0.3);
 }
@@ -4728,7 +4728,7 @@ body.dark-mode .toggle-password-btn:hover {
 }
 
 .btn-config-primary {
-  background: linear-gradient(135deg, #93a1ad 0%, #871728 100%);
+  background: linear-gradient(135deg, #4a5259 0%, #4a5259 100%);
   color: white;
   box-shadow: 0 4px 15px rgba(147, 161, 173, 0.3);
 }
@@ -7452,4 +7452,30 @@ div.class-card-header {
 
 .swal2-container .swal2-popup {
   pointer-events: auto !important;
+}
+/* Forzar iconos blancos en modal de configuración */
+.modal-config-header i,
+.modal-config-header svg,
+.modal-config-header svg path,
+.modal-config-header svg line,
+.modal-config-header svg polyline,
+.modal-config-header svg rect,
+.modal-config-header svg circle,
+.modal-config-header .lucide {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none !important;
+}
+
+.btn-config-primary i,
+.btn-config-primary svg,
+.btn-config-primary svg path,
+.btn-config-primary svg line,
+.btn-config-primary svg polyline,
+.btn-config-primary svg rect,
+.btn-config-primary svg circle,
+.btn-config-primary .lucide {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none !important;
 }
