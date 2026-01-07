@@ -1179,8 +1179,8 @@ body::before {
 
 .swal2-container {
   background: rgba(0, 0, 0, 0.6) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 
 .modal-recursos-overlay {
