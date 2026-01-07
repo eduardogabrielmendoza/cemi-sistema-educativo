@@ -3496,23 +3496,23 @@ window.abrirAnuncio = async function(idAnuncio) {
         <div style="display: flex; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid #e9ecef;">
           ${avatarElement}
           <div style="flex: 1;">
-            <div style="font-weight: 600; font-size: 16px; color: #2c3e50; margin-bottom: 4px; cursor: pointer; transition: color 0.2s;" 
+            <div style="font-weight: 600; font-size: 16px; color: #2c3e50; margin-bottom: 4px; cursor: pointer; transition: color 0.2s; font-family: 'Inter', sans-serif;" 
                  onmouseover="this.style.color='#4a5259'" 
                  onmouseout="this.style.color='#2c3e50'" 
                  onclick="verPerfilProfesor(${anuncio.id_profesor})">${anuncio.profesor_nombre}</div>
-            <div style="font-size: 13px; color: #6c757d;">
+            <div style="font-size: 13px; color: #6c757d; font-family: 'Inter', sans-serif;">
               <span>${anuncio.nombre_curso}</span>
               <span style="margin: 0 6px;">•</span>
               <span>${fechaFormateada}</span>
             </div>
           </div>
-          ${anuncio.importante ? '<div style="background: linear-gradient(135deg, #f59e0b, #dc2626); color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; height: fit-content;"><i data-lucide="alert-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> Importante</div>' : ''}
+          ${anuncio.importante ? '<div style="background: linear-gradient(135deg, #f59e0b, #dc2626); color: white; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; height: fit-content; margin-right: 50px; font-family: \'Inter\', sans-serif;"><i data-lucide="alert-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> Importante</div>' : ''}
         </div>
         
         <!-- Contenido del anuncio -->
         <div style="margin-bottom: 24px;">
-          <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 20px; font-weight: 600;">${anuncio.titulo}</h3>
-          <p style="margin: 0; color: #495057; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">${anuncio.contenido}</p>
+          <h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 20px; font-weight: 600; font-family: 'Inter', sans-serif;">${anuncio.titulo}</h3>
+          <p style="margin: 0; color: #495057; font-size: 15px; line-height: 1.6; white-space: pre-wrap; font-family: 'Inter', sans-serif;">${anuncio.contenido}</p>
           
           ${anuncio.link_url ? `
             <div style="margin-top: 16px; padding: 14px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #4a5259;">
@@ -3531,7 +3531,7 @@ window.abrirAnuncio = async function(idAnuncio) {
         
         <!-- Sección de comentarios -->
         <div style="border-top: 2px solid #e9ecef; padding-top: 20px;">
-          <h4 style="margin: 0 0 16px 0; color: #2c3e50; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+          <h4 style="margin: 0 0 16px 0; color: #2c3e50; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif;">
             <i data-lucide="message-circle" style="width: 20px; height: 20px; color: #4a5259;"></i>
             Comentarios (${comentarios.length})
           </h4>
@@ -3564,28 +3564,28 @@ window.abrirAnuncio = async function(idAnuncio) {
                   ${avatarComentario}
                   <div style="flex: 1;">
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                      <span style="font-weight: 600; font-size: 14px; color: #2c3e50; cursor: pointer; transition: color 0.2s;" 
+                      <span style="font-weight: 600; font-size: 14px; color: #2c3e50; cursor: pointer; transition: color 0.2s; font-family: 'Inter', sans-serif;" 
                             onmouseover="this.style.color='#4a5259'" 
                             onmouseout="this.style.color='#2c3e50'" 
                             onclick="verPerfilComentario(${com.id_usuario}, '${com.tipo_usuario}')">${com.nombre_usuario}</span>
-                      <span style="font-size: 12px; color: #6c757d;">${tiempo}</span>
+                      <span style="font-size: 12px; color: #6c757d; font-family: 'Inter', sans-serif;">${tiempo}</span>
                     </div>
-                    <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.5; white-space: pre-wrap;">${com.contenido}</p>
+                    <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.5; white-space: pre-wrap; font-family: 'Inter', sans-serif;">${com.contenido}</p>
                   </div>
                 </div>
               `;
-            }).join('') : '<p style="text-align: center; color: #999; padding: 20px;">Aún no hay comentarios. ¡Sé el primero en comentar!</p>'}
+            }).join('') : '<p style="text-align: center; color: #999; padding: 20px; font-family: \'Inter\', sans-serif;">Aún no hay comentarios. ¡Sé el primero en comentar!</p>'}
           </div>
           
           <!-- Formulario de comentario -->
           <div style="margin-top: 16px; background: #f8f9fa; padding: 16px; border-radius: 8px;">
             <textarea id="nuevoComentario" placeholder="Escribe un comentario..." 
-              style="width: 100%; min-height: 80px; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; resize: vertical; font-family: inherit; font-size: 14px; background: white;"
+              style="width: 100%; min-height: 80px; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; resize: vertical; font-family: 'Inter', sans-serif; font-size: 14px; background: white;"
               maxlength="500"></textarea>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-              <span style="font-size: 12px; color: #6c757d;"><i data-lucide="info" style="width: 12px; height: 12px;"></i> Ctrl+Enter para enviar</span>
-              <button id="btnEnviarComentario" style="padding: 10px 24px; background: #4a5259; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px;">
-                <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+              <span style="font-size: 12px; color: #6c757d; font-family: 'Inter', sans-serif;"><i data-lucide="info" style="width: 12px; height: 12px;"></i> Ctrl+Enter para enviar</span>
+              <button id="btnEnviarComentario" style="padding: 10px 24px; background: #4a5259; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif;">
+                <i data-lucide="send" style="width: 16px; height: 16px; color: #ffffff; stroke: #ffffff;"></i>
                 Enviar
               </button>
             </div>
@@ -3659,13 +3659,13 @@ window.abrirAnuncio = async function(idAnuncio) {
                   </div>
                   <div style="flex: 1;">
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                      <span style="font-weight: 600; font-size: 14px; color: #2c3e50; cursor: pointer; transition: color 0.2s;" 
+                      <span style="font-weight: 600; font-size: 14px; color: #2c3e50; cursor: pointer; transition: color 0.2s; font-family: 'Inter', sans-serif;" 
                             onmouseover="this.style.color='#4a5259'" 
                             onmouseout="this.style.color='#2c3e50'" 
                             onclick="verPerfilComentario(${result.comentario.id_usuario}, '${result.comentario.tipo_usuario}')">${result.comentario.nombre_usuario}</span>
-                      <span style="font-size: 12px; color: #6c757d;">Ahora</span>
+                      <span style="font-size: 12px; color: #6c757d; font-family: 'Inter', sans-serif;">Ahora</span>
                     </div>
-                    <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.5; white-space: pre-wrap;">${result.comentario.contenido}</p>
+                    <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.5; white-space: pre-wrap; font-family: 'Inter', sans-serif;">${result.comentario.contenido}</p>
                   </div>
                 </div>
               `;
