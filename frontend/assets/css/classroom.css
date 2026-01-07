@@ -1826,7 +1826,18 @@ body {
 .nav-item.active i,
 .nav-item.active svg,
 .nav-item.active svg path,
-.nav-item.active .lucide {
+.nav-item.active svg line,
+.nav-item.active svg polyline,
+.nav-item.active svg rect,
+.nav-item.active svg circle,
+.nav-item.active svg polygon,
+.nav-item.active .lucide,
+.nav-item.active .lucide path,
+.nav-item.active .lucide line,
+.nav-item.active .lucide polyline,
+.nav-item.active .lucide rect,
+.nav-item.active .lucide circle,
+.nav-item.active .lucide polygon {
   color: #ffffff !important;
   stroke: #ffffff !important;
   fill: none !important;
