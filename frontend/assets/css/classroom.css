@@ -1189,12 +1189,6 @@ body::before {
   -webkit-backdrop-filter: blur(12px);
 }
 
-.course-panel-overlay {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
